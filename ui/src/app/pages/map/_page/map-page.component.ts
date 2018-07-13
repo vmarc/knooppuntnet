@@ -39,9 +39,9 @@ export class MapPageComponent implements OnInit, AfterViewInit {
       layers: [
         this.osmLayer(), this.bitmapTileLayer, this.vectorTileLayer, this.debugLayer()
       ],
-      view: new ol.View({
-        minZoom: 6,
-        maxZoom: 15
+      view: new View({
+        minZoom: ZoomLevel.minZoom,
+        maxZoom: ZoomLevel.maxZoom
       })
     };
 
@@ -49,10 +49,98 @@ export class MapPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const a: ol.Coordinate = ol.proj.fromLonLat([2.24, 50.16]);
-    const b: ol.Coordinate = ol.proj.fromLonLat([10.56, 54.09]);
-    const extent: ol.Extent = [a[0], a[1], b[0], b[1]];
-    this.mainMap.getView().fit(extent);
+    const a: Coordinate = fromLonLat([2.24, 50.16]);
+    const b: Coordinate = fromLonLat([10.56, 54.09]);
+    const extent: Extent = [a[0], a[1], b[0], b[1]];
+    const view = this.map.getView();
+    view.fit(extent);
+    view.on("change:resolution", () => this.zoom(view.getZoom()));
+  }
+
+  private zoom(zoomLevel: number) {
+    const zoom = Math.round(zoomLevel);
+    if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
+      this.bitmapTileLayer.setVisible(true);
+      this.vectorTileLayer.setVisible(false);
+    }
+    else if (zoom >= ZoomLevel.vectorTileMinZoom) {
+      this.bitmapTileLayer.setVisible(false);
+      this.vectorTileLayer.setVisible(true);
+    }
+    return true;
+  }
+
+  private osmLayer() {
+    const osmLayer = new TileLayer({
+      source: new OSM()
+    });
+    osmLayer.set("name", "OpenStreetMap");
+    return osmLayer;
+  }
+
+  private buildBitmapTileLayer() {
+    return new TileLayer({
+      source: new XYZ({
+        minZoom: ZoomLevel.bitmapTileMinZoom,
+        maxZoom: ZoomLevel.bitmapTileMaxZoom,
+        url: "/tiles/rcn/{z}/{x}/{y}.png"
+      })
+    });
+  }
+
+  private debugLayer() {
+    return new TileLayer({
+      source: new TileDebug({
+        projection: "EPSG:3857",
+        tileGrid: new OSM().getTileGrid()
+      })
+    });
+  }
+
+  private buildVectorTileLayer() {
+
+    const format = new MVT();
+
+    const urlFunction = function(tileCoord, pixelRatio, projection) {
+      const zIn = tileCoord[0];
+      const xIn = tileCoord[1];
+      const yIn = tileCoord[2];
+
+      const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
+      const x = xIn;
+      const y = -yIn - 1;
+      return "/tiles/rcn/" + z + "/" + x + "/" + y + ".mvt"
+    };
+
+    const tileGrid = createXYZ({
+      // minZoom: ZoomLevel.vectorTileMinZoom,
+      // maxZoom: ZoomLevel.vectorTileMaxOverZoom
+    });
+
+    const source = new VectorTile({
+      format: format,
+      tileGrid: tileGrid,
+      tileUrlFunction: urlFunction
+    });
+
+    const layer = new VectorTileLayer({
+      source: source
+    });
+
+    layer.setStyle(function (feature, resolution) {
+      const properties = feature.getProperties();
+      console.log("feature " + JSON.stringify(properties, null, 2));
+      return new Style({
+        fill: new Fill({
+          color: 'black'
+        }),
+        stroke: new Stroke({
+          width: 3,
+          color: 'red'
+        })
+      });
+    });
+    return layer;
   }
 
 }
