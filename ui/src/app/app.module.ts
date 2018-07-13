@@ -7,9 +7,6 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {AppComponent} from './app.component';
 import {AppService} from './app.service';
 import {HttpClientModule} from '@angular/common/http';
-import {Page1Component} from './pages/page1/page1.component';
-import {Page2Component} from './pages/page2/page2.component';
-import {Page3Component} from './pages/page3/page3.component';
 import {RoutePageComponent} from './pages/route/_page/route-page.component';
 import {AuthenticatePageComponent} from './pages/authenticate/_page/authenticate-page.component';
 import {LoginPageComponent} from './pages/login/_page/login-page.component';
@@ -156,9 +153,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    Page1Component,
-    Page2Component,
-    Page3Component,
     AboutPageComponent,
     AuthenticatePageComponent,
     ChangeSetPageComponent,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AppService} from "../../../app.service";
 
 @Component({
   selector: 'kpn-network-facts-page',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NetworkFactsPageComponent implements OnInit {
 
-  constructor() { }
+  content = "Loading...";
+
+  constructor(private appService: AppService) {
+  }
 
   ngOnInit() {
+    this.appService.networkFacts(3138543).subscribe(content => {
+      this.content = content;
+    });
   }
 
 }

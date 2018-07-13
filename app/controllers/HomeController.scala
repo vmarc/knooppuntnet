@@ -12,16 +12,4 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(Json.obj("content" -> "Marc"))
   }
 
-  def page1 = Action {
-    Ok(Json.obj("content" -> "CONTENTS 1"))
-  }
-
-  def page2 = Action {
-    Ok(Json.obj("content" -> "CONTENTS 2"))
-  }
-
-  def page3 = Action {
-    Ok(Json.obj("content" -> "CONTENTS 3"))
-  }
-
 }
