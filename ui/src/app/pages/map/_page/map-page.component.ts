@@ -1,6 +1,23 @@
-import {Component, OnInit,AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 
-import * as ol from 'openlayers';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import Coordinate from 'ol/View';
+import Extent from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import XYZ from 'ol/source/XYZ';
+import TileDebug from 'ol/source/TileDebug';
+import MVT from 'ol/format/MVT';
+import VectorTileLayer from 'ol/layer/VectorTile';
+import VectorTile from 'ol/source/VectorTile';
+import Style from 'ol/style/Style';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import {fromLonLat} from 'ol/proj';
+import {createXYZ} from 'ol/tilegrid';
+
+import {ZoomLevel} from "../zoom-level";
 
 @Component({
   selector: 'kpn-map-page',
@@ -9,24 +26,18 @@ import * as ol from 'openlayers';
 })
 export class MapPageComponent implements OnInit, AfterViewInit {
 
-  mainMap: ol.Map;
+  map: Map;
+  bitmapTileLayer = this.buildBitmapTileLayer();
+  vectorTileLayer = this.buildVectorTileLayer();
 
   constructor() {
   }
 
   ngOnInit() {
-
-    const tileLayer = new ol.layer.Tile(
-      {
-        source: new ol.source.OSM()
-      }
-    );
-    tileLayer.set("name", "OpenStreetMap");
-
     const mapOptions = {
       target: 'map',
       layers: [
-        tileLayer
+        this.osmLayer(), this.bitmapTileLayer, this.vectorTileLayer, this.debugLayer()
       ],
       view: new ol.View({
         minZoom: 6,
@@ -34,7 +45,7 @@ export class MapPageComponent implements OnInit, AfterViewInit {
       })
     };
 
-    this.mainMap = new ol.Map(mapOptions);
+    this.map = new Map(mapOptions);
   }
 
   ngAfterViewInit(): void {
