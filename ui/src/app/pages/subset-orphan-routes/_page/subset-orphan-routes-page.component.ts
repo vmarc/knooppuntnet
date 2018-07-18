@@ -4,7 +4,7 @@ import {AppService} from "../../../app.service";
 @Component({
   selector: 'kpn-subset-orphan-routes-page',
   templateUrl: './subset-orphan-routes-page.component.html',
-  styleUrls: ['./subset-orphan-routes-page.component.css']
+  styleUrls: ['./subset-orphan-routes-page.component.scss']
 })
 export class SubsetOrphanRoutesPageComponent implements OnInit {
 

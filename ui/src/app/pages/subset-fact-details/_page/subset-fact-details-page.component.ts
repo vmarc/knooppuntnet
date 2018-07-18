@@ -4,7 +4,7 @@ import {AppService} from "../../../app.service";
 @Component({
   selector: 'kpn-subset-fact-details-page',
   templateUrl: './subset-fact-details-page.component.html',
-  styleUrls: ['./subset-fact-details-page.component.css']
+  styleUrls: ['./subset-fact-details-page.component.scss']
 })
 export class SubsetFactDetailsPageComponent implements OnInit {
 

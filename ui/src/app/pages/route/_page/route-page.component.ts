@@ -4,7 +4,7 @@ import {AppService} from "../../../app.service";
 @Component({
   selector: 'kpn-route-page',
   templateUrl: './route-page.component.html',
-  styleUrls: ['./route-page.component.css']
+  styleUrls: ['./route-page.component.scss']
 })
 export class RoutePageComponent implements OnInit {
 

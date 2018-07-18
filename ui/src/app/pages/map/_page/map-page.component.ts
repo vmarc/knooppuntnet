@@ -22,7 +22,7 @@ import {ZoomLevel} from "../zoom-level";
 @Component({
   selector: 'kpn-map-page',
   templateUrl: './map-page.component.html',
-  styleUrls: ['./map-page.component.css']
+  styleUrls: ['./map-page.component.scss']
 })
 export class MapPageComponent implements OnInit, AfterViewInit {
 

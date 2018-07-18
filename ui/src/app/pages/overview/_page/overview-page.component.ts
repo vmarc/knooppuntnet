@@ -4,7 +4,7 @@ import {AppService} from "../../../app.service";
 @Component({
   selector: 'kpn-overview-page',
   templateUrl: './overview-page.component.html',
-  styleUrls: ['./overview-page.component.css']
+  styleUrls: ['./overview-page.component.scss']
 })
 export class OverviewPageComponent implements OnInit {
 

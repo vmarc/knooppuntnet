@@ -4,7 +4,7 @@ import {AppService} from "../../../app.service";
 @Component({
   selector: 'kpn-network-changes-page',
   templateUrl: './network-changes-page.component.html',
-  styleUrls: ['./network-changes-page.component.css']
+  styleUrls: ['./network-changes-page.component.scss']
 })
 export class NetworkChangesPageComponent implements OnInit {
 

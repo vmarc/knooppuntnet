@@ -4,7 +4,7 @@ import {AppService} from "../../../app.service";
 @Component({
   selector: 'kpn-change-set-page',
   templateUrl: './change-set-page.component.html',
-  styleUrls: ['./change-set-page.component.css']
+  styleUrls: ['./change-set-page.component.scss']
 })
 export class ChangeSetPageComponent implements OnInit {
 

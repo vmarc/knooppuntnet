@@ -4,7 +4,7 @@ import {AppService} from "../../../app.service";
 @Component({
   selector: 'kpn-node-page',
   templateUrl: './node-page.component.html',
-  styleUrls: ['./node-page.component.css']
+  styleUrls: ['./node-page.component.scss']
 })
 export class NodePageComponent implements OnInit {
 
