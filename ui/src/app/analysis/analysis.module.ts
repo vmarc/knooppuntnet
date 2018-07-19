@@ -20,11 +20,13 @@ import {KpnMaterialModule} from "../material/kpn-material.module";
 import {MapPageComponent} from "./pages/map/_page/map-page.component";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {SharedModule} from "../shared/shared.module";
+import {MapModule} from "../map/map.module";
 
 @NgModule({
   imports: [
     KpnMaterialModule,
     SharedModule,
+    MapModule,
     AnalysisRoutingModule
   ],
   declarations: [
