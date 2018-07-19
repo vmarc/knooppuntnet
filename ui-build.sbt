@@ -38,6 +38,9 @@ def executeUiTests(implicit dir: File): Int = ifNodeModulesInstalled(runOnComman
 
 // Execute frontend prod build task. Update to change the frontend prod build task.
 def executeProdBuild(implicit dir: File): Int = ifNodeModulesInstalled(runOnCommandline(FrontendCommands.build))
+def executeProdBuildNL(implicit dir: File): Int = ifNodeModulesInstalled(runOnCommandline(FrontendCommands.buildNL))
+def executeProdBuildFR(implicit dir: File): Int = ifNodeModulesInstalled(runOnCommandline(FrontendCommands.buildFR))
+def executeProdBuildDE(implicit dir: File): Int = ifNodeModulesInstalled(runOnCommandline(FrontendCommands.buildDE))
 
 
 // Create frontend build tasks for prod, dev and test execution.
@@ -53,7 +56,10 @@ lazy val `ui-prod-build` = taskKey[Unit]("Run UI build when packaging the applic
 
 `ui-prod-build` := {
   implicit val userInterfaceRoot = baseDirectory.value / "ui"
-  if (executeProdBuild != Success) throw new Exception("Oops! UI Build crashed.")
+  if (executeProdBuild != Success) throw new Exception("UI Build failed.")
+  if (executeProdBuildNL != Success) throw new Exception("UI Build NL failed.")
+  if (executeProdBuildFR != Success) throw new Exception("UI Build FR failed.")
+  if (executeProdBuildDE != Success) throw new Exception("UI Build DE failed.")
 }
 
 // Execute frontend prod build task prior to play dist execution.

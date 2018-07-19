@@ -8,10 +8,17 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "extract-i18n": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json nl de fr",
     "start": "ng serve --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
+    "start:nl": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
+    "start:de": "ng serve --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
+    "start:fr": "ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
     "test-no-watch": "ng test --single-run",
     "build-dev": "ng build --progress --output-path ../public",
-    "build-prod": "ng build --extract-css --progress --prod --aot --output-path ../public"
+    "build-prod": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ../public/en",
+    "build-prod:nl": "ng build --base-href /nl/ --configuration=production-nl --extract-css --progress --prod --aot --output-path ../public/nl",
+    "build-prod:de": "ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ../public/de",
+    "build-prod:fr": "ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ../public/fr"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +35,7 @@
     "@angular/router": "^6.0.0",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "ngx-i18nsupport": "^0.16.3",
     "ol": "^5.0.3",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

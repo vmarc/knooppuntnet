@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="home-page-title" datatype="html">
+        <source>
+    Home
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-map" datatype="html">
+        <source>Map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-overview" datatype="html">
+        <source>Overview</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-changes" datatype="html">
+        <source>Changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-changeset" datatype="html">
+        <source>Changeset</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-node" datatype="html">
+        <source>Node</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-route" datatype="html">
+        <source>Route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-network-details" datatype="html">
+        <source>Network details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-network-facts" datatype="html">
+        <source>Network facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-network-map" datatype="html">
+        <source>Network map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-network-nodes" datatype="html">
+        <source>Network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-network-routes" datatype="html">
+        <source>Network routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-network-changes" datatype="html">
+        <source>Network changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-subset-networks" datatype="html">
+        <source>Subset networks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-subset-facts" datatype="html">
+        <source>Subset facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-subset-orphan-nodes" datatype="html">
+        <source>Subset orphan nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-subset-orphan-routes" datatype="html">
+        <source>Subset orphan routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-route-broken" datatype="html">
+        <source>Subset RouteBroken</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-subset-changes" datatype="html">
+        <source>Subset changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-login" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-logout" datatype="html">
+        <source>Logout</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-authenticate" datatype="html">
+        <source>Authenticate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-about" datatype="html">
+        <source>About</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-glossary" datatype="html">
+        <source>Glossary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-links" datatype="html">
+        <source>Links</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-page-link-not-found" datatype="html">
+        <source>Not found</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
