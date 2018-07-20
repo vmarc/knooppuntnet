@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadChildren: './analysis/analysis.module#AnalysisModule'
   },
   {
+    path: 'translations',
+    loadChildren: './translations/translations.module#TranslationsModule'
+  },
+  {
     path: 'about',
     component: AboutPageComponent
   },
