@@ -1,3 +1,26 @@
-<pre>
-  {{content}}
-</pre>
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Filter" formControlName="filter">
+  </mat-form-field>
+</form>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td mat-cell *matCellDef="let element"> {{element.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="source">
+    <th mat-header-cell *matHeaderCellDef>Source</th>
+    <td mat-cell *matCellDef="let element"> {{element.source}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="target">
+    <th mat-header-cell *matHeaderCellDef>Target</th>
+    <td mat-cell *matCellDef="let element"> {{element.target}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

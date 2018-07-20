@@ -1,7 +1,10 @@
 import {
   MatButtonModule,
   MatCheckboxModule,
-  MatDividerModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
   MatMenuModule,
   MatPaginatorModule,
   MatRadioModule,
@@ -10,9 +13,7 @@ import {
   MatSortModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule,
-  MatIconModule,
-  MatListModule
+  MatTooltipModule
 } from '@angular/material';
 import {NgModule} from "@angular/core";
 
@@ -30,7 +31,9 @@ import {NgModule} from "@angular/core";
     MatSortModule,
     MatTableModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     MatButtonModule,
@@ -45,7 +48,9 @@ import {NgModule} from "@angular/core";
     MatSortModule,
     MatTableModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
 })
 export class KpnMaterialModule {
