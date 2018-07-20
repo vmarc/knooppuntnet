@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
@@ -6,7 +6,7 @@
         <source>
     Home
   </source>
-        <target>Startpagina</target>
+        <target>Startpagina aangepast</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -15,129 +15,203 @@
       <trans-unit id="home-page-link-map" datatype="html">
         <source>Map</source>
         <target>Kaart</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">7</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-overview" datatype="html">
         <source>Overview</source>
         <target>Overzicht in cijfers</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">8</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-changes" datatype="html">
         <source>Changes</source>
         <target>Wijzigingen</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">9</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-changeset" datatype="html">
         <source>Changeset</source>
         <target>Wijzigingset</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">10</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-node" datatype="html">
         <source>Node</source>
         <target>Knooppunt</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">12</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-route" datatype="html">
         <source>Route</source>
         <target>Route</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">14</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-network-details" datatype="html">
         <source>Network details</source>
         <target>Netwerk details</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">16</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-network-facts" datatype="html">
         <source>Network facts</source>
         <target>Netwerk feiten</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">17</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-network-map" datatype="html">
         <source>Network map</source>
         <target>Netwerk kaart</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">18</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-network-nodes" datatype="html">
         <source>Network nodes</source>
         <target>Netwerk knooppunten</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">19</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-network-routes" datatype="html">
         <source>Network routes</source>
         <target>Netwerk routes</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">20</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-network-changes" datatype="html">
         <source>Network changes</source>
         <target>Netwerk wijzigingen</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">21</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-subset-networks" datatype="html">
         <source>Subset networks</source>
         <target>Subset netwerken</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">23</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-subset-facts" datatype="html">
         <source>Subset facts</source>
         <target>Subset feiten</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">24</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-subset-orphan-nodes" datatype="html">
         <source>Subset orphan nodes</source>
         <target>Subset knooppunt wezen</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">25</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-subset-orphan-routes" datatype="html">
         <source>Subset orphan routes</source>
         <target>Subset route wezen</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">26</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-route-broken" datatype="html">
         <source>Subset RouteBroken</source>
         <target>Route onderbroken</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">27</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-subset-changes" datatype="html">
         <source>Subset changes</source>
         <target>Subset wijzigingen</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">28</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-login" datatype="html">
         <source>Login</source>
         <target>Aanmelden</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">30</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-logout" datatype="html">
         <source>Logout</source>
         <target>Afmelden</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">31</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-authenticate" datatype="html">
         <source>Authenticate</source>
         <target>Authenticatie</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">32</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-about" datatype="html">
         <source>About</source>
         <target>Introductie</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">34</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-glossary" datatype="html">
         <source>Glossary</source>
         <target>Woordenlijst</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">35</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-links" datatype="html">
         <source>Links</source>
         <target>Links</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">36</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-page-link-not-found" datatype="html">
         <source>Not found</source>
         <target>Niet gevonden</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context><context context-type="linenumber">38</context></context-group></trans-unit>
-      
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
