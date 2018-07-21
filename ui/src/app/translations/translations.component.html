@@ -2,37 +2,6 @@
 
 Number of translations: {{translationUnits.length}}
 
-<form [formGroup]="form">
-  <mat-form-field>
-    <input matInput placeholder="Filter" formControlName="filter">
-  </mat-form-field>
-</form>
 
-<div>
-
-  <mat-divider></mat-divider>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="translationUnits.length" showFirstLastButtons></mat-paginator>
-  <mat-divider></mat-divider>
-
-  <mat-table matSort [dataSource]="dataSource">
-
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="source">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Source</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.source}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="target">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Target</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.target}}</mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-
-</div>
+<translation-table [translationUnits]="translationUnits">
+</translation-table>

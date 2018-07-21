@@ -5,6 +5,7 @@ import {TranslationsService} from "./translations.service";
 import {TranslationsRoutingModule} from "./translations-routing.module";
 import {KpnMaterialModule} from "../material/kpn-material.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import {TranslationTableComponent} from "./translation-table/translation-table.component";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     TranslationsRoutingModule
   ],
   declarations: [
-    TranslationsComponent
+    TranslationsComponent,
+    TranslationTableComponent
   ],
   providers: [
     TranslationsService
