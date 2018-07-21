@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslationsService} from "./translations.service";
-import {MatTableDataSource} from "@angular/material";
+import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {TranslationUnit} from "./translation-unit";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {debounceTime} from 'rxjs/operators';
@@ -16,6 +16,8 @@ export class TranslationsComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'source', 'target'];
   dataSource: MatTableDataSource<TranslationUnit>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   readonly form: FormGroup;
   readonly filter = new FormControl();
@@ -31,6 +33,8 @@ export class TranslationsComponent implements OnInit {
     this.translationsService.translationUnits().subscribe(translationUnits => {
       this.translationUnits = translationUnits;
       this.dataSource = new MatTableDataSource(translationUnits);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 

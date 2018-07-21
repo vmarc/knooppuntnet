@@ -1,26 +1,38 @@
+<h1>Translations</h1>
+
+Number of translations: {{translationUnits.length}}
+
 <form [formGroup]="form">
   <mat-form-field>
     <input matInput placeholder="Filter" formControlName="filter">
   </mat-form-field>
 </form>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div>
 
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Id</th>
-    <td mat-cell *matCellDef="let element"> {{element.id}}</td>
-  </ng-container>
+  <mat-divider></mat-divider>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="translationUnits.length" showFirstLastButtons></mat-paginator>
+  <mat-divider></mat-divider>
 
-  <ng-container matColumnDef="source">
-    <th mat-header-cell *matHeaderCellDef>Source</th>
-    <td mat-cell *matCellDef="let element"> {{element.source}}</td>
-  </ng-container>
+  <mat-table matSort [dataSource]="dataSource">
 
-  <ng-container matColumnDef="target">
-    <th mat-header-cell *matHeaderCellDef>Target</th>
-    <td mat-cell *matCellDef="let element"> {{element.target}}</td>
-  </ng-container>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="source">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Source</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.source}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="target">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Target</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.target}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>
