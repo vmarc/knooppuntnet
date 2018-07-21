@@ -13,7 +13,7 @@ export class TranslationTableComponent implements DoCheck {
 
   @Input() translationUnits: TranslationUnit[] = [];
 
-  displayedColumns: string[] = ['id', 'source', 'target'];
+  displayedColumns: string[] = ['state', 'id', 'source', 'target', 'sourceFile'];
   dataSource: MatTableDataSource<TranslationUnit>;
   readonly differ: IterableDiffer<TranslationUnit>;
 
