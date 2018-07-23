@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -15,33 +15,34 @@ import {fromLonLat} from 'ol/proj';
 import {createXYZ} from 'ol/tilegrid';
 import {click, pointerMove} from 'ol/events/condition';
 import Feature from 'ol/Feature';
+import Select from 'ol/interaction/Select';
+import Style from 'ol/style/Style';
 
 import {ZoomLevel} from "../domain/zoom-level";
 import {MainMapStyle} from "../domain/main-map-style";
-import {MapClick} from "../domain/map-click";
+import {MapClickHandler} from "../domain/map-click-handler";
 import {SelectedFeatureHolder} from "../domain/selected-feature-holder";
 import {MapState} from "../domain/map-state";
-import {MapMove} from "../domain/map-move";
+import {MapMoveHandler} from "../domain/map-move-handler";
 
 @Component({
   selector: 'kpn-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements AfterViewInit {
 
   @Input() id;
 
   map: Map;
+  mapState: MapState;
+  mainMapStyle: (feature, resolution) => Style;
+  selectionHolder: SelectedFeatureHolder;
 
   bitmapTileLayer = this.buildBitmapTileLayer();
   vectorTileLayer = this.buildVectorTileLayer();
 
   constructor() {
-  }
-
-  ngOnInit() {
-
   }
 
   ngAfterViewInit(): void {
@@ -60,44 +61,15 @@ export class MapComponent implements OnInit, AfterViewInit {
       })
     });
 
-    const mapState = new MapState();
-
-
-    const styleFunction = new MainMapStyle(this.map, mapState).styleFunction();
-
-    this.vectorTileLayer.setStyle(styleFunction);
-
-    const selectionHolder = new SelectedFeatureHolder(() => {
-      this.vectorTileLayer.setStyle(styleFunction);
+    this.mapState = new MapState();
+    this.mainMapStyle = new MainMapStyle(this.map, this.mapState).styleFunction();
+    this.repaintVectorTileLayer();
+    this.selectionHolder = new SelectedFeatureHolder(() => {
+      this.repaintVectorTileLayer();
     });
 
-    const mapClick = new MapClick(
-      mapState,
-      selectionHolder,
-      () => {
-        this.vectorTileLayer.setStyle(styleFunction);
-      }
-    );
-
-    const mapMove = new MapMove(
-      this.map,
-      mapState,
-      selectionHolder,
-      () => {
-        this.vectorTileLayer.setStyle(styleFunction);
-      }
-    );
-
-    const interaction1 = mapClick.interaction;
-    const interaction2 = mapMove.interaction;
-
-    this.map.addInteraction(interaction1);
-    this.map.addInteraction(interaction2);
-
-
-
-
-
+    this.installClickInteraction();
+    this.installMoveInteraction();
 
     const a: Coordinate = fromLonLat([2.24, 50.16]);
     const b: Coordinate = fromLonLat([10.56, 54.09]);
@@ -180,6 +152,39 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     return layer;
+  }
+
+  private installClickInteraction() {
+    const interaction = new Select({
+      condition: click,
+      multi: false,
+      style: new Style() // this overrides the normal openlayers default edit style
+    });
+    interaction.on("select", (e) => {
+      new MapClickHandler(this.mapState, this.selectionHolder).handle(e);
+      this.repaintVectorTileLayer();
+      return true;
+    });
+    this.map.addInteraction(interaction);
+
+  }
+
+  private installMoveInteraction() {
+    const interaction = new Select({
+      condition: pointerMove,
+      multi: false,
+      style: new Style() // this overrides the normal openlayers default edit style
+    });
+    interaction.on("select", (e) => {
+      new MapMoveHandler(this.map, this.mapState, this.selectionHolder).handle(e);
+      this.repaintVectorTileLayer();
+      return true;
+    });
+    this.map.addInteraction(interaction);
+  }
+
+  private repaintVectorTileLayer() {
+    this.vectorTileLayer.setStyle(this.mainMapStyle);
   }
 
 }

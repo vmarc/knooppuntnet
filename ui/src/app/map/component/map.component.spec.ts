@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map-page.component';
+import { MapComponent } from './map.component';
 
 describe('MapPageComponent', () => {
   let component: MapComponent;

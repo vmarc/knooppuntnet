@@ -6,4 +6,8 @@ export class MainStyleColors {
   public static readonly blue /*ol.Color*/ = [0, 0, 255]; // orphan error
   public static readonly darkBlue /*ol.Color*/ = [0, 0, 187]; // orphan error
   public static readonly gray /*ol.Color*/ = [150, 150, 150]; // nodes and routes that do not belong to the current network
+
+  public static readonly yellow /*ol.Color*/ = [255, 255, 0]; // selected color
+  public static readonly white /*ol.Color*/ = [255, 255, 255]; // node inner color
+
 }

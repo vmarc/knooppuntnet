@@ -5,186 +5,148 @@ import Text from 'ol/style/Text';
 import Stroke from 'ol/style/Stroke';
 import {MainStyleColors} from "./main-style-colors";
 import {MapState} from "./map-state";
+import Feature from 'ol/Feature';
 
 export class MainMapNodeStyle {
 
+  constructor(private mapState: MapState) {
+  }
+
   private readonly largeMinZoomLevel = 13;
-  private readonly yellow /*ol.Color*/ = [255, 255, 0];
-  private readonly white /*ol.Color*/ = [255, 255, 255];
 
-  private readonly smallNodeSelectedStyle = new Style({
-    image: new Circle({
-      radius: 8,
-      fill: new Fill({
-        color: this.yellow
-      })
-    })
-  });
+  private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(8);
+  private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
+  private readonly smallNodeStyle = this.initSmallNodeStyle();
+  private readonly largeNodeStyle = this.initLargeNodeStyle();
 
-  private readonly largeNodeSelectedStyle = new Style({
-    image: new Circle({
-      radius: 20,
-      fill: new Fill({
-        color: this.yellow
-      })
-    })
-  });
-
-  private readonly largeNodeStyle = new Style({
-    image: new Circle({
-      radius: 14,
-      fill: new Fill({
-        color: this.white
-      }),
-      stroke: new Stroke({
-        color: MainStyleColors.green,
-        width: 3
-      })
-    }),
-    text: new Text({
-      text: "",
-      textAlign: "center",
-      textBaseline: "middle",
-      font: "14px Arial, Verdana, Helvetica, sans-serif",
-      stroke: new Stroke({
-        color: this.white,
-        width: 5
-      })
-    })
-  });
-
-  private readonly smallNodeStyle = new Style({
-    image: new Circle({
-      radius: 3,
-      fill: new Fill({
-        color: this.white
-      }),
-      stroke: new Stroke({
-        color: MainStyleColors.green,
-        width: 2
-      })
-    })
-  });
-
-  private readonly smallNodeStyleError = new Style({
-    image: new Circle({
-      radius: 3,
-      fill: new Fill({
-        color: this.white
-      }),
-      stroke: new Stroke({
-        color: MainStyleColors.blue,
-        width: 2
-      })
-    })
-  });
-
-  private readonly smallNodeStyleDisabled = new Style({
-    image: new Circle({
-      radius: 3,
-      fill: new Fill({
-        color: this.white
-      }),
-      stroke: new Stroke({
-        color: MainStyleColors.gray,
-        width: 2
-      })
-    })
-  });
-
-  private readonly smallNodeStyleOrphan = new Style({
-    image: new Circle({
-      radius: 3,
-      fill: new Fill({
-        color: this.white
-      }),
-      stroke: new Stroke({
-        color: MainStyleColors.darkGreen,
-        width: 2
-      })
-    })
-  });
-
-  private readonly smallNodeStyleErrorOrphan = new Style({
-    image: new Circle({
-      radius: 3,
-      fill: new Fill({
-        color: this.white
-      }),
-      stroke: new Stroke({
-        color: MainStyleColors.darkBlue,
-        width: 2
-      })
-    })
-  });
-
-  public createNodeStyle(state: MapState, zoom: number, feature /*: ol.render.Feature*/, enabled: boolean): Style[] {
+  public nodeStyle(zoom: number, feature: Feature, enabled: boolean): Style[] {
 
     const featureId = feature.get("id");
     const layer = feature.get("layer");
+    const large = zoom >= this.largeMinZoomLevel;
 
-    let selectedStyle = null;
-    if (state.selectedNodeId && featureId && feature.get("id") == state.selectedNodeId) {
-      if (zoom >= this.largeMinZoomLevel) {
-        selectedStyle = this.largeNodeSelectedStyle;
-      }
-      else {
-        selectedStyle = this.smallNodeSelectedStyle;
-      }
-    }
-
-    let style: Style = null;
-    if (zoom >= this.largeMinZoomLevel) {
-      let nodeColor = MainStyleColors.gray;
-      if (enabled) {
-        if ("error-node" == layer) {
-          nodeColor = MainStyleColors.blue;
-        }
-        else if ("orphan-node" == layer) {
-          nodeColor = MainStyleColors.darkGreen;
-        }
-        else if ("error-orphan-node" == layer) {
-          nodeColor = MainStyleColors.darkBlue;
-        }
-        else {
-          nodeColor = MainStyleColors.green;
-        }
-      }
-
-      this.largeNodeStyle.getText().setText(feature.get("name"));
-      this.largeNodeStyle.getImage().getStroke().setColor(nodeColor);
-
-      if (state.highlightedNodeId && feature.get("id") == state.highlightedNodeId) {
-        this.largeNodeStyle.getImage().getStroke().setWidth(5);
-        this.largeNodeStyle.getImage().setRadius(16);
-      }
-      else {
-        this.largeNodeStyle.getImage().getStroke().setWidth(3);
-        this.largeNodeStyle.getImage().setRadius(14);
-      }
-      style = this.largeNodeStyle;
-    }
-    else {
-      if (enabled) {
-        if ("error-node" == layer) {
-          style = this.smallNodeStyleError;
-        }
-        else if ("orphan-node" == layer) {
-          style = this.smallNodeStyleOrphan;
-        }
-        else if ("error-orphan-node" == layer) {
-          style = this.smallNodeStyleErrorOrphan;
-        }
-        else {
-          style = this.smallNodeStyle;
-        }
-      }
-      else {
-        style = this.smallNodeStyleDisabled
-      }
-    }
+    const selectedStyle = this.determineNodeSelectedStyle(featureId, large);
+    const style = this.determineNodeMainStyle(feature, layer, enabled, large);
 
     return selectedStyle ? [selectedStyle, style] : [style];
+  }
+
+  private determineNodeSelectedStyle(featureId: string, large: boolean): Style {
+    let style = null;
+    if (this.mapState.selectedNodeId && featureId && featureId == this.mapState.selectedNodeId) {
+      if (large) {
+        style = this.largeNodeSelectedStyle;
+      }
+      else {
+        style = this.smallNodeSelectedStyle;
+      }
+    }
+    return style;
+  }
+
+  private determineNodeMainStyle(feature: Feature, layer: string, enabled: boolean, large: boolean): Style {
+    let style: Style = null;
+    if (large) {
+      style = this.determineLargeNodeStyle(feature, layer, enabled);
+    }
+    else {
+      style = this.determineSmallNodeStyle(layer, enabled);
+    }
+    return style;
+  }
+
+  private determineLargeNodeStyle(feature: Feature, layer: string, enabled: boolean): Style {
+
+    const color = this.nodeColor(layer, enabled);
+
+    this.largeNodeStyle.getText().setText(feature.get("name"));
+    this.largeNodeStyle.getImage().getStroke().setColor(color);
+
+    if (this.mapState.highlightedNodeId && feature.get("id") == this.mapState.highlightedNodeId) {
+      this.largeNodeStyle.getImage().getStroke().setWidth(5);
+      this.largeNodeStyle.getImage().setRadius(16);
+    }
+    else {
+      this.largeNodeStyle.getImage().getStroke().setWidth(3);
+      this.largeNodeStyle.getImage().setRadius(14);
+    }
+    return this.largeNodeStyle;
+  }
+
+  private initSmallNodeStyle(): Style {
+    return new Style({
+      image: new Circle({
+        radius: 3,
+        fill: new Fill({
+          color: MainStyleColors.white
+        }),
+        stroke: new Stroke({
+          color: MainStyleColors.green,
+          width: 2
+        })
+      })
+    });
+  }
+
+  private initLargeNodeStyle(): Style {
+    return new Style({
+      image: new Circle({
+        radius: 14,
+        fill: new Fill({
+          color: MainStyleColors.white
+        }),
+        stroke: new Stroke({
+          color: MainStyleColors.green,
+          width: 3
+        })
+      }),
+      text: new Text({
+        text: "",
+        textAlign: "center",
+        textBaseline: "middle",
+        font: "14px Arial, Verdana, Helvetica, sans-serif",
+        stroke: new Stroke({
+          color: MainStyleColors.white,
+          width: 5
+        })
+      })
+    })
+  }
+
+  private determineSmallNodeStyle(layer: string, enabled: boolean): Style {
+    let color = this.nodeColor(layer, enabled);
+    this.smallNodeStyle.getImage().getStroke().setColor(color);
+    return this.smallNodeStyle;
+  }
+
+  private nodeSelectedStyle(radius: number) {
+    return new Style({
+      image: new Circle({
+        radius: radius,
+        fill: new Fill({
+          color: MainStyleColors.yellow
+        })
+      })
+    });
+  }
+
+  private nodeColor(layer: string, enabled: boolean) {
+    let nodeColor = MainStyleColors.gray;
+    if (enabled) {
+      if ("error-node" == layer) {
+        nodeColor = MainStyleColors.blue;
+      }
+      else if ("orphan-node" == layer) {
+        nodeColor = MainStyleColors.darkGreen;
+      }
+      else if ("error-orphan-node" == layer) {
+        nodeColor = MainStyleColors.darkBlue;
+      }
+      else {
+        nodeColor = MainStyleColors.green;
+      }
+    }
+    return nodeColor;
   }
 
 }

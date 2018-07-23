@@ -5,11 +5,13 @@ import {MapState} from "./map-state";
 
 export class MainMapStyle {
 
-  private readonly nodeStyleBuilder = new MainMapNodeStyle();
-  private readonly routeStyleBuilder = new MainMapRouteStyle();
+  private readonly mainMapNodeStyle;
+  private readonly mainMapRouteStyle;
 
   constructor(private map: Map,
               private mapState: MapState) {
+    this.mainMapNodeStyle = new MainMapNodeStyle(mapState);
+    this.mainMapRouteStyle = new MainMapRouteStyle(mapState);
   }
 
   public styleFunction() {
@@ -18,9 +20,9 @@ export class MainMapStyle {
       const zoom = this.map.getView().getZoom();
       const layer = feature.get("layer");
       if (layer.includes("node")) {
-        return this.nodeStyleBuilder.createNodeStyle(this.mapState, zoom, feature, true)
+        return this.mainMapNodeStyle.nodeStyle(zoom, feature, true);
       }
-      return this.routeStyleBuilder.createRouteStyle(this.mapState, zoom, feature, layer, true)
+      return this.mainMapRouteStyle.routeStyle(zoom, feature, layer, true);
     };
   }
 }

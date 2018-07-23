@@ -1,66 +1,89 @@
 import Style from 'ol/style/Style';
 import Stroke from 'ol/style/Stroke';
-import {MainStyleColors} from "./main-style-colors";
+import Feature from 'ol/Feature';
 import {MapState} from "./map-state";
+import {MainStyleColors} from "./main-style-colors";
 
 export class MainMapRouteStyle {
 
-  private readonly routeSelectedStyle = new Style({
-    stroke: new Stroke({
-      color: [255, 255, 0],  // ol.Color
-      width: 14
-    })
-  });
+  private readonly defaultRouteStyle = this.initRouteStyle();
+  private readonly defaultRouteSelectedStyle = this.initRouteSelectedStyle();
 
-  private readonly routeStyle = new Style({
-    stroke: new Stroke({
-      color: MainStyleColors.green,
-      width: 1
-    })
-  });
+  constructor(private mapState: MapState) {
+  }
 
-  public createRouteStyle(state: MapState, zoom: number, feature /*: ol.render.Feature*/, layer: string, enabled: boolean): Style[] {
+  public routeStyle(zoom: number, feature: Feature, layer: string, enabled: boolean): Style[] {
+    const selectedStyle = this.determineRouteSelectedStyle(feature);
+    const style = this.determineRouteStyle(feature, layer, enabled, zoom);
+    return selectedStyle ? [selectedStyle, style] : [style];
+  }
 
-    let routeColor = MainStyleColors.gray;
-    if (enabled) {
-      if ("route" == layer) {
-        routeColor = MainStyleColors.green;
-      }
-      else if ("orphan-route" == layer) {
-        routeColor = MainStyleColors.darkGreen;
-      }
-      else if ("incomplete-route" == layer) {
-        routeColor = MainStyleColors.red;
-      }
-      else if ("error-route" == layer) {
-        routeColor = [255, 165, 0]; // ol.Color
-      }
-    }
-
+  private determineRouteSelectedStyle(feature: Feature): Style {
     const featureId = feature.get("id");
-
-    let selectedStyle = null;
-    if (state.selectedRouteId && featureId && featureId.startsWith(state.selectedRouteId)) {
-      selectedStyle = this.routeSelectedStyle;
+    let style = null;
+    if (this.mapState.selectedRouteId && featureId && featureId.startsWith(this.mapState.selectedRouteId)) {
+      style = this.defaultRouteSelectedStyle;
     }
+    return style;
+  }
 
-    this.routeStyle.getStroke().setColor(routeColor);
+  private determineRouteStyle(feature: Feature, layer: string, enabled: boolean, zoom: number): Style {
+
+    const color = this.routeColor(layer, enabled);
+    this.defaultRouteStyle.getStroke().setColor(color);
 
     if (zoom < 9) {
-      this.routeStyle.getStroke().setWidth(1);
+      this.defaultRouteStyle.getStroke().setWidth(1);
     }
     else if (zoom < 12) {
-      this.routeStyle.getStroke().setWidth(2);
+      this.defaultRouteStyle.getStroke().setWidth(2);
     }
     else {
-      if (state.highlightedRouteId && feature.get("id").startsWith(state.highlightedRouteId)) {
-        this.routeStyle.getStroke().setWidth(8)
+      if (this.mapState.highlightedRouteId && feature.get("id").startsWith(this.mapState.highlightedRouteId)) {
+        this.defaultRouteStyle.getStroke().setWidth(8)
       }
       else {
-      this.routeStyle.getStroke().setWidth(4)
+        this.defaultRouteStyle.getStroke().setWidth(4)
       }
     }
-
-    return selectedStyle ? [selectedStyle, this.routeStyle] : [this.routeStyle];
+    return this.defaultRouteStyle;
   }
+
+  private initRouteStyle() {
+    return new Style({
+      stroke: new Stroke({
+        color: MainStyleColors.green,
+        width: 1
+      })
+    });
+  }
+
+  private initRouteSelectedStyle(): Style {
+    return new Style({
+      stroke: new Stroke({
+        color: MainStyleColors.yellow,
+        width: 14
+      })
+    });
+  }
+
+  private routeColor(layer: string, enabled: boolean) /*ol.Color*/ {
+    let color = MainStyleColors.gray;
+    if (enabled) {
+      if ("route" == layer) {
+        color = MainStyleColors.green;
+      }
+      else if ("orphan-route" == layer) {
+        color = MainStyleColors.darkGreen;
+      }
+      else if ("incomplete-route" == layer) {
+        color = MainStyleColors.red;
+      }
+      else if ("error-route" == layer) {
+        color = [255, 165, 0]; // ol.Color
+      }
+    }
+    return color;
+  }
+
 }
