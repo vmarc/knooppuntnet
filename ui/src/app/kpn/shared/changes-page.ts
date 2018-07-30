@@ -15,7 +15,7 @@ export class ChangesPage {
       return undefined;
     }
     const instance = new ChangesPage();
-    instance.filter = jsonObject.filter;
+    instance.filter = ChangesFilter.fromJSON(jsonObject.filter);
     instance.changes = jsonObject.changes ? jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json)) : [];
     instance.totalCount = jsonObject.totalCount;
     return instance;

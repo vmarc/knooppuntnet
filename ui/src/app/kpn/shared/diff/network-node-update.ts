@@ -15,9 +15,9 @@ export class NetworkNodeUpdate {
       return undefined;
     }
     const instance = new NetworkNodeUpdate();
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
-    instance.diffs = jsonObject.diffs;
+    instance.before = NetworkNodeData.fromJSON(jsonObject.before);
+    instance.after = NetworkNodeData.fromJSON(jsonObject.after);
+    instance.diffs = NetworkNodeDiff.fromJSON(jsonObject.diffs);
     return instance;
   }
 }

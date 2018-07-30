@@ -20,8 +20,8 @@ export class WayInfo {
     instance.id = jsonObject.id;
     instance.version = jsonObject.version;
     instance.changeSetId = jsonObject.changeSetId;
-    instance.timestamp = jsonObject.timestamp;
-    instance.tags = jsonObject.tags;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     return instance;
   }
 }

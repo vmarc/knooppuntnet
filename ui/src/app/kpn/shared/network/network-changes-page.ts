@@ -17,8 +17,8 @@ export class NetworkChangesPage {
       return undefined;
     }
     const instance = new NetworkChangesPage();
-    instance.network = jsonObject.network;
-    instance.filter = jsonObject.filter;
+    instance.network = NetworkInfo.fromJSON(jsonObject.network);
+    instance.filter = ChangesFilter.fromJSON(jsonObject.filter);
     instance.changes = jsonObject.changes ? jsonObject.changes.map(json => NetworkChangeInfo.fromJSON(json)) : [];
     instance.totalCount = jsonObject.totalCount;
     return instance;

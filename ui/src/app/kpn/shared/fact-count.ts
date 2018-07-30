@@ -13,7 +13,7 @@ export class FactCount {
       return undefined;
     }
     const instance = new FactCount();
-    instance.fact = jsonObject.fact;
+    instance.fact = Fact.fromJSON(jsonObject.fact);
     instance.count = jsonObject.count;
     return instance;
   }

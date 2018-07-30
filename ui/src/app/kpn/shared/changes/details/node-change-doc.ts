@@ -15,7 +15,7 @@ export class NodeChangeDoc {
     }
     const instance = new NodeChangeDoc();
     instance._id = jsonObject._id;
-    instance.nodeChange = jsonObject.nodeChange;
+    instance.nodeChange = NodeChange.fromJSON(jsonObject.nodeChange);
     instance._rev = jsonObject._rev;
     return instance;
   }

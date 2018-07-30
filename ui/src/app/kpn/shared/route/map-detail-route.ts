@@ -14,8 +14,8 @@ export class MapDetailRoute {
       return undefined;
     }
     const instance = new MapDetailRoute();
-    instance.route = jsonObject.route;
-    instance.references = jsonObject.references;
+    instance.route = RouteInfo.fromJSON(jsonObject.route);
+    instance.references = RouteReferences.fromJSON(jsonObject.references);
     return instance;
   }
 }

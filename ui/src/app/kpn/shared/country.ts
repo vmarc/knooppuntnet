@@ -1,5 +1,3 @@
-// this class is generated, please do not modify
-
 export class Country {
 
   constructor(public domain?: string) {
@@ -10,7 +8,7 @@ export class Country {
       return undefined;
     }
     const instance = new Country();
-    instance.domain = jsonObject.domain;
+    instance.domain =  jsonObject;
     return instance;
   }
 }

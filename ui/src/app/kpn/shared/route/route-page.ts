@@ -16,9 +16,9 @@ export class RoutePage {
       return undefined;
     }
     const instance = new RoutePage();
-    instance.route = jsonObject.route;
-    instance.references = jsonObject.references;
-    instance.routeChangeInfos = jsonObject.routeChangeInfos;
+    instance.route = RouteInfo.fromJSON(jsonObject.route);
+    instance.references = RouteReferences.fromJSON(jsonObject.references);
+    instance.routeChangeInfos = RouteChangeInfos.fromJSON(jsonObject.routeChangeInfos);
     return instance;
   }
 }

@@ -15,7 +15,7 @@ export class RouteChangeDoc {
     }
     const instance = new RouteChangeDoc();
     instance._id = jsonObject._id;
-    instance.routeChange = jsonObject.routeChange;
+    instance.routeChange = RouteChange.fromJSON(jsonObject.routeChange);
     instance._rev = jsonObject._rev;
     return instance;
   }

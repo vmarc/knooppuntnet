@@ -19,11 +19,11 @@ export class ChangeSetInfo {
     }
     const instance = new ChangeSetInfo();
     instance.id = jsonObject.id;
-    instance.createdAt = jsonObject.createdAt;
-    instance.closedAt = jsonObject.closedAt;
+    instance.createdAt = Timestamp.fromJSON(jsonObject.createdAt);
+    instance.closedAt = Timestamp.fromJSON(jsonObject.closedAt);
     instance.open = jsonObject.open;
     instance.commentsCount = jsonObject.commentsCount;
-    instance.tags = jsonObject.tags;
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     return instance;
   }
 }

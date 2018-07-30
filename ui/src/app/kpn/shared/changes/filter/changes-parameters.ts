@@ -21,7 +21,7 @@ export class ChangesParameters {
       return undefined;
     }
     const instance = new ChangesParameters();
-    instance.subset = jsonObject.subset;
+    instance.subset = Subset.fromJSON(jsonObject.subset);
     instance.networkId = jsonObject.networkId;
     instance.routeId = jsonObject.routeId;
     instance.nodeId = jsonObject.nodeId;

@@ -16,7 +16,7 @@ export class NetworkMapInfo {
     const instance = new NetworkMapInfo();
     instance.id = jsonObject.id;
     instance.name = jsonObject.name;
-    instance.map = jsonObject.map;
+    instance.map = NetworkShape.fromJSON(jsonObject.map);
     return instance;
   }
 }

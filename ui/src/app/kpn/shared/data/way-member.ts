@@ -13,7 +13,7 @@ export class WayMember {
       return undefined;
     }
     const instance = new WayMember();
-    instance.way = jsonObject.way;
+    instance.way = Way.fromJSON(jsonObject.way);
     instance.role = jsonObject.role;
     return instance;
   }

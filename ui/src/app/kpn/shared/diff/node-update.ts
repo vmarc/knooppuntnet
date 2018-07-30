@@ -17,10 +17,10 @@ export class NodeUpdate {
       return undefined;
     }
     const instance = new NodeUpdate();
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
-    instance.tagDiffs = jsonObject.tagDiffs;
-    instance.nodeMoved = jsonObject.nodeMoved;
+    instance.before = RawNode.fromJSON(jsonObject.before);
+    instance.after = RawNode.fromJSON(jsonObject.after);
+    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
+    instance.nodeMoved = NodeMoved.fromJSON(jsonObject.nodeMoved);
     return instance;
   }
 }

@@ -12,7 +12,7 @@ export class Node {
       return undefined;
     }
     const instance = new Node();
-    instance.raw = jsonObject.raw;
+    instance.raw = RawNode.fromJSON(jsonObject.raw);
     return instance;
   }
 }

@@ -16,7 +16,7 @@ export class NetworkRoutesFacts {
     const instance = new NetworkRoutesFacts();
     instance.networkId = jsonObject.networkId;
     instance.networkName = jsonObject.networkName;
-    instance.facts = jsonObject.facts;
+    instance.facts = RoutesFact.fromJSON(jsonObject.facts);
     return instance;
   }
 }

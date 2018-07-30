@@ -16,7 +16,7 @@ export class Review {
     }
     const instance = new Review();
     instance.user = jsonObject.user;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.status = jsonObject.status;
     instance.comment = jsonObject.comment;
     return instance;

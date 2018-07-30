@@ -34,10 +34,10 @@ export class NetworkNodeInfo2 {
     instance.connection = jsonObject.connection;
     instance.definedInRelation = jsonObject.definedInRelation;
     instance.definedInRoute = jsonObject.definedInRoute;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.routeReferences = jsonObject.routeReferences ? jsonObject.routeReferences.map(json => Ref.fromJSON(json)) : [];
-    instance.integrityCheck = jsonObject.integrityCheck;
-    instance.tags = jsonObject.tags;
+    instance.integrityCheck = NodeIntegrityCheck.fromJSON(jsonObject.integrityCheck);
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     return instance;
   }
 }

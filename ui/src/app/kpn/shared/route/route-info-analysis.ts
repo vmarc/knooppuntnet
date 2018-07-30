@@ -26,7 +26,7 @@ export class RouteInfoAnalysis {
     instance.endTentacleNodes = jsonObject.endTentacleNodes ? jsonObject.endTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];
     instance.unexpectedNodeIds = jsonObject.unexpectedNodeIds;
     instance.expectedName = jsonObject.expectedName;
-    instance.map = jsonObject.map;
+    instance.map = RouteMap.fromJSON(jsonObject.map);
     instance.structureStrings = jsonObject.structureStrings;
     return instance;
   }

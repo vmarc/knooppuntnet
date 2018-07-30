@@ -20,10 +20,10 @@ export class RawWay {
     const instance = new RawWay();
     instance.id = jsonObject.id;
     instance.version = jsonObject.version;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.changeSetId = jsonObject.changeSetId;
     instance.nodeIds = jsonObject.nodeIds;
-    instance.tags = jsonObject.tags;
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     return instance;
   }
 }

@@ -33,14 +33,14 @@ export class NodeInfo {
     instance.display = jsonObject.display;
     instance.ignored = jsonObject.ignored;
     instance.orphan = jsonObject.orphan;
-    instance.country = jsonObject.country;
+    instance.country = Country.fromJSON(jsonObject.country);
     instance.name = jsonObject.name;
     instance.rcnName = jsonObject.rcnName;
     instance.rwnName = jsonObject.rwnName;
     instance.latitude = jsonObject.latitude;
     instance.longitude = jsonObject.longitude;
-    instance.lastUpdated = jsonObject.lastUpdated;
-    instance.tags = jsonObject.tags;
+    instance.lastUpdated = Timestamp.fromJSON(jsonObject.lastUpdated);
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
     return instance;
   }

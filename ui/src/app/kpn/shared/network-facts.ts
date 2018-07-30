@@ -23,8 +23,8 @@ export class NetworkFacts {
     instance.networkExtraMemberNode = jsonObject.networkExtraMemberNode ? jsonObject.networkExtraMemberNode.map(json => NetworkExtraMemberNode.fromJSON(json)) : [];
     instance.networkExtraMemberWay = jsonObject.networkExtraMemberWay ? jsonObject.networkExtraMemberWay.map(json => NetworkExtraMemberWay.fromJSON(json)) : [];
     instance.networkExtraMemberRelation = jsonObject.networkExtraMemberRelation ? jsonObject.networkExtraMemberRelation.map(json => NetworkExtraMemberRelation.fromJSON(json)) : [];
-    instance.integrityCheck = jsonObject.integrityCheck;
-    instance.integrityCheckFailed = jsonObject.integrityCheckFailed;
+    instance.integrityCheck = NetworkIntegrityCheck.fromJSON(jsonObject.integrityCheck);
+    instance.integrityCheckFailed = NetworkIntegrityCheckFailed.fromJSON(jsonObject.integrityCheckFailed);
     return instance;
   }
 }

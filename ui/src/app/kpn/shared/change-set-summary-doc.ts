@@ -15,7 +15,7 @@ export class ChangeSetSummaryDoc {
     }
     const instance = new ChangeSetSummaryDoc();
     instance._id = jsonObject._id;
-    instance.changeSetSummary = jsonObject.changeSetSummary;
+    instance.changeSetSummary = ChangeSetSummary.fromJSON(jsonObject.changeSetSummary);
     instance._rev = jsonObject._rev;
     return instance;
   }

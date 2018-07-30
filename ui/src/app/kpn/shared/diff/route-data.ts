@@ -25,9 +25,9 @@ export class RouteData {
       return undefined;
     }
     const instance = new RouteData();
-    instance.country = jsonObject.country;
-    instance.networkType = jsonObject.networkType;
-    instance.relation = jsonObject.relation;
+    instance.country = Country.fromJSON(jsonObject.country);
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
+    instance.relation = RawRelation.fromJSON(jsonObject.relation);
     instance.name = jsonObject.name;
     instance.networkNodes = jsonObject.networkNodes ? jsonObject.networkNodes.map(json => RawNode.fromJSON(json)) : [];
     instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => RawNode.fromJSON(json)) : [];

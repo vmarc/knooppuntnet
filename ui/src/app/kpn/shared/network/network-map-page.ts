@@ -16,7 +16,7 @@ export class NetworkMapPage {
       return undefined;
     }
     const instance = new NetworkMapPage();
-    instance.networkSummary = jsonObject.networkSummary;
+    instance.networkSummary = NetworkSummary.fromJSON(jsonObject.networkSummary);
     instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => NetworkNodeInfo2.fromJSON(json)) : [];
     instance.nodeIds = jsonObject.nodeIds;
     instance.routeIds = jsonObject.routeIds;

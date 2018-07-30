@@ -30,17 +30,17 @@ export class RouteChange {
       return undefined;
     }
     const instance = new RouteChange();
-    instance.key = jsonObject.key;
-    instance.changeType = jsonObject.changeType;
+    instance.key = ChangeKey.fromJSON(jsonObject.key);
+    instance.changeType = ChangeType.fromJSON(jsonObject.changeType);
     instance.name = jsonObject.name;
     instance.addedToNetwork = jsonObject.addedToNetwork ? jsonObject.addedToNetwork.map(json => Ref.fromJSON(json)) : [];
     instance.removedFromNetwork = jsonObject.removedFromNetwork ? jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json)) : [];
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
+    instance.before = RouteData.fromJSON(jsonObject.before);
+    instance.after = RouteData.fromJSON(jsonObject.after);
     instance.removedWays = jsonObject.removedWays ? jsonObject.removedWays.map(json => RawWay.fromJSON(json)) : [];
     instance.addedWays = jsonObject.addedWays ? jsonObject.addedWays.map(json => RawWay.fromJSON(json)) : [];
     instance.updatedWays = jsonObject.updatedWays ? jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json)) : [];
-    instance.diffs = jsonObject.diffs;
+    instance.diffs = RouteDiff.fromJSON(jsonObject.diffs);
     instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
     return instance;
   }

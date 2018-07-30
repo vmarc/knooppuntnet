@@ -13,7 +13,7 @@ export class NodeMember {
       return undefined;
     }
     const instance = new NodeMember();
-    instance.node = jsonObject.node;
+    instance.node = Node.fromJSON(jsonObject.node);
     instance.role = jsonObject.role;
     return instance;
   }

@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {Timestamp} from "../../../../kpn/shared/timestamp";
+import {NodePage} from "../../../../kpn/shared/node/node-page";
 
 @Component({
   selector: 'kpn-node-page',
@@ -9,13 +12,17 @@ import {AppService} from "../../../../app.service";
 export class NodePageComponent implements OnInit {
 
   content = "Loading...";
+  situationOn: Timestamp;
+  nodePage: NodePage;
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.node(278003073).subscribe(content => {
-      this.content = content;
+    this.appService.node(1 /*278003073*/).subscribe(response => {
+      this.content = JSON.stringify(response, null, 2);
+      this.situationOn = response.situationOn;
+      this.nodePage = response.result;
     });
   }
 

@@ -16,8 +16,8 @@ export class SubsetFactDetailsPage {
       return undefined;
     }
     const instance = new SubsetFactDetailsPage();
-    instance.subsetInfo = jsonObject.subsetInfo;
-    instance.fact = jsonObject.fact;
+    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
+    instance.fact = Fact.fromJSON(jsonObject.fact);
     instance.networks = jsonObject.networks ? jsonObject.networks.map(json => NetworkRoutesFacts.fromJSON(json)) : [];
     return instance;
   }

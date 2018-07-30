@@ -16,7 +16,7 @@ export class NetworkSummary {
       return undefined;
     }
     const instance = new NetworkSummary();
-    instance.networkType = jsonObject.networkType;
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
     instance.name = jsonObject.name;
     instance.factCount = jsonObject.factCount;
     instance.nodeCount = jsonObject.nodeCount;

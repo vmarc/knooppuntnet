@@ -14,8 +14,8 @@ export class NodeMoved {
       return undefined;
     }
     const instance = new NodeMoved();
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
+    instance.before = LatLonImpl.fromJSON(jsonObject.before);
+    instance.after = LatLonImpl.fromJSON(jsonObject.after);
     instance.distance = jsonObject.distance;
     return instance;
   }

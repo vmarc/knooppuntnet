@@ -20,8 +20,8 @@ export class NetworkInfoDetail {
     const instance = new NetworkInfoDetail();
     instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => NetworkNodeInfo2.fromJSON(json)) : [];
     instance.routes = jsonObject.routes ? jsonObject.routes.map(json => NetworkRouteInfo.fromJSON(json)) : [];
-    instance.networkFacts = jsonObject.networkFacts;
-    instance.shape = jsonObject.shape;
+    instance.networkFacts = NetworkFacts.fromJSON(jsonObject.networkFacts);
+    instance.shape = NetworkShape.fromJSON(jsonObject.shape);
     return instance;
   }
 }

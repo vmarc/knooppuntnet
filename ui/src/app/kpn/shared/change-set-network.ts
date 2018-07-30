@@ -21,12 +21,12 @@ export class ChangeSetNetwork {
       return undefined;
     }
     const instance = new ChangeSetNetwork();
-    instance.country = jsonObject.country;
-    instance.networkType = jsonObject.networkType;
+    instance.country = Country.fromJSON(jsonObject.country);
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
     instance.networkId = jsonObject.networkId;
     instance.networkName = jsonObject.networkName;
-    instance.routeChanges = jsonObject.routeChanges;
-    instance.nodeChanges = jsonObject.nodeChanges;
+    instance.routeChanges = ChangeSetElementRefs.fromJSON(jsonObject.routeChanges);
+    instance.nodeChanges = ChangeSetElementRefs.fromJSON(jsonObject.nodeChanges);
     instance.happy = jsonObject.happy;
     instance.investigate = jsonObject.investigate;
     return instance;

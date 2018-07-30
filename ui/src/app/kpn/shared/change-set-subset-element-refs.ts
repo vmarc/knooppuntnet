@@ -14,8 +14,8 @@ export class ChangeSetSubsetElementRefs {
       return undefined;
     }
     const instance = new ChangeSetSubsetElementRefs();
-    instance.subset = jsonObject.subset;
-    instance.elementRefs = jsonObject.elementRefs;
+    instance.subset = Subset.fromJSON(jsonObject.subset);
+    instance.elementRefs = ChangeSetElementRefs.fromJSON(jsonObject.elementRefs);
     return instance;
   }
 }

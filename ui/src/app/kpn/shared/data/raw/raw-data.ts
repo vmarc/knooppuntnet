@@ -18,7 +18,7 @@ export class RawData {
       return undefined;
     }
     const instance = new RawData();
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => RawNode.fromJSON(json)) : [];
     instance.ways = jsonObject.ways ? jsonObject.ways.map(json => RawWay.fromJSON(json)) : [];
     instance.relations = jsonObject.relations ? jsonObject.relations.map(json => RawRelation.fromJSON(json)) : [];

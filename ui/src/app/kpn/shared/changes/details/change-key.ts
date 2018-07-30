@@ -16,7 +16,7 @@ export class ChangeKey {
     }
     const instance = new ChangeKey();
     instance.replicationNumber = jsonObject.replicationNumber;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.changeSetId = jsonObject.changeSetId;
     instance.elementId = jsonObject.elementId;
     return instance;

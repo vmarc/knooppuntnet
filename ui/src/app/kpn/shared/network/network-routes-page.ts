@@ -18,9 +18,9 @@ export class NetworkRoutesPage {
       return undefined;
     }
     const instance = new NetworkRoutesPage();
-    instance.timeInfo = jsonObject.timeInfo;
-    instance.networkType = jsonObject.networkType;
-    instance.networkSummary = jsonObject.networkSummary;
+    instance.timeInfo = TimeInfo.fromJSON(jsonObject.timeInfo);
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
+    instance.networkSummary = NetworkSummary.fromJSON(jsonObject.networkSummary);
     instance.routes = jsonObject.routes ? jsonObject.routes.map(json => NetworkRouteInfo.fromJSON(json)) : [];
     return instance;
   }

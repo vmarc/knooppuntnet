@@ -15,7 +15,7 @@ export class Way {
       return undefined;
     }
     const instance = new Way();
-    instance.raw = jsonObject.raw;
+    instance.raw = RawWay.fromJSON(jsonObject.raw);
     instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => Node.fromJSON(json)) : [];
     instance.length = jsonObject.length;
     return instance;

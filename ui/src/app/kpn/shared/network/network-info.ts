@@ -23,15 +23,15 @@ export class NetworkInfo {
       return undefined;
     }
     const instance = new NetworkInfo();
-    instance.attributes = jsonObject.attributes;
+    instance.attributes = NetworkAttributes.fromJSON(jsonObject.attributes);
     instance.active = jsonObject.active;
     instance.ignored = jsonObject.ignored;
     instance.nodeRefs = jsonObject.nodeRefs;
     instance.routeRefs = jsonObject.routeRefs;
     instance.networkRefs = jsonObject.networkRefs;
     instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
-    instance.tags = jsonObject.tags;
-    instance.detail = jsonObject.detail;
+    instance.tags = Tags.fromJSON(jsonObject.tags);
+    instance.detail = NetworkInfoDetail.fromJSON(jsonObject.detail);
     return instance;
   }
 }

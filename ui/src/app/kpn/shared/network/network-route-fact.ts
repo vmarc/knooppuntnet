@@ -14,7 +14,7 @@ export class NetworkRouteFact {
       return undefined;
     }
     const instance = new NetworkRouteFact();
-    instance.fact = jsonObject.fact;
+    instance.fact = Fact.fromJSON(jsonObject.fact);
     instance.routes = jsonObject.routes ? jsonObject.routes.map(json => Ref.fromJSON(json)) : [];
     return instance;
   }

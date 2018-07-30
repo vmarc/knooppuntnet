@@ -13,7 +13,7 @@ export class ChangeSetSummaryInfo {
       return undefined;
     }
     const instance = new ChangeSetSummaryInfo();
-    instance.summary = jsonObject.summary;
+    instance.summary = ChangeSetSummary.fromJSON(jsonObject.summary);
     instance.comment = jsonObject.comment;
     return instance;
   }

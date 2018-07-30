@@ -14,7 +14,7 @@ export class WayData {
       return undefined;
     }
     const instance = new WayData();
-    instance.way = jsonObject.way;
+    instance.way = RawWay.fromJSON(jsonObject.way);
     instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => RawNode.fromJSON(json)) : [];
     return instance;
   }

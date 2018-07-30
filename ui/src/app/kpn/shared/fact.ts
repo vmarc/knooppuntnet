@@ -18,7 +18,7 @@ export class Fact {
     instance.id = jsonObject.id;
     instance.name = jsonObject.name;
     instance.nlName = jsonObject.nlName;
-    instance.level = jsonObject.level;
+    instance.level = FactLevel.fromJSON(jsonObject.level);
     return instance;
   }
 }

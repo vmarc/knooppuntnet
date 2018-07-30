@@ -23,9 +23,9 @@ export class RawNode {
     instance.latitude = jsonObject.latitude;
     instance.longitude = jsonObject.longitude;
     instance.version = jsonObject.version;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.changeSetId = jsonObject.changeSetId;
-    instance.tags = jsonObject.tags;
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     return instance;
   }
 }

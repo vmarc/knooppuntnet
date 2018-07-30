@@ -24,11 +24,11 @@ export class ChangeSetSummary {
       return undefined;
     }
     const instance = new ChangeSetSummary();
-    instance.key = jsonObject.key;
+    instance.key = ChangeKey.fromJSON(jsonObject.key);
     instance.subsets = jsonObject.subsets ? jsonObject.subsets.map(json => Subset.fromJSON(json)) : [];
-    instance.timestampFrom = jsonObject.timestampFrom;
-    instance.timestampUntil = jsonObject.timestampUntil;
-    instance.networkChanges = jsonObject.networkChanges;
+    instance.timestampFrom = Timestamp.fromJSON(jsonObject.timestampFrom);
+    instance.timestampUntil = Timestamp.fromJSON(jsonObject.timestampUntil);
+    instance.networkChanges = NetworkChanges.fromJSON(jsonObject.networkChanges);
     instance.orphanRouteChanges = jsonObject.orphanRouteChanges ? jsonObject.orphanRouteChanges.map(json => ChangeSetSubsetElementRefs.fromJSON(json)) : [];
     instance.orphanNodeChanges = jsonObject.orphanNodeChanges ? jsonObject.orphanNodeChanges.map(json => ChangeSetSubsetElementRefs.fromJSON(json)) : [];
     instance.happy = jsonObject.happy;

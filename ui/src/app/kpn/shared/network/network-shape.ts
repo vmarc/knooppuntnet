@@ -13,7 +13,7 @@ export class NetworkShape {
       return undefined;
     }
     const instance = new NetworkShape();
-    instance.bounds = jsonObject.bounds;
+    instance.bounds = Bounds.fromJSON(jsonObject.bounds);
     instance.coordinates = jsonObject.coordinates;
     return instance;
   }

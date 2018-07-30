@@ -15,7 +15,7 @@ export class MetaData {
     }
     const instance = new MetaData();
     instance.version = jsonObject.version;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.changeSetId = jsonObject.changeSetId;
     return instance;
   }

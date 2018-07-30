@@ -21,12 +21,12 @@ export class RouteDiff {
       return undefined;
     }
     const instance = new RouteDiff();
-    instance.nameDiff = jsonObject.nameDiff;
-    instance.roleDiff = jsonObject.roleDiff;
-    instance.factDiffs = jsonObject.factDiffs;
+    instance.nameDiff = RouteNameDiff.fromJSON(jsonObject.nameDiff);
+    instance.roleDiff = RouteRoleDiff.fromJSON(jsonObject.roleDiff);
+    instance.factDiffs = FactDiffs.fromJSON(jsonObject.factDiffs);
     instance.nodeDiffs = jsonObject.nodeDiffs ? jsonObject.nodeDiffs.map(json => RouteNodeDiff.fromJSON(json)) : [];
     instance.memberOrderChanged = jsonObject.memberOrderChanged;
-    instance.tagDiffs = jsonObject.tagDiffs;
+    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
     return instance;
   }
 }

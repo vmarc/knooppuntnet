@@ -13,8 +13,8 @@ export class PointSegment {
       return undefined;
     }
     const instance = new PointSegment();
-    instance.p1 = jsonObject.p1;
-    instance.p2 = jsonObject.p2;
+    instance.p1 = LatLonImpl.fromJSON(jsonObject.p1);
+    instance.p2 = LatLonImpl.fromJSON(jsonObject.p2);
     return instance;
   }
 }

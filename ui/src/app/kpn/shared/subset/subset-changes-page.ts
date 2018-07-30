@@ -17,8 +17,8 @@ export class SubsetChangesPage {
       return undefined;
     }
     const instance = new SubsetChangesPage();
-    instance.subsetInfo = jsonObject.subsetInfo;
-    instance.filter = jsonObject.filter;
+    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
+    instance.filter = ChangesFilter.fromJSON(jsonObject.filter);
     instance.changes = jsonObject.changes ? jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json)) : [];
     instance.totalCount = jsonObject.totalCount;
     return instance;

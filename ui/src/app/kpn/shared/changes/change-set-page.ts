@@ -24,12 +24,12 @@ export class ChangeSetPage {
       return undefined;
     }
     const instance = new ChangeSetPage();
-    instance.summary = jsonObject.summary;
-    instance.changeSetInfo = jsonObject.changeSetInfo;
+    instance.summary = ChangeSetSummary.fromJSON(jsonObject.summary);
+    instance.changeSetInfo = ChangeSetInfo.fromJSON(jsonObject.changeSetInfo);
     instance.networkChanges = jsonObject.networkChanges ? jsonObject.networkChanges.map(json => NetworkChangeInfo.fromJSON(json)) : [];
     instance.routeChanges = jsonObject.routeChanges ? jsonObject.routeChanges.map(json => RouteChangeInfo.fromJSON(json)) : [];
     instance.nodeChanges = jsonObject.nodeChanges ? jsonObject.nodeChanges.map(json => NodeChangeInfo.fromJSON(json)) : [];
-    instance.knownElements = jsonObject.knownElements;
+    instance.knownElements = KnownElements.fromJSON(jsonObject.knownElements);
     instance.reviews = jsonObject.reviews ? jsonObject.reviews.map(json => Review.fromJSON(json)) : [];
     return instance;
   }

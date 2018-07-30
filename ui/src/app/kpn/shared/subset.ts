@@ -14,8 +14,8 @@ export class Subset {
       return undefined;
     }
     const instance = new Subset();
-    instance.country = jsonObject.country;
-    instance.networkType = jsonObject.networkType;
+    instance.country = Country.fromJSON(jsonObject.country);
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
     return instance;
   }
 }

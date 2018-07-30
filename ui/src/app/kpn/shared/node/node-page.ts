@@ -16,9 +16,9 @@ export class NodePage {
       return undefined;
     }
     const instance = new NodePage();
-    instance.nodeInfo = jsonObject.nodeInfo;
-    instance.references = jsonObject.references;
-    instance.nodeChanges = jsonObject.nodeChanges;
+    instance.nodeInfo = NodeInfo.fromJSON(jsonObject.nodeInfo);
+    instance.references = NodeReferences.fromJSON(jsonObject.references);
+    instance.nodeChanges = NodeChangeInfos.fromJSON(jsonObject.nodeChanges);
     return instance;
   }
 }

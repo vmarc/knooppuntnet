@@ -25,15 +25,15 @@ export class RouteSummary {
     }
     const instance = new RouteSummary();
     instance.id = jsonObject.id;
-    instance.country = jsonObject.country;
-    instance.networkType = jsonObject.networkType;
+    instance.country = Country.fromJSON(jsonObject.country);
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
     instance.name = jsonObject.name;
     instance.meters = jsonObject.meters;
     instance.isBroken = jsonObject.isBroken;
     instance.wayCount = jsonObject.wayCount;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.nodeNames = jsonObject.nodeNames;
-    instance.tags = jsonObject.tags;
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     return instance;
   }
 }

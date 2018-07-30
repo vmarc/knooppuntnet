@@ -14,8 +14,8 @@ export class MapDetailNode {
       return undefined;
     }
     const instance = new MapDetailNode();
-    instance.info = jsonObject.info;
-    instance.references = jsonObject.references;
+    instance.info = NodeInfo.fromJSON(jsonObject.info);
+    instance.references = NodeReferences.fromJSON(jsonObject.references);
     return instance;
   }
 }

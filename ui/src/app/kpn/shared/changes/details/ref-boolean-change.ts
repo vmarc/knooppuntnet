@@ -13,7 +13,7 @@ export class RefBooleanChange {
       return undefined;
     }
     const instance = new RefBooleanChange();
-    instance.ref = jsonObject.ref;
+    instance.ref = Ref.fromJSON(jsonObject.ref);
     instance.after = jsonObject.after;
     return instance;
   }

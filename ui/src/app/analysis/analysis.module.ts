@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {CommonModule} from "@angular/common";
 import {RoutePageComponent} from './pages/route/_page/route-page.component';
 import {NodePageComponent} from './pages/node/_page/node-page.component';
 import {ChangesPageComponent} from './pages/changes/_page/changes-page.component';
@@ -21,9 +22,11 @@ import {MapPageComponent} from "./pages/map/_page/map-page.component";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {SharedModule} from "../shared/shared.module";
 import {MapModule} from "../map/map.module";
+import {NodeSummaryComponent} from "./pages/node/node-summary/node-summary.component";
 
 @NgModule({
   imports: [
+    CommonModule,
     KpnMaterialModule,
     SharedModule,
     MapModule,
@@ -40,6 +43,7 @@ import {MapModule} from "../map/map.module";
     NetworkNodesPageComponent,
     NetworkRoutesPageComponent,
     NodePageComponent,
+    NodeSummaryComponent,
     OverviewPageComponent,
     RoutePageComponent,
     SubsetChangesPageComponent,

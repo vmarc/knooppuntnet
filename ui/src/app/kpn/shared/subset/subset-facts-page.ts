@@ -14,7 +14,7 @@ export class SubsetFactsPage {
       return undefined;
     }
     const instance = new SubsetFactsPage();
-    instance.subsetInfo = jsonObject.subsetInfo;
+    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
     instance.factCounts = jsonObject.factCounts ? jsonObject.factCounts.map(json => FactCount.fromJSON(json)) : [];
     return instance;
   }

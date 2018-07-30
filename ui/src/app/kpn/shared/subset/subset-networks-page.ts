@@ -24,7 +24,7 @@ export class SubsetNetworksPage {
       return undefined;
     }
     const instance = new SubsetNetworksPage();
-    instance.subsetInfo = jsonObject.subsetInfo;
+    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
     instance.km = jsonObject.km;
     instance.networkCount = jsonObject.networkCount;
     instance.nodeCount = jsonObject.nodeCount;

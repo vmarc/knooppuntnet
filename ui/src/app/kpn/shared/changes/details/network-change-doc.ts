@@ -15,7 +15,7 @@ export class NetworkChangeDoc {
     }
     const instance = new NetworkChangeDoc();
     instance._id = jsonObject._id;
-    instance.networkChange = jsonObject.networkChange;
+    instance.networkChange = NetworkChange.fromJSON(jsonObject.networkChange);
     instance._rev = jsonObject._rev;
     return instance;
   }

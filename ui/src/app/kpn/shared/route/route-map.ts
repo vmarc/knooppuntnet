@@ -28,14 +28,14 @@ export class RouteMap {
       return undefined;
     }
     const instance = new RouteMap();
-    instance.bounds = jsonObject.bounds;
+    instance.bounds = MapBounds.fromJSON(jsonObject.bounds);
     instance.forwardSegments = jsonObject.forwardSegments ? jsonObject.forwardSegments.map(json => TrackSegment.fromJSON(json)) : [];
     instance.backwardSegments = jsonObject.backwardSegments ? jsonObject.backwardSegments.map(json => TrackSegment.fromJSON(json)) : [];
     instance.unusedSegments = jsonObject.unusedSegments ? jsonObject.unusedSegments.map(json => TrackSegment.fromJSON(json)) : [];
     instance.startTentacles = jsonObject.startTentacles ? jsonObject.startTentacles.map(json => TrackSegment.fromJSON(json)) : [];
     instance.endTentacles = jsonObject.endTentacles ? jsonObject.endTentacles.map(json => TrackSegment.fromJSON(json)) : [];
-    instance.forwardBreakPoint = jsonObject.forwardBreakPoint;
-    instance.backwardBreakPoint = jsonObject.backwardBreakPoint;
+    instance.forwardBreakPoint = TrackPoint.fromJSON(jsonObject.forwardBreakPoint);
+    instance.backwardBreakPoint = TrackPoint.fromJSON(jsonObject.backwardBreakPoint);
     instance.startNodes = jsonObject.startNodes ? jsonObject.startNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];
     instance.endNodes = jsonObject.endNodes ? jsonObject.endNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];
     instance.startTentacleNodes = jsonObject.startTentacleNodes ? jsonObject.startTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];

@@ -16,8 +16,8 @@ export class SubsetOrphanNodesPage {
       return undefined;
     }
     const instance = new SubsetOrphanNodesPage();
-    instance.timeInfo = jsonObject.timeInfo;
-    instance.subsetInfo = jsonObject.subsetInfo;
+    instance.timeInfo = TimeInfo.fromJSON(jsonObject.timeInfo);
+    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
     instance.rows = jsonObject.rows ? jsonObject.rows.map(json => NodeInfo.fromJSON(json)) : [];
     return instance;
   }

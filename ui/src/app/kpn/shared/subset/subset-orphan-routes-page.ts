@@ -16,8 +16,8 @@ export class SubsetOrphanRoutesPage {
       return undefined;
     }
     const instance = new SubsetOrphanRoutesPage();
-    instance.timeInfo = jsonObject.timeInfo;
-    instance.subsetInfo = jsonObject.subsetInfo;
+    instance.timeInfo = TimeInfo.fromJSON(jsonObject.timeInfo);
+    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
     instance.rows = jsonObject.rows ? jsonObject.rows.map(json => RouteSummary.fromJSON(json)) : [];
     return instance;
   }

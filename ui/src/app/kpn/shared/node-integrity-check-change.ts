@@ -15,9 +15,9 @@ export class NodeIntegrityCheckChange {
       return undefined;
     }
     const instance = new NodeIntegrityCheckChange();
-    instance.networkType = jsonObject.networkType;
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
+    instance.before = NodeIntegrityCheck.fromJSON(jsonObject.before);
+    instance.after = NodeIntegrityCheck.fromJSON(jsonObject.after);
     return instance;
   }
 }

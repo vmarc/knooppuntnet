@@ -15,9 +15,9 @@ export class NetworkNodeData {
       return undefined;
     }
     const instance = new NetworkNodeData();
-    instance.node = jsonObject.node;
+    instance.node = RawNode.fromJSON(jsonObject.node);
     instance.name = jsonObject.name;
-    instance.country = jsonObject.country;
+    instance.country = Country.fromJSON(jsonObject.country);
     return instance;
   }
 }

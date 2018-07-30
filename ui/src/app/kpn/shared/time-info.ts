@@ -15,10 +15,10 @@ export class TimeInfo {
       return undefined;
     }
     const instance = new TimeInfo();
-    instance.now = jsonObject.now;
-    instance.lastWeekStart = jsonObject.lastWeekStart;
-    instance.lastMonthStart = jsonObject.lastMonthStart;
-    instance.lastYearStart = jsonObject.lastYearStart;
+    instance.now = Timestamp.fromJSON(jsonObject.now);
+    instance.lastWeekStart = Timestamp.fromJSON(jsonObject.lastWeekStart);
+    instance.lastMonthStart = Timestamp.fromJSON(jsonObject.lastMonthStart);
+    instance.lastYearStart = Timestamp.fromJSON(jsonObject.lastYearStart);
     return instance;
   }
 }

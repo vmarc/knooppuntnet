@@ -15,7 +15,7 @@ export class TagDetail {
       return undefined;
     }
     const instance = new TagDetail();
-    instance.action = jsonObject.action;
+    instance.action = TagDetailType.fromJSON(jsonObject.action);
     instance.key = jsonObject.key;
     instance.valueBefore = jsonObject.valueBefore;
     instance.valueAfter = jsonObject.valueAfter;

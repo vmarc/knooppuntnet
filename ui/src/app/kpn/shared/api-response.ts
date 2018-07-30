@@ -7,14 +7,14 @@ export class ApiResponse<T> {
               public result?: any) {
   }
 
-  public static fromJSON<T>(jsonObject, converter: (jsonObject2) => T): ApiResponse<T> {
+  public static fromJSON<T>(jsonObject, resultsFromJSON: (jsonObject2) => T): ApiResponse<T> {
     if (!jsonObject) {
       return undefined;
     }
     const instance = new ApiResponse<T>();
     instance.situationOn = jsonObject.situationOn;
     instance.version = jsonObject.version;
-    instance.result = converter(jsonObject.result);
+    instance.result = resultsFromJSON(jsonObject.result);
     return instance;
   }
 }

@@ -18,8 +18,8 @@ export class NetworkFactsPage {
       return undefined;
     }
     const instance = new NetworkFactsPage();
-    instance.networkSummary = jsonObject.networkSummary;
-    instance.networkFacts = jsonObject.networkFacts;
+    instance.networkSummary = NetworkSummary.fromJSON(jsonObject.networkSummary);
+    instance.networkFacts = NetworkFacts.fromJSON(jsonObject.networkFacts);
     instance.routeFacts = jsonObject.routeFacts ? jsonObject.routeFacts.map(json => NetworkRouteFact.fromJSON(json)) : [];
     instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
     return instance;

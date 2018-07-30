@@ -18,9 +18,9 @@ export class NetworkRefs {
       return undefined;
     }
     const instance = new NetworkRefs();
-    instance.country = jsonObject.country;
-    instance.networkType = jsonObject.networkType;
-    instance.networkRef = jsonObject.networkRef;
+    instance.country = Country.fromJSON(jsonObject.country);
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
+    instance.networkRef = Ref.fromJSON(jsonObject.networkRef);
     instance.refType = jsonObject.refType;
     instance.refs = jsonObject.refs ? jsonObject.refs.map(json => Ref.fromJSON(json)) : [];
     return instance;

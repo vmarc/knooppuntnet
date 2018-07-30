@@ -18,7 +18,7 @@ export class ChangeSetData {
       return undefined;
     }
     const instance = new ChangeSetData();
-    instance.summary = jsonObject.summary;
+    instance.summary = ChangeSetSummary.fromJSON(jsonObject.summary);
     instance.networkChanges = jsonObject.networkChanges ? jsonObject.networkChanges.map(json => NetworkChange.fromJSON(json)) : [];
     instance.routeChanges = jsonObject.routeChanges ? jsonObject.routeChanges.map(json => RouteChange.fromJSON(json)) : [];
     instance.nodeChanges = jsonObject.nodeChanges ? jsonObject.nodeChanges.map(json => NodeChange.fromJSON(json)) : [];

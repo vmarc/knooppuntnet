@@ -36,21 +36,21 @@ export class NodeChange {
       return undefined;
     }
     const instance = new NodeChange();
-    instance.key = jsonObject.key;
-    instance.changeType = jsonObject.changeType;
+    instance.key = ChangeKey.fromJSON(jsonObject.key);
+    instance.changeType = ChangeType.fromJSON(jsonObject.changeType);
     instance.subsets = jsonObject.subsets ? jsonObject.subsets.map(json => Subset.fromJSON(json)) : [];
     instance.name = jsonObject.name;
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
+    instance.before = RawNode.fromJSON(jsonObject.before);
+    instance.after = RawNode.fromJSON(jsonObject.after);
     instance.connectionChanges = jsonObject.connectionChanges ? jsonObject.connectionChanges.map(json => RefBooleanChange.fromJSON(json)) : [];
     instance.definedInNetworkChanges = jsonObject.definedInNetworkChanges ? jsonObject.definedInNetworkChanges.map(json => RefBooleanChange.fromJSON(json)) : [];
-    instance.tagDiffs = jsonObject.tagDiffs;
-    instance.nodeMoved = jsonObject.nodeMoved;
+    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
+    instance.nodeMoved = NodeMoved.fromJSON(jsonObject.nodeMoved);
     instance.addedToRoute = jsonObject.addedToRoute ? jsonObject.addedToRoute.map(json => Ref.fromJSON(json)) : [];
     instance.removedFromRoute = jsonObject.removedFromRoute ? jsonObject.removedFromRoute.map(json => Ref.fromJSON(json)) : [];
     instance.addedToNetwork = jsonObject.addedToNetwork ? jsonObject.addedToNetwork.map(json => Ref.fromJSON(json)) : [];
     instance.removedFromNetwork = jsonObject.removedFromNetwork ? jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json)) : [];
-    instance.factDiffs = jsonObject.factDiffs;
+    instance.factDiffs = FactDiffs.fromJSON(jsonObject.factDiffs);
     instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
     return instance;
   }

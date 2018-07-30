@@ -26,17 +26,17 @@ export class RouteInfo {
       return undefined;
     }
     const instance = new RouteInfo();
-    instance.summary = jsonObject.summary;
+    instance.summary = RouteSummary.fromJSON(jsonObject.summary);
     instance.active = jsonObject.active;
     instance.display = jsonObject.display;
     instance.ignored = jsonObject.ignored;
     instance.orphan = jsonObject.orphan;
     instance.version = jsonObject.version;
     instance.changeSetId = jsonObject.changeSetId;
-    instance.lastUpdated = jsonObject.lastUpdated;
-    instance.tags = jsonObject.tags;
+    instance.lastUpdated = Timestamp.fromJSON(jsonObject.lastUpdated);
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
-    instance.analysis = jsonObject.analysis;
+    instance.analysis = RouteInfoAnalysis.fromJSON(jsonObject.analysis);
     return instance;
   }
 }

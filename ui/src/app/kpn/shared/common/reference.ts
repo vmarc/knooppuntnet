@@ -17,7 +17,7 @@ export class Reference {
     const instance = new Reference();
     instance.id = jsonObject.id;
     instance.name = jsonObject.name;
-    instance.networkType = jsonObject.networkType;
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
     instance.connection = jsonObject.connection;
     return instance;
   }

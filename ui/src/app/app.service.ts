@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from "rxjs";
+import {ApiResponse} from "./kpn/shared/api-response";
+import {NodePage} from "./kpn/shared/node/node-page";
 
 @Injectable()
 export class AppService {
@@ -113,11 +115,10 @@ export class AppService {
     );
   }
 
-  public node(nodeId: number): Observable<string> {
-    // ApiResponse[NodePage]
+  public node(nodeId: number): Observable<ApiResponse<NodePage>> {
     const url = "/json-api/node/" + nodeId;
     return this.http.get(url).pipe(
-      map(response => this.formatResponse(response))
+      map(response => ApiResponse.fromJSON(response, NodePage.fromJSON))
     );
   }
 

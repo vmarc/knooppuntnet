@@ -5,6 +5,76 @@
   <nav>
     <a routerLink="/home">home</a>
   </nav>
+
+  <div *ngIf="nodePage">
+
+    <h1>Node {{ nodePage.nodeInfo.name}}</h1> <!-- TODO should be allNames rcnName and rwnName combined -->
+
+    <!--
+    UiPageContents(
+    -->
+
+    <data title="Summary"> <!-- "Samenvatting" -->
+      <node-summary [nodeInfo]="nodePage.nodeInfo"></node-summary>
+    </data>
+
+    <data title="Situation on"> <!-- "Situatie op" -->
+      xxx
+      <!--
+        <.div("" + state.pageState.response.flatMap(_.situationOn.map(_.yyyymmddhhmm)).getOrElse(""))
+      -->
+    </data>
+
+    <data title="Last updated"> <!-- "Laatst bewerkt" -->
+      xxx
+      <!--
+        <.div(page.nodeInfo.lastUpdated.yyyymmddhhmm)
+      -->
+    </data>
+
+    <data title="Tags"> <!-- "Labels" -->
+      xxx
+      <!--
+        if (page.nodeInfo.tags.isEmpty) {
+        <.p(nls("None", "Geen"))
+        }
+        else {
+        UiTagsTable(NodeTagFilter(page.nodeInfo))
+        }
+      -->
+    </data>
+
+    <data title="Networks"> <!-- "Netwerken" -->
+      xxx
+      <!--
+        UiNodeNetworks(page.references.networkReferences)
+      -->
+    </data>
+
+    <data title="Routes"> <!-- "Routes" -->
+      xxx
+      <!--
+        UiNodeRoutes(page.references.routeReferences)
+      -->
+    </data>
+
+    <data title="Facts"> <!-- "Feiten" -->
+      xxx
+      <!--
+        UiFacts(page.nodeInfo.facts)
+      -->
+    </data>
+
+    <!--
+      TagMod.when(PageWidth.isVeryLarge) {
+        UiEmbeddedMap(new NodeMap(page.nodeInfo))
+      },
+      UiNodeChanges(page.nodeChanges)
+      )
+    -->
+
+  </div>
+
   <div>
     <pre>{{content}}</pre>
     <br/>

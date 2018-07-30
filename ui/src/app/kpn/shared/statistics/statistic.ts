@@ -16,9 +16,9 @@ export class Statistic {
     }
     const instance = new Statistic();
     instance.total = jsonObject.total;
-    instance.nl = jsonObject.nl;
-    instance.be = jsonObject.be;
-    instance.de = jsonObject.de;
+    instance.nl = CountryStatistic.fromJSON(jsonObject.nl);
+    instance.be = CountryStatistic.fromJSON(jsonObject.be);
+    instance.de = CountryStatistic.fromJSON(jsonObject.de);
     return instance;
   }
 }

@@ -13,7 +13,7 @@ export class NetworkData {
       return undefined;
     }
     const instance = new NetworkData();
-    instance.relation = jsonObject.relation;
+    instance.relation = RawRelation.fromJSON(jsonObject.relation);
     instance.name = jsonObject.name;
     return instance;
   }

@@ -13,8 +13,8 @@ export class NetworkDataUpdate {
       return undefined;
     }
     const instance = new NetworkDataUpdate();
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
+    instance.before = NetworkData.fromJSON(jsonObject.before);
+    instance.after = NetworkData.fromJSON(jsonObject.after);
     return instance;
   }
 }

@@ -17,7 +17,7 @@ export class NodeData {
     const instance = new NodeData();
     instance.subsets = jsonObject.subsets ? jsonObject.subsets.map(json => Subset.fromJSON(json)) : [];
     instance.name = jsonObject.name;
-    instance.node = jsonObject.node;
+    instance.node = RawNode.fromJSON(jsonObject.node);
     return instance;
   }
 }

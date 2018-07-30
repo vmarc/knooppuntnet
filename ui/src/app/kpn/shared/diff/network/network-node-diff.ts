@@ -20,9 +20,9 @@ export class NetworkNodeDiff {
     const instance = new NetworkNodeDiff();
     instance.connection = jsonObject.connection;
     instance.definedInNetworkRelation = jsonObject.definedInNetworkRelation;
-    instance.routeReferenceDiffs = jsonObject.routeReferenceDiffs;
-    instance.nodeIntegrityCheckDiff = jsonObject.nodeIntegrityCheckDiff;
-    instance.tagDiffs = jsonObject.tagDiffs;
+    instance.routeReferenceDiffs = NodeRouteReferenceDiffs.fromJSON(jsonObject.routeReferenceDiffs);
+    instance.nodeIntegrityCheckDiff = NodeIntegrityCheckDiff.fromJSON(jsonObject.nodeIntegrityCheckDiff);
+    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
     return instance;
   }
 }

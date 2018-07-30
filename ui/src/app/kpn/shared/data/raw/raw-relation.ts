@@ -21,10 +21,10 @@ export class RawRelation {
     const instance = new RawRelation();
     instance.id = jsonObject.id;
     instance.version = jsonObject.version;
-    instance.timestamp = jsonObject.timestamp;
+    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
     instance.changeSetId = jsonObject.changeSetId;
     instance.members = jsonObject.members ? jsonObject.members.map(json => RawMember.fromJSON(json)) : [];
-    instance.tags = jsonObject.tags;
+    instance.tags = Tags.fromJSON(jsonObject.tags);
     return instance;
   }
 }

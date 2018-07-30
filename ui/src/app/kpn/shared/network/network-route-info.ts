@@ -25,8 +25,8 @@ export class NetworkRouteInfo {
     instance.wayCount = jsonObject.wayCount;
     instance.length = jsonObject.length;
     instance.role = jsonObject.role;
-    instance.relationLastUpdated = jsonObject.relationLastUpdated;
-    instance.lastUpdated = jsonObject.lastUpdated;
+    instance.relationLastUpdated = Timestamp.fromJSON(jsonObject.relationLastUpdated);
+    instance.lastUpdated = Timestamp.fromJSON(jsonObject.lastUpdated);
     instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
     return instance;
   }

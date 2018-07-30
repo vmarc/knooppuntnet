@@ -32,8 +32,8 @@ export class NetworkAttributes {
     }
     const instance = new NetworkAttributes();
     instance.id = jsonObject.id;
-    instance.country = jsonObject.country;
-    instance.networkType = jsonObject.networkType;
+    instance.country = Country.fromJSON(jsonObject.country);
+    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
     instance.name = jsonObject.name;
     instance.km = jsonObject.km;
     instance.meters = jsonObject.meters;
@@ -41,12 +41,12 @@ export class NetworkAttributes {
     instance.routeCount = jsonObject.routeCount;
     instance.brokenRouteCount = jsonObject.brokenRouteCount;
     instance.brokenRoutePercentage = jsonObject.brokenRoutePercentage;
-    instance.integrity = jsonObject.integrity;
+    instance.integrity = Integrity.fromJSON(jsonObject.integrity);
     instance.unaccessibleRouteCount = jsonObject.unaccessibleRouteCount;
     instance.connectionCount = jsonObject.connectionCount;
-    instance.lastUpdated = jsonObject.lastUpdated;
-    instance.relationLastUpdated = jsonObject.relationLastUpdated;
-    instance.center = jsonObject.center;
+    instance.lastUpdated = Timestamp.fromJSON(jsonObject.lastUpdated);
+    instance.relationLastUpdated = Timestamp.fromJSON(jsonObject.relationLastUpdated);
+    instance.center = LatLonImpl.fromJSON(jsonObject.center);
     return instance;
   }
 }

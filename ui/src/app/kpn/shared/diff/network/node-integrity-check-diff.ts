@@ -13,8 +13,8 @@ export class NodeIntegrityCheckDiff {
       return undefined;
     }
     const instance = new NodeIntegrityCheckDiff();
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
+    instance.before = NodeIntegrityCheck.fromJSON(jsonObject.before);
+    instance.after = NodeIntegrityCheck.fromJSON(jsonObject.after);
     return instance;
   }
 }

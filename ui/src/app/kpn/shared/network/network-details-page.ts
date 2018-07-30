@@ -20,12 +20,12 @@ export class NetworkDetailsPage {
       return undefined;
     }
     const instance = new NetworkDetailsPage();
-    instance.networkSummary = jsonObject.networkSummary;
+    instance.networkSummary = NetworkSummary.fromJSON(jsonObject.networkSummary);
     instance.active = jsonObject.active;
     instance.ignored = jsonObject.ignored;
-    instance.attributes = jsonObject.attributes;
-    instance.tags = jsonObject.tags;
-    instance.facts = jsonObject.facts;
+    instance.attributes = NetworkAttributes.fromJSON(jsonObject.attributes);
+    instance.tags = Tags.fromJSON(jsonObject.tags);
+    instance.facts = NetworkFacts.fromJSON(jsonObject.facts);
     return instance;
   }
 }
