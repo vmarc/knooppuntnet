@@ -6,9 +6,35 @@ body {
 
 a {
   text-decoration: none;
+  color: blue;
 }
 
 a:visited {
   color: blue;
 }
 
+.warning {
+  color: red;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+table th, table td {
+  text-align: left;
+  padding: 5px;
+  lineHeight: 20px;
+  vertical-align: top;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+}
+
+table th {
+  font-weight: bold;
+  color: #222;
+  background-color: #eee;
+}

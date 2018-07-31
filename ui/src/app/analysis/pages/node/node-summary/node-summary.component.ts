@@ -1,6 +1,5 @@
 import {Component, Input} from "@angular/core";
 import {NodeInfo} from "../../../../kpn/shared/node-info";
-import {Country} from "../../../../kpn/shared/country";
 
 @Component({
   selector: 'node-summary',

@@ -1,0 +1,4 @@
+<p *ngIf="networks.length == 0">None</p> <!-- Geen -->
+<p *ngFor="let network of networks">
+  <icon-network-link [network]="network"></icon-network-link>
+</p>

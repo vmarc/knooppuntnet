@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
-import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Timestamp} from "../../../../kpn/shared/timestamp";
 import {NodePage} from "../../../../kpn/shared/node/node-page";
 

@@ -10,10 +10,17 @@ import {JosmRelationComponent} from "./link/josm-relation.component";
 import {JosmNodeComponent} from "./link/josm-node.component";
 import {JosmWayComponent} from "./link/josm-way.component";
 import {CountryNameComponent} from "./country-name.component";
+import {IconNetworkLinkComponent} from "./link/icon-network-link.component";
+import {RouterModule} from "@angular/router";
+import {IconRouteLinkComponent} from "./link/icon-route-link.component";
+import {TimestampComponent} from "./timestamp/timestamp.component";
+import {IconLinkComponent} from "./link/icon-link.component";
+import {TagsComponent} from "./tags/tags.component";
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     KpnMaterialModule
   ],
   declarations: [
@@ -23,7 +30,12 @@ import {CountryNameComponent} from "./country-name.component";
     JosmRelationComponent,
     OsmLinkComponent,
     OsmLinkNodeComponent,
+    IconLinkComponent,
+    IconNetworkLinkComponent,
+    IconRouteLinkComponent,
     CountryNameComponent,
+    TimestampComponent,
+    TagsComponent,
     DataComponent,
     PageComponent
   ],
@@ -32,7 +44,12 @@ import {CountryNameComponent} from "./country-name.component";
     JosmWayComponent,
     JosmRelationComponent,
     OsmLinkNodeComponent,
+    IconLinkComponent,
+    IconNetworkLinkComponent,
+    IconRouteLinkComponent,
     CountryNameComponent,
+    TimestampComponent,
+    TagsComponent,
     DataComponent,
     PageComponent
   ]

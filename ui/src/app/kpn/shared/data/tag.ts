@@ -1,5 +1,3 @@
-// this class is generated, please do not modify
-
 export class Tag {
 
   constructor(public key?: string,
@@ -11,8 +9,8 @@ export class Tag {
       return undefined;
     }
     const instance = new Tag();
-    instance.key = jsonObject.key;
-    instance.value = jsonObject.value;
+    instance.key = jsonObject[0];
+    instance.value = jsonObject[1];
     return instance;
   }
 }

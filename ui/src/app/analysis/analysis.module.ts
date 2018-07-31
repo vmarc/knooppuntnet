@@ -23,6 +23,8 @@ import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {SharedModule} from "../shared/shared.module";
 import {MapModule} from "../map/map.module";
 import {NodeSummaryComponent} from "./pages/node/node-summary/node-summary.component";
+import {NodeNetworksComponent} from "./pages/node/node-networks/node-networks.component";
+import {NodeRoutesComponent} from "./pages/node/node-routes/node-routes.component";
 
 @NgModule({
   imports: [
@@ -44,6 +46,8 @@ import {NodeSummaryComponent} from "./pages/node/node-summary/node-summary.compo
     NetworkRoutesPageComponent,
     NodePageComponent,
     NodeSummaryComponent,
+    NodeNetworksComponent,
+    NodeRoutesComponent,
     OverviewPageComponent,
     RoutePageComponent,
     SubsetChangesPageComponent,

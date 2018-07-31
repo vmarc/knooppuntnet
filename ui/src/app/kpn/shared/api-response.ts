@@ -12,7 +12,7 @@ export class ApiResponse<T> {
       return undefined;
     }
     const instance = new ApiResponse<T>();
-    instance.situationOn = jsonObject.situationOn;
+    instance.situationOn = Timestamp.fromJSON(jsonObject.situationOn);
     instance.version = jsonObject.version;
     instance.result = resultsFromJSON(jsonObject.result);
     return instance;
