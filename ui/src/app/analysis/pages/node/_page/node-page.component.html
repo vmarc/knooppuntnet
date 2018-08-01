@@ -1,34 +1,34 @@
 <kpn-page>
-  <div *ngIf="nodePage">
+  <div *ngIf="response">
 
-    <h1>Node {{nodePage.nodeInfo.name}}</h1>
+    <h1>Node {{nodeInfo.name}}</h1>
 
     <!--
     UiPageContents(
     -->
 
     <data title="Summary"> <!-- "Samenvatting" -->
-      <node-summary [nodeInfo]="nodePage.nodeInfo"></node-summary>
+      <node-summary [nodeInfo]="nodeInfo"></node-summary>
     </data>
 
     <data title="Situation on"> <!-- "Situatie op" -->
-      <timestamp [timestamp]="situationOn"></timestamp>
+      <timestamp [timestamp]="response.situationOn"></timestamp>
     </data>
 
     <data title="Last updated"> <!-- "Laatst bewerkt" -->
-      <timestamp [timestamp]="nodePage.nodeInfo.lastUpdated"></timestamp>
+      <timestamp [timestamp]="nodeInfo.lastUpdated"></timestamp>
     </data>
 
     <data title="Tags"> <!-- "Labels" -->
-      <tags [tags]="nodePage.nodeInfo.tags"></tags>
+      <tags [tags]="nodeInfo.tags"></tags>
     </data>
 
     <data title="Networks"> <!-- "Netwerken" -->
-      <node-networks [networks]="nodePage.references.networkReferences"></node-networks>
+      <node-networks [networks]="references.networkReferences"></node-networks>
     </data>
 
     <data title="Routes"> <!-- "Routes" -->
-      <node-routes [routes]="nodePage.references.routeReferences"></node-routes>
+      <node-routes [routes]="references.routeReferences"></node-routes>
     </data>
 
     <data title="Facts"> <!-- "Feiten" -->
@@ -46,11 +46,6 @@
       )
     -->
 
-  </div>
-
-  <div>
-    <pre>{{content}}</pre>
-    <br/>
-    <br/>
+    <json [object]="response"></json>
   </div>
 </kpn-page>

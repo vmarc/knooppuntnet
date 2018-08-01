@@ -16,6 +16,8 @@ import {IconRouteLinkComponent} from "./link/icon-route-link.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {IconLinkComponent} from "./link/icon-link.component";
 import {TagsComponent} from "./tags/tags.component";
+import {JsonComponent} from "./json/json.component";
+import {DayComponent} from "./day/day.component";
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import {TagsComponent} from "./tags/tags.component";
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
     CountryNameComponent,
+    DayComponent,
     TimestampComponent,
+    JsonComponent,
     TagsComponent,
     DataComponent,
     PageComponent
@@ -48,7 +52,9 @@ import {TagsComponent} from "./tags/tags.component";
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
     CountryNameComponent,
+    DayComponent,
     TimestampComponent,
+    JsonComponent,
     TagsComponent,
     DataComponent,
     PageComponent

@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {ChangeSetPage} from "../../../../kpn/shared/changes/change-set-page";
 
 @Component({
   selector: 'kpn-change-set-page',
@@ -8,14 +10,14 @@ import {AppService} from "../../../../app.service";
 })
 export class ChangeSetPageComponent implements OnInit {
 
-  content = "Loading...";
+  response: ApiResponse<ChangeSetPage>;
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.changeSet(55067698, 2778253).subscribe(content => {
-      this.content = content;
+    this.appService.changeSet(55067698, 2778253).subscribe(response => {
+      this.response = response;
     });
   }
 

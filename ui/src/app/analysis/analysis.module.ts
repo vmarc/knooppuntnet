@@ -25,6 +25,9 @@ import {MapModule} from "../map/map.module";
 import {NodeSummaryComponent} from "./pages/node/node-summary/node-summary.component";
 import {NodeNetworksComponent} from "./pages/node/node-networks/node-networks.component";
 import {NodeRoutesComponent} from "./pages/node/node-routes/node-routes.component";
+import {NetworkNodeTableComponent} from "./pages/network-nodes/network-node-table/network-node-table.component";
+import {NetworkNodeAnalysisComponent} from "./pages/network-nodes/network-node-analysis/network-node-analysis.component";
+import {NetworkNodeRoutesComponent} from "./pages/network-nodes/network-node-routes/network-node-routes.component";
 
 @NgModule({
   imports: [
@@ -43,6 +46,9 @@ import {NodeRoutesComponent} from "./pages/node/node-routes/node-routes.componen
     NetworkFactsPageComponent,
     NetworkMapPageComponent,
     NetworkNodesPageComponent,
+    NetworkNodeTableComponent,
+    NetworkNodeAnalysisComponent,
+    NetworkNodeRoutesComponent,
     NetworkRoutesPageComponent,
     NodePageComponent,
     NodeSummaryComponent,

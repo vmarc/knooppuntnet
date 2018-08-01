@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
 
 @Component({
@@ -8,14 +8,14 @@ import {AppService} from "../../../../app.service";
 })
 export class OverviewPageComponent implements OnInit {
 
-  content = "Loading...";
+  response: any;
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.overview().subscribe(content => {
-      this.content = content;
+    this.appService.overview().subscribe(response => {
+      this.response = response;
     });
   }
 

@@ -5,9 +5,8 @@
   <nav>
     <a routerLink="/home">home</a>
   </nav>
-  <div>
-    <pre>{{content}}</pre>
-    <br/>
-    <br/>
+  <div *ngIf="response">
+    <network-node-table [nodes]="response.result.nodes"></network-node-table>
+    <json [object]="response"></json>
   </div>
 </kpn-page>

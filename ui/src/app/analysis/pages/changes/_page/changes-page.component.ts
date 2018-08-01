@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from "../../../../app.service";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {ChangesPage} from "../../../../kpn/shared/changes-page";
 
 @Component({
   selector: 'kpn-changes-page',
@@ -8,14 +10,14 @@ import {AppService} from "../../../../app.service";
 })
 export class ChangesPageComponent implements OnInit {
 
-  content = "Loading...";
+  response: ApiResponse<ChangesPage>;
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.changes().subscribe(content => {
-      this.content = content;
+    this.appService.changes().subscribe(response => {
+      this.response = response;
     });
   }
 

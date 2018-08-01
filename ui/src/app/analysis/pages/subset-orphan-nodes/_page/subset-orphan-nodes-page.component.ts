@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {SubsetOrphanNodesPage} from "../../../../kpn/shared/subset/subset-orphan-nodes-page";
 
 @Component({
   selector: 'kpn-subset-orphan-nodes-page',
@@ -8,14 +10,14 @@ import {AppService} from "../../../../app.service";
 })
 export class SubsetOrphanNodesPageComponent implements OnInit {
 
-  content = "Loading...";
+  response: ApiResponse<SubsetOrphanNodesPage>;
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.subsetOrphanNodes().subscribe(content => {
-      this.content = content;
+    this.appService.subsetOrphanNodes().subscribe(response => {
+      this.response = response;
     });
   }
 

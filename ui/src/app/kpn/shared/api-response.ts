@@ -4,7 +4,7 @@ export class ApiResponse<T> {
 
   constructor(public situationOn?: Timestamp,
               public version?: number,
-              public result?: any) {
+              public result?: T) {
   }
 
   public static fromJSON<T>(jsonObject, resultsFromJSON: (jsonObject2) => T): ApiResponse<T> {

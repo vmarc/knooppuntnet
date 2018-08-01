@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {NetworkRoutesPage} from "../../../../kpn/shared/network/network-routes-page";
 
 @Component({
   selector: 'kpn-network-routes-page',
@@ -8,14 +10,14 @@ import {AppService} from "../../../../app.service";
 })
 export class NetworkRoutesPageComponent implements OnInit {
 
-  content = "Loading...";
+  response: ApiResponse<NetworkRoutesPage>;
 
   constructor(private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.networkRoutes(3138543).subscribe(content => {
-      this.content = content;
+    this.appService.networkRoutes(3138543).subscribe(response => {
+      this.response = response;
     });
   }
 
