@@ -1,40 +1,44 @@
 <kpn-page>
+
   <h1 i18n="@@home-page-title">
     Home
   </h1>
+
   <nav>
 
     <a routerLink="/translations/edit">Translations</a>
-    <a routerLink="/analysis/map" i18n="@@home-page-link-map">Map</a>
-    <a routerLink="/analysis/overview" i18n="@@home-page-link-overview">Overview</a>
-    <a routerLink="/analysis/changes" i18n="@@home-page-link-changes">Changes</a>
-    <a routerLink="/analysis/changeset" i18n="@@home-page-link-changeset">Changeset</a>
+
+    <kpn-link-map networkType="rcn"></kpn-link-map>
+    <kpn-link-overview></kpn-link-overview>
+    <kpn-link-changes></kpn-link-changes>
+    <kpn-link-changeset changeSetId="61632740" replicationNumber="3101276"></kpn-link-changeset>
+
     <br/>
-    <a routerLink="/analysis/node/1" i18n="@@home-page-link-node">Node 1</a>
+    <kpn-link-node nodeId="1" title="node-1"></kpn-link-node>
     <br/>
-    <a routerLink="/analysis/route/1" i18n="@@home-page-link-route">Route 1</a>
+    <kpn-link-route routeId="1" title="route-1"></kpn-link-route>
     <br/>
-    <a routerLink="/analysis/network-details" i18n="@@home-page-link-network-details">Network details</a>
-    <a routerLink="/analysis/network-facts" i18n="@@home-page-link-network-facts">Network facts</a>
-    <a routerLink="/analysis/network-map" i18n="@@home-page-link-network-map">Network map</a>
-    <a routerLink="/analysis/network-nodes" i18n="@@home-page-link-network-nodes">Network nodes</a>
-    <a routerLink="/analysis/network-routes" i18n="@@home-page-link-network-routes">Network routes</a>
-    <a routerLink="/analysis/network-changes" i18n="@@home-page-link-network-changes">Network changes</a>
+    <kpn-link-network-details networkId="3138543"></kpn-link-network-details>
+    <kpn-link-network-facts networkId="3138543"></kpn-link-network-facts>
+    <kpn-link-network-map networkId="3138543"></kpn-link-network-map>
+    <kpn-link-network-nodes networkId="3138543"></kpn-link-network-nodes>
+    <kpn-link-network-routes networkId="3138543"></kpn-link-network-routes>
+    <kpn-link-network-changes networkId="3138543"></kpn-link-network-changes>
     <br/>
-    <a routerLink="/analysis/networks/nl/rwn" i18n="@@home-page-link-subset-networks">Subset networks</a>
-    <a routerLink="/analysis/facts/nl/rwn" i18n="@@home-page-link-subset-facts">Subset facts</a>
-    <a routerLink="/analysis/orphan-nodes/nl/rwn" i18n="@@home-page-link-subset-orphan-nodes">Subset orphan nodes</a>
-    <a routerLink="/analysis/orphan-routes/nl/rwn" i18n="@@home-page-link-subset-orphan-routes">Subset orphan routes</a>
-    <a routerLink="/analysis/RouteBroken/nl/rwn" i18n="@@home-page-link-route-broken">Subset RouteBroken</a>
-    <a routerLink="/analysis/changes/nl/rwn" i18n="@@home-page-link-subset-changes">Subset changes</a>
+    <kpn-link-subset-networks country="de" networkType="rcn"></kpn-link-subset-networks>
+    <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
+    <kpn-link-subset-orphan-nodes country="de" networkType="rcn"></kpn-link-subset-orphan-nodes>
+    <kpn-link-subset-orphan-routes country="de" networkType="rcn"></kpn-link-subset-orphan-routes>
+    <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
+    <kpn-link-subset-changes country="de" networkType="rcn"></kpn-link-subset-changes>
     <br/>
-    <a routerLink="/login" i18n="@@home-page-link-login">Login</a>
-    <a routerLink="/logout" i18n="@@home-page-link-logout">Logout</a>
-    <a routerLink="/authenticate" i18n="@@home-page-link-authenticate">Authenticate</a>
+    <kpn-link-login></kpn-link-login>
+    <kpn-link-logout></kpn-link-logout>
+    <kpn-link-authenticate></kpn-link-authenticate>
     <br/>
-    <a routerLink="/about" i18n="@@home-page-link-about">About</a>
-    <a routerLink="/glossary" i18n="@@home-page-link-glossary">Glossary</a>
-    <a routerLink="/links" i18n="@@home-page-link-links">Links</a>
+    <kpn-link-about></kpn-link-about>
+    <kpn-link-glossary></kpn-link-glossary>
+    <kpn-link-links></kpn-link-links>
     <br/>
     <a routerLink="/not-found" i18n="@@home-page-link-not-found">Not found</a>
 

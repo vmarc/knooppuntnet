@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'kpn-map-page',
@@ -7,7 +8,7 @@ import {Component} from '@angular/core';
 })
 export class MapPageComponent  {
 
-  constructor() {
+  constructor(private activatedRoute: ActivatedRoute) {
   }
 
 }

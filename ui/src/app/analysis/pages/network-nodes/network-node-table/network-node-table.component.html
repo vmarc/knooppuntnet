@@ -17,8 +17,8 @@
 
   <ng-container matColumnDef="node">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Node</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <a routerLink="/analysis/node">{{row.title}}</a>
+    <mat-cell *matCellDef="let node">
+      <kpn-link-node [nodeId]="node.id" [title]="node.title"></kpn-link-node>
     </mat-cell>
   </ng-container>
 
@@ -32,7 +32,8 @@
   <ng-container matColumnDef="lastEdit">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Last edit</mat-header-cell>
     <mat-cell *matCellDef="let node">
-      <day [timestamp]="node.timestamp"></day> edit osm
+      <day [timestamp]="node.timestamp"></day>
+      edit osm
     </mat-cell>
   </ng-container>
 

@@ -1,5 +1,5 @@
 <p>
-  <a routerLink="{{'/analysis/node/' + node.id}}">{{node.name}}</a>
+  <kpn-link-node [nodeId]="node.id" [title]="node.name"></kpn-link-node>
 </p>
 <p>
   <timestamp [timestamp]="node.lastUpdated"></timestamp>

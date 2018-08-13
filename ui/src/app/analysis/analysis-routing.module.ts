@@ -22,7 +22,7 @@ import {SubsetOrphanRoutesPageComponent} from "./pages/subset-orphan-routes/_pag
 
 const routes: Routes = [
   {
-    path: 'changeset',
+    path: 'changeset/:changesetId/:replicationId',
     component: ChangeSetPageComponent
   },
   {
@@ -30,31 +30,31 @@ const routes: Routes = [
     component: ChangesPageComponent
   },
   {
-    path: 'map',
+    path: 'map/:networkType',
     component: MapPageComponent
   },
   {
-    path: 'network-changes',
+    path: 'network-changes/:networkId',
     component: NetworkChangesPageComponent
   },
   {
-    path: 'network-details',
+    path: 'network-details/:networkId',
     component: NetworkDetailsPageComponent
   },
   {
-    path: 'network-facts',
+    path: 'network-facts/:networkId',
     component: NetworkFactsPageComponent
   },
   {
-    path: 'network-map',
+    path: 'network-map/:networkId',
     component: NetworkMapPageComponent
   },
   {
-    path: 'network-nodes',
+    path: 'network-nodes/:networkId',
     component: NetworkNodesPageComponent
   },
   {
-    path: 'network-routes',
+    path: 'network-routes/:networkId',
     component: NetworkRoutesPageComponent
   },
   {
@@ -70,28 +70,28 @@ const routes: Routes = [
     component: RoutePageComponent
   },
   {
-    path: 'changes/nl/rwn',
+    path: 'changes/:country/:networkType',
     component: SubsetChangesPageComponent
   },
   {
-    path: 'RouteBroken/nl/rwn',
-    component: SubsetFactDetailsPageComponent
-  },
-  {
-    path: 'facts/nl/rwn',
+    path: 'facts/:country/:networkType',
     component: SubsetFactsPageComponent
   },
   {
-    path: 'networks/nl/rwn',
+    path: 'networks/:country/:networkType',
     component: SubsetNetworksPageComponent
   },
   {
-    path: 'orphan-nodes/de/rcn',
+    path: 'orphan-nodes/:country/:networkType',
     component: SubsetOrphanNodesPageComponent
   },
   {
-    path: 'orphan-routes/de/rcn',
+    path: 'orphan-routes/:country/:networkType',
     component: SubsetOrphanRoutesPageComponent
+  },
+  {
+    path: ':fact/:country/:networkType',
+    component: SubsetFactDetailsPageComponent
   }
 ];
 

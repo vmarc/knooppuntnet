@@ -1,51 +1,56 @@
 <kpn-page>
-  <div *ngIf="response">
+  <div *ngIf="response?.result">
+    <div *ngIf="!response.result">
+      <h1>Node not found</h1>
+    </div>
+    <div *ngIf="response.result">
 
-    <h1>Node {{nodeInfo.name}}</h1>
+      <h1>Node {{nodeInfo.name}}</h1>
 
-    <!--
-    UiPageContents(
-    -->
-
-    <data title="Summary"> <!-- "Samenvatting" -->
-      <node-summary [nodeInfo]="nodeInfo"></node-summary>
-    </data>
-
-    <data title="Situation on"> <!-- "Situatie op" -->
-      <timestamp [timestamp]="response.situationOn"></timestamp>
-    </data>
-
-    <data title="Last updated"> <!-- "Laatst bewerkt" -->
-      <timestamp [timestamp]="nodeInfo.lastUpdated"></timestamp>
-    </data>
-
-    <data title="Tags"> <!-- "Labels" -->
-      <tags [tags]="nodeInfo.tags"></tags>
-    </data>
-
-    <data title="Networks"> <!-- "Netwerken" -->
-      <node-networks [networks]="references.networkReferences"></node-networks>
-    </data>
-
-    <data title="Routes"> <!-- "Routes" -->
-      <node-routes [routes]="references.routeReferences"></node-routes>
-    </data>
-
-    <data title="Facts"> <!-- "Feiten" -->
-      xxx
       <!--
-        UiFacts(page.nodeInfo.facts)
+      UiPageContents(
       -->
-    </data>
 
-    <!--
-      TagMod.when(PageWidth.isVeryLarge) {
-        UiEmbeddedMap(new NodeMap(page.nodeInfo))
-      },
-      UiNodeChanges(page.nodeChanges)
-      )
-    -->
+      <data title="Summary"> <!-- "Samenvatting" -->
+        <node-summary [nodeInfo]="nodeInfo"></node-summary>
+      </data>
 
-    <json [object]="response"></json>
+      <data title="Situation on"> <!-- "Situatie op" -->
+        <timestamp [timestamp]="response.situationOn"></timestamp>
+      </data>
+
+      <data title="Last updated"> <!-- "Laatst bewerkt" -->
+        <timestamp [timestamp]="nodeInfo.lastUpdated"></timestamp>
+      </data>
+
+      <data title="Tags"> <!-- "Labels" -->
+        <tags [tags]="nodeInfo.tags"></tags>
+      </data>
+
+      <data title="Networks"> <!-- "Netwerken" -->
+        <node-networks [networks]="references.networkReferences"></node-networks>
+      </data>
+
+      <data title="Routes"> <!-- "Routes" -->
+        <node-routes [routes]="references.routeReferences"></node-routes>
+      </data>
+
+      <data title="Facts"> <!-- "Feiten" -->
+        xxx
+        <!--
+          UiFacts(page.nodeInfo.facts)
+        -->
+      </data>
+
+      <!--
+        TagMod.when(PageWidth.isVeryLarge) {
+          UiEmbeddedMap(new NodeMap(page.nodeInfo))
+        },
+        UiNodeChanges(page.nodeChanges)
+        )
+      -->
+
+      <json [object]="response"></json>
+    </div>
   </div>
 </kpn-page>

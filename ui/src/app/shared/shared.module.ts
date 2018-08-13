@@ -43,6 +43,7 @@ import {LinkNodeComponent} from "./link/link-node.component";
 import {LinkFactComponent} from "./link/link-fact.component";
 import {LinkSubsetFactsComponent} from "./link/link-subset-facts.component";
 import {LinkChangesetComponent} from "./link/link-changeset.component";
+import {LinkSubsetChangesComponent} from "./link/link-subset-changes.component";
 
 @NgModule({
   imports: [
@@ -69,6 +70,7 @@ import {LinkChangesetComponent} from "./link/link-changeset.component";
     LinkSubsetNetworksComponent,
     LinkSubsetOrphanNodesComponent,
     LinkSubsetOrphanRoutesComponent,
+    LinkSubsetChangesComponent,
     LinkAboutComponent,
     LinkAuthenticateComponent,
     LinkGlossaryComponent,
@@ -113,6 +115,7 @@ import {LinkChangesetComponent} from "./link/link-changeset.component";
     LinkSubsetNetworksComponent,
     LinkSubsetOrphanNodesComponent,
     LinkSubsetOrphanRoutesComponent,
+    LinkSubsetChangesComponent,
     LinkAboutComponent,
     LinkAuthenticateComponent,
     LinkGlossaryComponent,

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {NetworkNodesPage} from "../../../../kpn/shared/network/network-nodes-page";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'kpn-network-nodes-page',
@@ -12,11 +13,13 @@ export class NetworkNodesPageComponent implements OnInit {
 
   response: ApiResponse<NetworkNodesPage>;
 
-  constructor(private appService: AppService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.networkNodes(3138543).subscribe(response => {
+    const networkId = this.activatedRoute.snapshot.paramMap.get('networkId');
+    this.appService.networkNodes(networkId).subscribe(response => {
       this.response = response;
     });
   }

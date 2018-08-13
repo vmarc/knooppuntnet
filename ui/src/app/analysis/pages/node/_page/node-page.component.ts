@@ -11,7 +11,6 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class NodePageComponent implements OnInit {
 
-  content = "Loading...";
   response: ApiResponse<NodePage>;
 
   constructor(private activatedRoute: ActivatedRoute,

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {SubsetFactsPage} from "../../../../kpn/shared/subset/subset-facts-page";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'kpn-subset-facts-page',
@@ -12,11 +13,14 @@ export class SubsetFactsPageComponent implements OnInit {
 
   response: ApiResponse<SubsetFactsPage>;
 
-  constructor(private appService: AppService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.subsetFacts().subscribe(response => {
+    const country = this.activatedRoute.snapshot.paramMap.get('country');
+    const networkType = this.activatedRoute.snapshot.paramMap.get('networkType');
+    this.appService.subsetFacts(country, networkType).subscribe(response => {
       this.response = response;
     });
   }

@@ -3,10 +3,10 @@ import {Component, Input} from "@angular/core";
 @Component({
   selector: 'kpn-link-changeset',
   template: `
-    <a routerLink="{{'/analysis/changeset/' + changeSetId + '/' + replicationId}}">{{changeSetId}}</a>
+    <a routerLink="{{'/analysis/changeset/' + changeSetId + '/' + replicationNumber}}">{{changeSetId}}</a>
   `
 })
 export class LinkChangesetComponent {
   @Input() changeSetId: string;
-  @Input() replicationId: string;
+  @Input() replicationNumber: string;
 }
