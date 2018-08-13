@@ -11,9 +11,9 @@ import {debounceTime} from 'rxjs/operators';
 })
 export class TranslationTableComponent implements DoCheck {
 
-  @Input() translationUnits: TranslationUnit[] = [];
+  @Input() translationUnits: Array<TranslationUnit> = [];
 
-  displayedColumns: string[] = ['state', 'id', 'source', 'target', 'sourceFile'];
+  displayedColumns: Array<string> = ['state', 'id', 'source', 'target', 'sourceFile'];
   dataSource: MatTableDataSource<TranslationUnit>;
   readonly differ: IterableDiffer<TranslationUnit>;
 

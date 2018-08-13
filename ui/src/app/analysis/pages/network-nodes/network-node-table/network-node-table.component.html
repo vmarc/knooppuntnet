@@ -9,7 +9,7 @@
   </ng-container>
 
   <ng-container matColumnDef="analysis">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Analysis</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Analysis</mat-header-cell>
     <mat-cell *matCellDef="let node">
       <network-node-analysis [node]="node"></network-node-analysis>
     </mat-cell>
@@ -23,16 +23,17 @@
   </ng-container>
 
   <ng-container matColumnDef="routes">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Routes</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Routes</mat-header-cell>
     <mat-cell *matCellDef="let node">
       <network-node-routes [node]="node"></network-node-routes>
-
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="lastEdit">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Last edit</mat-header-cell>
-    <mat-cell *matCellDef="let node"><day [timestamp]="node.timestamp"></day> edit osm</mat-cell>
+    <mat-cell *matCellDef="let node">
+      <day [timestamp]="node.timestamp"></day> edit osm
+    </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

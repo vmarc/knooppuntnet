@@ -28,6 +28,10 @@ import {NodeRoutesComponent} from "./pages/node/node-routes/node-routes.componen
 import {NetworkNodeTableComponent} from "./pages/network-nodes/network-node-table/network-node-table.component";
 import {NetworkNodeAnalysisComponent} from "./pages/network-nodes/network-node-analysis/network-node-analysis.component";
 import {NetworkNodeRoutesComponent} from "./pages/network-nodes/network-node-routes/network-node-routes.component";
+import {SubsetNetworkListComponent} from './pages/subset-networks/subset-network-list/subset-network-list.component';
+import {SubsetNetworkTableComponent} from './pages/subset-networks/subset-network-table/subset-network-table.component';
+import {SubsetNetworkComponent} from './pages/subset-networks/subset-network/subset-network.component';
+import {SubsetNetworkHappyComponent} from './pages/subset-networks/subset-network-happy/subset-network-happy.component';
 
 @NgModule({
   imports: [
@@ -61,7 +65,11 @@ import {NetworkNodeRoutesComponent} from "./pages/network-nodes/network-node-rou
     SubsetFactsPageComponent,
     SubsetNetworksPageComponent,
     SubsetOrphanNodesPageComponent,
-    SubsetOrphanRoutesPageComponent
+    SubsetOrphanRoutesPageComponent,
+    SubsetNetworkListComponent,
+    SubsetNetworkTableComponent,
+    SubsetNetworkComponent,
+    SubsetNetworkHappyComponent
   ]
 })
 export class AnalysisModule {

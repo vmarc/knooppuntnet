@@ -18,6 +18,7 @@ import {IconLinkComponent} from "./link/icon-link.component";
 import {TagsComponent} from "./tags/tags.component";
 import {JsonComponent} from "./json/json.component";
 import {DayComponent} from "./day/day.component";
+import {OsmLinkRelationComponent} from "./link/osm-link-relation.component";
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {DayComponent} from "./day/day.component";
     JosmRelationComponent,
     OsmLinkComponent,
     OsmLinkNodeComponent,
+    OsmLinkRelationComponent,
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
@@ -48,6 +50,7 @@ import {DayComponent} from "./day/day.component";
     JosmWayComponent,
     JosmRelationComponent,
     OsmLinkNodeComponent,
+    OsmLinkRelationComponent,
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,

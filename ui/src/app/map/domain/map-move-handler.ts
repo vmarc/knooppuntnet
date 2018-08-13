@@ -26,7 +26,7 @@ export class MapMoveHandler {
     }
   }
 
-  private handleDeselectedFeatures(features: Feature[]) {
+  private handleDeselectedFeatures(features: Array<Feature>) {
     for (let feature of features) {
       const layer = feature.get("layer");
       if (layer.endsWith("route")) {
@@ -38,7 +38,7 @@ export class MapMoveHandler {
     }
   }
 
-  private handleSelectedFeatures(features: Feature[]) {
+  private handleSelectedFeatures(features: Array<Feature>) {
     for (let feature of features) {
       const layer = feature.get("layer");
       const id = feature.get("id");

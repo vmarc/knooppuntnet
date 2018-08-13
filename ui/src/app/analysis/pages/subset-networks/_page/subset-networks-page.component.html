@@ -2,9 +2,21 @@
   <h1>
     Subset networks
   </h1>
-  <nav>
-    <a routerLink="/home">home</a>
-  </nav>
+
+  <kpn-subset-network-list
+    *ngIf="response"
+    [networks]="response.result.networks">
+  </kpn-subset-network-list>
+
+  <br/>
+  <br/>
+  <br/>
+
+  <kpn-subset-network-table
+    *ngIf="response"
+    [networks]="response.result.networks">
+  </kpn-subset-network-table>
+
   <div *ngIf="response">
     <json [object]="response"></json>
   </div>

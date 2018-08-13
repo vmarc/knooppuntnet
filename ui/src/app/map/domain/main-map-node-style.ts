@@ -19,7 +19,7 @@ export class MainMapNodeStyle {
   private readonly smallNodeStyle = this.initSmallNodeStyle();
   private readonly largeNodeStyle = this.initLargeNodeStyle();
 
-  public nodeStyle(zoom: number, feature: Feature, enabled: boolean): Style[] {
+  public nodeStyle(zoom: number, feature: Feature, enabled: boolean): Array<Style> {
 
     const featureId = feature.get("id");
     const layer = feature.get("layer");

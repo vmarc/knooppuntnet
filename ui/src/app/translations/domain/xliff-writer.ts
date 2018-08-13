@@ -16,7 +16,7 @@ export class XliffWriter {
     return fragments.map(a => a.join("\n")).join("\n");
   }
 
-  private translationFileStart(translationFile: TranslationFile): string[] {
+  private translationFileStart(translationFile: TranslationFile): Array<string> {
     return [
       '<?xml version="1.0" encoding="UTF-8"?>',
       '<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">',
@@ -26,7 +26,7 @@ export class XliffWriter {
     ];
   }
 
-  private translationFileEnd(translationFile: TranslationFile): string[] {
+  private translationFileEnd(translationFile: TranslationFile): Array<string> {
     return [
       '    </body>',
       '  </file>',
@@ -34,7 +34,7 @@ export class XliffWriter {
     ];
   }
 
-  private translationUnitFragment(translationUnit: TranslationUnit): string[] {
+  private translationUnitFragment(translationUnit: TranslationUnit): Array<string> {
     return [
       '      <trans-unit id="' + translationUnit.id + '" datatype="html">',
       '        <source>' + translationUnit.source + '</source>',

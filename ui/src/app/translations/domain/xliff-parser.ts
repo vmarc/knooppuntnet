@@ -22,8 +22,8 @@ export class XliffParser {
     return new TranslationFile(sourceLanguage, targetLanguage, translationUnits);
   }
 
-  private parseTranslationUnits(xmlDocument: Document): TranslationUnit[] {
-    const translationUnits: TranslationUnit[] = [];
+  private parseTranslationUnits(xmlDocument: Document): Array<TranslationUnit> {
+    const translationUnits: Array<TranslationUnit> = [];
     const translationUnitElements = xmlDocument.getElementsByTagName('trans-unit');
     for (let i = 0; i < translationUnitElements.length; i++) {
       const translationUnitElement = translationUnitElements.item(i);

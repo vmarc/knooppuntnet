@@ -12,7 +12,7 @@ export class MainMapRouteStyle {
   constructor(private mapState: MapState) {
   }
 
-  public routeStyle(zoom: number, feature: Feature, layer: string, enabled: boolean): Style[] {
+  public routeStyle(zoom: number, feature: Feature, layer: string, enabled: boolean): Array<Style> {
     const selectedStyle = this.determineRouteSelectedStyle(feature);
     const style = this.determineRouteStyle(feature, layer, enabled, zoom);
     return selectedStyle ? [selectedStyle, style] : [style];

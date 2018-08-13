@@ -4,7 +4,7 @@ export class TranslationFile {
 
   constructor(public sourceLanguage: string,
               public targetLanguage: string,
-              public translationUnits: TranslationUnit[]) {
+              public translationUnits: Array<TranslationUnit>) {
   }
 
 }

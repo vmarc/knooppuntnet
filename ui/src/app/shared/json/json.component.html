@@ -1,5 +1,11 @@
-<pre>
+<br/>
+<br/>
+<button (click)="toggleVisible()">JSON</button>
+<div *ngIf="visible">
+  <br/>
+  <pre>
 {{contents}}
-</pre>
+  </pre>
+</div>
 <br/>
 <br/>

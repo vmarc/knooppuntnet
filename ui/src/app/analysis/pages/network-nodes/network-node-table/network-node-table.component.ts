@@ -9,9 +9,9 @@ import {NetworkNodeInfo2} from "../../../../kpn/shared/network/network-node-info
 })
 export class NetworkNodeTableComponent implements OnInit {
 
-  @Input() nodes: NetworkNodeInfo2[] = [];
+  @Input() nodes: Array<NetworkNodeInfo2> = [];
 
-  displayedColumns: string[] = ['nr', 'analysis', 'node', 'routes', 'lastEdit'];
+  displayedColumns = ['nr', 'analysis', 'node', 'routes', 'lastEdit'];
 
   dataSource: MatTableDataSource<NetworkNodeInfo2>;
 

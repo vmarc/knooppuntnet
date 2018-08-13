@@ -1,0 +1,8 @@
+.first-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  > :not(:first-child) {
+    padding-left: 10px;
+  }
+}

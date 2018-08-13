@@ -9,9 +9,13 @@ export class JsonComponent implements OnInit {
 
   @Input() object: any;
   contents: string = "";
+  visible = false;
 
   ngOnInit() {
     this.contents = JSON.stringify(this.object, null, 2);
   }
 
+  toggleVisible() {
+    this.visible = !this.visible;
+  }
 }

@@ -15,7 +15,7 @@ export class MapClickHandler {
     this.handleSelectedFeatures(e.selected);
   }
 
-  private handleDeselectedFeatures(features: Feature[]) {
+  private handleDeselectedFeatures(features: Array<Feature>) {
     for (let feature of features) {
       const layer = feature.get("layer");
       if (layer.endsWith("route")) {
@@ -27,7 +27,7 @@ export class MapClickHandler {
     }
   }
 
-  private handleSelectedFeatures(features: Feature[]) {
+  private handleSelectedFeatures(features: Array<Feature>) {
     if (features.length == 0) {
       this.selectionHolder.select(null);
     }

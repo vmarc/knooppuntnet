@@ -1,0 +1,10 @@
+<p class="first-line">
+  <a routerLink="/analysis/network-details">{{network.name}}</a>
+  <span>{{interpretedNetwork.percentageOk()}}</span>
+  <kpn-subset-network-happy [network]="network"></kpn-subset-network-happy>
+</p>
+<p>{{network.km}} km, {{network.nodeCount}} nodes, {{network.routeCount}} routes</p>
+<p>
+  <osm-link-relation relationId="{{network.id}}"></osm-link-relation>
+  <josm-relation relationId="{{network.id}}"></josm-relation>
+</p>

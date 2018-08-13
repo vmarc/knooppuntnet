@@ -13,7 +13,7 @@ import {saveAs} from "file-saver";
 export class TranslationsComponent implements OnInit {
 
   translationFile: TranslationFile;
-  translationUnits: TranslationUnit[] = [];
+  translationUnits: Array<TranslationUnit> = [];
 
   constructor(private translationsService: TranslationsService) {
   }

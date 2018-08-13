@@ -17,24 +17,57 @@ a:visited {
   color: red;
 }
 
-
-table {
+.kpn-table {
   border-collapse: collapse;
   border-spacing: 0px;
 }
 
-table th, table td {
+.kpn-table th, .kpn-table td {
   text-align: left;
   padding: 5px;
-  lineHeight: 20px;
+  line-height: 20px;
   vertical-align: top;
   border-width: 1px;
   border-style: solid;
   border-color: #ccc;
 }
 
-table th {
+.kpn-table th {
   font-weight: bold;
   color: #222;
   background-color: #eee;
+}
+
+
+table.kpn-columns-table {
+
+  > thead > tr > th:not(:first-child) {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  > tbody > tr > td:not(:first-child)  {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+table.kpn-bordered-table {
+
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+
+  > thead > tr > th {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  > tbody > tr > td {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
 }
