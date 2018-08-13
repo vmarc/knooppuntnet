@@ -35,6 +35,8 @@ import {SubsetNetworkHappyComponent} from './pages/subset-networks/subset-networ
 import {SubsetOrphanRoutesTableComponent} from './pages/subset-orphan-routes/subset-orphan-routes-table/subset-orphan-routes-table.component';
 import {MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
 import {SubsetOrphanRouteComponent} from './pages/subset-orphan-routes/subset-orphan-route/subset-orphan-route.component';
+import {SubsetOrphanNodeComponent} from './pages/subset-orphan-nodes/subset-orphan-node/subset-orphan-node.component';
+import {SubsetOrphanNodesTableComponent} from './pages/subset-orphan-nodes/subset-orphan-nodes-table/subset-orphan-nodes-table.component';
 
 @NgModule({
   imports: [
@@ -77,7 +79,9 @@ import {SubsetOrphanRouteComponent} from './pages/subset-orphan-routes/subset-or
     SubsetNetworkComponent,
     SubsetNetworkHappyComponent,
     SubsetOrphanRoutesTableComponent,
-    SubsetOrphanRouteComponent
+    SubsetOrphanRouteComponent,
+    SubsetOrphanNodeComponent,
+    SubsetOrphanNodesTableComponent
   ]
 })
 export class AnalysisModule {
