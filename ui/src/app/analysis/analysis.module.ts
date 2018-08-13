@@ -32,6 +32,9 @@ import {SubsetNetworkListComponent} from './pages/subset-networks/subset-network
 import {SubsetNetworkTableComponent} from './pages/subset-networks/subset-network-table/subset-network-table.component';
 import {SubsetNetworkComponent} from './pages/subset-networks/subset-network/subset-network.component';
 import {SubsetNetworkHappyComponent} from './pages/subset-networks/subset-network-happy/subset-network-happy.component';
+import {SubsetOrphanRoutesTableComponent} from './pages/subset-orphan-routes/subset-orphan-routes-table/subset-orphan-routes-table.component';
+import {MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
+import {SubsetOrphanRouteComponent} from './pages/subset-orphan-routes/subset-orphan-route/subset-orphan-route.component';
 
 @NgModule({
   imports: [
@@ -39,7 +42,10 @@ import {SubsetNetworkHappyComponent} from './pages/subset-networks/subset-networ
     KpnMaterialModule,
     SharedModule,
     MapModule,
-    AnalysisRoutingModule
+    AnalysisRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   declarations: [
     ChangeSetPageComponent,
@@ -69,7 +75,9 @@ import {SubsetNetworkHappyComponent} from './pages/subset-networks/subset-networ
     SubsetNetworkListComponent,
     SubsetNetworkTableComponent,
     SubsetNetworkComponent,
-    SubsetNetworkHappyComponent
+    SubsetNetworkHappyComponent,
+    SubsetOrphanRoutesTableComponent,
+    SubsetOrphanRouteComponent
   ]
 })
 export class AnalysisModule {

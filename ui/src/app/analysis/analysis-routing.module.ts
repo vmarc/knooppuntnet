@@ -86,11 +86,11 @@ const routes: Routes = [
     component: SubsetNetworksPageComponent
   },
   {
-    path: 'orphan-nodes/nl/rwn',
+    path: 'orphan-nodes/de/rcn',
     component: SubsetOrphanNodesPageComponent
   },
   {
-    path: 'orphan-routes/nl/rwn',
+    path: 'orphan-routes/de/rcn',
     component: SubsetOrphanRoutesPageComponent
   }
 ];

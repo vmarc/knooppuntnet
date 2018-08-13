@@ -2,10 +2,8 @@
   <h1>
     Subset orphan routes
   </h1>
-  <nav>
-    <a routerLink="/home">home</a>
-  </nav>
   <div *ngIf="response">
+    <kpn-subset-orphan-routes-table [orphanRoutes]="response.result.rows"></kpn-subset-orphan-routes-table>
     <json [object]="response"></json>
   </div>
 </kpn-page>

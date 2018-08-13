@@ -57,14 +57,14 @@ export class AppService {
   }
 
   public subsetOrphanNodes(/*subset: Subset*/): Observable<ApiResponse<SubsetOrphanNodesPage>> {
-    const url = "/json-api/orphan-nodes/nl/rcn";
+    const url = "/json-api/orphan-nodes/de/rcn";
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanNodesPage.fromJSON))
     );
   }
 
   public subsetOrphanRoutes(/*subset: Subset*/): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
-    const url = "/json-api/orphan-routes/nl/rcn";
+    const url = "/json-api/orphan-routes/de/rcn";
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanRoutesPage.fromJSON))
     );
