@@ -19,6 +19,30 @@ import {TagsComponent} from "./tags/tags.component";
 import {JsonComponent} from "./json/json.component";
 import {DayComponent} from "./day/day.component";
 import {OsmLinkRelationComponent} from "./link/osm-link-relation.component";
+import {LinkChangesComponent} from "./link/link-changes.component";
+import {LinkMapComponent} from "./link/link-map.component";
+import {LinkNetworkChangesComponent} from "./link/link-network-changes.component";
+import {LinkNetworkDetailsComponent} from "./link/link-network-details.component";
+import {LinkNetworkFactsComponent} from "./link/link-network-facts.component";
+import {LinkNetworkMapComponent} from "./link/link-network-map.component";
+import {LinkNetworkNodesComponent} from "./link/link-network-nodes.component";
+import {LinkNetworkRoutesComponent} from "./link/link-network-routes.component";
+import {LinkOverviewComponent} from "./link/link-overview.component";
+import {LinkRouteComponent} from "./link/link-route.component";
+import {LinkSubsetNetworksComponent} from "./link/link-subset-networks.component";
+import {LinkSubsetOrphanNodesComponent} from "./link/link-subset-orphan-nodes.component";
+import {LinkSubsetOrphanRoutesComponent} from "./link/link-subset-orphan-routes.component";
+import {LinkAboutComponent} from "./link/link-about.component";
+import {LinkAuthenticateComponent} from "./link/link-authenticate.component";
+import {LinkGlossaryComponent} from "./link/link-glossary.component";
+import {LinkHomeComponent} from "./link/link-home.component";
+import {LinkLinksComponent} from "./link/link-links.component";
+import {LinkLoginComponent} from "./link/link-login.component";
+import {LinkLogoutComponent} from "./link/link-logout.component";
+import {LinkNodeComponent} from "./link/link-node.component";
+import {LinkFactComponent} from "./link/link-fact.component";
+import {LinkSubsetFactsComponent} from "./link/link-subset-facts.component";
+import {LinkChangesetComponent} from "./link/link-changeset.component";
 
 @NgModule({
   imports: [
@@ -27,6 +51,31 @@ import {OsmLinkRelationComponent} from "./link/osm-link-relation.component";
     KpnMaterialModule
   ],
   declarations: [
+    LinkChangesetComponent,
+    LinkChangesComponent,
+    LinkMapComponent,
+    LinkNetworkChangesComponent,
+    LinkNetworkDetailsComponent,
+    LinkNetworkFactsComponent,
+    LinkNetworkMapComponent,
+    LinkNetworkNodesComponent,
+    LinkNetworkRoutesComponent,
+    LinkNodeComponent,
+    LinkOverviewComponent,
+    LinkRouteComponent,
+    LinkChangesComponent,
+    LinkFactComponent,
+    LinkSubsetFactsComponent,
+    LinkSubsetNetworksComponent,
+    LinkSubsetOrphanNodesComponent,
+    LinkSubsetOrphanRoutesComponent,
+    LinkAboutComponent,
+    LinkAuthenticateComponent,
+    LinkGlossaryComponent,
+    LinkHomeComponent,
+    LinkLinksComponent,
+    LinkLoginComponent,
+    LinkLogoutComponent,
     JosmLinkComponent,
     JosmNodeComponent,
     JosmWayComponent,
@@ -46,6 +95,31 @@ import {OsmLinkRelationComponent} from "./link/osm-link-relation.component";
     PageComponent
   ],
   exports: [
+    LinkChangesetComponent,
+    LinkChangesComponent,
+    LinkMapComponent,
+    LinkNetworkChangesComponent,
+    LinkNetworkDetailsComponent,
+    LinkNetworkFactsComponent,
+    LinkNetworkMapComponent,
+    LinkNetworkNodesComponent,
+    LinkNetworkRoutesComponent,
+    LinkNodeComponent,
+    LinkOverviewComponent,
+    LinkRouteComponent,
+    LinkChangesComponent,
+    LinkFactComponent,
+    LinkSubsetFactsComponent,
+    LinkSubsetNetworksComponent,
+    LinkSubsetOrphanNodesComponent,
+    LinkSubsetOrphanRoutesComponent,
+    LinkAboutComponent,
+    LinkAuthenticateComponent,
+    LinkGlossaryComponent,
+    LinkHomeComponent,
+    LinkLinksComponent,
+    LinkLoginComponent,
+    LinkLogoutComponent,
     JosmNodeComponent,
     JosmWayComponent,
     JosmRelationComponent,

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {ChangesPage} from "../../../../kpn/shared/changes-page";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'kpn-changes-page',
@@ -12,7 +13,8 @@ export class ChangesPageComponent implements OnInit {
 
   response: ApiResponse<ChangesPage>;
 
-  constructor(private appService: AppService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private appService: AppService) {
   }
 
   ngOnInit() {

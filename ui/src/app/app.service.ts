@@ -119,7 +119,7 @@ export class AppService {
     );
   }
 
-  public node(nodeId: number): Observable<ApiResponse<NodePage>> {
+  public node(nodeId: string): Observable<ApiResponse<NodePage>> {
     const url = "/json-api/node/" + nodeId;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NodePage.fromJSON))

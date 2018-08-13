@@ -58,7 +58,7 @@ const routes: Routes = [
     component: NetworkRoutesPageComponent
   },
   {
-    path: 'node',
+    path: 'node/:nodeId',
     component: NodePageComponent
   },
   {
@@ -66,7 +66,7 @@ const routes: Routes = [
     component: OverviewPageComponent
   },
   {
-    path: 'route',
+    path: 'route/:routeId',
     component: RoutePageComponent
   },
   {

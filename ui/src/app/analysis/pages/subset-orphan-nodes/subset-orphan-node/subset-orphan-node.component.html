@@ -1,5 +1,5 @@
 <p>
-  <a routerLink="/analysis/node">{{node.name}}</a>
+  <a routerLink="{{'/analysis/node/' + node.id}}">{{node.name}}</a>
 </p>
 <p>
   <timestamp [timestamp]="node.lastUpdated"></timestamp>

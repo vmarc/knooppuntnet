@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../../app.service";
 import {NodePage} from "../../../../kpn/shared/node/node-page";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'kpn-node-page',
@@ -13,11 +14,13 @@ export class NodePageComponent implements OnInit {
   content = "Loading...";
   response: ApiResponse<NodePage>;
 
-  constructor(private appService: AppService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private appService: AppService) {
   }
 
   ngOnInit() {
-    this.appService.node(1 /*278003073*/).subscribe(response => {
+    const nodeId = this.activatedRoute.snapshot.paramMap.get('nodeId');
+    this.appService.node(nodeId).subscribe(response => {
       this.response = response;
     });
   }
