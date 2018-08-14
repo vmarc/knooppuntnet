@@ -21,6 +21,7 @@ import {NetworkMapPage} from "./kpn/shared/network/network-map-page";
 import {NetworkFactsPage} from "./kpn/shared/network/network-facts-page";
 import {NetworkNodesPage} from "./kpn/shared/network/network-nodes-page";
 import {NetworkRoutesPage} from "./kpn/shared/network/network-routes-page";
+import {ChangesParameters} from "./kpn/shared/changes/filter/changes-parameters";
 
 @Injectable()
 export class AppService {
@@ -133,9 +134,9 @@ export class AppService {
     );
   }
 
-  public changes(/*parameters: ChangesParameters*/): Observable<ApiResponse<ChangesPage>> {
+  public changes(parameters: ChangesParameters): Observable<ApiResponse<ChangesPage>> {
     const url = "/json-api/changes";
-    return this.http.get(url).pipe(
+    return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, ChangesPage.fromJSON))
     );
   }

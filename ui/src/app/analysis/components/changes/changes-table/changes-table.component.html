@@ -1,0 +1,28 @@
+<mat-paginator
+  [pageIndex]="0"
+  [pageSize]="parameters.itemsPerPage"
+  [pageSizeOptions]="[25, 50, 100, 250, 1000]">
+</mat-paginator>
+
+<div *ngIf="response">
+
+  <mat-divider></mat-divider>
+  <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
+
+    <ng-container matColumnDef="rowNumber">
+      <td mat-cell *matCellDef="let changeset; let i = index">
+        {{rowNumber(i)}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="changeset">
+      <td mat-cell *matCellDef="let changeset">
+        {{changeset.summary.key.changeSetId + " / " + changeset.summary.key.replicationNumber }}
+      </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let changeset; columns: displayedColumns;"></tr>
+
+  </table>
+  <json [object]="response"></json>
+</div>

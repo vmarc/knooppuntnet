@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 a {
@@ -20,7 +20,7 @@ a:visited {
 
 .kpn-table {
   border-collapse: collapse;
-  border-spacing: 0px;
+  border-spacing: 0;
 }
 
 .kpn-table th, .kpn-table td {

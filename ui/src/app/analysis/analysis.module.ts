@@ -33,10 +33,10 @@ import {SubsetNetworkTableComponent} from './pages/subset-networks/subset-networ
 import {SubsetNetworkComponent} from './pages/subset-networks/subset-network/subset-network.component';
 import {SubsetNetworkHappyComponent} from './pages/subset-networks/subset-network-happy/subset-network-happy.component';
 import {SubsetOrphanRoutesTableComponent} from './pages/subset-orphan-routes/subset-orphan-routes-table/subset-orphan-routes-table.component';
-import {MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
 import {SubsetOrphanRouteComponent} from './pages/subset-orphan-routes/subset-orphan-route/subset-orphan-route.component';
 import {SubsetOrphanNodeComponent} from './pages/subset-orphan-nodes/subset-orphan-node/subset-orphan-node.component';
 import {SubsetOrphanNodesTableComponent} from './pages/subset-orphan-nodes/subset-orphan-nodes-table/subset-orphan-nodes-table.component';
+import {ChangesTableComponent} from "./components/changes/changes-table/changes-table.component";
 
 @NgModule({
   imports: [
@@ -44,10 +44,7 @@ import {SubsetOrphanNodesTableComponent} from './pages/subset-orphan-nodes/subse
     KpnMaterialModule,
     SharedModule,
     MapModule,
-    AnalysisRoutingModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+    AnalysisRoutingModule
   ],
   declarations: [
     ChangeSetPageComponent,
@@ -81,7 +78,8 @@ import {SubsetOrphanNodesTableComponent} from './pages/subset-orphan-nodes/subse
     SubsetOrphanRoutesTableComponent,
     SubsetOrphanRouteComponent,
     SubsetOrphanNodeComponent,
-    SubsetOrphanNodesTableComponent
+    SubsetOrphanNodesTableComponent,
+    ChangesTableComponent
   ]
 })
 export class AnalysisModule {
