@@ -1,18 +1,35 @@
 <kpn-page>
 
   <h1 i18n="@@home-page-title">
-    Home
+    Node networks
   </h1>
 
   <nav>
 
-    <a routerLink="/translations/edit">Translations</a>
-
-    <kpn-link-map networkType="rcn"></kpn-link-map>
-    <kpn-link-overview></kpn-link-overview>
+    <kpn-link-map networkType="rcn" title="Cycling Map"></kpn-link-map>
+    <kpn-link-map networkType="rwn" title="Hiking Map"></kpn-link-map>
+    <kpn-link-map networkType="rhn" title="Horse Map"></kpn-link-map>
+    <kpn-link-map networkType="rmn" title="Motorboat Map"></kpn-link-map>
+    <kpn-link-map networkType="rpn" title="Canoe Map"></kpn-link-map>
+    <br/>
     <kpn-link-changes></kpn-link-changes>
+    <kpn-link-overview></kpn-link-overview>
+    <br/>
+    <p>Analysis</p>
+    <p>The Netherlands</p>
+    <kpn-link-subset-networks country="nl" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
+    <kpn-link-subset-networks country="nl" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
+    <kpn-link-subset-networks country="nl" networkType="rhn" title="Horse"></kpn-link-subset-networks>
+    <kpn-link-subset-networks country="nl" networkType="rmn" title="Motorboat"></kpn-link-subset-networks>
+    <kpn-link-subset-networks country="nl" networkType="rpn" title="Canoe"></kpn-link-subset-networks>
+    <p>Belgium</p>
+    <kpn-link-subset-networks country="be" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
+    <kpn-link-subset-networks country="be" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
+    <p>Germany</p>
+    <kpn-link-subset-networks country="de" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
+    <br/>
+    <br/>
     <kpn-link-changeset changeSetId="61632740" replicationNumber="3101276"></kpn-link-changeset>
-
     <br/>
     <kpn-link-node nodeId="1" title="node-1"></kpn-link-node>
     <br/>
@@ -41,6 +58,9 @@
     <kpn-link-links></kpn-link-links>
     <br/>
     <a routerLink="/not-found" i18n="@@home-page-link-not-found">Not found</a>
+
+    <a routerLink="/translations/edit">Translations</a>
+
 
   </nav>
 </kpn-page>
