@@ -33,19 +33,23 @@ import {MapMoveHandler} from "../domain/map-move-handler";
 export class MapComponent implements AfterViewInit {
 
   @Input() id;
+  @Input() networkType: string;
 
   map: Map;
   mapState: MapState;
   mainMapStyle: (feature, resolution) => Style;
   selectionHolder: SelectedFeatureHolder;
 
-  bitmapTileLayer = this.buildBitmapTileLayer();
-  vectorTileLayer = this.buildVectorTileLayer();
+  bitmapTileLayer: TileLayer;
+  vectorTileLayer: VectorTileLayer;
 
   constructor() {
   }
 
   ngAfterViewInit(): void {
+
+    this.bitmapTileLayer = this.buildBitmapTileLayer();
+    this.vectorTileLayer = this.buildVectorTileLayer();
 
     this.map = new Map({
       target: this.id,
@@ -105,7 +109,7 @@ export class MapComponent implements AfterViewInit {
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: "/tiles/rcn/{z}/{x}/{y}.png"
+        url: "/tiles/" + this.networkType + "/{z}/{x}/{y}.png"
       })
     });
   }
@@ -125,6 +129,8 @@ export class MapComponent implements AfterViewInit {
       featureClass: Feature // this is important to avoid error upon first selection in the map
     });
 
+    const tileType = this.networkType;
+
     const urlFunction = function (tileCoord, pixelRatio, projection) {
       const zIn = tileCoord[0];
       const xIn = tileCoord[1];
@@ -133,7 +139,7 @@ export class MapComponent implements AfterViewInit {
       const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
       const x = xIn;
       const y = -yIn - 1;
-      return "/tiles/rcn/" + z + "/" + x + "/" + y + ".mvt"
+      return "/tiles/" + tileType + "/" + z + "/" + x + "/" + y + ".mvt"
     };
 
     const tileGrid = createXYZ({

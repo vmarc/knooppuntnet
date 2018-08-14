@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -6,9 +6,15 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './map-page.component.html',
   styleUrls: ['./map-page.component.scss']
 })
-export class MapPageComponent  {
+export class MapPageComponent implements OnInit {
+
+  networkType: string;
 
   constructor(private activatedRoute: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.networkType = this.activatedRoute.snapshot.paramMap.get('networkType');
   }
 
 }
