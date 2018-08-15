@@ -1,0 +1,31 @@
+package kpn.core.engine.analysis.route.segment
+
+import kpn.core.engine.analysis.route.RouteNode
+import kpn.core.util.Haversine
+import kpn.shared.data.Node
+import kpn.shared.data.Way
+
+/**
+  * A route fragment is the smallest possible element from which the route path from the start to the end node is
+  * composed.
+  *
+  * @param start      network node at the start of the route (if present in this fragment)
+  * @param end        network node at the end of the route (if present in this fragment)
+  * @param way        the way on which this fragment is based
+  * @param nodeSubset the nodes in the way that form this fragment (empty collection if fragment is entire way)
+  * @param role       the role of the way as member of the route relation
+  */
+case class Fragment(
+  start: Option[RouteNode] = None,
+  end: Option[RouteNode] = None,
+  way: Way,
+  nodeSubset: Seq[Node] = Seq(),
+  role: Option[String] = None
+) {
+
+  def nodes: Seq[Node] = if (nodeSubset.isEmpty) way.nodes else nodeSubset
+
+  def meters: Int = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset.map(_.raw))
+
+  override def toString: String = new FragmentFormatter(this).string
+}

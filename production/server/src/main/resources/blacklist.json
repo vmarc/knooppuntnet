@@ -1,0 +1,398 @@
+{
+  "_id": "black-list",
+  "_rev": "1-1d2a10d803b63b1899a07c2670c844e4",
+  "blackList": {
+    "networks": [
+      {
+        "id": 33216,
+        "name": "Radverkehrsnetz NRW",
+        "reason": "de - network collection"
+      },
+      {
+        "id": 1574277,
+        "country": "de",
+        "name": "Radverkehrsnetz Schleswig-Holstein",
+        "reason": "de - network collection"
+      },
+      {
+        "id": 2313383,
+        "name": "Radverkehrsnetz Bayern",
+        "reason": "de - network collection"
+      },
+      {
+        "id": 6534926,
+        "name": "NRW",
+        "reason": "de - network collection"
+      },
+      {
+        "id": 3208117,
+        "name": "21 Radrundwege Mecklenburg-Vorpommern",
+        "reason": "de - network collection"
+      },
+      {
+        "id": 5406832,
+        "name": "NiederRheinroute",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 226721,
+        "name": "R-Radwegenetz NRW",
+        "reason": "de - network collection"
+      },
+      {
+        "id": 1764005,
+        "name": "Radverkehrsnetz Kreis Nordfriesland",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 1753500,
+        "name": "Radverkehrsnetz NRW, Stadt Dortmund",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 215044,
+        "name": "Route der Industriekultur per Rad",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 6408300,
+        "name": "Rundroutennetz Radregion Münsterland",
+        "reason": "de - network collection"
+      },
+      {
+        "id": 3927908,
+        "name": "Römer-Lippe-Route mit Schleifen",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 6583919,
+        "name": "Hauptradverkehrsnetz Wien",
+        "reason": "Foreign country"
+      },
+      {
+        "id": 6639104,
+        "name": "Seven Waters Bike Trail",
+        "reason": "Foreign country"
+      },
+      {
+        "id": 536151,
+        "name": "Radverkehrsnetz Baden-Württemberg",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 2013835,
+        "name": "Deutsche Fußball Route NRW",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 27986,
+        "name": "Regional cycling network of Switzerland",
+        "reason": "Foreign country"
+      }
+    ],
+    "routes": [
+      {
+        "id": 3270944,
+        "name": "Flamingoroute",
+        "reason": "nl/rcn - not a node network"
+      },
+      {
+        "id": 37762,
+        "name": "37762",
+        "reason": "nl/rcn - not a node network"
+      },
+      {
+        "id": 4438927,
+        "name": "Elfstedenroute",
+        "reason": "nl/rcn - not a node network"
+      },
+      {
+        "id": 1437110,
+        "name": "United Countries Tour Pionierroute",
+        "reason": "nl/rcn - not a node network"
+      },
+      {
+        "id": 1424759,
+        "name": "United Countries Tour Smokkelroute",
+        "reason": "nl/rcn - not a node network"
+      },
+      {
+        "id": 3857726,
+        "name": "IJssel-Route",
+        "reason": "nl/rcn - not a node network"
+      },
+
+
+      {
+        "id": 2046009,
+        "name": "RAVeL Ligne 618 Villeroux - Martelange",
+        "reason": "be/rcn - not a node network"
+      },
+      {
+        "id": 2073117,
+        "name": "Drei-Länder-Route Aachen - Trier",
+        "reason": "be/rcn - not a node network"
+      },
+      {
+        "id": 948030,
+        "name": "Eifel-Ardennen-Radweg",
+        "reason": "be/rcn - not a node network"
+      },
+
+      {
+        "id": 3921610,
+        "name": "Knotenpunktsystem RadRegionRheinland e.V.",
+        "reason": "de/rcn top 10 - a node network that is mapped as a route and is not split up into separate routes between nodes"
+      },
+      {
+        "id": 88376,
+        "name": "Rheinland-Pfalz Radroute",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 222581,
+        "name": "Radverkehrsnetz NRW, Kreis Paderborn",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 2003649,
+        "name": "Radverkehrsnetz NRW, Kreis Steinfurt",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 2003636,
+        "name": "Radverkehrsnetz NRW, Kreis Borken",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 2003648,
+        "name": "Radverkehrsnetz NRW, Kreis Coesfeld",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 32330,
+        "name": "VeloRoute Rhein Rhin",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 222583,
+        "name": "Radverkehrsnetz NRW, Kreis Warendorf",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 31580,
+        "name": "Lüneburger Heide Radweg",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 1694014,
+        "name": "Mecklenburgischer Seen-Radweg",
+        "reason": "de/rcn top 10 - not a node network"
+      },
+      {
+        "id": 110524,
+        "name": "Altmarkrundkurs",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 14226,
+        "name": "R12 [NRW]",
+        "reason": "de/rcn - not a node network"
+      },
+
+      {
+        "id": 2346882,
+        "name": "Bike Arena Sauerland",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 110524,
+        "name": "Altmarkrundkurs",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 65877,
+        "name": "Radverkehrsnetz NRW, Stadt Dortmund",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 4453777,
+        "name": "Erlebnisweg Rheinschiene (West (Nord))",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 7411644,
+        "name": "Tour de Fries",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 1520463,
+        "name": "R16 [NRW]",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 2067798,
+        "name": "Radroute Dortmund-Ems-Kanal",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 14226,
+        "name": "R12 [NRW]",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 308285,
+        "name": "Familien-Radroute",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 2013832,
+        "name": "",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 2009033,
+        "name": "Deutsche Fußball Route NRW (Mitte)",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 1766806,
+        "name": "Naturpark Hohe Mark Radroute",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 537599,
+        "name": "Vechtetal-Route (DE)",
+        "reason": "de/rcn - not a node network"
+      },
+      {
+        "id": 27986,
+        "name": "Route dreigeteilt wegen Übergröße",
+        "reason": "de - Part of blacklisted network - Deutsche Fußball Route NRW"
+      },
+      {
+        "id": 27986,
+        "name": "Route dreigeteilt wegen Übergröße",
+        "reason": "de - Part of blacklisted network - Deutsche Fußball Route NRW"
+      },
+      {
+        "id": 27986,
+        "name": "Route dreigeteilt wegen Übergröße",
+        "reason": "de - Part of blacklisted network - Deutsche Fußball Route NRW"
+      },
+
+      {
+        "id": 308871,
+        "name": "Nierswanderweg Geldern-Elten",
+        "reason": "nl/rwn - not a node network"
+      },
+      {
+        "id": 8273293,
+        "name": "Koelbroekroute",
+        "reason": "nl/rwn - not a node network"
+      },
+      {
+        "id": 8273294,
+        "name": "Krayelheideroute",
+        "reason": "nl/rwn - not a node network"
+      },
+
+      {
+        "id": 34122,
+        "name": "Tour du Brabant Wallon",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 3016602,
+        "name": "TransArdennaise",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 1165479,
+        "name": "Promenade verte - Groene wandeling",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 1701544,
+        "name": "Tour du Brabant Wallon La Diagonale",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 3157904,
+        "name": "Liaison Martelange-Heinstert",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 3157971,
+        "name": "Grand tour d'Attert",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 5869220,
+        "name": "MaasVallei L.A.W",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 2380795,
+        "name": "CFL Kleinbettingen-Arlon",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 3755393,
+        "name": "Voettocht in het Pajottenland",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 3523819,
+        "name": "De Wijers lange-afstands-wandeling",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 2776821,
+        "name": "Nationaal Park Lange Afstandswandeling",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 7563476,
+        "name": "SGR asbl - GR563 Variante Randonnée autour de Herve",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 7320425,
+        "name": "SGR asbl - RB11 Vallée de l'Amblève",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 5761411,
+        "name": "SGR asbl - RB28 - Limbourg - Gileppe - Goé - Limbourg",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 1696127,
+        "name": "SGR asbl - GR563 Tour du Pays de Herve",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 2099391,
+        "name": "SGR asbl - RB PN 4b Parc naturel Burdinale - Mehaigne",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 3745164,
+        "name": "SGR asbl - A travers le bocage aubelois",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 3807693,
+        "name": "SGR asbl - Par monts et par vaux autour de Stoumont",
+        "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 7329397,
+        "name": "SGR asbl - Dans les vallées du Hoyoux et du ruisseau de Pailhe",
+        "reason": "be/rwn - not a node network"
+      }
+    ],
+    "nodes": []
+  }
+}

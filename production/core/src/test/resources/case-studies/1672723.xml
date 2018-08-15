@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1270557450" version="4" lat="51.1277414" lon="2.6572765" timestamp="2014-08-01T14:39:59Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1270557451" version="4" lat="51.1278014" lon="2.6574428" timestamp="2014-08-01T14:39:59Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1270557452" version="4" lat="51.1277082" lon="2.6575565" timestamp="2014-08-01T14:39:59Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1270557453" version="4" lat="51.127631" lon="2.6573535" timestamp="2014-08-01T14:39:59Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1270557454" version="1" lat="51.1261654" lon="2.6584063" timestamp="2011-05-02T19:58:11Z" changeset="8034038" uid="170722" user="JosV"/>
+  <node id="1270557461" version="2" lat="51.1270375" lon="2.6578464" timestamp="2014-08-01T14:40:00Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1270557464" version="1" lat="51.1255044" lon="2.6588327" timestamp="2011-05-02T19:58:12Z" changeset="8034038" uid="170722" user="JosV"/>
+  <node id="1270557466" version="1" lat="51.1257459" lon="2.6586769" timestamp="2011-05-02T19:58:12Z" changeset="8034038" uid="170722" user="JosV"/>
+  <node id="1270557473" version="3" lat="51.1281443" lon="2.6571353" timestamp="2014-08-01T14:40:00Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1270557479" version="3" lat="51.1247953" lon="2.6592876" timestamp="2013-11-27T15:41:36Z" changeset="19146365" uid="15188" user="Polyglot"/>
+  <node id="1328634942" version="3" lat="51.1278029" lon="2.6573985" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634943" version="3" lat="51.1276453" lon="2.6575079" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634952" version="3" lat="51.1276758" lon="2.6575439" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634954" version="3" lat="51.1276474" lon="2.6573145" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634963" version="3" lat="51.1277892" lon="2.6574901" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634964" version="3" lat="51.127748" lon="2.6575455" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634969" version="3" lat="51.1277708" lon="2.6575235" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634977" version="3" lat="51.1277799" lon="2.6573163" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328634988" version="3" lat="51.127623" lon="2.6574058" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1328635012" version="3" lat="51.1277043" lon="2.6572699" timestamp="2014-08-01T14:40:01Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="1486441177" version="2" lat="51.1246652" lon="2.6594189" timestamp="2013-11-27T15:41:46Z" changeset="19146365" uid="15188" user="Polyglot">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="1849643778" version="1" lat="51.1261929" lon="2.6583886" timestamp="2012-08-03T10:17:32Z" changeset="12596133" uid="233248" user="zors1843"/>
+  <node id="2554327921" version="1" lat="51.1245377" lon="2.6595009" timestamp="2013-11-27T15:39:23Z" changeset="19146365" uid="15188" user="Polyglot"/>
+  <node id="2554327954" version="1" lat="51.1247472" lon="2.659318" timestamp="2013-11-27T15:39:24Z" changeset="19146365" uid="15188" user="Polyglot"/>
+  <node id="280450644" version="6" lat="51.1246305" lon="2.6594411" timestamp="2013-11-27T15:41:55Z" changeset="19146365" uid="15188" user="Polyglot">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="309749418" version="9" lat="51.1277949" lon="2.6573524" timestamp="2014-08-01T14:40:03Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="309749419" version="9" lat="51.1276655" lon="2.6572908" timestamp="2014-08-01T14:40:03Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="309749420" version="10" lat="51.1247156" lon="2.6593865" timestamp="2013-11-27T15:41:57Z" changeset="19146365" uid="15188" user="Polyglot">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="311407034" version="7" lat="51.1243091" lon="2.6596663" timestamp="2014-08-01T14:40:03Z" changeset="24482633" uid="138772" user="lodde1949">
+    <tag k="rwn" v="yes"/>
+    <tag k="rwn_name" v="Kust"/>
+    <tag k="rwn_ref" v="58"/>
+  </node>
+  <node id="311407035" version="5" lat="51.1245779" lon="2.659475" timestamp="2013-11-27T15:41:57Z" changeset="19146365" uid="15188" user="Polyglot">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="470226367" version="5" lat="51.1276299" lon="2.6574687" timestamp="2014-08-01T14:40:05Z" changeset="24482633" uid="138772" user="lodde1949"/>
+  <node id="470226368" version="6" lat="51.1292996" lon="2.6563912" timestamp="2014-08-01T14:40:05Z" changeset="24482633" uid="138772" user="lodde1949">
+    <tag k="highway" v="mini_roundabout"/>
+    <tag k="rwn_ref" v="57"/>
+  </node>
+  <way id="137518723" version="2" timestamp="2012-08-03T10:04:52Z" changeset="12596133" uid="233248" user="zors1843">
+    <tag k="highway" v="residential"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="source" v="survey"/>
+    <nd ref="309749418"/>
+    <nd ref="1328634977"/>
+    <nd ref="1270557450"/>
+    <nd ref="1328635012"/>
+    <nd ref="309749419"/>
+    <nd ref="1328634954"/>
+    <nd ref="1270557453"/>
+    <nd ref="1328634988"/>
+    <nd ref="470226367"/>
+  </way>
+  <way id="28201134" version="9" timestamp="2012-08-03T10:04:52Z" changeset="12596133" uid="233248" user="zors1843">
+    <tag k="highway" v="residential"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="source" v="survey"/>
+    <nd ref="470226367"/>
+    <nd ref="1328634943"/>
+    <nd ref="1328634952"/>
+    <nd ref="1270557452"/>
+    <nd ref="1328634964"/>
+    <nd ref="1328634969"/>
+    <nd ref="1328634963"/>
+    <nd ref="1270557451"/>
+    <nd ref="1328634942"/>
+    <nd ref="309749418"/>
+  </way>
+  <way id="28201417" version="5" timestamp="2013-11-27T15:40:27Z" changeset="19146365" uid="15188" user="Polyglot">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Albert I laan"/>
+    <tag k="source" v="survey"/>
+    <nd ref="309749420"/>
+    <nd ref="1486441177"/>
+    <nd ref="280450644"/>
+    <nd ref="311407035"/>
+    <nd ref="2554327921"/>
+    <nd ref="311407034"/>
+  </way>
+  <way id="39245517" version="3" timestamp="2012-08-03T10:04:52Z" changeset="12596133" uid="233248" user="zors1843">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Gilles Scottlaan"/>
+    <nd ref="309749418"/>
+    <nd ref="1270557473"/>
+    <nd ref="470226368"/>
+  </way>
+  <way id="39245518" version="5" timestamp="2013-11-27T15:40:32Z" changeset="19146365" uid="15188" user="Polyglot">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Gilles Scottlaan"/>
+    <tag k="source" v="survey"/>
+    <nd ref="470226367"/>
+    <nd ref="1270557461"/>
+    <nd ref="1849643778"/>
+    <nd ref="1270557454"/>
+    <nd ref="1270557466"/>
+    <nd ref="1270557464"/>
+    <nd ref="1270557479"/>
+    <nd ref="2554327954"/>
+    <nd ref="309749420"/>
+  </way>
+  <relation id="1672723" version="3" timestamp="2012-10-17T22:17:41Z" changeset="13538125" uid="15188" user="Polyglot">
+    <member type="way" ref="39245517" role=""/>
+    <member type="way" ref="28201134" role=""/>
+    <member type="way" ref="137518723" role=""/>
+    <member type="way" ref="39245518" role=""/>
+    <member type="way" ref="28201417" role=""/>
+    <tag k="network" v="rwn"/>
+    <tag k="note" v="57-58"/>
+    <tag k="route" v="foot"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>
