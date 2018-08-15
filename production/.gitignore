@@ -2,6 +2,7 @@
 *.class
 *.log
 server/node_modules
+core/lib
 
 # sbt specific
 .cache/
