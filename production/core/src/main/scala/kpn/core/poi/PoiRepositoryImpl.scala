@@ -40,7 +40,37 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
   }
 
   override def allPois(timeout: Timeout, stale: Boolean): Seq[PoiInfo] = {
-    database.query(PoiDesign, PoiView, timeout, stale)().map(PoiView.convert)
+
+    val pageSize = 100000
+
+    log.info(s"Loading pois")
+
+    val pagingQueryResult = database.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, 0)
+
+    val initialPois = pagingQueryResult.rows.map(PoiView.convert)
+
+    val pageCount = {
+      val count = (pagingQueryResult.totalRows / pageSize).toInt
+      val rest = pagingQueryResult.totalRows % pageSize
+      if (rest > 0) {
+        count + 1
+      }
+      else {
+        count
+      }
+    }
+
+    val remainingPois = (1 until pageCount).flatMap { pageIndex: Int =>
+
+      val progress = (pageIndex * 100) / pageCount
+      log.info(s"Loading ${pagingQueryResult.totalRows} pois: page ${pageIndex + 1} of $pageCount ($progress%)")
+
+      val offset = pageIndex * pageSize
+      val rows = database.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, offset).rows
+      rows.map(PoiView.convert)
+    }
+
+    initialPois ++ remainingPois
   }
 
   private def docId(poi: Poi): String = {

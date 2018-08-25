@@ -21,13 +21,13 @@ import akka.http.scaladsl.model.headers.ETag
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
-import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.Design
 import kpn.core.db.views.View
 import kpn.core.db.views.ViewRow
 import kpn.core.util.Log
 import spray.json.JsArray
 import spray.json.JsFalse
+import spray.json.JsNumber
 import spray.json.JsObject
 import spray.json.JsString
 import spray.json.JsTrue
@@ -212,6 +212,41 @@ class DatabaseImpl(couch: Couch, val name: String) extends Database {
     }
 
     getRows(uri.toString(), timeout)
+  }
+
+  override def pagingQuery(
+    design: Design,
+    view: View,
+    timeout: Timeout,
+    stale: Boolean = true,
+    limit: Int,
+    skip: Int
+  ): PagingQueryResult = {
+    val uriHead = Uri(s"_design/${design.name}/_view/${view.name}")
+    val parameters = Map(
+      "reduce" -> "false",
+      "limit" -> limit.toString,
+      "skip" -> skip.toString
+    )
+    val uri = uriHead.withQuery(withStale(parameters, stale))
+    getJsValue(uri.toString, timeout) match {
+      case obj: JsObject =>
+        val totalRows = obj.getFields("total_rows") match {
+          case Seq(JsNumber(bigDecimal)) => bigDecimal.toInt
+          case _ => deserializationError("'total_rows' field expected")
+        }
+        val offset = obj.getFields("offset") match {
+          case Seq(JsNumber(bigDecimal)) => bigDecimal.toInt
+          case _ => deserializationError("'offset' field expected")
+        }
+        val rows = obj.getFields("rows") match {
+          case Seq(array: JsArray) => array.elements
+          case _ => Seq()
+        }
+        PagingQueryResult(totalRows, offset, rows)
+
+      case _ => deserializationError("'rows' field expected")
+    }
   }
 
   override def groupQuery(groupLevel: Int, design: Design, view: View, timeout: Timeout, stale: Boolean = true)(args: Any*): Seq[JsValue] = {
