@@ -8,6 +8,7 @@ import kpn.core.db.json.JsonFormats.designDocFormat
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.Design
+import kpn.core.db.views.PoiDesign
 import kpn.core.util.Util
 
 /*
@@ -16,13 +17,14 @@ import kpn.core.util.Util
 object DatabaseViewTool {
 
   def main(args: Array[String]): Unit = {
-    if (args.length < 2) {
-      println("Usage: DatabaseViewTool host masterDbName changesDbName")
+    if (args.length < 3) {
+      println("Usage: DatabaseViewTool host masterDbName changesDbName poisDbName")
       System.exit(-1)
     }
     val host = args(0)
     val masterDbName = args(1)
     val changesDbName = args(2)
+    val poisDbName = args(3)
 
     Couch.executeIn(host, masterDbName) { database =>
       val design: Design = AnalyzerDesign
@@ -34,6 +36,10 @@ object DatabaseViewTool {
       updateView(database, design)
     }
 
+    Couch.executeIn(host, poisDbName) { database =>
+      val design: Design = PoiDesign
+      updateView(database, design)
+    }
     println("Ready")
   }
 

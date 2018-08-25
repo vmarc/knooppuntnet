@@ -8,7 +8,6 @@ import kpn.shared.Fact
 import kpn.shared.Subset
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-import spray.http.Uri
 
 class FactViewTest extends FunSuite with Matchers {
 
@@ -44,7 +43,7 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
+      val rows = database.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
 
       rows should equal(
         Seq(

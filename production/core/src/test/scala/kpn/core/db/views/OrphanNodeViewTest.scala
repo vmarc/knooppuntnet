@@ -85,6 +85,6 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
   private def node(database: Database, tags: Tags, orphan: Boolean, ignored: Boolean): Seq[(OrphanNodeKey, NodeInfo)] = {
     val b = new TestDocBuilder(database)
     b.node(10001, Country.nl, tags, orphan = orphan, ignored = ignored)
-    database.query(OrphanNodeView, Couch.uiTimeout, stale = false)().map(OrphanNodeView.toKeyAndValue)
+    database.query(AnalyzerDesign, OrphanNodeView, Couch.uiTimeout, stale = false)().map(OrphanNodeView.toKeyAndValue)
   }
 }

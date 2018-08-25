@@ -31,7 +31,7 @@ trait Database {
 
   def optionGets(request: String, timeout: Timeout = Couch.defaultTimeout): Option[String]
 
-  def query(view: View, timeout: Timeout = Couch.defaultTimeout, stale: Boolean = true)(args: Any*): Seq[JsValue]
+  def query(design: Design, view: View, timeout: Timeout = Couch.defaultTimeout, stale: Boolean = true)(args: Any*): Seq[JsValue]
 
   def docs(startKey: String, endKey: String, timeout: Timeout = Couch.defaultTimeout, limit: Int = 9999): Seq[JsValue]
 

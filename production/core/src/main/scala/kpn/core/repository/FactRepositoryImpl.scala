@@ -4,6 +4,7 @@ import akka.util.Timeout
 import kpn.core.app.IntegrityCheckPage
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
+import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.FactView
 import kpn.core.db.views.RouteFactView
 import kpn.shared.Fact
@@ -18,7 +19,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
 
   override def routeFacts(subset: Subset, fact: Fact, timeout: Timeout, stale: Boolean): Seq[NetworkRoutesFacts] = {
 
-    val rows = database.query(RouteFactView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(RouteFactView.convert)
+    val rows = database.query(AnalyzerDesign, RouteFactView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(RouteFactView.convert)
 
     @tailrec
     def process(rows: Seq[RouteFactView.Row], all: Seq[NetworkRoutesFacts] = Seq()): Seq[NetworkRoutesFacts] = {
@@ -41,12 +42,12 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
   }
 
   override def integrityCheckFacts(country: String, networkType: String, timeout: Timeout, stale: Boolean): IntegrityCheckPage = {
-    val facts = database.query(FactView, timeout, stale)(country, networkType, "integrityCheckFailed").map(FactView.integrityCheckConvert)
+    val facts = database.query(AnalyzerDesign, FactView, timeout, stale)(country, networkType, "integrityCheckFailed").map(FactView.integrityCheckConvert)
     IntegrityCheckPage(country, networkType, facts)
   }
 
   override def networkCollections(): Seq[Long] = {
-    val rows = database.query(FactView, Couch.batchTimeout)().map(FactView.convert)
+    val rows = database.query(AnalyzerDesign, FactView, Couch.batchTimeout)().map(FactView.convert)
     rows.flatMap { row =>
       if (row.fact == Fact.IgnoreNetworkCollection.name) {
         Some(row.networkId)

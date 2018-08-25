@@ -42,6 +42,7 @@ export class MapComponent implements AfterViewInit {
 
   bitmapTileLayer: TileLayer;
   vectorTileLayer: VectorTileLayer;
+  poiTileLayer: VectorTileLayer;
 
   constructor() {
   }
@@ -50,6 +51,7 @@ export class MapComponent implements AfterViewInit {
 
     this.bitmapTileLayer = this.buildBitmapTileLayer();
     this.vectorTileLayer = this.buildVectorTileLayer();
+    this.poiTileLayer = this.buildPoiTileLayer();
 
     this.map = new Map({
       target: this.id,
@@ -57,6 +59,7 @@ export class MapComponent implements AfterViewInit {
         this.osmLayer(),
         this.bitmapTileLayer,
         this.vectorTileLayer,
+        this.poiTileLayer,
         this.debugLayer()
       ],
       view: new View({
@@ -93,6 +96,13 @@ export class MapComponent implements AfterViewInit {
       this.bitmapTileLayer.setVisible(false);
       this.vectorTileLayer.setVisible(true);
     }
+    if (zoom >= 11) {
+      this.poiTileLayer.setVisible(true);
+    }
+    else if (zoom >= ZoomLevel.vectorTileMinZoom) {
+      this.poiTileLayer.setVisible(false);
+    }
+
     return true;
   }
 
@@ -191,6 +201,43 @@ export class MapComponent implements AfterViewInit {
 
   private repaintVectorTileLayer() {
     this.vectorTileLayer.setStyle(this.mainMapStyle);
+  }
+
+  private buildPoiTileLayer() {
+
+    const format = new MVT({
+      featureClass: Feature // this is important to avoid error upon first selection in the map
+    });
+
+    const tileType = "poi";
+
+    const urlFunction = function (tileCoord, pixelRatio, projection) {
+      const zIn = tileCoord[0];
+      const xIn = tileCoord[1];
+      const yIn = tileCoord[2];
+
+      const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
+      const x = xIn;
+      const y = -yIn - 1;
+      return "/tiles/" + tileType + "/" + z + "/" + x + "/" + y + ".mvt"
+    };
+
+    const tileGrid = createXYZ({
+      // minZoom: ZoomLevel.vectorTileMinZoom
+      // maxZoom: ZoomLevel.vectorTileMaxOverZoom
+    });
+
+    const source = new VectorTile({
+      format: format,
+      tileGrid: tileGrid,
+      tileUrlFunction: urlFunction
+    });
+
+    const layer = new VectorTileLayer({
+      source: source
+    });
+
+    return layer;
   }
 
 }

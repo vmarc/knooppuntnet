@@ -187,8 +187,8 @@ class DatabaseImpl(couch: Couch, val name: String) extends Database {
     }
   }
 
-  override def query(view: View, timeout: Timeout, stale: Boolean = true)(args: Any*): Seq[JsValue] = {
-    val uriHead = Uri(s"_design/${AnalyzerDesign.name}/_view/${view.name}")
+  override def query(design: Design, view: View, timeout: Timeout, stale: Boolean = true)(args: Any*): Seq[JsValue] = {
+    val uriHead = Uri(s"_design/${design.name}/_view/${view.name}")
     val uri = if (args.isEmpty) {
       val parameters = Map(
         "reduce" -> "false"

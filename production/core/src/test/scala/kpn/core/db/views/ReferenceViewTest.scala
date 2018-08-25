@@ -62,7 +62,7 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
       )
     }
 
-      database.query(ReferenceView, timeout, stale = false)().map(ReferenceView.convert) should equal(
+      database.query(AnalyzerDesign, ReferenceView, timeout, stale = false)().map(ReferenceView.convert) should equal(
         Seq(
           ReferenceView.Row("node", 1001, "network", 1, "rwn", "network-name", -1, connection = false),
           ReferenceView.Row("node", 1001, "node", 1001, "", "01", 1, connection = false),

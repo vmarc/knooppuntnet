@@ -14,9 +14,9 @@ class TileRepositoryImpl(root: String, extension: String) extends TileRepository
 
   private val log = Log(classOf[TileRepositoryImpl])
 
-  override def saveOrUpdate(networkType: NetworkType, tile: Tile, tileBytes: Array[Byte]): Unit = {
+  override def saveOrUpdate(tileType: String, tile: Tile, tileBytes: Array[Byte]): Unit = {
 
-    val tileName = s"${networkType.name}/${tile.z}/${tile.x}/${tile.y}.$extension"
+    val tileName = s"$tileType/${tile.z}/${tile.x}/${tile.y}.$extension"
     val fileName = s"$root/$tileName"
     val file = new File(fileName)
 
@@ -37,10 +37,10 @@ class TileRepositoryImpl(root: String, extension: String) extends TileRepository
     }
   }
 
-  override def existingTileNames(networkType: NetworkType, z: Int): Seq[String] = {
-    val dir = new File(s"$root/${networkType.name}/$z")
+  override def existingTileNames(tileType: String, z: Int): Seq[String] = {
+    val dir = new File(s"$root/$tileType/$z")
     if (dir.exists) {
-      val files = FileUtils.listFiles(new File(s"$root/${networkType.name}/$z"), TRUE, TRUE).asScala.toSeq
+      val files = FileUtils.listFiles(new File(s"$root/$tileType/$z"), TRUE, TRUE).asScala.toSeq
       files.map(_.getAbsolutePath.substring(root.length + 1)).map(_.replaceAll("/", "-").replaceAll("." + extension, ""))
     }
     else {

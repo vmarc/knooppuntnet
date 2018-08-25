@@ -13,7 +13,7 @@ class OverviewRepositoryImpl(database: Database) extends OverviewRepository {
   }
 
   override def figure(timeout: Timeout, factName: String, stale: Boolean): Option[Figure] = {
-    val rows = database.query(Overview, timeout, stale)(factName).map(Overview.convert)
+    val rows = database.query(AnalyzerDesign, Overview, timeout, stale)(factName).map(Overview.convert)
     rows match {
       case Seq(figure) => Some(figure)
       case _ => None

@@ -28,6 +28,9 @@ import kpn.core.engine.changes.data.BlackListEntry
 import kpn.core.engine.changes.data.OrphanNodesData
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.WayPoint
+import kpn.core.poi.Poi
+import kpn.core.poi.PoiDoc
+import kpn.core.poi.PoiInfo
 import kpn.shared.Bounds
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
@@ -160,6 +163,7 @@ import kpn.shared.subset.SubsetOrphanRoutesPage
 import spray.json.DefaultJsonProtocol
 import spray.json.JsString
 import spray.json.JsValue
+import spray.json.RootJsonFormat
 import spray.json.RootJsonFormat
 import spray.json._
 
@@ -406,5 +410,9 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val mapDetailNodeFormat: RootJsonFormat[MapDetailNode] = jsonFormat2(MapDetailNode)
   implicit val mapDetailRouteFormat: RootJsonFormat[MapDetailRoute] = jsonFormat2(MapDetailRoute)
+
+  implicit val poiFormat: RootJsonFormat[Poi] = jsonFormat6(Poi)
+  implicit val poiDocFormat: RootJsonFormat[PoiDoc] = jsonFormat3(PoiDoc)
+  implicit val poiInfoFormat: RootJsonFormat[PoiInfo] = jsonFormat5(PoiInfo)
 
 }

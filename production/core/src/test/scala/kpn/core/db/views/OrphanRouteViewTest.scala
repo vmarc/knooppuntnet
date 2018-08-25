@@ -94,6 +94,6 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
     val routeRepository = new RouteRepositoryImpl(database)
     routeRepository.save(routeInfo)
 
-    database.query(OrphanRouteView, Couch.uiTimeout, stale = false)().map(OrphanRouteView.toKeyAndValue)
+    database.query(AnalyzerDesign, OrphanRouteView, Couch.uiTimeout, stale = false)().map(OrphanRouteView.toKeyAndValue)
   }
 }

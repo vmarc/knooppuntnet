@@ -9,4 +9,5 @@ object KeyPrefix {
   val NetworkGpx = "network-gpx"
   val NetworkUpdate = "network-update"
 
+  val Poi = "poi"
 }

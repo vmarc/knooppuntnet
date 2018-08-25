@@ -6,6 +6,7 @@ import kpn.core.db.RouteDoc
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.routeDocFormat
+import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ReferenceView
 import kpn.core.util.Log
 import kpn.shared.NetworkType
@@ -122,7 +123,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
   }
 
   override def routeReferences(routeId: Long, timeout: Timeout, stale: Boolean): RouteReferences = {
-    val references = database.query(ReferenceView, timeout, stale)("route", routeId).map(ReferenceView.convert).flatMap { row =>
+    val references = database.query(AnalyzerDesign, ReferenceView, timeout, stale)("route", routeId).map(ReferenceView.convert).flatMap { row =>
       NetworkType.withName(row.referrerNetworkType).map { networkType =>
         row.referrerType -> Reference(
           row.referrerId,

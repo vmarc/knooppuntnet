@@ -6,6 +6,7 @@ import kpn.core.db.NodeDoc
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.nodeDocFormat
+import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ReferenceView
 import kpn.core.util.Log
 import kpn.shared.NetworkType
@@ -76,7 +77,7 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
   }
 
   override def nodeReferences(nodeId: Long, timeout: Timeout, stale: Boolean): NodeReferences = {
-    val references = database.query(ReferenceView, timeout, stale)("node", nodeId).map(ReferenceView.convert).flatMap { row =>
+    val references = database.query(AnalyzerDesign, ReferenceView, timeout, stale)("node", nodeId).map(ReferenceView.convert).flatMap { row =>
       NetworkType.withName(row.referrerNetworkType).map { networkType =>
         row.referrerType -> Reference(
           row.referrerId,
@@ -93,7 +94,7 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
   }
 
   override def networkTypeNodeReferences(networkType: NetworkType, nodeId: Long, timeout: Timeout, stale: Boolean): NodeReferences = {
-    val references = database.query(ReferenceView, timeout, stale)("node", nodeId).map(ReferenceView.convert).flatMap { row =>
+    val references = database.query(AnalyzerDesign, ReferenceView, timeout, stale)("node", nodeId).map(ReferenceView.convert).flatMap { row =>
       if (row.referrerNetworkType == networkType.name) {
         Some(
           row.referrerType -> Reference(

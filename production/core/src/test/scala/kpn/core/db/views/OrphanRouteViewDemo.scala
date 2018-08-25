@@ -103,7 +103,7 @@ object OrphanRouteViewDemo {
 
       val routeRepository = new RouteRepositoryImpl(database)
 
-      val routeSummaries = database.query(OrphanRouteView, Couch.uiTimeout)(true, true).map(OrphanRouteView.convert)
+      val routeSummaries = database.query(AnalyzerDesign, OrphanRouteView, Couch.uiTimeout)(true, true).map(OrphanRouteView.convert)
       ids = routeSummaries.map(_.id).toSet
       println(s"ids.size=${ids.size}")
 

@@ -266,6 +266,6 @@ class OverviewTest extends FunSuite with Matchers {
   }
 
   private def queryRows(database: Database): Seq[Figure] = {
-    database.query(Overview, Couch.uiTimeout, stale = false)().map(Overview.convert)
+    database.query(AnalyzerDesign, Overview, Couch.uiTimeout, stale = false)().map(Overview.convert)
   }
 }

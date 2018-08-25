@@ -6,7 +6,7 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.gpxDocFormat
 import kpn.core.db.json.JsonFormats.networkDocFormat
-import kpn.core.db.json.JsonFormats.timestampsDocFormat
+import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.NetworkMapView
 import kpn.core.db.views.NetworkView
 import kpn.core.gpx.GpxFile
@@ -94,10 +94,10 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
 
   override def networks(subset: Subset, timeout: Timeout, stale: Boolean): Seq[NetworkAttributes] = {
-    database.query(NetworkView, timeout, stale)(subset.country.domain, subset.networkType.name).map(NetworkView.convert)
+    database.query(AnalyzerDesign, NetworkView, timeout, stale)(subset.country.domain, subset.networkType.name).map(NetworkView.convert)
   }
 
   override def networksMap(country: String, networkType: String, timeout: Timeout, stale: Boolean): Seq[NetworkMapInfo] = {
-    database.query(NetworkMapView, timeout, stale)(country, networkType).map(NetworkMapView.convert)
+    database.query(AnalyzerDesign, NetworkMapView, timeout, stale)(country, networkType).map(NetworkMapView.convert)
   }
 }

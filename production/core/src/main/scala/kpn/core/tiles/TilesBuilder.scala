@@ -30,7 +30,7 @@ class TilesBuilder(
     analysis: TileAnalysis
   ): Unit = {
 
-    val existingTileNames = tileRepository.existingTileNames(analysis.networkType, z)
+    val existingTileNames = tileRepository.existingTileNames(analysis.networkType.name, z)
 
     log.info(s"Processing zoomlevel $z")
     log.info(s"Number of tiles before: " + existingTileNames.size)
@@ -83,7 +83,7 @@ class TilesBuilder(
 
       val tileBytes = tileBuilder.build(tileData)
       if (tileBytes.length > 0) {
-        tileRepository.saveOrUpdate(analysis.networkType, tile, tileBytes)
+        tileRepository.saveOrUpdate(analysis.networkType.name, tile, tileBytes)
       }
     }
 
