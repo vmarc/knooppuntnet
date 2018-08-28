@@ -50,6 +50,10 @@ export class MapMoveHandler {
         this.mapState.highlightedRouteId = null;
         this.mapState.highlightedNodeId = id;
       }
+      else {
+        const layerType = feature.get("type");
+        console.log(layer + " " + layerType + " " + id);
+      }
     }
   }
 

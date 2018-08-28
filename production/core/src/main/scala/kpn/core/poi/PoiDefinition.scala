@@ -1,3 +1,5 @@
 package kpn.core.poi
 
-case class PoiDefinition(layerName: String, conditions: String*)
+import kpn.core.poi.tags.TagExpression
+
+case class PoiDefinition(layerName: String, icon: String, expression: TagExpression)

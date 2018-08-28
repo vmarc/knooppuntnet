@@ -1,5 +1,6 @@
 package kpn.core.poi
 
+import kpn.shared.LatLon
 import kpn.shared.data.Tags
 
 case class Poi(
@@ -8,5 +9,5 @@ case class Poi(
   latitude: String,
   longitude: String,
   layers: Seq[String],
-  tags: Tags) {
-}
+  tags: Tags
+) extends LatLon

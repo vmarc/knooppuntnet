@@ -1,6 +1,6 @@
 <div class="page-container" [class.example-is-mobile]="mobileQuery.matches">
 
-  <mat-toolbar color="primary" class="page-toolbar">
+  <mat-toolbar class="page-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -25,6 +25,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
   </mat-toolbar>
+  <mat-divider></mat-divider>
 
   <mat-sidenav-container class="page-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"

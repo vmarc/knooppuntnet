@@ -8,7 +8,4 @@ trait TagExpression {
 
   def and(other: TagExpression): TagExpression = And(this, other)
 
-  def or(other: TagExpression): TagExpression = Or(this, other)
-
-  def not: TagExpression = Not(this)
 }

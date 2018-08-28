@@ -25,14 +25,14 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
           false
         }
         else {
-          log.infoElapsed(s"""Poi ${poi.layers.head} "$key" update""") {
+          log.infoElapsed(s"""Poi ${poi.layers} "$key" update""") {
             database.save(key, poiDocFormat.write(PoiDoc(key, poi, doc._rev)))
             true
           }
         }
 
       case None =>
-        log.infoElapsed(s"""Poi ${poi.layers.head} "$key" saved""") {
+        log.infoElapsed(s"""Poi ${poi.layers} "$key" saved""") {
           database.save(key, poiDocFormat.write(PoiDoc(key, poi)))
           true
         }
