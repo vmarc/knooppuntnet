@@ -6,13 +6,13 @@ import kpn.core.util.GZipFile
 
 import scala.io.Source
 
-object ZipCacheFiles {
+object CacheFileZipTool {
   def main(args: Array[String]): Unit = {
-    new ZipCacheFiles().processCacheFiles()
+    new CacheFileZipTool().processCacheFiles()
   }
 }
 
-class ZipCacheFiles {
+class CacheFileZipTool {
 
   private val sourceDir = "/kpn/cache"
   private val targetDir = "/kpn/cache-gz"
