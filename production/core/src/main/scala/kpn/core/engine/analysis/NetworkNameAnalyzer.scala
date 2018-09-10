@@ -16,10 +16,16 @@ object NetworkNameAnalyzer {
     "Wandelrnetwerk ",
     "Knotenpunktnetz ",
     "Knotenpunktnetzwerk ",
+    "Knotenpunktsystem ",
     "Cycle node network ",
-    "Kanonetwork ",
+    "Ruiternetwerk ",
+    "Ruiterroute ",
+    "Ruiterroutenetwerk ",
+    "Motorbootnetwerk ",
+    "Sloepennetwerk ",
+    "Kanonetwerk ",
     " (Walcheren)"
- )
+  )
 }
 
 class NetworkNameAnalyzer(networkRelation: Relation) {
