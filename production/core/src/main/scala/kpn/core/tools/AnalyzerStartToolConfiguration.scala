@@ -9,6 +9,7 @@ import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.engine.changes.OsmChangeRepository
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.AnalysisDataLoader
@@ -111,7 +112,7 @@ class AnalyzerStartToolConfiguration(
     countryAnalyzer
   )
 
-  val routeAnalyzer = new MasterRouteAnalyzerImpl()
+  val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
 
   val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
     system,

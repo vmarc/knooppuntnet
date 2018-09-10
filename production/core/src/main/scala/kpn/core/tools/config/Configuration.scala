@@ -7,6 +7,7 @@ import kpn.core.db.views.AnalyzerDesign
 import kpn.core.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.engine.changes.ChangeProcessor
 import kpn.core.engine.changes.OsmChangeRepository
 import kpn.core.engine.changes.data.AnalysisData
@@ -106,7 +107,7 @@ class Configuration(
     countryAnalyzer
   )
 
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl()
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
 
   val changeProcessor: ChangeProcessor = new ChangeProcessorConfiguration(
     system,

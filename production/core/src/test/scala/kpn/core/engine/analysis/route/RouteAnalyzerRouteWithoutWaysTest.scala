@@ -1,6 +1,7 @@
 package kpn.core.engine.analysis.route
 
 import kpn.core.engine.analysis.RouteTestData
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.data.LoadedRoute
 import kpn.shared.Fact.RouteBroken
 import kpn.shared.Fact.RouteWithoutWays
@@ -27,7 +28,7 @@ class RouteAnalyzerRouteWithoutWaysTest extends FunSuite with Matchers {
       data.relations(1L)
     )
 
-    val routeAnalysis = new MasterRouteAnalyzerImpl().analyze(Map(), loadedRoute, orphan = false)
+    val routeAnalysis = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl()).analyze(Map(), loadedRoute, orphan = false)
     routeAnalysis.route.facts should equal(Seq(RouteWithoutWays, RouteBroken))
   }
 }

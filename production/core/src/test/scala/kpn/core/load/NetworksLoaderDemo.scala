@@ -12,6 +12,7 @@ import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.ignore.IgnoredNetworkAnalyzerImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -61,7 +62,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val networkLoader = new NetworkLoaderImpl(executor)
   val countryAnalyzer = new CountryAnalyzerImpl()
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-  val routeAnalyzer = new MasterRouteAnalyzerImpl()
+  val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
   val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
   val ignoredNetworkAnalyzer = new IgnoredNetworkAnalyzerImpl(countryAnalyzer)
   val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)

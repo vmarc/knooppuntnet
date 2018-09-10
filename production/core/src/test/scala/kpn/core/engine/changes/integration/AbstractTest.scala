@@ -11,6 +11,7 @@ import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.country.CountryAnalyzerMock
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.engine.changes.ChangeProcessor
 import kpn.core.engine.changes.ChangeSaverImpl
 import kpn.core.engine.changes.ChangeSetContext
@@ -108,7 +109,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
     private val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(executor)
-    private val routeAnalyzer = new MasterRouteAnalyzerImpl()
+    private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
     private val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
     private val ignoredNetworkAnalyzer = new IgnoredNetworkAnalyzerImpl(countryAnalyzer)

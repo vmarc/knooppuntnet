@@ -4,6 +4,7 @@ import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerNoop
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.test.TestData
 import kpn.shared.SharedTestObjects
 import kpn.shared.Timestamp
@@ -396,7 +397,7 @@ class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObje
   private def snapshot(d: TestData): NetworkSnapshot = {
     val data = d.data
     val countryAnalyzer = new CountryAnalyzerNoop()
-    val routeAnalyzer = new MasterRouteAnalyzerImpl()
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
     val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))

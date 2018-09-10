@@ -6,6 +6,7 @@ import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.engine.changes.ChangeProcessor
 import kpn.core.engine.changes.ChangeSaver
 import kpn.core.engine.changes.ChangeSaverImpl
@@ -68,7 +69,7 @@ class ChangeProcessorConfiguration(
 ) {
 
   private val networkLoader = new NetworkLoaderImpl(cachingExecutor)
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl()
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
   private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
   private val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
   private val ignoredNetworkAnalyzer = new IgnoredNetworkAnalyzerImpl(countryAnalyzer)

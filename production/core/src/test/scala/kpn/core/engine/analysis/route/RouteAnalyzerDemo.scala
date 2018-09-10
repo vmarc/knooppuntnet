@@ -4,6 +4,7 @@ import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.RouteLoaderImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
@@ -26,7 +27,7 @@ object RouteAnalyzerDemo {
 
       routeLoader.loadRoute(Timestamp(2018, 5, 24, 8, 59, 2), 101673) match {
         case Some(loadedRoute) =>
-          val routeAnalysis = new MasterRouteAnalyzerImpl().analyze(Map(), loadedRoute, orphan = true)
+          val routeAnalysis = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl()).analyze(Map(), loadedRoute, orphan = true)
           println("ignored=" + routeAnalysis.route.ignored)
           println("facts=" + routeAnalysis.route.facts)
         case None => println("could not load route")

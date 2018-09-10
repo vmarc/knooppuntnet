@@ -8,6 +8,7 @@ import kpn.core.analysis.RouteMemberWay
 import kpn.core.changes.RelationAnalyzer
 import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.WayAnalyzer
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.core.engine.analysis.route.analyzers.BigGermanBicycleRouteWithoutNameRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.BigGermanBicycleRouteWithoutNetworkNodesAnalyzer
 import kpn.core.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
@@ -16,15 +17,15 @@ import kpn.core.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.ForeignCountryRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.GermanHikingRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IngoredRouteAnalysisBuilder
-import kpn.core.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.core.engine.analysis.route.analyzers.NetworkTaggedAsRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.core.engine.analysis.route.analyzers.OverlappingWaysRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.core.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteFragmentAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteMemberAnalyzer
+import kpn.core.engine.analysis.route.analyzers.RouteNameAnalyzer
+import kpn.core.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
@@ -34,12 +35,12 @@ import kpn.core.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.engine.analysis.route.segment.Fragment
 import kpn.core.engine.analysis.route.segment.FragmentAnalyzer
-import kpn.core.engine.analysis.route.segment._OldOverlapAnalyzer
 import kpn.core.engine.analysis.route.segment.Segment
 import kpn.core.engine.analysis.route.segment.SegmentAnalyzer
 import kpn.core.engine.analysis.route.segment.SegmentBuilder
 import kpn.core.engine.analysis.route.segment.SegmentFinderAbort
 import kpn.core.engine.analysis.route.segment.ZzzzObsoleteSuspiciousWayAnalyzer
+import kpn.core.engine.analysis.route.segment._OldOverlapAnalyzer
 import kpn.core.load.data.LoadedRoute
 import kpn.core.obsolete.OldLinkBuilder
 import kpn.core.util.Log
@@ -70,13 +71,13 @@ import kpn.shared.route.WayDirection
 import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer
 
-class MasterRouteAnalyzerImpl() extends MasterRouteAnalyzer {
+class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) extends MasterRouteAnalyzer {
 
   private val log = Log(classOf[MasterRouteAnalyzerImpl])
 
   override def analyze(networkNodes: Map[Long, NetworkNode], loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis = {
     Log.context("route=%07d".format(loadedRoute.id)) {
-      val routeAnalysis = new MasterRouteAnalyzerInstance(networkNodes, loadedRoute, orphan).analyze()
+      val routeAnalysis = new MasterRouteAnalyzerInstance(accessibilityAnalyzer, networkNodes, loadedRoute, orphan).analyze()
       val newRouteAnalysis = newAnalyze(networkNodes, loadedRoute, orphan)
 
       if (routeAnalysis != newRouteAnalysis) {
@@ -142,7 +143,7 @@ class MasterRouteAnalyzerImpl() extends MasterRouteAnalyzer {
 
 }
 
-class MasterRouteAnalyzerInstance(networkNodes: Map[Long, NetworkNode], loadedRoute: LoadedRoute, orphan: Boolean) {
+class MasterRouteAnalyzerInstance(accessibilityAnalyzer: AccessibilityAnalyzer, networkNodes: Map[Long, NetworkNode], loadedRoute: LoadedRoute, orphan: Boolean) {
 
   private val facts: ListBuffer[Fact] = ListBuffer[Fact]()
   private val interpreter = new Interpreter(loadedRoute.networkType)
@@ -611,10 +612,7 @@ class MasterRouteAnalyzerInstance(networkNodes: Map[Long, NetworkNode], loadedRo
           n
         }
 
-        val accessible = Seq(NetworkType.horse, NetworkType.motorboat, NetworkType.canoe).contains(interpreter.networkType) ||
-          way.tags.has("highway") || way.tags.has("route", "ferry") ||
-          (interpreter.networkType == NetworkType.bicycle && way.tags.has("bicycle", "yes")) ||
-          (interpreter.networkType == NetworkType.hiking && way.tags.has("foot", "yes")) // TODO implement more complex rules here (based on network type)
+        val accessible = accessibilityAnalyzer.accessible(interpreter.networkType, way)
 
         // way.tags.has("route", "ferry") TODO draw boat icon?
 

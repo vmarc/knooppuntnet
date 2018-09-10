@@ -6,6 +6,7 @@ import kpn.core.engine.analysis.NetworkNodeBuilder
 import kpn.core.engine.analysis.country.CountryAnalyzerNoop
 import kpn.core.engine.analysis.route.RouteAnalysis
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.data.LoadedRoute
 import kpn.core.loadOld.Parser
 import kpn.shared.Country
@@ -23,7 +24,7 @@ object CaseStudy {
     val filename = s"/case-studies/$name.xml"
     val (data, routeRelation) = load(filename)
     val networkNodes = new NetworkNodeBuilder(data, countryAnalyzer).networkNodes
-    val routeAnalyzer = new MasterRouteAnalyzerImpl()
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     routeAnalyzer.analyze(networkNodes, LoadedRoute(Some(Country.nl), data.networkType, "", data, routeRelation), orphan = false)
   }
 

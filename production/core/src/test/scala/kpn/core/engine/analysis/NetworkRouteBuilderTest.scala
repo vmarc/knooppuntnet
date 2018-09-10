@@ -4,6 +4,7 @@ import kpn.core.analysis.NetworkNode
 import kpn.core.data.DataBuilder
 import kpn.core.engine.analysis.route.RouteAnalysis
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.data.LoadedRoute
 import kpn.shared.Fact._
 import kpn.shared.NetworkType
@@ -346,7 +347,7 @@ class NetworkRouteBuilderTest extends FunSuite with Matchers with MockFactory wi
       .map(n => n.id -> n)
       .toMap
 
-    val routeAnalyzer = new MasterRouteAnalyzerImpl()
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     routeAnalyzer.analyze(networkNodes, LoadedRoute(None, data.networkType, "", data, routeRelation), orphan = false)
   }
 }

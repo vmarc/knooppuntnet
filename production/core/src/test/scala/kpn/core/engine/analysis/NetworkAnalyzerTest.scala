@@ -3,6 +3,7 @@ package kpn.core.engine.analysis
 import kpn.core.analysis.Network
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.test.TestData
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation
@@ -85,7 +86,7 @@ class NetworkAnalyzerTest extends FunSuite with Matchers with MockFactory {
     val countryAnalyzer = stub[CountryAnalyzer]
     (countryAnalyzer.country _).when(*).returns(None)
     (countryAnalyzer.relationCountry _).when(*).returns(None)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl()
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(countryAnalyzer).analyze(networkRelation)
     new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer).analyze(networkRelationAnalysis, data, 1)
   }

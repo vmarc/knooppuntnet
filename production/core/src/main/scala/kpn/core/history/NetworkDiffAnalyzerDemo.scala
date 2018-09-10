@@ -6,6 +6,7 @@ import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.NetworkLoaderImpl
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -21,7 +22,7 @@ object NetworkDiffAnalyzerDemo {
     val timestampAfter = Timestamp(2017, 8, 11, 10, 35, 59)
 
     val countryAnalyzer = new CountryAnalyzerImpl()
-    val routeAnalyzer = new MasterRouteAnalyzerImpl()
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
 

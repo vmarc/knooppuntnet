@@ -5,6 +5,7 @@ import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.loadOld.OsmDataXmlReader
 import kpn.shared.NetworkType
 import scalax.collection.Graph
@@ -23,7 +24,7 @@ class TryoutGraph {
 
     println("load network")
     val countryAnalyzer = new CountryAnalyzerImpl()
-    val routeAnalyzer = new MasterRouteAnalyzerImpl()
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
     val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
 

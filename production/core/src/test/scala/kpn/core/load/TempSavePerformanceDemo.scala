@@ -8,6 +8,7 @@ import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.data.LoadedNetwork
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -55,7 +56,7 @@ object TempSavePerformanceDemo {
       }
 
       val networkLoader: NetworkLoader = new NetworkLoaderImpl(cachingExecutor)
-      val routeAnalyzer = new MasterRouteAnalyzerImpl()
+      val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
       val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
       val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
 
