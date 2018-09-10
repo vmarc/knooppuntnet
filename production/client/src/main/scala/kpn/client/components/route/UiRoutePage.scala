@@ -5,6 +5,7 @@ import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.Context
 import kpn.client.common.RoutePageArgs
@@ -26,6 +27,7 @@ import kpn.client.components.menu.UiSidebarFooter
 import kpn.shared.ApiResponse
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RoutePage
+import org.scalajs.dom
 
 object UiRoutePage {
 
@@ -52,6 +54,7 @@ object UiRoutePage {
           state.pageState.response.whenDefined { response =>
             response.result.whenDefined { page =>
               val route = page.route
+              PageTitleBuilder.setTitle(route.summary.name)
               if (route.analysis.isDefined && state.pageState.ui.isMapShown && !PageWidth.isVeryLarge) {
                 <.div(
                   <.h1("Route " + route.summary.name),

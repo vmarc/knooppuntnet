@@ -4,6 +4,7 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.NetworkPageArgs
 import kpn.client.common.NetworkTagFilter
@@ -47,6 +48,7 @@ object UiNetworkDetailsPage {
               val ni = networkDetailsPage.networkSummary
               NetworkSummaryCache.put(args.networkId, ni)
               NetworkNameCache.put(args.networkId, ni.name)
+              PageTitleBuilder.setNetworkPageTitle("Details", ni.name)
               Some(ni)
             case _ => None
           }

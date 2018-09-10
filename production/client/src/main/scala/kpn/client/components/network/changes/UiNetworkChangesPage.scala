@@ -7,6 +7,7 @@ import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
 import japgolly.scalajs.react.vdom.html_<^.^
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.BrowserLocalStorage
 import kpn.client.common.Context
@@ -161,6 +162,7 @@ object UiNetworkChangesPage {
             }
             NetworkSummaryCache.put(args.networkId, summary)
             NetworkNameCache.put(args.networkId, summary.name)
+            PageTitleBuilder.setNetworkPageTitle(nls("Changes", "Wijzigingen"), summary.name)
             summary
           }
       }

@@ -5,6 +5,7 @@ import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.NetworkPageArgs
 import kpn.client.common.Nls.nls
@@ -60,6 +61,7 @@ object UiNetworkRoutesPage {
         val ni = state.pageState.response.get.result.get.networkSummary
         NetworkSummaryCache.put(args.networkId, ni)
         NetworkNameCache.put(args.networkId, ni.name)
+        PageTitleBuilder.setNetworkPageTitle("Routes", ni.name)
         Some(ni)
       }
       else {

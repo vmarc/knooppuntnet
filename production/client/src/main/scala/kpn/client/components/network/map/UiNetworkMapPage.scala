@@ -4,6 +4,7 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.NetworkPageArgs
 import kpn.client.common.Nls.nls
@@ -55,6 +56,8 @@ object UiNetworkMapPage {
 
     def render(args: NetworkPageArgs, state: State): VdomElement = {
 
+      implicit val context = args.context
+
       val pageProps = pagePropsWithContext(args.context)
 
       val networkSummary = state.pageState.response match {
@@ -64,6 +67,7 @@ object UiNetworkMapPage {
               val ni = networkDetailsPage.networkSummary
               NetworkSummaryCache.put(args.networkId, ni)
               NetworkNameCache.put(args.networkId, ni.name)
+              PageTitleBuilder.setNetworkPageTitle(nls("Map", "Kaart"), ni.name)
               Some(ni)
             case _ => None
           }

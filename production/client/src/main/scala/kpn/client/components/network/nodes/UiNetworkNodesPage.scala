@@ -5,6 +5,7 @@ import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.NetworkPageArgs
 import kpn.client.common.Nls.nls
@@ -60,6 +61,8 @@ object UiNetworkNodesPage {
 
     def render(args: NetworkPageArgs, state: State): VdomElement = {
 
+      implicit val context = args.context
+
       dom.window.scrollTo(0, 0)
 
       val pageProps = pagePropsWithContext(args.context, hasFilter = true, hasMap = true, hasMapButton = true)
@@ -68,6 +71,7 @@ object UiNetworkNodesPage {
         val ni = state.pageState.response.get.result.get.networkSummary
         NetworkSummaryCache.put(args.networkId, ni)
         NetworkNameCache.put(args.networkId, ni.name)
+        PageTitleBuilder.setNetworkPageTitle(nls("Nodes", "Knooppunten"), ni.name)
         Some(ni)
       }
       else {

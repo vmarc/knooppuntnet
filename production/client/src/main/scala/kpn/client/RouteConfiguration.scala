@@ -672,5 +672,6 @@ object RouteConfiguration {
       | overviewRule
       | notFoundRule
       ).notFound(redirectToPath("")(Redirect.Replace)) // redirect to home page; normally this will not happen given the "notFoundRule" above
+      .setTitle(PageTitleBuilder.title)
   }
 }

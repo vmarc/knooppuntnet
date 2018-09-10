@@ -5,6 +5,7 @@ import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.Context
 import kpn.client.common.Nls
@@ -31,6 +32,7 @@ import kpn.client.components.menu.UiSidebarFooter
 import kpn.shared.ApiResponse
 import kpn.shared.NetworkType
 import kpn.shared.node.NodePage
+import org.scalajs.dom
 import scalacss.ScalaCssReact._
 
 object UiNodePage {
@@ -66,6 +68,7 @@ object UiNodePage {
         CallbackTo {
           state.pageState.response.whenDefined { response =>
             response.result.whenDefined { page =>
+              PageTitleBuilder.setTitle(page.nodeInfo.allNames)
               if (state.pageState.ui.isMapShown && !PageWidth.isVeryLarge) {
                 <.div(
                   <.h1(nls("Node", "Knooppunt") + " " + page.nodeInfo.allNames),

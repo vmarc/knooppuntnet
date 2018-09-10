@@ -6,6 +6,7 @@ import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
 import japgolly.scalajs.react.vdom.html_<^.^
+import kpn.client.PageTitleBuilder
 import kpn.client.api.ApiClient
 import kpn.client.common.NetworkPageArgs
 import kpn.client.common.Nls.nls
@@ -53,12 +54,15 @@ object UiNetworkFactsPage {
 
     def render(args: NetworkPageArgs, state: State): VdomElement = {
 
+      implicit val context = args.context
+
       val pageProps = pagePropsWithContext(args.context)
 
       val networkInfo = if (state.pageState.response.isDefined) {
         val ni = state.pageState.response.get.result.get.networkSummary
         NetworkSummaryCache.put(args.networkId, ni)
         NetworkNameCache.put(args.networkId, ni.name)
+        PageTitleBuilder.setNetworkPageTitle(nls("Facts", "Feiten"), ni.name)
         Some(ni)
       }
       else {
