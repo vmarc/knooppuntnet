@@ -91,59 +91,9 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
     analysis.reversed should equal(false)
   }
 
-  test("route name canoe") {
+  test("ignore comment after semi-colon in the 'note' tag") {
 
     val analysis = analyze("01-02; canoe")
-
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  test("route name canoe without space") {
-
-    val analysis = analyze("01-02;canoe")
-
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  test("route name motorboat") {
-
-    val analysis = analyze("01-02; motorboat")
-
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  test("route name motorboat without space") {
-
-    val analysis = analyze("01-02;motorboat")
-
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  test("route name (incompleet)") {
-
-    val analysis = analyze("01-02; (incompleet)")
-
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  test("route name (incompleet) without space") {
-
-    val analysis = analyze("01-02;(incompleet)")
 
     analysis.name should equal(Some("01-02"))
     analysis.startNodeName should equal(Some("01"))

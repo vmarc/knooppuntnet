@@ -13,17 +13,6 @@ object RouteNameAnalyzer extends RouteAnalyzer {
 
 class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
-  private val ignoredSuffixes = Seq(
-    "; canoe",
-    ";canoe",
-    "; motorboat",
-    ";motorboat",
-    "; (incompleet)",
-    ";(incompleet)",
-    " (incompleet)",
-    "(incompleet)"
-  )
-
   def analyze: RouteAnalysisContext = {
     val routeNameAnalysis = analyze(context.loadedRoute.relation.tags("note"))
     context.copy(routeNameAnalysis = Some(routeNameAnalysis)).withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
@@ -84,9 +73,11 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def cleanRouteName(name: String): String = {
-    ignoredSuffixes.find(suffix => name.endsWith(suffix)) match {
-      case Some(s) => name.dropRight(s.length)
-      case None => name
+    if (name.contains(";")) {
+      name.split(";").head
+    }
+    else {
+      name
     }
   }
 }
