@@ -51,14 +51,14 @@ object UiNetworkTypeAndText {
             case NetworkType.bicycle => UiIcon(MapsDirectionsBike, grey800)
             case NetworkType.horse =>
               <.img(
-                ^.src := "/assets/images/horse.png",
+                ^.src := "/assets/images/horse.svg",
                 ^.width := "24",
                 ^.height := "24"
               )
             case NetworkType.motorboat => UiIcon(MapsDirectionsBoat, grey800)
             case NetworkType.canoe =>
               <.img(
-                ^.src := "/assets/images/canoe.png",
+                ^.src := "/assets/images/canoe.svg",
                 ^.width := "24",
                 ^.height := "24"
               )

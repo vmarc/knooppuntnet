@@ -54,8 +54,12 @@ object UiHomePage {
 
     val cardTitle: StyleA = style(
       unsafeChild("a")(
+        paddingLeft(12.px),
         fontSize(18.px)
-      )
+      ),
+      height(32.px),
+      display.flex,
+      alignItems.center
     )
 
     val cardContents: StyleA = style(

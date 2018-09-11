@@ -12,30 +12,25 @@ import japgolly.scalajs.react.vdom.html_<^.^
 import kpn.client.components.home.UiIcon
 import kpn.shared.NetworkType
 
-import scala.scalajs.js
-
 object UiNetworkTypeIcon {
 
   private case class Props(networkType: NetworkType)
 
   private val component = ScalaComponent.builder[Props]("network-type")
     .render_P { props =>
-      val style1 = js.Dynamic.literal(
-        verticalAlign = "text-bottom"
-      )
       props.networkType match {
-        case NetworkType.hiking => UiIcon(MapsDirectionsWalk, grey800, style1)
-        case NetworkType.bicycle => UiIcon(MapsDirectionsBike, grey800, style1)
+        case NetworkType.hiking => UiIcon(MapsDirectionsWalk, grey800)
+        case NetworkType.bicycle => UiIcon(MapsDirectionsBike, grey800)
         case NetworkType.horse => // UiIcon(NotificationAirlineSeatFlatAngled, grey800, style1)
           <.img(
-            ^.src := "/assets/images/horse.png",
+            ^.src := "/assets/images/horse.svg",
             ^.width := "24",
             ^.height := "24"
           )
-        case NetworkType.motorboat => UiIcon(MapsDirectionsBoat, grey800, style1)
-        case NetworkType.canoe => // UiIcon(ActionRowing, grey800, style1)
+        case NetworkType.motorboat => UiIcon(MapsDirectionsBoat, grey800)
+        case NetworkType.canoe =>
           <.img(
-            ^.src := "/assets/images/canoe.png",
+            ^.src := "/assets/images/canoe.svg",
             ^.width := "24",
             ^.height := "24"
           )
