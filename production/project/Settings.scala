@@ -5,7 +5,7 @@ object Settings {
 
   val name = "kpn"
 
-  val version = "2.0.10-SNAPSHOT" // keep in sync: Version.current
+  val version = "2.0.10" // keep in sync: Version.current
 
   val scalacOptions = Seq(
     "-deprecation",
@@ -65,7 +65,6 @@ object Settings {
     Seq(
       "com.typesafe.play" %% "play-json" % "2.6.0",
       "org.scalatest" %% "scalatest" % versions.scalatest % "test"
-      //      "com.lihaoyi" %% "utest" % versions.uTest % Test
     )
   )
 
