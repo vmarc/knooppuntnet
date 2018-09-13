@@ -9,6 +9,7 @@ case class UiOverviewCounts(
   nlRhn: VdomElement,
   nlRmn: VdomElement,
   nlRpn: VdomElement,
+  nlRin: VdomElement,
   beRwn: VdomElement,
   beRcn: VdomElement,
   deRwn: VdomElement,

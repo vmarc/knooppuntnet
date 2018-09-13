@@ -58,6 +58,13 @@ class OrphanNodeUpdateProcessorImpl(
         }
         else {
           None
+        },
+        if (new Interpreter(NetworkType.inlineSkates).isNetworkNode(loadedNodeChange.before.node.raw) &&
+          !new Interpreter(NetworkType.inlineSkates).isNetworkNode(loadedNodeChange.after.node.raw)) {
+          Some(Fact.LostInlineSkateNodeTag)
+        }
+        else {
+          None
         }
       ).flatten
 
@@ -77,7 +84,8 @@ class OrphanNodeUpdateProcessorImpl(
       new Interpreter(NetworkType.bicycle).isNetworkNode(loadedNodeChange.after.node.raw) ||
       new Interpreter(NetworkType.horse).isNetworkNode(loadedNodeChange.after.node.raw) ||
       new Interpreter(NetworkType.motorboat).isNetworkNode(loadedNodeChange.after.node.raw) ||
-      new Interpreter(NetworkType.canoe).isNetworkNode(loadedNodeChange.after.node.raw)
+      new Interpreter(NetworkType.canoe).isNetworkNode(loadedNodeChange.after.node.raw) ||
+      new Interpreter(NetworkType.inlineSkates).isNetworkNode(loadedNodeChange.after.node.raw)
 
     if (!isNetworkNodeX) {
       analysisData.orphanNodes.ignored.delete(loadedNodeChange.id)

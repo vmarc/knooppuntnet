@@ -378,7 +378,7 @@ object RouteConfiguration {
 
     val language = string("(?:en/|nl/|)")
     val country = string("(?:be|de|nl)")
-    val networkType = string("(?:rwn|rcn|rhn|rmn|rpn)")
+    val networkType = string("(?:rwn|rcn|rhn|rmn|rpn|rin)")
     val fact = string(Fact.all.map(_.name).mkString("(?:", "|", ")"))
     val remainingPath = string(".+")
 

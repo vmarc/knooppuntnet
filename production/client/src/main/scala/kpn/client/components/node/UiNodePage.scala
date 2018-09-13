@@ -199,6 +199,9 @@ object UiNodePage {
         TagMod.when(page.nodeInfo.tags.has(NetworkType.canoe.nodeTagKey)) {
           UiNetworkTypeAndText(NetworkType.canoe, <.span(nls("Canoe network node", "Kanoknooppunt")))
         },
+        TagMod.when(page.nodeInfo.tags.has(NetworkType.inlineSkates.nodeTagKey)) {
+          UiNetworkTypeAndText(NetworkType.inlineSkates, <.span("Inline skates"))
+        },
         page.nodeInfo.country.whenDefined { country =>
           <.p(
             Nls.country(Some(country))

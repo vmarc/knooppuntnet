@@ -91,9 +91,10 @@ object UiOverviewList {
     private def counts(info: UiOverviewInfo): VdomElement = {
       <.table(
         <.tbody(
-          countryCounts(Country.nl, nls("The Netherlands", "Nederland"), info.counts.nlRwn, info.counts.nlRcn, info.counts.nlRhn, info.counts.nlRmn, info.counts.nlRpn),
-          countryCounts(Country.be, nls("Belgium", "België"), info.counts.beRwn, info.counts.beRcn, null, null, null),
-          countryCounts(Country.de, nls("Germany", "Duitsland"), info.counts.deRwn, info.counts.deRcn, null, null, null),
+          countryCounts(Country.nl, nls("The Netherlands", "Nederland"), info.counts.nlRwn, info.counts.nlRcn, info.counts.nlRhn, info.counts.nlRmn, info.counts.nlRpn,
+            info.counts.nlRin),
+          countryCounts(Country.be, nls("Belgium", "België"), info.counts.beRwn, info.counts.beRcn, null, null, null, null),
+          countryCounts(Country.de, nls("Germany", "Duitsland"), info.counts.deRwn, info.counts.deRcn, null, null, null, null),
           <.tr(
             <.td(
               ^.colSpan := 2,
@@ -108,7 +109,8 @@ object UiOverviewList {
       )
     }
 
-    private def countryCounts(country: Country, countryName: String, rwn: VdomElement, rcn: VdomElement, rhn: VdomElement, rmn: VdomElement, rpn: VdomElement): TagMod = {
+    private def countryCounts(country: Country, countryName: String, rwn: VdomElement, rcn: VdomElement, rhn: VdomElement, rmn: VdomElement, rpn: VdomElement,
+      rin: VdomElement): TagMod = {
       Seq(
         <.tr(
           <.td(
@@ -162,6 +164,17 @@ object UiOverviewList {
             <.td(
               UiOverviewPage.Styles.valueColumn,
               rpn
+            )
+          )
+        },
+        TagMod.when(Country.nl == country) {
+          <.tr(
+            <.td(
+              UiNetworkTypeIcon(NetworkType.inlineSkates)
+            ),
+            <.td(
+              UiOverviewPage.Styles.valueColumn,
+              rin
             )
           )
         }

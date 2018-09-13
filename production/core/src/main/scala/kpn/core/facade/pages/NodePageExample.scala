@@ -38,6 +38,7 @@ object NodePageExample {
         rhnName = "",
         rmnName = "",
         rpnName = "",
+        rinName = "",
         latitude = "51.5291600",
         longitude = "4.297800",
         lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),

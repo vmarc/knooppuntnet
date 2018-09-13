@@ -168,11 +168,12 @@ object UiHomePage {
     private def mapCard(networkType: NetworkType): VdomElement = {
 
       val title = networkType match {
-        case NetworkType.hiking => nls("Hiking Map", "Wandelkaart")
-        case NetworkType.bicycle => nls("Cycling Map", "Fietskaart")
-        case NetworkType.horse => nls("Horse Map", "Ruiterkaart")
-        case NetworkType.motorboat => nls("Motorboat Map", "Motorbootkaart")
-        case NetworkType.canoe => nls("Canoe Map", "Kanokaart")
+        case NetworkType.hiking => nls("Hiking map", "Wandelkaart")
+        case NetworkType.bicycle => nls("Cycling map", "Fietskaart")
+        case NetworkType.horse => nls("Horse map", "Ruiterkaart")
+        case NetworkType.motorboat => nls("Motorboat map", "Motorbootkaart")
+        case NetworkType.canoe => nls("Canoe map", "Kanokaart")
+        case NetworkType.inlineSkates => nls("Inline skates map", "Inline skate kaart")
       }
 
       <.div(
@@ -244,6 +245,7 @@ object UiHomePage {
         case NetworkType.horse => nls("Horse", "Ruiter")
         case NetworkType.motorboat => nls("Motorboat", "Motorboot")
         case NetworkType.canoe => nls("Canoe", "Kano")
+        case NetworkType.inlineSkates => "Inline skates"
       }
 
       val countryString = Nls.country(Some(subset.country))

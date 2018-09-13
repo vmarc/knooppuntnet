@@ -4,9 +4,9 @@ object Statistic {
 
   val empty: Statistic = Statistic(
     "-",
-    CountryStatistic("-", "-", "-", "-", "-"),
-    CountryStatistic("-", "-", "-", "-", "-"),
-    CountryStatistic("-", "-", "-", "-", "-")
+    CountryStatistic("-", "-", "-", "-", "-", "-"),
+    CountryStatistic("-", "-", "-", "-", "-", "-"),
+    CountryStatistic("-", "-", "-", "-", "-", "-")
   )
 }
 

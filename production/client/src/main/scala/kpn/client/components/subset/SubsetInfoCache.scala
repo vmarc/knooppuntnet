@@ -6,15 +6,16 @@ import kpn.shared.subset.SubsetInfo
 object SubsetInfoCache {
 
   private val subsetInfoMap = scala.collection.mutable.Map[Subset, SubsetInfo](
-    Subset.beHiking -> SubsetInfo("be", "rwn"),
-    Subset.nlHiking -> SubsetInfo("nl", "rwn"),
-    Subset.deHiking -> SubsetInfo("de", "rwn"),
-    Subset.beBicycle -> SubsetInfo("be", "rcn"),
     Subset.nlBicycle -> SubsetInfo("nl", "rcn"),
-    Subset.deBicycle -> SubsetInfo("de", "rcn"),
+    Subset.nlHiking -> SubsetInfo("nl", "rwn"),
     Subset.nlHorse -> SubsetInfo("nl", "rhn"),
     Subset.nlMotorboat -> SubsetInfo("nl", "rmn"),
-    Subset.nlCanoe -> SubsetInfo("nl", "rpn")
+    Subset.nlCanoe -> SubsetInfo("nl", "rpn"),
+    Subset.nlInlineSkates -> SubsetInfo("nl", "rpn"),
+    Subset.beBicycle -> SubsetInfo("be", "rcn"),
+    Subset.beHiking -> SubsetInfo("be", "rwn"),
+    Subset.deHiking -> SubsetInfo("de", "rwn"),
+    Subset.deBicycle -> SubsetInfo("de", "rcn")
   )
 
   def get(subset: Subset): SubsetInfo = {

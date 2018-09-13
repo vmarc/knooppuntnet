@@ -52,15 +52,21 @@ object UiNetworkTypeAndText {
             case NetworkType.horse =>
               <.img(
                 ^.src := "/assets/images/horse.svg",
-                ^.width := "24",
-                ^.height := "24"
+                ^.width := "24px",
+                ^.height := "24px"
               )
             case NetworkType.motorboat => UiIcon(MapsDirectionsBoat, grey800)
             case NetworkType.canoe =>
               <.img(
                 ^.src := "/assets/images/canoe.svg",
-                ^.width := "24",
-                ^.height := "24"
+                ^.width := "24px",
+                ^.height := "24px"
+              )
+            case NetworkType.inlineSkates =>
+              <.img(
+                ^.src := "/assets/images/inlineSkates.svg",
+                ^.width := "24px",
+                ^.height := "24px"
               )
           }
         ),

@@ -122,7 +122,7 @@ class MainRouteMap(networkType: NetworkType, routeMap: RouteMap)(implicit contex
       lineDash.push(25)
 
       val style = ol.style.Style(
-        stroke = ol.style.Stroke(color, 15, lineDash)
+        stroke = ol.style.Stroke(color, 15 /*, lineDash*/)
       )
       feature.setStyle(style)
       feature

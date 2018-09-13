@@ -164,11 +164,13 @@ object UiNetworkMapPage {
           props.networkMap.rhnBitmapTileLayer.setVisible(NetworkType.horse == networkSummary.networkType)
           props.networkMap.rmnBitmapTileLayer.setVisible(NetworkType.motorboat == networkSummary.networkType)
           props.networkMap.rpnBitmapTileLayer.setVisible(NetworkType.canoe == networkSummary.networkType)
+          props.networkMap.rinBitmapTileLayer.setVisible(NetworkType.inlineSkates == networkSummary.networkType)
           props.networkMap.rwnVectorTileLayer.layer.setVisible(false)
           props.networkMap.rcnVectorTileLayer.layer.setVisible(false)
           props.networkMap.rhnVectorTileLayer.layer.setVisible(false)
           props.networkMap.rmnVectorTileLayer.layer.setVisible(false)
           props.networkMap.rpnVectorTileLayer.layer.setVisible(false)
+          props.networkMap.rinVectorTileLayer.layer.setVisible(false)
         }
         else if (zoom >= ZoomLevel.vectorTileMinZoom) {
           props.networkMap.rwnBitmapTileLayer.setVisible(false)
@@ -176,12 +178,14 @@ object UiNetworkMapPage {
           props.networkMap.rhnBitmapTileLayer.setVisible(false)
           props.networkMap.rmnBitmapTileLayer.setVisible(false)
           props.networkMap.rpnBitmapTileLayer.setVisible(false)
+          props.networkMap.rinBitmapTileLayer.setVisible(false)
 
           props.networkMap.rwnVectorTileLayer.layer.setVisible(NetworkType.hiking == networkSummary.networkType)
           props.networkMap.rcnVectorTileLayer.layer.setVisible(NetworkType.bicycle == networkSummary.networkType)
           props.networkMap.rhnVectorTileLayer.layer.setVisible(NetworkType.horse == networkSummary.networkType)
           props.networkMap.rmnVectorTileLayer.layer.setVisible(NetworkType.motorboat == networkSummary.networkType)
           props.networkMap.rpnVectorTileLayer.layer.setVisible(NetworkType.canoe == networkSummary.networkType)
+          props.networkMap.rinVectorTileLayer.layer.setVisible(NetworkType.inlineSkates == networkSummary.networkType)
         }
     }
 

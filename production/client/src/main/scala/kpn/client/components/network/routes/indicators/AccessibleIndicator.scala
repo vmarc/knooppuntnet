@@ -10,7 +10,7 @@ object AccessibleIndicator {
 
   def apply(networkType: NetworkType, accessible: Boolean)(implicit context: Context): VdomElement = {
 
-    if (Seq(NetworkType.horse, NetworkType.motorboat, NetworkType.canoe).contains(networkType)) {
+    if (Seq(NetworkType.horse, NetworkType.inlineSkates).contains(networkType)) {
       val description = nls(
         "Accessibility information is unknown for this type of route.",
         "Route toegankelijkheid gegevens zijn onbekend voor dit type route."
@@ -37,6 +37,16 @@ object AccessibleIndicator {
             "This route is completely accessible for bicycle.",
             "Deze route is volledig toegankelijk voor fietsers."
           )
+        case NetworkType.motorboat =>
+          nls(
+            "This route is completely accessible for motorboat.",
+            "Deze route is volledig toegankelijk voor motorboot."
+          )
+        case NetworkType.canoe =>
+          nls(
+            "This route is completely accessible for canoe.",
+            "Deze route is volledig toegankelijk voor kano."
+          )
         case _ => ""
       }
 
@@ -61,6 +71,16 @@ object AccessibleIndicator {
           nls(
             "This route is not completely accessible for bicycle.",
             "Deze route is niet volledig toegankelijk voor fietsers."
+          )
+        case NetworkType.motorboat =>
+          nls(
+            "This route is not completely accessible for motorboat.",
+            "Deze route is niet volledig toegankelijk voor motorboot."
+          )
+        case NetworkType.canoe =>
+          nls(
+            "This route is not completely accessible for canoe.",
+            "Deze route is niet volledig toegankelijk voor kano."
           )
         case _ => ""
       }

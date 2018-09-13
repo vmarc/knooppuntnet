@@ -220,7 +220,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeDocFormat: RootJsonFormat[RouteDoc] = jsonFormat3(RouteDoc)
 
   implicit val nodeIntegrityCheckFormat: RootJsonFormat[NodeIntegrityCheck] = jsonFormat5(NodeIntegrityCheck)
-  implicit val nodeInfoFormat: RootJsonFormat[NodeInfo] = jsonFormat17(NodeInfo)
+  implicit val nodeInfoFormat: RootJsonFormat[NodeInfo] = jsonFormat18(NodeInfo)
   implicit val nodeDocFormat: RootJsonFormat[NodeDoc] = jsonFormat3(NodeDoc)
 
   implicit val integrityFormat: RootJsonFormat[Integrity] = jsonFormat8(Integrity)
@@ -404,7 +404,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val changesParametersFormat: RootJsonFormat[ChangesParameters] = jsonFormat10(ChangesParameters)
 
-  implicit val countryStatisticFormat: RootJsonFormat[CountryStatistic] = jsonFormat5(CountryStatistic)
+  implicit val countryStatisticFormat: RootJsonFormat[CountryStatistic] = jsonFormat6(CountryStatistic)
   implicit val statisticFormat: RootJsonFormat[Statistic] = jsonFormat4(Statistic.apply)
   implicit val statisticsFormat: RootJsonFormat[Statistics] = jsonFormat1(Statistics)
 

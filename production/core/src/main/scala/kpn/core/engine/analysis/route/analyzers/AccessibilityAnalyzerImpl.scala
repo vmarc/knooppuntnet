@@ -12,6 +12,7 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
       case NetworkType.horse => horseAccessible(way)
       case NetworkType.motorboat => motorboatAccessible(way)
       case NetworkType.canoe => canoeAccessible(way)
+      case NetworkType.inlineSkates => inlineSkatesAccessible(way)
     }
   }
 
@@ -39,6 +40,10 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
     way.tags.has("waterway") ||
       way.tags.has("canoe", "portage") || // use for places where canoe has to be carried over a dam
       way.tags.has("canoe", "yes")
+  }
+
+  private def inlineSkatesAccessible(way: Way): Boolean = {
+    true
   }
 
 }

@@ -9,6 +9,7 @@ object Subset {
   val nlHorse = Subset(Country.nl, NetworkType.horse)
   val nlCanoe = Subset(Country.nl, NetworkType.canoe)
   val nlMotorboat = Subset(Country.nl, NetworkType.motorboat)
+  val nlInlineSkates = Subset(Country.nl, NetworkType.inlineSkates)
   val deHiking = Subset(Country.de, NetworkType.hiking)
   val deBicycle = Subset(Country.de, NetworkType.bicycle)
 
@@ -21,7 +22,8 @@ object Subset {
     deHiking,
     nlHorse,
     nlCanoe,
-    nlMotorboat
+    nlMotorboat,
+    nlInlineSkates
   )
 
   val used: Seq[Subset] = Seq(
@@ -32,7 +34,8 @@ object Subset {
     beHiking,
     nlHorse,
     nlCanoe,
-    nlMotorboat
+    nlMotorboat,
+    nlInlineSkates
   )
 
   def of(domain: String, networkType: String): Option[Subset] = {
@@ -55,6 +58,8 @@ case class Subset(country: Country, networkType: NetworkType) extends Ordered[Su
   def matches(countryDomain: String, networkTypeName: String): Boolean = {
     country.domain == countryDomain && networkType.name == networkTypeName
   }
+
   import scala.math.Ordered.orderingToOrdered
+
   def compare(that: Subset): Int = (this.country.domain, this.networkType.name).compare((that.country.domain, that.networkType.name))
 }

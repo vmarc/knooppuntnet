@@ -15,8 +15,9 @@ object NetworkType {
   val horse = NetworkType("rhn", "Horse", Seq("horse"))
   val canoe = NetworkType("rpn", "Canoe", Seq("canoe"))
   val motorboat = NetworkType("rmn", "Motorboat", Seq("motorboat"))
+  val inlineSkates = NetworkType("rin", "Inline skates", Seq("inline_skates"))
 
-  val all = Seq(hiking, bicycle, horse, canoe, motorboat)
+  val all = Seq(hiking, bicycle, horse, canoe, motorboat, inlineSkates)
 }
 
 case class NetworkType(name: String, title: String, routeTagValues: Seq[String]) {

@@ -5,5 +5,6 @@ case class CountryStatistic(
   rcn: String,
   rhn: String,
   rmn: String,
-  rpn: String
+  rpn: String,
+  rin: String
 )

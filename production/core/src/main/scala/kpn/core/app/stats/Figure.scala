@@ -14,21 +14,24 @@ case class Figure(
   nlRhn: Int,
   nlRmn: Int,
   nlRpn: Int,
+  nlRin: Int,
   beRwn: Int,
   beRcn: Int,
   beRhn: Int,
   beRmn: Int,
   beRpn: Int,
+  beRin: Int,
   deRwn: Int,
   deRcn: Int,
   deRhn: Int,
   deRmn: Int,
-  deRpn: Int
+  deRpn: Int,
+  deRin: Int
 ) {
 
-  def total: Int = nlRwn + nlRcn + nlRhn + nlRmn + nlRpn +
-    beRwn + beRcn + beRhn + beRmn + beRpn +
-    deRwn + deRcn + deRhn + deRmn + deRpn
+  def total: Int = nlRwn + nlRcn + nlRhn + nlRmn + nlRpn + nlRin +
+    beRwn + beRcn + beRhn + beRmn + beRpn + beRin +
+    deRwn + deRcn + deRhn + deRmn + deRpn + deRin
 
   def value(subset: Subset): Int = {
     subset.country match {
@@ -39,6 +42,7 @@ case class Figure(
           case NetworkType.horse => nlRhn
           case NetworkType.motorboat => nlRmn
           case NetworkType.canoe => nlRpn
+          case NetworkType.inlineSkates => nlRin
         }
       case Country.be =>
         subset.networkType match {
@@ -47,6 +51,7 @@ case class Figure(
           case NetworkType.horse => beRhn
           case NetworkType.motorboat => beRmn
           case NetworkType.canoe => beRpn
+          case NetworkType.inlineSkates => beRin
         }
       case Country.de =>
         subset.networkType match {
@@ -55,6 +60,7 @@ case class Figure(
           case NetworkType.horse => deRhn
           case NetworkType.motorboat => deRmn
           case NetworkType.canoe => deRpn
+          case NetworkType.inlineSkates => deRin
         }
     }
   }
@@ -62,9 +68,9 @@ case class Figure(
   def toStatistic: Statistic = {
     Statistic(
       number(total),
-      CountryStatistic(number(nlRwn), number(nlRcn), number(nlRhn), number(nlRmn), number(nlRpn)),
-      CountryStatistic(number(beRwn), number(beRcn), number(beRhn), number(beRmn), number(beRpn)),
-      CountryStatistic(number(deRwn), number(deRcn), number(deRhn), number(deRmn), number(deRpn))
+      CountryStatistic(number(nlRwn), number(nlRcn), number(nlRhn), number(nlRmn), number(nlRpn), number(nlRin)),
+      CountryStatistic(number(beRwn), number(beRcn), number(beRhn), number(beRmn), number(beRpn), number(beRin)),
+      CountryStatistic(number(deRwn), number(deRcn), number(deRhn), number(deRmn), number(deRpn), number(deRin))
     )
   }
 }

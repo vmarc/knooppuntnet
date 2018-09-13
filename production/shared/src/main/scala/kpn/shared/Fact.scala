@@ -112,6 +112,7 @@ object Fact {
   val LostHorseNodeTag: Fact = f.fact(410, "LostHorseNodeTag", "GeenRuiterKnooppuntMeer", FactLevel.OTHER)
   val LostMotorboatNodeTag: Fact = f.fact(411, "LostMotorboatNodeTag", "GeenMotorbootKnooppuntMeer", FactLevel.OTHER)
   val LostCanoeNodeTag: Fact = f.fact(412, "LostCanoeNodeTag", "GeenKanoKnooppuntMeer", FactLevel.OTHER)
+  val LostInlineSkateNodeTag: Fact = f.fact(413, "LostInlineSkateNodeTag", "GeenInlineSkateKnooppuntMeer", FactLevel.OTHER)
 
 
   val all: Seq[Fact] = f.all

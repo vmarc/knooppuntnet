@@ -30,6 +30,9 @@ object UiNetworkType {
       else if (props.networkType == NetworkType.canoe) {
         nls("Canoe network", "Kanonetwerk")
       }
+      else if (props.networkType == NetworkType.inlineSkates) {
+        "Inline skates"
+      }
       else {
         "?"
       }

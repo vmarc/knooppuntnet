@@ -24,6 +24,7 @@ object NetworkNameAnalyzer {
     "Motorbootnetwerk ",
     "Sloepennetwerk ",
     "Kanonetwerk ",
+    "Skateroute-netwerk ",
     " (Walcheren)"
   )
 }

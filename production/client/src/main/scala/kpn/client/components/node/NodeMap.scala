@@ -17,6 +17,7 @@ import kpn.shared.tiles.ZoomLevel
 class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefinition {
 
   private val nodeCoordinate = toCoordinate(nodeInfo)
+
   private val rwnVectorTileLayer = if (nodeInfo.rwnName.isEmpty) {
     None
   } else {
@@ -24,6 +25,7 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
     layer.layer.set("name", nls("Hiking", "Wandelen"))
     Some(layer)
   }
+
   private val rcnVectorTileLayer = if (nodeInfo.rcnName.isEmpty) {
     None
   } else {
@@ -31,6 +33,7 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
     layer.layer.set("name", nls("Bicycle", "Fietsen"))
     Some(layer)
   }
+
   private val rhnVectorTileLayer = if (nodeInfo.rhnName.isEmpty) {
     None
   } else {
@@ -38,6 +41,7 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
     layer.layer.set("name", nls("Horse", "Ruiter"))
     Some(layer)
   }
+
   private val rmnVectorTileLayer = if (nodeInfo.rmnName.isEmpty) {
     None
   } else {
@@ -45,11 +49,20 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
     layer.layer.set("name", nls("Motorboat", "Motorboot"))
     Some(layer)
   }
+
   private val rpnVectorTileLayer = if (nodeInfo.rpnName.isEmpty) {
     None
   } else {
     val layer = new MainMapLayer(NetworkType.canoe)
     layer.layer.set("name", nls("Canoe", "Kano"))
+    Some(layer)
+  }
+
+  private val rinVectorTileLayer = if (nodeInfo.rinName.isEmpty) {
+    None
+  } else {
+    val layer = new MainMapLayer(NetworkType.inlineSkates)
+    layer.layer.set("name", "Inline skates")
     Some(layer)
   }
 
@@ -62,6 +75,7 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
     rhnVectorTileLayer.map(_.layer),
     rmnVectorTileLayer.map(_.layer),
     rpnVectorTileLayer.map(_.layer),
+    rinVectorTileLayer.map(_.layer),
     Some(markerLayer())
   ).flatten
 
@@ -80,6 +94,7 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
   rhnVectorTileLayer.foreach(_.interactions(map, new MapState(), new SelectedFeatureHolder()))
   rmnVectorTileLayer.foreach(_.interactions(map, new MapState(), new SelectedFeatureHolder()))
   rpnVectorTileLayer.foreach(_.interactions(map, new MapState(), new SelectedFeatureHolder()))
+  rinVectorTileLayer.foreach(_.interactions(map, new MapState(), new SelectedFeatureHolder()))
 
   val networkTypeCount = Seq(
     rwnVectorTileLayer,
@@ -87,7 +102,8 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
     rcnVectorTileLayer,
     rhnVectorTileLayer,
     rmnVectorTileLayer,
-    rpnVectorTileLayer
+    rpnVectorTileLayer,
+    rinVectorTileLayer
   ).flatten.size
 
   if (networkTypeCount > 1) {
@@ -105,6 +121,9 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
     }
     if (rpnVectorTileLayer.isDefined) {
       rpnVectorTileLayer.get.layer.setVisible(false)
+    }
+    if (rinVectorTileLayer.isDefined) {
+      rinVectorTileLayer.get.layer.setVisible(false)
     }
   }
 

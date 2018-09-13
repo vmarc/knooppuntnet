@@ -31,6 +31,11 @@ class MainMap(networkType: NetworkType, selectionHolder: SelectedFeatureHolder) 
           toCoordinate(4.06, 51.91),
           toCoordinate(4.59, 52.15)
         )
+      case NetworkType.inlineSkates =>
+        ol.Extent(
+          toCoordinate(4.14, 51.90),
+          toCoordinate(4.57, 52.00)
+        )
       case _ =>
         ol.Extent(
           toCoordinate(2.24, 50.16),

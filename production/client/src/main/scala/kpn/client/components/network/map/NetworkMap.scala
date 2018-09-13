@@ -21,24 +21,28 @@ class NetworkMap(val networkMapState: NetworkMapState = new NetworkMapState())(i
   val rhnVectorTileLayer = new NetworkMapLayer(NetworkType.horse)
   val rmnVectorTileLayer = new NetworkMapLayer(NetworkType.motorboat)
   val rpnVectorTileLayer = new NetworkMapLayer(NetworkType.canoe)
+  val rinVectorTileLayer = new NetworkMapLayer(NetworkType.inlineSkates)
 
   val rwnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.hiking)
   val rcnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.bicycle)
   val rhnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.horse)
   val rmnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.motorboat)
   val rpnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.canoe)
+  val rinBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.inlineSkates)
 
   rwnVectorTileLayer.layer.setVisible(false)
   rcnVectorTileLayer.layer.setVisible(false)
   rhnVectorTileLayer.layer.setVisible(false)
   rmnVectorTileLayer.layer.setVisible(false)
   rpnVectorTileLayer.layer.setVisible(false)
+  rinVectorTileLayer.layer.setVisible(false)
 
   rwnBitmapTileLayer.setVisible(false)
   rcnBitmapTileLayer.setVisible(false)
   rhnBitmapTileLayer.setVisible(false)
   rmnBitmapTileLayer.setVisible(false)
   rpnBitmapTileLayer.setVisible(false)
+  rinBitmapTileLayer.setVisible(false)
 
   override val map: ol.Map = Util.map(
     layers = Seq(
@@ -48,11 +52,13 @@ class NetworkMap(val networkMapState: NetworkMapState = new NetworkMapState())(i
       rhnVectorTileLayer.layer,
       rmnVectorTileLayer.layer,
       rpnVectorTileLayer.layer,
+      rinVectorTileLayer.layer,
       rwnBitmapTileLayer,
       rcnBitmapTileLayer,
       rhnBitmapTileLayer,
       rmnBitmapTileLayer,
       rpnBitmapTileLayer,
+      rinBitmapTileLayer,
       //Layers.debug,
       markerLayer
     ),
@@ -67,6 +73,7 @@ class NetworkMap(val networkMapState: NetworkMapState = new NetworkMapState())(i
   rhnVectorTileLayer.interactions(map, networkMapState, new SelectedFeatureHolder())
   rmnVectorTileLayer.interactions(map, networkMapState, new SelectedFeatureHolder())
   rpnVectorTileLayer.interactions(map, networkMapState, new SelectedFeatureHolder())
+  rinVectorTileLayer.interactions(map, networkMapState, new SelectedFeatureHolder())
 
   private def zoomListener(e: ol.interaction.select.Event /*TODO MAP change event type, and verify if boolean return type makes sense at all*/): Boolean = {
 
@@ -120,6 +127,16 @@ class NetworkMap(val networkMapState: NetworkMapState = new NetworkMapState())(i
       else if (zoom >= ZoomLevel.vectorTileMinZoom) {
         rpnBitmapTileLayer.setVisible(false)
         rpnVectorTileLayer.layer.setVisible(true)
+      }
+    }
+    else if (rinBitmapTileLayer.getVisible() || rinVectorTileLayer.layer.getVisible()) {
+      if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
+        rinBitmapTileLayer.setVisible(true)
+        rinVectorTileLayer.layer.setVisible(false)
+      }
+      else if (zoom >= ZoomLevel.vectorTileMinZoom) {
+        rinBitmapTileLayer.setVisible(false)
+        rinVectorTileLayer.layer.setVisible(true)
       }
     }
 

@@ -137,7 +137,7 @@ object UiSubsetFactDetailsPage {
         },
         TagMod.when(page.routeCount > 0) {
           <.i(
-            <.p(UiFactDescription(page.fact))
+            UiFactDescription(page.fact)
           )
         },
         if (page.networks.isEmpty) {

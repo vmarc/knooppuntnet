@@ -17,6 +17,7 @@ case class NodeInfo(
   rhnName: String,
   rmnName: String,
   rpnName: String,
+  rinName: String,
   latitude: String,
   longitude: String,
   lastUpdated: Timestamp,
@@ -32,7 +33,7 @@ case class NodeInfo(
     tags(networkType.nodeTagKey).getOrElse("no-name")
   }
 
-  def allNames: String = Seq(rcnName, rwnName).filter(_.nonEmpty).mkString(" / ")
+  def allNames: String = Seq(rcnName, rwnName, rhnName, rmnName, rpnName, rinName).filter(_.nonEmpty).mkString(" / ")
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("id", id).

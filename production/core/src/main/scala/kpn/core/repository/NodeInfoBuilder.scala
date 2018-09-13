@@ -14,6 +14,7 @@ import kpn.shared.node.NodeNameAnalyzer.rwnName
 import kpn.shared.node.NodeNameAnalyzer.rhnName
 import kpn.shared.node.NodeNameAnalyzer.rmnName
 import kpn.shared.node.NodeNameAnalyzer.rpnName
+import kpn.shared.node.NodeNameAnalyzer.rinName
 
 object NodeInfoBuilder {
 
@@ -44,6 +45,7 @@ object NodeInfoBuilder {
       rhnName(tags),
       rmnName(tags),
       rpnName(tags),
+      rinName(tags),
       latitude,
       longitude,
       lastUpdated,

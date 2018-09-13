@@ -82,7 +82,8 @@ class OrphanNodeChangeAnalyzerImpl(
       new Interpreter(NetworkType.bicycle).isNetworkNode(node) ||
       new Interpreter(NetworkType.horse).isNetworkNode(node) ||
       new Interpreter(NetworkType.motorboat).isNetworkNode(node) ||
-      new Interpreter(NetworkType.canoe).isNetworkNode(node)
+      new Interpreter(NetworkType.canoe).isNetworkNode(node) ||
+      new Interpreter(NetworkType.inlineSkates).isNetworkNode(node)
   }
 
   private def withoutKnownNodes(nodeIds: Set[Long]): Set[Long] = {

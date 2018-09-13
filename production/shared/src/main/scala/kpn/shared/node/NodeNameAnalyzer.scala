@@ -18,4 +18,5 @@ object NodeNameAnalyzer {
   def rhnName(tags: Tags): String = name(NetworkType.horse, tags)
   def rmnName(tags: Tags): String = name(NetworkType.motorboat, tags)
   def rpnName(tags: Tags): String = name(NetworkType.canoe, tags)
+  def rinName(tags: Tags): String = name(NetworkType.inlineSkates, tags)
 }

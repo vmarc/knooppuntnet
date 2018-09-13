@@ -2,9 +2,9 @@ package kpn.core.engine.changes.network
 
 import kpn.core.changes.ChangeSetBuilder
 import kpn.core.engine.analysis.Interpreter
-import kpn.core.repository.BlackListRepository
 import kpn.core.engine.changes.ElementChanges
 import kpn.core.engine.changes.data.AnalysisData
+import kpn.core.repository.BlackListRepository
 import kpn.core.util.Log
 import kpn.shared.NetworkType
 import kpn.shared.changes.ChangeAction.Create
@@ -72,7 +72,8 @@ class NetworkChangeAnalyzerImpl(
       new Interpreter(NetworkType.bicycle).isNetworkRelation(relation) ||
       new Interpreter(NetworkType.horse).isNetworkRelation(relation) ||
       new Interpreter(NetworkType.motorboat).isNetworkRelation(relation) ||
-      new Interpreter(NetworkType.canoe).isNetworkRelation(relation)
+      new Interpreter(NetworkType.canoe).isNetworkRelation(relation) ||
+      new Interpreter(NetworkType.inlineSkates).isNetworkRelation(relation)
   }
 
   private def isNetworkCollection(relation: RawRelation): Boolean = {

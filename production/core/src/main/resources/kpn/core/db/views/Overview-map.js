@@ -1,5 +1,5 @@
 var emitCount = function (key, index, count) {
-  var value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   value[index] = count;
   emit(key, value);
 };
@@ -26,40 +26,49 @@ var calculateSubsetIndex = function (country, networkType) {
     if (networkType === "rpn") {
       return 4;
     }
+    if (networkType === "rin") {
+      return 5;
+    }
   }
 
   if (country === "be") {
     if (networkType === "rwn") {
-      return 5;
-    }
-    if (networkType === "rcn") {
       return 6;
     }
-    if (networkType === "rhn") {
+    if (networkType === "rcn") {
       return 7;
     }
-    if (networkType === "rmn") {
+    if (networkType === "rhn") {
       return 8;
     }
-    if (networkType === "rpn") {
+    if (networkType === "rmn") {
       return 9;
+    }
+    if (networkType === "rpn") {
+      return 10;
+    }
+    if (networkType === "rin") {
+      return 11;
     }
   }
   if (country === "de") {
     if (networkType === "rwn") {
-      return 10;
-    }
-    if (networkType === "rcn") {
-      return 11;
-    }
-    if (networkType === "rhn") {
       return 12;
     }
-    if (networkType === "rmn") {
+    if (networkType === "rcn") {
       return 13;
     }
-    if (networkType === "rpn") {
+    if (networkType === "rhn") {
       return 14;
+    }
+    if (networkType === "rmn") {
+      return 15;
+    }
+    if (networkType === "rpn") {
+      return 16;
+    }
+    if (networkType === "rin") {
+      return 17;
     }
   }
   return -1;

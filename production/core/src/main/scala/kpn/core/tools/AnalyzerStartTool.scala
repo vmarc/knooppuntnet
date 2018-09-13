@@ -114,6 +114,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     processNetworks(context, timestamp, NetworkType.horse)
     processNetworks(context, timestamp, NetworkType.motorboat)
     processNetworks(context, timestamp, NetworkType.canoe)
+    processNetworks(context, timestamp, NetworkType.inlineSkates)
     processOrphanRoutes(context, timestamp)
     processOrphanNodes(context, timestamp)
   }
