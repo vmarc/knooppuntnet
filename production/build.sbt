@@ -31,6 +31,7 @@ lazy val core: Project = (project in file("core"))
       //"com.typesafe.akka" %% "akka-http-spray-json" % Settings.versions.akkaHttp,
       "com.typesafe.akka" %% "akka-actor"  % Settings.versions.akka,
       "com.typesafe.akka" %% "akka-stream" % Settings.versions.akka,
+      "com.lightbend.akka" %% "akka-stream-alpakka-ftp" % "0.20",
       "commons-lang" % "commons-lang" % "2.6",
       "commons-io" % "commons-io" % "2.4",
       "com.github.scala-incubator.io" % "scala-io-file_2.11" % "0.4.3-1",
