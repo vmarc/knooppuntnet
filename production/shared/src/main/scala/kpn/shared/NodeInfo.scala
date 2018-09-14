@@ -45,6 +45,10 @@ case class NodeInfo(
     field("name", name).
     field("rcnName", rcnName).
     field("rwnName", rwnName).
+    field("rhnName", rhnName).
+    field("rmnName", rmnName).
+    field("rpnName", rpnName).
+    field("rinName", rinName).
     field("latitude", latitude).
     field("longitude", longitude).
     field("lastUpdated", lastUpdated).
