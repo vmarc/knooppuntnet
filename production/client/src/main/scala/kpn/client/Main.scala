@@ -46,6 +46,7 @@ import kpn.client.components.node.UiNodePage
 import kpn.client.components.overview.UiOverviewPage
 import kpn.client.components.route.UiRouteHistoryMap
 import kpn.client.components.route.UiRouteMembers
+import kpn.client.components.route.UiRouteNode
 import kpn.client.components.shared.UiChangeSet
 import kpn.client.components.shared.UiChangeSetTags
 import kpn.client.components.shared._UiChangeSetInfo
@@ -96,6 +97,7 @@ object Main {
     UiFacts.Styles.addToDocument()
     UiRouteHistoryMap.Styles.addToDocument()
     UiRouteMembers.Styles.addToDocument()
+    UiRouteNode.Styles.addToDocument()
     UiSidebarFooter.Styles.addToDocument()
     UiSpinner.Styles.addToDocument()
     UiSubsetNetworksPage.Styles.addToDocument()

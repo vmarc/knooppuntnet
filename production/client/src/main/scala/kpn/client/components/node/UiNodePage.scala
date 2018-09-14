@@ -170,9 +170,9 @@ object UiNodePage {
     private def summary(): VdomElement = {
       <.div(
         <.p(
-          UiOsmLink.node(page.nodeInfo.id),
-          " (",
           UiOsmLink.josmNode(page.nodeInfo.id),
+          " (",
+          UiOsmLink.node(page.nodeInfo.id),
           ")"
         ),
         TagMod.unless(page.nodeInfo.active) {

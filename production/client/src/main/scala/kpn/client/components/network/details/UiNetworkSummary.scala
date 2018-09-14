@@ -29,9 +29,10 @@ object UiNetworkSummary {
           <.p(s"${a.routeCount} routes"),
           <.p(UiNetworkType(a.networkType)),
           <.p(
+            UiOsmLink.josmRelation(a.id),
+            " (",
             UiOsmLink.relation(a.id),
-            " ",
-            UiOsmLink.josmRelation(a.id)
+            ")"
           ),
           TagMod.when(a.brokenRouteCount > 0) {
             <.p(

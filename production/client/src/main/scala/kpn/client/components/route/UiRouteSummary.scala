@@ -69,9 +69,9 @@ object UiRouteSummary {
 
     private def relation(): VdomElement = {
       <.p(
-        UiOsmLink.relation(summary.id),
-        " (",
         UiOsmLink.josmRelation(summary.id),
+        " (",
+        UiOsmLink.relation(summary.id),
         ")"
       )
     }
