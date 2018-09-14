@@ -119,7 +119,6 @@ class CommandEncoder {
   }
 
   private def processMultiLineString(geometry: MultiLineString): Seq[Int] = {
-    println("processMultiLineString")
     GeometryUtil.childGeometries(geometry).flatMap { childGeometry =>
       makeCommands2(childGeometry.getCoordinates, closePathAtEnd = false)
     }
