@@ -42,6 +42,7 @@ class OrphanNodeTest04 extends AbstractTest {
             "",
             "",
             "",
+            "",
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),

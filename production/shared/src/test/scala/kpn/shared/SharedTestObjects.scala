@@ -39,6 +39,7 @@ import kpn.shared.node.NodeNameAnalyzer.rwnName
 import kpn.shared.node.NodeNameAnalyzer.rhnName
 import kpn.shared.node.NodeNameAnalyzer.rmnName
 import kpn.shared.node.NodeNameAnalyzer.rpnName
+import kpn.shared.node.NodeNameAnalyzer.rinName
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap
@@ -264,6 +265,7 @@ trait SharedTestObjects {
       rhnName(tags),
       rmnName(tags),
       rpnName(tags),
+      rinName(tags),
       latitude,
       longitude,
       lastUpdated,

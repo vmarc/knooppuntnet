@@ -26,18 +26,18 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("MeterCount", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("MeterCount", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("MeterCount", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 0, 0, 0),
-          Figure("NetworkCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NetworkCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NetworkCount", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0),
-          Figure("NodeCount", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NodeCount", 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NodeCount", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0),
-          Figure("RouteCount", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("RouteCount", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("RouteCount", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0)
+          Figure("MeterCount", nlRwn = 11),
+          Figure("MeterCount", nlRwn = 21),
+          Figure("MeterCount", deRcn = 31),
+          Figure("NetworkCount", nlRwn = 1),
+          Figure("NetworkCount", nlRwn = 1),
+          Figure("NetworkCount", deRcn = 1),
+          Figure("NodeCount", nlRwn = 12),
+          Figure("NodeCount", nlRwn = 22),
+          Figure("NodeCount", deRcn = 32),
+          Figure("RouteCount", nlRwn = 13),
+          Figure("RouteCount", nlRwn = 23),
+          Figure("RouteCount", deRcn = 33)
         )
       )
 
@@ -45,10 +45,10 @@ class OverviewTest extends FunSuite with Matchers {
 
       sums should equal(
         Seq(
-          Figure("MeterCount", 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 0, 0, 0),
-          Figure("NetworkCount", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0),
-          Figure("NodeCount", 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0),
-          Figure("RouteCount", 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0)
+          Figure("MeterCount", nlRwn = 32, deRcn = 31),
+          Figure("NetworkCount", nlRwn = 2, deRcn = 1),
+          Figure("NodeCount", nlRwn = 34, deRcn = 32),
+          Figure("RouteCount", nlRwn = 36, deRcn = 33)
         )
       )
     }
@@ -72,11 +72,11 @@ class OverviewTest extends FunSuite with Matchers {
 
       val rows = queryRows(database)
 
-      rows should contain(Figure("NameMissingCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-      rows should contain(Figure("NameMissingNetworkCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+      rows should contain(Figure("NameMissingCount", nlRcn = 1))
+      rows should contain(Figure("NameMissingNetworkCount", nlRcn = 1))
 
-      rows should contain(Figure("IgnoreForeignCountryCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-      rows should contain(Figure("IgnoreForeignCountryNetworkCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+      rows should contain(Figure("IgnoreForeignCountryCount", nlRcn = 1))
+      rows should contain(Figure("IgnoreForeignCountryNetworkCount", nlRcn = 1))
     }
   }
 
@@ -106,10 +106,10 @@ class OverviewTest extends FunSuite with Matchers {
       )
 
       val rows = queryRows(database)
-      rows should contain(Figure("RouteBrokenCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-      rows should contain(Figure("RouteBrokenNetworkCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-      rows should contain(Figure("RouteNameMissingCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-      rows should contain(Figure("RouteNameMissingNetworkCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+      rows should contain(Figure("RouteBrokenCount", nlRcn = 1))
+      rows should contain(Figure("RouteBrokenNetworkCount", nlRcn = 1))
+      rows should contain(Figure("RouteNameMissingCount", nlRcn = 1))
+      rows should contain(Figure("RouteNameMissingNetworkCount", nlRcn = 1))
     }
   }
 
@@ -124,10 +124,10 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("MeterCount", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NetworkCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NodeCount", 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("RouteCount", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("MeterCount", nlRwn = 21),
+          Figure("NetworkCount", nlRwn = 1),
+          Figure("NodeCount", nlRwn = 22),
+          Figure("RouteCount", nlRwn = 23)
         )
       )
     }
@@ -144,10 +144,10 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("MeterCount", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NetworkCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("NodeCount", 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("RouteCount", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("MeterCount", nlRwn = 21),
+          Figure("NetworkCount", nlRwn = 1),
+          Figure("NodeCount", nlRwn = 22),
+          Figure("RouteCount", nlRwn = 23)
         )
       )
     }
@@ -165,9 +165,9 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanNodeCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("OrphanNodeCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("OrphanNodeCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("OrphanNodeCount", nlRcn = 1),
+          Figure("OrphanNodeCount", nlRwn = 1),
+          Figure("OrphanNodeCount", nlRwn = 1)
         )
       )
     }
@@ -185,7 +185,7 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanNodeCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("OrphanNodeCount", nlRwn = 1)
         )
       )
     }
@@ -203,7 +203,7 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanNodeCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("OrphanNodeCount", nlRwn = 1)
         )
       )
     }
@@ -221,9 +221,9 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanRouteCount", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("OrphanRouteCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-          Figure("OrphanRouteCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("OrphanRouteCount", nlRcn = 1),
+          Figure("OrphanRouteCount", nlRwn = 1),
+          Figure("OrphanRouteCount", nlRwn = 1)
         )
       )
     }
@@ -241,7 +241,7 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanRouteCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("OrphanRouteCount", nlRwn = 1)
         )
       )
     }
@@ -259,7 +259,7 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanRouteCount", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+          Figure("OrphanRouteCount", nlRwn = 1)
         )
       )
     }

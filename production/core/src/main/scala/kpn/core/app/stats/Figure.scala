@@ -9,24 +9,24 @@ import kpn.shared.statistics.Statistic
 
 case class Figure(
   name: String,
-  nlRwn: Int,
-  nlRcn: Int,
-  nlRhn: Int,
-  nlRmn: Int,
-  nlRpn: Int,
-  nlRin: Int,
-  beRwn: Int,
-  beRcn: Int,
-  beRhn: Int,
-  beRmn: Int,
-  beRpn: Int,
-  beRin: Int,
-  deRwn: Int,
-  deRcn: Int,
-  deRhn: Int,
-  deRmn: Int,
-  deRpn: Int,
-  deRin: Int
+  nlRwn: Int = 0,
+  nlRcn: Int = 0,
+  nlRhn: Int = 0,
+  nlRmn: Int = 0,
+  nlRpn: Int = 0,
+  nlRin: Int = 0,
+  beRwn: Int = 0,
+  beRcn: Int = 0,
+  beRhn: Int = 0,
+  beRmn: Int = 0,
+  beRpn: Int = 0,
+  beRin: Int = 0,
+  deRwn: Int = 0,
+  deRcn: Int = 0,
+  deRhn: Int = 0,
+  deRmn: Int = 0,
+  deRpn: Int = 0,
+  deRin: Int = 0
 ) {
 
   def total: Int = nlRwn + nlRcn + nlRhn + nlRmn + nlRpn + nlRin +

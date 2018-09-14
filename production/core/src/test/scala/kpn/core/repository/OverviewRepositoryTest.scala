@@ -31,8 +31,8 @@ class OverviewRepositoryTest extends FunSuite with Matchers with SharedTestObjec
       val repository: OverviewRepository = new OverviewRepositoryImpl(database)
 
       val figures = repository.figures(Couch.uiTimeout)
-      figures("NetworkCount") should equal(Figure("NetworkCount", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-      figures("NodeCount") should equal(Figure("NodeCount", 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+      figures("NetworkCount") should equal(Figure("NetworkCount", beRwn = 1))
+      figures("NodeCount") should equal(Figure("NodeCount", beRwn = 2))
     }
   }
 }
