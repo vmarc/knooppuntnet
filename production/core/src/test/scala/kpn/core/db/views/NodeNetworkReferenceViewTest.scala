@@ -14,7 +14,7 @@ import kpn.shared.node.NodeNetworkRouteReference
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class NewReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
+class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   private val timeout = Couch.uiTimeout
 
@@ -132,7 +132,7 @@ class NewReferenceViewTest extends FunSuite with Matchers with SharedTestObjects
   }
 
   def queryNode(database: Database, nodeId: Long): Seq[NodeNetworkReference] = {
-    database.query(AnalyzerDesign, NewReferenceView, timeout, stale = false)(nodeId).map(NewReferenceView.convert)
+    database.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale = false)(nodeId).map(NodeNetworkReferenceView.convert)
   }
 
 }

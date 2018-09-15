@@ -1,15 +1,16 @@
 if (doc && doc.network) {
 
-  var a = doc.network.attributes;
-  var d = doc.network.detail;
-  if (d) {
-    for (var i = 0; i < d.nodes.length; i++) {
-      var node = d.nodes[i];
+  var attributes = doc.network.attributes;
+  var detail = doc.network.detail;
+
+  if (detail) {
+    for (var i = 0; i < detail.nodes.length; i++) {
+      var node = detail.nodes[i];
       var routes = [];
-      for (var j = 0; j < d.routes.length; j++) {
-        var route = d.routes[j];
+      for (var j = 0; j < detail.routes.length; j++) {
+        var route = detail.routes[j];
         for (var k = 0; k < node.routeReferences.length; k++) {
-          if (node.routeReferences[k].id == route.id) {
+          if (node.routeReferences[k].id === route.id) {
             var routeInfo = {
               routeId: route.id,
               routeName: route.name,
@@ -31,14 +32,13 @@ if (doc && doc.network) {
 
       var key = [
         node.id,
-        "network",
-        a.id
+        attributes.id
       ];
 
       var value = {
-        networkType: a.networkType,
-        networkId: a.id,
-        networkName: a.name,
+        networkType: attributes.networkType,
+        networkId: attributes.id,
+        networkName: attributes.name,
         nodeConnection: node.connection,
         nodeDefinedInRelation: node.definedInRelation,
         nodeIntegrityCheck: nodeIntegrityCheck,

@@ -4,7 +4,7 @@ import kpn.core.db.json.JsonFormats.nodeNetworkReferenceFormat
 import kpn.shared.node.NodeNetworkReference
 import spray.json.JsValue
 
-object NewReferenceView extends View {
+object NodeNetworkReferenceView extends View {
 
   def convert(rowValue: JsValue): NodeNetworkReference = {
     val row = toRow(rowValue)
