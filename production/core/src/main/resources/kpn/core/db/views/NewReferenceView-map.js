@@ -36,8 +36,8 @@ if (doc && doc.network) {
       ];
 
       var value = {
-        networkId: a.id,
         networkType: a.networkType,
+        networkId: a.id,
         networkName: a.name,
         nodeConnection: node.connection,
         nodeDefinedInRelation: node.definedInRelation,

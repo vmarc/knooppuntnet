@@ -134,10 +134,10 @@ import kpn.shared.network.NetworkSummary
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
-import kpn.shared.NodeIntegrityCheck
 import kpn.shared.node.NodeNetworkIntegrityCheck
 import kpn.shared.node.NodeNetworkReference
 import kpn.shared.node.NodeNetworkRouteReference
+import kpn.shared.node.NodeOrphanRouteReference
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 import kpn.shared.route.GeometryDiff
@@ -167,7 +167,6 @@ import kpn.shared.subset.SubsetOrphanRoutesPage
 import spray.json.DefaultJsonProtocol
 import spray.json.JsString
 import spray.json.JsValue
-import spray.json.RootJsonFormat
 import spray.json.RootJsonFormat
 import spray.json._
 
@@ -422,5 +421,6 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val nodeNetworkIntegrityCheckFormat: RootJsonFormat[NodeNetworkIntegrityCheck] = jsonFormat3(NodeNetworkIntegrityCheck)
   implicit val nodeNetworkRouteReferenceFormat: RootJsonFormat[NodeNetworkRouteReference] = jsonFormat3(NodeNetworkRouteReference)
   implicit val nodeNetworkReferenceFormat: RootJsonFormat[NodeNetworkReference] = jsonFormat7(NodeNetworkReference)
+  implicit val nodeOrphanRouteReferenceFormat: RootJsonFormat[NodeOrphanRouteReference] = jsonFormat3(NodeOrphanRouteReference)
 
 }

@@ -1,18 +1,24 @@
 package kpn.core.db.views
 
-import kpn.core.db.couch.{Couch, Database}
+import kpn.core.db.couch.Couch
+import kpn.core.db.couch.Database
 import kpn.core.repository.NetworkRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
+import kpn.shared.NetworkType
+import kpn.shared.NodeIntegrityCheck
+import kpn.shared.SharedTestObjects
 import kpn.shared.common.Ref
-import kpn.shared.node.{NodeNetworkIntegrityCheck, NodeNetworkReference, NodeNetworkRouteReference}
-import kpn.shared.{NetworkType, NodeIntegrityCheck, SharedTestObjects}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.node.NodeNetworkIntegrityCheck
+import kpn.shared.node.NodeNetworkReference
+import kpn.shared.node.NodeNetworkRouteReference
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class NewReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   private val timeout = Couch.uiTimeout
 
-  test("view n") {
+  test("node network reference") {
 
     withDatabase { database =>
       val networkRepository = new NetworkRepositoryImpl(database)

@@ -3,8 +3,8 @@ package kpn.shared.node
 import kpn.shared.NetworkType
 
 case class NodeNetworkReference(
-  networkId: Long,
   networkType: NetworkType,
+  networkId: Long,
   networkName: String,
   nodeDefinedInRelation: Boolean,
   nodeConnection: Boolean,

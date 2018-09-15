@@ -8,6 +8,7 @@ object AnalyzerDesign extends Design {
     NetworkView,
     NetworkMapView,
     NewReferenceView,
+    NodeOrphanRouteReferenceView,
     Overview,
     GraphEdges,
     ReferenceView,
