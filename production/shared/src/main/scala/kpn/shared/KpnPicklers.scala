@@ -105,45 +105,9 @@ import kpn.shared.subset.SubsetOrphanRoutesPage
 
 object KpnPicklers {
 
-  // ignore Intellij error on next line (PlatformUtil is implemented in sharedJS and sharedJVM directories)
-  private val platformUtil: PlatformUtil = new kpn.platform.PlatformUtilImpl()
-
   import boopickle.DefaultBasic._
 
-  implicit object timestampPickler extends Pickler[Timestamp] {
-    override def pickle(obj: Timestamp)(implicit state: PickleState): Unit = {
-
-      val local = platformUtil.toLocal(obj)
-
-      state.identityRefFor(local) match {
-        case Some(idx) =>
-          println("Timestamp.pickle idx=" + idx)
-          state.enc.writeInt(-idx)
-        case None =>
-          state.enc.writeInt(local.year)
-          state.enc.writeInt(local.month)
-          state.enc.writeInt(local.day)
-          state.enc.writeInt(local.hour)
-          state.enc.writeInt(local.minute)
-          state.enc.writeInt(local.second)
-          state.addIdentityRef(local)
-      }
-    }
-
-    override def unpickle(implicit state: UnpickleState): Timestamp = {
-      val c = new Timestamp(
-        state.dec.readInt,
-        state.dec.readInt,
-        state.dec.readInt,
-        state.dec.readInt,
-        state.dec.readInt,
-        state.dec.readInt
-      )
-      state.addIdentityRef(c)
-      c
-    }
-  }
-
+  implicit val timestamp: Pickler[Timestamp] = PicklerGenerator.generatePickler[Timestamp]
   implicit val apiResponseNetworkDetailsPage: Pickler[ApiResponse[NetworkDetailsPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkDetailsPage]]
   implicit val apiResponseNetworkMapPage: Pickler[ApiResponse[NetworkMapPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkMapPage]]
   implicit val apiResponseNetworkFactsPage: Pickler[ApiResponse[NetworkFactsPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkFactsPage]]

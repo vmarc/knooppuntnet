@@ -7,6 +7,7 @@ object AnalyzerDesign extends Design {
     FactView,
     NetworkView,
     NetworkMapView,
+    NewReferenceView,
     Overview,
     GraphEdges,
     ReferenceView,

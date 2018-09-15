@@ -134,6 +134,10 @@ import kpn.shared.network.NetworkSummary
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
+import kpn.shared.NodeIntegrityCheck
+import kpn.shared.node.NodeNetworkIntegrityCheck
+import kpn.shared.node.NodeNetworkReference
+import kpn.shared.node.NodeNetworkRouteReference
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 import kpn.shared.route.GeometryDiff
@@ -414,5 +418,9 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val poiFormat: RootJsonFormat[Poi] = jsonFormat6(Poi)
   implicit val poiDocFormat: RootJsonFormat[PoiDoc] = jsonFormat3(PoiDoc)
   implicit val poiInfoFormat: RootJsonFormat[PoiInfo] = jsonFormat5(PoiInfo)
+
+  implicit val nodeNetworkIntegrityCheckFormat: RootJsonFormat[NodeNetworkIntegrityCheck] = jsonFormat3(NodeNetworkIntegrityCheck)
+  implicit val nodeNetworkRouteReferenceFormat: RootJsonFormat[NodeNetworkRouteReference] = jsonFormat3(NodeNetworkRouteReference)
+  implicit val nodeNetworkReferenceFormat: RootJsonFormat[NodeNetworkReference] = jsonFormat7(NodeNetworkReference)
 
 }
