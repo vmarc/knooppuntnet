@@ -2,8 +2,10 @@ package kpn.core.engine.analysis.route.segment
 
 import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
-import kpn.core.engine.analysis.route.RouteNameAnalysis
-import kpn.core.engine.analysis.route.ZzzzObsoleteRouteNodeAnalyzer
+import kpn.core.engine.analysis.route.analyzers.RouteNameAnalyzer
+import kpn.core.engine.analysis.route.analyzers.RouteNodeAnalyzer
+import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.core.load.data.LoadedRoute
 import kpn.shared.NetworkType
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -142,8 +144,22 @@ class FragmentAnalyzerTest extends FunSuite with Matchers {
     val data = d.data
     val relation = data.relations(d.routeRelationId)
     val interpreter = new Interpreter(NetworkType.hiking)
-    val nodeAnalysis = new ZzzzObsoleteRouteNodeAnalyzer(interpreter, RouteNameAnalysis(), relation).analysis
-    val fragments = new FragmentAnalyzer(nodeAnalysis.routeNodes, relation.wayMembers).fragments
+
+    val context1 = RouteAnalysisContext(
+      networkNodes = Map(),
+      loadedRoute = LoadedRoute(
+        country = None,
+        networkType = NetworkType.hiking,
+        "",
+        data = data,
+        relation = relation
+      ),
+      orphan = false,
+      interpreter = interpreter
+    )
+    val context2 = new RouteNameAnalyzer(context1).analyze
+    val context3 = new RouteNodeAnalyzer(context2).analyze
+    val fragments = new FragmentAnalyzer(context3.routeNodeAnalysis.get.usedNodes, relation.wayMembers).fragments
     fragments.map(fragment => new FragmentFormatter(fragment).string).mkString
   }
 }

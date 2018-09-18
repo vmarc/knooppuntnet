@@ -2,12 +2,14 @@ package kpn.core.engine.analysis.route.segment
 
 import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
-import kpn.core.engine.analysis.route.ZzzzObsoleteRouteNameAnalyzer
 import kpn.core.engine.analysis.route.RouteNode
-import kpn.core.engine.analysis.route.ZzzzObsoleteRouteNodeAnalyzer
 import kpn.core.engine.analysis.route.RouteNodeFormatter
 import kpn.core.engine.analysis.route.RouteStructure
 import kpn.core.engine.analysis.route.RouteStructureFormatter
+import kpn.core.engine.analysis.route.analyzers.RouteNameAnalyzer
+import kpn.core.engine.analysis.route.analyzers.RouteNodeAnalyzer
+import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.core.load.data.LoadedRoute
 import kpn.shared.NetworkType
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -506,18 +508,29 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     val data = d.data
     val routeRelation = data.relations(1)
     val interpreter = new Interpreter(d.networkType)
-    val routeNameAnalysis = new ZzzzObsoleteRouteNameAnalyzer().analyze(Some(d.routeName))
-    val routeNodeAnalysis = new ZzzzObsoleteRouteNodeAnalyzer(interpreter, routeNameAnalysis, routeRelation).analysis
-    if (routeNodeAnalysis.startNodes.isEmpty) fail("expected start node, but found none")
-    if (routeNodeAnalysis.endNodes.isEmpty) fail("expected end node, but found none")
-
-    val fragments = new FragmentAnalyzer(routeNodeAnalysis.usedNodes, routeRelation.wayMembers).fragments
+    val context1 = RouteAnalysisContext(
+      networkNodes = Map(),
+      loadedRoute = LoadedRoute(
+        country = None,
+        networkType = NetworkType.hiking,
+        "",
+        data = data,
+        relation = routeRelation
+      ),
+      orphan = false,
+      interpreter = interpreter
+    )
+    val context2 = new RouteNameAnalyzer(context1).analyze
+    val context3 = new RouteNodeAnalyzer(context2).analyze
+    if (context3.routeNodeAnalysis.get.startNodes.isEmpty) fail("expected start node, but found none")
+    if (context3.routeNodeAnalysis.get.endNodes.isEmpty) fail("expected end node, but found none")
+    val fragments = new FragmentAnalyzer(context3.routeNodeAnalysis.get.usedNodes, routeRelation.wayMembers).fragments
 
     val structure: RouteStructure = new SegmentAnalyzer(
       d.networkType,
       1,
       FragmentFilter.filter(fragments),
-      routeNodeAnalysis
+      context3.routeNodeAnalysis.get
     ).structure
 
     val actual = new RouteStructureFormatter(structure).string
@@ -526,8 +539,8 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
       val b = new StringBuffer
 
       b.append("nodes\n")
-      b.append("  start=" + routeNodeAnalysis.startNodes.map(formatRouteNode).mkString("(", ",", ")") + "\n")
-      b.append("  end=" + routeNodeAnalysis.endNodes.map(formatRouteNode).mkString("(", ",", ")") + "\n")
+      b.append("  start=" + context3.routeNodeAnalysis.get.startNodes.map(formatRouteNode).mkString("(", ",", ")") + "\n")
+      b.append("  end=" + context3.routeNodeAnalysis.get.endNodes.map(formatRouteNode).mkString("(", ",", ")") + "\n")
       b.append("expected=")
       b.append(expected)
       b.append("\nactual  =")

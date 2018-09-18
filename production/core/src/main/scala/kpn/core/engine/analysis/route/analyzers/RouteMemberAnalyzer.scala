@@ -105,9 +105,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
           n
         }
 
-        val accessible = way.tags.has("highway") || way.tags.has("route", "ferry") ||
-          (context.interpreter.networkType == NetworkType.bicycle && way.tags.has("bicycle", "yes")) ||
-          (context.interpreter.networkType == NetworkType.hiking && way.tags.has("foot", "yes")) // TODO implement more complex rules here (based on network type)
+        val accessible = new AccessibilityAnalyzerImpl().accessible(context.interpreter.networkType, way)
 
         // way.tags.has("route", "ferry") TODO draw boat icon?
 

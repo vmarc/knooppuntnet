@@ -5,6 +5,19 @@ import kpn.core.engine.analysis.route.RouteNameAnalysis
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.shared.Fact.RouteNameMissing
 
+/**
+  * Analyzes the route name.
+  *
+  * The route name is found in the route relation 'note' tag.
+  *
+  * Any characters after ";" in the 'note' tag are ignored.
+  *
+  * The regular expected pattern is two times 2 digits separated with a dash. The first two digits
+  * represent the start node, the second 2 digits the end node. The start node is expected to have
+  * a lower value than the end node.
+  *
+  * If the start node has a higher value than the end node, the route name considered to be 'reversed'.
+  */
 object RouteNameAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     new RouteNameAnalyzer(context).analyze
