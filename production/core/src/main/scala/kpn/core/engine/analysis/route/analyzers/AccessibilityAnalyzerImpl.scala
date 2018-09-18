@@ -29,7 +29,9 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
   }
 
   private def horseAccessible(way: Way): Boolean = {
-    true
+    way.tags.has("highway") ||
+      way.tags.has("route", "ferry") ||
+      way.tags.has("horse", "yes")
   }
 
   private def motorboatAccessible(way: Way): Boolean = {
@@ -38,12 +40,14 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
 
   private def canoeAccessible(way: Way): Boolean = {
     way.tags.has("waterway") ||
-      way.tags.has("canoe", "portage") || // use for places where canoe has to be carried over a dam
+      way.tags.has("canoe", "portage") || // used for places where canoe has to be carried over a dam
       way.tags.has("canoe", "yes")
   }
 
   private def inlineSkatesAccessible(way: Way): Boolean = {
-    true
+    way.tags.has("highway") ||
+      way.tags.has("route", "ferry") ||
+      way.tags.has("inline_skates", "yes")
   }
 
 }
