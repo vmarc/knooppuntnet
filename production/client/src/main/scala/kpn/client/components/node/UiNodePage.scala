@@ -44,6 +44,10 @@ object UiNodePage {
     val red: StyleA = style(
       color.red
     )
+
+    val networkRoutes: StyleA = style(
+      margin(20.px)
+    )
   }
 
   private case class State(pageState: PageState[NodePage] = PageState())
@@ -151,11 +155,13 @@ object UiNodePage {
             }
           ),
           UiData("Networks", "Netwerken")(
-            UiNodeNetworks(page.references.networkReferences)
+            UiNodeNetworkReferences(page.nodeInfo.tags, page.references.networkReferences)
           ),
-          UiData("Routes", "Routes")(
-            UiNodeRoutes(page.references.routeReferences)
-          ),
+          TagMod.when(page.references.routeReferences.nonEmpty) {
+            UiData("Orphan routes", "Route wezen")(
+              UiNodeOrphanRouteReferences(page.references.routeReferences)
+            )
+          },
           UiData("Facts", "Feiten")(
             UiFacts(page.nodeInfo.facts)
           ),

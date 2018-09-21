@@ -10,7 +10,11 @@ object NodeTagFilter {
     "rwn_ref",
     "rcn_ref",
     "expected_rwn_route_relations",
-    "expected_rcn_route_relations"
+    "expected_rcn_route_relations",
+    "expected_rhn_route_relations",
+    "expected_rmn_route_relations",
+    "expected_rpn_route_relations",
+    "expected_rin_route_relations"
   )
 
   def apply(tagable: Tagable): TagFilter = {

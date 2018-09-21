@@ -7,12 +7,12 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.nodeDocFormat
 import kpn.core.db.views.AnalyzerDesign
-import kpn.core.db.views.ReferenceView
+import kpn.core.db.views.NodeNetworkReferenceView
+import kpn.core.db.views.NodeOrphanRouteReferenceView
 import kpn.core.util.Log
-import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
-import kpn.shared.common.Reference
-import kpn.shared.node.NodeReferences
+import kpn.shared.node.NodeNetworkReference
+import kpn.shared.node.NodeOrphanRouteReference
 
 class NodeRepositoryImpl(database: Database) extends NodeRepository {
 
@@ -76,42 +76,12 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     database.objectsWithIds(ids, timeout, stale).map(doc => nodeDocFormat.read(doc)).map(_.node)
   }
 
-  override def nodeReferences(nodeId: Long, timeout: Timeout, stale: Boolean): NodeReferences = {
-    val references = database.query(AnalyzerDesign, ReferenceView, timeout, stale)("node", nodeId).map(ReferenceView.convert).flatMap { row =>
-      NetworkType.withName(row.referrerNetworkType).map { networkType =>
-        row.referrerType -> Reference(
-          row.referrerId,
-          row.referrerName,
-          networkType,
-          row.connection
-        )
-      }
-    }
-
-    val networkReferences = references.filter(_._1 == "network").map(_._2).sorted
-    val routeReferences = references.filter(_._1 == "route").map(_._2).sorted
-    NodeReferences(networkReferences, routeReferences)
+  override def nodeNetworkReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeNetworkReference] = {
+    database.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale)(nodeId).map(NodeNetworkReferenceView.convert)
   }
 
-  override def networkTypeNodeReferences(networkType: NetworkType, nodeId: Long, timeout: Timeout, stale: Boolean): NodeReferences = {
-    val references = database.query(AnalyzerDesign, ReferenceView, timeout, stale)("node", nodeId).map(ReferenceView.convert).flatMap { row =>
-      if (row.referrerNetworkType == networkType.name) {
-        Some(
-          row.referrerType -> Reference(
-            row.referrerId,
-            row.referrerName,
-            networkType,
-            row.connection
-          )
-        )
-      }
-      else {
-        None
-      }
-    }
-    val networkReferences = references.filter(_._1 == "network").map(_._2).sorted
-    val routeReferences = references.filter(_._1 == "route").map(_._2).sorted
-    NodeReferences(networkReferences, routeReferences)
+  override def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
+    database.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale)(nodeId).map(NodeOrphanRouteReferenceView.convert)
   }
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {

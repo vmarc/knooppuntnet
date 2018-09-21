@@ -343,8 +343,13 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val blackListFormat: RootJsonFormat[BlackList] = jsonFormat3(BlackList)
   implicit val blackListDocFormat: RootJsonFormat[BlackListDoc] = jsonFormat3(BlackListDoc)
 
-  implicit val referenceFormat: RootJsonFormat[Reference] = jsonFormat4(Reference)
+  implicit val nodeNetworkIntegrityCheckFormat: RootJsonFormat[NodeNetworkIntegrityCheck] = jsonFormat3(NodeNetworkIntegrityCheck)
+  implicit val nodeNetworkRouteReferenceFormat: RootJsonFormat[NodeNetworkRouteReference] = jsonFormat3(NodeNetworkRouteReference)
+  implicit val nodeNetworkReferenceFormat: RootJsonFormat[NodeNetworkReference] = jsonFormat7(NodeNetworkReference)
+  implicit val nodeOrphanRouteReferenceFormat: RootJsonFormat[NodeOrphanRouteReference] = jsonFormat3(NodeOrphanRouteReference)
   implicit val nodeReferencesFormat: RootJsonFormat[NodeReferences] = jsonFormat2(NodeReferences)
+
+  implicit val referenceFormat: RootJsonFormat[Reference] = jsonFormat4(Reference)
   implicit val nodeChangeInfoFormat: RootJsonFormat[NodeChangeInfo] = jsonFormat19(NodeChangeInfo)
   implicit val nodeChangeInfosFormat: RootJsonFormat[NodeChangeInfos] = jsonFormat3(NodeChangeInfos)
   implicit val nodePageFormat: RootJsonFormat[NodePage] = jsonFormat3(NodePage)
@@ -418,9 +423,5 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val poiDocFormat: RootJsonFormat[PoiDoc] = jsonFormat3(PoiDoc)
   implicit val poiInfoFormat: RootJsonFormat[PoiInfo] = jsonFormat5(PoiInfo)
 
-  implicit val nodeNetworkIntegrityCheckFormat: RootJsonFormat[NodeNetworkIntegrityCheck] = jsonFormat3(NodeNetworkIntegrityCheck)
-  implicit val nodeNetworkRouteReferenceFormat: RootJsonFormat[NodeNetworkRouteReference] = jsonFormat3(NodeNetworkRouteReference)
-  implicit val nodeNetworkReferenceFormat: RootJsonFormat[NodeNetworkReference] = jsonFormat7(NodeNetworkReference)
-  implicit val nodeOrphanRouteReferenceFormat: RootJsonFormat[NodeOrphanRouteReference] = jsonFormat3(NodeOrphanRouteReference)
 
 }

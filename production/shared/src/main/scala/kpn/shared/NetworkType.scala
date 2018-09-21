@@ -21,8 +21,8 @@ object NetworkType {
 }
 
 case class NetworkType(name: String, title: String, routeTagValues: Seq[String]) {
-  val networkTagValue: String = name
-  val nodeTagKey: String = name + "_ref"
-
+  def networkTagValue: String = name
+  def nodeTagKey: String = name + "_ref"
+  def expectedRouteRelationsTag: String = "expected_" + name + "_route_relations"
   override def toString: String = name
 }

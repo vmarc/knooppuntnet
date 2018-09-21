@@ -13,6 +13,7 @@ import kpn.shared.changes.filter.ChangesParameters
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
 import kpn.shared.node.NodePage
+import kpn.shared.node.NodeReferences
 
 class NodePageBuilderImpl(
   nodeRepository: NodeRepository,
@@ -34,7 +35,9 @@ class NodePageBuilderImpl(
   }
 
   private def buildNodePage(user: Option[String], nodeInfo: NodeInfo): NodePage = {
-    val nodeReferences = nodeRepository.nodeReferences(nodeInfo.id, Couch.uiTimeout)
+    val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
+    val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)
+    val nodeReferences = NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
     val nodeChanges = buildNodeChanges(user, nodeInfo)
     NodePage(nodeInfo, nodeReferences, nodeChanges)
   }

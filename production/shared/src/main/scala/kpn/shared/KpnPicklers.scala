@@ -1,6 +1,5 @@
 package kpn.shared
 
-import kpn.platform.PlatformUtil
 import kpn.shared.changes.ChangeSetData
 import kpn.shared.changes.ChangeSetInfo
 import kpn.shared.changes.ChangeSetPage
@@ -57,7 +56,6 @@ import kpn.shared.network.Integrity
 import kpn.shared.network.NetworkAttributes
 import kpn.shared.network.NetworkChangesPage
 import kpn.shared.network.NetworkDetailsPage
-import kpn.shared.network.NetworkRouteFact
 import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkInfo
 import kpn.shared.network.NetworkInfoDetail
@@ -65,6 +63,7 @@ import kpn.shared.network.NetworkMapInfo
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodeInfo2
 import kpn.shared.network.NetworkNodesPage
+import kpn.shared.network.NetworkRouteFact
 import kpn.shared.network.NetworkRouteInfo
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.network.NetworkShape
@@ -72,6 +71,10 @@ import kpn.shared.network.NetworkSummary
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
+import kpn.shared.node.NodeNetworkIntegrityCheck
+import kpn.shared.node.NodeNetworkReference
+import kpn.shared.node.NodeNetworkRouteReference
+import kpn.shared.node.NodeOrphanRouteReference
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 import kpn.shared.route.Backward
@@ -95,8 +98,8 @@ import kpn.shared.statistics.CountryStatistic
 import kpn.shared.statistics.Statistic
 import kpn.shared.statistics.Statistics
 import kpn.shared.subset.NetworkRoutesFacts
-import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetChangesPage
+import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
 import kpn.shared.subset.SubsetInfo
 import kpn.shared.subset.SubsetNetworksPage
@@ -267,6 +270,11 @@ object KpnPicklers {
   implicit val subsetPickler: Pickler[Subset] = PicklerGenerator.generatePickler[Subset]
 
   implicit val referencePickler: Pickler[Reference] = PicklerGenerator.generatePickler[Reference]
+
+  implicit val nodeNetworkRouteReferencePickler: Pickler[NodeNetworkRouteReference] = PicklerGenerator.generatePickler[NodeNetworkRouteReference]
+  implicit val nodeNetworkIntegrityCheckPickler: Pickler[NodeNetworkIntegrityCheck] = PicklerGenerator.generatePickler[NodeNetworkIntegrityCheck]
+  implicit val nodeNetworkReferencePickler: Pickler[NodeNetworkReference] = PicklerGenerator.generatePickler[NodeNetworkReference]
+  implicit val nodeOrphanRouteReferencePickler: Pickler[NodeOrphanRouteReference] = PicklerGenerator.generatePickler[NodeOrphanRouteReference]
 
   implicit val nodeReferencesPickler: Pickler[NodeReferences] = PicklerGenerator.generatePickler[NodeReferences]
   implicit val nodeChangeInfosPickler: Pickler[NodeChangeInfos] = PicklerGenerator.generatePickler[NodeChangeInfos]

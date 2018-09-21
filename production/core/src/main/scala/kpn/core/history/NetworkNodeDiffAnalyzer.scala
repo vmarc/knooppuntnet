@@ -65,17 +65,7 @@ class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo,
   }
 
   private def tagDiffs: Option[TagDiffs] = {
-    val mainTagKeys = networkType match {
-      case NetworkType.bicycle => Seq("rcn_ref", "expected_rcn_route_relations", "fixme", "fixmetodo")
-      case NetworkType.hiking => Seq("rwn_ref", "expected_rwn_route_relations", "fixme", "fixmetodo")
-      case NetworkType.horse => Seq("rhn_ref", "expected_rhn_route_relations", "fixme", "fixmetodo")
-      case NetworkType.motorboat => Seq("rmn_ref", "expected_rmn_route_relations", "fixme", "fixmetodo")
-      case NetworkType.canoe => Seq("rpn_ref", "expected_rpn_route_relations", "fixme", "fixmetodo")
-      case NetworkType.inlineSkates => Seq("rin_ref", "expected_rin_route_relations", "fixme", "fixmetodo")
-    }
-    // name:rcn_ref -> Het Tolhuis
-    // tourism -> information, description -> Informatiepaneel knooppunt 32, information -> map,
-    new TagDiffAnalyzer(beforeNode, afterNode, mainTagKeys).diffs
+    new TagDiffAnalyzer(beforeNode, afterNode, NodeTagDiffAnalyzer.mainTagKeys).diffs
   }
 
   private def nodeIntegrityCheckDiff: Option[NodeIntegrityCheckDiff] = {

@@ -1,52 +1,60 @@
 package kpn.core.engine.analysis
 
+import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.shared.NetworkType
 import kpn.shared.NodeIntegrityCheck
 
-class NodeIntegrityAnalyzer(networkAnalysis: NetworkAnalysis, networkType: NetworkType, networkNode: NetworkNode) {
+class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAnalysis, networkNode: NetworkNode) {
 
-  private val tagKey = "expected_" + networkType.name + "_route_relations"
-
-  private val hasIntegrityCheck = networkNode.node.tags.has(tagKey)
-
-  private val expectedRouteRelationCount = if (hasIntegrityCheck) {
-    val value = networkNode.node.tags(tagKey).get
-    if (!value.forall(_.isDigit)) {
-      // TODO facts ++= add network fact if some integrityCheckNode found
-      0
-    }
-    else {
-      value.toInt
-    }
-  }
-  else {
-    0
-  }
-
-  private val referencedInNetworkRelation = networkAnalysis.networkNodesInRelation.map(_.id).contains(networkNode.id)
-
-  private val routesWithNodeReference = {
-    val routesWithoutSpecialState = networkAnalysis.routes.filterNot { memberRoute =>
-      val tags = memberRoute.routeAnalysis.route.tags
-      tags.has("state", "connection") || tags.has("state", "alternate")
-    }
-    routesWithoutSpecialState.filter(_.routeAnalysis.routeNodes.nodesInWays.map(_.id).contains(networkNode.id))
-  }
-
-  private val failed = {
+  def analysis: Option[NodeIntegrityCheck] = {
     if (referencedInNetworkRelation && hasIntegrityCheck) {
-      routesWithNodeReference.size != expectedRouteRelationCount
+      Some(NodeIntegrityCheck(networkNode.name, networkNode.node.id, routesWithNodeReference.size, expectedRouteRelationCount, failed))
     }
     else {
-      false
+      None
     }
   }
 
-  val analysis: Option[NodeIntegrityCheck] = if (referencedInNetworkRelation && hasIntegrityCheck) {
-    Some(NodeIntegrityCheck(networkNode.name, networkNode.node.id, routesWithNodeReference.size, expectedRouteRelationCount, failed))
+  private def hasIntegrityCheck: Boolean = {
+    networkNode.node.tags.has(networkType.expectedRouteRelationsTag)
   }
-  else {
-    None
+
+  private def expectedRouteRelationCount: Int = {
+    networkNode.node.tags(networkType.expectedRouteRelationsTag) match {
+      case None => 0
+      case Some(value) =>
+        if (!value.forall(_.isDigit)) {
+          0
+        }
+        else {
+          value.toInt
+        }
+    }
+  }
+
+  private def referencedInNetworkRelation: Boolean = {
+    networkAnalysis.networkNodesInRelation.map(_.id).contains(networkNode.id)
+  }
+
+  private def routesWithNodeReference: Seq[NetworkMemberRoute] = {
+    networkAnalysis.routes.filterNot(hasSpecialState).filterNot(isConnection).filter(hasNodeReference)
+  }
+
+  private def failed: Boolean = {
+    routesWithNodeReference.size != expectedRouteRelationCount
+  }
+
+  private def hasSpecialState(memberRoute: NetworkMemberRoute): Boolean = {
+    val tags = memberRoute.routeAnalysis.route.tags
+    tags.has("state", "connection") || tags.has("state", "alternate")
+  }
+
+  private def isConnection(memberRoute: NetworkMemberRoute): Boolean = {
+    memberRoute.role.contains("connection")
+  }
+
+  private def hasNodeReference(memberRoute: NetworkMemberRoute): Boolean = {
+    memberRoute.routeAnalysis.routeNodes.nodesInWays.map(_.id).contains(networkNode.id)
   }
 }

@@ -43,6 +43,7 @@ import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodePage
+import kpn.shared.node.NodeReferences
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
@@ -201,7 +202,12 @@ class AnalyzerFacadeImpl(
   override def mapDetailNode(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapDetailNode] = {
     log.infoElapsed(s"$user mapDetailNode(${networkType.name}, $nodeId)") {
       val page = nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
-        val nodeReferences = nodeRepository.networkTypeNodeReferences(networkType, nodeId, Couch.uiTimeout)
+        val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
+        val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)
+        val nodeReferences = NodeReferences(
+          nodeNetworkReferences.filter(_.networkType == networkType),
+          nodeOrphanRouteReferences.filter(_.networkType == networkType)
+        )
         MapDetailNode(nodeInfo, nodeReferences)
       }
       ApiResponse(None, 1, page) // analysis timestamp not needed here

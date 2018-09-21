@@ -11,6 +11,14 @@ object NodeTagDiffAnalyzer {
     "expected_rcn_route_relations",
     "rwn_ref",
     "expected_rwn_route_relations",
+    "rhn_ref",
+    "expected_rhn_route_relations",
+    "rmn_ref",
+    "expected_rmn_route_relations",
+    "rpn_ref",
+    "expected_rpn_route_relations",
+    "rin_ref",
+    "expected_rin_route_relations",
     "fixme",
     "fixmetodo"
   )

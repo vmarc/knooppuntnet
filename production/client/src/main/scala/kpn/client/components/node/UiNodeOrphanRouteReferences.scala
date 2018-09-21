@@ -7,13 +7,13 @@ import japgolly.scalajs.react.vdom.html_<^.<
 import kpn.client.common.Context
 import kpn.client.common.Nls.nls
 import kpn.client.components.common.UiNetworkTypeAndText
-import kpn.shared.common.Reference
+import kpn.shared.node.NodeOrphanRouteReference
 
-object UiNodeRoutes {
+object UiNodeOrphanRouteReferences {
 
-  private case class Props(context: Context, references: Seq[Reference])
+  private case class Props(context: Context, references: Seq[NodeOrphanRouteReference])
 
-  private val component = ScalaComponent.builder[Props]("node-routes")
+  private val component = ScalaComponent.builder[Props]("node-orphan-route-references")
     .render_P { props =>
       implicit val context: Context = props.context
       if (props.references.isEmpty) {
@@ -22,14 +22,14 @@ object UiNodeRoutes {
       else {
         <.p(
           props.references.toTagMod { reference =>
-            UiNetworkTypeAndText(reference.networkType, context.gotoRoute(reference.id, reference.name))
+            UiNetworkTypeAndText(reference.networkType, context.gotoRoute(reference.routeId, reference.routeName))
           }
         )
       }
     }
     .build
 
-  def apply(references: Seq[Reference])(implicit context: Context): VdomElement = {
+  def apply(references: Seq[NodeOrphanRouteReference])(implicit context: Context): VdomElement = {
     component(Props(context, references))
   }
 }

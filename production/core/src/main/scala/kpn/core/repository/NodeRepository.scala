@@ -3,6 +3,8 @@ package kpn.core.repository
 import akka.util.Timeout
 import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
+import kpn.shared.node.NodeNetworkReference
+import kpn.shared.node.NodeOrphanRouteReference
 import kpn.shared.node.NodeReferences
 
 trait NodeRepository {
@@ -15,9 +17,9 @@ trait NodeRepository {
 
   def nodesWithIds(nodeIds: Seq[Long], timeout: Timeout, stale: Boolean = true): Seq[NodeInfo]
 
-  def nodeReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): NodeReferences
+  def nodeNetworkReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeNetworkReference]
 
-  def networkTypeNodeReferences(networkType: NetworkType, nodeId: Long, timeout: Timeout, stale: Boolean = true): NodeReferences
+  def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference]
 
   def filterKnown(nodeIds: Set[Long]): Set[Long]
 }

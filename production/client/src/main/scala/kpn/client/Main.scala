@@ -42,6 +42,7 @@ import kpn.client.components.map.UiMapDetail
 import kpn.client.components.menu.UiSidebarFooter
 import kpn.client.components.network.nodes.UiNetworkNodes
 import kpn.client.components.network.routes.UiNetworkRoutes
+import kpn.client.components.node.UiNodeNetworkReferences
 import kpn.client.components.node.UiNodePage
 import kpn.client.components.overview.UiOverviewPage
 import kpn.client.components.route.UiRouteHistoryMap
@@ -87,6 +88,7 @@ object Main {
     UiNetworkNodes.Styles.addToDocument()
     UiNetworkRoutes.Styles.addToDocument()
     UiNetworkTypeAndText.Styles.addToDocument()
+    UiNodeNetworkReferences.Styles.addToDocument()
     UiNodePage.Styles.addToDocument()
     UiNote.Styles.addToDocument()
     UiMetaInfo.Styles.addToDocument()

@@ -65,7 +65,7 @@ object UiMapDetailNode {
                 ),
                 mapDetailNode.references.networkReferences.toTagMod { reference =>
                   <.div(
-                    context.gotoNetworkDetails(reference.id, reference.name)
+                    context.gotoNetworkDetails(reference.networkId, reference.networkName)
                   )
                 }
               )
@@ -78,7 +78,7 @@ object UiMapDetailNode {
                 ),
                 mapDetailNode.references.routeReferences.toTagMod { reference =>
                   <.div(
-                    context.gotoRoute(reference.id, reference.name)
+                    context.gotoRoute(reference.routeId, reference.routeName)
                   )
                 }
               )

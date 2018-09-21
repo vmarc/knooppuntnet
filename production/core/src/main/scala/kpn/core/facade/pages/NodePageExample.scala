@@ -9,7 +9,6 @@ import kpn.shared.Timestamp
 import kpn.shared.changes.details.ChangeKey
 import kpn.shared.changes.details.RefBooleanChange
 import kpn.shared.common.Ref
-import kpn.shared.common.Reference
 import kpn.shared.data.Tags
 import kpn.shared.diff.TagDetail
 import kpn.shared.diff.TagDetailType
@@ -18,6 +17,10 @@ import kpn.shared.diff.common.FactDiffs
 import kpn.shared.diff.node.NodeMoved
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
+import kpn.shared.node.NodeNetworkIntegrityCheck
+import kpn.shared.node.NodeNetworkReference
+import kpn.shared.node.NodeNetworkRouteReference
+import kpn.shared.node.NodeOrphanRouteReference
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 
@@ -54,12 +57,50 @@ object NodePageExample {
       ),
       NodeReferences(
         networkReferences = Seq(
-          Reference(1, "network one", NetworkType.hiking),
-          Reference(2, "network two", NetworkType.bicycle, connection = true)
+          NodeNetworkReference(
+            networkType = NetworkType.hiking,
+            networkId = 1,
+            networkName = "network one",
+            nodeDefinedInRelation = true,
+            nodeConnection = true,
+            nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = true, 3, 2)),
+            routes = Seq(
+              NodeNetworkRouteReference(
+                routeId = 11,
+                routeName = "01-02",
+                routeRole = Some("connection")
+              )
+            )
+          ),
+          NodeNetworkReference(
+            networkType = NetworkType.hiking,
+            networkId = 2,
+            networkName = "network two",
+            nodeDefinedInRelation = false,
+            nodeConnection = false,
+            nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = false, 3, 3)),
+            routes = Seq(
+              NodeNetworkRouteReference(
+                routeId = 11,
+                routeName = "01-02",
+                routeRole = Some("connection")
+              ),
+              NodeNetworkRouteReference(
+                routeId = 12,
+                routeName = "01-03",
+                routeRole = Some("connection")
+              ),
+              NodeNetworkRouteReference(
+                routeId = 13,
+                routeName = "01-04",
+                routeRole = Some("connection")
+              )
+            )
+          )
         ),
         routeReferences = Seq(
-          Reference(1, "01-02", NetworkType.bicycle),
-          Reference(2, "01-03", NetworkType.hiking, connection = true)
+          NodeOrphanRouteReference(NetworkType.bicycle, 1, "01-02"),
+          NodeOrphanRouteReference(NetworkType.hiking, 2, "01-03")
         )
       ),
       NodeChangeInfos(
