@@ -6,6 +6,7 @@ import chandu0101.scalajs.react.components.materialui.Mui.SvgIcons.MapsDirection
 import chandu0101.scalajs.react.components.materialui.Mui.SvgIcons.MapsDirectionsWalk
 import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.vdom.Implicits._
+import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
 import japgolly.scalajs.react.vdom.html_<^.^
@@ -22,22 +23,21 @@ object UiNetworkTypeAndText {
     import dsl._
 
     val wrapper: StyleA = style(
-      marginBottom(3.px)
-    )
-
-    val icon: StyleA = style(
-      display.inlineBlock
+      marginBottom(3.px),
+      display.flex,
+      alignItems.center
     )
 
     val text: StyleA = style(
-      display.inlineBlock,
-      verticalAlign.top,
-      paddingLeft(10.px),
-      lineHeight(24.px)
+      paddingLeft(10.px)
+    )
+
+    val connection: StyleA = style(
+      paddingLeft(10.px)
     )
   }
 
-  private case class Props(context: Context, networkType: NetworkType, text: VdomElement)
+  private case class Props(context: Context, networkType: NetworkType, text: VdomElement, connection: Boolean)
 
   private val component = ScalaComponent.builder[Props]("network-type")
     .render_P { props =>
@@ -45,7 +45,6 @@ object UiNetworkTypeAndText {
       <.div(
         Styles.wrapper,
         <.div(
-          Styles.icon,
           props.networkType match {
             case NetworkType.hiking => UiIcon(MapsDirectionsWalk, grey800)
             case NetworkType.bicycle => UiIcon(MapsDirectionsBike, grey800)
@@ -73,12 +72,18 @@ object UiNetworkTypeAndText {
         <.div(
           Styles.text,
           props.text
-        )
+        ),
+        TagMod.when(props.connection) {
+          <.div(
+            Styles.connection,
+            UiImage("link.png")
+          )
+        }
       )
     }
     .build
 
-  def apply(networkType: NetworkType, text: VdomElement)(implicit context: Context): VdomElement = {
-    component(Props(context, networkType, text))
+  def apply(networkType: NetworkType, text: VdomElement, connection: Boolean = false)(implicit context: Context): VdomElement = {
+    component(Props(context, networkType, text, connection))
   }
 }

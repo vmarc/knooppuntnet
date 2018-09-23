@@ -148,7 +148,7 @@ object UiOverviewTable {
         <.tr(
           <.td(
             ^.rowSpan := 5,
-            nls("Integrity check", "Integriteit??")
+            nls("Integrity check", "Integriteit")
           ),
           counts(infos.integrityCheckNetworkCountInfo),
           <.td(

@@ -2,13 +2,11 @@ package kpn.client.components.node
 
 import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.vdom.Implicits._
-import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
 import kpn.client.common.Context
 import kpn.client.common.Nls.nls
 import kpn.client.components.common.CssSettings.default._
-import kpn.client.components.common.UiImage
 import kpn.client.components.common.UiNetworkTypeAndText
 import kpn.shared.data.Tags
 import kpn.shared.node.NodeNetworkReference
@@ -21,7 +19,12 @@ object UiNodeNetworkReferences {
     import dsl._
 
     val networkRoute: StyleA = style(
-      marginLeft(35.px)
+      marginLeft(35.px),
+      paddingBottom(35.px)
+    )
+
+    val text: StyleA = style(
+      paddingBottom(10.px)
     )
 
     val routeLine: StyleA = style(
@@ -44,9 +47,6 @@ object UiNodeNetworkReferences {
           props.references.toTagMod { reference =>
 
             val nodeHasExpectedRouteRelations = props.nodeTags.has(reference.networkType.expectedRouteRelationsTag)
-            println("nodeHasExpectedRouteRelations=" + nodeHasExpectedRouteRelations)
-            println("reference=" + reference)
-
 
             <.div(
               UiNetworkTypeAndText(
@@ -57,54 +57,81 @@ object UiNodeNetworkReferences {
               ),
               <.div(
                 Styles.networkRoute,
-
-
-                TagMod.when(reference.nodeDefinedInRelation) {
-                  <.div(
-                    nls(
-                      "This node is included as member in the networkrelation",
-                      "Dit knooppunt is opgenomen in de netwerkrelatie"
-                    )
-                  )
-                },
-                TagMod.when(reference.nodeConnection) {
-                  <.div(
-                    nls(
-                      """This node has the role "connection" in the networkrelation""",
-                      """Dit knooppunt heeft de rol "connection" in de netwerkrelatie"""
-                    )
-                  )
-                },
-                reference.nodeIntegrityCheck.whenDefined { integrityCheck =>
-                  TagMod.when(integrityCheck.failed) {
-                    // failed: Boolean, expected: Int, actual: Int
+                <.div(
+                  Styles.text,
+                  if (reference.nodeConnection) {
+                    if (nodeHasExpectedRouteRelations) {
+                      <.div(
+                        nls(
+                          s"""This node has the role "connection" in the networkrelation.
+                             |The ${reference.networkType.expectedRouteRelationsTag} tag does not
+                             |apply to this netwerk.""".stripMargin,
+                          s"""Dit knooppunt heeft de rol "connection" in de netwerkrelatie.
+                             |De ${reference.networkType.expectedRouteRelationsTag} tag is niet van
+                             |toepassing voor dit netwerk.""".stripMargin
+                        )
+                      )
+                    }
+                    else {
+                      <.div(
+                        nls(
+                          """This node has the role "connection" in the networkrelation.""",
+                          """Dit knooppunt heeft de rol "connection" in de netwerkrelatie."""
+                        )
+                      )
+                    }
+                  }
+                  else if (reference.nodeDefinedInRelation) {
                     <.div(
                       nls(
-                        s"Integritycheck failed: expected ${integrityCheck.expected} routes, but found ${integrityCheck.actual}",
-                        s"Integriteits controle NOK: verwacht aantal routes is ${integrityCheck.expected}, gevonden: ${integrityCheck.actual}"
+                        """This node is included as member in the networkrelation.""",
+                        """Dit knooppunt is opgenomen in de netwerkrelatie."""
                       )
                     )
                   }
-                  TagMod.unless(integrityCheck.failed) {
-                    // failed: Boolean, expected: Int, actual: Int
+                  else if (nodeHasExpectedRouteRelations) {
                     <.div(
                       nls(
-                        s"Integritycheck OK: expected number of routes (${integrityCheck.expected}) matches the number of routes found",
-                        s"Integriteits OK: verwacht aantal routes gevonden: ${integrityCheck.expected}"
+                        s"""This node is not included as member in the networkrelation.
+                           |The ${reference.networkType.expectedRouteRelationsTag} tag does not apply
+                           |to this netwerk.""".stripMargin,
+                        s"""Dit knooppunt is niet opgenomen in de netwerkrelatie.
+                           |De ${reference.networkType.expectedRouteRelationsTag} tag is niet van
+                           |toepassing voor dit netwerk.""".stripMargin
                       )
                     )
                   }
-                },
+                  else {
+                    <.div(
+                      nls(
+                        "This node is not included as member in the networkrelation.",
+                        "Dit knooppunt is niet opgenomen in de netwerkrelatie."
+                      )
+                    )
+                  },
+                  reference.nodeIntegrityCheck.whenDefined { integrityCheck =>
+                    if (integrityCheck.failed) {
+                      <.div(
+                        nls(
+                          s"Integritycheck failed: expected ${integrityCheck.expected} routes, but found ${integrityCheck.actual}.",
+                          s"Onverwacht route aantal: aantal routes is ${integrityCheck.actual}, verwacht is ${integrityCheck.expected}."
+                        )
+                      )
+                    }
+                    else {
+                      <.div(
+                        nls(
+                          s"Integritycheck OK: expected number of routes (${integrityCheck.expected}) matches the number of routes found",
+                          s"Integriteits OK: aantal routes: ${integrityCheck.expected}"
+                        )
+                      )
+                    }
+                  }
+                ),
                 reference.routes.toTagMod { route =>
                   <.div(
                     Styles.routeLine,
-                    UiNetworkTypeAndText(reference.networkType, context.gotoRoute(route.routeId, route.routeName)),
-                    TagMod.when(route.isConnection) {
-                      <.span(
-                        " ",
-                        UiImage("link.png")
-                      )
-                    }
+                    UiNetworkTypeAndText(reference.networkType, context.gotoRoute(route.routeId, route.routeName), route.isConnection)
                   )
                 }
               )

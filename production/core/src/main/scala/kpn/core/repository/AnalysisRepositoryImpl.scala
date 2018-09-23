@@ -10,6 +10,7 @@ import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
 import kpn.core.tools.db.NetworkInfoBuilder
 import kpn.core.util.Log
+import kpn.shared.Fact
 import kpn.shared.NodeInfo
 import kpn.shared.Timestamp
 import kpn.shared.network.NetworkInfo
@@ -67,6 +68,18 @@ class AnalysisRepositoryImpl(
   private def buildNodeDocs(network: Network): Unit = {
 
     val nodeInfos: Seq[NodeInfo] = network.nodes.map { node =>
+
+      val facts: Seq[Fact] = node.integrityCheck match {
+        case None => Seq()
+        case Some(nodeIntegrityCheck) =>
+          if (nodeIntegrityCheck.failed) {
+            Seq(Fact.IntegrityCheckFailed)
+          }
+          else {
+            Seq()
+          }
+      }
+
       NodeInfoBuilder.build(
         node.networkNode.node.id,
         active = true,
@@ -78,7 +91,7 @@ class AnalysisRepositoryImpl(
         node.networkNode.node.longitude.toString,
         node.networkNode.node.timestamp,
         node.networkNode.node.tags,
-        Seq()
+        facts
       )
     }
     nodeRepository.save(nodeInfos: _*)

@@ -48,9 +48,11 @@ object NodePageExample {
         tags = Tags.from(
           "rwn_ref" -> "01",
           "rcn_ref" -> "02",
+          "expected_rwn_route_relations" -> "3",
           "note" -> "this is a test network node for trying out the node page"
         ),
         facts = Seq(
+          Fact.IntegrityCheckFailed,
           Fact.WasOrphan,
           Fact.Deleted
         )
@@ -62,8 +64,28 @@ object NodePageExample {
             networkId = 1,
             networkName = "network one",
             nodeDefinedInRelation = true,
+            nodeConnection = false,
+            nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = true, 3, 1)),
+            routes = Seq(
+              NodeNetworkRouteReference(
+                routeId = 11,
+                routeName = "01-02",
+                routeRole = Some("connection")
+              ),
+              NodeNetworkRouteReference(
+                routeId = 12,
+                routeName = "01-03",
+                routeRole = None
+              )
+            )
+          ),
+          NodeNetworkReference(
+            networkType = NetworkType.hiking,
+            networkId = 2,
+            networkName = "network two",
+            nodeDefinedInRelation = true,
             nodeConnection = true,
-            nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = true, 3, 2)),
+            nodeIntegrityCheck = None,
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 11,
@@ -74,11 +96,11 @@ object NodePageExample {
           ),
           NodeNetworkReference(
             networkType = NetworkType.hiking,
-            networkId = 2,
-            networkName = "network two",
+            networkId = 3,
+            networkName = "network three",
             nodeDefinedInRelation = false,
             nodeConnection = false,
-            nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = false, 3, 3)),
+            nodeIntegrityCheck = None,
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 11,
@@ -88,12 +110,37 @@ object NodePageExample {
               NodeNetworkRouteReference(
                 routeId = 12,
                 routeName = "01-03",
-                routeRole = Some("connection")
+                routeRole = None
               ),
               NodeNetworkRouteReference(
                 routeId = 13,
                 routeName = "01-04",
-                routeRole = Some("connection")
+                routeRole = None
+              )
+            )
+          ),
+          NodeNetworkReference(
+            networkType = NetworkType.hiking,
+            networkId = 4,
+            networkName = "network four",
+            nodeDefinedInRelation = true,
+            nodeConnection = false,
+            nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = false, 3, 3)),
+            routes = Seq(
+              NodeNetworkRouteReference(
+                routeId = 11,
+                routeName = "01-02",
+                routeRole = None
+              ),
+              NodeNetworkRouteReference(
+                routeId = 12,
+                routeName = "01-03",
+                routeRole = None
+              ),
+              NodeNetworkRouteReference(
+                routeId = 13,
+                routeName = "01-04",
+                routeRole = None
               )
             )
           )

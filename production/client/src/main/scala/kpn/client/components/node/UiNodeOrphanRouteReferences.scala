@@ -20,7 +20,7 @@ object UiNodeOrphanRouteReferences {
         <.p(nls("None", "Geen"))
       }
       else {
-        <.p(
+        <.div(
           props.references.toTagMod { reference =>
             UiNetworkTypeAndText(reference.networkType, context.gotoRoute(reference.routeId, reference.routeName))
           }
