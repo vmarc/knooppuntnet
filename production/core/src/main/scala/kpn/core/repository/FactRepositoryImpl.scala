@@ -6,23 +6,23 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.FactView
-import kpn.core.db.views.RouteFactView
+import kpn.core.db.views.FactsPerNetworkView
 import kpn.shared.Fact
 import kpn.shared.RoutesFact
 import kpn.shared.Subset
 import kpn.shared.common.Ref
-import kpn.shared.subset.NetworkRoutesFacts
+import kpn.shared.subset.NetworkFactRefs
 
 import scala.annotation.tailrec
 
 class FactRepositoryImpl(database: Database) extends FactRepository {
 
-  override def routeFacts(subset: Subset, fact: Fact, timeout: Timeout, stale: Boolean): Seq[NetworkRoutesFacts] = {
+  override def factsPerNetwork(subset: Subset, fact: Fact, timeout: Timeout, stale: Boolean): Seq[NetworkFactRefs] = {
 
-    val rows = database.query(AnalyzerDesign, RouteFactView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(RouteFactView.convert)
+    val rows = database.query(AnalyzerDesign, FactsPerNetworkView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(FactsPerNetworkView.convert)
 
     @tailrec
-    def process(rows: Seq[RouteFactView.Row], all: Seq[NetworkRoutesFacts] = Seq()): Seq[NetworkRoutesFacts] = {
+    def process(rows: Seq[FactsPerNetworkView.Row], all: Seq[NetworkFactRefs] = Seq()): Seq[NetworkFactRefs] = {
       if (rows.isEmpty) {
         all
       }
@@ -31,9 +31,9 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         val headRows = rows.takeWhile(_.networkId == head.networkId)
         val tail = rows.drop(headRows.size)
         val refs = headRows.flatMap { row =>
-          row.routeName.map(name => Ref(row.routeId.get, name))
+          row.referrerName.map(name => Ref(row.referrerId.get, name))
         }
-        val allFacts = all :+ NetworkRoutesFacts(head.networkId, head.networkName, RoutesFact(refs))
+        val allFacts = all :+ NetworkFactRefs(head.networkId, head.networkName, refs)
         process(tail, allFacts)
       }
     }

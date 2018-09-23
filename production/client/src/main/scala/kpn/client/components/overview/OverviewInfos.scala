@@ -82,7 +82,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   )
 
-  val routeNotContiniousInfo: UiOverviewInfo = routeInfo(Fact.RouteNotContinious) {
+  val routeNotContiniousInfo: UiOverviewInfo = factDetailCounts(Fact.RouteNotContinious) {
     <.div(
       nls(
         "Number of broken routes.",
@@ -135,7 +135,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   )
 
-  val routeIncompleteInfo: UiOverviewInfo = routeInfo(Fact.RouteIncomplete) {
+  val routeIncompleteInfo: UiOverviewInfo = factDetailCounts(Fact.RouteIncomplete) {
     UiMarked(
       if (nlsEN) {
         """|Number of routes that are marked as having an incomplete definition.
@@ -153,7 +153,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeFixmetodoInfo: UiOverviewInfo = routeInfo(Fact.RouteFixmetodo) {
+  val routeFixmetodoInfo: UiOverviewInfo = factDetailCounts(Fact.RouteFixmetodo) {
     UiMarked(
       if (nlsEN) {
         """Number of routes that are marked with _"fixmetodo"_."""
@@ -283,7 +283,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   )
 
-  val integrityCheckFailedCount: UiOverviewInfo = routeInfo(Fact.IntegrityCheckFailed) {
+  val integrityCheckFailedCount: UiOverviewInfo = factDetailCounts(Fact.IntegrityCheckFailed) {
     <.div(
       nls(
         "Number of failed integrity checks.",
@@ -315,7 +315,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   )
 
-  val routeUnusedSegmentsInfo: UiOverviewInfo = routeInfo(Fact.RouteUnusedSegments) {
+  val routeUnusedSegmentsInfo: UiOverviewInfo = factDetailCounts(Fact.RouteUnusedSegments) {
     <.div(
       nls(
         "Number of routes where one or more of the  ways (or part of ways) are not used in the " +
@@ -326,7 +326,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeNodeMissingInWaysInfo: UiOverviewInfo = routeInfo(Fact.RouteNodeMissingInWays) {
+  val routeNodeMissingInWaysInfo: UiOverviewInfo = factDetailCounts(Fact.RouteNodeMissingInWays) {
     <.div(
       nls(
         "Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.",
@@ -335,7 +335,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeRedundantNodesInfo: UiOverviewInfo = routeInfo(Fact.RouteRedundantNodes) {
+  val routeRedundantNodesInfo: UiOverviewInfo = factDetailCounts(Fact.RouteRedundantNodes) {
     <.div(
       nls(
         "Number of routes where the ways of the route contain extra nodes other than the start and end nodes.",
@@ -345,7 +345,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeWithoutWaysInfo: UiOverviewInfo = routeInfo(Fact.RouteWithoutWays) {
+  val routeWithoutWaysInfo: UiOverviewInfo = factDetailCounts(Fact.RouteWithoutWays) {
     UiMarked(
       if (nlsEN) {
         "Routes without ways (a route is expected to have at least 1 way)."
@@ -356,7 +356,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeNameMissingInfo: UiOverviewInfo = routeInfo(Fact.RouteNameMissing) {
+  val routeNameMissingInfo: UiOverviewInfo = factDetailCounts(Fact.RouteNameMissing) {
     UiMarked(
       if (nlsEN) {
         """Routes without a _"note"_ tag with the route name."""
@@ -367,7 +367,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeTagMissingInfo: UiOverviewInfo = routeInfo(Fact.RouteTagMissing) {
+  val routeTagMissingInfo: UiOverviewInfo = factDetailCounts(Fact.RouteTagMissing) {
     UiMarked(
       if (nlsEN) {
         """The route relation does not contain a _"route"_ tag."""
@@ -378,7 +378,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeTagInvalidInfo: UiOverviewInfo = routeInfo(Fact.RouteTagInvalid) {
+  val routeTagInvalidInfo: UiOverviewInfo = factDetailCounts(Fact.RouteTagInvalid) {
     UiMarked(
       if (nlsEN) {
         """The value in the _"route"_ tag in the route relation is unexpected."""
@@ -389,7 +389,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeUnexpectedNode: UiOverviewInfo = routeInfo(Fact.RouteUnexpectedNode) {
+  val routeUnexpectedNode: UiOverviewInfo = factDetailCounts(Fact.RouteUnexpectedNode) {
     UiMarked(
       if (nlsEN) {
         "Number of routes with one or more unexpected node members. " +
@@ -402,7 +402,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeUnexpectedRelation: UiOverviewInfo = routeInfo(Fact.RouteUnexpectedRelation) {
+  val routeUnexpectedRelation: UiOverviewInfo = factDetailCounts(Fact.RouteUnexpectedRelation) {
     UiMarked(
       if (nlsEN) {
         """Number of routes with one or more unexpected members. In route relations we expect """ +
@@ -417,7 +417,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val networkExtraMemberNode: UiOverviewInfo = routeInfo(Fact.NetworkExtraMemberNode) {
+  val networkExtraMemberNode: UiOverviewInfo = factDetailCounts(Fact.NetworkExtraMemberNode) {
     if (nlsEN) {
       <.div(
         "Number of network relation members of type ",
@@ -440,7 +440,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     }
   }
 
-  val networkExtraMemberWay: UiOverviewInfo = routeInfo(Fact.NetworkExtraMemberWay) {
+  val networkExtraMemberWay: UiOverviewInfo = factDetailCounts(Fact.NetworkExtraMemberWay) {
     UiMarked(
       if (nlsEN) {
         """Number of network relation members of type _"way"_ (expect only route relations or network nodes as members in the node network relation)."""
@@ -451,7 +451,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val networkExtraMemberRelation: UiOverviewInfo = routeInfo(Fact.NetworkExtraMemberRelation) {
+  val networkExtraMemberRelation: UiOverviewInfo = factDetailCounts(Fact.NetworkExtraMemberRelation) {
     UiMarked(
       if (nlsEN) {
         """Number of network relation members of type _"relation"_ that are unexpected (expect only """ +
@@ -464,7 +464,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val nameMissingInfo: UiOverviewInfo = routeInfo(Fact.NameMissing) {
+  val nameMissingInfo: UiOverviewInfo = factDetailCounts(Fact.NameMissing) {
     UiMarked(
       if (nlsEN) {
         """Number of networks without _"name"_ tag in the network relation."""
@@ -475,7 +475,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeUnaccessibleInfo: UiOverviewInfo = routeInfo(Fact.RouteUnaccessible) {
+  val routeUnaccessibleInfo: UiOverviewInfo = factDetailCounts(Fact.RouteUnaccessible) {
     if (nlsEN) {
       <.div(
         "Number of ",
@@ -492,7 +492,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     }
   }
 
-  val routeInvalidSortingOrderInfo: UiOverviewInfo = routeInfo(Fact.RouteInvalidSortingOrder) {
+  val routeInvalidSortingOrderInfo: UiOverviewInfo = factDetailCounts(Fact.RouteInvalidSortingOrder) {
     <.div(
       nls(
         "Number of routes with ways in wrong sorting order.",
@@ -501,7 +501,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeReversedInfo: UiOverviewInfo = routeInfo(Fact.RouteReversed) {
+  val routeReversedInfo: UiOverviewInfo = factDetailCounts(Fact.RouteReversed) {
     <.div(
       nls(
         "Number of routes where the ways are in reverse order (from high node number to low node number).",
@@ -510,7 +510,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeNodeNameMismatchInfo: UiOverviewInfo = routeInfo(Fact.RouteNodeNameMismatch) {
+  val routeNodeNameMismatchInfo: UiOverviewInfo = factDetailCounts(Fact.RouteNodeNameMismatch) {
     <.div(
       nls(
         "Routes where the route name does not match with the names of the start node and the end node. The " +
@@ -545,7 +545,7 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  private def routeInfo(fact: Fact)(comment: VdomElement): UiOverviewInfo = {
+  private def factDetailCounts(fact: Fact)(comment: VdomElement): UiOverviewInfo = {
     val stat = statistics.get(fact.name + "Count")
 
     val title = nls(fact.name, fact.nlName)
@@ -568,4 +568,5 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
       comment
     )
   }
+
 }

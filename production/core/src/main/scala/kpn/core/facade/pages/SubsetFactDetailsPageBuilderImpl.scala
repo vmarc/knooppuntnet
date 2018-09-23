@@ -15,7 +15,7 @@ class SubsetFactDetailsPageBuilderImpl(
   def build(subset: Subset, fact: Fact): SubsetFactDetailsPage = {
     val figures = overviewRepository.figures(Couch.uiTimeout)
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val networks = factRepository.routeFacts(subset, fact, Couch.uiTimeout)
+    val networks = factRepository.factsPerNetwork(subset, fact, Couch.uiTimeout)
     SubsetFactDetailsPage(subsetInfo, fact, networks)
   }
 

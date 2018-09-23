@@ -25,6 +25,7 @@ import kpn.client.components.subset.SubsetPageProps
 import kpn.client.components.subset.SubsetPageRenderer
 import kpn.client.components.subset.UiSubsetMenu
 import kpn.shared.ApiResponse
+import kpn.shared.Fact
 import kpn.shared.Subset
 import kpn.shared.TimeInfo
 import kpn.shared.subset.SubsetFactDetailsPage
@@ -107,6 +108,16 @@ object UiSubsetFactDetailsPage {
 
     def page: SubsetFactDetailsPage = state.pageState.response.get.result.get // TODO make more safe
 
+    private def factType: String = page.fact match {
+      case Fact.IntegrityCheckFailed => nls("node", "knooppunt")
+      case _ => "route"
+    }
+
+    private def factTypePlural: String = page.fact match {
+      case Fact.IntegrityCheckFailed => nls("nodes", "knooppunten")
+      case _ => "routes"
+    }
+
     protected def contents(): VdomElement = {
       <.div(
         <.h1(title),
@@ -126,38 +137,41 @@ object UiSubsetFactDetailsPage {
       <.div(
         <.b(
         ),
-        TagMod.when(page.routeCount > 1 && page.networks.size > 1) {
+        TagMod.when(page.refCount > 1 && page.networks.size > 1) {
           <.i(
             if (nlsNL) {
-              s"${page.routeCount} routes in ${page.networks.size} netwerken"
+              s"${page.refCount} $factTypePlural in ${page.networks.size} netwerken"
             } else {
-              s"${page.routeCount} routes in ${page.networks.size} networks"
+              s"${page.refCount} $factTypePlural in ${page.networks.size} networks"
             }
           )
         },
-        TagMod.when(page.routeCount > 0) {
+        TagMod.when(page.refCount > 0) {
           <.i(
             UiFactDescription(page.fact)
           )
         },
         if (page.networks.isEmpty) {
-          noRoutes()
+          noFacts()
         } else {
           UiItems(
             page.networks.map { networkFacts =>
               <.div(
                 context.gotoNetworkDetails(networkFacts.networkId, networkFacts.networkName),
-                TagMod.when(page.routeCount > 0) {
+                TagMod.when(page.refCount > 0) {
                   <.div(
-                    TagMod.when(networkFacts.facts.routes.size == 1) {
-                      UiThin("1 route:")
+                    TagMod.when(networkFacts.factRefs.size == 1) {
+                      UiThin(s"1 $factType:")
                     },
-                    TagMod.when(networkFacts.facts.routes.size > 1) {
-                      UiThin(s"${networkFacts.facts.routes.size} routes: ")
+                    TagMod.when(networkFacts.factRefs.size > 1) {
+                      UiThin(s"${networkFacts.factRefs.size} $factTypePlural: ")
                     },
                     UiCommaList(
-                      networkFacts.facts.routes.map { ref =>
-                        context.gotoRoute(ref.id, ref.name)
+                      networkFacts.factRefs.map { ref =>
+                        page.fact match {
+                          case Fact.IntegrityCheckFailed => context.gotoNode(ref.id, ref.name)
+                          case _ => context.gotoRoute(ref.id, ref.name)
+                        }
                       }
                     )
                   )
@@ -169,16 +183,16 @@ object UiSubsetFactDetailsPage {
       )
     }
 
-    private def noRoutes(): VdomElement = {
+    private def noFacts(): VdomElement = {
       val subset = Subset.of(page.subsetInfo.country, page.subsetInfo.networkType).get
       if (nlsNL) {
         <.span(
-          s"""Er zijn geen routes met feit "${page.fact.nlName}" in """,
+          s"""Er zijn geen $factTypePlural met feit "${page.fact.nlName}" in """,
           context.gotoSubsetNetworks(subset)
         )
       } else {
         <.span(
-          s"""There are no routes with fact "${page.fact.name}" in """,
+          s"""There are no $factTypePlural with fact "${page.fact.name}" in """,
           context.gotoSubsetNetworks(subset)
         )
       }

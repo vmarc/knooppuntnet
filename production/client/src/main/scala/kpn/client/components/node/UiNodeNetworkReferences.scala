@@ -7,6 +7,7 @@ import japgolly.scalajs.react.vdom.html_<^.<
 import kpn.client.common.Context
 import kpn.client.common.Nls.nls
 import kpn.client.components.common.CssSettings.default._
+import kpn.client.components.common.UiMarked
 import kpn.client.components.common.UiNetworkTypeAndText
 import kpn.shared.data.Tags
 import kpn.shared.node.NodeNetworkReference
@@ -61,15 +62,16 @@ object UiNodeNetworkReferences {
                   Styles.text,
                   if (reference.nodeConnection) {
                     if (nodeHasExpectedRouteRelations) {
-                      <.div(
+                      UiMarked(
                         nls(
-                          s"""This node has the role "connection" in the networkrelation.
-                             |The ${reference.networkType.expectedRouteRelationsTag} tag does not
+                          s"""This node has the role "connection" in the networkrelation:
+                             |the _${reference.networkType.expectedRouteRelationsTag}_ tag does not
                              |apply to this netwerk.""".stripMargin,
-                          s"""Dit knooppunt heeft de rol "connection" in de netwerkrelatie.
-                             |De ${reference.networkType.expectedRouteRelationsTag} tag is niet van
+                          s"""Dit knooppunt heeft de rol "connection" in de netwerkrelatie:
+                             |de _${reference.networkType.expectedRouteRelationsTag}_ tag is niet van
                              |toepassing voor dit netwerk.""".stripMargin
-                        )
+                        ),
+                        paragraphs = false
                       )
                     }
                     else {
@@ -90,15 +92,16 @@ object UiNodeNetworkReferences {
                     )
                   }
                   else if (nodeHasExpectedRouteRelations) {
-                    <.div(
+                    UiMarked(
                       nls(
-                        s"""This node is not included as member in the networkrelation.
-                           |The ${reference.networkType.expectedRouteRelationsTag} tag does not apply
+                        s"""This node is not included as member in the networkrelation:
+                           |the _${reference.networkType.expectedRouteRelationsTag}_ tag does not apply
                            |to this netwerk.""".stripMargin,
-                        s"""Dit knooppunt is niet opgenomen in de netwerkrelatie.
-                           |De ${reference.networkType.expectedRouteRelationsTag} tag is niet van
+                        s"""Dit knooppunt is niet opgenomen in de netwerkrelatie:
+                           |de _${reference.networkType.expectedRouteRelationsTag}_ tag is niet van
                            |toepassing voor dit netwerk.""".stripMargin
-                      )
+                      ),
+                      paragraphs = false
                     )
                   }
                   else {
@@ -114,15 +117,15 @@ object UiNodeNetworkReferences {
                       <.div(
                         nls(
                           s"Integritycheck failed: expected ${integrityCheck.expected} routes, but found ${integrityCheck.actual}.",
-                          s"Onverwacht route aantal: aantal routes is ${integrityCheck.actual}, verwacht is ${integrityCheck.expected}."
+                          s"Onverwacht aantal routes (${integrityCheck.actual}), verwacht: ${integrityCheck.expected}."
                         )
                       )
                     }
                     else {
                       <.div(
                         nls(
-                          s"Integritycheck OK: expected number of routes (${integrityCheck.expected}) matches the number of routes found",
-                          s"Integriteits OK: aantal routes: ${integrityCheck.expected}"
+                          s"Expected number of routes (${integrityCheck.expected}) matches the number of routes found.",
+                          s"Verwacht aantal routes (${integrityCheck.expected}) klopt."
                         )
                       )
                     }

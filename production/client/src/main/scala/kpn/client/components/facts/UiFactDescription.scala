@@ -2,7 +2,6 @@ package kpn.client.components.facts
 
 import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.vdom.Implicits._
-import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
 import kpn.client.common.Context
@@ -200,9 +199,13 @@ object UiFactDescription {
         case IntegrityCheckFailed =>
           <.p(
             if (nlsNL) {
-              "Het aantal routes die in het knooppunt aankomen of vertrekken is niet het verwachte aantal."
+              """Het aantal routes die in het knooppunt aankomen of vertrekken is niet het verwachte aantal.
+                |Routes met rol "connection" in de netwerk relatie, of tag "state" gelijk aan "connection"
+                | of "alternate" worden niet meegeteld.""".stripMargin
             } else {
-              "The actual number of routes does not match the expected number of routes."
+              """The actual number of routes does not match the expected number of routes. Routes with
+                |role "connection" in the network relation, or tag "state" equal to "connection"
+                |or "alternate" are not counted.""".stripMargin
             }
           )
 
@@ -210,10 +213,10 @@ object UiFactDescription {
           <.p(
             if (nlsNL) {
               """Deze route maakt geen deel uit van een netwerk. Deze route wordt niet
-              teruggevonden in een geldige netwerk relatie."""
+                |teruggevonden in een geldige netwerk relatie.""".stripMargin
             } else {
               """This route does not belong to a network. The route was not added as a member to
-              a valid network relation."""
+                |a valid network relation.""".stripMargin
             }
           )
 
@@ -221,15 +224,15 @@ object UiFactDescription {
           UiMarked(
             if (nlsNL) {
               """Op zichzelf staande knooppunt (niet teruggevonden in een netwerk).
-              Dit knooppunt werd niet teruggevonden als deel van een geldige netwerk relatie,
-              of als deel van een geldige route relatie (dit kan een route relatie zijn die
-              deel uitmaakt van een network relatie, maar ook een op zichzelf staande route
-              relatie die geen deel uitmaakt van een network relatie)."""
+                |Dit knooppunt werd niet teruggevonden als deel van een geldige netwerk relatie,
+                |of als deel van een geldige route relatie (dit kan een route relatie zijn die
+                |deel uitmaakt van een network relatie, maar ook een op zichzelf staande route
+                |relatie die geen deel uitmaakt van een network relatie).""".stripMargin
             } else {
               """This node does not belong to a network.
-              The node was not added as a member to a valid network relation, and also not added
-              as a member to valid route relation (that itself was added as a member to a valid
-              network relation or is an orphan route)."""
+                |The node was not added as a member to a valid network relation, and also not added
+                |as a member to valid route relation (that itself was added as a member to a valid
+                |network relation or is an orphan route).""".stripMargin
             }
           )
 
@@ -237,10 +240,10 @@ object UiFactDescription {
           UiMarked(
             if (nlsNL) {
               """De route is onvolledig. De routes zijn uitdrukkelijk gemarkeerd als onvolledig door het
-                toevoegen van een tag met sleutel _"fixme"_ en waarde _"incomplete"_ in de route relatie."""
+                |toevoegen van een tag met sleutel _"fixme"_ en waarde _"incomplete"_ in de route relatie.""".stripMargin
             } else {
               """The route is marked as having an incomplete definition. A route definition is explicitely
-                marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation."""
+                |marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.""".stripMargin
             }
           )
 

@@ -8,14 +8,14 @@ trait View {
   def name: String = classNameOf(this)
 
   def map: String = {
-    "function(doc) {" +
+    s"function(doc) { /* map $name */ " +
       load("map") +
       "}"
   }
 
   def reduce: Option[String] = {
     Some(
-      "function(keys, values, rereduce) {\n" +
+      s"function(keys, values, rereduce) { /* reduce $name */ \n" +
         load("reduce") + "\n" +
         "return result;\n" +
         "}"

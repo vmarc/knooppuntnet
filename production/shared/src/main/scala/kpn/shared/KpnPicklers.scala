@@ -97,7 +97,7 @@ import kpn.shared.route.WayGeometry
 import kpn.shared.statistics.CountryStatistic
 import kpn.shared.statistics.Statistic
 import kpn.shared.statistics.Statistics
-import kpn.shared.subset.NetworkRoutesFacts
+import kpn.shared.subset.NetworkFactRefs
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
@@ -243,8 +243,7 @@ object KpnPicklers {
   implicit val networkDetailsPagePickler: Pickler[NetworkDetailsPage] = PicklerGenerator.generatePickler[NetworkDetailsPage]
   implicit val networkMapPagePickler: Pickler[NetworkMapPage] = PicklerGenerator.generatePickler[NetworkMapPage]
   implicit val networkFactsPagePickler: Pickler[NetworkFactsPage] = PicklerGenerator.generatePickler[NetworkFactsPage]
-  implicit val routesFactsPickler: Pickler[RoutesFact] = PicklerGenerator.generatePickler[RoutesFact]
-  implicit val networkRoutesFactsPickler: Pickler[NetworkRoutesFacts] = PicklerGenerator.generatePickler[NetworkRoutesFacts]
+  implicit val networkFactRefsPickler: Pickler[NetworkFactRefs] = PicklerGenerator.generatePickler[NetworkFactRefs]
   implicit val routesFactPagePickler: Pickler[SubsetFactDetailsPage] = PicklerGenerator.generatePickler[SubsetFactDetailsPage]
 
   implicit val bothPickler: Pickler[Both.type] = PicklerGenerator.generatePickler[Both.type]
