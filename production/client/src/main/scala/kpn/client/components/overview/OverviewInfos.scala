@@ -272,14 +272,16 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   )
 
-  val integrityCheckCount: UiOverviewInfo = routeInfo(Fact.IntegrityCheck) {
+  val integrityCheckCount = UiOverviewInfo(
+    nls("IntegrityCheck", "IntegrityCheck"),
+    counts(statistics.get("IntegrityCheckCount")),
     <.div(
       nls(
         "Number of nodes with integrity check.",
         "Aantal knooppunten met integriteitscontrole."
       )
     )
-  }
+  )
 
   val integrityCheckFailedCount: UiOverviewInfo = routeInfo(Fact.IntegrityCheckFailed) {
     <.div(
