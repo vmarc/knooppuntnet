@@ -119,6 +119,13 @@ if (doc) {
             emitCount(fact + "NetworkCount", index, 1);
             emitCount(fact + "Count", index, routeFactMap[fact]);
           }
+
+          var integrityCheck = doc.network.detail.networkFacts.integrityCheck;
+          if (integrityCheck) {
+            emitCount("IntegrityCheckNetworkCount", index, 1);
+            emitCount("IntegrityCheckCount", index, integrityCheck.count);
+            emitCount("IntegrityCheckFailedCount", index, integrityCheck.failed);
+          }
         }
       }
     }
