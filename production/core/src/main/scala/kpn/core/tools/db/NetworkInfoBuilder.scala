@@ -29,13 +29,18 @@ class NetworkInfoBuilder {
       val routeReferences = info.referencedInRoutes.map(route => Ref(route.id, route.summary.name))
 
       val connection: Boolean = {
-        val connectionRoutes = info.referencedInRoutes.filter { routeInfo =>
-          network.routes.find(_.id == routeInfo.id) match {
-            case Some(networkMemberRoute) => networkMemberRoute.role.contains("connection")
-            case None => false
-          }
+        if (info.referencedInRoutes.isEmpty) {
+          false
         }
-        connectionRoutes.size == info.referencedInRoutes.size
+        else {
+          val connectionRoutes = info.referencedInRoutes.filter { routeInfo =>
+            network.routes.find(_.id == routeInfo.id) match {
+              case Some(networkMemberRoute) => networkMemberRoute.role.contains("connection")
+              case None => false
+            }
+          }
+          connectionRoutes.size == info.referencedInRoutes.size
+        }
       }
 
       NetworkNodeInfo2(

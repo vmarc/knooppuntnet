@@ -28,12 +28,12 @@ object RoleConnectionIndicator {
         nls("C", "V"),
         UiIndicator.Color.GRAY,
         nls(
-          "OK - No connection",
-          "OK - Geen verbinding"
+          "OK - No connection role",
+          "OK - Geen verbinding rol"
         ),
         nls(
-          """Information: this node does not have role "connection"" in het network relation.""",
-          """Ter informatie: dit knooppunt heeft niet de rol "connection" in de netwerk relatie."""
+          """This node does not have role "connection"" in het network relation.""",
+          """Dit knooppunt heeft niet de rol "connection" in de netwerk relatie."""
         )
       )
     }

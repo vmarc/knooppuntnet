@@ -20,7 +20,7 @@ object NetworkIndicator {
           nls(
             """This node is included as a member in the network relation. We did not expect this,
               | because all routes to this node have role "connection". In this case we expect the node
-              | not to be included in the network relation, except when it receives the role "connection".""".stripMargin,
+              | not to be included in the network relation, unless it receives the role "connection".""".stripMargin,
             """Dit knooppunt is opgenomen als lid in een netwerk relatie. Dit is onverwacht omdat
               | alle routes naar deze node de rol "connection" hebben. In dit geval verwachten we dat
               | dat het knooppunt niet opgenomen wordt in de netwerk relatie, behalve wanneer het ook
@@ -72,11 +72,13 @@ object NetworkIndicator {
           ),
           nls(
             """This node is not included as a member in the network relation. This is not OK. The
-              | convention is to include each node in the network relation, except when all routes
-              | to this node have role "connection".""".stripMargin,
+              | convention is to include each node in the network relation, except when the node
+              | belongs to another network (all routes to this node have role "connection" in
+              | the network relation).""".stripMargin,
             """Dit knooppunt is niet opgenomen als lid in een netwerk relatie. Dit is niet OK. De
               | conventie is om elk knooppunt op te nemen in een netwerk relatie, behalve wanneer
-              | all routes naar dit knooppunt de rol "connection" hebben.""".stripMargin
+              | wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt
+              | hebben de rol "connection" in de netwerk relatie.""".stripMargin
           )
         )
       }
