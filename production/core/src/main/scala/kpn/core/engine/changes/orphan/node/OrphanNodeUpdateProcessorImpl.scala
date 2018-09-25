@@ -129,7 +129,7 @@ class OrphanNodeUpdateProcessorImpl(
           name = name,
           before = Some(loadedNodeChange.before.node.raw),
           after = Some(loadedNodeChange.after.node.raw),
-          connectionChanges = Seq(),
+          roleConnectionChanges = Seq(),
           definedInNetworkChanges = Seq(),
           tagDiffs = nodeDataUpdate.flatMap(_.tagDiffs),
           nodeMoved = nodeDataUpdate.flatMap(_.nodeMoved),

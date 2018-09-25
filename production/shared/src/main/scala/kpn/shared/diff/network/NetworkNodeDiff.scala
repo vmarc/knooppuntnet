@@ -3,7 +3,7 @@ package kpn.shared.diff.network
 import kpn.shared.diff.TagDiffs
 
 case class NetworkNodeDiff(
-  connection: Option[Boolean] = None, // connection to another network
+  roleConnection: Option[Boolean] = None, // connection to another network
   definedInNetworkRelation: Option[Boolean] = None,
   routeReferenceDiffs: Option[NodeRouteReferenceDiffs] = None,
   nodeIntegrityCheckDiff: Option[NodeIntegrityCheckDiff] = None,
@@ -11,7 +11,7 @@ case class NetworkNodeDiff(
 ) {
 
   def nonEmpty: Boolean = {
-    connection.nonEmpty ||
+    roleConnection.nonEmpty ||
       definedInNetworkRelation.nonEmpty ||
       routeReferenceDiffs.nonEmpty ||
       nodeIntegrityCheckDiff.nonEmpty ||

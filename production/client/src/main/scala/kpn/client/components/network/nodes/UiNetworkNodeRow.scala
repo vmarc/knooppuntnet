@@ -62,7 +62,7 @@ object UiNetworkNodeRow {
         Styles.analysisValue,
         NetworkIndicator(nodeInfo.definedInRelation),
         RouteIndicator(nodeInfo.definedInRoute),
-        ConnectionIndicator(nodeInfo.connection),
+        ConnectionIndicator(nodeInfo.roleConnection),
         IntegrityIndicator(networkType, nodeInfo.integrityCheck)
       )
     }

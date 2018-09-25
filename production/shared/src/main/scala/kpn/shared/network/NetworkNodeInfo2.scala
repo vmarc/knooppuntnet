@@ -12,7 +12,7 @@ case class NetworkNodeInfo2(
   number: String,
   latitude: String,
   longitude: String,
-  connection: Boolean,
+  roleConnection: Boolean,
   definedInRelation: Boolean,
   definedInRoute: Boolean,
   timestamp: Timestamp,

@@ -45,15 +45,15 @@ class NetworkNodeFilterTest extends FunSuite with Matchers {
     filter(NetworkNodeFilterCriteria(definedInNetworkRelation = Some(false)), nodes) should equal(Seq(2))
   }
 
-  test("filter connection") {
+  test("filter roleConnection") {
     val nodes = Seq(
-      networkNodeInfo2(1, "01", connection = true),
+      networkNodeInfo2(1, "01", roleConnection = true),
       networkNodeInfo2(2, "02")
     )
 
     filter(NetworkNodeFilterCriteria(), nodes) should equal(Seq(1, 2))
-    filter(NetworkNodeFilterCriteria(connection = Some(true)), nodes) should equal(Seq(1))
-    filter(NetworkNodeFilterCriteria(connection = Some(false)), nodes) should equal(Seq(2))
+    filter(NetworkNodeFilterCriteria(roleConnection = Some(true)), nodes) should equal(Seq(1))
+    filter(NetworkNodeFilterCriteria(roleConnection = Some(false)), nodes) should equal(Seq(2))
   }
 
   test("filter integrityCheck") {
@@ -133,7 +133,7 @@ class NetworkNodeFilterTest extends FunSuite with Matchers {
     number: String = "",
     latitude: String = "",
     longitude: String = "",
-    connection: Boolean = false,
+    roleConnection: Boolean = false,
     definedInRelation: Boolean = false,
     definedInRoute: Boolean = false,
     timestamp: Timestamp = Timestamp(2015, 1, 1),
@@ -147,7 +147,7 @@ class NetworkNodeFilterTest extends FunSuite with Matchers {
       number,
       latitude,
       longitude,
-      connection,
+      roleConnection,
       definedInRelation,
       definedInRoute,
       timestamp,

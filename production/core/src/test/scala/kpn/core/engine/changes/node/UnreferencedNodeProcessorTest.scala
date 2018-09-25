@@ -850,7 +850,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
           name = name,
           country = Some(Country.nl)
         ),
-        connection = false,
+        roleConnection = false,
         definedInRelation = false,
         definedInRoute = false,
         referencedInRoutes = Seq(),

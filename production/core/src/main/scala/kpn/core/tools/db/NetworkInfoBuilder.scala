@@ -18,14 +18,14 @@ class NetworkInfoBuilder {
 
     val nodes = network.nodes.map { info =>
 
-      if (info.connection && !info.definedInRelation) {
+      if (info.roleConnection && !info.definedInRelation) {
         // do not increment number
       }
       else {
         number = number + 1
       }
 
-      val numberString = if (info.connection) "" else number.toString
+      val numberString = if (info.roleConnection) "" else number.toString
 
       val routeReferences = info.referencedInRoutes.map(route => Ref(route.id, route.summary.name))
 
@@ -35,7 +35,7 @@ class NetworkInfoBuilder {
         numberString,
         info.networkNode.node.latitude,
         info.networkNode.node.longitude,
-        info.connection,
+        info.roleConnection,
         info.definedInRelation,
         info.definedInRoute,
         info.networkNode.node.timestamp,

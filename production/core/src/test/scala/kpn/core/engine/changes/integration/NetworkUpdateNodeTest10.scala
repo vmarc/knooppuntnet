@@ -134,7 +134,7 @@ class NetworkUpdateNodeTest10 extends AbstractTest {
             after = Some(
               newRawNodeWithName(1001, "01")
             ),
-            connectionChanges = Seq(
+            roleConnectionChanges = Seq(
               RefBooleanChange(Ref(1, "network-name"), after = true)
             )
           )

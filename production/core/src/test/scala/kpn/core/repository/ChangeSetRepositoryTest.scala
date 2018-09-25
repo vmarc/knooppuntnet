@@ -327,7 +327,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
       name = name,
       before = None,
       after = None,
-      connectionChanges = Seq(),
+      roleConnectionChanges = Seq(),
       definedInNetworkChanges = Seq(),
       tagDiffs = None,
       nodeMoved = None,

@@ -39,7 +39,7 @@ else if (doc && doc.network) {
     for (var i = 0; i < d.nodes.length; i++) {
       var node = d.nodes[i];
       var connection = "false";
-      if (node.connection) {
+      if (node.roleConnection) {
         connection = "true";
       }
       emitRef("node", node.id, "network", a.id, a.networkType, a.name, connection);

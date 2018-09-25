@@ -5,7 +5,7 @@ import kpn.shared.route.RouteInfo
 
 case class NetworkNodeInfo(
   networkNode: NetworkNode,
-  connection: Boolean,
+  roleConnection: Boolean,
   definedInRelation: Boolean,
   definedInRoute: Boolean,
   referencedInRoutes: Seq[RouteInfo],

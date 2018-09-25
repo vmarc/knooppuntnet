@@ -31,7 +31,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
         left.name,
         mergedBefore(),
         mergedAfter(),
-        mergedConnectionChanges(),
+        mergedRoleConnectionChanges(),
         mergedDefinedInNetworkChanges(),
         mergedTagDiffs(),
         mergedNodeMoved(),
@@ -111,9 +111,9 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
     }
   }
 
-  private def mergedConnectionChanges(): Seq[RefBooleanChange] = {
+  private def mergedRoleConnectionChanges(): Seq[RefBooleanChange] = {
     // TODO CHANGE expand code to make sure there are no duplicate entries per network id
-    left.connectionChanges ++ right.connectionChanges
+    left.roleConnectionChanges ++ right.roleConnectionChanges
   }
 
   private def mergedDefinedInNetworkChanges(): Seq[RefBooleanChange] = {

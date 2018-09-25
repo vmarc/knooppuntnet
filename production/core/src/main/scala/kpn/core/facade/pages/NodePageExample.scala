@@ -64,7 +64,7 @@ object NodePageExample {
             networkId = 1,
             networkName = "network one",
             nodeDefinedInRelation = true,
-            nodeConnection = false,
+            nodeRoleConnection = false,
             nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = true, 3, 1)),
             routes = Seq(
               NodeNetworkRouteReference(
@@ -84,7 +84,7 @@ object NodePageExample {
             networkId = 2,
             networkName = "network two",
             nodeDefinedInRelation = true,
-            nodeConnection = true,
+            nodeRoleConnection = true,
             nodeIntegrityCheck = None,
             routes = Seq(
               NodeNetworkRouteReference(
@@ -99,7 +99,7 @@ object NodePageExample {
             networkId = 3,
             networkName = "network three",
             nodeDefinedInRelation = false,
-            nodeConnection = false,
+            nodeRoleConnection = false,
             nodeIntegrityCheck = None,
             routes = Seq(
               NodeNetworkRouteReference(
@@ -124,7 +124,7 @@ object NodePageExample {
             networkId = 4,
             networkName = "network four",
             nodeDefinedInRelation = true,
-            nodeConnection = false,
+            nodeRoleConnection = false,
             nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = false, 3, 3)),
             routes = Seq(
               NodeNetworkRouteReference(
@@ -168,7 +168,7 @@ object NodePageExample {
             comment = Some("this is the comment"),
             None, // TODO CHANGE provide some value
             None, // TODO CHANGE provide some value
-            connectionChanges = Seq(
+            roleConnectionChanges = Seq(
               RefBooleanChange(
                 ref = Ref(1, "network one"),
                 after = false

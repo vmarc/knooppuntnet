@@ -18,7 +18,7 @@ case class NodeChangeInfo(
   comment: Option[String],
   before: Option[MetaData],
   after: Option[MetaData],
-  connectionChanges: Seq[RefBooleanChange],
+  roleConnectionChanges: Seq[RefBooleanChange],
   definedInNetworkChanges: Seq[RefBooleanChange],
   tagDiffs: Option[TagDiffs],
   nodeMoved: Option[NodeMoved],

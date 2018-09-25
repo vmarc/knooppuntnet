@@ -36,7 +36,7 @@ object UiNetworkNodeDiff {
 
     def render(): VdomElement = {
       val elements = Seq(
-        connection(),
+        roleConnection(),
         definedInNetworkRelation(),
         routeRefefenceDiffs(),
         nodeIntegrityCheckDiff(),
@@ -46,21 +46,21 @@ object UiNetworkNodeDiff {
       <.div(elements.toTagMod)
     }
 
-    private def connection(): Option[VdomElement] = {
-      diff.connection.map { connection =>
-        if (connection) {
+    private def roleConnection(): Option[VdomElement] = {
+      diff.roleConnection.map { roleConnection =>
+        if (roleConnection) {
           <.div(
             nls(
-              "Node is marked as connection to another network",
-              "Knooppunt is gemarkeerd als verbinding naar een ander netwerk"
+              """Node has role "connection" in the network relation.""",
+              """Knooppunt heeft rol "connection" in netwerk relatie."""
             )
           )
         }
         else {
           <.div(
             nls(
-              "Node no longer marked as connection to another network",
-              "Knooppunt is niet langer verbinding naar een ander netwerk"
+              """Node no longer has role "connection" in the network relation.""",
+              """Knooppunt heeft niet langer rol "connnection" in de netwerk relatie."""
             )
           )
         }

@@ -58,18 +58,18 @@ class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria,
     }
   )
 
-  private val connectionFilter = new BooleanFilter[NetworkNodeInfo2](
-    "connection",
-    criteria.connection,
-    _.connection,
+  private val roleConnectionFilter = new BooleanFilter[NetworkNodeInfo2](
+    "roleConnection",
+    criteria.roleConnection,
+    _.roleConnection,
     CallbackTo {
-      updateCriteria(criteria.copy(connection = None))
+      updateCriteria(criteria.copy(roleConnection = None))
     },
     CallbackTo {
-      updateCriteria(criteria.copy(connection = Some(true)))
+      updateCriteria(criteria.copy(roleConnection = Some(true)))
     },
     CallbackTo {
-      updateCriteria(criteria.copy(connection = Some(false)))
+      updateCriteria(criteria.copy(roleConnection = Some(false)))
     }
   )
 
@@ -131,7 +131,7 @@ class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria,
     definedInNetworkRelationFilter,
     definedInRouteRelationFilter,
     referencedInRouteFilter,
-    connectionFilter,
+    roleConnectionFilter,
     integrityCheckFilter,
     integrityCheckFailedFilter,
     lastUpdatedFilter
@@ -149,7 +149,7 @@ class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria,
     val definedInNetworkRelation = definedInNetworkRelationFilter.filterOptions(allFilters, nodes)
     val definedInRouteRelation = definedInRouteRelationFilter.filterOptions(allFilters, nodes)
     val referencedInRoute = referencedInRouteFilter.filterOptions(allFilters, nodes)
-    val connection = connectionFilter.filterOptions(allFilters, nodes)
+    val roleConnection = roleConnectionFilter.filterOptions(allFilters, nodes)
     val integrityCheck = integrityCheckFilter.filterOptions(allFilters, nodes)
 
     val integrityCheckResult = {
@@ -199,7 +199,7 @@ class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria,
       definedInNetworkRelation,
       definedInRouteRelation,
       referencedInRoute,
-      connection,
+      roleConnection,
       integrityCheck,
       integrityCheckResult,
       lastUpdated

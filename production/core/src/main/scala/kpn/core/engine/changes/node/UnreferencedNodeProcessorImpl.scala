@@ -102,7 +102,7 @@ class UnreferencedNodeProcessorImpl(
           name = nodeBefore.networkNode.name,
           before = Some(nodeBefore.networkNode.node.raw),
           after = Some(nodeAfter.node.raw),
-          connectionChanges = Seq(),
+          roleConnectionChanges = Seq(),
           definedInNetworkChanges = Seq(),
           tagDiffs = tagDiffs,
           nodeMoved = nodeMoved,
@@ -136,7 +136,7 @@ class UnreferencedNodeProcessorImpl(
         name = nodeBefore.networkNode.name,
         before = Some(nodeBefore.networkNode.node.raw),
         after = None,
-        connectionChanges = Seq(),
+        roleConnectionChanges = Seq(),
         definedInNetworkChanges = Seq(),
         tagDiffs = None,
         nodeMoved = None,
@@ -175,7 +175,7 @@ class UnreferencedNodeProcessorImpl(
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),
-          connectionChanges = Seq(), // TODO CHANGE supply value here
+          roleConnectionChanges = Seq(), // TODO CHANGE supply value here
           definedInNetworkChanges = Seq(), // TODO CHANGE supply value here
           tagDiffs = tagDiffs,
           nodeMoved = nodeMoved,
@@ -208,7 +208,7 @@ class UnreferencedNodeProcessorImpl(
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),
-          connectionChanges = Seq(),
+          roleConnectionChanges = Seq(),
           definedInNetworkChanges = Seq(),
           tagDiffs = tagDiffs,
           nodeMoved = nodeMoved,

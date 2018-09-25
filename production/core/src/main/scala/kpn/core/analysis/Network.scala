@@ -47,7 +47,7 @@ case class Network(
 
   def length: Int = routes.map(_.routeAnalysis.route.summary.meters).sum
 
-  def nodeCount: Int = nodes.filterNot(n => n.connection && !n.definedInRelation).size
+  def nodeCount: Int = nodes.filterNot(n => n.roleConnection && !n.definedInRelation).size
 
   def routeCount: Int = routes.size
 

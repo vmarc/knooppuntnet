@@ -44,7 +44,7 @@ class OrphanNodeCreateProcessorImpl(
             loadedNode.name,
             before = None,
             after = Some(loadedNode.node.raw),
-            connectionChanges = Seq(),
+            roleConnectionChanges = Seq(),
             definedInNetworkChanges = Seq(),
             tagDiffs = None,
             nodeMoved = None,

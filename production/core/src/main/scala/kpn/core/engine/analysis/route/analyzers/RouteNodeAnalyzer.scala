@@ -37,11 +37,6 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     val facts = ListBuffer[Fact]()
 
     val routeNodeAnalysis = doAnalyze()
-    //  private val routeEndNodeMismatch = {
-    //    // TODO implement, derive from RouteNodes? or better: include in RouteNodeAnalysis
-    //    val factsRouteEndNodeMismatch = ListBuffer[RouteEndNodeMismatch]()
-    //    if(factsRouteEndNodeMismatch.nonEmpty) Some(factsRouteEndNodeMismatch.toList.toSeq) else None
-    //  }
 
     if (!context.connection || routeNodeAnalysis.hasStartAndEndNode) {
       if (!context.hasFact(RouteWithoutWays, RouteIncomplete)) {

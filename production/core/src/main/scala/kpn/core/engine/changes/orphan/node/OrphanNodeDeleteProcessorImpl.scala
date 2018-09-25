@@ -49,7 +49,7 @@ class OrphanNodeDeleteProcessorImpl(
                 name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
                 before = loadedNodeDelete.loadedNode.map(_.node.raw),
                 after = None,
-                connectionChanges = Seq(),
+                roleConnectionChanges = Seq(),
                 definedInNetworkChanges = Seq(),
                 tagDiffs = None,
                 nodeMoved = None,

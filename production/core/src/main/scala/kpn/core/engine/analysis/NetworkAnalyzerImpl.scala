@@ -130,17 +130,17 @@ class NetworkAnalyzerImpl(
         val definedInRoute = analysis.networkNodesInRouteRelations.contains(networkNode)
         val referencedInRouteMembers = analysis.routes.filter(_.routeAnalysis.routeNodes.nodesInWays.map(_.id).contains(networkNode.id))
         val referencedInRoutes = referencedInRouteMembers.map(_.routeAnalysis.route)
-        val connection = nodeMembers.find(_.node.id == networkNode.id) match {
+        val roleConnection = nodeMembers.find(_.node.id == networkNode.id) match {
           case Some(member) => member.role.contains("connection")
           case None => false
         }
-        val integrityCheck = if (connection) {
+        val integrityCheck = if (roleConnection) {
           None
         }
         else {
           new NodeIntegrityAnalyzer(data.networkType, analysis, networkNode).analysis
         }
-        NetworkNodeInfo(networkNode, connection, definedInRelation, definedInRoute, referencedInRoutes, integrityCheck)
+        NetworkNodeInfo(networkNode, roleConnection, definedInRelation, definedInRoute, referencedInRoutes, integrityCheck)
       }.toSeq
       NaturalSorting.sortBy(unsorted)(_.networkNode.name)
     }

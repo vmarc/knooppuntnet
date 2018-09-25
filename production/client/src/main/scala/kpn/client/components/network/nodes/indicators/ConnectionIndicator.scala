@@ -18,8 +18,8 @@ object ConnectionIndicator {
           "OK - Verbinding"
         ),
         nls(
-          "This node is a connection to another network.",
-          "Dit knooppunt is een verbinding naar een ander netwerk."
+          """This node is a connection to another network. This node has role "connection" in the network relation.""",
+          """Dit knooppunt is een verbinding naar een ander netwerk. Het knooppunt heeft rol "connection" in de netwerkrelatie."""
         )
       )
     }
@@ -32,8 +32,8 @@ object ConnectionIndicator {
           "OK - Geen verbinding"
         ),
         nls(
-          "This node is not a connection to another network.",
-          "Dit knooppunt is geen verbinding naar een ander netwerk."
+          """Information: this node does not have role "connection"" in het network relation.""",
+          """Ter informatie: dit knooppunt heeft niet de rol "connection" in de netwerk relatie."""
         )
       )
     }

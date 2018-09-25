@@ -37,7 +37,7 @@ object UiNodeChangeDetail {
     def render(): VdomElement = {
       <.div(
         facts,
-        connectionChanges,
+        roleConnectionChanges,
         definedInNetworkChanges,
         referenceChanges(nodeChange.addedToRoute, nls("Added to route", "Toegevoegd aan route"), routeLink),
         referenceChanges(nodeChange.addedToNetwork, nls("Added to network", "Toegevoegd aan netwerk"), networkLink),
@@ -79,19 +79,19 @@ object UiNodeChangeDetail {
       }
     }
 
-    private def connectionChanges = {
-      TagMod.when(nodeChange.connectionChanges.nonEmpty) {
-        nodeChange.connectionChanges.toTagMod { refBooleanChange =>
+    private def roleConnectionChanges = {
+      TagMod.when(nodeChange.roleConnectionChanges.nonEmpty) {
+        nodeChange.roleConnectionChanges.toTagMod { refBooleanChange =>
           val text = if (refBooleanChange.after) {
             nls(
-              "This node is marked as 'connection' in network",
-              "Dit knooppunt is gemarkeerd als verbinding naar ander netwerk in de netwerk relatie van"
+              """This node has role "connection" in the network relation.""",
+              """Dit knooppunt heeft rol "connection" in de netwerk relatie."""
             )
           }
           else {
             nls(
-              "This node is no longer marked as 'connection' in the relation of network",
-              "Dit knooppunt is niet langer gemarkeerd als verbinding naar ander netwerk in de netwerk relatie van"
+              """This node is no longer has role "connection" in the network relation.""",
+              """Dit knooppunt heeft niet langer de rol "connectinon" in de netwerk relatie."""
             )
           }
           networkMessage(text, refBooleanChange.ref)

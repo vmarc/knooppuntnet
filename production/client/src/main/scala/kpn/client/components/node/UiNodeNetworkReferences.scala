@@ -60,7 +60,7 @@ object UiNodeNetworkReferences {
                 Styles.networkRoute,
                 <.div(
                   Styles.text,
-                  if (reference.nodeConnection) {
+                  if (reference.nodeRoleConnection) {
                     if (nodeHasExpectedRouteRelations) {
                       UiMarked(
                         nls(
