@@ -64,6 +64,7 @@ object NodePageExample {
             networkId = 1,
             networkName = "network one",
             nodeDefinedInRelation = true,
+            nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = true, 3, 1)),
             routes = Seq(
@@ -84,6 +85,7 @@ object NodePageExample {
             networkId = 2,
             networkName = "network two",
             nodeDefinedInRelation = true,
+            nodeConnection = true,
             nodeRoleConnection = true,
             nodeIntegrityCheck = None,
             routes = Seq(
@@ -99,6 +101,7 @@ object NodePageExample {
             networkId = 3,
             networkName = "network three",
             nodeDefinedInRelation = false,
+            nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = None,
             routes = Seq(
@@ -124,6 +127,7 @@ object NodePageExample {
             networkId = 4,
             networkName = "network four",
             nodeDefinedInRelation = true,
+            nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = false, 3, 3)),
             routes = Seq(

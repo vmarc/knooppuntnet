@@ -31,6 +31,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
               1001,
               "01",
               definedInRelation = true,
+              connection = true,
               roleConnection = true,
               routeReferences = Seq(Ref(10, "01-02"))
             ),
@@ -81,6 +82,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
             networkType = NetworkType.hiking,
             networkName = "network-1",
             nodeDefinedInRelation = true,
+            nodeConnection = true,
             nodeRoleConnection = true,
             nodeIntegrityCheck = None,
             routes = Seq(
@@ -96,6 +98,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
             networkType = NetworkType.hiking,
             networkName = "network-2",
             nodeDefinedInRelation = true,
+            nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = None,
             routes = Seq()
@@ -110,6 +113,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
             networkType = NetworkType.hiking,
             networkName = "network-1",
             nodeDefinedInRelation = true,
+            nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = Some(
               NodeNetworkIntegrityCheck(

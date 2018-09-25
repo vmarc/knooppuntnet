@@ -1,7 +1,6 @@
 package kpn.core.tools.db
 
 import kpn.core.analysis.Network
-import kpn.shared.LatLonImpl
 import kpn.shared.common.Ref
 import kpn.shared.network.Integrity
 import kpn.shared.network.NetworkAttributes
@@ -29,12 +28,23 @@ class NetworkInfoBuilder {
 
       val routeReferences = info.referencedInRoutes.map(route => Ref(route.id, route.summary.name))
 
+      val connection: Boolean = {
+        val connectionRoutes = info.referencedInRoutes.filter { routeInfo =>
+          network.routes.find(_.id == routeInfo.id) match {
+            case Some(networkMemberRoute) => networkMemberRoute.role.contains("connection")
+            case None => false
+          }
+        }
+        connectionRoutes.size == info.referencedInRoutes.size
+      }
+
       NetworkNodeInfo2(
         info.networkNode.node.id,
         info.networkNode.name,
         numberString,
         info.networkNode.node.latitude,
         info.networkNode.node.longitude,
+        connection,
         info.roleConnection,
         info.definedInRelation,
         info.definedInRoute,

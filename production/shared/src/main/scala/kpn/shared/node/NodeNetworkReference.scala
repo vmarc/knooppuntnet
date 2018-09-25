@@ -7,6 +7,7 @@ case class NodeNetworkReference(
   networkId: Long,
   networkName: String,
   nodeDefinedInRelation: Boolean,
+  nodeConnection: Boolean,
   nodeRoleConnection: Boolean,
   nodeIntegrityCheck: Option[NodeNetworkIntegrityCheck],
   routes: Seq[NodeNetworkRouteReference]

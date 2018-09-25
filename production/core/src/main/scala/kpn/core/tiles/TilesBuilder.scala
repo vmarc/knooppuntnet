@@ -109,6 +109,7 @@ class TilesBuilder(
           number = "",
           latitude = node.latitude,
           longitude = node.longitude,
+          connection = false,
           roleConnection = false,
           definedInRelation = false,
           definedInRoute = false,

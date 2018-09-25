@@ -14,13 +14,12 @@ import japgolly.scalajs.react.vdom.html_<^.^
 import kpn.client.common.Context
 import kpn.client.common.Nls.nls
 import kpn.client.components.common.CssSettings.default._
-
 import scalacss.ScalaCssReact._
 
 object UiIndicator {
 
   object Color extends Enumeration {
-    val RED, GREEN, BLUE, GRAY = Value
+    val RED, GREEN, BLUE, ORANGE, GRAY = Value
   }
 
   private val avatarHeight = 25
@@ -72,6 +71,11 @@ object UiIndicator {
     val blue: StyleA = style(
       mixin(indicator),
       backgroundColor(rgb(33, 150, 243))
+    )
+
+    val orange: StyleA = style(
+      mixin(indicator),
+      backgroundColor(rgb(255, 163, 0))
     )
 
     val gray: StyleA = style(
@@ -129,6 +133,7 @@ object UiIndicator {
         case Color.RED => Styles.red
         case Color.GREEN => Styles.green
         case Color.BLUE => Styles.blue
+        case Color.ORANGE => Styles.orange
         case _ => Styles.gray
       }
 

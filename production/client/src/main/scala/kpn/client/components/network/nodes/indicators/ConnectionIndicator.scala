@@ -7,9 +7,9 @@ import kpn.client.components.common.UiIndicator
 
 object ConnectionIndicator {
 
-  def apply(ok: Boolean)(implicit context: Context): VdomElement = {
+  def apply(connection: Boolean)(implicit context: Context): VdomElement = {
 
-    if (ok) {
+    if (connection) {
       UiIndicator(
         nls("C", "V"),
         UiIndicator.Color.BLUE,
@@ -18,8 +18,8 @@ object ConnectionIndicator {
           "OK - Verbinding"
         ),
         nls(
-          """This node is a connection to another network. This node has role "connection" in the network relation.""",
-          """Dit knooppunt is een verbinding naar een ander netwerk. Het knooppunt heeft rol "connection" in de netwerkrelatie."""
+          """This node is a connection to another network. All routes to this node have the role "connection" in the network relation.""",
+          """Dit knooppunt is een verbinding naar een ander netwerk. Alle routes naar dit knooppunt hebben de rol "connection" in de netwerkrelatie."""
         )
       )
     }
@@ -32,8 +32,12 @@ object ConnectionIndicator {
           "OK - Geen verbinding"
         ),
         nls(
-          """Information: this node does not have role "connection"" in het network relation.""",
-          """Ter informatie: dit knooppunt heeft niet de rol "connection" in de netwerk relatie."""
+          """This node is not a connection to another network. The node would have been considered
+            | as a connection to another network if all routes to this node within the network had
+            | role "connection" in the network relation.""".stripMargin,
+          """Dit knooppunt is geen verbinding naar een ander netwerk. Het knooppunt zou
+            | beschouwd worden als een verbinding naar een ander netwerk indien alle routes naar
+            | dit knooppunt de rol "connection" zouden hebben in de netwerk relatie.""".stripMargin
         )
       )
     }

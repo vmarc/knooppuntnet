@@ -39,6 +39,7 @@ if (doc && doc.network) {
         networkType: attributes.networkType,
         networkId: attributes.id,
         networkName: attributes.name,
+        nodeConnection: node.connection,
         nodeRoleConnection: node.roleConnection,
         nodeDefinedInRelation: node.definedInRelation,
         nodeIntegrityCheck: nodeIntegrityCheck,

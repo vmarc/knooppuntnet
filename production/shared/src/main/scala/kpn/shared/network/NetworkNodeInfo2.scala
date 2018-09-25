@@ -12,6 +12,7 @@ case class NetworkNodeInfo2(
   number: String,
   latitude: String,
   longitude: String,
+  connection: Boolean, // true if all routes (in the network) that contain this node have role "connection" in the network relation
   roleConnection: Boolean,
   definedInRelation: Boolean,
   definedInRoute: Boolean,

@@ -14,10 +14,10 @@ import kpn.client.components.network.nodes.UiNetworkNodes.Styles
 import kpn.client.components.network.nodes.indicators.ConnectionIndicator
 import kpn.client.components.network.nodes.indicators.IntegrityIndicator
 import kpn.client.components.network.nodes.indicators.NetworkIndicator
+import kpn.client.components.network.nodes.indicators.RoleConnectionIndicator
 import kpn.client.components.network.nodes.indicators.RouteIndicator
 import kpn.shared.NetworkType
 import kpn.shared.network.NetworkNodeInfo2
-
 import scalacss.ScalaCssReact._
 
 object UiNetworkNodeRow {
@@ -60,9 +60,10 @@ object UiNetworkNodeRow {
     private def analysis: VdomElement = {
       <.div(
         Styles.analysisValue,
-        NetworkIndicator(nodeInfo.definedInRelation),
+        NetworkIndicator(nodeInfo.definedInRelation, nodeInfo.connection, nodeInfo.roleConnection),
         RouteIndicator(nodeInfo.definedInRoute),
-        ConnectionIndicator(nodeInfo.roleConnection),
+        ConnectionIndicator(nodeInfo.connection),
+        RoleConnectionIndicator(nodeInfo.roleConnection),
         IntegrityIndicator(networkType, nodeInfo.integrityCheck)
       )
     }
