@@ -28,5 +28,21 @@ if (doc && doc.network) {
         emit(key, 1);
       }
     }
+
+    var nodes = doc.network.detail.nodes;
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      for (var j = 0; j < node.facts.length; j++) {
+        var fact = node.facts[j];
+        var key = [
+          a.country,
+          a.networkType,
+          fact,
+          a.name,
+          a.id
+        ];
+        emit(key, 1);
+      }
+    }
   }
 }

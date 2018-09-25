@@ -31,7 +31,7 @@ class VectorTileBuilder() extends TileBuilder {
 
       val userData = ListMap(
         "id" -> node.id.toString,
-        "name" -> node.title
+        "name" -> node.name
       )
 
       val layer = if (!node.definedInRelation && !node.definedInRelation && node.routeReferences.isEmpty) {

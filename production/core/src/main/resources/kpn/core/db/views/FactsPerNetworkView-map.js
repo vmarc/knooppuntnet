@@ -35,6 +35,24 @@ if (doc && doc.network) {
       }
     }
 
+    var nodes = doc.network.detail.nodes;
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      for (var j = 0; j < node.facts.length; j++) {
+        var fact = node.facts[j];
+        var key = [
+          a.country,
+          a.networkType,
+          fact,
+          a.name,
+          a.id,
+          node.name,
+          node.id
+        ];
+        emit(key, 1);
+      }
+    }
+
     var integrityCheckFailed = doc.network.detail.networkFacts.integrityCheckFailed;
     if (integrityCheckFailed) {
       for (var i = 0; i < integrityCheckFailed.checks.length; i++) {

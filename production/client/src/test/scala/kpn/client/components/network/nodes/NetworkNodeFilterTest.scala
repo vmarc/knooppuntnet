@@ -1,6 +1,7 @@
 package kpn.client.components.network.nodes
 
 import kpn.client.filter.FilterOption
+import kpn.shared.Fact
 import kpn.shared.NodeIntegrityCheck
 import kpn.shared.TimeInfo
 import kpn.shared.Timestamp
@@ -139,7 +140,8 @@ class NetworkNodeFilterTest extends FunSuite with Matchers {
     definedInRoute: Boolean = false,
     timestamp: Timestamp = Timestamp(2015, 1, 1),
     routeReferences: Seq[Ref] = Seq(),
-    facts: Option[NodeIntegrityCheck] = None,
+    nodeIntegrityCheck: Option[NodeIntegrityCheck] = None,
+    facts: Seq[Fact] = Seq(),
     tags: Tags = Tags.empty
   ): NetworkNodeInfo2 = {
     NetworkNodeInfo2(
@@ -154,6 +156,7 @@ class NetworkNodeFilterTest extends FunSuite with Matchers {
       definedInRoute,
       timestamp,
       routeReferences,
+      nodeIntegrityCheck,
       facts,
       tags
     )

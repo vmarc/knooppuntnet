@@ -444,6 +444,7 @@ trait SharedTestObjects {
     timestamp: Timestamp = defaultTimestamp,
     routeReferences: Seq[Ref] = Seq(),
     integrityCheck: Option[NodeIntegrityCheck] = None,
+    facts: Seq[Fact] = Seq.empty,
     tags: Tags = Tags.empty
   ): NetworkNodeInfo2 = {
     NetworkNodeInfo2(
@@ -459,6 +460,7 @@ trait SharedTestObjects {
       timestamp,
       routeReferences,
       integrityCheck,
+      facts,
       tags
     )
   }

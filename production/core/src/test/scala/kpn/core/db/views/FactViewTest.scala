@@ -20,6 +20,15 @@ class FactViewTest extends FunSuite with Matchers {
       new TestDocBuilder(database) {
         val detail = Some(
           networkInfoDetail(
+            nodes = Seq(
+              newNetworkNodeInfo2(
+                1001L,
+                "01",
+                facts = Seq(
+                  Fact.NodeMemberMissing
+                )
+              )
+            ),
             routes = Seq(
               networkRouteInfo(
                 10L,
@@ -49,6 +58,7 @@ class FactViewTest extends FunSuite with Matchers {
         Seq(
           FactViewKey("nl", "rwn", "IgnoreForeignCountry", "network-name", networkId),
           FactViewKey("nl", "rwn", "NameMissing", "network-name", networkId),
+          FactViewKey("nl", "rwn", "NodeMemberMissing", "network-name", networkId),
           FactViewKey("nl", "rwn", "RouteBroken", "network-name", networkId),
           FactViewKey("nl", "rwn", "RouteNameMissing", "network-name", networkId)
         )

@@ -65,6 +65,7 @@ object UiOverviewList {
         infoRow(infos.networkExtraMemberNode),
         infoRow(infos.networkExtraMemberWay),
         infoRow(infos.networkExtraMemberRelation),
+        infoRow(infos.nodeMemberMissing),
         infoRow(infos.nameMissingInfo),
         infoRow(infos.routeUnaccessibleInfo),
         infoRow(infos.routeInvalidSortingOrderInfo),

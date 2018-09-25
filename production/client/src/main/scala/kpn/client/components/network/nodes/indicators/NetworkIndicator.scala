@@ -78,7 +78,7 @@ object NetworkIndicator {
             """Dit knooppunt is niet opgenomen als lid in een netwerk relatie. Dit is niet OK. De
               | conventie is om elk knooppunt op te nemen in een netwerk relatie, behalve wanneer
               | wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt
-              | hebben de rol "connection" in de netwerk relatie.""".stripMargin
+              | hebben de rol "connection" in de netwerk relatie).""".stripMargin
           )
         )
       }

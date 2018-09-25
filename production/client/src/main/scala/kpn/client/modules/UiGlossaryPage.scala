@@ -13,7 +13,6 @@ import kpn.client.common.Nls.nls
 import kpn.client.common.Nls.nlsNL
 import kpn.client.components.common.AbstractBackend
 import kpn.client.components.common.PageState
-import kpn.client.components.common.PageStatus
 import kpn.client.components.common.UiAppBar
 import kpn.client.components.common.UiData
 import kpn.client.components.common.UiMarked
@@ -30,6 +29,7 @@ import kpn.shared.Fact.NameMissing
 import kpn.shared.Fact.NetworkExtraMemberNode
 import kpn.shared.Fact.NetworkExtraMemberRelation
 import kpn.shared.Fact.NetworkExtraMemberWay
+import kpn.shared.Fact.NodeMemberMissing
 import kpn.shared.Fact.OrphanNode
 import kpn.shared.Fact.OrphanRoute
 import kpn.shared.Fact.RouteBroken
@@ -158,6 +158,7 @@ object UiGlossaryPage {
           fact(NetworkExtraMemberNode),
           fact(NetworkExtraMemberWay),
           fact(NetworkExtraMemberRelation),
+          fact(NodeMemberMissing),
           fact(IntegrityCheckFailed),
           fact(NameMissing),
           fact(OrphanRoute),

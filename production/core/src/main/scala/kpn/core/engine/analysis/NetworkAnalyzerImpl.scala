@@ -11,6 +11,7 @@ import kpn.core.engine.analysis.route.MasterRouteAnalyzer
 import kpn.core.load.data.LoadedRoute
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
+import kpn.shared.Fact
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
@@ -140,8 +141,42 @@ class NetworkAnalyzerImpl(
         else {
           new NodeIntegrityAnalyzer(data.networkType, analysis, networkNode).analysis
         }
-        NetworkNodeInfo(networkNode, roleConnection, definedInRelation, definedInRoute, referencedInRoutes, integrityCheck)
+
+        val connection: Boolean = {
+          if (referencedInRoutes.isEmpty) {
+            false
+          }
+          else {
+            val connectionRoutes = referencedInRoutes.filter { routeInfo =>
+              analysis.routes.find(_.id == routeInfo.id) match {
+                case Some(networkMemberRoute) => networkMemberRoute.role.contains("connection")
+                case None => false
+              }
+            }
+            connectionRoutes.size == referencedInRoutes.size
+          }
+        }
+
+        val facts = if (!definedInRelation && !connection) {
+          Seq(Fact.NodeMemberMissing)
+        }
+        else {
+          Seq()
+        }
+
+        NetworkNodeInfo(
+          networkNode,
+          connection,
+          roleConnection,
+          definedInRelation,
+          definedInRoute,
+          referencedInRoutes,
+          integrityCheck,
+          facts
+        )
+
       }.toSeq
+
       NaturalSorting.sortBy(unsorted)(_.networkNode.name)
     }
 

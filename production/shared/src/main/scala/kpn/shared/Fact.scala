@@ -58,14 +58,15 @@ object Fact {
   val NetworkExtraMemberNode: Fact = f.fact(117, "NetworkExtraMemberNode", "OnverwachteKnoop", FactLevel.ERROR)
   val NetworkExtraMemberWay: Fact = f.fact(118, "NetworkExtraMemberWay", "OnverwachteWeg", FactLevel.ERROR)
   val NetworkExtraMemberRelation: Fact = f.fact(119, "NetworkExtraMemberRelation", "OnverwachteRelatie", FactLevel.ERROR)
-  val IntegrityCheckFailed: Fact = f.fact(120, "IntegrityCheckFailed", "OnverwachtRouteAantal", FactLevel.ERROR)
-  val NameMissing: Fact = f.fact(121, "NameMissing", "NetwerkZonderNaam", FactLevel.ERROR)
-  val OrphanRoute: Fact = f.fact(122, "OrphanRoute", "RouteWees", FactLevel.ERROR)
-  val OrphanNode: Fact = f.fact(123, "OrphanNode", "KnooppuntWees", FactLevel.ERROR)
+  val NodeMemberMissing: Fact = f.fact(120, "NodeMemberMissing", "OntbrekendKnooppuntLid", FactLevel.ERROR)
+  val IntegrityCheckFailed: Fact = f.fact(121, "IntegrityCheckFailed", "OnverwachtRouteAantal", FactLevel.ERROR)
+  val NameMissing: Fact = f.fact(122, "NameMissing", "NetwerkZonderNaam", FactLevel.ERROR)
+  val OrphanRoute: Fact = f.fact(123, "OrphanRoute", "RouteWees", FactLevel.ERROR)
+  val OrphanNode: Fact = f.fact(124, "OrphanNode", "KnooppuntWees", FactLevel.ERROR)
 
-  val RouteOverlappingWays: Fact = f.fact(124, "RouteOverlappingWays", "OverlappendeWegen", FactLevel.ERROR)
-  val RouteSuspiciousWays: Fact = f.fact(125, "RouteSuspiciousWays", "RouteVerdachteWegen", FactLevel.ERROR)
-  val RouteAnalysisFailed: Fact = f.fact(126, "RouteAnalysisFailed", "RouteAnalyseFout", FactLevel.ERROR)
+  val RouteOverlappingWays: Fact = f.fact(125, "RouteOverlappingWays", "OverlappendeWegen", FactLevel.ERROR)
+  val RouteSuspiciousWays: Fact = f.fact(126, "RouteSuspiciousWays", "RouteVerdachteWegen", FactLevel.ERROR)
+  val RouteAnalysisFailed: Fact = f.fact(127, "RouteAnalysisFailed", "RouteAnalyseFout", FactLevel.ERROR)
 
   // informational
   val RouteIncomplete: Fact = f.fact(201, "RouteIncomplete", "OnvolledigeRoute", FactLevel.INFO)

@@ -71,7 +71,7 @@ object UiNetworkNodeRow {
     private def title: VdomElement = {
       <.div(
         Styles.titleValue,
-        context.gotoNode(nodeInfo.id, nodeInfo.title)
+        context.gotoNode(nodeInfo.id, nodeInfo.name)
       )
     }
 

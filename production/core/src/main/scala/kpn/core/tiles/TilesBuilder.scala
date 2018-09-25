@@ -105,7 +105,7 @@ class TilesBuilder(
       val allNodes = nodes ++ orphanNodes.map { node =>
         NetworkNodeInfo2(
           node.id,
-          title = name(networkType, node.tags),
+          name = name(networkType, node.tags),
           number = "",
           latitude = node.latitude,
           longitude = node.longitude,
@@ -116,6 +116,7 @@ class TilesBuilder(
           timestamp = node.lastUpdated,
           routeReferences = Seq(),
           integrityCheck = None,
+          facts = Seq(),
           tags = node.tags
         )
       }

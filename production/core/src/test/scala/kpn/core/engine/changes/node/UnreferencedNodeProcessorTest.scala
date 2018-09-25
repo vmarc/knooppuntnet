@@ -5,30 +5,21 @@ import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.changes.ElementIds
 import kpn.core.engine.analysis.country.CountryAnalyzer
-import kpn.core.load.NodeLoader
-import kpn.core.repository.AnalysisRepository
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
+import kpn.core.load.NodeLoader
+import kpn.core.repository.AnalysisRepository
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.LatLon
 import kpn.shared.LatLonImpl
 import kpn.shared.NetworkType
-import kpn.shared.NodeInfo
 import kpn.shared.Subset
 import kpn.shared.Timestamp
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.common.Ref
 import kpn.shared.data.Node
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawNode
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.common.FactDiffs
-import kpn.shared.diff.node.NodeMoved
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -79,75 +70,75 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     pending
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId))
 
-//    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(None).once()
-//
-//    val nodeChanges = t.processor.process(t.context, candidateUnreferencedNodes)
-//
-//    unreferencedNodes.oldOrphanNodes should equal(Seq())
-//    unreferencedNodes.newOrphanNodes should equal(Seq())
-//    unreferencedNodes.oldIgnoredNodes should equal(Seq())
-//    unreferencedNodes.newIgnoredNodes should equal(Seq())
-//
-//    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-//      Some(
-//        NodeChange(
-//          key = t.context.buildChangeKey(nodeId),
-//          changeType = ChangeType.Delete,
-//          subsets = Seq(Subset.nlHiking, Subset.nlBicycle),
-//          name = "01 / 55",
-//          before = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonBefore.latitude,
-//              longitude = latLonBefore.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01",
-//                "rcn_ref" -> "55"
-//              )
-//            )
-//          ),
-//          after = None,
-//          tagDiffs = None,
-//          nodeMoved = None,
-//          addedToNetwork = Seq(),
-//          removedFromNetwork = Seq(),
-//          factDiffs = FactDiffs(),
-//          facts = Seq(Fact.Deleted),
-//          happy = false,
-//          investigate = true
-//        )
-//      )
-//    )
-//
-//    (t.analysisRepository.saveNode _).verify(
-//      where { (nodeInfo: NodeInfo) =>
-//        nodeInfo should equal(
-//          NodeInfo(
-//            id = nodeId,
-//            active = false,
-//            ignored = false,
-//            orphan = false,
-//            country = Some(Country.nl),
-//            name = "01 / 55",
-//            rcnName = "55",
-//            rwnName = "01",
-//            latitude = latLonBefore.latitude,
-//            longitude = latLonBefore.longitude,
-//            lastUpdated = Timestamp(2016, 8, 11),
-//            lastUpdatedBy = "user",
-//            tags = Tags.from(
-//              "rwn_ref" -> "01",
-//              "rcn_ref" -> "55"
-//            ),
-//            facts = Seq(Fact.Deleted)
-//          )
-//        )
-//        true
-//      }
-//    ).once()
+    //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(None).once()
+    //
+    //    val nodeChanges = t.processor.process(t.context, candidateUnreferencedNodes)
+    //
+    //    unreferencedNodes.oldOrphanNodes should equal(Seq())
+    //    unreferencedNodes.newOrphanNodes should equal(Seq())
+    //    unreferencedNodes.oldIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //
+    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //      Some(
+    //        NodeChange(
+    //          key = t.context.buildChangeKey(nodeId),
+    //          changeType = ChangeType.Delete,
+    //          subsets = Seq(Subset.nlHiking, Subset.nlBicycle),
+    //          name = "01 / 55",
+    //          before = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonBefore.latitude,
+    //              longitude = latLonBefore.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01",
+    //                "rcn_ref" -> "55"
+    //              )
+    //            )
+    //          ),
+    //          after = None,
+    //          tagDiffs = None,
+    //          nodeMoved = None,
+    //          addedToNetwork = Seq(),
+    //          removedFromNetwork = Seq(),
+    //          factDiffs = FactDiffs(),
+    //          facts = Seq(Fact.Deleted),
+    //          happy = false,
+    //          investigate = true
+    //        )
+    //      )
+    //    )
+    //
+    //    (t.analysisRepository.saveNode _).verify(
+    //      where { (nodeInfo: NodeInfo) =>
+    //        nodeInfo should equal(
+    //          NodeInfo(
+    //            id = nodeId,
+    //            active = false,
+    //            ignored = false,
+    //            orphan = false,
+    //            country = Some(Country.nl),
+    //            name = "01 / 55",
+    //            rcnName = "55",
+    //            rwnName = "01",
+    //            latitude = latLonBefore.latitude,
+    //            longitude = latLonBefore.longitude,
+    //            lastUpdated = Timestamp(2016, 8, 11),
+    //            lastUpdatedBy = "user",
+    //            tags = Tags.from(
+    //              "rwn_ref" -> "01",
+    //              "rcn_ref" -> "55"
+    //            ),
+    //            facts = Seq(Fact.Deleted)
+    //          )
+    //        )
+    //        true
+    //      }
+    //    ).once()
   }
 
   test("node becomes orphan") {
@@ -159,99 +150,99 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     pending
 
-//    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
-//
-//    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
-//
-//    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
-//      Some(
-//        Node(t.rawNode(nodeId, Tags.from("rwn_ref" -> "01"), latLonAfter))
-//      )
-//    ).once()
-//
-//    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
-//
-//    unreferencedNodes.newOrphanNodes should equal(Seq(Ref(nodeId, "01")))
-//    unreferencedNodes.newIgnoredNodes should equal(Seq())
-//
-//    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(true)
-//
-//    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-//      Some(
-//        NodeChange(
-//          key = t.context.buildChangeKey(nodeId),
-//          ChangeType.Update,
-//          subsets = Seq(Subset.nlHiking),
-//          name = "01",
-//          before = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonBefore.latitude,
-//              longitude = latLonBefore.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01"
-//              )
-//            )
-//          ),
-//          after = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonAfter.latitude,
-//              longitude = latLonAfter.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01"
-//              )
-//            )
-//          ),
-//          tagDiffs = None,
-//          nodeMoved = Some(
-//            NodeMoved(
-//              latLonBefore,
-//              latLonAfter,
-//              movedDistance
-//            )
-//          ),
-//          addedToNetwork = Seq(),
-//          removedFromNetwork = Seq(),
-//          factDiffs = FactDiffs(),
-//          facts = Seq(Fact.BecomeOrphan),
-//          happy = false,
-//          investigate = true
-//        )
-//      )
-//    )
-//
-//    (t.analysisRepository.saveNode _).verify(
-//      where { (nodeInfo: NodeInfo) =>
-//        nodeInfo should equal(
-//          NodeInfo(
-//            id = nodeId,
-//            active = true,
-//            ignored = false,
-//            orphan = true,
-//            country = Some(Country.nl),
-//            name = "01",
-//            rcnName = "",
-//            rwnName = "01",
-//            latitude = latLonAfter.latitude,
-//            longitude = latLonAfter.longitude,
-//            lastUpdated = Timestamp(2016, 8, 11),
-//            lastUpdatedBy = "user",
-//            tags = Tags.from(
-//              "rwn_ref" -> "01"
-//            ),
-//            facts = Seq()
-//          )
-//        )
-//        true
-//      }
-//    ).once()
+    //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
+    //
+    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
+    //
+    //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
+    //      Some(
+    //        Node(t.rawNode(nodeId, Tags.from("rwn_ref" -> "01"), latLonAfter))
+    //      )
+    //    ).once()
+    //
+    //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
+    //
+    //    unreferencedNodes.newOrphanNodes should equal(Seq(Ref(nodeId, "01")))
+    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //
+    //    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(true)
+    //
+    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //      Some(
+    //        NodeChange(
+    //          key = t.context.buildChangeKey(nodeId),
+    //          ChangeType.Update,
+    //          subsets = Seq(Subset.nlHiking),
+    //          name = "01",
+    //          before = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonBefore.latitude,
+    //              longitude = latLonBefore.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01"
+    //              )
+    //            )
+    //          ),
+    //          after = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonAfter.latitude,
+    //              longitude = latLonAfter.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01"
+    //              )
+    //            )
+    //          ),
+    //          tagDiffs = None,
+    //          nodeMoved = Some(
+    //            NodeMoved(
+    //              latLonBefore,
+    //              latLonAfter,
+    //              movedDistance
+    //            )
+    //          ),
+    //          addedToNetwork = Seq(),
+    //          removedFromNetwork = Seq(),
+    //          factDiffs = FactDiffs(),
+    //          facts = Seq(Fact.BecomeOrphan),
+    //          happy = false,
+    //          investigate = true
+    //        )
+    //      )
+    //    )
+    //
+    //    (t.analysisRepository.saveNode _).verify(
+    //      where { (nodeInfo: NodeInfo) =>
+    //        nodeInfo should equal(
+    //          NodeInfo(
+    //            id = nodeId,
+    //            active = true,
+    //            ignored = false,
+    //            orphan = true,
+    //            country = Some(Country.nl),
+    //            name = "01",
+    //            rcnName = "",
+    //            rwnName = "01",
+    //            latitude = latLonAfter.latitude,
+    //            longitude = latLonAfter.longitude,
+    //            lastUpdated = Timestamp(2016, 8, 11),
+    //            lastUpdatedBy = "user",
+    //            tags = Tags.from(
+    //              "rwn_ref" -> "01"
+    //            ),
+    //            facts = Seq()
+    //          )
+    //        )
+    //        true
+    //      }
+    //    ).once()
   }
 
   test("node becomes ignored") {
@@ -263,100 +254,100 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     pending
 
-//    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
-//
-//    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq(Fact.IgnoreForeignCountry))
-//
-//    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
-//      Some(
-//        Node(t.rawNode(nodeId, Tags.from("rwn_ref" -> "01"), latLonAfter))
-//      )
-//    ).once()
-//
-//    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
-//
-//    unreferencedNodes.newOrphanNodes should equal(Seq())
-//    unreferencedNodes.newIgnoredNodes should equal(Seq(Ref(nodeId, "01")))
-//
-//    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(true)
-//
-//    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-//      Some(
-//        NodeChange(
-//          key = t.context.buildChangeKey(nodeId),
-//          ChangeType.Update,
-//          subsets = Seq(Subset.nlHiking),
-//          name = "01",
-//          before = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonBefore.latitude,
-//              longitude = latLonBefore.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01"
-//              )
-//            )
-//          ),
-//          after = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonAfter.latitude,
-//              longitude = latLonAfter.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01"
-//              )
-//            )
-//          ),
-//          tagDiffs = None,
-//          nodeMoved = Some(
-//            NodeMoved(
-//              latLonBefore,
-//              latLonAfter,
-//              movedDistance
-//            )
-//          ),
-//          addedToNetwork = Seq(),
-//          removedFromNetwork = Seq(),
-//          factDiffs = FactDiffs(introduced = Set(Fact.IgnoreForeignCountry)),
-//          facts = Seq(Fact.BecomeIgnored),
-//          happy = false,
-//          investigate = true
-//        )
-//      )
-//    )
-//
-//    (t.analysisRepository.saveNode _).verify(
-//      where { (nodeInfo: NodeInfo) =>
-//        nodeInfo should equal(
-//          NodeInfo(
-//            id = nodeId,
-//            active = true,
-//            ignored = true,
-//            orphan = true,
-//            country = Some(Country.nl),
-//            name = "01",
-//            rcnName = "",
-//            rwnName = "01",
-//            latitude = latLonAfter.latitude,
-//            longitude = latLonAfter.longitude,
-//            lastUpdated = Timestamp(2016, 8, 11),
-//            lastUpdatedBy = "user",
-//            tags = Tags.from(
-//              "rwn_ref" -> "01"
-//            ),
-//            facts = Seq(Fact.IgnoreForeignCountry)
-//          )
-//        )
-//        true
-//      }
-//    ).once()
-//
+    //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
+    //
+    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq(Fact.IgnoreForeignCountry))
+    //
+    //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
+    //      Some(
+    //        Node(t.rawNode(nodeId, Tags.from("rwn_ref" -> "01"), latLonAfter))
+    //      )
+    //    ).once()
+    //
+    //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
+    //
+    //    unreferencedNodes.newOrphanNodes should equal(Seq())
+    //    unreferencedNodes.newIgnoredNodes should equal(Seq(Ref(nodeId, "01")))
+    //
+    //    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(true)
+    //
+    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //      Some(
+    //        NodeChange(
+    //          key = t.context.buildChangeKey(nodeId),
+    //          ChangeType.Update,
+    //          subsets = Seq(Subset.nlHiking),
+    //          name = "01",
+    //          before = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonBefore.latitude,
+    //              longitude = latLonBefore.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01"
+    //              )
+    //            )
+    //          ),
+    //          after = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonAfter.latitude,
+    //              longitude = latLonAfter.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01"
+    //              )
+    //            )
+    //          ),
+    //          tagDiffs = None,
+    //          nodeMoved = Some(
+    //            NodeMoved(
+    //              latLonBefore,
+    //              latLonAfter,
+    //              movedDistance
+    //            )
+    //          ),
+    //          addedToNetwork = Seq(),
+    //          removedFromNetwork = Seq(),
+    //          factDiffs = FactDiffs(introduced = Set(Fact.IgnoreForeignCountry)),
+    //          facts = Seq(Fact.BecomeIgnored),
+    //          happy = false,
+    //          investigate = true
+    //        )
+    //      )
+    //    )
+    //
+    //    (t.analysisRepository.saveNode _).verify(
+    //      where { (nodeInfo: NodeInfo) =>
+    //        nodeInfo should equal(
+    //          NodeInfo(
+    //            id = nodeId,
+    //            active = true,
+    //            ignored = true,
+    //            orphan = true,
+    //            country = Some(Country.nl),
+    //            name = "01",
+    //            rcnName = "",
+    //            rwnName = "01",
+    //            latitude = latLonAfter.latitude,
+    //            longitude = latLonAfter.longitude,
+    //            lastUpdated = Timestamp(2016, 8, 11),
+    //            lastUpdatedBy = "user",
+    //            tags = Tags.from(
+    //              "rwn_ref" -> "01"
+    //            ),
+    //            facts = Seq(Fact.IgnoreForeignCountry)
+    //          )
+    //        )
+    //        true
+    //      }
+    //    ).once()
+    //
   }
 
   test("lost bicycle node tag") {
@@ -377,99 +368,99 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     pending
 
-//    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
-//
-//    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
-//
-//    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
-//      Some(
-//        Node(t.rawNode(nodeId, Tags.from(), latLonAfter))
-//      )
-//    ).once()
-//
-//    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
-//
-//    unreferencedNodes.newOrphanNodes should equal(Seq())
-//    unreferencedNodes.newIgnoredNodes should equal(Seq())
-//
-//    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-//      Some(
-//        NodeChange(
-//          key = t.context.buildChangeKey(nodeId),
-//          ChangeType.Update,
-//          subsets = Seq(subset),
-//          name = "01",
-//          before = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonBefore.latitude,
-//              longitude = latLonBefore.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                nodeTagKey -> "01"
-//              )
-//            )
-//          ),
-//          after = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonAfter.latitude,
-//              longitude = latLonAfter.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from()
-//            )
-//          ),
-//          tagDiffs = Some(
-//            TagDiffs(
-//              mainTags = Seq(
-//                TagDetail(action = TagDetailType.Delete, nodeTagKey, Some("01"), None)
-//              )
-//            )
-//          ),
-//          nodeMoved = Some(
-//            NodeMoved(
-//              latLonBefore,
-//              latLonAfter,
-//              movedDistance
-//            )
-//          ),
-//          addedToNetwork = Seq(),
-//          removedFromNetwork = Seq(),
-//          factDiffs = FactDiffs(),
-//          facts = Seq(expectedFact),
-//          happy = false,
-//          investigate = true
-//        )
-//      )
-//    )
-//
-//    (t.analysisRepository.saveNode _).verify(
-//      where { (nodeInfo: NodeInfo) =>
-//        nodeInfo should equal(
-//          NodeInfo(
-//            id = nodeId,
-//            active = false,
-//            ignored = false,
-//            orphan = false,
-//            country = Some(Country.nl),
-//            name = "",
-//            rcnName = "",
-//            rwnName = "",
-//            latitude = latLonAfter.latitude,
-//            longitude = latLonAfter.longitude,
-//            lastUpdated = Timestamp(2016, 8, 11),
-//            lastUpdatedBy = "user",
-//            tags = Tags.from(),
-//            facts = Seq()
-//          )
-//        )
-//        true
-//      }
-//    ).once()
+    //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
+    //
+    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
+    //
+    //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
+    //      Some(
+    //        Node(t.rawNode(nodeId, Tags.from(), latLonAfter))
+    //      )
+    //    ).once()
+    //
+    //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
+    //
+    //    unreferencedNodes.newOrphanNodes should equal(Seq())
+    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //
+    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //      Some(
+    //        NodeChange(
+    //          key = t.context.buildChangeKey(nodeId),
+    //          ChangeType.Update,
+    //          subsets = Seq(subset),
+    //          name = "01",
+    //          before = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonBefore.latitude,
+    //              longitude = latLonBefore.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                nodeTagKey -> "01"
+    //              )
+    //            )
+    //          ),
+    //          after = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonAfter.latitude,
+    //              longitude = latLonAfter.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from()
+    //            )
+    //          ),
+    //          tagDiffs = Some(
+    //            TagDiffs(
+    //              mainTags = Seq(
+    //                TagDetail(action = TagDetailType.Delete, nodeTagKey, Some("01"), None)
+    //              )
+    //            )
+    //          ),
+    //          nodeMoved = Some(
+    //            NodeMoved(
+    //              latLonBefore,
+    //              latLonAfter,
+    //              movedDistance
+    //            )
+    //          ),
+    //          addedToNetwork = Seq(),
+    //          removedFromNetwork = Seq(),
+    //          factDiffs = FactDiffs(),
+    //          facts = Seq(expectedFact),
+    //          happy = false,
+    //          investigate = true
+    //        )
+    //      )
+    //    )
+    //
+    //    (t.analysisRepository.saveNode _).verify(
+    //      where { (nodeInfo: NodeInfo) =>
+    //        nodeInfo should equal(
+    //          NodeInfo(
+    //            id = nodeId,
+    //            active = false,
+    //            ignored = false,
+    //            orphan = false,
+    //            country = Some(Country.nl),
+    //            name = "",
+    //            rcnName = "",
+    //            rwnName = "",
+    //            latitude = latLonAfter.latitude,
+    //            longitude = latLonAfter.longitude,
+    //            lastUpdated = Timestamp(2016, 8, 11),
+    //            lastUpdatedBy = "user",
+    //            tags = Tags.from(),
+    //            facts = Seq()
+    //          )
+    //        )
+    //        true
+    //      }
+    //    ).once()
   }
 
   test("lost hiking node tag, but still retain bicyle node tag and become orphan") {
@@ -482,105 +473,105 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     pending
 
-//    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
-//
-//    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
-//
-//    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
-//      Some(
-//        Node(t.rawNode(nodeId, Tags.from("rcn_ref" -> "55"), latLonAfter))
-//      )
-//    ).once()
-//
-//    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
-//
-//    unreferencedNodes.newOrphanNodes should equal(Seq(Ref(nodeId, "55")))
-//    unreferencedNodes.newIgnoredNodes should equal(Seq())
-//
-//    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-//      Some(
-//        NodeChange(
-//          key = t.context.buildChangeKey(nodeId),
-//          ChangeType.Update,
-//          subsets = Seq(Subset.nlBicycle),
-//          name = "55",
-//          before = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonBefore.latitude,
-//              longitude = latLonBefore.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01",
-//                "rcn_ref" -> "55"
-//              )
-//            )
-//          ),
-//          after = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonAfter.latitude,
-//              longitude = latLonAfter.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rcn_ref" -> "55"
-//              )
-//            )
-//          ),
-//          tagDiffs = Some(
-//            TagDiffs(
-//              mainTags = Seq(
-//                TagDetail(action = TagDetailType.Same, "rcn_ref", Some("55"), Some("55")),
-//                TagDetail(action = TagDetailType.Delete, "rwn_ref", Some("01"), None)
-//              )
-//            )
-//          ),
-//          nodeMoved = Some(
-//            NodeMoved(
-//              latLonBefore,
-//              latLonAfter,
-//              movedDistance
-//            )
-//          ),
-//          addedToNetwork = Seq(),
-//          removedFromNetwork = Seq(),
-//          factDiffs = FactDiffs(),
-//          facts = Seq(Fact.BecomeOrphan, Fact.LostHikingNodeTag),
-//          happy = false,
-//          investigate = true
-//        )
-//      )
-//    )
-//
-//    (t.analysisRepository.saveNode _).verify(
-//      where { (nodeInfo: NodeInfo) =>
-//        nodeInfo should equal(
-//          NodeInfo(
-//            id = nodeId,
-//            active = true,
-//            ignored = false,
-//            orphan = true,
-//            country = Some(Country.nl),
-//            name = "55",
-//            rcnName = "55",
-//            rwnName = "",
-//            latitude = latLonAfter.latitude,
-//            longitude = latLonAfter.longitude,
-//            lastUpdated = Timestamp(2016, 8, 11),
-//            lastUpdatedBy = "user",
-//            tags = Tags.from(
-//              "rcn_ref" -> "55"
-//            ),
-//            facts = Seq()
-//          )
-//        )
-//        true
-//      }
-//    ).once()
+    //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
+    //
+    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
+    //
+    //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
+    //      Some(
+    //        Node(t.rawNode(nodeId, Tags.from("rcn_ref" -> "55"), latLonAfter))
+    //      )
+    //    ).once()
+    //
+    //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
+    //
+    //    unreferencedNodes.newOrphanNodes should equal(Seq(Ref(nodeId, "55")))
+    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //
+    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //      Some(
+    //        NodeChange(
+    //          key = t.context.buildChangeKey(nodeId),
+    //          ChangeType.Update,
+    //          subsets = Seq(Subset.nlBicycle),
+    //          name = "55",
+    //          before = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonBefore.latitude,
+    //              longitude = latLonBefore.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01",
+    //                "rcn_ref" -> "55"
+    //              )
+    //            )
+    //          ),
+    //          after = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonAfter.latitude,
+    //              longitude = latLonAfter.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rcn_ref" -> "55"
+    //              )
+    //            )
+    //          ),
+    //          tagDiffs = Some(
+    //            TagDiffs(
+    //              mainTags = Seq(
+    //                TagDetail(action = TagDetailType.Same, "rcn_ref", Some("55"), Some("55")),
+    //                TagDetail(action = TagDetailType.Delete, "rwn_ref", Some("01"), None)
+    //              )
+    //            )
+    //          ),
+    //          nodeMoved = Some(
+    //            NodeMoved(
+    //              latLonBefore,
+    //              latLonAfter,
+    //              movedDistance
+    //            )
+    //          ),
+    //          addedToNetwork = Seq(),
+    //          removedFromNetwork = Seq(),
+    //          factDiffs = FactDiffs(),
+    //          facts = Seq(Fact.BecomeOrphan, Fact.LostHikingNodeTag),
+    //          happy = false,
+    //          investigate = true
+    //        )
+    //      )
+    //    )
+    //
+    //    (t.analysisRepository.saveNode _).verify(
+    //      where { (nodeInfo: NodeInfo) =>
+    //        nodeInfo should equal(
+    //          NodeInfo(
+    //            id = nodeId,
+    //            active = true,
+    //            ignored = false,
+    //            orphan = true,
+    //            country = Some(Country.nl),
+    //            name = "55",
+    //            rcnName = "55",
+    //            rwnName = "",
+    //            latitude = latLonAfter.latitude,
+    //            longitude = latLonAfter.longitude,
+    //            lastUpdated = Timestamp(2016, 8, 11),
+    //            lastUpdatedBy = "user",
+    //            tags = Tags.from(
+    //              "rcn_ref" -> "55"
+    //            ),
+    //            facts = Seq()
+    //          )
+    //        )
+    //        true
+    //      }
+    //    ).once()
   }
 
   test("orphan node looses node tag") {
@@ -599,100 +590,100 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     pending
 
-//    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
-//      Some(
-//        Node(t.rawNode(nodeId, Tags.from(), latLonAfter))
-//      )
-//    ).once()
-//
-//    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
-//
-//    unreferencedNodes.newOrphanNodes should equal(Seq())
-//    unreferencedNodes.newIgnoredNodes should equal(Seq())
-//
-//    unreferencedNodes.oldOrphanNodes should equal(Seq(Ref(nodeId, "01")))
-//    unreferencedNodes.oldIgnoredNodes should equal(Seq())
-//
-//    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(false)
-//
-//    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-//      Some(
-//        NodeChange(
-//          key = t.context.buildChangeKey(nodeId),
-//          ChangeType.Update,
-//          subsets = Seq(Subset.nlHiking),
-//          name = "01",
-//          before = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonBefore.latitude,
-//              longitude = latLonBefore.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01"
-//              )
-//            )
-//          ),
-//          after = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonAfter.latitude,
-//              longitude = latLonAfter.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from()
-//            )
-//          ),
-//          tagDiffs = Some(
-//            TagDiffs(
-//              mainTags = Seq(
-//                TagDetail(action = TagDetailType.Delete, "rwn_ref", Some("01"), None)
-//              )
-//            )
-//          ),
-//          nodeMoved = Some(
-//            NodeMoved(
-//              latLonBefore,
-//              latLonAfter,
-//              movedDistance
-//            )
-//          ),
-//          addedToNetwork = Seq(),
-//          removedFromNetwork = Seq(),
-//          factDiffs = FactDiffs(),
-//          facts = Seq(Fact.LostHikingNodeTag, Fact.WasOrphan),
-//          happy = false,
-//          investigate = true
-//        )
-//      )
-//    )
-//
-//    (t.analysisRepository.saveNode _).verify(
-//      where { (nodeInfo: NodeInfo) =>
-//        nodeInfo should equal(
-//          NodeInfo(
-//            id = nodeId,
-//            active = false,
-//            ignored = false,
-//            orphan = false,
-//            country = Some(Country.nl),
-//            name = "",
-//            rcnName = "",
-//            rwnName = "",
-//            latitude = latLonAfter.latitude,
-//            longitude = latLonAfter.longitude,
-//            lastUpdated = Timestamp(2016, 8, 11),
-//            lastUpdatedBy = "user",
-//            tags = Tags.from(),
-//            facts = Seq()
-//          )
-//        )
-//        true
-//      }
-//    ).once()
+    //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
+    //      Some(
+    //        Node(t.rawNode(nodeId, Tags.from(), latLonAfter))
+    //      )
+    //    ).once()
+    //
+    //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
+    //
+    //    unreferencedNodes.newOrphanNodes should equal(Seq())
+    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //
+    //    unreferencedNodes.oldOrphanNodes should equal(Seq(Ref(nodeId, "01")))
+    //    unreferencedNodes.oldIgnoredNodes should equal(Seq())
+    //
+    //    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(false)
+    //
+    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //      Some(
+    //        NodeChange(
+    //          key = t.context.buildChangeKey(nodeId),
+    //          ChangeType.Update,
+    //          subsets = Seq(Subset.nlHiking),
+    //          name = "01",
+    //          before = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonBefore.latitude,
+    //              longitude = latLonBefore.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01"
+    //              )
+    //            )
+    //          ),
+    //          after = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonAfter.latitude,
+    //              longitude = latLonAfter.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from()
+    //            )
+    //          ),
+    //          tagDiffs = Some(
+    //            TagDiffs(
+    //              mainTags = Seq(
+    //                TagDetail(action = TagDetailType.Delete, "rwn_ref", Some("01"), None)
+    //              )
+    //            )
+    //          ),
+    //          nodeMoved = Some(
+    //            NodeMoved(
+    //              latLonBefore,
+    //              latLonAfter,
+    //              movedDistance
+    //            )
+    //          ),
+    //          addedToNetwork = Seq(),
+    //          removedFromNetwork = Seq(),
+    //          factDiffs = FactDiffs(),
+    //          facts = Seq(Fact.LostHikingNodeTag, Fact.WasOrphan),
+    //          happy = false,
+    //          investigate = true
+    //        )
+    //      )
+    //    )
+    //
+    //    (t.analysisRepository.saveNode _).verify(
+    //      where { (nodeInfo: NodeInfo) =>
+    //        nodeInfo should equal(
+    //          NodeInfo(
+    //            id = nodeId,
+    //            active = false,
+    //            ignored = false,
+    //            orphan = false,
+    //            country = Some(Country.nl),
+    //            name = "",
+    //            rcnName = "",
+    //            rwnName = "",
+    //            latitude = latLonAfter.latitude,
+    //            longitude = latLonAfter.longitude,
+    //            lastUpdated = Timestamp(2016, 8, 11),
+    //            lastUpdatedBy = "user",
+    //            tags = Tags.from(),
+    //            facts = Seq()
+    //          )
+    //        )
+    //        true
+    //      }
+    //    ).once()
   }
 
   test("ignored node looses node tag") {
@@ -711,101 +702,101 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     pending
 
-//    (t.nodeLoader.loadNodes _).when(t.context.timestampAfter, Seq(nodeId)).returns(
-//      Seq(
-//        Node(t.rawNode(nodeId, Tags.from(), latLonAfter))
-//      )
-//    ).once()
-//
-//    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
-//
+    //    (t.nodeLoader.loadNodes _).when(t.context.timestampAfter, Seq(nodeId)).returns(
+    //      Seq(
+    //        Node(t.rawNode(nodeId, Tags.from(), latLonAfter))
+    //      )
+    //    ).once()
+    //
+    //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
+    //
 
-//    unreferencedNodes.newOrphanNodes should equal(Seq())
-//    unreferencedNodes.newIgnoredNodes should equal(Seq())
-//
-//    unreferencedNodes.oldOrphanNodes should equal(Seq())
-//    unreferencedNodes.oldIgnoredNodes should equal(Seq(Ref(nodeId, "01")))
-//
-//    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(false)
-//
-//    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-//      Some(
-//        NodeChange(
-//          key = t.context.buildChangeKey(nodeId),
-//          ChangeType.Update,
-//          subsets = Seq(Subset.nlHiking),
-//          name = "01",
-//          before = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonBefore.latitude,
-//              longitude = latLonBefore.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from(
-//                "rwn_ref" -> "01"
-//              )
-//            )
-//          ),
-//          after = Some(
-//            RawNode(
-//              id = nodeId,
-//              latitude = latLonAfter.latitude,
-//              longitude = latLonAfter.longitude,
-//              version = 1,
-//              timestamp = Timestamp(2016, 8, 11),
-//              changeSetId = t.context.changeSet.id,
-//              tags = Tags.from()
-//            )
-//          ),
-//          tagDiffs = Some(
-//            TagDiffs(
-//              mainTags = Seq(
-//                TagDetail(action = TagDetailType.Delete, "rwn_ref", Some("01"), None)
-//              )
-//            )
-//          ),
-//          nodeMoved = Some(
-//            NodeMoved(
-//              latLonBefore,
-//              latLonAfter,
-//              movedDistance
-//            )
-//          ),
-//          addedToNetwork = Seq(),
-//          removedFromNetwork = Seq(),
-//          factDiffs = FactDiffs(),
-//          facts = Seq(Fact.LostHikingNodeTag, Fact.WasIgnored),
-//          happy = false,
-//          investigate = true
-//        )
-//      )
-//    )
-//
-//    (t.analysisRepository.saveNode _).verify(
-//      where { (nodeInfo: NodeInfo) =>
-//        nodeInfo should equal(
-//          NodeInfo(
-//            id = nodeId,
-//            active = false,
-//            ignored = false,
-//            orphan = false,
-//            country = Some(Country.nl),
-//            name = "",
-//            rcnName = "",
-//            rwnName = "",
-//            latitude = latLonAfter.latitude,
-//            longitude = latLonAfter.longitude,
-//            lastUpdated = Timestamp(2016, 8, 11),
-//            lastUpdatedBy = "user",
-//            tags = Tags.from(),
-//            facts = Seq()
-//          )
-//        )
-//        true
-//      }
-//    ).once()
+    //    unreferencedNodes.newOrphanNodes should equal(Seq())
+    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //
+    //    unreferencedNodes.oldOrphanNodes should equal(Seq())
+    //    unreferencedNodes.oldIgnoredNodes should equal(Seq(Ref(nodeId, "01")))
+    //
+    //    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(false)
+    //
+    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //      Some(
+    //        NodeChange(
+    //          key = t.context.buildChangeKey(nodeId),
+    //          ChangeType.Update,
+    //          subsets = Seq(Subset.nlHiking),
+    //          name = "01",
+    //          before = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonBefore.latitude,
+    //              longitude = latLonBefore.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from(
+    //                "rwn_ref" -> "01"
+    //              )
+    //            )
+    //          ),
+    //          after = Some(
+    //            RawNode(
+    //              id = nodeId,
+    //              latitude = latLonAfter.latitude,
+    //              longitude = latLonAfter.longitude,
+    //              version = 1,
+    //              timestamp = Timestamp(2016, 8, 11),
+    //              changeSetId = t.context.changeSet.id,
+    //              tags = Tags.from()
+    //            )
+    //          ),
+    //          tagDiffs = Some(
+    //            TagDiffs(
+    //              mainTags = Seq(
+    //                TagDetail(action = TagDetailType.Delete, "rwn_ref", Some("01"), None)
+    //              )
+    //            )
+    //          ),
+    //          nodeMoved = Some(
+    //            NodeMoved(
+    //              latLonBefore,
+    //              latLonAfter,
+    //              movedDistance
+    //            )
+    //          ),
+    //          addedToNetwork = Seq(),
+    //          removedFromNetwork = Seq(),
+    //          factDiffs = FactDiffs(),
+    //          facts = Seq(Fact.LostHikingNodeTag, Fact.WasIgnored),
+    //          happy = false,
+    //          investigate = true
+    //        )
+    //      )
+    //    )
+    //
+    //    (t.analysisRepository.saveNode _).verify(
+    //      where { (nodeInfo: NodeInfo) =>
+    //        nodeInfo should equal(
+    //          NodeInfo(
+    //            id = nodeId,
+    //            active = false,
+    //            ignored = false,
+    //            orphan = false,
+    //            country = Some(Country.nl),
+    //            name = "",
+    //            rcnName = "",
+    //            rwnName = "",
+    //            latitude = latLonAfter.latitude,
+    //            longitude = latLonAfter.longitude,
+    //            lastUpdated = Timestamp(2016, 8, 11),
+    //            lastUpdatedBy = "user",
+    //            tags = Tags.from(),
+    //            facts = Seq()
+    //          )
+    //        )
+    //        true
+    //      }
+    //    ).once()
   }
 
 
@@ -850,11 +841,13 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
           name = name,
           country = Some(Country.nl)
         ),
+        connection = false,
         roleConnection = false,
         definedInRelation = false,
         definedInRoute = false,
-        referencedInRoutes = Seq(),
-        integrityCheck = None
+        referencedInRoutes = Seq.empty,
+        integrityCheck = None,
+        facts = Seq.empty
       )
     }
   }

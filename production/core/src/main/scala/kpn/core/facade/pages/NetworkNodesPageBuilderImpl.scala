@@ -12,7 +12,7 @@ class NetworkNodesPageBuilderImpl(
   override def build(networkId: Long): Option[NetworkNodesPage] = {
     networkRepository.network(networkId, Couch.uiTimeout).map { networkInfo =>
       val nodes = networkInfo.detail match {
-        case Some(detail) => NaturalSorting.sortBy(detail.nodes)(_.title)
+        case Some(detail) => NaturalSorting.sortBy(detail.nodes)(_.name)
         case None => Seq()
       }
       NetworkNodesPage(

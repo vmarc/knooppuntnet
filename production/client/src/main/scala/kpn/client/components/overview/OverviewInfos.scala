@@ -9,6 +9,7 @@ import kpn.client.common.Nls.nlsEN
 import kpn.client.common.Nls.nlsNL
 import kpn.client.components.common.UiMarked
 import kpn.shared.Fact
+import kpn.shared.Fact.NodeMemberMissing
 import kpn.shared.Subset
 import kpn.shared.statistics.Statistic
 import kpn.shared.statistics.Statistics
@@ -460,6 +461,17 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
       else {
         "Aantal overwachte relaties in network relaties. In network relaties verwachten we " +
           "enkel route relaties of knooppunten, geen relaties anders dan route relaties."
+      }
+    )
+  }
+
+  val nodeMemberMissing: UiOverviewInfo = factDetailCounts(Fact.NodeMemberMissing) {
+    UiMarked(
+      if (nlsEN) {
+        "Number of nodes that are not included in the network relation."
+      }
+      else {
+        "Aantal knooppunten dat niet is opgenomen als lid in een netwerk relatie."
       }
     )
   }
