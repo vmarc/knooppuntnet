@@ -74,13 +74,17 @@ object NetworkIndicator {
           ),
           nls(
             """This node is not included as a member in the network relation. This is not OK. The
-              | convention is to include each node in the network relation, except when the node
+              | convention is to include each node in the network relation. An exception is when the node
               | belongs to another network (all routes to this node have role "connection" in
-              | the network relation).""".stripMargin,
+              | the network relation), then the node does not have to be included as member in
+              | the network relation. The node can be added the network relation, but should get
+              | the role "connection" in that case.""".stripMargin,
             """Dit knooppunt is niet opgenomen als lid in een netwerk relatie. Dit is niet OK. De
-              | conventie is om elk knooppunt op te nemen in een netwerk relatie, behalve wanneer
-              | wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt
-              | hebben de rol "connection" in de netwerk relatie).""".stripMargin
+              | conventie is om elk knooppunt op te nemen in een netwerk relatie. Een uitzondering
+              | is wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt
+              | hebben de rol "connection" in de netwerk relatie), dan hoeft het knooppunt niet als
+              | lid in de netwerk relatie te worden toegevoegd. Het knooppunt kan wel toegevoegd
+              | worden, maar moet dan rol "connection" krijgen.""".stripMargin
           )
         )
       }
