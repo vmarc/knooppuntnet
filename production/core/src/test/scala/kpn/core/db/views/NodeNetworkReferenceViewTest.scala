@@ -85,6 +85,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
             nodeConnection = true,
             nodeRoleConnection = true,
             nodeIntegrityCheck = None,
+            facts = Seq.empty,
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 10,
@@ -101,6 +102,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
             nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = None,
+            facts = Seq.empty,
             routes = Seq.empty
           )
         )
@@ -122,6 +124,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
                 actual = 1
               )
             ),
+            facts = Seq.empty,
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 10,

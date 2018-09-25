@@ -1,5 +1,6 @@
 package kpn.shared.node
 
+import kpn.shared.Fact
 import kpn.shared.NetworkType
 
 case class NodeNetworkReference(
@@ -10,5 +11,6 @@ case class NodeNetworkReference(
   nodeConnection: Boolean,
   nodeRoleConnection: Boolean,
   nodeIntegrityCheck: Option[NodeNetworkIntegrityCheck],
+  facts: Seq[Fact],
   routes: Seq[NodeNetworkRouteReference]
 )

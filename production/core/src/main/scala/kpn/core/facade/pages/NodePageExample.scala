@@ -67,6 +67,7 @@ object NodePageExample {
             nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = true, 3, 1)),
+            facts = Seq(Fact.NodeMemberMissing),
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 11,
@@ -88,6 +89,7 @@ object NodePageExample {
             nodeConnection = true,
             nodeRoleConnection = true,
             nodeIntegrityCheck = None,
+            facts = Seq(Fact.NodeMemberMissing),
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 11,
@@ -104,6 +106,7 @@ object NodePageExample {
             nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = None,
+            facts = Seq(Fact.NodeMemberMissing),
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 11,
@@ -130,6 +133,7 @@ object NodePageExample {
             nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = false, 3, 3)),
+            facts = Seq(Fact.NodeMemberMissing),
             routes = Seq(
               NodeNetworkRouteReference(
                 routeId = 11,

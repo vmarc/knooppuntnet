@@ -43,6 +43,7 @@ if (doc && doc.network) {
         nodeRoleConnection: node.roleConnection,
         nodeDefinedInRelation: node.definedInRelation,
         nodeIntegrityCheck: nodeIntegrityCheck,
+        facts: node.facts,
         routes: routes
       };
 

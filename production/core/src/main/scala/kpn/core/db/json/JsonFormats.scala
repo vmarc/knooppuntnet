@@ -345,7 +345,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val nodeNetworkIntegrityCheckFormat: RootJsonFormat[NodeNetworkIntegrityCheck] = jsonFormat3(NodeNetworkIntegrityCheck)
   implicit val nodeNetworkRouteReferenceFormat: RootJsonFormat[NodeNetworkRouteReference] = jsonFormat3(NodeNetworkRouteReference)
-  implicit val nodeNetworkReferenceFormat: RootJsonFormat[NodeNetworkReference] = jsonFormat8(NodeNetworkReference)
+  implicit val nodeNetworkReferenceFormat: RootJsonFormat[NodeNetworkReference] = jsonFormat9(NodeNetworkReference)
   implicit val nodeOrphanRouteReferenceFormat: RootJsonFormat[NodeOrphanRouteReference] = jsonFormat3(NodeOrphanRouteReference)
   implicit val nodeReferencesFormat: RootJsonFormat[NodeReferences] = jsonFormat2(NodeReferences)
 

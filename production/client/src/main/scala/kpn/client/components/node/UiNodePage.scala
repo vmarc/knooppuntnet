@@ -163,7 +163,7 @@ object UiNodePage {
             )
           },
           UiData("Facts", "Feiten")(
-            UiFacts(page.nodeInfo.facts)
+            UiFacts(page.nodeInfo.facts ++ page.references.networkReferences.flatMap(_.facts))
           ),
           TagMod.when(PageWidth.isVeryLarge) {
             UiEmbeddedMap(new NodeMap(page.nodeInfo))
