@@ -12,6 +12,7 @@ import kpn.client.common.RoutePageArgs
 import kpn.client.common.RouteTagFilter
 import kpn.client.common.map.UiEmbeddedMap
 import kpn.client.components.common.AbstractBackend
+import kpn.client.components.common.FactInfo
 import kpn.client.components.common.PageState
 import kpn.client.components.common.PageStatus
 import kpn.client.components.common.PageWidth
@@ -172,7 +173,7 @@ object UiRoutePage {
             )
           },
           UiData("Facts", "Feiten")(
-            UiFacts(route.facts, Some(route))
+            UiFacts(route.facts.map(FactInfo(_)))
           ),
           TagMod.when(PageWidth.isLarge || PageWidth.isVeryLarge) {
             UiRouteMembers(page)

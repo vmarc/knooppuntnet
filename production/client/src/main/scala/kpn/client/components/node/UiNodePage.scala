@@ -15,6 +15,7 @@ import kpn.client.common.NodeTagFilter
 import kpn.client.common.map.UiEmbeddedMap
 import kpn.client.components.common.AbstractBackend
 import kpn.client.components.common.CssSettings.default._
+import kpn.client.components.common.FactInfo
 import kpn.client.components.common.PageState
 import kpn.client.components.common.PageStatus
 import kpn.client.components.common.PageWidth
@@ -31,8 +32,8 @@ import kpn.client.components.menu.UiAnalysisMenu
 import kpn.client.components.menu.UiSidebarFooter
 import kpn.shared.ApiResponse
 import kpn.shared.NetworkType
+import kpn.shared.common.Ref
 import kpn.shared.node.NodePage
-import org.scalajs.dom
 import scalacss.ScalaCssReact._
 
 object UiNodePage {
@@ -134,6 +135,14 @@ object UiNodePage {
   private class Renderer(state: State, page: NodePage)(implicit context: Context) {
 
     def render(): VdomElement = {
+
+      val factInfos = page.nodeInfo.facts.map(FactInfo(_)) ++
+        page.references.networkReferences.flatMap { networkReference =>
+          networkReference.facts.map { fact =>
+            FactInfo(fact, networkRef = Some(Ref(networkReference.networkId, networkReference.networkName)))
+          }
+        }
+
       <.div(
         <.h1(nls("Node", "Knooppunt") + " " + page.nodeInfo.allNames),
         UiPageContents(
@@ -163,7 +172,7 @@ object UiNodePage {
             )
           },
           UiData("Facts", "Feiten")(
-            UiFacts(page.nodeInfo.facts ++ page.references.networkReferences.flatMap(_.facts))
+            UiFacts(factInfos)
           ),
           TagMod.when(PageWidth.isVeryLarge) {
             UiEmbeddedMap(new NodeMap(page.nodeInfo))

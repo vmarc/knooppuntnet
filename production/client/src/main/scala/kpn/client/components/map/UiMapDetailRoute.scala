@@ -10,6 +10,7 @@ import kpn.client.common.Context
 import kpn.client.common.Nls.nls
 import kpn.client.common.map.vector.SelectedRoute
 import kpn.client.components.common.AbstractBackend
+import kpn.client.components.common.FactInfo
 import kpn.client.components.common.PageState
 import kpn.client.components.common.PageStatus
 import kpn.client.components.common.UiFacts
@@ -140,7 +141,7 @@ object UiMapDetailRoute {
               UiMapDetail.Styles.subTitle,
               nls("Facts", "Feiten")
             ),
-            UiFacts(route.facts, Some(route))
+            UiFacts(route.facts.map(FactInfo(_)))
           )
         }
       )

@@ -9,8 +9,6 @@ import kpn.client.common.Nls.nls
 import kpn.client.components.common.CssSettings.default._
 import kpn.client.components.facts.UiFactDescription
 import kpn.shared.Fact
-import kpn.shared.route.RouteInfo
-
 import scalacss.ScalaCssReact._
 
 object UiFacts {
@@ -35,22 +33,28 @@ object UiFacts {
       paddingBottom(3.px),
       fontStyle.italic
     )
+
+    val reference: StyleA = style(
+      display.inlineBlock,
+      paddingLeft(20.px)
+    )
   }
 
-  private case class Props(context: Context, facts: Seq[Fact], routeInfo: Option[RouteInfo])
+  private case class Props(context: Context, factInfos: Seq[FactInfo])
 
   private val component = ScalaComponent.builder[Props]("example")
     .render_P { props =>
 
       implicit val context: Context = props.context
 
-      val facts = props.facts.filterNot(_.id == Fact.RouteBroken.id)
+      val factInfos = props.factInfos.filterNot(_.fact.id == Fact.RouteBroken.id)
 
-      if (facts.isEmpty) {
+      if (factInfos.isEmpty) {
         <.p(nls("None", "Geen"))
       } else {
         <.div(
-          facts.toTagMod { fact =>
+          factInfos.toTagMod { factInfo =>
+            val fact = factInfo.fact
             <.div(
               Styles.fact,
               UiLine(
@@ -58,11 +62,35 @@ object UiFacts {
                   Styles.level,
                   UiFactLevel(fact.level)
                 ),
-                nls(fact.name, fact.nlName)
+                nls(fact.name, fact.nlName),
+                factInfo.networkRef.whenDefined { networkRef =>
+                  <.div(
+                    Styles.reference,
+                    "(",
+                    context.gotoNetworkDetails(networkRef.id, networkRef.name),
+                    ")"
+                  )
+                },
+                factInfo.routeRef.whenDefined { routeRef =>
+                  <.div(
+                    Styles.reference,
+                    "(",
+                    context.gotoRoute(routeRef.id, routeRef.name),
+                    ")"
+                  )
+                },
+                factInfo.nodeRef.whenDefined { nodeRef =>
+                  <.div(
+                    Styles.reference,
+                    "(",
+                    context.gotoNode(nodeRef.id, nodeRef.name),
+                    ")"
+                  )
+                }
               ),
               <.div(
                 Styles.description,
-                UiFactDescription(fact, props.routeInfo)
+                UiFactDescription(fact)
               )
             )
           }
@@ -71,7 +99,7 @@ object UiFacts {
     }
     .build
 
-  def apply(facts: Seq[Fact], routeInfo: Option[RouteInfo] = None)(implicit context: Context): VdomElement = {
-    component(Props(context, facts, routeInfo))
+  def apply(factInfos: Seq[FactInfo])(implicit context: Context): VdomElement = {
+    component(Props(context, factInfos))
   }
 }

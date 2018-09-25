@@ -10,11 +10,10 @@ import kpn.client.common.Nls.nlsNL
 import kpn.client.components.common.UiMarked
 import kpn.shared.Fact
 import kpn.shared.Fact._
-import kpn.shared.route.RouteInfo
 
 object UiFactDescription {
 
-  private case class Props(context: Context, fact: Fact, routeInfo: Option[RouteInfo])
+  private case class Props(context: Context, fact: Fact)
 
   private val component = ScalaComponent.builder[Props]("fact-description")
     .render_P { props =>
@@ -518,7 +517,7 @@ object UiFactDescription {
     }
     .build
 
-  def apply(fact: Fact, routeInfo: Option[RouteInfo] = None)(implicit context: Context): VdomElement = {
-    component(Props(context, fact, routeInfo))
+  def apply(fact: Fact)(implicit context: Context): VdomElement = {
+    component(Props(context, fact))
   }
 }
