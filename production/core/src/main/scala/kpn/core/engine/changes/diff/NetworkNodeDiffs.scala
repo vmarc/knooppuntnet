@@ -10,9 +10,9 @@ object NetworkNodeDiffs {
 }
 
 case class NetworkNodeDiffs(
-  removed: Seq[NetworkNodeData] = Seq(),
-  added: Seq[NetworkNodeData] = Seq(),
-  updated: Seq[NetworkNodeUpdate] = Seq()
+  removed: Seq[NetworkNodeData] = Seq.empty,
+  added: Seq[NetworkNodeData] = Seq.empty,
+  updated: Seq[NetworkNodeUpdate] = Seq.empty
 ) {
 
   def referencedElements: ReferencedElements = {

@@ -8,7 +8,7 @@ case class RouteDiff(
   nameDiff: Option[RouteNameDiff] = None,
   roleDiff: Option[RouteRoleDiff] = None,
   factDiffs: Option[FactDiffs] = None,
-  nodeDiffs: Seq[RouteNodeDiff] = Seq(),
+  nodeDiffs: Seq[RouteNodeDiff]= Seq.empty,
   memberOrderChanged: Boolean = false,
   tagDiffs: Option[TagDiffs] = None
 ) {

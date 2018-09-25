@@ -2,9 +2,9 @@ package kpn.core.engine.analysis.route
 
 case class RouteNodeAnalysis(
   reversed: Boolean = false,
-  startNodes: Seq[RouteNode] = Seq(),
-  endNodes: Seq[RouteNode] = Seq(),
-  redundantNodes: Seq[RouteNode] = Seq()
+  startNodes: Seq[RouteNode] = Seq.empty,
+  endNodes: Seq[RouteNode] = Seq.empty,
+  redundantNodes: Seq[RouteNode] = Seq.empty
 ) {
 
   def routeNodes: Seq[RouteNode] = startNodes ++ endNodes ++ redundantNodes

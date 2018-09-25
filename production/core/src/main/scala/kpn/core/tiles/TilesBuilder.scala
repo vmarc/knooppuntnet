@@ -114,9 +114,9 @@ class TilesBuilder(
           definedInRelation = false,
           definedInRoute = false,
           timestamp = node.lastUpdated,
-          routeReferences = Seq(),
+          routeReferences = Seq.empty,
           integrityCheck = None,
-          facts = Seq(),
+          facts = Seq.empty,
           tags = node.tags
         )
       }

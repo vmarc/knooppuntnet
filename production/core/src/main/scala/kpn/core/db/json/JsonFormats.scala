@@ -124,6 +124,7 @@ import kpn.shared.network.NetworkInfo
 import kpn.shared.network.NetworkInfoDetail
 import kpn.shared.network.NetworkMapInfo
 import kpn.shared.network.NetworkMapPage
+import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkNodeInfo2
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRouteFact
@@ -366,7 +367,8 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val changesFilterFormat: RootJsonFormat[ChangesFilter] = jsonFormat1(ChangesFilter)
 
   implicit val networkSummaryFormat: RootJsonFormat[NetworkSummary] = jsonFormat5(NetworkSummary)
-  implicit val networkFactFormat: RootJsonFormat[NetworkRouteFact] = jsonFormat2(NetworkRouteFact)
+  implicit val networkNodeFactFormat: RootJsonFormat[NetworkNodeFact] = jsonFormat2(NetworkNodeFact)
+  implicit val networkRouteFactFormat: RootJsonFormat[NetworkRouteFact] = jsonFormat2(NetworkRouteFact)
   implicit val networkChangesPageFormat: RootJsonFormat[NetworkChangesPage] = jsonFormat4(NetworkChangesPage)
 
   implicit val changeSetSummaryInfoFormat: RootJsonFormat[ChangeSetSummaryInfo] = jsonFormat2(ChangeSetSummaryInfo)
@@ -398,7 +400,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val networkNodesPageFormat: RootJsonFormat[NetworkNodesPage] = jsonFormat5(NetworkNodesPage)
   implicit val networkDetailsPageFormat: RootJsonFormat[NetworkDetailsPage] = jsonFormat6(NetworkDetailsPage)
   implicit val networkMapPageFormat: RootJsonFormat[NetworkMapPage] = jsonFormat4(NetworkMapPage)
-  implicit val networkFactsPageFormat: RootJsonFormat[NetworkFactsPage] = jsonFormat4(NetworkFactsPage)
+  implicit val networkFactsPageFormat: RootJsonFormat[NetworkFactsPage] = jsonFormat5(NetworkFactsPage)
   implicit val networkRoutesFactsFormat: RootJsonFormat[NetworkFactRefs] = jsonFormat3(NetworkFactRefs)
   implicit val subsetFactDetailsPageFormat: RootJsonFormat[SubsetFactDetailsPage] = jsonFormat3(SubsetFactDetailsPage)
 

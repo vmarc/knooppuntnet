@@ -509,7 +509,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     val routeRelation = data.relations(1)
     val interpreter = new Interpreter(d.networkType)
     val context1 = RouteAnalysisContext(
-      networkNodes = Map(),
+      networkNodes = Map.empty,
       loadedRoute = LoadedRoute(
         country = None,
         networkType = NetworkType.hiking,

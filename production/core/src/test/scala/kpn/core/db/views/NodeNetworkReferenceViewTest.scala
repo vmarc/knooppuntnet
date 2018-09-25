@@ -101,7 +101,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
             nodeConnection = false,
             nodeRoleConnection = false,
             nodeIntegrityCheck = None,
-            routes = Seq()
+            routes = Seq.empty
           )
         )
       )

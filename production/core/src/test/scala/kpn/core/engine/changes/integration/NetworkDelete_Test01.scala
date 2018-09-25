@@ -44,7 +44,7 @@ class NetworkDelete_Test01 extends AbstractTest {
         changeSetSummary should equal(
           ChangeSetSummary(
             key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
-            subsets = Seq(),
+            subsets = Seq.empty,
             timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
             timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
             networkChanges = NetworkChanges(
@@ -61,8 +61,8 @@ class NetworkDelete_Test01 extends AbstractTest {
                 )
               )
             ),
-            orphanRouteChanges = Seq(),
-            orphanNodeChanges = Seq(),
+            orphanRouteChanges = Seq.empty,
+            orphanNodeChanges = Seq.empty,
             happy = false,
             investigate = true
           )

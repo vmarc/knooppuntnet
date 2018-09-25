@@ -5,9 +5,9 @@ import kpn.shared.changes.details.NodeChange
 import kpn.shared.changes.details.RouteChange
 
 case class ChangeSetChanges(
-  networkChanges: Seq[NetworkChange] = Seq(),
-  routeChanges: Seq[RouteChange] = Seq(),
-  nodeChanges: Seq[NodeChange] = Seq()
+  networkChanges: Seq[NetworkChange] = Seq.empty,
+  routeChanges: Seq[RouteChange] = Seq.empty,
+  nodeChanges: Seq[NodeChange] = Seq.empty
 ) {
 
   def isEmpty: Boolean = networkChanges.isEmpty && routeChanges.isEmpty && nodeChanges.isEmpty

@@ -19,11 +19,13 @@ object NetworkIndicator {
           ),
           nls(
             """This node is included as a member in the network relation. We did not expect this,
-              | because all routes to this node have role "connection". In this case we expect the node
-              | not to be included in the network relation, unless it receives the role "connection".""".stripMargin,
+              | because all routes to this node have role "connection". This would mean that the
+              | node is part of another network. We expect that the node is not included in the
+              |  network relation, unless it receives the role "connection".""".stripMargin,
             """Dit knooppunt is opgenomen als lid in een netwerk relatie. Dit is onverwacht omdat
-              | alle routes naar deze node de rol "connection" hebben. In dit geval verwachten we dat
-              | dat het knooppunt niet opgenomen wordt in de netwerk relatie, behalve wanneer het ook
+              | alle routes naar deze node de rol "connection" hebben. Dit zou betekenen dat dit
+              | knooppunt deel uitmaakt van een ander netwerk. We verwachten dat het knooppunt niet
+              | opgenomen wordt in de netwerk relatie, behalve wanneer het ook
               | de rol "connection" meekrijgt.""".stripMargin
           )
         )

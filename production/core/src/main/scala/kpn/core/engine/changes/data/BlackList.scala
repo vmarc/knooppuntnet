@@ -1,9 +1,9 @@
 package kpn.core.engine.changes.data
 
 case class BlackList(
-  networks: Seq[BlackListEntry] = Seq(),
-  routes: Seq[BlackListEntry] = Seq(),
-  nodes: Seq[BlackListEntry] = Seq()
+  networks: Seq[BlackListEntry] = Seq.empty,
+  routes: Seq[BlackListEntry] = Seq.empty,
+  nodes: Seq[BlackListEntry] = Seq.empty
 ) {
 
   def containsNetwork(networkId: Long): Boolean = networks.exists(_.id == networkId)

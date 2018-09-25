@@ -8,9 +8,9 @@ object NodeDiffs {
 }
 
 case class NodeDiffs(
-  removed: Seq[NodeData] = Seq(),
-  added: Seq[NodeData] = Seq(),
-  updated: Seq[NodeDataUpdate] = Seq()
+  removed: Seq[NodeData]= Seq.empty,
+  added: Seq[NodeData]= Seq.empty,
+  updated: Seq[NodeDataUpdate]= Seq.empty
 ) {
 
   def subsets: Seq[Subset] = {

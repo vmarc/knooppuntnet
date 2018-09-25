@@ -17,8 +17,8 @@ case class SegmentFinderContext(
   indent: Int,
   direction: SegmentDirection.Value,
   node: Node,
-  usedFragments: Seq[Fragment] = Seq(),
-  currentSegmentFragments: Seq[SegmentFragment] = Seq(),
+  usedFragments: Seq[Fragment] = Seq.empty,
+  currentSegmentFragments: Seq[SegmentFragment] = Seq.empty,
   potentialSolutionCount: Long = 0
 )
 

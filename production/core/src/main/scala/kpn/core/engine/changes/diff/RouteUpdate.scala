@@ -12,11 +12,11 @@ import kpn.shared.diff.route.RouteDiff
 case class RouteUpdate(
   before: RouteAnalysis,
   after: RouteAnalysis,
-  removedWays: Seq[RawWay] = Seq(),
-  addedWays: Seq[RawWay] = Seq(),
-  updatedWays: Seq[WayUpdate] = Seq(),
+  removedWays: Seq[RawWay] = Seq.empty,
+  addedWays: Seq[RawWay] = Seq.empty,
+  updatedWays: Seq[WayUpdate] = Seq.empty,
   diffs: RouteDiff = RouteDiff(),
-  facts: Seq[Fact] = Seq()
+  facts: Seq[Fact] = Seq.empty
 ) {
 
   def subsets: Seq[Subset] = (before.subset ++ after.subset).toSeq.distinct.sorted

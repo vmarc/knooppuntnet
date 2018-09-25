@@ -223,7 +223,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
     happy: Boolean = true,
     user: String = "user",
     subsets: Seq[Subset] = Seq(Subset.nlHiking),
-    networkChangesCreates: Seq[ChangeSetNetwork] = Seq()
+    networkChangesCreates: Seq[ChangeSetNetwork] = Seq.empty
   ): ChangeSetSummary = {
 
     ChangeSetSummary(
@@ -295,15 +295,15 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
       ),
       ChangeType.Update,
       name = name,
-      addedToNetwork = Seq(),
-      removedFromNetwork = Seq(),
+      addedToNetwork = Seq.empty,
+      removedFromNetwork = Seq.empty,
       before = None,
       after = None,
-      removedWays = Seq(),
-      addedWays = Seq(),
-      updatedWays = Seq(),
+      removedWays = Seq.empty,
+      addedWays = Seq.empty,
+      updatedWays = Seq.empty,
       diffs = RouteDiff(),
-      facts = Seq()
+      facts = Seq.empty
     )
   }
 
@@ -323,20 +323,20 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
         nodeId
       ),
       ChangeType.Update,
-      subsets = Seq(),
+      subsets = Seq.empty,
       name = name,
       before = None,
       after = None,
-      roleConnectionChanges = Seq(),
-      definedInNetworkChanges = Seq(),
+      roleConnectionChanges = Seq.empty,
+      definedInNetworkChanges = Seq.empty,
       tagDiffs = None,
       nodeMoved = None,
-      addedToRoute = Seq(),
-      removedFromRoute = Seq(),
-      addedToNetwork = Seq(),
-      removedFromNetwork = Seq(),
+      addedToRoute = Seq.empty,
+      removedFromRoute = Seq.empty,
+      addedToNetwork = Seq.empty,
+      removedFromNetwork = Seq.empty,
       factDiffs = FactDiffs(),
-      facts = Seq()
+      facts = Seq.empty
     )
   }
 

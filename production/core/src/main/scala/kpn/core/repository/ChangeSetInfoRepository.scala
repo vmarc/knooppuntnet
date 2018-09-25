@@ -8,7 +8,7 @@ class ChangeSetInfoRepository {
 
   def get(changeSetId: Long): Option[ChangeSetInfo] = None
 
-  def all(changeSetIds: Seq[Long], stale: Boolean = true): Seq[ChangeSetInfo] = Seq()
+  def all(changeSetIds: Seq[Long], stale: Boolean = true): Seq[ChangeSetInfo] = Seq.empty
 
   def exists(changeSetId: Long): Boolean = false
 

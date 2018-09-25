@@ -10,9 +10,9 @@ object RouteDiffs {
 }
 
 case class RouteDiffs(
-  removed: Seq[RouteAnalysis] = Seq(),
-  added: Seq[RouteAnalysis] = Seq(),
-  updated: Seq[RouteUpdate] = Seq()
+  removed: Seq[RouteAnalysis] = Seq.empty,
+  added: Seq[RouteAnalysis] = Seq.empty,
+  updated: Seq[RouteUpdate] = Seq.empty
 ) {
 
   def subsets: Seq[Subset] = (removed.flatMap(_.subset) ++ added.flatMap(_.subset) ++ updated.flatMap(_.subsets)).distinct.sorted

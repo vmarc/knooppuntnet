@@ -29,7 +29,7 @@ class RouteUpdateTest extends FunSuite with Matchers {
           version = 1,
           timestamp = Timestamp(2015, 8, 11),
           changeSetId = 1,
-          members = Seq(),
+          members = Seq.empty,
           tags = Tags.empty
         ),
         Seq()
@@ -44,7 +44,7 @@ class RouteUpdateTest extends FunSuite with Matchers {
           isBroken = false,
           wayCount = 0,
           timestamp = Timestamp(2015, 8, 11),
-          nodeNames = Seq(),
+          nodeNames = Seq.empty,
           tags = Tags.empty
         ),
         active = true,
@@ -55,7 +55,7 @@ class RouteUpdateTest extends FunSuite with Matchers {
         changeSetId = 1,
         lastUpdated = Timestamp(2015, 8, 11),
         tags = Tags.empty,
-        facts = Seq(),
+        facts = Seq.empty,
         analysis = None
       )
     )

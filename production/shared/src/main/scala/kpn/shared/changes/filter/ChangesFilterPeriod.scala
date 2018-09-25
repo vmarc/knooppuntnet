@@ -6,5 +6,5 @@ case class ChangesFilterPeriod(
   impactedCount: Int,
   current: Boolean = false,
   selected: Boolean = false,
-  periods: Seq[ChangesFilterPeriod] = Seq()
+  periods: Seq[ChangesFilterPeriod] = Seq.empty
 )

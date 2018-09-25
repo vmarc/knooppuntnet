@@ -47,7 +47,7 @@ class NodeChangeBuilderImpl(
   private def nodeChangesAdded(context: ChangeBuilderContext, nodeIds: Set[Long]): Seq[NodeChange] = {
 
     // TODO CHANGE
-    val nodesBefore1: Seq[NetworkNodeInfo] = Seq() // networkNodeInfosIn(context.networkBefore, nodeIds)
+    val nodesBefore1: Seq[NetworkNodeInfo] = Seq.empty // networkNodeInfosIn(context.networkBefore, nodeIds)
     val nodesBefore2 = {
       val missingNodeIds = nodeIds -- nodesBefore1.map(_.id).toSet
       nodeLoader.loadNodes(context.changeSetContext.timestampBefore, missingNodeIds.toSeq)
@@ -95,14 +95,14 @@ class NodeChangeBuilderImpl(
             name = nodeAfter.networkNode.name,
             before = None,
             after = Some(nodeAfter.networkNode.node.raw),
-            roleConnectionChanges = Seq(),
-            definedInNetworkChanges = Seq(),
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
             tagDiffs = None,
             nodeMoved = None,
             addedToRoute = addedToRoute,
-            removedFromRoute = Seq(),
+            removedFromRoute = Seq.empty,
             addedToNetwork = context.networkRef.toSeq,
-            removedFromNetwork = Seq(),
+            removedFromNetwork = Seq.empty,
             factDiffs = FactDiffs(),
             facts = extraFacts
           )
@@ -127,14 +127,14 @@ class NodeChangeBuilderImpl(
             name = nodeAfter.networkNode.name,
             before = Some(nodeBefore.node.raw),
             after = Some(nodeAfter.networkNode.node.raw),
-            roleConnectionChanges = Seq(),
-            definedInNetworkChanges = Seq(),
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
             tagDiffs = tagDiffs,
             nodeMoved = nodeMoved,
             addedToRoute = addedToRoute,
-            removedFromRoute = Seq(),
+            removedFromRoute = Seq.empty,
             addedToNetwork = context.networkRef.toSeq,
-            removedFromNetwork = Seq(),
+            removedFromNetwork = Seq.empty,
             factDiffs = FactDiffs(),
             facts = extraFacts ++ facts
           )
@@ -187,13 +187,13 @@ class NodeChangeBuilderImpl(
             name = nodeBefore.networkNode.name,
             before = Some(nodeBefore.networkNode.node.raw),
             after = None,
-            roleConnectionChanges = Seq(),
-            definedInNetworkChanges = Seq(),
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
             tagDiffs = None,
             nodeMoved = None,
-            addedToRoute = Seq(),
+            addedToRoute = Seq.empty,
             removedFromRoute = removedFromRoute,
-            addedToNetwork = Seq(),
+            addedToNetwork = Seq.empty,
             removedFromNetwork = context.networkRef.toSeq,
             factDiffs = FactDiffs(),
             facts = Seq(Fact.Deleted)
@@ -241,13 +241,13 @@ class NodeChangeBuilderImpl(
               name = name,
               before = Some(before),
               after = Some(after),
-              roleConnectionChanges = Seq(),
-              definedInNetworkChanges = Seq(),
+              roleConnectionChanges = Seq.empty,
+              definedInNetworkChanges = Seq.empty,
               tagDiffs = tagDiffs,
               nodeMoved = nodeMoved,
-              addedToRoute = Seq(),
+              addedToRoute = Seq.empty,
               removedFromRoute = removedFromRoute,
-              addedToNetwork = Seq(),
+              addedToNetwork = Seq.empty,
               removedFromNetwork = context.networkRef.toSeq,
               factDiffs = FactDiffs(),
               facts = nodeFacts
@@ -283,13 +283,13 @@ class NodeChangeBuilderImpl(
               name = nodeBefore.networkNode.name,
               before = Some(before),
               after = Some(after),
-              roleConnectionChanges = Seq(),
-              definedInNetworkChanges = Seq(),
+              roleConnectionChanges = Seq.empty,
+              definedInNetworkChanges = Seq.empty,
               tagDiffs = tagDiffs,
               nodeMoved = nodeMoved,
-              addedToRoute = Seq(),
+              addedToRoute = Seq.empty,
               removedFromRoute = removedFromRoute,
-              addedToNetwork = Seq(),
+              addedToNetwork = Seq.empty,
               removedFromNetwork = context.networkRef.toSeq,
               factDiffs = FactDiffs(),
               facts = extraFacts ++ nodeFacts
@@ -377,8 +377,8 @@ class NodeChangeBuilderImpl(
           nodeMoved = nodeMoved,
           addedToRoute = addedToRoute,
           removedFromRoute = removedFromRoute,
-          addedToNetwork = Seq(),
-          removedFromNetwork = Seq(),
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
           facts = extraFacts ++ facts
         )

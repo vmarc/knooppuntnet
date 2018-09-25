@@ -88,7 +88,7 @@ trait SharedTestObjects {
     version: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
-    nodeIds: Seq[Long] = Seq(),
+    nodeIds: Seq[Long] = Seq.empty,
     tags: Tags = Tags.empty
   ): RawWay = {
     RawWay(
@@ -106,7 +106,7 @@ trait SharedTestObjects {
     version: Int = 1,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 1,
-    members: Seq[RawMember] = Seq(),
+    members: Seq[RawMember] = Seq.empty,
     tags: Tags = Tags.empty
   ): RawRelation = {
     RawRelation(
@@ -153,15 +153,15 @@ trait SharedTestObjects {
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Create,
     name: String = "",
-    addedToNetwork: Seq[Ref] = Seq(),
-    removedFromNetwork: Seq[Ref] = Seq(),
+    addedToNetwork: Seq[Ref] = Seq.empty,
+    removedFromNetwork: Seq[Ref] = Seq.empty,
     before: Option[RouteData] = None,
     after: Option[RouteData] = None,
-    removedWays: Seq[RawWay] = Seq(),
-    addedWays: Seq[RawWay] = Seq(),
-    updatedWays: Seq[WayUpdate] = Seq(),
+    removedWays: Seq[RawWay] = Seq.empty,
+    addedWays: Seq[RawWay] = Seq.empty,
+    updatedWays: Seq[WayUpdate] = Seq.empty,
     diffs: RouteDiff = RouteDiff(),
-    facts: Seq[Fact] = Seq()
+    facts: Seq[Fact] = Seq.empty
   ): RouteChange = {
     RouteChange(
       key,
@@ -184,11 +184,11 @@ trait SharedTestObjects {
     networkType: NetworkType = NetworkType.hiking,
     relation: RawRelation = newRawRelation(),
     name: String = "",
-    networkNodes: Seq[RawNode] = Seq(),
-    nodes: Seq[RawNode] = Seq(),
-    ways: Seq[RawWay] = Seq(),
-    relations: Seq[RawRelation] = Seq(),
-    facts: Seq[Fact] = Seq()
+    networkNodes: Seq[RawNode] = Seq.empty,
+    nodes: Seq[RawNode] = Seq.empty,
+    ways: Seq[RawWay] = Seq.empty,
+    relations: Seq[RawRelation] = Seq.empty,
+    facts: Seq[Fact] = Seq.empty
   ): RouteData = {
     RouteData(
       country,
@@ -230,7 +230,7 @@ trait SharedTestObjects {
     version: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
-    nodes: Seq[Node] = Seq(),
+    nodes: Seq[Node] = Seq.empty,
     tags: Tags = Tags.empty,
     length: Int = 0
   ): Way = {
@@ -250,7 +250,7 @@ trait SharedTestObjects {
     longitude: String = "0",
     lastUpdated: Timestamp = defaultTimestamp,
     tags: Tags = Tags.empty,
-    facts: Seq[Fact] = Seq()
+    facts: Seq[Fact] = Seq.empty
   ): NodeInfo = {
     NodeInfo(
       id,
@@ -300,7 +300,7 @@ trait SharedTestObjects {
       isBroken = false,
       wayCount,
       relationLastUpdated,
-      nodeNames = Seq(),
+      nodeNames = Seq.empty,
       tags = Tags.empty
     )
 
@@ -325,11 +325,11 @@ trait SharedTestObjects {
     networkType: NetworkType = NetworkType.hiking,
     name: String = "",
     active: Boolean = true,
-    facts: Seq[Fact] = Seq(),
+    facts: Seq[Fact] = Seq.empty,
     networkFacts: NetworkFacts = NetworkFacts(),
     detail: Option[NetworkInfoDetail] = None,
-    nodes: Seq[NetworkNodeInfo2] = Seq(),
-    routes: Seq[NetworkRouteInfo] = Seq(),
+    nodes: Seq[NetworkNodeInfo2] = Seq.empty,
+    routes: Seq[NetworkRouteInfo] = Seq.empty,
     tags: Tags = Tags.empty
   ): NetworkInfo = {
 
@@ -442,7 +442,7 @@ trait SharedTestObjects {
     definedInRelation: Boolean = false,
     definedInRoute: Boolean = false,
     timestamp: Timestamp = defaultTimestamp,
-    routeReferences: Seq[Ref] = Seq(),
+    routeReferences: Seq[Ref] = Seq.empty,
     integrityCheck: Option[NodeIntegrityCheck] = None,
     facts: Seq[Fact] = Seq.empty,
     tags: Tags = Tags.empty
@@ -473,7 +473,7 @@ trait SharedTestObjects {
     role: Option[String] = None,
     relationLastUpdated: Timestamp = defaultTimestamp,
     lastUpdated: Timestamp = defaultTimestamp,
-    facts: Seq[Fact] = Seq()
+    facts: Seq[Fact] = Seq.empty
   ): NetworkRouteInfo = {
     NetworkRouteInfo(
       id,
@@ -488,17 +488,17 @@ trait SharedTestObjects {
   }
 
   def newRouteInfoAnalysis(
-    startNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-    endNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-    startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-    endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-    unexpectedNodeIds: Seq[Long] = Seq(),
-    members: Seq[RouteMemberInfo] = Seq(),
+    startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    unexpectedNodeIds: Seq[Long] = Seq.empty,
+    members: Seq[RouteMemberInfo] = Seq.empty,
     tags: Tags = Tags.empty,
     expectedName: String = "",
-    facts: Seq[String] = Seq(),
+    facts: Seq[String] = Seq.empty,
     map: RouteMap = RouteMap(),
-    structureStrings: Seq[String] = Seq()
+    structureStrings: Seq[String] = Seq.empty
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
       startNodes,
@@ -522,7 +522,7 @@ trait SharedTestObjects {
     isBroken: Boolean = false,
     wayCount: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
-    nodeNames: Seq[String] = Seq(),
+    nodeNames: Seq[String] = Seq.empty,
     tags: Tags = Tags.empty
   ): RouteSummary = {
     RouteSummary(
@@ -562,7 +562,7 @@ trait SharedTestObjects {
     timestampUntil: Timestamp = timestampUntilValue,
     timestampBefore: Timestamp = timestampBeforeValue,
     timestampAfter: Timestamp = timestampAfterValue,
-    changes: Seq[Change] = Seq()
+    changes: Seq[Change] = Seq.empty
   ): ChangeSet = {
     ChangeSet(
       id,
@@ -578,20 +578,20 @@ trait SharedTestObjects {
   def newNodeChange(
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
-    subsets: Seq[Subset] = Seq(),
+    subsets: Seq[Subset] = Seq.empty,
     name: String = "",
     before: Option[RawNode] = None,
     after: Option[RawNode] = None,
-    roleConnectionChanges: Seq[RefBooleanChange] = Seq(),
-    definedInNetworkChanges: Seq[RefBooleanChange] = Seq(),
+    roleConnectionChanges: Seq[RefBooleanChange] = Seq.empty,
+    definedInNetworkChanges: Seq[RefBooleanChange] = Seq.empty,
     tagDiffs: Option[TagDiffs] = None,
     nodeMoved: Option[NodeMoved] = None,
-    addedToRoute: Seq[Ref] = Seq(),
-    removedFromRoute: Seq[Ref] = Seq(),
-    addedToNetwork: Seq[Ref] = Seq(),
-    removedFromNetwork: Seq[Ref] = Seq(),
+    addedToRoute: Seq[Ref] = Seq.empty,
+    removedFromRoute: Seq[Ref] = Seq.empty,
+    addedToNetwork: Seq[Ref] = Seq.empty,
+    removedFromNetwork: Seq[Ref] = Seq.empty,
     factDiffs: FactDiffs = FactDiffs(),
-    facts: Seq[Fact] = Seq()
+    facts: Seq[Fact] = Seq.empty
   ): NodeChange = {
     NodeChange(
       key,
@@ -656,8 +656,8 @@ trait SharedTestObjects {
   }
 
   def newRefChanges(
-    oldRefs: Seq[Ref] = Seq(),
-    newRefs: Seq[Ref] = Seq()
+    oldRefs: Seq[Ref] = Seq.empty,
+    newRefs: Seq[Ref] = Seq.empty
   ): RefChanges = {
     RefChanges(
       oldRefs,
@@ -667,12 +667,12 @@ trait SharedTestObjects {
 
   def newChangeSetSummary(
     key: ChangeKey = newChangeKey(),
-    subsets: Seq[Subset] = Seq(),
+    subsets: Seq[Subset] = Seq.empty,
     timestampFrom: Timestamp = timestampFromValue,
     timestampUntil: Timestamp = timestampUntilValue,
     networkChanges: NetworkChanges = NetworkChanges(),
-    orphanRouteChanges: Seq[ChangeSetSubsetElementRefs] = Seq(),
-    orphanNodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq(),
+    orphanRouteChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
+    orphanNodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetSummary = {
@@ -729,10 +729,10 @@ trait SharedTestObjects {
     attributes: NetworkAttributes,
     active: Boolean = true,
     ignored: Boolean = false,
-    nodeRefs: Seq[Long] = Seq(),
-    routeRefs: Seq[Long] = Seq(),
-    networkRefs: Seq[Long] = Seq(),
-    facts: Seq[Fact] = Seq(),
+    nodeRefs: Seq[Long] = Seq.empty,
+    routeRefs: Seq[Long] = Seq.empty,
+    networkRefs: Seq[Long] = Seq.empty,
+    facts: Seq[Fact] = Seq.empty,
     tags: Tags = Tags.empty,
     detail: Option[NetworkInfoDetail] = None
   ): NetworkInfo = {
@@ -759,7 +759,7 @@ trait SharedTestObjects {
     changeSetId: Long = 1,
     lastUpdated: Timestamp = defaultTimestamp,
     tags: Tags = Tags.empty,
-    facts: Seq[Fact] = Seq(),
+    facts: Seq[Fact] = Seq.empty,
     analysis: Option[RouteInfoAnalysis] = None
   ): RouteInfo = {
     RouteInfo(
@@ -778,9 +778,9 @@ trait SharedTestObjects {
   }
 
   def newNodeRouteReferenceDiffs(
-    removed: Seq[Ref] = Seq(),
-    added: Seq[Ref] = Seq(),
-    remaining: Seq[Ref] = Seq()
+    removed: Seq[Ref] = Seq.empty,
+    added: Seq[Ref] = Seq.empty,
+    remaining: Seq[Ref] = Seq.empty
   ): NodeRouteReferenceDiffs = {
     NodeRouteReferenceDiffs(
       removed,

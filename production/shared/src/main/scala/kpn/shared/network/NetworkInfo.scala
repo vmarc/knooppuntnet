@@ -11,29 +11,47 @@ case class NetworkInfo(
   nodeRefs: Seq[Long],
   routeRefs: Seq[Long],
   networkRefs: Seq[Long],
-  facts: Seq[Fact] = Seq(),
+  facts: Seq[Fact] = Seq.empty,
   tags: Tags,
   detail: Option[NetworkInfoDetail] = None
 ) {
 
   def id: Long = attributes.id
 
-  def hasFacts: Boolean = facts.nonEmpty || detail.get.routes.exists(r => r.facts.nonEmpty)
+  def hasFacts: Boolean = {
+    facts.nonEmpty || hasNodeFacts || hasRouteFacts
+  }
 
-  def hasRoutesWithFact(fact: Fact): Boolean = detail.get.routes.exists(_.facts.contains(fact))
+  def hasNodesWithFact(fact: Fact): Boolean = {
+    detail match {
+      case Some(d) => d.nodes.exists(_.facts.contains(fact))
+      case None => false
+    }
+  }
 
-  def routesWithFact(fact: Fact): Seq[NetworkRouteInfo] = detail.get.routes.filter(_.facts.contains(fact))
+  def hasRoutesWithFact(fact: Fact): Boolean = {
+    detail match {
+      case Some(d) => d.routes.exists(_.facts.contains(fact))
+      case None => false
+    }
+  }
+
+  def nodesWithFact(fact: Fact): Seq[NetworkNodeInfo2] = {
+    detail match {
+      case Some(d) => d.nodes.filter(_.facts.contains(fact))
+      case None => Seq.empty
+    }
+  }
+
+  def routesWithFact(fact: Fact): Seq[NetworkRouteInfo] = {
+    detail match {
+      case Some(d) => d.routes.filter(_.facts.contains(fact))
+      case None => Seq.empty
+    }
+  }
 
   def factCount: Int = {
-    val networkFactCount = detail match {
-      case Some(networkInfoDetail) => networkInfoDetail.networkFacts.factCount
-      case None => 0
-    }
-    val routeFactCount = detail match {
-      case Some(networkInfoDetail) => networkInfoDetail.routes.map(_.facts.count(Fact.reportedFacts.contains)).sum
-      case None => 0
-    }
-    facts.size + networkFactCount + routeFactCount
+    facts.size + networkFactCount + nodeFactCount + routeFactCount
   }
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
@@ -47,4 +65,40 @@ case class NetworkInfo(
     field("tags", tags).
     field("detail", detail).
     build
+
+  private def hasNodeFacts: Boolean = {
+    detail match {
+      case Some(d) => d.nodes.exists(_.facts.nonEmpty)
+      case None => false
+    }
+  }
+
+  private def hasRouteFacts: Boolean = {
+    detail match {
+      case Some(d) => d.routes.exists(_.facts.nonEmpty)
+      case None => false
+    }
+  }
+
+  private def networkFactCount: Int = {
+    detail match {
+      case Some(d) => d.networkFacts.factCount
+      case None => 0
+    }
+  }
+
+  private def nodeFactCount: Int = {
+    detail match {
+      case Some(d) => d.nodes.map(_.facts.count(Fact.reportedFacts.contains)).sum
+      case None => 0
+    }
+  }
+
+  private def routeFactCount: Int = {
+    detail match {
+      case Some(d) => d.routes.map(_.facts.count(Fact.reportedFacts.contains)).sum
+      case None => 0
+    }
+  }
+
 }

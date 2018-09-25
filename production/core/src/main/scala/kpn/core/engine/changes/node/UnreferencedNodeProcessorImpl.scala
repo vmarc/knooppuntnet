@@ -102,14 +102,14 @@ class UnreferencedNodeProcessorImpl(
           name = nodeBefore.networkNode.name,
           before = Some(nodeBefore.networkNode.node.raw),
           after = Some(nodeAfter.node.raw),
-          roleConnectionChanges = Seq(),
-          definedInNetworkChanges = Seq(),
+          roleConnectionChanges = Seq.empty,
+          definedInNetworkChanges = Seq.empty,
           tagDiffs = tagDiffs,
           nodeMoved = nodeMoved,
-          addedToRoute = Seq(),
-          removedFromRoute = Seq(),
-          addedToNetwork = Seq(),
-          removedFromNetwork = Seq(),
+          addedToRoute = Seq.empty,
+          removedFromRoute = Seq.empty,
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
           facts = facts
         )
@@ -136,14 +136,14 @@ class UnreferencedNodeProcessorImpl(
         name = nodeBefore.networkNode.name,
         before = Some(nodeBefore.networkNode.node.raw),
         after = None,
-        roleConnectionChanges = Seq(),
-        definedInNetworkChanges = Seq(),
+        roleConnectionChanges = Seq.empty,
+        definedInNetworkChanges = Seq.empty,
         tagDiffs = None,
         nodeMoved = None,
-        addedToRoute = Seq(),
-        removedFromRoute = Seq(),
-        addedToNetwork = Seq(),
-        removedFromNetwork = Seq(),
+        addedToRoute = Seq.empty,
+        removedFromRoute = Seq.empty,
+        addedToNetwork = Seq.empty,
+        removedFromNetwork = Seq.empty,
         factDiffs = FactDiffs(),
         facts = Seq(Fact.Deleted)
       )
@@ -175,14 +175,14 @@ class UnreferencedNodeProcessorImpl(
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),
-          roleConnectionChanges = Seq(), // TODO CHANGE supply value here
-          definedInNetworkChanges = Seq(), // TODO CHANGE supply value here
+          roleConnectionChanges = Seq.empty, // TODO CHANGE supply value here
+          definedInNetworkChanges = Seq.empty, // TODO CHANGE supply value here
           tagDiffs = tagDiffs,
           nodeMoved = nodeMoved,
-          addedToRoute = Seq(),
-          removedFromRoute = Seq(),
-          addedToNetwork = Seq(),
-          removedFromNetwork = Seq(),
+          addedToRoute = Seq.empty,
+          removedFromRoute = Seq.empty,
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
           facts = changeFacts :+ Fact.BecomeOrphan
         )
@@ -208,14 +208,14 @@ class UnreferencedNodeProcessorImpl(
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),
-          roleConnectionChanges = Seq(),
-          definedInNetworkChanges = Seq(),
+          roleConnectionChanges = Seq.empty,
+          definedInNetworkChanges = Seq.empty,
           tagDiffs = tagDiffs,
           nodeMoved = nodeMoved,
-          addedToRoute = Seq(),
-          removedFromRoute = Seq(),
-          addedToNetwork = Seq(),
-          removedFromNetwork = Seq(),
+          addedToRoute = Seq.empty,
+          removedFromRoute = Seq.empty,
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(introduced = ignoreFacts.toSet),
           facts = changeFacts :+ Fact.BecomeIgnored
         )

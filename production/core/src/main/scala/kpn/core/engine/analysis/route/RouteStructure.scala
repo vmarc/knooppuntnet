@@ -5,8 +5,8 @@ import kpn.core.engine.analysis.route.segment.Segment
 case class RouteStructure(
   forwardSegment: Option[Segment] = None,
   backwardSegment: Option[Segment] = None,
-  tentacles: Seq[Segment] = Seq(),
-  unusedSegments: Seq[Segment] = Seq()
+  tentacles: Seq[Segment] = Seq.empty,
+  unusedSegments: Seq[Segment] = Seq.empty
 ) {
 
   def forwardNodeIds: Seq[Long] = nodeIds(forwardSegment)

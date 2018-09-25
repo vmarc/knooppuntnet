@@ -70,7 +70,7 @@ object OrphanRouteViewDemo {
   }
 
   private def readChangeSetIdsInTasks(): Set[Long] = {
-    var ids: Set[Long] = Set()
+    var ids: Set[Long] = Set.empty
     Couch.executeIn("tasks") { database =>
       val repo = new TaskRepositoryImpl(database)
       val taskIds = repo.all(TaskRepository.changeSetInfoTask)
@@ -81,7 +81,7 @@ object OrphanRouteViewDemo {
   }
 
   private def readChangeSetIds(): Set[Long] = {
-    var ids: Set[Long] = Set()
+    var ids: Set[Long] = Set.empty
     Couch.executeIn("changes3") { database =>
       val startKey = "change-set-info:"
       val endKey = startKey + "999999999999999"
@@ -97,7 +97,7 @@ object OrphanRouteViewDemo {
 
   private def readIgnoredRouteIds(): Set[Long] = {
 
-    var ids: Set[Long] = Set()
+    var ids: Set[Long] = Set.empty
 
     Couch.executeIn("master3") { database =>
 

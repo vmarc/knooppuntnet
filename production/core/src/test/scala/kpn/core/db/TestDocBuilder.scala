@@ -30,8 +30,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
   private val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
 
   def networkInfoDetail(
-    nodes: Seq[NetworkNodeInfo2] = Seq(),
-    routes: Seq[NetworkRouteInfo] = Seq(),
+    nodes: Seq[NetworkNodeInfo2] = Seq.empty,
+    routes: Seq[NetworkRouteInfo] = Seq.empty,
     networkFacts: NetworkFacts = NetworkFacts(),
     shape: Option[NetworkShape] = None
   ): NetworkInfoDetail = {
@@ -44,7 +44,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     )
   }
 
-  def networkRouteInfo(id: Long, name: String = "name", facts: Seq[Fact] = Seq()): NetworkRouteInfo = {
+  def networkRouteInfo(id: Long, name: String = "name", facts: Seq[Fact] = Seq.empty): NetworkRouteInfo = {
     NetworkRouteInfo(
       id,
       name = name,
@@ -61,7 +61,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     id: Long,
     subset: Subset,
     name: String = "name",
-    facts: Seq[Fact] = Seq(),
+    facts: Seq[Fact] = Seq.empty,
     detail: Option[NetworkInfoDetail] = None,
     meters: Int = 0,
     nodeCount: Int = 0,

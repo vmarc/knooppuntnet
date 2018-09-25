@@ -146,7 +146,7 @@ class IOThreadHandler(pid: String, name: String, latch: CountDownLatch, inputStr
 
   private val log = Log(classOf[IOThreadHandler])
 
-  var output: Seq[String] = Seq()
+  var output: Seq[String]= Seq.empty
 
   override def run(): Unit = {
     val out = ListBuffer[String]()

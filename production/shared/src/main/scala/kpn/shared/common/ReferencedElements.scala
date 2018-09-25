@@ -8,4 +8,4 @@ object ReferencedElements {
   }
 }
 
-case class ReferencedElements(nodeIds: Set[Long] = Set(), routeIds: Set[Long] = Set())
+case class ReferencedElements(nodeIds: Set[Long] = Set.empty, routeIds: Set[Long] = Set.empty)

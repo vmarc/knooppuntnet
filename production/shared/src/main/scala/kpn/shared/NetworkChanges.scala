@@ -3,9 +3,9 @@ package kpn.shared
 import kpn.shared.common.ToStringBuilder
 
 case class NetworkChanges(
-  creates: Seq[ChangeSetNetwork] = Seq(),
-  updates: Seq[ChangeSetNetwork] = Seq(),
-  deletes: Seq[ChangeSetNetwork] = Seq()
+  creates: Seq[ChangeSetNetwork]= Seq.empty,
+  updates: Seq[ChangeSetNetwork]= Seq.empty,
+  deletes: Seq[ChangeSetNetwork]= Seq.empty
 ) {
 
   def nonEmpty: Boolean = creates.nonEmpty || updates.nonEmpty || deletes.nonEmpty

@@ -3,9 +3,9 @@ package kpn.shared.diff.common
 import kpn.shared.Fact
 
 case class FactDiffs(
-  resolved: Set[Fact] = Set(),
-  introduced: Set[Fact] = Set(),
-  remaining: Set[Fact] = Set()
+  resolved: Set[Fact] = Set.empty,
+  introduced: Set[Fact] = Set.empty,
+  remaining: Set[Fact] = Set.empty
 ) {
 
   def isEmpty: Boolean = !nonEmpty

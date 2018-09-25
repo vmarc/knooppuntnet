@@ -8,8 +8,8 @@ object RefChanges {
 }
 
 case class RefChanges(
-  oldRefs: Seq[Ref] = Seq(),
-  newRefs: Seq[Ref] = Seq()
+  oldRefs: Seq[Ref] = Seq.empty,
+  newRefs: Seq[Ref] = Seq.empty
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

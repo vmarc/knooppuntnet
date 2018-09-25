@@ -139,9 +139,9 @@ class NetworkNodeFilterTest extends FunSuite with Matchers {
     definedInRelation: Boolean = false,
     definedInRoute: Boolean = false,
     timestamp: Timestamp = Timestamp(2015, 1, 1),
-    routeReferences: Seq[Ref] = Seq(),
+    routeReferences: Seq[Ref] = Seq.empty,
     nodeIntegrityCheck: Option[NodeIntegrityCheck] = None,
-    facts: Seq[Fact] = Seq(),
+    facts: Seq[Fact] = Seq.empty,
     tags: Tags = Tags.empty
   ): NetworkNodeInfo2 = {
     NetworkNodeInfo2(

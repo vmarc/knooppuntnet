@@ -8,7 +8,7 @@ object CountryCounts {
   }
 }
 
-case class CountryCounts(counts: Map[Option[Country], Int] = Map()) {
+case class CountryCounts(counts: Map[Option[Country], Int] = Map.empty) {
 
   def + (other: CountryCounts): CountryCounts = {
     val keys = counts.keySet ++ other.counts.keySet

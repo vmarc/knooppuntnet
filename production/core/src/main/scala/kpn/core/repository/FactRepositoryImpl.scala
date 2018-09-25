@@ -22,7 +22,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
     val rows = database.query(AnalyzerDesign, FactsPerNetworkView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(FactsPerNetworkView.convert)
 
     @tailrec
-    def process(rows: Seq[FactsPerNetworkView.Row], all: Seq[NetworkFactRefs] = Seq()): Seq[NetworkFactRefs] = {
+    def process(rows: Seq[FactsPerNetworkView.Row], all: Seq[NetworkFactRefs] = Seq.empty): Seq[NetworkFactRefs] = {
       if (rows.isEmpty) {
         all
       }

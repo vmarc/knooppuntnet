@@ -8,14 +8,14 @@ import kpn.shared.NetworkExtraMemberWay
 import kpn.shared.network.NetworkShape
 
 case class NetworkAnalysis(
-  allNodes: Map[Long, NetworkNode] = Map(),
-  networkExtraMemberWay: Seq[NetworkExtraMemberWay] = Seq(),
-  networkExtraMemberNode: Seq[NetworkExtraMemberNode] = Seq(),
-  networkExtraMemberRelation: Seq[NetworkExtraMemberRelation] = Seq(),
-  routes: Seq[NetworkMemberRoute] = Seq(),
-  networkNodesInRelation: Set[NetworkNode] = Set(),
-  networkNodesInRouteWays: Set[NetworkNode] = Set(),
-  networkNodesInRouteRelations: Set[NetworkNode] = Set(),
-  allNodesInNetwork: Set[NetworkNode] = Set(),
+  allNodes: Map[Long, NetworkNode] = Map.empty,
+  networkExtraMemberWay: Seq[NetworkExtraMemberWay] = Seq.empty,
+  networkExtraMemberNode: Seq[NetworkExtraMemberNode] = Seq.empty,
+  networkExtraMemberRelation: Seq[NetworkExtraMemberRelation] = Seq.empty,
+  routes: Seq[NetworkMemberRoute] = Seq.empty,
+  networkNodesInRelation: Set[NetworkNode] = Set.empty,
+  networkNodesInRouteWays: Set[NetworkNode] = Set.empty,
+  networkNodesInRouteRelations: Set[NetworkNode] = Set.empty,
+  allNodesInNetwork: Set[NetworkNode] = Set.empty,
   shape: Option[NetworkShape] = None
 )

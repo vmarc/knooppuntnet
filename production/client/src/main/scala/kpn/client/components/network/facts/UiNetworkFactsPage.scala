@@ -38,6 +38,7 @@ import kpn.shared.NetworkFacts
 import kpn.shared.NetworkIntegrityCheckFailed
 import kpn.shared.NetworkNameMissing
 import kpn.shared.network.NetworkFactsPage
+import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
 
 object UiNetworkFactsPage {
@@ -148,6 +149,9 @@ object UiNetworkFactsPage {
 
     private def allFacts(): VdomElement = {
       val page = state.pageState.response.get.result.get
+
+      println(page)
+
       if (page.factCount == 0) {
         <.div(
           <.br(),
@@ -159,6 +163,7 @@ object UiNetworkFactsPage {
           Seq(
             factDetails(page.facts),
             networkFactDetails(page.networkFacts),
+            nodeFactDetails(page.nodeFacts),
             routeFactDetails(page.routeFacts)
           ).flatten
         )
@@ -175,11 +180,15 @@ object UiNetworkFactsPage {
       ).flatten
     }
 
-    private def routeFactDetails(routeFacts: Seq[NetworkRouteFact]): Seq[TagMod] = {
-      routeFacts.map(factRow)
+    private def nodeFactDetails(nodeFacts: Seq[NetworkNodeFact]): Seq[TagMod] = {
+      nodeFacts.map(nodeFactRow)
     }
 
-    private def factRow(networkFact: NetworkRouteFact): TagMod = {
+    private def routeFactDetails(routeFacts: Seq[NetworkRouteFact]): Seq[TagMod] = {
+      routeFacts.map(routeFactRow)
+    }
+
+    private def routeFactRow(networkFact: NetworkRouteFact): TagMod = {
       <.div(
         UiThick(
           <.span(
@@ -199,6 +208,32 @@ object UiNetworkFactsPage {
           UiCommaList(
             for (route <- networkFact.routes) yield {
               context.gotoRoute(route.id, route.name)
+            }
+          )
+        )
+      )
+    }
+
+    private def nodeFactRow(networkFact: NetworkNodeFact): TagMod = {
+      <.div(
+        UiThick(
+          <.span(
+            nls(networkFact.fact.name, networkFact.fact.nlName) + " (" + networkFact.nodes.size + ") "
+          )
+        ),
+        UiFactLevel(networkFact.fact.level),
+        UiFactDescription(networkFact.fact),
+        <.div(
+          UiThin(
+            if (networkFact.nodes.size > 1) {
+              nls("Nodes", "Knooppunten") + ": "
+            } else {
+              nls("Node", "Knooppunt") + ": "
+            }
+          ),
+          UiCommaList(
+            for (node <- networkFact.nodes) yield {
+              context.gotoNode(node.id, node.name)
             }
           )
         )

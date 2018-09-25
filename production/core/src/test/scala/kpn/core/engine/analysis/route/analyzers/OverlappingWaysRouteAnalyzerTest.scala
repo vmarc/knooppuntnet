@@ -104,7 +104,7 @@ class OverlappingWaysRouteAnalyzerTest extends FunSuite with Matchers with Share
     )
 
     val context = RouteAnalysisContext(
-      networkNodes = Map(),
+      networkNodes = Map.empty,
       loadedRoute,
       orphan = false,
       interpreter = new Interpreter(loadedRoute.networkType)

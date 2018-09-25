@@ -46,7 +46,7 @@ class ApplicationComponents(context: Context) extends BuiltInComponentsFromConte
 
   new ViewIndexer(system, applicationContext.mainDatabase, applicationContext.changeDatabase)
 
-  lazy val httpFilters: Seq[EssentialFilter] = Seq()
+  lazy val httpFilters: Seq[EssentialFilter]= Seq.empty
 
   private val oauthApplicationKey = context.initialConfiguration.get[String]("oauthApplicationKey")
   private val oauthApplicationSecret = context.initialConfiguration.get[String]("oauthApplicationSecret")

@@ -17,7 +17,7 @@ class DistanceCalculatorTest extends FunSuite with Matchers with SharedTestObjec
   }
 
   test("empty plan results in empty distance collection") {
-    val routeMap: Map[Long, RouteInfo] = Map()
+    val routeMap: Map[Long, RouteInfo] = Map.empty
     val encodedPlan = EncodedPlan("")
     new DistanceCalculator(routeMap).calculateDistances(encodedPlan) should equal(Seq())
   }

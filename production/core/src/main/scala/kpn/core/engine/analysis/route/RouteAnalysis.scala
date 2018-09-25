@@ -17,13 +17,13 @@ case class RouteAnalysis(
   route: RouteInfo = null,
   structure: RouteStructure = RouteStructure(),
   routeNodes: RouteNodeAnalysis = new RouteNodeAnalysis(),
-  routeMembers: Seq[RouteMember] = Seq(),
-  ways: Seq[Way] = Seq(),
-  startNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-  endNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-  startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-  endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq(),
-  allWayNodes: Seq[Node] = Seq(),
+  routeMembers: Seq[RouteMember] = Seq.empty,
+  ways: Seq[Way] = Seq.empty,
+  startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+  endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+  startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+  endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+  allWayNodes: Seq[Node] = Seq.empty,
   bounds: MapBounds = MapBounds()
 ) {
 

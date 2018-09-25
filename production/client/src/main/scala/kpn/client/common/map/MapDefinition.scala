@@ -24,7 +24,7 @@ trait MapDefinition {
     Returns the layers to be shown in the layer switcher popup menu in the upper right
     corner of the map. Returns an empty collection if no layer popup menu should be shown.
   */
-  def layers: Seq[ol.layer.Base] = Seq()
+  def layers: Seq[ol.layer.Base] = Seq.empty
 
   def updateTarget(): Unit = {
     val element = dom.document.getElementById(targetElementId)

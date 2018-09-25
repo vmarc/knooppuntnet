@@ -139,12 +139,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                     changeType = ChangeType.InitialValue,
                     name = route.routeAnalysis.route.summary.name,
                     addedToNetwork = Seq(Ref(network.id, network.name)),
-                    removedFromNetwork = Seq(),
+                    removedFromNetwork= Seq.empty,
                     before = None,
                     after = Some(route.routeAnalysis.toRouteData),
-                    removedWays = Seq(),
-                    addedWays = Seq(),
-                    updatedWays = Seq(),
+                    removedWays= Seq.empty,
+                    addedWays= Seq.empty,
+                    updatedWays= Seq.empty,
                     diffs = RouteDiff(),
                     facts = route.routeAnalysis.route.facts
                   )
@@ -164,16 +164,16 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                     name = node.networkNode.name,
                     before = None,
                     after = Some(node.networkNode.node.raw),
-                    roleConnectionChanges = Seq(),
-                    definedInNetworkChanges = Seq(),
+                    roleConnectionChanges= Seq.empty,
+                    definedInNetworkChanges= Seq.empty,
                     tagDiffs = None,
                     nodeMoved = None,
-                    addedToRoute = Seq(),
-                    removedFromRoute = Seq(),
-                    addedToNetwork = Seq(),
-                    removedFromNetwork = Seq(),
+                    addedToRoute= Seq.empty,
+                    removedFromRoute= Seq.empty,
+                    addedToNetwork= Seq.empty,
+                    removedFromNetwork= Seq.empty,
                     factDiffs = FactDiffs(),
-                    facts = Seq()
+                    facts= Seq.empty
                   )
                 )
               }
@@ -211,13 +211,13 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                 key = context.buildChangeKey(analysis.route.id),
                 changeType = ChangeType.InitialValue,
                 name = analysis.route.summary.name,
-                addedToNetwork = Seq(),
-                removedFromNetwork = Seq(),
+                addedToNetwork= Seq.empty,
+                removedFromNetwork= Seq.empty,
                 before = None,
                 after = Some(analysis.toRouteData),
-                removedWays = Seq(),
-                addedWays = Seq(),
-                updatedWays = Seq(),
+                removedWays= Seq.empty,
+                addedWays= Seq.empty,
+                updatedWays= Seq.empty,
                 diffs = RouteDiff(),
                 facts = facts
               )
@@ -241,16 +241,16 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           name = loadedNode.name,
           before = None,
           after = Some(loadedNode.node.raw),
-          roleConnectionChanges = Seq(),
-          definedInNetworkChanges = Seq(),
+          roleConnectionChanges= Seq.empty,
+          definedInNetworkChanges= Seq.empty,
           tagDiffs = None,
           nodeMoved = None,
-          addedToRoute = Seq(),
-          removedFromRoute = Seq(),
-          addedToNetwork = Seq(),
-          removedFromNetwork = Seq(),
+          addedToRoute= Seq.empty,
+          removedFromRoute= Seq.empty,
+          addedToNetwork= Seq.empty,
+          removedFromNetwork= Seq.empty,
           factDiffs = FactDiffs(),
-          facts = Seq()
+          facts= Seq.empty
         )
       )
     }

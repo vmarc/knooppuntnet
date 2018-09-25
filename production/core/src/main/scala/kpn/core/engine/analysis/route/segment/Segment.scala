@@ -10,7 +10,7 @@ object Segment {
 case class Segment(
   start: Option[RouteNode] = None,
   end: Option[RouteNode] = None,
-  segmentFragments: Seq[SegmentFragment] = Seq(),
+  segmentFragments: Seq[SegmentFragment] = Seq.empty,
   broken: Boolean = false,
   surface: Option[String] = None
 ) {

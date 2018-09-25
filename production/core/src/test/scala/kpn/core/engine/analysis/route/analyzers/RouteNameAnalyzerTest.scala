@@ -114,7 +114,7 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
     )
 
     val context = RouteAnalysisContext(
-      networkNodes = Map(),
+      networkNodes = Map.empty,
       loadedRoute,
       orphan = false,
       interpreter = new Interpreter(loadedRoute.networkType)

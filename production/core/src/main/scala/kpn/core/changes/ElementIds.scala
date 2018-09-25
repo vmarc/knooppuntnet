@@ -1,9 +1,9 @@
 package kpn.core.changes
 
 case class ElementIds(
-  nodeIds: Set[Long] = Set(),
-  wayIds: Set[Long] = Set(),
-  relationIds: Set[Long] = Set()
+  nodeIds: Set[Long] = Set.empty,
+  wayIds: Set[Long] = Set.empty,
+  relationIds: Set[Long] = Set.empty
 ) {
 
   def isEmpty: Boolean = nodeIds.isEmpty && wayIds.isEmpty && relationIds.isEmpty

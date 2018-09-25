@@ -146,7 +146,7 @@ class FragmentAnalyzerTest extends FunSuite with Matchers {
     val interpreter = new Interpreter(NetworkType.hiking)
 
     val context1 = RouteAnalysisContext(
-      networkNodes = Map(),
+      networkNodes = Map.empty,
       loadedRoute = LoadedRoute(
         country = None,
         networkType = NetworkType.hiking,

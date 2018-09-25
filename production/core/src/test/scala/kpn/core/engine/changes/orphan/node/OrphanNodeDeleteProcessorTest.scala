@@ -178,7 +178,7 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
 
     val loadedNode: LoadedNode = LoadedNode(
       country = Some(Country.nl),
-      networkTypes = Seq(),
+      networkTypes= Seq.empty,
       name = "01",
       node = node
     )

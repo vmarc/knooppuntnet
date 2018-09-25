@@ -54,7 +54,7 @@ object NodeInfoBuilder {
     )
   }
 
-  def fromLoadedNode(loadedNode: LoadedNode, active: Boolean = true, display: Boolean = true, ignored: Boolean = false, orphan: Boolean = false, facts: Seq[Fact] = Seq())
+  def fromLoadedNode(loadedNode: LoadedNode, active: Boolean = true, display: Boolean = true, ignored: Boolean = false, orphan: Boolean = false, facts: Seq[Fact] = Seq.empty)
   : NodeInfo = {
     build(
       loadedNode.node.id,
@@ -71,7 +71,7 @@ object NodeInfoBuilder {
     )
   }
 
-  def fromNetworkNodeInfo(networkNodeInfo: NetworkNodeInfo, active: Boolean = true, facts: Seq[Fact] = Seq()): NodeInfo = {
+  def fromNetworkNodeInfo(networkNodeInfo: NetworkNodeInfo, active: Boolean = true, facts: Seq[Fact] = Seq.empty): NodeInfo = {
     val node = networkNodeInfo.networkNode.node
     build(
       node.id,
@@ -95,7 +95,7 @@ object NodeInfoBuilder {
     display: Boolean = true,
     ignored: Boolean = false,
     orphan: Boolean = false,
-    facts: Seq[Fact] = Seq()
+    facts: Seq[Fact] = Seq.empty
   ): NodeInfo = {
     build(
       rawNode.id,

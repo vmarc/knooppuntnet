@@ -58,13 +58,13 @@ class TestData() extends SharedTestObjects {
     w
   }
 
-  def relation(id: Long, members: Seq[RawMember] = Seq(), tags: Tags = Tags.empty): RawRelation = {
+  def relation(id: Long, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): RawRelation = {
     val relation = newRawRelation(id, members = members, tags = tags)
     relations += relation
     relation
   }
 
-  def route(id: Long, name: String, members: Seq[RawMember] = Seq(), tags: Tags = Tags.empty): RawRelation = {
+  def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): RawRelation = {
     relation(id, members, Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> name) ++ tags)
   }
 
@@ -84,9 +84,9 @@ class TestData() extends SharedTestObjects {
 
 
 case class TestData2(
-  nodes: Seq[RawNode] = Seq(),
-  ways: Seq[RawWay] = Seq(),
-  relations: Seq[RawRelation] = Seq()
+  nodes: Seq[RawNode] = Seq.empty,
+  ways: Seq[RawWay] = Seq.empty,
+  relations: Seq[RawRelation] = Seq.empty
 ) extends SharedTestObjects {
 
   def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty): TestData2 = {
@@ -109,16 +109,16 @@ case class TestData2(
     copy(ways = ways :+ w)
   }
 
-  def relation(id: Long, members: Seq[RawMember] = Seq(), tags: Tags = Tags.empty): TestData2 = {
+  def relation(id: Long, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): TestData2 = {
     val relation = newRawRelation(id, members = members, tags = tags)
     copy(relations = relations :+ relation)
   }
 
-  def route(id: Long, name: String, members: Seq[RawMember] = Seq(), tags: Tags = Tags.empty): TestData2 = {
+  def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): TestData2 = {
     relation(id, members, Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> name) ++ tags)
   }
 
-  def networkRelation(id: Long, name: String, members: Seq[RawMember] = Seq()): TestData2 = {
+  def networkRelation(id: Long, name: String, members: Seq[RawMember] = Seq.empty): TestData2 = {
     relation(id, members, Tags.from("network" -> "rwn", "type" -> "network", "name" -> name))
   }
 

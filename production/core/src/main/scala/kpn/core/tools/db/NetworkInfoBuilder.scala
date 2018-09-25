@@ -105,8 +105,8 @@ class NetworkInfoBuilder {
       ignored = false,
       nodeRefs = nodes.map(_.id),
       routeRefs = routes.map(_.id),
-      networkRefs = Seq(), // TODO include networks during network analysis!
-      facts = Seq(), // TODO can remain empty? only filled in for ignored networks?
+      networkRefs= Seq.empty, // TODO include networks during network analysis!
+      facts= Seq.empty, // TODO can remain empty? only filled in for ignored networks?
       tags = network.relation.tags,
       detail = Some(detail)
     )

@@ -119,10 +119,10 @@ class NetworkDeleteProcessorWorkerImpl(
         ),
         active = false, // <--- !!!
         ignored = false,
-        nodeRefs = Seq(),
-        routeRefs = Seq(),
-        networkRefs = Seq(),
-        facts = Seq(),
+        nodeRefs = Seq.empty,
+        routeRefs = Seq.empty,
+        networkRefs = Seq.empty,
+        facts = Seq.empty,
         tags = Tags.empty,
         detail = None
       )

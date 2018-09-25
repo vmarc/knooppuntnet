@@ -98,26 +98,44 @@ if (doc) {
           emitNetworkFact(facts[i], index);
         }
 
-        var routeFactMap = {};
-        if (doc.network.detail) {
-          for (var i = 0; i < doc.network.detail.routes.length; i++) {
-            var facts = doc.network.detail.routes[i].facts;
+        var factMap = {};
+        var detail = doc.network.detail;
+        if (detail) {
+          var routes = detail.routes;
+          for (var i = 0; i < routes.length; i++) {
+            var facts = routes[i].facts;
             for (var j = 0; j < facts.length; j++) {
               var fact = facts[j];
-              var count = routeFactMap[fact];
+              var count = factMap[fact];
               if (count) {
                 count = count + 1;
               }
               else {
                 count = 1;
               }
-              routeFactMap[fact] = count;
+              factMap[fact] = count;
             }
           }
 
-          for (fact in routeFactMap) {
+          var nodes = detail.nodes;
+          for (var i = 0; i < nodes.length; i++) {
+            var facts = nodes[i].facts;
+            for (var j = 0; j < facts.length; j++) {
+              var fact = facts[j];
+              var count = factMap[fact];
+              if (count) {
+                count = count + 1;
+              }
+              else {
+                count = 1;
+              }
+              factMap[fact] = count;
+            }
+          }
+
+          for (fact in factMap) {
             emitCount(fact + "NetworkCount", index, 1);
-            emitCount(fact + "Count", index, routeFactMap[fact]);
+            emitCount(fact + "Count", index, factMap[fact]);
           }
 
           var integrityCheck = doc.network.detail.networkFacts.integrityCheck;

@@ -1,8 +1,6 @@
 package kpn.core.facade.pages
 
 import kpn.shared.Fact
-import kpn.shared.Fact.f
-import kpn.shared.FactLevel
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
@@ -13,6 +11,7 @@ import kpn.shared.NetworkType
 import kpn.shared.NodeIntegrityCheck
 import kpn.shared.common.Ref
 import kpn.shared.network.NetworkFactsPage
+import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
 import kpn.shared.network.NetworkSummary
 
@@ -62,6 +61,16 @@ object NetworkFactsPageExample {
       ),
       nameMissing = Some(
         NetworkNameMissing()
+      )
+    ),
+    nodeFacts = Seq(
+      NetworkNodeFact(
+        fact = Fact.NodeMemberMissing,
+        nodes = Seq(
+          Ref(1001, "01"),
+          Ref(1002, "02"),
+          Ref(1003, "03")
+        )
       )
     ),
     routeFacts = Seq(

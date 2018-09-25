@@ -103,8 +103,8 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //          after = None,
     //          tagDiffs = None,
     //          nodeMoved = None,
-    //          addedToNetwork = Seq(),
-    //          removedFromNetwork = Seq(),
+    //          addedToNetwork = Seq.empty,
+    //          removedFromNetwork = Seq.empty,
     //          factDiffs = FactDiffs(),
     //          facts = Seq(Fact.Deleted),
     //          happy = false,
@@ -208,8 +208,8 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //              movedDistance
     //            )
     //          ),
-    //          addedToNetwork = Seq(),
-    //          removedFromNetwork = Seq(),
+    //          addedToNetwork = Seq.empty,
+    //          removedFromNetwork = Seq.empty,
     //          factDiffs = FactDiffs(),
     //          facts = Seq(Fact.BecomeOrphan),
     //          happy = false,
@@ -237,7 +237,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            tags = Tags.from(
     //              "rwn_ref" -> "01"
     //            ),
-    //            facts = Seq()
+    //            facts = Seq.empty
     //          )
     //        )
     //        true
@@ -312,8 +312,8 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //              movedDistance
     //            )
     //          ),
-    //          addedToNetwork = Seq(),
-    //          removedFromNetwork = Seq(),
+    //          addedToNetwork = Seq.empty,
+    //          removedFromNetwork = Seq.empty,
     //          factDiffs = FactDiffs(introduced = Set(Fact.IgnoreForeignCountry)),
     //          facts = Seq(Fact.BecomeIgnored),
     //          happy = false,
@@ -428,8 +428,8 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //              movedDistance
     //            )
     //          ),
-    //          addedToNetwork = Seq(),
-    //          removedFromNetwork = Seq(),
+    //          addedToNetwork= Seq.empty,
+    //          removedFromNetwork= Seq.empty,
     //          factDiffs = FactDiffs(),
     //          facts = Seq(expectedFact),
     //          happy = false,
@@ -455,7 +455,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            lastUpdated = Timestamp(2016, 8, 11),
     //            lastUpdatedBy = "user",
     //            tags = Tags.from(),
-    //            facts = Seq()
+    //            facts= Seq.empty
     //          )
     //        )
     //        true
@@ -537,8 +537,8 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //              movedDistance
     //            )
     //          ),
-    //          addedToNetwork = Seq(),
-    //          removedFromNetwork = Seq(),
+    //          addedToNetwork= Seq.empty,
+    //          removedFromNetwork= Seq.empty,
     //          factDiffs = FactDiffs(),
     //          facts = Seq(Fact.BecomeOrphan, Fact.LostHikingNodeTag),
     //          happy = false,
@@ -566,7 +566,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            tags = Tags.from(
     //              "rcn_ref" -> "55"
     //            ),
-    //            facts = Seq()
+    //            facts= Seq.empty
     //          )
     //        )
     //        true
@@ -651,8 +651,8 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //              movedDistance
     //            )
     //          ),
-    //          addedToNetwork = Seq(),
-    //          removedFromNetwork = Seq(),
+    //          addedToNetwork= Seq.empty,
+    //          removedFromNetwork= Seq.empty,
     //          factDiffs = FactDiffs(),
     //          facts = Seq(Fact.LostHikingNodeTag, Fact.WasOrphan),
     //          happy = false,
@@ -678,7 +678,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            lastUpdated = Timestamp(2016, 8, 11),
     //            lastUpdatedBy = "user",
     //            tags = Tags.from(),
-    //            facts = Seq()
+    //            facts= Seq.empty
     //          )
     //        )
     //        true
@@ -764,8 +764,8 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //              movedDistance
     //            )
     //          ),
-    //          addedToNetwork = Seq(),
-    //          removedFromNetwork = Seq(),
+    //          addedToNetwork= Seq.empty,
+    //          removedFromNetwork= Seq.empty,
     //          factDiffs = FactDiffs(),
     //          facts = Seq(Fact.LostHikingNodeTag, Fact.WasIgnored),
     //          happy = false,
@@ -791,7 +791,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            lastUpdated = Timestamp(2016, 8, 11),
     //            lastUpdatedBy = "user",
     //            tags = Tags.from(),
-    //            facts = Seq()
+    //            facts= Seq.empty
     //          )
     //        )
     //        true

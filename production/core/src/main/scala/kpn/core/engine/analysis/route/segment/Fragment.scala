@@ -19,7 +19,7 @@ case class Fragment(
   start: Option[RouteNode] = None,
   end: Option[RouteNode] = None,
   way: Way,
-  nodeSubset: Seq[Node] = Seq(),
+  nodeSubset: Seq[Node] = Seq.empty,
   role: Option[String] = None
 ) {
 

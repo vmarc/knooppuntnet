@@ -109,11 +109,13 @@ object UiSubsetFactDetailsPage {
     def page: SubsetFactDetailsPage = state.pageState.response.get.result.get // TODO make more safe
 
     private def factType: String = page.fact match {
+      case Fact.NodeMemberMissing => nls("node", "knooppunt")
       case Fact.IntegrityCheckFailed => nls("node", "knooppunt")
       case _ => "route"
     }
 
     private def factTypePlural: String = page.fact match {
+      case Fact.NodeMemberMissing => nls("nodes", "knooppunten")
       case Fact.IntegrityCheckFailed => nls("nodes", "knooppunten")
       case _ => "routes"
     }
@@ -169,6 +171,7 @@ object UiSubsetFactDetailsPage {
                     UiCommaList(
                       networkFacts.factRefs.map { ref =>
                         page.fact match {
+                          case Fact.NodeMemberMissing => context.gotoNode(ref.id, ref.name)
                           case Fact.IntegrityCheckFailed => context.gotoNode(ref.id, ref.name)
                           case _ => context.gotoRoute(ref.id, ref.name)
                         }
