@@ -438,33 +438,55 @@ object UiGlossaryPage {
       val nl =
         """
           |De analyse logica probeert na te gaan of de routes in het knooppuntennetwerk ook daadwerkelijk
-          |toegankelijk zijn voor wandelaars of fietsers.
+          |toegankelijk zijn voor de gebruiker waar het netwerk voor bedoeld is.
           |
-          |Momenteel wordt een route als _"toegankelijk"_ beschouwd indien aan minstens 1 van de
-          |volgende voorwaarden voldaan is:
+          |Een weg (way) in een wandel-, fiets-, ruiter-, of skateroute wordt als _"toegankelijk"_ beschouwd indien
+          |aan minstens 1 van de volgende voorwaarden voldaan is:
           |
-          |* De weg (way) heeft een tag met sleutel _"highway"_.
-          |* De weg (way) heeft een tag met sleutel _"route"_ een waarde _"ferry"_.
-          |* De weg (way) in een fietsknooppuntennetwerk heeft een tag met sleutel _"bicycle"_ en waarde _"yes"_.
-          |* De weg (way) in een wandelknooppuntennetwerk heeft een tag met sleutel _"foot"_ en waarde _"yes"_.
+          |* De weg heeft een tag met sleutel _"highway"_ of  _"highway:virtual"_.
+          |* De weg heeft een tag met sleutel _"route"_ en waarde _"ferry"_.
+          |* De weg in een fietsnetwerk heeft een tag met sleutel _"bicycle"_ en waarde _"yes"_.
+          |* De weg in een wandelnetwerk heeft een tag met sleutel _"foot"_ en waarde _"yes"_.
+          |* De weg in een ruiternetwerk heeft een tag met sleutel _"horse"_ en waarde _"yes"_.
+          |* De weg in een skatenetwerk heeft een tag met sleutel _"inline_skates"_ en waarde _"yes"_.
           |
-          |Deze regels moeten waarschijnlijk verder verfijnd worden.
+          |Motorboot netwerk:
+          |
+          |* De weg heeft een tag met sleutel _"waterway"_ of  _"waterway:virtual"_.
+          |
+          |Kano netwerk, minstens 1 van:
+          |
+          |* De weg heeft een tag met sleutel _"waterway"_ of  _"waterway:virtual"_.
+          |* De weg heeft een tag met sleutel _"canoe"_ en waarde  _"yes"_.
+          |* De weg heeft een tag met sleutel _"canoe"_ en waarde  _"portage"_.
+          |
         """.stripMargin
 
       val en =
         """
           |The analyzer tries to determine whether the routes as defined in the network are actually
-          |accessible for hiking or bicycle.
+          |accessible for the user for which the network is intended.
           |
-          |Currently the validation rule dictates that one of the following is true for each way in the route
-          |relation for the route to be considered _"accessible"_:
+          |The validation rules for hiking-, bicycle-, horse- and skateroutes dictate that one of the
+          |following is true for each way in the route relation for the route to be considered _"accessible"_:
           |
-          |* The way has a value for tag _"highway"_.
+          |* The way has a value for tag _"highway"_ or _"highway:virtual"_.
           |* The way has tag _"route"_ with value _"ferry"_.
           |* The way in the bicycle network has tag _"bicycle"_ with value _"yes"_.
           |* The way in the hiking network has tag _"foot"_ with value _"yes"_.
+          |* The way in the horse network has tag _"horse"_ with value _"yes"_.
+          |* The way in the skate network has tag _"inline_skates"_ with value _"yes"_.
           |
-          |These rules should probably be further refined.
+          |Motorboat network:
+          |
+          |* The way has a tag with key _"waterway"_ or  _"waterway:virtual"_.
+          |
+          |Canoe network, at least 1 of:
+          |
+          |* The way has a tag with key  _"waterway"_ or _"waterway:virtual"_.
+          |* The way has a tag with key  _"canoe"_ and value  _"yes"_.
+          |* The way has a tag with key  _"canoe"_ and value _"portage"_.
+          |
         """.stripMargin
 
       val text = if (nlsNL) nl else en

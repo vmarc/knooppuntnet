@@ -18,34 +18,40 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
 
   private def bicycleAccessible(way: Way): Boolean = {
     way.tags.has("highway") ||
+      way.tags.has("highway:virtual") ||
       way.tags.has("route", "ferry") ||
       way.tags.has("bicycle", "yes")
   }
 
   private def hikingAccessible(way: Way): Boolean = {
     way.tags.has("highway") ||
+      way.tags.has("highway:virtual") ||
       way.tags.has("route", "ferry") ||
       way.tags.has("foot", "yes")
   }
 
   private def horseAccessible(way: Way): Boolean = {
     way.tags.has("highway") ||
+      way.tags.has("highway:virtual") ||
       way.tags.has("route", "ferry") ||
       way.tags.has("horse", "yes")
   }
 
   private def motorboatAccessible(way: Way): Boolean = {
-    way.tags.has("waterway")
+    way.tags.has("waterway") ||
+      way.tags.has("waterway:virtual")
   }
 
   private def canoeAccessible(way: Way): Boolean = {
     way.tags.has("waterway") ||
+      way.tags.has("waterway:virtual") ||
       way.tags.has("canoe", "portage") || // used for places where canoe has to be carried over a dam
       way.tags.has("canoe", "yes")
   }
 
   private def inlineSkatesAccessible(way: Way): Boolean = {
     way.tags.has("highway") ||
+      way.tags.has("highway:virtual") ||
       way.tags.has("route", "ferry") ||
       way.tags.has("inline_skates", "yes")
   }
