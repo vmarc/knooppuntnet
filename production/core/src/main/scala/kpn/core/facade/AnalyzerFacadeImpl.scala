@@ -2,6 +2,7 @@ package kpn.core.facade
 
 import kpn.core.app._
 import kpn.core.app.stats.StatisticsBuilder
+import kpn.core.common.TimestampLocal
 import kpn.core.db.couch.Couch
 import kpn.core.facade.pages.ChangeSetPageBuilder
 import kpn.core.facade.pages.ChangesPageBuilder
@@ -47,8 +48,8 @@ import kpn.shared.node.NodeReferences
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
-import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetChangesPage
+import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
@@ -83,123 +84,143 @@ class AnalyzerFacadeImpl(
   private val log = Log(classOf[AnalyzerFacadeImpl])
 
   override def node(user: Option[String], nodeId: Long): ApiResponse[NodePage] = {
-    log.infoElapsed(s"$user node($nodeId)") {
-      reply(nodePageBuilder.build(user, nodeId))
+    val label = s"$user node($nodeId)"
+    log.infoElapsed(label) {
+      reply(label, nodePageBuilder.build(user, nodeId))
     }
   }
 
   override def route(user: Option[String], routeId: Long): ApiResponse[RoutePage] = {
-    log.infoElapsed(s"$user route($routeId)") {
-      reply(routePageBuilder.build(user, routeId))
+    val label = s"$user route($routeId)"
+    log.infoElapsed(label) {
+      reply(label, routePageBuilder.build(user, routeId))
     }
   }
 
   override def networkDetails(user: Option[String], networkId: Long): ApiResponse[NetworkDetailsPage] = {
-    log.infoElapsed(s"$user networkDetails($networkId)") {
-      reply(networkDetailsPageBuilder.build(networkId))
+    val label = s"$user networkDetails($networkId)"
+    log.infoElapsed(label) {
+      reply(label, networkDetailsPageBuilder.build(networkId))
     }
   }
 
   override def networkMap(user: Option[String], networkId: Long): ApiResponse[NetworkMapPage] = {
-    log.infoElapsed(s"$user networkMap($networkId)") {
-      reply(networkMapPageBuilder.build(networkId))
+    val label = s"$user networkMap($networkId)"
+    log.infoElapsed(label) {
+      reply(label, networkMapPageBuilder.build(networkId))
     }
   }
 
   override def networkFacts(user: Option[String], networkId: Long): ApiResponse[NetworkFactsPage] = {
-    log.infoElapsed(s"$user networkFacts($networkId)") {
-      reply(networkFactsPageBuilder.build(networkId))
+    val label = s"$user networkFacts($networkId)"
+    log.infoElapsed(label) {
+      reply(label, networkFactsPageBuilder.build(networkId))
     }
   }
 
   override def networkNodes(user: Option[String], networkId: Long): ApiResponse[NetworkNodesPage] = {
-    log.infoElapsed(s"$user networkNodes($networkId)") {
-      reply(networkNodesPageBuilder.build(networkId))
+    val label = s"$user networkNodes($networkId)"
+    log.infoElapsed(label) {
+      reply(label, networkNodesPageBuilder.build(networkId))
     }
   }
 
   override def networkRoutes(user: Option[String], networkId: Long): ApiResponse[NetworkRoutesPage] = {
-    log.infoElapsed(s"$user networkRoutes($networkId)") {
-      reply(networkRoutesPageBuilder.build(networkId))
+    val label = s"$user networkRoutes($networkId)"
+    log.infoElapsed(label) {
+      reply(label, networkRoutesPageBuilder.build(networkId))
     }
   }
 
   override def networkChanges(user: Option[String], parameters: ChangesParameters): ApiResponse[NetworkChangesPage] = {
-    log.infoElapsed(s"$user networkChanges(${parameters.toDisplayString})") {
-      reply(networkChangesPageBuilder.build(user, parameters))
+    val label = s"$user networkChanges(${parameters.toDisplayString})"
+    log.infoElapsed(label) {
+      reply(label, networkChangesPageBuilder.build(user, parameters))
     }
   }
 
   override def gpx(user: Option[String], networkId: Long): Option[GpxFile] = {
-    log.infoElapsed(s"$user gpx($networkId)") {
+    val label = s"$user gpx($networkId)"
+    log.infoElapsed(label) {
       networkRepository.gpx(networkId, Couch.uiTimeout)
     }
   }
 
   override def subsetNetworks(user: Option[String], subset: Subset): ApiResponse[SubsetNetworksPage] = {
-    log.infoElapsed(s"$user subsetNetworks(${subset.string})") {
-      reply(Some(subsetNetworksPageBuilder.build(subset)))
+    val label = s"$user subsetNetworks(${subset.string})"
+    log.infoElapsed(label) {
+      reply(label, Some(subsetNetworksPageBuilder.build(subset)))
     }
   }
 
   override def subsetFacts(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPage] = {
-    log.infoElapsed(s"$user subsetFacts(${subset.string})") {
-      reply(Some(subsetFactsPageBuilder.build(subset)))
+    val label = s"$user subsetFacts(${subset.string})"
+    log.infoElapsed(label) {
+      reply(label, Some(subsetFactsPageBuilder.build(subset)))
     }
   }
 
   override def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage] = {
-    log.infoElapsed(s"$user facts(${subset.string})") {
-      reply(Some(subsetFactDetailsPageBuilder.build(subset, fact)))
+    val label = s"$user facts(${subset.string})"
+    log.infoElapsed(label) {
+      reply(label, Some(subsetFactDetailsPageBuilder.build(subset, fact)))
     }
   }
 
   override def subsetChanges(user: Option[String], parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
-    log.infoElapsed(s"$user subsetChanges(${parameters.toDisplayString})") {
-      reply(subsetChangesPageBuilder.build(user, parameters))
+    val label = s"$user subsetChanges(${parameters.toDisplayString})"
+    log.infoElapsed(label) {
+      reply(label, subsetChangesPageBuilder.build(user, parameters))
     }
   }
 
   override def subsetOrphanRoutes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanRoutesPage] = {
-    log.infoElapsed(s"$user subsetOrphanRoutes(${subset.string})") {
-      reply(Some(subsetOrphanRoutesPageBuilder.build(subset)))
+    val label = s"$user subsetOrphanRoutes(${subset.string})"
+    log.infoElapsed(label) {
+      reply(label, Some(subsetOrphanRoutesPageBuilder.build(subset)))
     }
   }
 
   override def subsetOrphanNodes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage] = {
-    log.infoElapsed(s"$user subsetOrphanNodes(${subset.string})") {
-      reply(Some(subsetOrphanNodesPageBuilder.build(subset)))
+    val label = s"$user subsetOrphanNodes(${subset.string})"
+    log.infoElapsed(label) {
+      reply(label, Some(subsetOrphanNodesPageBuilder.build(subset)))
     }
   }
 
   override def overview(user: Option[String]): ApiResponse[Statistics] = {
-    log.infoElapsed(s"$user overview()") {
+    val label = s"$user overview()"
+    log.infoElapsed(label) {
       // TODO move into separate StaticsPageBuilder, and return StatisticsPage instead?
       val figures = overviewRepository.figures(Couch.uiTimeout)
       val page = StatisticsBuilder.build(figures)
-      reply(Some(page))
+      reply(label, Some(page))
     }
   }
 
   override def integrityCheckFacts(user: Option[String], country: String, networkType: String): IntegrityCheckPage = {
-    log.infoElapsed(s"$user integrityCheckFacts($country/$networkType)") {
+    val label = s"$user integrityCheckFacts($country/$networkType)"
+    log.infoElapsed(label) {
       factRepository.integrityCheckFacts(country, networkType, Couch.uiTimeout)
     }
   }
 
   override def changeSet(user: Option[String], changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage] = {
-    log.infoElapsed(s"$user changeSet(changeSetId=$changeSetId, replicationId=${replicationId.map(_.name)})") {
-      reply(changeSetPageBuilder.build(user, changeSetId, replicationId))
+    val label = s"$user changeSet(changeSetId=$changeSetId, replicationId=${replicationId.map(_.name)})"
+    log.infoElapsed(label) {
+      reply(label, changeSetPageBuilder.build(user, changeSetId, replicationId))
     }
   }
 
   override def changes(user: Option[String], parameters: ChangesParameters): ApiResponse[ChangesPage] = {
-    log.infoElapsed(s"$user changes(${parameters.toDisplayString})") {
-      reply(Some(changesPageBuilder.build(user, parameters)))
+    val label = s"$user changes(${parameters.toDisplayString})"
+    log.infoElapsed(label) {
+      reply(label, Some(changesPageBuilder.build(user, parameters)))
     }
   }
 
   override def mapDetailNode(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapDetailNode] = {
+    val label = s"$user mapDetailNode(${networkType.name}, $nodeId)"
     log.infoElapsed(s"$user mapDetailNode(${networkType.name}, $nodeId)") {
       val page = nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
         val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
@@ -210,22 +231,32 @@ class AnalyzerFacadeImpl(
         )
         MapDetailNode(nodeInfo, nodeReferences)
       }
+      log.infoElapsed(s"timestamp localize " + label) {
+        TimestampLocal.localize(page)
+      }
       ApiResponse(None, 1, page) // analysis timestamp not needed here
     }
   }
 
   override def mapDetailRoute(user: Option[String], routeId: Long): ApiResponse[MapDetailRoute] = {
+    val label = s"$user mapDetailRoute($routeId)"
     log.infoElapsed(s"$user mapDetailRoute($routeId)") {
       val page = routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
         val routeWithoutAnalysis = route.copy(analysis = None)
         val routeReferences = routeRepository.routeReferences(routeId, Couch.uiTimeout)
         MapDetailRoute(routeWithoutAnalysis, routeReferences)
       }
+      log.infoElapsed(s"timestamp localize " + label) {
+        TimestampLocal.localize(page)
+      }
       ApiResponse(None, 1, page) // analysis timestamp not needed here
     }
   }
 
-  private def reply[T](result: Option[T]): ApiResponse[T] = {
+  private def reply[T](label: String, result: Option[T]): ApiResponse[T] = {
+    log.infoElapsed(s"timestamp localize " + label) {
+      TimestampLocal.localize(result)
+    }
     ApiResponse(analysisRepository.lastUpdated(), 1, result)
   }
 
