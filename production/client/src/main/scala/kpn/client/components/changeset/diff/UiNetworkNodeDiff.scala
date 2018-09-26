@@ -36,6 +36,7 @@ object UiNetworkNodeDiff {
 
     def render(): VdomElement = {
       val elements = Seq(
+        connection(),
         roleConnection(),
         definedInNetworkRelation(),
         routeRefefenceDiffs(),
@@ -44,6 +45,27 @@ object UiNetworkNodeDiff {
       ).flatten
 
       <.div(elements.toTagMod)
+    }
+
+    private def connection(): Option[VdomElement] = {
+      diff.connection.map { connection =>
+        if (connection) {
+          <.div(
+            nls(
+              """Node belongs to another network.""",
+              """Knooppunt behoort to ander netwerk."""
+            )
+          )
+        }
+        else {
+          <.div(
+            nls(
+              """Node no longer belongs to other network.""",
+              """Knooppunt behoort niet langer tot ander netwerk."""
+            )
+          )
+        }
+      }
     }
 
     private def roleConnection(): Option[VdomElement] = {

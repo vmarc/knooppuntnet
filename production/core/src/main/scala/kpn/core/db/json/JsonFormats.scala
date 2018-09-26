@@ -301,7 +301,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val nodeRouteReferencesChanged: RootJsonFormat[NodeRouteReferenceDiffs] = jsonFormat3(NodeRouteReferenceDiffs)
   implicit val nodeIntegrityCheckChanged: RootJsonFormat[NodeIntegrityCheckDiff] = jsonFormat2(NodeIntegrityCheckDiff)
-  implicit val networkNodeDiffFormat: RootJsonFormat[NetworkNodeDiff] = jsonFormat5(NetworkNodeDiff)
+  implicit val networkNodeDiffFormat: RootJsonFormat[NetworkNodeDiff] = jsonFormat6(NetworkNodeDiff)
 
   implicit val routeDataFormat: RootJsonFormat[RouteData] = jsonFormat9(RouteData)
 

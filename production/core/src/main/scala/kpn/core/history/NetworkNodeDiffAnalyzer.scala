@@ -12,6 +12,7 @@ import kpn.shared.route.RouteInfo
 class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo, after: NetworkNodeInfo) {
 
   def diffs: NetworkNodeDiff = NetworkNodeDiff(
+    connection,
     roleConnection,
     definedInNetworkRelation,
     routeReferenceDiffs,
@@ -21,6 +22,15 @@ class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo,
 
   private val beforeNode = before.networkNode.node
   private val afterNode = after.networkNode.node
+
+  private def connection: Option[Boolean] = {
+    if (before.connection != after.connection) {
+      Some(after.connection)
+    }
+    else {
+      None
+    }
+  }
 
   private def roleConnection: Option[Boolean] = {
     if (before.roleConnection != after.roleConnection) {

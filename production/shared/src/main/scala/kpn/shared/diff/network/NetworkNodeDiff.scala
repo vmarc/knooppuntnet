@@ -3,7 +3,8 @@ package kpn.shared.diff.network
 import kpn.shared.diff.TagDiffs
 
 case class NetworkNodeDiff(
-  roleConnection: Option[Boolean] = None, // connection to another network
+  connection: Option[Boolean] = None,
+  roleConnection: Option[Boolean] = None,
   definedInNetworkRelation: Option[Boolean] = None,
   routeReferenceDiffs: Option[NodeRouteReferenceDiffs] = None,
   nodeIntegrityCheckDiff: Option[NodeIntegrityCheckDiff] = None,
