@@ -9,6 +9,7 @@ class ChangesToolConfiguration(system: ActorSystem, analysisDatabase: Database, 
   val analysisRepository = new AnalysisRepositoryNoop()
 
   val config = new Configuration(
+    0,
     system,
     analysisDatabase,
     changeDatabase,

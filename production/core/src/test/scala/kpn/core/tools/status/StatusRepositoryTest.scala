@@ -37,7 +37,7 @@ class StatusRepositoryTest extends FunSuite with Matchers {
 
       val repository = new StatusRepositoryImpl(dirs)
 
-      repository.analysisStatus should equal(None)
+      repository.analysisStatus1 should equal(None)
     }
     finally {
       file.delete()

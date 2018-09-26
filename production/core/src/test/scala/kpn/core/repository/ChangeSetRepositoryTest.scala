@@ -327,6 +327,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
       name = name,
       before = None,
       after = None,
+      connectionChanges = Seq.empty,
       roleConnectionChanges = Seq.empty,
       definedInNetworkChanges = Seq.empty,
       tagDiffs = None,
