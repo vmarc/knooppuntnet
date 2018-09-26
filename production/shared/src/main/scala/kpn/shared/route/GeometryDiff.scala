@@ -3,9 +3,9 @@ package kpn.shared.route
 import kpn.shared.LatLon
 
 case class GeometryDiff(
-  common: Seq[PointSegment]= Seq.empty, // blue
-  before: Seq[PointSegment]= Seq.empty, // red
-  after: Seq[PointSegment]= Seq.empty // green
+  common: Seq[PointSegment] = Seq.empty, // blue
+  before: Seq[PointSegment] = Seq.empty, // red
+  after: Seq[PointSegment] = Seq.empty // green
 ) {
 
   def updatedLatLons: Seq[LatLon] = {

@@ -1,10 +1,10 @@
 package kpn.core.engine.changes.orphan.node
 
+import kpn.core.engine.changes.data.AnalysisData
+import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
 import kpn.core.load.data.LoadedNode
 import kpn.core.repository.AnalysisRepository
 import kpn.core.test.TestData
-import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NodeInfo
@@ -95,7 +95,7 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
 
     val loadedNode: LoadedNode = LoadedNode(
       country = Some(Country.nl),
-      networkTypes= Seq.empty,
+      networkTypes = Seq.empty,
       name = "01",
       node = node
     )

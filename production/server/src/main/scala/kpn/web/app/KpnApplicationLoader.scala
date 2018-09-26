@@ -46,12 +46,12 @@ class ApplicationComponents(context: Context) extends BuiltInComponentsFromConte
 
   new ViewIndexer(system, applicationContext.mainDatabase, applicationContext.changeDatabase)
 
-  lazy val httpFilters: Seq[EssentialFilter]= Seq.empty
+  lazy val httpFilters: Seq[EssentialFilter] = Seq.empty
 
   private val oauthApplicationKey = context.initialConfiguration.get[String]("oauthApplicationKey")
   private val oauthApplicationSecret = context.initialConfiguration.get[String]("oauthApplicationSecret")
   private val cryptoKey = context.initialConfiguration.get[String]("cryptoKey")
-  private val crypto= new CryptoImpl(cryptoKey)
+  private val crypto = new CryptoImpl(cryptoKey)
   private val authenticiationService = new AuthenticationService(crypto, wsClient, oauthApplicationKey, oauthApplicationSecret)(system)
 
   lazy val applic: Application = new Application(

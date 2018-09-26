@@ -18,9 +18,9 @@ object RawData {
 
 case class RawData(
   timestamp: Option[Timestamp] = None,
-  nodes: Seq[RawNode]= Seq.empty,
-  ways: Seq[RawWay]= Seq.empty,
-  relations: Seq[RawRelation]= Seq.empty
+  nodes: Seq[RawNode] = Seq.empty,
+  ways: Seq[RawWay] = Seq.empty,
+  relations: Seq[RawRelation] = Seq.empty
 ) {
 
   def nodeWithId(id: Long): Option[RawNode] = nodes.find(_.id == id)

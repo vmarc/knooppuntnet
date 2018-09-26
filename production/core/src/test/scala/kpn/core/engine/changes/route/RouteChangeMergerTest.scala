@@ -84,15 +84,15 @@ class RouteChangeMergerTest extends FunSuite with Matchers with SharedTestObject
         version = 1,
         timestamp = Timestamp(2017, 8, 11),
         changeSetId = 1,
-        members= Seq.empty,
+        members = Seq.empty,
         tags = Tags.empty
       ),
       name = "01-02",
-      networkNodes= Seq.empty,
-      nodes= Seq.empty,
-      ways= Seq.empty,
-      relations= Seq.empty,
-      facts= Seq.empty
+      networkNodes = Seq.empty,
+      nodes = Seq.empty,
+      ways = Seq.empty,
+      relations = Seq.empty,
+      facts = Seq.empty
     )
   }
 }

@@ -21,6 +21,7 @@ class NodeChangeInfoBuilder {
       comment,
       change.before.map(_.toMeta),
       change.after.map(_.toMeta),
+      change.connectionChanges,
       change.roleConnectionChanges,
       change.definedInNetworkChanges,
       change.tagDiffs,

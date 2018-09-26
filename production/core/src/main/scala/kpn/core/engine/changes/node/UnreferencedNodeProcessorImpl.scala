@@ -34,7 +34,7 @@ class UnreferencedNodeProcessorImpl(
   override def process(context: ChangeSetContext, candidateUnreferencedNodes: Seq[NetworkNodeInfo]): Seq[NodeChange] = {
     val unreferencedNodes = candidateUnreferencedNodes.filterNot(isReferencedNode)
     val nodesAfter = nodeLoader.loadNodes(context.timestampAfter, unreferencedNodes.map(_.id))
-    unreferencedNodes.flatMap{ nodeBefore =>
+    unreferencedNodes.flatMap { nodeBefore =>
       val loadedNodeAfter = nodesAfter.find(_.id == nodeBefore.id)
       process1(context, nodeBefore, loadedNodeAfter)
     }
@@ -102,6 +102,7 @@ class UnreferencedNodeProcessorImpl(
           name = nodeBefore.networkNode.name,
           before = Some(nodeBefore.networkNode.node.raw),
           after = Some(nodeAfter.node.raw),
+          connectionChanges = Seq.empty,
           roleConnectionChanges = Seq.empty,
           definedInNetworkChanges = Seq.empty,
           tagDiffs = tagDiffs,
@@ -136,6 +137,7 @@ class UnreferencedNodeProcessorImpl(
         name = nodeBefore.networkNode.name,
         before = Some(nodeBefore.networkNode.node.raw),
         after = None,
+        connectionChanges = Seq.empty,
         roleConnectionChanges = Seq.empty,
         definedInNetworkChanges = Seq.empty,
         tagDiffs = None,
@@ -175,6 +177,7 @@ class UnreferencedNodeProcessorImpl(
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),
+          connectionChanges = Seq.empty, // TODO CHANGE supply value here
           roleConnectionChanges = Seq.empty, // TODO CHANGE supply value here
           definedInNetworkChanges = Seq.empty, // TODO CHANGE supply value here
           tagDiffs = tagDiffs,
@@ -208,6 +211,7 @@ class UnreferencedNodeProcessorImpl(
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),
+          connectionChanges = Seq.empty,
           roleConnectionChanges = Seq.empty,
           definedInNetworkChanges = Seq.empty,
           tagDiffs = tagDiffs,

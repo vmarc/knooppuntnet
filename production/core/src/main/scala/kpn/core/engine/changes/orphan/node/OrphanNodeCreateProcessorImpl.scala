@@ -1,11 +1,11 @@
 package kpn.core.engine.changes.orphan.node
 
-import kpn.core.load.data.LoadedNode
-import kpn.core.repository.AnalysisRepository
-import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
+import kpn.core.load.data.LoadedNode
+import kpn.core.repository.AnalysisRepository
+import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NodeChange
@@ -44,14 +44,15 @@ class OrphanNodeCreateProcessorImpl(
             loadedNode.name,
             before = None,
             after = Some(loadedNode.node.raw),
-            roleConnectionChanges= Seq.empty,
-            definedInNetworkChanges= Seq.empty,
+            connectionChanges = Seq.empty,
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
             tagDiffs = None,
             nodeMoved = None,
-            addedToRoute= Seq.empty,
-            removedFromRoute= Seq.empty,
-            addedToNetwork= Seq.empty,
-            removedFromNetwork= Seq.empty,
+            addedToRoute = Seq.empty,
+            removedFromRoute = Seq.empty,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = Seq.empty,
             factDiffs = FactDiffs(),
             Seq(Fact.OrphanNode)
           )

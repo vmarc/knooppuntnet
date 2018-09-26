@@ -417,7 +417,7 @@ class VectorTileEncoderTest extends FunSuite with Matchers {
 
     val geomFactory = new GeometryFactory
 
-    var previousLine: Seq[Double]= Seq.empty
+    var previousLine: Seq[Double] = Seq.empty
 
     val lineStrings = testdata.map { segment =>
       val coordinates = segment.flatMap { line =>

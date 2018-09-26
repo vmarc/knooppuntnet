@@ -87,7 +87,7 @@ class OverpassQueryExecutorImpl() extends OverpassQueryExecutor {
     else {
       val errorsWithoutProgress = stderr.output.filterNot(isProgress).filter(_.trim.nonEmpty)
 
-      if (exitCode != 0 /*|| errorsWithoutProgress.nonEmpty*/) {
+      if (exitCode != 0 /*|| errorsWithoutProgress.nonEmpty*/ ) {
         val errorMessage = if (errorsWithoutProgress.nonEmpty) {
           errorsWithoutProgress.mkString("\n  ", "\n  ", "")
         }
@@ -146,7 +146,7 @@ class IOThreadHandler(pid: String, name: String, latch: CountDownLatch, inputStr
 
   private val log = Log(classOf[IOThreadHandler])
 
-  var output: Seq[String]= Seq.empty
+  var output: Seq[String] = Seq.empty
 
   override def run(): Unit = {
     val out = ListBuffer[String]()

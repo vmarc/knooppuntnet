@@ -318,7 +318,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val refBooleanChangeFormat: RootJsonFormat[RefBooleanChange] = jsonFormat2(RefBooleanChange)
   implicit val nodeIntegrityCheckChangeFormat: RootJsonFormat[NodeIntegrityCheckChange] = jsonFormat3(NodeIntegrityCheckChange)
-  implicit val nodeChangeFormat: RootJsonFormat[NodeChange] = jsonFormat16(NodeChange)
+  implicit val nodeChangeFormat: RootJsonFormat[NodeChange] = jsonFormat17(NodeChange)
 
   implicit val changeSetSummaryDocFormat: RootJsonFormat[ChangeSetSummaryDoc] = jsonFormat3(ChangeSetSummaryDoc)
 
@@ -350,7 +350,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val nodeReferencesFormat: RootJsonFormat[NodeReferences] = jsonFormat2(NodeReferences)
 
   implicit val referenceFormat: RootJsonFormat[Reference] = jsonFormat4(Reference)
-  implicit val nodeChangeInfoFormat: RootJsonFormat[NodeChangeInfo] = jsonFormat19(NodeChangeInfo)
+  implicit val nodeChangeInfoFormat: RootJsonFormat[NodeChangeInfo] = jsonFormat20(NodeChangeInfo)
   implicit val nodeChangeInfosFormat: RootJsonFormat[NodeChangeInfos] = jsonFormat3(NodeChangeInfos)
   implicit val nodePageFormat: RootJsonFormat[NodePage] = jsonFormat3(NodePage)
 

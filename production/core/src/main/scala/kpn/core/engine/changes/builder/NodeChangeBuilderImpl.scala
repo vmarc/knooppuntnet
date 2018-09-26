@@ -95,6 +95,7 @@ class NodeChangeBuilderImpl(
             name = nodeAfter.networkNode.name,
             before = None,
             after = Some(nodeAfter.networkNode.node.raw),
+            connectionChanges = Seq.empty,
             roleConnectionChanges = Seq.empty,
             definedInNetworkChanges = Seq.empty,
             tagDiffs = None,
@@ -127,6 +128,7 @@ class NodeChangeBuilderImpl(
             name = nodeAfter.networkNode.name,
             before = Some(nodeBefore.node.raw),
             after = Some(nodeAfter.networkNode.node.raw),
+            connectionChanges = Seq.empty,
             roleConnectionChanges = Seq.empty,
             definedInNetworkChanges = Seq.empty,
             tagDiffs = tagDiffs,
@@ -187,6 +189,7 @@ class NodeChangeBuilderImpl(
             name = nodeBefore.networkNode.name,
             before = Some(nodeBefore.networkNode.node.raw),
             after = None,
+            connectionChanges = Seq.empty,
             roleConnectionChanges = Seq.empty,
             definedInNetworkChanges = Seq.empty,
             tagDiffs = None,
@@ -241,6 +244,7 @@ class NodeChangeBuilderImpl(
               name = name,
               before = Some(before),
               after = Some(after),
+              connectionChanges = Seq.empty,
               roleConnectionChanges = Seq.empty,
               definedInNetworkChanges = Seq.empty,
               tagDiffs = tagDiffs,
@@ -283,6 +287,7 @@ class NodeChangeBuilderImpl(
               name = nodeBefore.networkNode.name,
               before = Some(before),
               after = Some(after),
+              connectionChanges = Seq.empty,
               roleConnectionChanges = Seq.empty,
               definedInNetworkChanges = Seq.empty,
               tagDiffs = tagDiffs,
@@ -322,6 +327,19 @@ class NodeChangeBuilderImpl(
         val facts = new NodeChangeFactAnalyzer(analysisData).facts(before, after)
         val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
         val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
+
+        val connectionChanges = if (nodeBefore.connection == nodeAfter.connection) {
+          Seq()
+        }
+        else {
+          context.networkAfter match {
+            case None => Seq()
+            case Some(network) =>
+              Seq(
+                RefBooleanChange(Ref(network.id, network.name), nodeAfter.connection)
+              )
+          }
+        }
 
         val roleConnectionChanges = if (nodeBefore.roleConnection == nodeAfter.roleConnection) {
           Seq()
@@ -371,6 +389,7 @@ class NodeChangeBuilderImpl(
           name = nodeAfter.networkNode.name,
           before = Some(before),
           after = Some(after),
+          connectionChanges = connectionChanges,
           roleConnectionChanges = roleConnectionChanges,
           definedInNetworkChanges = definedInNetworkChanges,
           tagDiffs = tagDiffs,

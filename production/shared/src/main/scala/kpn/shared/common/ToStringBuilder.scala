@@ -1,6 +1,6 @@
 package kpn.shared.common
 
-case class ToStringBuilder(className: String, strings: Seq[String]= Seq.empty) {
+case class ToStringBuilder(className: String, strings: Seq[String] = Seq.empty) {
 
   def field(name: String, value: Any): ToStringBuilder = {
     val fieldString = s"$name = $value"

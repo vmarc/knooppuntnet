@@ -8,12 +8,12 @@ case class RouteDiff(
   nameDiff: Option[RouteNameDiff] = None,
   roleDiff: Option[RouteRoleDiff] = None,
   factDiffs: Option[FactDiffs] = None,
-  nodeDiffs: Seq[RouteNodeDiff]= Seq.empty,
+  nodeDiffs: Seq[RouteNodeDiff] = Seq.empty,
   memberOrderChanged: Boolean = false,
   tagDiffs: Option[TagDiffs] = None
 ) {
 
-  def isEmpty: Boolean = ! nonEmpty
+  def isEmpty: Boolean = !nonEmpty
 
   def nonEmpty: Boolean = nameDiff.nonEmpty ||
     roleDiff.nonEmpty ||
@@ -27,6 +27,6 @@ case class RouteDiff(
   def investigate: Boolean = factDiffs.exists(_.investigate)
 
   def referencedElements: ReferencedElements = {
-    ReferencedElements.merge(nodeDiffs.map(_.referencedElements):_*)
+    ReferencedElements.merge(nodeDiffs.map(_.referencedElements): _*)
   }
 }

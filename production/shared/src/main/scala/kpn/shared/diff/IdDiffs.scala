@@ -7,9 +7,9 @@ object IdDiffs {
 }
 
 case class IdDiffs(
-  removed: Seq[Long]= Seq.empty,
-  added: Seq[Long]= Seq.empty,
-  updated: Seq[Long]= Seq.empty
+  removed: Seq[Long] = Seq.empty,
+  added: Seq[Long] = Seq.empty,
+  updated: Seq[Long] = Seq.empty
 ) {
 
   def ids: Seq[Long] = removed ++ added ++ updated

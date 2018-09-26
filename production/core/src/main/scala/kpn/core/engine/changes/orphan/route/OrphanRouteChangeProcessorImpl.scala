@@ -166,8 +166,8 @@ class OrphanRouteChangeProcessorImpl(
                 before = Some(routeAnalysis.toRouteData),
                 after = None,
                 removedWays = Seq.empty,
-                addedWays= Seq.empty,
-                updatedWays= Seq.empty,
+                addedWays = Seq.empty,
+                updatedWays = Seq.empty,
                 diffs = RouteDiff(),
                 facts = Seq(Fact.WasOrphan, Fact.Deleted)
               )

@@ -9,8 +9,8 @@ import kpn.core.common.TimestampUtil
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
 import kpn.core.engine.analysis.NetworkNodeBuilder
-import kpn.core.load.data.LoadedNode
 import kpn.core.engine.changes.ChangeSetContext
+import kpn.core.load.data.LoadedNode
 import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.NetworkType
@@ -139,12 +139,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                     changeType = ChangeType.InitialValue,
                     name = route.routeAnalysis.route.summary.name,
                     addedToNetwork = Seq(Ref(network.id, network.name)),
-                    removedFromNetwork= Seq.empty,
+                    removedFromNetwork = Seq.empty,
                     before = None,
                     after = Some(route.routeAnalysis.toRouteData),
-                    removedWays= Seq.empty,
-                    addedWays= Seq.empty,
-                    updatedWays= Seq.empty,
+                    removedWays = Seq.empty,
+                    addedWays = Seq.empty,
+                    updatedWays = Seq.empty,
                     diffs = RouteDiff(),
                     facts = route.routeAnalysis.route.facts
                   )
@@ -164,16 +164,17 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                     name = node.networkNode.name,
                     before = None,
                     after = Some(node.networkNode.node.raw),
-                    roleConnectionChanges= Seq.empty,
-                    definedInNetworkChanges= Seq.empty,
+                    connectionChanges = Seq.empty,
+                    roleConnectionChanges = Seq.empty,
+                    definedInNetworkChanges = Seq.empty,
                     tagDiffs = None,
                     nodeMoved = None,
-                    addedToRoute= Seq.empty,
-                    removedFromRoute= Seq.empty,
-                    addedToNetwork= Seq.empty,
-                    removedFromNetwork= Seq.empty,
+                    addedToRoute = Seq.empty,
+                    removedFromRoute = Seq.empty,
+                    addedToNetwork = Seq.empty,
+                    removedFromNetwork = Seq.empty,
                     factDiffs = FactDiffs(),
-                    facts= Seq.empty
+                    facts = Seq.empty
                   )
                 )
               }
@@ -211,13 +212,13 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                 key = context.buildChangeKey(analysis.route.id),
                 changeType = ChangeType.InitialValue,
                 name = analysis.route.summary.name,
-                addedToNetwork= Seq.empty,
-                removedFromNetwork= Seq.empty,
+                addedToNetwork = Seq.empty,
+                removedFromNetwork = Seq.empty,
                 before = None,
                 after = Some(analysis.toRouteData),
-                removedWays= Seq.empty,
-                addedWays= Seq.empty,
-                updatedWays= Seq.empty,
+                removedWays = Seq.empty,
+                addedWays = Seq.empty,
+                updatedWays = Seq.empty,
                 diffs = RouteDiff(),
                 facts = facts
               )
@@ -241,16 +242,17 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           name = loadedNode.name,
           before = None,
           after = Some(loadedNode.node.raw),
-          roleConnectionChanges= Seq.empty,
-          definedInNetworkChanges= Seq.empty,
+          connectionChanges = Seq.empty,
+          roleConnectionChanges = Seq.empty,
+          definedInNetworkChanges = Seq.empty,
           tagDiffs = None,
           nodeMoved = None,
-          addedToRoute= Seq.empty,
-          removedFromRoute= Seq.empty,
-          addedToNetwork= Seq.empty,
-          removedFromNetwork= Seq.empty,
+          addedToRoute = Seq.empty,
+          removedFromRoute = Seq.empty,
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
-          facts= Seq.empty
+          facts = Seq.empty
         )
       )
     }

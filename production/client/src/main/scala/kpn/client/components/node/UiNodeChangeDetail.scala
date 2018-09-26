@@ -37,6 +37,7 @@ object UiNodeChangeDetail {
     def render(): VdomElement = {
       <.div(
         facts,
+        connectionChanges,
         roleConnectionChanges,
         definedInNetworkChanges,
         referenceChanges(nodeChange.addedToRoute, nls("Added to route", "Toegevoegd aan route"), routeLink),
@@ -76,6 +77,26 @@ object UiNodeChangeDetail {
             networkMessage(text, refBooleanChange.ref)
           }
         )
+      }
+    }
+
+    private def connectionChanges = {
+      TagMod.when(nodeChange.connectionChanges.nonEmpty) {
+        nodeChange.connectionChanges.toTagMod { refBooleanChange =>
+          val text = if (refBooleanChange.after) {
+            nls(
+              """This node belongs to another network.""",
+              """Dit knooppunt behoort tot een ander netwerk."""
+            )
+          }
+          else {
+            nls(
+              """This node is no longer belongs to another network.""",
+              """Dit knooppunt behoort niet langer tot een ander netwerk."""
+            )
+          }
+          networkMessage(text, refBooleanChange.ref)
+        }
       }
     }
 

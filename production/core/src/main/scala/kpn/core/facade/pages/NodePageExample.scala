@@ -176,10 +176,24 @@ object NodePageExample {
             comment = Some("this is the comment"),
             None, // TODO CHANGE provide some value
             None, // TODO CHANGE provide some value
+            connectionChanges = Seq(
+              RefBooleanChange(
+                ref = Ref(1, "network one"),
+                after = true
+              ),
+              RefBooleanChange(
+                ref = Ref(2, "network two"),
+                after = false
+              )
+            ),
             roleConnectionChanges = Seq(
               RefBooleanChange(
                 ref = Ref(1, "network one"),
                 after = false
+              ),
+              RefBooleanChange(
+                ref = Ref(2, "network two"),
+                after = true
               )
             ),
             definedInNetworkChanges = Seq(

@@ -19,6 +19,7 @@ case class NodeChange(
   name: String,
   before: Option[RawNode],
   after: Option[RawNode],
+  connectionChanges: Seq[RefBooleanChange],
   roleConnectionChanges: Seq[RefBooleanChange],
   definedInNetworkChanges: Seq[RefBooleanChange],
   tagDiffs: Option[TagDiffs],
@@ -34,7 +35,8 @@ case class NodeChange(
   def id: Long = key.elementId
 
   def isEmpty: Boolean = {
-    roleConnectionChanges.isEmpty &&
+    connectionChanges.isEmpty &&
+      roleConnectionChanges.isEmpty &&
       definedInNetworkChanges.isEmpty &&
       tagDiffs.isEmpty &&
       nodeMoved.isEmpty &&
@@ -83,7 +85,8 @@ case class NodeChange(
     field("name", name).
     field("before", before).
     field("after", after).
-    field("connectionChanges", roleConnectionChanges).
+    field("connectionChanges", connectionChanges).
+    field("roleConnectionChanges", roleConnectionChanges).
     field("definedInNetworkChanges", definedInNetworkChanges).
     field("tagDiffs", tagDiffs).
     field("nodeMoved", nodeMoved).

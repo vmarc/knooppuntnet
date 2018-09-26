@@ -8,9 +8,9 @@ object ChangeSetElementRefs {
 }
 
 case class ChangeSetElementRefs(
-  removed: Seq[ChangeSetElementRef]= Seq.empty,
-  added: Seq[ChangeSetElementRef]= Seq.empty,
-  updated: Seq[ChangeSetElementRef]= Seq.empty
+  removed: Seq[ChangeSetElementRef] = Seq.empty,
+  added: Seq[ChangeSetElementRef] = Seq.empty,
+  updated: Seq[ChangeSetElementRef] = Seq.empty
 ) {
 
   def nonEmpty: Boolean = removed.nonEmpty || added.nonEmpty || updated.nonEmpty

@@ -455,7 +455,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            lastUpdated = Timestamp(2016, 8, 11),
     //            lastUpdatedBy = "user",
     //            tags = Tags.from(),
-    //            facts= Seq.empty
+    //            facts = Seq.empty
     //          )
     //        )
     //        true
@@ -566,7 +566,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            tags = Tags.from(
     //              "rcn_ref" -> "55"
     //            ),
-    //            facts= Seq.empty
+    //            facts = Seq.empty
     //          )
     //        )
     //        true
@@ -678,7 +678,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            lastUpdated = Timestamp(2016, 8, 11),
     //            lastUpdatedBy = "user",
     //            tags = Tags.from(),
-    //            facts= Seq.empty
+    //            facts = Seq.empty
     //          )
     //        )
     //        true
@@ -791,7 +791,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //            lastUpdated = Timestamp(2016, 8, 11),
     //            lastUpdatedBy = "user",
     //            tags = Tags.from(),
-    //            facts= Seq.empty
+    //            facts = Seq.empty
     //          )
     //        )
     //        true
