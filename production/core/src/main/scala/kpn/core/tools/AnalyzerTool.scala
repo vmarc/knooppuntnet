@@ -69,6 +69,7 @@ object AnalyzerTool {
     val changeDatabase = new DatabaseImpl(couch, options.changeDatabaseName)
     val taskDatabase = new DatabaseImpl(couch, options.taskDatabaseName)
     new AnalysisToolConfiguration(
+      options.id,
       system,
       analysisDatabase,
       changeDatabase,
@@ -89,8 +90,8 @@ class AnalyzerTool(config: Configuration) {
   private val engine = new AnalyzerEngineImpl(config)
 
   def analyze(): Unit = {
-    config.statusRepository.analysisStatus match {
-      case None => log.error("Could not start: failed to read " + config.dirs.analysisStatus.getAbsolutePath)
+    config.analysisStatus match {
+      case None => log.error("Could not start: failed to read " + config.analysisStatusPath)
       case Some(replicationId) => analyze(replicationId)
     }
   }
@@ -110,7 +111,7 @@ class AnalyzerTool(config: Configuration) {
     if (replicationId.number <= updaterReplicationId.number) {
       if (oper.isActive) {
         engine.process(replicationId)
-        config.statusRepository.writeAnalysisStatus(replicationId)
+        config.writeAnalysisStatus(replicationId)
         if (oper.isActive) {
           processLoop(replicationId)
         }

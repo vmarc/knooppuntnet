@@ -36,8 +36,16 @@ class OperationActions {
     Process("/kpn/scripts/start_updater.sh").!!
   }
 
-  def startAnalyzer(): String = {
-    Process("/kpn/scripts/start_analyzer.sh").!!
+  def startAnalyzer1(): String = {
+    Process("/kpn/scripts/start_analyzer1.sh").!!
+  }
+
+  def startAnalyzer2(): String = {
+    Process("/kpn/scripts/start_analyzer2.sh").!!
+  }
+
+  def startAnalyzer3(): String = {
+    Process("/kpn/scripts/start_analyzer3.sh").!!
   }
 
   def stopMainDispatcher(): String = {
@@ -58,8 +66,18 @@ class OperationActions {
     ""
   }
 
-  def stopAnalyzer(): String = {
+  def stopAnalyzer1(): String = {
     new Stop().stop("5553")
+    ""
+  }
+
+  def stopAnalyzer2(): String = {
+    new Stop().stop("5554")
+    ""
+  }
+
+  def stopAnalyzer3(): String = {
+    new Stop().stop("5555")
     ""
   }
 }

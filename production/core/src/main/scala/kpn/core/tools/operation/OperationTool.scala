@@ -22,8 +22,16 @@ class OperationTool {
 
   private val actions = new OperationActions()
 
-  private val reader = {
-    val processes = new StringsCompleter("main-dispatcher", "areas-dispatcher", "replicator", "updater", "analyzer")
+  private val reader: ConsoleReader = {
+    val processes = new StringsCompleter(
+      "main-dispatcher",
+      "areas-dispatcher",
+      "replicator",
+      "updater",
+      "analyzer1",
+      "analyzer2",
+      "analyzer3"
+    )
     new ConsoleReader {
       setPrompt("kpn> ")
       addCompleter(
@@ -64,12 +72,16 @@ class OperationTool {
       case "start areas-dispatcher" => actions.startAreasDispatcher()
       case "start replicator" => actions.startReplicator()
       case "start updater" => actions.startUpdater()
-      case "start analyzer" => actions.startAnalyzer()
+      case "start analyzer1" => actions.startAnalyzer1()
+      case "start analyzer2" => actions.startAnalyzer2()
+      case "start analyzer3" => actions.startAnalyzer3()
       case "stop main-dispatcher" => actions.stopMainDispatcher()
       case "stop areas-dispatcher" => actions.stopAreasDispatcher()
       case "stop replicator" => actions.stopReplicator()
       case "stop updater" => actions.stopUpdater()
-      case "stop analyzer" => actions.stopAnalyzer()
+      case "stop analyzer1" => actions.stopAnalyzer1()
+      case "stop analyzer2" => actions.stopAnalyzer2()
+      case "stop analyzer3" => actions.stopAnalyzer3()
       case _ => "Unknown command"
     }
   }

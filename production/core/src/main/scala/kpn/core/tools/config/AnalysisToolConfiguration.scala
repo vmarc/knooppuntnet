@@ -5,6 +5,7 @@ import kpn.core.db.couch.Database
 import kpn.core.repository.AnalysisRepositoryNoop
 
 class AnalysisToolConfiguration(
+  id: Int,
   system: ActorSystem,
   analysisDatabase: Database,
   changeDatabase: Database,
@@ -17,6 +18,7 @@ class AnalysisToolConfiguration(
   private val initialLoadAnalysisRepository = if (initialLoad) analysisRepository else new AnalysisRepositoryNoop()
 
   val config = new Configuration(
+    id,
     system,
     analysisDatabase,
     changeDatabase,

@@ -18,8 +18,10 @@ class SystemStatus(
     Seq(
       ("replication", statusRepository.replicatorStatus),
       ("update     ", statusRepository.updaterStatus),
-      ("analysis   ", statusRepository.analysisStatus),
-      ("changes    ", statusRepository.changesStatus)
+      ("changes    ", statusRepository.changesStatus),
+      ("analysis1  ", statusRepository.analysisStatus1),
+      ("analysis2  ", statusRepository.analysisStatus2),
+      ("analysis3  ", statusRepository.analysisStatus3)
     ).map {
       case (title, Some(replicationId)) =>
         val timestamp = replicationStateRepository.read(replicationId)

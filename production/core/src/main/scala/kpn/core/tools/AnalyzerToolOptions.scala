@@ -10,6 +10,10 @@ object AnalyzerToolOptions {
     new scopt.OptionParser[AnalyzerToolOptions]("AnalyzerTool") {
       head("AnalyzerTool")
 
+      opt[Int]('i', "id") required() valueName "<analyzer-id>" action { (x, c) =>
+        c.copy(id = x)
+      } text "analyzer id"
+
       opt[String]('c', "changes") required() valueName "<changes-database>" action { (x, c) =>
         c.copy(changeDatabaseName = x)
       } text "changes database name"
@@ -31,6 +35,7 @@ object AnalyzerToolOptions {
 }
 
 case class AnalyzerToolOptions(
+  id: Int = 1,
   analysisDatabaseName: String = "",
   changeDatabaseName: String = "",
   taskDatabaseName: String = "",

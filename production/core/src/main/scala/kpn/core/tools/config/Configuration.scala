@@ -31,12 +31,14 @@ import kpn.core.repository.TaskRepositoryImpl
 import kpn.core.tools.analyzer.CouchIndexer
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
+import kpn.shared.ReplicationId
 
 object Configuration {
   def tempAnalysisSpeedUp: Boolean = true
 }
 
 class Configuration(
+  id: Int,
   system: ActorSystem,
   analysisDatabase: Database,
   changeDatabase: Database,
@@ -48,6 +50,33 @@ class Configuration(
   val dirs = Dirs()
 
   val statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
+
+  def analysisStatus: Option[ReplicationId] = {
+    id match {
+      case 1 => statusRepository.analysisStatus1
+      case 2 => statusRepository.analysisStatus2
+      case 3 => statusRepository.analysisStatus3
+      case _ => throw new IllegalArgumentException("unexpected analyzer id " + id)
+    }
+  }
+
+  def analysisStatusPath: String = {
+    id match {
+      case 1 => dirs.analysisStatus1.getAbsolutePath
+      case 2 => dirs.analysisStatus2.getAbsolutePath
+      case 3 => dirs.analysisStatus3.getAbsolutePath
+      case _ => throw new IllegalArgumentException("unexpected analyzer id " + id)
+    }
+  }
+
+  def writeAnalysisStatus(replicationId: ReplicationId): Unit = {
+    id match {
+      case 1 => statusRepository.writeAnalysisStatus1(replicationId)
+      case 2 => statusRepository.writeAnalysisStatus2(replicationId)
+      case 3 => statusRepository.writeAnalysisStatus3(replicationId)
+      case _ => throw new IllegalArgumentException("unexpected analyzer id " + id)
+    }
+  }
 
   val changeSetInfoApi = new ChangeSetInfoApiImpl(dirs.changeSets, system)
 

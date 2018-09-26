@@ -12,15 +12,23 @@ class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
 
   def updaterStatus: Option[ReplicationId] = read(dirs.updateStatus)
 
-  def analysisStatus: Option[ReplicationId] = read(dirs.analysisStatus)
-
   def changesStatus: Option[ReplicationId] = read(dirs.changesStatus)
+
+  def analysisStatus1: Option[ReplicationId] = read(dirs.analysisStatus1)
+
+  def analysisStatus2: Option[ReplicationId] = read(dirs.analysisStatus2)
+
+  def analysisStatus3: Option[ReplicationId] = read(dirs.analysisStatus3)
 
   def writeReplicationStatus(replicationId: ReplicationId): Unit = write(dirs.replicationStatus, replicationId)
 
   def writeUpdateStatus(replicationId: ReplicationId): Unit = write(dirs.updateStatus, replicationId)
 
-  def writeAnalysisStatus(replicationId: ReplicationId): Unit = write(dirs.analysisStatus, replicationId)
+  def writeAnalysisStatus1(replicationId: ReplicationId): Unit = write(dirs.analysisStatus1, replicationId)
+
+  def writeAnalysisStatus2(replicationId: ReplicationId): Unit = write(dirs.analysisStatus2, replicationId)
+
+  def writeAnalysisStatus3(replicationId: ReplicationId): Unit = write(dirs.analysisStatus3, replicationId)
 
   def writeChangesStatus(replicationId: ReplicationId): Unit = write(dirs.changesStatus, replicationId)
 

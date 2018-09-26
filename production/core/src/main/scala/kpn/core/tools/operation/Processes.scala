@@ -9,7 +9,9 @@ object Processes {
       processInfo(lines.tail, "areas-dispatcher", "bin/dispatcher --areas"),
       processInfo(lines.tail, "replicator", "replicator-log4j2.xml"),
       processInfo(lines.tail, "updater", "updater-log4j2.xml"),
-      processInfo(lines.tail, "analyzer", "analyzer-log4j2.xml"),
+      processInfo(lines.tail, "analyzer1", "analyzer-1-log4j2.xml"),
+      processInfo(lines.tail, "analyzer2", "analyzer-2-log4j2.xml"),
+      processInfo(lines.tail, "analyzer3", "analyzer-3-log4j2.xml"),
       processInfos(lines.tail, "query", "overpass/bin/osm3s_query")
     )
   }
@@ -42,8 +44,18 @@ case class Processes(
   areasDispatcher: ProcessInfo,
   replicator: ProcessInfo,
   updater: ProcessInfo,
-  analyzer: ProcessInfo,
+  analyzer1: ProcessInfo,
+  analyzer2: ProcessInfo,
+  analyzer3: ProcessInfo,
   queries: Seq[ProcessInfo]
 ) {
-  def all: Seq[ProcessInfo] = Seq(mainDispatcher, areasDispatcher, replicator, updater, analyzer) ++ queries
+  def all: Seq[ProcessInfo] = Seq(
+    mainDispatcher,
+    areasDispatcher,
+    replicator,
+    updater,
+    analyzer1,
+    analyzer2,
+    analyzer3
+  ) ++ queries
 }
