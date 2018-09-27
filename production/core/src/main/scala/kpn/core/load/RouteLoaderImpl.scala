@@ -42,7 +42,7 @@ class RouteLoaderImpl(
       val rawData = rawData1.copy(timestamp = Some(timestamp))
       rawData.relationWithId(routeId) match {
         case None =>
-          log.error(s"Could not find route $routeId in raw data at ${timestamp.iso}\n---\n$xmlString\n---")
+          log.warn(s"Could not find route $routeId in raw data at ${timestamp.iso}, assume route does not exist, continue processing\n---\n$xmlString\n---")
           None
 
         case Some(rawRelation) =>
@@ -54,7 +54,7 @@ class RouteLoaderImpl(
               val name = relation.tags("note").getOrElse("no-name")
               Some(LoadedRoute(country, networkType, name, data, relation))
             case None =>
-              log.error(s"Route $routeId load at ${timestamp.iso} does not contain networkType (tag 'network')\n---\n$xmlString\n---")
+              log.warn(s"Route $routeId load at ${timestamp.iso} does not contain networkType (tag 'network'), continue processing\n---\n$xmlString\n---")
               None
           }
       }

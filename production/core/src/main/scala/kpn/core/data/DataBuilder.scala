@@ -140,6 +140,6 @@ class DataBuilder(networkType: NetworkType, rawData: RawData, log: Log = DataBui
   }
 
   private def inconsistant(message: String): Unit = {
-    log.error("data inconsistancy: " + message)
+    log.warn("data inconsistancy: " + message)
   }
 }
