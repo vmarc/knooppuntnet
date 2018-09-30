@@ -20,7 +20,7 @@ class GeometryDiffAnalyzer {
   }
 
   private def toSegments(ways: Seq[WayGeometry]): Set[PointSegment] = {
-    ways.flatMap(_.nodes.sliding(2).map { case Seq(p1, p2) =>
+    ways.filter(_.nodes.size > 1).flatMap(_.nodes.sliding(2).map { case Seq(p1, p2) =>
       PointSegment(p1, p2).normalized
     }).toSet
   }
