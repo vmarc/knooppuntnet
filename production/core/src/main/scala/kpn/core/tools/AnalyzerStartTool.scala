@@ -109,17 +109,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
     config.analysisDataLoader.load(timestamp)
 
-    processNetworks(context, timestamp, NetworkType.hiking)
-    processNetworks(context, timestamp, NetworkType.bicycle)
-    processNetworks(context, timestamp, NetworkType.horse)
-    processNetworks(context, timestamp, NetworkType.motorboat)
-    processNetworks(context, timestamp, NetworkType.canoe)
-    processNetworks(context, timestamp, NetworkType.inlineSkates)
+    processNetworks(context, timestamp)
     processOrphanRoutes(context, timestamp)
     processOrphanNodes(context, timestamp)
   }
 
-  private def processNetworks(context: ChangeSetContext, timestamp: Timestamp, networkType: NetworkType): Unit = {
+  private def processNetworks(context: ChangeSetContext, timestamp: Timestamp): Unit = {
 
     val networkIds = config.analysisData.networks.watched.ids.toSeq
     networkIds.zipWithIndex.foreach { case (networkId, index) =>
