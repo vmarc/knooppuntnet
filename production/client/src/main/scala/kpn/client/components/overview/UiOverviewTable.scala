@@ -202,15 +202,14 @@ object UiOverviewTable {
     private def counts(info: UiOverviewInfo): TagMod = {
       Seq(
         <.td(info.counts.total),
-        <.td(info.counts.nlRwn),
         <.td(info.counts.nlRcn),
+        <.td(info.counts.nlRwn),
         <.td(info.counts.nlRhn),
         <.td(info.counts.nlRmn),
         <.td(info.counts.nlRpn),
         <.td(info.counts.nlRin),
-        <.td(info.counts.beRwn),
         <.td(info.counts.beRcn),
-        <.td(info.counts.deRwn),
+        <.td(info.counts.beRwn),
         <.td(info.counts.deRcn)
       ).toTagMod
     }
@@ -222,17 +221,16 @@ object UiOverviewTable {
           headerCell(nls("Total", "Totaal")),
           headerCellCountry(6, nls("The Netherlands", "Nederland")),
           headerCellCountry(2, nls("Belgium", "België")),
-          headerCellCountry(2, nls("Germany", "Duitsland")),
+          headerCellCountry(1, nls("Germany", "Duitsland")),
           headerCell(nls("Comment", "Commentaar"))
         ),
         <.tr(
-          headerCellNetworkType(NetworkType.hiking),
           headerCellNetworkType(NetworkType.bicycle),
+          headerCellNetworkType(NetworkType.hiking),
           headerCellNetworkType(NetworkType.horse),
           headerCellNetworkType(NetworkType.motorboat),
           headerCellNetworkType(NetworkType.canoe),
           headerCellNetworkType(NetworkType.inlineSkates),
-          headerCellNetworkType(NetworkType.hiking),
           headerCellNetworkType(NetworkType.bicycle),
           headerCellNetworkType(NetworkType.hiking),
           headerCellNetworkType(NetworkType.bicycle)

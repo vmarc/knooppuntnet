@@ -115,18 +115,9 @@ object UiOverviewList {
       Seq(
         <.tr(
           <.td(
-            ^.rowSpan := (if (Country.nl == country) 5 else 2),
+            ^.rowSpan := (if (Country.nl == country) 6 else if (Country.be == country) 2 else 1),
             countryName
           ),
-          <.td(
-            UiNetworkTypeIcon(NetworkType.hiking)
-          ),
-          <.td(
-            UiOverviewPage.Styles.valueColumn,
-            rwn
-          )
-        ),
-        <.tr(
           <.td(
             UiNetworkTypeIcon(NetworkType.bicycle)
           ),
@@ -135,6 +126,17 @@ object UiOverviewList {
             rcn
           )
         ),
+        TagMod.when(Country.de != country) {
+          <.tr(
+            <.td(
+              UiNetworkTypeIcon(NetworkType.hiking)
+            ),
+            <.td(
+              UiOverviewPage.Styles.valueColumn,
+              rwn
+            )
+          )
+        },
         TagMod.when(Country.nl == country) {
           <.tr(
             <.td(
