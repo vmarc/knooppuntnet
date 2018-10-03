@@ -4,6 +4,7 @@ import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.engine.analysis.Interpreter
+import kpn.core.engine.analysis.OneWayAnalyzer
 import kpn.core.engine.analysis.WayAnalyzer
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.core.engine.analysis.route.analyzers.BigGermanBicycleRouteWithoutNameRouteAnalyzer
@@ -129,14 +130,14 @@ object RouteAnalyzerFunctions {
 
   def oneWay(member: RouteMember): WayDirection = {
     member match {
-      case routeMemberWay: RouteMemberWay => WayAnalyzer.oneWay(routeMemberWay.way)
+      case routeMemberWay: RouteMemberWay => new OneWayAnalyzer(routeMemberWay.way).direction
       case _ => Both
     }
   }
 
   def oneWayTags(member: RouteMember): Tags = {
     member match {
-      case routeMemberWay: RouteMemberWay => WayAnalyzer.oneWayTags(routeMemberWay.way)
+      case routeMemberWay: RouteMemberWay => OneWayAnalyzer.oneWayTags(routeMemberWay.way)
       case _ => Tags.empty
     }
   }

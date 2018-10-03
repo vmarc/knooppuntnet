@@ -103,7 +103,7 @@ class NodeFragmentConnectionAnalyzerTest extends FunSuite with Matchers with Sha
   }
 
   private def canConnect(networkTypes: Seq[NetworkType], direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
-    networkTypes.forall(networkType => canConnect(NetworkType.hiking, direction, node, role))
+    networkTypes.forall(networkType => canConnect(networkType, direction, node, role))
   }
 
   private def canConnect(networkType: NetworkType, direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
