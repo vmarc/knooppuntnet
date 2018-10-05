@@ -262,9 +262,11 @@ object UiNetworkFactsPage {
               nls("NetworkExtraMemberNode", "NetwerkExtraNode"),
               " (",
               networkExtraMemberNodes.size,
-              ")"
+              ") "
             )
           ),
+          UiFactLevel(Fact.NetworkExtraMemberNode.level),
+          UiFactDescription(Fact.NetworkExtraMemberNode),
           networkExtraMemberNodes.toTagMod { networkExtraMemberNode =>
             UiDetail(
               <.div(
@@ -287,9 +289,11 @@ object UiNetworkFactsPage {
               nls("NetworkExtraMemberWay", "NetwerkExtraWay"),
               " (",
               networkExtraMemberWays.size,
-              ")"
+              ") "
             )
           ),
+          UiFactLevel(Fact.NetworkExtraMemberWay.level),
+          UiFactDescription(Fact.NetworkExtraMemberWay),
           networkExtraMemberWays.toTagMod { networkExtraMemberWay =>
             UiDetail(
               <.div(
@@ -312,9 +316,11 @@ object UiNetworkFactsPage {
               nls("NetworkExtraMemberRelation", "NetwerkExtraRelatie"),
               " (",
               networkExtraMemberRelations.size,
-              ")"
+              ") "
             )
           ),
+          UiFactLevel(Fact.NetworkExtraMemberRelation.level),
+          UiFactDescription(Fact.NetworkExtraMemberRelation),
           networkExtraMemberRelations.toTagMod { networkExtraMemberRelation =>
             UiDetail(
               <.div(

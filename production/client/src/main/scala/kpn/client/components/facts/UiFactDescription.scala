@@ -164,7 +164,7 @@ object UiFactDescription {
           UiMarked(
             if (nlsNL) {
               """De netwerk relatie bevat 1 of meerdere onverwachte knopen (we verwachten enkel knopen die
-              ook echt een knooppunt definitie zijn, or een netwerk kaart)."""
+              ook echt een knooppunt definitie zijn, of een netwerk kaart)."""
             } else {
               """The network relation contains members of type _"node"_ that are unexpected (we expect
               only network nodes or information maps as members in the network relation)."""
@@ -188,7 +188,7 @@ object UiFactDescription {
           UiMarked(
             if (nlsNL) {
               """De netwerk relatie bevat overwachte relaties. In network relaties verwachten we enkel
-              route relaties of knooppunten, geen relaties anders dan route relaties."""
+              route relaties of knooppunten, geen relaties die geen route relaties zijn."""
             } else {
               """The network relation contains members of type _"relation"_ that are unexpected
               (expect only valid route relations or network nodes as members in the node network relation)."""
