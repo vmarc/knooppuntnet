@@ -108,7 +108,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     parsedRelation2.relationMembers.size should equal(0)
 
     log.messages.size should equal(1)
-    log.messages.head should equal("ERROR data inconsistancy: relation 2 references parent relation 1 as member, continue processing without this reference")
+    log.messages.head should equal("WARN data inconsistancy: relation 2 references parent relation 1 as member, continue processing without this reference")
   }
 
   test("way node missing") {
@@ -123,7 +123,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val data = new DataBuilder(NetworkType.hiking, rawData, log).data
 
     log.messages.size should equal(1)
-    log.messages.head should equal("ERROR data inconsistancy: node 102 (referenced from way 10) not found in data")
+    log.messages.head should equal("WARN data inconsistancy: node 102 (referenced from way 10) not found in data")
   }
 
   test("relation member node missing") {
@@ -141,7 +141,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val data = new DataBuilder(NetworkType.hiking, rawData, log).data
 
     log.messages.size should equal(1)
-    log.messages.head should equal("ERROR data inconsistancy: node 101 (referenced from relation 1) not found in data")
+    log.messages.head should equal("WARN data inconsistancy: node 101 (referenced from relation 1) not found in data")
   }
 
   test("relation member way missing") {
@@ -158,7 +158,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val data = new DataBuilder(NetworkType.hiking, rawData, log).data
 
     log.messages.size should equal(1)
-    log.messages.head should equal("ERROR data inconsistancy: way 10 (referenced from relation 1) not found in data")
+    log.messages.head should equal("WARN data inconsistancy: way 10 (referenced from relation 1) not found in data")
   }
 
   test("relation member relation missing") {
@@ -175,7 +175,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val data = new DataBuilder(NetworkType.hiking, rawData, log).data
 
     log.messages.size should equal(1)
-    log.messages.head should equal("ERROR data inconsistancy: relation 2 not found")
+    log.messages.head should equal("WARN data inconsistancy: relation 2 not found")
   }
 
   test("unknown relation member type") {
@@ -192,7 +192,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val data = new DataBuilder(NetworkType.hiking, rawData, log).data
 
     log.messages.size should equal(1)
-    log.messages.head should equal("""ERROR data inconsistancy: unknown member type "bla" in relation 1""")
+    log.messages.head should equal("""WARN data inconsistancy: unknown member type "bla" in relation 1""")
   }
 
   test("ignore relation self references") {
@@ -224,6 +224,6 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
 
     log.messages.foreach(println)
     log.messages.size should equal(1)
-    log.messages.head should equal("ERROR data inconsistancy: relation 1 contains self reference, continue processing without this reference")
+    log.messages.head should equal("WARN data inconsistancy: relation 1 contains self reference, continue processing without this reference")
   }
 }
