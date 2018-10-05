@@ -15,7 +15,6 @@ import kpn.shared.data.Relation
 import kpn.shared.network.NetworkShape
 
 case class Network(
-  timestamp: Timestamp,
   country: Option[Country],
   networkType: NetworkType,
   relation: Relation,

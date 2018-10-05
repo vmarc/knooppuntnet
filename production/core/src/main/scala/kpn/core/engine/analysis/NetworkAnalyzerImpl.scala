@@ -194,7 +194,6 @@ class NetworkAnalyzerImpl(
     )
 
     Network(
-      data.timestamp.get,
       networkRelationAnalysis.country,
       data.networkType,
       networkRelation,
