@@ -23,6 +23,7 @@ object TimestampLocal {
       case None =>
       case Nil =>
       case timestamp: Timestamp => timestampLocal.makeLocal(timestamp)
+      case collection: Seq[Any] => collection.foreach(localize)
       case _ => walk(root)
     }
   }

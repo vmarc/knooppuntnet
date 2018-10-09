@@ -255,9 +255,10 @@ class AnalyzerFacadeImpl(
 
   private def reply[T](label: String, result: Option[T]): ApiResponse[T] = {
     log.infoElapsed(s"timestamp localize " + label) {
-      TimestampLocal.localize(result)
+      val r = ApiResponse(analysisRepository.lastUpdated(), 1, result)
+      TimestampLocal.localize(r)
+      r
     }
-    ApiResponse(analysisRepository.lastUpdated(), 1, result)
   }
 
 }
