@@ -6,11 +6,9 @@ import kpn.core.engine.analysis.route.RouteNodeAnalysis
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.util.Unique
 import kpn.shared.Fact
-import kpn.shared.Fact.RouteIncomplete
 import kpn.shared.Fact.RouteNodeMissingInWays
 import kpn.shared.Fact.RouteRedundantNodes
 import kpn.shared.Fact.RouteReversed
-import kpn.shared.Fact.RouteWithoutWays
 import kpn.shared.data.Node
 import kpn.shared.data.NodeMember
 import kpn.shared.data.WayMember
@@ -39,21 +37,17 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     val routeNodeAnalysis = doAnalyze()
 
     if (!context.connection || routeNodeAnalysis.hasStartAndEndNode) {
-      if (!context.hasFact(RouteWithoutWays, RouteIncomplete)) {
-        // do not report this fact if route has no ways or is known to be incomplete
+      if (!routeNodeAnalysis.startNodes.exists(_.definedInWay) ||
+        !routeNodeAnalysis.endNodes.exists(_.definedInWay)) {
+        facts += RouteNodeMissingInWays
+      }
 
-        if (!routeNodeAnalysis.startNodes.exists(_.definedInWay) ||
-          !routeNodeAnalysis.endNodes.exists(_.definedInWay)) {
-          facts += RouteNodeMissingInWays
-        }
+      if (routeNodeAnalysis.redundantNodes.nonEmpty) {
+        facts += RouteRedundantNodes
+      }
 
-        if (routeNodeAnalysis.redundantNodes.nonEmpty) {
-          facts += RouteRedundantNodes
-        }
-
-        if (routeNodeAnalysis.reversed && context.loadedRoute.relation.wayMembers.size > 1) {
-          facts += RouteReversed
-        }
+      if (routeNodeAnalysis.reversed && context.loadedRoute.relation.wayMembers.size > 1) {
+        facts += RouteReversed
       }
     }
 

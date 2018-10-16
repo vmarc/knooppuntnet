@@ -3,13 +3,13 @@ package kpn.core.engine.analysis.route.analyzers
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.shared.Fact.RouteIncomplete
 
-object FixmeIncompleteRouteAnalyzer extends RouteAnalyzer {
+object IncompleteRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    new FixmeIncompleteRouteAnalyzer(context).analyze
+    new IncompleteRouteAnalyzer(context).analyze
   }
 }
 
-class FixmeIncompleteRouteAnalyzer(context: RouteAnalysisContext) {
+class IncompleteRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     if (hasFixmeIncompleteTag) {

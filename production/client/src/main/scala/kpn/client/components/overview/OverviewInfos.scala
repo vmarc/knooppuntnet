@@ -154,6 +154,25 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
+  val routeIncompleteOkInfo: UiOverviewInfo = factDetailCounts(Fact.RouteIncompleteOk) {
+    UiMarked(
+      if (nlsEN) {
+        """|Number of routes that are marked as having an incomplete definition, but
+           |that look ok after analysis.
+           |
+           |A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
+           |value _"incomplete"_ in the route relation.
+        """.stripMargin
+      } else {
+        """|Aantal routes die gemarkeerd zijn als onvolledig, maar die na analyse ok lijken te zijn.
+           |
+           |Deze routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van
+           |een tag met sleutel _"fixme"_ en waarde _"incomplete"_ in de route relatie.
+        """.stripMargin
+      }
+    )
+  }
+
   val routeFixmetodoInfo: UiOverviewInfo = factDetailCounts(Fact.RouteFixmetodo) {
     UiMarked(
       if (nlsEN) {

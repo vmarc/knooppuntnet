@@ -67,6 +67,15 @@ case class RouteAnalysisContext(
     }
   }
 
+  def withoutFacts(excludedFacts: Fact*): RouteAnalysisContext = {
+    if (excludedFacts.nonEmpty) {
+      copy(facts = facts.filterNot(excludedFacts.contains))
+    }
+    else {
+      this
+    }
+  }
+
   def hasFact(expectedFacts: Fact*): Boolean = {
     expectedFacts.exists(f => facts.contains(f))
   }

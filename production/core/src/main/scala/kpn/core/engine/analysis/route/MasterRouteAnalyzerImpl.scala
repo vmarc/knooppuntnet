@@ -5,15 +5,16 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.OneWayAnalyzer
-import kpn.core.engine.analysis.WayAnalyzer
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.core.engine.analysis.route.analyzers.BigGermanBicycleRouteWithoutNameRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.BigGermanBicycleRouteWithoutNetworkNodesAnalyzer
 import kpn.core.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.FixmeIncompleteRouteAnalyzer
+import kpn.core.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.core.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.ForeignCountryRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.GermanHikingRouteAnalyzer
+import kpn.core.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
+import kpn.core.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IngoredRouteAnalysisBuilder
 import kpn.core.engine.analysis.route.analyzers.NetworkTaggedAsRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.OverlappingWaysRouteAnalyzer
@@ -64,7 +65,7 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         BigGermanBicycleRouteWithoutNameRouteAnalyzer,
         RouteTagRouteAnalyzer,
         WithoutWaysRouteAnalyzer,
-        FixmeIncompleteRouteAnalyzer,
+        IncompleteRouteAnalyzer,
         FixmeTodoRouteAnalyzer,
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer,
@@ -78,7 +79,9 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         RouteFragmentAnalyzer,
         RouteStructureAnalyzer,
         RouteMemberAnalyzer,
-        RouteMapAnalyzer
+        RouteMapAnalyzer,
+        IncompleteOkRouteAnalyzer,
+        FactCombinationAnalyzer
       )
 
       doAnalyze(analyzers, context)

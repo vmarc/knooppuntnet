@@ -44,6 +44,7 @@ object UiOverviewList {
         infoRow(infos.routeBrokenCountInfo),
         infoRow(infos.routeBrokenPercentageInfo),
         infoRow(infos.routeIncompleteInfo),
+        infoRow(infos.routeIncompleteOkInfo),
         infoRow(infos.routeFixmetodoInfo),
         infoRow(infos.orphanNodeCountInfo),
         infoRow(infos.orphanRouteCountInfo),

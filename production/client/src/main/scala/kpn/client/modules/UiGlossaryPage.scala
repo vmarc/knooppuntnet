@@ -36,6 +36,7 @@ import kpn.shared.Fact.RouteBroken
 import kpn.shared.Fact.RouteEndNodeMismatch
 import kpn.shared.Fact.RouteFixmetodo
 import kpn.shared.Fact.RouteIncomplete
+import kpn.shared.Fact.RouteIncompleteOk
 import kpn.shared.Fact.RouteInvalidSortingOrder
 import kpn.shared.Fact.RouteNameMissing
 import kpn.shared.Fact.RouteNodeMissingInWays
@@ -164,6 +165,7 @@ object UiGlossaryPage {
           fact(OrphanRoute),
           fact(OrphanNode),
           fact(RouteIncomplete),
+          fact(RouteIncompleteOk),
           fact(RouteUnaccessible),
           fact(RouteInvalidSortingOrder),
           fact(RouteReversed),

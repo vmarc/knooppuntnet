@@ -76,6 +76,7 @@ object Fact {
   val RouteNodeNameMismatch: Fact = f.fact(205, "RouteNodeNameMismatch", "OnverwachteNaam", FactLevel.INFO)
   val RouteOneWay: Fact = f.fact(206, "RouteOneWay", "RouteEnkeleRichting", FactLevel.INFO)
   val RouteNotOneWay: Fact = f.fact(207, "RouteNotOneWay", "RouteNietEnkeleRichting", FactLevel.INFO)
+  val RouteIncompleteOk: Fact = f.fact(208, "RouteIncompleteOk", "OnvolledigeRouteOk", FactLevel.INFO)
 
   // other
   val RouteBroken: Fact = f.fact(303, "RouteBroken", "RouteFout", FactLevel.OTHER)

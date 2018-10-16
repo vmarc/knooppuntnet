@@ -44,6 +44,7 @@ object UiOverviewTable {
             routeNotContinious(),
             brokenRoutes().toTagMod,
             infoRow(infos.routeIncompleteInfo),
+            infoRow(infos.routeIncompleteOkInfo),
             infoRow(infos.routeFixmetodoInfo),
             infoRow(infos.orphanNodeCountInfo),
             orphanRoutes().toTagMod,

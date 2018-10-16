@@ -114,5 +114,4 @@ object UiRouteSummary {
       }
     }
   }
-
 }

@@ -125,14 +125,14 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
           }
         }
 
-        if (!Seq(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete, RouteOneWay).exists(facts.contains)) {
+        if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
           if (structure.forwardSegment.isEmpty || structure.forwardSegment.get.broken ||
             structure.backwardSegment.isEmpty || structure.backwardSegment.get.broken) {
             facts += RouteNotContinious
           }
         }
 
-        if (!Seq(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward).exists(facts.contains)) {
+        if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
           if (structure.unusedSegments.nonEmpty) {
             facts += RouteUnusedSegments
           }
