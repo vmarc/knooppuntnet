@@ -1,8 +1,13 @@
 {
   "_id": "black-list",
-  "_rev": "1-1d2a10d803b63b1899a07c2670c844e4",
+  "_rev": "1-8c74a6dda7b9cfde7db7579e85efdcbe",
   "blackList": {
     "networks": [
+      {
+        "id": 1726882,
+        "name": "Fietsknooppuntennetwerken in België",
+        "reason": "be - network collection"
+      },
       {
         "id": 33216,
         "name": "Radverkehrsnetz NRW",
@@ -38,6 +43,42 @@
         "id": 226721,
         "name": "R-Radwegenetz NRW",
         "reason": "de - network collection"
+      },
+
+      {
+        "id": 22835,
+        "name": "R27 [NRW]",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 2043827,
+        "name": "Radverkehrsnetz NRW, Stadt Düsseldorf",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 39015,
+        "name": "Route Master aller Mulderadrouten",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 1998887,
+        "name": "Euro Route R1 De (Nordrhein-Westfalen)",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 2137043,
+        "name": "Sächsische Städteroute",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 1990499,
+        "name": "100 Schlösser Route (West)",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 2243619,
+        "name": "Thüringer Städtekette",
+        "reason": "de - not a node network"
       },
       {
         "id": 1764005,
@@ -121,8 +162,6 @@
         "name": "IJssel-Route",
         "reason": "nl/rcn - not a node network"
       },
-
-
       {
         "id": 2046009,
         "name": "RAVeL Ligne 618 Villeroux - Martelange",
@@ -138,7 +177,6 @@
         "name": "Eifel-Ardennen-Radweg",
         "reason": "be/rcn - not a node network"
       },
-
       {
         "id": 3921610,
         "name": "Knotenpunktsystem RadRegionRheinland e.V.",
@@ -199,7 +237,6 @@
         "name": "R12 [NRW]",
         "reason": "de/rcn - not a node network"
       },
-
       {
         "id": 2346882,
         "name": "Bike Arena Sauerland",
@@ -280,7 +317,6 @@
         "name": "Route dreigeteilt wegen Übergröße",
         "reason": "de - Part of blacklisted network - Deutsche Fußball Route NRW"
       },
-
       {
         "id": 308871,
         "name": "Nierswanderweg Geldern-Elten",
@@ -296,7 +332,6 @@
         "name": "Krayelheideroute",
         "reason": "nl/rwn - not a node network"
       },
-
       {
         "id": 34122,
         "name": "Tour du Brabant Wallon",
