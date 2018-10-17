@@ -38,7 +38,7 @@ class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAn
   }
 
   private def routesWithNodeReference: Seq[NetworkMemberRoute] = {
-    networkAnalysis.routes.filterNot(hasSpecialState).filterNot(hasRoleConnection).filter(hasNodeReference)
+    networkAnalysis.routes.filterNot(hasSpecialState).filter(hasNodeReference)
   }
 
   private def failed: Boolean = {
@@ -48,10 +48,6 @@ class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAn
   private def hasSpecialState(memberRoute: NetworkMemberRoute): Boolean = {
     val tags = memberRoute.routeAnalysis.route.tags
     tags.has("state", "connection") || tags.has("state", "alternate")
-  }
-
-  private def hasRoleConnection(memberRoute: NetworkMemberRoute): Boolean = {
-    memberRoute.role.contains("connection")
   }
 
   private def hasNodeReference(memberRoute: NetworkMemberRoute): Boolean = {

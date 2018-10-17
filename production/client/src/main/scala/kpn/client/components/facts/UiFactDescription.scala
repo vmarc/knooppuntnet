@@ -208,12 +208,10 @@ object UiFactDescription {
           <.p(
             if (nlsNL) {
               """Het aantal routes die in het knooppunt aankomen of vertrekken is niet het verwachte aantal.
-                |Routes met rol "connection" in de netwerk relatie, of tag "state" gelijk aan "connection"
-                | of "alternate" worden niet meegeteld.""".stripMargin
+                |Routes met tag "state" gelijk aan "connection" of "alternate" worden niet meegeteld.""".stripMargin
             } else {
               """The actual number of routes does not match the expected number of routes. Routes with
-                |role "connection" in the network relation, or tag "state" equal to "connection"
-                |or "alternate" are not counted.""".stripMargin
+                | tag "state" equal to "connection or "alternate" are not counted.""".stripMargin
             }
           )
 

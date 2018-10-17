@@ -32,7 +32,7 @@ class NodeIntegrityAnalyzerTest extends FunSuite with Matchers with SharedTestOb
     analysis(networkAnalysis, node) should equal(Some(NodeIntegrityCheck("01", 1001, 3, 3, failed = false)))
   }
 
-  test("integrity check - do not count route with role 'connection' in network relation") {
+  test("integrity check - do count route with role 'connection' in network relation (see Issue #32)") {
 
     val node = newNetworkNode()
 
@@ -45,7 +45,7 @@ class NodeIntegrityAnalyzerTest extends FunSuite with Matchers with SharedTestOb
       )
     )
 
-    analysis(networkAnalysis, node) should equal(Some(NodeIntegrityCheck("01", 1001, 2, 3, failed = true)))
+    analysis(networkAnalysis, node) should equal(Some(NodeIntegrityCheck("01", 1001, 3, 3, failed = false)))
   }
 
   test("integrity check - do not count route with state 'connection'") {
