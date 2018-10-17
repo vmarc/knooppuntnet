@@ -12,7 +12,6 @@ import kpn.shared.Fact.RouteReversed
 import kpn.shared.Fact.RouteUnusedSegments
 import kpn.shared.Fact.RouteWithoutWays
 
-
 object FactCombinationAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     new FactCombinationAnalyzer(context).analyze

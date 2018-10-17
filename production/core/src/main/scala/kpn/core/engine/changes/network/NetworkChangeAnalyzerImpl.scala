@@ -81,7 +81,7 @@ class NetworkChangeAnalyzerImpl(
   }
 
   private def isBlackListed(relation: RawRelation): Boolean = {
-    blackListRepository.get.containsNetwork(relation.id) // TODO IGNORE should get blacklist from database only once per processed minute diff
+    blackListRepository.get.containsNetwork(relation.id)
   }
 
   private def isIgnoredNetwork(relation: RawRelation): Boolean = {
