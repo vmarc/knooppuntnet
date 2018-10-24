@@ -12,4 +12,15 @@ export class LogoutPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  logout() {
+  }
+
+  loggedIn() {
+    return true;
+  }
+
+  loggedInUser() {
+    return "vmarc";
+  }
+
 }

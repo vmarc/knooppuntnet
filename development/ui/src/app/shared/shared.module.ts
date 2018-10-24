@@ -44,6 +44,9 @@ import {LinkFactComponent} from "./link/link-fact.component";
 import {LinkSubsetFactsComponent} from "./link/link-subset-facts.component";
 import {LinkChangesetComponent} from "./link/link-changeset.component";
 import {LinkSubsetChangesComponent} from "./link/link-subset-changes.component";
+import {OsmWebsiteComponent} from "./link/osm-website.component";
+import {OsmLinkUserComponent} from "./link/osm-link-user.component";
+import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
 
 @NgModule({
   imports: [
@@ -85,6 +88,9 @@ import {LinkSubsetChangesComponent} from "./link/link-subset-changes.component";
     OsmLinkComponent,
     OsmLinkNodeComponent,
     OsmLinkRelationComponent,
+    OsmLinkUserComponent,
+    OsmLinkUserAothClientsComponent,
+    OsmWebsiteComponent,
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
@@ -128,6 +134,9 @@ import {LinkSubsetChangesComponent} from "./link/link-subset-changes.component";
     JosmRelationComponent,
     OsmLinkNodeComponent,
     OsmLinkRelationComponent,
+    OsmLinkUserComponent,
+    OsmLinkUserAothClientsComponent,
+    OsmWebsiteComponent,
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,

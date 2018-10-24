@@ -5,6 +5,11 @@ body {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
+h1 {
+  font-size: 26px;
+  font-weight: 400;
+}
+
 a {
   text-decoration: none;
   color: blue;
@@ -12,6 +17,12 @@ a {
 
 a:visited {
   color: blue;
+}
+
+a.external {
+  background: rgba(0, 0, 0, 0) url('/assets/images/external.png') no-repeat scroll right center;
+  padding-right: 10px;
+  margin-right: 6px;
 }
 
 .warning {
@@ -39,7 +50,6 @@ a:visited {
   background-color: #eee;
 }
 
-
 table.kpn-columns-table {
 
   > thead > tr > th:not(:first-child) {
@@ -48,7 +58,7 @@ table.kpn-columns-table {
     padding-right: 10px !important;
   }
 
-  > tbody > tr > td:not(:first-child)  {
+  > tbody > tr > td:not(:first-child) {
     border-left: 1px solid rgba(0, 0, 0, 0.12);
     padding-left: 10px !important;
     padding-right: 10px !important;
