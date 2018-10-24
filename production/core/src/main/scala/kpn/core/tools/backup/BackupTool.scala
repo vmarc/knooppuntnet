@@ -1,69 +1,90 @@
 package kpn.core.tools.backup
 
-import java.io.PrintWriter
-import java.net.InetAddress
-import java.nio.file.FileSystems
-
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
-import akka.stream.alpakka.ftp.FtpCredentials.NonAnonFtpCredentials
-import akka.stream.alpakka.ftp.FtpSettings
-import akka.stream.alpakka.ftp.scaladsl.Ftp
-import akka.stream.scaladsl.FileIO
 import com.typesafe.config.ConfigFactory
-import kpn.core.app.ActorSystemConfig
-import org.apache.commons.net.PrintCommandListener
-import org.apache.commons.net.ftp.FTPClient
-
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContextExecutor
-import scala.concurrent.duration.Duration
+import kpn.core.files.FileSystem
+import kpn.core.files.FsUtils
+import kpn.core.files.FtpConfig
+import kpn.core.files.FtpFileSystem
+import kpn.core.files.LocalFileSystem
+import kpn.core.util.Log
 
 object BackupTool {
 
+  private val log = Log(classOf[BackupTool])
+
   def main(args: Array[String]): Unit = {
-    val settings = ftpSettings()
-    val system = ActorSystemConfig.actorSystem()
 
-    try {
-      new BackupTool(system, settings).transfer(args.toSeq)
+    val exit = BackupToolOptions.parse(args) match {
+      case Some(options) =>
+
+        val localFileSystem = new LocalFileSystem(options.localRoot)
+
+        val remoteFileSystem = {
+          val ftpConfig = {
+            val config = ConfigFactory.load
+            val host = config.getString("kpn-server.backup.host")
+            val user = config.getString("kpn-server.backup.user")
+            val password = config.getString("kpn-server.backup.password")
+            FtpConfig(host, user, password)
+          }
+          new FtpFileSystem(ftpConfig, options.remoteRoot)
+        }
+
+        try {
+          new BackupTool(localFileSystem, remoteFileSystem).backup(options.directory)
+        }
+        catch {
+          case e: Throwable => log.fatal("Exception thrown during backup", e)
+        }
+        finally {
+          localFileSystem.close()
+          remoteFileSystem.close()
+          log.info("Done")
+        }
+        0
+
+      case None =>
+        // arguments are bad, error message will have been displayed
+        -1
     }
-    finally {
-      Await.result(system.terminate(), Duration.Inf)
-      ()
-    }
-  }
 
-  private def ftpSettings(): FtpSettings = {
-    val config = ConfigFactory.load
-    val host = config.getString("kpn-server.backup.host")
-    val user = config.getString("kpn-server.backup.user")
-    val password = config.getString("kpn-server.backup.password")
-
-    FtpSettings(
-      InetAddress.getByName(host),
-      credentials = NonAnonFtpCredentials(user, password),
-      binary = true,
-      passiveMode = true,
-      configureConnection = (ftpClient: FTPClient) => {
-        ftpClient.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true))
-      }
-    )
+    System.exit(exit)
   }
 }
 
-class BackupTool(system: ActorSystem, settings: FtpSettings) {
+class BackupTool(localFileSystem: FileSystem, remoteFileSystem: FileSystem) {
 
-  private implicit val implicitSystem: ActorSystem = system
-  private implicit val dispatcher: ExecutionContextExecutor = system.dispatcher
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
+  def backup(dir: String): Unit = {
+    process(dir, 0)
+  }
 
-  def transfer(fileNames: Seq[String]): Unit = {
-    fileNames.foreach { fileName: String =>
-      val sourceFileName = "/kpn/cache/" + fileName
-      val destinationFileName = "/cache-backup/" + fileName
-      val source = FileIO.fromPath(FileSystems.getDefault.getPath(sourceFileName))
-      Await.result(Ftp.toPath(destinationFileName, settings).runWith(source), Duration.Inf)
+  private def process(dir: String, level: Int): Unit = {
+
+    if (level < 3) {
+      BackupTool.log.info("progress " + dir)
     }
+
+    val (localSubDirectories, localFiles) = localFileSystem.listFiles(dir).partition(_.isDirectory)
+    val (remoteSubDirectories, remoteFiles) = remoteFileSystem.listFiles(dir).partition(_.isDirectory)
+
+    val remoteSubDirectoryNames = remoteSubDirectories.map(_.name)
+    val localSubdirsNotInRemote = localSubDirectories.filterNot(local => remoteSubDirectoryNames.contains(local.name))
+    localSubdirsNotInRemote.foreach { localSubdir =>
+      val relativePath = FsUtils.withTrailingSlash(dir) + FsUtils.withoutLeadingSlash(localSubdir.name)
+      BackupTool.log.info("transfer " + relativePath)
+      remoteFileSystem.createDirectory(relativePath)
+    }
+
+    if (localFiles.nonEmpty) {
+      val remoteFileNames = remoteFiles.map(_.name)
+      val localFilesNotInRemote = localFiles.filterNot(localFile => remoteFileNames.contains(localFile.name))
+      localFilesNotInRemote.foreach { localFile =>
+        val relativePath = dir + "/" + localFile.name
+        BackupTool.log.info("transfer " + relativePath)
+        remoteFileSystem.putFile(localFile.toFile, relativePath)
+      }
+    }
+
+    localSubDirectories.foreach(item => process(FsUtils.withTrailingSlash(dir) + item.name, level + 1))
   }
 }
