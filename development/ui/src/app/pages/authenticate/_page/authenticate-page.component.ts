@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from "../../../user.service";
 
 @Component({
   selector: 'kpn-authenticate-page',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticatePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
+    this.userService.authenticated();
   }
 
 }

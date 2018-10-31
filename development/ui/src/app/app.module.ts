@@ -17,6 +17,8 @@ import {LinksPageComponent} from './pages/links/_page/links-page.component';
 import {KpnMaterialModule} from "./material/kpn-material.module";
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from "./shared/shared.module";
+import {UserService} from "./user.service";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import {SharedModule} from "./shared/shared.module";
     AppRoutingModule
   ],
   providers: [
+    CookieService,
+    UserService,
     AppService
   ],
   bootstrap: [

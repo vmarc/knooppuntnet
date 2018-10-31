@@ -73,10 +73,13 @@ class ApplicationComponents(context: Context) extends BuiltInComponentsFromConte
     }
 
     case GET(p"/login") => applic.login()
+    case GET(p"/api/login") => applic.login()
 
     case GET(p"/logout") => applic.logout()
+    case GET(p"/api/logout") => applic.logout()
 
     case GET(p"/authenticated") => applic.authenticated()
+    case GET(p"/api/authenticated") => applic.authenticated()
 
     case GET(p"/json-api/$path<.*>") => applic.jsonApiGet(path)
 

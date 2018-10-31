@@ -1,4 +1,8 @@
 const PROXY_CONFIG = {
+  "/api/**": {
+    "target": "http://localhost:9002",
+    "secure": false
+  },
   "/json-api/**": {
     "target": "http://localhost:9002",
     "secure": false

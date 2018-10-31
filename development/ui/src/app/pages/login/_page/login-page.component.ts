@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {UserService} from "../../../user.service";
 
 @Component({
   selector: 'kpn-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private userService: UserService) {
   }
 
   login() {
+    this.userService.login();
   }
 
 }
