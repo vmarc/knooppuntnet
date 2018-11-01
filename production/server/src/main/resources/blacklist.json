@@ -1,6 +1,6 @@
 {
   "_id": "black-list",
-  "_rev": "1-8c74a6dda7b9cfde7db7579e85efdcbe",
+  "_rev": "2-2b7578df5194fc80ffeaccb27df189de",
   "blackList": {
     "networks": [
       {
@@ -129,6 +129,21 @@
         "id": 27986,
         "name": "Regional cycling network of Switzerland",
         "reason": "Foreign country"
+      },
+      {
+        "id": 7794621,
+        "name": "Wandelnetwerk Fryslân",
+        "reason": "nl/rwn - problem network - see Issue #34 - deleted/reverted/deleted"
+      },
+      {
+        "id": 7782573,
+        "name": "Wandelnetwerk Fryslân",
+        "reason": "nl/rwn - problem network - see Issue #34 - deleted/reverted/deleted"
+      },
+      {
+        "id": 7782667,
+        "name": "Wandelnetwerk Fryslân",
+        "reason": "nl/rwn - problem network - see Issue #34 - deleted/reverted/deleted"
       }
     ],
     "routes": [
@@ -316,6 +331,11 @@
         "id": 27986,
         "name": "Route dreigeteilt wegen Übergröße",
         "reason": "de - Part of blacklisted network - Deutsche Fußball Route NRW"
+      },
+      {
+        "id": 8780817,
+        "name": "Radverkehrsnetz Kreis Herzogtum Lauenburg",
+        "reason": "de/rcn - not a node network route"
       },
       {
         "id": 308871,
