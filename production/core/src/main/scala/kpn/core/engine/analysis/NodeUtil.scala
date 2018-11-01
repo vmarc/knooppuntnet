@@ -50,11 +50,11 @@ class NodeUtil(networkType: NetworkType) {
       Map()
     }
     else {
-      val suffixes = "abcdefghij"
+      val suffixes = "abcdefghijklmnopqrstuvwxyz"
       if (nodes.size > suffixes.length) {
         throw new IllegalArgumentException(s"Number of nodes (${nodes.size}) exceeds the expected maximum number of nodes (${suffixes.length})")
       }
-      nodes.zip("abcdefghij").map { case(node, letter) =>
+      nodes.zip(suffixes).map { case(node, letter) =>
         node.id -> (name(node) + "." + letter)
       }.toMap
     }

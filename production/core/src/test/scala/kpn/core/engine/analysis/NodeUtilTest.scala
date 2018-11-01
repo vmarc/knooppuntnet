@@ -50,7 +50,7 @@ class NodeUtilTest extends FunSuite with Matchers with SharedTestObjects {
     util.alternateNames(nodes) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
   }
 
-  test("alternateNames for more than 10 nodes") {
+  test("alternateNames for more than 26 nodes") {
     val nodes = Seq(
       node(1, "01"),
       node(2, "01"),
@@ -62,12 +62,28 @@ class NodeUtilTest extends FunSuite with Matchers with SharedTestObjects {
       node(8, "01"),
       node(9, "01"),
       node(10, "01"),
-      node(11, "01")
+      node(11, "01"),
+      node(12, "01"),
+      node(13, "01"),
+      node(14, "01"),
+      node(15, "01"),
+      node(16, "01"),
+      node(17, "01"),
+      node(18, "01"),
+      node(19, "01"),
+      node(20, "01"),
+      node(21, "01"),
+      node(22, "01"),
+      node(23, "01"),
+      node(24, "01"),
+      node(25, "01"),
+      node(26, "01"),
+      node(27, "01")
     )
 
     intercept[Exception] {
       util.alternateNames(nodes)
-    }.getMessage should equal("Number of nodes (11) exceeds the expected maximum number of nodes (10)")
+    }.getMessage should equal("Number of nodes (27) exceeds the expected maximum number of nodes (26)")
   }
 
   private def node(name: String): Node = node(1, name)
