@@ -1,6 +1,6 @@
 {
   "_id": "black-list",
-  "_rev": "2-2b7578df5194fc80ffeaccb27df189de",
+  "_rev": "3-ca34500e5d9886d4677c784fafbd3074",
   "blackList": {
     "networks": [
       {
@@ -123,6 +123,11 @@
       {
         "id": 2013835,
         "name": "Deutsche Fußball Route NRW",
+        "reason": "de - not a node network"
+      },
+      {
+        "id": 2076262,
+        "name": "Radverkehrsnetz Kreis Herzogtum Lauenburg",
         "reason": "de - not a node network"
       },
       {
