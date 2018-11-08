@@ -16,9 +16,10 @@ class NetworkShapeAnalyzer(networkRelation: Relation) {
   val log = Log(classOf[NetworkShapeAnalyzer])
 
   def shape: Option[NetworkShape] = {
-    log.debugElapsed {
-      ("", calculatedShape)
-    }
+    None
+//    log.debugElapsed {
+//      ("", calculatedShape)
+//    }
   }
 
   private def calculatedShape: Option[NetworkShape] = {

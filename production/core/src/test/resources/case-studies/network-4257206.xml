@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2017-06-26T01:40:02Z"/>
+
+    <node id="260569254" lat="51.2456982" lon="6.4618866" version="6" timestamp="2014-12-07T20:14:22Z" changeset="27319788" uid="46828" user="GB_Germany_Vie">
+        <tag k="bicycle" v="yes"/>
+        <tag k="information" v="guidepost"/>
+        <tag k="network" v="rcn"/>
+        <tag k="note" v="Knotenpunkt 16"/>
+        <tag k="rcn" v="yes"/>
+        <tag k="tourism" v="information"/>
+        <tag k="rcn_ref" v="16"/>
+    </node>
+    <node id="260569256" lat="51.2479065" lon="6.4581464" version="1" timestamp="2008-04-29T11:46:37Z" changeset="287693" uid="25011" user="BMG1900"/>
+    <node id="260569257" lat="51.2480180" lon="6.4579705" version="2" timestamp="2011-05-12T20:40:27Z" changeset="8126284" uid="46828" user="GB_Germany_Vie"/>
+    <node id="269616357" lat="51.2455273" lon="6.4615726" version="3" timestamp="2014-03-24T13:36:49Z" changeset="21285073" uid="45366" user="gammlaa"/>
+    <node id="273487591" lat="51.2550510" lon="6.4460966" version="4" timestamp="2014-09-20T22:45:51Z" changeset="25569028" uid="1969678" user="waldhans"/>
+    <node id="273487592" lat="51.2521978" lon="6.4509082" version="5" timestamp="2014-09-20T22:45:51Z" changeset="25569028" uid="1969678" user="waldhans">
+        <tag k="bicycle" v="yes"/>
+        <tag k="information" v="guidepost"/>
+        <tag k="tourism" v="information"/>
+    </node>
+    <node id="273499075" lat="51.2442809" lon="6.4641728" version="1" timestamp="2008-06-26T21:30:47Z" changeset="306545" uid="46828" user="GB_Germany_Vie"/>
+    <node id="273499076" lat="51.2419114" lon="6.4680008" version="1" timestamp="2008-06-26T21:30:47Z" changeset="306545" uid="46828" user="GB_Germany_Vie"/>
+    <node id="324191129" lat="51.2454891" lon="6.4622052" version="1" timestamp="2009-01-01T00:05:14Z" changeset="694396" uid="46828" user="GB_Germany_Vie">
+        <tag k="created_by" v="Merkaartor 0.12"/>
+    </node>
+    <node id="324191130" lat="51.2453339" lon="6.4624579" version="1" timestamp="2009-01-01T00:05:14Z" changeset="694396" uid="46828" user="GB_Germany_Vie">
+        <tag k="created_by" v="Merkaartor 0.12"/>
+    </node>
+    <node id="324191134" lat="51.2417714" lon="6.4682234" version="1" timestamp="2009-01-01T00:05:15Z" changeset="694396" uid="46828" user="GB_Germany_Vie">
+        <tag k="created_by" v="Merkaartor 0.12"/>
+    </node>
+    <node id="324191141" lat="51.2416287" lon="6.4684503" version="1" timestamp="2009-01-01T00:05:16Z" changeset="694396" uid="46828" user="GB_Germany_Vie">
+        <tag k="created_by" v="Merkaartor 0.12"/>
+    </node>
+    <node id="512462638" lat="51.2405121" lon="6.4702533" version="3" timestamp="2014-03-24T13:36:49Z" changeset="21285073" uid="45366" user="gammlaa">
+        <tag k="bicycle" v="yes"/>
+        <tag k="information" v="guidepost"/>
+        <tag k="tourism" v="information"/>
+    </node>
+    <node id="886043712" lat="51.2406232" lon="6.4700830" version="2" timestamp="2014-03-24T13:36:50Z" changeset="21285073" uid="45366" user="gammlaa">
+        <tag k="barrier" v="lift_gate"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+    </node>
+    <node id="1593216942" lat="51.2456614" lon="6.4618152" version="3" timestamp="2014-03-24T13:36:48Z" changeset="21285073" uid="45366" user="gammlaa">
+        <tag k="barrier" v="cycle_barrier"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+    </node>
+    <node id="1593216962" lat="51.2514586" lon="6.4521537" version="1" timestamp="2012-01-16T17:19:39Z" changeset="10410042" uid="46828" user="GB_Germany_Vie"/>
+    <way id="24605204" version="6" timestamp="2014-01-13T20:20:42Z" changeset="19978999" uid="78024" user="Mark from Krefeld">
+        <nd ref="260569254"/>
+        <nd ref="260569256"/>
+        <nd ref="260569257"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+        <tag k="oneway" v="no"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+        <tag k="motorcar" v="private"/>
+        <tag k="highway" v="track"/>
+        <tag k="name" v="Grenzweg"/>
+    </way>
+    <way id="25119985" version="6" timestamp="2014-05-26T21:59:31Z" changeset="22572714" uid="368215" user="wandsecacher">
+        <nd ref="260569254"/>
+        <nd ref="324191129"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="track"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="29415210" version="4" timestamp="2014-07-31T15:28:05Z" changeset="24464852" uid="1969678" user="waldhans">
+        <nd ref="324191129"/>
+        <nd ref="324191130"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="bridge" v="yes"/>
+        <tag k="highway" v="track"/>
+        <tag k="layer" v="1"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="29415211" version="3" timestamp="2014-01-13T20:20:45Z" changeset="19978999" uid="78024" user="Mark from Krefeld">
+        <nd ref="324191130"/>
+        <nd ref="273499075"/>
+        <nd ref="273499076"/>
+        <nd ref="324191134"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="track"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="29415213" version="2" timestamp="2014-01-13T20:20:43Z" changeset="19978999" uid="78024" user="Mark from Krefeld">
+        <nd ref="324191134"/>
+        <nd ref="324191141"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="bridge" v="yes"/>
+        <tag k="highway" v="track"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="29415214" version="6" timestamp="2014-01-13T20:20:45Z" changeset="19978999" uid="78024" user="Mark from Krefeld">
+        <nd ref="324191141"/>
+        <nd ref="886043712"/>
+        <nd ref="512462638"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="track"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="146022928" version="2" timestamp="2014-01-13T20:20:42Z" changeset="19978999" uid="78024" user="Mark from Krefeld">
+        <nd ref="273487592"/>
+        <nd ref="1593216962"/>
+        <nd ref="260569257"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="name" v="Grenzweg"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="146022934" version="3" timestamp="2014-09-20T22:45:47Z" changeset="25569028" uid="1969678" user="waldhans">
+        <nd ref="273487591"/>
+        <nd ref="273487592"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="name" v="Grenzweg"/>
+        <tag k="surface" v="asphalt"/>
+        <tag k="tracktype" v="grade1"/>
+    </way>
+    <way id="146022984" version="5" timestamp="2014-10-17T20:01:36Z" changeset="26154813" uid="46828" user="GB_Germany_Vie">
+        <nd ref="269616357"/>
+        <nd ref="1593216942"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="motorcar" v="private"/>
+        <tag k="bridge" v="yes"/>
+        <tag k="highway" v="track"/>
+        <tag k="layer" v="1"/>
+        <tag k="name" v="Bettrather Dyk"/>
+        <tag k="tracktype" v="grade1"/>
+    </way>
+    <way id="146022985" version="5" timestamp="2014-10-17T20:01:36Z" changeset="26154813" uid="46828" user="GB_Germany_Vie">
+        <nd ref="1593216942"/>
+        <nd ref="260569254"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="motorcar" v="private"/>
+        <tag k="highway" v="track"/>
+        <tag k="name" v="Bettrather Dyk"/>
+        <tag k="tracktype" v="grade1"/>
+    </way>
+    <relation id="4257206" version="1" timestamp="2014-12-07T20:14:17Z" changeset="27319788" uid="46828" user="GB_Germany_Vie">
+        <member type="way" ref="29415214" role=""/>
+        <member type="way" ref="29415213" role=""/>
+        <member type="way" ref="29415211" role=""/>
+        <member type="way" ref="29415210" role=""/>
+        <member type="way" ref="25119985" role=""/>
+        <member type="way" ref="146022985" role=""/>
+        <member type="way" ref="146022984" role=""/>
+        <member type="way" ref="24605204" role=""/>
+        <member type="way" ref="146022928" role=""/>
+        <member type="way" ref="146022934" role=""/>
+        <tag k="name" v="Knotenpunktnetzwerk Kreis Viersen"/>
+        <tag k="network" v="rcn"/>
+        <tag k="note" v="Teile des Netzes gehören auch zum Radverkehrsnetz NRW"/>
+        <tag k="ref" v="VIE"/>
+        <tag k="route" v="bicycle"/>
+        <tag k="type" v="network"/>
+    </relation>
+
+</osm>
