@@ -45,7 +45,6 @@ object UiSidebarFooter {
           <.p(context.gotoLogin())
       }
 
-
       <.div(
         Styles.footer,
         <.p(

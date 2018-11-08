@@ -138,11 +138,31 @@ if (doc) {
             emitCount(fact + "Count", index, factMap[fact]);
           }
 
-          var integrityCheck = doc.network.detail.networkFacts.integrityCheck;
+          var integrityCheck = detail.networkFacts.integrityCheck;
           if (integrityCheck) {
             emitCount("IntegrityCheckNetworkCount", index, 1);
             emitCount("IntegrityCheckCount", index, integrityCheck.count);
             emitCount("IntegrityCheckFailedCount", index, integrityCheck.failed);
+          }
+
+          var networkExtraMemberNode = detail.networkFacts.networkExtraMemberNode;
+          if (networkExtraMemberNode) {
+            emitCount("NetworkExtraMemberNodeCount", index, networkExtraMemberNode.length);
+          }
+
+          var networkExtraMemberWay = detail.networkFacts.networkExtraMemberWay;
+          if (networkExtraMemberWay) {
+            emitCount("NetworkExtraMemberWayCount", index, networkExtraMemberWay.length);
+          }
+
+          var networkExtraMemberRelation = detail.networkFacts.networkExtraMemberRelation;
+          if (networkExtraMemberRelation) {
+            emitCount("NetworkExtraMemberRelationCount", index, networkExtraMemberRelation.length);
+          }
+
+          var nameMissing = detail.networkFacts.nameMissing;
+          if (nameMissing) {
+            emitCount("NameMissingCount", index, 1);
           }
         }
       }

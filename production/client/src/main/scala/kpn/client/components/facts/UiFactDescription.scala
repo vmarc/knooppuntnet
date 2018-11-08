@@ -200,7 +200,7 @@ object UiFactDescription {
             if (nlsNL) {
               """Het knooppunt is niet opgenomen als lid in de netwerk relatie."""
             } else {
-              """The node is not member of the network relationn."""
+              """The node is not member of the network relation."""
             }
           )
 

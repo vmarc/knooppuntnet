@@ -16,6 +16,7 @@ import kpn.client.components.common.PageState
 import kpn.client.components.common.PageStatus
 import kpn.client.components.common.UiCommaList
 import kpn.client.components.common.UiItems
+import kpn.client.components.common.UiOsmLink
 import kpn.client.components.common.UiPageContents
 import kpn.client.components.common.UiThin
 import kpn.client.components.facts.UiFactDescription
@@ -106,17 +107,23 @@ object UiSubsetFactDetailsPage {
   private class Renderer(props: SubsetPageProps, state: State)
     extends SubsetPageRenderer(UiSubsetMenu.targetFacts, state.pageState.ui.status)(props) {
 
-    def page: SubsetFactDetailsPage = state.pageState.response.get.result.get // TODO make more safe
+    def page: SubsetFactDetailsPage = state.pageState.response.get.result.get
 
     private def factType: String = page.fact match {
       case Fact.NodeMemberMissing => nls("node", "knooppunt")
       case Fact.IntegrityCheckFailed => nls("node", "knooppunt")
+      case Fact.NetworkExtraMemberNode => nls("node", "knoop")
+      case Fact.NetworkExtraMemberWay => nls("way", "weg")
+      case Fact.NetworkExtraMemberRelation => nls("relation", "relatie")
       case _ => "route"
     }
 
     private def factTypePlural: String = page.fact match {
       case Fact.NodeMemberMissing => nls("nodes", "knooppunten")
       case Fact.IntegrityCheckFailed => nls("nodes", "knooppunten")
+      case Fact.NetworkExtraMemberNode => nls("nodes", "knopen")
+      case Fact.NetworkExtraMemberWay => nls("ways", "wegen")
+      case Fact.NetworkExtraMemberRelation => nls("relations", "relaties")
       case _ => "routes"
     }
 
@@ -166,13 +173,16 @@ object UiSubsetFactDetailsPage {
                       UiThin(s"1 $factType:")
                     },
                     TagMod.when(networkFacts.factRefs.size > 1) {
-                      UiThin(s"${networkFacts.factRefs.size} $factTypePlural: ")
+                      UiThin(s"${networkFacts.factRefs.size} $factTypePlural:")
                     },
                     UiCommaList(
                       networkFacts.factRefs.map { ref =>
                         page.fact match {
                           case Fact.NodeMemberMissing => context.gotoNode(ref.id, ref.name)
                           case Fact.IntegrityCheckFailed => context.gotoNode(ref.id, ref.name)
+                          case Fact.NetworkExtraMemberNode => UiOsmLink.osmNode(ref.id)
+                          case Fact.NetworkExtraMemberWay =>  UiOsmLink.osmWay(ref.id)
+                          case Fact.NetworkExtraMemberRelation =>  UiOsmLink.osmRelation(ref.id)
                           case _ => context.gotoRoute(ref.id, ref.name)
                         }
                       }
