@@ -56,6 +56,9 @@ object UiSidebarFooter {
           context.gotoLinks()
         ),
         <.p(
+          context.gotoOverview()
+        ),
+        <.p(
           context.gotoEn(),
           " | ",
           context.gotoNl()
@@ -74,16 +77,6 @@ object UiSidebarFooter {
             ^.target := "_blank",
             "Issues"
           )
-        ),
-        <.p(
-          <.a(
-            ^.href := "http://old.vmarc.be",
-            ^.cls := "external",
-            ^.target := "_blank",
-            nls("Old website", "Oude website")
-          ),
-          " ",
-          nls("(Temporary)", "(Tijdelijk)")
         ),
         <.p(
           Styles.version,
