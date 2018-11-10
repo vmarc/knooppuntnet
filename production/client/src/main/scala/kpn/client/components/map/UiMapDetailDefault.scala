@@ -7,8 +7,6 @@ import japgolly.scalajs.react.vdom.html_<^.<
 import kpn.client.common.Context
 import kpn.client.common.Nls.nls
 
-import scalacss.ScalaCssReact._
-
 object UiMapDetailDefault {
 
   private case class Props(context: Context)
