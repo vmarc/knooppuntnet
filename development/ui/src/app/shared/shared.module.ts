@@ -49,6 +49,7 @@ import {OsmLinkUserComponent} from "./link/osm-link-user.component";
 import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
+import { SidenavFooterComponent } from './sidenav-footer/sidenav-footer.component';
 
 @NgModule({
   imports: [
@@ -104,7 +105,8 @@ import {SidenavComponent} from './sidenav/sidenav.component';
     DataComponent,
     PageComponent,
     ToolbarComponent,
-    SidenavComponent
+    SidenavComponent,
+    SidenavFooterComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -152,7 +154,8 @@ import {SidenavComponent} from './sidenav/sidenav.component';
     DataComponent,
     PageComponent,
     ToolbarComponent,
-    SidenavComponent
+    SidenavComponent,
+    SidenavFooterComponent
   ]
 })
 export class SharedModule {
