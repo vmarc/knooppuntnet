@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'data',
+  selector: 'kpn-data',
   templateUrl: './data.component.html',
   styleUrls: ['./data.component.scss']
 })

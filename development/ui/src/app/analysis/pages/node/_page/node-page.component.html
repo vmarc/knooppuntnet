@@ -11,36 +11,36 @@
       UiPageContents(
       -->
 
-      <data title="Summary"> <!-- "Samenvatting" -->
+      <kpn-data title="Summary"> <!-- "Samenvatting" -->
         <node-summary [nodeInfo]="nodeInfo"></node-summary>
-      </data>
+      </kpn-data>
 
-      <data title="Situation on"> <!-- "Situatie op" -->
+      <kpn-data title="Situation on"> <!-- "Situatie op" -->
         <timestamp [timestamp]="response.situationOn"></timestamp>
-      </data>
+      </kpn-data>
 
-      <data title="Last updated"> <!-- "Laatst bewerkt" -->
+      <kpn-data title="Last updated"> <!-- "Laatst bewerkt" -->
         <timestamp [timestamp]="nodeInfo.lastUpdated"></timestamp>
-      </data>
+      </kpn-data>
 
-      <data title="Tags"> <!-- "Labels" -->
+      <kpn-data title="Tags"> <!-- "Labels" -->
         <tags [tags]="nodeInfo.tags"></tags>
-      </data>
+      </kpn-data>
 
-      <data title="Networks"> <!-- "Netwerken" -->
+      <kpn-data title="Networks"> <!-- "Netwerken" -->
         <node-networks [networks]="references.networkReferences"></node-networks>
-      </data>
+      </kpn-data>
 
-      <data title="Routes"> <!-- "Routes" -->
+      <kpn-data title="Routes"> <!-- "Routes" -->
         <node-routes [routes]="references.routeReferences"></node-routes>
-      </data>
+      </kpn-data>
 
-      <data title="Facts"> <!-- "Feiten" -->
+      <kpn-data title="Facts"> <!-- "Feiten" -->
         xxx
         <!--
           UiFacts(page.nodeInfo.facts)
         -->
-      </data>
+      </kpn-data>
 
       <!--
         TagMod.when(PageWidth.isVeryLarge) {
