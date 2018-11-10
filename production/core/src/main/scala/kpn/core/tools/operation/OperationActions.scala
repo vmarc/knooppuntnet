@@ -21,31 +21,31 @@ class OperationActions {
   }
 
   def startMainDispatcher(): String = {
-    Process("/kpn/scripts/start_main_dispatcher.sh").!!
+    Process("/kpn/scripts/dispatcher.sh").!!
   }
 
   def startAreasDispatcher(): String = {
-    Process("/kpn/scripts/start_areas_dispatcher.sh").!!
+    Process("/kpn/scripts/areas_dispatcher.sh").!!
   }
 
   def startReplicator(): String = {
-    Process("/kpn/scripts/start_replicator.sh").!!
+    Process("/kpn/scripts/replicator.sh").!!
   }
 
   def startUpdater(): String = {
-    Process("/kpn/scripts/start_updater.sh").!!
+    Process("/kpn/scripts/updater.sh").!!
   }
 
   def startAnalyzer1(): String = {
-    Process("/kpn/scripts/start_analyzer1.sh").!!
+    Process("/kpn/scripts/analyzer-1.sh").!!
   }
 
   def startAnalyzer2(): String = {
-    Process("/kpn/scripts/start_analyzer2.sh").!!
+    Process("/kpn/scripts/analyzer-2.sh").!!
   }
 
   def startAnalyzer3(): String = {
-    Process("/kpn/scripts/start_analyzer3.sh").!!
+    Process("/kpn/scripts/analyzer-3.sh").!!
   }
 
   def stopMainDispatcher(): String = {

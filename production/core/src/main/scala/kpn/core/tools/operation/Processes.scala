@@ -7,11 +7,11 @@ object Processes {
     Processes(
       processInfo(lines.tail, "main-dispatcher", "bin/dispatcher --osm-base --attic"),
       processInfo(lines.tail, "areas-dispatcher", "bin/dispatcher --areas"),
-      processInfo(lines.tail, "replicator", "replicator-log4j2.xml"),
-      processInfo(lines.tail, "updater", "updater-log4j2.xml"),
-      processInfo(lines.tail, "analyzer1", "analyzer-1-log4j2.xml"),
-      processInfo(lines.tail, "analyzer2", "analyzer-2-log4j2.xml"),
-      processInfo(lines.tail, "analyzer3", "analyzer-3-log4j2.xml"),
+      processInfo(lines.tail, "replicator", "replicator-log.xml"),
+      processInfo(lines.tail, "updater", "updater-log.xml"),
+      processInfo(lines.tail, "analyzer1", "analyzer-1-log.xml"),
+      processInfo(lines.tail, "analyzer2", "analyzer-2-log.xml"),
+      processInfo(lines.tail, "analyzer3", "analyzer-3-log.xml"),
       processInfos(lines.tail, "query", "overpass/bin/osm3s_query")
     )
   }

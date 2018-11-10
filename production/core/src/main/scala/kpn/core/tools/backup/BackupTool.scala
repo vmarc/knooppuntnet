@@ -14,6 +14,8 @@ object BackupTool {
 
   def main(args: Array[String]): Unit = {
 
+    log.info("Start")
+
     val exit = BackupToolOptions.parse(args) match {
       case Some(options) =>
 
