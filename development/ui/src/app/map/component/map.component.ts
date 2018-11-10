@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -24,6 +24,7 @@ import {MapClickHandler} from "../domain/map-click-handler";
 import {SelectedFeatureHolder} from "../domain/selected-feature-holder";
 import {MapState} from "../domain/map-state";
 import {MapMoveHandler} from "../domain/map-move-handler";
+import {SelectedFeature} from "../domain/selected-feature";
 
 @Component({
   selector: 'kpn-map',
@@ -34,6 +35,8 @@ export class MapComponent implements AfterViewInit {
 
   @Input() id;
   @Input() networkType: string;
+
+  @Output() featureSelection = new EventEmitter<SelectedFeature>();
 
   map: Map;
   mapState: MapState;
@@ -71,7 +74,8 @@ export class MapComponent implements AfterViewInit {
     this.mapState = new MapState();
     this.mainMapStyle = new MainMapStyle(this.map, this.mapState).styleFunction();
     this.repaintVectorTileLayer();
-    this.selectionHolder = new SelectedFeatureHolder(() => {
+    this.selectionHolder = new SelectedFeatureHolder(selectedFeature => {
+      this.featureSelection.emit(selectedFeature);
       this.repaintVectorTileLayer();
     });
 

@@ -1,7 +1,11 @@
 <kpn-page [withoutMargin]="true">
   <kpn-toolbar toolbar></kpn-toolbar>
-  <kpn-sidenav sidenav></kpn-sidenav>
-  <div content>
-    <kpn-map id="main-map" networkType="{{networkType}}" class="map"></kpn-map>
-  </div>
+  <kpn-map-detail sidenav [selectedFeature]="selectedFeature" [networkType]="networkType"></kpn-map-detail>
+  <kpn-map
+    content
+    id="main-map"
+    class="map"
+    networkType="{{networkType}}"
+    (featureSelection)="featureSelectionChanged($event)">
+  </kpn-map>
 </kpn-page>

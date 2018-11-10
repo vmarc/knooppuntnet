@@ -1,0 +1,37 @@
+<div *ngIf="networkType == 'rwn'">
+  Hiking <!-- Wandelen -->
+</div>
+
+<div *ngIf="networkType == 'rcn'">
+  Cycling <!-- Fietsen -->
+</div>
+
+<div *ngIf="networkType == 'rhn'">
+  Horse <!-- Ruiter -->
+</div>
+
+<div *ngIf="networkType == 'rmn'">
+  Motorboat <!-- Motorboot -->
+</div>
+
+<div *ngIf="networkType == 'rpn'">
+  Canoe <!-- Kano -->
+</div>
+
+<div *ngIf="networkType == 'rin'">
+  Inline Skates
+</div>
+
+<kpn-map-detail-default *ngIf="isDefault()">
+</kpn-map-detail-default>
+
+<kpn-map-detail-node *ngIf="isNodeSelected()"
+  [nodeId]="selectedFeature.featureId"
+  [nodeName]="selectedFeature.name"
+  [networkType]="networkType">
+</kpn-map-detail-node>
+
+<kpn-map-detail-route *ngIf="isRouteSelected()"
+  [routeId]="selectedFeature.featureId"
+  [routeName]="selectedFeature.name">
+</kpn-map-detail-route>

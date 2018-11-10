@@ -37,6 +37,10 @@ import {SubsetOrphanRouteComponent} from './pages/subset-orphan-routes/subset-or
 import {SubsetOrphanNodeComponent} from './pages/subset-orphan-nodes/subset-orphan-node/subset-orphan-node.component';
 import {SubsetOrphanNodesTableComponent} from './pages/subset-orphan-nodes/subset-orphan-nodes-table/subset-orphan-nodes-table.component';
 import {ChangesTableComponent} from "./components/changes/changes-table/changes-table.component";
+import { MapDetailComponent } from './pages/map/map-detail/map-detail.component';
+import { MapDetailNodeComponent } from './pages/map/map-detail-node/map-detail-node.component';
+import { MapDetailRouteComponent } from './pages/map/map-detail-route/map-detail-route.component';
+import { MapDetailDefaultComponent } from './pages/map/map-detail-default/map-detail-default.component';
 
 @NgModule({
   imports: [
@@ -79,7 +83,11 @@ import {ChangesTableComponent} from "./components/changes/changes-table/changes-
     SubsetOrphanRouteComponent,
     SubsetOrphanNodeComponent,
     SubsetOrphanNodesTableComponent,
-    ChangesTableComponent
+    ChangesTableComponent,
+    MapDetailComponent,
+    MapDetailNodeComponent,
+    MapDetailRouteComponent,
+    MapDetailDefaultComponent
   ]
 })
 export class AnalysisModule {

@@ -1,0 +1,31 @@
+<h2>
+  Node <!-- Knooppunt --> {{nodeName}}
+</h2>
+
+<div *ngIf="nodeInfo">
+  <a class="text" [routerLink]="'/analysis/node/' + nodeId">More details</a>
+
+  <p>
+    Last updated: <!-- "Laatst bewerkt" -->
+    <br>
+    <timestamp [timestamp]="nodeInfo.lastUpdated"></timestamp>
+  </p>
+
+  <div *ngIf="references.networkReferences.length > 0">
+    Network(s): <!-- "Netwerken" -->
+    <div *ngFor="let network of references.networkReferences">
+      <a class="text" [routerLink]="'/analysis/network-details/' + network.id">{{network.name}}</a>
+    </div>
+  </div>
+
+  <div *ngIf="references.routeReferences.length > 0">
+    Routes <!-- "Routes" -->
+    <div *ngFor="let route of references.routeReferences">
+      <a class="text" [routerLink]="'/analysis/route/' + route.id">{{route.name}}</a>
+    </div>
+  </div>
+
+  <json [object]="response"></json>
+
+</div>
+

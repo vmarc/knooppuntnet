@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {SelectedFeature} from "../../../../map/domain/selected-feature";
 
 @Component({
   selector: 'kpn-map-page',
@@ -9,12 +10,17 @@ import {ActivatedRoute} from "@angular/router";
 export class MapPageComponent implements OnInit {
 
   networkType: string;
+  selectedFeature: SelectedFeature;
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.networkType = this.activatedRoute.snapshot.paramMap.get('networkType');
+  }
+
+  featureSelectionChanged(selectedFeature: SelectedFeature) {
+    this.selectedFeature = selectedFeature;
   }
 
 }
