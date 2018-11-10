@@ -47,6 +47,7 @@ import {LinkSubsetChangesComponent} from "./link/link-subset-changes.component";
 import {OsmWebsiteComponent} from "./link/osm-website.component";
 import {OsmLinkUserComponent} from "./link/osm-link-user.component";
 import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients
     JsonComponent,
     TagsComponent,
     DataComponent,
-    PageComponent
+    PageComponent,
+    ToolbarComponent
   ],
   exports: [
     LinkChangesetComponent,

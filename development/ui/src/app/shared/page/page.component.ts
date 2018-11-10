@@ -1,31 +1,38 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core';
-import {MediaMatcher} from '@angular/cdk/layout';
+import {ChangeDetectorRef, Component, Input} from '@angular/core';
 import {UserService} from "../../user.service";
+import {PageService} from "../page.service";
+import {Subscription} from "rxjs/src/internal/Subscription";
 
 @Component({
   selector: 'kpn-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent implements OnDestroy {
+export class PageComponent {
 
   @Input() withoutMargin: boolean;
 
-  mobileQuery: MediaQueryList;
+  breakPointStateSubscription: Subscription;
 
-  private _mobileQueryListener: () => void;
-
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private userService: UserService) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+  constructor(changeDetectorRef: ChangeDetectorRef,
+              private userService: UserService,
+              private pageService: PageService) {
+    this.breakPointStateSubscription = this.pageService.breakpointState.subscribe(() => changeDetectorRef.detectChanges());
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.breakPointStateSubscription.unsubscribe();
   }
 
-  currentUser() {
+  isMobile(): boolean {
+    return this.pageService.isMobile();
+  }
+
+  isSideNavOpen(): boolean {
+    return this.pageService.isSideNavOpen();
+  }
+
+  currentUser(): string {
     return this.userService.currentUser();
   }
 

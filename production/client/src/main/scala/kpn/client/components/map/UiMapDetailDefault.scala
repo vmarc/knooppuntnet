@@ -1,12 +1,5 @@
 package kpn.client.components.map
 
-import japgolly.scalajs.react.ScalaComponent
-import japgolly.scalajs.react.vdom.Implicits._
-import japgolly.scalajs.react.vdom.VdomElement
-import japgolly.scalajs.react.vdom.html_<^.<
-import kpn.client.common.Context
-import kpn.client.common.Nls.nls
-
 object UiMapDetailDefault {
 
   private case class Props(context: Context)
@@ -25,12 +18,6 @@ object UiMapDetailDefault {
         ),
         <.div(
           UiMapDetail.Styles.note,
-          <.div(
-            nls(
-              "Note: the map on this page is work in progress.",
-              "Noot: er wordt nog gewerkt aan de kaart op deze pagina."
-            )
-          ),
           <.div(
             nls(
               "The map contents is currently updated once every two hours.",
