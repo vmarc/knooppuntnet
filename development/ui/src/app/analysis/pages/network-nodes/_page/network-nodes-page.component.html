@@ -1,9 +1,13 @@
 <kpn-page>
-  <h1>
-    Network nodes
-  </h1>
-  <div *ngIf="response">
-    <network-node-table [nodes]="response.result.nodes"></network-node-table>
-    <json [object]="response"></json>
+  <kpn-toolbar toolbar></kpn-toolbar>
+  <kpn-sidenav sidenav></kpn-sidenav>
+  <div content>
+    <h1>
+      Network nodes
+    </h1>
+    <div *ngIf="response">
+      <network-node-table [nodes]="response.result.nodes"></network-node-table>
+      <json [object]="response"></json>
+    </div>
   </div>
 </kpn-page>

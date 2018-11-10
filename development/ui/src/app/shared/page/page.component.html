@@ -1,6 +1,6 @@
 <div class="page-container">
 
-  <kpn-toolbar></kpn-toolbar>
+  <ng-content select="[toolbar]"></ng-content>
 
   <mat-divider></mat-divider>
 
@@ -9,20 +9,12 @@
                  [fixedInViewport]="!isMobile()"
                  fixedTopGap="48"
                  [opened]="isSideNavOpen()">
-      <mat-nav-list>
-        <a mat-list-item routerLink="/about">about</a>
-        <a mat-list-item routerLink="/overview" [ngClass]="{'nav-item-selected': true}">overview</a>
-        <a mat-list-item routerLink="/login">login</a>
-        <a mat-list-item routerLink="/logout">logout</a>
-      </mat-nav-list>
-
-      {{currentUser()}}
-
+      <ng-content select="[sidenav]"></ng-content>
     </mat-sidenav>
 
     <mat-sidenav-content>
       <div [ngClass]="{'content-with-margin': !withoutMargin}" style="height: 100%">
-        <ng-content></ng-content>
+        <ng-content select="[content]"></ng-content>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Input} from '@angular/core';
 import {UserService} from "../../user.service";
 import {PageService} from "../page.service";
-import {Subscription} from "rxjs/src/internal/Subscription";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'kpn-page',
@@ -30,10 +30,6 @@ export class PageComponent {
 
   isSideNavOpen(): boolean {
     return this.pageService.isSideNavOpen();
-  }
-
-  currentUser(): string {
-    return this.userService.currentUser();
   }
 
 }

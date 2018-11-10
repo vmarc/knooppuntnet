@@ -1,66 +1,72 @@
 <kpn-page>
 
-  <h1 i18n="@@home-page-title">
-    Node networks
-  </h1>
+  <kpn-toolbar toolbar></kpn-toolbar>
+  <kpn-sidenav sidenav></kpn-sidenav>
 
-  <nav>
+  <div content>
 
-    <kpn-link-map networkType="rcn" title="Cycling Map"></kpn-link-map>
-    <kpn-link-map networkType="rwn" title="Hiking Map"></kpn-link-map>
-    <kpn-link-map networkType="rhn" title="Horse Map"></kpn-link-map>
-    <kpn-link-map networkType="rmn" title="Motorboat Map"></kpn-link-map>
-    <kpn-link-map networkType="rpn" title="Canoe Map"></kpn-link-map>
-    <br/>
-    <kpn-link-changes></kpn-link-changes>
-    <kpn-link-overview></kpn-link-overview>
-    <br/>
-    <p>Analysis</p>
-    <p>The Netherlands</p>
-    <kpn-link-subset-networks country="nl" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
-    <kpn-link-subset-networks country="nl" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
-    <kpn-link-subset-networks country="nl" networkType="rhn" title="Horse"></kpn-link-subset-networks>
-    <kpn-link-subset-networks country="nl" networkType="rmn" title="Motorboat"></kpn-link-subset-networks>
-    <kpn-link-subset-networks country="nl" networkType="rpn" title="Canoe"></kpn-link-subset-networks>
-    <p>Belgium</p>
-    <kpn-link-subset-networks country="be" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
-    <kpn-link-subset-networks country="be" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
-    <p>Germany</p>
-    <kpn-link-subset-networks country="de" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
-    <br/>
-    <br/>
-    <kpn-link-changeset changeSetId="61632740" replicationNumber="3101276"></kpn-link-changeset>
-    <br/>
-    <kpn-link-node nodeId="1" title="node-1"></kpn-link-node>
-    <br/>
-    <kpn-link-route routeId="1" title="route-1"></kpn-link-route>
-    <br/>
-    <kpn-link-network-details networkId="3138543"></kpn-link-network-details>
-    <kpn-link-network-facts networkId="3138543"></kpn-link-network-facts>
-    <kpn-link-network-map networkId="3138543"></kpn-link-network-map>
-    <kpn-link-network-nodes networkId="3138543"></kpn-link-network-nodes>
-    <kpn-link-network-routes networkId="3138543"></kpn-link-network-routes>
-    <kpn-link-network-changes networkId="3138543"></kpn-link-network-changes>
-    <br/>
-    <kpn-link-subset-networks country="de" networkType="rcn"></kpn-link-subset-networks>
-    <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
-    <kpn-link-subset-orphan-nodes country="de" networkType="rcn"></kpn-link-subset-orphan-nodes>
-    <kpn-link-subset-orphan-routes country="de" networkType="rcn"></kpn-link-subset-orphan-routes>
-    <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
-    <kpn-link-subset-changes country="de" networkType="rcn"></kpn-link-subset-changes>
-    <br/>
-    <kpn-link-login></kpn-link-login>
-    <kpn-link-logout></kpn-link-logout>
-    <kpn-link-authenticate></kpn-link-authenticate>
-    <br/>
-    <kpn-link-about></kpn-link-about>
-    <kpn-link-glossary></kpn-link-glossary>
-    <kpn-link-links></kpn-link-links>
-    <br/>
-    <a routerLink="/not-found" i18n="@@home-page-link-not-found">Not found</a>
+    <h1 i18n="@@home-page-title">
+      Node networks
+    </h1>
 
-    <a routerLink="/translations/edit">Translations</a>
+    <nav>
 
+      <kpn-link-map networkType="rcn" title="Cycling Map"></kpn-link-map>
+      <kpn-link-map networkType="rwn" title="Hiking Map"></kpn-link-map>
+      <kpn-link-map networkType="rhn" title="Horse Map"></kpn-link-map>
+      <kpn-link-map networkType="rmn" title="Motorboat Map"></kpn-link-map>
+      <kpn-link-map networkType="rpn" title="Canoe Map"></kpn-link-map>
+      <br/>
+      <kpn-link-changes></kpn-link-changes>
+      <kpn-link-overview></kpn-link-overview>
+      <br/>
+      <p>Analysis</p>
+      <p>The Netherlands</p>
+      <kpn-link-subset-networks country="nl" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
+      <kpn-link-subset-networks country="nl" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
+      <kpn-link-subset-networks country="nl" networkType="rhn" title="Horse"></kpn-link-subset-networks>
+      <kpn-link-subset-networks country="nl" networkType="rmn" title="Motorboat"></kpn-link-subset-networks>
+      <kpn-link-subset-networks country="nl" networkType="rpn" title="Canoe"></kpn-link-subset-networks>
+      <p>Belgium</p>
+      <kpn-link-subset-networks country="be" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
+      <kpn-link-subset-networks country="be" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
+      <p>Germany</p>
+      <kpn-link-subset-networks country="de" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
+      <br/>
+      <br/>
+      <kpn-link-changeset changeSetId="61632740" replicationNumber="3101276"></kpn-link-changeset>
+      <br/>
+      <kpn-link-node nodeId="1" title="node-1"></kpn-link-node>
+      <br/>
+      <kpn-link-route routeId="1" title="route-1"></kpn-link-route>
+      <br/>
+      <kpn-link-network-details networkId="3138543"></kpn-link-network-details>
+      <kpn-link-network-facts networkId="3138543"></kpn-link-network-facts>
+      <kpn-link-network-map networkId="3138543"></kpn-link-network-map>
+      <kpn-link-network-nodes networkId="3138543"></kpn-link-network-nodes>
+      <kpn-link-network-routes networkId="3138543"></kpn-link-network-routes>
+      <kpn-link-network-changes networkId="3138543"></kpn-link-network-changes>
+      <br/>
+      <kpn-link-subset-networks country="de" networkType="rcn"></kpn-link-subset-networks>
+      <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
+      <kpn-link-subset-orphan-nodes country="de" networkType="rcn"></kpn-link-subset-orphan-nodes>
+      <kpn-link-subset-orphan-routes country="de" networkType="rcn"></kpn-link-subset-orphan-routes>
+      <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
+      <kpn-link-subset-changes country="de" networkType="rcn"></kpn-link-subset-changes>
+      <br/>
+      <kpn-link-login></kpn-link-login>
+      <kpn-link-logout></kpn-link-logout>
+      <kpn-link-authenticate></kpn-link-authenticate>
+      <br/>
+      <kpn-link-about></kpn-link-about>
+      <kpn-link-glossary></kpn-link-glossary>
+      <kpn-link-links></kpn-link-links>
+      <br/>
+      <a routerLink="/not-found" i18n="@@home-page-link-not-found">Not found</a>
 
-  </nav>
+      <a routerLink="/translations/edit">Translations</a>
+
+    </nav>
+
+  </div>
 </kpn-page>

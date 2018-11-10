@@ -1,23 +1,27 @@
 <kpn-page>
-  <h1>
-    Subset networks
-  </h1>
+  <kpn-toolbar toolbar></kpn-toolbar>
+  <kpn-sidenav sidenav></kpn-sidenav>
+  <div content>
+    <h1>
+      Subset networks
+    </h1>
 
-  <kpn-subset-network-list
-    *ngIf="response"
-    [networks]="response.result.networks">
-  </kpn-subset-network-list>
+    <kpn-subset-network-list
+      *ngIf="response"
+      [networks]="response.result.networks">
+    </kpn-subset-network-list>
 
-  <br/>
-  <br/>
-  <br/>
+    <br/>
+    <br/>
+    <br/>
 
-  <kpn-subset-network-table
-    *ngIf="response"
-    [networks]="response.result.networks">
-  </kpn-subset-network-table>
+    <kpn-subset-network-table
+      *ngIf="response"
+      [networks]="response.result.networks">
+    </kpn-subset-network-table>
 
-  <div *ngIf="response">
-    <json [object]="response"></json>
+    <div *ngIf="response">
+      <json [object]="response"></json>
+    </div>
   </div>
 </kpn-page>

@@ -47,7 +47,8 @@ import {LinkSubsetChangesComponent} from "./link/link-subset-changes.component";
 import {OsmWebsiteComponent} from "./link/osm-website.component";
 import {OsmLinkUserComponent} from "./link/osm-link-user.component";
 import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import {ToolbarComponent} from './toolbar/toolbar.component';
+import {SidenavComponent} from './sidenav/sidenav.component';
 
 @NgModule({
   imports: [
@@ -102,7 +103,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     TagsComponent,
     DataComponent,
     PageComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SidenavComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -148,7 +150,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     JsonComponent,
     TagsComponent,
     DataComponent,
-    PageComponent
+    PageComponent,
+    ToolbarComponent,
+    SidenavComponent
   ]
 })
 export class SharedModule {

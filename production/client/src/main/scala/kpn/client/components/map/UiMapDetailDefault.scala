@@ -1,5 +1,14 @@
 package kpn.client.components.map
 
+import japgolly.scalajs.react.ScalaComponent
+import japgolly.scalajs.react.vdom.Implicits._
+import japgolly.scalajs.react.vdom.VdomElement
+import japgolly.scalajs.react.vdom.html_<^.<
+import kpn.client.common.Context
+import kpn.client.common.Nls.nls
+
+import scalacss.ScalaCssReact._
+
 object UiMapDetailDefault {
 
   private case class Props(context: Context)

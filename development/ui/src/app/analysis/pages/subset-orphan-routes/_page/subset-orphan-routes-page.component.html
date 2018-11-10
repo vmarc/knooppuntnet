@@ -1,9 +1,13 @@
 <kpn-page>
-  <h1>
-    Subset orphan routes
-  </h1>
-  <div *ngIf="response">
-    <kpn-subset-orphan-routes-table [orphanRoutes]="response.result.rows"></kpn-subset-orphan-routes-table>
-    <json [object]="response"></json>
+  <kpn-toolbar toolbar></kpn-toolbar>
+  <kpn-sidenav sidenav></kpn-sidenav>
+  <div content>
+    <h1>
+      Subset orphan routes
+    </h1>
+    <div *ngIf="response">
+      <kpn-subset-orphan-routes-table [orphanRoutes]="response.result.rows"></kpn-subset-orphan-routes-table>
+      <json [object]="response"></json>
+    </div>
   </div>
 </kpn-page>
