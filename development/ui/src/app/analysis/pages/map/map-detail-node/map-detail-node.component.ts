@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {NodePage} from "../../../../kpn/shared/node/node-page";
 import {AppService} from "../../../../app.service";
+import {NetworkType} from "../../../../kpn/shared/network-type";
 
 @Component({
   selector: 'kpn-map-detail-node',
@@ -12,7 +13,7 @@ export class MapDetailNodeComponent implements OnChanges {
 
   @Input() nodeId: number;
   @Input() nodeName: string;
-  @Input() networkType: string;
+  @Input() networkType: NetworkType;
 
   response: ApiResponse<NodePage>;
 

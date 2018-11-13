@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {SelectedFeature} from "../../../../map/domain/selected-feature";
+import {NetworkType} from "../../../../kpn/shared/network-type";
 
 @Component({
   selector: 'kpn-map-detail',
@@ -9,7 +10,7 @@ import {SelectedFeature} from "../../../../map/domain/selected-feature";
 export class MapDetailComponent {
 
   @Input() selectedFeature: SelectedFeature;
-  @Input() networkType: string;
+  @Input() networkType: NetworkType;
 
   isDefault(): boolean {
     return !(this.isNodeSelected() || this.isRouteSelected());

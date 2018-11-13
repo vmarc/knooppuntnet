@@ -146,6 +146,8 @@ import { SidenavFooterComponent } from './sidenav-footer/sidenav-footer.componen
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
+    NetworkTypeIconComponent,
+    NetworkTypeNameComponent,
     CountryNameComponent,
     DayComponent,
     TimestampComponent,

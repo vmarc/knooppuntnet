@@ -15,7 +15,7 @@ export class SidenavFooterComponent {
     return this.userService.currentUser();
   }
 
-  isLoggedIn(): string {
+  isLoggedIn(): boolean {
     return this.currentUser().length > 0;
   }
 

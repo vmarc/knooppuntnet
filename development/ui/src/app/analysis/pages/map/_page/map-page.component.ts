@@ -9,14 +9,17 @@ import {SelectedFeature} from "../../../../map/domain/selected-feature";
 })
 export class MapPageComponent implements OnInit {
 
-  networkType: string;
+  networkType: NetworkType;
   selectedFeature: SelectedFeature;
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.networkType = this.activatedRoute.snapshot.paramMap.get('networkType');
+    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+      const networkTypeName = params['networkType'];
+      this.networkType = new NetworkType(networkTypeName);
+    });
   }
 
   featureSelectionChanged(selectedFeature: SelectedFeature) {

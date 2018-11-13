@@ -4,8 +4,7 @@ import {Reference} from "../../kpn/shared/common/reference";
 @Component({
   selector: 'icon-link',
   template: `
-    <mat-icon *ngIf="reference.networkType.name == 'rcn'">directions_bike</mat-icon>
-    <mat-icon *ngIf="reference.networkType.name == 'rwn'">directions_walk</mat-icon>
+    <kpn-network-type-icon [networkType]="reference.networkType"></kpn-network-type-icon>
     <a class="text" [routerLink]="url">{{reference.name}}</a>
     <mat-icon *ngIf="reference.connection">link</mat-icon>
   `,
