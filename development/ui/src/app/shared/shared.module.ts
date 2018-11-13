@@ -49,7 +49,13 @@ import {OsmLinkUserComponent} from "./link/osm-link-user.component";
 import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
-import { SidenavFooterComponent } from './sidenav-footer/sidenav-footer.component';
+import {SidenavFooterComponent} from './sidenav-footer/sidenav-footer.component';
+import {NetworkTypeIconComponent} from "./network-type-icon.component";
+import {NetworkTypeNameComponent} from "./network-type-name.component";
+import {SidenavSubsetsComponent} from './sidenav-subsets/sidenav-subsets.component';
+import {SidenavNetworkComponent} from './sidenav-network/sidenav-network.component';
+import {SidenavSubsetComponent} from './sidenav-subset/sidenav-subset.component';
+import { SidenavMenuComponent } from './sidenav-menu/sidenav-menu.component';
 
 @NgModule({
   imports: [
@@ -97,6 +103,8 @@ import { SidenavFooterComponent } from './sidenav-footer/sidenav-footer.componen
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
+    NetworkTypeIconComponent,
+    NetworkTypeNameComponent,
     CountryNameComponent,
     DayComponent,
     TimestampComponent,
@@ -106,7 +114,11 @@ import { SidenavFooterComponent } from './sidenav-footer/sidenav-footer.componen
     PageComponent,
     ToolbarComponent,
     SidenavComponent,
-    SidenavFooterComponent
+    SidenavFooterComponent,
+    SidenavSubsetsComponent,
+    SidenavNetworkComponent,
+    SidenavSubsetComponent,
+    SidenavMenuComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -157,7 +169,10 @@ import { SidenavFooterComponent } from './sidenav-footer/sidenav-footer.componen
     PageComponent,
     ToolbarComponent,
     SidenavComponent,
-    SidenavFooterComponent
+    SidenavFooterComponent,
+    SidenavSubsetsComponent,
+    SidenavNetworkComponent,
+    SidenavSubsetComponent
   ]
 })
 export class SharedModule {

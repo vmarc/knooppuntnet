@@ -22,6 +22,7 @@ import {NetworkFactsPage} from "./kpn/shared/network/network-facts-page";
 import {NetworkNodesPage} from "./kpn/shared/network/network-nodes-page";
 import {NetworkRoutesPage} from "./kpn/shared/network/network-routes-page";
 import {ChangesParameters} from "./kpn/shared/changes/filter/changes-parameters";
+import {Subset} from "./kpn/shared/subset";
 
 @Injectable()
 export class AppService {
@@ -36,43 +37,43 @@ export class AppService {
     );
   }
 
-  public subsetNetworks(country: string, networkType: string /*subset: Subset*/): Observable<ApiResponse<SubsetNetworksPage>> {
-    const url = "/json-api/networks/" + country + "/" + networkType;
+  public subsetNetworks(subset: Subset): Observable<ApiResponse<SubsetNetworksPage>> {
+    const url = this.subsetUrl(subset, "networks");
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetNetworksPage.fromJSON))
     );
   }
 
-  public subsetFacts(country: string, networkType: string /*subset: Subset*/): Observable<ApiResponse<SubsetFactsPage>> {
-    const url = "/json-api/facts/" + country + "/" + networkType;
+  public subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
+    const url = this.subsetUrl(subset, "facts");
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetFactsPage.fromJSON))
     );
   }
 
-  public subsetFactDetails(country: string, networkType: string /*subset: Subset, fact: Fact*/): Observable<ApiResponse<SubsetFactDetailsPage>> {
-    const url = "/json-api/RouteBroken/" + country + "/" + networkType;
+  public subsetFactDetails(subset: Subset /*, fact: Fact*/): Observable<ApiResponse<SubsetFactDetailsPage>> {
+    const url = this.subsetUrl(subset, "RouteBroken");
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetFactDetailsPage.fromJSON))
     );
   }
 
-  public subsetOrphanNodes(country: string, networkType: string /*subset: Subset*/): Observable<ApiResponse<SubsetOrphanNodesPage>> {
-    const url = "/json-api/orphan-nodes/" + country + "/" + networkType;
+  public subsetOrphanNodes(subset: Subset): Observable<ApiResponse<SubsetOrphanNodesPage>> {
+    const url = this.subsetUrl(subset, "orphan-nodes");
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanNodesPage.fromJSON))
     );
   }
 
-  public subsetOrphanRoutes(country: string, networkType: string /*subset: Subset*/): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
-    const url = "/json-api/orphan-routes/" + country + "/" + networkType;
+  public subsetOrphanRoutes(subset: Subset): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
+    const url = this.subsetUrl(subset, "orphan-routes");
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanRoutesPage.fromJSON))
     );
   }
 
-  public subsetChanges(country: string, networkType: string /*parameters: ChangesParameters*/): Observable<ApiResponse<SubsetChangesPage>> {
-    const url = "/json-api/changes/" + country + "/" + networkType;
+  public subsetChanges(subset: Subset /*parameters: ChangesParameters*/): Observable<ApiResponse<SubsetChangesPage>> {
+    const url = this.subsetUrl(subset, "changes");
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetChangesPage.fromJSON))
     );
@@ -160,6 +161,10 @@ export class AppService {
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, MapDetailRoute.fromJSON))
     );
+  }
+
+  private subsetUrl(subset: Subset, target: string): string {
+    return "/json-api/" + target + "/" + subset.country.domain + "/" + subset.networkType.name;
   }
 
 }

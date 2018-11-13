@@ -64,13 +64,17 @@ class Application(
 
   def jsonApiGet(path: String) = Action { request =>
 
+    def subsetPath(target: String): String = {
+      target + """/(be|de|nl)/(rcn|rwn|rhn|rmn|rpn|rin)"""
+    }
+
     val overview = """overview""".r
-    val subsetNetworks = """networks/(be|de|nl)/(rcn|rwn|rhn|rmn|rpn)""".r
-    val subsetFacts = """facts/(be|de|nl)/(rcn|rwnrhn|rmn|rpn)""".r
-    val subsetFactDetails = """RouteBroken/(be|de|nl)/(rcn|rwn|rhn|rmn|rpn)""".r
-    val subsetOrphanNodes = """orphan-nodes/(be|de|nl)/(rcn|rwnrhn|rmn|rpn)""".r
-    val subsetOrphanRoutes = """orphan-routes/(be|de|nl)/(rcn|rwnrhn|rmn|rpn)""".r
-    val subsetChanges = """changes/(be|de|nl)/(rcn|rwnrhn|rmn|rpn)""".r
+    val subsetNetworks = subsetPath("networks").r
+    val subsetFacts = subsetPath("facts").r
+    val subsetFactDetails = """RouteBroken/(be|de|nl)/(rcn|rwn|rhn|rmn|rpn|rin)""".r
+    val subsetOrphanNodes = subsetPath("orphan-nodes").r
+    val subsetOrphanRoutes = subsetPath("orphan-routes").r
+    val subsetChanges = subsetPath("changes").r
     val networkDetails = """network/(\d*)""".r
     val networkMap = """network-map/(\d*)""".r
     val networkFacts = """network-facts/(\d*)""".r
@@ -81,7 +85,7 @@ class Application(
     val route = """route/(\d*)""".r
     val changes = """changes""".r
     val changeSet = """changeset/(\d*)/(\d*)""".r
-    val mapDetailNode = """node-detail/(\d*)/(rcn|rwn)""".r
+    val mapDetailNode = """node-detail/(\d*)/(rcn|rwn|rhn|rmn|rpn|rin)""".r
     val mapDetailRoute = """route-detail/(\d*)""".r
 
     val userApiService = request.session.get("user") match {
@@ -120,9 +124,6 @@ class Application(
         )
 
       case subsetOrphanRoutes(country, networkType) =>
-
-        println("country=" + country + ", networkType=" + networkType)
-
         val subset = Subset.of(country, networkType).get
         reply(
           userApiService.subsetOrphanRoutes(subset),

@@ -41,6 +41,8 @@ import { MapDetailComponent } from './pages/map/map-detail/map-detail.component'
 import { MapDetailNodeComponent } from './pages/map/map-detail-node/map-detail-node.component';
 import { MapDetailRouteComponent } from './pages/map/map-detail-route/map-detail-route.component';
 import { MapDetailDefaultComponent } from './pages/map/map-detail-default/map-detail-default.component';
+import { SubsetSidenavComponent } from './components/subset-sidenav/subset-sidenav.component';
+import { NetworkSidenavComponent } from './components/network-sidenav/network-sidenav.component';
 
 @NgModule({
   imports: [
@@ -87,7 +89,9 @@ import { MapDetailDefaultComponent } from './pages/map/map-detail-default/map-de
     MapDetailComponent,
     MapDetailNodeComponent,
     MapDetailRouteComponent,
-    MapDetailDefaultComponent
+    MapDetailDefaultComponent,
+    SubsetSidenavComponent,
+    NetworkSidenavComponent
   ]
 })
 export class AnalysisModule {
