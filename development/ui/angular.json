@@ -10,7 +10,9 @@
       "prefix": "kpn",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
+          "styleext": "scss",
+          "inlineStyle": true,
+          "inlineTemplate": true
         }
       },
       "architect": {
