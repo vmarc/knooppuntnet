@@ -7,8 +7,23 @@ import {saveAs} from "file-saver";
 
 @Component({
   selector: 'translations',
-  templateUrl: './translations.component.html',
-  styleUrls: ['./translations.component.scss']
+  template: `
+    <h1>Translations</h1>
+
+    Number of translations: {{translationUnits.length}}
+
+    <mat-divider></mat-divider>
+    <button mat-raised-button color="primary" (click)="export()">Export</button>
+    <mat-divider></mat-divider>
+
+    <translation-table [translationUnits]="translationFile?.translationUnits">
+    </translation-table>
+  `,
+  styles: [`
+    mat-table {
+      width: 100%;
+    }
+  `]
 })
 export class TranslationsComponent implements OnInit {
 

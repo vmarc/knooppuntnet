@@ -3,8 +3,9 @@ import {Timestamp} from "../../kpn/shared/timestamp";
 
 @Component({
   selector: 'day',
-  templateUrl: './day.component.html',
-  styleUrls: ['./day.component.scss']
+  template: `
+    {{formattedTimestamp()}}
+  `
 })
 export class DayComponent {
 

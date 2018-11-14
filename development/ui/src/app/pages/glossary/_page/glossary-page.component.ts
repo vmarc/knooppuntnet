@@ -2,8 +2,17 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'kpn-glossary-page',
-  templateUrl: './glossary-page.component.html',
-  styleUrls: ['./glossary-page.component.scss']
+  template: `
+    <kpn-page>
+      <kpn-toolbar toolbar></kpn-toolbar>
+      <kpn-sidenav sidenav></kpn-sidenav>
+      <div content>
+        <h1>
+          Glossary
+        </h1>
+      </div>
+    </kpn-page>
+  `
 })
 export class GlossaryPageComponent implements OnInit {
 

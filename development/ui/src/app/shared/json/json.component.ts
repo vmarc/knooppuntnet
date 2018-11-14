@@ -2,8 +2,19 @@ import {Component, Input, OnInit} from "@angular/core";
 
 @Component({
   selector: 'json',
-  templateUrl: './json.component.html',
-  styleUrls: ['./json.component.scss']
+  template: `
+    <br/>
+    <br/>
+    <button (click)="toggleVisible()">JSON</button>
+    <div *ngIf="visible">
+      <br/>
+<pre>
+{{contents}}
+</pre>
+    </div>
+    <br/>
+    <br/>
+  `
 })
 export class JsonComponent implements OnInit {
 

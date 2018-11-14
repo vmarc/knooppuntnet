@@ -28,8 +28,18 @@ import {SelectedFeature} from "../domain/selected-feature";
 
 @Component({
   selector: 'kpn-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  template: `
+    <div id="{{id}}" class="map"></div>
+  `,
+  styles: [`
+    .map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  `]
 })
 export class MapComponent implements AfterViewInit {
 

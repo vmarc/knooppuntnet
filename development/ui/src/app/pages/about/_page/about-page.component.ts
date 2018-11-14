@@ -1,13 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'kpn-about-page',
-  templateUrl: './about-page.component.html',
-  styleUrls: ['./about-page.component.scss']
+  template: `
+    <kpn-page>
+      <kpn-toolbar toolbar></kpn-toolbar>
+      <kpn-sidenav sidenav></kpn-sidenav>
+      <div content>
+        <h1>
+          About
+        </h1>
+      </div>
+    </kpn-page>
+  `
 })
 export class AboutPageComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
