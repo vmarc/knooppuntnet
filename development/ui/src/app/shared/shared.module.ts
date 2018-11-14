@@ -49,13 +49,13 @@ import {OsmLinkUserComponent} from "./link/osm-link-user.component";
 import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
 import {ToolbarComponent} from './toolbar/toolbar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
-import {SidenavFooterComponent} from './sidenav-footer/sidenav-footer.component';
+import {SidenavFooterComponent} from './sidenav/sidenav-footer.component';
 import {NetworkTypeIconComponent} from "./network-type-icon.component";
 import {NetworkTypeNameComponent} from "./network-type-name.component";
-import {SidenavSubsetsComponent} from './sidenav-subsets/sidenav-subsets.component';
-import {SidenavNetworkComponent} from './sidenav-network/sidenav-network.component';
-import {SidenavSubsetComponent} from './sidenav-subset/sidenav-subset.component';
-import { SidenavMenuComponent } from './sidenav-menu/sidenav-menu.component';
+import {SidenavSubsetsComponent} from './sidenav/sidenav-subsets.component';
+import {SidenavNetworkComponent} from './sidenav/sidenav-network.component';
+import {SidenavSubsetComponent} from './sidenav/sidenav-subset.component';
+import { SidenavMenuComponent } from './sidenav/sidenav-menu.component';
 
 @NgModule({
   imports: [

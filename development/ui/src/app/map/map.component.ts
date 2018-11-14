@@ -18,13 +18,13 @@ import Feature from 'ol/Feature';
 import Select from 'ol/interaction/Select';
 import Style from 'ol/style/Style';
 
-import {ZoomLevel} from "../domain/zoom-level";
-import {MainMapStyle} from "../domain/main-map-style";
-import {MapClickHandler} from "../domain/map-click-handler";
-import {SelectedFeatureHolder} from "../domain/selected-feature-holder";
-import {MapState} from "../domain/map-state";
-import {MapMoveHandler} from "../domain/map-move-handler";
-import {SelectedFeature} from "../domain/selected-feature";
+import {ZoomLevel} from "./domain/zoom-level";
+import {MainMapStyle} from "./domain/main-map-style";
+import {MapClickHandler} from "./domain/map-click-handler";
+import {SelectedFeatureHolder} from "./domain/selected-feature-holder";
+import {MapState} from "./domain/map-state";
+import {MapMoveHandler} from "./domain/map-move-handler";
+import {SelectedFeature} from "./domain/selected-feature";
 
 @Component({
   selector: 'kpn-map',
