@@ -4,12 +4,11 @@ import javax.inject._
 
 import play.api.Configuration
 import play.api.http.HttpErrorHandler
-import play.api.mvc._
-/**
-  * Frontend controller managing all static resource associate routes.
-  * @param assets Assets controller reference.
-  * @param cc Controller components reference.
-  */
+import play.api.mvc.AbstractController
+import play.api.mvc.Action
+import play.api.mvc.AnyContent
+import play.api.mvc.ControllerComponents
+
 @Singleton
 class FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandler, config: Configuration, cc: ControllerComponents) extends AbstractController(cc) {
 
@@ -18,56 +17,30 @@ class FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandle
     println("serving resource " + resource)
 
     if (resource.startsWith("nl/")) {
-      if (resource.contains("main") ||resource.contains("poly") ||resource.contains("runtime") ||resource.contains("styles")) {
-        assets.at(resource)
-      }
-      else {
-        assets.at("nl/index.html")
-      }
+      languageAsset("nl", resource)
     }
     else if (resource.startsWith("fr/")) {
-      if (resource.contains("main") ||resource.contains("poly") ||resource.contains("runtime") ||resource.contains("styles")) {
-        assets.at(resource)
-      }
-      else {
-        assets.at("fr/index.html")
-      }
+      languageAsset("fr", resource)
     }
     else if (resource.startsWith("de/")) {
-      if (resource.contains("main") ||resource.contains("poly") ||resource.contains("runtime") ||resource.contains("styles")) {
-        assets.at(resource)
-      }
-      else {
-        assets.at("de/index.html")
-      }
+      languageAsset("de", resource)
     }
-    else if (resource.startsWith("en/")) {
-      if (resource.contains("main") ||resource.contains("poly") ||resource.contains("runtime") ||resource.contains("styles")) {
-        assets.at(resource)
-      }
-      else {
-        assets.at("en/index.html")
-      }
+    else {
+      languageAsset("en", resource)
     }
-    else  {
-      if (resource.contains("main") ||resource.contains("poly") ||resource.contains("runtime") ||resource.contains("styles")) {
-        assets.at(resource)
-      }
-      else {
-        assets.at("en/index.html")
-      }
-    }
-
-
-//
-//    else if (resource.startsWith(config.get[String]("apiPrefix"))){
-//      Action.async(r => errorHandler.onClientError(r, NOT_FOUND, "Not found"))
-//    } else {
-////      if (resource.contains(".")) {
-//        assets.at(resource)
-////      } else {
-////        indexEN(resource)
-////      }
-//    }
   }
+
+  private def isActualAsset(resource: String): Boolean = {
+    resource.startsWith("images/") || resource.endsWith(".js") || resource.endsWith(".css")
+  }
+
+  private def languageAsset(language: String, resource: String): Action[AnyContent] = {
+    if (isActualAsset(resource)) {
+      assets.at(resource)
+    }
+    else {
+      assets.at(language + "/index.html")
+    }
+  }
+
 }
