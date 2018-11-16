@@ -55,7 +55,8 @@ import {NetworkTypeNameComponent} from "./network-type-name.component";
 import {SidenavSubsetsComponent} from './sidenav/sidenav-subsets.component';
 import {SidenavNetworkComponent} from './sidenav/sidenav-network.component';
 import {SidenavSubsetComponent} from './sidenav/sidenav-subset.component';
-import { SidenavMenuComponent } from './sidenav/sidenav-menu.component';
+import {SidenavMenuComponent} from './sidenav/sidenav-menu.component';
+import {SidenavSubItemComponent} from './sidenav/sidenav-sub-item.component';
 
 @NgModule({
   imports: [
@@ -118,7 +119,8 @@ import { SidenavMenuComponent } from './sidenav/sidenav-menu.component';
     SidenavSubsetsComponent,
     SidenavNetworkComponent,
     SidenavSubsetComponent,
-    SidenavMenuComponent
+    SidenavMenuComponent,
+    SidenavSubItemComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -172,7 +174,8 @@ import { SidenavMenuComponent } from './sidenav/sidenav-menu.component';
     SidenavFooterComponent,
     SidenavSubsetsComponent,
     SidenavNetworkComponent,
-    SidenavSubsetComponent
+    SidenavSubsetComponent,
+    SidenavSubItemComponent
   ]
 })
 export class SharedModule {

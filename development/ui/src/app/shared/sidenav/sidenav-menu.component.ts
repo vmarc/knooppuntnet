@@ -9,7 +9,7 @@ import {Component, Input} from '@angular/core';
         <mat-icon *ngIf="!open" mat-list-icon>arrow_right</mat-icon>
         <span>{{title}}</span>
       </mat-list-item>
-      <mat-nav-list *ngIf="open" style="margin-left:30px;">
+      <mat-nav-list *ngIf="open">
         <ng-content></ng-content>
       </mat-nav-list>
     </mat-nav-list>
@@ -26,6 +26,7 @@ import {Component, Input} from '@angular/core';
     /deep/ .mat-list-item-with-avatar {
       height: 32px !important;
     }
+    
   `]
 })
 export class SidenavMenuComponent {

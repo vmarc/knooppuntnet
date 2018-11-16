@@ -7,7 +7,9 @@ import {NetworkType} from "../../kpn/shared/network-type";
   selector: 'kpn-sidenav-subsets',
   template: `
     <kpn-sidenav-menu title="Analysis">
-      <a *ngFor="let s of allSubsets" mat-list-item routerLink="{{subsetUrl(s)}}">{{subsetTitle(s)}}</a>
+      <kpn-sidenav-sub-item *ngFor="let s of allSubsets" link="{{subsetUrl(s)}}">
+        {{subsetTitle(s)}}
+      </kpn-sidenav-sub-item>
     </kpn-sidenav-menu>
   `
 })
