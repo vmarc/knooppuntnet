@@ -19,6 +19,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from "./shared/shared.module";
 import {UserService} from "./user.service";
 import {CookieService} from "ngx-cookie-service";
+import {MarkdownModule, MarkdownService} from "ngx-markdown";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {CookieService} from "ngx-cookie-service";
     NotFoundPageComponent
   ],
   imports: [
+    MarkdownModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -42,6 +44,7 @@ import {CookieService} from "ngx-cookie-service";
     AppRoutingModule
   ],
   providers: [
+ //   MarkdownService,
     CookieService,
     UserService,
     AppService

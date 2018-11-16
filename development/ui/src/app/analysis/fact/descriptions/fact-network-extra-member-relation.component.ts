@@ -6,8 +6,10 @@ import {Component} from '@angular/core';
     <!--De netwerk relatie bevat overwachte relaties. In network relaties verwachten we enkel
     route relaties of knooppunten, geen relaties die geen route relaties zijn.
     -->
-    MARKED The network relation contains members of type _"relation"_ that are unexpected
-    (expect only valid route relations or network nodes as members in the node network relation).
+    <markdown>
+      The network relation contains members of type _"relation"_ that are unexpected
+      (expect only valid route relations or network nodes as members in the node network relation).
+    </markdown>
   `
 })
 export class FactNetworkExtraMemberRelationComponent {

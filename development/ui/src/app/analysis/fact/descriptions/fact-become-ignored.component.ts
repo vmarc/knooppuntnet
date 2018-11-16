@@ -4,7 +4,9 @@ import {Component} from '@angular/core';
   selector: 'kpn-fact-become-ignored',
   template: `
     <!--Niet langer opgenomen in de analyse.-->
-    No longer included in the analysis.
+    <ng-container i18n="@@fact.description.become-ignored">
+      No longer included in the analysis.
+    </ng-container>
   `
 })
 export class FactBecomeIgnoredComponent {

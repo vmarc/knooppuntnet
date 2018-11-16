@@ -7,8 +7,10 @@ import {Component} from '@angular/core';
     |De netwerk relatie bevat overwachte wegen (in network relaties verwachten we enkel route
     |relaties of knooppunten, geen wegen).""".stripMargin
     -->
-    MARKED The network relation contains members of type _"way"_ (expect only route relations or
-    network nodes as members in the node network relation).""".stripMargin
+    <markdown>
+      The network relation contains members of type _"way"_ (expect only route relations or
+      network nodes as members in the node network relation).
+    </markdown>
   `
 })
 export class FactNetworkExtraMemberWayComponent {

@@ -94,9 +94,11 @@ import {FactWasIgnoredComponent} from './fact/descriptions/fact-was-ignored.comp
 import {FactWasOrphanComponent} from './fact/descriptions/fact-was-orphan.component';
 import {FactNameComponent} from './fact/fact-name.component';
 import {FactDescriptionComponent} from './fact/fact-description.component';
+import {MarkdownModule} from "ngx-markdown";
 
 @NgModule({
   imports: [
+    MarkdownModule,
     CommonModule,
     KpnMaterialModule,
     SharedModule,

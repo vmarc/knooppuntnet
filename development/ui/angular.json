@@ -33,6 +33,7 @@
               "node_modules/ol/ol.css"
             ],
             "scripts": [
+              "node_modules/marked/lib/marked.js"
             ]
           },
           "configurations": {
