@@ -109,18 +109,6 @@ object UiHomePage {
               "."
             )
           },
-          TagMod.when(nlsEN) {
-            <.p(
-              "This website is the successor of osma.vmarc.be for which the contents is still available ",
-              <.a(
-                ^.href := "http://old.vmarc.be",
-                ^.cls := "external",
-                ^.target := "_blank",
-                "here"
-              ),
-              " for a limited period."
-            )
-          },
           TagMod.when(nlsNL) {
             <.p(
               "Dit is een analyse van de knooppuntnetwerken voor wandelaars en fieters in Nederland, België en Duitsland, " +
