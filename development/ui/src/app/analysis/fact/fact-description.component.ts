@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'kpn-fact',
+  selector: 'kpn-fact-description',
   template: `
     <ng-container [ngSwitch]="factName">
       <kpn-fact-added *ngSwitchCase="'Added'"></kpn-fact-added>
@@ -57,6 +57,6 @@ import {Component, Input} from '@angular/core';
     </ng-container>
   `
 })
-export class FactComponent {
+export class FactDescriptionComponent {
   @Input() factName: string;
 }

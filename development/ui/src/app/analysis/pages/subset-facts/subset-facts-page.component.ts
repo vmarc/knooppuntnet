@@ -25,14 +25,18 @@ import {Subset} from "../../../kpn/shared/subset";
             Situation on:
             <kpn-timestamp>{{response.situationOn}}</kpn-timestamp>
           </p>
-
           <div *ngIf="!hasFacts()">
             <i>No facts</i>
           </div>
           <div *ngIf="hasFacts()">
             <kpn-items>
               <kpn-item *ngFor="let factName of allFactNames; let i=index" index="{{i}}">
-                <kpn-fact [factName]="factName"></kpn-fact>
+                <p>
+                  <kpn-fact-name [factName]="factName"></kpn-fact-name>
+                </p>
+                <p>
+                  <kpn-fact-description [factName]="factName"></kpn-fact-description>
+                </p>
               </kpn-item>
             </kpn-items>
           </div>

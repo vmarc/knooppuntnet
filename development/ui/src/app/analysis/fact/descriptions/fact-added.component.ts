@@ -4,7 +4,9 @@ import {Component} from '@angular/core';
   selector: 'kpn-fact-added',
   template: `
     <!--Toegevoegd aan de analyse.-->
-    Added to the analysis.
+    <ng-container i18n="@@fact.description.added">
+      Added to the analysis.
+    </ng-container>
   `
 })
 export class FactAddedComponent {
