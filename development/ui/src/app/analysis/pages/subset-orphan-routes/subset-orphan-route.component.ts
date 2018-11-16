@@ -16,7 +16,7 @@ import {Component, Input} from '@angular/core';
       {{route.nodes}}
     </p>
     <p>
-      <timestamp [timestamp]="route.timestamp"></timestamp>
+      <kpn-timestamp [timestamp]="route.timestamp"></kpn-timestamp>
     </p>
     <p>
       <osm-link-relation relationId="{{route.id}}"></osm-link-relation>

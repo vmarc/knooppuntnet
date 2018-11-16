@@ -9,7 +9,7 @@ import {NetworkType} from "../kpn/shared/network-type";
     <ng-container *ngIf="networkType.name == 'rhn'">Horse <!-- Ruiter --></ng-container>
     <ng-container *ngIf="networkType.name == 'rmn'">Motorboat <!-- Motorboot --></ng-container>
     <ng-container *ngIf="networkType.name == 'rpn'">Canoe <!-- Kano --></ng-container>
-    <ng-container *ngIf="networkType.name == 'rin'">Inline Skates</ng-container>
+    <ng-container *ngIf="networkType.name == 'rin'">Inline Skating</ng-container>
   `
 })
 export class NetworkTypeNameComponent {

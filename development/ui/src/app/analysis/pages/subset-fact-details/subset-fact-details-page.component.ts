@@ -15,8 +15,13 @@ import {Subset} from "../../../kpn/shared/subset";
       <kpn-subset-sidenav sidenav [subset]="subset"></kpn-subset-sidenav>
       <div content>
         <h1>
-          Subset fact details
+          <kpn-subset-name [subset]="subset"></kpn-subset-name>
         </h1>
+        <h2>
+          Fact details
+        </h2>
+
+        
         <div *ngIf="response">
           <json [object]="response"></json>
         </div>

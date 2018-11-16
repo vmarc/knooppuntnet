@@ -11,7 +11,18 @@ import {NetworkType} from "../../../kpn/shared/network-type";
 @Component({
   selector: 'kpn-network-routes-page',
   template: `
-    network-routes-page.component.html
+    <kpn-page>
+      <kpn-toolbar toolbar></kpn-toolbar>
+      <kpn-network-sidenav sidenav [subset]="subset" [networkId]="networkId"></kpn-network-sidenav>
+      <div content>
+        <h1>
+          Network routes
+        </h1>
+        <div *ngIf="response">
+          <json [object]="response"></json>
+        </div>
+      </div>
+    </kpn-page>
   `
 })
 export class NetworkRoutesPageComponent implements OnInit, OnDestroy {

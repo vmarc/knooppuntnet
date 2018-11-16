@@ -29,11 +29,11 @@ import {ApiResponse} from "../../../kpn/shared/api-response";
             </kpn-data>
 
             <kpn-data title="Situation on"> <!-- "Situatie op" -->
-              <timestamp [timestamp]="response.situationOn"></timestamp>
+              <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
             </kpn-data>
 
             <kpn-data title="Last updated"> <!-- "Laatst bewerkt" -->
-              <timestamp [timestamp]="nodeInfo.lastUpdated"></timestamp>
+              <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
             </kpn-data>
 
             <kpn-data title="Tags"> <!-- "Labels" -->

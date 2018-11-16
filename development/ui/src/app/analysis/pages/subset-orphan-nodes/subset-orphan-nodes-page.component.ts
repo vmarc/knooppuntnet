@@ -15,8 +15,13 @@ import {Subset} from "../../../kpn/shared/subset";
       <kpn-subset-sidenav sidenav [subset]="subset"></kpn-subset-sidenav>
       <div content>
         <h1>
-          Subset orphan nodes
+          <kpn-subset-name [subset]="subset"></kpn-subset-name>
         </h1>
+        <h2>
+          Orphan nodes
+        </h2>
+
+
         <div *ngIf="response">
           <kpn-subset-orphan-nodes-table [nodes]="response.result.rows"></kpn-subset-orphan-nodes-table>
           <json [object]="response"></json>

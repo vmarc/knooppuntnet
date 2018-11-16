@@ -17,7 +17,7 @@ import {NetworkType} from "../../../kpn/shared/network-type";
       <p>
         Last updated: <!-- "Laatst bewerkt" -->
         <br>
-        <timestamp [timestamp]="nodeInfo.lastUpdated"></timestamp>
+        <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
       </p>
 
       <div *ngIf="references.networkReferences.length > 0">

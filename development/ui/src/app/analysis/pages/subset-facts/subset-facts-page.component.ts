@@ -15,9 +15,43 @@ import {Subset} from "../../../kpn/shared/subset";
       <kpn-subset-sidenav sidenav [subset]="subset"></kpn-subset-sidenav>
       <div content>
         <h1>
-          Subset facts
+          <kpn-subset-name [subset]="subset"></kpn-subset-name>
         </h1>
+        <h2>
+          Facts
+        </h2>
         <div *ngIf="response">
+          <p>
+            Situation on:
+            <kpn-timestamp>{{response.situationOn}}</kpn-timestamp>
+          </p>
+
+          <div *ngIf="!hasFacts()">
+            <i>No facts</i>
+          </div>
+          <div *ngIf="hasFacts()">
+
+            
+            
+            
+            
+            
+            
+            
+            <kpn-items>
+              <kpn-item index="1">
+                een
+              </kpn-item>
+              <kpn-item index="2">
+                twee
+              </kpn-item>
+              <kpn-item index="3">
+                drie
+              </kpn-item>
+            </kpn-items>
+
+          </div>
+
           <json [object]="response"></json>
         </div>
       </div>
@@ -46,6 +80,10 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
+  }
+
+  hasFacts() {
+    return this.response && this.response.result && this.response.result.factCounts.length > 0;
   }
 
 }

@@ -31,7 +31,7 @@ import {NodeInfo} from "../../../kpn/shared/node-info";
 	  -->
 
       <p *ngIf="nodeInfo.country">
-        <country-name [country]="nodeInfo.country"></country-name>
+        <kpn-country-name [country]="nodeInfo.country"></kpn-country-name>
       </p>
 
       <p *ngIf="nodeInfo.active && nodeInfo.orphan">

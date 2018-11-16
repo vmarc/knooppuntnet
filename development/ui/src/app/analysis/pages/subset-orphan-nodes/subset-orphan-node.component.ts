@@ -8,7 +8,7 @@ import {NodeInfo} from "../../../kpn/shared/node-info";
       <kpn-link-node [nodeId]="node.id" [title]="node.name"></kpn-link-node>
     </p>
     <p>
-      <timestamp [timestamp]="node.lastUpdated"></timestamp>
+      <kpn-timestamp [timestamp]="node.lastUpdated"></kpn-timestamp>
     </p>
     <p *ngIf="extraTags()">
       <span>Extra tags:</span>

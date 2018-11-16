@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {Timestamp} from "../../kpn/shared/timestamp";
 
 @Component({
-  selector: 'timestamp',
+  selector: 'kpn-timestamp',
   template: `
     {{formattedTimestamp()}}
   `

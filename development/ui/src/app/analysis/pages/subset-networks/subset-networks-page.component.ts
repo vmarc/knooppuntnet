@@ -15,8 +15,11 @@ import {Subset} from "../../../kpn/shared/subset";
       <kpn-subset-sidenav sidenav [subset]="subset"></kpn-subset-sidenav>
       <div content>
         <h1>
-          Subset networks
+          <kpn-subset-name [subset]="subset"></kpn-subset-name>
         </h1>
+        <h2>
+          Networks
+        </h2>
 
         <kpn-subset-network-list
           *ngIf="response"
