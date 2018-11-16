@@ -30,28 +30,12 @@ import {Subset} from "../../../kpn/shared/subset";
             <i>No facts</i>
           </div>
           <div *ngIf="hasFacts()">
-
-            
-            
-            
-            
-            
-            
-            
             <kpn-items>
-              <kpn-item index="1">
-                een
-              </kpn-item>
-              <kpn-item index="2">
-                twee
-              </kpn-item>
-              <kpn-item index="3">
-                drie
+              <kpn-item *ngFor="let factName of allFactNames; let i=index" index="{{i}}">
+                <kpn-fact [factName]="factName"></kpn-fact>
               </kpn-item>
             </kpn-items>
-
           </div>
-
           <json [object]="response"></json>
         </div>
       </div>
@@ -63,6 +47,58 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
   subset: Subset;
   response: ApiResponse<SubsetFactsPage>;
   paramsSubscription: Subscription;
+
+  allFactNames = [
+    "RouteNotContinious",
+    "RouteUnusedSegments",
+    "RouteNodeMissingInWays",
+    "RouteRedundantNodes",
+    "RouteWithoutWays",
+    "RouteFixmetodo",
+    "RouteNameMissing",
+    "RouteEndNodeMismatch",
+    "RouteStartNodeMismatch",
+    "RouteTagMissing",
+    "RouteTagInvalid",
+    "RouteUnexpectedNode",
+    "RouteUnexpectedRelation",
+    "NetworkExtraMemberNode",
+    "NetworkExtraMemberWay",
+    "NetworkExtraMemberRelation",
+    "NodeMemberMissing",
+    "IntegrityCheckFailed",
+    "OrphanRoute",
+    "OrphanNode",
+    "RouteIncomplete",
+    "RouteIncompleteOk",
+    "RouteUnaccessible",
+    "RouteInvalidSortingOrder",
+    "RouteReversed",
+    "RouteNodeNameMismatch",
+    "RouteNotForward",
+    "RouteNotBackward",
+    "RouteAnalysisFailed",
+    "RouteOverlappingWays",
+    "RouteSuspiciousWays",
+    "RouteBroken",
+    "RouteOneWay",
+    "RouteNotOneWay",
+    "NameMissing",
+    "IgnoreForeignCountry",
+    "IgnoreNoNetworkNodes",
+    "IgnoreUnsupportedSubset",
+    "Added",
+    "BecomeIgnored",
+    "BecomeOrphan",
+    "Deleted",
+    "IgnoreNetworkCollection",
+    "IntegrityCheck",
+    "LostBicycleNodeTag",
+    "LostHikingNodeTag",
+    "LostRouteTags",
+    "WasIgnored",
+    "WasOrphan"
+  ];
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService) {

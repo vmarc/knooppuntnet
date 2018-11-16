@@ -43,55 +43,56 @@ import {MapDetailRouteComponent} from './pages/map/map-detail-route.component';
 import {MapDetailDefaultComponent} from './pages/map/map-detail-default.component';
 import {SubsetSidenavComponent} from './components/sidenav/subset-sidenav.component';
 import {NetworkSidenavComponent} from './components/sidenav/network-sidenav.component';
-import {RouteNotContiniousComponent} from './facts/route-not-continious.component';
-import {RouteUnusedSegmentsComponent} from './facts/route-unused-segments.component';
-import {RouteNodeMissingInWaysComponent} from './facts/route-node-missing-in-ways.component';
-import {RouteRedundantNodesComponent} from './facts/route-redundant-nodes.component';
-import {RouteWithoutWaysComponent} from './facts/route-without-ways.component';
-import {RouteFixmetodoComponent} from './facts/route-fixmetodo.component';
-import {RouteNameMissingComponent} from './facts/route-name-missing.component';
-import {RouteEndNodeMismatchComponent} from './facts/route-end-node-mismatch.component';
-import {RouteStartNodeMismatchComponent} from './facts/route-start-node-mismatch.component';
-import {RouteTagMissingComponent} from './facts/route-tag-missing.component';
-import {RouteTagInvalidComponent} from './facts/route-tag-invalid.component';
-import {RouteUnexpectedNodeComponent} from './facts/route-unexpected-node.component';
-import {RouteUnexpectedRelationComponent} from './facts/route-unexpected-relation.component';
-import {NetworkExtraMemberNodeComponent} from './facts/network-extra-member-node.component';
-import {NetworkExtraMemberWayComponent} from './facts/network-extra-member-way.component';
-import {NetworkExtraMemberRelationComponent} from './facts/network-extra-member-relation.component';
-import {NodeMemberMissingComponent} from './facts/node-member-missing.component';
-import {IntegrityCheckFailedComponent} from './facts/integrity-check-failed.component';
-import {OrphanRouteComponent} from './facts/orphan-route.component';
-import {OrphanNodeComponent} from './facts/orphan-node.component';
-import {RouteIncompleteComponent} from './facts/route-incomplete.component';
-import {RouteIncompleteOkComponent} from './facts/route-incomplete-ok.component';
-import {RouteUnaccessibleComponent} from './facts/route-unaccessible.component';
-import {RouteInvalidSortingOrderComponent} from './facts/route-invalid-sorting-order.component';
-import {RouteReversedComponent} from './facts/route-reversed.component';
-import {RouteNodeNameMismatchComponent} from './facts/route-node-name-mismatch.component';
-import {RouteNotForwardComponent} from './facts/route-not-forward.component';
-import {RouteNotBackwardComponent} from './facts/route-not-backward.component';
-import {RouteAnalysisFailedComponent} from './facts/route-analysis-failed.component';
-import {RouteOverlappingWaysComponent} from './facts/route-overlapping-ways.component';
-import {RouteSuspiciousWaysComponent} from './facts/route-suspicious-ways.component';
-import {RouteBrokenComponent} from './facts/route-broken.component';
-import {RouteOneWayComponent} from './facts/route-one-way.component';
-import {RouteNotOneWayComponent} from './facts/route-not-one-way.component';
-import {NameMissingComponent} from './facts/name-missing.component';
-import {IgnoreForeignCountryComponent} from './facts/ignore-foreign-country.component';
-import {IgnoreNoNetworkNodesComponent} from './facts/ignore-no-network-nodes.component';
-import {IgnoreUnsupportedSubsetComponent} from './facts/ignore-unsupported-subset.component';
-import {AddedComponent} from './facts/added.component';
-import {BecomeIgnoredComponent} from './facts/become-ignored.component';
-import {BecomeOrphanComponent} from './facts/become-orphan.component';
-import {DeletedComponent} from './facts/deleted.component';
-import {IgnoreNetworkCollectionComponent} from './facts/ignore-network-collection.component';
-import {IntegrityCheckComponent} from './facts/integrity-check.component';
-import {LostBicycleNodeTagComponent} from './facts/lost-bicycle-node-tag.component';
-import {LostHikingNodeTagComponent} from './facts/lost-hiking-node-tag.component';
-import {LostRouteTagsComponent} from './facts/lost-route-tags.component';
-import {WasIgnoredComponent} from './facts/was-ignored.component';
-import {WasOrphanComponent} from './facts/was-orphan.component';
+import {FactRouteNotContiniousComponent} from './facts/fact-route-not-continious.component';
+import {FactRouteUnusedSegmentsComponent} from './facts/fact-route-unused-segments.component';
+import {FactRouteNodeMissingInWaysComponent} from './facts/fact-route-node-missing-in-ways.component';
+import {FactRouteRedundantNodesComponent} from './facts/fact-route-redundant-nodes.component';
+import {FactRouteWithoutWaysComponent} from './facts/fact-route-without-ways.component';
+import {FactRouteFixmetodoComponent} from './facts/fact-route-fixmetodo.component';
+import {FactRouteNameMissingComponent} from './facts/fact-route-name-missing.component';
+import {FactRouteEndNodeMismatchComponent} from './facts/fact-route-end-node-mismatch.component';
+import {FactRouteStartNodeMismatchComponent} from './facts/fact-route-start-node-mismatch.component';
+import {FactRouteTagMissingComponent} from './facts/fact-route-tag-missing.component';
+import {FactRouteTagInvalidComponent} from './facts/fact-route-tag-invalid.component';
+import {FactRouteUnexpectedNodeComponent} from './facts/fact-route-unexpected-node.component';
+import {FactRouteUnexpectedRelationComponent} from './facts/fact-route-unexpected-relation.component';
+import {FactNetworkExtraMemberNodeComponent} from './facts/fact-network-extra-member-node.component';
+import {FactNetworkExtraMemberWayComponent} from './facts/fact-network-extra-member-way.component';
+import {FactNetworkExtraMemberRelationComponent} from './facts/fact-network-extra-member-relation.component';
+import {FactNodeMemberMissingComponent} from './facts/fact-node-member-missing.component';
+import {FactIntegrityCheckFailedComponent} from './facts/fact-integrity-check-failed.component';
+import {FactOrphanRouteComponent} from './facts/fact-orphan-route.component';
+import {FactOrphanNodeComponent} from './facts/fact-orphan-node.component';
+import {FactRouteIncompleteComponent} from './facts/fact-route-incomplete.component';
+import {FactRouteIncompleteOkComponent} from './facts/fact-route-incomplete-ok.component';
+import {FactRouteUnaccessibleComponent} from './facts/fact-route-unaccessible.component';
+import {FactRouteInvalidSortingOrderComponent} from './facts/fact-route-invalid-sorting-order.component';
+import {FactRouteReversedComponent} from './facts/fact-route-reversed.component';
+import {FactRouteNodeNameMismatchComponent} from './facts/fact-route-node-name-mismatch.component';
+import {FactRouteNotForwardComponent} from './facts/fact-route-not-forward.component';
+import {FactRouteNotBackwardComponent} from './facts/fact-route-not-backward.component';
+import {FactRouteAnalysisFailedComponent} from './facts/fact-route-analysis-failed.component';
+import {FactRouteOverlappingWaysComponent} from './facts/fact-route-overlapping-ways.component';
+import {FactRouteSuspiciousWaysComponent} from './facts/fact-route-suspicious-ways.component';
+import {FactRouteBrokenComponent} from './facts/fact-route-broken.component';
+import {FactRouteOneWayComponent} from './facts/fact-route-one-way.component';
+import {FactRouteNotOneWayComponent} from './facts/fact-route-not-one-way.component';
+import {FactNameMissingComponent} from './facts/fact-name-missing.component';
+import {FactIgnoreForeignCountryComponent} from './facts/fact-ignore-foreign-country.component';
+import {FactIgnoreNoNetworkNodesComponent} from './facts/fact-ignore-no-network-nodes.component';
+import {FactIgnoreUnsupportedSubsetComponent} from './facts/fact-ignore-unsupported-subset.component';
+import {FactAddedComponent} from './facts/fact-added.component';
+import {FactBecomeIgnoredComponent} from './facts/fact-become-ignored.component';
+import {FactBecomeOrphanComponent} from './facts/fact-become-orphan.component';
+import {FactDeletedComponent} from './facts/fact-deleted.component';
+import {FactIgnoreNetworkCollectionComponent} from './facts/fact-ignore-network-collection.component';
+import {FactIntegrityCheckComponent} from './facts/fact-integrity-check.component';
+import {FactLostBicycleNodeTagComponent} from './facts/fact-lost-bicycle-node-tag.component';
+import {FactLostHikingNodeTagComponent} from './facts/fact-lost-hiking-node-tag.component';
+import {FactLostRouteTagsComponent} from './facts/fact-lost-route-tags.component';
+import {FactWasIgnoredComponent} from './facts/fact-was-ignored.component';
+import {FactWasOrphanComponent} from './facts/fact-was-orphan.component';
+import {FactComponent} from './facts/fact.component';
 
 @NgModule({
   imports: [
@@ -141,55 +142,56 @@ import {WasOrphanComponent} from './facts/was-orphan.component';
     MapDetailDefaultComponent,
     SubsetSidenavComponent,
     NetworkSidenavComponent,
-    RouteNotContiniousComponent,
-    RouteUnusedSegmentsComponent,
-    RouteNodeMissingInWaysComponent,
-    RouteRedundantNodesComponent,
-    RouteWithoutWaysComponent,
-    RouteFixmetodoComponent,
-    RouteNameMissingComponent,
-    RouteEndNodeMismatchComponent,
-    RouteStartNodeMismatchComponent,
-    RouteTagMissingComponent,
-    RouteTagInvalidComponent,
-    RouteUnexpectedNodeComponent,
-    RouteUnexpectedRelationComponent,
-    NetworkExtraMemberNodeComponent,
-    NetworkExtraMemberWayComponent,
-    NetworkExtraMemberRelationComponent,
-    NodeMemberMissingComponent,
-    IntegrityCheckFailedComponent,
-    OrphanRouteComponent,
-    OrphanNodeComponent,
-    RouteIncompleteComponent,
-    RouteIncompleteOkComponent,
-    RouteUnaccessibleComponent,
-    RouteInvalidSortingOrderComponent,
-    RouteReversedComponent,
-    RouteNodeNameMismatchComponent,
-    RouteNotForwardComponent,
-    RouteNotBackwardComponent,
-    RouteAnalysisFailedComponent,
-    RouteOverlappingWaysComponent,
-    RouteSuspiciousWaysComponent,
-    RouteBrokenComponent,
-    RouteOneWayComponent,
-    RouteNotOneWayComponent,
-    NameMissingComponent,
-    IgnoreForeignCountryComponent,
-    IgnoreNoNetworkNodesComponent,
-    IgnoreUnsupportedSubsetComponent,
-    AddedComponent,
-    BecomeIgnoredComponent,
-    BecomeOrphanComponent,
-    DeletedComponent,
-    IgnoreNetworkCollectionComponent,
-    IntegrityCheckComponent,
-    LostBicycleNodeTagComponent,
-    LostHikingNodeTagComponent,
-    LostRouteTagsComponent,
-    WasIgnoredComponent,
-    WasOrphanComponent
+    FactComponent,
+    FactRouteNotContiniousComponent,
+    FactRouteUnusedSegmentsComponent,
+    FactRouteNodeMissingInWaysComponent,
+    FactRouteRedundantNodesComponent,
+    FactRouteWithoutWaysComponent,
+    FactRouteFixmetodoComponent,
+    FactRouteNameMissingComponent,
+    FactRouteEndNodeMismatchComponent,
+    FactRouteStartNodeMismatchComponent,
+    FactRouteTagMissingComponent,
+    FactRouteTagInvalidComponent,
+    FactRouteUnexpectedNodeComponent,
+    FactRouteUnexpectedRelationComponent,
+    FactNetworkExtraMemberNodeComponent,
+    FactNetworkExtraMemberWayComponent,
+    FactNetworkExtraMemberRelationComponent,
+    FactNodeMemberMissingComponent,
+    FactIntegrityCheckFailedComponent,
+    FactOrphanRouteComponent,
+    FactOrphanNodeComponent,
+    FactRouteIncompleteComponent,
+    FactRouteIncompleteOkComponent,
+    FactRouteUnaccessibleComponent,
+    FactRouteInvalidSortingOrderComponent,
+    FactRouteReversedComponent,
+    FactRouteNodeNameMismatchComponent,
+    FactRouteNotForwardComponent,
+    FactRouteNotBackwardComponent,
+    FactRouteAnalysisFailedComponent,
+    FactRouteOverlappingWaysComponent,
+    FactRouteSuspiciousWaysComponent,
+    FactRouteBrokenComponent,
+    FactRouteOneWayComponent,
+    FactRouteNotOneWayComponent,
+    FactNameMissingComponent,
+    FactIgnoreForeignCountryComponent,
+    FactIgnoreNoNetworkNodesComponent,
+    FactIgnoreUnsupportedSubsetComponent,
+    FactAddedComponent,
+    FactBecomeIgnoredComponent,
+    FactBecomeOrphanComponent,
+    FactDeletedComponent,
+    FactIgnoreNetworkCollectionComponent,
+    FactIntegrityCheckComponent,
+    FactLostBicycleNodeTagComponent,
+    FactLostHikingNodeTagComponent,
+    FactLostRouteTagsComponent,
+    FactWasIgnoredComponent,
+    FactWasOrphanComponent
   ]
 })
 export class AnalysisModule {
