@@ -475,7 +475,7 @@ object UiFactDescription {
         case LostBicycleNodeTag =>
           <.p(
             if (nlsNL) {
-              """Deze punt is niet langer een geldig fietsnetwerk knooppunt omdat de rcn_ref label verwijderd is."""
+              """Dit punt is niet langer een geldig fietsnetwerk knooppunt omdat de rcn_ref label verwijderd is."""
             } else {
               """This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed."""
             }
@@ -484,7 +484,7 @@ object UiFactDescription {
         case LostHikingNodeTag =>
           <.p(
             if (nlsNL) {
-              """Deze punt is niet langer een geldig wandelnetwerk knooppunt omdat de rwn_ref label verwijderd is."""
+              """Dit punt is niet langer een geldig wandelnetwerk knooppunt omdat de rwn_ref label verwijderd is."""
             } else {
               """This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed."""
             }
