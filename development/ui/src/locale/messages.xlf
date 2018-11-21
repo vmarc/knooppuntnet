@@ -4,18 +4,18 @@
     <body>
       <trans-unit id="home-page-title" datatype="html">
         <source>
-          Node networks
-        </source>
+      Node networks
+    </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home-page-link-not-found" datatype="html">
         <source>Not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -368,7 +368,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-continious.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-unused-segments" datatype="html">
@@ -377,7 +377,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unused-segments.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-node-missing-in-ways" datatype="html">
@@ -386,7 +386,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-node-missing-in-ways.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-redundant-nodes" datatype="html">
@@ -395,7 +395,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-redundant-nodes.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-without-ways" datatype="html">
@@ -404,16 +404,16 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-without-ways.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-fixmetodo" datatype="html">
         <source>
-        Route definition needs work (has tag _&quot;fixmetodo&quot;_).
-      </source>
+      Route definition needs work (has tag _&quot;fixmetodo&quot;_).
+    </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-fixmetodo.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-name-missing" datatype="html">
@@ -422,7 +422,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-name-missing.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-end-node-mismatch" datatype="html">
@@ -431,7 +431,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-end-node-mismatch.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-start-node-mismatch" datatype="html">
@@ -440,7 +440,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-start-node-mismatch.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-tag-missing" datatype="html">
@@ -449,7 +449,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-tag-missing.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-tag-invalid" datatype="html">
@@ -464,7 +464,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-node" datatype="html">
@@ -473,7 +473,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unexpected-node.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-relation" datatype="html">
@@ -484,7 +484,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.network-extra-member-node" datatype="html">
@@ -494,7 +494,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-extra-member-node.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.network-extra-member-way" datatype="html">
@@ -504,7 +504,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-extra-member-way.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.network-extra-member-relation" datatype="html">
@@ -514,7 +514,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-extra-member-relation.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.node-member-missing" datatype="html">
@@ -523,7 +523,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-member-missing.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.integrity-check-failed" datatype="html">
@@ -533,7 +533,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-integrity-check-failed.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.orphan-route" datatype="html">
@@ -543,15 +543,19 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-orphan-route.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fact.description.xxx" datatype="html">
+      <trans-unit id="fact.description.orphan-node" datatype="html">
         <source>
+      This node does not belong to a network.
+      The node was not added as a member to a valid network relation, and also not added
+      as a member to valid route relation (that itself was added as a member to a valid
+      network relation or is an orphan route).
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-orphan-node.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete" datatype="html">
@@ -561,7 +565,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete-ok" datatype="html">
@@ -572,7 +576,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete-ok.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-unaccessible" datatype="html">
@@ -583,7 +587,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unaccessible.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-invalid-sorting-order" datatype="html">
@@ -592,7 +596,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-invalid-sorting-order.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-reversed" datatype="html">
@@ -601,7 +605,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-reversed.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-node-name-mismatch" datatype="html">
@@ -611,7 +615,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-node-name-mismatch.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-forward" datatype="html">
@@ -620,7 +624,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-forward.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-backward" datatype="html">
@@ -629,7 +633,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-backward.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-analysis-failed" datatype="html">
@@ -638,7 +642,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-analysis-failed.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-overlapping-ways" datatype="html">
@@ -647,7 +651,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-overlapping-ways.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-suspicious-ways" datatype="html">
@@ -656,7 +660,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-suspicious-ways.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-broken" datatype="html">
@@ -674,7 +678,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-one-way.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-one-way" datatype="html">
@@ -683,7 +687,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-one-way.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.name-missing" datatype="html">
@@ -692,7 +696,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-name-missing.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.ignore-foreign-country" datatype="html">
@@ -701,7 +705,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-foreign-country.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.ignore-no-network-nodes" datatype="html">
@@ -710,7 +714,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-no-network-nodes.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.ignore-unsupported-subset" datatype="html">
@@ -719,7 +723,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-unsupported-subset.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.added" datatype="html">
@@ -728,7 +732,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-added.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.become-ignored" datatype="html">
@@ -737,7 +741,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-become-ignored.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.become-orphan" datatype="html">
@@ -746,7 +750,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-become-orphan.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.deleted" datatype="html">
@@ -755,7 +759,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-deleted.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.ignore-network-collection" datatype="html">
@@ -764,7 +768,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-network-collection.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.integrity-check" datatype="html">
@@ -773,7 +777,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-integrity-check.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.lost-bicycle-node-tag" datatype="html">
@@ -782,7 +786,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-bicycle-node-tag.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.lost-hiking-node-tag" datatype="html">
@@ -791,7 +795,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-hiking-node-tag.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.lost-route-tags" datatype="html">
@@ -800,7 +804,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-route-tags.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.was-ignored" datatype="html">
@@ -809,7 +813,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-ignored.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.was-orphan" datatype="html">
@@ -818,7 +822,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
     </body>
