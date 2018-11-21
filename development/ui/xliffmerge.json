@@ -14,12 +14,12 @@
     "useSourceAsTarget": true,
     "targetPraefix": "?",
     "targetSuffix": "?",
-    "beautifyOutput": false,
+    "beautifyOutput": true,
     "allowIdChange": false,
     "autotranslate": false,
     "apikey": "",
     "apikeyfile": "",
-    "verbose": false,
+    "verbose": true,
     "quiet": false
   }
 }

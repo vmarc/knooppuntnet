@@ -3,8 +3,9 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'kpn-fact-was-ignored',
   template: `
-    <!--Niet langer uitgesloten uit de analysis.-->
-    No longer excluded from the analysis.
+    <ng-container i18n="@@fact.description.was-ignored">
+      No longer excluded from the analysis.
+    </ng-container>
   `
 })
 export class FactWasIgnoredComponent {

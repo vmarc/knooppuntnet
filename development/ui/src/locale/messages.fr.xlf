@@ -4,212 +4,1087 @@
     <body>
       <trans-unit id="home-page-title" datatype="html">
         <source>
-          Home
+          Node networks
         </source>
         <target>Page d'accueil</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-map" datatype="html">
-        <source>Map</source>
-        <target state="new">?map?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-overview" datatype="html">
-        <source>Overview</source>
-        <target state="new">?overview?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-changes" datatype="html">
-        <source>Changes</source>
-        <target state="new">?changes?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="sourcefile">app/pages/home/home-page.component.ts</context>
           <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-changeset" datatype="html">
-        <source>Changeset</source>
-        <target state="new">?changeset?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-node" datatype="html">
-        <source>Node</source>
-        <target state="new">?node?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-route" datatype="html">
-        <source>Route</source>
-        <target state="new">?route?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-network-details" datatype="html">
-        <source>Network details</source>
-        <target state="new">?network-details?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-network-facts" datatype="html">
-        <source>Network facts</source>
-        <target state="new">?network-facts?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-network-map" datatype="html">
-        <source>Network map</source>
-        <target state="new">?network-map?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-network-nodes" datatype="html">
-        <source>Network nodes</source>
-        <target state="new">?network-nodes?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-network-routes" datatype="html">
-        <source>Network routes</source>
-        <target state="new">?network-routes?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-network-changes" datatype="html">
-        <source>Network changes</source>
-        <target state="new">?network-changes?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-subset-networks" datatype="html">
-        <source>Subset networks</source>
-        <target state="new">?subset-networks?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-subset-facts" datatype="html">
-        <source>Subset facts</source>
-        <target state="new">?subset-facts?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-subset-orphan-nodes" datatype="html">
-        <source>Subset orphan nodes</source>
-        <target state="new">?subset-orphan-nodes?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-subset-orphan-routes" datatype="html">
-        <source>Subset orphan routes</source>
-        <target state="new">?subset-orphan-routes?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-route-broken" datatype="html">
-        <source>Subset RouteBroken</source>
-        <target state="new">?RouteBroken?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-subset-changes" datatype="html">
-        <source>Subset changes</source>
-        <target state="new">?subset-changes?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-login" datatype="html">
-        <source>Login</source>
-        <target state="new">?login?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-logout" datatype="html">
-        <source>Logout</source>
-        <target state="new">?logout?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-authenticate" datatype="html">
-        <source>Authenticate</source>
-        <target state="new">?authenticate?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-about" datatype="html">
-        <source>About</source>
-        <target state="new">?about?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-glossary" datatype="html">
-        <source>Glossary</source>
-        <target state="new">?glossary?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="home-page-link-links" datatype="html">
-        <source>Links</source>
-        <target state="new">?links?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
-          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home-page-link-not-found" datatype="html">
         <source>Not found</source>
         <target state="new">?not-found?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/pages/home/_page/home-page.component.ts</context>
+          <context context-type="sourcefile">app/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.added" datatype="html">
+        <source>Added</source>
+        <target state="new">?Added?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.become-ignored" datatype="html">
+        <source>BecomeIgnored</source>
+        <target state="new">?BecomeIgnored?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.become-orphan" datatype="html">
+        <source>BecomeOrphan</source>
+        <target state="new">?BecomeOrphan?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.deleted" datatype="html">
+        <source>Deleted</source>
+        <target state="new">?Deleted?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.ignore-foreign-country" datatype="html">
+        <source>IgnoreForeignCountry</source>
+        <target state="new">?IgnoreForeignCountry?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.ignore-network-collection" datatype="html">
+        <source>IgnoreNetworkCollection</source>
+        <target state="new">?IgnoreNetworkCollection?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.ignore-no-network-nodes" datatype="html">
+        <source>IgnoreNoNetworkNodes</source>
+        <target state="new">?IgnoreNoNetworkNodes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.ignore-unsupported-subset" datatype="html">
+        <source>IgnoreUnsupportedSubset</source>
+        <target state="new">?IgnoreUnsupportedSubset?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.integrity-check" datatype="html">
+        <source>IntegrityCheck</source>
+        <target state="new">?IntegrityCheck?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.integrity-check-failed" datatype="html">
+        <source>IntegrityCheckFailed</source>
+        <target state="new">?IntegrityCheckFailed?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.lost-bicycle-node-tag" datatype="html">
+        <source>LostBicycleNodeTag</source>
+        <target state="new">?LostBicycleNodeTag?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.lost-hiking-node-tag" datatype="html">
+        <source>LostHikingNodeTag</source>
+        <target state="new">?LostHikingNodeTag?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.lost-route-tags" datatype="html">
+        <source>LostRouteTags</source>
+        <target state="new">?LostRouteTags?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.name-missing" datatype="html">
+        <source>NameMissing</source>
+        <target state="new">?NameMissing?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.network-extra-member-node" datatype="html">
+        <source>NetworkExtraMemberNode</source>
+        <target state="new">?NetworkExtraMemberNode?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.network-extra-member-relation" datatype="html">
+        <source>NetworkExtraMemberRelation</source>
+        <target state="new">?NetworkExtraMemberRelation?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.network-extra-member-way" datatype="html">
+        <source>NetworkExtraMemberWay</source>
+        <target state="new">?NetworkExtraMemberWay?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.node-member-missing" datatype="html">
+        <source>NodeMemberMissing</source>
+        <target state="new">?NodeMemberMissing?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.orphan-node" datatype="html">
+        <source>OrphanNode</source>
+        <target state="new">?OrphanNode?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.orphan-route" datatype="html">
+        <source>OrphanRoute</source>
+        <target state="new">?OrphanRoute?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-analysis-failed" datatype="html">
+        <source>RouteAnalysisFailed</source>
+        <target state="new">?RouteAnalysisFailed?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-broken" datatype="html">
+        <source>RouteBroken</source>
+        <target state="new">?RouteBroken?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-end-node-mismatch" datatype="html">
+        <source>RouteEndNodeMismatch</source>
+        <target state="new">?RouteEndNodeMismatch?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-fixmetodo" datatype="html">
+        <source>RouteFixmetodo</source>
+        <target state="new">?RouteFixmetodo?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-incomplete" datatype="html">
+        <source>RouteIncomplete</source>
+        <target state="new">?RouteIncomplete?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-incomplete-ok" datatype="html">
+        <source>RouteIncompleteOk</source>
+        <target state="new">?RouteIncompleteOk?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-invalid-sorting-order" datatype="html">
+        <source>RouteInvalidSortingOrder</source>
+        <target state="new">?RouteInvalidSortingOrder?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-name-missing" datatype="html">
+        <source>RouteNameMissing</source>
+        <target state="new">?RouteNameMissing?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-node-missing-in-ways" datatype="html">
+        <source>RouteNodeMissingInWays</source>
+        <target state="new">?RouteNodeMissingInWays?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-node-name-mismatch" datatype="html">
+        <source>RouteNodeNameMismatch</source>
+        <target state="new">?RouteNodeNameMismatch?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-not-backward" datatype="html">
+        <source>RouteNotBackward</source>
+        <target state="new">?RouteNotBackward?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-not-continious" datatype="html">
+        <source>RouteNotContinious</source>
+        <target state="new">?RouteNotContinious?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-not-forward" datatype="html">
+        <source>RouteNotForward</source>
+        <target state="new">?RouteNotForward?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-not-one-way" datatype="html">
+        <source>RouteNotOneWay</source>
+        <target state="new">?RouteNotOneWay?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-one-way" datatype="html">
+        <source>RouteOneWay</source>
+        <target state="new">?RouteOneWay?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-overlapping-ways" datatype="html">
+        <source>RouteOverlappingWays</source>
+        <target state="new">?RouteOverlappingWays?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-redundant-nodes" datatype="html">
+        <source>RouteRedundantNodes</source>
+        <target state="new">?RouteRedundantNodes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-reversed" datatype="html">
+        <source>RouteReversed</source>
+        <target state="new">?RouteReversed?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-start-node-mismatch" datatype="html">
+        <source>RouteStartNodeMismatch</source>
+        <target state="new">?RouteStartNodeMismatch?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-suspicious-ways" datatype="html">
+        <source>RouteSuspiciousWays</source>
+        <target state="new">?RouteSuspiciousWays?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-tag-invalid" datatype="html">
+        <source>RouteTagInvalid</source>
+        <target state="new">?RouteTagInvalid?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-tag-missing" datatype="html">
+        <source>RouteTagMissing</source>
+        <target state="new">?RouteTagMissing?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-unaccessible" datatype="html">
+        <source>RouteUnaccessible</source>
+        <target state="new">?RouteUnaccessible?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-unexpected-node" datatype="html">
+        <source>RouteUnexpectedNode</source>
+        <target state="new">?RouteUnexpectedNode?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-unexpected-relation" datatype="html">
+        <source>RouteUnexpectedRelation</source>
+        <target state="new">?RouteUnexpectedRelation?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-unused-segments" datatype="html">
+        <source>RouteUnusedSegments</source>
+        <target state="new">?RouteUnusedSegments?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-without-ways" datatype="html">
+        <source>RouteWithoutWays</source>
+        <target state="new">?RouteWithoutWays?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.was-ignored" datatype="html">
+        <source>WasIgnored</source>
+        <target state="new">?WasIgnored?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.was-orphan" datatype="html">
+        <source>WasOrphan</source>
+        <target state="new">?WasOrphan?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-not-continious" datatype="html">
+        <source>
+          The route is broken: the begin- and end-networknodes cannot be connected through ways either
+          "in the forward direction or the backward direction or both.
+        </source>
+        <target state="new">?
+          The route is broken: the begin- and end-networknodes cannot be connected through ways either
+          "in the forward direction or the backward direction or both.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-continious.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-unused-segments" datatype="html">
+        <source>
+          The route contains ways or part of ways that are not used in the connection between the end nodes.
+        </source>
+        <target state="new">?
+          The route contains ways or part of ways that are not used in the connection between the end nodes.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unused-segments.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-node-missing-in-ways" datatype="html">
+        <source>
+          The end node and/or the begin node is not found in any of the ways of this route.
+        </source>
+        <target state="new">?
+          The end node and/or the begin node is not found in any of the ways of this route.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-node-missing-in-ways.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-redundant-nodes" datatype="html">
+        <source>
+          The ways of this route contain extra nodes other than the start and end nodes.
+        </source>
+        <target state="new">?
+          The ways of this route contain extra nodes other than the start and end nodes.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-redundant-nodes.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-without-ways" datatype="html">
+        <source>
+          The route does not contain any ways (we expect the route to contain at least 1 way).
+        </source>
+        <target state="new">?
+          The route does not contain any ways (we expect the route to contain at least 1 way).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-without-ways.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-fixmetodo" datatype="html">
+        <source>
+          Route definition needs work (has tag _"fixmetodo"_).
+        </source>
+        <target state="new">?
+          Route definition needs work (has tag _"fixmetodo"_).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-fixmetodo.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-name-missing" datatype="html">
+        <source>
+          The route relation does not have a _"note"_ tag with the route name.
+        </source>
+        <target state="new">?
+          The route relation does not have a _"note"_ tag with the route name.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-name-missing.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-end-node-mismatch" datatype="html">
+        <source>
+          The end node does not match the last node in the last way.
+        </source>
+        <target state="new">?
+          The end node does not match the last node in the last way.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-end-node-mismatch.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-start-node-mismatch" datatype="html">
+        <source>
+          The start node does not match the first node in the first way.
+        </source>
+        <target state="new">?
+          The start node does not match the first node in the first way.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-start-node-mismatch.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-tag-missing" datatype="html">
+        <source>
+          Routerelation does not contain the required _route_ tag.
+        </source>
+        <target state="new">?
+          Routerelation does not contain the required _route_ tag.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-tag-missing.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-tag-invalid" datatype="html">
+        <source>
+          Invalid value in required tag _"route"_ in route relation.
+
+          A bicycle route relation needs to have value _"bicycle"_ in its _"route"_ tag.
+
+          A hiking route relation needs to have one of the following values in its _"route"_ tag: _"foot"_,
+          _"hiking"_, or _"walking"_. Note that _"walking"_ is a value that is frequently found,
+          but not actually documented as a valid value in the OSM wiki pages.
+        </source>
+        <target state="new">?
+          Invalid value in required tag _"route"_ in route relation.
+
+          A bicycle route relation needs to have value _"bicycle"_ in its _"route"_ tag.
+
+          A hiking route relation needs to have one of the following values in its _"route"_ tag: _"foot"_,
+          _"hiking"_, or _"walking"_. Note that _"walking"_ is a value that is frequently found,
+          but not actually documented as a valid value in the OSM wiki pages.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-unexpected-node" datatype="html">
+        <source>
+          The route relation contains 1 or more unexpected nodes
+        </source>
+        <target state="new">?
+          The route relation contains 1 or more unexpected nodes
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unexpected-node.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-unexpected-relation" datatype="html">
+        <source>
+          The route relation contains one or more unexpected relation members. In route relations
+          we expect only members of type _"way"_, or members of type _"node"_ with a tag
+          _"rwn_ref"_ or _"rcn_ref"_.
+        </source>
+        <target state="new">?
+          The route relation contains one or more unexpected relation members. In route relations
+          we expect only members of type _"way"_, or members of type _"node"_ with a tag
+          _"rwn_ref"_ or _"rcn_ref"_.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.network-extra-member-node" datatype="html">
+        <source>
+          The network relation contains members of type _"node"_ that are unexpected (we expect
+          only network nodes or information maps as members in the network relation).
+        </source>
+        <target state="new">?
+          The network relation contains members of type _"node"_ that are unexpected (we expect
+          only network nodes or information maps as members in the network relation).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-extra-member-node.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.network-extra-member-way" datatype="html">
+        <source>
+          The network relation contains members of type _"way"_ (expect only route relations or
+          network nodes as members in the node network relation).
+        </source>
+        <target state="new">?
+          The network relation contains members of type _"way"_ (expect only route relations or
+          network nodes as members in the node network relation).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-extra-member-way.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.network-extra-member-relation" datatype="html">
+        <source>
+          The network relation contains members of type _"relation"_ that are unexpected
+          (expect only valid route relations or network nodes as members in the node network relation).
+        </source>
+        <target state="new">?
+          The network relation contains members of type _"relation"_ that are unexpected
+          (expect only valid route relations or network nodes as members in the node network relation).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-extra-member-relation.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.node-member-missing" datatype="html">
+        <source>
+          The node is not member of the network relation.
+        </source>
+        <target state="new">?
+          The node is not member of the network relation.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-member-missing.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.integrity-check-failed" datatype="html">
+        <source>
+          The actual number of routes does not match the expected number of routes. Routes with
+          tag "state" equal to "connection or "alternate" are not counted.
+        </source>
+        <target state="new">?
+          The actual number of routes does not match the expected number of routes. Routes with
+          tag "state" equal to "connection or "alternate" are not counted.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-integrity-check-failed.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.orphan-route" datatype="html">
+        <source>
+          This route does not belong to a network. The route was not added as a member to
+          a valid network relation.
+        </source>
+        <target state="new">?
+          This route does not belong to a network. The route was not added as a member to
+          a valid network relation.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-orphan-route.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.xxx" datatype="html">
+        <source>
+        </source>
+        <target state="new">?
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-orphan-node.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-incomplete" datatype="html">
+        <source>
+          The route is marked as having an incomplete definition. A route definition is explicitely
+          marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+        </source>
+        <target state="new">?
+          The route is marked as having an incomplete definition. A route definition is explicitely
+          marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-incomplete-ok" datatype="html">
+        <source>
+          The route is marked as having an incomplete definition. A route definition is explicitely
+          marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation. But
+          after analysis, the route seems to be ok.
+        </source>
+        <target state="new">?
+          The route is marked as having an incomplete definition. A route definition is explicitely
+          marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation. But
+          after analysis, the route seems to be ok.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete-ok.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-unaccessible" datatype="html">
+        <source>
+          Part of the route does not seem
+          context.gotoGlossaryEntry("accessible", "accessible"),
+          .
+        </source>
+        <target state="new">?
+          Part of the route does not seem
+          context.gotoGlossaryEntry("accessible", "accessible"),
+          .
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unaccessible.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-invalid-sorting-order" datatype="html">
+        <source>
+          The route is valid, but the sorting order of the ways is incorrect.
+        </source>
+        <target state="new">?
+          The route is valid, but the sorting order of the ways is incorrect.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-invalid-sorting-order.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-reversed" datatype="html">
+        <source>
+          The ways in this route are in reverse order (from high node number to low node number).
+        </source>
+        <target state="new">?
+          The ways in this route are in reverse order (from high node number to low node number).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-reversed.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-node-name-mismatch" datatype="html">
+        <source>
+          The route name in the _note_ tag in the route relation does not match the expected name as
+          derived from the start and end node of the route.
+        </source>
+        <target state="new">?
+          The route name in the _note_ tag in the route relation does not match the expected name as
+          derived from the start and end node of the route.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-node-name-mismatch.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-not-forward" datatype="html">
+        <source>
+          There is no path in the forward direction (from start node to end node).
+        </source>
+        <target state="new">?
+          There is no path in the forward direction (from start node to end node).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-forward.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-not-backward" datatype="html">
+        <source>
+          There is no path in the backward direction (from end node to start node).
+        </source>
+        <target state="new">?
+          There is no path in the backward direction (from end node to start node).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-backward.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-analysis-failed" datatype="html">
+        <source>
+          The route could not be analyzed (too complex?).
+        </source>
+        <target state="new">?
+          The route could not be analyzed (too complex?).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-analysis-failed.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-overlapping-ways" datatype="html">
+        <source>
+          No detailed route analysis is performed because the route contains overlapping ways.
+        </source>
+        <target state="new">?
+          No detailed route analysis is performed because the route contains overlapping ways.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-overlapping-ways.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-suspicious-ways" datatype="html">
+        <source>
+          Route with funny ways (for example ways with only 1 node).
+        </source>
+        <target state="new">?
+          Route with funny ways (for example ways with only 1 node).
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-suspicious-ways.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-broken" datatype="html">
+        <source>
+          TODO
+        </source>
+        <target state="new">?
+          TODO
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-broken.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-one-way" datatype="html">
+        <source>
+          The route is tagged as useable in one direction only. This is OK.
+        </source>
+        <target state="new">?
+          The route is tagged as useable in one direction only. This is OK.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-one-way.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-not-one-way" datatype="html">
+        <source>
+          The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.
+        </source>
+        <target state="new">?
+          The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-one-way.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.name-missing" datatype="html">
+        <source>
+          The network relation does not contain the mandatory tag with key "name".
+        </source>
+        <target state="new">?
+          The network relation does not contain the mandatory tag with key "name".
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-name-missing.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.ignore-foreign-country" datatype="html">
+        <source>
+          Not included in analysis: located in a country different from The Netherlands, Belgium or Germany.
+        </source>
+        <target state="new">?
+          Not included in analysis: located in a country different from The Netherlands, Belgium or Germany.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-foreign-country.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.ignore-no-network-nodes" datatype="html">
+        <source>
+          Not included in analysis: route does not contain network nodes.
+        </source>
+        <target state="new">?
+          Not included in analysis: route does not contain network nodes.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-no-network-nodes.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.ignore-unsupported-subset" datatype="html">
+        <source>
+          Not included in analysis: no hiking node networks in Germany.
+        </source>
+        <target state="new">?
+          Not included in analysis: no hiking node networks in Germany.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-unsupported-subset.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.added" datatype="html">
+        <source>
+          Added to the analysis.
+        </source>
+        <target state="new">?
+          Added to the analysis.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-added.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.become-ignored" datatype="html">
+        <source>
+          No longer included in the analysis.
+        </source>
+        <target state="new">?
+          No longer included in the analysis.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-become-ignored.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.become-orphan" datatype="html">
+        <source>
+          Has become orphan.
+        </source>
+        <target state="new">?
+          Has become orphan.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-become-orphan.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.deleted" datatype="html">
+        <source>
+          Deleted from the OpenStreetMap database.
+        </source>
+        <target state="new">?
+          Deleted from the OpenStreetMap database.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-deleted.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.ignore-network-collection" datatype="html">
+        <source>
+          Not included in the analysis because this relation is a collection of networks.
+        </source>
+        <target state="new">?
+          Not included in the analysis because this relation is a collection of networks.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-ignore-network-collection.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.integrity-check" datatype="html">
+        <source>
+          This network node has a tag that indicates the expected number of routes that arrive/depart in this node.
+        </source>
+        <target state="new">?
+          This network node has a tag that indicates the expected number of routes that arrive/depart in this node.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-integrity-check.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.lost-bicycle-node-tag" datatype="html">
+        <source>
+          This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.
+        </source>
+        <target state="new">?
+          This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-bicycle-node-tag.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.lost-hiking-node-tag" datatype="html">
+        <source>
+          This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
+        </source>
+        <target state="new">?
+          This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-hiking-node-tag.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.lost-route-tags" datatype="html">
+        <source>
+          This relation is no longer a valid network route because a required tag has been removed.
+        </source>
+        <target state="new">?
+          This relation is no longer a valid network route because a required tag has been removed.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-route-tags.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.was-ignored" datatype="html">
+        <source>
+          No longer excluded from the analysis.
+        </source>
+        <target state="new">?
+          No longer excluded from the analysis.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-ignored.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.was-orphan" datatype="html">
+        <source>
+          No longer an orphan.
+        </source>
+        <target state="new">?
+          No longer an orphan.
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
     </body>
