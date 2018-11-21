@@ -4,22 +4,17 @@ import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
 import {RoutePage} from "../../../kpn/shared/route/route-page";
 import {ApiResponse} from "../../../kpn/shared/api-response";
+import {PageService} from "../../../shared/page.service";
 
 @Component({
   selector: 'kpn-route-page',
   template: `
-    <kpn-page>
-      <kpn-toolbar toolbar></kpn-toolbar>
-      <kpn-sidenav sidenav></kpn-sidenav>
-      <div content>
-        <h1>
-          Route
-        </h1>
-        <div *ngIf="response">
-          <json [object]="response"></json>
-        </div>
-      </div>
-    </kpn-page>
+    <h1>
+      Route
+    </h1>
+    <div *ngIf="response">
+      <json [object]="response"></json>
+    </div>
   `
 })
 export class RoutePageComponent implements OnInit, OnDestroy {
@@ -28,10 +23,12 @@ export class RoutePageComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService) {
+              private appService: AppService,
+              private pageService: PageService) {
   }
 
   ngOnInit() {
+    this.pageService.defaultMenu();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
       const routeId = params['routeId'];
       this.appService.route(routeId).subscribe(response => {

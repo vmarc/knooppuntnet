@@ -20,6 +20,7 @@ import {SharedModule} from "./shared/shared.module";
 import {UserService} from "./user.service";
 import {CookieService} from "ngx-cookie-service";
 import {MarkdownModule, MarkdownService} from "ngx-markdown";
+import {PageService} from "./shared/page.service";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {MarkdownModule, MarkdownService} from "ngx-markdown";
  //   MarkdownService,
     CookieService,
     UserService,
-    AppService
+    AppService,
+    PageService
   ],
   bootstrap: [
     AppComponent

@@ -9,8 +9,6 @@ import {Component} from '@angular/core';
       <a mat-list-item routerLink="/login">login</a>
       <a mat-list-item routerLink="/logout">logout</a>
     </mat-nav-list>
-
-    <kpn-sidenav-footer></kpn-sidenav-footer>
   `
 })
 export class SidenavComponent {

@@ -1,25 +1,21 @@
 import {Component, OnInit} from '@angular/core';
+import {PageService} from "../../shared/page.service";
 
 @Component({
   selector: 'kpn-not-found-page',
   template: `
-    <kpn-page>
-      <kpn-toolbar toolbar></kpn-toolbar>
-      <kpn-sidenav sidenav></kpn-sidenav>
-      <div content>
-        <h1>
-          Not found
-        </h1>
-      </div>
-    </kpn-page>
+    <h1>
+      Not found
+    </h1>
   `
 })
 export class NotFoundPageComponent implements OnInit {
 
-  constructor() {
+  constructor(private pageService: PageService) {
   }
 
   ngOnInit() {
+    this.pageService.defaultMenu();
   }
 
 }

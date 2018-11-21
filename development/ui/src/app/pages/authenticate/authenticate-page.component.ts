@@ -1,26 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../user.service";
+import {PageService} from "../../shared/page.service";
 
 @Component({
   selector: 'kpn-authenticate-page',
   template: `
-    <kpn-page>
-      <kpn-toolbar toolbar></kpn-toolbar>
-      <kpn-sidenav sidenav></kpn-sidenav>
-      <div content>
-        <h1>
-          Authenticate
-        </h1>
-      </div>
-    </kpn-page>
+    <h1>
+      Authenticate
+    </h1>
   `
 })
 export class AuthenticatePageComponent implements OnInit {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private pageService: PageService) {
   }
 
   ngOnInit() {
+    this.pageService.defaultMenu();
     this.userService.authenticated();
   }
 

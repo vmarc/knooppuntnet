@@ -6,40 +6,35 @@ import {ApiResponse} from "../../../kpn/shared/api-response";
 import {SubsetNetworksPage} from "../../../kpn/shared/subset/subset-networks-page";
 import {Util} from "../../../shared/util";
 import {Subset} from "../../../kpn/shared/subset";
+import {PageService} from "../../../shared/page.service";
 
 @Component({
   selector: 'kpn-subset-networks-page',
   template: `
-    <kpn-page>
-      <kpn-toolbar toolbar></kpn-toolbar>
-      <kpn-subset-sidenav sidenav [subset]="subset"></kpn-subset-sidenav>
-      <div content>
-        <h1>
-          <kpn-subset-name [subset]="subset"></kpn-subset-name>
-        </h1>
-        <h2>
-          Networks
-        </h2>
+    <h1>
+      <kpn-subset-name [subset]="subset"></kpn-subset-name>
+    </h1>
+    <h2>
+      Networks
+    </h2>
 
-        <kpn-subset-network-list
-          *ngIf="response"
-          [networks]="response.result.networks">
-        </kpn-subset-network-list>
+    <kpn-subset-network-list
+      *ngIf="response"
+      [networks]="response.result.networks">
+    </kpn-subset-network-list>
 
-        <br/>
-        <br/>
-        <br/>
+    <br/>
+    <br/>
+    <br/>
 
-        <kpn-subset-network-table
-          *ngIf="response"
-          [networks]="response.result.networks">
-        </kpn-subset-network-table>
+    <kpn-subset-network-table
+      *ngIf="response"
+      [networks]="response.result.networks">
+    </kpn-subset-network-table>
 
-        <div *ngIf="response">
-          <json [object]="response"></json>
-        </div>
-      </div>
-    </kpn-page>
+    <div *ngIf="response">
+      <json [object]="response"></json>
+    </div>
   `
 })
 export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
@@ -49,12 +44,15 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService) {
+              private appService: AppService,
+              private pageService: PageService) {
   }
 
   ngOnInit() {
+    this.pageService.initSubsetPage();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
       this.subset = Util.subsetInRoute(params);
+      this.pageService.subset = this.subset;
       this.response = null;
       this.appService.subsetNetworks(this.subset).subscribe(response => {
         this.response = response;

@@ -4,72 +4,67 @@ import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
 import {NodePage} from "../../../kpn/shared/node/node-page";
 import {ApiResponse} from "../../../kpn/shared/api-response";
+import {PageService} from "../../../shared/page.service";
 
 @Component({
   selector: 'kpn-node-page',
   template: `
-    <kpn-page>
-      <kpn-toolbar toolbar></kpn-toolbar>
-      <kpn-sidenav sidenav></kpn-sidenav>
-      <div content>
-        <div *ngIf="response?.result">
-          <div *ngIf="!response.result">
-            <h1>Node not found</h1>
-          </div>
-          <div *ngIf="response.result">
-
-            <h1>Node {{nodeInfo.name}}</h1>
-
-            <!--
-			UiPageContents(
-			-->
-
-            <kpn-data title="Summary"> <!-- "Samenvatting" -->
-              <node-summary [nodeInfo]="nodeInfo"></node-summary>
-            </kpn-data>
-
-            <kpn-data title="Situation on"> <!-- "Situatie op" -->
-              <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
-            </kpn-data>
-
-            <kpn-data title="Last updated"> <!-- "Laatst bewerkt" -->
-              <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
-            </kpn-data>
-
-            <kpn-data title="Tags"> <!-- "Labels" -->
-              <tags [tags]="nodeInfo.tags"></tags>
-            </kpn-data>
-
-            <kpn-data title="Networks"> <!-- "Netwerken" -->
-              <node-networks [networks]="references.networkReferences"></node-networks>
-            </kpn-data>
-
-            <kpn-data title="Routes"> <!-- "Routes" -->
-              <node-routes [routes]="references.routeReferences"></node-routes>
-            </kpn-data>
-
-            <kpn-data title="Facts"> <!-- "Feiten" -->
-              xxx
-              <!--
-				UiFacts(page.nodeInfo.facts)
-			  -->
-            </kpn-data>
-
-            <!--
-			  TagMod.when(PageWidth.isVeryLarge) {
-				UiEmbeddedMap(new NodeMap(page.nodeInfo))
-			  },
-			  UiNodeChanges(page.nodeChanges)
-			  )
-			-->
-
-            <kpn-link-login></kpn-link-login>
-
-            <json [object]="response"></json>
-          </div>
-        </div>
+    <div *ngIf="response?.result">
+      <div *ngIf="!response.result">
+        <h1>Node not found</h1>
       </div>
-    </kpn-page>
+      <div *ngIf="response.result">
+
+        <h1>Node {{nodeInfo.name}}</h1>
+
+        <!--
+		UiPageContents(
+		-->
+
+        <kpn-data title="Summary"> <!-- "Samenvatting" -->
+          <node-summary [nodeInfo]="nodeInfo"></node-summary>
+        </kpn-data>
+
+        <kpn-data title="Situation on"> <!-- "Situatie op" -->
+          <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+        </kpn-data>
+
+        <kpn-data title="Last updated"> <!-- "Laatst bewerkt" -->
+          <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
+        </kpn-data>
+
+        <kpn-data title="Tags"> <!-- "Labels" -->
+          <tags [tags]="nodeInfo.tags"></tags>
+        </kpn-data>
+
+        <kpn-data title="Networks"> <!-- "Netwerken" -->
+          <node-networks [networks]="references.networkReferences"></node-networks>
+        </kpn-data>
+
+        <kpn-data title="Routes"> <!-- "Routes" -->
+          <node-routes [routes]="references.routeReferences"></node-routes>
+        </kpn-data>
+
+        <kpn-data title="Facts"> <!-- "Feiten" -->
+          xxx
+          <!--
+			UiFacts(page.nodeInfo.facts)
+		  -->
+        </kpn-data>
+
+        <!--
+		  TagMod.when(PageWidth.isVeryLarge) {
+			UiEmbeddedMap(new NodeMap(page.nodeInfo))
+		  },
+		  UiNodeChanges(page.nodeChanges)
+		  )
+		-->
+
+        <kpn-link-login></kpn-link-login>
+
+        <json [object]="response"></json>
+      </div>
+    </div>
   `
 })
 export class NodePageComponent implements OnInit, OnDestroy {
@@ -78,10 +73,12 @@ export class NodePageComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService) {
+              private appService: AppService,
+              private pageService: PageService) {
   }
 
   ngOnInit() {
+    this.pageService.defaultMenu();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
       const nodeId = params['nodeId'];
       this.appService.node(nodeId).subscribe(response => {
