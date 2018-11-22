@@ -1,6 +1,7 @@
+import {NgModule} from '@angular/core';
+import {MatCardModule, MatGridListModule} from "@angular/material";
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NgModule} from '@angular/core';
 import {LayoutModule} from '@angular/cdk/layout';
 import {HttpClientModule} from '@angular/common/http';
 
@@ -19,8 +20,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from "./shared/shared.module";
 import {UserService} from "./user.service";
 import {CookieService} from "ngx-cookie-service";
-import {MarkdownModule, MarkdownService} from "ngx-markdown";
+import {MarkdownModule} from "ngx-markdown";
 import {PageService} from "./shared/page.service";
+import {CardMapComponent} from './pages/home/card-map.component';
+import {CardAnalysisComponent} from './pages/home/card-analysis.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +35,13 @@ import {PageService} from "./shared/page.service";
     LinksPageComponent,
     LoginPageComponent,
     LogoutPageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    CardMapComponent,
+    CardAnalysisComponent
   ],
   imports: [
+    MatCardModule,
+    MatGridListModule,
     MarkdownModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
@@ -45,7 +52,6 @@ import {PageService} from "./shared/page.service";
     AppRoutingModule
   ],
   providers: [
- //   MarkdownService,
     CookieService,
     UserService,
     AppService,

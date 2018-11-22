@@ -8,106 +8,12 @@ import {PageService} from "../../shared/page.service";
       Node networks
     </h1>
 
-    <p>
-      <kpn-link-map networkType="rcn" title="Cycling Map"></kpn-link-map>
-    </p>
-    <p>
-      <kpn-link-map networkType="rwn" title="Hiking Map"></kpn-link-map>
-    </p>
-    <p>
-      <kpn-link-map networkType="rhn" title="Horse Map"></kpn-link-map>
-    </p>
-    <p>
-      <kpn-link-map networkType="rmn" title="Motorboat Map"></kpn-link-map>
-    </p>
-    <p>
-      <kpn-link-map networkType="rpn" title="Canoe Map"></kpn-link-map>
-    </p>
+    <kpn-card-map></kpn-card-map>
     <br/>
-    <p>
-      <kpn-link-changes></kpn-link-changes>
-    </p>
-    <p>
-      <kpn-link-overview></kpn-link-overview>
-    </p>
+    <kpn-card-analysis></kpn-card-analysis>
     <br/>
-    <p>Analysis</p>
-    <p>The Netherlands</p>
-    <p>
-      <kpn-link-subset-networks country="nl" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
-    </p>
-    <p>
-      <kpn-link-subset-networks country="nl" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
-    </p>
-    <p>
-      <kpn-link-subset-networks country="nl" networkType="rhn" title="Horse"></kpn-link-subset-networks>
-    </p>
-    <p>
-      <kpn-link-subset-networks country="nl" networkType="rmn" title="Motorboat"></kpn-link-subset-networks>
-    </p>
-    <p>
-      <kpn-link-subset-networks country="nl" networkType="rpn" title="Canoe"></kpn-link-subset-networks>
-    </p>
-    <p>Belgium</p>
-    <p>
-      <kpn-link-subset-networks country="be" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
-    </p>
-    <p>
-      <kpn-link-subset-networks country="be" networkType="rwn" title="Hiking"></kpn-link-subset-networks>
-    </p>
-    <p>Germany</p>
-    <p>
-      <kpn-link-subset-networks country="de" networkType="rcn" title="Cycling"></kpn-link-subset-networks>
-    </p>
-    <br/>
-    <p>
-      <kpn-link-changeset changeSetId="61632740" replicationNumber="3101276"></kpn-link-changeset>
-    </p>
-    <br/>
-    <p>
-      <kpn-link-node nodeId="1" title="node-1"></kpn-link-node>
-    </p>
-    <p>
-      <kpn-link-route routeId="1" title="route-1"></kpn-link-route>
-    </p>
-    <br/>
-    <p>
-      <kpn-link-network-details networkId="3138543"></kpn-link-network-details>
-    </p>
-    <p>
-      <kpn-link-network-facts networkId="3138543"></kpn-link-network-facts>
-    </p>
-    <p>
-      <kpn-link-network-map networkId="3138543"></kpn-link-network-map>
-    </p>
-    <p>
-      <kpn-link-network-nodes networkId="3138543"></kpn-link-network-nodes>
-    </p>
-    <p>
-      <kpn-link-network-routes networkId="3138543"></kpn-link-network-routes>
-    </p>
-    <p>
-      <kpn-link-network-changes networkId="3138543"></kpn-link-network-changes>
-    </p>
-    <br/>
-    <p>
-      <kpn-link-subset-networks country="de" networkType="rcn"></kpn-link-subset-networks>
-    </p>
-    <p>
-      <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
-    </p>
-    <p>
-      <kpn-link-subset-orphan-nodes country="de" networkType="rcn"></kpn-link-subset-orphan-nodes>
-    </p>
-    <p>
-      <kpn-link-subset-orphan-routes country="de" networkType="rcn"></kpn-link-subset-orphan-routes>
-    </p>
-    <p>
-      <kpn-link-subset-facts country="de" networkType="rcn"></kpn-link-subset-facts>
-    </p>
-    <p>
-      <kpn-link-subset-changes country="de" networkType="rcn"></kpn-link-subset-changes>
-    </p>
+
+
     <br/>
     <p>
       <kpn-link-login></kpn-link-login>
