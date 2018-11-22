@@ -8,7 +8,7 @@ import {Timestamp} from '../timestamp';
 export class NetworkNodeInfo2 {
 
   constructor(public id?: number,
-              public title?: string,
+              public name?: string,
               public number?: string,
               public latitude?: string,
               public longitude?: string,
@@ -27,7 +27,7 @@ export class NetworkNodeInfo2 {
     }
     const instance = new NetworkNodeInfo2();
     instance.id = jsonObject.id;
-    instance.title = jsonObject.title;
+    instance.name = jsonObject.name;
     instance.number = jsonObject.number;
     instance.latitude = jsonObject.latitude;
     instance.longitude = jsonObject.longitude;

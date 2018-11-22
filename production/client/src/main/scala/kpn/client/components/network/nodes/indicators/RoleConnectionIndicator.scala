@@ -32,7 +32,7 @@ object RoleConnectionIndicator {
           "OK - Geen verbinding rol"
         ),
         nls(
-          """This node does not have role "connection"" in het network relation.""",
+          """This node does not have role "connection" in het network relation.""",
           """Dit knooppunt heeft niet de rol "connection" in de netwerk relatie."""
         )
       )

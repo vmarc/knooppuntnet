@@ -60,6 +60,10 @@ import {SidenavSubItemComponent} from './sidenav/sidenav-sub-item.component';
 import {SubsetNameComponent} from './subset-name.component';
 import { ItemsComponent } from './items/items.component';
 import { ItemComponent } from './items/item.component';
+import { NetworkTypeComponent } from './network-type.component';
+import { IndicatorIconComponent } from './indicator/indicator-icon.component';
+import { IndicatorComponent } from './indicator/indicator.component';
+import { IndicatorDialogComponent } from './indicator/indicator-dialog.component';
 
 @NgModule({
   imports: [
@@ -107,6 +111,7 @@ import { ItemComponent } from './items/item.component';
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
+    NetworkTypeComponent,
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
     CountryNameComponent,
@@ -126,7 +131,10 @@ import { ItemComponent } from './items/item.component';
     SidenavSubItemComponent,
     SubsetNameComponent,
     ItemsComponent,
-    ItemComponent
+    ItemComponent,
+    IndicatorIconComponent,
+    IndicatorComponent,
+    IndicatorDialogComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -166,6 +174,7 @@ import { ItemComponent } from './items/item.component';
     IconLinkComponent,
     IconNetworkLinkComponent,
     IconRouteLinkComponent,
+    NetworkTypeComponent,
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
     CountryNameComponent,
@@ -184,7 +193,10 @@ import { ItemComponent } from './items/item.component';
     SidenavSubItemComponent,
     SubsetNameComponent,
     ItemsComponent,
-    ItemComponent
+    ItemComponent,
+    IndicatorComponent,
+    IndicatorIconComponent,
+    IndicatorDialogComponent
   ]
 })
 export class SharedModule {

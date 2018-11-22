@@ -95,6 +95,16 @@ import {FactWasOrphanComponent} from './fact/descriptions/fact-was-orphan.compon
 import {FactNameComponent} from './fact/fact-name.component';
 import {FactDescriptionComponent} from './fact/fact-description.component';
 import {MarkdownModule} from "ngx-markdown";
+import {NetworkIndicatorComponent} from './pages/network-nodes/indicators/network-indicator.component';
+import {ConnectionIndicatorComponent} from './pages/network-nodes/indicators/connection-indicator.component';
+import {IntegrityIndicatorComponent} from './pages/network-nodes/indicators/integrity-indicator.component';
+import {RoleConnectionIndicatorComponent} from './pages/network-nodes/indicators/role-connection-indicator.component';
+import {RouteIndicatorComponent} from './pages/network-nodes/indicators/route-indicator.component';
+import {ConnectionIndicatorDialogComponent} from './pages/network-nodes/indicators/connection-indicator-dialog.component';
+import {IntegrityIndicatorDialogComponent} from './pages/network-nodes/indicators/integrity-indicator-dialog.component';
+import {NetworkIndicatorDialogComponent} from './pages/network-nodes/indicators/network-indicator-dialog.component';
+import {RoleConnectionIndicatorDialogComponent} from './pages/network-nodes/indicators/role-connection-indicator-dialog.component';
+import {RouteIndicatorDialogComponent} from './pages/network-nodes/indicators/route-indicator-dialog.component';
 
 @NgModule({
   imports: [
@@ -195,7 +205,24 @@ import {MarkdownModule} from "ngx-markdown";
     FactLostRouteTagsComponent,
     FactWasIgnoredComponent,
     FactWasOrphanComponent,
-    FactDescriptionComponent
+    FactDescriptionComponent,
+    NetworkIndicatorComponent,
+    ConnectionIndicatorComponent,
+    IntegrityIndicatorComponent,
+    RoleConnectionIndicatorComponent,
+    RouteIndicatorComponent,
+    ConnectionIndicatorDialogComponent,
+    IntegrityIndicatorDialogComponent,
+    NetworkIndicatorDialogComponent,
+    RoleConnectionIndicatorDialogComponent,
+    RouteIndicatorDialogComponent
+  ],
+  entryComponents: [
+    ConnectionIndicatorDialogComponent,
+    IntegrityIndicatorDialogComponent,
+    NetworkIndicatorDialogComponent,
+    RoleConnectionIndicatorDialogComponent,
+    RouteIndicatorDialogComponent
   ]
 })
 export class AnalysisModule {

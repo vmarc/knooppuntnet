@@ -7,6 +7,7 @@ import {SubsetNetworksPage} from "../../../kpn/shared/subset/subset-networks-pag
 import {Util} from "../../../shared/util";
 import {Subset} from "../../../kpn/shared/subset";
 import {PageService} from "../../../shared/page.service";
+import {NetworkCacheService} from "../../../services/network-cache.service";
 
 @Component({
   selector: 'kpn-subset-networks-page',
@@ -45,7 +46,8 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private networkCacheService: NetworkCacheService) {
   }
 
   ngOnInit() {
@@ -56,6 +58,9 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
       this.response = null;
       this.appService.subsetNetworks(this.subset).subscribe(response => {
         this.response = response;
+        response.result.networks.forEach(networkAttributes => {
+          this.networkCacheService.setNetworkName(networkAttributes.id.toString(), networkAttributes.name);
+        });
       });
     });
   }

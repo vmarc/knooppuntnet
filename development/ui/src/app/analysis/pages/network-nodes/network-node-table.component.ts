@@ -25,7 +25,7 @@ import {NetworkNodeInfo2} from "../../../kpn/shared/network/network-node-info2";
       <ng-container matColumnDef="node">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Node</mat-header-cell>
         <mat-cell *matCellDef="let node">
-          <kpn-link-node [nodeId]="node.id" [title]="node.title"></kpn-link-node>
+          <kpn-link-node [nodeId]="node.id" [title]="node.name"></kpn-link-node>
         </mat-cell>
       </ng-container>
 
