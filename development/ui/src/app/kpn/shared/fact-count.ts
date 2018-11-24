@@ -3,19 +3,22 @@
 import {Fact} from './fact';
 
 export class FactCount {
+  readonly fact: Fact;
+  readonly count: number;
 
-  constructor(public fact?: Fact,
-              public count?: number) {
+  constructor(fact: Fact,
+              count: number) {
+    this.fact = fact;
+    this.count = count;
   }
 
   public static fromJSON(jsonObject): FactCount {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new FactCount();
-    instance.fact = Fact.fromJSON(jsonObject.fact);
-    instance.count = jsonObject.count;
-    return instance;
+    return new FactCount(
+      Fact.fromJSON(jsonObject.fact),
+      jsonObject.count
+    );
   }
 }
-

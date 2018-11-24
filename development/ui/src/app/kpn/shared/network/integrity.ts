@@ -1,31 +1,46 @@
 // this class is generated, please do not modify
 
 export class Integrity {
+  readonly isOk: boolean;
+  readonly hasChecks: boolean;
+  readonly count: string;
+  readonly okCount: number;
+  readonly nokCount: number;
+  readonly coverage: string;
+  readonly okRate: string;
+  readonly nokRate: string;
 
-  constructor(public isOk?: boolean,
-              public hasChecks?: boolean,
-              public count?: string,
-              public okCount?: number,
-              public nokCount?: number,
-              public coverage?: string,
-              public okRate?: string,
-              public nokRate?: string) {
+  constructor(isOk: boolean,
+              hasChecks: boolean,
+              count: string,
+              okCount: number,
+              nokCount: number,
+              coverage: string,
+              okRate: string,
+              nokRate: string) {
+    this.isOk = isOk;
+    this.hasChecks = hasChecks;
+    this.count = count;
+    this.okCount = okCount;
+    this.nokCount = nokCount;
+    this.coverage = coverage;
+    this.okRate = okRate;
+    this.nokRate = nokRate;
   }
 
   public static fromJSON(jsonObject): Integrity {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Integrity();
-    instance.isOk = jsonObject.isOk;
-    instance.hasChecks = jsonObject.hasChecks;
-    instance.count = jsonObject.count;
-    instance.okCount = jsonObject.okCount;
-    instance.nokCount = jsonObject.nokCount;
-    instance.coverage = jsonObject.coverage;
-    instance.okRate = jsonObject.okRate;
-    instance.nokRate = jsonObject.nokRate;
-    return instance;
+    return new Integrity(
+      jsonObject.isOk,
+      jsonObject.hasChecks,
+      jsonObject.count,
+      jsonObject.okCount,
+      jsonObject.nokCount,
+      jsonObject.coverage,
+      jsonObject.okRate,
+      jsonObject.nokRate
+    );
   }
 }
-

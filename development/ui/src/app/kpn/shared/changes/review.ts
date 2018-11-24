@@ -3,23 +3,30 @@
 import {Timestamp} from '../timestamp';
 
 export class Review {
+  readonly user: string;
+  readonly timestamp: Timestamp;
+  readonly status: string;
+  readonly comment: string;
 
-  constructor(public user?: string,
-              public timestamp?: Timestamp,
-              public status?: string,
-              public comment?: string) {
+  constructor(user: string,
+              timestamp: Timestamp,
+              status: string,
+              comment: string) {
+    this.user = user;
+    this.timestamp = timestamp;
+    this.status = status;
+    this.comment = comment;
   }
 
   public static fromJSON(jsonObject): Review {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Review();
-    instance.user = jsonObject.user;
-    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
-    instance.status = jsonObject.status;
-    instance.comment = jsonObject.comment;
-    return instance;
+    return new Review(
+      jsonObject.user,
+      Timestamp.fromJSON(jsonObject.timestamp),
+      jsonObject.status,
+      jsonObject.comment
+    );
   }
 }
-

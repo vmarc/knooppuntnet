@@ -3,17 +3,18 @@
 import {RawNode} from './raw/raw-node';
 
 export class Node {
+  readonly raw: RawNode;
 
-  constructor(public raw?: RawNode) {
+  constructor(raw: RawNode) {
+    this.raw = raw;
   }
 
   public static fromJSON(jsonObject): Node {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Node();
-    instance.raw = RawNode.fromJSON(jsonObject.raw);
-    return instance;
+    return new Node(
+      RawNode.fromJSON(jsonObject.raw)
+    );
   }
 }
-

@@ -1,19 +1,22 @@
 // this class is generated, please do not modify
 
 export class PageInfo {
+  readonly country: string;
+  readonly networkType: string;
 
-  constructor(public country?: string,
-              public networkType?: string) {
+  constructor(country: string,
+              networkType: string) {
+    this.country = country;
+    this.networkType = networkType;
   }
 
   public static fromJSON(jsonObject): PageInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new PageInfo();
-    instance.country = jsonObject.country;
-    instance.networkType = jsonObject.networkType;
-    return instance;
+    return new PageInfo(
+      jsonObject.country,
+      jsonObject.networkType
+    );
   }
 }
-

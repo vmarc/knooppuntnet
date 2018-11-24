@@ -1,15 +1,16 @@
 export class NetworkType {
+  readonly name: string;
 
-  constructor(public name?: string) {
+  constructor(name: string) {
+    this.name = name;
   }
 
   public static fromJSON(jsonObject): NetworkType {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkType();
-    instance.name = jsonObject;
-    return instance;
+    return new NetworkType(
+      jsonObject.name,
+    );
   }
 }
-

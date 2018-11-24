@@ -3,19 +3,22 @@
 import {Bounds} from '../bounds';
 
 export class NetworkShape {
+  readonly bounds: Bounds;
+  readonly coordinates: string;
 
-  constructor(public bounds?: Bounds,
-              public coordinates?: string) {
+  constructor(bounds: Bounds,
+              coordinates: string) {
+    this.bounds = bounds;
+    this.coordinates = coordinates;
   }
 
   public static fromJSON(jsonObject): NetworkShape {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkShape();
-    instance.bounds = Bounds.fromJSON(jsonObject.bounds);
-    instance.coordinates = jsonObject.coordinates;
-    return instance;
+    return new NetworkShape(
+      Bounds.fromJSON(jsonObject.bounds),
+      jsonObject.coordinates
+    );
   }
 }
-

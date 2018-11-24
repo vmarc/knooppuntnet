@@ -1,17 +1,18 @@
 // this class is generated, please do not modify
 
 export class ChangeType {
+  readonly name: string;
 
-  constructor(public name?: string) {
+  constructor(name: string) {
+    this.name = name;
   }
 
   public static fromJSON(jsonObject): ChangeType {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ChangeType();
-    instance.name = jsonObject.name;
-    return instance;
+    return new ChangeType(
+      jsonObject.name
+    );
   }
 }
-

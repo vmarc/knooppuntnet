@@ -1,24 +1,30 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {NodeData} from './node-data';
 import {NodeDataUpdate} from './node-data-update';
 
 export class NodeDiffs {
+  readonly removed: List<NodeData>;
+  readonly added: List<NodeData>;
+  readonly updated: List<NodeDataUpdate>;
 
-  constructor(public removed?: Array<NodeData>,
-              public added?: Array<NodeData>,
-              public updated?: Array<NodeDataUpdate>) {
+  constructor(removed: List<NodeData>,
+              added: List<NodeData>,
+              updated: List<NodeDataUpdate>) {
+    this.removed = removed;
+    this.added = added;
+    this.updated = updated;
   }
 
   public static fromJSON(jsonObject): NodeDiffs {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeDiffs();
-    instance.removed = jsonObject.removed ? jsonObject.removed.map(json => NodeData.fromJSON(json)) : [];
-    instance.added = jsonObject.added ? jsonObject.added.map(json => NodeData.fromJSON(json)) : [];
-    instance.updated = jsonObject.updated ? jsonObject.updated.map(json => NodeDataUpdate.fromJSON(json)) : [];
-    return instance;
+    return new NodeDiffs(
+      jsonObject.removed ? List(jsonObject.removed.map(json => NodeData.fromJSON(json))) : List(),
+      jsonObject.added ? List(jsonObject.added.map(json => NodeData.fromJSON(json))) : List(),
+      jsonObject.updated ? List(jsonObject.updated.map(json => NodeDataUpdate.fromJSON(json))) : List()
+    );
   }
 }
-

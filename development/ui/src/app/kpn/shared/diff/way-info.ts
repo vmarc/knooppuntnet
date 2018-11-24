@@ -4,25 +4,34 @@ import {Tags} from '../data/tags';
 import {Timestamp} from '../timestamp';
 
 export class WayInfo {
+  readonly id: number;
+  readonly version: number;
+  readonly changeSetId: number;
+  readonly timestamp: Timestamp;
+  readonly tags: Tags;
 
-  constructor(public id?: number,
-              public version?: number,
-              public changeSetId?: number,
-              public timestamp?: Timestamp,
-              public tags?: Tags) {
+  constructor(id: number,
+              version: number,
+              changeSetId: number,
+              timestamp: Timestamp,
+              tags: Tags) {
+    this.id = id;
+    this.version = version;
+    this.changeSetId = changeSetId;
+    this.timestamp = timestamp;
+    this.tags = tags;
   }
 
   public static fromJSON(jsonObject): WayInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new WayInfo();
-    instance.id = jsonObject.id;
-    instance.version = jsonObject.version;
-    instance.changeSetId = jsonObject.changeSetId;
-    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
-    instance.tags = Tags.fromJSON(jsonObject.tags);
-    return instance;
+    return new WayInfo(
+      jsonObject.id,
+      jsonObject.version,
+      jsonObject.changeSetId,
+      Timestamp.fromJSON(jsonObject.timestamp),
+      Tags.fromJSON(jsonObject.tags)
+    );
   }
 }
-

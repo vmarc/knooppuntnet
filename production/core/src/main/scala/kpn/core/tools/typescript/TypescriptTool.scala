@@ -16,17 +16,21 @@ object TypescriptTool {
 
 class TypescriptTool() {
 
-  val root = "/home/marcv/wrk/projects/kpn/shared/src/main/scala"
+  val root = "/home/marcv/wrk/projects2/knooppuntnet/production/shared/src/main/scala"
 
-  val targetDir = "/home/marcv/wrk/projects/knooppuntnet/ui/src/app"
+  val targetDir = "/home/marcv/wrk/projects2/knooppuntnet/development/ui/src/app"
 
   val ignoredClasses = Seq(
-    "ApiResponse.scala",
-    "Country.scala",
-    "NetworkType.scala",
-    "Timestamp.scala",
-    "Tags.scala",
-    "Tag.scala"
+    "ApiResponse",
+    "Country",
+    "NetworkType",
+    "Timestamp",
+    "Tags",
+    "Tag",
+    "RouteMemberInfo", // Ignored because of reference to WayDirection
+    "Statistics", // temporarily ignored because Map fromJSON does not work yet
+    "Change", // problem with RawElement
+    "Relation" // problem with Member
   )
 
   def generate(): Unit = {
@@ -50,7 +54,7 @@ class TypescriptTool() {
   private def scalaClassNames(): Seq[String] = {
     Path.fromString(root).descendants().toSeq.flatMap { path =>
       if (path.isFile && path.name.endsWith(".scala")) {
-        if (ignoredClasses.exists(n => path.name.contains(n))) {
+        if (ignoredClasses.exists(n => path.path.endsWith("/" + n + ".scala"))) {
           None
         }
         else {
@@ -65,7 +69,8 @@ class TypescriptTool() {
   }
 
   private def isCaseClass(scalaType: Type): Boolean = {
-    scalaType.members.collect({ case m: MethodSymbol if m.isCaseAccessor => m }).nonEmpty
+    scalaType.typeSymbol.toString.contains("NetworkNameMissing") ||
+      scalaType.members.collect({ case m: MethodSymbol if m.isCaseAccessor => m }).nonEmpty
   }
 
 }

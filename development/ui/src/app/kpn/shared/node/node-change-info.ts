@@ -1,5 +1,6 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {ChangeKey} from '../changes/details/change-key';
 import {Fact} from '../fact';
 import {FactDiffs} from '../diff/common/fact-diffs';
@@ -11,53 +12,94 @@ import {TagDiffs} from '../diff/tag-diffs';
 import {Tags} from '../data/tags';
 
 export class NodeChangeInfo {
+  readonly id: number;
+  readonly version: number;
+  readonly changeKey: ChangeKey;
+  readonly changeTags: Tags;
+  readonly comment: string;
+  readonly before: MetaData;
+  readonly after: MetaData;
+  readonly connectionChanges: List<RefBooleanChange>;
+  readonly roleConnectionChanges: List<RefBooleanChange>;
+  readonly definedInNetworkChanges: List<RefBooleanChange>;
+  readonly tagDiffs: TagDiffs;
+  readonly nodeMoved: NodeMoved;
+  readonly addedToRoute: List<Ref>;
+  readonly removedFromRoute: List<Ref>;
+  readonly addedToNetwork: List<Ref>;
+  readonly removedFromNetwork: List<Ref>;
+  readonly factDiffs: FactDiffs;
+  readonly facts: List<Fact>;
+  readonly happy: boolean;
+  readonly investigate: boolean;
 
-  constructor(public id?: number,
-              public version?: number,
-              public changeKey?: ChangeKey,
-              public changeTags?: Tags,
-              public comment?: string,
-              public before?: MetaData,
-              public after?: MetaData,
-              public connectionChanges?: Array<RefBooleanChange>,
-              public definedInNetworkChanges?: Array<RefBooleanChange>,
-              public tagDiffs?: TagDiffs,
-              public nodeMoved?: NodeMoved,
-              public addedToRoute?: Array<Ref>,
-              public removedFromRoute?: Array<Ref>,
-              public addedToNetwork?: Array<Ref>,
-              public removedFromNetwork?: Array<Ref>,
-              public factDiffs?: FactDiffs,
-              public facts?: Array<Fact>,
-              public happy?: boolean,
-              public investigate?: boolean) {
+  constructor(id: number,
+              version: number,
+              changeKey: ChangeKey,
+              changeTags: Tags,
+              comment: string,
+              before: MetaData,
+              after: MetaData,
+              connectionChanges: List<RefBooleanChange>,
+              roleConnectionChanges: List<RefBooleanChange>,
+              definedInNetworkChanges: List<RefBooleanChange>,
+              tagDiffs: TagDiffs,
+              nodeMoved: NodeMoved,
+              addedToRoute: List<Ref>,
+              removedFromRoute: List<Ref>,
+              addedToNetwork: List<Ref>,
+              removedFromNetwork: List<Ref>,
+              factDiffs: FactDiffs,
+              facts: List<Fact>,
+              happy: boolean,
+              investigate: boolean) {
+    this.id = id;
+    this.version = version;
+    this.changeKey = changeKey;
+    this.changeTags = changeTags;
+    this.comment = comment;
+    this.before = before;
+    this.after = after;
+    this.connectionChanges = connectionChanges;
+    this.roleConnectionChanges = roleConnectionChanges;
+    this.definedInNetworkChanges = definedInNetworkChanges;
+    this.tagDiffs = tagDiffs;
+    this.nodeMoved = nodeMoved;
+    this.addedToRoute = addedToRoute;
+    this.removedFromRoute = removedFromRoute;
+    this.addedToNetwork = addedToNetwork;
+    this.removedFromNetwork = removedFromNetwork;
+    this.factDiffs = factDiffs;
+    this.facts = facts;
+    this.happy = happy;
+    this.investigate = investigate;
   }
 
   public static fromJSON(jsonObject): NodeChangeInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeChangeInfo();
-    instance.id = jsonObject.id;
-    instance.version = jsonObject.version;
-    instance.changeKey = ChangeKey.fromJSON(jsonObject.changeKey);
-    instance.changeTags = Tags.fromJSON(jsonObject.changeTags);
-    instance.comment = jsonObject.comment;
-    instance.before = MetaData.fromJSON(jsonObject.before);
-    instance.after = MetaData.fromJSON(jsonObject.after);
-    instance.connectionChanges = jsonObject.connectionChanges ? jsonObject.connectionChanges.map(json => RefBooleanChange.fromJSON(json)) : [];
-    instance.definedInNetworkChanges = jsonObject.definedInNetworkChanges ? jsonObject.definedInNetworkChanges.map(json => RefBooleanChange.fromJSON(json)) : [];
-    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
-    instance.nodeMoved = NodeMoved.fromJSON(jsonObject.nodeMoved);
-    instance.addedToRoute = jsonObject.addedToRoute ? jsonObject.addedToRoute.map(json => Ref.fromJSON(json)) : [];
-    instance.removedFromRoute = jsonObject.removedFromRoute ? jsonObject.removedFromRoute.map(json => Ref.fromJSON(json)) : [];
-    instance.addedToNetwork = jsonObject.addedToNetwork ? jsonObject.addedToNetwork.map(json => Ref.fromJSON(json)) : [];
-    instance.removedFromNetwork = jsonObject.removedFromNetwork ? jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json)) : [];
-    instance.factDiffs = FactDiffs.fromJSON(jsonObject.factDiffs);
-    instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
-    instance.happy = jsonObject.happy;
-    instance.investigate = jsonObject.investigate;
-    return instance;
+    return new NodeChangeInfo(
+      jsonObject.id,
+      jsonObject.version,
+      ChangeKey.fromJSON(jsonObject.changeKey),
+      Tags.fromJSON(jsonObject.changeTags),
+      jsonObject.comment,
+      MetaData.fromJSON(jsonObject.before),
+      MetaData.fromJSON(jsonObject.after),
+      jsonObject.connectionChanges ? List(jsonObject.connectionChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.roleConnectionChanges ? List(jsonObject.roleConnectionChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.definedInNetworkChanges ? List(jsonObject.definedInNetworkChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
+      TagDiffs.fromJSON(jsonObject.tagDiffs),
+      NodeMoved.fromJSON(jsonObject.nodeMoved),
+      jsonObject.addedToRoute ? List(jsonObject.addedToRoute.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.removedFromRoute ? List(jsonObject.removedFromRoute.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json))) : List(),
+      FactDiffs.fromJSON(jsonObject.factDiffs),
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.happy,
+      jsonObject.investigate
+    );
   }
 }
-

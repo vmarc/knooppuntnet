@@ -1,24 +1,30 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {ChangeSetSummaryInfo} from './change-set-summary-info';
 import {ChangesFilter} from './changes/filter/changes-filter';
 
 export class ChangesPage {
+  readonly filter: ChangesFilter;
+  readonly changes: List<ChangeSetSummaryInfo>;
+  readonly totalCount: number;
 
-  constructor(public filter?: ChangesFilter,
-              public changes?: Array<ChangeSetSummaryInfo>,
-              public totalCount?: number) {
+  constructor(filter: ChangesFilter,
+              changes: List<ChangeSetSummaryInfo>,
+              totalCount: number) {
+    this.filter = filter;
+    this.changes = changes;
+    this.totalCount = totalCount;
   }
 
   public static fromJSON(jsonObject): ChangesPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ChangesPage();
-    instance.filter = ChangesFilter.fromJSON(jsonObject.filter);
-    instance.changes = jsonObject.changes ? jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json)) : [];
-    instance.totalCount = jsonObject.totalCount;
-    return instance;
+    return new ChangesPage(
+      ChangesFilter.fromJSON(jsonObject.filter),
+      jsonObject.changes ? List(jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json))) : List(),
+      jsonObject.totalCount
+    );
   }
 }
-

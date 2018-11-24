@@ -3,23 +3,30 @@
 import {Timestamp} from '../../timestamp';
 
 export class ChangeKey {
+  readonly replicationNumber: number;
+  readonly timestamp: Timestamp;
+  readonly changeSetId: number;
+  readonly elementId: number;
 
-  constructor(public replicationNumber?: number,
-              public timestamp?: Timestamp,
-              public changeSetId?: number,
-              public elementId?: number) {
+  constructor(replicationNumber: number,
+              timestamp: Timestamp,
+              changeSetId: number,
+              elementId: number) {
+    this.replicationNumber = replicationNumber;
+    this.timestamp = timestamp;
+    this.changeSetId = changeSetId;
+    this.elementId = elementId;
   }
 
   public static fromJSON(jsonObject): ChangeKey {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ChangeKey();
-    instance.replicationNumber = jsonObject.replicationNumber;
-    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
-    instance.changeSetId = jsonObject.changeSetId;
-    instance.elementId = jsonObject.elementId;
-    return instance;
+    return new ChangeKey(
+      jsonObject.replicationNumber,
+      Timestamp.fromJSON(jsonObject.timestamp),
+      jsonObject.changeSetId,
+      jsonObject.elementId
+    );
   }
 }
-

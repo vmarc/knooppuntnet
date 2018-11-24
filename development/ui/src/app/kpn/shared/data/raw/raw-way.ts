@@ -1,30 +1,42 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Tags} from '../tags';
 import {Timestamp} from '../../timestamp';
 
 export class RawWay {
+  readonly id: number;
+  readonly version: number;
+  readonly timestamp: Timestamp;
+  readonly changeSetId: number;
+  readonly nodeIds: List<number>;
+  readonly tags: Tags;
 
-  constructor(public id?: number,
-              public version?: number,
-              public timestamp?: Timestamp,
-              public changeSetId?: number,
-              public nodeIds?: Array<number>,
-              public tags?: Tags) {
+  constructor(id: number,
+              version: number,
+              timestamp: Timestamp,
+              changeSetId: number,
+              nodeIds: List<number>,
+              tags: Tags) {
+    this.id = id;
+    this.version = version;
+    this.timestamp = timestamp;
+    this.changeSetId = changeSetId;
+    this.nodeIds = nodeIds;
+    this.tags = tags;
   }
 
   public static fromJSON(jsonObject): RawWay {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RawWay();
-    instance.id = jsonObject.id;
-    instance.version = jsonObject.version;
-    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
-    instance.changeSetId = jsonObject.changeSetId;
-    instance.nodeIds = jsonObject.nodeIds;
-    instance.tags = Tags.fromJSON(jsonObject.tags);
-    return instance;
+    return new RawWay(
+      jsonObject.id,
+      jsonObject.version,
+      Timestamp.fromJSON(jsonObject.timestamp),
+      jsonObject.changeSetId,
+      jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
+      Tags.fromJSON(jsonObject.tags)
+    );
   }
 }
-

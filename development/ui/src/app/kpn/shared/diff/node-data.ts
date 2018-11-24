@@ -1,24 +1,30 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {RawNode} from '../data/raw/raw-node';
 import {Subset} from '../subset';
 
 export class NodeData {
+  readonly subsets: List<Subset>;
+  readonly name: string;
+  readonly node: RawNode;
 
-  constructor(public subsets?: Array<Subset>,
-              public name?: string,
-              public node?: RawNode) {
+  constructor(subsets: List<Subset>,
+              name: string,
+              node: RawNode) {
+    this.subsets = subsets;
+    this.name = name;
+    this.node = node;
   }
 
   public static fromJSON(jsonObject): NodeData {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeData();
-    instance.subsets = jsonObject.subsets ? jsonObject.subsets.map(json => Subset.fromJSON(json)) : [];
-    instance.name = jsonObject.name;
-    instance.node = RawNode.fromJSON(jsonObject.node);
-    return instance;
+    return new NodeData(
+      jsonObject.subsets ? List(jsonObject.subsets.map(json => Subset.fromJSON(json))) : List(),
+      jsonObject.name,
+      RawNode.fromJSON(jsonObject.node)
+    );
   }
 }
-

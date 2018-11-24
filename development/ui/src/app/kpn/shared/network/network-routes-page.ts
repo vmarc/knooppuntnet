@@ -1,28 +1,36 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {NetworkRouteInfo} from './network-route-info';
 import {NetworkSummary} from './network-summary';
 import {NetworkType} from '../network-type';
 import {TimeInfo} from '../time-info';
 
 export class NetworkRoutesPage {
+  readonly timeInfo: TimeInfo;
+  readonly networkType: NetworkType;
+  readonly networkSummary: NetworkSummary;
+  readonly routes: List<NetworkRouteInfo>;
 
-  constructor(public timeInfo?: TimeInfo,
-              public networkType?: NetworkType,
-              public networkSummary?: NetworkSummary,
-              public routes?: Array<NetworkRouteInfo>) {
+  constructor(timeInfo: TimeInfo,
+              networkType: NetworkType,
+              networkSummary: NetworkSummary,
+              routes: List<NetworkRouteInfo>) {
+    this.timeInfo = timeInfo;
+    this.networkType = networkType;
+    this.networkSummary = networkSummary;
+    this.routes = routes;
   }
 
   public static fromJSON(jsonObject): NetworkRoutesPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkRoutesPage();
-    instance.timeInfo = TimeInfo.fromJSON(jsonObject.timeInfo);
-    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
-    instance.networkSummary = NetworkSummary.fromJSON(jsonObject.networkSummary);
-    instance.routes = jsonObject.routes ? jsonObject.routes.map(json => NetworkRouteInfo.fromJSON(json)) : [];
-    return instance;
+    return new NetworkRoutesPage(
+      TimeInfo.fromJSON(jsonObject.timeInfo),
+      NetworkType.fromJSON(jsonObject.networkType),
+      NetworkSummary.fromJSON(jsonObject.networkSummary),
+      jsonObject.routes ? List(jsonObject.routes.map(json => NetworkRouteInfo.fromJSON(json))) : List()
+    );
   }
 }
-

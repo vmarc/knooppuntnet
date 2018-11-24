@@ -1,5 +1,6 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Country} from '../country';
 import {Fact} from '../fact';
 import {NetworkType} from '../network-type';
@@ -8,33 +9,50 @@ import {RawRelation} from '../data/raw/raw-relation';
 import {RawWay} from '../data/raw/raw-way';
 
 export class RouteData {
+  readonly country: Country;
+  readonly networkType: NetworkType;
+  readonly relation: RawRelation;
+  readonly name: string;
+  readonly networkNodes: List<RawNode>;
+  readonly nodes: List<RawNode>;
+  readonly ways: List<RawWay>;
+  readonly relations: List<RawRelation>;
+  readonly facts: List<Fact>;
 
-  constructor(public country?: Country,
-              public networkType?: NetworkType,
-              public relation?: RawRelation,
-              public name?: string,
-              public networkNodes?: Array<RawNode>,
-              public nodes?: Array<RawNode>,
-              public ways?: Array<RawWay>,
-              public relations?: Array<RawRelation>,
-              public facts?: Array<Fact>) {
+  constructor(country: Country,
+              networkType: NetworkType,
+              relation: RawRelation,
+              name: string,
+              networkNodes: List<RawNode>,
+              nodes: List<RawNode>,
+              ways: List<RawWay>,
+              relations: List<RawRelation>,
+              facts: List<Fact>) {
+    this.country = country;
+    this.networkType = networkType;
+    this.relation = relation;
+    this.name = name;
+    this.networkNodes = networkNodes;
+    this.nodes = nodes;
+    this.ways = ways;
+    this.relations = relations;
+    this.facts = facts;
   }
 
   public static fromJSON(jsonObject): RouteData {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteData();
-    instance.country = Country.fromJSON(jsonObject.country);
-    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
-    instance.relation = RawRelation.fromJSON(jsonObject.relation);
-    instance.name = jsonObject.name;
-    instance.networkNodes = jsonObject.networkNodes ? jsonObject.networkNodes.map(json => RawNode.fromJSON(json)) : [];
-    instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => RawNode.fromJSON(json)) : [];
-    instance.ways = jsonObject.ways ? jsonObject.ways.map(json => RawWay.fromJSON(json)) : [];
-    instance.relations = jsonObject.relations ? jsonObject.relations.map(json => RawRelation.fromJSON(json)) : [];
-    instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
-    return instance;
+    return new RouteData(
+      Country.fromJSON(jsonObject.country),
+      NetworkType.fromJSON(jsonObject.networkType),
+      RawRelation.fromJSON(jsonObject.relation),
+      jsonObject.name,
+      jsonObject.networkNodes ? List(jsonObject.networkNodes.map(json => RawNode.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map(json => RawNode.fromJSON(json))) : List(),
+      jsonObject.ways ? List(jsonObject.ways.map(json => RawWay.fromJSON(json))) : List(),
+      jsonObject.relations ? List(jsonObject.relations.map(json => RawRelation.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+    );
   }
 }
-

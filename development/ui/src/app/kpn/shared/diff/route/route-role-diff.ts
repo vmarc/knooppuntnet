@@ -1,19 +1,22 @@
 // this class is generated, please do not modify
 
 export class RouteRoleDiff {
+  readonly before: string;
+  readonly after: string;
 
-  constructor(public before?: string,
-              public after?: string) {
+  constructor(before: string,
+              after: string) {
+    this.before = before;
+    this.after = after;
   }
 
   public static fromJSON(jsonObject): RouteRoleDiff {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteRoleDiff();
-    instance.before = jsonObject.before;
-    instance.after = jsonObject.after;
-    return instance;
+    return new RouteRoleDiff(
+      jsonObject.before,
+      jsonObject.after
+    );
   }
 }
-

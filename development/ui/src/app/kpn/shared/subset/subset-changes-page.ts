@@ -1,27 +1,35 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {ChangeSetSummaryInfo} from '../change-set-summary-info';
 import {ChangesFilter} from '../changes/filter/changes-filter';
 import {SubsetInfo} from './subset-info';
 
 export class SubsetChangesPage {
+  readonly subsetInfo: SubsetInfo;
+  readonly filter: ChangesFilter;
+  readonly changes: List<ChangeSetSummaryInfo>;
+  readonly totalCount: number;
 
-  constructor(public subsetInfo?: SubsetInfo,
-              public filter?: ChangesFilter,
-              public changes?: Array<ChangeSetSummaryInfo>,
-              public totalCount?: number) {
+  constructor(subsetInfo: SubsetInfo,
+              filter: ChangesFilter,
+              changes: List<ChangeSetSummaryInfo>,
+              totalCount: number) {
+    this.subsetInfo = subsetInfo;
+    this.filter = filter;
+    this.changes = changes;
+    this.totalCount = totalCount;
   }
 
   public static fromJSON(jsonObject): SubsetChangesPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new SubsetChangesPage();
-    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
-    instance.filter = ChangesFilter.fromJSON(jsonObject.filter);
-    instance.changes = jsonObject.changes ? jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json)) : [];
-    instance.totalCount = jsonObject.totalCount;
-    return instance;
+    return new SubsetChangesPage(
+      SubsetInfo.fromJSON(jsonObject.subsetInfo),
+      ChangesFilter.fromJSON(jsonObject.filter),
+      jsonObject.changes ? List(jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json))) : List(),
+      jsonObject.totalCount
+    );
   }
 }
-

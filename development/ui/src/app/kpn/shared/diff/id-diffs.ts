@@ -1,21 +1,28 @@
 // this class is generated, please do not modify
 
-export class IdDiffs {
+import {List} from 'immutable';
 
-  constructor(public removed?: Array<number>,
-              public added?: Array<number>,
-              public updated?: Array<number>) {
+export class IdDiffs {
+  readonly removed: List<number>;
+  readonly added: List<number>;
+  readonly updated: List<number>;
+
+  constructor(removed: List<number>,
+              added: List<number>,
+              updated: List<number>) {
+    this.removed = removed;
+    this.added = added;
+    this.updated = updated;
   }
 
   public static fromJSON(jsonObject): IdDiffs {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new IdDiffs();
-    instance.removed = jsonObject.removed;
-    instance.added = jsonObject.added;
-    instance.updated = jsonObject.updated;
-    return instance;
+    return new IdDiffs(
+      jsonObject.removed ? List(jsonObject.removed) : List(),
+      jsonObject.added ? List(jsonObject.added) : List(),
+      jsonObject.updated ? List(jsonObject.updated) : List()
+    );
   }
 }
-

@@ -1,22 +1,26 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {FactCount} from '../fact-count';
 import {SubsetInfo} from './subset-info';
 
 export class SubsetFactsPage {
+  readonly subsetInfo: SubsetInfo;
+  readonly factCounts: List<FactCount>;
 
-  constructor(public subsetInfo?: SubsetInfo,
-              public factCounts?: Array<FactCount>) {
+  constructor(subsetInfo: SubsetInfo,
+              factCounts: List<FactCount>) {
+    this.subsetInfo = subsetInfo;
+    this.factCounts = factCounts;
   }
 
   public static fromJSON(jsonObject): SubsetFactsPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new SubsetFactsPage();
-    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
-    instance.factCounts = jsonObject.factCounts ? jsonObject.factCounts.map(json => FactCount.fromJSON(json)) : [];
-    return instance;
+    return new SubsetFactsPage(
+      SubsetInfo.fromJSON(jsonObject.subsetInfo),
+      jsonObject.factCounts ? List(jsonObject.factCounts.map(json => FactCount.fromJSON(json))) : List()
+    );
   }
 }
-

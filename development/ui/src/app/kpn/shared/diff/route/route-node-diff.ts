@@ -1,23 +1,29 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Ref} from '../../common/ref';
 
 export class RouteNodeDiff {
+  readonly title: string;
+  readonly added: List<Ref>;
+  readonly removed: List<Ref>;
 
-  constructor(public title?: string,
-              public added?: Array<Ref>,
-              public removed?: Array<Ref>) {
+  constructor(title: string,
+              added: List<Ref>,
+              removed: List<Ref>) {
+    this.title = title;
+    this.added = added;
+    this.removed = removed;
   }
 
   public static fromJSON(jsonObject): RouteNodeDiff {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteNodeDiff();
-    instance.title = jsonObject.title;
-    instance.added = jsonObject.added ? jsonObject.added.map(json => Ref.fromJSON(json)) : [];
-    instance.removed = jsonObject.removed ? jsonObject.removed.map(json => Ref.fromJSON(json)) : [];
-    return instance;
+    return new RouteNodeDiff(
+      jsonObject.title,
+      jsonObject.added ? List(jsonObject.added.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.removed ? List(jsonObject.removed.map(json => Ref.fromJSON(json))) : List()
+    );
   }
 }
-

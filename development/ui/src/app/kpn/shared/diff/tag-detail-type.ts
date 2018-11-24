@@ -1,17 +1,18 @@
 // this class is generated, please do not modify
 
 export class TagDetailType {
+  readonly name: string;
 
-  constructor(public name?: string) {
+  constructor(name: string) {
+    this.name = name;
   }
 
   public static fromJSON(jsonObject): TagDetailType {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new TagDetailType();
-    instance.name = jsonObject.name;
-    return instance;
+    return new TagDetailType(
+      jsonObject.name
+    );
   }
 }
-

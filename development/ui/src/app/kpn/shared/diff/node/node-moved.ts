@@ -3,21 +3,26 @@
 import {LatLonImpl} from '../../lat-lon-impl';
 
 export class NodeMoved {
+  readonly before: LatLonImpl;
+  readonly after: LatLonImpl;
+  readonly distance: number;
 
-  constructor(public before?: LatLonImpl,
-              public after?: LatLonImpl,
-              public distance?: number) {
+  constructor(before: LatLonImpl,
+              after: LatLonImpl,
+              distance: number) {
+    this.before = before;
+    this.after = after;
+    this.distance = distance;
   }
 
   public static fromJSON(jsonObject): NodeMoved {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeMoved();
-    instance.before = LatLonImpl.fromJSON(jsonObject.before);
-    instance.after = LatLonImpl.fromJSON(jsonObject.after);
-    instance.distance = jsonObject.distance;
-    return instance;
+    return new NodeMoved(
+      LatLonImpl.fromJSON(jsonObject.before),
+      LatLonImpl.fromJSON(jsonObject.after),
+      jsonObject.distance
+    );
   }
 }
-

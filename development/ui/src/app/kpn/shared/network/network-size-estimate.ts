@@ -1,17 +1,18 @@
 // this class is generated, please do not modify
 
 export class NetworkSizeEstimate {
+  readonly nodeCount: number;
 
-  constructor(public nodeCount?: number) {
+  constructor(nodeCount: number) {
+    this.nodeCount = nodeCount;
   }
 
   public static fromJSON(jsonObject): NetworkSizeEstimate {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkSizeEstimate();
-    instance.nodeCount = jsonObject.nodeCount;
-    return instance;
+    return new NetworkSizeEstimate(
+      jsonObject.nodeCount
+    );
   }
 }
-

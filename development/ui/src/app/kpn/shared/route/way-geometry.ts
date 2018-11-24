@@ -1,21 +1,25 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {LatLonImpl} from '../lat-lon-impl';
 
 export class WayGeometry {
+  readonly id: number;
+  readonly nodes: List<LatLonImpl>;
 
-  constructor(public id?: number,
-              public nodes?: Array<LatLonImpl>) {
+  constructor(id: number,
+              nodes: List<LatLonImpl>) {
+    this.id = id;
+    this.nodes = nodes;
   }
 
   public static fromJSON(jsonObject): WayGeometry {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new WayGeometry();
-    instance.id = jsonObject.id;
-    instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => LatLonImpl.fromJSON(json)) : [];
-    return instance;
+    return new WayGeometry(
+      jsonObject.id,
+      jsonObject.nodes ? List(jsonObject.nodes.map(json => LatLonImpl.fromJSON(json))) : List()
+    );
   }
 }
-

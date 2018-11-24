@@ -3,21 +3,26 @@
 import {NetworkChange} from './network-change';
 
 export class NetworkChangeDoc {
+  readonly _id: string;
+  readonly networkChange: NetworkChange;
+  readonly _rev: string;
 
-  constructor(public _id?: string,
-              public networkChange?: NetworkChange,
-              public _rev?: string) {
+  constructor(_id: string,
+              networkChange: NetworkChange,
+              _rev: string) {
+    this._id = _id;
+    this.networkChange = networkChange;
+    this._rev = _rev;
   }
 
   public static fromJSON(jsonObject): NetworkChangeDoc {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkChangeDoc();
-    instance._id = jsonObject._id;
-    instance.networkChange = NetworkChange.fromJSON(jsonObject.networkChange);
-    instance._rev = jsonObject._rev;
-    return instance;
+    return new NetworkChangeDoc(
+      jsonObject._id,
+      NetworkChange.fromJSON(jsonObject.networkChange),
+      jsonObject._rev
+    );
   }
 }
-

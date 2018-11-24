@@ -1,28 +1,36 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {RawNode} from './raw-node';
 import {RawRelation} from './raw-relation';
 import {RawWay} from './raw-way';
 import {Timestamp} from '../../timestamp';
 
 export class RawData {
+  readonly timestamp: Timestamp;
+  readonly nodes: List<RawNode>;
+  readonly ways: List<RawWay>;
+  readonly relations: List<RawRelation>;
 
-  constructor(public timestamp?: Timestamp,
-              public nodes?: Array<RawNode>,
-              public ways?: Array<RawWay>,
-              public relations?: Array<RawRelation>) {
+  constructor(timestamp: Timestamp,
+              nodes: List<RawNode>,
+              ways: List<RawWay>,
+              relations: List<RawRelation>) {
+    this.timestamp = timestamp;
+    this.nodes = nodes;
+    this.ways = ways;
+    this.relations = relations;
   }
 
   public static fromJSON(jsonObject): RawData {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RawData();
-    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
-    instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => RawNode.fromJSON(json)) : [];
-    instance.ways = jsonObject.ways ? jsonObject.ways.map(json => RawWay.fromJSON(json)) : [];
-    instance.relations = jsonObject.relations ? jsonObject.relations.map(json => RawRelation.fromJSON(json)) : [];
-    return instance;
+    return new RawData(
+      Timestamp.fromJSON(jsonObject.timestamp),
+      jsonObject.nodes ? List(jsonObject.nodes.map(json => RawNode.fromJSON(json))) : List(),
+      jsonObject.ways ? List(jsonObject.ways.map(json => RawWay.fromJSON(json))) : List(),
+      jsonObject.relations ? List(jsonObject.relations.map(json => RawRelation.fromJSON(json))) : List()
+    );
   }
 }
-

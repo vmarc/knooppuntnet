@@ -18,4 +18,3 @@ export class ApiResponse<T> {
     return instance;
   }
 }
-

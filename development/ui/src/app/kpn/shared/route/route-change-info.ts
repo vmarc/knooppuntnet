@@ -1,5 +1,6 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Bounds} from '../bounds';
 import {ChangeKey} from '../changes/details/change-key';
 import {ChangeSetInfo} from '../changes/change-set-info';
@@ -11,59 +12,102 @@ import {WayInfo} from '../diff/way-info';
 import {WayUpdate} from '../diff/way-update';
 
 export class RouteChangeInfo {
+  readonly id: number;
+  readonly version: number;
+  readonly changeKey: ChangeKey;
+  readonly comment: string;
+  readonly before: MetaData;
+  readonly after: MetaData;
+  readonly removedWays: List<WayInfo>;
+  readonly addedWays: List<WayInfo>;
+  readonly updatedWays: List<WayUpdate>;
+  readonly diffs: RouteDiff;
+  readonly nodes: List<RawNode>;
+  readonly changeSetInfo: ChangeSetInfo;
+  readonly addedNodes: List<number>;
+  readonly deletedNodes: List<number>;
+  readonly commonNodes: List<number>;
+  readonly addedWayIds: List<number>;
+  readonly deletedWayIds: List<number>;
+  readonly commonWayIds: List<number>;
+  readonly geometryDiff: GeometryDiff;
+  readonly bounds: Bounds;
+  readonly happy: boolean;
+  readonly investigate: boolean;
 
-  constructor(public id?: number,
-              public version?: number,
-              public changeKey?: ChangeKey,
-              public comment?: string,
-              public before?: MetaData,
-              public after?: MetaData,
-              public removedWays?: Array<WayInfo>,
-              public addedWays?: Array<WayInfo>,
-              public updatedWays?: Array<WayUpdate>,
-              public diffs?: RouteDiff,
-              public nodes?: Array<RawNode>,
-              public changeSetInfo?: ChangeSetInfo,
-              public addedNodes?: Array<number>,
-              public deletedNodes?: Array<number>,
-              public commonNodes?: Array<number>,
-              public addedWayIds?: Array<number>,
-              public deletedWayIds?: Array<number>,
-              public commonWayIds?: Array<number>,
-              public geometryDiff?: GeometryDiff,
-              public bounds?: Bounds,
-              public happy?: boolean,
-              public investigate?: boolean) {
+  constructor(id: number,
+              version: number,
+              changeKey: ChangeKey,
+              comment: string,
+              before: MetaData,
+              after: MetaData,
+              removedWays: List<WayInfo>,
+              addedWays: List<WayInfo>,
+              updatedWays: List<WayUpdate>,
+              diffs: RouteDiff,
+              nodes: List<RawNode>,
+              changeSetInfo: ChangeSetInfo,
+              addedNodes: List<number>,
+              deletedNodes: List<number>,
+              commonNodes: List<number>,
+              addedWayIds: List<number>,
+              deletedWayIds: List<number>,
+              commonWayIds: List<number>,
+              geometryDiff: GeometryDiff,
+              bounds: Bounds,
+              happy: boolean,
+              investigate: boolean) {
+    this.id = id;
+    this.version = version;
+    this.changeKey = changeKey;
+    this.comment = comment;
+    this.before = before;
+    this.after = after;
+    this.removedWays = removedWays;
+    this.addedWays = addedWays;
+    this.updatedWays = updatedWays;
+    this.diffs = diffs;
+    this.nodes = nodes;
+    this.changeSetInfo = changeSetInfo;
+    this.addedNodes = addedNodes;
+    this.deletedNodes = deletedNodes;
+    this.commonNodes = commonNodes;
+    this.addedWayIds = addedWayIds;
+    this.deletedWayIds = deletedWayIds;
+    this.commonWayIds = commonWayIds;
+    this.geometryDiff = geometryDiff;
+    this.bounds = bounds;
+    this.happy = happy;
+    this.investigate = investigate;
   }
 
   public static fromJSON(jsonObject): RouteChangeInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteChangeInfo();
-    instance.id = jsonObject.id;
-    instance.version = jsonObject.version;
-    instance.changeKey = ChangeKey.fromJSON(jsonObject.changeKey);
-    instance.comment = jsonObject.comment;
-    instance.before = MetaData.fromJSON(jsonObject.before);
-    instance.after = MetaData.fromJSON(jsonObject.after);
-    instance.removedWays = jsonObject.removedWays ? jsonObject.removedWays.map(json => WayInfo.fromJSON(json)) : [];
-    instance.addedWays = jsonObject.addedWays ? jsonObject.addedWays.map(json => WayInfo.fromJSON(json)) : [];
-    instance.updatedWays = jsonObject.updatedWays ? jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json)) : [];
-    instance.diffs = RouteDiff.fromJSON(jsonObject.diffs);
-    instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => RawNode.fromJSON(json)) : [];
-    instance.changeSetInfo = ChangeSetInfo.fromJSON(jsonObject.changeSetInfo);
-    instance.addedNodes = jsonObject.addedNodes;
-    instance.deletedNodes = jsonObject.deletedNodes;
-    instance.commonNodes = jsonObject.commonNodes;
-    instance.addedWayIds = jsonObject.addedWayIds;
-    instance.deletedWayIds = jsonObject.deletedWayIds;
-    instance.commonWayIds = jsonObject.commonWayIds;
-    instance.geometryDiff = GeometryDiff.fromJSON(jsonObject.geometryDiff);
-    instance.bounds = Bounds.fromJSON(jsonObject.bounds);
-    instance.happy = jsonObject.happy;
-    instance.investigate = jsonObject.investigate;
-    return instance;
+    return new RouteChangeInfo(
+      jsonObject.id,
+      jsonObject.version,
+      ChangeKey.fromJSON(jsonObject.changeKey),
+      jsonObject.comment,
+      MetaData.fromJSON(jsonObject.before),
+      MetaData.fromJSON(jsonObject.after),
+      jsonObject.removedWays ? List(jsonObject.removedWays.map(json => WayInfo.fromJSON(json))) : List(),
+      jsonObject.addedWays ? List(jsonObject.addedWays.map(json => WayInfo.fromJSON(json))) : List(),
+      jsonObject.updatedWays ? List(jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json))) : List(),
+      RouteDiff.fromJSON(jsonObject.diffs),
+      jsonObject.nodes ? List(jsonObject.nodes.map(json => RawNode.fromJSON(json))) : List(),
+      ChangeSetInfo.fromJSON(jsonObject.changeSetInfo),
+      jsonObject.addedNodes ? List(jsonObject.addedNodes) : List(),
+      jsonObject.deletedNodes ? List(jsonObject.deletedNodes) : List(),
+      jsonObject.commonNodes ? List(jsonObject.commonNodes) : List(),
+      jsonObject.addedWayIds ? List(jsonObject.addedWayIds) : List(),
+      jsonObject.deletedWayIds ? List(jsonObject.deletedWayIds) : List(),
+      jsonObject.commonWayIds ? List(jsonObject.commonWayIds) : List(),
+      GeometryDiff.fromJSON(jsonObject.geometryDiff),
+      Bounds.fromJSON(jsonObject.bounds),
+      jsonObject.happy,
+      jsonObject.investigate
+    );
   }
 }
-

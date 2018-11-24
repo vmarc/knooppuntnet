@@ -3,23 +3,30 @@
 import {FactLevel} from './fact-level';
 
 export class Fact {
+  readonly id: number;
+  readonly name: string;
+  readonly nlName: string;
+  readonly level: FactLevel;
 
-  constructor(public id?: number,
-              public name?: string,
-              public nlName?: string,
-              public level?: FactLevel) {
+  constructor(id: number,
+              name: string,
+              nlName: string,
+              level: FactLevel) {
+    this.id = id;
+    this.name = name;
+    this.nlName = nlName;
+    this.level = level;
   }
 
   public static fromJSON(jsonObject): Fact {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Fact();
-    instance.id = jsonObject.id;
-    instance.name = jsonObject.name;
-    instance.nlName = jsonObject.nlName;
-    instance.level = FactLevel.fromJSON(jsonObject.level);
-    return instance;
+    return new Fact(
+      jsonObject.id,
+      jsonObject.name,
+      jsonObject.nlName,
+      FactLevel.fromJSON(jsonObject.level)
+    );
   }
 }
-

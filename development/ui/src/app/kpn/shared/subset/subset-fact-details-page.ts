@@ -1,25 +1,31 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Fact} from '../fact';
-import {NetworkRoutesFacts} from './network-routes-facts';
+import {NetworkFactRefs} from './network-fact-refs';
 import {SubsetInfo} from './subset-info';
 
 export class SubsetFactDetailsPage {
+  readonly subsetInfo: SubsetInfo;
+  readonly fact: Fact;
+  readonly networks: List<NetworkFactRefs>;
 
-  constructor(public subsetInfo?: SubsetInfo,
-              public fact?: Fact,
-              public networks?: Array<NetworkRoutesFacts>) {
+  constructor(subsetInfo: SubsetInfo,
+              fact: Fact,
+              networks: List<NetworkFactRefs>) {
+    this.subsetInfo = subsetInfo;
+    this.fact = fact;
+    this.networks = networks;
   }
 
   public static fromJSON(jsonObject): SubsetFactDetailsPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new SubsetFactDetailsPage();
-    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
-    instance.fact = Fact.fromJSON(jsonObject.fact);
-    instance.networks = jsonObject.networks ? jsonObject.networks.map(json => NetworkRoutesFacts.fromJSON(json)) : [];
-    return instance;
+    return new SubsetFactDetailsPage(
+      SubsetInfo.fromJSON(jsonObject.subsetInfo),
+      Fact.fromJSON(jsonObject.fact),
+      jsonObject.networks ? List(jsonObject.networks.map(json => NetworkFactRefs.fromJSON(json))) : List()
+    );
   }
 }
-

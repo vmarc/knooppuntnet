@@ -5,23 +5,30 @@ import {RawNode} from '../data/raw/raw-node';
 import {TagDiffs} from './tag-diffs';
 
 export class NodeUpdate {
+  readonly before: RawNode;
+  readonly after: RawNode;
+  readonly tagDiffs: TagDiffs;
+  readonly nodeMoved: NodeMoved;
 
-  constructor(public before?: RawNode,
-              public after?: RawNode,
-              public tagDiffs?: TagDiffs,
-              public nodeMoved?: NodeMoved) {
+  constructor(before: RawNode,
+              after: RawNode,
+              tagDiffs: TagDiffs,
+              nodeMoved: NodeMoved) {
+    this.before = before;
+    this.after = after;
+    this.tagDiffs = tagDiffs;
+    this.nodeMoved = nodeMoved;
   }
 
   public static fromJSON(jsonObject): NodeUpdate {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeUpdate();
-    instance.before = RawNode.fromJSON(jsonObject.before);
-    instance.after = RawNode.fromJSON(jsonObject.after);
-    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
-    instance.nodeMoved = NodeMoved.fromJSON(jsonObject.nodeMoved);
-    return instance;
+    return new NodeUpdate(
+      RawNode.fromJSON(jsonObject.before),
+      RawNode.fromJSON(jsonObject.after),
+      TagDiffs.fromJSON(jsonObject.tagDiffs),
+      NodeMoved.fromJSON(jsonObject.nodeMoved)
+    );
   }
 }
-

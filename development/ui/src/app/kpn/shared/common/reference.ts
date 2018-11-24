@@ -3,23 +3,30 @@
 import {NetworkType} from '../network-type';
 
 export class Reference {
+  readonly id: number;
+  readonly name: string;
+  readonly networkType: NetworkType;
+  readonly connection: boolean;
 
-  constructor(public id?: number,
-              public name?: string,
-              public networkType?: NetworkType,
-              public connection?: boolean) {
+  constructor(id: number,
+              name: string,
+              networkType: NetworkType,
+              connection: boolean) {
+    this.id = id;
+    this.name = name;
+    this.networkType = networkType;
+    this.connection = connection;
   }
 
   public static fromJSON(jsonObject): Reference {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Reference();
-    instance.id = jsonObject.id;
-    instance.name = jsonObject.name;
-    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
-    instance.connection = jsonObject.connection;
-    return instance;
+    return new Reference(
+      jsonObject.id,
+      jsonObject.name,
+      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.connection
+    );
   }
 }
-

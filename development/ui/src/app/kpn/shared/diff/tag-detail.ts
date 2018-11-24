@@ -3,23 +3,30 @@
 import {TagDetailType} from './tag-detail-type';
 
 export class TagDetail {
+  readonly action: TagDetailType;
+  readonly key: string;
+  readonly valueBefore: string;
+  readonly valueAfter: string;
 
-  constructor(public action?: TagDetailType,
-              public key?: string,
-              public valueBefore?: string,
-              public valueAfter?: string) {
+  constructor(action: TagDetailType,
+              key: string,
+              valueBefore: string,
+              valueAfter: string) {
+    this.action = action;
+    this.key = key;
+    this.valueBefore = valueBefore;
+    this.valueAfter = valueAfter;
   }
 
   public static fromJSON(jsonObject): TagDetail {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new TagDetail();
-    instance.action = TagDetailType.fromJSON(jsonObject.action);
-    instance.key = jsonObject.key;
-    instance.valueBefore = jsonObject.valueBefore;
-    instance.valueAfter = jsonObject.valueAfter;
-    return instance;
+    return new TagDetail(
+      TagDetailType.fromJSON(jsonObject.action),
+      jsonObject.key,
+      jsonObject.valueBefore,
+      jsonObject.valueAfter
+    );
   }
 }
-

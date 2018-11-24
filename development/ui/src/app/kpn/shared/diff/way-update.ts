@@ -1,36 +1,52 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {MetaData} from '../data/meta-data';
 import {NodeUpdate} from './node-update';
 import {RawNode} from '../data/raw/raw-node';
 import {TagDiffs} from './tag-diffs';
 
 export class WayUpdate {
+  readonly id: number;
+  readonly before: MetaData;
+  readonly after: MetaData;
+  readonly removedNodes: List<RawNode>;
+  readonly addedNodes: List<RawNode>;
+  readonly updatedNodes: List<NodeUpdate>;
+  readonly directionReversed: boolean;
+  readonly tagDiffs: TagDiffs;
 
-  constructor(public id?: number,
-              public before?: MetaData,
-              public after?: MetaData,
-              public removedNodes?: Array<RawNode>,
-              public addedNodes?: Array<RawNode>,
-              public updatedNodes?: Array<NodeUpdate>,
-              public directionReversed?: boolean,
-              public tagDiffs?: TagDiffs) {
+  constructor(id: number,
+              before: MetaData,
+              after: MetaData,
+              removedNodes: List<RawNode>,
+              addedNodes: List<RawNode>,
+              updatedNodes: List<NodeUpdate>,
+              directionReversed: boolean,
+              tagDiffs: TagDiffs) {
+    this.id = id;
+    this.before = before;
+    this.after = after;
+    this.removedNodes = removedNodes;
+    this.addedNodes = addedNodes;
+    this.updatedNodes = updatedNodes;
+    this.directionReversed = directionReversed;
+    this.tagDiffs = tagDiffs;
   }
 
   public static fromJSON(jsonObject): WayUpdate {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new WayUpdate();
-    instance.id = jsonObject.id;
-    instance.before = MetaData.fromJSON(jsonObject.before);
-    instance.after = MetaData.fromJSON(jsonObject.after);
-    instance.removedNodes = jsonObject.removedNodes ? jsonObject.removedNodes.map(json => RawNode.fromJSON(json)) : [];
-    instance.addedNodes = jsonObject.addedNodes ? jsonObject.addedNodes.map(json => RawNode.fromJSON(json)) : [];
-    instance.updatedNodes = jsonObject.updatedNodes ? jsonObject.updatedNodes.map(json => NodeUpdate.fromJSON(json)) : [];
-    instance.directionReversed = jsonObject.directionReversed;
-    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
-    return instance;
+    return new WayUpdate(
+      jsonObject.id,
+      MetaData.fromJSON(jsonObject.before),
+      MetaData.fromJSON(jsonObject.after),
+      jsonObject.removedNodes ? List(jsonObject.removedNodes.map(json => RawNode.fromJSON(json))) : List(),
+      jsonObject.addedNodes ? List(jsonObject.addedNodes.map(json => RawNode.fromJSON(json))) : List(),
+      jsonObject.updatedNodes ? List(jsonObject.updatedNodes.map(json => NodeUpdate.fromJSON(json))) : List(),
+      jsonObject.directionReversed,
+      TagDiffs.fromJSON(jsonObject.tagDiffs)
+    );
   }
 }
-

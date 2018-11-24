@@ -3,21 +3,26 @@
 import {Timestamp} from '../timestamp';
 
 export class MetaData {
+  readonly version: number;
+  readonly timestamp: Timestamp;
+  readonly changeSetId: number;
 
-  constructor(public version?: number,
-              public timestamp?: Timestamp,
-              public changeSetId?: number) {
+  constructor(version: number,
+              timestamp: Timestamp,
+              changeSetId: number) {
+    this.version = version;
+    this.timestamp = timestamp;
+    this.changeSetId = changeSetId;
   }
 
   public static fromJSON(jsonObject): MetaData {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new MetaData();
-    instance.version = jsonObject.version;
-    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
-    instance.changeSetId = jsonObject.changeSetId;
-    return instance;
+    return new MetaData(
+      jsonObject.version,
+      Timestamp.fromJSON(jsonObject.timestamp),
+      jsonObject.changeSetId
+    );
   }
 }
-

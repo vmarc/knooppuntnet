@@ -61,11 +61,10 @@ export class ChangesTableComponent implements AfterViewInit {
   }
 
   private reload() {
-    this.parameters.itemsPerPage = this.paginator.pageSize;
-    this.parameters.pageIndex = this.paginator.pageIndex;
+    this.updateParameters();
     this.appService.changes(this.parameters).subscribe(response => {
       this.response = response;
-      this.dataSource.data = response.result.changes;
+      this.dataSource.data = response.result.changes.toArray();
       this.paginator.length = response.result.totalCount;
     });
   }
@@ -74,4 +73,18 @@ export class ChangesTableComponent implements AfterViewInit {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index + 1;
   }
 
+  private updateParameters() {
+    this.parameters = new ChangesParameters(
+      this.parameters.subset,
+      this.parameters.networkId,
+      this.parameters.routeId,
+      this.parameters.nodeId,
+      this.parameters.year,
+      this.parameters.month,
+      this.parameters.day,
+      this.paginator.pageSize,
+      this.paginator.pageIndex,
+      this.parameters.impact
+    );
+  }
 }

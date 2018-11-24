@@ -1,28 +1,36 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {NetworkFacts} from '../network-facts';
 import {NetworkNodeInfo2} from './network-node-info2';
 import {NetworkRouteInfo} from './network-route-info';
 import {NetworkShape} from './network-shape';
 
 export class NetworkInfoDetail {
+  readonly nodes: List<NetworkNodeInfo2>;
+  readonly routes: List<NetworkRouteInfo>;
+  readonly networkFacts: NetworkFacts;
+  readonly shape: NetworkShape;
 
-  constructor(public nodes?: Array<NetworkNodeInfo2>,
-              public routes?: Array<NetworkRouteInfo>,
-              public networkFacts?: NetworkFacts,
-              public shape?: NetworkShape) {
+  constructor(nodes: List<NetworkNodeInfo2>,
+              routes: List<NetworkRouteInfo>,
+              networkFacts: NetworkFacts,
+              shape: NetworkShape) {
+    this.nodes = nodes;
+    this.routes = routes;
+    this.networkFacts = networkFacts;
+    this.shape = shape;
   }
 
   public static fromJSON(jsonObject): NetworkInfoDetail {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkInfoDetail();
-    instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => NetworkNodeInfo2.fromJSON(json)) : [];
-    instance.routes = jsonObject.routes ? jsonObject.routes.map(json => NetworkRouteInfo.fromJSON(json)) : [];
-    instance.networkFacts = NetworkFacts.fromJSON(jsonObject.networkFacts);
-    instance.shape = NetworkShape.fromJSON(jsonObject.shape);
-    return instance;
+    return new NetworkInfoDetail(
+      jsonObject.nodes ? List(jsonObject.nodes.map(json => NetworkNodeInfo2.fromJSON(json))) : List(),
+      jsonObject.routes ? List(jsonObject.routes.map(json => NetworkRouteInfo.fromJSON(json))) : List(),
+      NetworkFacts.fromJSON(jsonObject.networkFacts),
+      NetworkShape.fromJSON(jsonObject.shape)
+    );
   }
 }
-

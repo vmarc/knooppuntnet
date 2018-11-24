@@ -1,34 +1,55 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {RouteMap} from './route-map';
+import {RouteMemberInfo} from './route-member-info';
 import {RouteNetworkNodeInfo} from './route-network-node-info';
 
 export class RouteInfoAnalysis {
+  readonly startNodes: List<RouteNetworkNodeInfo>;
+  readonly endNodes: List<RouteNetworkNodeInfo>;
+  readonly startTentacleNodes: List<RouteNetworkNodeInfo>;
+  readonly endTentacleNodes: List<RouteNetworkNodeInfo>;
+  readonly unexpectedNodeIds: List<number>;
+  readonly members: List<RouteMemberInfo>;
+  readonly expectedName: string;
+  readonly map: RouteMap;
+  readonly structureStrings: List<string>;
 
-  constructor(public startNodes?: Array<RouteNetworkNodeInfo>,
-              public endNodes?: Array<RouteNetworkNodeInfo>,
-              public startTentacleNodes?: Array<RouteNetworkNodeInfo>,
-              public endTentacleNodes?: Array<RouteNetworkNodeInfo>,
-              public unexpectedNodeIds?: Array<number>,
-              public expectedName?: string,
-              public map?: RouteMap,
-              public structureStrings?: Array<string>) {
+  constructor(startNodes: List<RouteNetworkNodeInfo>,
+              endNodes: List<RouteNetworkNodeInfo>,
+              startTentacleNodes: List<RouteNetworkNodeInfo>,
+              endTentacleNodes: List<RouteNetworkNodeInfo>,
+              unexpectedNodeIds: List<number>,
+              members: List<RouteMemberInfo>,
+              expectedName: string,
+              map: RouteMap,
+              structureStrings: List<string>) {
+    this.startNodes = startNodes;
+    this.endNodes = endNodes;
+    this.startTentacleNodes = startTentacleNodes;
+    this.endTentacleNodes = endTentacleNodes;
+    this.unexpectedNodeIds = unexpectedNodeIds;
+    this.members = members;
+    this.expectedName = expectedName;
+    this.map = map;
+    this.structureStrings = structureStrings;
   }
 
   public static fromJSON(jsonObject): RouteInfoAnalysis {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteInfoAnalysis();
-    instance.startNodes = jsonObject.startNodes ? jsonObject.startNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];
-    instance.endNodes = jsonObject.endNodes ? jsonObject.endNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];
-    instance.startTentacleNodes = jsonObject.startTentacleNodes ? jsonObject.startTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];
-    instance.endTentacleNodes = jsonObject.endTentacleNodes ? jsonObject.endTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json)) : [];
-    instance.unexpectedNodeIds = jsonObject.unexpectedNodeIds;
-    instance.expectedName = jsonObject.expectedName;
-    instance.map = RouteMap.fromJSON(jsonObject.map);
-    instance.structureStrings = jsonObject.structureStrings;
-    return instance;
+    return new RouteInfoAnalysis(
+      jsonObject.startNodes ? List(jsonObject.startNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.endNodes ? List(jsonObject.endNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.unexpectedNodeIds ? List(jsonObject.unexpectedNodeIds) : List(),
+      jsonObject.members ? List(jsonObject.members.map(json => RouteMemberInfo.fromJSON(json))) : List(),
+      jsonObject.expectedName,
+      RouteMap.fromJSON(jsonObject.map),
+      jsonObject.structureStrings ? List(jsonObject.structureStrings) : List()
+    );
   }
 }
-

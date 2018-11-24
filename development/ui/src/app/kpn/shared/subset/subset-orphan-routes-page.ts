@@ -1,25 +1,31 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {RouteSummary} from '../route-summary';
 import {SubsetInfo} from './subset-info';
 import {TimeInfo} from '../time-info';
 
 export class SubsetOrphanRoutesPage {
+  readonly timeInfo: TimeInfo;
+  readonly subsetInfo: SubsetInfo;
+  readonly rows: List<RouteSummary>;
 
-  constructor(public timeInfo?: TimeInfo,
-              public subsetInfo?: SubsetInfo,
-              public rows?: Array<RouteSummary>) {
+  constructor(timeInfo: TimeInfo,
+              subsetInfo: SubsetInfo,
+              rows: List<RouteSummary>) {
+    this.timeInfo = timeInfo;
+    this.subsetInfo = subsetInfo;
+    this.rows = rows;
   }
 
   public static fromJSON(jsonObject): SubsetOrphanRoutesPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new SubsetOrphanRoutesPage();
-    instance.timeInfo = TimeInfo.fromJSON(jsonObject.timeInfo);
-    instance.subsetInfo = SubsetInfo.fromJSON(jsonObject.subsetInfo);
-    instance.rows = jsonObject.rows ? jsonObject.rows.map(json => RouteSummary.fromJSON(json)) : [];
-    return instance;
+    return new SubsetOrphanRoutesPage(
+      TimeInfo.fromJSON(jsonObject.timeInfo),
+      SubsetInfo.fromJSON(jsonObject.subsetInfo),
+      jsonObject.rows ? List(jsonObject.rows.map(json => RouteSummary.fromJSON(json))) : List()
+    );
   }
 }
-

@@ -3,19 +3,22 @@
 import {NodeIntegrityCheck} from '../../node-integrity-check';
 
 export class NodeIntegrityCheckDiff {
+  readonly before: NodeIntegrityCheck;
+  readonly after: NodeIntegrityCheck;
 
-  constructor(public before?: NodeIntegrityCheck,
-              public after?: NodeIntegrityCheck) {
+  constructor(before: NodeIntegrityCheck,
+              after: NodeIntegrityCheck) {
+    this.before = before;
+    this.after = after;
   }
 
   public static fromJSON(jsonObject): NodeIntegrityCheckDiff {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeIntegrityCheckDiff();
-    instance.before = NodeIntegrityCheck.fromJSON(jsonObject.before);
-    instance.after = NodeIntegrityCheck.fromJSON(jsonObject.after);
-    return instance;
+    return new NodeIntegrityCheckDiff(
+      NodeIntegrityCheck.fromJSON(jsonObject.before),
+      NodeIntegrityCheck.fromJSON(jsonObject.after)
+    );
   }
 }
-

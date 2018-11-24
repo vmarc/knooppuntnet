@@ -1,21 +1,25 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Ref} from '../../common/ref';
 
 export class RefChanges {
+  readonly oldRefs: List<Ref>;
+  readonly newRefs: List<Ref>;
 
-  constructor(public oldRefs?: Array<Ref>,
-              public newRefs?: Array<Ref>) {
+  constructor(oldRefs: List<Ref>,
+              newRefs: List<Ref>) {
+    this.oldRefs = oldRefs;
+    this.newRefs = newRefs;
   }
 
   public static fromJSON(jsonObject): RefChanges {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RefChanges();
-    instance.oldRefs = jsonObject.oldRefs ? jsonObject.oldRefs.map(json => Ref.fromJSON(json)) : [];
-    instance.newRefs = jsonObject.newRefs ? jsonObject.newRefs.map(json => Ref.fromJSON(json)) : [];
-    return instance;
+    return new RefChanges(
+      jsonObject.oldRefs ? List(jsonObject.oldRefs.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.newRefs ? List(jsonObject.newRefs.map(json => Ref.fromJSON(json))) : List()
+    );
   }
 }
-

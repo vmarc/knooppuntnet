@@ -4,21 +4,26 @@ import {Country} from '../country';
 import {RawNode} from '../data/raw/raw-node';
 
 export class NetworkNodeData {
+  readonly node: RawNode;
+  readonly name: string;
+  readonly country: Country;
 
-  constructor(public node?: RawNode,
-              public name?: string,
-              public country?: Country) {
+  constructor(node: RawNode,
+              name: string,
+              country: Country) {
+    this.node = node;
+    this.name = name;
+    this.country = country;
   }
 
   public static fromJSON(jsonObject): NetworkNodeData {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkNodeData();
-    instance.node = RawNode.fromJSON(jsonObject.node);
-    instance.name = jsonObject.name;
-    instance.country = Country.fromJSON(jsonObject.country);
-    return instance;
+    return new NetworkNodeData(
+      RawNode.fromJSON(jsonObject.node),
+      jsonObject.name,
+      Country.fromJSON(jsonObject.country)
+    );
   }
 }
-

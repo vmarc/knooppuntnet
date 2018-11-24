@@ -6,27 +6,38 @@ import {NetworkSummary} from './network-summary';
 import {Tags} from '../data/tags';
 
 export class NetworkDetailsPage {
+  readonly networkSummary: NetworkSummary;
+  readonly active: boolean;
+  readonly ignored: boolean;
+  readonly attributes: NetworkAttributes;
+  readonly tags: Tags;
+  readonly facts: NetworkFacts;
 
-  constructor(public networkSummary?: NetworkSummary,
-              public active?: boolean,
-              public ignored?: boolean,
-              public attributes?: NetworkAttributes,
-              public tags?: Tags,
-              public facts?: NetworkFacts) {
+  constructor(networkSummary: NetworkSummary,
+              active: boolean,
+              ignored: boolean,
+              attributes: NetworkAttributes,
+              tags: Tags,
+              facts: NetworkFacts) {
+    this.networkSummary = networkSummary;
+    this.active = active;
+    this.ignored = ignored;
+    this.attributes = attributes;
+    this.tags = tags;
+    this.facts = facts;
   }
 
   public static fromJSON(jsonObject): NetworkDetailsPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkDetailsPage();
-    instance.networkSummary = NetworkSummary.fromJSON(jsonObject.networkSummary);
-    instance.active = jsonObject.active;
-    instance.ignored = jsonObject.ignored;
-    instance.attributes = NetworkAttributes.fromJSON(jsonObject.attributes);
-    instance.tags = Tags.fromJSON(jsonObject.tags);
-    instance.facts = NetworkFacts.fromJSON(jsonObject.facts);
-    return instance;
+    return new NetworkDetailsPage(
+      NetworkSummary.fromJSON(jsonObject.networkSummary),
+      jsonObject.active,
+      jsonObject.ignored,
+      NetworkAttributes.fromJSON(jsonObject.attributes),
+      Tags.fromJSON(jsonObject.tags),
+      NetworkFacts.fromJSON(jsonObject.facts)
+    );
   }
 }
-

@@ -1,5 +1,6 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Fact} from '../fact';
 import {RouteInfoAnalysis} from './route-info-analysis';
 import {RouteSummary} from '../route-summary';
@@ -7,37 +8,58 @@ import {Tags} from '../data/tags';
 import {Timestamp} from '../timestamp';
 
 export class RouteInfo {
+  readonly summary: RouteSummary;
+  readonly active: boolean;
+  readonly display: boolean;
+  readonly ignored: boolean;
+  readonly orphan: boolean;
+  readonly version: number;
+  readonly changeSetId: number;
+  readonly lastUpdated: Timestamp;
+  readonly tags: Tags;
+  readonly facts: List<Fact>;
+  readonly analysis: RouteInfoAnalysis;
 
-  constructor(public summary?: RouteSummary,
-              public active?: boolean,
-              public display?: boolean,
-              public ignored?: boolean,
-              public orphan?: boolean,
-              public version?: number,
-              public changeSetId?: number,
-              public lastUpdated?: Timestamp,
-              public tags?: Tags,
-              public facts?: Array<Fact>,
-              public analysis?: RouteInfoAnalysis) {
+  constructor(summary: RouteSummary,
+              active: boolean,
+              display: boolean,
+              ignored: boolean,
+              orphan: boolean,
+              version: number,
+              changeSetId: number,
+              lastUpdated: Timestamp,
+              tags: Tags,
+              facts: List<Fact>,
+              analysis: RouteInfoAnalysis) {
+    this.summary = summary;
+    this.active = active;
+    this.display = display;
+    this.ignored = ignored;
+    this.orphan = orphan;
+    this.version = version;
+    this.changeSetId = changeSetId;
+    this.lastUpdated = lastUpdated;
+    this.tags = tags;
+    this.facts = facts;
+    this.analysis = analysis;
   }
 
   public static fromJSON(jsonObject): RouteInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteInfo();
-    instance.summary = RouteSummary.fromJSON(jsonObject.summary);
-    instance.active = jsonObject.active;
-    instance.display = jsonObject.display;
-    instance.ignored = jsonObject.ignored;
-    instance.orphan = jsonObject.orphan;
-    instance.version = jsonObject.version;
-    instance.changeSetId = jsonObject.changeSetId;
-    instance.lastUpdated = Timestamp.fromJSON(jsonObject.lastUpdated);
-    instance.tags = Tags.fromJSON(jsonObject.tags);
-    instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
-    instance.analysis = RouteInfoAnalysis.fromJSON(jsonObject.analysis);
-    return instance;
+    return new RouteInfo(
+      RouteSummary.fromJSON(jsonObject.summary),
+      jsonObject.active,
+      jsonObject.display,
+      jsonObject.ignored,
+      jsonObject.orphan,
+      jsonObject.version,
+      jsonObject.changeSetId,
+      Timestamp.fromJSON(jsonObject.lastUpdated),
+      Tags.fromJSON(jsonObject.tags),
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      RouteInfoAnalysis.fromJSON(jsonObject.analysis)
+    );
   }
 }
-

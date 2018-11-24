@@ -3,21 +3,26 @@
 import {ChangeSetSummary} from './change-set-summary';
 
 export class ChangeSetSummaryDoc {
+  readonly _id: string;
+  readonly changeSetSummary: ChangeSetSummary;
+  readonly _rev: string;
 
-  constructor(public _id?: string,
-              public changeSetSummary?: ChangeSetSummary,
-              public _rev?: string) {
+  constructor(_id: string,
+              changeSetSummary: ChangeSetSummary,
+              _rev: string) {
+    this._id = _id;
+    this.changeSetSummary = changeSetSummary;
+    this._rev = _rev;
   }
 
   public static fromJSON(jsonObject): ChangeSetSummaryDoc {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ChangeSetSummaryDoc();
-    instance._id = jsonObject._id;
-    instance.changeSetSummary = ChangeSetSummary.fromJSON(jsonObject.changeSetSummary);
-    instance._rev = jsonObject._rev;
-    return instance;
+    return new ChangeSetSummaryDoc(
+      jsonObject._id,
+      ChangeSetSummary.fromJSON(jsonObject.changeSetSummary),
+      jsonObject._rev
+    );
   }
 }
-

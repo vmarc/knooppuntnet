@@ -1,24 +1,30 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Node} from './node';
 import {RawWay} from './raw/raw-way';
 
 export class Way {
+  readonly raw: RawWay;
+  readonly nodes: List<Node>;
+  readonly length: number;
 
-  constructor(public raw?: RawWay,
-              public nodes?: Array<Node>,
-              public length?: number) {
+  constructor(raw: RawWay,
+              nodes: List<Node>,
+              length: number) {
+    this.raw = raw;
+    this.nodes = nodes;
+    this.length = length;
   }
 
   public static fromJSON(jsonObject): Way {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Way();
-    instance.raw = RawWay.fromJSON(jsonObject.raw);
-    instance.nodes = jsonObject.nodes ? jsonObject.nodes.map(json => Node.fromJSON(json)) : [];
-    instance.length = jsonObject.length;
-    return instance;
+    return new Way(
+      RawWay.fromJSON(jsonObject.raw),
+      jsonObject.nodes ? List(jsonObject.nodes.map(json => Node.fromJSON(json))) : List(),
+      jsonObject.length
+    );
   }
 }
-

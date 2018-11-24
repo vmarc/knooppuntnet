@@ -4,27 +4,38 @@ import {Tags} from '../data/tags';
 import {Timestamp} from '../timestamp';
 
 export class ChangeSetInfo {
+  readonly id: number;
+  readonly createdAt: Timestamp;
+  readonly closedAt: Timestamp;
+  readonly open: boolean;
+  readonly commentsCount: number;
+  readonly tags: Tags;
 
-  constructor(public id?: number,
-              public createdAt?: Timestamp,
-              public closedAt?: Timestamp,
-              public open?: boolean,
-              public commentsCount?: number,
-              public tags?: Tags) {
+  constructor(id: number,
+              createdAt: Timestamp,
+              closedAt: Timestamp,
+              open: boolean,
+              commentsCount: number,
+              tags: Tags) {
+    this.id = id;
+    this.createdAt = createdAt;
+    this.closedAt = closedAt;
+    this.open = open;
+    this.commentsCount = commentsCount;
+    this.tags = tags;
   }
 
   public static fromJSON(jsonObject): ChangeSetInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ChangeSetInfo();
-    instance.id = jsonObject.id;
-    instance.createdAt = Timestamp.fromJSON(jsonObject.createdAt);
-    instance.closedAt = Timestamp.fromJSON(jsonObject.closedAt);
-    instance.open = jsonObject.open;
-    instance.commentsCount = jsonObject.commentsCount;
-    instance.tags = Tags.fromJSON(jsonObject.tags);
-    return instance;
+    return new ChangeSetInfo(
+      jsonObject.id,
+      Timestamp.fromJSON(jsonObject.createdAt),
+      Timestamp.fromJSON(jsonObject.closedAt),
+      jsonObject.open,
+      jsonObject.commentsCount,
+      Tags.fromJSON(jsonObject.tags)
+    );
   }
 }
-

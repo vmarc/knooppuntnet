@@ -1,23 +1,29 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {ChangeSetNetwork} from './change-set-network';
 
 export class NetworkChanges {
+  readonly creates: List<ChangeSetNetwork>;
+  readonly updates: List<ChangeSetNetwork>;
+  readonly deletes: List<ChangeSetNetwork>;
 
-  constructor(public creates?: Array<ChangeSetNetwork>,
-              public updates?: Array<ChangeSetNetwork>,
-              public deletes?: Array<ChangeSetNetwork>) {
+  constructor(creates: List<ChangeSetNetwork>,
+              updates: List<ChangeSetNetwork>,
+              deletes: List<ChangeSetNetwork>) {
+    this.creates = creates;
+    this.updates = updates;
+    this.deletes = deletes;
   }
 
   public static fromJSON(jsonObject): NetworkChanges {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkChanges();
-    instance.creates = jsonObject.creates ? jsonObject.creates.map(json => ChangeSetNetwork.fromJSON(json)) : [];
-    instance.updates = jsonObject.updates ? jsonObject.updates.map(json => ChangeSetNetwork.fromJSON(json)) : [];
-    instance.deletes = jsonObject.deletes ? jsonObject.deletes.map(json => ChangeSetNetwork.fromJSON(json)) : [];
-    return instance;
+    return new NetworkChanges(
+      jsonObject.creates ? List(jsonObject.creates.map(json => ChangeSetNetwork.fromJSON(json))) : List(),
+      jsonObject.updates ? List(jsonObject.updates.map(json => ChangeSetNetwork.fromJSON(json))) : List(),
+      jsonObject.deletes ? List(jsonObject.deletes.map(json => ChangeSetNetwork.fromJSON(json))) : List()
+    );
   }
 }
-

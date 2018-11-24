@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material';
 import {SubsetOrphanNodesTableDataSource} from './subset-orphan-nodes-table-datasource';
 import {NodeInfo} from "../../../kpn/shared/node-info";
+import {List} from "immutable";
 
 @Component({
   selector: 'kpn-subset-orphan-nodes-table',
@@ -41,7 +42,7 @@ import {NodeInfo} from "../../../kpn/shared/node-info";
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {
 
-  @Input() nodes: Array<NodeInfo>;
+  @Input() nodes: List<NodeInfo>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: SubsetOrphanNodesTableDataSource;
@@ -49,6 +50,6 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   displayedColumns = ['rowNumber', 'node'];
 
   ngOnInit() {
-    this.dataSource = new SubsetOrphanNodesTableDataSource(this.paginator, this.nodes);
+    this.dataSource = new SubsetOrphanNodesTableDataSource(this.paginator, this.nodes.toArray());
   }
 }

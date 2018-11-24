@@ -1,17 +1,20 @@
 export class Tag {
+  readonly key: string;
+  readonly value: string;
 
-  constructor(public key?: string,
-              public value?: string) {
+  constructor(key: string,
+              value: string) {
+    this.key = key;
+    this.value = value;
   }
 
   public static fromJSON(jsonObject): Tag {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Tag();
-    instance.key = jsonObject[0];
-    instance.value = jsonObject[1];
-    return instance;
+    return new Tag(
+      jsonObject[0],
+      jsonObject[1]
+    );
   }
 }
-

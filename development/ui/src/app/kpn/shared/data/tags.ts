@@ -1,17 +1,19 @@
+import {List} from 'immutable';
 import {Tag} from './tag';
 
 export class Tags {
+  readonly tags: List<Tag>;
 
-  constructor(public tags?: Array<Tag>) {
+  constructor(tags: List<Tag>) {
+    this.tags = tags;
   }
 
   public static fromJSON(jsonObject): Tags {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Tags();
-    instance.tags = jsonObject.map(json => Tag.fromJSON(json));
-    return instance;
+    return new Tags(
+      List(jsonObject.map(json => Tag.fromJSON(json)))
+    );
   }
 }
-

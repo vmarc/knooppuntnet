@@ -1,15 +1,16 @@
 export class Country {
+  readonly domain: string;
 
-  constructor(public domain?: string) {
+  constructor(domain: string) {
+    this.domain = domain;
   }
 
   public static fromJSON(jsonObject): Country {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Country();
-    instance.domain =  jsonObject;
-    return instance;
+    return new Country(
+      jsonObject.domain
+    );
   }
 }
-

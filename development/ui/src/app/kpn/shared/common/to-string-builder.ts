@@ -1,19 +1,24 @@
 // this class is generated, please do not modify
 
-export class ToStringBuilder {
+import {List} from 'immutable';
 
-  constructor(public className?: string,
-              public strings?: Array<string>) {
+export class ToStringBuilder {
+  readonly className: string;
+  readonly strings: List<string>;
+
+  constructor(className: string,
+              strings: List<string>) {
+    this.className = className;
+    this.strings = strings;
   }
 
   public static fromJSON(jsonObject): ToStringBuilder {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ToStringBuilder();
-    instance.className = jsonObject.className;
-    instance.strings = jsonObject.strings;
-    return instance;
+    return new ToStringBuilder(
+      jsonObject.className,
+      jsonObject.strings ? List(jsonObject.strings) : List()
+    );
   }
 }
-

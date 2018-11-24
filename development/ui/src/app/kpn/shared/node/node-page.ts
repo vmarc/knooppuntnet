@@ -5,21 +5,26 @@ import {NodeInfo} from '../node-info';
 import {NodeReferences} from './node-references';
 
 export class NodePage {
+  readonly nodeInfo: NodeInfo;
+  readonly references: NodeReferences;
+  readonly nodeChanges: NodeChangeInfos;
 
-  constructor(public nodeInfo?: NodeInfo,
-              public references?: NodeReferences,
-              public nodeChanges?: NodeChangeInfos) {
+  constructor(nodeInfo: NodeInfo,
+              references: NodeReferences,
+              nodeChanges: NodeChangeInfos) {
+    this.nodeInfo = nodeInfo;
+    this.references = references;
+    this.nodeChanges = nodeChanges;
   }
 
   public static fromJSON(jsonObject): NodePage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodePage();
-    instance.nodeInfo = NodeInfo.fromJSON(jsonObject.nodeInfo);
-    instance.references = NodeReferences.fromJSON(jsonObject.references);
-    instance.nodeChanges = NodeChangeInfos.fromJSON(jsonObject.nodeChanges);
-    return instance;
+    return new NodePage(
+      NodeInfo.fromJSON(jsonObject.nodeInfo),
+      NodeReferences.fromJSON(jsonObject.references),
+      NodeChangeInfos.fromJSON(jsonObject.nodeChanges)
+    );
   }
 }
-

@@ -1,21 +1,26 @@
 // this class is generated, please do not modify
 
 export class RawMember {
+  readonly memberType: string;
+  readonly ref: number;
+  readonly role: string;
 
-  constructor(public memberType?: string,
-              public ref?: number,
-              public role?: string) {
+  constructor(memberType: string,
+              ref: number,
+              role: string) {
+    this.memberType = memberType;
+    this.ref = ref;
+    this.role = role;
   }
 
   public static fromJSON(jsonObject): RawMember {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RawMember();
-    instance.memberType = jsonObject.memberType;
-    instance.ref = jsonObject.ref;
-    instance.role = jsonObject.role;
-    return instance;
+    return new RawMember(
+      jsonObject.memberType,
+      jsonObject.ref,
+      jsonObject.role
+    );
   }
 }
-

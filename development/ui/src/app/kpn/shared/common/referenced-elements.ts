@@ -1,19 +1,24 @@
 // this class is generated, please do not modify
 
-export class ReferencedElements {
+import {List} from 'immutable';
 
-  constructor(public nodeIds?: Array<number>,
-              public routeIds?: Array<number>) {
+export class ReferencedElements {
+  readonly nodeIds: List<number>;
+  readonly routeIds: List<number>;
+
+  constructor(nodeIds: List<number>,
+              routeIds: List<number>) {
+    this.nodeIds = nodeIds;
+    this.routeIds = routeIds;
   }
 
   public static fromJSON(jsonObject): ReferencedElements {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ReferencedElements();
-    instance.nodeIds = jsonObject.nodeIds;
-    instance.routeIds = jsonObject.routeIds;
-    return instance;
+    return new ReferencedElements(
+      jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
+      jsonObject.routeIds ? List(jsonObject.routeIds) : List()
+    );
   }
 }
-

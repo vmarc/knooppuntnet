@@ -3,25 +3,34 @@
 import {NetworkType} from '../network-type';
 
 export class NetworkSummary {
+  readonly networkType: NetworkType;
+  readonly name: string;
+  readonly factCount: number;
+  readonly nodeCount: number;
+  readonly routeCount: number;
 
-  constructor(public networkType?: NetworkType,
-              public name?: string,
-              public factCount?: number,
-              public nodeCount?: number,
-              public routeCount?: number) {
+  constructor(networkType: NetworkType,
+              name: string,
+              factCount: number,
+              nodeCount: number,
+              routeCount: number) {
+    this.networkType = networkType;
+    this.name = name;
+    this.factCount = factCount;
+    this.nodeCount = nodeCount;
+    this.routeCount = routeCount;
   }
 
   public static fromJSON(jsonObject): NetworkSummary {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkSummary();
-    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
-    instance.name = jsonObject.name;
-    instance.factCount = jsonObject.factCount;
-    instance.nodeCount = jsonObject.nodeCount;
-    instance.routeCount = jsonObject.routeCount;
-    return instance;
+    return new NetworkSummary(
+      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.name,
+      jsonObject.factCount,
+      jsonObject.nodeCount,
+      jsonObject.routeCount
+    );
   }
 }
-

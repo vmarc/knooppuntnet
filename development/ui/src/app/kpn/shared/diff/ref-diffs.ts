@@ -1,23 +1,29 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Ref} from '../common/ref';
 
 export class RefDiffs {
+  readonly removed: List<Ref>;
+  readonly added: List<Ref>;
+  readonly updated: List<Ref>;
 
-  constructor(public removed?: Array<Ref>,
-              public added?: Array<Ref>,
-              public updated?: Array<Ref>) {
+  constructor(removed: List<Ref>,
+              added: List<Ref>,
+              updated: List<Ref>) {
+    this.removed = removed;
+    this.added = added;
+    this.updated = updated;
   }
 
   public static fromJSON(jsonObject): RefDiffs {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RefDiffs();
-    instance.removed = jsonObject.removed ? jsonObject.removed.map(json => Ref.fromJSON(json)) : [];
-    instance.added = jsonObject.added ? jsonObject.added.map(json => Ref.fromJSON(json)) : [];
-    instance.updated = jsonObject.updated ? jsonObject.updated.map(json => Ref.fromJSON(json)) : [];
-    return instance;
+    return new RefDiffs(
+      jsonObject.removed ? List(jsonObject.removed.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.added ? List(jsonObject.added.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.updated ? List(jsonObject.updated.map(json => Ref.fromJSON(json))) : List()
+    );
   }
 }
-

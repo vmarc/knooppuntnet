@@ -1,28 +1,41 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Fact} from '../fact';
 import {NetworkFacts} from '../network-facts';
+import {NetworkNodeFact} from './network-node-fact';
 import {NetworkRouteFact} from './network-route-fact';
 import {NetworkSummary} from './network-summary';
 
 export class NetworkFactsPage {
+  readonly networkSummary: NetworkSummary;
+  readonly networkFacts: NetworkFacts;
+  readonly nodeFacts: List<NetworkNodeFact>;
+  readonly routeFacts: List<NetworkRouteFact>;
+  readonly facts: List<Fact>;
 
-  constructor(public networkSummary?: NetworkSummary,
-              public networkFacts?: NetworkFacts,
-              public routeFacts?: Array<NetworkRouteFact>,
-              public facts?: Array<Fact>) {
+  constructor(networkSummary: NetworkSummary,
+              networkFacts: NetworkFacts,
+              nodeFacts: List<NetworkNodeFact>,
+              routeFacts: List<NetworkRouteFact>,
+              facts: List<Fact>) {
+    this.networkSummary = networkSummary;
+    this.networkFacts = networkFacts;
+    this.nodeFacts = nodeFacts;
+    this.routeFacts = routeFacts;
+    this.facts = facts;
   }
 
   public static fromJSON(jsonObject): NetworkFactsPage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkFactsPage();
-    instance.networkSummary = NetworkSummary.fromJSON(jsonObject.networkSummary);
-    instance.networkFacts = NetworkFacts.fromJSON(jsonObject.networkFacts);
-    instance.routeFacts = jsonObject.routeFacts ? jsonObject.routeFacts.map(json => NetworkRouteFact.fromJSON(json)) : [];
-    instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
-    return instance;
+    return new NetworkFactsPage(
+      NetworkSummary.fromJSON(jsonObject.networkSummary),
+      NetworkFacts.fromJSON(jsonObject.networkFacts),
+      jsonObject.nodeFacts ? List(jsonObject.nodeFacts.map(json => NetworkNodeFact.fromJSON(json))) : List(),
+      jsonObject.routeFacts ? List(jsonObject.routeFacts.map(json => NetworkRouteFact.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+    );
   }
 }
-

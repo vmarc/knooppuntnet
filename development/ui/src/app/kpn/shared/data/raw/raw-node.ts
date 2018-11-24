@@ -4,29 +4,42 @@ import {Tags} from '../tags';
 import {Timestamp} from '../../timestamp';
 
 export class RawNode {
+  readonly id: number;
+  readonly latitude: string;
+  readonly longitude: string;
+  readonly version: number;
+  readonly timestamp: Timestamp;
+  readonly changeSetId: number;
+  readonly tags: Tags;
 
-  constructor(public id?: number,
-              public latitude?: string,
-              public longitude?: string,
-              public version?: number,
-              public timestamp?: Timestamp,
-              public changeSetId?: number,
-              public tags?: Tags) {
+  constructor(id: number,
+              latitude: string,
+              longitude: string,
+              version: number,
+              timestamp: Timestamp,
+              changeSetId: number,
+              tags: Tags) {
+    this.id = id;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.version = version;
+    this.timestamp = timestamp;
+    this.changeSetId = changeSetId;
+    this.tags = tags;
   }
 
   public static fromJSON(jsonObject): RawNode {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RawNode();
-    instance.id = jsonObject.id;
-    instance.latitude = jsonObject.latitude;
-    instance.longitude = jsonObject.longitude;
-    instance.version = jsonObject.version;
-    instance.timestamp = Timestamp.fromJSON(jsonObject.timestamp);
-    instance.changeSetId = jsonObject.changeSetId;
-    instance.tags = Tags.fromJSON(jsonObject.tags);
-    return instance;
+    return new RawNode(
+      jsonObject.id,
+      jsonObject.latitude,
+      jsonObject.longitude,
+      jsonObject.version,
+      Timestamp.fromJSON(jsonObject.timestamp),
+      jsonObject.changeSetId,
+      Tags.fromJSON(jsonObject.tags)
+    );
   }
 }
-

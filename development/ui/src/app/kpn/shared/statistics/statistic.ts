@@ -3,23 +3,30 @@
 import {CountryStatistic} from './country-statistic';
 
 export class Statistic {
+  readonly total: string;
+  readonly nl: CountryStatistic;
+  readonly be: CountryStatistic;
+  readonly de: CountryStatistic;
 
-  constructor(public total?: string,
-              public nl?: CountryStatistic,
-              public be?: CountryStatistic,
-              public de?: CountryStatistic) {
+  constructor(total: string,
+              nl: CountryStatistic,
+              be: CountryStatistic,
+              de: CountryStatistic) {
+    this.total = total;
+    this.nl = nl;
+    this.be = be;
+    this.de = de;
   }
 
   public static fromJSON(jsonObject): Statistic {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Statistic();
-    instance.total = jsonObject.total;
-    instance.nl = CountryStatistic.fromJSON(jsonObject.nl);
-    instance.be = CountryStatistic.fromJSON(jsonObject.be);
-    instance.de = CountryStatistic.fromJSON(jsonObject.de);
-    return instance;
+    return new Statistic(
+      jsonObject.total,
+      CountryStatistic.fromJSON(jsonObject.nl),
+      CountryStatistic.fromJSON(jsonObject.be),
+      CountryStatistic.fromJSON(jsonObject.de)
+    );
   }
 }
-

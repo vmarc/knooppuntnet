@@ -1,23 +1,30 @@
 // this class is generated, please do not modify
 
 export class Bounds {
+  readonly minLat: number;
+  readonly minLon: number;
+  readonly maxLat: number;
+  readonly maxLon: number;
 
-  constructor(public minLat?: number,
-              public minLon?: number,
-              public maxLat?: number,
-              public maxLon?: number) {
+  constructor(minLat: number,
+              minLon: number,
+              maxLat: number,
+              maxLon: number) {
+    this.minLat = minLat;
+    this.minLon = minLon;
+    this.maxLat = maxLat;
+    this.maxLon = maxLon;
   }
 
   public static fromJSON(jsonObject): Bounds {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Bounds();
-    instance.minLat = jsonObject.minLat;
-    instance.minLon = jsonObject.minLon;
-    instance.maxLat = jsonObject.maxLat;
-    instance.maxLon = jsonObject.maxLon;
-    return instance;
+    return new Bounds(
+      jsonObject.minLat,
+      jsonObject.minLon,
+      jsonObject.maxLat,
+      jsonObject.maxLon
+    );
   }
 }
-

@@ -5,21 +5,26 @@ import {RouteInfo} from './route-info';
 import {RouteReferences} from './route-references';
 
 export class RoutePage {
+  readonly route: RouteInfo;
+  readonly references: RouteReferences;
+  readonly routeChangeInfos: RouteChangeInfos;
 
-  constructor(public route?: RouteInfo,
-              public references?: RouteReferences,
-              public routeChangeInfos?: RouteChangeInfos) {
+  constructor(route: RouteInfo,
+              references: RouteReferences,
+              routeChangeInfos: RouteChangeInfos) {
+    this.route = route;
+    this.references = references;
+    this.routeChangeInfos = routeChangeInfos;
   }
 
   public static fromJSON(jsonObject): RoutePage {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RoutePage();
-    instance.route = RouteInfo.fromJSON(jsonObject.route);
-    instance.references = RouteReferences.fromJSON(jsonObject.references);
-    instance.routeChangeInfos = RouteChangeInfos.fromJSON(jsonObject.routeChangeInfos);
-    return instance;
+    return new RoutePage(
+      RouteInfo.fromJSON(jsonObject.route),
+      RouteReferences.fromJSON(jsonObject.references),
+      RouteChangeInfos.fromJSON(jsonObject.routeChangeInfos)
+    );
   }
 }
-

@@ -1,19 +1,21 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Reference} from '../common/reference';
 
 export class RouteReferences {
+  readonly networkReferences: List<Reference>;
 
-  constructor(public networkReferences?: Array<Reference>) {
+  constructor(networkReferences: List<Reference>) {
+    this.networkReferences = networkReferences;
   }
 
   public static fromJSON(jsonObject): RouteReferences {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteReferences();
-    instance.networkReferences = jsonObject.networkReferences ? jsonObject.networkReferences.map(json => Reference.fromJSON(json)) : [];
-    return instance;
+    return new RouteReferences(
+      jsonObject.networkReferences ? List(jsonObject.networkReferences.map(json => Reference.fromJSON(json))) : List()
+    );
   }
 }
-

@@ -116,7 +116,7 @@ class ClassAnalyzer {
       case seqSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1)
         ClassType(
-          s"Array<${typescriptType1.typeName}>",
+          s"List<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1)
         )
 

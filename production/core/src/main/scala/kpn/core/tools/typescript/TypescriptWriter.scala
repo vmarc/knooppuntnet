@@ -38,30 +38,74 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   }
 
   private def writeImports(): Unit = {
-    if (classInfo.dependencies.nonEmpty) {
-      classInfo.dependencies.foreach { dependency =>
-        out.println(s"import {${dependency.className}} from '${dependency.fileName}';")
-      }
-      out.println()
+    val imports = listImports() ++ mapImports() ++ dependencyImports()
+    if (imports.nonEmpty) {
+      out.println(imports.mkString("", "\n", "\n"))
+    }
+  }
+
+  private def listImports(): Seq[String] = {
+    if (classInfo.fields.exists(_.classType.isArray)) {
+      Seq("import {List} from 'immutable';")
+    }
+    else {
+      Seq()
+    }
+  }
+
+  private def mapImports(): Seq[String] = {
+    if (classInfo.fields.exists(_.classType.isMap)) {
+      Seq("import {Map} from 'immutable';")
+    }
+    else {
+      Seq()
+    }
+  }
+
+  private def dependencyImports(): Seq[String] = {
+    classInfo.dependencies.map { dependency =>
+      s"import {${dependency.className}} from '${dependency.fileName}';"
     }
   }
 
   private def writeClass(): Unit = {
     out.println(s"export class ${classInfo.className} {")
+    writeFields()
+    out.println()
     out.println()
     writeConstructor()
     writeDeserializer()
-    out.println("}\n")
+    out.println("}")
+  }
+
+  private def writeFields(): Unit = {
+    val fields = classInfo.fields.map { field =>
+      val typeName = field.classType.typeName.replaceAll("Array<", "List<")
+      s"  readonly ${field.name}: $typeName;"
+    }
+    fields.mkString("\n").foreach {
+      out.print
+    }
   }
 
   private def writeConstructor(): Unit = {
     val fields = classInfo.fields.map { field =>
-      s"public ${field.name}?: ${field.classType.typeName}"
+      val typeName = field.classType.typeName.replaceAll("Array<", "List<")
+      s"${field.name}: $typeName"
     }
     out.print(s"  constructor(")
-    fields.mkString("", ",\n              ", ") {\n  }\n\n").foreach {
+    fields.mkString("", ",\n              ", ") {\n").foreach {
       out.print
     }
+
+    val fields2 = classInfo.fields.map { field =>
+      s"    this.${field.name} = ${field.name};"
+    }
+    fields2.mkString("\n").foreach {
+      out.print
+    }
+
+    out.println("\n  }\n")
   }
 
   private def writeDeserializer(): Unit = {
@@ -69,29 +113,30 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
     out.println(s"    if (!jsonObject) {")
     out.println(s"      return undefined;")
     out.println(s"    }")
-    out.println(s"    const instance = new ${classInfo.className}();")
-    classInfo.fields.foreach { field =>
+    out.println(s"    return new ${classInfo.className}(")
 
-      out.print(s"    instance.${field.name} = ")
+    val fields = classInfo.fields.map { field =>
       if (field.classType.primitive) {
-        out.print(s"jsonObject.${field.name}")
+        s"      jsonObject.${field.name}"
       }
       else {
         field.classType.arrayType match {
           case Some(arrayClassType) =>
             if (arrayClassType.primitive) {
-              out.print(s"jsonObject.${field.name}")
+              s"      jsonObject.${field.name} ? List(jsonObject.${field.name}) : List()"
             }
             else {
-              out.print(s"jsonObject.${field.name} ? jsonObject.${field.name}.map(json => ${arrayClassType.typeName}.fromJSON(json)) : []")
+              s"      jsonObject.${field.name} ? List(jsonObject.${field.name}.map(json => ${arrayClassType.typeName}.fromJSON(json))) : List()"
             }
           case _ =>
-            out.print(s"${field.classType.typeName}.fromJSON(jsonObject.${field.name})")
+            s"      ${field.classType.typeName}.fromJSON(jsonObject.${field.name})"
         }
       }
-      out.println(";")
     }
-    out.println("    return instance;")
+
+    out.print(fields.mkString("", ",\n", "\n"))
+
+    out.println("    );")
     out.println("  }")
   }
 }

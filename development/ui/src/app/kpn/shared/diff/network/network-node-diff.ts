@@ -5,25 +5,38 @@ import {NodeRouteReferenceDiffs} from './node-route-reference-diffs';
 import {TagDiffs} from '../tag-diffs';
 
 export class NetworkNodeDiff {
+  readonly connection: boolean;
+  readonly roleConnection: boolean;
+  readonly definedInNetworkRelation: boolean;
+  readonly routeReferenceDiffs: NodeRouteReferenceDiffs;
+  readonly nodeIntegrityCheckDiff: NodeIntegrityCheckDiff;
+  readonly tagDiffs: TagDiffs;
 
-  constructor(public connection?: boolean,
-              public definedInNetworkRelation?: boolean,
-              public routeReferenceDiffs?: NodeRouteReferenceDiffs,
-              public nodeIntegrityCheckDiff?: NodeIntegrityCheckDiff,
-              public tagDiffs?: TagDiffs) {
+  constructor(connection: boolean,
+              roleConnection: boolean,
+              definedInNetworkRelation: boolean,
+              routeReferenceDiffs: NodeRouteReferenceDiffs,
+              nodeIntegrityCheckDiff: NodeIntegrityCheckDiff,
+              tagDiffs: TagDiffs) {
+    this.connection = connection;
+    this.roleConnection = roleConnection;
+    this.definedInNetworkRelation = definedInNetworkRelation;
+    this.routeReferenceDiffs = routeReferenceDiffs;
+    this.nodeIntegrityCheckDiff = nodeIntegrityCheckDiff;
+    this.tagDiffs = tagDiffs;
   }
 
   public static fromJSON(jsonObject): NetworkNodeDiff {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkNodeDiff();
-    instance.connection = jsonObject.connection;
-    instance.definedInNetworkRelation = jsonObject.definedInNetworkRelation;
-    instance.routeReferenceDiffs = NodeRouteReferenceDiffs.fromJSON(jsonObject.routeReferenceDiffs);
-    instance.nodeIntegrityCheckDiff = NodeIntegrityCheckDiff.fromJSON(jsonObject.nodeIntegrityCheckDiff);
-    instance.tagDiffs = TagDiffs.fromJSON(jsonObject.tagDiffs);
-    return instance;
+    return new NetworkNodeDiff(
+      jsonObject.connection,
+      jsonObject.roleConnection,
+      jsonObject.definedInNetworkRelation,
+      NodeRouteReferenceDiffs.fromJSON(jsonObject.routeReferenceDiffs),
+      NodeIntegrityCheckDiff.fromJSON(jsonObject.nodeIntegrityCheckDiff),
+      TagDiffs.fromJSON(jsonObject.tagDiffs)
+    );
   }
 }
-

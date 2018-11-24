@@ -1,17 +1,18 @@
 // this class is generated, please do not modify
 
 export class FactLevel {
+  readonly name: string;
 
-  constructor(public name?: string) {
+  constructor(name: string) {
+    this.name = name;
   }
 
   public static fromJSON(jsonObject): FactLevel {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new FactLevel();
-    instance.name = jsonObject.name;
-    return instance;
+    return new FactLevel(
+      jsonObject.name
+    );
   }
 }
-

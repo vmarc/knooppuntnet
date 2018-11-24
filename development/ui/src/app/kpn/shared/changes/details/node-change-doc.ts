@@ -3,21 +3,26 @@
 import {NodeChange} from './node-change';
 
 export class NodeChangeDoc {
+  readonly _id: string;
+  readonly nodeChange: NodeChange;
+  readonly _rev: string;
 
-  constructor(public _id?: string,
-              public nodeChange?: NodeChange,
-              public _rev?: string) {
+  constructor(_id: string,
+              nodeChange: NodeChange,
+              _rev: string) {
+    this._id = _id;
+    this.nodeChange = nodeChange;
+    this._rev = _rev;
   }
 
   public static fromJSON(jsonObject): NodeChangeDoc {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeChangeDoc();
-    instance._id = jsonObject._id;
-    instance.nodeChange = NodeChange.fromJSON(jsonObject.nodeChange);
-    instance._rev = jsonObject._rev;
-    return instance;
+    return new NodeChangeDoc(
+      jsonObject._id,
+      NodeChange.fromJSON(jsonObject.nodeChange),
+      jsonObject._rev
+    );
   }
 }
-

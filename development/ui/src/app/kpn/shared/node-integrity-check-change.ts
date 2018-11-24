@@ -4,21 +4,26 @@ import {NetworkType} from './network-type';
 import {NodeIntegrityCheck} from './node-integrity-check';
 
 export class NodeIntegrityCheckChange {
+  readonly networkType: NetworkType;
+  readonly before: NodeIntegrityCheck;
+  readonly after: NodeIntegrityCheck;
 
-  constructor(public networkType?: NetworkType,
-              public before?: NodeIntegrityCheck,
-              public after?: NodeIntegrityCheck) {
+  constructor(networkType: NetworkType,
+              before: NodeIntegrityCheck,
+              after: NodeIntegrityCheck) {
+    this.networkType = networkType;
+    this.before = before;
+    this.after = after;
   }
 
   public static fromJSON(jsonObject): NodeIntegrityCheckChange {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NodeIntegrityCheckChange();
-    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
-    instance.before = NodeIntegrityCheck.fromJSON(jsonObject.before);
-    instance.after = NodeIntegrityCheck.fromJSON(jsonObject.after);
-    return instance;
+    return new NodeIntegrityCheckChange(
+      NetworkType.fromJSON(jsonObject.networkType),
+      NodeIntegrityCheck.fromJSON(jsonObject.before),
+      NodeIntegrityCheck.fromJSON(jsonObject.after)
+    );
   }
 }
-

@@ -123,7 +123,7 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
   }
 
   hasFacts() {
-    return this.response && this.response.result && this.response.result.factCounts.length > 0;
+    return this.response && this.response.result && this.response.result.factCounts.size > 0;
   }
 
 }

@@ -1,17 +1,18 @@
 // this class is generated, please do not modify
 
 export class NetworkExtraMemberRelation {
+  readonly memberId: number;
 
-  constructor(public memberId?: number) {
+  constructor(memberId: number) {
+    this.memberId = memberId;
   }
 
   public static fromJSON(jsonObject): NetworkExtraMemberRelation {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkExtraMemberRelation();
-    instance.memberId = jsonObject.memberId;
-    return instance;
+    return new NetworkExtraMemberRelation(
+      jsonObject.memberId
+    );
   }
 }
-

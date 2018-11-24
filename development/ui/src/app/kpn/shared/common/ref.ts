@@ -1,19 +1,22 @@
 // this class is generated, please do not modify
 
 export class Ref {
+  readonly id: number;
+  readonly name: string;
 
-  constructor(public id?: number,
-              public name?: string) {
+  constructor(id: number,
+              name: string) {
+    this.id = id;
+    this.name = name;
   }
 
   public static fromJSON(jsonObject): Ref {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new Ref();
-    instance.id = jsonObject.id;
-    instance.name = jsonObject.name;
-    return instance;
+    return new Ref(
+      jsonObject.id,
+      jsonObject.name
+    );
   }
 }
-

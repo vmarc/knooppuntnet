@@ -1,5 +1,6 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {ChangeKey} from './change-key';
 import {ChangeType} from './change-type';
 import {Fact} from '../../fact';
@@ -10,39 +11,62 @@ import {RouteDiff} from '../../diff/route/route-diff';
 import {WayUpdate} from '../../diff/way-update';
 
 export class RouteChange {
+  readonly key: ChangeKey;
+  readonly changeType: ChangeType;
+  readonly name: string;
+  readonly addedToNetwork: List<Ref>;
+  readonly removedFromNetwork: List<Ref>;
+  readonly before: RouteData;
+  readonly after: RouteData;
+  readonly removedWays: List<RawWay>;
+  readonly addedWays: List<RawWay>;
+  readonly updatedWays: List<WayUpdate>;
+  readonly diffs: RouteDiff;
+  readonly facts: List<Fact>;
 
-  constructor(public key?: ChangeKey,
-              public changeType?: ChangeType,
-              public name?: string,
-              public addedToNetwork?: Array<Ref>,
-              public removedFromNetwork?: Array<Ref>,
-              public before?: RouteData,
-              public after?: RouteData,
-              public removedWays?: Array<RawWay>,
-              public addedWays?: Array<RawWay>,
-              public updatedWays?: Array<WayUpdate>,
-              public diffs?: RouteDiff,
-              public facts?: Array<Fact>) {
+  constructor(key: ChangeKey,
+              changeType: ChangeType,
+              name: string,
+              addedToNetwork: List<Ref>,
+              removedFromNetwork: List<Ref>,
+              before: RouteData,
+              after: RouteData,
+              removedWays: List<RawWay>,
+              addedWays: List<RawWay>,
+              updatedWays: List<WayUpdate>,
+              diffs: RouteDiff,
+              facts: List<Fact>) {
+    this.key = key;
+    this.changeType = changeType;
+    this.name = name;
+    this.addedToNetwork = addedToNetwork;
+    this.removedFromNetwork = removedFromNetwork;
+    this.before = before;
+    this.after = after;
+    this.removedWays = removedWays;
+    this.addedWays = addedWays;
+    this.updatedWays = updatedWays;
+    this.diffs = diffs;
+    this.facts = facts;
   }
 
   public static fromJSON(jsonObject): RouteChange {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteChange();
-    instance.key = ChangeKey.fromJSON(jsonObject.key);
-    instance.changeType = ChangeType.fromJSON(jsonObject.changeType);
-    instance.name = jsonObject.name;
-    instance.addedToNetwork = jsonObject.addedToNetwork ? jsonObject.addedToNetwork.map(json => Ref.fromJSON(json)) : [];
-    instance.removedFromNetwork = jsonObject.removedFromNetwork ? jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json)) : [];
-    instance.before = RouteData.fromJSON(jsonObject.before);
-    instance.after = RouteData.fromJSON(jsonObject.after);
-    instance.removedWays = jsonObject.removedWays ? jsonObject.removedWays.map(json => RawWay.fromJSON(json)) : [];
-    instance.addedWays = jsonObject.addedWays ? jsonObject.addedWays.map(json => RawWay.fromJSON(json)) : [];
-    instance.updatedWays = jsonObject.updatedWays ? jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json)) : [];
-    instance.diffs = RouteDiff.fromJSON(jsonObject.diffs);
-    instance.facts = jsonObject.facts ? jsonObject.facts.map(json => Fact.fromJSON(json)) : [];
-    return instance;
+    return new RouteChange(
+      ChangeKey.fromJSON(jsonObject.key),
+      ChangeType.fromJSON(jsonObject.changeType),
+      jsonObject.name,
+      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json))) : List(),
+      RouteData.fromJSON(jsonObject.before),
+      RouteData.fromJSON(jsonObject.after),
+      jsonObject.removedWays ? List(jsonObject.removedWays.map(json => RawWay.fromJSON(json))) : List(),
+      jsonObject.addedWays ? List(jsonObject.addedWays.map(json => RawWay.fromJSON(json))) : List(),
+      jsonObject.updatedWays ? List(jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json))) : List(),
+      RouteDiff.fromJSON(jsonObject.diffs),
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+    );
   }
 }
-

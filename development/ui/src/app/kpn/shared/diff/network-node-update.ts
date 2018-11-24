@@ -4,21 +4,26 @@ import {NetworkNodeData} from './network-node-data';
 import {NetworkNodeDiff} from './network/network-node-diff';
 
 export class NetworkNodeUpdate {
+  readonly before: NetworkNodeData;
+  readonly after: NetworkNodeData;
+  readonly diffs: NetworkNodeDiff;
 
-  constructor(public before?: NetworkNodeData,
-              public after?: NetworkNodeData,
-              public diffs?: NetworkNodeDiff) {
+  constructor(before: NetworkNodeData,
+              after: NetworkNodeData,
+              diffs: NetworkNodeDiff) {
+    this.before = before;
+    this.after = after;
+    this.diffs = diffs;
   }
 
   public static fromJSON(jsonObject): NetworkNodeUpdate {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkNodeUpdate();
-    instance.before = NetworkNodeData.fromJSON(jsonObject.before);
-    instance.after = NetworkNodeData.fromJSON(jsonObject.after);
-    instance.diffs = NetworkNodeDiff.fromJSON(jsonObject.diffs);
-    return instance;
+    return new NetworkNodeUpdate(
+      NetworkNodeData.fromJSON(jsonObject.before),
+      NetworkNodeData.fromJSON(jsonObject.after),
+      NetworkNodeDiff.fromJSON(jsonObject.diffs)
+    );
   }
 }
-

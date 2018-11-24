@@ -3,19 +3,22 @@
 import {Way} from './way';
 
 export class WayMember {
+  readonly way: Way;
+  readonly role: string;
 
-  constructor(public way?: Way,
-              public role?: string) {
+  constructor(way: Way,
+              role: string) {
+    this.way = way;
+    this.role = role;
   }
 
   public static fromJSON(jsonObject): WayMember {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new WayMember();
-    instance.way = Way.fromJSON(jsonObject.way);
-    instance.role = jsonObject.role;
-    return instance;
+    return new WayMember(
+      Way.fromJSON(jsonObject.way),
+      jsonObject.role
+    );
   }
 }
-

@@ -3,23 +3,30 @@
 import {Timestamp} from './timestamp';
 
 export class TimeInfo {
+  readonly now: Timestamp;
+  readonly lastWeekStart: Timestamp;
+  readonly lastMonthStart: Timestamp;
+  readonly lastYearStart: Timestamp;
 
-  constructor(public now?: Timestamp,
-              public lastWeekStart?: Timestamp,
-              public lastMonthStart?: Timestamp,
-              public lastYearStart?: Timestamp) {
+  constructor(now: Timestamp,
+              lastWeekStart: Timestamp,
+              lastMonthStart: Timestamp,
+              lastYearStart: Timestamp) {
+    this.now = now;
+    this.lastWeekStart = lastWeekStart;
+    this.lastMonthStart = lastMonthStart;
+    this.lastYearStart = lastYearStart;
   }
 
   public static fromJSON(jsonObject): TimeInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new TimeInfo();
-    instance.now = Timestamp.fromJSON(jsonObject.now);
-    instance.lastWeekStart = Timestamp.fromJSON(jsonObject.lastWeekStart);
-    instance.lastMonthStart = Timestamp.fromJSON(jsonObject.lastMonthStart);
-    instance.lastYearStart = Timestamp.fromJSON(jsonObject.lastYearStart);
-    return instance;
+    return new TimeInfo(
+      Timestamp.fromJSON(jsonObject.now),
+      Timestamp.fromJSON(jsonObject.lastWeekStart),
+      Timestamp.fromJSON(jsonObject.lastMonthStart),
+      Timestamp.fromJSON(jsonObject.lastYearStart)
+    );
   }
 }
-

@@ -3,21 +3,26 @@
 import {NetworkShape} from './network-shape';
 
 export class NetworkMapInfo {
+  readonly id: number;
+  readonly name: string;
+  readonly map: NetworkShape;
 
-  constructor(public id?: number,
-              public name?: string,
-              public map?: NetworkShape) {
+  constructor(id: number,
+              name: string,
+              map: NetworkShape) {
+    this.id = id;
+    this.name = name;
+    this.map = map;
   }
 
   public static fromJSON(jsonObject): NetworkMapInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkMapInfo();
-    instance.id = jsonObject.id;
-    instance.name = jsonObject.name;
-    instance.map = NetworkShape.fromJSON(jsonObject.map);
-    return instance;
+    return new NetworkMapInfo(
+      jsonObject.id,
+      jsonObject.name,
+      NetworkShape.fromJSON(jsonObject.map)
+    );
   }
 }
-

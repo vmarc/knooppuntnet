@@ -7,47 +7,78 @@ import {NetworkType} from '../network-type';
 import {Timestamp} from '../timestamp';
 
 export class NetworkAttributes {
+  readonly id: number;
+  readonly country: Country;
+  readonly networkType: NetworkType;
+  readonly name: string;
+  readonly km: number;
+  readonly meters: number;
+  readonly nodeCount: number;
+  readonly routeCount: number;
+  readonly brokenRouteCount: number;
+  readonly brokenRoutePercentage: string;
+  readonly integrity: Integrity;
+  readonly unaccessibleRouteCount: number;
+  readonly connectionCount: number;
+  readonly lastUpdated: Timestamp;
+  readonly relationLastUpdated: Timestamp;
+  readonly center: LatLonImpl;
 
-  constructor(public id?: number,
-              public country?: Country,
-              public networkType?: NetworkType,
-              public name?: string,
-              public km?: number,
-              public meters?: number,
-              public nodeCount?: number,
-              public routeCount?: number,
-              public brokenRouteCount?: number,
-              public brokenRoutePercentage?: string,
-              public integrity?: Integrity,
-              public unaccessibleRouteCount?: number,
-              public connectionCount?: number,
-              public lastUpdated?: Timestamp,
-              public relationLastUpdated?: Timestamp,
-              public center?: LatLonImpl) {
+  constructor(id: number,
+              country: Country,
+              networkType: NetworkType,
+              name: string,
+              km: number,
+              meters: number,
+              nodeCount: number,
+              routeCount: number,
+              brokenRouteCount: number,
+              brokenRoutePercentage: string,
+              integrity: Integrity,
+              unaccessibleRouteCount: number,
+              connectionCount: number,
+              lastUpdated: Timestamp,
+              relationLastUpdated: Timestamp,
+              center: LatLonImpl) {
+    this.id = id;
+    this.country = country;
+    this.networkType = networkType;
+    this.name = name;
+    this.km = km;
+    this.meters = meters;
+    this.nodeCount = nodeCount;
+    this.routeCount = routeCount;
+    this.brokenRouteCount = brokenRouteCount;
+    this.brokenRoutePercentage = brokenRoutePercentage;
+    this.integrity = integrity;
+    this.unaccessibleRouteCount = unaccessibleRouteCount;
+    this.connectionCount = connectionCount;
+    this.lastUpdated = lastUpdated;
+    this.relationLastUpdated = relationLastUpdated;
+    this.center = center;
   }
 
   public static fromJSON(jsonObject): NetworkAttributes {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkAttributes();
-    instance.id = jsonObject.id;
-    instance.country = Country.fromJSON(jsonObject.country);
-    instance.networkType = NetworkType.fromJSON(jsonObject.networkType);
-    instance.name = jsonObject.name;
-    instance.km = jsonObject.km;
-    instance.meters = jsonObject.meters;
-    instance.nodeCount = jsonObject.nodeCount;
-    instance.routeCount = jsonObject.routeCount;
-    instance.brokenRouteCount = jsonObject.brokenRouteCount;
-    instance.brokenRoutePercentage = jsonObject.brokenRoutePercentage;
-    instance.integrity = Integrity.fromJSON(jsonObject.integrity);
-    instance.unaccessibleRouteCount = jsonObject.unaccessibleRouteCount;
-    instance.connectionCount = jsonObject.connectionCount;
-    instance.lastUpdated = Timestamp.fromJSON(jsonObject.lastUpdated);
-    instance.relationLastUpdated = Timestamp.fromJSON(jsonObject.relationLastUpdated);
-    instance.center = LatLonImpl.fromJSON(jsonObject.center);
-    return instance;
+    return new NetworkAttributes(
+      jsonObject.id,
+      Country.fromJSON(jsonObject.country),
+      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.name,
+      jsonObject.km,
+      jsonObject.meters,
+      jsonObject.nodeCount,
+      jsonObject.routeCount,
+      jsonObject.brokenRouteCount,
+      jsonObject.brokenRoutePercentage,
+      Integrity.fromJSON(jsonObject.integrity),
+      jsonObject.unaccessibleRouteCount,
+      jsonObject.connectionCount,
+      Timestamp.fromJSON(jsonObject.lastUpdated),
+      Timestamp.fromJSON(jsonObject.relationLastUpdated),
+      LatLonImpl.fromJSON(jsonObject.center)
+    );
   }
 }
-

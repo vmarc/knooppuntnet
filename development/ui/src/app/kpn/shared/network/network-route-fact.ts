@@ -1,22 +1,26 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Fact} from '../fact';
 import {Ref} from '../common/ref';
 
 export class NetworkRouteFact {
+  readonly fact: Fact;
+  readonly routes: List<Ref>;
 
-  constructor(public fact?: Fact,
-              public routes?: Array<Ref>) {
+  constructor(fact: Fact,
+              routes: List<Ref>) {
+    this.fact = fact;
+    this.routes = routes;
   }
 
   public static fromJSON(jsonObject): NetworkRouteFact {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new NetworkRouteFact();
-    instance.fact = Fact.fromJSON(jsonObject.fact);
-    instance.routes = jsonObject.routes ? jsonObject.routes.map(json => Ref.fromJSON(json)) : [];
-    return instance;
+    return new NetworkRouteFact(
+      Fact.fromJSON(jsonObject.fact),
+      jsonObject.routes ? List(jsonObject.routes.map(json => Ref.fromJSON(json))) : List()
+    );
   }
 }
-

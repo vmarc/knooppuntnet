@@ -1,25 +1,34 @@
 // this class is generated, please do not modify
 
 export class RouteNetworkNodeInfo {
+  readonly id: number;
+  readonly name: string;
+  readonly alternateName: string;
+  readonly lat: string;
+  readonly lon: string;
 
-  constructor(public id?: number,
-              public name?: string,
-              public alternateName?: string,
-              public lat?: string,
-              public lon?: string) {
+  constructor(id: number,
+              name: string,
+              alternateName: string,
+              lat: string,
+              lon: string) {
+    this.id = id;
+    this.name = name;
+    this.alternateName = alternateName;
+    this.lat = lat;
+    this.lon = lon;
   }
 
   public static fromJSON(jsonObject): RouteNetworkNodeInfo {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new RouteNetworkNodeInfo();
-    instance.id = jsonObject.id;
-    instance.name = jsonObject.name;
-    instance.alternateName = jsonObject.alternateName;
-    instance.lat = jsonObject.lat;
-    instance.lon = jsonObject.lon;
-    return instance;
+    return new RouteNetworkNodeInfo(
+      jsonObject.id,
+      jsonObject.name,
+      jsonObject.alternateName,
+      jsonObject.lat,
+      jsonObject.lon
+    );
   }
 }
-

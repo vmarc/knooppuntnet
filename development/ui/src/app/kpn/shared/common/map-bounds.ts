@@ -1,23 +1,30 @@
 // this class is generated, please do not modify
 
 export class MapBounds {
+  readonly latMin: string;
+  readonly latMax: string;
+  readonly lonMin: string;
+  readonly lonMax: string;
 
-  constructor(public latMin?: string,
-              public latMax?: string,
-              public lonMin?: string,
-              public lonMax?: string) {
+  constructor(latMin: string,
+              latMax: string,
+              lonMin: string,
+              lonMax: string) {
+    this.latMin = latMin;
+    this.latMax = latMax;
+    this.lonMin = lonMin;
+    this.lonMax = lonMax;
   }
 
   public static fromJSON(jsonObject): MapBounds {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new MapBounds();
-    instance.latMin = jsonObject.latMin;
-    instance.latMax = jsonObject.latMax;
-    instance.lonMin = jsonObject.lonMin;
-    instance.lonMax = jsonObject.lonMax;
-    return instance;
+    return new MapBounds(
+      jsonObject.latMin,
+      jsonObject.latMax,
+      jsonObject.lonMin,
+      jsonObject.lonMax
+    );
   }
 }
-
