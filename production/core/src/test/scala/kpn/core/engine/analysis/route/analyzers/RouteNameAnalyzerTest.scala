@@ -6,6 +6,7 @@ import kpn.core.engine.analysis.route.RouteNameAnalysis
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
 import kpn.shared.NetworkType
+import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -101,6 +102,14 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
     analysis.reversed should equal(false)
   }
 
+  test("route name in ref tag") {
+    val analysis = analyzeNameInRefTag("01-02")
+    analysis.name should equal(Some("01-02"))
+    analysis.startNodeName should equal(Some("01"))
+    analysis.endNodeName should equal(Some("02"))
+    analysis.reversed should equal(false)
+  }
+
   private def analyze(name: String): RouteNameAnalysis = {
 
     val data = new RouteTestData(name).data
@@ -125,4 +134,31 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
     newContext.routeNameAnalysis.get
 
   }
+
+  private def analyzeNameInRefTag(name: String): RouteNameAnalysis = {
+
+    val data = new RouteTestData("this is note for the note tag", tags = Tags.from("ref" -> name)).data
+
+    val loadedRoute = LoadedRoute(
+      country = None,
+      networkType = NetworkType.hiking,
+      name,
+      data,
+      data.relations(1L)
+    )
+
+    val context = RouteAnalysisContext(
+      networkNodes = Map.empty,
+      loadedRoute,
+      orphan = false,
+      interpreter = new Interpreter(loadedRoute.networkType)
+    )
+
+    val newContext = RouteNameAnalyzer.analyze(context)
+
+    newContext.routeNameAnalysis.get
+
+  }
+
+
 }

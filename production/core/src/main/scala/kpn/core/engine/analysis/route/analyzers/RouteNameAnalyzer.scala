@@ -27,7 +27,19 @@ object RouteNameAnalyzer extends RouteAnalyzer {
 class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val routeNameAnalysis = analyze(context.loadedRoute.relation.tags("note"))
+    val noteRouteNameAnalysis = analyze(context.loadedRoute.relation.tags("note"))
+    val routeNameAnalysis = if (noteRouteNameAnalysis.startNodeName.nonEmpty || noteRouteNameAnalysis.endNodeName.nonEmpty) {
+      noteRouteNameAnalysis
+    }
+    else {
+      val refRouteNameAnalysis = analyze(context.loadedRoute.relation.tags("ref"))
+      if (refRouteNameAnalysis.startNodeName.nonEmpty || refRouteNameAnalysis.endNodeName.nonEmpty) {
+        refRouteNameAnalysis
+      }
+      else {
+        noteRouteNameAnalysis
+      }
+    }
     context.copy(routeNameAnalysis = Some(routeNameAnalysis)).withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
   }
 

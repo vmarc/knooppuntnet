@@ -83,7 +83,7 @@ class NetworkAnalyzerImpl(
     val (routeMembers, extraRelationMembers) = networkRelation.relationMembers.partition(member => allRouteAnalyses.contains(member.relation.id))
 
     val filteredExtraNodeMembers = extraNodeMembers.filterNot { nodeMember =>
-      nodeMember.node.tags.has("tourism", "information") && nodeMember.node.tags.has("information", "map")
+      nodeMember.node.tags.has("tourism", "information") && nodeMember.node.tags.has("information", "map", "guidepost")
     }
 
     val networkExtraMemberWay: Seq[NetworkExtraMemberWay] = {

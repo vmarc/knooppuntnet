@@ -70,12 +70,13 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
   def members: Seq[RawMember] = memberBuffer
 
   def data: Data = {
-    val routeTags = Tags.from(
+    val standardRouteTags = Tags.from(
       "note" -> routeName,
       "network" -> "rwn",
       "type" -> "route",
       "route" -> "foot"
     )
+    val routeTags = Tags(tags.tags ++ standardRouteTags.tags)
     val relation = newRawRelation(routeRelationId, members = memberBuffer, tags = routeTags)
     val rawData = RawData(None, nodeBuffer, wayBuffer, Seq(relation))
     new DataBuilder(networkType, rawData).data
