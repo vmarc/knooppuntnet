@@ -1,10 +1,14 @@
-const PROXY_CONFIG = {
+PROXY_CONFIG = {
   "/api/**": {
-    "target": "http://localhost:9002",
+    "target": "https://dev.knooppuntnet.nl",
     "secure": false
   },
   "/json-api/**": {
-    "target": "http://localhost:9002",
+    "target": "https://dev.knooppuntnet.nl",
+    "secure": false
+  },
+  "/tiles/**": {
+    "target": "https://dev.knooppuntnet.nl",
     "secure": false
   },
   "**": {
