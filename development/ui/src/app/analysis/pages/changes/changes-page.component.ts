@@ -19,13 +19,11 @@ export class ChangesPageComponent implements OnInit {
 
   response: ApiResponse<ChangesPage>;
 
-  parameters = new ChangesParameters();
+  parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService) {
-    this.parameters.itemsPerPage = 15;
-    this.parameters.impact = true;
   }
 
   ngOnInit() {

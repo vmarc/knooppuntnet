@@ -30,7 +30,7 @@ import {MAT_DIALOG_DATA} from "@angular/material/typings/dialog";
 export class ConnectionIndicatorDialogComponent {
 
   constructor(private dialogRef: MatDialogRef<ConnectionIndicatorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private color: string) {
+              @Inject(MAT_DIALOG_DATA) public color: string) {
   }
 
   onCloseDialog(): void {

@@ -26,7 +26,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 export class RouteIndicatorDialogComponent {
 
   constructor(private dialogRef: MatDialogRef<RouteIndicatorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private color: string) {
+              @Inject(MAT_DIALOG_DATA) public color: string) {
   }
 
   onCloseDialog(): void {

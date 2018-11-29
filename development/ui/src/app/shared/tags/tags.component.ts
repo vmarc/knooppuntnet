@@ -4,9 +4,9 @@ import {Tags} from "../../kpn/shared/data/tags";
 @Component({
   selector: 'tags',
   template: `
-    <ng-container *ngIf="tags.tags.length == 0">No tags</ng-container> <!-- Geen labels -->
+    <ng-container *ngIf="tags.tags.isEmpty()">No tags</ng-container> <!-- Geen labels -->
 
-    <table *ngIf="tags.tags.length > 0" title="tags" class="kpn-table">
+    <table *ngIf="!tags.tags.isEmpty()" title="tags" class="kpn-table">
       <thead>
       <tr>
         <th>Key</th> <!-- Sleutel -->
