@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {PageService} from "../../shared/page.service";
+import {PageService} from "../../../shared/page.service";
 
 @Component({
-  selector: 'kpn-glossary-page',
+  selector: 'kpn-about-page',
   template: `
     <h1>
-      Glossary
+      About
     </h1>
   `
 })
-export class GlossaryPageComponent implements OnInit {
+export class AboutPageComponent implements OnInit {
 
   constructor(private pageService: PageService) {
   }

@@ -1,7 +1,10 @@
 import {
   MatButtonModule,
-  MatCheckboxModule, MatDialogModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDialogModule,
   MatFormFieldModule,
+  MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -52,7 +55,9 @@ import {NgModule} from "@angular/core";
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    MatGridListModule
   ],
 })
 export class KpnMaterialModule {

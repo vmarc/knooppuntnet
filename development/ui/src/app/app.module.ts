@@ -7,14 +7,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {AppService} from './app.service';
-import {AuthenticatePageComponent} from './pages/authenticate/authenticate-page.component';
-import {LoginPageComponent} from './pages/login/login-page.component';
-import {LogoutPageComponent} from './pages/logout/logout-page.component';
-import {HomePageComponent} from './pages/home/home-page.component';
-import {NotFoundPageComponent} from './pages/not-found/not-found-page.component';
-import {AboutPageComponent} from './pages/about/about-page.component';
-import {GlossaryPageComponent} from './pages/glossary/glossary-page.component';
-import {LinksPageComponent} from './pages/links/links-page.component';
 import {KpnMaterialModule} from "./material/kpn-material.module";
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from "./shared/shared.module";
@@ -22,26 +14,12 @@ import {UserService} from "./user.service";
 import {CookieService} from "ngx-cookie-service";
 import {MarkdownModule} from "ngx-markdown";
 import {PageService} from "./shared/page.service";
-import {CardMapComponent} from './pages/home/card-map.component';
-import {CardAnalysisComponent} from './pages/home/card-analysis.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AboutPageComponent,
-    AuthenticatePageComponent,
-    GlossaryPageComponent,
-    HomePageComponent,
-    LinksPageComponent,
-    LoginPageComponent,
-    LogoutPageComponent,
-    NotFoundPageComponent,
-    CardMapComponent,
-    CardAnalysisComponent
+    AppComponent
   ],
   imports: [
-    MatCardModule,
-    MatGridListModule,
     MarkdownModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,

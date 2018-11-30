@@ -4,7 +4,7 @@ import {Component, Input} from '@angular/core';
   selector: 'kpn-sidenav-network',
   template: `
     <kpn-sidenav-menu title="Network">
-      <kpn-sidenav-sub-item link="link('details')">Details</kpn-sidenav-sub-item>
+      <kpn-sidenav-sub-item link="{{link('details')}}">Details</kpn-sidenav-sub-item>
       <kpn-sidenav-sub-item link="{{link('map')}}">Map</kpn-sidenav-sub-item>
       <kpn-sidenav-sub-item link="{{link('facts')}}">Facts</kpn-sidenav-sub-item>
       <kpn-sidenav-sub-item link="{{link('nodes')}}">Nodes</kpn-sidenav-sub-item>

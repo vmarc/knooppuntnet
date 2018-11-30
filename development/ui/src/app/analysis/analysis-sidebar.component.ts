@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {PageService} from "../shared/page.service";
 
 @Component({
@@ -7,7 +7,6 @@ import {PageService} from "../shared/page.service";
     <kpn-sidenav-subsets *ngIf="showSubsetsMenu" [subset]="subset"></kpn-sidenav-subsets>
     <kpn-sidenav-subset *ngIf="showSubsetMenu" [subset]="subset"></kpn-sidenav-subset>
     <kpn-sidenav-network *ngIf="showNetworkMenu" [networkId]="networkId"></kpn-sidenav-network>
-    <kpn-sidenav></kpn-sidenav>
     <kpn-sidenav-footer></kpn-sidenav-footer>
   `
 })

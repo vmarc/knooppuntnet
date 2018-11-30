@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {PageService} from "../../shared/page.service";
+import {PageService} from "../../../shared/page.service";
 
 @Component({
-  selector: 'kpn-not-found-page',
+  selector: 'kpn-glossary-page',
   template: `
     <h1>
-      Not found
+      Glossary
     </h1>
   `
 })
-export class NotFoundPageComponent implements OnInit {
+export class GlossaryPageComponent implements OnInit {
 
   constructor(private pageService: PageService) {
   }

@@ -72,8 +72,7 @@ import {Subscription} from "rxjs";
     }
 
     mat-sidenav {
-      overflow-y: scroll;
-      min-width: 230px;
+      min-width: 320px;
     }
 
     .nav-item-selected {
