@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'kpn-sidenav-sub-item',
+  selector: 'kpn-sidebar-sub-item',
   template: `
     <a mat-list-item routerLink="{{link}}"><span><ng-content></ng-content></span></a>
   `,
@@ -11,7 +11,7 @@ import {Component, Input} from '@angular/core';
     }
   `]
 })
-export class SidenavSubItemComponent {
+export class SidebarSubItemComponent {
 
   @Input() link: string;
 

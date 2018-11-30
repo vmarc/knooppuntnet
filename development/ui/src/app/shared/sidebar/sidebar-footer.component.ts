@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {UserService} from "../../user.service";
 
 @Component({
-  selector: 'kpn-sidenav-footer',
+  selector: 'kpn-sidebar-footer',
   template: `
     <div class="footer">
       <p>
@@ -55,7 +55,7 @@ import {UserService} from "../../user.service";
     }
   `]
 })
-export class SidenavFooterComponent {
+export class SidebarFooterComponent {
 
   constructor(private userService: UserService) {
   }

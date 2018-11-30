@@ -4,16 +4,16 @@ import {Country} from "../../kpn/shared/country";
 import {NetworkType} from "../../kpn/shared/network-type";
 
 @Component({
-  selector: 'kpn-sidenav-subsets',
+  selector: 'kpn-sidebar-subsets',
   template: `
-    <kpn-sidenav-menu title="Analysis">
-      <kpn-sidenav-sub-item *ngFor="let s of allSubsets" link="{{subsetUrl(s)}}">
+    <kpn-sidebar-menu title="Analysis">
+      <kpn-sidebar-sub-item *ngFor="let s of allSubsets" link="{{subsetUrl(s)}}">
         {{subsetTitle(s)}}
-      </kpn-sidenav-sub-item>
-    </kpn-sidenav-menu>
+      </kpn-sidebar-sub-item>
+    </kpn-sidebar-menu>
   `
 })
-export class SidenavSubsetsComponent {
+export class SidebarSubsetsComponent {
 
   @Input() subset: Subset;
 

@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
   template: `
     <kpn-page>
       <kpn-toolbar toolbar></kpn-toolbar>
-      <div sidenav>
+      <div sidebar>
         <router-outlet name="sidebar"></router-outlet>
       </div>
       <div content>

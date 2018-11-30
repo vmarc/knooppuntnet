@@ -17,7 +17,7 @@ import {Subscription} from "rxjs";
                      [fixedInViewport]="!isMobile()"
                      fixedTopGap="48"
                      [opened]="isSideNavOpen()">
-          <ng-content select="[sidenav]"></ng-content>
+          <ng-content select="[sidebar]"></ng-content>
         </mat-sidenav>
 
         <mat-sidenav-content>

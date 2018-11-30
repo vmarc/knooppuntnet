@@ -48,22 +48,22 @@ import {OsmWebsiteComponent} from "./link/osm-website.component";
 import {OsmLinkUserComponent} from "./link/osm-link-user.component";
 import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
 import {ToolbarComponent} from './toolbar/toolbar.component';
-import {SidenavComponent} from './sidenav/sidenav.component';
-import {SidenavFooterComponent} from './sidenav/sidenav-footer.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {SidebarFooterComponent} from './sidebar/sidebar-footer.component';
 import {NetworkTypeIconComponent} from "./network-type-icon.component";
 import {NetworkTypeNameComponent} from "./network-type-name.component";
-import {SidenavSubsetsComponent} from './sidenav/sidenav-subsets.component';
-import {SidenavNetworkComponent} from './sidenav/sidenav-network.component';
-import {SidenavSubsetComponent} from './sidenav/sidenav-subset.component';
-import {SidenavMenuComponent} from './sidenav/sidenav-menu.component';
-import {SidenavSubItemComponent} from './sidenav/sidenav-sub-item.component';
+import {SidebarSubsetsComponent} from './sidebar/sidebar-subsets.component';
+import {SidebarNetworkComponent} from './sidebar/sidebar-network.component';
+import {SidebarSubsetComponent} from './sidebar/sidebar-subset.component';
+import {SidebarMenuComponent} from './sidebar/sidebar-menu.component';
+import {SidebarSubItemComponent} from './sidebar/sidebar-sub-item.component';
 import {SubsetNameComponent} from './subset-name.component';
-import { ItemsComponent } from './items/items.component';
-import { ItemComponent } from './items/item.component';
-import { NetworkTypeComponent } from './network-type.component';
-import { IndicatorIconComponent } from './indicator/indicator-icon.component';
-import { IndicatorComponent } from './indicator/indicator.component';
-import { IndicatorDialogComponent } from './indicator/indicator-dialog.component';
+import {ItemsComponent} from './items/items.component';
+import {ItemComponent} from './items/item.component';
+import {NetworkTypeComponent} from './network-type.component';
+import {IndicatorIconComponent} from './indicator/indicator-icon.component';
+import {IndicatorComponent} from './indicator/indicator.component';
+import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
 
 @NgModule({
   imports: [
@@ -122,13 +122,13 @@ import { IndicatorDialogComponent } from './indicator/indicator-dialog.component
     DataComponent,
     PageComponent,
     ToolbarComponent,
-    SidenavComponent,
-    SidenavFooterComponent,
-    SidenavSubsetsComponent,
-    SidenavNetworkComponent,
-    SidenavSubsetComponent,
-    SidenavMenuComponent,
-    SidenavSubItemComponent,
+    SidebarComponent,
+    SidebarFooterComponent,
+    SidebarSubsetsComponent,
+    SidebarNetworkComponent,
+    SidebarSubsetComponent,
+    SidebarMenuComponent,
+    SidebarSubItemComponent,
     SubsetNameComponent,
     ItemsComponent,
     ItemComponent,
@@ -185,12 +185,12 @@ import { IndicatorDialogComponent } from './indicator/indicator-dialog.component
     DataComponent,
     PageComponent,
     ToolbarComponent,
-    SidenavComponent,
-    SidenavFooterComponent,
-    SidenavSubsetsComponent,
-    SidenavNetworkComponent,
-    SidenavSubsetComponent,
-    SidenavSubItemComponent,
+    SidebarComponent,
+    SidebarFooterComponent,
+    SidebarSubsetsComponent,
+    SidebarNetworkComponent,
+    SidebarSubsetComponent,
+    SidebarSubItemComponent,
     SubsetNameComponent,
     ItemsComponent,
     ItemComponent,

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'kpn-sidenav-menu',
+  selector: 'kpn-sidebar-menu',
   template: `
     <mat-nav-list>
       <mat-list-item (click)="toggleOpen()">
@@ -29,7 +29,7 @@ import {Component, Input} from '@angular/core';
     
   `]
 })
-export class SidenavMenuComponent {
+export class SidebarMenuComponent {
 
   @Input() open: boolean = true;
   @Input() title: string;

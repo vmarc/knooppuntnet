@@ -4,10 +4,10 @@ import {PageService} from "../shared/page.service";
 @Component({
   selector: 'kpn-analysis-sidebar',
   template: `
-    <kpn-sidenav-subsets *ngIf="showSubsetsMenu" [subset]="subset"></kpn-sidenav-subsets>
-    <kpn-sidenav-subset *ngIf="showSubsetMenu" [subset]="subset"></kpn-sidenav-subset>
-    <kpn-sidenav-network *ngIf="showNetworkMenu" [networkId]="networkId"></kpn-sidenav-network>
-    <kpn-sidenav-footer></kpn-sidenav-footer>
+    <kpn-sidebar-subsets *ngIf="showSubsetsMenu" [subset]="subset"></kpn-sidebar-subsets>
+    <kpn-sidebar-subset *ngIf="showSubsetMenu" [subset]="subset"></kpn-sidebar-subset>
+    <kpn-sidebar-network *ngIf="showNetworkMenu" [networkId]="networkId"></kpn-sidebar-network>
+    <kpn-sidebar-footer></kpn-sidebar-footer>
   `
 })
 export class AnalysisSidebarComponent {

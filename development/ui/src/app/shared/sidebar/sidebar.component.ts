@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'kpn-sidenav',
+  selector: 'kpn-sidebar',
   template: `
     <mat-nav-list>
       <a mat-list-item routerLink="/about">about</a>
@@ -11,6 +11,6 @@ import {Component} from '@angular/core';
     </mat-nav-list>
   `
 })
-export class SidenavComponent {
+export class SidebarComponent {
 
 }
