@@ -25,6 +25,7 @@ import {SelectedFeatureHolder} from "./domain/selected-feature-holder";
 import {MapState} from "./domain/map-state";
 import {MapMoveHandler} from "./domain/map-move-handler";
 import {SelectedFeature} from "./domain/selected-feature";
+import {NetworkType} from "../kpn/shared/network-type";
 
 @Component({
   selector: 'kpn-map',
@@ -44,7 +45,7 @@ import {SelectedFeature} from "./domain/selected-feature";
 export class MapComponent implements AfterViewInit {
 
   @Input() id;
-  @Input() networkType: string;
+  @Input() networkType: NetworkType;
 
   @Output() featureSelection = new EventEmitter<SelectedFeature>();
 
@@ -133,7 +134,7 @@ export class MapComponent implements AfterViewInit {
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: "/tiles/" + this.networkType + "/{z}/{x}/{y}.png"
+        url: "/tiles/" + this.networkType.name + "/{z}/{x}/{y}.png"
       })
     });
   }
@@ -153,7 +154,7 @@ export class MapComponent implements AfterViewInit {
       featureClass: Feature // this is important to avoid error upon first selection in the map
     });
 
-    const tileType = this.networkType;
+    const tileType = this.networkType.name;
 
     const urlFunction = function (tileCoord, pixelRatio, projection) {
       const zIn = tileCoord[0];

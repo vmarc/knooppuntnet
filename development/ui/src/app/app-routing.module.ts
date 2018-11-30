@@ -8,11 +8,21 @@ import {LinksPageComponent} from "./pages/links/links-page.component";
 import {HomePageComponent} from "./pages/home/home-page.component";
 import {LoginPageComponent} from "./pages/login/login-page.component";
 import {GlossaryPageComponent} from "./pages/glossary/glossary-page.component";
+import {SidenavComponent} from "./shared/sidenav/sidenav.component";
 
 export const routes: Routes = [
+  // {
+  //   path: '',
+  //   component: SidenavComponent,
+  //   outlet: "sidebar"
+  // },
   {
     path: 'analysis',
     loadChildren: './analysis/analysis.module#AnalysisModule'
+  },
+  {
+    path: 'planner',
+    loadChildren: './planner/planner.module#PlannerModule'
   },
   {
     path: 'translations',
@@ -59,7 +69,7 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes /*,  { enableTracing: true }*/)
+    RouterModule.forRoot(routes,  { enableTracing: true })
   ],
   exports: [
     RouterModule

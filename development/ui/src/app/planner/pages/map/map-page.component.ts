@@ -7,17 +7,13 @@ import {NetworkType} from "../../../kpn/shared/network-type";
 @Component({
   selector: 'kpn-map-page',
   template: `
-    <kpn-page [withoutMargin]="true">
-      <kpn-toolbar toolbar></kpn-toolbar>
-      <kpn-map-detail sidenav [selectedFeature]="selectedFeature" [networkType]="networkType"></kpn-map-detail>
-      <kpn-map
-        content
-        id="main-map"
-        class="map"
-        networkType="{{networkType}}"
-        (featureSelection)="featureSelectionChanged($event)">
-      </kpn-map>
-    </kpn-page>
+    <kpn-map
+      content
+      id="main-map"
+      class="map"
+      [networkType]="networkType"
+      (featureSelection)="featureSelectionChanged($event)">
+    </kpn-map>
   `,
   styles: [`
     .map {

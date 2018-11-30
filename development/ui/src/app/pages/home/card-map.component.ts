@@ -11,31 +11,31 @@ import {Component} from '@angular/core';
       <mat-divider></mat-divider>
       <mat-card-content>
         <div>
-          <a routerLink="{{'/analysis/map/rcn'}}">
+          <a routerLink="{{'/planner/map/rcn'}}">
             <mat-icon>directions_bike</mat-icon>
             <span>Cycling</span>
           </a>
         </div>
         <div>
-          <a routerLink="{{'/analysis/map/rwn'}}">
+          <a routerLink="{{'/planner/map/rwn'}}">
             <mat-icon>directions_walk</mat-icon>
             <span>Hiking</span>
           </a>
         </div>
         <div>
-          <a routerLink="{{'/analysis/map/rhn'}}">
+          <a routerLink="{{'/planner/map/rhn'}}">
             <mat-icon>directions_bike</mat-icon>
             <span>Horse</span>
           </a>
         </div>
         <div>
-          <a routerLink="{{'/analysis/map/rmn'}}">
+          <a routerLink="{{'/planner/map/rmn'}}">
             <mat-icon>directions_bike</mat-icon>
             <span>Motorboat</span>
           </a>
         </div>
         <div>
-          <a routerLink="{{'/analysis/map/rpn'}}">
+          <a routerLink="{{'/planner/map/rpn'}}">
             <mat-icon>directions_bike</mat-icon>
             <span>Canoe</span>
           </a>

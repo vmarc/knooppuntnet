@@ -18,7 +18,6 @@ import {NetworkMapPageComponent} from './pages/network-map/network-map-page.comp
 import {NetworkFactsPageComponent} from './pages/network-facts/network-facts-page.component';
 import {OverviewPageComponent} from './pages/overview/overview-page.component';
 import {KpnMaterialModule} from "../material/kpn-material.module";
-import {MapPageComponent} from "./pages/map/map-page.component";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {SharedModule} from "../shared/shared.module";
 import {MapModule} from "../map/map.module";
@@ -37,10 +36,6 @@ import {SubsetOrphanRouteComponent} from './pages/subset-orphan-routes/subset-or
 import {SubsetOrphanNodeComponent} from './pages/subset-orphan-nodes/subset-orphan-node.component';
 import {SubsetOrphanNodesTableComponent} from './pages/subset-orphan-nodes/subset-orphan-nodes-table.component';
 import {ChangesTableComponent} from "./components/changes/changes-table.component";
-import {MapDetailComponent} from './pages/map/map-detail.component';
-import {MapDetailNodeComponent} from './pages/map/map-detail-node.component';
-import {MapDetailRouteComponent} from './pages/map/map-detail-route.component';
-import {MapDetailDefaultComponent} from './pages/map/map-detail-default.component';
 import {SubsetSidenavComponent} from './components/sidenav/subset-sidenav.component';
 import {NetworkSidenavComponent} from './components/sidenav/network-sidenav.component';
 import {FactRouteNotContiniousComponent} from './fact/descriptions/fact-route-not-continious.component';
@@ -105,6 +100,7 @@ import {IntegrityIndicatorDialogComponent} from './pages/network-nodes/indicator
 import {NetworkIndicatorDialogComponent} from './pages/network-nodes/indicators/network-indicator-dialog.component';
 import {RoleConnectionIndicatorDialogComponent} from './pages/network-nodes/indicators/role-connection-indicator-dialog.component';
 import {RouteIndicatorDialogComponent} from './pages/network-nodes/indicators/route-indicator-dialog.component';
+import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 
 @NgModule({
   imports: [
@@ -116,9 +112,10 @@ import {RouteIndicatorDialogComponent} from './pages/network-nodes/indicators/ro
     AnalysisRoutingModule
   ],
   declarations: [
+    AnalysisSidebarComponent,
+    NetworkSidenavComponent,
     ChangeSetPageComponent,
     ChangesPageComponent,
-    MapPageComponent,
     NetworkChangesPageComponent,
     NetworkDetailsPageComponent,
     NetworkFactsPageComponent,
@@ -149,10 +146,6 @@ import {RouteIndicatorDialogComponent} from './pages/network-nodes/indicators/ro
     SubsetOrphanNodeComponent,
     SubsetOrphanNodesTableComponent,
     ChangesTableComponent,
-    MapDetailComponent,
-    MapDetailNodeComponent,
-    MapDetailRouteComponent,
-    MapDetailDefaultComponent,
     SubsetSidenavComponent,
     NetworkSidenavComponent,
     FactNameComponent,

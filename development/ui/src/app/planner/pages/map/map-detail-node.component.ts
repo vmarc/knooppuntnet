@@ -20,14 +20,14 @@ import {NetworkType} from "../../../kpn/shared/network-type";
         <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
       </p>
 
-      <div *ngIf="references.networkReferences.length > 0">
+      <div *ngIf="!references.networkReferences.isEmpty()">
         Network(s): <!-- "Netwerken" -->
         <div *ngFor="let network of references.networkReferences">
           <a class="text" [routerLink]="'/analysis/network-details/' + network.id">{{network.name}}</a>
         </div>
       </div>
 
-      <div *ngIf="references.routeReferences.length > 0">
+      <div *ngIf="!references.routeReferences.isEmpty()">
         Routes <!-- "Routes" -->
         <div *ngFor="let route of references.routeReferences">
           <a class="text" [routerLink]="'/analysis/route/' + route.id">{{route.name}}</a>

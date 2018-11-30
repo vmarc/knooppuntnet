@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {ChangeSetPageComponent} from "./pages/changeset/change-set-page.component";
 import {ChangesPageComponent} from "./pages/changes/changes-page.component";
-import {MapPageComponent} from "./pages/map/map-page.component";
 import {NetworkChangesPageComponent} from "./pages/network-changes/network-changes-page.component";
 import {NetworkDetailsPageComponent} from "./pages/network-details/network-details-page.component";
 import {NetworkFactsPageComponent} from "./pages/network-facts/network-facts-page.component";
@@ -19,8 +18,14 @@ import {SubsetFactsPageComponent} from "./pages/subset-facts/subset-facts-page.c
 import {SubsetNetworksPageComponent} from "./pages/subset-networks/subset-networks-page.component";
 import {SubsetOrphanNodesPageComponent} from "./pages/subset-orphan-nodes/subset-orphan-nodes-page.component";
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset-orphan-routes/subset-orphan-routes-page.component";
+import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 
 const routes: Routes = [
+  {
+    path: '',
+    component: AnalysisSidebarComponent,
+    outlet: "sidebar"
+  },
   {
     path: 'changeset/:changesetId/:replicationId',
     component: ChangeSetPageComponent
@@ -28,10 +33,6 @@ const routes: Routes = [
   {
     path: 'changes',
     component: ChangesPageComponent
-  },
-  {
-    path: 'map/:networkType',
-    component: MapPageComponent
   },
   {
     path: 'network-changes/:networkId',
