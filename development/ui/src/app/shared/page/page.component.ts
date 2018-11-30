@@ -16,7 +16,7 @@ import {Subscription} from "rxjs";
         <mat-sidenav [mode]="isMobile() ? 'over' : 'side'"
                      [fixedInViewport]="!isMobile()"
                      fixedTopGap="48"
-                     [opened]="isSideNavOpen()">
+                     [opened]="isSidebarOpen()">
           <ng-content select="[sidebar]"></ng-content>
         </mat-sidenav>
 
@@ -100,8 +100,8 @@ export class PageComponent {
     return this.pageService.isMobile();
   }
 
-  isSideNavOpen(): boolean {
-    return this.pageService.isSideNavOpen();
+  isSidebarOpen(): boolean {
+    return this.pageService.isSidebarOpen();
   }
 
 }

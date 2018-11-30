@@ -11,7 +11,7 @@ export class PageService {
   breakpointState: Observable<BreakpointState>;
 
   private mobile: boolean;
-  private sideNavOpen: boolean;
+  private sidebarOpen: boolean;
 
   showSubsetsMenu: boolean = false;
   showSubsetMenu: boolean = false;
@@ -52,12 +52,12 @@ export class PageService {
     });
   }
 
-  toggleSideNavOpen(): void {
-    this.sideNavOpen = !this.sideNavOpen;
+  toggleSidebarOpen(): void {
+    this.sidebarOpen = !this.sidebarOpen;
   }
 
-  isSideNavOpen(): boolean {
-    return this.sideNavOpen;
+  isSidebarOpen(): boolean {
+    return this.sidebarOpen;
   }
 
   isMobile(): boolean {
@@ -70,7 +70,7 @@ export class PageService {
 
   private updateMobile(mobile: boolean) {
     this.mobile = mobile;
-    this.sideNavOpen = !mobile;
+    this.sidebarOpen = !mobile;
   }
 
 }

@@ -4,6 +4,7 @@ import {Component} from '@angular/core';
   selector: 'kpn-base-sidebar',
   template: `
     <kpn-sidebar></kpn-sidebar>
+    <kpn-sidebar-footer></kpn-sidebar-footer>
   `
 })
 export class BaseSidebarComponent {

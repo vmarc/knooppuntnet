@@ -5,7 +5,7 @@ import {PageService} from "../page.service";
   selector: 'kpn-toolbar',
   template: `
     <mat-toolbar>
-      <button mat-icon-button (click)="toggleSideNavOpen()">
+      <button mat-icon-button (click)="toggleSidebarOpen()">
         <mat-icon>menu</mat-icon>
       </button>
       <button mat-button routerLink="/home" class="toolbar-app-name"><h1>Knooppuntnet</h1></button>
@@ -52,8 +52,8 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleSideNavOpen() {
-    this.pageService.toggleSideNavOpen();
+  toggleSidebarOpen() {
+    this.pageService.toggleSidebarOpen();
   }
 
 }

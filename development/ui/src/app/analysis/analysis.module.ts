@@ -36,8 +36,6 @@ import {SubsetOrphanRouteComponent} from './pages/subset-orphan-routes/subset-or
 import {SubsetOrphanNodeComponent} from './pages/subset-orphan-nodes/subset-orphan-node.component';
 import {SubsetOrphanNodesTableComponent} from './pages/subset-orphan-nodes/subset-orphan-nodes-table.component';
 import {ChangesTableComponent} from "./components/changes/changes-table.component";
-import {SubsetSidebarComponent} from './components/sidebar/subset-sidebar.component';
-import {NetworkSidebarComponent} from './components/sidebar/network-sidebar.component';
 import {FactRouteNotContiniousComponent} from './fact/descriptions/fact-route-not-continious.component';
 import {FactRouteUnusedSegmentsComponent} from './fact/descriptions/fact-route-unused-segments.component';
 import {FactRouteNodeMissingInWaysComponent} from './fact/descriptions/fact-route-node-missing-in-ways.component';
@@ -113,7 +111,6 @@ import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
   ],
   declarations: [
     AnalysisSidebarComponent,
-    NetworkSidebarComponent,
     ChangeSetPageComponent,
     ChangesPageComponent,
     NetworkChangesPageComponent,
@@ -146,7 +143,6 @@ import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
     SubsetOrphanNodeComponent,
     SubsetOrphanNodesTableComponent,
     ChangesTableComponent,
-    SubsetSidebarComponent,
     FactNameComponent,
     FactRouteNotContiniousComponent,
     FactRouteUnusedSegmentsComponent,
