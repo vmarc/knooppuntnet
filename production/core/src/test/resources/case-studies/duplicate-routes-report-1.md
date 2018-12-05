@@ -1,5 +1,7 @@
 ## Duplicate routes report
 
+Situation at 2018-12-05 22:00
+
 ### nl/rwn 20848 routes, with 30 overlaps
 
 |name|route 1|route 2|
