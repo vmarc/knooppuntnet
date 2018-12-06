@@ -19,9 +19,19 @@ object DuplicateRoutesReport {
 
 class DuplicateRoutesReport(database: Database) {
 
-  case class RouteWays(country: Country, networkType: NetworkType, id: Long, name: String, wayIds: Set[Long])
+  case class RouteWays(country: Country, networkType: NetworkType, id: Long, name: String, alternate: Boolean, wayIds: Set[Long])
 
-  case class Overlap(name: String, routeId1: Long, routeId2: Long, percentage: String, wayCount1: Int, wayCount2: Int, commonWayCount: Int)
+  case class Overlap(
+    name: String,
+    routeId1: Long,
+    routeId2: Long,
+    percentage: String,
+    wayCount1: Int,
+    wayCount2: Int,
+    commonWayCount: Int,
+    alternate1: Boolean,
+    alternate2: Boolean
+  )
   implicit def overlapOrdering: Ordering[Overlap] = Ordering.by(o => (o.name, o.routeId1, o.routeId2))
 
   def run(): Unit = {
@@ -45,13 +55,13 @@ class DuplicateRoutesReport(database: Database) {
   }
 
   private def printTableHeader(): Unit ={
-    println("|name|route 1|route 2|overlap|# ways 1|# ways 2|# shared|")
-    println("|----|-------|-------|-------|--------|--------|--------|")
+    println("|name|route 1|route 2|overlap|# ways 1|# ways 2|# shared|alt 1|alt 2|")
+    println("|----|-------|-------|-------|--------|--------|--------|-----|-----|")
   }
 
   private def printOverlap(overlap: Overlap): Unit = {
     println(s"|${overlap.name}|${link(overlap.routeId1)}|${link(overlap.routeId2)}|${overlap.percentage}%|${overlap.wayCount1}|${overlap.wayCount2}|${overlap
-      .commonWayCount}|")
+      .commonWayCount}|${if(overlap.alternate1) "ALTERNATE" else ""}|${if(overlap.alternate2) "ALTERNATE" else ""}|")
   }
 
   private def link(routeId: Long): String = {
@@ -89,8 +99,9 @@ class DuplicateRoutesReport(database: Database) {
         val networkType = routeInfo.summary.networkType
         val name = routeInfo.summary.name
         val wayIds = routeInfo.analysis.toSeq.flatMap(_.members.filter(_.isWay).map(_.id)).toSet
+        val alternate = routeInfo.tags.has("state", "alternate")
         if (routeInfo.active && routeInfo.display && !routeInfo.ignored && wayIds.nonEmpty && country.isDefined) {
-          Some(RouteWays(country.get, networkType, routeInfo.id, name, wayIds))
+          Some(RouteWays(country.get, networkType, routeInfo.id, name, alternate, wayIds))
         }
         else {
           None
@@ -107,7 +118,19 @@ class DuplicateRoutesReport(database: Database) {
     }
     else {
       val percentageCommon = Math.round((100d * commonWayCount* 2) / totalWayCount).toString
-      Some(Overlap(name, route1.id, route2.id, percentageCommon, route1.wayIds.size, route2.wayIds.size, commonWayCount))
+      Some(
+        Overlap(
+          name,
+          route1.id,
+          route2.id,
+          percentageCommon,
+          route1.wayIds.size,
+          route2.wayIds.size,
+          commonWayCount,
+          route1.alternate,
+          route2.alternate
+        )
+      )
     }
   }
 
