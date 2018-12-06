@@ -21,7 +21,7 @@ class DuplicateRoutesReport(database: Database) {
 
   case class RouteWays(country: Country, networkType: NetworkType, id: Long, name: String, wayIds: Set[Long])
 
-  case class Overlap(name: String, routeId1: Long, routeId2: Long)
+  case class Overlap(name: String, routeId1: Long, routeId2: Long, percentage: String, wayCount1: Int, wayCount2: Int, commonWayCount: Int)
   implicit def overlapOrdering: Ordering[Overlap] = Ordering.by(o => (o.name, o.routeId1, o.routeId2))
 
   def run(): Unit = {
@@ -45,12 +45,13 @@ class DuplicateRoutesReport(database: Database) {
   }
 
   private def printTableHeader(): Unit ={
-    println("|name|route 1|route 2|")
-    println("|----|-------|-------|")
+    println("|name|route 1|route 2|overlap|# ways 1|# ways 2|# shared|")
+    println("|----|-------|-------|-------|--------|--------|--------|")
   }
 
   private def printOverlap(overlap: Overlap): Unit = {
-    println(s"|${overlap.name}|${link(overlap.routeId1)}|${link(overlap.routeId2)}|")
+    println(s"|${overlap.name}|${link(overlap.routeId1)}|${link(overlap.routeId2)}|${overlap.percentage}%|${overlap.wayCount1}|${overlap.wayCount2}|${overlap
+      .commonWayCount}|")
   }
 
   private def link(routeId: Long): String = {
@@ -60,12 +61,7 @@ class DuplicateRoutesReport(database: Database) {
   private def findOverlaps(subsetRoutes: Seq[RouteWays]): Seq[Overlap] = {
     subsetRoutes.groupBy(_.name).flatMap { case (name, routes) =>
       routes.combinations(2).flatMap { case Seq(route1, route2) =>
-        if (overlap(route1, route2)) {
-          Some(Overlap(name, route1.id, route2.id))
-        }
-        else {
-          None
-        }
+        overlap(name, route1, route2)
       }
     }.toSeq
   }
@@ -103,8 +99,16 @@ class DuplicateRoutesReport(database: Database) {
     }
   }
 
-  private def overlap(route1: RouteWays, route2: RouteWays): Boolean = {
-    route1.name == route2.name && route1.wayIds.exists(route2.wayIds.contains)
+  private def overlap(name: String, route1: RouteWays, route2: RouteWays): Option[Overlap] = {
+    val totalWayCount = route1.wayIds.size + route2.wayIds.size
+    val commonWayCount = route1.wayIds.intersect(route2.wayIds).size
+    if (commonWayCount == 0 || totalWayCount == 0) {
+      None
+    }
+    else {
+      val percentageCommon = Math.round((100d * commonWayCount* 2) / totalWayCount).toString
+      Some(Overlap(name, route1.id, route2.id, percentageCommon, route1.wayIds.size, route2.wayIds.size, commonWayCount))
+    }
   }
 
 }
