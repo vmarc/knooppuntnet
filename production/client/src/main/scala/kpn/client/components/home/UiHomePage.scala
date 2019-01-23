@@ -122,18 +122,6 @@ object UiHomePage {
               "."
             )
           },
-          TagMod.when(nlsNL) {
-            <.p(
-              "Deze website is de opvolger van osma.vmarc.be waarvan de inhoud tijdelijk ",
-              <.a(
-                ^.href := "http://old.vmarc.be",
-                ^.cls := "external",
-                ^.target := "_blank",
-                "hier"
-              ),
-              " nog te raadplegen is."
-            )
-          },
           <.div(
             Styles.items,
             maps(),
