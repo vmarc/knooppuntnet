@@ -64,6 +64,9 @@ import {NetworkTypeComponent} from './network-type.component';
 import {IndicatorIconComponent} from './indicator/indicator-icon.component';
 import {IndicatorComponent} from './indicator/indicator.component';
 import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
+import {LineComponent} from "./line.component";
+import {ThickComponent} from "./thick.component";
+import {ThinComponent} from "./thin.component";
 
 @NgModule({
   imports: [
@@ -115,6 +118,9 @@ import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
     CountryNameComponent,
+    LineComponent,
+    ThickComponent,
+    ThinComponent,
     DayComponent,
     TimestampComponent,
     JsonComponent,
@@ -178,6 +184,9 @@ import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
     CountryNameComponent,
+    LineComponent,
+    ThickComponent,
+    ThinComponent,
     DayComponent,
     TimestampComponent,
     JsonComponent,

@@ -21,7 +21,7 @@ import {PageService} from "../../../shared/page.service";
       <div *ngIf="response">
         <p>
           Situation on:
-          <kpn-timestamp>{{response.situationOn}}</kpn-timestamp>
+          <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
         </p>
         <div *ngIf="!hasFacts()">
           <i>No facts</i>

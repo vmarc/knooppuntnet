@@ -1,5 +1,3 @@
-// this class is generated, please do not modify
-
 import {Country} from './country';
 import {NetworkType} from './network-type';
 
@@ -17,9 +15,10 @@ export class Subset {
     if (!jsonObject) {
       return undefined;
     }
+    const splitted = jsonObject.split(":");
     return new Subset(
-      Country.fromJSON(jsonObject.country),
-      NetworkType.fromJSON(jsonObject.networkType)
+      Country.fromJSON(splitted[0]),
+      NetworkType.fromJSON(splitted[1])
     );
   }
 }

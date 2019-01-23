@@ -9,8 +9,6 @@ export class NetworkType {
     if (!jsonObject) {
       return undefined;
     }
-    return new NetworkType(
-      jsonObject.name,
-    );
+    return new NetworkType(jsonObject);
   }
 }

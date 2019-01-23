@@ -99,6 +99,12 @@ import {NetworkIndicatorDialogComponent} from './pages/network-nodes/indicators/
 import {RoleConnectionIndicatorDialogComponent} from './pages/network-nodes/indicators/role-connection-indicator-dialog.component';
 import {RouteIndicatorDialogComponent} from './pages/network-nodes/indicators/route-indicator-dialog.component';
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
+import {ChangesSetComponent} from "./components/change-set/change-set.component";
+import {ChangesSetOrphanRoutesComponent} from "./components/change-set/components/change-set-orphan-routes.component";
+import {ChangesSetOrphanNodesComponent} from "./components/change-set/components/change-set-orphan-nodes.component";
+import {ChangesSetNetworkComponent} from "./components/change-set/components/change-set-network.component";
+import {ChangesSetElementRefComponent} from "./components/change-set/components/change-set-element-ref.component";
+import {ChangesSetElementRefsComponent} from "./components/change-set/components/change-set-element-refs.component";
 
 @NgModule({
   imports: [
@@ -143,6 +149,12 @@ import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
     SubsetOrphanNodeComponent,
     SubsetOrphanNodesTableComponent,
     ChangesTableComponent,
+    ChangesSetComponent,
+    ChangesSetNetworkComponent,
+    ChangesSetOrphanNodesComponent,
+    ChangesSetOrphanRoutesComponent,
+    ChangesSetElementRefsComponent,
+    ChangesSetElementRefComponent,
     FactNameComponent,
     FactRouteNotContiniousComponent,
     FactRouteUnusedSegmentsComponent,

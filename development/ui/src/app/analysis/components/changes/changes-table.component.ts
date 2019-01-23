@@ -9,6 +9,12 @@ import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info"
 @Component({
   selector: 'kpn-changes-table',
   template: `
+
+    <p *ngIf="response">
+      Situation on:
+      <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+    </p>
+
     <mat-paginator
       [pageIndex]="0"
       [pageSize]="parameters.itemsPerPage"
@@ -21,18 +27,18 @@ import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info"
       <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
 
         <ng-container matColumnDef="rowNumber">
-          <td mat-cell *matCellDef="let changeset; let i = index">
+          <td mat-cell *matCellDef="let changeSet; let i = index">
             {{rowNumber(i)}}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="changeset">
-          <td mat-cell *matCellDef="let changeset">
-            {{changeset.summary.key.changeSetId + " / " + changeset.summary.key.replicationNumber }}
+        <ng-container matColumnDef="changeSet">
+          <td mat-cell *matCellDef="let changeSet">
+            <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
           </td>
         </ng-container>
 
-        <tr mat-row *matRowDef="let changeset; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let changeSet; columns: displayedColumns;"></tr>
 
       </table>
       <json [object]="response"></json>
@@ -49,7 +55,7 @@ export class ChangesTableComponent implements AfterViewInit {
 
   dataSource: MatTableDataSource<ChangeSetSummaryInfo>;
 
-  displayedColumns = ['rowNumber', 'changeset'];
+  displayedColumns = ['rowNumber', 'changeSet'];
 
   constructor(private appService: AppService) {
   }
