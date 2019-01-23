@@ -16,18 +16,18 @@ class OrphanRepositoryImpl(database: Database) extends OrphanRepository {
 
   private val log = Log(classOf[OrphanRepositoryImpl])
 
-  override def orphanRoutes(subset: Subset, timeout: Timeout): Seq[RouteSummary] = {
+  override def orphanRoutes(subset: Subset, timeout: Timeout = Couch.defaultTimeout): Seq[RouteSummary] = {
     val country = subset.country.domain
     val networkType = subset.networkType.name
     val id = s"orphan_routes_${country}_$networkType"
-    database.query(AnalyzerDesign, OrphanRouteView, Couch.uiTimeout)(false, true, true, country, networkType).map(OrphanRouteView.convert)
+    database.query(AnalyzerDesign, OrphanRouteView, timeout)(false, true, true, country, networkType).map(OrphanRouteView.convert)
   }
 
-  override def orphanNodes(subset: Subset, timeout: Timeout): Seq[NodeInfo] = {
+  override def orphanNodes(subset: Subset, timeout: Timeout = Couch.defaultTimeout): Seq[NodeInfo] = {
     val country = subset.country.domain
     val networkType = subset.networkType.name
     val id = s"orphan_nodes_${country}_$networkType"
-    database.query(AnalyzerDesign, OrphanNodeView, Couch.uiTimeout)(false, true, true, country, networkType).map(OrphanNodeView.convert)
+    database.query(AnalyzerDesign, OrphanNodeView, timeout)(false, true, true, country, networkType).map(OrphanNodeView.convert)
   }
 
   override def ignoredRouteIds(networkType: NetworkType): Seq[Long] = {

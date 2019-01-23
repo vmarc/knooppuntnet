@@ -22,37 +22,55 @@ import scala.concurrent.duration.DurationInt
 
 object ChangeSetInfoTool {
 
+  private val log = Log(classOf[ChangeSetInfoTool])
+
   def main(args: Array[String]): Unit = {
 
-    val system = ActorSystemConfig.actorSystem()
-    try {
+    val exit = ChangeSetInfoToolOptions.parse(args) match {
+      case Some(options) =>
 
-      val couchConfig = Couch.config
-      val couch = new Couch(system, couchConfig)
+        val system = ActorSystemConfig.actorSystem()
 
-      val taskRepository = {
-        val taskDatabase = new DatabaseImpl(couch, couchConfig.taskDbname)
-        new TaskRepositoryImpl(taskDatabase)
-      }
+        try {
 
-      val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets, system)
+          val couch = new Couch(system, Couch.config)
 
-      val changeSetInfoRepository = {
-        val changeDatabase = new DatabaseImpl(couch, couchConfig.changeDbname)
-        new ChangeSetInfoRepositoryImpl(changeDatabase)
-      }
+          val taskRepository = {
+            val taskDatabase = new DatabaseImpl(couch, options.tasksDatabaseName)
+            new TaskRepositoryImpl(taskDatabase)
+          }
 
-      new ChangeSetInfoTool(
-        taskRepository,
-        changeSetInfoApi,
-        changeSetInfoRepository
-      ).loop()
+          val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets, system)
+
+          val changeSetInfoRepository = {
+            val changeDatabase = new DatabaseImpl(couch, options.changeSetsDatabaseName)
+            new ChangeSetInfoRepositoryImpl(changeDatabase)
+          }
+
+          new ChangeSetInfoTool(
+            taskRepository,
+            changeSetInfoApi,
+            changeSetInfoRepository
+          ).loop()
+        }
+        catch {
+          case e: Throwable => log.fatal("Exception thrown during analysis", e)
+        }
+        finally {
+          IO(Http)(system).ask(Http.CloseAll)(15.second).await
+          Await.result(system.terminate(), Duration.Inf)
+          log.info(s"Stopped")
+          ()
+        }
+
+        0
+
+      case None =>
+        // arguments are bad, error message will have been displayed
+        -1
     }
-    finally {
-      IO(Http)(system).ask(Http.CloseAll)(15.second).await
-      Await.result(system.terminate(), Duration.Inf)
-      ()
-    }
+
+    System.exit(exit)
   }
 }
 

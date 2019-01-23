@@ -35,11 +35,11 @@ class TileAnalyzerImpl(
     val routeIds = details.flatMap(_.routes.map(_.id))
 
     val orphanRouteIds = subsets.flatMap { subset =>
-      orphanRepository.orphanRoutes(subset, Couch.defaultTimeout)
+      orphanRepository.orphanRoutes(subset)
     }.map(_.id)
 
     val orphanNodes = subsets.flatMap { subset =>
-      orphanRepository.orphanNodes(subset, Couch.defaultTimeout)
+      orphanRepository.orphanNodes(subset)
     }
 
     val routeInfos: Seq[RouteInfo] = loadRouteAnalyses(routeRepository, routeIds ++ orphanRouteIds)

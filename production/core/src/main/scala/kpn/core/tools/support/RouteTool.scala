@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.support
 
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
@@ -7,7 +7,6 @@ import kpn.core.repository.FactRepositoryImpl
 import kpn.core.repository.NetworkRepositoryImpl
 import kpn.core.repository.OrphanRepositoryImpl
 import kpn.core.repository.RouteRepositoryImpl
-import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 
@@ -38,9 +37,9 @@ class RouteTool(database: Database) {
     val orphanRepository = new OrphanRepositoryImpl(database)
     val routeRepository = new RouteRepositoryImpl(database)
 
-    println("nl orphan route count = " + orphanRepository.orphanRoutes(Subset.nlBicycle, Couch.batchTimeout).size)
-    println("be orphan route count = " + orphanRepository.orphanRoutes(Subset.beBicycle, Couch.batchTimeout).size)
-    println("de orphan route count = " + orphanRepository.orphanRoutes(Subset.deBicycle, Couch.batchTimeout).size)
+    println("nl orphan route count = " + orphanRepository.orphanRoutes(Subset.nlBicycle).size)
+    println("be orphan route count = " + orphanRepository.orphanRoutes(Subset.beBicycle).size)
+    println("de orphan route count = " + orphanRepository.orphanRoutes(Subset.deBicycle).size)
   }
 
   def blackListedRoutesThatWouldBeExcludedByTheNewRules(): Unit = {
@@ -68,7 +67,7 @@ class RouteTool(database: Database) {
     val orphanRepository = new OrphanRepositoryImpl(database)
     val routeRepository = new RouteRepositoryImpl(database)
 
-    val routes = orphanRepository.orphanRoutes(Subset.deBicycle, Couch.batchTimeout)
+    val routes = orphanRepository.orphanRoutes(Subset.deBicycle)
 
     println("route count = " + routes.size)
 
@@ -103,9 +102,9 @@ class RouteTool(database: Database) {
     val ignoredRouteIds = orphanRepository.ignoredRouteIds(NetworkType.bicycle)
     println(s"ignored route count=${ignoredRouteIds.size}")
 
-    println("nl orphan route count = " + orphanRepository.orphanRoutes(Subset.nlBicycle, Couch.batchTimeout).size)
-    println("be orphan route count = " + orphanRepository.orphanRoutes(Subset.beBicycle, Couch.batchTimeout).size)
-    println("de orphan route count = " + orphanRepository.orphanRoutes(Subset.deBicycle, Couch.batchTimeout).size)
+    println("nl orphan route count = " + orphanRepository.orphanRoutes(Subset.nlBicycle).size)
+    println("be orphan route count = " + orphanRepository.orphanRoutes(Subset.beBicycle).size)
+    println("de orphan route count = " + orphanRepository.orphanRoutes(Subset.deBicycle).size)
 
     val exampleIgnoredRouteIds = ignoredRouteIds.take(30)
     println(exampleIgnoredRouteIds.mkString(","))
@@ -119,9 +118,9 @@ class RouteTool(database: Database) {
     val ignoredRouteIds = orphanRepository.ignoredRouteIds(NetworkType.hiking)
     println(s"ignored route count=${ignoredRouteIds.size}")
 
-    println("nl hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.nlHiking, Couch.batchTimeout).size)
-    println("be hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.beHiking, Couch.batchTimeout).size)
-    println("de hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.deHiking, Couch.batchTimeout).size)
+    println("nl hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.nlHiking).size)
+    println("be hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.beHiking).size)
+    println("de hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.deHiking).size)
 
     val exampleIgnoredRouteIds = ignoredRouteIds.take(30)
     println(exampleIgnoredRouteIds.mkString(","))

@@ -45,6 +45,8 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
 
   val mainDatabase = new DatabaseImpl(couch, config.couchConfig.dbname)
   val changeDatabase = new DatabaseImpl(couch, config.couchConfig.changeDbname)
+  val changesetDatabase = new DatabaseImpl(couch, config.couchConfig.changesetDbname)
+
   private val userDatabase = new DatabaseImpl(couch, config.couchConfig.userDbname)
   private val reviewDatabase = new DatabaseImpl(couch, config.couchConfig.reviewDbname)
   private val database = mainDatabase
@@ -57,7 +59,7 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
   private val overviewRepository = new OverviewRepositoryImpl(database)
   private val factRepository = new FactRepositoryImpl(database)
   private val changeSetRepository = new ChangeSetRepositoryImpl(changeDatabase)
-  private val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(changeDatabase)
+  private val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(changesetDatabase)
   private val reviewRepository = new ReviewRepositoryImpl(reviewDatabase)
 
   private val analysisRepository = new AnalysisRepositoryImpl(
