@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from "@angular/common";
-import {RoutePageComponent} from './pages/route/route-page.component';
+import {RoutePageComponent} from './pages/route/_route-page.component';
+import {RouteMembersComponent} from './pages/route/route-members.component';
 import {NodePageComponent} from './pages/node/node-page.component';
 import {ChangesPageComponent} from './pages/changes/changes-page.component';
 import {SubsetOrphanNodesPageComponent} from './pages/subset-orphan-nodes/subset-orphan-nodes-page.component';
@@ -114,6 +115,9 @@ import {NodeDiffsComponent} from "./pages/changeset/node-diffs/_node-diffs.compo
 import {NodeDiffsUpdatedComponent} from "./pages/changeset/node-diffs/node-diffs-updated.component";
 import {NodeDiffsAddedComponent} from "./pages/changeset/node-diffs/node-diffs-added.component";
 import {NodeDiffsRemovedComponent} from "./pages/changeset/node-diffs/node-diffs-removed.component";
+import {RouteSummaryComponent} from "./pages/route/route-summary.component";
+import {RouteNodeComponent} from "./pages/route/route-node.component";
+import {RouteStructureComponent} from "./pages/route/route-structure.component";
 
 @NgModule({
   imports: [
@@ -152,6 +156,10 @@ import {NodeDiffsRemovedComponent} from "./pages/changeset/node-diffs/node-diffs
     NodeRoutesComponent,
     OverviewPageComponent,
     RoutePageComponent,
+    RouteMembersComponent,
+    RouteSummaryComponent,
+    RouteNodeComponent,
+    RouteStructureComponent,
     SubsetChangesPageComponent,
     SubsetFactDetailsPageComponent,
     SubsetFactsPageComponent,

@@ -11,7 +11,7 @@ import {NetworkNodesPageComponent} from "./pages/network-nodes/network-nodes-pag
 import {NetworkRoutesPageComponent} from "./pages/network-routes/network-routes-page.component";
 import {NodePageComponent} from "./pages/node/node-page.component";
 import {OverviewPageComponent} from "./pages/overview/overview-page.component";
-import {RoutePageComponent} from "./pages/route/route-page.component";
+import {RoutePageComponent} from "./pages/route/_route-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset-changes/subset-changes-page.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset-fact-details/subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./pages/subset-facts/subset-facts-page.component";

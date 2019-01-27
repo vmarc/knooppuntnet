@@ -18,8 +18,8 @@ import {PageService} from "../../../shared/page.service";
         <h1>Node {{nodeInfo.name}}</h1>
 
         <!--
-		UiPageContents(
-		-->
+          UiPageContents(
+        -->
 
         <kpn-data title="Summary"> <!-- "Samenvatting" -->
           <node-summary [nodeInfo]="nodeInfo"></node-summary>
@@ -46,19 +46,16 @@ import {PageService} from "../../../shared/page.service";
         </kpn-data>
 
         <kpn-data title="Facts"> <!-- "Feiten" -->
-          xxx
-          <!--
-			UiFacts(page.nodeInfo.facts)
-		  -->
+          TODO UiFacts(page.nodeInfo.facts)
         </kpn-data>
 
         <!--
-		  TagMod.when(PageWidth.isVeryLarge) {
-			UiEmbeddedMap(new NodeMap(page.nodeInfo))
-		  },
-		  UiNodeChanges(page.nodeChanges)
-		  )
-		-->
+          TagMod.when(PageWidth.isVeryLarge) {
+            UiEmbeddedMap(new NodeMap(page.nodeInfo))
+          },
+          UiNodeChanges(page.nodeChanges)
+          )
+        -->
 
         <kpn-link-login></kpn-link-login>
 

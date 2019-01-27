@@ -55,7 +55,7 @@ object RoutePageExample {
         ),
         active = false,
         display = false,
-        ignored = true,
+        ignored = false,
         orphan = true,
         version = 1,
         changeSetId = 1,
