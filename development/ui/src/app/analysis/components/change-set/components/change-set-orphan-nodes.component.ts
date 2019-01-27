@@ -4,11 +4,11 @@ import {ChangeSetSubsetElementRefs} from "../../../../kpn/shared/change-set-subs
 @Component({
   selector: 'kpn-change-set-orphan-nodes',
   template: `
-    <kpn-line>
+    <div class="kpn-line">
       <span>{{domain()}}</span>
       <span><kpn-network-type-icon [networkType]="networkType()"></kpn-network-type-icon></span>
       <span>Orphan node(s)</span> <!-- Knooppunt wezen -->
-    </kpn-line>
+    </div>
     <kpn-change-set-element-refs [elementType]="'node'" [changeSetElementRefs]="subsetElementRefs.elementRefs"></kpn-change-set-element-refs>
   `
 })

@@ -10,12 +10,12 @@ export class ChangeSetNetworkAction {
 @Component({
   selector: 'kpn-change-set-network',
   template: `
-    <kpn-line>
+    <div class="kpn-line">
       <span>{{domain()}}</span>
       <kpn-network-type-icon [networkType]="changeSetNetworkAction.network.networkType"></kpn-network-type-icon>
       <span>{{changeSetNetworkAction.action}}</span>
       <a>{{changeSetNetworkAction.network.networkName}}</a>
-    </kpn-line>
+    </div>
     <kpn-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()"></kpn-change-set-element-refs>
     <kpn-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()"></kpn-change-set-element-refs>
   `

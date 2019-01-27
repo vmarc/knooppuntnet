@@ -1,11 +1,7 @@
 export class Tag {
-  readonly key: string;
-  readonly value: string;
 
-  constructor(key: string,
-              value: string) {
-    this.key = key;
-    this.value = value;
+  constructor(readonly key: string,
+              readonly value: string) {
   }
 
   public static fromJSON(jsonObject): Tag {

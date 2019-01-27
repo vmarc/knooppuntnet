@@ -95,3 +95,131 @@ table.kpn-bordered-table {
 .xxx {
   height: 32px;
 }
+
+.kpn-line {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  :not(:last-child) {
+    padding-right: 0.8em;
+  }
+}
+
+.kpn-detail {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.kpn-thick {
+  display: inline;
+  font-weight: bold;
+}
+
+.kpn-thin {
+  display: inline;
+  color: gray;
+  a {
+    color: rgba(0, 0, 255, 0.7);
+  }
+}
+
+
+
+.kpn-level-1 {
+  margin-top: 36px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: lightgray;
+}
+
+.kpn-level-1-header {
+  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+    padding-bottom: 20px;
+    font-size: 1.3em;
+  }
+  @media (min-width: 769px) {
+    display: inline-block;
+    font-size: 1.4em;
+  }
+}
+
+.kpn-level-1-body {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+
+.kpn-level-2 {
+  margin: 0;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.kpn-level-2-header {
+  font-size: 1.1em;
+  font-weight: bold;
+  padding-bottom: 0.5em;
+}
+
+.kpn-level-2-body {
+  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+    padding-bottom: 0.5em;
+  }
+  @media (min-width: 769px) {
+    padding-left: 20px;
+    padding-bottom: 0.5em;
+  }
+}
+
+
+.kpn-level-3 {
+  margin: 0; // TODO really needed?
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.kpn-level-3-header {
+  padding-bottom: 0.5em;
+}
+
+.kpn-level-3-body {
+  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+    padding-bottom: 0.5em;
+  }
+  @media (min-width: 769px) {
+    padding-left: 20px;
+    padding-bottom: 0.5em;
+  }
+}
+
+
+.kpn-level-4 { // same as .kpn-detail
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.kpn-level-4-header {
+  padding-bottom: 0.5em;
+}
+
+.kpn-level-4-body {
+  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+    padding-left: 5px;
+  }
+  @media (min-width: 769px) {
+    padding-left: 20px;
+  }
+}
+
+.kpn-comma-list {
+  display: inline-block;
+  :not(:last-child):after {
+    content: ", ";
+  }
+
+}

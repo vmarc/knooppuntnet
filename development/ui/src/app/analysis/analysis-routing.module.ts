@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {ChangeSetPageComponent} from "./pages/changeset/change-set-page.component";
+import {ChangeSetPageComponent} from "./pages/changeset/_change-set-page.component";
 import {ChangesPageComponent} from "./pages/changes/changes-page.component";
 import {NetworkChangesPageComponent} from "./pages/network-changes/network-changes-page.component";
 import {NetworkDetailsPageComponent} from "./pages/network-details/network-details-page.component";
@@ -27,7 +27,7 @@ const routes: Routes = [
     outlet: "sidebar"
   },
   {
-    path: 'changeset/:changesetId/:replicationId',
+    path: 'changeset/:changeSetId/:replicationNumber',
     component: ChangeSetPageComponent
   },
   {

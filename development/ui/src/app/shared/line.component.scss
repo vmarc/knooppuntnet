@@ -1,9 +1,0 @@
-.line {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  /deep/ :not(:last-child) {
-    padding-right: 0.5em;
-  }
-}

@@ -64,9 +64,8 @@ import {NetworkTypeComponent} from './network-type.component';
 import {IndicatorIconComponent} from './indicator/indicator-icon.component';
 import {IndicatorComponent} from './indicator/indicator.component';
 import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
-import {LineComponent} from "./line.component";
-import {ThickComponent} from "./thick.component";
-import {ThinComponent} from "./thin.component";
+import {OsmLinkChangeSetComponent} from "./link/osm-link-change-set.component";
+import {MetaDataComponent} from "./meta-data.component";
 
 @NgModule({
   imports: [
@@ -107,6 +106,7 @@ import {ThinComponent} from "./thin.component";
     JosmRelationComponent,
     OsmLinkComponent,
     OsmLinkNodeComponent,
+    OsmLinkChangeSetComponent,
     OsmLinkRelationComponent,
     OsmLinkUserComponent,
     OsmLinkUserAothClientsComponent,
@@ -118,9 +118,7 @@ import {ThinComponent} from "./thin.component";
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
     CountryNameComponent,
-    LineComponent,
-    ThickComponent,
-    ThinComponent,
+    MetaDataComponent,
     DayComponent,
     TimestampComponent,
     JsonComponent,
@@ -173,6 +171,7 @@ import {ThinComponent} from "./thin.component";
     JosmWayComponent,
     JosmRelationComponent,
     OsmLinkNodeComponent,
+    OsmLinkChangeSetComponent,
     OsmLinkRelationComponent,
     OsmLinkUserComponent,
     OsmLinkUserAothClientsComponent,
@@ -184,9 +183,7 @@ import {ThinComponent} from "./thin.component";
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
     CountryNameComponent,
-    LineComponent,
-    ThickComponent,
-    ThinComponent,
+    MetaDataComponent,
     DayComponent,
     TimestampComponent,
     JsonComponent,

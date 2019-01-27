@@ -9,7 +9,7 @@ import {SubsetChangesPageComponent} from './pages/subset-changes/subset-changes-
 import {SubsetNetworksPageComponent} from './pages/subset-networks/subset-networks-page.component';
 import {SubsetFactsPageComponent} from './pages/subset-facts/subset-facts-page.component';
 import {SubsetFactDetailsPageComponent} from './pages/subset-fact-details/subset-fact-details-page.component';
-import {ChangeSetPageComponent} from './pages/changeset/change-set-page.component';
+import {ChangeSetPageComponent} from './pages/changeset/_change-set-page.component';
 import {NetworkNodesPageComponent} from './pages/network-nodes/network-nodes-page.component';
 import {NetworkRoutesPageComponent} from './pages/network-routes/network-routes-page.component';
 import {NetworkDetailsPageComponent} from './pages/network-details/network-details-page.component';
@@ -105,6 +105,15 @@ import {ChangesSetOrphanNodesComponent} from "./components/change-set/components
 import {ChangesSetNetworkComponent} from "./components/change-set/components/change-set-network.component";
 import {ChangesSetElementRefComponent} from "./components/change-set/components/change-set-element-ref.component";
 import {ChangesSetElementRefsComponent} from "./components/change-set/components/change-set-element-refs.component";
+import {ChangeSetOrphanRouteChangesComponent} from "./pages/changeset/change-set-orphan-route-changes.component";
+import {ChangeSetOrphanNodeChangesComponent} from "./pages/changeset/change-set-orphan-node-changes.component";
+import {ChangeSetNetworkDiffDetailsComponent} from "./pages/changeset/change-set-network-diff-details.component";
+import {ChangeSetHeaderComponent} from "./pages/changeset/change-set-header.component";
+import {ChangeSetAnalysisComponent} from "./pages/changeset/change-set-analysis.component";
+import {NodeDiffsComponent} from "./pages/changeset/node-diffs/_node-diffs.component";
+import {NodeDiffsUpdatedComponent} from "./pages/changeset/node-diffs/node-diffs-updated.component";
+import {NodeDiffsAddedComponent} from "./pages/changeset/node-diffs/node-diffs-added.component";
+import {NodeDiffsRemovedComponent} from "./pages/changeset/node-diffs/node-diffs-removed.component";
 
 @NgModule({
   imports: [
@@ -118,6 +127,15 @@ import {ChangesSetElementRefsComponent} from "./components/change-set/components
   declarations: [
     AnalysisSidebarComponent,
     ChangeSetPageComponent,
+    ChangeSetHeaderComponent,
+    ChangeSetAnalysisComponent,
+    ChangeSetNetworkDiffDetailsComponent,
+    ChangeSetOrphanNodeChangesComponent,
+    ChangeSetOrphanRouteChangesComponent,
+    NodeDiffsComponent,
+    NodeDiffsRemovedComponent,
+    NodeDiffsAddedComponent,
+    NodeDiffsUpdatedComponent,
     ChangesPageComponent,
     NetworkChangesPageComponent,
     NetworkDetailsPageComponent,

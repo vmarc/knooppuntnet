@@ -10,7 +10,5 @@ import {Component, Input} from '@angular/core';
   styles: []
 })
 export class SubsetNameComponent {
-
   @Input() subset;
-
 }

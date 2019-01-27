@@ -10,18 +10,16 @@ import {ChangeSetNetwork} from "../../../kpn/shared/change-set-network";
 
     <div class="change-set">
 
-      <kpn-thick>
+      <div class="kpn-line">
         <kpn-link-changeset
           [changeSetId]="changeSet.summary.key.changeSetId"
-          [replicationNumber]="changeSet.summary.key.replicationNumber">
+          [replicationNumber]="changeSet.summary.key.replicationNumber"
+          class="kpn-thick">
         </kpn-link-changeset>
-      </kpn-thick>
-
-      <kpn-thin>
-        <kpn-timestamp [timestamp]="changeSet.summary.key.timestamp"></kpn-timestamp>
-      </kpn-thin>
-      <mat-icon *ngIf="changeSet.summary.happy">sentiment_satisfied_alt</mat-icon>
-      <mat-icon *ngIf="changeSet.summary.investigate">error_outline</mat-icon>
+        <kpn-timestamp [timestamp]="changeSet.summary.key.timestamp" class="kpn-thin"></kpn-timestamp>
+        <mat-icon *ngIf="changeSet.summary.happy">sentiment_satisfied_alt</mat-icon>
+        <mat-icon *ngIf="changeSet.summary.investigate">error_outline</mat-icon>
+      </div>
 
       <div *ngIf="changeSet.comment" class="comment">
         {{changeSet.comment}}

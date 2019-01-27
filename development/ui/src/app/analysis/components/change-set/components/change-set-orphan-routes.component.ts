@@ -4,11 +4,11 @@ import {ChangeSetSubsetElementRefs} from "../../../../kpn/shared/change-set-subs
 @Component({
   selector: 'kpn-change-set-orphan-routes',
   template: `
-    <kpn-line>
+    <div class="kpn-line">
       <span>{{domain()}}</span>
       <kpn-network-type-icon [networkType]="networkType()"></kpn-network-type-icon>
       <span>Orphan route(s)</span>
-    </kpn-line>
+    </div>
     <kpn-change-set-element-refs [elementType]="'route'" [changeSetElementRefs]="subsetElementRefs.elementRefs"></kpn-change-set-element-refs>
   `
 })

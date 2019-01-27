@@ -28,33 +28,38 @@ class ChangeSetPageBuilderImpl(
 
   def build(user: Option[String], changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
 
-    if (user.isDefined) {
-      changeSetRepository.changeSet(changeSetId, replicationId) match {
-        case Seq(changeSetData) =>
-
-          val changeSetInfo = changeSetInfoRepository.get(changeSetId)
-          val reviews = Seq[Review]() // TODO reviewFacade.get(changeSetId, replicationId)
-
-          val knownElements = findKnownElements(changeSetData.referencedElements)
-
-          val page = ChangeSetPage(
-            changeSetData.summary,
-            changeSetInfo,
-            changeSetData.networkChanges.map(toNetworkChangeInfo),
-            changeSetData.routeChanges.map(toRouteChangeInfo),
-            changeSetData.nodeChanges.map(toNodeChangeInfo),
-            knownElements,
-            reviews
-          )
-          Some(page)
-
-        case _ =>
-          // TODO CHANGE properly handle the case when there is more than one ChangeSetData object returned
-          None
-      }
+    if (changeSetId == 1L) {
+      Some(ChangeSetPageExample.page)
     }
     else {
-      None
+      if (user.isDefined) {
+        changeSetRepository.changeSet(changeSetId, replicationId) match {
+          case Seq(changeSetData) =>
+
+            val changeSetInfo = changeSetInfoRepository.get(changeSetId)
+            val reviews = Seq[Review]() // TODO reviewFacade.get(changeSetId, replicationId)
+
+            val knownElements = findKnownElements(changeSetData.referencedElements)
+
+            val page = ChangeSetPage(
+              changeSetData.summary,
+              changeSetInfo,
+              changeSetData.networkChanges.map(toNetworkChangeInfo),
+              changeSetData.routeChanges.map(toRouteChangeInfo),
+              changeSetData.nodeChanges.map(toNodeChangeInfo),
+              knownElements,
+              reviews
+            )
+            Some(page)
+
+          case _ =>
+            // TODO CHANGE properly handle the case when there is more than one ChangeSetData object returned
+            None
+        }
+      }
+      else {
+        None
+      }
     }
   }
 
