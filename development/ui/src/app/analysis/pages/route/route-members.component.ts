@@ -13,7 +13,7 @@ import {NetworkType} from "../../../kpn/shared/network-type";
       </div>
       <div *ngIf="!members.isEmpty()">
 
-        <table>
+        <table class="kpn-table">
           <thead>
           <tr>
             <th></th>
@@ -61,10 +61,7 @@ import {NetworkType} from "../../../kpn/shared/network-type";
           <tr *ngFor="let member of members">
 
             <td class="image-cell">
-              <div class="image">
-                TODO
-                <!--UiImage("links/" + member.linkName + ".png")-->
-              </div>
+              <img [src]="'/assets/images/links/' + member.linkName + '.png'">
             </td>
             <td>
               <div class="kpn-comma-list">
@@ -84,7 +81,7 @@ import {NetworkType} from "../../../kpn/shared/network-type";
             <td>
               TODO
               <!--TagMod.when(member.isWay) {-->
-                <!--UiOsmLink.link("way", member.toNodeId, member.to)-->
+              <!--UiOsmLink.link("way", member.toNodeId, member.to)-->
               <!--}-->
             </td>
             <td>
@@ -110,12 +107,12 @@ import {NetworkType} from "../../../kpn/shared/network-type";
             <td *ngIf="networkType.name == 'rcn'">
               TODO
               <!--<div *ngIf="member.oneWay == Forward">-->
-                <!--Yes-->
-                <!--&lt;!&ndash; Ja &ndash;&gt;-->
+              <!--Yes-->
+              <!--&lt;!&ndash; Ja &ndash;&gt;-->
               <!--</div>-->
               <!--<div *ngIf="member.oneWay == Backward">-->
-                <!--Reverse-->
-                <!--&lt;!&ndash; Omgekeerd &ndash;&gt;-->
+              <!--Reverse-->
+              <!--&lt;!&ndash; Omgekeerd &ndash;&gt;-->
               <!--</div>-->
             </td>
             <td>
@@ -126,7 +123,15 @@ import {NetworkType} from "../../../kpn/shared/network-type";
         </table>
       </div>
     </div>
-  `
+  `,
+  styles: [`
+    .image-cell {
+      padding: 0px;
+      height: 40px;
+      min-height: 40px;
+      max-height: 40px;
+    }
+  `]
 })
 export class RouteMembersComponent {
   @Input() networkType: NetworkType; // page.route.summary.networkType
