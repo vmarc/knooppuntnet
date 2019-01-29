@@ -1,5 +1,6 @@
 import {
   MatButtonModule,
+  MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
   MatDialogModule,
@@ -24,6 +25,7 @@ import {NgModule} from "@angular/core";
   imports: [
     MatDialogModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -41,6 +43,7 @@ import {NgModule} from "@angular/core";
   ],
   exports: [
     MatButtonModule,
+    MatButtonToggleModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatToolbarModule,
