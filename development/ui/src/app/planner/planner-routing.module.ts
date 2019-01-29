@@ -1,6 +1,7 @@
-import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from "@angular/router";
 import {PlannerSidebarComponent} from "./planner-sidebar.component";
+import {PlannerPageComponent} from "./pages/planner/planner-page.component";
 import {MapPageComponent} from "./pages/map/map-page.component";
 
 const routes: Routes = [
@@ -8,6 +9,10 @@ const routes: Routes = [
     path: '',
     component: PlannerSidebarComponent,
     outlet: "sidebar"
+  },
+  {
+    path: '',
+    component: PlannerPageComponent
   },
   {
     path: 'map/:networkType',

@@ -8,39 +8,19 @@ import {PageService} from "../../../shared/page.service";
       Node networks
     </h1>
 
-    <kpn-card-map></kpn-card-map>
-    <br/>
-    <kpn-card-analysis></kpn-card-analysis>
-    <br/>
+    <div class="kpn-line">
+      <mat-icon>directions_bike</mat-icon>
+      <a routerLink="/planner">
+        <span>Planner</span>
+      </a>
+    </div>
 
-
-    <br/>
-    <p>
-      <kpn-link-login></kpn-link-login>
-    </p>
-    <p>
-      <kpn-link-logout></kpn-link-logout>
-    </p>
-    <p>
-      <kpn-link-authenticate></kpn-link-authenticate>
-    </p>
-    <br/>
-    <p>
-      <kpn-link-about></kpn-link-about>
-    </p>
-    <p>
-      <kpn-link-glossary></kpn-link-glossary>
-    </p>
-    <p>
-      <kpn-link-links></kpn-link-links>
-    </p>
-    <br/>
-    <p>
-      <a routerLink="/not-found" i18n="@@home-page-link-not-found">Not found</a>
-    </p>
-    <p>
-      <a routerLink="/translations/edit">Translations</a>
-    </p>
+    <div class="kpn-line">
+      <mat-icon>directions_bike</mat-icon>
+      <a routerLink="/analysis">
+        <span>Analysis</span>
+      </a>
+    </div>
   `
 })
 export class HomePageComponent implements OnInit {

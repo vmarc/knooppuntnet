@@ -1,14 +1,15 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
   selector: 'kpn-route-structure',
   template: `
-    <table>
+    <table class="kpn-table">
       <tbody>
         <tr *ngFor="let structureString of structureStrings">
           <td>
-            {{formatted(structureString)}}
+            <span [innerHTML]="formatted(structureString)"></span>
           </td>
         </tr>
       </tbody>
@@ -19,10 +20,19 @@ export class RouteStructureComponent {
 
   @Input() structureStrings: List<string>;
 
-  formatted(structureString: string): string {
-    return structureString;
-    // TODO
-    // return structureString.replaceAll("forward", "<b>forward</b>").replaceAll("backward", "<b>backward</b>").replaceAll("unused", "<b>unused</b>").replaceAll("tentacle", "<b>tentacle</b>").//    replaceAll("broken", """<span style="color:red">broken</span>""").
-    // replaceAll("\\+", " + ").replaceAll("-", " - ");
+  constructor(private sanitizer: DomSanitizer){
   }
+
+  formatted(structureString: string): SafeHtml {
+    let html = structureString;
+    html = html.replace(/forward/g, "<b>forward</b>");
+    html = html.replace(/backward/g, "<b>backward</b>");
+    html = html.replace(/unused/g, "<b>unused</b>");
+    html = html.replace(/tentacle/g, "<b>tentacle</b>");
+    html = html.replace(/broken/g,"<span style='color:red'>broken</span>");
+    html = html.replace(/\\+/g, " + ");
+    html = html.replace(/\\-/g, " - ");
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
 }

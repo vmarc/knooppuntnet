@@ -118,6 +118,7 @@ import {NodeDiffsRemovedComponent} from "./pages/changeset/node-diffs/node-diffs
 import {RouteSummaryComponent} from "./pages/route/route-summary.component";
 import {RouteNodeComponent} from "./pages/route/route-node.component";
 import {RouteStructureComponent} from "./pages/route/route-structure.component";
+import {AnalysisPageComponent} from './pages/analysis/analysis-page.component';
 
 @NgModule({
   imports: [
@@ -130,6 +131,7 @@ import {RouteStructureComponent} from "./pages/route/route-structure.component";
   ],
   declarations: [
     AnalysisSidebarComponent,
+    AnalysisPageComponent,
     ChangeSetPageComponent,
     ChangeSetHeaderComponent,
     ChangeSetAnalysisComponent,

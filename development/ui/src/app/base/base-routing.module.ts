@@ -13,6 +13,10 @@ import {AboutPageComponent} from "./pages/about/about-page.component";
 const routes: Routes = [
   {
     path: '',
+    component: HomePageComponent
+  },
+  {
+    path: '',
     component: BaseSidebarComponent,
     outlet: "sidebar"
   },
@@ -27,10 +31,6 @@ const routes: Routes = [
   {
     path: 'glossary',
     component: GlossaryPageComponent
-  },
-  {
-    path: 'home',
-    component: HomePageComponent
   },
   {
     path: 'links',

@@ -19,12 +19,17 @@ import {SubsetNetworksPageComponent} from "./pages/subset-networks/subset-networ
 import {SubsetOrphanNodesPageComponent} from "./pages/subset-orphan-nodes/subset-orphan-nodes-page.component";
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset-orphan-routes/subset-orphan-routes-page.component";
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
+import {AnalysisPageComponent} from "./pages/analysis/analysis-page.component";
 
 const routes: Routes = [
   {
     path: '',
     component: AnalysisSidebarComponent,
     outlet: "sidebar"
+  },
+  {
+    path: '',
+    component: AnalysisPageComponent
   },
   {
     path: 'changeset/:changeSetId/:replicationNumber',

@@ -7,17 +7,20 @@ import {MapModule} from "../map/map.module";
 import {MapDetailDefaultComponent} from "./pages/map/map-detail-default.component";
 import {MapDetailNodeComponent} from "./pages/map/map-detail-node.component";
 import {MapDetailRouteComponent} from "./pages/map/map-detail-route.component";
-import {RouterModule} from "@angular/router";
 import {PlannerRoutingModule} from "./planner-routing.module";
+import {PlannerPageComponent} from "./pages/planner/planner-page.component";
+import {KpnMaterialModule} from "../material/kpn-material.module";
 
 @NgModule({
   imports: [
     CommonModule,
+    KpnMaterialModule,
     PlannerRoutingModule,
     SharedModule,
     MapModule
   ],
   declarations: [
+    PlannerPageComponent,
     MapPageComponent,
     PlannerSidebarComponent,
     MapDetailDefaultComponent,
