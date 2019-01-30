@@ -1,6 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MatDialogRef} from "@angular/material";
-import {MAT_DIALOG_DATA} from "@angular/material/typings/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'kpn-integrity-indicator-dialog',
@@ -12,7 +11,7 @@ import {MAT_DIALOG_DATA} from "@angular/material/typings/dialog";
       </span>
       <markdown dialog-body *ngIf="isGray()">
         This network node does not have an $tag tag.
-        This is OK because the use of this tag is optional. 
+        This is OK because the use of this tag is optional.
       </markdown>
 
       <span dialog-title *ngIf="isGreen()">

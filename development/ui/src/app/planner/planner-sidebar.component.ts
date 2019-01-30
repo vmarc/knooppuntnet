@@ -6,8 +6,9 @@ import {SelectedFeature} from "../map/domain/selected-feature";
   selector: 'kpn-planner-sidebar',
   template: `
 
+    <div>
     <mat-button-toggle-group  [value]="networkType.name">
-      <mat-button-toggle value="rcn">
+      <mat-button-toggle value="rcn" aria-label="Bicycle node networks">
         <mat-icon>directions_bike</mat-icon>
       </mat-button-toggle>
       <mat-button-toggle value="rwn">
@@ -26,7 +27,33 @@ import {SelectedFeature} from "../map/domain/selected-feature";
         <mat-icon>format_align_justify</mat-icon>
       </mat-button-toggle>
     </mat-button-toggle-group>
+    </div>
 
+
+    <div>
+    <mat-button-toggle-group  [value]="'planner'">
+      <mat-button-toggle value="planner">
+        <mat-icon>format_align_right</mat-icon>
+        Route planner
+      </mat-button-toggle>
+      <mat-button-toggle value="analysis">
+        <mat-icon>format_align_justify</mat-icon>
+        Analysis
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+    </div>
+
+
+    <mat-radio-group [value]="analysisMode" >
+      <mat-radio-button value="status" class="mode-radio-button">
+        Node and route status
+      </mat-radio-button>
+      <mat-radio-button value="survey" class="mode-radio-button">
+        Date last survey
+      </mat-radio-button>
+    </mat-radio-group>
+    
+    
     <div class="title">
       <kpn-network-type-icon [networkType]="networkType"></kpn-network-type-icon>
       <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
@@ -48,6 +75,10 @@ import {SelectedFeature} from "../map/domain/selected-feature";
       [routeId]="selectedFeature.featureId"
       [routeName]="selectedFeature.name">
     </kpn-map-detail-route>
+
+
+    <kpn-map-poi-config></kpn-map-poi-config>
+
   `,
   styles: [`
     .title {
@@ -55,6 +86,11 @@ import {SelectedFeature} from "../map/domain/selected-feature";
       line-height: 20px;
       flex-direction: row;
       align-items: center;
+    }
+    
+    .mode-radio-button {
+      display: block;
+      padding: 5px;
     }
   `]
 })
@@ -64,6 +100,8 @@ export class PlannerSidebarComponent {
 
   @Input() selectedFeature: SelectedFeature;
   @Input() networkType: NetworkType = new NetworkType("rcn"); // TODO cleanup
+
+  analysisMode = "status";
 
   isDefault(): boolean {
     return !(this.isNodeSelected() || this.isRouteSelected());

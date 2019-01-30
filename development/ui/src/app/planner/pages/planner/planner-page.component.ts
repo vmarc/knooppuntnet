@@ -37,6 +37,9 @@ import {Component} from '@angular/core';
         <span>Canoe</span>
       </a>
     </div>
+
+    <kpn-map-poi-config></kpn-map-poi-config>
+
   `
 })
 export class PlannerPageComponent {
