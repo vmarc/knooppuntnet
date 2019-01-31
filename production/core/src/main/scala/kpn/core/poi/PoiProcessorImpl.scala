@@ -41,7 +41,7 @@ class PoiProcessorImpl(
   def process(): Unit = {
     PoiConfiguration.poiDefinitionGroups.foreach { group =>
       group.definitions.foreach { poiDefinition =>
-        val layer = poiDefinition.layerName
+        val layer = poiDefinition.name
         Seq("node", "way", "relation").foreach { elementType =>
           log.info(s"Load pois $layer $elementType")
           PoiLocation.boundingBoxStrings.foreach { bbox =>
@@ -65,7 +65,7 @@ class PoiProcessorImpl(
 
   private def findLayers(poi: Poi): Seq[String] = {
     val poiDefinitions = PoiConfiguration.poiDefinitionGroups.flatMap(_.definitions)
-    poiDefinitions.filter(_.expression.evaluate(poi.tags)).map(_.layerName).seq.distinct.sorted
+    poiDefinitions.filter(_.expression.evaluate(poi.tags)).map(_.name).seq.distinct.sorted
   }
 
 }

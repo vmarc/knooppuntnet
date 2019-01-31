@@ -66,6 +66,18 @@ import {IndicatorComponent} from './indicator/indicator.component';
 import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
 import {OsmLinkChangeSetComponent} from "./link/osm-link-change-set.component";
 import {MetaDataComponent} from "./meta-data.component";
+import {IconAnalysisComponent} from "./icons/icon-analysis.component";
+import {IconComponent} from "./icons/icon.component";
+import {IconHappyComponent} from "./icons/icon-happy.component";
+import {IconHelpComponent} from "./icons/icon-help.component";
+import {IconInvestigateComponent} from "./icons/icon-investigate.component";
+import {IconNetworkTypeBicycleComponent} from "./icons/icon-network-type-bicycle.component";
+import {IconNetworkTypeCanoeComponent} from "./icons/icon-network-type-canoe.component";
+import {IconNetworkTypeHikingComponent} from "./icons/icon-network-type-hiking.component";
+import {IconNetworkTypeHorseComponent} from "./icons/icon-network-type-horse.component";
+import {IconNetworkTypeInlineSkatesComponent} from "./icons/icon-network-type-inline-skates.component";
+import {IconNetworkTypeMotorboatComponent} from "./icons/icon-network-type-motorboat.component";
+import {IconPlannerComponent} from "./icons/icon-planner.component";
 
 @NgModule({
   imports: [
@@ -138,7 +150,19 @@ import {MetaDataComponent} from "./meta-data.component";
     ItemComponent,
     IndicatorIconComponent,
     IndicatorComponent,
-    IndicatorDialogComponent
+    IndicatorDialogComponent,
+    IconComponent,
+    IconAnalysisComponent,
+    IconHappyComponent,
+    IconHelpComponent,
+    IconInvestigateComponent,
+    IconNetworkTypeBicycleComponent,
+    IconNetworkTypeCanoeComponent,
+    IconNetworkTypeHikingComponent,
+    IconNetworkTypeHorseComponent,
+    IconNetworkTypeInlineSkatesComponent,
+    IconNetworkTypeMotorboatComponent,
+    IconPlannerComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -202,7 +226,19 @@ import {MetaDataComponent} from "./meta-data.component";
     ItemComponent,
     IndicatorComponent,
     IndicatorIconComponent,
-    IndicatorDialogComponent
+    IndicatorDialogComponent,
+    IconComponent,
+    IconAnalysisComponent,
+    IconHappyComponent,
+    IconHelpComponent,
+    IconInvestigateComponent,
+    IconNetworkTypeBicycleComponent,
+    IconNetworkTypeCanoeComponent,
+    IconNetworkTypeHikingComponent,
+    IconNetworkTypeHorseComponent,
+    IconNetworkTypeInlineSkatesComponent,
+    IconNetworkTypeMotorboatComponent,
+    IconPlannerComponent
   ]
 })
 export class SharedModule {

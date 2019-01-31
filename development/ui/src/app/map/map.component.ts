@@ -16,7 +16,7 @@ import {createXYZ} from 'ol/tilegrid';
 import {click, pointerMove} from 'ol/events/condition';
 import Feature from 'ol/Feature';
 import Select from 'ol/interaction/Select';
-import Style from 'ol/style/Style';
+import {Icon, Style} from 'ol/style';
 
 import {ZoomLevel} from "./domain/zoom-level";
 import {MainMapStyle} from "./domain/main-map-style";
@@ -26,6 +26,8 @@ import {MapState} from "./domain/map-state";
 import {MapMoveHandler} from "./domain/map-move-handler";
 import {SelectedFeature} from "./domain/selected-feature";
 import {NetworkType} from "../kpn/shared/network-type";
+import {MapService} from "./map.service";
+import {PoiStyle} from "./domain/poi-style";
 
 @Component({
   selector: 'kpn-map',
@@ -58,7 +60,12 @@ export class MapComponent implements AfterViewInit {
   vectorTileLayer: VectorTileLayer;
   poiTileLayer: VectorTileLayer;
 
-  constructor() {
+  poiIconStyleMap: PoiStyle;
+
+  constructor(mapService: MapService) {
+    mapService.poiConfiguration.subscribe(configuration => {
+      this.poiIconStyleMap = new PoiStyle(configuration)
+    });
   }
 
   ngAfterViewInit(): void {
@@ -66,6 +73,8 @@ export class MapComponent implements AfterViewInit {
     this.bitmapTileLayer = this.buildBitmapTileLayer();
     this.vectorTileLayer = this.buildVectorTileLayer();
     this.poiTileLayer = this.buildPoiTileLayer();
+    this.poiTileLayer.setStyle(this.poiStyleFunction());
+    this.poiTileLayer.setZIndex(100);
 
     this.map = new Map({
       target: this.id,
@@ -101,20 +110,33 @@ export class MapComponent implements AfterViewInit {
     view.on("change:resolution", () => this.zoom(view.getZoom()));
   }
 
+  private poiStyleFunction() {
+    return (feature, resolution) => {
+      if (this.poiIconStyleMap) {
+        const layer = feature.get("layer");
+        if (layer) {
+          const style = this.poiIconStyleMap.get(layer)
+          if (style) {
+            return [style];
+          }
+        }
+      }
+      return null;
+    };
+  }
+
   private zoom(zoomLevel: number) {
     const zoom = Math.round(zoomLevel);
     if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
       this.bitmapTileLayer.setVisible(true);
       this.vectorTileLayer.setVisible(false);
-    }
-    else if (zoom >= ZoomLevel.vectorTileMinZoom) {
+    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
       this.bitmapTileLayer.setVisible(false);
       this.vectorTileLayer.setVisible(true);
     }
     if (zoom >= 11) {
       this.poiTileLayer.setVisible(true);
-    }
-    else if (zoom >= ZoomLevel.vectorTileMinZoom) {
+    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
       this.poiTileLayer.setVisible(false);
     }
 

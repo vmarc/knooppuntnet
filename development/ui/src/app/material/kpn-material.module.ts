@@ -17,7 +17,8 @@ import {
   MatSortModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatExpansionModule
 } from '@angular/material';
 import {NgModule} from "@angular/core";
 
@@ -39,7 +40,8 @@ import {NgModule} from "@angular/core";
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -60,7 +62,8 @@ import {NgModule} from "@angular/core";
     MatInputModule,
     MatDialogModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatExpansionModule
   ],
 })
 export class KpnMaterialModule {

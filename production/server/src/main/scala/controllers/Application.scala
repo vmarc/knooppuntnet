@@ -87,6 +87,7 @@ class Application(
     val changeSet = """changeset/(\d*)/(\d*)""".r
     val mapDetailNode = """node-detail/(\d*)/(rcn|rwn|rhn|rmn|rpn|rin)""".r
     val mapDetailRoute = """route-detail/(\d*)""".r
+    val poiConfiguration = """poi-configuration""".r
 
     val userApiService = request.session.get("user") match {
       case Some(user) => new JsonApiService(analyzerFacade, Some(user))(system)
@@ -214,6 +215,12 @@ class Application(
         reply(
           userApiService.overview(),
           JsonFormats.statisticsFormat
+        )
+
+      case poiConfiguration() =>
+        reply(
+          userApiService.poiConfiguration(),
+          JsonFormats.tilePoiConfigurationFormat
         )
 
       case _ =>
