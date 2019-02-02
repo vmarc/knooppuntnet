@@ -10,28 +10,14 @@ import {Review} from './review';
 import {RouteChangeInfo} from '../route/route-change-info';
 
 export class ChangeSetPage {
-  readonly summary: ChangeSetSummary;
-  readonly changeSetInfo: ChangeSetInfo;
-  readonly networkChanges: List<NetworkChangeInfo>;
-  readonly routeChanges: List<RouteChangeInfo>;
-  readonly nodeChanges: List<NodeChangeInfo>;
-  readonly knownElements: KnownElements;
-  readonly reviews: List<Review>;
 
-  constructor(summary: ChangeSetSummary,
-              changeSetInfo: ChangeSetInfo,
-              networkChanges: List<NetworkChangeInfo>,
-              routeChanges: List<RouteChangeInfo>,
-              nodeChanges: List<NodeChangeInfo>,
-              knownElements: KnownElements,
-              reviews: List<Review>) {
-    this.summary = summary;
-    this.changeSetInfo = changeSetInfo;
-    this.networkChanges = networkChanges;
-    this.routeChanges = routeChanges;
-    this.nodeChanges = nodeChanges;
-    this.knownElements = knownElements;
-    this.reviews = reviews;
+  constructor(readonly summary: ChangeSetSummary,
+              readonly changeSetInfo: ChangeSetInfo,
+              readonly networkChanges: List<NetworkChangeInfo>,
+              readonly routeChanges: List<RouteChangeInfo>,
+              readonly nodeChanges: List<NodeChangeInfo>,
+              readonly knownElements: KnownElements,
+              readonly reviews: List<Review>) {
   }
 
   public static fromJSON(jsonObject): ChangeSetPage {

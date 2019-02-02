@@ -6,25 +6,13 @@ import {Tags} from '../tags';
 import {Timestamp} from '../../timestamp';
 
 export class RawRelation {
-  readonly id: number;
-  readonly version: number;
-  readonly timestamp: Timestamp;
-  readonly changeSetId: number;
-  readonly members: List<RawMember>;
-  readonly tags: Tags;
 
-  constructor(id: number,
-              version: number,
-              timestamp: Timestamp,
-              changeSetId: number,
-              members: List<RawMember>,
-              tags: Tags) {
-    this.id = id;
-    this.version = version;
-    this.timestamp = timestamp;
-    this.changeSetId = changeSetId;
-    this.members = members;
-    this.tags = tags;
+  constructor(readonly id: number,
+              readonly version: number,
+              readonly timestamp: Timestamp,
+              readonly changeSetId: number,
+              readonly members: List<RawMember>,
+              readonly tags: Tags) {
   }
 
   public static fromJSON(jsonObject): RawRelation {

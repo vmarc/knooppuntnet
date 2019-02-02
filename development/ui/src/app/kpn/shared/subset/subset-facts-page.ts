@@ -5,13 +5,9 @@ import {FactCount} from '../fact-count';
 import {SubsetInfo} from './subset-info';
 
 export class SubsetFactsPage {
-  readonly subsetInfo: SubsetInfo;
-  readonly factCounts: List<FactCount>;
 
-  constructor(subsetInfo: SubsetInfo,
-              factCounts: List<FactCount>) {
-    this.subsetInfo = subsetInfo;
-    this.factCounts = factCounts;
+  constructor(readonly subsetInfo: SubsetInfo,
+              readonly factCounts: List<FactCount>) {
   }
 
   public static fromJSON(jsonObject): SubsetFactsPage {

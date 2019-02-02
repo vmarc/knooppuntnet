@@ -7,31 +7,15 @@ import {RawNode} from '../data/raw/raw-node';
 import {TagDiffs} from './tag-diffs';
 
 export class WayUpdate {
-  readonly id: number;
-  readonly before: MetaData;
-  readonly after: MetaData;
-  readonly removedNodes: List<RawNode>;
-  readonly addedNodes: List<RawNode>;
-  readonly updatedNodes: List<NodeUpdate>;
-  readonly directionReversed: boolean;
-  readonly tagDiffs: TagDiffs;
 
-  constructor(id: number,
-              before: MetaData,
-              after: MetaData,
-              removedNodes: List<RawNode>,
-              addedNodes: List<RawNode>,
-              updatedNodes: List<NodeUpdate>,
-              directionReversed: boolean,
-              tagDiffs: TagDiffs) {
-    this.id = id;
-    this.before = before;
-    this.after = after;
-    this.removedNodes = removedNodes;
-    this.addedNodes = addedNodes;
-    this.updatedNodes = updatedNodes;
-    this.directionReversed = directionReversed;
-    this.tagDiffs = tagDiffs;
+  constructor(readonly id: number,
+              readonly before: MetaData,
+              readonly after: MetaData,
+              readonly removedNodes: List<RawNode>,
+              readonly addedNodes: List<RawNode>,
+              readonly updatedNodes: List<NodeUpdate>,
+              readonly directionReversed: boolean,
+              readonly tagDiffs: TagDiffs) {
   }
 
   public static fromJSON(jsonObject): WayUpdate {

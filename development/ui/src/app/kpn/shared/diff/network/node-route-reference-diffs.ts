@@ -4,16 +4,10 @@ import {List} from 'immutable';
 import {Ref} from '../../common/ref';
 
 export class NodeRouteReferenceDiffs {
-  readonly removed: List<Ref>;
-  readonly added: List<Ref>;
-  readonly remaining: List<Ref>;
 
-  constructor(removed: List<Ref>,
-              added: List<Ref>,
-              remaining: List<Ref>) {
-    this.removed = removed;
-    this.added = added;
-    this.remaining = remaining;
+  constructor(readonly removed: List<Ref>,
+              readonly added: List<Ref>,
+              readonly remaining: List<Ref>) {
   }
 
   public static fromJSON(jsonObject): NodeRouteReferenceDiffs {

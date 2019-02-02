@@ -3,13 +3,9 @@
 import {List} from 'immutable';
 
 export class ReferencedElements {
-  readonly nodeIds: List<number>;
-  readonly routeIds: List<number>;
 
-  constructor(nodeIds: List<number>,
-              routeIds: List<number>) {
-    this.nodeIds = nodeIds;
-    this.routeIds = routeIds;
+  constructor(readonly nodeIds: List<number>,
+              readonly routeIds: List<number>) {
   }
 
   public static fromJSON(jsonObject): ReferencedElements {

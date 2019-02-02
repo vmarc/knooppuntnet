@@ -3,16 +3,10 @@
 import {NetworkType} from '../network-type';
 
 export class NodeOrphanRouteReference {
-  readonly networkType: NetworkType;
-  readonly routeId: number;
-  readonly routeName: string;
 
-  constructor(networkType: NetworkType,
-              routeId: number,
-              routeName: string) {
-    this.networkType = networkType;
-    this.routeId = routeId;
-    this.routeName = routeName;
+  constructor(readonly networkType: NetworkType,
+              readonly routeId: number,
+              readonly routeName: string) {
   }
 
   public static fromJSON(jsonObject): NodeOrphanRouteReference {

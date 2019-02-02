@@ -3,19 +3,11 @@
 import {Timestamp} from '../timestamp';
 
 export class Review {
-  readonly user: string;
-  readonly timestamp: Timestamp;
-  readonly status: string;
-  readonly comment: string;
 
-  constructor(user: string,
-              timestamp: Timestamp,
-              status: string,
-              comment: string) {
-    this.user = user;
-    this.timestamp = timestamp;
-    this.status = status;
-    this.comment = comment;
+  constructor(readonly user: string,
+              readonly timestamp: Timestamp,
+              readonly status: string,
+              readonly comment: string) {
   }
 
   public static fromJSON(jsonObject): Review {

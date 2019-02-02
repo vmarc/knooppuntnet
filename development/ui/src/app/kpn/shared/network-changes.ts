@@ -4,16 +4,10 @@ import {List} from 'immutable';
 import {ChangeSetNetwork} from './change-set-network';
 
 export class NetworkChanges {
-  readonly creates: List<ChangeSetNetwork>;
-  readonly updates: List<ChangeSetNetwork>;
-  readonly deletes: List<ChangeSetNetwork>;
 
-  constructor(creates: List<ChangeSetNetwork>,
-              updates: List<ChangeSetNetwork>,
-              deletes: List<ChangeSetNetwork>) {
-    this.creates = creates;
-    this.updates = updates;
-    this.deletes = deletes;
+  constructor(readonly creates: List<ChangeSetNetwork>,
+              readonly updates: List<ChangeSetNetwork>,
+              readonly deletes: List<ChangeSetNetwork>) {
   }
 
   public static fromJSON(jsonObject): NetworkChanges {

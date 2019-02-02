@@ -3,13 +3,9 @@
 import {ChangeSetSummary} from './change-set-summary';
 
 export class ChangeSetSummaryInfo {
-  readonly summary: ChangeSetSummary;
-  readonly comment: string;
 
-  constructor(summary: ChangeSetSummary,
-              comment: string) {
-    this.summary = summary;
-    this.comment = comment;
+  constructor(readonly summary: ChangeSetSummary,
+              readonly comment: string) {
   }
 
   public static fromJSON(jsonObject): ChangeSetSummaryInfo {

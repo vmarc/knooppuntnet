@@ -13,58 +13,24 @@ import {Subset} from '../../subset';
 import {TagDiffs} from '../../diff/tag-diffs';
 
 export class NodeChange {
-  readonly key: ChangeKey;
-  readonly changeType: ChangeType;
-  readonly subsets: List<Subset>;
-  readonly name: string;
-  readonly before: RawNode;
-  readonly after: RawNode;
-  readonly connectionChanges: List<RefBooleanChange>;
-  readonly roleConnectionChanges: List<RefBooleanChange>;
-  readonly definedInNetworkChanges: List<RefBooleanChange>;
-  readonly tagDiffs: TagDiffs;
-  readonly nodeMoved: NodeMoved;
-  readonly addedToRoute: List<Ref>;
-  readonly removedFromRoute: List<Ref>;
-  readonly addedToNetwork: List<Ref>;
-  readonly removedFromNetwork: List<Ref>;
-  readonly factDiffs: FactDiffs;
-  readonly facts: List<Fact>;
 
-  constructor(key: ChangeKey,
-              changeType: ChangeType,
-              subsets: List<Subset>,
-              name: string,
-              before: RawNode,
-              after: RawNode,
-              connectionChanges: List<RefBooleanChange>,
-              roleConnectionChanges: List<RefBooleanChange>,
-              definedInNetworkChanges: List<RefBooleanChange>,
-              tagDiffs: TagDiffs,
-              nodeMoved: NodeMoved,
-              addedToRoute: List<Ref>,
-              removedFromRoute: List<Ref>,
-              addedToNetwork: List<Ref>,
-              removedFromNetwork: List<Ref>,
-              factDiffs: FactDiffs,
-              facts: List<Fact>) {
-    this.key = key;
-    this.changeType = changeType;
-    this.subsets = subsets;
-    this.name = name;
-    this.before = before;
-    this.after = after;
-    this.connectionChanges = connectionChanges;
-    this.roleConnectionChanges = roleConnectionChanges;
-    this.definedInNetworkChanges = definedInNetworkChanges;
-    this.tagDiffs = tagDiffs;
-    this.nodeMoved = nodeMoved;
-    this.addedToRoute = addedToRoute;
-    this.removedFromRoute = removedFromRoute;
-    this.addedToNetwork = addedToNetwork;
-    this.removedFromNetwork = removedFromNetwork;
-    this.factDiffs = factDiffs;
-    this.facts = facts;
+  constructor(readonly key: ChangeKey,
+              readonly changeType: ChangeType,
+              readonly subsets: List<Subset>,
+              readonly name: string,
+              readonly before: RawNode,
+              readonly after: RawNode,
+              readonly connectionChanges: List<RefBooleanChange>,
+              readonly roleConnectionChanges: List<RefBooleanChange>,
+              readonly definedInNetworkChanges: List<RefBooleanChange>,
+              readonly tagDiffs: TagDiffs,
+              readonly nodeMoved: NodeMoved,
+              readonly addedToRoute: List<Ref>,
+              readonly removedFromRoute: List<Ref>,
+              readonly addedToNetwork: List<Ref>,
+              readonly removedFromNetwork: List<Ref>,
+              readonly factDiffs: FactDiffs,
+              readonly facts: List<Fact>) {
   }
 
   public static fromJSON(jsonObject): NodeChange {

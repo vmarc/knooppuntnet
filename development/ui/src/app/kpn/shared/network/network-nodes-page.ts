@@ -7,22 +7,12 @@ import {NetworkType} from '../network-type';
 import {TimeInfo} from '../time-info';
 
 export class NetworkNodesPage {
-  readonly timeInfo: TimeInfo;
-  readonly networkSummary: NetworkSummary;
-  readonly networkType: NetworkType;
-  readonly nodes: List<NetworkNodeInfo2>;
-  readonly routeIds: List<number>;
 
-  constructor(timeInfo: TimeInfo,
-              networkSummary: NetworkSummary,
-              networkType: NetworkType,
-              nodes: List<NetworkNodeInfo2>,
-              routeIds: List<number>) {
-    this.timeInfo = timeInfo;
-    this.networkSummary = networkSummary;
-    this.networkType = networkType;
-    this.nodes = nodes;
-    this.routeIds = routeIds;
+  constructor(readonly timeInfo: TimeInfo,
+              readonly networkSummary: NetworkSummary,
+              readonly networkType: NetworkType,
+              readonly nodes: List<NetworkNodeInfo2>,
+              readonly routeIds: List<number>) {
   }
 
   public static fromJSON(jsonObject): NetworkNodesPage {

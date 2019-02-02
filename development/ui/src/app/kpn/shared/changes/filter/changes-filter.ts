@@ -4,10 +4,8 @@ import {List} from 'immutable';
 import {ChangesFilterPeriod} from './changes-filter-period';
 
 export class ChangesFilter {
-  readonly periods: List<ChangesFilterPeriod>;
 
-  constructor(periods: List<ChangesFilterPeriod>) {
-    this.periods = periods;
+  constructor(readonly periods: List<ChangesFilterPeriod>) {
   }
 
   public static fromJSON(jsonObject): ChangesFilter {

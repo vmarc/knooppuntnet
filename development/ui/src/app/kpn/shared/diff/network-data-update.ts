@@ -3,13 +3,9 @@
 import {NetworkData} from './network-data';
 
 export class NetworkDataUpdate {
-  readonly before: NetworkData;
-  readonly after: NetworkData;
 
-  constructor(before: NetworkData,
-              after: NetworkData) {
-    this.before = before;
-    this.after = after;
+  constructor(readonly before: NetworkData,
+              readonly after: NetworkData) {
   }
 
   public static fromJSON(jsonObject): NetworkDataUpdate {

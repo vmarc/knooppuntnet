@@ -5,25 +5,13 @@ import {NodeRouteReferenceDiffs} from './node-route-reference-diffs';
 import {TagDiffs} from '../tag-diffs';
 
 export class NetworkNodeDiff {
-  readonly connection: boolean;
-  readonly roleConnection: boolean;
-  readonly definedInNetworkRelation: boolean;
-  readonly routeReferenceDiffs: NodeRouteReferenceDiffs;
-  readonly nodeIntegrityCheckDiff: NodeIntegrityCheckDiff;
-  readonly tagDiffs: TagDiffs;
 
-  constructor(connection: boolean,
-              roleConnection: boolean,
-              definedInNetworkRelation: boolean,
-              routeReferenceDiffs: NodeRouteReferenceDiffs,
-              nodeIntegrityCheckDiff: NodeIntegrityCheckDiff,
-              tagDiffs: TagDiffs) {
-    this.connection = connection;
-    this.roleConnection = roleConnection;
-    this.definedInNetworkRelation = definedInNetworkRelation;
-    this.routeReferenceDiffs = routeReferenceDiffs;
-    this.nodeIntegrityCheckDiff = nodeIntegrityCheckDiff;
-    this.tagDiffs = tagDiffs;
+  constructor(readonly connection: boolean,
+              readonly roleConnection: boolean,
+              readonly definedInNetworkRelation: boolean,
+              readonly routeReferenceDiffs: NodeRouteReferenceDiffs,
+              readonly nodeIntegrityCheckDiff: NodeIntegrityCheckDiff,
+              readonly tagDiffs: TagDiffs) {
   }
 
   public static fromJSON(jsonObject): NetworkNodeDiff {

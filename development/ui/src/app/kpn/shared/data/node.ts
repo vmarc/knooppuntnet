@@ -3,10 +3,8 @@
 import {RawNode} from './raw/raw-node';
 
 export class Node {
-  readonly raw: RawNode;
 
-  constructor(raw: RawNode) {
-    this.raw = raw;
+  constructor(readonly raw: RawNode) {
   }
 
   public static fromJSON(jsonObject): Node {

@@ -4,16 +4,10 @@ import {NetworkNodeData} from './network-node-data';
 import {NetworkNodeDiff} from './network/network-node-diff';
 
 export class NetworkNodeUpdate {
-  readonly before: NetworkNodeData;
-  readonly after: NetworkNodeData;
-  readonly diffs: NetworkNodeDiff;
 
-  constructor(before: NetworkNodeData,
-              after: NetworkNodeData,
-              diffs: NetworkNodeDiff) {
-    this.before = before;
-    this.after = after;
-    this.diffs = diffs;
+  constructor(readonly before: NetworkNodeData,
+              readonly after: NetworkNodeData,
+              readonly diffs: NetworkNodeDiff) {
   }
 
   public static fromJSON(jsonObject): NetworkNodeUpdate {

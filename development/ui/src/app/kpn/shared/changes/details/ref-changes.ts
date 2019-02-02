@@ -4,13 +4,9 @@ import {List} from 'immutable';
 import {Ref} from '../../common/ref';
 
 export class RefChanges {
-  readonly oldRefs: List<Ref>;
-  readonly newRefs: List<Ref>;
 
-  constructor(oldRefs: List<Ref>,
-              newRefs: List<Ref>) {
-    this.oldRefs = oldRefs;
-    this.newRefs = newRefs;
+  constructor(readonly oldRefs: List<Ref>,
+              readonly newRefs: List<Ref>) {
   }
 
   public static fromJSON(jsonObject): RefChanges {

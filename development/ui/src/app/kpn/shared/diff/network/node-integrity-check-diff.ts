@@ -3,13 +3,9 @@
 import {NodeIntegrityCheck} from '../../node-integrity-check';
 
 export class NodeIntegrityCheckDiff {
-  readonly before: NodeIntegrityCheck;
-  readonly after: NodeIntegrityCheck;
 
-  constructor(before: NodeIntegrityCheck,
-              after: NodeIntegrityCheck) {
-    this.before = before;
-    this.after = after;
+  constructor(readonly before: NodeIntegrityCheck,
+              readonly after: NodeIntegrityCheck) {
   }
 
   public static fromJSON(jsonObject): NodeIntegrityCheckDiff {

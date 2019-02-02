@@ -5,13 +5,9 @@ import {NodeNetworkReference} from './node-network-reference';
 import {NodeOrphanRouteReference} from './node-orphan-route-reference';
 
 export class NodeReferences {
-  readonly networkReferences: List<NodeNetworkReference>;
-  readonly routeReferences: List<NodeOrphanRouteReference>;
 
-  constructor(networkReferences: List<NodeNetworkReference>,
-              routeReferences: List<NodeOrphanRouteReference>) {
-    this.networkReferences = networkReferences;
-    this.routeReferences = routeReferences;
+  constructor(readonly networkReferences: List<NodeNetworkReference>,
+              readonly routeReferences: List<NodeOrphanRouteReference>) {
   }
 
   public static fromJSON(jsonObject): NodeReferences {

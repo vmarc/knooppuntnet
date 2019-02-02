@@ -8,25 +8,13 @@ import {RouteRoleDiff} from './route-role-diff';
 import {TagDiffs} from '../tag-diffs';
 
 export class RouteDiff {
-  readonly nameDiff: RouteNameDiff;
-  readonly roleDiff: RouteRoleDiff;
-  readonly factDiffs: FactDiffs;
-  readonly nodeDiffs: List<RouteNodeDiff>;
-  readonly memberOrderChanged: boolean;
-  readonly tagDiffs: TagDiffs;
 
-  constructor(nameDiff: RouteNameDiff,
-              roleDiff: RouteRoleDiff,
-              factDiffs: FactDiffs,
-              nodeDiffs: List<RouteNodeDiff>,
-              memberOrderChanged: boolean,
-              tagDiffs: TagDiffs) {
-    this.nameDiff = nameDiff;
-    this.roleDiff = roleDiff;
-    this.factDiffs = factDiffs;
-    this.nodeDiffs = nodeDiffs;
-    this.memberOrderChanged = memberOrderChanged;
-    this.tagDiffs = tagDiffs;
+  constructor(readonly nameDiff: RouteNameDiff,
+              readonly roleDiff: RouteRoleDiff,
+              readonly factDiffs: FactDiffs,
+              readonly nodeDiffs: List<RouteNodeDiff>,
+              readonly memberOrderChanged: boolean,
+              readonly tagDiffs: TagDiffs) {
   }
 
   public static fromJSON(jsonObject): RouteDiff {

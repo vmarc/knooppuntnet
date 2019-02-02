@@ -6,34 +6,16 @@ import {RouteMemberInfo} from './route-member-info';
 import {RouteNetworkNodeInfo} from './route-network-node-info';
 
 export class RouteInfoAnalysis {
-  readonly startNodes: List<RouteNetworkNodeInfo>;
-  readonly endNodes: List<RouteNetworkNodeInfo>;
-  readonly startTentacleNodes: List<RouteNetworkNodeInfo>;
-  readonly endTentacleNodes: List<RouteNetworkNodeInfo>;
-  readonly unexpectedNodeIds: List<number>;
-  readonly members: List<RouteMemberInfo>;
-  readonly expectedName: string;
-  readonly map: RouteMap;
-  readonly structureStrings: List<string>;
 
-  constructor(startNodes: List<RouteNetworkNodeInfo>,
-              endNodes: List<RouteNetworkNodeInfo>,
-              startTentacleNodes: List<RouteNetworkNodeInfo>,
-              endTentacleNodes: List<RouteNetworkNodeInfo>,
-              unexpectedNodeIds: List<number>,
-              members: List<RouteMemberInfo>,
-              expectedName: string,
-              map: RouteMap,
-              structureStrings: List<string>) {
-    this.startNodes = startNodes;
-    this.endNodes = endNodes;
-    this.startTentacleNodes = startTentacleNodes;
-    this.endTentacleNodes = endTentacleNodes;
-    this.unexpectedNodeIds = unexpectedNodeIds;
-    this.members = members;
-    this.expectedName = expectedName;
-    this.map = map;
-    this.structureStrings = structureStrings;
+  constructor(readonly startNodes: List<RouteNetworkNodeInfo>,
+              readonly endNodes: List<RouteNetworkNodeInfo>,
+              readonly startTentacleNodes: List<RouteNetworkNodeInfo>,
+              readonly endTentacleNodes: List<RouteNetworkNodeInfo>,
+              readonly unexpectedNodeIds: List<number>,
+              readonly members: List<RouteMemberInfo>,
+              readonly expectedName: string,
+              readonly map: RouteMap,
+              readonly structureStrings: List<string>) {
   }
 
   public static fromJSON(jsonObject): RouteInfoAnalysis {

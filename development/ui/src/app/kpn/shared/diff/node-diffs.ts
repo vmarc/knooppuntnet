@@ -5,16 +5,10 @@ import {NodeData} from './node-data';
 import {NodeDataUpdate} from './node-data-update';
 
 export class NodeDiffs {
-  readonly removed: List<NodeData>;
-  readonly added: List<NodeData>;
-  readonly updated: List<NodeDataUpdate>;
 
-  constructor(removed: List<NodeData>,
-              added: List<NodeData>,
-              updated: List<NodeDataUpdate>) {
-    this.removed = removed;
-    this.added = added;
-    this.updated = updated;
+  constructor(readonly removed: List<NodeData>,
+              readonly added: List<NodeData>,
+              readonly updated: List<NodeDataUpdate>) {
   }
 
   public static fromJSON(jsonObject): NodeDiffs {

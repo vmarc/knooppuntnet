@@ -7,19 +7,11 @@ import {NetworkRouteInfo} from './network-route-info';
 import {NetworkShape} from './network-shape';
 
 export class NetworkInfoDetail {
-  readonly nodes: List<NetworkNodeInfo2>;
-  readonly routes: List<NetworkRouteInfo>;
-  readonly networkFacts: NetworkFacts;
-  readonly shape: NetworkShape;
 
-  constructor(nodes: List<NetworkNodeInfo2>,
-              routes: List<NetworkRouteInfo>,
-              networkFacts: NetworkFacts,
-              shape: NetworkShape) {
-    this.nodes = nodes;
-    this.routes = routes;
-    this.networkFacts = networkFacts;
-    this.shape = shape;
+  constructor(readonly nodes: List<NetworkNodeInfo2>,
+              readonly routes: List<NetworkRouteInfo>,
+              readonly networkFacts: NetworkFacts,
+              readonly shape: NetworkShape) {
   }
 
   public static fromJSON(jsonObject): NetworkInfoDetail {

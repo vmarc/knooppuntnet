@@ -5,13 +5,9 @@ import {Fact} from '../fact';
 import {Ref} from '../common/ref';
 
 export class NetworkNodeFact {
-  readonly fact: Fact;
-  readonly nodes: List<Ref>;
 
-  constructor(fact: Fact,
-              nodes: List<Ref>) {
-    this.fact = fact;
-    this.nodes = nodes;
+  constructor(readonly fact: Fact,
+              readonly nodes: List<Ref>) {
   }
 
   public static fromJSON(jsonObject): NetworkNodeFact {

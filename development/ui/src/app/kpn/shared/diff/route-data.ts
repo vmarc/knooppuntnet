@@ -9,34 +9,16 @@ import {RawRelation} from '../data/raw/raw-relation';
 import {RawWay} from '../data/raw/raw-way';
 
 export class RouteData {
-  readonly country: Country;
-  readonly networkType: NetworkType;
-  readonly relation: RawRelation;
-  readonly name: string;
-  readonly networkNodes: List<RawNode>;
-  readonly nodes: List<RawNode>;
-  readonly ways: List<RawWay>;
-  readonly relations: List<RawRelation>;
-  readonly facts: List<Fact>;
 
-  constructor(country: Country,
-              networkType: NetworkType,
-              relation: RawRelation,
-              name: string,
-              networkNodes: List<RawNode>,
-              nodes: List<RawNode>,
-              ways: List<RawWay>,
-              relations: List<RawRelation>,
-              facts: List<Fact>) {
-    this.country = country;
-    this.networkType = networkType;
-    this.relation = relation;
-    this.name = name;
-    this.networkNodes = networkNodes;
-    this.nodes = nodes;
-    this.ways = ways;
-    this.relations = relations;
-    this.facts = facts;
+  constructor(readonly country: Country,
+              readonly networkType: NetworkType,
+              readonly relation: RawRelation,
+              readonly name: string,
+              readonly networkNodes: List<RawNode>,
+              readonly nodes: List<RawNode>,
+              readonly ways: List<RawWay>,
+              readonly relations: List<RawRelation>,
+              readonly facts: List<Fact>) {
   }
 
   public static fromJSON(jsonObject): RouteData {

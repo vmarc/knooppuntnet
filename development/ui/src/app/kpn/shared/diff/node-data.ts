@@ -5,16 +5,10 @@ import {RawNode} from '../data/raw/raw-node';
 import {Subset} from '../subset';
 
 export class NodeData {
-  readonly subsets: List<Subset>;
-  readonly name: string;
-  readonly node: RawNode;
 
-  constructor(subsets: List<Subset>,
-              name: string,
-              node: RawNode) {
-    this.subsets = subsets;
-    this.name = name;
-    this.node = node;
+  constructor(readonly subsets: List<Subset>,
+              readonly name: string,
+              readonly node: RawNode) {
   }
 
   public static fromJSON(jsonObject): NodeData {

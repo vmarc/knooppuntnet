@@ -1,16 +1,10 @@
 // this class is generated, please do not modify
 
 export class NodeNetworkRouteReference {
-  readonly routeId: number;
-  readonly routeName: string;
-  readonly routeRole: string;
 
-  constructor(routeId: number,
-              routeName: string,
-              routeRole: string) {
-    this.routeId = routeId;
-    this.routeName = routeName;
-    this.routeRole = routeRole;
+  constructor(readonly routeId: number,
+              readonly routeName: string,
+              readonly routeRole: string) {
   }
 
   public static fromJSON(jsonObject): NodeNetworkRouteReference {

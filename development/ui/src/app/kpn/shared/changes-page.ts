@@ -5,16 +5,10 @@ import {ChangeSetSummaryInfo} from './change-set-summary-info';
 import {ChangesFilter} from './changes/filter/changes-filter';
 
 export class ChangesPage {
-  readonly filter: ChangesFilter;
-  readonly changes: List<ChangeSetSummaryInfo>;
-  readonly totalCount: number;
 
-  constructor(filter: ChangesFilter,
-              changes: List<ChangeSetSummaryInfo>,
-              totalCount: number) {
-    this.filter = filter;
-    this.changes = changes;
-    this.totalCount = totalCount;
+  constructor(readonly filter: ChangesFilter,
+              readonly changes: List<ChangeSetSummaryInfo>,
+              readonly totalCount: number) {
   }
 
   public static fromJSON(jsonObject): ChangesPage {

@@ -6,25 +6,13 @@ import {NetworkSummary} from './network-summary';
 import {Tags} from '../data/tags';
 
 export class NetworkDetailsPage {
-  readonly networkSummary: NetworkSummary;
-  readonly active: boolean;
-  readonly ignored: boolean;
-  readonly attributes: NetworkAttributes;
-  readonly tags: Tags;
-  readonly facts: NetworkFacts;
 
-  constructor(networkSummary: NetworkSummary,
-              active: boolean,
-              ignored: boolean,
-              attributes: NetworkAttributes,
-              tags: Tags,
-              facts: NetworkFacts) {
-    this.networkSummary = networkSummary;
-    this.active = active;
-    this.ignored = ignored;
-    this.attributes = attributes;
-    this.tags = tags;
-    this.facts = facts;
+  constructor(readonly networkSummary: NetworkSummary,
+              readonly active: boolean,
+              readonly ignored: boolean,
+              readonly attributes: NetworkAttributes,
+              readonly tags: Tags,
+              readonly facts: NetworkFacts) {
   }
 
   public static fromJSON(jsonObject): NetworkDetailsPage {

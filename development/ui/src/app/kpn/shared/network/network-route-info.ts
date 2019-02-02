@@ -5,31 +5,15 @@ import {Fact} from '../fact';
 import {Timestamp} from '../timestamp';
 
 export class NetworkRouteInfo {
-  readonly id: number;
-  readonly name: string;
-  readonly wayCount: number;
-  readonly length: number;
-  readonly role: string;
-  readonly relationLastUpdated: Timestamp;
-  readonly lastUpdated: Timestamp;
-  readonly facts: List<Fact>;
 
-  constructor(id: number,
-              name: string,
-              wayCount: number,
-              length: number,
-              role: string,
-              relationLastUpdated: Timestamp,
-              lastUpdated: Timestamp,
-              facts: List<Fact>) {
-    this.id = id;
-    this.name = name;
-    this.wayCount = wayCount;
-    this.length = length;
-    this.role = role;
-    this.relationLastUpdated = relationLastUpdated;
-    this.lastUpdated = lastUpdated;
-    this.facts = facts;
+  constructor(readonly id: number,
+              readonly name: string,
+              readonly wayCount: number,
+              readonly length: number,
+              readonly role: string,
+              readonly relationLastUpdated: Timestamp,
+              readonly lastUpdated: Timestamp,
+              readonly facts: List<Fact>) {
   }
 
   public static fromJSON(jsonObject): NetworkRouteInfo {

@@ -4,16 +4,10 @@ import {List} from 'immutable';
 import {Ref} from '../common/ref';
 
 export class RefDiffs {
-  readonly removed: List<Ref>;
-  readonly added: List<Ref>;
-  readonly updated: List<Ref>;
 
-  constructor(removed: List<Ref>,
-              added: List<Ref>,
-              updated: List<Ref>) {
-    this.removed = removed;
-    this.added = added;
-    this.updated = updated;
+  constructor(readonly removed: List<Ref>,
+              readonly added: List<Ref>,
+              readonly updated: List<Ref>) {
   }
 
   public static fromJSON(jsonObject): RefDiffs {

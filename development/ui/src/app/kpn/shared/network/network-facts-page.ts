@@ -8,22 +8,12 @@ import {NetworkRouteFact} from './network-route-fact';
 import {NetworkSummary} from './network-summary';
 
 export class NetworkFactsPage {
-  readonly networkSummary: NetworkSummary;
-  readonly networkFacts: NetworkFacts;
-  readonly nodeFacts: List<NetworkNodeFact>;
-  readonly routeFacts: List<NetworkRouteFact>;
-  readonly facts: List<Fact>;
 
-  constructor(networkSummary: NetworkSummary,
-              networkFacts: NetworkFacts,
-              nodeFacts: List<NetworkNodeFact>,
-              routeFacts: List<NetworkRouteFact>,
-              facts: List<Fact>) {
-    this.networkSummary = networkSummary;
-    this.networkFacts = networkFacts;
-    this.nodeFacts = nodeFacts;
-    this.routeFacts = routeFacts;
-    this.facts = facts;
+  constructor(readonly networkSummary: NetworkSummary,
+              readonly networkFacts: NetworkFacts,
+              readonly nodeFacts: List<NetworkNodeFact>,
+              readonly routeFacts: List<NetworkRouteFact>,
+              readonly facts: List<Fact>) {
   }
 
   public static fromJSON(jsonObject): NetworkFactsPage {

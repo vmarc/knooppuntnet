@@ -1,16 +1,10 @@
 // this class is generated, please do not modify
 
 export class TilePoiDefinition {
-  readonly name: string;
-  readonly icon: string;
-  readonly minLevel: number;
 
-  constructor(name: string,
-              icon: string,
-              minLevel: number) {
-    this.name = name;
-    this.icon = icon;
-    this.minLevel = minLevel;
+  constructor(readonly name: string,
+              readonly icon: string,
+              readonly minLevel: number) {
   }
 
   public static fromJSON(jsonObject): TilePoiDefinition {

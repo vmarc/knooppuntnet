@@ -4,16 +4,10 @@ import {List} from 'immutable';
 import {Fact} from '../../fact';
 
 export class FactDiffs {
-  readonly resolved: List<Fact>;
-  readonly introduced: List<Fact>;
-  readonly remaining: List<Fact>;
 
-  constructor(resolved: List<Fact>,
-              introduced: List<Fact>,
-              remaining: List<Fact>) {
-    this.resolved = resolved;
-    this.introduced = introduced;
-    this.remaining = remaining;
+  constructor(readonly resolved: List<Fact>,
+              readonly introduced: List<Fact>,
+              readonly remaining: List<Fact>) {
   }
 
   public static fromJSON(jsonObject): FactDiffs {

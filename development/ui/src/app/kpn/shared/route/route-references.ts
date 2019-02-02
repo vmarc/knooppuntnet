@@ -4,10 +4,8 @@ import {List} from 'immutable';
 import {Reference} from '../common/reference';
 
 export class RouteReferences {
-  readonly networkReferences: List<Reference>;
 
-  constructor(networkReferences: List<Reference>) {
-    this.networkReferences = networkReferences;
+  constructor(readonly networkReferences: List<Reference>) {
   }
 
   public static fromJSON(jsonObject): RouteReferences {

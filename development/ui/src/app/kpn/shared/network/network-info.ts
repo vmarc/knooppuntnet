@@ -7,34 +7,16 @@ import {NetworkInfoDetail} from './network-info-detail';
 import {Tags} from '../data/tags';
 
 export class NetworkInfo {
-  readonly attributes: NetworkAttributes;
-  readonly active: boolean;
-  readonly ignored: boolean;
-  readonly nodeRefs: List<number>;
-  readonly routeRefs: List<number>;
-  readonly networkRefs: List<number>;
-  readonly facts: List<Fact>;
-  readonly tags: Tags;
-  readonly detail: NetworkInfoDetail;
 
-  constructor(attributes: NetworkAttributes,
-              active: boolean,
-              ignored: boolean,
-              nodeRefs: List<number>,
-              routeRefs: List<number>,
-              networkRefs: List<number>,
-              facts: List<Fact>,
-              tags: Tags,
-              detail: NetworkInfoDetail) {
-    this.attributes = attributes;
-    this.active = active;
-    this.ignored = ignored;
-    this.nodeRefs = nodeRefs;
-    this.routeRefs = routeRefs;
-    this.networkRefs = networkRefs;
-    this.facts = facts;
-    this.tags = tags;
-    this.detail = detail;
+  constructor(readonly attributes: NetworkAttributes,
+              readonly active: boolean,
+              readonly ignored: boolean,
+              readonly nodeRefs: List<number>,
+              readonly routeRefs: List<number>,
+              readonly networkRefs: List<number>,
+              readonly facts: List<Fact>,
+              readonly tags: Tags,
+              readonly detail: NetworkInfoDetail) {
   }
 
   public static fromJSON(jsonObject): NetworkInfo {

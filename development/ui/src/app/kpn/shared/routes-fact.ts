@@ -4,10 +4,8 @@ import {List} from 'immutable';
 import {Ref} from './common/ref';
 
 export class RoutesFact {
-  readonly routes: List<Ref>;
 
-  constructor(routes: List<Ref>) {
-    this.routes = routes;
+  constructor(readonly routes: List<Ref>) {
   }
 
   public static fromJSON(jsonObject): RoutesFact {

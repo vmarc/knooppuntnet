@@ -5,43 +5,19 @@ import {NetworkAttributes} from '../network/network-attributes';
 import {SubsetInfo} from './subset-info';
 
 export class SubsetNetworksPage {
-  readonly subsetInfo: SubsetInfo;
-  readonly km: string;
-  readonly networkCount: number;
-  readonly nodeCount: number;
-  readonly routeCount: number;
-  readonly brokenRouteNetworkCount: number;
-  readonly brokenRouteNetworkPercentage: string;
-  readonly brokenRouteCount: number;
-  readonly brokenRoutePercentage: string;
-  readonly unaccessibleRouteCount: number;
-  readonly analysisUpdatedTime: string;
-  readonly networks: List<NetworkAttributes>;
 
-  constructor(subsetInfo: SubsetInfo,
-              km: string,
-              networkCount: number,
-              nodeCount: number,
-              routeCount: number,
-              brokenRouteNetworkCount: number,
-              brokenRouteNetworkPercentage: string,
-              brokenRouteCount: number,
-              brokenRoutePercentage: string,
-              unaccessibleRouteCount: number,
-              analysisUpdatedTime: string,
-              networks: List<NetworkAttributes>) {
-    this.subsetInfo = subsetInfo;
-    this.km = km;
-    this.networkCount = networkCount;
-    this.nodeCount = nodeCount;
-    this.routeCount = routeCount;
-    this.brokenRouteNetworkCount = brokenRouteNetworkCount;
-    this.brokenRouteNetworkPercentage = brokenRouteNetworkPercentage;
-    this.brokenRouteCount = brokenRouteCount;
-    this.brokenRoutePercentage = brokenRoutePercentage;
-    this.unaccessibleRouteCount = unaccessibleRouteCount;
-    this.analysisUpdatedTime = analysisUpdatedTime;
-    this.networks = networks;
+  constructor(readonly subsetInfo: SubsetInfo,
+              readonly km: string,
+              readonly networkCount: number,
+              readonly nodeCount: number,
+              readonly routeCount: number,
+              readonly brokenRouteNetworkCount: number,
+              readonly brokenRouteNetworkPercentage: string,
+              readonly brokenRouteCount: number,
+              readonly brokenRoutePercentage: string,
+              readonly unaccessibleRouteCount: number,
+              readonly analysisUpdatedTime: string,
+              readonly networks: List<NetworkAttributes>) {
   }
 
   public static fromJSON(jsonObject): SubsetNetworksPage {

@@ -3,13 +3,9 @@
 import {Ref} from '../../common/ref';
 
 export class RefBooleanChange {
-  readonly ref: Ref;
-  readonly after: boolean;
 
-  constructor(ref: Ref,
-              after: boolean) {
-    this.ref = ref;
-    this.after = after;
+  constructor(readonly ref: Ref,
+              readonly after: boolean) {
   }
 
   public static fromJSON(jsonObject): RefBooleanChange {

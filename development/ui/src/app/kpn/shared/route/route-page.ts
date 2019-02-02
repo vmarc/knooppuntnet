@@ -5,16 +5,10 @@ import {RouteInfo} from './route-info';
 import {RouteReferences} from './route-references';
 
 export class RoutePage {
-  readonly route: RouteInfo;
-  readonly references: RouteReferences;
-  readonly routeChangeInfos: RouteChangeInfos;
 
-  constructor(route: RouteInfo,
-              references: RouteReferences,
-              routeChangeInfos: RouteChangeInfos) {
-    this.route = route;
-    this.references = references;
-    this.routeChangeInfos = routeChangeInfos;
+  constructor(readonly route: RouteInfo,
+              readonly references: RouteReferences,
+              readonly routeChangeInfos: RouteChangeInfos) {
   }
 
   public static fromJSON(jsonObject): RoutePage {

@@ -7,19 +7,11 @@ import {RawWay} from './raw-way';
 import {Timestamp} from '../../timestamp';
 
 export class RawData {
-  readonly timestamp: Timestamp;
-  readonly nodes: List<RawNode>;
-  readonly ways: List<RawWay>;
-  readonly relations: List<RawRelation>;
 
-  constructor(timestamp: Timestamp,
-              nodes: List<RawNode>,
-              ways: List<RawWay>,
-              relations: List<RawRelation>) {
-    this.timestamp = timestamp;
-    this.nodes = nodes;
-    this.ways = ways;
-    this.relations = relations;
+  constructor(readonly timestamp: Timestamp,
+              readonly nodes: List<RawNode>,
+              readonly ways: List<RawWay>,
+              readonly relations: List<RawRelation>) {
   }
 
   public static fromJSON(jsonObject): RawData {

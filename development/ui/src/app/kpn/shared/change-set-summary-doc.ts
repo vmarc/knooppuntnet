@@ -3,16 +3,10 @@
 import {ChangeSetSummary} from './change-set-summary';
 
 export class ChangeSetSummaryDoc {
-  readonly _id: string;
-  readonly changeSetSummary: ChangeSetSummary;
-  readonly _rev: string;
 
-  constructor(_id: string,
-              changeSetSummary: ChangeSetSummary,
-              _rev: string) {
-    this._id = _id;
-    this.changeSetSummary = changeSetSummary;
-    this._rev = _rev;
+  constructor(readonly _id: string,
+              readonly changeSetSummary: ChangeSetSummary,
+              readonly _rev: string) {
   }
 
   public static fromJSON(jsonObject): ChangeSetSummaryDoc {

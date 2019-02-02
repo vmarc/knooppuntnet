@@ -6,16 +6,10 @@ import {NetworkFactRefs} from './network-fact-refs';
 import {SubsetInfo} from './subset-info';
 
 export class SubsetFactDetailsPage {
-  readonly subsetInfo: SubsetInfo;
-  readonly fact: Fact;
-  readonly networks: List<NetworkFactRefs>;
 
-  constructor(subsetInfo: SubsetInfo,
-              fact: Fact,
-              networks: List<NetworkFactRefs>) {
-    this.subsetInfo = subsetInfo;
-    this.fact = fact;
-    this.networks = networks;
+  constructor(readonly subsetInfo: SubsetInfo,
+              readonly fact: Fact,
+              readonly networks: List<NetworkFactRefs>) {
   }
 
   public static fromJSON(jsonObject): SubsetFactDetailsPage {

@@ -3,19 +3,11 @@
 import {NetworkType} from '../network-type';
 
 export class Reference {
-  readonly id: number;
-  readonly name: string;
-  readonly networkType: NetworkType;
-  readonly connection: boolean;
 
-  constructor(id: number,
-              name: string,
-              networkType: NetworkType,
-              connection: boolean) {
-    this.id = id;
-    this.name = name;
-    this.networkType = networkType;
-    this.connection = connection;
+  constructor(readonly id: number,
+              readonly name: string,
+              readonly networkType: NetworkType,
+              readonly connection: boolean) {
   }
 
   public static fromJSON(jsonObject): Reference {

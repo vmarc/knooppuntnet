@@ -3,16 +3,10 @@
 import {NetworkShape} from './network-shape';
 
 export class NetworkMapInfo {
-  readonly id: number;
-  readonly name: string;
-  readonly map: NetworkShape;
 
-  constructor(id: number,
-              name: string,
-              map: NetworkShape) {
-    this.id = id;
-    this.name = name;
-    this.map = map;
+  constructor(readonly id: number,
+              readonly name: string,
+              readonly map: NetworkShape) {
   }
 
   public static fromJSON(jsonObject): NetworkMapInfo {

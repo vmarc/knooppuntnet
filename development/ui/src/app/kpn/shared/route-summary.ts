@@ -7,37 +7,17 @@ import {Tags} from './data/tags';
 import {Timestamp} from './timestamp';
 
 export class RouteSummary {
-  readonly id: number;
-  readonly country: Country;
-  readonly networkType: NetworkType;
-  readonly name: string;
-  readonly meters: number;
-  readonly isBroken: boolean;
-  readonly wayCount: number;
-  readonly timestamp: Timestamp;
-  readonly nodeNames: List<string>;
-  readonly tags: Tags;
 
-  constructor(id: number,
-              country: Country,
-              networkType: NetworkType,
-              name: string,
-              meters: number,
-              isBroken: boolean,
-              wayCount: number,
-              timestamp: Timestamp,
-              nodeNames: List<string>,
-              tags: Tags) {
-    this.id = id;
-    this.country = country;
-    this.networkType = networkType;
-    this.name = name;
-    this.meters = meters;
-    this.isBroken = isBroken;
-    this.wayCount = wayCount;
-    this.timestamp = timestamp;
-    this.nodeNames = nodeNames;
-    this.tags = tags;
+  constructor(readonly id: number,
+              readonly country: Country,
+              readonly networkType: NetworkType,
+              readonly name: string,
+              readonly meters: number,
+              readonly isBroken: boolean,
+              readonly wayCount: number,
+              readonly timestamp: Timestamp,
+              readonly nodeNames: List<string>,
+              readonly tags: Tags) {
   }
 
   public static fromJSON(jsonObject): RouteSummary {

@@ -12,67 +12,27 @@ import {TagDiffs} from '../diff/tag-diffs';
 import {Tags} from '../data/tags';
 
 export class NodeChangeInfo {
-  readonly id: number;
-  readonly version: number;
-  readonly changeKey: ChangeKey;
-  readonly changeTags: Tags;
-  readonly comment: string;
-  readonly before: MetaData;
-  readonly after: MetaData;
-  readonly connectionChanges: List<RefBooleanChange>;
-  readonly roleConnectionChanges: List<RefBooleanChange>;
-  readonly definedInNetworkChanges: List<RefBooleanChange>;
-  readonly tagDiffs: TagDiffs;
-  readonly nodeMoved: NodeMoved;
-  readonly addedToRoute: List<Ref>;
-  readonly removedFromRoute: List<Ref>;
-  readonly addedToNetwork: List<Ref>;
-  readonly removedFromNetwork: List<Ref>;
-  readonly factDiffs: FactDiffs;
-  readonly facts: List<Fact>;
-  readonly happy: boolean;
-  readonly investigate: boolean;
 
-  constructor(id: number,
-              version: number,
-              changeKey: ChangeKey,
-              changeTags: Tags,
-              comment: string,
-              before: MetaData,
-              after: MetaData,
-              connectionChanges: List<RefBooleanChange>,
-              roleConnectionChanges: List<RefBooleanChange>,
-              definedInNetworkChanges: List<RefBooleanChange>,
-              tagDiffs: TagDiffs,
-              nodeMoved: NodeMoved,
-              addedToRoute: List<Ref>,
-              removedFromRoute: List<Ref>,
-              addedToNetwork: List<Ref>,
-              removedFromNetwork: List<Ref>,
-              factDiffs: FactDiffs,
-              facts: List<Fact>,
-              happy: boolean,
-              investigate: boolean) {
-    this.id = id;
-    this.version = version;
-    this.changeKey = changeKey;
-    this.changeTags = changeTags;
-    this.comment = comment;
-    this.before = before;
-    this.after = after;
-    this.connectionChanges = connectionChanges;
-    this.roleConnectionChanges = roleConnectionChanges;
-    this.definedInNetworkChanges = definedInNetworkChanges;
-    this.tagDiffs = tagDiffs;
-    this.nodeMoved = nodeMoved;
-    this.addedToRoute = addedToRoute;
-    this.removedFromRoute = removedFromRoute;
-    this.addedToNetwork = addedToNetwork;
-    this.removedFromNetwork = removedFromNetwork;
-    this.factDiffs = factDiffs;
-    this.facts = facts;
-    this.happy = happy;
-    this.investigate = investigate;
+  constructor(readonly id: number,
+              readonly version: number,
+              readonly changeKey: ChangeKey,
+              readonly changeTags: Tags,
+              readonly comment: string,
+              readonly before: MetaData,
+              readonly after: MetaData,
+              readonly connectionChanges: List<RefBooleanChange>,
+              readonly roleConnectionChanges: List<RefBooleanChange>,
+              readonly definedInNetworkChanges: List<RefBooleanChange>,
+              readonly tagDiffs: TagDiffs,
+              readonly nodeMoved: NodeMoved,
+              readonly addedToRoute: List<Ref>,
+              readonly removedFromRoute: List<Ref>,
+              readonly addedToNetwork: List<Ref>,
+              readonly removedFromNetwork: List<Ref>,
+              readonly factDiffs: FactDiffs,
+              readonly facts: List<Fact>,
+              readonly happy: boolean,
+              readonly investigate: boolean) {
   }
 
   public static fromJSON(jsonObject): NodeChangeInfo {

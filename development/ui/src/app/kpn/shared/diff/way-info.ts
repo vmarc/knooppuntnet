@@ -4,22 +4,12 @@ import {Tags} from '../data/tags';
 import {Timestamp} from '../timestamp';
 
 export class WayInfo {
-  readonly id: number;
-  readonly version: number;
-  readonly changeSetId: number;
-  readonly timestamp: Timestamp;
-  readonly tags: Tags;
 
-  constructor(id: number,
-              version: number,
-              changeSetId: number,
-              timestamp: Timestamp,
-              tags: Tags) {
-    this.id = id;
-    this.version = version;
-    this.changeSetId = changeSetId;
-    this.timestamp = timestamp;
-    this.tags = tags;
+  constructor(readonly id: number,
+              readonly version: number,
+              readonly changeSetId: number,
+              readonly timestamp: Timestamp,
+              readonly tags: Tags) {
   }
 
   public static fromJSON(jsonObject): WayInfo {

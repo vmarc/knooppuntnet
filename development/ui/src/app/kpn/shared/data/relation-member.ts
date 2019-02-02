@@ -3,13 +3,9 @@
 import {Relation} from './relation';
 
 export class RelationMember {
-  readonly relation: Relation;
-  readonly role: string;
 
-  constructor(relation: Relation,
-              role: string) {
-    this.relation = relation;
-    this.role = role;
+  constructor(readonly relation: Relation,
+              readonly role: string) {
   }
 
   public static fromJSON(jsonObject): RelationMember {

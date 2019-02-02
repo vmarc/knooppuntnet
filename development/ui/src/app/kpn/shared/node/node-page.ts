@@ -5,16 +5,10 @@ import {NodeInfo} from '../node-info';
 import {NodeReferences} from './node-references';
 
 export class NodePage {
-  readonly nodeInfo: NodeInfo;
-  readonly references: NodeReferences;
-  readonly nodeChanges: NodeChangeInfos;
 
-  constructor(nodeInfo: NodeInfo,
-              references: NodeReferences,
-              nodeChanges: NodeChangeInfos) {
-    this.nodeInfo = nodeInfo;
-    this.references = references;
-    this.nodeChanges = nodeChanges;
+  constructor(readonly nodeInfo: NodeInfo,
+              readonly references: NodeReferences,
+              readonly nodeChanges: NodeChangeInfos) {
   }
 
   public static fromJSON(jsonObject): NodePage {

@@ -3,13 +3,9 @@
 import {List} from 'immutable';
 
 export class ToStringBuilder {
-  readonly className: string;
-  readonly strings: List<string>;
 
-  constructor(className: string,
-              strings: List<string>) {
-    this.className = className;
-    this.strings = strings;
+  constructor(readonly className: string,
+              readonly strings: List<string>) {
   }
 
   public static fromJSON(jsonObject): ToStringBuilder {

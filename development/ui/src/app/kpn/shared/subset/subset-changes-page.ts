@@ -6,19 +6,11 @@ import {ChangesFilter} from '../changes/filter/changes-filter';
 import {SubsetInfo} from './subset-info';
 
 export class SubsetChangesPage {
-  readonly subsetInfo: SubsetInfo;
-  readonly filter: ChangesFilter;
-  readonly changes: List<ChangeSetSummaryInfo>;
-  readonly totalCount: number;
 
-  constructor(subsetInfo: SubsetInfo,
-              filter: ChangesFilter,
-              changes: List<ChangeSetSummaryInfo>,
-              totalCount: number) {
-    this.subsetInfo = subsetInfo;
-    this.filter = filter;
-    this.changes = changes;
-    this.totalCount = totalCount;
+  constructor(readonly subsetInfo: SubsetInfo,
+              readonly filter: ChangesFilter,
+              readonly changes: List<ChangeSetSummaryInfo>,
+              readonly totalCount: number) {
   }
 
   public static fromJSON(jsonObject): SubsetChangesPage {

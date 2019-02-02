@@ -5,19 +5,11 @@ import {NetworkNodeInfo2} from './network-node-info2';
 import {NetworkSummary} from './network-summary';
 
 export class NetworkMapPage {
-  readonly networkSummary: NetworkSummary;
-  readonly nodes: List<NetworkNodeInfo2>;
-  readonly nodeIds: List<number>;
-  readonly routeIds: List<number>;
 
-  constructor(networkSummary: NetworkSummary,
-              nodes: List<NetworkNodeInfo2>,
-              nodeIds: List<number>,
-              routeIds: List<number>) {
-    this.networkSummary = networkSummary;
-    this.nodes = nodes;
-    this.nodeIds = nodeIds;
-    this.routeIds = routeIds;
+  constructor(readonly networkSummary: NetworkSummary,
+              readonly nodes: List<NetworkNodeInfo2>,
+              readonly nodeIds: List<number>,
+              readonly routeIds: List<number>) {
   }
 
   public static fromJSON(jsonObject): NetworkMapPage {

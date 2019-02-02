@@ -4,16 +4,10 @@ import {NetworkType} from './network-type';
 import {NodeIntegrityCheck} from './node-integrity-check';
 
 export class NodeIntegrityCheckChange {
-  readonly networkType: NetworkType;
-  readonly before: NodeIntegrityCheck;
-  readonly after: NodeIntegrityCheck;
 
-  constructor(networkType: NetworkType,
-              before: NodeIntegrityCheck,
-              after: NodeIntegrityCheck) {
-    this.networkType = networkType;
-    this.before = before;
-    this.after = after;
+  constructor(readonly networkType: NetworkType,
+              readonly before: NodeIntegrityCheck,
+              readonly after: NodeIntegrityCheck) {
   }
 
   public static fromJSON(jsonObject): NodeIntegrityCheckChange {

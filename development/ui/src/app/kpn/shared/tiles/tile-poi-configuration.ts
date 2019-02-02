@@ -4,10 +4,8 @@ import {List} from 'immutable';
 import {TilePoiGroup} from './tile-poi-group';
 
 export class TilePoiConfiguration {
-  readonly groups: List<TilePoiGroup>;
 
-  constructor(groups: List<TilePoiGroup>) {
-    this.groups = groups;
+  constructor(readonly groups: List<TilePoiGroup>) {
   }
 
   public static fromJSON(jsonObject): TilePoiConfiguration {

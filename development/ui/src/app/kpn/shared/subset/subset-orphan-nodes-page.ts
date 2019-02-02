@@ -6,16 +6,10 @@ import {SubsetInfo} from './subset-info';
 import {TimeInfo} from '../time-info';
 
 export class SubsetOrphanNodesPage {
-  readonly timeInfo: TimeInfo;
-  readonly subsetInfo: SubsetInfo;
-  readonly rows: List<NodeInfo>;
 
-  constructor(timeInfo: TimeInfo,
-              subsetInfo: SubsetInfo,
-              rows: List<NodeInfo>) {
-    this.timeInfo = timeInfo;
-    this.subsetInfo = subsetInfo;
-    this.rows = rows;
+  constructor(readonly timeInfo: TimeInfo,
+              readonly subsetInfo: SubsetInfo,
+              readonly rows: List<NodeInfo>) {
   }
 
   public static fromJSON(jsonObject): SubsetOrphanNodesPage {

@@ -4,13 +4,9 @@ import {List} from 'immutable';
 import {RouteChangeInfo} from './route-change-info';
 
 export class RouteChangeInfos {
-  readonly changes: List<RouteChangeInfo>;
-  readonly incompleteWarning: boolean;
 
-  constructor(changes: List<RouteChangeInfo>,
-              incompleteWarning: boolean) {
-    this.changes = changes;
-    this.incompleteWarning = incompleteWarning;
+  constructor(readonly changes: List<RouteChangeInfo>,
+              readonly incompleteWarning: boolean) {
   }
 
   public static fromJSON(jsonObject): RouteChangeInfos {

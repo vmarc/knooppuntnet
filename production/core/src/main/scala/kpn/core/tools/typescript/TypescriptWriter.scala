@@ -70,22 +70,10 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
 
   private def writeClass(): Unit = {
     out.println(s"export class ${classInfo.className} {")
-    writeFields()
-    out.println()
     out.println()
     writeConstructor()
     writeDeserializer()
     out.println("}")
-  }
-
-  private def writeFields(): Unit = {
-    val fields = classInfo.fields.map { field =>
-      val typeName = field.classType.typeName.replaceAll("Array<", "List<")
-      s"  readonly ${field.name}: $typeName;"
-    }
-    fields.mkString("\n").foreach {
-      out.print
-    }
   }
 
   private def writeConstructor(): Unit = {
@@ -94,18 +82,16 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
       s"${field.name}: $typeName"
     }
     out.print(s"  constructor(")
-    fields.mkString("", ",\n              ", ") {\n").foreach {
-      out.print
+    if (fields.isEmpty) {
+      out.println(") {")
+    }
+    else {
+      fields.mkString("readonly ", ",\n              readonly ", ") {\n").foreach {
+        out.print
+      }
     }
 
-    val fields2 = classInfo.fields.map { field =>
-      s"    this.${field.name} = ${field.name};"
-    }
-    fields2.mkString("\n").foreach {
-      out.print
-    }
-
-    out.println("\n  }\n")
+    out.println("  }\n")
   }
 
   private def writeDeserializer(): Unit = {

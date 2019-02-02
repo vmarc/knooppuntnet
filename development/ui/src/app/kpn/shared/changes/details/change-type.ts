@@ -1,10 +1,8 @@
 // this class is generated, please do not modify
 
 export class ChangeType {
-  readonly name: string;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(readonly name: string) {
   }
 
   public static fromJSON(jsonObject): ChangeType {

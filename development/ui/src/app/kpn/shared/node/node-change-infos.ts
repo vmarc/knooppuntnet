@@ -4,16 +4,10 @@ import {List} from 'immutable';
 import {NodeChangeInfo} from './node-change-info';
 
 export class NodeChangeInfos {
-  readonly changes: List<NodeChangeInfo>;
-  readonly incompleteWarning: boolean;
-  readonly more: boolean;
 
-  constructor(changes: List<NodeChangeInfo>,
-              incompleteWarning: boolean,
-              more: boolean) {
-    this.changes = changes;
-    this.incompleteWarning = incompleteWarning;
-    this.more = more;
+  constructor(readonly changes: List<NodeChangeInfo>,
+              readonly incompleteWarning: boolean,
+              readonly more: boolean) {
   }
 
   public static fromJSON(jsonObject): NodeChangeInfos {

@@ -1,10 +1,8 @@
 // this class is generated, please do not modify
 
 export class NetworkSizeEstimate {
-  readonly nodeCount: number;
 
-  constructor(nodeCount: number) {
-    this.nodeCount = nodeCount;
+  constructor(readonly nodeCount: number) {
   }
 
   public static fromJSON(jsonObject): NetworkSizeEstimate {

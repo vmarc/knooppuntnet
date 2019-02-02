@@ -3,13 +3,9 @@
 import {RawRelation} from '../data/raw/raw-relation';
 
 export class NetworkData {
-  readonly relation: RawRelation;
-  readonly name: string;
 
-  constructor(relation: RawRelation,
-              name: string) {
-    this.relation = relation;
-    this.name = name;
+  constructor(readonly relation: RawRelation,
+              readonly name: string) {
   }
 
   public static fromJSON(jsonObject): NetworkData {

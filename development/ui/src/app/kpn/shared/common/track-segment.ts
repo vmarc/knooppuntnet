@@ -4,13 +4,9 @@ import {List} from 'immutable';
 import {TrackPoint} from './track-point';
 
 export class TrackSegment {
-  readonly surface: string;
-  readonly trackPoints: List<TrackPoint>;
 
-  constructor(surface: string,
-              trackPoints: List<TrackPoint>) {
-    this.surface = surface;
-    this.trackPoints = trackPoints;
+  constructor(readonly surface: string,
+              readonly trackPoints: List<TrackPoint>) {
   }
 
   public static fromJSON(jsonObject): TrackSegment {

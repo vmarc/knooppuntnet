@@ -7,19 +7,11 @@ import {NodeChange} from './details/node-change';
 import {RouteChange} from './details/route-change';
 
 export class ChangeSetData {
-  readonly summary: ChangeSetSummary;
-  readonly networkChanges: List<NetworkChange>;
-  readonly routeChanges: List<RouteChange>;
-  readonly nodeChanges: List<NodeChange>;
 
-  constructor(summary: ChangeSetSummary,
-              networkChanges: List<NetworkChange>,
-              routeChanges: List<RouteChange>,
-              nodeChanges: List<NodeChange>) {
-    this.summary = summary;
-    this.networkChanges = networkChanges;
-    this.routeChanges = routeChanges;
-    this.nodeChanges = nodeChanges;
+  constructor(readonly summary: ChangeSetSummary,
+              readonly networkChanges: List<NetworkChange>,
+              readonly routeChanges: List<RouteChange>,
+              readonly nodeChanges: List<NodeChange>) {
   }
 
   public static fromJSON(jsonObject): ChangeSetData {

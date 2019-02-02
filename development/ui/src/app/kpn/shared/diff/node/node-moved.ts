@@ -3,16 +3,10 @@
 import {LatLonImpl} from '../../lat-lon-impl';
 
 export class NodeMoved {
-  readonly before: LatLonImpl;
-  readonly after: LatLonImpl;
-  readonly distance: number;
 
-  constructor(before: LatLonImpl,
-              after: LatLonImpl,
-              distance: number) {
-    this.before = before;
-    this.after = after;
-    this.distance = distance;
+  constructor(readonly before: LatLonImpl,
+              readonly after: LatLonImpl,
+              readonly distance: number) {
   }
 
   public static fromJSON(jsonObject): NodeMoved {

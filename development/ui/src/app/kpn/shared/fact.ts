@@ -3,19 +3,11 @@
 import {FactLevel} from './fact-level';
 
 export class Fact {
-  readonly id: number;
-  readonly name: string;
-  readonly nlName: string;
-  readonly level: FactLevel;
 
-  constructor(id: number,
-              name: string,
-              nlName: string,
-              level: FactLevel) {
-    this.id = id;
-    this.name = name;
-    this.nlName = nlName;
-    this.level = level;
+  constructor(readonly id: number,
+              readonly name: string,
+              readonly nlName: string,
+              readonly level: FactLevel) {
   }
 
   public static fromJSON(jsonObject): Fact {

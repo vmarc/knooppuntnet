@@ -1,10 +1,8 @@
 // this class is generated, please do not modify
 
 export class NetworkExtraMemberWay {
-  readonly memberId: number;
 
-  constructor(memberId: number) {
-    this.memberId = memberId;
+  constructor(readonly memberId: number) {
   }
 
   public static fromJSON(jsonObject): NetworkExtraMemberWay {

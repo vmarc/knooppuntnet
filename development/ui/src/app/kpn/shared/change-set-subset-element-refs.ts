@@ -4,13 +4,9 @@ import {ChangeSetElementRefs} from './change-set-element-refs';
 import {Subset} from './subset';
 
 export class ChangeSetSubsetElementRefs {
-  readonly subset: Subset;
-  readonly elementRefs: ChangeSetElementRefs;
 
-  constructor(subset: Subset,
-              elementRefs: ChangeSetElementRefs) {
-    this.subset = subset;
-    this.elementRefs = elementRefs;
+  constructor(readonly subset: Subset,
+              readonly elementRefs: ChangeSetElementRefs) {
   }
 
   public static fromJSON(jsonObject): ChangeSetSubsetElementRefs {

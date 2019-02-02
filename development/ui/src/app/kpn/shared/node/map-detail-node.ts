@@ -4,13 +4,9 @@ import {NodeInfo} from '../node-info';
 import {NodeReferences} from './node-references';
 
 export class MapDetailNode {
-  readonly info: NodeInfo;
-  readonly references: NodeReferences;
 
-  constructor(info: NodeInfo,
-              references: NodeReferences) {
-    this.info = info;
-    this.references = references;
+  constructor(readonly info: NodeInfo,
+              readonly references: NodeReferences) {
   }
 
   public static fromJSON(jsonObject): MapDetailNode {

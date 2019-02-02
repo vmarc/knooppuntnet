@@ -1,13 +1,9 @@
 // this class is generated, please do not modify
 
 export class LatLonImpl {
-  readonly latitude: string;
-  readonly longitude: string;
 
-  constructor(latitude: string,
-              longitude: string) {
-    this.latitude = latitude;
-    this.longitude = longitude;
+  constructor(readonly latitude: string,
+              readonly longitude: string) {
   }
 
   public static fromJSON(jsonObject): LatLonImpl {

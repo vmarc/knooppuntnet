@@ -3,13 +3,9 @@
 import {Way} from './way';
 
 export class WayMember {
-  readonly way: Way;
-  readonly role: string;
 
-  constructor(way: Way,
-              role: string) {
-    this.way = way;
-    this.role = role;
+  constructor(readonly way: Way,
+              readonly role: string) {
   }
 
   public static fromJSON(jsonObject): WayMember {

@@ -4,16 +4,10 @@ import {Country} from '../country';
 import {RawNode} from '../data/raw/raw-node';
 
 export class NetworkNodeData {
-  readonly node: RawNode;
-  readonly name: string;
-  readonly country: Country;
 
-  constructor(node: RawNode,
-              name: string,
-              country: Country) {
-    this.node = node;
-    this.name = name;
-    this.country = country;
+  constructor(readonly node: RawNode,
+              readonly name: string,
+              readonly country: Country) {
   }
 
   public static fromJSON(jsonObject): NetworkNodeData {

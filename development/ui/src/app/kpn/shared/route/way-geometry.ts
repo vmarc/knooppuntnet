@@ -4,13 +4,9 @@ import {List} from 'immutable';
 import {LatLonImpl} from '../lat-lon-impl';
 
 export class WayGeometry {
-  readonly id: number;
-  readonly nodes: List<LatLonImpl>;
 
-  constructor(id: number,
-              nodes: List<LatLonImpl>) {
-    this.id = id;
-    this.nodes = nodes;
+  constructor(readonly id: number,
+              readonly nodes: List<LatLonImpl>) {
   }
 
   public static fromJSON(jsonObject): WayGeometry {

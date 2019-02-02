@@ -6,22 +6,12 @@ import {NetworkType} from '../network-type';
 import {Ref} from './ref';
 
 export class NetworkRefs {
-  readonly country: Country;
-  readonly networkType: NetworkType;
-  readonly networkRef: Ref;
-  readonly refType: string;
-  readonly refs: List<Ref>;
 
-  constructor(country: Country,
-              networkType: NetworkType,
-              networkRef: Ref,
-              refType: string,
-              refs: List<Ref>) {
-    this.country = country;
-    this.networkType = networkType;
-    this.networkRef = networkRef;
-    this.refType = refType;
-    this.refs = refs;
+  constructor(readonly country: Country,
+              readonly networkType: NetworkType,
+              readonly networkRef: Ref,
+              readonly refType: string,
+              readonly refs: List<Ref>) {
   }
 
   public static fromJSON(jsonObject): NetworkRefs {

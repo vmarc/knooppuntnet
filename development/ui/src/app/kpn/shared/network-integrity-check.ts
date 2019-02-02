@@ -1,13 +1,9 @@
 // this class is generated, please do not modify
 
 export class NetworkIntegrityCheck {
-  readonly count: number;
-  readonly failed: number;
 
-  constructor(count: number,
-              failed: number) {
-    this.count = count;
-    this.failed = failed;
+  constructor(readonly count: number,
+              readonly failed: number) {
   }
 
   public static fromJSON(jsonObject): NetworkIntegrityCheck {

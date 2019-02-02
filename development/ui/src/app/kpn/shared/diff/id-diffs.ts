@@ -3,16 +3,10 @@
 import {List} from 'immutable';
 
 export class IdDiffs {
-  readonly removed: List<number>;
-  readonly added: List<number>;
-  readonly updated: List<number>;
 
-  constructor(removed: List<number>,
-              added: List<number>,
-              updated: List<number>) {
-    this.removed = removed;
-    this.added = added;
-    this.updated = updated;
+  constructor(readonly removed: List<number>,
+              readonly added: List<number>,
+              readonly updated: List<number>) {
   }
 
   public static fromJSON(jsonObject): IdDiffs {

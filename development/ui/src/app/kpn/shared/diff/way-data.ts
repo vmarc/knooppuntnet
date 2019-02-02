@@ -5,13 +5,9 @@ import {RawNode} from '../data/raw/raw-node';
 import {RawWay} from '../data/raw/raw-way';
 
 export class WayData {
-  readonly way: RawWay;
-  readonly nodes: List<RawNode>;
 
-  constructor(way: RawWay,
-              nodes: List<RawNode>) {
-    this.way = way;
-    this.nodes = nodes;
+  constructor(readonly way: RawWay,
+              readonly nodes: List<RawNode>) {
   }
 
   public static fromJSON(jsonObject): WayData {

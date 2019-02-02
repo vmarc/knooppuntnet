@@ -4,13 +4,9 @@ import {List} from 'immutable';
 import {TilePoiDefinition} from './tile-poi-definition';
 
 export class TilePoiGroup {
-  readonly name: string;
-  readonly definitions: List<TilePoiDefinition>;
 
-  constructor(name: string,
-              definitions: List<TilePoiDefinition>) {
-    this.name = name;
-    this.definitions = definitions;
+  constructor(readonly name: string,
+              readonly definitions: List<TilePoiDefinition>) {
   }
 
   public static fromJSON(jsonObject): TilePoiGroup {

@@ -3,13 +3,9 @@
 import {Node} from './node';
 
 export class NodeMember {
-  readonly node: Node;
-  readonly role: string;
 
-  constructor(node: Node,
-              role: string) {
-    this.node = node;
-    this.role = role;
+  constructor(readonly node: Node,
+              readonly role: string) {
   }
 
   public static fromJSON(jsonObject): NodeMember {

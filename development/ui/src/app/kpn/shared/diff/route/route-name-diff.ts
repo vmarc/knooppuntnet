@@ -1,13 +1,9 @@
 // this class is generated, please do not modify
 
 export class RouteNameDiff {
-  readonly before: string;
-  readonly after: string;
 
-  constructor(before: string,
-              after: string) {
-    this.before = before;
-    this.after = after;
+  constructor(readonly before: string,
+              readonly after: string) {
   }
 
   public static fromJSON(jsonObject): RouteNameDiff {

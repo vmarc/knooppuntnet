@@ -1,16 +1,10 @@
 // this class is generated, please do not modify
 
 export class NodeNetworkIntegrityCheck {
-  readonly failed: boolean;
-  readonly expected: number;
-  readonly actual: number;
 
-  constructor(failed: boolean,
-              expected: number,
-              actual: number) {
-    this.failed = failed;
-    this.expected = expected;
-    this.actual = actual;
+  constructor(readonly failed: boolean,
+              readonly expected: number,
+              readonly actual: number) {
   }
 
   public static fromJSON(jsonObject): NodeNetworkIntegrityCheck {

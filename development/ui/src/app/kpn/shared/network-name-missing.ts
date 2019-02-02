@@ -2,9 +2,7 @@
 
 export class NetworkNameMissing {
 
-
   constructor() {
-
   }
 
   public static fromJSON(jsonObject): NetworkNameMissing {

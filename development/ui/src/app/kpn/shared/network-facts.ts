@@ -9,25 +9,13 @@ import {NetworkIntegrityCheckFailed} from './network-integrity-check-failed';
 import {NetworkNameMissing} from './network-name-missing';
 
 export class NetworkFacts {
-  readonly networkExtraMemberNode: List<NetworkExtraMemberNode>;
-  readonly networkExtraMemberWay: List<NetworkExtraMemberWay>;
-  readonly networkExtraMemberRelation: List<NetworkExtraMemberRelation>;
-  readonly integrityCheck: NetworkIntegrityCheck;
-  readonly integrityCheckFailed: NetworkIntegrityCheckFailed;
-  readonly nameMissing: NetworkNameMissing;
 
-  constructor(networkExtraMemberNode: List<NetworkExtraMemberNode>,
-              networkExtraMemberWay: List<NetworkExtraMemberWay>,
-              networkExtraMemberRelation: List<NetworkExtraMemberRelation>,
-              integrityCheck: NetworkIntegrityCheck,
-              integrityCheckFailed: NetworkIntegrityCheckFailed,
-              nameMissing: NetworkNameMissing) {
-    this.networkExtraMemberNode = networkExtraMemberNode;
-    this.networkExtraMemberWay = networkExtraMemberWay;
-    this.networkExtraMemberRelation = networkExtraMemberRelation;
-    this.integrityCheck = integrityCheck;
-    this.integrityCheckFailed = integrityCheckFailed;
-    this.nameMissing = nameMissing;
+  constructor(readonly networkExtraMemberNode: List<NetworkExtraMemberNode>,
+              readonly networkExtraMemberWay: List<NetworkExtraMemberWay>,
+              readonly networkExtraMemberRelation: List<NetworkExtraMemberRelation>,
+              readonly integrityCheck: NetworkIntegrityCheck,
+              readonly integrityCheckFailed: NetworkIntegrityCheckFailed,
+              readonly nameMissing: NetworkNameMissing) {
   }
 
   public static fromJSON(jsonObject): NetworkFacts {

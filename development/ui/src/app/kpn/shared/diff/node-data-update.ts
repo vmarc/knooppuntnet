@@ -5,19 +5,11 @@ import {NodeMoved} from './node/node-moved';
 import {TagDiffs} from './tag-diffs';
 
 export class NodeDataUpdate {
-  readonly before: NodeData;
-  readonly after: NodeData;
-  readonly tagDiffs: TagDiffs;
-  readonly nodeMoved: NodeMoved;
 
-  constructor(before: NodeData,
-              after: NodeData,
-              tagDiffs: TagDiffs,
-              nodeMoved: NodeMoved) {
-    this.before = before;
-    this.after = after;
-    this.tagDiffs = tagDiffs;
-    this.nodeMoved = nodeMoved;
+  constructor(readonly before: NodeData,
+              readonly after: NodeData,
+              readonly tagDiffs: TagDiffs,
+              readonly nodeMoved: NodeMoved) {
   }
 
   public static fromJSON(jsonObject): NodeDataUpdate {

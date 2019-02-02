@@ -3,13 +3,9 @@
 import {Bounds} from '../bounds';
 
 export class NetworkShape {
-  readonly bounds: Bounds;
-  readonly coordinates: string;
 
-  constructor(bounds: Bounds,
-              coordinates: string) {
-    this.bounds = bounds;
-    this.coordinates = coordinates;
+  constructor(readonly bounds: Bounds,
+              readonly coordinates: string) {
   }
 
   public static fromJSON(jsonObject): NetworkShape {

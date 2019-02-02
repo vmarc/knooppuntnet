@@ -3,19 +3,11 @@
 import {TagDetailType} from './tag-detail-type';
 
 export class TagDetail {
-  readonly action: TagDetailType;
-  readonly key: string;
-  readonly valueBefore: string;
-  readonly valueAfter: string;
 
-  constructor(action: TagDetailType,
-              key: string,
-              valueBefore: string,
-              valueAfter: string) {
-    this.action = action;
-    this.key = key;
-    this.valueBefore = valueBefore;
-    this.valueAfter = valueAfter;
+  constructor(readonly action: TagDetailType,
+              readonly key: string,
+              readonly valueBefore: string,
+              readonly valueAfter: string) {
   }
 
   public static fromJSON(jsonObject): TagDetail {

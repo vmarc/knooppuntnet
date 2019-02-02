@@ -5,31 +5,15 @@ import {Country} from './country';
 import {NetworkType} from './network-type';
 
 export class ChangeSetNetwork {
-  readonly country: Country;
-  readonly networkType: NetworkType;
-  readonly networkId: number;
-  readonly networkName: string;
-  readonly routeChanges: ChangeSetElementRefs;
-  readonly nodeChanges: ChangeSetElementRefs;
-  readonly happy: boolean;
-  readonly investigate: boolean;
 
-  constructor(country: Country,
-              networkType: NetworkType,
-              networkId: number,
-              networkName: string,
-              routeChanges: ChangeSetElementRefs,
-              nodeChanges: ChangeSetElementRefs,
-              happy: boolean,
-              investigate: boolean) {
-    this.country = country;
-    this.networkType = networkType;
-    this.networkId = networkId;
-    this.networkName = networkName;
-    this.routeChanges = routeChanges;
-    this.nodeChanges = nodeChanges;
-    this.happy = happy;
-    this.investigate = investigate;
+  constructor(readonly country: Country,
+              readonly networkType: NetworkType,
+              readonly networkId: number,
+              readonly networkName: string,
+              readonly routeChanges: ChangeSetElementRefs,
+              readonly nodeChanges: ChangeSetElementRefs,
+              readonly happy: boolean,
+              readonly investigate: boolean) {
   }
 
   public static fromJSON(jsonObject): ChangeSetNetwork {

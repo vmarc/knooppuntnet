@@ -3,13 +3,9 @@
 import {Fact} from './fact';
 
 export class FactCount {
-  readonly fact: Fact;
-  readonly count: number;
 
-  constructor(fact: Fact,
-              count: number) {
-    this.fact = fact;
-    this.count = count;
+  constructor(readonly fact: Fact,
+              readonly count: number) {
   }
 
   public static fromJSON(jsonObject): FactCount {

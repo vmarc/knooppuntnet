@@ -4,25 +4,13 @@ import {Tags} from '../data/tags';
 import {Timestamp} from '../timestamp';
 
 export class ChangeSetInfo {
-  readonly id: number;
-  readonly createdAt: Timestamp;
-  readonly closedAt: Timestamp;
-  readonly open: boolean;
-  readonly commentsCount: number;
-  readonly tags: Tags;
 
-  constructor(id: number,
-              createdAt: Timestamp,
-              closedAt: Timestamp,
-              open: boolean,
-              commentsCount: number,
-              tags: Tags) {
-    this.id = id;
-    this.createdAt = createdAt;
-    this.closedAt = closedAt;
-    this.open = open;
-    this.commentsCount = commentsCount;
-    this.tags = tags;
+  constructor(readonly id: number,
+              readonly createdAt: Timestamp,
+              readonly closedAt: Timestamp,
+              readonly open: boolean,
+              readonly commentsCount: number,
+              readonly tags: Tags) {
   }
 
   public static fromJSON(jsonObject): ChangeSetInfo {

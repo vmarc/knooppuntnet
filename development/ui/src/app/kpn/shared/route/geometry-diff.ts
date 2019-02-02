@@ -4,16 +4,10 @@ import {List} from 'immutable';
 import {PointSegment} from './point-segment';
 
 export class GeometryDiff {
-  readonly common: List<PointSegment>;
-  readonly before: List<PointSegment>;
-  readonly after: List<PointSegment>;
 
-  constructor(common: List<PointSegment>,
-              before: List<PointSegment>,
-              after: List<PointSegment>) {
-    this.common = common;
-    this.before = before;
-    this.after = after;
+  constructor(readonly common: List<PointSegment>,
+              readonly before: List<PointSegment>,
+              readonly after: List<PointSegment>) {
   }
 
   public static fromJSON(jsonObject): GeometryDiff {

@@ -3,19 +3,11 @@
 import {Timestamp} from './timestamp';
 
 export class TimeInfo {
-  readonly now: Timestamp;
-  readonly lastWeekStart: Timestamp;
-  readonly lastMonthStart: Timestamp;
-  readonly lastYearStart: Timestamp;
 
-  constructor(now: Timestamp,
-              lastWeekStart: Timestamp,
-              lastMonthStart: Timestamp,
-              lastYearStart: Timestamp) {
-    this.now = now;
-    this.lastWeekStart = lastWeekStart;
-    this.lastMonthStart = lastMonthStart;
-    this.lastYearStart = lastYearStart;
+  constructor(readonly now: Timestamp,
+              readonly lastWeekStart: Timestamp,
+              readonly lastMonthStart: Timestamp,
+              readonly lastYearStart: Timestamp) {
   }
 
   public static fromJSON(jsonObject): TimeInfo {

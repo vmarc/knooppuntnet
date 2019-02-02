@@ -5,25 +5,13 @@ import {Tags} from '../tags';
 import {Timestamp} from '../../timestamp';
 
 export class RawWay {
-  readonly id: number;
-  readonly version: number;
-  readonly timestamp: Timestamp;
-  readonly changeSetId: number;
-  readonly nodeIds: List<number>;
-  readonly tags: Tags;
 
-  constructor(id: number,
-              version: number,
-              timestamp: Timestamp,
-              changeSetId: number,
-              nodeIds: List<number>,
-              tags: Tags) {
-    this.id = id;
-    this.version = version;
-    this.timestamp = timestamp;
-    this.changeSetId = changeSetId;
-    this.nodeIds = nodeIds;
-    this.tags = tags;
+  constructor(readonly id: number,
+              readonly version: number,
+              readonly timestamp: Timestamp,
+              readonly changeSetId: number,
+              readonly nodeIds: List<number>,
+              readonly tags: Tags) {
   }
 
   public static fromJSON(jsonObject): RawWay {

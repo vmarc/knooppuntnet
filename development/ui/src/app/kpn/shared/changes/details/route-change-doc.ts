@@ -3,16 +3,10 @@
 import {RouteChange} from './route-change';
 
 export class RouteChangeDoc {
-  readonly _id: string;
-  readonly routeChange: RouteChange;
-  readonly _rev: string;
 
-  constructor(_id: string,
-              routeChange: RouteChange,
-              _rev: string) {
-    this._id = _id;
-    this.routeChange = routeChange;
-    this._rev = _rev;
+  constructor(readonly _id: string,
+              readonly routeChange: RouteChange,
+              readonly _rev: string) {
   }
 
   public static fromJSON(jsonObject): RouteChangeDoc {

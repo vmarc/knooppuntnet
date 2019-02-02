@@ -8,34 +8,16 @@ import {Subset} from './subset';
 import {Timestamp} from './timestamp';
 
 export class ChangeSetSummary {
-  readonly key: ChangeKey;
-  readonly subsets: List<Subset>;
-  readonly timestampFrom: Timestamp;
-  readonly timestampUntil: Timestamp;
-  readonly networkChanges: NetworkChanges;
-  readonly orphanRouteChanges: List<ChangeSetSubsetElementRefs>;
-  readonly orphanNodeChanges: List<ChangeSetSubsetElementRefs>;
-  readonly happy: boolean;
-  readonly investigate: boolean;
 
-  constructor(key: ChangeKey,
-              subsets: List<Subset>,
-              timestampFrom: Timestamp,
-              timestampUntil: Timestamp,
-              networkChanges: NetworkChanges,
-              orphanRouteChanges: List<ChangeSetSubsetElementRefs>,
-              orphanNodeChanges: List<ChangeSetSubsetElementRefs>,
-              happy: boolean,
-              investigate: boolean) {
-    this.key = key;
-    this.subsets = subsets;
-    this.timestampFrom = timestampFrom;
-    this.timestampUntil = timestampUntil;
-    this.networkChanges = networkChanges;
-    this.orphanRouteChanges = orphanRouteChanges;
-    this.orphanNodeChanges = orphanNodeChanges;
-    this.happy = happy;
-    this.investigate = investigate;
+  constructor(readonly key: ChangeKey,
+              readonly subsets: List<Subset>,
+              readonly timestampFrom: Timestamp,
+              readonly timestampUntil: Timestamp,
+              readonly networkChanges: NetworkChanges,
+              readonly orphanRouteChanges: List<ChangeSetSubsetElementRefs>,
+              readonly orphanNodeChanges: List<ChangeSetSubsetElementRefs>,
+              readonly happy: boolean,
+              readonly investigate: boolean) {
   }
 
   public static fromJSON(jsonObject): ChangeSetSummary {

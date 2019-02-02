@@ -3,16 +3,10 @@
 import {Timestamp} from '../timestamp';
 
 export class MetaData {
-  readonly version: number;
-  readonly timestamp: Timestamp;
-  readonly changeSetId: number;
 
-  constructor(version: number,
-              timestamp: Timestamp,
-              changeSetId: number) {
-    this.version = version;
-    this.timestamp = timestamp;
-    this.changeSetId = changeSetId;
+  constructor(readonly version: number,
+              readonly timestamp: Timestamp,
+              readonly changeSetId: number) {
   }
 
   public static fromJSON(jsonObject): MetaData {

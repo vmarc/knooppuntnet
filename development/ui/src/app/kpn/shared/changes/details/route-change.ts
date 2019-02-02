@@ -11,43 +11,19 @@ import {RouteDiff} from '../../diff/route/route-diff';
 import {WayUpdate} from '../../diff/way-update';
 
 export class RouteChange {
-  readonly key: ChangeKey;
-  readonly changeType: ChangeType;
-  readonly name: string;
-  readonly addedToNetwork: List<Ref>;
-  readonly removedFromNetwork: List<Ref>;
-  readonly before: RouteData;
-  readonly after: RouteData;
-  readonly removedWays: List<RawWay>;
-  readonly addedWays: List<RawWay>;
-  readonly updatedWays: List<WayUpdate>;
-  readonly diffs: RouteDiff;
-  readonly facts: List<Fact>;
 
-  constructor(key: ChangeKey,
-              changeType: ChangeType,
-              name: string,
-              addedToNetwork: List<Ref>,
-              removedFromNetwork: List<Ref>,
-              before: RouteData,
-              after: RouteData,
-              removedWays: List<RawWay>,
-              addedWays: List<RawWay>,
-              updatedWays: List<WayUpdate>,
-              diffs: RouteDiff,
-              facts: List<Fact>) {
-    this.key = key;
-    this.changeType = changeType;
-    this.name = name;
-    this.addedToNetwork = addedToNetwork;
-    this.removedFromNetwork = removedFromNetwork;
-    this.before = before;
-    this.after = after;
-    this.removedWays = removedWays;
-    this.addedWays = addedWays;
-    this.updatedWays = updatedWays;
-    this.diffs = diffs;
-    this.facts = facts;
+  constructor(readonly key: ChangeKey,
+              readonly changeType: ChangeType,
+              readonly name: string,
+              readonly addedToNetwork: List<Ref>,
+              readonly removedFromNetwork: List<Ref>,
+              readonly before: RouteData,
+              readonly after: RouteData,
+              readonly removedWays: List<RawWay>,
+              readonly addedWays: List<RawWay>,
+              readonly updatedWays: List<WayUpdate>,
+              readonly diffs: RouteDiff,
+              readonly facts: List<Fact>) {
   }
 
   public static fromJSON(jsonObject): RouteChange {

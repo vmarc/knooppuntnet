@@ -1,28 +1,14 @@
 // this class is generated, please do not modify
 
 export class SubsetInfo {
-  readonly country: string;
-  readonly networkType: string;
-  readonly networkCount: number;
-  readonly factCount: number;
-  readonly changesCount: number;
-  readonly orphanNodeCount: number;
-  readonly orphanRouteCount: number;
 
-  constructor(country: string,
-              networkType: string,
-              networkCount: number,
-              factCount: number,
-              changesCount: number,
-              orphanNodeCount: number,
-              orphanRouteCount: number) {
-    this.country = country;
-    this.networkType = networkType;
-    this.networkCount = networkCount;
-    this.factCount = factCount;
-    this.changesCount = changesCount;
-    this.orphanNodeCount = orphanNodeCount;
-    this.orphanRouteCount = orphanRouteCount;
+  constructor(readonly country: string,
+              readonly networkType: string,
+              readonly networkCount: number,
+              readonly factCount: number,
+              readonly changesCount: number,
+              readonly orphanNodeCount: number,
+              readonly orphanRouteCount: number) {
   }
 
   public static fromJSON(jsonObject): SubsetInfo {

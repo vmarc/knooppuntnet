@@ -7,49 +7,21 @@ import {TrackPoint} from '../common/track-point';
 import {TrackSegment} from '../common/track-segment';
 
 export class RouteMap {
-  readonly bounds: MapBounds;
-  readonly forwardSegments: List<TrackSegment>;
-  readonly backwardSegments: List<TrackSegment>;
-  readonly unusedSegments: List<TrackSegment>;
-  readonly startTentacles: List<TrackSegment>;
-  readonly endTentacles: List<TrackSegment>;
-  readonly forwardBreakPoint: TrackPoint;
-  readonly backwardBreakPoint: TrackPoint;
-  readonly startNodes: List<RouteNetworkNodeInfo>;
-  readonly endNodes: List<RouteNetworkNodeInfo>;
-  readonly startTentacleNodes: List<RouteNetworkNodeInfo>;
-  readonly endTentacleNodes: List<RouteNetworkNodeInfo>;
-  readonly redundantNodes: List<RouteNetworkNodeInfo>;
-  readonly halfWayPoints: List<TrackPoint>;
 
-  constructor(bounds: MapBounds,
-              forwardSegments: List<TrackSegment>,
-              backwardSegments: List<TrackSegment>,
-              unusedSegments: List<TrackSegment>,
-              startTentacles: List<TrackSegment>,
-              endTentacles: List<TrackSegment>,
-              forwardBreakPoint: TrackPoint,
-              backwardBreakPoint: TrackPoint,
-              startNodes: List<RouteNetworkNodeInfo>,
-              endNodes: List<RouteNetworkNodeInfo>,
-              startTentacleNodes: List<RouteNetworkNodeInfo>,
-              endTentacleNodes: List<RouteNetworkNodeInfo>,
-              redundantNodes: List<RouteNetworkNodeInfo>,
-              halfWayPoints: List<TrackPoint>) {
-    this.bounds = bounds;
-    this.forwardSegments = forwardSegments;
-    this.backwardSegments = backwardSegments;
-    this.unusedSegments = unusedSegments;
-    this.startTentacles = startTentacles;
-    this.endTentacles = endTentacles;
-    this.forwardBreakPoint = forwardBreakPoint;
-    this.backwardBreakPoint = backwardBreakPoint;
-    this.startNodes = startNodes;
-    this.endNodes = endNodes;
-    this.startTentacleNodes = startTentacleNodes;
-    this.endTentacleNodes = endTentacleNodes;
-    this.redundantNodes = redundantNodes;
-    this.halfWayPoints = halfWayPoints;
+  constructor(readonly bounds: MapBounds,
+              readonly forwardSegments: List<TrackSegment>,
+              readonly backwardSegments: List<TrackSegment>,
+              readonly unusedSegments: List<TrackSegment>,
+              readonly startTentacles: List<TrackSegment>,
+              readonly endTentacles: List<TrackSegment>,
+              readonly forwardBreakPoint: TrackPoint,
+              readonly backwardBreakPoint: TrackPoint,
+              readonly startNodes: List<RouteNetworkNodeInfo>,
+              readonly endNodes: List<RouteNetworkNodeInfo>,
+              readonly startTentacleNodes: List<RouteNetworkNodeInfo>,
+              readonly endTentacleNodes: List<RouteNetworkNodeInfo>,
+              readonly redundantNodes: List<RouteNetworkNodeInfo>,
+              readonly halfWayPoints: List<TrackPoint>) {
   }
 
   public static fromJSON(jsonObject): RouteMap {

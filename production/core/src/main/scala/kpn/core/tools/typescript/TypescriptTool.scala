@@ -22,6 +22,7 @@ class TypescriptTool() {
 
   val ignoredClasses = Seq(
     "ApiResponse",
+    "Subset",
     "Country",
     "NetworkType",
     "Timestamp",
