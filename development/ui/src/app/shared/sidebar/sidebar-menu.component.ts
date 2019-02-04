@@ -5,8 +5,8 @@ import {Component, Input} from '@angular/core';
   template: `
     <mat-nav-list>
       <mat-list-item (click)="toggleOpen()">
-        <mat-icon *ngIf="open" mat-list-icon>arrow_drop_down</mat-icon>
-        <mat-icon *ngIf="!open" mat-list-icon>arrow_right</mat-icon>
+        <mat-icon svgIcon="expand"*ngIf="open" mat-list-icon></mat-icon>
+        <mat-icon svgIcon="collapse"*ngIf="!open" mat-list-icon></mat-icon>
         <span>{{title}}</span>
       </mat-list-item>
       <mat-nav-list *ngIf="open">
@@ -15,6 +15,14 @@ import {Component, Input} from '@angular/core';
     </mat-nav-list>
   `,
   styles: [`
+
+    /deep/ .mat-list-icon > svg {
+      width: 12px;
+      height: 12px;
+      vertical-align: top;
+      padding-top: 7px;
+    }
+    
     /deep/ .mat-nav-list {
       padding-top: 0 !important;
     }

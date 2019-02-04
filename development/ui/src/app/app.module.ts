@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {MatCardModule, MatGridListModule} from "@angular/material";
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LayoutModule} from '@angular/cdk/layout';
@@ -14,6 +13,7 @@ import {UserService} from "./user.service";
 import {CookieService} from "ngx-cookie-service";
 import {MarkdownModule} from "ngx-markdown";
 import {PageService} from "./shared/page.service";
+import {IconService} from "./icon.service";
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import {PageService} from "./shared/page.service";
     CookieService,
     UserService,
     AppService,
-    PageService
+    PageService,
+    IconService
   ],
   bootstrap: [
     AppComponent

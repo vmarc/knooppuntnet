@@ -5,8 +5,8 @@ import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
 @Component({
   selector: 'kpn-subset-network-happy',
   template: `
-    <mat-icon *ngIf="interpretedNetwork.happy()">sentiment_satisfied_alt</mat-icon>
-    <mat-icon *ngIf="interpretedNetwork.veryHappy()">sentiment_satisfied_alt</mat-icon>
+    <mat-icon svgIcon="happy" *ngIf="interpretedNetwork.happy()"></mat-icon>
+    <mat-icon svgIcon="happy" *ngIf="interpretedNetwork.veryHappy()"></mat-icon>
   `,
   styles: [`
     mat-icon {

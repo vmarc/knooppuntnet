@@ -17,8 +17,8 @@ import {ChangeSetNetwork} from "../../../kpn/shared/change-set-network";
           class="kpn-thick">
         </kpn-link-changeset>
         <kpn-timestamp [timestamp]="changeSet.summary.key.timestamp" class="kpn-thin"></kpn-timestamp>
-        <mat-icon *ngIf="changeSet.summary.happy">sentiment_satisfied_alt</mat-icon>
-        <mat-icon *ngIf="changeSet.summary.investigate">error_outline</mat-icon>
+        <mat-icon svgIcon="happy" *ngIf="changeSet.summary.happy"></mat-icon>
+        <mat-icon svgIcon="investigate" *ngIf="changeSet.summary.investigate"></mat-icon>
       </div>
 
       <div *ngIf="changeSet.comment" class="comment">

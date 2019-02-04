@@ -12,32 +12,38 @@ import {Component} from '@angular/core';
       <mat-card-content>
         <div>
           <a routerLink="{{'/planner/map/rcn'}}">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rcn"></mat-icon>
             <span>Cycling</span>
           </a>
         </div>
         <div>
           <a routerLink="{{'/planner/map/rwn'}}">
-            <mat-icon>directions_walk</mat-icon>
+            <mat-icon svgIcon="rwn"></mat-icon>
             <span>Hiking</span>
           </a>
         </div>
         <div>
           <a routerLink="{{'/planner/map/rhn'}}">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rhn"></mat-icon>
             <span>Horse</span>
           </a>
         </div>
         <div>
           <a routerLink="{{'/planner/map/rmn'}}">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rmn"></mat-icon>
             <span>Motorboat</span>
           </a>
         </div>
         <div>
           <a routerLink="{{'/planner/map/rpn'}}">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rcn"></mat-icon>
             <span>Canoe</span>
+          </a>
+        </div>
+        <div>
+          <a routerLink="{{'/planner/map/rpn'}}">
+            <mat-icon svgIcon="rin"></mat-icon>
+            <span>Inline skates</span>
           </a>
         </div>
       </mat-card-content>

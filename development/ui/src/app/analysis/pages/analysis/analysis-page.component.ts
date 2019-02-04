@@ -15,32 +15,38 @@ import {PageService} from "../../../shared/page.service";
         </div>
         <div>
           <a routerLink="/analysis/networks/nl/rcn">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rcn"></mat-icon>
             <span>Cycling</span>
           </a>
         </div>
         <div>
           <a routerLink="/analysis/networks/nl/rwn">
-            <mat-icon>directions_walk</mat-icon>
+            <mat-icon svgIcon="rwn"></mat-icon>
             <span>Hiking</span>
           </a>
         </div>
         <div>
           <a routerLink="/analysis/networks/nl/rhn">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rhn"></mat-icon>
             <span>Horse</span>
           </a>
         </div>
         <div>
           <a routerLink="{{'/analysis/networks/nl/rmn'}}">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rmn"></mat-icon>
             <span>Motorboat</span>
           </a>
         </div>
         <div>
           <a routerLink="/analysis/networks/nl/rpn">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rcn"></mat-icon>
             <span>Canoe</span>
+          </a>
+        </div>
+        <div>
+          <a routerLink="/analysis/networks/nl/rin">
+            <mat-icon svgIcon="rin"></mat-icon>
+            <span>Inline skates</span>
           </a>
         </div>
       </div>
@@ -50,13 +56,13 @@ import {PageService} from "../../../shared/page.service";
         </div>
         <div>
           <a routerLink="analysis/networks/be/rcn">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rcn"></mat-icon>
             <span>Cycling</span>
           </a>
         </div>
         <div>
           <a routerLink="/analysis/networks/be/rwn">
-            <mat-icon>directions_walk</mat-icon>
+            <mat-icon svgIcon="rwn"></mat-icon>
             <span>Hiking</span>
           </a>
         </div>
@@ -65,7 +71,7 @@ import {PageService} from "../../../shared/page.service";
         </div>
         <div>
           <a routerLink="/analysis/networks/de/rcn">
-            <mat-icon>directions_bike</mat-icon>
+            <mat-icon svgIcon="rcn"></mat-icon>
             <span>Cycling</span>
           </a>
         </div>

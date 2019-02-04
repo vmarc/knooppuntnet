@@ -6,28 +6,10 @@ import {PageService} from "../page.service";
   template: `
     <mat-toolbar>
       <button mat-icon-button (click)="toggleSidebarOpen()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon svgIcon="menu"></mat-icon>
       </button>
       <button mat-button routerLink="/" class="toolbar-app-name"><h1>Knooppuntnet</h1></button>
       <span class="toolbar-spacer"></span>
-      <button mat-icon-button>
-        <mat-icon>directions_bike</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>directions_walk</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>my_location</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>map</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>place</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>more_vert</mat-icon>
-      </button>
     </mat-toolbar>
   `,
   styles: [`

@@ -9,14 +9,14 @@ import {PageService} from "../../../shared/page.service";
     </h1>
 
     <div class="kpn-line">
-      <mat-icon>directions_bike</mat-icon>
+      <mat-icon svgIcon="planner"></mat-icon>
       <a routerLink="/planner">
         <span>Planner</span>
       </a>
     </div>
 
     <div class="kpn-line">
-      <mat-icon>directions_bike</mat-icon>
+      <mat-icon svgIcon="analysis"></mat-icon>
       <a routerLink="/analysis">
         <span>Analysis</span>
       </a>

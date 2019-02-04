@@ -10,7 +10,7 @@ import {Ref} from "../../../../kpn/shared/common/ref";
       <div class="kpn-line kpn-level-2-header">
         <span class="kpn-thick">Removed network nodes</span> <!-- Verwijderde knooppunten -->
         <span>({{nodeRefs.size}})</span>
-        <mat-icon>error_outline</mat-icon>
+        <mat-icon svgIcon="investigate"></mat-icon>
       </div>
       <div class="kpn-level-2-body">
         <div *ngFor="let nodeRef of nodeRefs" class="kpn-level-3">
