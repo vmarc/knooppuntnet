@@ -24,15 +24,15 @@ export class AnalysisSidebarComponent {
   }
 
   get showSubsetsMenu() {
-    return this.pageService.showSubsetsMenu;
+    return false; // TODO cleanup: this.pageService.showSubsetsMenu;
   }
 
   get showSubsetMenu() {
-    return this.pageService.showSubsetMenu;
+    return false; // TODO cleanup: this.pageService.showSubsetMenu;
   }
 
   get showNetworkMenu() {
-    return this.pageService.showNetworkMenu;
+    return false; // TODO cleanup: this.pageService.showNetworkMenu;
   }
 
 }

@@ -20,7 +20,7 @@ export class IndicatorComponent {
   @Input() letter;
   @Input() color;
 
-  @Output() openDialog = new EventEmitter();
+  @Output() openDialog = new EventEmitter<void>();
 
   onOpenDialog() {
     this.openDialog.emit();

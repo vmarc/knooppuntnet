@@ -11,12 +11,12 @@ import {SubsetNetworksPageComponent} from './pages/subset-networks/subset-networ
 import {SubsetFactsPageComponent} from './pages/subset-facts/subset-facts-page.component';
 import {SubsetFactDetailsPageComponent} from './pages/subset-fact-details/subset-fact-details-page.component';
 import {ChangeSetPageComponent} from './pages/changeset/_change-set-page.component';
-import {NetworkNodesPageComponent} from './pages/network-nodes/network-nodes-page.component';
-import {NetworkRoutesPageComponent} from './pages/network-routes/network-routes-page.component';
-import {NetworkDetailsPageComponent} from './pages/network-details/network-details-page.component';
-import {NetworkChangesPageComponent} from './pages/network-changes/network-changes-page.component';
-import {NetworkMapPageComponent} from './pages/network-map/network-map-page.component';
-import {NetworkFactsPageComponent} from './pages/network-facts/network-facts-page.component';
+import {NetworkNodesPageComponent} from './pages/network/nodes/_network-nodes-page.component';
+import {NetworkRoutesPageComponent} from './pages/network/routes/_network-routes-page.component';
+import {NetworkDetailsPageComponent} from './pages/network/details/_network-details-page.component';
+import {NetworkChangesPageComponent} from './pages/network/changes/_network-changes-page.component';
+import {NetworkMapPageComponent} from './pages/network/map/_network-map-page.component';
+import {NetworkFactsPageComponent} from './pages/network/facts/_network-facts-page.component';
 import {OverviewPageComponent} from './pages/overview/overview-page.component';
 import {KpnMaterialModule} from "../material/kpn-material.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
@@ -25,9 +25,9 @@ import {MapModule} from "../map/map.module";
 import {NodeSummaryComponent} from "./pages/node/node-summary.component";
 import {NodeNetworksComponent} from "./pages/node/node-networks.component";
 import {NodeRoutesComponent} from "./pages/node/node-routes.component";
-import {NetworkNodeTableComponent} from "./pages/network-nodes/network-node-table.component";
-import {NetworkNodeAnalysisComponent} from "./pages/network-nodes/network-node-analysis.component";
-import {NetworkNodeRoutesComponent} from "./pages/network-nodes/network-node-routes.component";
+import {NetworkNodeTableComponent} from "./pages/network/nodes/network-node-table.component";
+import {NetworkNodeAnalysisComponent} from "./pages/network/nodes/network-node-analysis.component";
+import {NetworkNodeRoutesComponent} from "./pages/network/nodes/network-node-routes.component";
 import {SubsetNetworkListComponent} from './pages/subset-networks/subset-network-list.component';
 import {SubsetNetworkTableComponent} from './pages/subset-networks/subset-network-table.component';
 import {SubsetNetworkComponent} from './pages/subset-networks/subset-network.component';
@@ -89,16 +89,16 @@ import {FactWasOrphanComponent} from './fact/descriptions/fact-was-orphan.compon
 import {FactNameComponent} from './fact/fact-name.component';
 import {FactDescriptionComponent} from './fact/fact-description.component';
 import {MarkdownModule} from "ngx-markdown";
-import {NetworkIndicatorComponent} from './pages/network-nodes/indicators/network-indicator.component';
-import {ConnectionIndicatorComponent} from './pages/network-nodes/indicators/connection-indicator.component';
-import {IntegrityIndicatorComponent} from './pages/network-nodes/indicators/integrity-indicator.component';
-import {RoleConnectionIndicatorComponent} from './pages/network-nodes/indicators/role-connection-indicator.component';
-import {RouteIndicatorComponent} from './pages/network-nodes/indicators/route-indicator.component';
-import {ConnectionIndicatorDialogComponent} from './pages/network-nodes/indicators/connection-indicator-dialog.component';
-import {IntegrityIndicatorDialogComponent} from './pages/network-nodes/indicators/integrity-indicator-dialog.component';
-import {NetworkIndicatorDialogComponent} from './pages/network-nodes/indicators/network-indicator-dialog.component';
-import {RoleConnectionIndicatorDialogComponent} from './pages/network-nodes/indicators/role-connection-indicator-dialog.component';
-import {RouteIndicatorDialogComponent} from './pages/network-nodes/indicators/route-indicator-dialog.component';
+import {NetworkIndicatorComponent} from './pages/network/nodes/indicators/network-indicator.component';
+import {ConnectionIndicatorComponent} from './pages/network/nodes/indicators/connection-indicator.component';
+import {IntegrityIndicatorComponent} from './pages/network/nodes/indicators/integrity-indicator.component';
+import {RoleConnectionIndicatorComponent} from './pages/network/nodes/indicators/role-connection-indicator.component';
+import {RouteIndicatorComponent} from './pages/network/nodes/indicators/route-indicator.component';
+import {ConnectionIndicatorDialogComponent} from './pages/network/nodes/indicators/connection-indicator-dialog.component';
+import {IntegrityIndicatorDialogComponent} from './pages/network/nodes/indicators/integrity-indicator-dialog.component';
+import {NetworkIndicatorDialogComponent} from './pages/network/nodes/indicators/network-indicator-dialog.component';
+import {RoleConnectionIndicatorDialogComponent} from './pages/network/nodes/indicators/role-connection-indicator-dialog.component';
+import {RouteIndicatorDialogComponent} from './pages/network/nodes/indicators/route-indicator-dialog.component';
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 import {ChangesSetComponent} from "./components/change-set/change-set.component";
 import {ChangesSetOrphanRoutesComponent} from "./components/change-set/components/change-set-orphan-routes.component";
@@ -119,6 +119,10 @@ import {RouteSummaryComponent} from "./pages/route/route-summary.component";
 import {RouteNodeComponent} from "./pages/route/route-node.component";
 import {RouteStructureComponent} from "./pages/route/route-structure.component";
 import {AnalysisPageComponent} from './pages/analysis/analysis-page.component';
+import {NetworkPageHeaderComponent} from "./pages/network/components/network-page-header.component";
+import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
+import {AnalysisNlPageComponent} from "./pages/analysis/analysis-nl-page.component";
+import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
 
 @NgModule({
   imports: [
@@ -132,6 +136,9 @@ import {AnalysisPageComponent} from './pages/analysis/analysis-page.component';
   declarations: [
     AnalysisSidebarComponent,
     AnalysisPageComponent,
+    AnalysisBePageComponent,
+    AnalysisDePageComponent,
+    AnalysisNlPageComponent,
     ChangeSetPageComponent,
     ChangeSetHeaderComponent,
     ChangeSetAnalysisComponent,
@@ -243,7 +250,8 @@ import {AnalysisPageComponent} from './pages/analysis/analysis-page.component';
     IntegrityIndicatorDialogComponent,
     NetworkIndicatorDialogComponent,
     RoleConnectionIndicatorDialogComponent,
-    RouteIndicatorDialogComponent
+    RouteIndicatorDialogComponent,
+    NetworkPageHeaderComponent
   ],
   entryComponents: [
     ConnectionIndicatorDialogComponent,

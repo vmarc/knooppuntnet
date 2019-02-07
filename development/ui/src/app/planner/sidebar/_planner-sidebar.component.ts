@@ -81,6 +81,21 @@ import {MatButtonToggleChange} from "@angular/material";
           </p>
         </ng-template>
       </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Step 3
+          </mat-panel-title>
+          <mat-panel-description>
+            Route ready
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <button mat-stroked-button>Print</button>
+          <button mat-stroked-button>GPX</button>
+        </ng-template>
+      </mat-expansion-panel>
     </div>
 
 

@@ -3,12 +3,12 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {ChangeSetPageComponent} from "./pages/changeset/_change-set-page.component";
 import {ChangesPageComponent} from "./pages/changes/changes-page.component";
-import {NetworkChangesPageComponent} from "./pages/network-changes/network-changes-page.component";
-import {NetworkDetailsPageComponent} from "./pages/network-details/network-details-page.component";
-import {NetworkFactsPageComponent} from "./pages/network-facts/network-facts-page.component";
-import {NetworkMapPageComponent} from "./pages/network-map/network-map-page.component";
-import {NetworkNodesPageComponent} from "./pages/network-nodes/network-nodes-page.component";
-import {NetworkRoutesPageComponent} from "./pages/network-routes/network-routes-page.component";
+import {NetworkChangesPageComponent} from "./pages/network/changes/_network-changes-page.component";
+import {NetworkDetailsPageComponent} from "./pages/network/details/_network-details-page.component";
+import {NetworkFactsPageComponent} from "./pages/network/facts/_network-facts-page.component";
+import {NetworkMapPageComponent} from "./pages/network/map/_network-map-page.component";
+import {NetworkNodesPageComponent} from "./pages/network/nodes/_network-nodes-page.component";
+import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes-page.component";
 import {NodePageComponent} from "./pages/node/node-page.component";
 import {OverviewPageComponent} from "./pages/overview/overview-page.component";
 import {RoutePageComponent} from "./pages/route/_route-page.component";
@@ -20,6 +20,9 @@ import {SubsetOrphanNodesPageComponent} from "./pages/subset-orphan-nodes/subset
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset-orphan-routes/subset-orphan-routes-page.component";
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 import {AnalysisPageComponent} from "./pages/analysis/analysis-page.component";
+import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
+import {AnalysisNlPageComponent} from "./pages/analysis/analysis-nl-page.component";
+import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
 
 const routes: Routes = [
   {
@@ -30,6 +33,18 @@ const routes: Routes = [
   {
     path: '',
     component: AnalysisPageComponent
+  },
+  {
+    path: 'nl',
+    component: AnalysisNlPageComponent
+  },
+  {
+    path: 'be',
+    component: AnalysisBePageComponent
+  },
+  {
+    path: 'de',
+    component: AnalysisDePageComponent
   },
   {
     path: 'changeset/:changeSetId/:replicationNumber',

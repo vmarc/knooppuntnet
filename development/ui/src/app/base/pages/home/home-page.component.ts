@@ -8,19 +8,18 @@ import {PageService} from "../../../shared/page.service";
       Node networks
     </h1>
 
-    <div class="kpn-line">
-      <mat-icon svgIcon="planner"></mat-icon>
-      <a routerLink="/planner">
-        <span>Planner</span>
-      </a>
-    </div>
+    <kpn-icon-button
+      routerLink="/planner"
+      icon="planner"
+      text="Planner">
+    </kpn-icon-button>
 
-    <div class="kpn-line">
-      <mat-icon svgIcon="analysis"></mat-icon>
-      <a routerLink="/analysis">
-        <span>Analysis</span>
-      </a>
-    </div>
+    <kpn-icon-button
+      routerLink="/analysis"
+      icon="analysis"
+      text="Analysis">
+    </kpn-icon-button>
+
   `
 })
 export class HomePageComponent implements OnInit {

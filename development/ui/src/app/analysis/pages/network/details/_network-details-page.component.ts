@@ -1,27 +1,22 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkDetailsPage} from "../../../kpn/shared/network/network-details-page";
-import {Subset} from "../../../kpn/shared/subset";
-import {Country} from "../../../kpn/shared/country";
-import {NetworkType} from "../../../kpn/shared/network-type";
-import {PageService} from "../../../shared/page.service";
-import {NetworkCacheService} from "../../../services/network-cache.service";
-import {PageTitleBuilder} from "../../../shared/page-title-builder";
+import {AppService} from "../../../../app.service";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {NetworkDetailsPage} from "../../../../kpn/shared/network/network-details-page";
+import {Subset} from "../../../../kpn/shared/subset";
+import {Country} from "../../../../kpn/shared/country";
+import {NetworkType} from "../../../../kpn/shared/network-type";
+import {PageService} from "../../../../shared/page.service";
+import {NetworkCacheService} from "../../../../services/network-cache.service";
+import {PageTitleBuilder} from "../../../../shared/page-title-builder";
 
 @Component({
   selector: 'kpn-network-details-page',
   template: `
-    <div *ngIf="isNetworkNameKnown()">
-      <h1>
-        {{networkName()}}
-      </h1>
-      <h2>
-        Details
-      </h2>
-    </div>
+    
+    <kpn-network-page-header [networkId]="networkId" selectedPage="details"></kpn-network-page-header>
+    
     <div *ngIf="response?.result">
       <div *ngIf="!response.result">
         <p>Network not found</p>

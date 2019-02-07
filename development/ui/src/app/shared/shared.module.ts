@@ -66,6 +66,7 @@ import {IndicatorComponent} from './indicator/indicator.component';
 import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
 import {OsmLinkChangeSetComponent} from "./link/osm-link-change-set.component";
 import {MetaDataComponent} from "./meta-data.component";
+import {IconButtonComponent} from "./icon/icon-button.component";
 
 @NgModule({
   imports: [
@@ -139,6 +140,7 @@ import {MetaDataComponent} from "./meta-data.component";
     IndicatorIconComponent,
     IndicatorComponent,
     IndicatorDialogComponent,
+    IconButtonComponent,
   ],
   exports: [
     LinkChangesetComponent,
@@ -203,6 +205,7 @@ import {MetaDataComponent} from "./meta-data.component";
     IndicatorComponent,
     IndicatorIconComponent,
     IndicatorDialogComponent,
+    IconButtonComponent,
   ]
 })
 export class SharedModule {

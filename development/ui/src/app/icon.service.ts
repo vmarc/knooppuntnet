@@ -13,6 +13,14 @@ export class IconService {
   }
 
   registerIcons() {
+    this.registerApplicationIcons();
+    this.registerNetworkTypeIcons();
+    this.registerCountryIcons();
+    this.registerAnalysisResultsIcons();
+    this.registerMenuIcons();
+  }
+
+  private registerApplicationIcons() {
 
     this.iconRegistry.addSvgIconLiteral("analysis", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/heartbeat.svg")));
@@ -20,8 +28,14 @@ export class IconService {
     this.iconRegistry.addSvgIconLiteral("planner", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/planner.svg")));
 
+    this.iconRegistry.addSvgIconLiteral("changes", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/history.svg")));
 
-    // networkTypes
+    this.iconRegistry.addSvgIconLiteral("overview", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/spreadsheet.svg")));
+  }
+
+  private registerNetworkTypeIcons() {
 
     this.iconRegistry.addSvgIconLiteral("rcn", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/man-cycling.svg")));
@@ -40,18 +54,30 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("rin", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/roller-skate.svg")));
+  }
 
+  private registerCountryIcons() {
 
-    // analysis results
+    this.iconRegistry.addSvgIconLiteral("belgium", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/belgium.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("netherlands", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/netherlands.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("germany", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/germany.svg")));
+  }
+
+  private registerAnalysisResultsIcons() {
 
     this.iconRegistry.addSvgIconLiteral("happy", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/happy.svg")));
 
     this.iconRegistry.addSvgIconLiteral("investigate", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/investigate.svg")));
+  }
 
-
-    // menu
+  private registerMenuIcons() {
 
     this.iconRegistry.addSvgIconLiteral("menu", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/menu-button.svg")));
@@ -64,7 +90,6 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("collapse", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/right.svg")));
-
   }
 
 }
