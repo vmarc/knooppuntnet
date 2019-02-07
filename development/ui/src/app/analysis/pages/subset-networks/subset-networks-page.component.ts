@@ -4,9 +4,9 @@ import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {SubsetNetworksPage} from "../../../kpn/shared/subset/subset-networks-page";
-import {Util} from "../../../shared/util";
+import {Util} from "../../../components/shared/util";
 import {Subset} from "../../../kpn/shared/subset";
-import {PageService} from "../../../shared/page.service";
+import {PageService} from "../../../components/shared/page.service";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 
 @Component({

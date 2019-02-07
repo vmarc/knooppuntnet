@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NetworkType} from "../../kpn/shared/network-type";
-import {SelectedFeature} from "../../map/domain/selected-feature";
+import {SelectedFeature} from "../../components/map/domain/selected-feature";
 import {MatButtonToggleChange} from "@angular/material";
 
 @Component({

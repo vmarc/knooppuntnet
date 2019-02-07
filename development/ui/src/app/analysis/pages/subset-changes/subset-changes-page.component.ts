@@ -5,8 +5,8 @@ import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {SubsetChangesPage} from "../../../kpn/shared/subset/subset-changes-page";
 import {Subset} from "../../../kpn/shared/subset";
-import {Util} from "../../../shared/util";
-import {PageService} from "../../../shared/page.service";
+import {Util} from "../../../components/shared/util";
+import {PageService} from "../../../components/shared/page.service";
 
 @Component({
   selector: 'kpn-subset-changes-page',

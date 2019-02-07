@@ -12,7 +12,7 @@ import {CardAnalysisComponent} from "./pages/home/card-analysis.component";
 import {CardMapComponent} from "./pages/home/card-map.component";
 import {KpnMaterialModule} from "../material/kpn-material.module";
 import {CommonModule} from "@angular/common";
-import {SharedModule} from "../shared/shared.module";
+import {SharedModule} from "../components/shared/shared.module";
 import {BaseRoutingModule} from "./base-routing.module";
 
 @NgModule({

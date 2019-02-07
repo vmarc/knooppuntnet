@@ -7,7 +7,7 @@ import {NetworkMapPage} from "../../../../kpn/shared/network/network-map-page";
 import {Subset} from "../../../../kpn/shared/subset";
 import {Country} from "../../../../kpn/shared/country";
 import {NetworkType} from "../../../../kpn/shared/network-type";
-import {PageService} from "../../../../shared/page.service";
+import {PageService} from "../../../../components/shared/page.service";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 
 @Component({

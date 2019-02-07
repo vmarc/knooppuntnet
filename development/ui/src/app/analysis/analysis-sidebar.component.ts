@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {PageService} from "../shared/page.service";
+import {PageService} from "../components/shared/page.service";
 
 @Component({
   selector: 'kpn-analysis-sidebar',

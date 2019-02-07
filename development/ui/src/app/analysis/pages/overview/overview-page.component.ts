@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "../../../app.service";
-import {PageService} from "../../../shared/page.service";
+import {PageService} from "../../../components/shared/page.service";
 
 @Component({
   selector: 'kpn-overview-page',

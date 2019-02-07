@@ -4,8 +4,8 @@ import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
-import {PageService} from "../../../shared/page.service";
-import {Util} from "../../../shared/util";
+import {PageService} from "../../../components/shared/page.service";
+import {Util} from "../../../components/shared/util";
 
 @Component({
   selector: 'kpn-change-set-page',
@@ -14,7 +14,7 @@ import {Util} from "../../../shared/util";
       <ng-container i18nX="@@kpn-change-set-page.title">Changeset</ng-container> <!-- Wijzigingenset -->
       {{changeSetTitle()}}
     </h1>
-    
+
     <div *ngIf="response">
       <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
       <kpn-change-set-network-diff-details [page]="response.result"></kpn-change-set-network-diff-details>
@@ -53,7 +53,7 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
     if (this.response) {
       const a = this.response.result.summary.key.changeSetId;
       const b = Util.replicationName(this.response.result.summary.key.replicationNumber);
-      return  a + " " + b;
+      return a + " " + b;
     }
     return "";
   }

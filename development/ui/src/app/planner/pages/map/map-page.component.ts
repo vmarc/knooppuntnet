@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {SelectedFeature} from "../../../map/domain/selected-feature";
+import {SelectedFeature} from "../../../components/map/domain/selected-feature";
 import {NetworkType} from "../../../kpn/shared/network-type";
 
 @Component({

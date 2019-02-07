@@ -8,11 +8,11 @@ import {AppComponent} from './app.component';
 import {AppService} from './app.service';
 import {KpnMaterialModule} from "./material/kpn-material.module";
 import {AppRoutingModule} from './app-routing.module';
-import {SharedModule} from "./shared/shared.module";
+import {SharedModule} from "./components/shared/shared.module";
 import {UserService} from "./user.service";
 import {CookieService} from "ngx-cookie-service";
 import {MarkdownModule} from "ngx-markdown";
-import {PageService} from "./shared/page.service";
+import {PageService} from "./components/shared/page.service";
 import {IconService} from "./icon.service";
 
 @NgModule({

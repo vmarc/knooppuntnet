@@ -20,8 +20,8 @@ import {NetworkFactsPageComponent} from './pages/network/facts/_network-facts-pa
 import {OverviewPageComponent} from './pages/overview/overview-page.component';
 import {KpnMaterialModule} from "../material/kpn-material.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
-import {SharedModule} from "../shared/shared.module";
-import {MapModule} from "../map/map.module";
+import {SharedModule} from "../components/shared/shared.module";
+import {MapModule} from "../components/map/map.module";
 import {NodeSummaryComponent} from "./pages/node/node-summary.component";
 import {NodeNetworksComponent} from "./pages/node/node-networks.component";
 import {NodeRoutesComponent} from "./pages/node/node-routes.component";

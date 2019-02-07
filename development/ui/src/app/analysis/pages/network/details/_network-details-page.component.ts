@@ -7,9 +7,9 @@ import {NetworkDetailsPage} from "../../../../kpn/shared/network/network-details
 import {Subset} from "../../../../kpn/shared/subset";
 import {Country} from "../../../../kpn/shared/country";
 import {NetworkType} from "../../../../kpn/shared/network-type";
-import {PageService} from "../../../../shared/page.service";
+import {PageService} from "../../../../components/shared/page.service";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
-import {PageTitleBuilder} from "../../../../shared/page-title-builder";
+import {PageTitleBuilder} from "../../../../components/shared/page-title-builder";
 
 @Component({
   selector: 'kpn-network-details-page',

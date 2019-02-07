@@ -4,7 +4,7 @@ import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
 import {RoutePage} from "../../../kpn/shared/route/route-page";
 import {ApiResponse} from "../../../kpn/shared/api-response";
-import {PageService} from "../../../shared/page.service";
+import {PageService} from "../../../components/shared/page.service";
 
 @Component({
   selector: 'kpn-route-page',

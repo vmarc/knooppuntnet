@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {PageService} from "../../../shared/page.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'kpn-analysis-page',

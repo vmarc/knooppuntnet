@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
-import {Util} from "../../../shared/util";
+import {Util} from "../../../components/shared/util";
 
 @Component({
   selector: 'kpn-change-set-header',
