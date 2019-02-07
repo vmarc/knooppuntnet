@@ -21,7 +21,7 @@ import {OverviewPageComponent} from './pages/overview/overview-page.component';
 import {KpnMaterialModule} from "../material/kpn-material.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {SharedModule} from "../components/shared/shared.module";
-import {MapModule} from "../components/map/map.module";
+import {OlModule} from "../components/ol/ol.module";
 import {NodeSummaryComponent} from "./pages/node/node-summary.component";
 import {NodeNetworksComponent} from "./pages/node/node-networks.component";
 import {NodeRoutesComponent} from "./pages/node/node-routes.component";
@@ -130,7 +130,7 @@ import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.compone
     CommonModule,
     KpnMaterialModule,
     SharedModule,
-    MapModule,
+    OlModule,
     AnalysisRoutingModule
   ],
   declarations: [

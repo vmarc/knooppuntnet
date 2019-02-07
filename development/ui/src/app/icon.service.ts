@@ -25,7 +25,7 @@ export class IconService {
     this.iconRegistry.addSvgIconLiteral("analysis", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/heartbeat.svg")));
 
-    this.iconRegistry.addSvgIconLiteral("planner", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("map", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/planner.svg")));
 
     this.iconRegistry.addSvgIconLiteral("changes", this.domSanitizer.bypassSecurityTrustHtml(

@@ -1,7 +1,7 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {MatRadioChange} from "@angular/material";
-import {MapService} from "../../../../components/map/map.service";
+import {MapService} from "../../../../components/ol/map.service";
 
 export const POI_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

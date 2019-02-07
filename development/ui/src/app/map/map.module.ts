@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PlannerSidebarComponent} from "./sidebar/_planner-sidebar.component";
+import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {SharedModule} from "../components/shared/shared.module";
-import {MapPageComponent} from "./pages/map/map-page.component";
-import {MapModule} from "../components/map/map.module";
+import {MapPageComponent} from "./pages/map/_map-page.component";
+import {MapMainPageComponent} from "./pages/map/map-main-page.component";
+import {OlModule} from "../components/ol/ol.module";
 import {MapDetailDefaultComponent} from "./pages/map/map-detail-default.component";
 import {MapDetailNodeComponent} from "./pages/map/map-detail-node.component";
 import {MapDetailRouteComponent} from "./pages/map/map-detail-route.component";
-import {PlannerRoutingModule} from "./planner-routing.module";
-import {PlannerPageComponent} from "./pages/planner/planner-page.component";
+import {MapRoutingModule} from "./map-routing.module";
 import {KpnMaterialModule} from "../material/kpn-material.module";
 import {MapPoiConfigComponent} from "./pages/map/poi/map-poi-config.component";
 import {PoiConfigComponent} from "./pages/map/poi/poi-config.component";
@@ -29,16 +29,16 @@ import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.comp
   imports: [
     CommonModule,
     KpnMaterialModule,
-    PlannerRoutingModule,
+    MapRoutingModule,
     MatRadioModule,
     ReactiveFormsModule,
     SharedModule,
-    MapModule
+    OlModule
   ],
   declarations: [
-    PlannerPageComponent,
     MapPageComponent,
-    PlannerSidebarComponent,
+    MapMainPageComponent,
+    MapSidebarComponent,
     MapDetailDefaultComponent,
     MapDetailNodeComponent,
     MapDetailRouteComponent,
@@ -59,5 +59,5 @@ import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.comp
     MapPageComponent
   ]
 })
-export class PlannerModule {
+export class MapModule {
 }

@@ -17,5 +17,5 @@ import {MapService} from "./map.service";
     MapService
   ]
 })
-export class MapModule {
+export class OlModule {
 }

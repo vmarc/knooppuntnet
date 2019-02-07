@@ -9,9 +9,9 @@ import {PageService} from "../../../components/shared/page.service";
     </h1>
 
     <kpn-icon-button
-      routerLink="/planner"
-      icon="planner"
-      text="Planner">
+      routerLink="/map"
+      icon="map"
+      text="Map">
     </kpn-icon-button>
 
     <kpn-icon-button

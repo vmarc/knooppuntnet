@@ -7,8 +7,8 @@ export const routes: Routes = [
     loadChildren: './analysis/analysis.module#AnalysisModule'
   },
   {
-    path: 'planner',
-    loadChildren: './planner/planner.module#PlannerModule'
+    path: 'map',
+    loadChildren: './map/map.module#MapModule'
   },
   {
     path: 'translations',

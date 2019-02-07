@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {SelectedFeature} from "../../../components/map/domain/selected-feature";
+import {SelectedFeature} from "../../../components/ol/domain/selected-feature";
 import {NetworkType} from "../../../kpn/shared/network-type";
 
 @Component({
-  selector: 'kpn-map-page',
+  selector: 'kpn-map-main-page',
   template: `
     <kpn-map
       content
@@ -25,7 +25,7 @@ import {NetworkType} from "../../../kpn/shared/network-type";
     }
   `]
 })
-export class MapPageComponent implements OnInit, OnDestroy {
+export class MapMainPageComponent implements OnInit, OnDestroy {
 
   networkType: NetworkType;
   selectedFeature: SelectedFeature;
