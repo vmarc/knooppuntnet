@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-
 import {ChangeSetPageComponent} from "./pages/changeset/_change-set-page.component";
 import {ChangesPageComponent} from "./pages/changes/changes-page.component";
 import {NetworkChangesPageComponent} from "./pages/network/changes/_network-changes-page.component";
@@ -12,12 +11,12 @@ import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes
 import {NodePageComponent} from "./pages/node/node-page.component";
 import {OverviewPageComponent} from "./pages/overview/overview-page.component";
 import {RoutePageComponent} from "./pages/route/_route-page.component";
-import {SubsetChangesPageComponent} from "./pages/subset-changes/subset-changes-page.component";
-import {SubsetFactDetailsPageComponent} from "./pages/subset-fact-details/subset-fact-details-page.component";
-import {SubsetFactsPageComponent} from "./pages/subset-facts/subset-facts-page.component";
-import {SubsetNetworksPageComponent} from "./pages/subset-networks/subset-networks-page.component";
-import {SubsetOrphanNodesPageComponent} from "./pages/subset-orphan-nodes/subset-orphan-nodes-page.component";
-import {SubsetOrphanRoutesPageComponent} from "./pages/subset-orphan-routes/subset-orphan-routes-page.component";
+import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
+import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";
+import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.component";
+import {SubsetNetworksPageComponent} from "./pages/subset/networks/_subset-networks-page.component";
+import {SubsetOrphanNodesPageComponent} from "./pages/subset/orphan-nodes/_subset-orphan-nodes-page.component";
+import {SubsetOrphanRoutesPageComponent} from "./pages/subset/orphan-routes/_subset-orphan-routes-page.component";
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 import {AnalysisPageComponent} from "./pages/analysis/analysis-page.component";
 import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
