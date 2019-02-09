@@ -1,11 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {NetworkType} from "../../kpn/shared/network-type";
+import {MatButtonToggleChange} from "@angular/material";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'kpn-network-type-selector',
   template: `
     <div>
-      <mat-button-toggle-group [value]="networkType.name">
+      <mat-button-toggle-group [value]="networkType.name" (change)="networkTypeChanged($event)">
         <mat-button-toggle value="rcn">
           <mat-icon svgIcon="rcn"></mat-icon>
         </mat-button-toggle>
@@ -29,5 +31,13 @@ import {NetworkType} from "../../kpn/shared/network-type";
   `
 })
 export class NetworkTypeSelectorComponent {
+
   @Input() networkType: NetworkType = new NetworkType("rcn"); // TODO cleanup
+
+  constructor(private router: Router) {
+  }
+
+  networkTypeChanged(event: MatButtonToggleChange) {
+    this.router.navigate(["/map/" + event.value]);
+  }
 }

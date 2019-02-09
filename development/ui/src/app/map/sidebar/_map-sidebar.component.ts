@@ -12,7 +12,7 @@ import {MatButtonToggleChange} from "@angular/material";
     <div>
       <mat-button-toggle-group [value]="pageMode" (change)="pageModeChanged($event)">
         <mat-button-toggle value="planner">
-          <mat-icon svgIcon="planner"></mat-icon>
+          <mat-icon svgIcon="map"></mat-icon>
           Planner
         </mat-button-toggle>
         <mat-button-toggle value="analysis">

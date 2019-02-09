@@ -7,6 +7,13 @@ import {PageService} from "../../../components/shared/page.service";
 @Component({
   selector: 'kpn-changes-page',
   template: `
+    
+    <div>
+      <a routerLink="/">Home</a> >
+      <a routerLink="/analysis">Analysis</a> >
+      Changes
+    </div>
+
     <h1>
       Changes
     </h1>

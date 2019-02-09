@@ -5,6 +5,13 @@ import {PageService} from "../../../components/shared/page.service";
 @Component({
   selector: 'kpn-overview-page',
   template: `
+
+    <div>
+      <a routerLink="/">Home</a> >
+      <a routerLink="/analysis">Analysis</a> >
+      Overview
+    </div>
+
     <h1>
       Overview
     </h1>

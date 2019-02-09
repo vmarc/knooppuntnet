@@ -16,8 +16,17 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
     <div>
       <a routerLink="/">Home</a> >
       <a routerLink="/analysis">Analysis</a> >
-      <a routerLink="/analysis">The Netherlands</a> >
-      Cycling > Networks
+
+      <a routerLink="/analysis/nl" *ngIf="subset.country.domain === 'nl'">The Netherlands</a>
+      <a routerLink="/analysis/be" *ngIf="subset.country.domain === 'be'">Belgium</a>
+      <a routerLink="/analysis/de" *ngIf="subset.country.domain === 'de'">Germany</a> >
+
+      <span *ngIf="subset.networkType.name === 'rcn'">Cycling</span>
+      <span *ngIf="subset.networkType.name === 'rwn'">Hiking</span>
+      <span *ngIf="subset.networkType.name === 'rhn'">Horse</span>
+      <span *ngIf="subset.networkType.name === 'rmn'">Motorboat</span>
+      <span *ngIf="subset.networkType.name === 'rpn'">Canoe</span>
+      <span *ngIf="subset.networkType.name === 'rin'">Inline skating</span>
     </div>
     
     <h1>
