@@ -3,6 +3,10 @@ import {Subset} from "../../kpn/shared/subset";
 import {Country} from "../../kpn/shared/country";
 import {NetworkType} from "../../kpn/shared/network-type";
 
+interface IPropertyGetter<T> {
+  (): T;
+}
+
 export class Util {
 
   public static subsetInRoute(params: Params): Subset {
@@ -22,6 +26,18 @@ export class Util {
   private static format(level: number): string {
     const integer = Math.floor(level);
     return (integer + 1000).toString().substr(1, 3);
+  }
+
+  public static safeGet<T>(getter: IPropertyGetter<T>, defaultValue?: T): T {
+    try {
+      let result: T = getter.apply(this);
+      return (result == null) ? defaultValue : result;
+    } catch (ex) {
+      if (ex instanceof TypeError) {
+        return defaultValue;
+      }
+      throw ex;
+    }
   }
 
 }

@@ -9,14 +9,13 @@ import {Country} from "../../../../kpn/shared/country";
 import {NetworkType} from "../../../../kpn/shared/network-type";
 import {PageService} from "../../../../components/shared/page.service";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
-import {PageTitleBuilder} from "../../../../components/shared/page-title-builder";
 
 @Component({
   selector: 'kpn-network-details-page',
   template: `
-    
+
     <kpn-network-page-header [networkId]="networkId" selectedPage="details"></kpn-network-page-header>
-    
+
     <div *ngIf="response?.result">
       <div *ngIf="!response.result">
         <p>Network not found</p>
@@ -79,7 +78,7 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.updatePageTitle();
+    this.networkCacheService.updatePageTitle("details", this.networkId);
     this.pageService.initNetworkPage();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
       this.networkId = params['networkId'];
@@ -91,30 +90,13 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
         this.response = response;
         this.networkCacheService.setNetworkName(this.networkId, response.result.networkSummary.name);
         this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
-        this.updatePageTitle();
+        this.networkCacheService.updatePageTitle("details", this.networkId);
       });
     });
   }
 
-  isNetworkNameKnown(): boolean {
-    return this.networkId && this.networkCacheService.getNetworkName(this.networkId) !== undefined;
-  }
-
-  networkName(): string {
-    return this.networkCacheService.getNetworkName(this.networkId);
-  }
-
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
-  }
-
-  updatePageTitle() {
-    if (this.isNetworkNameKnown()) {
-      PageTitleBuilder.setNetworkPageTitle("details", this.networkName());
-    }
-    else {
-      PageTitleBuilder.setTitle("details");
-    }
   }
 
 }

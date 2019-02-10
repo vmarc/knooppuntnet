@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {NetworkCacheService} from "../../../../services/network-cache.service";
+import {NetworkSummary} from "../../../../kpn/shared/network/network-summary";
+import {Util} from "../../../../components/shared/util";
 
 @Component({
   selector: 'kpn-network-page-header',
@@ -32,7 +34,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="network-nodes"
+        pageName="nodes"
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-nodes/' + networkId}}"
         pageTitle="Nodes"
@@ -40,7 +42,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="network-routes"
+        pageName="routes"
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-routes/' + networkId}}"
         pageTitle="Routes"
@@ -48,14 +50,14 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="network-map"
+        pageName="map"
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-map/' + networkId}}"
         pageTitle="Map">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="network-changes"
+        pageName="changes"
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-changes/' + networkId}}"
         pageTitle="Changes">
@@ -72,36 +74,24 @@ export class NetworkPageHeaderComponent {
   constructor(private networkCacheService: NetworkCacheService) {
   }
 
-  isNetworkNameKnown(): boolean {
-    return this.networkId && this.networkCacheService.getNetworkName(this.networkId) !== undefined;
-  }
-
   networkName(): string {
     return this.networkCacheService.getNetworkName(this.networkId);
   }
 
   factCount() {
-    const summary = this.networkCacheService.getNetworkSummary(this.networkId);
-    if (summary != null) {
-      return summary.factCount;
-    }
-    return null;
+    return Util.safeGet(() => this.networkSummary().factCount);
   }
 
   nodeCount() {
-    const summary = this.networkCacheService.getNetworkSummary(this.networkId);
-    if (summary != null) {
-      return summary.nodeCount;
-    }
-    return null;
+    return Util.safeGet(() => this.networkSummary().nodeCount);
   }
 
   routeCount() {
-    const summary = this.networkCacheService.getNetworkSummary(this.networkId);
-    if (summary != null) {
-      return summary.routeCount;
-    }
-    return null;
+    return Util.safeGet(() => this.networkSummary().routeCount);
+  }
+
+  private networkSummary(): NetworkSummary {
+    return this.networkCacheService.getNetworkSummary(this.networkId);
   }
 
 }

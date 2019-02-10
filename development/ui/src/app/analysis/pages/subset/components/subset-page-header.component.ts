@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 import {SubsetInfo} from "../../../../kpn/shared/subset/subset-info";
+import {Util} from "../../../../components/shared/util";
 
 @Component({
   selector: 'kpn-subset-page-header',
@@ -10,17 +11,8 @@ import {SubsetInfo} from "../../../../kpn/shared/subset/subset-info";
     <div>
       <a routerLink="/">Home</a> >
       <a routerLink="/analysis">Analysis</a> >
-
-      <a routerLink="/analysis/nl" *ngIf="subset.country.domain === 'nl'">The Netherlands</a>
-      <a routerLink="/analysis/be" *ngIf="subset.country.domain === 'be'">Belgium</a>
-      <a routerLink="/analysis/de" *ngIf="subset.country.domain === 'de'">Germany</a> >
-
-      <span *ngIf="subset.networkType.name === 'rcn'">Cycling</span>
-      <span *ngIf="subset.networkType.name === 'rwn'">Hiking</span>
-      <span *ngIf="subset.networkType.name === 'rhn'">Horse</span>
-      <span *ngIf="subset.networkType.name === 'rmn'">Motorboat</span>
-      <span *ngIf="subset.networkType.name === 'rpn'">Canoe</span>
-      <span *ngIf="subset.networkType.name === 'rin'">Inline skating</span>
+      <a routerLink="{{countryLink()}}"><kpn-country-name [country]="subset.country"></kpn-country-name></a> >
+      <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
     </div>
 
     <h1>
@@ -80,6 +72,10 @@ export class SubsetPageHeaderComponent {
   constructor(private subsetCacheService: SubsetCacheService) {
   }
 
+  private countryLink(): string {
+    return "/analysis/" + Util.safeGet(() => this.subset.country.domain);
+  }
+
   private link(targetPageName: string) {
     if (this.subset != null) {
       return "/analysis/" + targetPageName + "/" + this.subset.country.domain + "/" + this.subset.networkType.name;
@@ -87,38 +83,20 @@ export class SubsetPageHeaderComponent {
     return "/";
   }
 
-  networkCount() {
-    const subsetInfo = this.subsetInfo();
-    if (subsetInfo != null) {
-      return subsetInfo.networkCount;
-    }
-    return null;
+  private networkCount() {
+    return Util.safeGet(() => this.subsetInfo().networkCount);
   }
 
-  factCount() {
-    const subsetInfo = this.subsetInfo();
-    if (subsetInfo != null) {
-      return subsetInfo.factCount;
-    }
-    return null;
-
+  private factCount() {
+    return Util.safeGet(() => this.subsetInfo().factCount);
   }
 
-  orphanNodeCount() {
-    const subsetInfo = this.subsetInfo();
-    if (subsetInfo != null) {
-      return subsetInfo.orphanNodeCount;
-    }
-    return null;
-
+  private orphanNodeCount() {
+    return Util.safeGet(() => this.subsetInfo().orphanNodeCount);
   }
 
-  orphanRouteCount() {
-    const subsetInfo = this.subsetInfo();
-    if (subsetInfo != null) {
-      return subsetInfo.orphanRouteCount;
-    }
-    return null;
+  private orphanRouteCount() {
+    return Util.safeGet(() => this.subsetInfo().orphanRouteCount);
   }
 
   private subsetInfo(): SubsetInfo {

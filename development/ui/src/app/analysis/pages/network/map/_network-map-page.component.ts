@@ -34,6 +34,7 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.networkCacheService.updatePageTitle("map", this.networkId);
     this.pageService.initNetworkPage();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
       this.networkId = params['networkId'];
@@ -44,6 +45,7 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
       this.appService.networkMap(this.networkId).subscribe(response => {
         this.networkCacheService.setNetworkName(this.networkId, response.result.networkSummary.name);
         this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
+        this.networkCacheService.updatePageTitle("map", this.networkId);
         this.response = response;
       });
     });
