@@ -7,36 +7,34 @@ import {SubsetFactsPage} from "../../../../kpn/shared/subset/subset-facts-page";
 import {Util} from "../../../../components/shared/util";
 import {Subset} from "../../../../kpn/shared/subset";
 import {PageService} from "../../../../components/shared/page.service";
+import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
   selector: 'kpn-subset-facts-page',
   template: `
-    <div content>
+    <kpn-subset-page-header [subset]="subset" pageName="facts"></kpn-subset-page-header>
 
-      <kpn-subset-page-header [subset]="subset" pageName="facts"></kpn-subset-page-header>
-
-      <div *ngIf="response">
-        <p>
-          Situation on:
-          <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
-        </p>
-        <div *ngIf="!hasFacts()">
-          <i>No facts</i>
-        </div>
-        <div *ngIf="hasFacts()">
-          <kpn-items>
-            <kpn-item *ngFor="let factName of allFactNames; let i=index" index="{{i}}">
-              <p>
-                <kpn-fact-name [factName]="factName"></kpn-fact-name>
-              </p>
-              <p>
-                <kpn-fact-description [factName]="factName"></kpn-fact-description>
-              </p>
-            </kpn-item>
-          </kpn-items>
-        </div>
-        <json [object]="response"></json>
+    <div *ngIf="response">
+      <p>
+        Situation on:
+        <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+      </p>
+      <div *ngIf="!hasFacts()">
+        <i>No facts</i>
       </div>
+      <div *ngIf="hasFacts()">
+        <kpn-items>
+          <kpn-item *ngFor="let factName of allFactNames; let i=index" index="{{i}}">
+            <p>
+              <kpn-fact-name [factName]="factName"></kpn-fact-name>
+            </p>
+            <p>
+              <kpn-fact-description [factName]="factName"></kpn-fact-description>
+            </p>
+          </kpn-item>
+        </kpn-items>
+      </div>
+      <json [object]="response"></json>
     </div>
   `
 })
@@ -100,7 +98,8 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private subsetCacheService: SubsetCacheService) {
   }
 
   ngOnInit() {
@@ -111,6 +110,7 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
       this.response = null;
       this.appService.subsetFacts(this.subset).subscribe(response => {
         this.response = response;
+        this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
       });
     });
   }

@@ -7,6 +7,7 @@ import {SubsetChangesPage} from "../../../../kpn/shared/subset/subset-changes-pa
 import {Subset} from "../../../../kpn/shared/subset";
 import {Util} from "../../../../components/shared/util";
 import {PageService} from "../../../../components/shared/page.service";
+import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
   selector: 'kpn-subset-changes-page',
@@ -27,7 +28,8 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private subsetCacheService: SubsetCacheService) {
   }
 
   ngOnInit() {
@@ -38,6 +40,7 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
       this.response = null;
       this.appService.subsetChanges(this.subset).subscribe(response => {
         this.response = response;
+        this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
       });
     });
   }

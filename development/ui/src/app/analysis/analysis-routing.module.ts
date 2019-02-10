@@ -13,7 +13,6 @@ import {OverviewPageComponent} from "./pages/overview/overview-page.component";
 import {RoutePageComponent} from "./pages/route/_route-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";
-import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.component";
 import {SubsetNetworksPageComponent} from "./pages/subset/networks/_subset-networks-page.component";
 import {SubsetOrphanNodesPageComponent} from "./pages/subset/orphan-nodes/_subset-orphan-nodes-page.component";
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset/orphan-routes/_subset-orphan-routes-page.component";
@@ -95,7 +94,7 @@ const routes: Routes = [
   },
   {
     path: 'facts/:country/:networkType',
-    component: SubsetFactsPageComponent
+    component: SubsetFactDetailsPageComponent
   },
   {
     path: 'networks/:country/:networkType',

@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Subset} from "../../../../kpn/shared/subset";
+import {SubsetCacheService} from "../../../../services/subset-cache.service";
+import {SubsetInfo} from "../../../../kpn/shared/subset/subset-info";
 
 @Component({
   selector: 'kpn-subset-page-header',
@@ -32,7 +34,7 @@ import {Subset} from "../../../../kpn/shared/subset";
         selectedPageName="{{pageName}}"
         link="{{link('networks')}}"
         pageTitle="Networks"
-        elementCount=123>
+        [elementCount]="networkCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
@@ -40,7 +42,7 @@ import {Subset} from "../../../../kpn/shared/subset";
         selectedPageName="{{pageName}}"
         link="{{link('facts')}}"
         pageTitle="Facts"
-        elementCount=123>
+        [elementCount]="factCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
@@ -48,7 +50,7 @@ import {Subset} from "../../../../kpn/shared/subset";
         selectedPageName="{{pageName}}"
         link="{{link('orphan-nodes')}}"
         pageTitle="Orphan Nodes"
-        elementCount=123>
+        [elementCount]="orphanNodeCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
@@ -56,7 +58,7 @@ import {Subset} from "../../../../kpn/shared/subset";
         selectedPageName="{{pageName}}"
         link="{{link('orphan-routes')}}"
         pageTitle="Orphan routes"
-        elementCount=123>
+        [elementCount]="orphanRouteCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
@@ -75,6 +77,8 @@ export class SubsetPageHeaderComponent {
   @Input() subset: Subset;
   @Input() pageName: string;
 
+  constructor(private subsetCacheService: SubsetCacheService) {
+  }
 
   private link(targetPageName: string) {
     if (this.subset != null) {
@@ -83,5 +87,42 @@ export class SubsetPageHeaderComponent {
     return "/";
   }
 
+  networkCount() {
+    const subsetInfo = this.subsetInfo();
+    if (subsetInfo != null) {
+      return subsetInfo.networkCount;
+    }
+    return null;
+  }
+
+  factCount() {
+    const subsetInfo = this.subsetInfo();
+    if (subsetInfo != null) {
+      return subsetInfo.factCount;
+    }
+    return null;
+
+  }
+
+  orphanNodeCount() {
+    const subsetInfo = this.subsetInfo();
+    if (subsetInfo != null) {
+      return subsetInfo.orphanNodeCount;
+    }
+    return null;
+
+  }
+
+  orphanRouteCount() {
+    const subsetInfo = this.subsetInfo();
+    if (subsetInfo != null) {
+      return subsetInfo.orphanRouteCount;
+    }
+    return null;
+  }
+
+  private subsetInfo(): SubsetInfo {
+    return this.subsetCacheService.getSubsetInfo(this.subset.key());
+  }
 
 }

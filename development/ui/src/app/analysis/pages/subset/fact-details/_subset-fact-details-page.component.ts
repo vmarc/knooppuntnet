@@ -7,16 +7,12 @@ import {SubsetFactDetailsPage} from "../../../../kpn/shared/subset/subset-fact-d
 import {Util} from "../../../../components/shared/util";
 import {Subset} from "../../../../kpn/shared/subset";
 import {PageService} from "../../../../components/shared/page.service";
+import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
   selector: 'kpn-subset-fact-details-page',
   template: `
-    <h1>
-      <kpn-subset-name [subset]="subset"></kpn-subset-name>
-    </h1>
-    <h2>
-      Fact details
-    </h2>
+    <kpn-subset-page-header [subset]="subset" pageName="facts"></kpn-subset-page-header>
 
     <div *ngIf="response">
       <json [object]="response"></json>
@@ -31,7 +27,8 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private subsetCacheService: SubsetCacheService) {
   }
 
   ngOnInit() {
@@ -42,6 +39,7 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
       this.response = null;
       this.appService.subsetFactDetails(this.subset).subscribe(response => {
         this.response = response;
+        this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
       });
     });
   }

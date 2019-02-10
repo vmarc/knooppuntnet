@@ -11,6 +11,10 @@ export class Subset {
     this.networkType = networkType;
   }
 
+  public key(): string {
+    return this.country.domain + "/" + this.networkType.name;
+  }
+
   public static fromJSON(jsonObject): Subset {
     if (!jsonObject) {
       return undefined;
