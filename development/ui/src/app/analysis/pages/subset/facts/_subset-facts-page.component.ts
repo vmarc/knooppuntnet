@@ -12,12 +12,9 @@ import {PageService} from "../../../../components/shared/page.service";
   selector: 'kpn-subset-facts-page',
   template: `
     <div content>
-      <h1>
-        <kpn-subset-name [subset]="subset"></kpn-subset-name>
-      </h1>
-      <h2>
-        Facts
-      </h2>
+
+      <kpn-subset-page-header [subset]="subset" pageName="facts"></kpn-subset-page-header>
+
       <div *ngIf="response">
         <p>
           Situation on:

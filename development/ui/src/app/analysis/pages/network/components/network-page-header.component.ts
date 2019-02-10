@@ -15,29 +15,54 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       {{networkName()}}
     </h1>
 
-    <div>
-      <a [ngClass]="{'selected': selectedPage == 'details'}" [routerLink]="'/analysis/network-details/' + networkId">Details</a> |
-      <a [ngClass]="{'selected': selectedPage == 'facts'}" [routerLink]="'/analysis/network-facts/' + networkId">Facts</a> <span class="kpn-thin"> (123)</span> |
-      <a [ngClass]="{'selected': selectedPage == 'nodes'}" [routerLink]="'/analysis/network-nodes/' + networkId">Nodes</a>  <span class="kpn-thin"> (123)</span> |
-      <a [ngClass]="{'selected': selectedPage == 'routes'}" [routerLink]="'/analysis/network-routes/' + networkId">Routes</a> <span class="kpn-thin"> (123)</span> |
-      <a [ngClass]="{'selected': selectedPage == 'map'}" [routerLink]="'/analysis/network-map/' + networkId">Map</a> |
-      <a [ngClass]="{'selected': selectedPage == 'changes'}" [routerLink]="'/analysis/network-changes/' + networkId">History</a>
-    </div>
-    <mat-divider></mat-divider>
-  `,
-  styles: [`
-    
-    .selected {
-      color: rgba(0, 0, 0, 0.87);
-      font-weight: bold;
-    }
-    
-    mat-divider {
-      margin-top: 10px;
-      margin-bottom: 50px;
-    }
-    
-  `]
+    <kpn-page-menu>
+      <kpn-page-menu-option
+        pageName="details"
+        selectedPageName="{{selectedPage}}"
+        link="{{'/analysis/network-details/' + networkId}}"
+        pageTitle="Details">
+      </kpn-page-menu-option>
+
+      <kpn-page-menu-option
+        pageName="facts"
+        selectedPageName="{{selectedPage}}"
+        link="{{'/analysis/network-facts/' + networkId}}"
+        pageTitle="Facts"
+        [elementCount]="factCount()">
+      </kpn-page-menu-option>
+
+      <kpn-page-menu-option
+        pageName="network-nodes"
+        selectedPageName="{{selectedPage}}"
+        link="{{'/analysis/network-nodes/' + networkId}}"
+        pageTitle="Nodes"
+        [elementCount]="nodeCount()">
+      </kpn-page-menu-option>
+
+      <kpn-page-menu-option
+        pageName="network-routes"
+        selectedPageName="{{selectedPage}}"
+        link="{{'/analysis/network-routes/' + networkId}}"
+        pageTitle="Routes"
+        [elementCount]="routeCount()">
+      </kpn-page-menu-option>
+
+      <kpn-page-menu-option
+        pageName="network-map"
+        selectedPageName="{{selectedPage}}"
+        link="{{'/analysis/network-map/' + networkId}}"
+        pageTitle="Map">
+      </kpn-page-menu-option>
+
+      <kpn-page-menu-option
+        pageName="network-changes"
+        selectedPageName="{{selectedPage}}"
+        link="{{'/analysis/network-changes/' + networkId}}"
+        pageTitle="Changes">
+      </kpn-page-menu-option>
+
+    </kpn-page-menu>
+  `
 })
 export class NetworkPageHeaderComponent {
 
@@ -53,6 +78,30 @@ export class NetworkPageHeaderComponent {
 
   networkName(): string {
     return this.networkCacheService.getNetworkName(this.networkId);
+  }
+
+  factCount() {
+    const summary = this.networkCacheService.getNetworkSummary(this.networkId);
+    if (summary != null) {
+      return summary.factCount;
+    }
+    return null;
+  }
+
+  nodeCount() {
+    const summary = this.networkCacheService.getNetworkSummary(this.networkId);
+    if (summary != null) {
+      return summary.nodeCount;
+    }
+    return null;
+  }
+
+  routeCount() {
+    const summary = this.networkCacheService.getNetworkSummary(this.networkId);
+    if (summary != null) {
+      return summary.routeCount;
+    }
+    return null;
   }
 
 }

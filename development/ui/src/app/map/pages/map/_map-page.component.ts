@@ -3,8 +3,13 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'kpn-map-page',
   template: `
+    <div>
+      <a routerLink="/">Home</a> >
+      Map
+    </div>
+
     <h1>
-      Kaart
+      Map
     </h1>
 
     <kpn-icon-button

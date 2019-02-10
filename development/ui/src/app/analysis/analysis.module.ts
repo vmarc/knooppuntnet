@@ -123,6 +123,7 @@ import {NetworkPageHeaderComponent} from "./pages/network/components/network-pag
 import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
 import {AnalysisNlPageComponent} from "./pages/analysis/analysis-nl-page.component";
 import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
+import {SubsetPageHeaderComponent} from "./pages/subset/components/subset-page-header.component";
 
 @NgModule({
   imports: [
@@ -251,7 +252,8 @@ import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.compone
     NetworkIndicatorDialogComponent,
     RoleConnectionIndicatorDialogComponent,
     RouteIndicatorDialogComponent,
-    NetworkPageHeaderComponent
+    NetworkPageHeaderComponent,
+    SubsetPageHeaderComponent
   ],
   entryComponents: [
     ConnectionIndicatorDialogComponent,

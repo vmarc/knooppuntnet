@@ -11,12 +11,8 @@ import {PageService} from "../../../../components/shared/page.service";
 @Component({
   selector: 'kpn-subset-orphan-nodes-page',
   template: `
-    <h1>
-      <kpn-subset-name [subset]="subset"></kpn-subset-name>
-    </h1>
-    <h2>
-      Orphan nodes
-    </h2>
+
+    <kpn-subset-page-header [subset]="subset" pageName="orphan-nodes"></kpn-subset-page-header>
 
     <div *ngIf="response">
       <kpn-subset-orphan-nodes-table [nodes]="response.result.rows"></kpn-subset-orphan-nodes-table>

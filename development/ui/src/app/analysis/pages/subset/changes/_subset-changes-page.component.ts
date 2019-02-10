@@ -11,12 +11,8 @@ import {PageService} from "../../../../components/shared/page.service";
 @Component({
   selector: 'kpn-subset-changes-page',
   template: `
-    <h1>
-      <kpn-subset-name [subset]="subset"></kpn-subset-name>
-    </h1>
-    <h2>
-      Changes
-    </h2>
+
+    <kpn-subset-page-header [subset]="subset" pageName="changes"></kpn-subset-page-header>
 
     <div *ngIf="response">
       <json [object]="response"></json>
