@@ -1,5 +1,8 @@
 package kpn.core.poi
 
+import kpn.core.overpass.OverpassQueryExecutor
+import kpn.core.util.Log
+import kpn.shared.Poi
 import org.xml.sax.SAXParseException
 
 import scala.xml.XML
