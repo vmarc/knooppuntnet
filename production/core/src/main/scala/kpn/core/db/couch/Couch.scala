@@ -82,6 +82,7 @@ object Couch {
         config.getString("couchdb.dbname.main"),
         config.getString("couchdb.dbname.changes"),
         config.getString("couchdb.dbname.changesets"),
+        config.getString("couchdb.dbname.pois"),
         config.getString("couchdb.dbname.users"),
         config.getString("couchdb.dbname.reviews"),
         config.getString("couchdb.dbname.tasks")

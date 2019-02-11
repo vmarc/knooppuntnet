@@ -14,6 +14,7 @@ class ApplicationConfigWebImpl(configuration: Configuration) extends Application
     val dbname = configuration.get[String]("couch.database.main")
     val changeDbname = configuration.get[String]("couch.database.changes")
     val changesetDbname = configuration.get[String]("couch.database.changesets")
+    val poiDbname = configuration.get[String]("couch.database.pois")
     val userDbname = configuration.get[String]("couch.database.users")
     val reviewDbname = configuration.get[String]("couch.database.reviews")
     val taskDbname = configuration.get[String]("couch.database.tasks")
@@ -25,6 +26,7 @@ class ApplicationConfigWebImpl(configuration: Configuration) extends Application
       dbname,
       changeDbname,
       changesetDbname,
+      poiDbname,
       userDbname,
       reviewDbname,
       taskDbname

@@ -213,6 +213,15 @@ import {MatButtonToggleChange} from "@angular/material";
         </pre>
     </mat-expansion-panel>
 
+    
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        POI detail
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <kpn-poi-detail></kpn-poi-detail>
+      </ng-template>
+    </mat-expansion-panel>
 
     <mat-expansion-panel>
       <mat-expansion-panel-header>

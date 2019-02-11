@@ -8,6 +8,7 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
+import kpn.shared.Poi
 
 object PoiProcessorImpl {
 

@@ -176,6 +176,8 @@ import {PageMenuOptionComponent} from "./menu/page-menu-option.component";
     JosmNodeComponent,
     JosmWayComponent,
     JosmRelationComponent,
+    JosmLinkComponent,
+    OsmLinkComponent,
     OsmLinkNodeComponent,
     OsmLinkChangeSetComponent,
     OsmLinkRelationComponent,

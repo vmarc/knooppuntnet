@@ -1,5 +1,6 @@
 package kpn.core.poi
 
+import kpn.shared.Poi
 import kpn.shared.data.Tag
 import kpn.shared.data.Tags
 

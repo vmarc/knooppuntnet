@@ -8,6 +8,7 @@ case class CouchConfig(
   dbname: String,
   changeDbname: String,
   changesetDbname: String,
+  poiDbname: String,
   userDbname: String,
   reviewDbname: String,
   taskDbname: String

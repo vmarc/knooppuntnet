@@ -1,6 +1,5 @@
-package kpn.core.poi
+package kpn.shared
 
-import kpn.shared.LatLon
 import kpn.shared.data.Tags
 
 case class Poi(

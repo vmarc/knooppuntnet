@@ -24,6 +24,7 @@ import {PoiGroupTourismComponent} from "./pages/map/poi/poi-group-tourism.compon
 import {PoiGroupVariousComponent} from "./pages/map/poi/poi-group-various.component";
 import {PoiGroupComponent} from "./pages/map/poi/poi-group.component";
 import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.component";
+import {PoiDetailComponent} from "./sidebar/poi-detail.component";
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.comp
     PoiGroupTourismComponent,
     PoiGroupVariousComponent,
     PoiConfigComponent,
-    NetworkTypeSelectorComponent
+    NetworkTypeSelectorComponent,
+    PoiDetailComponent
   ],
   exports: [
     MapPageComponent

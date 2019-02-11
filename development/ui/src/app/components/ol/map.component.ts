@@ -62,7 +62,7 @@ export class MapComponent implements AfterViewInit {
 
   poiIconStyleMap: PoiStyle;
 
-  constructor(mapService: MapService) {
+  constructor(private mapService: MapService) {
     mapService.poiConfiguration.subscribe(configuration => {
       this.poiIconStyleMap = new PoiStyle(configuration)
     });
@@ -214,7 +214,7 @@ export class MapComponent implements AfterViewInit {
       style: new Style() // this overrides the normal openlayers default edit style
     });
     interaction.on("select", (e) => {
-      new MapClickHandler(this.mapState, this.selectionHolder).handle(e);
+      new MapClickHandler(this.mapState, this.selectionHolder, this.mapService).handle(e);
       this.repaintVectorTileLayer();
       return true;
     });

@@ -28,7 +28,6 @@ import kpn.core.engine.changes.data.BlackListEntry
 import kpn.core.engine.changes.data.OrphanNodesData
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.WayPoint
-import kpn.core.poi.Poi
 import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
 import kpn.shared.Bounds
@@ -55,6 +54,7 @@ import kpn.shared.NodeInfo
 import kpn.shared.NodeIntegrityCheck
 import kpn.shared.NodeIntegrityCheckChange
 import kpn.shared.PageInfo
+import kpn.shared.Poi
 import kpn.shared.ReplicationId
 import kpn.shared.RouteSummary
 import kpn.shared.RoutesFact

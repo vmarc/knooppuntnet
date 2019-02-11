@@ -24,6 +24,7 @@ import kpn.core.facade.pages.SubsetOrphanRoutesPageBuilderImpl
 import kpn.core.overpass.OverpassQueryExecutorHttp
 import kpn.core.planner.PlannerFacade
 import kpn.core.planner.PlannerFacadeImpl
+import kpn.core.poi.PoiRepositoryImpl
 import kpn.core.repository.AnalysisRepositoryImpl
 import kpn.core.repository.ChangeSetInfoRepositoryImpl
 import kpn.core.repository.ChangeSetRepositoryImpl
@@ -46,6 +47,7 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
   val mainDatabase = new DatabaseImpl(couch, config.couchConfig.dbname)
   val changeDatabase = new DatabaseImpl(couch, config.couchConfig.changeDbname)
   val changesetDatabase = new DatabaseImpl(couch, config.couchConfig.changesetDbname)
+  val poiDatabase = new DatabaseImpl(couch, config.couchConfig.poiDbname)
 
   private val userDatabase = new DatabaseImpl(couch, config.couchConfig.userDbname)
   private val reviewDatabase = new DatabaseImpl(couch, config.couchConfig.reviewDbname)
@@ -68,6 +70,8 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
     routeRepository,
     nodeRepository
   )
+
+  private val poiRepository = new PoiRepositoryImpl(poiDatabase)
 
   val analyzerFacade: AnalyzerFacade = {
 
@@ -144,6 +148,7 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       overviewRepository,
       factRepository,
       analysisRepository,
+      poiRepository,
       // ---
       nodePageBuilder,
       routePageBuilder,

@@ -8,6 +8,7 @@ import kpn.core.db.json.JsonFormats.poiDocFormat
 import kpn.core.db.views.PoiDesign
 import kpn.core.db.views.PoiView
 import kpn.core.util.Log
+import kpn.shared.Poi
 
 class PoiRepositoryImpl(database: Database) extends PoiRepository {
 
@@ -15,7 +16,7 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
 
   def save(poi: Poi): Boolean = {
 
-    val key = docId(poi)
+    val key = poiDocId(poi)
 
     database.optionGet(key, Couch.batchTimeout) match {
       case Some(jsDoc) =>
@@ -73,8 +74,20 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
     initialPois ++ remainingPois
   }
 
-  private def docId(poi: Poi): String = {
-    s"${KeyPrefix.Poi}:${poi.elementType}:${poi.elementId}"
+  def poi(elementType: String, elementId: Long): Option[Poi] = {
+    val key = docId(elementType, elementId)
+    database.optionGet(key, Couch.batchTimeout).map { jsDoc =>
+      val doc = poiDocFormat.read(jsDoc)
+      doc.poi
+    }
+  }
+
+  private def poiDocId(poi: Poi): String = {
+    docId(poi.elementType, poi.elementId)
+  }
+
+  private def docId(elementType: String, elementId: Long): String = {
+    s"${KeyPrefix.Poi}:$elementType:$elementId"
   }
 
 }

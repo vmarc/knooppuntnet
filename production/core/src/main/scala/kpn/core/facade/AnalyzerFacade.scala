@@ -6,6 +6,7 @@ import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
 import kpn.shared.NetworkType
+import kpn.shared.Poi
 import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
@@ -77,4 +78,5 @@ trait AnalyzerFacade {
 
   def poiConfiguration(user: Option[String]): ApiResponse[TilePoiConfiguration]
 
+  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[Poi]
 }

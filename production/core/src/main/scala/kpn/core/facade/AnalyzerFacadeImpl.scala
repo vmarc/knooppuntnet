@@ -22,6 +22,7 @@ import kpn.core.facade.pages.SubsetOrphanNodesPageBuilder
 import kpn.core.facade.pages.SubsetOrphanRoutesPageBuilder
 import kpn.core.gpx.GpxFile
 import kpn.core.poi.PoiConfiguration
+import kpn.core.poi.PoiRepository
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.FactRepository
 import kpn.core.repository.NetworkRepository
@@ -33,6 +34,7 @@ import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
 import kpn.shared.NetworkType
+import kpn.shared.Poi
 import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
@@ -66,6 +68,7 @@ class AnalyzerFacadeImpl(
   overviewRepository: OverviewRepository,
   factRepository: FactRepository,
   analysisRepository: AnalysisRepository,
+  poiRepository: PoiRepository,
   // ---
   nodePageBuilder: NodePageBuilder,
   routePageBuilder: RoutePageBuilder,
@@ -268,6 +271,13 @@ class AnalyzerFacadeImpl(
     ApiResponse(None, 1, Some(configuration))
   }
 
+  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[Poi] = {
+    log.infoElapsed(s"$user poi($elementType, $elementId)") {
+      val poi = poiRepository.poi(elementType, elementId)
+      ApiResponse(None, 1, poi) // analysis timestamp not needed here
+    }
+  }
+
   private def reply[T](label: String, result: Option[T]): ApiResponse[T] = {
     log.infoElapsed(s"timestamp localize " + label) {
       val r = ApiResponse(analysisRepository.lastUpdated(), 1, result)
@@ -275,6 +285,5 @@ class AnalyzerFacadeImpl(
       r
     }
   }
-
 
 }

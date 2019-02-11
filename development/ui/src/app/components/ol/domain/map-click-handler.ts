@@ -3,11 +3,13 @@ import Feature from 'ol/Feature';
 import {click} from 'ol/events/condition';
 import {SelectedFeature} from "./selected-feature";
 import {SelectedFeatureHolder} from "./selected-feature-holder";
+import {MapService, PoiId} from "../map.service";
 
 export class MapClickHandler {
 
   constructor(private mapState: MapState,
-              private selectionHolder: SelectedFeatureHolder) {
+              private selectionHolder: SelectedFeatureHolder,
+              private mapService: MapService) {
   }
 
   public handle(e /*: ol.interaction.select.Event*/) {
@@ -39,6 +41,13 @@ export class MapClickHandler {
         }
         else if (layer.endsWith("node")) {
           this.handleNodeSelection(feature);
+        }
+        else {
+          const id = feature.get("id");
+          const type = feature.get("type");
+          if (type === 'way' || type === 'node') {
+            this.mapService.poiClicked.next(new PoiId(type, id));
+          }
         }
       }
     }

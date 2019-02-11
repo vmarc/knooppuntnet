@@ -3,8 +3,16 @@ import {ReplaySubject} from "rxjs";
 import {AppService} from "../../app.service";
 import {InterpretedPoiConfiguration} from "./domain/interpreted-poi-configuration";
 
+export class PoiId {
+  constructor(readonly elementType: string,
+              readonly elementId: number) {
+  }
+}
+
 @Injectable()
 export class MapService {
+
+  poiClicked: ReplaySubject<PoiId> = new ReplaySubject(1);
 
   poiConfiguration: ReplaySubject<InterpretedPoiConfiguration> = new ReplaySubject(1);
 

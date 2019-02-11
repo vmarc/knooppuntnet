@@ -6,6 +6,7 @@ import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
 import kpn.shared.NetworkType
+import kpn.shared.Poi
 import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
@@ -111,4 +112,9 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
   def poiConfiguration(): ApiResponse[TilePoiConfiguration] = {
     analyzerFacade.poiConfiguration(user)
   }
+
+  def poi(elementType: String, elementId: Long): ApiResponse[Poi] = {
+    analyzerFacade.poi(user, elementType, elementId)
+  }
+
 }
