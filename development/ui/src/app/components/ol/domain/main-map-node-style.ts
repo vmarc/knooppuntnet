@@ -4,12 +4,12 @@ import Fill from 'ol/style/Fill';
 import Text from 'ol/style/Text';
 import Stroke from 'ol/style/Stroke';
 import {MainStyleColors} from "./main-style-colors";
-import {MapState} from "./map-state";
 import Feature from 'ol/Feature';
+import {MapService} from "../map.service";
 
 export class MainMapNodeStyle {
 
-  constructor(private mapState: MapState) {
+  constructor(private mapService: MapService) {
   }
 
   private readonly largeMinZoomLevel = 13;
@@ -33,11 +33,10 @@ export class MainMapNodeStyle {
 
   private determineNodeSelectedStyle(featureId: string, large: boolean): Style {
     let style = null;
-    if (this.mapState.selectedNodeId && featureId && featureId == this.mapState.selectedNodeId) {
+    if (this.mapService.selectedNodeId && featureId && featureId == this.mapService.selectedNodeId) {
       if (large) {
         style = this.largeNodeSelectedStyle;
-      }
-      else {
+      } else {
         style = this.smallNodeSelectedStyle;
       }
     }
@@ -48,8 +47,7 @@ export class MainMapNodeStyle {
     let style: Style = null;
     if (large) {
       style = this.determineLargeNodeStyle(feature, layer, enabled);
-    }
-    else {
+    } else {
       style = this.determineSmallNodeStyle(layer, enabled);
     }
     return style;
@@ -62,11 +60,10 @@ export class MainMapNodeStyle {
     this.largeNodeStyle.getText().setText(feature.get("name"));
     this.largeNodeStyle.getImage().getStroke().setColor(color);
 
-    if (this.mapState.highlightedNodeId && feature.get("id") == this.mapState.highlightedNodeId) {
+    if (this.mapService.highlightedNodeId && feature.get("id") == this.mapService.highlightedNodeId) {
       this.largeNodeStyle.getImage().getStroke().setWidth(5);
       this.largeNodeStyle.getImage().setRadius(16);
-    }
-    else {
+    } else {
       this.largeNodeStyle.getImage().getStroke().setWidth(3);
       this.largeNodeStyle.getImage().setRadius(14);
     }
@@ -135,14 +132,11 @@ export class MainMapNodeStyle {
     if (enabled) {
       if ("error-node" == layer) {
         nodeColor = MainStyleColors.blue;
-      }
-      else if ("orphan-node" == layer) {
+      } else if ("orphan-node" == layer) {
         nodeColor = MainStyleColors.darkGreen;
-      }
-      else if ("error-orphan-node" == layer) {
+      } else if ("error-orphan-node" == layer) {
         nodeColor = MainStyleColors.darkBlue;
-      }
-      else {
+      } else {
         nodeColor = MainStyleColors.green;
       }
     }

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -21,10 +21,7 @@ import {Icon, Style} from 'ol/style';
 import {ZoomLevel} from "./domain/zoom-level";
 import {MainMapStyle} from "./domain/main-map-style";
 import {MapClickHandler} from "./domain/map-click-handler";
-import {SelectedFeatureHolder} from "./domain/selected-feature-holder";
-import {MapState} from "./domain/map-state";
 import {MapMoveHandler} from "./domain/map-move-handler";
-import {SelectedFeature} from "./domain/selected-feature";
 import {NetworkType} from "../../kpn/shared/network-type";
 import {MapService} from "./map.service";
 import {PoiStyle} from "./domain/poi-style";
@@ -49,12 +46,8 @@ export class MapComponent implements AfterViewInit {
   @Input() id;
   @Input() networkType: NetworkType;
 
-  @Output() featureSelection = new EventEmitter<SelectedFeature>();
-
   map: Map;
-  mapState: MapState;
   mainMapStyle: (feature, resolution) => Style;
-  selectionHolder: SelectedFeatureHolder;
 
   bitmapTileLayer: TileLayer;
   vectorTileLayer: VectorTileLayer;
@@ -91,11 +84,10 @@ export class MapComponent implements AfterViewInit {
       })
     });
 
-    this.mapState = new MapState();
-    this.mainMapStyle = new MainMapStyle(this.map, this.mapState).styleFunction();
+    this.mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
+
     this.repaintVectorTileLayer();
-    this.selectionHolder = new SelectedFeatureHolder(selectedFeature => {
-      this.featureSelection.emit(selectedFeature);
+    this.mapService.selectedFeature.subscribe(selectedFeature => {
       this.repaintVectorTileLayer();
     });
 
@@ -214,7 +206,7 @@ export class MapComponent implements AfterViewInit {
       style: new Style() // this overrides the normal openlayers default edit style
     });
     interaction.on("select", (e) => {
-      new MapClickHandler(this.mapState, this.selectionHolder, this.mapService).handle(e);
+      new MapClickHandler(this.mapService).handle(e);
       this.repaintVectorTileLayer();
       return true;
     });
@@ -229,7 +221,7 @@ export class MapComponent implements AfterViewInit {
       style: new Style() // this overrides the normal openlayers default edit style
     });
     interaction.on("select", (e) => {
-      new MapMoveHandler(this.map, this.mapState, this.selectionHolder).handle(e);
+      new MapMoveHandler(this.map, this.mapService).handle(e);
       this.repaintVectorTileLayer();
       return true;
     });

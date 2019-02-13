@@ -88,7 +88,7 @@ class Application(
     val mapDetailNode = """node-detail/(\d*)/(rcn|rwn|rhn|rmn|rpn|rin)""".r
     val mapDetailRoute = """route-detail/(\d*)""".r
     val poiConfiguration = """poi-configuration""".r
-    val poi = """poi/(node|way)/(\d*)""".r
+    val poi = """poi/(node|way|relation)/(\d*)""".r
 
     val userApiService = request.session.get("user") match {
       case Some(user) => new JsonApiService(analyzerFacade, Some(user))(system)

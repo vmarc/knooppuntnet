@@ -1,17 +1,16 @@
 import Map from 'ol/Map';
 import {MainMapNodeStyle} from "./main-map-node-style";
 import {MainMapRouteStyle} from "./main-map-route-style";
-import {MapState} from "./map-state";
+import {MapService} from "../map.service";
 
 export class MainMapStyle {
 
   private readonly mainMapNodeStyle;
   private readonly mainMapRouteStyle;
 
-  constructor(private map: Map,
-              private mapState: MapState) {
-    this.mainMapNodeStyle = new MainMapNodeStyle(mapState);
-    this.mainMapRouteStyle = new MainMapRouteStyle(mapState);
+  constructor(private map: Map, private mapService: MapService) {
+    this.mainMapNodeStyle = new MainMapNodeStyle(mapService);
+    this.mainMapRouteStyle = new MainMapRouteStyle(mapService);
   }
 
   public styleFunction() {

@@ -1,0 +1,17 @@
+package kpn.shared
+
+import kpn.shared.data.Tags
+
+case class PoiPage(
+  elementType: String,
+  elementId: Long,
+  latitude: String,
+  longitude: String,
+  layers: Seq[String],
+  mainTags: Tags,
+  extraTags: Tags,
+  name: Option[String],
+  description: Option[String],
+  addressLine1: Option[String],
+  addressLine2: Option[String]
+)

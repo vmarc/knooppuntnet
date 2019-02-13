@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {SelectedFeature} from "../../../components/ol/domain/selected-feature";
 import {NetworkType} from "../../../kpn/shared/network-type";
+import {MapService} from "../../../components/ol/map.service";
 
 @Component({
   selector: 'kpn-map-main-page',
@@ -11,8 +11,7 @@ import {NetworkType} from "../../../kpn/shared/network-type";
       content
       id="main-map"
       class="map"
-      [networkType]="networkType"
-      (featureSelection)="featureSelectionChanged($event)">
+      [networkType]="networkType">
     </kpn-map>
   `,
   styles: [`
@@ -28,10 +27,11 @@ import {NetworkType} from "../../../kpn/shared/network-type";
 export class MapMainPageComponent implements OnInit, OnDestroy {
 
   networkType: NetworkType;
-  selectedFeature: SelectedFeature;
   paramsSubscription: Subscription;
+  selectedFeatureSubscription: Subscription;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private mapService: MapService) {
   }
 
   ngOnInit() {
@@ -39,13 +39,14 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
       const networkTypeName = params['networkType'];
       this.networkType = new NetworkType(networkTypeName);
     });
-  }
 
-  featureSelectionChanged(selectedFeature: SelectedFeature) {
-    this.selectedFeature = selectedFeature;
+    this.selectedFeatureSubscription = this.mapService.selectedFeature.subscribe(selectedFeature => {
+      console.log("DEBUG MapMainPageComponent type=" + selectedFeature.featureType + ", id=" + selectedFeature.featureId + ", name=" + selectedFeature.name);
+    });
   }
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
+    this.selectedFeatureSubscription.unsubscribe();
   }
 }

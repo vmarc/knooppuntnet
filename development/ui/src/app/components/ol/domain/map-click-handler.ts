@@ -1,15 +1,11 @@
-import {MapState} from "./map-state";
 import Feature from 'ol/Feature';
 import {click} from 'ol/events/condition';
 import {SelectedFeature} from "./selected-feature";
-import {SelectedFeatureHolder} from "./selected-feature-holder";
 import {MapService, PoiId} from "../map.service";
 
 export class MapClickHandler {
 
-  constructor(private mapState: MapState,
-              private selectionHolder: SelectedFeatureHolder,
-              private mapService: MapService) {
+  constructor(private mapService: MapService) {
   }
 
   public handle(e /*: ol.interaction.select.Event*/) {
@@ -21,31 +17,27 @@ export class MapClickHandler {
     for (let feature of features) {
       const layer = feature.get("layer");
       if (layer.endsWith("route")) {
-        this.mapState.selectedRouteId = null;
-      }
-      else if (layer.endsWith("node")) {
-        this.mapState.selectedNodeId = null;
+        this.mapService.selectedRouteId = null;
+      } else if (layer.endsWith("node")) {
+        this.mapService.selectedNodeId = null;
       }
     }
   }
 
   private handleSelectedFeatures(features: Array<Feature>) {
     if (features.length == 0) {
-      this.selectionHolder.select(null);
-    }
-    else {
+      this.mapService.selectedFeature.next(null);
+    } else {
       for (let feature of features) {
         const layer = feature.get("layer");
         if (layer.endsWith("route")) {
           this.handleRouteSelection(feature);
-        }
-        else if (layer.endsWith("node")) {
+        } else if (layer.endsWith("node")) {
           this.handleNodeSelection(feature);
-        }
-        else {
+        } else {
           const id = feature.get("id");
           const type = feature.get("type");
-          if (type === 'way' || type === 'node') {
+          if (type === "way" || type === "node" || type === "relation") {
             this.mapService.poiClicked.next(new PoiId(type, id));
           }
         }
@@ -57,18 +49,18 @@ export class MapClickHandler {
     const id = feature.get("id");
     const id2 = id.substring(0, id.indexOf('-'));
     const name = feature.get("name");
-    this.mapState.selectedRouteId = id2 + "-";
+    this.mapService.selectedRouteId = id2 + "-";
     const selection = new SelectedFeature(+id2, name, "route");
-    this.selectionHolder.select(selection)
+    this.mapService.selectedFeature.next(selection)
   }
 
   private handleNodeSelection(feature: Feature) {
-    this.mapState.selectedRouteId = null;
+    this.mapService.selectedRouteId = null;
     const id = feature.get("id");
-    this.mapState.selectedNodeId = id;
+    this.mapService.selectedNodeId = id;
     const name = feature.get("name");
     const selection = new SelectedFeature(+id, name, "node");
-    this.selectionHolder.select(selection);
+    this.mapService.selectedFeature.next(selection);
   }
 
 }

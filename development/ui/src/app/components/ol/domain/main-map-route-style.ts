@@ -1,15 +1,15 @@
 import Style from 'ol/style/Style';
 import Stroke from 'ol/style/Stroke';
 import Feature from 'ol/Feature';
-import {MapState} from "./map-state";
 import {MainStyleColors} from "./main-style-colors";
+import {MapService} from "../map.service";
 
 export class MainMapRouteStyle {
 
   private readonly defaultRouteStyle = this.initRouteStyle();
   private readonly defaultRouteSelectedStyle = this.initRouteSelectedStyle();
 
-  constructor(private mapState: MapState) {
+  constructor(private mapService: MapService) {
   }
 
   public routeStyle(zoom: number, feature: Feature, layer: string, enabled: boolean): Array<Style> {
@@ -21,7 +21,7 @@ export class MainMapRouteStyle {
   private determineRouteSelectedStyle(feature: Feature): Style {
     const featureId = feature.get("id");
     let style = null;
-    if (this.mapState.selectedRouteId && featureId && featureId.startsWith(this.mapState.selectedRouteId)) {
+    if (this.mapService.selectedRouteId && featureId && featureId.startsWith(this.mapService.selectedRouteId)) {
       style = this.defaultRouteSelectedStyle;
     }
     return style;
@@ -34,15 +34,12 @@ export class MainMapRouteStyle {
 
     if (zoom < 9) {
       this.defaultRouteStyle.getStroke().setWidth(1);
-    }
-    else if (zoom < 12) {
+    } else if (zoom < 12) {
       this.defaultRouteStyle.getStroke().setWidth(2);
-    }
-    else {
-      if (this.mapState.highlightedRouteId && feature.get("id").startsWith(this.mapState.highlightedRouteId)) {
+    } else {
+      if (this.mapService.highlightedRouteId && feature.get("id").startsWith(this.mapService.highlightedRouteId)) {
         this.defaultRouteStyle.getStroke().setWidth(8)
-      }
-      else {
+      } else {
         this.defaultRouteStyle.getStroke().setWidth(4)
       }
     }
@@ -72,14 +69,11 @@ export class MainMapRouteStyle {
     if (enabled) {
       if ("route" == layer) {
         color = MainStyleColors.green;
-      }
-      else if ("orphan-route" == layer) {
+      } else if ("orphan-route" == layer) {
         color = MainStyleColors.darkGreen;
-      }
-      else if ("incomplete-route" == layer) {
+      } else if ("incomplete-route" == layer) {
         color = MainStyleColors.red;
-      }
-      else if ("error-route" == layer) {
+      } else if ("error-route" == layer) {
         color = [255, 165, 0]; // ol.Color
       }
     }

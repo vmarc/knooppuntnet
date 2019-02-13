@@ -81,7 +81,7 @@ object TestSupport extends Assertions {
       val dbname = config.getString("couchdb.dbname.main")
       val changeDbname = config.getString("couchdb.dbname.changes")
 
-      val couchConfig = CouchConfig(host, port, user, password, "", "", "", "", "", "")
+      val couchConfig = CouchConfig(host, port, user, password, "", "", "", "", "", "", "")
       couch = Some(new Couch(system, couchConfig))
     }
 

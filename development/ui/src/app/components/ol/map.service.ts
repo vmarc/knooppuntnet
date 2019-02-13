@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {ReplaySubject} from "rxjs";
 import {AppService} from "../../app.service";
 import {InterpretedPoiConfiguration} from "./domain/interpreted-poi-configuration";
+import {SelectedFeature} from "./domain/selected-feature";
 
 export class PoiId {
   constructor(readonly elementType: string,
@@ -12,8 +13,14 @@ export class PoiId {
 @Injectable()
 export class MapService {
 
-  poiClicked: ReplaySubject<PoiId> = new ReplaySubject(1);
+  // former MapState
+  highlightedRouteId: string;
+  highlightedNodeId: string;
+  selectedRouteId: string;
+  selectedNodeId: string;
 
+  selectedFeature: ReplaySubject<SelectedFeature> = new ReplaySubject(1);
+  poiClicked: ReplaySubject<PoiId> = new ReplaySubject(1);
   poiConfiguration: ReplaySubject<InterpretedPoiConfiguration> = new ReplaySubject(1);
 
   constructor(private appService: AppService) {
