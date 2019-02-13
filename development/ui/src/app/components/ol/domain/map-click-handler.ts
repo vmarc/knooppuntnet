@@ -2,13 +2,14 @@ import Feature from 'ol/Feature';
 import {click} from 'ol/events/condition';
 import {SelectedFeature} from "./selected-feature";
 import {MapService, PoiId} from "../map.service";
+import {SelectEvent} from 'ol/interaction/Select';
 
 export class MapClickHandler {
 
   constructor(private mapService: MapService) {
   }
 
-  public handle(e /*: ol.interaction.select.Event*/) {
+  public handle(e: SelectEvent) {
     this.handleDeselectedFeatures(e.deselected);
     this.handleSelectedFeatures(e.selected);
   }

@@ -2,19 +2,20 @@ import Map from 'ol/Map';
 import Feature from 'ol/Feature';
 import {pointerMove} from 'ol/events/condition';
 import {MapService} from "../map.service";
+import {SelectEvent} from 'ol/interaction/Select';
 
 export class MapMoveHandler {
 
   constructor(private map: Map, private mapService: MapService) {
   }
 
-  public handle(e /*: ol.interaction.select.Event*/) {
+  public handle(e: SelectEvent) {
     this.updateCursor(e);
     this.handleDeselectedFeatures(e.deselected);
     this.handleSelectedFeatures(e.selected);
   }
 
-  private updateCursor(e) {
+  private updateCursor(e: SelectEvent) {
     if (e.selected.length > 0) {
       this.map.getTargetElement().setAttribute("style", "cursor: pointer")
     } else {
@@ -43,9 +44,6 @@ export class MapMoveHandler {
       } else if (layer.endsWith("node")) {
         this.mapService.highlightedRouteId = null;
         this.mapService.highlightedNodeId = id;
-      } else {
-        const layerType = feature.get("type");
-        console.log(layer + " " + layerType + " " + id);
       }
     }
   }

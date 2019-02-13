@@ -85,11 +85,6 @@ export class MapComponent implements AfterViewInit {
 
     this.mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
 
-    this.repaintVectorTileLayer();
-    this.mapService.selectedFeature.subscribe(selectedFeature => {
-      this.repaintVectorTileLayer();
-    });
-
     this.installClickInteraction();
     this.installMoveInteraction();
 
@@ -118,7 +113,7 @@ export class MapComponent implements AfterViewInit {
       if (this.poiIconStyleMap) {
         const layer = feature.get("layer");
         if (layer) {
-          const style = this.poiIconStyleMap.get(layer)
+          const style = this.poiIconStyleMap.get(layer);
           if (style) {
             return [style];
           }
@@ -221,7 +216,7 @@ export class MapComponent implements AfterViewInit {
     });
     interaction.on("select", (e) => {
       new MapClickHandler(this.mapService).handle(e);
-      this.repaintVectorTileLayer();
+      this.vectorTileLayer.changed();
       return true;
     });
     this.map.addInteraction(interaction);
@@ -236,14 +231,10 @@ export class MapComponent implements AfterViewInit {
     });
     interaction.on("select", (e) => {
       new MapMoveHandler(this.map, this.mapService).handle(e);
-      this.repaintVectorTileLayer();
+      this.vectorTileLayer.changed();
       return true;
     });
     this.map.addInteraction(interaction);
-  }
-
-  private repaintVectorTileLayer() {
-    this.vectorTileLayer.setStyle(this.mainMapStyle);
   }
 
   private buildPoiTileLayer() {
@@ -251,8 +242,6 @@ export class MapComponent implements AfterViewInit {
     const format = new MVT({
       featureClass: Feature // this is important to avoid error upon first selection in the map
     });
-
-    const tileType = "poi";
 
     const urlFunction = function (tileCoord, pixelRatio, projection) {
       const zIn = tileCoord[0];
@@ -262,7 +251,7 @@ export class MapComponent implements AfterViewInit {
       const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
       const x = xIn;
       const y = -yIn - 1;
-      return "/tiles/" + tileType + "/" + z + "/" + x + "/" + y + ".mvt"
+      return "/tiles/poi/" + z + "/" + x + "/" + y + ".mvt"
     };
 
     const tileGrid = createXYZ({
