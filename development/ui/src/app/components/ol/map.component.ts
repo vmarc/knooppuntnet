@@ -22,7 +22,6 @@ import {ZoomLevel} from "./domain/zoom-level";
 import {MainMapStyle} from "./domain/main-map-style";
 import {MapClickHandler} from "./domain/map-click-handler";
 import {MapMoveHandler} from "./domain/map-move-handler";
-import {NetworkType} from "../../kpn/shared/network-type";
 import {MapService} from "./map.service";
 import {PoiStyle} from "./domain/poi-style";
 
@@ -44,7 +43,6 @@ import {PoiStyle} from "./domain/poi-style";
 export class MapComponent implements AfterViewInit {
 
   @Input() id;
-  @Input() networkType: NetworkType;
 
   map: Map;
   mainMapStyle: (feature, resolution) => Style;
@@ -57,7 +55,9 @@ export class MapComponent implements AfterViewInit {
 
   constructor(private mapService: MapService) {
     mapService.poiConfiguration.subscribe(configuration => {
-      this.poiIconStyleMap = new PoiStyle(configuration)
+      if (configuration !== null) {
+        this.poiIconStyleMap = new PoiStyle(configuration)
+      }
     });
   }
 
@@ -67,15 +67,14 @@ export class MapComponent implements AfterViewInit {
     this.vectorTileLayer = this.buildVectorTileLayer();
     this.poiTileLayer = this.buildPoiTileLayer();
     this.poiTileLayer.setStyle(this.poiStyleFunction());
-    this.poiTileLayer.setZIndex(100);
 
     this.map = new Map({
       target: this.id,
       layers: [
         this.osmLayer(),
+        this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer,
-        this.poiTileLayer,
         this.debugLayer()
       ],
       view: new View({
@@ -100,6 +99,18 @@ export class MapComponent implements AfterViewInit {
     const view = this.map.getView();
     view.fit(extent);
     view.on("change:resolution", () => this.zoom(view.getZoom()));
+
+    this.mapService.networkType.subscribe(networkType => {
+      this.bitmapTileLayer = this.buildBitmapTileLayer();
+      this.vectorTileLayer = this.buildVectorTileLayer();
+      this.vectorTileLayer.setStyle(this.mainMapStyle);
+      this.map.getLayers().removeAt(2);
+      this.map.getLayers().insertAt(2, this.bitmapTileLayer);
+      this.map.getLayers().removeAt(3);
+      this.map.getLayers().insertAt(3, this.vectorTileLayer);
+      this.updateLayerVisibility(view.getZoom());
+    });
+
   }
 
   private poiStyleFunction() {
@@ -118,6 +129,11 @@ export class MapComponent implements AfterViewInit {
   }
 
   private zoom(zoomLevel: number) {
+    this.updateLayerVisibility(zoomLevel);
+    return true;
+  }
+
+  private updateLayerVisibility(zoomLevel: number) {
     const zoom = Math.round(zoomLevel);
     if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
       this.bitmapTileLayer.setVisible(true);
@@ -131,8 +147,6 @@ export class MapComponent implements AfterViewInit {
     } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
       this.poiTileLayer.setVisible(false);
     }
-
-    return true;
   }
 
   private osmLayer() {
@@ -148,7 +162,7 @@ export class MapComponent implements AfterViewInit {
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: "/tiles/" + this.networkType.name + "/{z}/{x}/{y}.png"
+        url: "/tiles/" + this.mapService.networkType.value.name + "/{z}/{x}/{y}.png"
       })
     });
   }
@@ -168,7 +182,7 @@ export class MapComponent implements AfterViewInit {
       featureClass: Feature // this is important to avoid error upon first selection in the map
     });
 
-    const tileType = this.networkType.name;
+    const networkType = this.mapService.networkType;
 
     const urlFunction = function (tileCoord, pixelRatio, projection) {
       const zIn = tileCoord[0];
@@ -178,7 +192,7 @@ export class MapComponent implements AfterViewInit {
       const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
       const x = xIn;
       const y = -yIn - 1;
-      return "/tiles/" + tileType + "/" + z + "/" + x + "/" + y + ".mvt"
+      return "/tiles/" + networkType.value.name + "/" + z + "/" + x + "/" + y + ".mvt"
     };
 
     const tileGrid = createXYZ({

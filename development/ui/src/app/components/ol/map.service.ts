@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {ReplaySubject} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {AppService} from "../../app.service";
 import {InterpretedPoiConfiguration} from "./domain/interpreted-poi-configuration";
 import {SelectedFeature} from "./domain/selected-feature";
+import {NetworkType} from "../../kpn/shared/network-type";
 
 export class PoiId {
   constructor(readonly elementType: string,
@@ -13,15 +14,15 @@ export class PoiId {
 @Injectable()
 export class MapService {
 
-  // former MapState
   highlightedRouteId: string;
   highlightedNodeId: string;
   selectedRouteId: string;
   selectedNodeId: string;
 
-  selectedFeature: ReplaySubject<SelectedFeature> = new ReplaySubject(1);
-  poiClicked: ReplaySubject<PoiId> = new ReplaySubject(1);
-  poiConfiguration: ReplaySubject<InterpretedPoiConfiguration> = new ReplaySubject(1);
+  networkType: BehaviorSubject<NetworkType> = new BehaviorSubject(new NetworkType("rcn"));
+  selectedFeature: BehaviorSubject<SelectedFeature> = new BehaviorSubject(null);
+  poiClicked: BehaviorSubject<PoiId> = new BehaviorSubject(null);
+  poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(null);
 
   constructor(private appService: AppService) {
     this.loadPoiConfiguration();

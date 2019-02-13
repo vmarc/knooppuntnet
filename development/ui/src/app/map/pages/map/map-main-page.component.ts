@@ -10,8 +10,7 @@ import {MapService} from "../../../components/ol/map.service";
     <kpn-map
       content
       id="main-map"
-      class="map"
-      [networkType]="networkType">
+      class="map">
     </kpn-map>
   `,
   styles: [`
@@ -26,7 +25,6 @@ import {MapService} from "../../../components/ol/map.service";
 })
 export class MapMainPageComponent implements OnInit, OnDestroy {
 
-  networkType: NetworkType;
   paramsSubscription: Subscription;
   selectedFeatureSubscription: Subscription;
 
@@ -37,11 +35,15 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.paramsSubscription = this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
       const networkTypeName = params['networkType'];
-      this.networkType = new NetworkType(networkTypeName);
+      this.mapService.networkType.next(new NetworkType(networkTypeName));
     });
 
     this.selectedFeatureSubscription = this.mapService.selectedFeature.subscribe(selectedFeature => {
-      console.log("DEBUG MapMainPageComponent type=" + selectedFeature.featureType + ", id=" + selectedFeature.featureId + ", name=" + selectedFeature.name);
+      if (selectedFeature == null) {
+        console.log("DEBUG MapMainPageComponent selectedFeature null");
+      } else {
+        console.log("DEBUG MapMainPageComponent selectedFeature type=" + selectedFeature.featureType + ", id=" + selectedFeature.featureId + ", name=" + selectedFeature.name);
+      }
     });
   }
 
