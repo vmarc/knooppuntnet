@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Subset} from "../../kpn/shared/subset";
 
 @Injectable({
@@ -9,9 +9,9 @@ import {Subset} from "../../kpn/shared/subset";
 export class PageService {
 
   breakpointState: Observable<BreakpointState>;
+  sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   private mobile: boolean;
-  private sidebarOpen: boolean;
 
   showSubsetsMenu: boolean = false;
   showSubsetMenu: boolean = false;
@@ -53,11 +53,11 @@ export class PageService {
   }
 
   toggleSidebarOpen(): void {
-    this.sidebarOpen = !this.sidebarOpen;
+    this.sidebarOpen.next(!this.sidebarOpen.value);
   }
 
   isSidebarOpen(): boolean {
-    return this.sidebarOpen;
+    return this.sidebarOpen.value;
   }
 
   isMobile(): boolean {
@@ -70,7 +70,9 @@ export class PageService {
 
   private updateMobile(mobile: boolean) {
     this.mobile = mobile;
-    this.sidebarOpen = !mobile;
+    if (this.sidebarOpen.value === mobile) {
+      this.sidebarOpen.next(!mobile);
+    }
   }
 
 }

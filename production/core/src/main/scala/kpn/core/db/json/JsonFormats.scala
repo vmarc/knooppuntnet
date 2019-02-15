@@ -55,6 +55,7 @@ import kpn.shared.NodeIntegrityCheck
 import kpn.shared.NodeIntegrityCheckChange
 import kpn.shared.PageInfo
 import kpn.shared.Poi
+import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
 import kpn.shared.RouteSummary
 import kpn.shared.RoutesFact
@@ -424,6 +425,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val mapDetailRouteFormat: RootJsonFormat[MapDetailRoute] = jsonFormat2(MapDetailRoute)
 
   implicit val poiFormat: RootJsonFormat[Poi] = jsonFormat6(Poi)
+  implicit val poiPageFormat: RootJsonFormat[PoiPage] = jsonFormat14(PoiPage)
   implicit val poiDocFormat: RootJsonFormat[PoiDoc] = jsonFormat3(PoiDoc)
   implicit val poiInfoFormat: RootJsonFormat[PoiInfo] = jsonFormat5(PoiInfo)
 

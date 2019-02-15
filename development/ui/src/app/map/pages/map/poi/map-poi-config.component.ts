@@ -26,6 +26,12 @@ import {Component} from '@angular/core';
       width: 35px;
     }
 
+    /deep/ .col-spacer {
+      display: inline-block;
+      position: relative;
+      width: 70px;
+    }
+
     /deep/ .col-name {
       display: inline-block;
       position: relative;
@@ -38,7 +44,6 @@ import {Component} from '@angular/core';
       display: inline-block;
       position: relative;
       width: 40px;
-      margin-top: 10px;
       vertical-align: top;
     }
 
@@ -46,7 +51,6 @@ import {Component} from '@angular/core';
       display: inline-block;
       position: relative;
       width: 30px;
-      margin-top: 10px;
       vertical-align: top;
     }
 
@@ -54,7 +58,6 @@ import {Component} from '@angular/core';
       display: inline-block;
       position: relative;
       width: 30px;
-      margin-top: 10px;
       vertical-align: top;
     }
 
@@ -62,7 +65,6 @@ import {Component} from '@angular/core';
       display: inline-block;
       position: relative;
       width: 30px;
-      margin-top: 10px;
       vertical-align: top;
     }
 
@@ -70,7 +72,6 @@ import {Component} from '@angular/core';
       display: inline-block;
       position: relative;
       width: 30px;
-      margin-top: 10px;
       vertical-align: top;
     }
     

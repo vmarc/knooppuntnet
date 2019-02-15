@@ -14,6 +14,7 @@ import kpn.core.facade.pages.NetworkMapPageBuilderImpl
 import kpn.core.facade.pages.NetworkNodesPageBuilderImpl
 import kpn.core.facade.pages.NetworkRoutesPageBuilderImpl
 import kpn.core.facade.pages.NodePageBuilderImpl
+import kpn.core.facade.pages.PoiPageBuilderImpl
 import kpn.core.facade.pages.RoutePageBuilderImpl
 import kpn.core.facade.pages.SubsetChangesPageBuilderImpl
 import kpn.core.facade.pages.SubsetFactDetailsPageBuilderImpl
@@ -141,6 +142,10 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       changeSetInfoRepository
     )
 
+    val poiPageBuilder = new PoiPageBuilderImpl(
+      poiRepository
+    )
+
     new AnalyzerFacadeImpl(
       nodeRepository,
       routeRepository,
@@ -148,7 +153,6 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       overviewRepository,
       factRepository,
       analysisRepository,
-      poiRepository,
       // ---
       nodePageBuilder,
       routePageBuilder,
@@ -165,7 +169,8 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       subsetOrphanNodesPageBuilder,
       changesPageBuilder,
       changeSetPageBuilder,
-      networkChangesPageBuilder
+      networkChangesPageBuilder,
+      poiPageBuilder
     )
   }
 

@@ -10,4 +10,6 @@ case class TagContains(tagKey: String, tagValues: String*) extends TagExpression
     }
   }
 
+  def tagKeys: Seq[String] = Seq(tagKey)
+
 }

@@ -6,7 +6,7 @@ import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
 import kpn.shared.NetworkType
-import kpn.shared.Poi
+import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
@@ -22,8 +22,8 @@ import kpn.shared.node.NodePage
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
-import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetChangesPage
+import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
@@ -78,5 +78,5 @@ trait AnalyzerFacade {
 
   def poiConfiguration(user: Option[String]): ApiResponse[TilePoiConfiguration]
 
-  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[Poi]
+  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage]
 }

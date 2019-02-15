@@ -13,13 +13,22 @@ object PoiConfiguration {
     }
   }
 
+  def tagKeys(poiName: String): Seq[String] = {
+    poiDefinition(poiName).toSeq.flatMap(_.expression.tagKeys)
+  }
+
+  private def poiDefinition(poiName: String): Option[PoiDefinition] = {
+    poiDefinitionGroups.flatMap(_.definitions).find(_.name == poiName)
+  }
+
+
   val poiDefinitionGroups: Seq[PoiDefinitionGroup] = Seq(
     PoiDefinitionGroup(
       "amenity",
       PoiDefinition("atm", "atm-2.png", 12, HasTag("amenity", "atm")),
       PoiDefinition("atm", "atm-2.png", 12, HasTag("amenity", "bank").and(HasTag("atm")).and(NotHasTag("atm", "no"))),
       PoiDefinition("bank", "bank.png", 12, HasTag("amenity", "bank")),
-      PoiDefinition("bench", "letter_b.png", 12, HasTag("amenity", "bench")),
+      PoiDefinition("bench", "bench.png", 12, HasTag("amenity", "bench")),
       PoiDefinition("bicycle_parking", "parking_bicycle-2.png", 12, HasTag("amenity", "bicycle_parking")),
       PoiDefinition("bicycle_rental", "cycling.png", 12, HasTag("amenity")),
       PoiDefinition("cinema", "cinema.png", 12, HasTag("amenity", "cinema")),
@@ -166,7 +175,7 @@ object PoiConfiguration {
       "restaurants",
       PoiDefinition("bar", "bar.png", 12, HasTag("amenity", "bar")),
       PoiDefinition("bbq", "letter_b.png", 12, HasTag("amenity", "bbq")),
-      PoiDefinition("biergarten", "number_1.png", 12, HasTag("amenity", "biergarten")),
+      PoiDefinition("biergarten", "beergarden.png", 12, HasTag("amenity", "biergarten")),
       PoiDefinition("cafe", "cafetaria.png", 12, HasTag("amenity", "cafe")),
       PoiDefinition("fast_food", "fastfood.png", 12, HasTag("amenity", "fast_food")),
       PoiDefinition("food_court", "letter_f.png", 12, HasTag("amenity", "food_court")),

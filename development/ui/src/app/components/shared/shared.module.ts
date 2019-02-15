@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PageComponent} from "./page/page.component";
 import {KpnMaterialModule} from "../../material/kpn-material.module";
 import {DataComponent} from "./data/data.component";
 import {OsmLinkComponent} from "./link/osm-link.component";
@@ -69,6 +68,8 @@ import {MetaDataComponent} from "./meta-data.component";
 import {IconButtonComponent} from "./icon/icon-button.component";
 import {PageMenuComponent} from "./menu/page-menu.component";
 import {PageMenuOptionComponent} from "./menu/page-menu-option.component";
+import {SidebarVersionWarningComponent} from "./sidebar/sidebar-version-warning.component";
+import {PageFooterComponent} from "./page/page-footer.component";
 
 @NgModule({
   imports: [
@@ -127,10 +128,11 @@ import {PageMenuOptionComponent} from "./menu/page-menu-option.component";
     JsonComponent,
     TagsComponent,
     DataComponent,
-    PageComponent,
+    PageFooterComponent,
     ToolbarComponent,
     SidebarComponent,
     SidebarFooterComponent,
+    SidebarVersionWarningComponent,
     SidebarSubsetsComponent,
     SidebarNetworkComponent,
     SidebarSubsetComponent,
@@ -197,10 +199,11 @@ import {PageMenuOptionComponent} from "./menu/page-menu-option.component";
     JsonComponent,
     TagsComponent,
     DataComponent,
-    PageComponent,
+    PageFooterComponent,
     ToolbarComponent,
     SidebarComponent,
     SidebarFooterComponent,
+    SidebarVersionWarningComponent,
     SidebarSubsetsComponent,
     SidebarNetworkComponent,
     SidebarSubsetComponent,

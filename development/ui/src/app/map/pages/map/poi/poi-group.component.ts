@@ -22,8 +22,7 @@ import {Component, Input} from '@angular/core';
         </div>
 
         <div>
-          <div class="col-icon"></div>
-          <div class="col-name"></div>
+          <div class="col-spacer"></div>
           <div class="col-level-0">NO</div>
           <div class="col-level-13">13</div>
           <div class="col-level-14">14</div>

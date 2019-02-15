@@ -107,6 +107,12 @@ export class MapComponent implements AfterViewInit {
 
   }
 
+  updateSize() {
+    if (this.map != null) {
+      this.map.updateSize();
+    }
+  }
+
   private poiStyleFunction() {
     return (feature, resolution) => {
       if (this.poiIconStyleMap) {
@@ -160,7 +166,6 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
-
   private installClickInteraction() {
     const interaction = new Select({
       condition: click,
@@ -189,6 +194,5 @@ export class MapComponent implements AfterViewInit {
     });
     this.map.addInteraction(interaction);
   }
-
 
 }

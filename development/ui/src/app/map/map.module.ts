@@ -25,6 +25,11 @@ import {PoiGroupVariousComponent} from "./pages/map/poi/poi-group-various.compon
 import {PoiGroupComponent} from "./pages/map/poi/poi-group.component";
 import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.component";
 import {PoiDetailComponent} from "./sidebar/poi-detail.component";
+import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
+import {MapSidebarAnalysisComponent} from "./sidebar/map-side-bar-analysis.component";
+import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
+import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
+import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
 
 @NgModule({
   imports: [
@@ -40,6 +45,11 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     MapPageComponent,
     MapMainPageComponent,
     MapSidebarComponent,
+    MapSidebarPlannerComponent,
+    MapSidebarAnalysisComponent,
+    MapSidebarLegendComponent,
+    MapSidebarAppearanceComponent,
+    MapSidebarPoiConfigurationComponent,
     MapDetailDefaultComponent,
     MapDetailNodeComponent,
     MapDetailRouteComponent,

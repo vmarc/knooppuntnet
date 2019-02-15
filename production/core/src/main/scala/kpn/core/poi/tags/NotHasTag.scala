@@ -6,4 +6,6 @@ case class NotHasTag(tagKey: String, allowedValues: String*) extends TagExpressi
 
   def evaluate(tags: Tags): Boolean = !tags.has(tagKey, allowedValues:_*)
 
+  def tagKeys: Seq[String] = Seq()
+
 }

@@ -24,7 +24,7 @@ import {NetworkRoutesPage} from "./kpn/shared/network/network-routes-page";
 import {ChangesParameters} from "./kpn/shared/changes/filter/changes-parameters";
 import {Subset} from "./kpn/shared/subset";
 import {TilePoiConfiguration} from "./kpn/shared/tiles/tile-poi-configuration";
-import {Poi} from "./kpn/shared/poi";
+import {PoiPage} from "./kpn/shared/poi-page";
 
 @Injectable()
 export class AppService {
@@ -172,10 +172,10 @@ export class AppService {
     );
   }
 
-  public poi(elementType: string, elementId: number): Observable<ApiResponse<Poi>> {
+  public poi(elementType: string, elementId: number): Observable<ApiResponse<PoiPage>> {
     const url = "/json-api/poi/" + elementType + "/" + elementId;
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, Poi.fromJSON))
+      map(response => ApiResponse.fromJSON(response, PoiPage.fromJSON))
     );
   }
 

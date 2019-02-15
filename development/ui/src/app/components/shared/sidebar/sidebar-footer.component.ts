@@ -4,26 +4,12 @@ import {UserService} from "../../../user.service";
 @Component({
   selector: 'kpn-sidebar-footer',
   template: `
+    <kpn-sidebar-version-warning></kpn-sidebar-version-warning>
     <div class="footer">
-      <p>
-        <kpn-link-about></kpn-link-about>
-        |
-        <kpn-link-glossary></kpn-link-glossary>
-        |
-        <kpn-link-links></kpn-link-links>
-      </p>
-      <p>
-        <kpn-link-overview></kpn-link-overview>
-      </p>
       <p>
         <a>English</a>
         |
         <a>Nederlands</a>
-      </p>
-      <p>
-        <a href="https://www.openstreetmap.org/message/new/vmarc" class="external" target="_blank">Contact</a>
-        |
-        <a href="https://github.com/vmarc/knooppuntnet/issues" class="external" target="_blank">Issues</a>
       </p>
 
       <p class="version">

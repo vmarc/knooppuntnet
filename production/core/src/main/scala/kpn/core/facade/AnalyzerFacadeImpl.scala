@@ -13,6 +13,7 @@ import kpn.core.facade.pages.NetworkMapPageBuilder
 import kpn.core.facade.pages.NetworkNodesPageBuilder
 import kpn.core.facade.pages.NetworkRoutesPageBuilder
 import kpn.core.facade.pages.NodePageBuilder
+import kpn.core.facade.pages.PoiPageBuilder
 import kpn.core.facade.pages.RoutePageBuilder
 import kpn.core.facade.pages.SubsetChangesPageBuilder
 import kpn.core.facade.pages.SubsetFactDetailsPageBuilder
@@ -35,6 +36,7 @@ import kpn.shared.ChangesPage
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.Poi
+import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
@@ -68,7 +70,6 @@ class AnalyzerFacadeImpl(
   overviewRepository: OverviewRepository,
   factRepository: FactRepository,
   analysisRepository: AnalysisRepository,
-  poiRepository: PoiRepository,
   // ---
   nodePageBuilder: NodePageBuilder,
   routePageBuilder: RoutePageBuilder,
@@ -85,7 +86,8 @@ class AnalyzerFacadeImpl(
   subsetOrphanNodesPageBuilder: SubsetOrphanNodesPageBuilder,
   changesPageBuilder: ChangesPageBuilder,
   changeSetPageBuilder: ChangeSetPageBuilder,
-  networkChangesPageBuilder: NetworkChangesPageBuilder
+  networkChangesPageBuilder: NetworkChangesPageBuilder,
+  poiPageBuilder: PoiPageBuilder
 ) extends AnalyzerFacade {
 
   private val log = Log(classOf[AnalyzerFacadeImpl])
@@ -271,10 +273,10 @@ class AnalyzerFacadeImpl(
     ApiResponse(None, 1, Some(configuration))
   }
 
-  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[Poi] = {
+  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage] = {
     log.infoElapsed(s"$user poi($elementType, $elementId)") {
-      val poi = poiRepository.poi(elementType, elementId)
-      ApiResponse(None, 1, poi) // analysis timestamp not needed here
+      val poiPage = poiPageBuilder.build(elementType, elementId)
+      ApiResponse(None, 1, poiPage) // analysis timestamp not needed here
     }
   }
 

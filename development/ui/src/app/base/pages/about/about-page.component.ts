@@ -8,22 +8,22 @@ import {PageService} from "../../../components/shared/page.service";
       About
     </h1>
 
-    <div>Point of interest icons are by <a hef="https://mapicons.mapsmarker.com/">Map Icons</a>.</div>
+    <p>Point of interest icons are by <a href="https://mapicons.mapsmarker.com/" class="external" target="_blank">Map Icons</a>.</p>
 
-    <div>Other icons made by
-      <a href="https://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>,
-      <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a>
-      <a href="https://www.freepik.com/" title="Freepik">Freepik</a>,
-      <a href="https://www.flaticon.com/authors/plainicon" title="Plainicon">Plainicon</a>,
-      <a href="https://www.flaticon.com/authors/google" title="Google">Google</a>,
-      <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a>,
-      <a href="https://www.flaticon.com/authors/dmitri13" title="dmitri13">dmitri13</a>
-      and
-      <a href="https://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a>
-      from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-      are licensed by
-      <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>.
-    </div>
+    <p>Other icons are from <a href="https://www.flaticon.com/" title="Flaticon" class="external" target="_blank">www.flaticon.com</a>
+      and are licensed by
+      <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" class="external" target="_blank">CC 3.0 BY</a>.
+      These icons are made by:
+    </p>
+
+    <li><a href="https://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge" class="external" target="_blank">Scott de Jonge</a></li>
+    <li><a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev" class="external" target="_blank">Vitaly Gorbachev</a></li>
+    <li><a href="https://www.freepik.com/" title="Freepik" class="external" target="_blank">Freepik</a></li>
+    <li><a href="https://www.flaticon.com/authors/plainicon" title="Plainicon" class="external" target="_blank">Plainicon</a></li>
+    <li><a href="https://www.flaticon.com/authors/google" title="Google" class="external" target="_blank">Google</a></li>
+    <li><a href="https://www.flaticon.com/authors/smashicons" title="Smashicons" class="external" target="_blank">Smashicons</a></li>
+    <li><a href="https://www.flaticon.com/authors/dmitri13" title="dmitri13" class="external" target="_blank">dmitri13</a></li>
+    <li><a href="https://www.flaticon.com/authors/roundicons" title="Roundicons" class="external" target="_blank">Roundicons</a></li>
   `
 })
 export class AboutPageComponent implements OnInit {

@@ -227,7 +227,7 @@ class Application(
       case poi(elementType, elementId) =>
         reply(
           userApiService.poi(elementType, elementId.toLong),
-          JsonFormats.poiFormat
+          JsonFormats.poiPageFormat
         )
 
       case _ =>

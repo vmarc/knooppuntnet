@@ -8,4 +8,5 @@ trait TagExpression {
 
   def and(other: TagExpression): TagExpression = And(this, other)
 
+  def tagKeys: Seq[String]
 }

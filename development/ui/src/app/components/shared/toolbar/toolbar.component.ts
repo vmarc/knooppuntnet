@@ -8,11 +8,17 @@ import {PageService} from "../page.service";
       <button mat-icon-button (click)="toggleSidebarOpen()">
         <mat-icon svgIcon="menu"></mat-icon>
       </button>
-      <button mat-button routerLink="/" class="toolbar-app-name"><h1>Knooppuntnet</h1></button>
+      <button mat-button routerLink="/" class="toolbar-app-name"><h1>knooppuntnet</h1></button>
       <span class="toolbar-spacer"></span>
     </mat-toolbar>
   `,
   styles: [`
+    
+    :host {
+      display: block;
+      border-bottom: solid 1px lightgray;
+    }
+    
     .toolbar-spacer {
       flex: 1 1 auto;
     }
@@ -22,16 +28,13 @@ import {PageService} from "../page.service";
     }
 
     .mat-toolbar-row, .mat-toolbar-single-row {
-      height: 48px;
+      height: 47px;
     }
   `]
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
 
   constructor(private pageService: PageService) {
-  }
-
-  ngOnInit() {
   }
 
   toggleSidebarOpen() {

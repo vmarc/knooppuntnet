@@ -1,23 +1,87 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {IconService} from "./icon.service";
+import {Subscription} from "rxjs";
+import {UserService} from "./user.service";
+import {PageService} from "./components/shared/page.service";
 
 @Component({
   selector: 'app-root',
   template: `
-    <kpn-page>
-      <kpn-toolbar toolbar></kpn-toolbar>
-      <div sidebar>
+    <mat-sidenav-container>
+
+      <mat-sidenav
+        [mode]="isMobile() ? 'over' : 'side'"
+        [fixedInViewport]="!isMobile()"
+        fixedTopGap="48"
+        [opened]="isSidebarOpen()">
         <router-outlet name="sidebar"></router-outlet>
-      </div>
-      <div content>
-        <router-outlet></router-outlet>
-      </div>
-    </kpn-page>
-  `
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <header>
+          <kpn-toolbar></kpn-toolbar>
+        </header>
+        <div class="page-contents">
+          <main>
+            <router-outlet></router-outlet>
+          </main>
+          <footer>
+            <kpn-page-footer></kpn-page-footer>
+          </footer>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  `,
+  styles: [`
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+    }
+
+    .page-contents {
+      margin-top: 48px;
+      display: flex;
+      min-height: calc(100vh - 48px);
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      margin: 20px;
+    }
+
+    mat-sidenav {
+      min-width: 360px;
+      max-width: 360px;
+    }
+
+  `]
 })
 export class AppComponent {
 
-  constructor(private iconService: IconService) {
+  breakPointStateSubscription: Subscription;
+
+  constructor(private iconService: IconService,
+              changeDetectorRef: ChangeDetectorRef,
+              private userService: UserService,
+              private pageService: PageService) {
+    this.breakPointStateSubscription = this.pageService.breakpointState.subscribe(() => changeDetectorRef.detectChanges());
+  }
+
+  ngOnDestroy(): void {
+    this.breakPointStateSubscription.unsubscribe();
+  }
+
+  isMobile(): boolean {
+    return this.pageService.isMobile();
+  }
+
+  isSidebarOpen(): boolean {
+    return this.pageService.isSidebarOpen();
   }
 
 }
