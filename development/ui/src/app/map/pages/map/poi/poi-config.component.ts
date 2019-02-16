@@ -2,6 +2,7 @@ import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {MatRadioChange} from "@angular/material";
 import {MapService} from "../../../../components/ol/map.service";
+import {PoiService} from "../../../../poi.service";
 
 export const POI_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -17,7 +18,7 @@ export const POI_CONFIG_VALUE_ACCESSOR: any = {
       <div class="col-icon"><img *ngIf="icon" width="32" height="37" [src]="'/assets/images/pois/' + icon" alt="icon"/></div>
 
       <div class="col-name">
-        <kpn-poi-name [name]="formControlName"></kpn-poi-name>
+        {{poiName()}}
       </div>
 
       <div>
@@ -79,7 +80,7 @@ export class PoiConfigComponent implements OnInit {
   minLevel: number = 13;
   level: number = 0;
 
-  constructor(private mapService: MapService) {
+  constructor(private mapService: MapService, private poiService: PoiService) {
   }
 
   ngOnInit(): void {
@@ -121,4 +122,7 @@ export class PoiConfigComponent implements OnInit {
     this.level = newLevel;
   }
 
+  poiName() {
+    return this.poiService.name(this.formControlName);
+  }
 }

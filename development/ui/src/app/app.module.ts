@@ -14,6 +14,7 @@ import {CookieService} from "ngx-cookie-service";
 import {MarkdownModule} from "ngx-markdown";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./icon.service";
+import {PoiService} from "./poi.service";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {IconService} from "./icon.service";
     UserService,
     AppService,
     PageService,
-    IconService
+    IconService,
+    PoiService
   ],
   bootstrap: [
     AppComponent

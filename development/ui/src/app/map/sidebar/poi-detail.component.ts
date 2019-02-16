@@ -3,6 +3,7 @@ import {MapService, PoiId} from "../../components/ol/map.service";
 import {AppService} from "../../app.service";
 import {Tags} from "../../kpn/shared/data/tags";
 import {PoiPage} from "../../kpn/shared/poi-page";
+import {PoiService} from "../../poi.service";
 
 @Component({
   selector: 'kpn-poi-detail',
@@ -12,12 +13,14 @@ import {PoiPage} from "../../kpn/shared/poi-page";
       Click on point of interest icons in the map to see detail.
     </div>
 
+    <kpn-poi-names></kpn-poi-names>
+    
     <div *ngIf="poiPage != null">
 
       <h2 *ngIf="poiPage.name">{{poiPage.name}}</h2>
-      <h2 *ngIf="!poiPage.name"><kpn-poi-name [name]="poiPage.layers.get(0)"></kpn-poi-name></h2>
+      <h2 *ngIf="!poiPage.name">{{layerName()}}</h2>
 
-      <p *ngIf="poiPage.name"><kpn-poi-name [name]="poiPage.layers.get(0)"></kpn-poi-name></p>
+      <p *ngIf="poiPage.name">{{layerName()}}</p>
 
       <div *ngIf="poiPage.subject">{{poiPage.subject}}</div>
 
@@ -69,7 +72,8 @@ export class PoiDetailComponent {
   longitude: string;
 
   constructor(private mapService: MapService,
-              private appService: AppService) {
+              private appService: AppService,
+              private poiService: PoiService) {
     mapService.poiClicked.subscribe(poiId => {
       if (poiId != null) {
         this.appService.poi(poiId.elementType, poiId.elementId).subscribe(response => {
@@ -83,4 +87,8 @@ export class PoiDetailComponent {
     });
   }
 
+  layerName(): string {
+    const layer = this.poiPage.layers.get(0);
+    return this.poiService.name(layer);
+  }
 }

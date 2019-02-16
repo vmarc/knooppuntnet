@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'kpn-map-poi-config',
   template: `
+    <kpn-poi-names></kpn-poi-names>
     <kpn-poi-group-amenity></kpn-poi-group-amenity>
     <kpn-poi-group-tourism></kpn-poi-group-tourism>
     <kpn-poi-group-places-to-stay></kpn-poi-group-places-to-stay>
