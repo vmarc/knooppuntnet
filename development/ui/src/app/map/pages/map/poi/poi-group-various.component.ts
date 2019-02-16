@@ -6,10 +6,10 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
   template: `
     <div [formGroup]="form">
       <kpn-poi-group name="Various" i18n-name="@@poi.group.various">
-        <kpn-poi-config formControlName="bus_stop" name="Bus stop" i18n-name="@@poi.bus_stop"></kpn-poi-config>
-        <kpn-poi-config formControlName="ebike_charging" name="Ebike charging" i18n-name="@@poi.ebike_charging"></kpn-poi-config>
-        <kpn-poi-config formControlName="travel_agency" name="Travelagency" i18n-name="@@poi.travel_agency"></kpn-poi-config>
-        <kpn-poi-config formControlName="defibrillator" name="Defibrillator" i18n-name="@@poi.defibrillator"></kpn-poi-config>
+        <kpn-poi-config formControlName="bus_stop"></kpn-poi-config>
+        <kpn-poi-config formControlName="ebike_charging"></kpn-poi-config>
+        <kpn-poi-config formControlName="travel_agency"></kpn-poi-config>
+        <kpn-poi-config formControlName="defibrillator"></kpn-poi-config>
       </kpn-poi-group>
     </div>
   `

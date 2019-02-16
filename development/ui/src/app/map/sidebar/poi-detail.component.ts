@@ -15,9 +15,9 @@ import {PoiPage} from "../../kpn/shared/poi-page";
     <div *ngIf="poiPage != null">
 
       <h2 *ngIf="poiPage.name">{{poiPage.name}}</h2>
-      <h2 *ngIf="!poiPage.name">{{poiPage.layers.get(0)}}</h2>
+      <h2 *ngIf="!poiPage.name"><kpn-poi-name [name]="poiPage.layers.get(0)"></kpn-poi-name></h2>
 
-      <p *ngIf="poiPage.name">{{poiPage.layers.get(0)}}</p>
+      <p *ngIf="poiPage.name"><kpn-poi-name [name]="poiPage.layers.get(0)"></kpn-poi-name></p>
 
       <div *ngIf="poiPage.subject">{{poiPage.subject}}</div>
 

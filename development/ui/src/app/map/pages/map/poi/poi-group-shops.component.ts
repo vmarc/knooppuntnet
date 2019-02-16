@@ -6,33 +6,33 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
   template: `
     <div [formGroup]="form">
       <kpn-poi-group name="Shops" i18n-name="@@poi.group.shops">
-        <kpn-poi-config formControlName="beauty" name="Beauty" i18n-name="@@poi.beauty"></kpn-poi-config>
-        <kpn-poi-config formControlName="bicycle" name="Bicycle" i18n-name="@@poi.bicycle"></kpn-poi-config>
-        <kpn-poi-config formControlName="books_stationary" name="Books/stationary" i18n-name="@@poi.books_stationary"></kpn-poi-config>
-        <kpn-poi-config formControlName="car" name="Car" i18n-name="@@poi.car"></kpn-poi-config>
-        <kpn-poi-config formControlName="chemist" name="Chemist" i18n-name="@@poi.chemist"></kpn-poi-config>
-        <kpn-poi-config formControlName="clothes" name="Clothes" i18n-name="@@poi.clothes"></kpn-poi-config>
-        <kpn-poi-config formControlName="copyshop" name="Copyshop" i18n-name="@@poi.copyshop"></kpn-poi-config>
-        <kpn-poi-config formControlName="cosmetics" name="Cosmetics" i18n-name="@@poi.cosmetics"></kpn-poi-config>
-        <kpn-poi-config formControlName="department_store" name="Department store" i18n-name="@@poi.department_store"></kpn-poi-config>
-        <kpn-poi-config formControlName="diy_hardware" name="DIY hardware" i18n-name="@@poi.diy_hardware"></kpn-poi-config>
-        <kpn-poi-config formControlName="garden_centre" name="Garden centre" i18n-name="@@poi.garden_centre"></kpn-poi-config>
-        <kpn-poi-config formControlName="general" name="General" i18n-name="@@poi.general"></kpn-poi-config>
-        <kpn-poi-config formControlName="gift" name="Gift" i18n-name="@@poi.gift"></kpn-poi-config>
-        <kpn-poi-config formControlName="hairdresser" name="Hairdresser" i18n-name="@@poi.hairdresser"></kpn-poi-config>
-        <kpn-poi-config formControlName="jewelry" name="Jewelry" i18n-name="@@poi.jewelry"></kpn-poi-config>
-        <kpn-poi-config formControlName="kiosk" name="Kiosk" i18n-name="@@poi.kiosk"></kpn-poi-config>
-        <kpn-poi-config formControlName="leather" name="Leather" i18n-name="@@poi.leather"></kpn-poi-config>
-        <kpn-poi-config formControlName="marketplace" name="Marketplace" i18n-name="@@poi.marketplace"></kpn-poi-config>
-        <kpn-poi-config formControlName="musical_instrument" name="Musical instrument" i18n-name="@@poi.musical_instrument"></kpn-poi-config>
-        <kpn-poi-config formControlName="optician" name="Optician" i18n-name="@@poi.optician"></kpn-poi-config>
-        <kpn-poi-config formControlName="pets" name="Pets" i18n-name="@@poi.pets"></kpn-poi-config>
-        <kpn-poi-config formControlName="phone" name="Phone" i18n-name="@@poi.phone"></kpn-poi-config>
-        <kpn-poi-config formControlName="photo" name="Photo" i18n-name="@@poi.photo"></kpn-poi-config>
-        <kpn-poi-config formControlName="shoes" name="Shoes" i18n-name="@@poi.shoes"></kpn-poi-config>
-        <kpn-poi-config formControlName="shopping_centre" name="Shopping centre" i18n-name="@@poi.shopping_centre"></kpn-poi-config>
-        <kpn-poi-config formControlName="textiles" name="Textiles" i18n-name="@@poi.textiles"></kpn-poi-config>
-        <kpn-poi-config formControlName="toys" name="Toys" i18n-name="@@poi.toys"></kpn-poi-config>
+        <kpn-poi-config formControlName="beauty"></kpn-poi-config>
+        <kpn-poi-config formControlName="bicycle"></kpn-poi-config>
+        <kpn-poi-config formControlName="books_stationary"></kpn-poi-config>
+        <kpn-poi-config formControlName="car"></kpn-poi-config>
+        <kpn-poi-config formControlName="chemist"></kpn-poi-config>
+        <kpn-poi-config formControlName="clothes"></kpn-poi-config>
+        <kpn-poi-config formControlName="copyshop"></kpn-poi-config>
+        <kpn-poi-config formControlName="cosmetics"></kpn-poi-config>
+        <kpn-poi-config formControlName="department_store"></kpn-poi-config>
+        <kpn-poi-config formControlName="diy_hardware"></kpn-poi-config>
+        <kpn-poi-config formControlName="garden_centre"></kpn-poi-config>
+        <kpn-poi-config formControlName="general"></kpn-poi-config>
+        <kpn-poi-config formControlName="gift"></kpn-poi-config>
+        <kpn-poi-config formControlName="hairdresser"></kpn-poi-config>
+        <kpn-poi-config formControlName="jewelry"></kpn-poi-config>
+        <kpn-poi-config formControlName="kiosk"></kpn-poi-config>
+        <kpn-poi-config formControlName="leather"></kpn-poi-config>
+        <kpn-poi-config formControlName="marketplace"></kpn-poi-config>
+        <kpn-poi-config formControlName="musical_instrument"></kpn-poi-config>
+        <kpn-poi-config formControlName="optician"></kpn-poi-config>
+        <kpn-poi-config formControlName="pets"></kpn-poi-config>
+        <kpn-poi-config formControlName="phone"></kpn-poi-config>
+        <kpn-poi-config formControlName="photo"></kpn-poi-config>
+        <kpn-poi-config formControlName="shoes"></kpn-poi-config>
+        <kpn-poi-config formControlName="shopping_centre"></kpn-poi-config>
+        <kpn-poi-config formControlName="textiles"></kpn-poi-config>
+        <kpn-poi-config formControlName="toys"></kpn-poi-config>
       </kpn-poi-group>
     </div>
   `

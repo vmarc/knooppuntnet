@@ -6,15 +6,15 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
   template: `
     <div [formGroup]="form">
       <kpn-poi-group name="Restaurants" i18n-name="@@poi.group.restaurants">
-        <kpn-poi-config formControlName="bar" name="Bar" i18n-name="@@poi.bar"></kpn-poi-config>
-        <kpn-poi-config formControlName="bbq" name="BBQ" i18n-name="@@poi.bbq"></kpn-poi-config>
-        <kpn-poi-config formControlName="biergarten" name="Biergarten" i18n-name="@@poi.biergarten"></kpn-poi-config>
-        <kpn-poi-config formControlName="cafe" name="Cafe" i18n-name="@@poi.cafe"></kpn-poi-config>
-        <kpn-poi-config formControlName="fast_food" name="Fast food" i18n-name="@@poi.fast_food"></kpn-poi-config>
-        <kpn-poi-config formControlName="food_court" name="Food court" i18n-name="@@poi.food_court"></kpn-poi-config>
-        <kpn-poi-config formControlName="ice_cream" name="Ice cream" i18n-name="@@poi.ice_cream"></kpn-poi-config>
-        <kpn-poi-config formControlName="pub" name="Pub" i18n-name="@@poi.pub"></kpn-poi-config>
-        <kpn-poi-config formControlName="restaurant" name="Restaurant" i18n-name="@@poi.restaurant"></kpn-poi-config>
+        <kpn-poi-config formControlName="bar"></kpn-poi-config>
+        <kpn-poi-config formControlName="bbq"></kpn-poi-config>
+        <kpn-poi-config formControlName="biergarten"></kpn-poi-config>
+        <kpn-poi-config formControlName="cafe"></kpn-poi-config>
+        <kpn-poi-config formControlName="fast_food"></kpn-poi-config>
+        <kpn-poi-config formControlName="food_court"></kpn-poi-config>
+        <kpn-poi-config formControlName="ice_cream"></kpn-poi-config>
+        <kpn-poi-config formControlName="pub"></kpn-poi-config>
+        <kpn-poi-config formControlName="restaurant"></kpn-poi-config>
       </kpn-poi-group>
     </div>
   `

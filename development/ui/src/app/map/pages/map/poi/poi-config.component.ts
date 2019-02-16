@@ -14,9 +14,11 @@ export const POI_CONFIG_VALUE_ACCESSOR: any = {
   template: `
     <div class="poi-config">
 
-      <div class="col-icon"><img *ngIf="icon" [src]="'/assets/images/pois/' + icon" alt="{{name}}"/></div>
+      <div class="col-icon"><img *ngIf="icon" width="32" height="37" [src]="'/assets/images/pois/' + icon" alt="icon"/></div>
 
-      <div class="col-name">{{name}}</div>
+      <div class="col-name">
+        <kpn-poi-name [name]="formControlName"></kpn-poi-name>
+      </div>
 
       <div>
         <div class="col-spacer"></div>

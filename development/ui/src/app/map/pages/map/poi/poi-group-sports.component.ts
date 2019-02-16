@@ -6,21 +6,21 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
   template: `
     <div [formGroup]="form">
       <kpn-poi-group name="Sports" i18n-name="@@poi.group.sports">
-        <kpn-poi-config formControlName="american_football" name="American football" i18n-name="@@poi.american_football"></kpn-poi-config>
-        <kpn-poi-config formControlName="baseball" name="Baseball" i18n-name="@@poi.baseball"></kpn-poi-config>
-        <kpn-poi-config formControlName="basketball" name="Basketball" i18n-name="@@poi.basketball"></kpn-poi-config>
-        <kpn-poi-config formControlName="cycling" name="Cycling" i18n-name="@@poi.cycling"></kpn-poi-config>
-        <kpn-poi-config formControlName="gymnastics" name="Gymnastics" i18n-name="@@poi.gymnastics"></kpn-poi-config>
-        <kpn-poi-config formControlName="golf" name="Golf" i18n-name="@@poi.golf"></kpn-poi-config>
-        <kpn-poi-config formControlName="hockey" name="Hockey" i18n-name="@@poi.hockey"></kpn-poi-config>
-        <kpn-poi-config formControlName="horse_racing" name="Horse racing" i18n-name="@@poi.horse_racing"></kpn-poi-config>
-        <kpn-poi-config formControlName="ice_hockey" name="Ice hockey" i18n-name="@@poi.ice_hockey"></kpn-poi-config>
-        <kpn-poi-config formControlName="soccer" name="Soccer" i18n-name="@@poi.soccer"></kpn-poi-config>
-        <kpn-poi-config formControlName="sports_centre" name="Sports centre" i18n-name="@@poi.sports_centre"></kpn-poi-config>
-        <kpn-poi-config formControlName="surfing" name="Surfing" i18n-name="@@poi.surfing"></kpn-poi-config>
-        <kpn-poi-config formControlName="swimming" name="Swimming" i18n-name="@@poi.swimming"></kpn-poi-config>
-        <kpn-poi-config formControlName="tennis" name="Tennis" i18n-name="@@poi.tennis"></kpn-poi-config>
-        <kpn-poi-config formControlName="volleyball" name="Volleyball" i18n-name="@@poi.volleyball"></kpn-poi-config>
+        <kpn-poi-config formControlName="american_football"></kpn-poi-config>
+        <kpn-poi-config formControlName="baseball"></kpn-poi-config>
+        <kpn-poi-config formControlName="basketball"></kpn-poi-config>
+        <kpn-poi-config formControlName="cycling"></kpn-poi-config>
+        <kpn-poi-config formControlName="gymnastics"></kpn-poi-config>
+        <kpn-poi-config formControlName="golf"></kpn-poi-config>
+        <kpn-poi-config formControlName="hockey"></kpn-poi-config>
+        <kpn-poi-config formControlName="horse_racing"></kpn-poi-config>
+        <kpn-poi-config formControlName="ice_hockey"></kpn-poi-config>
+        <kpn-poi-config formControlName="soccer"></kpn-poi-config>
+        <kpn-poi-config formControlName="sports_centre"></kpn-poi-config>
+        <kpn-poi-config formControlName="surfing"></kpn-poi-config>
+        <kpn-poi-config formControlName="swimming"></kpn-poi-config>
+        <kpn-poi-config formControlName="tennis"></kpn-poi-config>
+        <kpn-poi-config formControlName="volleyball"></kpn-poi-config>
       </kpn-poi-group>
     </div>
   `
