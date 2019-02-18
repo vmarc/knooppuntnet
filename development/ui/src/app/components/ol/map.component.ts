@@ -23,6 +23,7 @@ import {PoiStyle} from "./domain/poi-style";
 import {PoiTileLayer} from "./domain/poi-tile-layer";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
+import {PoiService} from "../../poi.service";
 
 @Component({
   selector: 'kpn-map',
@@ -52,7 +53,8 @@ export class MapComponent implements AfterViewInit {
 
   poiIconStyleMap: PoiStyle;
 
-  constructor(private mapService: MapService) {
+  constructor(private mapService: MapService,
+              private poiService: PoiService) {
     mapService.poiConfiguration.subscribe(configuration => {
       if (configuration !== null) {
         this.poiIconStyleMap = new PoiStyle(configuration)
@@ -105,6 +107,7 @@ export class MapComponent implements AfterViewInit {
       this.updateLayerVisibility(view.getZoom());
     });
 
+    this.poiService.changed.subscribe(config => this.poiTileLayer.changed());
   }
 
   updateSize() {
@@ -117,10 +120,12 @@ export class MapComponent implements AfterViewInit {
     return (feature, resolution) => {
       if (this.poiIconStyleMap) {
         const layer = feature.get("layer");
-        if (layer) {
-          const style = this.poiIconStyleMap.get(layer);
-          if (style) {
-            return [style];
+        if (layer != null) {
+          if(this.poiService.isPoiActive(layer)) {
+            const style = this.poiIconStyleMap.get(layer);
+            if (style != null) {
+              return [style];
+            }
           }
         }
       }

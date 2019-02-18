@@ -1,14 +1,7 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Component, Input, OnInit} from '@angular/core';
 import {MatRadioChange} from "@angular/material";
 import {MapService} from "../../../../components/ol/map.service";
 import {PoiService} from "../../../../poi.service";
-
-export const POI_CONFIG_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => PoiConfigComponent),
-  multi: true,
-};
 
 @Component({
   selector: 'kpn-poi-config',
@@ -30,6 +23,18 @@ export const POI_CONFIG_VALUE_ACCESSOR: any = {
             class="col-level-0">
           </mat-radio-button>
           <mat-radio-button
+            value="11"
+            [disabled]="minLevel > 11"
+            title="Show this icon on the map as of zoomlevel 11 and higher"
+            class="col-level-11">
+          </mat-radio-button>
+          <mat-radio-button
+            value="12"
+            [disabled]="minLevel > 12"
+            title="Show this icon on the map as of zoomlevel 12 and higher"
+            class="col-level-12">
+          </mat-radio-button>
+          <mat-radio-button
             value="13"
             [disabled]="minLevel > 13"
             title="Show this icon on the map as of zoomlevel 13 and higher"
@@ -47,16 +52,10 @@ export const POI_CONFIG_VALUE_ACCESSOR: any = {
             title="Show this icon on the map as of zoomlevel 15 and higher"
             class="col-level-15">
           </mat-radio-button>
-          <mat-radio-button
-            value="16"
-            title="Show this icon on the map as of zoomlevel 16 and higher"
-            class="col-level-16">
-          </mat-radio-button>
         </mat-radio-group>
       </div>
     </div>
   `,
-  providers: [POI_CONFIG_VALUE_ACCESSOR],
   styles: [`
 
     /deep/ .mat-radio-button.mat-radio-disabled .mat-radio-outer-circle {
@@ -73,7 +72,7 @@ export const POI_CONFIG_VALUE_ACCESSOR: any = {
 })
 export class PoiConfigComponent implements OnInit {
 
-  @Input() formControlName: string;
+  @Input() poiId: string;
   @Input() name: string;
 
   icon: string;
@@ -85,17 +84,15 @@ export class PoiConfigComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapService.poiConfiguration.subscribe(poiConfiguration => {
-      const definition = poiConfiguration.definitionWithName(this.formControlName);
+      const definition = poiConfiguration.definitionWithName(this.poiId);
       if (definition != null) {
         this.icon = definition.icon;
         this.minLevel = definition.minLevel;
       } else {
-        console.log("DEBUG PoiConfigComponent definition not found name=" + this.formControlName);
+        console.log("DEBUG PoiConfigComponent definition not found name=" + this.poiId);
       }
     });
   }
-
-  private onChange: (_: number) => void;
 
   levelString(): string {
     if (this.level) {
@@ -105,24 +102,10 @@ export class PoiConfigComponent implements OnInit {
   }
 
   levelChanged(event: MatRadioChange) {
-    this.onChange(+event.value);
-  }
-
-  registerOnChange(fn: (_: number) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: (_: number) => void): void {
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-  }
-
-  writeValue(newLevel: number): void {
-    this.level = newLevel;
+    this.poiService.updatePoiLevel(this.poiId, +event.value);
   }
 
   poiName() {
-    return this.poiService.name(this.formControlName);
+    return this.poiService.name(this.poiId);
   }
 }

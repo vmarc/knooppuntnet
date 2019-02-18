@@ -30,7 +30,7 @@ import {Component} from '@angular/core';
     /deep/ .col-spacer {
       display: inline-block;
       position: relative;
-      width: 70px;
+      width: 40px;
     }
 
     /deep/ .col-name {
@@ -45,6 +45,20 @@ import {Component} from '@angular/core';
       display: inline-block;
       position: relative;
       width: 40px;
+      vertical-align: top;
+    }
+
+    /deep/ .col-level-11 {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      vertical-align: top;
+    }
+
+    /deep/ .col-level-12 {
+      display: inline-block;
+      position: relative;
+      width: 30px;
       vertical-align: top;
     }
 
@@ -69,13 +83,6 @@ import {Component} from '@angular/core';
       vertical-align: top;
     }
 
-    /deep/ .col-level-16 {
-      display: inline-block;
-      position: relative;
-      width: 30px;
-      vertical-align: top;
-    }
-    
   `]
 })
 export class MapPoiConfigComponent {

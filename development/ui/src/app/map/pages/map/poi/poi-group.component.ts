@@ -24,10 +24,11 @@ import {Component, Input} from '@angular/core';
         <div>
           <div class="col-spacer"></div>
           <div class="col-level-0">NO</div>
+          <div class="col-level-11">11</div>
+          <div class="col-level-12">12</div>
           <div class="col-level-13">13</div>
           <div class="col-level-14">14</div>
           <div class="col-level-15">15</div>
-          <div class="col-level-16">16</div>
         </div>
         <ng-content></ng-content>
       </ng-template>
