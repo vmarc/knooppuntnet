@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {MatCheckboxChange} from "@angular/material";
+import {PoiService} from "../../poi.service";
 
 @Component({
   selector: 'kpn-map-sidebar-poi-configuration',
@@ -8,9 +10,9 @@ import {Component} from '@angular/core';
         Points of interest<span class="kpn-thin">&nbsp;&nbsp;(Enabled/Disabled)</span>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-checkbox>Show points of interest on the map</mat-checkbox>
+        <mat-checkbox [checked]="isEnabled()" (change)="enabledChanged($event)">Show points of interest on the map</mat-checkbox>
 
-        <!-- show warning only when zoom level not high enough to see the icons on the map -->
+        <!-- TODO show warning only when zoom level not high enough to see the icons on the map -->
         <p>
           <i>
             Zoom in to see the icons on the map.
@@ -25,4 +27,16 @@ import {Component} from '@angular/core';
   `
 })
 export class MapSidebarPoiConfigurationComponent {
+
+  constructor(private poiService: PoiService) {
+  }
+
+  enabledChanged(event: MatCheckboxChange) {
+    this.poiService.updateEnabled(event.checked);
+  }
+
+  isEnabled() {
+    return this.poiService.isEnabled();
+  }
+
 }

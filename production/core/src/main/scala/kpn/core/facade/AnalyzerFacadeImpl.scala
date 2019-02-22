@@ -23,7 +23,6 @@ import kpn.core.facade.pages.SubsetOrphanNodesPageBuilder
 import kpn.core.facade.pages.SubsetOrphanRoutesPageBuilder
 import kpn.core.gpx.GpxFile
 import kpn.core.poi.PoiConfiguration
-import kpn.core.poi.PoiRepository
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.FactRepository
 import kpn.core.repository.NetworkRepository
@@ -35,7 +34,6 @@ import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
 import kpn.shared.NetworkType
-import kpn.shared.Poi
 import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
 import kpn.shared.Subset
@@ -59,9 +57,7 @@ import kpn.shared.subset.SubsetFactsPage
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
-import kpn.shared.tiles.TilePoiConfiguration
-import kpn.shared.tiles.TilePoiDefinition
-import kpn.shared.tiles.TilePoiGroup
+import kpn.shared.tiles.ClientPoiConfiguration
 
 class AnalyzerFacadeImpl(
   nodeRepository: NodeRepository,
@@ -262,15 +258,9 @@ class AnalyzerFacadeImpl(
     }
   }
 
-  override def poiConfiguration(user: Option[String]): ApiResponse[TilePoiConfiguration] = {
+  override def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration] = {
     val label = s"$user poiConfiguration"
-    val configuration = TilePoiConfiguration(
-      PoiConfiguration.poiDefinitionGroups.map { group =>
-        val definitions = group.definitions.map(d => TilePoiDefinition(d.name, d.icon, d.minLevel))
-        TilePoiGroup(group.name, definitions.distinct)
-      }
-    )
-    ApiResponse(None, 1, Some(configuration))
+    ApiResponse(None, 1, Some(PoiConfiguration.instance.toClient))
   }
 
   def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage] = {

@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'kpn-poi-group-amenity',
   template: `
-    <kpn-poi-group name="Amenity" i18n-name="@@poi.group.amenity">
+    <kpn-poi-group name="amenity" title="Amenity" i18n-title="@@poi.group.amenity">
       <kpn-poi-config poiId="atm"></kpn-poi-config>
       <kpn-poi-config poiId="bank"></kpn-poi-config>
       <kpn-poi-config poiId="bench"></kpn-poi-config>

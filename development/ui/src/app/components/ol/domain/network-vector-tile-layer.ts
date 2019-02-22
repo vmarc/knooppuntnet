@@ -14,10 +14,6 @@ export class NetworkVectorTileLayer {
 
   public static build(networkType: NetworkType): VectorTileLayer {
 
-    const format = new MVT({
-      featureClass: Feature // this is important to avoid error upon first selection in the map
-    });
-
     const urlFunction = function (tileCoord, pixelRatio, projection) {
       const zIn = tileCoord[0];
       const xIn = tileCoord[1];
@@ -26,7 +22,7 @@ export class NetworkVectorTileLayer {
       const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
       const x = xIn;
       const y = -yIn - 1;
-      return "/tiles/" + networkType + "/" + z + "/" + x + "/" + y + ".mvt"
+      return "/tiles/" + networkType.name + "/" + z + "/" + x + "/" + y + ".mvt"
     };
 
     const tileGrid = createXYZ({
@@ -35,7 +31,9 @@ export class NetworkVectorTileLayer {
     });
 
     const source = new VectorTile({
-      format: format,
+      format: new MVT({
+        featureClass: Feature // this is important to avoid error upon first selection in the map
+      }),
       tileGrid: tileGrid,
       tileUrlFunction: urlFunction
     });

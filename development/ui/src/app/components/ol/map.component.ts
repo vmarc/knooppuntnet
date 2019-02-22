@@ -5,8 +5,6 @@ import View from 'ol/View';
 import Coordinate from 'ol/View';
 import Extent from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import TileDebug from 'ol/source/TileDebug';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import {fromLonLat} from 'ol/proj';
 import {createXYZ} from 'ol/tilegrid';
@@ -19,11 +17,12 @@ import {MainMapStyle} from "./domain/main-map-style";
 import {MapClickHandler} from "./domain/map-click-handler";
 import {MapMoveHandler} from "./domain/map-move-handler";
 import {MapService} from "./map.service";
-import {PoiStyle} from "./domain/poi-style";
-import {PoiTileLayer} from "./domain/poi-tile-layer";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
 import {PoiService} from "../../poi.service";
+import {OsmLayer} from "./domain/osm-layer";
+import {DebugLayer} from "./domain/debug-layer";
+import {PoiTileLayerService} from "./poi-tile-layer.service";
 
 @Component({
   selector: 'kpn-map',
@@ -51,32 +50,25 @@ export class MapComponent implements AfterViewInit {
   vectorTileLayer: VectorTileLayer;
   poiTileLayer: VectorTileLayer;
 
-  poiIconStyleMap: PoiStyle;
-
   constructor(private mapService: MapService,
-              private poiService: PoiService) {
-    mapService.poiConfiguration.subscribe(configuration => {
-      if (configuration !== null) {
-        this.poiIconStyleMap = new PoiStyle(configuration)
-      }
-    });
+              private poiService: PoiService,
+              private poiTileLayerService: PoiTileLayerService) {
   }
 
   ngAfterViewInit(): void {
 
     this.bitmapTileLayer = NetworkBitmapTileLayer.build(this.mapService.networkType.value);
     this.vectorTileLayer = NetworkVectorTileLayer.build(this.mapService.networkType.value);
-    this.poiTileLayer = PoiTileLayer.build();
-    this.poiTileLayer.setStyle(this.poiStyleFunction());
+    this.poiTileLayer = this.poiTileLayerService.buildLayer();
 
     this.map = new Map({
       target: this.id,
       layers: [
-        this.osmLayer(),
+        OsmLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer,
-        this.debugLayer()
+        DebugLayer.build()
       ],
       view: new View({
         minZoom: ZoomLevel.minZoom,
@@ -107,7 +99,6 @@ export class MapComponent implements AfterViewInit {
       this.updateLayerVisibility(view.getZoom());
     });
 
-    this.poiService.changed.subscribe(config => this.poiTileLayer.changed());
   }
 
   updateSize() {
@@ -116,25 +107,9 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  private poiStyleFunction() {
-    return (feature, resolution) => {
-      if (this.poiIconStyleMap) {
-        const layer = feature.get("layer");
-        if (layer != null) {
-          if(this.poiService.isPoiActive(layer)) {
-            const style = this.poiIconStyleMap.get(layer);
-            if (style != null) {
-              return [style];
-            }
-          }
-        }
-      }
-      return null;
-    };
-  }
-
   private zoom(zoomLevel: number) {
     this.updateLayerVisibility(zoomLevel);
+    this.poiService.updateZoomLevel(zoomLevel);
     return true;
   }
 
@@ -152,23 +127,6 @@ export class MapComponent implements AfterViewInit {
     } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
       this.poiTileLayer.setVisible(false);
     }
-  }
-
-  private osmLayer() {
-    const osmLayer = new TileLayer({
-      source: new OSM()
-    });
-    osmLayer.set("name", "OpenStreetMap");
-    return osmLayer;
-  }
-
-  private debugLayer() {
-    return new TileLayer({
-      source: new TileDebug({
-        projection: "EPSG:3857",
-        tileGrid: new OSM().getTileGrid()
-      })
-    });
   }
 
   private installClickInteraction() {

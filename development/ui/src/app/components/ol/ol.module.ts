@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MapComponent} from "./map.component";
 import {MapService} from "./map.service";
+import {PoiTileLayerService} from "./poi-tile-layer.service";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {MapService} from "./map.service";
     MapComponent
   ],
   providers: [
-    MapService
+    MapService,
+    PoiTileLayerService
   ]
 })
 export class OlModule {

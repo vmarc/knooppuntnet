@@ -2,12 +2,12 @@ import {Map} from 'immutable';
 import {Icon, Style} from 'ol/style';
 import {InterpretedPoiConfiguration} from "./interpreted-poi-configuration";
 
-export class PoiStyle {
+export class PoiStyleMap {
 
-  private readonly poiIconStyleMap: Map<string, Style>;
+  private readonly poiStyleMap: Map<string, Style>;
 
   constructor(configuration: InterpretedPoiConfiguration) {
-    this.poiIconStyleMap = configuration.getDefinitions().map(poiDefinition => {
+    this.poiStyleMap = configuration.getPoiDefinitionMap().map(poiDefinition => {
       const image = "assets/images/pois/" + poiDefinition.icon;
       return new Style({
         image: new Icon({
@@ -20,8 +20,8 @@ export class PoiStyle {
     });
   }
 
-  get(layer: string): Style {
-    return this.poiIconStyleMap.get(layer);
+  get(poiName: string): Style {
+    return this.poiStyleMap.get(poiName);
   }
 
 }

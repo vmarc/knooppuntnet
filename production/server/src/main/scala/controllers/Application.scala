@@ -221,7 +221,7 @@ class Application(
       case poiConfiguration() =>
         reply(
           userApiService.poiConfiguration(),
-          JsonFormats.tilePoiConfigurationFormat
+          JsonFormats.clientPoiConfigurationFormat
         )
 
       case poi(elementType, elementId) =>

@@ -28,7 +28,7 @@ import kpn.shared.subset.SubsetFactsPage
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
-import kpn.shared.tiles.TilePoiConfiguration
+import kpn.shared.tiles.ClientPoiConfiguration
 
 trait AnalyzerFacade {
 
@@ -76,7 +76,7 @@ trait AnalyzerFacade {
 
   def mapDetailRoute(user: Option[String], routeId: Long): ApiResponse[MapDetailRoute]
 
-  def poiConfiguration(user: Option[String]): ApiResponse[TilePoiConfiguration]
+  def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration]
 
   def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage]
 }

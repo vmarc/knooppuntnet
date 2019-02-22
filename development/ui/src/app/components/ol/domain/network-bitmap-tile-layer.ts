@@ -11,7 +11,6 @@ import {NetworkType} from "../../../kpn/shared/network-type";
 export class NetworkBitmapTileLayer {
 
   public static build(networkType: NetworkType) {
-
     return new TileLayer({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,

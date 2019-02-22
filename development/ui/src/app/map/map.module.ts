@@ -30,7 +30,6 @@ import {MapSidebarAnalysisComponent} from "./sidebar/map-side-bar-analysis.compo
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
 import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
 import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
-import {PoiNameComponent} from "./pages/map/poi/poi-name.component";
 import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
 
 @NgModule({
@@ -66,7 +65,6 @@ import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
     PoiGroupTourismComponent,
     PoiGroupVariousComponent,
     PoiConfigComponent,
-    PoiNameComponent,
     PoiNamesComponent,
     NetworkTypeSelectorComponent,
     PoiDetailComponent

@@ -166,9 +166,9 @@ import kpn.shared.subset.SubsetInfo
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
-import kpn.shared.tiles.TilePoiConfiguration
-import kpn.shared.tiles.TilePoiDefinition
-import kpn.shared.tiles.TilePoiGroup
+import kpn.shared.tiles.ClientPoiConfiguration
+import kpn.shared.tiles.ClientPoiDefinition
+import kpn.shared.tiles.ClientPoiGroupDefinition
 import spray.json.DefaultJsonProtocol
 import spray.json.JsString
 import spray.json.JsValue
@@ -429,8 +429,8 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val poiDocFormat: RootJsonFormat[PoiDoc] = jsonFormat3(PoiDoc)
   implicit val poiInfoFormat: RootJsonFormat[PoiInfo] = jsonFormat5(PoiInfo)
 
-  implicit val tilePoiDefinitionFormat: RootJsonFormat[TilePoiDefinition] = jsonFormat3(TilePoiDefinition)
-  implicit val tilePoiGroupFormat: RootJsonFormat[TilePoiGroup] = jsonFormat2(TilePoiGroup)
-  implicit val tilePoiConfigurationFormat: RootJsonFormat[TilePoiConfiguration] = jsonFormat1(TilePoiConfiguration)
+  implicit val clientPoiDefinitionFormat: RootJsonFormat[ClientPoiDefinition] = jsonFormat4(ClientPoiDefinition)
+  implicit val clientPoiGroupFormat: RootJsonFormat[ClientPoiGroupDefinition] = jsonFormat3(ClientPoiGroupDefinition)
+  implicit val clientPoiConfigurationFormat: RootJsonFormat[ClientPoiConfiguration] = jsonFormat1(ClientPoiConfiguration)
 
 }

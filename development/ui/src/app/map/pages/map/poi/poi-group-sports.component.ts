@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'kpn-poi-group-sports',
   template: `
-    <kpn-poi-group name="Sports" i18n-name="@@poi.group.sports">
+    <kpn-poi-group name="sport" title="Sports" i18n-title="@@poi.group.sports">
       <kpn-poi-config poiId="american_football"></kpn-poi-config>
       <kpn-poi-config poiId="baseball"></kpn-poi-config>
       <kpn-poi-config poiId="basketball"></kpn-poi-config>

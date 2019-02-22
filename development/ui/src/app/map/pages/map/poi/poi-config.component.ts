@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {MatRadioChange} from "@angular/material";
 import {MapService} from "../../../../components/ol/map.service";
 import {PoiService} from "../../../../poi.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'kpn-poi-config',
@@ -70,7 +71,7 @@ import {PoiService} from "../../../../poi.service";
 
   `]
 })
-export class PoiConfigComponent implements OnInit {
+export class PoiConfigComponent implements OnInit, OnDestroy {
 
   @Input() poiId: string;
   @Input() name: string;
@@ -79,12 +80,14 @@ export class PoiConfigComponent implements OnInit {
   minLevel: number = 13;
   level: number = 0;
 
+  poiConfigurationSubscription: Subscription;
+
   constructor(private mapService: MapService, private poiService: PoiService) {
   }
 
   ngOnInit(): void {
-    this.mapService.poiConfiguration.subscribe(poiConfiguration => {
-      const definition = poiConfiguration.definitionWithName(this.poiId);
+    this.poiConfigurationSubscription = this.poiService.poiConfiguration.subscribe(poiConfiguration => {
+      const definition = poiConfiguration.poiDefinitionWithName(this.poiId);
       if (definition != null) {
         this.icon = definition.icon;
         this.minLevel = definition.minLevel;
@@ -94,11 +97,14 @@ export class PoiConfigComponent implements OnInit {
     });
   }
 
-  levelString(): string {
-    if (this.level) {
-      return this.level.toString();
+  ngOnDestroy(): void {
+    if (this.poiConfigurationSubscription != null) {
+      this.poiConfigurationSubscription.unsubscribe();
     }
-    return "";
+  }
+
+  levelString(): string {
+    return this.poiService.poiLevel(this.poiId);
   }
 
   levelChanged(event: MatRadioChange) {

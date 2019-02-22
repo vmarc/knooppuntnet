@@ -36,7 +36,7 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
 
       var interpretedTagKeys: Set[String] = Set()
 
-      interpretedTagKeys = interpretedTagKeys ++ PoiConfiguration.tagKeys(poi.layers.head)
+      interpretedTagKeys = interpretedTagKeys ++ PoiConfiguration.instance.tagKeys(poi.layers.head)
 
       val city = poi.tags("addr:city")
       val postcode = poi.tags("addr:postcode")

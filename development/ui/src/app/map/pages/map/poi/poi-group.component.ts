@@ -1,4 +1,6 @@
 import {Component, Input} from '@angular/core';
+import {PoiService} from "../../../../poi.service";
+import {MatCheckboxChange} from "@angular/material";
 
 @Component({
   selector: 'kpn-poi-group',
@@ -6,19 +8,20 @@ import {Component, Input} from '@angular/core';
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{name}} <span class="kpn-thin">&nbsp;&nbsp;(10/10)/Disabled</span>
+          <mat-checkbox (click)="$event.stopPropagation();" [checked]="isEnabled()" (change)="groupEnabledChanged($event)"></mat-checkbox>
+          <span class="title">{{title}}</span>
+           <span class="kpn-thin">(10/10)</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
 
         <div>
-          <mat-checkbox>Enable this group</mat-checkbox>
         </div>
 
         <div>
-          <button mat-stroked-button>Show all</button>
-          <button mat-stroked-button>Hide all</button>
-          <button mat-stroked-button>Default</button>
+          <button mat-stroked-button (click)="showAllClicked()">Show all</button>
+          <button mat-stroked-button (click)="hideAllClicked()">Hide all</button>
+          <button mat-stroked-button (click)="defaultClicked()">Default</button>
         </div>
 
         <div>
@@ -33,8 +36,41 @@ import {Component, Input} from '@angular/core';
         <ng-content></ng-content>
       </ng-template>
     </mat-expansion-panel>
-  `
+  `,
+  styles: [`
+    .title {
+      padding-left: 10px;
+      padding-right: 20px;
+    }
+  `]
 })
 export class PoiGroupComponent {
+
   @Input() name;
+  @Input() title;
+
+  constructor(private poiService: PoiService) {
+  }
+
+  isEnabled(): boolean {
+    return this.poiService.isGroupEnabled(this.name);
+  }
+
+  groupEnabledChanged(event: MatCheckboxChange) {
+    this.poiService.updateGroupEnabled(this.name, event.checked);
+
+  }
+
+  showAllClicked() {
+    this.poiService.updateGroupShowAll(this.name);
+  }
+
+  hideAllClicked() {
+    this.poiService.updateGroupHideAll(this.name);
+  }
+
+  defaultClicked() {
+    this.poiService.updateGroupDefault(this.name);
+  }
+
 }

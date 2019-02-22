@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'kpn-poi-group-restaurants',
   template: `
-    <kpn-poi-group name="Restaurants" i18n-name="@@poi.group.restaurants">
+    <kpn-poi-group name="restaurants" title="Restaurants" i18n-title="@@poi.group.restaurants">
       <kpn-poi-config poiId="bar"></kpn-poi-config>
       <kpn-poi-config poiId="bbq"></kpn-poi-config>
       <kpn-poi-config poiId="biergarten"></kpn-poi-config>

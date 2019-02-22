@@ -29,7 +29,7 @@ import kpn.shared.subset.SubsetFactsPage
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
-import kpn.shared.tiles.TilePoiConfiguration
+import kpn.shared.tiles.ClientPoiConfiguration
 
 class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None)(implicit val system: ActorSystem) {
 
@@ -110,7 +110,7 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
     analyzerFacade.mapDetailRoute(user, routeId)
   }
 
-  def poiConfiguration(): ApiResponse[TilePoiConfiguration] = {
+  def poiConfiguration(): ApiResponse[ClientPoiConfiguration] = {
     analyzerFacade.poiConfiguration(user)
   }
 

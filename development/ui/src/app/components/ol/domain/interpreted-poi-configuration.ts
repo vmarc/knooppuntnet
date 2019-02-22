@@ -1,31 +1,31 @@
-import {Map} from 'immutable';
+import {List, Map} from 'immutable';
 
-import {TilePoiConfiguration} from "../../../kpn/shared/tiles/tile-poi-configuration";
-import {TilePoiDefinition} from "../../../kpn/shared/tiles/tile-poi-definition";
+import {ClientPoiConfiguration} from "../../../kpn/shared/tiles/client-poi-configuration";
+import {ClientPoiDefinition} from "../../../kpn/shared/tiles/client-poi-definition";
+import {ClientPoiGroupDefinition} from "../../../kpn/shared/tiles/client-poi-group-definition";
 
 export class InterpretedPoiConfiguration {
 
-  private readonly definitions: Map<string, TilePoiDefinition>;
+  private readonly poiDefinitionMap: Map<string, ClientPoiDefinition>;
 
-  constructor(private configuration: TilePoiConfiguration) {
-    this.definitions = Map(
-      configuration.groups.flatMap(g => g.definitions).map(d => {
-        const keyAndValue: [string, TilePoiDefinition] = [d.name, d];
+  constructor(private configuration: ClientPoiConfiguration) {
+    this.poiDefinitionMap = Map(
+      configuration.groupDefinitions.flatMap(g => g.poiDefinitions).map(d => {
+        const keyAndValue: [string, ClientPoiDefinition] = [d.name, d];
         return keyAndValue;
       })
     );
   }
 
-  definitionWithName(name: string): TilePoiDefinition {
-    return this.definitions.get(name);
+  poiDefinitionWithName(name: string): ClientPoiDefinition {
+    return this.poiDefinitionMap.get(name);
   }
 
-  getDefinitions(): Map<string, TilePoiDefinition> {
-    return this.definitions;
+  getPoiDefinitionMap(): Map<string, ClientPoiDefinition> {
+    return this.poiDefinitionMap;
   }
 
-  getAllDefinitions(): IterableIterator<TilePoiDefinition> {
-    return this.definitions.values();
+  getGroupDefinitions(): List<ClientPoiGroupDefinition> {
+    return this.configuration.groupDefinitions;
   }
-
 }
