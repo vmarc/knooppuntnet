@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'kpn-poi-group-food-shops',
+  selector: 'kpn-poi-group-foodshops',
   template: `
-    <kpn-poi-group name="food_shops" title="Food shops" i18n-title="@@poi.group.food-shops">
+    <kpn-poi-group name="foodshops" title="Foodshops" i18n-title="@@poi.group.foodshops">
       <kpn-poi-config poiId="alcohol"></kpn-poi-config>
       <kpn-poi-config poiId="bakery"></kpn-poi-config>
       <kpn-poi-config poiId="beverages"></kpn-poi-config>
@@ -14,7 +14,6 @@ import {Component} from '@angular/core';
       <kpn-poi-config poiId="coffee"></kpn-poi-config>
       <kpn-poi-config poiId="dairy"></kpn-poi-config>
       <kpn-poi-config poiId="deli"></kpn-poi-config>
-      <kpn-poi-config poiId="drinking_water"></kpn-poi-config>
       <kpn-poi-config poiId="grocery"></kpn-poi-config>
       <kpn-poi-config poiId="organic"></kpn-poi-config>
       <kpn-poi-config poiId="seafood"></kpn-poi-config>
@@ -23,5 +22,5 @@ import {Component} from '@angular/core';
     </kpn-poi-group>
   `
 })
-export class PoiGroupFoodShopsComponent {
+export class PoiGroupFoodshopsComponent {
 }

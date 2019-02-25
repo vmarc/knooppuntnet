@@ -175,7 +175,7 @@ export class PoiService {
     this.poiConfiguration.value.getGroupDefinitions().forEach(groupDefinition => {
       const poiEntries: Array<[string, PoiPreference]> = [];
       groupDefinition.poiDefinitions.forEach(poiDefinition => {
-        poiEntries.push([poiDefinition.name, new PoiPreference(poiDefinition.minLevel)]);
+        poiEntries.push([poiDefinition.name, new PoiPreference(poiDefinition.defaultLevel)]);
       });
       const pois = Map<string, PoiPreference>(poiEntries);
       groupEntries.push([groupDefinition.name, new PoiGroupPreference(true /*introduce enabledDefault*/, pois)]);

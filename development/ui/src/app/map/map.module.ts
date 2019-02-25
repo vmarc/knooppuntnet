@@ -15,13 +15,12 @@ import {PoiConfigComponent} from "./pages/map/poi/poi-config.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatRadioModule} from "@angular/material";
 import {PoiGroupAmenityComponent} from "./pages/map/poi/poi-group-amenity.component";
-import {PoiGroupFoodShopsComponent} from "./pages/map/poi/poi-group-food-shops.component";
+import {PoiGroupFoodshopsComponent} from "./pages/map/poi/poi-group-foodshops.component";
 import {PoiGroupPlacesToStayComponent} from "./pages/map/poi/poi-group-places-to-stay.component";
 import {PoiGroupRestaurantsComponent} from "./pages/map/poi/poi-group-restaurants.component";
 import {PoiGroupShopsComponent} from "./pages/map/poi/poi-group-shops.component";
 import {PoiGroupSportsComponent} from "./pages/map/poi/poi-group-sports.component";
 import {PoiGroupTourismComponent} from "./pages/map/poi/poi-group-tourism.component";
-import {PoiGroupVariousComponent} from "./pages/map/poi/poi-group-various.component";
 import {PoiGroupComponent} from "./pages/map/poi/poi-group.component";
 import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.component";
 import {PoiDetailComponent} from "./sidebar/poi-detail.component";
@@ -31,6 +30,8 @@ import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component
 import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
 import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
 import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
+import {PoiGroupHikingBikingComponent} from "./pages/map/poi/poi-group-hiking-biking.component";
+import {PoiGroupLandmarksComponent} from "./pages/map/poi/poi-group-landmarks.component";
 
 @NgModule({
   imports: [
@@ -57,13 +58,14 @@ import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
     MapPoiConfigComponent,
     PoiGroupComponent,
     PoiGroupAmenityComponent,
-    PoiGroupFoodShopsComponent,
+    PoiGroupFoodshopsComponent,
     PoiGroupPlacesToStayComponent,
     PoiGroupRestaurantsComponent,
     PoiGroupShopsComponent,
     PoiGroupSportsComponent,
     PoiGroupTourismComponent,
-    PoiGroupVariousComponent,
+    PoiGroupHikingBikingComponent,
+    PoiGroupLandmarksComponent,
     PoiConfigComponent,
     PoiNamesComponent,
     NetworkTypeSelectorComponent,

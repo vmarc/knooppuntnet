@@ -8,9 +8,9 @@ import {Component} from '@angular/core';
       <kpn-poi-config poiId="bbq"></kpn-poi-config>
       <kpn-poi-config poiId="biergarten"></kpn-poi-config>
       <kpn-poi-config poiId="cafe"></kpn-poi-config>
-      <kpn-poi-config poiId="fast_food"></kpn-poi-config>
-      <kpn-poi-config poiId="food_court"></kpn-poi-config>
-      <kpn-poi-config poiId="ice_cream"></kpn-poi-config>
+      <kpn-poi-config poiId="fastfood"></kpn-poi-config>
+      <kpn-poi-config poiId="foodcourt"></kpn-poi-config>
+      <kpn-poi-config poiId="icecream"></kpn-poi-config>
       <kpn-poi-config poiId="pub"></kpn-poi-config>
       <kpn-poi-config poiId="restaurant"></kpn-poi-config>
     </kpn-poi-group>

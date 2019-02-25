@@ -77,7 +77,7 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
   @Input() name: string;
 
   icon: string;
-  minLevel: number = 13;
+  minLevel: number = 0;
   level: number = 0;
 
   poiConfigurationSubscription: Subscription;

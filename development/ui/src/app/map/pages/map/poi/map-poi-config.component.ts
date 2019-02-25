@@ -4,14 +4,15 @@ import {Component} from '@angular/core';
   selector: 'kpn-map-poi-config',
   template: `
     <kpn-poi-names></kpn-poi-names>
-    <kpn-poi-group-amenity></kpn-poi-group-amenity>
-    <kpn-poi-group-tourism></kpn-poi-group-tourism>
-    <kpn-poi-group-places-to-stay></kpn-poi-group-places-to-stay>
-    <kpn-poi-group-sports></kpn-poi-group-sports>
-    <kpn-poi-group-shops></kpn-poi-group-shops>
-    <kpn-poi-group-food-shops></kpn-poi-group-food-shops>
+    <kpn-poi-group-hiking-biking></kpn-poi-group-hiking-biking>
+    <kpn-poi-group-landmarks></kpn-poi-group-landmarks>
     <kpn-poi-group-restaurants></kpn-poi-group-restaurants>
-    <kpn-poi-group-various></kpn-poi-group-various>
+    <kpn-poi-group-places-to-stay></kpn-poi-group-places-to-stay>
+    <kpn-poi-group-tourism></kpn-poi-group-tourism>
+    <kpn-poi-group-amenity></kpn-poi-group-amenity>
+    <kpn-poi-group-shops></kpn-poi-group-shops>
+    <kpn-poi-group-foodshops></kpn-poi-group-foodshops>
+    <kpn-poi-group-sports></kpn-poi-group-sports>
   `,
   styles: [`
 
@@ -86,5 +87,4 @@ import {Component} from '@angular/core';
   `]
 })
 export class MapPoiConfigComponent {
-
 }
