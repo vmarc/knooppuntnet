@@ -1,6 +1,7 @@
 package kpn.core.tiles
 
 import com.vividsolutions.jts.geom.GeometryFactory
+import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiInfo
 import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TilePois
@@ -67,12 +68,18 @@ class PoiTilesBuilder(
     val analyzer = new NodeTileAnalyzer(tileCache)
     val map = scala.collection.mutable.Map[String, TilePois]()
     pois.foreach { poi =>
-      val tiles = analyzer.tiles(z, poi)
-      tiles.foreach { tile =>
-        map(tile.name) = map.get(tile.name) match {
-          case Some(tilePois) => TilePois(tile, tilePois.pois :+ poi)
-          case None => TilePois(tile, Seq(poi))
-        }
+      PoiConfiguration.instance.poiDefinition(poi.layer) match {
+        case Some(poiDefinition) =>
+          if (z >= poiDefinition.minLevel) {
+            val tiles = analyzer.tiles(z, poi)
+            tiles.foreach { tile =>
+              map(tile.name) = map.get(tile.name) match {
+                case Some(tilePois) => TilePois(tile, tilePois.pois :+ poi)
+                case None => TilePois(tile, Seq(poi))
+              }
+            }
+          }
+        case _ =>
       }
     }
     map.toMap

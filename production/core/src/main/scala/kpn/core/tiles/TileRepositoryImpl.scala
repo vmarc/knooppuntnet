@@ -21,9 +21,9 @@ class TileRepositoryImpl(root: String, extension: String) extends TileRepository
     val file = new File(fileName)
 
     if (file.exists()) {
-      val exisitingTile: Array[Byte] = FileUtils.readFileToByteArray(file: File)
+      val existingTile: Array[Byte] = FileUtils.readFileToByteArray(file: File)
 
-      if (exisitingTile.sameElements(tileBytes)) {
+      if (existingTile.sameElements(tileBytes)) {
         log.info("no change for tile " + fileName)
       }
       else {

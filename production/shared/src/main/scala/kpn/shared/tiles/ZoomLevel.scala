@@ -7,6 +7,9 @@ object ZoomLevel {
   val bitmapTileMinZoom = 6
   val bitmapTileMaxZoom = 11
 
+  val poiTileMinZoom = 11
+  val poiTileMaxZoom = 15
+
   val vectorTileMinZoom = 12
   val vectorTileMaxZoom = 15
   val vectorTileMaxOverZoom = 20

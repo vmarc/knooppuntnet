@@ -16,7 +16,7 @@ object PoiProcessorImpl {
     val system = ActorSystemConfig.actorSystem()
     val couchConfig = Couch.config
     val couch = new Couch(system, couchConfig)
-    val poiDatabase = new DatabaseImpl(couch, "pois2")
+    val poiDatabase = new DatabaseImpl(couch, "pois3")
     val poiRepository = new PoiRepositoryImpl(poiDatabase)
     val nonCachingExecutor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
     val poiLoader = new PoiLoaderImpl(nonCachingExecutor)
@@ -53,7 +53,9 @@ class PoiProcessorImpl(
               pois.foreach { poi =>
                 if (poiLocationFilter.filter(poi)) {
                   val allLayers = findLayers(poi)
-                  poiRepository.save(poi.copy(layers = allLayers))
+                  if (allLayers.nonEmpty) {
+                    poiRepository.save(poi.copy(layers = allLayers))
+                  }
                 }
               }
             }

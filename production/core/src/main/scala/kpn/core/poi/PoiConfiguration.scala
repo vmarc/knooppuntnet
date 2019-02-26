@@ -14,7 +14,7 @@ object PoiConfiguration {
       true,
       PoiDefinition("ebike-charging", "e-bike-charging.png", 11, 11, HasTag("amenity", "charging_station").and(HasTag("bicycle", "yes"))),
       PoiDefinition("bicycle", "bicycle_shop.png", 13, 13, HasTag("shop", "bicycle")),
-      PoiDefinition("bicycle-rental", "cycling.png", 11, 11, HasTag("amenity")),
+      PoiDefinition("bicycle-rental", "cycling.png", 11, 11, HasTag("amenity", "bicycle_rental")),
       PoiDefinition("bicycle-parking", "parking_bicycle-2.png", 13, 14, HasTag("amenity", "bicycle_parking")),
       PoiDefinition("picnic", "picnic-2.png", 13, 14, HasTag("tourism", "picnic_site")),
       PoiDefinition("picnic", "picnic-2.png", 13, 14, HasTag("leisure", "picnic_table")),
@@ -195,7 +195,7 @@ case class PoiConfiguration(groupDefinitions: PoiGroupDefinition*) {
     poiDefinition(poiName).toSeq.flatMap(_.expression.tagKeys)
   }
 
-  private def poiDefinition(poiName: String): Option[PoiDefinition] = {
+  def poiDefinition(poiName: String): Option[PoiDefinition] = {
     groupDefinitions.flatMap(_.definitions).find(_.name == poiName)
   }
 

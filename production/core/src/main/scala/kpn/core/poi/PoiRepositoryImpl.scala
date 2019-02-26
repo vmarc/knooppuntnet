@@ -22,7 +22,7 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
       case Some(jsDoc) =>
         val doc = poiDocFormat.read(jsDoc)
         if (poi == doc.poi) {
-          log.info(s"""Poi ${poi.layers.head} "$key" not saved (no change)""")
+          log.info(s"""Poi ${poi.layers} "$key" not saved (no change)""")
           false
         }
         else {

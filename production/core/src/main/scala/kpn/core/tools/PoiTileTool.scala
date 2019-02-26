@@ -63,7 +63,7 @@ class PoiTileTool(
 
     PoiTileTool.log.info(s"Processing ${pois.size} pois")
 
-    ((ZoomLevel.vectorTileMinZoom - 1) to ZoomLevel.vectorTileMaxZoom).foreach { z =>
+    (ZoomLevel.poiTileMinZoom to ZoomLevel.poiTileMaxZoom).foreach { z =>
       poiTilesBuilder.build(z, pois)
     }
   }
