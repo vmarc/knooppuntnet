@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="4.7827196mm"
+  height="15.430278mm"
+  id="svg2"
+  version="1.1">
+  <g
+    transform="translate(-103.1597,66.418151)">
+    <path
+      d="m 115.04871,-52.903873 -6.91387,-0.0119 c 0.25179,14.938062 0.369,29.877256 0.48287,44.8167838 l 7.5,-0.0625 c 0.15272,-14.8675898 -0.96836,-31.1621968 -1.069,-44.7423858 z"
+      style="fill-opacity:1;stroke:none;stroke-width:7.5;"/>
+    <path
+      style="fill-opacity:1;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+      d="m 103.1597,-41.66603 8.5666,-24.752121 9.50982,24.40528 c -5.4115,-3.824261 -12.71185,-3.661551 -18.07642,0.346841 z"/>
+  </g>
+</svg>

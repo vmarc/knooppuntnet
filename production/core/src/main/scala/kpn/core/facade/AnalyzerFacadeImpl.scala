@@ -6,6 +6,7 @@ import kpn.core.common.TimestampLocal
 import kpn.core.db.couch.Couch
 import kpn.core.facade.pages.ChangeSetPageBuilder
 import kpn.core.facade.pages.ChangesPageBuilder
+import kpn.core.facade.pages.DirectionsBuilder
 import kpn.core.facade.pages.NetworkChangesPageBuilder
 import kpn.core.facade.pages.NetworkDetailsPageBuilder
 import kpn.core.facade.pages.NetworkFactsPageBuilder
@@ -39,6 +40,7 @@ import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
 import kpn.shared.changes.filter.ChangesParameters
+import kpn.shared.directions.Directions
 import kpn.shared.network.NetworkChangesPage
 import kpn.shared.network.NetworkDetailsPage
 import kpn.shared.network.NetworkFactsPage
@@ -83,7 +85,8 @@ class AnalyzerFacadeImpl(
   changesPageBuilder: ChangesPageBuilder,
   changeSetPageBuilder: ChangeSetPageBuilder,
   networkChangesPageBuilder: NetworkChangesPageBuilder,
-  poiPageBuilder: PoiPageBuilder
+  poiPageBuilder: PoiPageBuilder,
+  directionsBuilder: DirectionsBuilder
 ) extends AnalyzerFacade {
 
   private val log = Log(classOf[AnalyzerFacadeImpl])
@@ -267,6 +270,13 @@ class AnalyzerFacadeImpl(
     log.infoElapsed(s"$user poi($elementType, $elementId)") {
       val poiPage = poiPageBuilder.build(elementType, elementId)
       ApiResponse(None, 1, poiPage) // analysis timestamp not needed here
+    }
+  }
+
+  override def directions(user: Option[String], language: String, exampleName: String): ApiResponse[Directions] = {
+    log.infoElapsed(s"$user directions($language, $exampleName)") {
+      val directions = directionsBuilder.build(language, exampleName)
+      ApiResponse(None, 1, directions)
     }
   }
 

@@ -1,0 +1,192 @@
+{
+  "hints": {},
+  "info": {
+    "copyrights": [
+      "GraphHopper",
+      "OpenStreetMap contributors"
+    ],
+    "took": 18
+  },
+  "paths": [
+    {
+      "distance": 2304.701,
+      "weight": 9.223372036854775E12,
+      "time": 1659374,
+      "transfers": 0,
+      "points_encoded": false,
+      "bbox": [
+        4.447051,
+        51.468947,
+        4.461428,
+        51.482208
+      ],
+      "points": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            4.461428,
+            51.482208,
+            13.0
+          ],
+          [
+            4.461385,
+            51.481932,
+            13.0
+          ],
+          [
+            4.461274,
+            51.481715,
+            12.87
+          ],
+          [
+            4.46092,
+            51.480731,
+            12.61
+          ],
+          [
+            4.460648,
+            51.479808,
+            12.26
+          ],
+          [
+            4.460267,
+            51.4781,
+            12.82
+          ],
+          [
+            4.460214,
+            51.477752,
+            12.87
+          ],
+          [
+            4.460332,
+            51.47353,
+            12.72
+          ],
+          [
+            4.460401,
+            51.473316,
+            12.76
+          ],
+          [
+            4.460535,
+            51.473139,
+            12.73
+          ],
+          [
+            4.460796,
+            51.472919,
+            12.6
+          ],
+          [
+            4.460191,
+            51.472321,
+            12.34
+          ],
+          [
+            4.460131,
+            51.472241,
+            12.31
+          ],
+          [
+            4.460101,
+            51.472151,
+            12.3
+          ],
+          [
+            4.460131,
+            51.471851,
+            12.28
+          ],
+          [
+            4.460605,
+            51.470394,
+            12.6
+          ],
+          [
+            4.457452,
+            51.469814,
+            11.4
+          ],
+          [
+            4.457014,
+            51.469758,
+            11.4
+          ],
+          [
+            4.448637,
+            51.469092,
+            10.9
+          ],
+          [
+            4.447051,
+            51.468947,
+            11.55
+          ]
+        ]
+      },
+      "instructions": [
+        {
+          "distance": 1049.934,
+          "heading": 183.97,
+          "sign": 0,
+          "interval": [
+            0,
+            10
+          ],
+          "text": "Blijf op Kerkplein",
+          "time": 755949,
+          "street_name": "Kerkplein"
+        },
+        {
+          "distance": 297.653,
+          "sign": 2,
+          "interval": [
+            10,
+            15
+          ],
+          "text": "Rechtsaf naar Kloosterweg",
+          "time": 214307,
+          "street_name": "Kloosterweg"
+        },
+        {
+          "distance": 957.115,
+          "sign": 2,
+          "interval": [
+            15,
+            19
+          ],
+          "text": "Rechtsaf naar Grensstraat",
+          "time": 689118,
+          "street_name": "Grensstraat"
+        },
+        {
+          "distance": 0.0,
+          "sign": 4,
+          "last_heading": 261.6583658803443,
+          "interval": [
+            19,
+            19
+          ],
+          "text": "Bestemming bereikt",
+          "time": 0,
+          "street_name": ""
+        }
+      ],
+      "legs": [],
+      "details": {},
+      "ascend": 3.6040005683898926,
+      "descend": 5.0540008544921875,
+      "snapped_waypoints": {
+        "type": "LineString",
+        "coordinates": []
+      }
+    }
+  ],
+  "map_matching": {
+    "original_distance": 2301.4887836099106,
+    "distance": 2304.7013057248646,
+    "time": 1659374,
+    "original_time": 0
+  }
+}

@@ -20,7 +20,18 @@ import {PageService} from "../../../components/shared/page.service";
       text="Analysis">
     </kpn-icon-button>
 
-  `
+    <div class="test-section">
+      <h2>Test route directions</h2>
+      <div>
+        <a routerLink="/map/directions/example-1">example 1</a>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .test-section {
+      margin-top: 100px;
+    }
+  `]
 })
 export class HomePageComponent implements OnInit {
 

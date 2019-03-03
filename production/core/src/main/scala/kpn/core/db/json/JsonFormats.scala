@@ -58,7 +58,6 @@ import kpn.shared.Poi
 import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
 import kpn.shared.RouteSummary
-import kpn.shared.RoutesFact
 import kpn.shared.TimeInfo
 import kpn.shared.changes.ChangeSetData
 import kpn.shared.changes.ChangeSetInfo

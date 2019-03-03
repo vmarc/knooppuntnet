@@ -32,6 +32,10 @@ import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-co
 import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
 import {PoiGroupHikingBikingComponent} from "./pages/map/poi/poi-group-hiking-biking.component";
 import {PoiGroupLandmarksComponent} from "./pages/map/poi/poi-group-landmarks.component";
+import {DirectionsPageComponent} from "./pages/directions/_directions-page.component";
+import {DirectionsInstructionComponent} from "./pages/directions/directions-instruction.component";
+import {DirectionsSummaryComponent} from "./pages/directions/directions-summary.component";
+import {DirectionsSignComponent} from "./pages/directions/directions-sign.component";
 
 @NgModule({
   imports: [
@@ -69,7 +73,11 @@ import {PoiGroupLandmarksComponent} from "./pages/map/poi/poi-group-landmarks.co
     PoiConfigComponent,
     PoiNamesComponent,
     NetworkTypeSelectorComponent,
-    PoiDetailComponent
+    PoiDetailComponent,
+    DirectionsPageComponent,
+    DirectionsInstructionComponent,
+    DirectionsSummaryComponent,
+    DirectionsSignComponent
   ],
   exports: [
     MapPageComponent

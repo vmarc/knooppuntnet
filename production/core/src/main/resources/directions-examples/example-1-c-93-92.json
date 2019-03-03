@@ -1,0 +1,271 @@
+{
+  "hints": {},
+  "info": {
+    "copyrights": [
+      "GraphHopper",
+      "OpenStreetMap contributors"
+    ],
+    "took": 20
+  },
+  "paths": [
+    {
+      "distance": 2366.216,
+      "weight": 9.223372036854775E12,
+      "time": 1703665,
+      "transfers": 0,
+      "points_encoded": false,
+      "bbox": [
+        4.4484,
+        51.455334,
+        4.464772,
+        51.462694
+      ],
+      "points": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            4.448426,
+            51.462694,
+            14.0
+          ],
+          [
+            4.4484,
+            51.462458,
+            14.16
+          ],
+          [
+            4.448443,
+            51.462239,
+            14.11
+          ],
+          [
+            4.448936,
+            51.460334,
+            13.48
+          ],
+          [
+            4.449027,
+            51.46022,
+            13.4
+          ],
+          [
+            4.449234,
+            51.460303,
+            14.4
+          ],
+          [
+            4.44938,
+            51.460265,
+            14.4
+          ],
+          [
+            4.449938,
+            51.460433,
+            14.6
+          ],
+          [
+            4.451664,
+            51.460715,
+            15.0
+          ],
+          [
+            4.451707,
+            51.460663,
+            14.59
+          ],
+          [
+            4.451788,
+            51.460434,
+            14.55
+          ],
+          [
+            4.452062,
+            51.460467,
+            14.4
+          ],
+          [
+            4.451976,
+            51.460722,
+            14.4
+          ],
+          [
+            4.452087,
+            51.460733,
+            14.4
+          ],
+          [
+            4.453408,
+            51.456791,
+            14.8
+          ],
+          [
+            4.453928,
+            51.455334,
+            15.2
+          ],
+          [
+            4.457054,
+            51.455781,
+            14.0
+          ],
+          [
+            4.457222,
+            51.455793,
+            14.0
+          ],
+          [
+            4.458021,
+            51.456786,
+            12.4
+          ],
+          [
+            4.458176,
+            51.456868,
+            13.2
+          ],
+          [
+            4.462068,
+            51.458277,
+            14.2
+          ],
+          [
+            4.463983,
+            51.45872,
+            14.0
+          ],
+          [
+            4.464088,
+            51.458531,
+            13.74
+          ],
+          [
+            4.464306,
+            51.457048,
+            12.44
+          ],
+          [
+            4.464421,
+            51.456471,
+            12.21
+          ],
+          [
+            4.464512,
+            51.45616,
+            12.1
+          ],
+          [
+            4.464772,
+            51.455518,
+            12.05
+          ]
+        ]
+      },
+      "instructions": [
+        {
+          "distance": 279.954,
+          "heading": 187.42,
+          "sign": 0,
+          "interval": [
+            0,
+            4
+          ],
+          "text": "Blijf op Hemelrijk",
+          "time": 201565,
+          "street_name": "Hemelrijk"
+        },
+        {
+          "distance": 17.17,
+          "sign": -2,
+          "interval": [
+            4,
+            5
+          ],
+          "text": "Linksaf naar N125",
+          "time": 12361,
+          "street_name": "N125"
+        },
+        {
+          "distance": 266.835,
+          "sign": 2,
+          "interval": [
+            5,
+            13
+          ],
+          "text": "Rechtsaf naar Moerkantsebaan",
+          "time": 192118,
+          "street_name": "Moerkantsebaan"
+        },
+        {
+          "distance": 614.3,
+          "sign": 2,
+          "interval": [
+            13,
+            15
+          ],
+          "text": "Rechtsaf naar Veldweg",
+          "time": 442295,
+          "street_name": "Veldweg"
+        },
+        {
+          "distance": 234.584,
+          "sign": -2,
+          "interval": [
+            15,
+            17
+          ],
+          "text": "Linksaf naar Heikantstraat",
+          "time": 168900,
+          "street_name": "Heikantstraat"
+        },
+        {
+          "distance": 591.426,
+          "sign": -2,
+          "interval": [
+            17,
+            21
+          ],
+          "text": "Linksaf naar Heikantstraat",
+          "time": 425825,
+          "street_name": "Heikantstraat"
+        },
+        {
+          "distance": 361.947,
+          "sign": 2,
+          "interval": [
+            21,
+            26
+          ],
+          "text": "Rechtsaf naar Oude Baan",
+          "time": 260601,
+          "street_name": "Oude Baan"
+        },
+        {
+          "distance": 0.0,
+          "sign": 4,
+          "last_heading": 165.83690422266548,
+          "interval": [
+            26,
+            26
+          ],
+          "text": "Bestemming bereikt",
+          "time": 0,
+          "street_name": ""
+        }
+      ],
+      "legs": [],
+      "details": {},
+      "ascend": 4.636000633239746,
+      "descend": 6.586000442504883,
+      "snapped_waypoints": {
+        "type": "LineString",
+        "coordinates": []
+      }
+    }
+  ],
+  "map_matching": {
+    "original_distance": 2363.393307338693,
+    "distance": 2366.2162010460825,
+    "time": 1703665,
+    "original_time": 0
+  }
+}

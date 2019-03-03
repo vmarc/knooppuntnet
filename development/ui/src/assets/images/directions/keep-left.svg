@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="36.263977" height="51.738068" viewBox="0 0 9.5948439 13.689031" version="1.1">
+  <g transform="translate(-5.0299594,-3.6495322)">
+    <g transform="matrix(0.26458333,0,0,0.26458333,-28.325344,-32.48437)">
+      <g transform="matrix(-1,0,0,1,286.80079,186.55715)">
+        <path
+          d="m 151.875,-43.78125 -15.09375,21.6875 a 3.750375,3.750375 0 0 0 -0.6875,2.125 l -0.15625,21.65625 7.5,0.0625 0.15625,-20.5 14.4375,-20.75 z"
+          style="fill-opacity:1;stroke:none;stroke-width:7.5;marker:none;enable-background:accumulate"/>
+        <path
+          style="fill-opacity:1;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+          d="m 139.26593,-34.981469 21.46757,-15.0066 -6.63136,25.339284 c -2.13513,-6.272998 -8.14018,-10.427639 -14.83621,-10.332684 z"/>
+      </g>
+      <path
+        style="fill:none;fill-opacity:1;stroke-width:1.50225437;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
+        d="m 143.94012,187.53763 c 0.29079,-21.60561 -2.82368,-24.68941 11.81123,-45.19825 l 5.53521,4.22349 c -13.38965,18.0529 -10.73771,18.20147 -11.07454,40.96696 z"/>
+    </g>
+  </g>
+</svg>

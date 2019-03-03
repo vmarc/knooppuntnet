@@ -5,6 +5,7 @@ import java.nio.ByteBuffer
 import akka.actor.ActorSystem
 import boopickle.DefaultBasic._
 import kpn.core.db.json.JsonFormats
+import kpn.core.db.json.JsonFormatsDirections
 import kpn.core.facade.AnalyzerFacade
 import kpn.core.util.Log
 import kpn.shared.ApiResponse
@@ -89,6 +90,7 @@ class Application(
     val mapDetailRoute = """route-detail/(\d*)""".r
     val poiConfiguration = """poi-configuration""".r
     val poi = """poi/(node|way|relation)/(\d*)""".r
+    val directions = """directions/(en|nl|de)/(.*)""".r
 
     val userApiService = request.session.get("user") match {
       case Some(user) => new JsonApiService(analyzerFacade, Some(user))(system)
@@ -228,6 +230,12 @@ class Application(
         reply(
           userApiService.poi(elementType, elementId.toLong),
           JsonFormats.poiPageFormat
+        )
+
+      case directions(language, exampleName) =>
+        reply(
+          userApiService.directions(language, exampleName),
+          JsonFormatsDirections.directionsFormat
         )
 
       case _ =>

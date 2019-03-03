@@ -18,6 +18,7 @@ export class IconService {
     this.registerCountryIcons();
     this.registerAnalysisResultsIcons();
     this.registerMenuIcons();
+    this.registerDirectionsIcons();
   }
 
   private registerApplicationIcons() {
@@ -90,6 +91,44 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("collapse", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/right.svg")));
+  }
+
+  private registerDirectionsIcons() {
+    this.iconRegistry.addSvgIconLiteral("keep-left", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/keep-left.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("turn-sharp-left", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/turn-sharp-left.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("turn-left", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/turn-left.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("turn-slight-left", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/turn-slight-left.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("continue", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/continue.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("turn-slight-right", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/turn-slight-right.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("turn-right", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/turn-right.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("turn-sharp-right", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/turn-sharp-right.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("finish", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/finish.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("via", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/via.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("roundabout", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/roundabout.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("keep-right", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/directions/keep-right.svg")));
   }
 
 }

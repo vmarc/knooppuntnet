@@ -1,0 +1,110 @@
+{
+  "hints": {},
+  "info": {
+    "copyrights": [
+      "GraphHopper",
+      "OpenStreetMap contributors"
+    ],
+    "took": 6
+  },
+  "paths": [
+    {
+      "distance": 527.051,
+      "weight": 9.223372036854775E12,
+      "time": 379473,
+      "transfers": 0,
+      "points_encoded": false,
+      "bbox": [
+        4.482744,
+        51.470202,
+        4.483886,
+        51.474821
+      ],
+      "points": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            4.483546,
+            51.474821,
+            7.6
+          ],
+          [
+            4.483865,
+            51.473759,
+            7.71
+          ],
+          [
+            4.483886,
+            51.473307,
+            7.67
+          ],
+          [
+            4.483854,
+            51.472803,
+            7.57
+          ],
+          [
+            4.483768,
+            51.472429,
+            7.49
+          ],
+          [
+            4.483382,
+            51.471296,
+            7.45
+          ],
+          [
+            4.483189,
+            51.470915,
+            7.41
+          ],
+          [
+            4.482744,
+            51.470202,
+            7.41
+          ]
+        ]
+      },
+      "instructions": [
+        {
+          "distance": 527.051,
+          "heading": 169.6,
+          "sign": 0,
+          "interval": [
+            0,
+            7
+          ],
+          "text": "Ga rechtdoor",
+          "time": 379473,
+          "street_name": ""
+        },
+        {
+          "distance": 0.0,
+          "sign": 4,
+          "last_heading": 200.5123099839829,
+          "interval": [
+            7,
+            7
+          ],
+          "text": "Bestemming bereikt",
+          "time": 0,
+          "street_name": ""
+        }
+      ],
+      "legs": [],
+      "details": {},
+      "ascend": 0.24100017547607422,
+      "descend": 0.4330000877380371,
+      "snapped_waypoints": {
+        "type": "LineString",
+        "coordinates": []
+      }
+    }
+  ],
+  "map_matching": {
+    "original_distance": 526.8429278964667,
+    "distance": 527.0513972589379,
+    "time": 379473,
+    "original_time": 0
+  }
+}

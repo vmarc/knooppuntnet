@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="6.5769463mm"
+  height="13.682371mm"
+  version="1.1">
+  <g transform="translate(-73.32975,49.962897)">
+    <path
+      style="fill-opacity:1;stroke:none;stroke-width:7.5;marker:none;enable-background:accumulate"
+      d="M 82.21875,-43.8125 76.0625,-39.53125 90.53125,-18.75 90.6875,1.75 98.1875,1.6875 98.03125,-20 a 3.750375,3.750375 0 0 0 -0.6875,-2.09375 z"/>
+    <path
+      d="m 79.961103,-24.623612 -6.631353,-25.339285 21.467558,15.006605 c -6.62416,-0.172588 -12.60334,4.019192 -14.836205,10.33268 z"
+      style="fill-opacity:1;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"/>
+  </g>
+</svg>

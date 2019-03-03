@@ -11,5 +11,6 @@ case class CouchConfig(
   poiDbname: String,
   userDbname: String,
   reviewDbname: String,
-  taskDbname: String
+  taskDbname: String,
+  graphhopperApiKey: String
 )

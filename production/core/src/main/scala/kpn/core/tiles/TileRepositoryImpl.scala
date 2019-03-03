@@ -4,7 +4,6 @@ import java.io.File
 
 import kpn.core.tiles.domain.Tile
 import kpn.core.util.Log
-import kpn.shared.NetworkType
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.filefilter.TrueFileFilter.TRUE
 

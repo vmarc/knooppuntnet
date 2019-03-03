@@ -11,6 +11,7 @@ import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
 import kpn.shared.changes.filter.ChangesParameters
+import kpn.shared.directions.Directions
 import kpn.shared.network.NetworkChangesPage
 import kpn.shared.network.NetworkDetailsPage
 import kpn.shared.network.NetworkFactsPage
@@ -79,4 +80,7 @@ trait AnalyzerFacade {
   def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration]
 
   def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage]
+
+  def directions(user: Option[String], language: String, exampleName: String): ApiResponse[Directions]
+
 }
