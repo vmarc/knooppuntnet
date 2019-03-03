@@ -6,7 +6,6 @@ import kpn.core.common.TimestampLocal
 import kpn.core.db.couch.Couch
 import kpn.core.facade.pages.ChangeSetPageBuilder
 import kpn.core.facade.pages.ChangesPageBuilder
-import kpn.core.facade.pages.DirectionsBuilder
 import kpn.core.facade.pages.NetworkChangesPageBuilder
 import kpn.core.facade.pages.NetworkDetailsPageBuilder
 import kpn.core.facade.pages.NetworkFactsPageBuilder
@@ -22,6 +21,7 @@ import kpn.core.facade.pages.SubsetFactsPageBuilder
 import kpn.core.facade.pages.SubsetNetworksPageBuilder
 import kpn.core.facade.pages.SubsetOrphanNodesPageBuilder
 import kpn.core.facade.pages.SubsetOrphanRoutesPageBuilder
+import kpn.core.facade.pages.directions.DirectionsBuilder
 import kpn.core.gpx.GpxFile
 import kpn.core.poi.PoiConfiguration
 import kpn.core.repository.AnalysisRepository

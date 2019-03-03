@@ -17,7 +17,7 @@ import akka.util.ByteString
 import akka.util.Timeout
 import kpn.core.db.couch.Couch
 import kpn.core.db.json.JsonFormatsDirections
-import kpn.shared.directions.Directions
+import kpn.core.facade.pages.directions.GraphHopperDirections
 import spray.json.JsonParser
 
 import scala.concurrent.Await
@@ -35,7 +35,7 @@ class DirectionsEngineImpl(
   implicit val executionContext: ExecutionContext = system.dispatcher
   implicit val actorMaterializer: ActorMaterializer = materializer
 
-  def get(language: String, gpx: String): Option[Directions] = {
+  def get(language: String, gpx: String): Option[GraphHopperDirections] = {
 
     val timeout: Timeout = Couch.batchTimeout
     val uri = Uri("https://graphhopper.com/api/1/match")
@@ -85,7 +85,7 @@ class DirectionsEngineImpl(
         println(string)
 
         val json = JsonParser(string)
-        val directions = JsonFormatsDirections.directionsFormat.read(json)
+        val directions = JsonFormatsDirections.graphHopperDirectionsFormat.read(json)
         Some(directions)
 
       case resp@HttpResponse(StatusCodes.NotFound, _, _, _) =>

@@ -1,5 +1,8 @@
 package kpn.shared.directions
 
 case class Directions(
-  paths: Option[Seq[DirectionsPath]] = None
+  distance: Int = 0,
+  ascend: Int = 0,
+  descend: Int = 0,
+  instructions: Seq[DirectionsInstruction] = Seq()
 )

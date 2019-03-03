@@ -1,4 +1,4 @@
-package kpn.core.facade.pages
+package kpn.core.facade.pages.directions
 
 import kpn.shared.directions.Directions
 

@@ -8,7 +8,6 @@ import kpn.core.facade.AnalyzerFacade
 import kpn.core.facade.AnalyzerFacadeImpl
 import kpn.core.facade.pages.ChangeSetPageBuilderImpl
 import kpn.core.facade.pages.ChangesPageBuilderImpl
-import kpn.core.facade.pages.DirectionsBuilderImpl
 import kpn.core.facade.pages.NetworkChangesPageBuilderImpl
 import kpn.core.facade.pages.NetworkDetailsPageBuilderImpl
 import kpn.core.facade.pages.NetworkFactsPageBuilderImpl
@@ -24,6 +23,7 @@ import kpn.core.facade.pages.SubsetFactsPageBuilderImpl
 import kpn.core.facade.pages.SubsetNetworksPageBuilderImpl
 import kpn.core.facade.pages.SubsetOrphanNodesPageBuilderImpl
 import kpn.core.facade.pages.SubsetOrphanRoutesPageBuilderImpl
+import kpn.core.facade.pages.directions.DirectionsBuilderImpl
 import kpn.core.overpass.OverpassQueryExecutorHttp
 import kpn.core.planner.PlannerFacade
 import kpn.core.planner.PlannerFacadeImpl

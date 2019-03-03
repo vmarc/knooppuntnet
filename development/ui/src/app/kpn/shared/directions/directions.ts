@@ -1,11 +1,14 @@
 // this class is generated, please do not modify
 
 import {List} from 'immutable';
-import {DirectionsPath} from './directions-path';
+import {DirectionsInstruction} from './directions-instruction';
 
 export class Directions {
 
-  constructor(readonly paths: List<DirectionsPath>) {
+  constructor(readonly distance: number,
+              readonly ascend: number,
+              readonly descend: number,
+              readonly instructions: List<DirectionsInstruction>) {
   }
 
   public static fromJSON(jsonObject): Directions {
@@ -13,7 +16,10 @@ export class Directions {
       return undefined;
     }
     return new Directions(
-      jsonObject.paths ? List(jsonObject.paths.map(json => DirectionsPath.fromJSON(json))) : List()
+      jsonObject.distance,
+      jsonObject.ascend,
+      jsonObject.descend,
+      jsonObject.instructions ? List(jsonObject.instructions.map(json => DirectionsInstruction.fromJSON(json))) : List()
     );
   }
 }

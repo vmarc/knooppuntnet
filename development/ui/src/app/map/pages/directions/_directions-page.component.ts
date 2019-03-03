@@ -15,14 +15,12 @@ import {AppService} from "../../../app.service";
     </h2>
 
     <div *ngIf="directions != null">
-      <div *ngFor="let path of directions.paths">
-        <kpn-directions-summary [path]="path"></kpn-directions-summary>
-        <br/>
+      <kpn-directions-summary [directions]="directions"></kpn-directions-summary>
+      <br/>
+      <mat-divider></mat-divider>
+      <div *ngFor="let instruction of directions.instructions">
+        <kpn-directions-instruction [instruction]="instruction"></kpn-directions-instruction>
         <mat-divider></mat-divider>
-        <div *ngFor="let instruction of path.instructions">
-          <kpn-directions-instruction [instruction]="instruction"></kpn-directions-instruction>
-          <mat-divider></mat-divider>
-        </div>
       </div>
     </div>
   `

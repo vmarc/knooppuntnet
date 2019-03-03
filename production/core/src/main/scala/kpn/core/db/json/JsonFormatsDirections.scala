@@ -1,15 +1,19 @@
 package kpn.core.db.json
 
+import kpn.core.facade.pages.directions.GraphHopperDirections
+import kpn.core.facade.pages.directions.GraphHopperDirectionsInstruction
+import kpn.core.facade.pages.directions.GraphHopperDirectionsPath
 import kpn.shared.directions.Directions
 import kpn.shared.directions.DirectionsInstruction
-import kpn.shared.directions.DirectionsPath
 import spray.json.DefaultJsonProtocol
 import spray.json.RootJsonFormat
 
 object JsonFormatsDirections extends DefaultJsonProtocol {
 
-  implicit val directionsInstructionFormat: RootJsonFormat[DirectionsInstruction] = jsonFormat10(DirectionsInstruction)
-  implicit val directionsPathFormat: RootJsonFormat[DirectionsPath] = jsonFormat7(DirectionsPath)
-  implicit val directionsFormat: RootJsonFormat[Directions] = jsonFormat1(Directions)
+  implicit val directionsInstructionFormat: RootJsonFormat[DirectionsInstruction] = jsonFormat8(DirectionsInstruction)
+  implicit val directionsFormat: RootJsonFormat[Directions] = jsonFormat4(Directions)
 
+  implicit val graphHopperDirectionsInstructionFormat: RootJsonFormat[GraphHopperDirectionsInstruction] = jsonFormat10(GraphHopperDirectionsInstruction)
+  implicit val graphHopperDirectionsPathFormat: RootJsonFormat[GraphHopperDirectionsPath] = jsonFormat7(GraphHopperDirectionsPath)
+  implicit val graphHopperDirectionsFormat: RootJsonFormat[GraphHopperDirections] = jsonFormat1(GraphHopperDirections)
 }
