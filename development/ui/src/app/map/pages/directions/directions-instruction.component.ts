@@ -4,10 +4,10 @@ import {DirectionsInstruction} from "../../../kpn/shared/directions/directions-i
 @Component({
   selector: 'kpn-directions-instruction',
   template: `
-    <div *ngIf="instruction.sign == 99" class="node">
+    <div *ngIf="instruction.sign == 'node'" class="node">
       <div class="node-number">{{instruction.text}}</div>        
     </div>
-    <div *ngIf="instruction.sign != 99" class="instruction">
+    <div *ngIf="instruction.sign != 'node'" class="instruction">
       <kpn-directions-sign [sign]="instruction.sign"></kpn-directions-sign>
       <div>
         <div>
@@ -19,7 +19,7 @@ import {DirectionsInstruction} from "../../../kpn/shared/directions/directions-i
         </div>
 
         <div>
-          {{distance()}}m
+          {{instruction.distance}}m
         </div>
 
         <div *ngIf="instruction.annotationText">
@@ -80,9 +80,5 @@ import {DirectionsInstruction} from "../../../kpn/shared/directions/directions-i
 export class DirectionsInstructionComponent {
 
   @Input() instruction: DirectionsInstruction;
-
-  distance() {
-    return Math.round(this.instruction.distance);
-  }
 
 }

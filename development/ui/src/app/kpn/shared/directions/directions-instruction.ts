@@ -5,7 +5,7 @@ export class DirectionsInstruction {
   constructor(readonly text: string,
               readonly streetName: string,
               readonly distance: number,
-              readonly sign: number,
+              readonly sign: string,
               readonly annotationText: string,
               readonly annotationImportance: number,
               readonly exitNumber: number,

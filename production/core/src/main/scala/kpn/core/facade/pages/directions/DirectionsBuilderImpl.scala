@@ -67,22 +67,37 @@ class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends Directio
 
     val firstInstruction = DirectionsInstruction(
       text = Some(legs.head.startNode),
-      sign = Some(99)
+      sign = Some("node")
     )
 
     val instructions: Seq[DirectionsInstruction] = paths.zip(legs).flatMap { case (path, leg) =>
       val lastInstruction = DirectionsInstruction(
         text = Some(leg.endNode),
-        sign = Some(99)
+        sign = Some("node")
       )
 
       val legInstructions= path.instructions.map { graphHopperInstruction =>
         val distance = graphHopperInstruction.distance.map(d => Math.round(d).toInt)
+        val sign = graphHopperInstruction.sign match {
+          case Some(-7) => Some("keep-left")
+          case Some(-3) => Some("turn-sharp-left")
+          case Some(-2) => Some("turn-left")
+          case Some(-1) => Some("turn-slight-left")
+          case Some(0) => Some("continue")
+          case Some(1) => Some("turn-slight-right")
+          case Some(2) => Some("turn-right")
+          case Some(3) => Some("turn-sharp-right")
+          case Some(4) => Some("finish")
+          case Some(5) => Some("via")
+          case Some(6) => Some("roundabout")
+          case Some(7) => Some("keep-right")
+          case _ => None
+        }
         DirectionsInstruction(
           text = graphHopperInstruction.text,
           streetName = graphHopperInstruction.streetName,
           distance = distance,
-          sign = graphHopperInstruction.sign,
+          sign = sign,
           annotationText = graphHopperInstruction.annotationText,
           annotationImportance = graphHopperInstruction.annotationImportance,
           exitNumber = graphHopperInstruction.exitNumber,
