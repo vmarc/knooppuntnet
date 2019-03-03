@@ -10,7 +10,7 @@ import spray.json.RootJsonFormat
 
 object JsonFormatsDirections extends DefaultJsonProtocol {
 
-  implicit val directionsInstructionFormat: RootJsonFormat[DirectionsInstruction] = jsonFormat8(DirectionsInstruction)
+  implicit val directionsInstructionFormat: RootJsonFormat[DirectionsInstruction] = jsonFormat9(DirectionsInstruction)
   implicit val directionsFormat: RootJsonFormat[Directions] = jsonFormat4(Directions)
 
   implicit val graphHopperDirectionsInstructionFormat: RootJsonFormat[GraphHopperDirectionsInstruction] = jsonFormat10(GraphHopperDirectionsInstruction)

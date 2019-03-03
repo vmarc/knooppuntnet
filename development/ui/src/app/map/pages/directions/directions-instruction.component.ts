@@ -4,10 +4,10 @@ import {DirectionsInstruction} from "../../../kpn/shared/directions/directions-i
 @Component({
   selector: 'kpn-directions-instruction',
   template: `
-    <div *ngIf="instruction.sign == 'node'" class="node">
-      <div class="node-number">{{instruction.text}}</div>        
+    <div *ngIf="instruction.node" class="node">
+      <div class="node-number">{{instruction.node}}</div>        
     </div>
-    <div *ngIf="instruction.sign != 'node'" class="instruction">
+    <div *ngIf="!instruction.node" class="instruction">
       <kpn-directions-sign [sign]="instruction.sign"></kpn-directions-sign>
       <div>
         <div>

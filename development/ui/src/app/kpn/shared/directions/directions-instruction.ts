@@ -2,7 +2,8 @@
 
 export class DirectionsInstruction {
 
-  constructor(readonly text: string,
+  constructor(readonly node: string,
+              readonly text: string,
               readonly streetName: string,
               readonly distance: number,
               readonly sign: string,
@@ -17,6 +18,7 @@ export class DirectionsInstruction {
       return undefined;
     }
     return new DirectionsInstruction(
+      jsonObject.node,
       jsonObject.text,
       jsonObject.streetName,
       jsonObject.distance,

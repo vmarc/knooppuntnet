@@ -1,6 +1,7 @@
 package kpn.shared.directions
 
 case class DirectionsInstruction(
+  node: Option[String] = None,
   text: Option[String] = None,
   streetName: Option[String] = None,
   distance: Option[Int] = None,

@@ -65,16 +65,10 @@ class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends Directio
     val ascend = Math.round(paths.map(_.ascend).sum).toInt
     val descend = Math.round(paths.map(_.descend).sum).toInt
 
-    val firstInstruction = DirectionsInstruction(
-      text = Some(legs.head.startNode),
-      sign = Some("node")
-    )
+    val firstInstruction = DirectionsInstruction(node = Some(legs.head.startNode))
 
     val instructions: Seq[DirectionsInstruction] = paths.zip(legs).flatMap { case (path, leg) =>
-      val lastInstruction = DirectionsInstruction(
-        text = Some(leg.endNode),
-        sign = Some("node")
-      )
+      val lastInstruction = DirectionsInstruction(node = Some(leg.endNode))
 
       val legInstructions= path.instructions.map { graphHopperInstruction =>
         val distance = graphHopperInstruction.distance.map(d => Math.round(d).toInt)
