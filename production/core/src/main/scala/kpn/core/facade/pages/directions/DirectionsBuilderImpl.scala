@@ -1,6 +1,7 @@
 package kpn.core.facade.pages.directions
 
 import kpn.core.directions.DirectionsEngine
+import kpn.core.util.Log
 import kpn.shared.directions.Directions
 import kpn.shared.directions.DirectionsInstruction
 
@@ -24,6 +25,8 @@ object DirectionsBuilderImpl {
 
 class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends DirectionsBuilder {
 
+  private val log = Log(classOf[DirectionsBuilderImpl])
+
   override def build(language: String, exampleName: String): Option[Directions] = {
     DirectionsBuilderImpl.examples.get(exampleName) match {
       case Some(legs) => Some(toDirections(legs, legs.flatMap(fetchDirections)))
@@ -34,11 +37,9 @@ class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends Directio
   private def fetchDirections(leg: Leg): Option[GraphHopperDirections] = {
 
     val filename = "/directions-examples/" + leg.gpxFilename + ".gpx"
-    println("FILENAME=" + filename)
-
     val resource = getClass.getResourceAsStream(filename)
     if (resource == null) {
-      println("ERROR: Could not find resource with name " + filename)
+      log.error(s"Could not find resource with name $filename")
       None
     }
     else {
@@ -50,7 +51,7 @@ class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends Directio
       catch {
         case e: Exception =>
           e.printStackTrace()
-          println("ERROR:" + e.getMessage)
+          log.error(s"Could not interprete $filename", e)
           None
       }
     }
@@ -70,7 +71,7 @@ class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends Directio
     val instructions: Seq[DirectionsInstruction] = paths.zip(legs).flatMap { case (path, leg) =>
       val lastInstruction = DirectionsInstruction(node = Some(leg.endNode))
 
-      val legInstructions= path.instructions.map { graphHopperInstruction =>
+      val legInstructions = path.instructions.map { graphHopperInstruction =>
         val distance = graphHopperInstruction.distance.map(d => Math.round(d).toInt)
         val sign = graphHopperInstruction.sign match {
           case Some(-7) => Some("keep-left")
@@ -98,7 +99,7 @@ class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends Directio
           turnAngle = graphHopperInstruction.turnAngle
         )
       }
-      legInstructions.dropRight(1)  :+ lastInstruction
+      legInstructions.dropRight(1) :+ lastInstruction
     }
 
     val allInstructions: Seq[DirectionsInstruction] = firstInstruction +: instructions
