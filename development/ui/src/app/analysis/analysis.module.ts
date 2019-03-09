@@ -17,7 +17,7 @@ import {NetworkDetailsPageComponent} from './pages/network/details/_network-deta
 import {NetworkChangesPageComponent} from './pages/network/changes/_network-changes-page.component';
 import {NetworkMapPageComponent} from './pages/network/map/_network-map-page.component';
 import {NetworkFactsPageComponent} from './pages/network/facts/_network-facts-page.component';
-import {OverviewPageComponent} from './pages/overview/overview-page.component';
+import {OverviewPageComponent} from './pages/overview/_overview-page.component';
 import {KpnMaterialModule} from "../material/kpn-material.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {SharedModule} from "../components/shared/shared.module";
@@ -124,6 +124,13 @@ import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.compone
 import {AnalysisNlPageComponent} from "./pages/analysis/analysis-nl-page.component";
 import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
 import {SubsetPageHeaderComponent} from "./pages/subset/components/subset-page-header.component";
+import {OverviewTableRowComponent} from "./pages/overview/overview-table-row.component";
+import {OverviewTableHeaderComponent} from "./pages/overview/overview-table-header.component";
+import {StatisticConfigurationsComponent} from "./pages/overview/statistic-configurations.component";
+import {StatisticConfigurationComponent} from "./pages/overview/statistic-configuration.component";
+import {OverviewTableComponent} from "./pages/overview/overview-table.component";
+import {OverviewService} from "./pages/overview/overview.service";
+import {OverviewTableCellComponent} from "./pages/overview/overview-table-cell.component";
 
 @NgModule({
   imports: [
@@ -165,6 +172,12 @@ import {SubsetPageHeaderComponent} from "./pages/subset/components/subset-page-h
     NodeNetworksComponent,
     NodeRoutesComponent,
     OverviewPageComponent,
+    OverviewTableComponent,
+    OverviewTableHeaderComponent,
+    OverviewTableRowComponent,
+    OverviewTableCellComponent,
+    StatisticConfigurationsComponent,
+    StatisticConfigurationComponent,
     RoutePageComponent,
     RouteMembersComponent,
     RouteSummaryComponent,
@@ -261,6 +274,9 @@ import {SubsetPageHeaderComponent} from "./pages/subset/components/subset-page-h
     NetworkIndicatorDialogComponent,
     RoleConnectionIndicatorDialogComponent,
     RouteIndicatorDialogComponent
+  ],
+  providers: [
+    OverviewService
   ]
 })
 export class AnalysisModule {

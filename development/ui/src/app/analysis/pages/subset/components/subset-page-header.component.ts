@@ -23,40 +23,40 @@ import {Util} from "../../../../components/shared/util";
 
       <kpn-page-menu-option
         pageName="networks"
-        selectedPageName="{{pageName}}"
-        link="{{link('networks')}}"
+        [selectedPageName]="pageName"
+        [link]="link('networks')"
         pageTitle="Networks"
         [elementCount]="networkCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         pageName="facts"
-        selectedPageName="{{pageName}}"
-        link="{{link('facts')}}"
+        [selectedPageName]="pageName"
+        [link]="link('facts')"
         pageTitle="Facts"
         [elementCount]="factCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         pageName="orphan-nodes"
-        selectedPageName="{{pageName}}"
-        link="{{link('orphan-nodes')}}"
+        [selectedPageName]="pageName"
+        [link]="link('orphan-nodes')"
         pageTitle="Orphan Nodes"
         [elementCount]="orphanNodeCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         pageName="orphan-routes"
-        selectedPageName="{{pageName}}"
-        link="{{link('orphan-routes')}}"
+        [selectedPageName]="pageName"
+        [link]="link('orphan-routes')"
         pageTitle="Orphan routes"
         [elementCount]="orphanRouteCount()">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         pageName="changes"
-        selectedPageName="{{pageName}}"
-        link="{{link('changes')}}"
+        [selectedPageName]="pageName"
+        [link]="link('changes')"
         pageTitle="Changes">
       </kpn-page-menu-option>
 
@@ -72,34 +72,34 @@ export class SubsetPageHeaderComponent {
   constructor(private subsetCacheService: SubsetCacheService) {
   }
 
-  private countryLink(): string {
+  countryLink(): string {
     return "/analysis/" + Util.safeGet(() => this.subset.country.domain);
   }
 
-  private link(targetPageName: string) {
+  link(targetPageName: string) {
     if (this.subset != null) {
       return "/analysis/" + targetPageName + "/" + this.subset.country.domain + "/" + this.subset.networkType.name;
     }
     return "/";
   }
 
-  private networkCount() {
+  networkCount() {
     return Util.safeGet(() => this.subsetInfo().networkCount);
   }
 
-  private factCount() {
+  factCount() {
     return Util.safeGet(() => this.subsetInfo().factCount);
   }
 
-  private orphanNodeCount() {
+  orphanNodeCount() {
     return Util.safeGet(() => this.subsetInfo().orphanNodeCount);
   }
 
-  private orphanRouteCount() {
+  orphanRouteCount() {
     return Util.safeGet(() => this.subsetInfo().orphanRouteCount);
   }
 
-  private subsetInfo(): SubsetInfo {
+  subsetInfo(): SubsetInfo {
     return this.subsetCacheService.getSubsetInfo(this.subset.key());
   }
 

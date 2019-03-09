@@ -2,6 +2,688 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="stats.km.comment" datatype="html">
+        <source>
+        Total length in kilometers.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.km.name" datatype="html">
+        <source>Length (km)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-count.comment" datatype="html">
+        <source>
+        Number of networks.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-count.name" datatype="html">
+        <source>NetworkCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.node-count.comment" datatype="html">
+        <source>
+        Number of network nodes.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.node-count.name" datatype="html">
+        <source>Node count</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-count.comment" datatype="html">
+        <source>
+        Number of routes.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-count.name" datatype="html">
+        <source>Route count</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-not-continious-network-count.comment" datatype="html">
+        <source>
+        Number of networks with broken routes.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-not-continious-network-count.name" datatype="html">
+        <source>RouteNotContiniousNetworkCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-not-continious.comment" datatype="html">
+        <source>
+        Number of broken routes.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-not-continious.name" datatype="html">
+        <source>RouteNotContinious</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-not-continious-percentage.comment" datatype="html">
+        <source>
+        Percentage of broken routes.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-not-continious-percentage.name" datatype="html">
+        <source>RouteNotContiniousPercentage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-broken-network-count.comment" datatype="html">
+        <source>
+        Number of networks containing routes with issues.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-broken-network-count.name" datatype="html">
+        <source>RouteBrokenNetworkCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-broken-count.comment" datatype="html">
+        <source>
+        Number of routes with issues.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-broken-count.name" datatype="html">
+        <source>RouteBrokenCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-broken-percentage.comment" datatype="html">
+        <source>
+        Percentage of routes with issues.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-broken-percentage.name" datatype="html">
+        <source>RouteBrokenPercentage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-incomplete.comment" datatype="html">
+        <source>
+        Number of routes that are marked as having an incomplete definition.\
+        A route definition is explicitely marked incomplete by adding a tag _&quot;fixme&quot;_ with
+        value _&quot;incomplete&quot;_ in the route relation.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-incomplete.name" datatype="html">
+        <source>RouteIncomplete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-incomplete-ok.comment" datatype="html">
+        <source>
+        Number of routes that are marked as having an incomplete definition, but
+        that look ok after analysis.\
+        A route definition is explicitely marked incomplete by adding a tag _&quot;fixme&quot;_ with
+        value _&quot;incomplete&quot;_ in the route relation.
+        
+        
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-incomplete-ok.name" datatype="html">
+        <source>RouteIncompleteOk</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-fixmetodo.comment" datatype="html">
+        <source>
+        Number of routes that are marked with _&quot;fixmetodo&quot;_.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-fixmetodo.name" datatype="html">
+        <source>RouteFixmetodo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.xxx.comment" datatype="html">
+        <source> 
+        Number of network nodes that do not belong to a network.\
+        The [node](glossary#node) was not added as a member to a valid
+        [network relation](glossary#network-relation)
+        and also not added as a member to a valid
+        [route relation](glossary#route-relation)
+        (that itself was added as a member to a valid network relation or is an orphan route).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.orphan-node-count.name" datatype="html">
+        <source>Orphan nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.orphan-route-count.comment" datatype="html">
+        <source> 
+        Number of network routes that do not belong to a network.\
+        The route was not added as a member to a valid
+        [network relation](glossary#network-relation).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.orphan-route-count.name" datatype="html">
+        <source>Orphan routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.orphan-route-km.comment" datatype="html">
+        <source> 
+        Total length (km) of the orphan routes (not included in network length above).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.orphan-route-km.name" datatype="html">
+        <source>Orphan route length (km)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-network-count.comment" datatype="html">
+        <source> 
+        Number of networks that include integrity check.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">178</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-network-count.name" datatype="html">
+        <source>IntegrityCheck</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check.comment" datatype="html">
+        <source> 
+        Number of nodes with integrity check.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">187</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check.name" datatype="html">
+        <source>IntegrityCheck</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">185</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-failed.comment" datatype="html">
+        <source>
+        Number of failed integrity checks.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">197</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-failed.name" datatype="html">
+        <source>IntegrityCheckFailed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-pass-rate.comment" datatype="html">
+        <source> 
+        Integrity check pass rate (percentage of ok checks).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-pass-rate.name" datatype="html">
+        <source>IntegrityCheckPassRate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">204</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-coverage.comment" datatype="html">
+        <source> 
+        Integrity check coverage (percentage of nodes that do have integrity check information).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.integrity-check-coverage.name" datatype="html">
+        <source>IntegrityCheckCoverage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">213</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unused-segments.comment" datatype="html">
+        <source>
+        Number of routes where one or more of the ways (or part of ways) are not used in the
+        forward or backward path or in one of the tentacles.
+        
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">225</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unused-segments.name" datatype="html">
+        <source>RouteUnusedSegments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">222</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-node-missing-in-ways.comment" datatype="html">
+        <source>
+        Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">237</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-node-missing-in-ways.name" datatype="html">
+        <source>RouteNodeMissingInWays</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-redundant-nodes.comment" datatype="html">
+        <source>
+        Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
+        
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">247</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-redundant-nodes.name" datatype="html">
+        <source>RouteRedundantNodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">244</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-without-ways.comment" datatype="html">
+        <source>
+        Routes without ways (a route is expected to have at least 1 way).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">259</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-without-ways.name" datatype="html">
+        <source>RouteWithoutWays</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">255</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-missing.comment" datatype="html">
+        <source>
+        Routes without a _&quot;note&quot;_ tag with the route name.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">270</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-missing.name" datatype="html">
+        <source>RouteNameMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">266</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-tag-missing.comment" datatype="html">
+        <source>
+        The route relation does not contain a _&quot;route&quot;_ tag.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">281</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-tag-missing.name" datatype="html">
+        <source>RouteTagMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">277</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-tag-invalid.comment" datatype="html">
+        <source>
+        The value in the _&quot;route&quot;_ tag in the route relation is unexpected.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">292</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-tag-invalid.name" datatype="html">
+        <source>RouteTagInvalid</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">288</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unexpected-node.comment" datatype="html">
+        <source> 
+        Number of routes with one or more unexpected node members.\
+        In route relations we expect only nodes with tag _&quot;rwn_ref&quot;_ or _&quot;rcn_ref&quot;_.
+        
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">303</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unexpected-node.name" datatype="html">
+        <source>RouteUnexpectedNode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">299</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unexpected-relation.comment" datatype="html">
+        <source> 
+        Number of routes with one or more unexpected members.\In route relations we expect
+        only members of type _&quot;way&quot;_, or members of type _&quot;node&quot;_ with a
+        tag _&quot;rwn_ref&quot;_ or _&quot;rcn_ref&quot;_.
+        
+        
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">316</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unexpected-relation.name" datatype="html">
+        <source>RouteUnexpectedRelation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">312</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
+        <source>
+        Number of network relation members of type _&quot;node&quot;_ that are unexpected (expect only
+        [network nodes](glossary#node) or [information maps](glossary#info-map) as members
+        in the network relation).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">331</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-extra-member-node.name" datatype="html">
+        <source>NetworkExtraMemberNode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">327</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-extra-member-way.comment" datatype="html">
+        <source>
+        Number of network relation members of type _&quot;way&quot;_ (expect only route relations
+        or network nodes as members in the node network relation).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">346</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-extra-member-way.name" datatype="html">
+        <source>NetworkExtraMemberWay</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">342</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-extra-member-relation.comment" datatype="html">
+        <source>
+        Number of network relation members of type _&quot;relation&quot;_ that are unexpected (expect only
+        valid route relations or network nodes as members in the node network relation).
+        
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">359</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-extra-member-relation.name" datatype="html">
+        <source>NetworkExtraMemberRelation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">355</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.node-member-missing.comment" datatype="html">
+        <source>
+        Number of nodes that are not included in the network relation
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">371</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.node-member-missing.name" datatype="html">
+        <source>NodeMemberMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">368</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.name-missing.comment" datatype="html">
+        <source> 
+        Number of networks without _&quot;name&quot;_ tag in the network relation.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">381</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.name-missing.name" datatype="html">
+        <source>NameMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">378</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unaccessible.comment" datatype="html">
+        <source> 
+        Number of [unaccessible](glossary#accessible) routes.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">392</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-unaccessible.name" datatype="html">
+        <source>RouteUnaccessible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">388</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-invalid-sorting-order.comment" datatype="html">
+        <source>
+        Number of routes with ways in wrong sorting order.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">402</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-invalid-sorting-order.name" datatype="html">
+        <source>RouteInvalidSortingOrder</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">399</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-reversed.comment" datatype="html">
+        <source>
+        Number of routes where the ways are in reverse order (from high node number to low node number).
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">412</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-reversed.name" datatype="html">
+        <source>RouteReversed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">409</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-node-name-mismatch.comment" datatype="html">
+        <source>
+        Routes where the route name does not match with the names of the start node and the end node. The
+        route name is expected to contain the start node name and the end node name, separated by a dash. The
+        start node is expected to have a lower number than the end node.
+        
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">422</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-node-name-mismatch.name" datatype="html">
+        <source>RouteNodeNameMismatch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">419</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
         <source>Added</source>
         <context-group purpose="location">
@@ -818,942 +1500,977 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.atm" datatype="html">
-        <source>atm</source>
+      <trans-unit id="poi.group.amenity" datatype="html">
+        <source>Amenity</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-amenity.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.bank" datatype="html">
-        <source>bank</source>
+      <trans-unit id="poi.group.foodshops" datatype="html">
+        <source>Foodshops</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-foodshops.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.bench" datatype="html">
-        <source>bench</source>
+      <trans-unit id="poi.group.places-to-stay" datatype="html">
+        <source>Places to stay</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-places-to-stay.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.bicycle_parking" datatype="html">
-        <source>bicycle_parking</source>
+      <trans-unit id="poi.group.restaurants" datatype="html">
+        <source>Restaurants</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-restaurants.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.bicycle_rental" datatype="html">
-        <source>bicycle_rental</source>
+      <trans-unit id="poi.group.shops" datatype="html">
+        <source>Shops</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-shops.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.cinema" datatype="html">
-        <source>cinema</source>
+      <trans-unit id="poi.group.sports" datatype="html">
+        <source>Sports</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-sports.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.clinic" datatype="html">
-        <source>clinic</source>
+      <trans-unit id="poi.group.tourism" datatype="html">
+        <source>Tourism</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-tourism.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.embassy" datatype="html">
-        <source>embassy</source>
+      <trans-unit id="poi.group.hiking-biking" datatype="html">
+        <source>Hiking/biking</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-hiking-biking.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.firestation" datatype="html">
-        <source>firestation</source>
+      <trans-unit id="poi.group.landmarks" datatype="html">
+        <source>Landmarks</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.fuel" datatype="html">
-        <source>fuel</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.hospital" datatype="html">
-        <source>hospital</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.library" datatype="html">
-        <source>library</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.music_school" datatype="html">
-        <source>music_school</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.parking" datatype="html">
-        <source>parking</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.pharmacy" datatype="html">
-        <source>pharmacy</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.police" datatype="html">
-        <source>police</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.post_box" datatype="html">
-        <source>post_box</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.post_office" datatype="html">
-        <source>post_office</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.taxi" datatype="html">
-        <source>taxi</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.theatre" datatype="html">
-        <source>theatre</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.toilets" datatype="html">
-        <source>toilets</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.university" datatype="html">
-        <source>university</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.place_of_worship" datatype="html">
-        <source>place_of_worship</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.church" datatype="html">
-        <source>church</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">29</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.mosque" datatype="html">
-        <source>mosque</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.buddhist_temple" datatype="html">
-        <source>buddhist_temple</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.hindu_temple" datatype="html">
-        <source>hindu_temple</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.synagogue" datatype="html">
-        <source>synagogue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.cemetery" datatype="html">
-        <source>cemetery</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.arts_centre" datatype="html">
-        <source>arts_centre</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.artwork" datatype="html">
-        <source>artwork</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.attraction" datatype="html">
-        <source>attraction</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.casino" datatype="html">
-        <source>casino</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.gallery" datatype="html">
-        <source>gallery</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.heritage" datatype="html">
-        <source>heritage</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.historic" datatype="html">
-        <source>historic</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.castle" datatype="html">
-        <source>castle</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">46</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.monument_memorial" datatype="html">
-        <source>monument_memorial</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">47</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.statue" datatype="html">
-        <source>statue</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">48</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.information" datatype="html">
-        <source>information</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">49</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.monumental_tree" datatype="html">
-        <source>monumental_tree</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.museum" datatype="html">
-        <source>museum</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.picnic" datatype="html">
-        <source>picnic</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">53</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.theme_park" datatype="html">
-        <source>theme_park</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">54</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.viewpoint" datatype="html">
-        <source>viewpoint</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">55</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.vineyard" datatype="html">
-        <source>vineyard</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">56</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.windmill" datatype="html">
-        <source>windmill</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.watermill" datatype="html">
-        <source>watermill</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.zoo" datatype="html">
-        <source>zoo</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">59</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.tourism" datatype="html">
-        <source>tourism</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">60</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.alpine_hut" datatype="html">
-        <source>alpine_hut</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">64</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.apartment" datatype="html">
-        <source>apartment</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">65</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.camp_site" datatype="html">
-        <source>camp_site</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.chalet" datatype="html">
-        <source>chalet</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">67</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.guest_house" datatype="html">
-        <source>guest_house</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.hostel" datatype="html">
-        <source>hostel</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">69</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.hotel" datatype="html">
-        <source>hotel</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">70</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.motel" datatype="html">
-        <source>motel</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">71</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.sauna" datatype="html">
-        <source>sauna</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">73</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.american_football" datatype="html">
-        <source>american_football</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">77</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.baseball" datatype="html">
-        <source>baseball</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">78</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.basketball" datatype="html">
-        <source>basketball</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">79</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.cycling" datatype="html">
-        <source>cycling</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">80</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.gymnastics" datatype="html">
-        <source>gymnastics</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">81</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.golf" datatype="html">
-        <source>golf</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">82</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">83</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.hockey" datatype="html">
-        <source>hockey</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">84</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">85</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.horse_racing" datatype="html">
-        <source>horse_racing</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">86</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">87</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.ice_hockey" datatype="html">
-        <source>ice_hockey</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">88</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">89</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.soccer" datatype="html">
-        <source>soccer</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">90</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.sports_centre" datatype="html">
-        <source>sports_centre</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">91</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.surfing" datatype="html">
-        <source>surfing</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">92</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.swimming" datatype="html">
-        <source>swimming</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">93</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.tennis" datatype="html">
-        <source>tennis</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">94</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.volleyball" datatype="html">
-        <source>volleyball</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">95</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.beauty" datatype="html">
-        <source>beauty</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">99</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.bicycle" datatype="html">
-        <source>bicycle</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">100</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.books_stationary" datatype="html">
-        <source>books_stationary</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">101</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.car" datatype="html">
-        <source>car</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">102</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.chemist" datatype="html">
-        <source>chemist</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">103</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.clothes" datatype="html">
-        <source>clothes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">104</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.copyshop" datatype="html">
-        <source>copyshop</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">105</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.cosmetics" datatype="html">
-        <source>cosmetics</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">106</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.department_store" datatype="html">
-        <source>department_store</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">107</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.diy_hardware" datatype="html">
-        <source>diy_hardware</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">108</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.garden_centre" datatype="html">
-        <source>garden_centre</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">109</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.general" datatype="html">
-        <source>general</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">110</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.gift" datatype="html">
-        <source>gift</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">111</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.hairdresser" datatype="html">
-        <source>hairdresser</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">112</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.jewelry" datatype="html">
-        <source>jewelry</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">113</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.kiosk" datatype="html">
-        <source>kiosk</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">114</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.leather" datatype="html">
-        <source>leather</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">115</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.marketplace" datatype="html">
-        <source>marketplace</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">116</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.musical_instrument" datatype="html">
-        <source>musical_instrument</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">117</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.optician" datatype="html">
-        <source>optician</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">118</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.pets" datatype="html">
-        <source>pets</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">119</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.phone" datatype="html">
-        <source>phone</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">120</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.photo" datatype="html">
-        <source>photo</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">121</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.shoes" datatype="html">
-        <source>shoes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">122</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.shopping_centre" datatype="html">
-        <source>shopping_centre</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">123</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.textiles" datatype="html">
-        <source>textiles</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">124</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.toys" datatype="html">
-        <source>toys</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.alcohol" datatype="html">
-        <source>alcohol</source>
+        <source>Alcohol</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.alpine_hut" datatype="html">
+        <source>Alpine hut</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.american_football" datatype="html">
+        <source>American football</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.apartment" datatype="html">
+        <source>Apartment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.arts_centre" datatype="html">
+        <source>Arts centre</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.artwork" datatype="html">
+        <source>Artwork</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.atm" datatype="html">
+        <source>Atm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.attraction" datatype="html">
+        <source>Attraction</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.bakery" datatype="html">
-        <source>bakery</source>
+        <source>Bakery</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.beverages" datatype="html">
-        <source>beverages</source>
+      <trans-unit id="poi.bank" datatype="html">
+        <source>Bank</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">131</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.butcher" datatype="html">
-        <source>butcher</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">132</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.cheese" datatype="html">
-        <source>cheese</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">133</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.chocolate" datatype="html">
-        <source>chocolate</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">134</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.confectionery" datatype="html">
-        <source>confectionery</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">135</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.coffee" datatype="html">
-        <source>coffee</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">136</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.dairy" datatype="html">
-        <source>dairy</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">137</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.deli" datatype="html">
-        <source>deli</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">138</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.drinking_water" datatype="html">
-        <source>drinking_water</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">139</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.grocery" datatype="html">
-        <source>grocery</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">140</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.organic" datatype="html">
-        <source>organic</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">141</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.seafood" datatype="html">
-        <source>seafood</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">142</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.supermarket" datatype="html">
-        <source>supermarket</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">143</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.wine" datatype="html">
-        <source>wine</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.bar" datatype="html">
-        <source>bar</source>
+        <source>Bar</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">148</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.baseball" datatype="html">
+        <source>Baseball</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.basketball" datatype="html">
+        <source>Basketball</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.bbq" datatype="html">
-        <source>bbq</source>
+        <source>BBQ</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">149</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.beauty" datatype="html">
+        <source>Beauty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.bench" datatype="html">
+        <source>Bench</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.beverages" datatype="html">
+        <source>Beverages</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.bicycle" datatype="html">
+        <source>Bicycle</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.bicycle_parking" datatype="html">
+        <source>Bicycle parking</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.bicycle_rental" datatype="html">
+        <source>Bicycle rental</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.biergarten" datatype="html">
-        <source>biergarten</source>
+        <source>Biergarten</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">150</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.cafe" datatype="html">
-        <source>cafe</source>
+      <trans-unit id="poi.books_stationary" datatype="html">
+        <source>Books/stationary</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.fast_food" datatype="html">
-        <source>fast_food</source>
+      <trans-unit id="poi.buddhist_temple" datatype="html">
+        <source>Buddhist temple</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">152</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.food_court" datatype="html">
-        <source>food_court</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">153</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.ice_cream" datatype="html">
-        <source>ice_cream</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">154</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">155</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.pub" datatype="html">
-        <source>pub</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">156</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="poi.restaurant" datatype="html">
-        <source>restaurant</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.bus_stop" datatype="html">
-        <source>bus_stop</source>
+        <source>Bus stop</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.ebike_charging" datatype="html">
-        <source>ebike_charging</source>
+      <trans-unit id="poi.butcher" datatype="html">
+        <source>Butcher</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.travel_agency" datatype="html">
-        <source>travel_agency</source>
+      <trans-unit id="poi.cafe" datatype="html">
+        <source>Cafe</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.camp_site" datatype="html">
+        <source>Camp site</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.car" datatype="html">
+        <source>Car</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.casino" datatype="html">
+        <source>Casino</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.castle" datatype="html">
+        <source>Castle</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.cemetery" datatype="html">
+        <source>Cemetery</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.chalet" datatype="html">
+        <source>Chalet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.cheese" datatype="html">
+        <source>Cheese</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.chemist" datatype="html">
+        <source>Chemist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.chocolate" datatype="html">
+        <source>Chocolate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.church" datatype="html">
+        <source>Church</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.cinema" datatype="html">
+        <source>Cinema</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.clinic" datatype="html">
+        <source>Clinic</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.clothes" datatype="html">
+        <source>Clothes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.coffee" datatype="html">
+        <source>Coffee</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.confectionery" datatype="html">
+        <source>Confectionery</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.copyshop" datatype="html">
+        <source>Copyshop</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.cosmetics" datatype="html">
+        <source>Cosmetics</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.cycling" datatype="html">
+        <source>Cycling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.dairy" datatype="html">
+        <source>Dairy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.defibrillator" datatype="html">
-        <source>defibrillator</source>
+        <source>Defibrillator</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/planner/pages/map/map-poi-config.component.ts</context>
-          <context context-type="linenumber">164</context>
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.deli" datatype="html">
+        <source>Deli</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.department_store" datatype="html">
+        <source>Department store</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.diy_hardware" datatype="html">
+        <source>DIY hardware</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.drinking_water" datatype="html">
+        <source>Drinking water</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.ebike_charging" datatype="html">
+        <source>Ebike charging</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.embassy" datatype="html">
+        <source>Embassy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.fast_food" datatype="html">
+        <source>Fast food</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.firestation" datatype="html">
+        <source>Firestation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.food_court" datatype="html">
+        <source>Food court</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.fuel" datatype="html">
+        <source>Fuel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.gallery" datatype="html">
+        <source>Gallery</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.garden_centre" datatype="html">
+        <source>Garden centre</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.general" datatype="html">
+        <source>General</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.gift" datatype="html">
+        <source>Gift</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.golf" datatype="html">
+        <source>Golf</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.grocery" datatype="html">
+        <source>Grocery</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.guest_house" datatype="html">
+        <source>Guest house</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.gymnastics" datatype="html">
+        <source>Gymnastics</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.hairdresser" datatype="html">
+        <source>Hairdresser</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.heritage" datatype="html">
+        <source>Heritage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.hindu_temple" datatype="html">
+        <source>Hindu temple</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.historic" datatype="html">
+        <source>Historic</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.hockey" datatype="html">
+        <source>Hockey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.horse_racing" datatype="html">
+        <source>Horse racing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.hospital" datatype="html">
+        <source>Hospital</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.hostel" datatype="html">
+        <source>Hostel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.hotel" datatype="html">
+        <source>Hotel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.ice_cream" datatype="html">
+        <source>Ice cream</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.ice_hockey" datatype="html">
+        <source>Ice hockey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.information" datatype="html">
+        <source>Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.jewelry" datatype="html">
+        <source>Jewelry</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.kiosk" datatype="html">
+        <source>Kiosk</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.leather" datatype="html">
+        <source>Leather</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.library" datatype="html">
+        <source>Library</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.marketplace" datatype="html">
+        <source>Marketplace</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.monumental_tree" datatype="html">
+        <source>Monumental tree</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.monument_memorial" datatype="html">
+        <source>Monument</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.mosque" datatype="html">
+        <source>Mosque</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.motel" datatype="html">
+        <source>Motel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.museum" datatype="html">
+        <source>Museum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.musical_instrument" datatype="html">
+        <source>Musical instrument</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.music_school" datatype="html">
+        <source>Music school</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.optician" datatype="html">
+        <source>Optician</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.organic" datatype="html">
+        <source>Organic</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.parking" datatype="html">
+        <source>Parking</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.pets" datatype="html">
+        <source>Pets</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.pharmacy" datatype="html">
+        <source>Pharmacy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.phone" datatype="html">
+        <source>Phone</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.photo" datatype="html">
+        <source>Photo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.picnic" datatype="html">
+        <source>Picnic</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.place_of_worship" datatype="html">
+        <source>Place of worship</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.police" datatype="html">
+        <source>Police</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.post_box" datatype="html">
+        <source>Post box</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.post_office" datatype="html">
+        <source>Post office</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.pub" datatype="html">
+        <source>Pub</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.restaurant" datatype="html">
+        <source>Restaurant</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.sauna" datatype="html">
+        <source>Sauna</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.seafood" datatype="html">
+        <source>Seafood</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.shoes" datatype="html">
+        <source>Shoes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.shopping_centre" datatype="html">
+        <source>Shopping centre</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.soccer" datatype="html">
+        <source>Soccer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.sports_centre" datatype="html">
+        <source>Sports centre</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.statue" datatype="html">
+        <source>Statue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.supermarket" datatype="html">
+        <source>Supermarket</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.surfing" datatype="html">
+        <source>Surfing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.swimming" datatype="html">
+        <source>Swimming</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.synagogue" datatype="html">
+        <source>Synagogue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.taxi" datatype="html">
+        <source>Taxi</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.tennis" datatype="html">
+        <source>Tennis</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.textiles" datatype="html">
+        <source>Textiles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.theatre" datatype="html">
+        <source>Theatre</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.theme_park" datatype="html">
+        <source>Themepark</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.toilets" datatype="html">
+        <source>Toilets</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.tourism" datatype="html">
+        <source>Tourism</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.toys" datatype="html">
+        <source>Toys</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.travel_agency" datatype="html">
+        <source>Travelagency</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.university" datatype="html">
+        <source>University</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.viewpoint" datatype="html">
+        <source>Viewpoint</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.vineyard" datatype="html">
+        <source>Vineyard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.volleyball" datatype="html">
+        <source>Volleyball</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.watermill" datatype="html">
+        <source>Watermill</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.windmill" datatype="html">
+        <source>Windmill</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.wine" datatype="html">
+        <source>Wine</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.zoo" datatype="html">
+        <source>Zoo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
+          <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
     </body>

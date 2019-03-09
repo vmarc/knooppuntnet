@@ -8,13 +8,21 @@ export class Statistics {
     this.map = map;
   }
 
+  public get(key: string): Statistic {
+    return this.map.get(key, null);
+  }
+
   public static fromJSON(jsonObject): Statistics {
     if (!jsonObject) {
       return undefined;
     }
-    return undefined;
-    // return new Statistics(
-    //   Map<string, Statistic>.fromJSON(jsonObject.map)
-    // );
+    const keysAndValues = [];
+    Object.keys(jsonObject.map).forEach(key => {
+      const value = jsonObject.map[key];
+      const s = Statistic.fromJSON(value);
+      keysAndValues.push([key, s]);
+    });
+    const map = Map<string, Statistic>(keysAndValues);
+    return new Statistics(map);
   }
 }

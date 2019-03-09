@@ -9,7 +9,7 @@ import {NetworkMapPageComponent} from "./pages/network/map/_network-map-page.com
 import {NetworkNodesPageComponent} from "./pages/network/nodes/_network-nodes-page.component";
 import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes-page.component";
 import {NodePageComponent} from "./pages/node/node-page.component";
-import {OverviewPageComponent} from "./pages/overview/overview-page.component";
+import {OverviewPageComponent} from "./pages/overview/_overview-page.component";
 import {RoutePageComponent} from "./pages/route/_route-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";

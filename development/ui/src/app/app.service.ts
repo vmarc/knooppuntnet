@@ -26,17 +26,23 @@ import {Subset} from "./kpn/shared/subset";
 import {ClientPoiConfiguration} from "./kpn/shared/tiles/client-poi-configuration";
 import {PoiPage} from "./kpn/shared/poi-page";
 import {Directions} from "./kpn/shared/directions/directions";
+import {MarkdownService} from "ngx-markdown";
+import {Statistics} from "./kpn/shared/statistics/statistics";
 
 @Injectable()
 export class AppService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              markdownService: MarkdownService) {
+    markdownService.renderer.link = (href: string, title: string, text: string) => {
+      return "<a href='" + href + "' title='" + title + "'target='_blank'>" + text + "</a>";
+    };
   }
 
-  public overview(): Observable<any> /*ApiResponse<Statistics>*/ {
+  public overview(): Observable<ApiResponse<Statistics>> {
     const url = "/json-api/overview";
     return this.http.get(url).pipe(
-      map(response => response)
+      map(response => ApiResponse.fromJSON(response, Statistics.fromJSON))
     );
   }
 
