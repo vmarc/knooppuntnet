@@ -161,7 +161,6 @@ export class PoiService {
       );
 
       if (activeChanged) {
-        console.log("DEBUG PoiService updatePoiActive\n" + JSON.stringify(this.poiActive, null, 2));
         this.changed.next(true);
       }
     }

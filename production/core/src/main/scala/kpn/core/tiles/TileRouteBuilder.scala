@@ -56,7 +56,7 @@ class TileRouteBuilder(z: Int) {
             if (line.length > 0.00000001) Some(line) else None
           }.toSeq
 
-          Some(TileRouteSegment(lines))
+          Some(TileRouteSegment(segment.surface, lines))
         }
         else {
           val lines = coordinates.sliding(2).flatMap { case Seq(c1, c2) =>
@@ -64,7 +64,7 @@ class TileRouteBuilder(z: Int) {
             val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
             if (line.length > 0.00000001) Some(line) else None
           }.toSeq
-          Some(TileRouteSegment(lines))
+          Some(TileRouteSegment(segment.surface, lines))
         }
       }
 

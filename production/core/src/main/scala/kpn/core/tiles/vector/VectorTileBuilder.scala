@@ -53,23 +53,21 @@ class VectorTileBuilder() extends TileBuilder {
     }
 
     data.routes.zipWithIndex.foreach { case (tileRoute, index) =>
-      val lineStrings = tileRoute.segments.map { segment =>
+      tileRoute.segments.foreach { segment =>
         val coordinates = segment.lines.flatMap { line =>
           Seq(
             new Coordinate(scaleLon(line.p1.x), scaleLat(line.p1.y)),
             new Coordinate(scaleLon(line.p2.x), scaleLat(line.p2.y))
           )
         }
-        geomFactory.createLineString(coordinates.toArray)
+        val lineString = geomFactory.createLineString(coordinates.toArray)
+        val userData = ListMap(
+          "id" -> (tileRoute.routeId.toString + "-" + index),
+          "name" -> tileRoute.routeName,
+          "surface" -> segment.surface
+        )
+        encoder.addLineStringFeature(tileRoute.layer, userData, lineString)
       }
-
-      val userData = ListMap(
-        "id" -> (tileRoute.routeId.toString + "-" + index),
-        "name" -> tileRoute.routeName
-      )
-
-      val geometry = geomFactory.createMultiLineString(lineStrings.toArray)
-      encoder.addMultiLineStringFeature(tileRoute.layer, userData, geometry)
     }
 
     encoder.encode

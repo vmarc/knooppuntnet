@@ -1,3 +1,3 @@
 package kpn.core.tiles.domain
 
-case class TileRouteSegment(lines: Seq[Line])
+case class TileRouteSegment(surface: String, lines: Seq[Line])

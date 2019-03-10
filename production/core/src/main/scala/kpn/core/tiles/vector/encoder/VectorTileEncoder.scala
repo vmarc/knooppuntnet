@@ -3,6 +3,7 @@ package kpn.core.tiles.vector.encoder
 import com.vividsolutions.jts.geom.Coordinate
 import com.vividsolutions.jts.geom.Geometry
 import com.vividsolutions.jts.geom.GeometryFactory
+import com.vividsolutions.jts.geom.LineString
 import com.vividsolutions.jts.geom.MultiLineString
 import com.vividsolutions.jts.geom.Point
 import com.vividsolutions.jts.geom.Polygon
@@ -30,6 +31,23 @@ class VectorTileEncoder {
   }
 
   def addMultiLineStringFeature(layerName: String, attributes: ListMap[String, String], geometry: MultiLineString): Unit = {
+
+    // ignore small lines
+    if (geometry.getLength < 1.0d) {
+      return
+    }
+
+    val clippedGeometry = clipGeometry(geometry)
+
+    // ignore geometry if empty after clipping
+    if (clippedGeometry.isEmpty) {
+      return
+    }
+
+    addFeature(layerName, attributes, clippedGeometry)
+  }
+
+  def addLineStringFeature(layerName: String, attributes: ListMap[String, String], geometry: LineString): Unit = {
 
     // ignore small lines
     if (geometry.getLength < 1.0d) {
