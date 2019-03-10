@@ -11,6 +11,8 @@ import kpn.client.common.map.vector.MapState
 import kpn.client.common.map.vector.SelectedFeatureHolder
 import kpn.client.components.map.MainMapLayer
 import kpn.shared.NetworkType
+import kpn.shared.common.TrackPath
+import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
 import kpn.shared.route.RouteMap
 import kpn.shared.route.RouteNetworkNodeInfo
@@ -51,31 +53,37 @@ class MainRouteMap(networkType: NetworkType, routeMap: RouteMap)(implicit contex
   }
 
   private def forwardLayer(): Option[ol.layer.Base] = {
-    val title = nls("Forward route", "Heen weg")
-    val forwardSegments = ol.source.Vector()
-    forwardSegments.addFeatures(segmentLines(title, ol.Color(0, 0, 255, 0.3), routeMap.forwardSegments))
-    val layer = ol.layer.Vector(forwardSegments)
-    layer.set("name", title)
-    Some(layer)
+    routeMap.forwardPath.map { path =>
+      val title = nls("Forward route", "Heen weg")
+      val forwardSegments = ol.source.Vector()
+      forwardSegments.addFeature(pathToFeature(title, ol.Color(0, 0, 255, 0.3), path))
+      val layer = ol.layer.Vector(forwardSegments)
+      layer.set("name", title)
+      layer
+    }
   }
 
   private def backwardLayer(): Option[ol.layer.Base] = {
-    val title = nls("Backward route", "Terug weg")
-    val backwardSegments = ol.source.Vector()
-    backwardSegments.addFeatures(segmentLines(title, ol.Color(0, 0, 255, 0.3), routeMap.backwardSegments))
-    val layer = ol.layer.Vector(backwardSegments)
-    layer.set("name", title)
-    Some(layer)
+    routeMap.backwardPath.map { path =>
+      val title = nls("Backward route", "Terug weg")
+      val backwardSegments = ol.source.Vector()
+      backwardSegments.addFeature(pathToFeature(title, ol.Color(0, 0, 255, 0.3), path))
+      val layer = ol.layer.Vector(backwardSegments)
+      layer.set("name", title)
+      layer
+    }
   }
 
   private def startTentacles(): Option[ol.layer.Base] = {
-    if (routeMap.startTentacles.isEmpty) {
+    if (routeMap.startTentaclePaths.isEmpty) {
       None
     }
     else {
       val title = nls("Start tentacle", "Start tentakel")
       val group = ol.source.Vector()
-      group.addFeatures(segmentLines(title, ol.Color(0, 255, 0, 0.3), routeMap.startTentacles))
+      routeMap.startTentaclePaths.foreach { path =>
+        group.addFeature(pathToFeature(title, ol.Color(0, 255, 0, 0.3), path))
+      }
       val layer = ol.layer.Vector(group)
       layer.set("name", title)
       Some(layer)
@@ -83,13 +91,15 @@ class MainRouteMap(networkType: NetworkType, routeMap: RouteMap)(implicit contex
   }
 
   private def endTentacles(): Option[ol.layer.Base] = {
-    if (routeMap.endTentacles.isEmpty) {
+    if (routeMap.endTentaclePaths.isEmpty) {
       None
     }
     else {
       val title = nls("End tentacle", "Eind tentakel")
       val group = ol.source.Vector()
-      group.addFeatures(segmentLines(title, ol.Color(255, 255, 0, 0.3), routeMap.endTentacles))
+      routeMap.endTentaclePaths.foreach { path =>
+        group.addFeature(pathToFeature(title, ol.Color(255, 255, 0, 0.3), path))
+      }
       val layer = ol.layer.Vector(group)
       layer.set("name", title)
       Some(layer)
@@ -103,32 +113,41 @@ class MainRouteMap(networkType: NetworkType, routeMap: RouteMap)(implicit contex
     else {
       val title = nls("Unused", "Ongebruikt")
       val group = ol.source.Vector()
-      group.addFeatures(segmentLines(title, ol.Color(255, 0, 0, 0.3), routeMap.unusedSegments))
+      routeMap.unusedSegments.foreach { segment =>
+        segmentToFeature(title, ol.Color(255, 0, 0, 0.3), segment)
+      }
       val layer = ol.layer.Vector(group)
       layer.set("name", title)
       Some(layer)
     }
   }
 
-  private def segmentLines(name: String, color: ol.Color, segments: Seq[TrackSegment]): js.Array[ol.Feature] = {
-    val features = segments.map { segment =>
-      val coordinates = segment.trackPoints.map { trackPoint =>
-        toCoordinate(trackPoint)
-      }
-      val polygon = new ol.geom.LineString(js.Array(coordinates: _*))
-      val feature = new ol.Feature(polygon)
-      val lineDash = new js.Array[Int]()
-      lineDash.push(25)
-      lineDash.push(25)
-
-      val style = ol.style.Style(
-        stroke = ol.style.Stroke(color, 15 /*, lineDash*/)
-      )
-      feature.setStyle(style)
-      feature
-    }
-    js.Array(features: _*)
+  private def segmentToFeature(name: String, color: ol.Color, segment: TrackSegment): ol.Feature = {
+    trackPointsToFeature(name, color, segment.trackPoints)
   }
+
+  private def pathToFeature(name: String, color: ol.Color, path: TrackPath): ol.Feature = {
+    val trackPoints = path.segments.flatMap(segment => segment.trackPoints)
+    trackPointsToFeature(name, color, trackPoints)
+  }
+
+  private def trackPointsToFeature(name: String, color: ol.Color, trackPoints: Seq[TrackPoint]): ol.Feature = {
+    val coordinates = trackPoints.map { trackPoint =>
+      toCoordinate(trackPoint)
+    }
+    val polygon = new ol.geom.LineString(js.Array(coordinates: _*))
+    val feature = new ol.Feature(polygon)
+    val lineDash = new js.Array[Int]()
+    lineDash.push(25)
+    lineDash.push(25)
+
+    val style = ol.style.Style(
+      stroke = ol.style.Stroke(color, 15 /*, lineDash*/)
+    )
+    feature.setStyle(style)
+    feature
+  }
+
 
   private def fitBounds(): Unit = {
     val b = routeMap.bounds
