@@ -33,7 +33,8 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
     availableFragments: Seq[Fragment],
     direction: SegmentDirection.Value,
     source: Node,
-    target: Node): Option[Segment] = {
+    target: Node
+  ): Option[Segment] = {
 
     val context = SegmentFinderContext(
       new Timer(timeout),

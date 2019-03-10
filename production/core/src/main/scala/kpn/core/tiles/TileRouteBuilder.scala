@@ -28,11 +28,12 @@ class TileRouteBuilder(z: Int) {
 
     routeInfo.analysis.flatMap { analysis =>
 
-      val segments = analysis.map.unusedSegments ++ // TODO MAP add some logic here to eliminate double ways (e.g. ways that are both part of forward and backward)
-        analysis.map.forwardSegments ++
-        analysis.map.backwardSegments ++
-        analysis.map.startTentacles ++
-        analysis.map.endTentacles
+      // TODO MAP add some logic here to eliminate double ways (e.g. ways that are both part of forward and backward)
+      val segments = analysis.map.unusedPaths.flatMap(_.segments) ++
+        analysis.map.forwardPath.toSeq.flatMap(_.segments) ++
+        analysis.map.backwardPath.toSeq.flatMap(_.segments) ++
+        analysis.map.startTentaclePaths.flatMap(_.segments) ++
+        analysis.map.endTentaclePaths.flatMap(_.segments)
 
       val tileRouteSegments = segments.flatMap { segment =>
 
@@ -47,7 +48,7 @@ class TileRouteBuilder(z: Int) {
           val simplifiedLineString: LineString = DouglasPeuckerSimplifier.simplify(lineString, distanceTolerance).asInstanceOf[LineString]
           val simplifiedCoordinates = simplifiedLineString.getCoordinates.toSeq
 
-          val lines = simplifiedCoordinates.sliding(2).flatMap { case (Seq(c1, c2)) =>
+          val lines = simplifiedCoordinates.sliding(2).flatMap { case Seq(c1, c2) =>
             val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
 
             // TODO MAP should check if line is within clipbounds of tile - return none if outside clipBounds
@@ -58,7 +59,7 @@ class TileRouteBuilder(z: Int) {
           Some(TileRouteSegment(lines))
         }
         else {
-          val lines = coordinates.sliding(2).flatMap { case (Seq(c1, c2)) =>
+          val lines = coordinates.sliding(2).flatMap { case Seq(c1, c2) =>
             // TODO MAP should make sure that empty lines are eliminated long before this point !!!
             val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
             if (line.length > 0.00000001) Some(line) else None

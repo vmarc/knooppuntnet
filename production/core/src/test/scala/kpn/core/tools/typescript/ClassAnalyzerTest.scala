@@ -65,7 +65,7 @@ class ClassAnalyzerTest extends FunSuite with Matchers {
           ClassField(
             "options",
             ClassType(
-              "Array<string>",
+              "List<string>",
               arrayType = Some(ClassType("string", primitive = true))
             )
           ),
@@ -79,7 +79,7 @@ class ClassAnalyzerTest extends FunSuite with Matchers {
           ClassField(
             "timestamps",
             ClassType(
-              "Array<Timestamp>",
+              "List<Timestamp>",
               arrayType = Some(ClassType("Timestamp"))
             )
           ),

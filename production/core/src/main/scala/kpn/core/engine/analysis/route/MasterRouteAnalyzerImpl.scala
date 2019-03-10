@@ -32,11 +32,14 @@ import kpn.core.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.core.engine.analysis.route.segment.Path
 import kpn.core.engine.analysis.route.segment.Segment
 import kpn.core.load.data.LoadedRoute
 import kpn.core.util.Log
+import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
+import kpn.shared.common.TrackSegmentFragment
 import kpn.shared.data.Node
 import kpn.shared.data.Tags
 import kpn.shared.route.Both
@@ -121,15 +124,33 @@ object RouteAnalyzerFunctions {
     }
   }
 
+  def segmentToPath(segment: Segment): Path = {
+    val nodes = segment.nodes
+    val startNodeId = nodes.head.id
+    val endNodeId = nodes.last.id
+    Path(
+      segment.start,
+      segment.end,
+      startNodeId,
+      endNodeId,
+      Seq(segment),
+      segment.broken
+    )
+  }
+
+  def toTrackPath(path: Path): TrackPath = {
+    val trackSegments = path.segments.map(toTrackSegment)
+    TrackPath(path.startNodeId, path.endNodeId, path.meters, trackSegments)
+  }
+
   def toTrackSegment(segment: Segment): TrackSegment = {
-    val trackPoints = segment.segmentFragments.flatMap(_.nodes).map(toTrackPoint)
+      val trackPoints = segment.segmentFragments.flatMap(_.nodes).map(toTrackPoint)
     TrackSegment(segment.surface, trackPoints)
   }
 
   def toTrackPoint(node: Node): TrackPoint = {
     TrackPoint(node.latitude.toString, node.longitude.toString)
   }
-
 
   def oneWay(member: RouteMember): WayDirection = {
     member match {

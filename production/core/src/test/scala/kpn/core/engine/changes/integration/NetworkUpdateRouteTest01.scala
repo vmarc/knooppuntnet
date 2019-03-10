@@ -16,6 +16,7 @@ import kpn.shared.changes.details.RefChanges
 import kpn.shared.changes.details.RouteChange
 import kpn.shared.common.MapBounds
 import kpn.shared.common.Ref
+import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
 import kpn.shared.data.Tags
@@ -150,12 +151,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 "01-02",
                 RouteMap(
                   MapBounds("0.0", "0.0", "0.0", "0.0"),
-                  Seq(
-                    TrackSegment(None, Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))
-                  ),
-                  Seq(
-                    TrackSegment(None, Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))
-                  ),
+                  Some(TrackPath(1001, 1002, 0, Seq(TrackSegment(None, Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
+                  Some(TrackPath(1002, 1001, 0, Seq(TrackSegment(None, Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
                   Seq(),
                   Seq(),
                   Seq(),
@@ -167,7 +164,6 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                   Seq(
                     RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
                   ),
-                  Seq(),
                   Seq(),
                   Seq(),
                   Seq()

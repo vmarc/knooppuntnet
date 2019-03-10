@@ -20,8 +20,10 @@ import kpn.shared.common.MapBounds
 import kpn.shared.common.NetworkRefs
 import kpn.shared.common.Ref
 import kpn.shared.common.Reference
+import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
+import kpn.shared.common.TrackSegmentFragment
 import kpn.shared.data.MetaData
 import kpn.shared.data.Tag
 import kpn.shared.data.Tags
@@ -258,7 +260,9 @@ object KpnPicklers {
     addConcreteType[Backward.type]
 
   implicit val trackPointPickler: Pickler[TrackPoint] = PicklerGenerator.generatePickler[TrackPoint]
+  implicit val trackSegmentFragmentPickler: Pickler[TrackSegmentFragment] = PicklerGenerator.generatePickler[TrackSegmentFragment]
   implicit val trackSegmentPickler: Pickler[TrackSegment] = PicklerGenerator.generatePickler[TrackSegment]
+  implicit val trackPathPickler: Pickler[TrackPath] = PicklerGenerator.generatePickler[TrackPath]
   implicit val mapBoundsPickler: Pickler[MapBounds] = PicklerGenerator.generatePickler[MapBounds]
   implicit val routeMapPickler: Pickler[RouteMap] = PicklerGenerator.generatePickler[RouteMap]
   implicit val routeMemberInfoPickler: Pickler[RouteMemberInfo] = PicklerGenerator.generatePickler[RouteMemberInfo]

@@ -7,6 +7,6 @@ class LargeRouteTest extends FunSuite with Matchers {
 
   ignore("Super large route") {
     val analysis = CaseStudy.routeAnalysis("222560")
-    analysis.route.analysis.get.map.unusedSegments.size should equal(200)
+    analysis.route.analysis.get.map.unusedPaths.flatMap(_.segments).size should equal(200)
   }
 }

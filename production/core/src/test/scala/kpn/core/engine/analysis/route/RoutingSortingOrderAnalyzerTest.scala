@@ -1,6 +1,7 @@
 package kpn.core.engine.analysis.route
 
 import kpn.core.engine.analysis.route.segment.Fragment
+import kpn.core.engine.analysis.route.segment.Path
 import kpn.core.engine.analysis.route.segment.Segment
 import kpn.core.engine.analysis.route.segment.SegmentFragment
 import kpn.shared.SharedTestObjects
@@ -10,7 +11,7 @@ import org.scalatest.Matchers
 
 class RoutingSortingOrderAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 
-  private val (fragments, okSegments, nokSegments) = {
+  private val (fragments, correctOrderPath, wrongOrderPath) = {
 
     val node1 = newNode(1)
     val node2 = newNode(2)
@@ -27,32 +28,38 @@ class RoutingSortingOrderAnalyzerTest extends FunSuite with Matchers with Shared
     val sf2 = SegmentFragment(fragment2)
     val sf3 = SegmentFragment(fragment3)
 
-    val correctOrder = Seq(Segment(segmentFragments = Seq(sf1, sf2, sf3)))
-    val wrongOrder = Seq(Segment(segmentFragments = Seq(sf1, sf3, sf2)))
+    val correctOrder = Path(None, None, node1.id, node4.id, Seq(Segment(segmentFragments = Seq(sf1, sf2, sf3))))
+    val wrongOrder = Path(None, None, node1.id, node4.id, Seq(Segment(segmentFragments = Seq(sf1, sf3, sf2))))
 
     (fragments, correctOrder, wrongOrder)
   }
 
   test("all ok") {
-    val analysis = analyze(RouteStructure(forwardSegment = Some(okSegments.head)))
+    val analysis = analyze(RouteStructure(forwardPath = Some(correctOrderPath)))
     analysis.forwardOk should equal(true)
     analysis.backwardOk should equal(true)
-    analysis.tentacleOk should equal(true)
+    analysis.startTentaclesOk should equal(true)
+    analysis.endTentaclesOk should equal(true)
   }
 
   test("forward nok") {
-    val analysis = analyze(RouteStructure(forwardSegment = Some(nokSegments.head)))
+    val analysis = analyze(RouteStructure(forwardPath = Some(wrongOrderPath)))
     analysis.forwardOk should equal(false)
   }
 
   test("backward nok") {
-    val analysis = analyze(RouteStructure(backwardSegment = Some(nokSegments.head)))
+    val analysis = analyze(RouteStructure(backwardPath = Some(wrongOrderPath)))
     analysis.backwardOk should equal(false)
   }
 
-  test("tentacle nok") {
-    val analysis = analyze(RouteStructure(tentacles = nokSegments))
-    analysis.tentacleOk should equal(false)
+  test("start tentacle nok") {
+    val analysis = analyze(RouteStructure(startTentaclePaths = Seq(wrongOrderPath)))
+    analysis.startTentaclesOk should equal(false)
+  }
+
+  test("end tentacle nok") {
+    val analysis = analyze(RouteStructure(endTentaclePaths = Seq(wrongOrderPath)))
+    analysis.endTentaclesOk should equal(false)
   }
 
   private def fragment(wayId: Long, from: Node, to: Node): Fragment = {

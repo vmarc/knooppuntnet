@@ -11,9 +11,10 @@ class RouteSortingOrderAnalyzer(fragments: Seq[Fragment], structure: RouteStruct
 
   def analysis: RouteSortingOrderAnalysis = {
     RouteSortingOrderAnalysis(
-      sortingOrderOk(structure.forwardSegment.toSeq),
-      sortingOrderOk(structure.backwardSegment.toSeq),
-      sortingOrderOk(structure.tentacles)
+      sortingOrderOk(structure.forwardPath.toSeq.flatMap(_.segments)),
+      sortingOrderOk(structure.backwardPath.toSeq.flatMap(_.segments)),
+      sortingOrderOk(structure.startTentaclePaths.flatMap(_.segments)),
+      sortingOrderOk(structure.endTentaclePaths.flatMap(_.segments))
     )
   }
 

@@ -84,6 +84,7 @@ import kpn.shared.common.Ref
 import kpn.shared.common.Reference
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
+import kpn.shared.common.TrackPath
 import kpn.shared.data.MetaData
 import kpn.shared.data.Tag
 import kpn.shared.data.raw.RawData
@@ -211,9 +212,10 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val trackPointFormat: RootJsonFormat[TrackPoint] = jsonFormat2(TrackPoint)
   implicit val trackSegmentFormat: RootJsonFormat[TrackSegment] = jsonFormat2(TrackSegment)
+  implicit val trackPathFormat: RootJsonFormat[TrackPath] = jsonFormat4(TrackPath)
   implicit val mapBoundsFormat: RootJsonFormat[MapBounds] = jsonFormat4(MapBounds.apply)
 
-  implicit val routeMapFormat: RootJsonFormat[RouteMap] = jsonFormat14(RouteMap)
+  implicit val routeMapFormat: RootJsonFormat[RouteMap] = jsonFormat13(RouteMap)
 
   implicit val factFormat = FactFormat
 

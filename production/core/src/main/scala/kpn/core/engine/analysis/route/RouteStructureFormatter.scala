@@ -15,10 +15,11 @@ class RouteStructureFormatter(structure: RouteStructure) {
 
   private def segmentStrings: Seq[Option[String]] = {
     Seq(
-      segments("forward", structure.forwardSegment.toSeq),
-      segments("backward", structure.backwardSegment.toSeq),
-      segments("tentacles", structure.tentacles),
-      segments("unused", structure.unusedSegments)
+      segments("forward", structure.forwardPath.toSeq.flatMap(_.segments)),
+      segments("backward", structure.backwardPath.toSeq.flatMap(_.segments)),
+      segments("startTentacles", structure.startTentaclePaths.flatMap(_.segments)),
+      segments("endTentacles", structure.endTentaclePaths.flatMap(_.segments)),
+      segments("unused", structure.unusedPaths.flatMap(_.segments))
     )
   }
 

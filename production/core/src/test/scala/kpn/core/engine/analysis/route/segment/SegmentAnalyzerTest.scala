@@ -97,7 +97,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     assertSegments(d,
       "forward=(01.a-02 via +<01.a- 12>+<-02 13>)," +
         "backward=(02-01.a via -<-02 13>-<01.a- 12>)," +
-        "tentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)"
+        "startTentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)"
     )
   }
 
@@ -116,7 +116,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     assertSegments(d,
       "forward=(01-02.a via +<01- 10>+<-02.a 11>)," +
         "backward=(02.a-01 via -<-02.a 11>-<01- 10>)," +
-        "tentacles=(02.a-02.b via +<02.a- 12>+<-02.b 13>)"
+        "endTentacles=(02.a-02.b via +<02.a- 12>+<-02.b 13>)"
     )
   }
 
@@ -133,7 +133,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     assertSegments(d,
       "forward=(01.a-02 via +<01.a-02 11>)," +
         "backward=(02-01.a via -<01.a-02 11>)," +
-        "tentacles=(01.b-01.a via +>01.b-01.a 10>)"
+        "startTentacles=(01.b-01.a via +>01.b-01.a 10>)"
     )
   }
 
@@ -152,7 +152,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     assertSegments(d,
       "forward=(01.a-02 via +<01.a-02 12>)," +
         "backward=(02-01.a via -<01.a-02 12>)," +
-        "tentacles=(01.b-01.a via +>01.b-01.a 11>,01.c-01.b via +>01.c-01.b 10>)"
+        "startTentacles=(01.b-01.a via +>01.b-01.a 11>,01.c-01.b via +>01.c-01.b 10>)"
     )
   }
 
@@ -169,7 +169,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     assertSegments(d,
       "forward=(01-02.a via +<01-02.a 11>)," +
         "backward=(02.a-01 via -<01-02.a 11>)," +
-        "tentacles=(02.b-02.a via -<02.a-02.b 12<)"
+        "endTentacles=(02.b-02.a via -<02.a-02.b 12<)"
     )
   }
 
@@ -193,7 +193,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     assertSegments(d,
       "forward=(01.b-02 via +<01.b- 14>+<-02 15>)," +
         "backward=(02-01.b via -<-02 15>-<01.b- 14>)," +
-        "tentacles=(01.a-01.b via +<01.a- 12>+<-01.b 13>,01.b-01.c via -<-01.b 11>-<01.c- 10>)"
+        "startTentacles=(01.a-01.b via +<01.a- 12>+<-01.b 13>,01.b-01.c via -<-01.b 11>-<01.c- 10>)"
     )
   }
 
@@ -215,7 +215,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
     assertSegments(d,
       "forward=(01.b-02 via +<01.b- 14>+<-02 15>)," +
         "backward=(02-01.b via -<-02 15>-<01.b- 14>)," +
-        "tentacles=(01.b-01.a via +>01.b- 12>+>-01.a 13>,01.b-01.c via -<-01.b 11<-<01.c- 10<)"
+        "startTentacles=(01.b-01.a via +>01.b- 12>+>-01.a 13>,01.b-01.c via -<-01.b 11<-<01.c- 10<)"
     )
   }
 

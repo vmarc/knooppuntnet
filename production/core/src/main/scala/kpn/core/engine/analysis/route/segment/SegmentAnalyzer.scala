@@ -1,5 +1,6 @@
 package kpn.core.engine.analysis.route.segment
 
+import kpn.core.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.core.engine.analysis.route.RouteNode
 import kpn.core.engine.analysis.route.RouteNodeAnalysis
 import kpn.core.engine.analysis.route.RouteNodeAnalysisFormatter
@@ -31,16 +32,26 @@ class SegmentAnalyzer(
       logStart(allFragments)
     }
 
-    val forwardSegment: Option[Segment] = findForwardPath()
-    val backwardSegment: Option[Segment] = findBackwardPath()
-    val tentacles: Seq[Segment] = findTentacles(forwardSegment ++ backwardSegment)
-    val unusedSegments = findUnusedSegments(forwardSegment ++ backwardSegment ++ tentacles)
+    val forwardPath: Option[Path] = findForwardPath().map(RouteAnalyzerFunctions.segmentToPath) // TODO paved/unpaved logic incomplete
+    val backwardPath: Option[Path] = findBackwardPath().map(RouteAnalyzerFunctions.segmentToPath) // TODO paved/unpaved logic incomplete
+    val usedSegments1 = forwardPath.toSeq.flatMap(_.segments) ++ backwardPath.toSeq.flatMap(_.segments)
+    val usedFragments1 = usedSegments1.flatMap(_.segmentFragments).map(_.fragment).toSeq
+    val availableFragments: Seq[Fragment] = (allFragments.toSet -- usedFragments1.toSet).toSeq
+    val startTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragments, routeNodeAnalysis.startNodes.map(_.node)).findTentacles.map(RouteAnalyzerFunctions
+      .segmentToPath) // TODO paved/unpaved logic incomplete
+    val endTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragments, routeNodeAnalysis.endNodes.map(_.node)).findTentacles.map(RouteAnalyzerFunctions
+      .segmentToPath) // TODO paved/unpaved logic incomplete
+    val unusedPaths = {
+      val used = forwardPath.toSeq.flatMap(_.segments) ++ backwardPath.toSeq.flatMap(_.segments) ++ startTentaclePaths.flatMap(_.segments) ++ endTentaclePaths.flatMap(_.segments)
+      findUnusedSegments(used).map(RouteAnalyzerFunctions.segmentToPath) // TODO paved/unpaved logic incomplete
+    }
 
     RouteStructure(
-      forwardSegment,
-      backwardSegment,
-      tentacles,
-      unusedSegments
+      forwardPath,
+      backwardPath,
+      startTentaclePaths,
+      endTentaclePaths,
+      unusedPaths
     )
   }
 

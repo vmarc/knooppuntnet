@@ -144,37 +144,6 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     )
   }
 
-  def route(subset: Subset, startNodeId: Long, endNodeId: Long, meters: Int): Unit = {
-
-    val id = 10000 * startNodeId + endNodeId
-
-    val startNode = {
-      val name = "%02d".format(startNodeId)
-      RouteNetworkNodeInfo(startNodeId, name, name, "", "")
-    }
-
-    val endNode = {
-      val name = "%02d".format(endNodeId)
-      RouteNetworkNodeInfo(endNodeId, name, name, "", "")
-    }
-
-    val routeAnalysis = newRouteInfoAnalysis(
-      startNodes = Seq(startNode),
-      endNodes = Seq(endNode)
-    )
-
-    routeRepository.save(
-      newRoute(
-        id = id,
-        country = Some(subset.country),
-        networkType = subset.networkType,
-        name = "01-02",
-        meters = meters,
-        analysis = routeAnalysis
-      )
-    )
-  }
-
   def route(
     subset: Subset,
     startNodeName: String,
@@ -186,8 +155,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
   ): Unit = {
 
     val routeName = "%s-%s".format(startNodeName, endNodeName)
-    val startNode = RouteNetworkNodeInfo(startNodeId, startNodeName, startNodeName, "", "")
-    val endNode = RouteNetworkNodeInfo(endNodeId, endNodeName, endNodeName, "", "")
+    val startNode = RouteNetworkNodeInfo(startNodeId, startNodeName, startNodeName)
+    val endNode = RouteNetworkNodeInfo(endNodeId, endNodeName, endNodeName)
 
     val routeAnalysis = newRouteInfoAnalysis(
       startNodes = Seq(startNode),

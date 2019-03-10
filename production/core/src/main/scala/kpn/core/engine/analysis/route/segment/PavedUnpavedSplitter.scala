@@ -9,7 +9,6 @@ object PavedUnpavedSplitter {
 
   def split(segmentFragments: Seq[SegmentFragment]): Seq[Seq[SegmentFragment]] = {
 
-
     val surfaceSegmentFragments = segmentFragments.map { segmentFragment =>
       SurfaceSegmentFragment(
         new SurfaceAnalyzer(segmentFragment.fragment.way).surface(),

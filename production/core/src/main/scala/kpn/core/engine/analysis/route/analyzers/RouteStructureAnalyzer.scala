@@ -1,5 +1,6 @@
 package kpn.core.engine.analysis.route.analyzers
 
+import kpn.core.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.core.engine.analysis.route.RouteNodeAnalysis
 import kpn.core.engine.analysis.route.RouteSortingOrderAnalyzer
 import kpn.core.engine.analysis.route.RouteStructure
@@ -10,17 +11,16 @@ import kpn.core.engine.analysis.route.segment.SegmentBuilder
 import kpn.core.engine.analysis.route.segment.SegmentFinderAbort
 import kpn.shared.Fact
 import kpn.shared.Fact.RouteAnalysisFailed
-import kpn.shared.Fact.RouteIncomplete
+import kpn.shared.Fact.RouteInvalidSortingOrder
 import kpn.shared.Fact.RouteNodeMissingInWays
 import kpn.shared.Fact.RouteNotBackward
+import kpn.shared.Fact.RouteNotContinious
 import kpn.shared.Fact.RouteNotForward
+import kpn.shared.Fact.RouteNotOneWay
 import kpn.shared.Fact.RouteOneWay
 import kpn.shared.Fact.RouteOverlappingWays
-import kpn.shared.Fact.RouteWithoutWays
-import kpn.shared.Fact.RouteNotOneWay
-import kpn.shared.Fact.RouteNotContinious
 import kpn.shared.Fact.RouteUnusedSegments
-import kpn.shared.Fact.RouteInvalidSortingOrder
+import kpn.shared.Fact.RouteWithoutWays
 
 import scala.collection.mutable.ListBuffer
 
@@ -38,23 +38,23 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
     val structure = analyzeStructure(context.routeNodeAnalysis.get, context.fragments.get)
     analyzeStructure2(context.routeNodeAnalysis.get, structure, context.fragments.get)
-    context.copy(structure = Some(structure), facts = facts.toSeq)
+    context.copy(structure = Some(structure), facts = facts)
   }
 
   private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis, fragments: Seq[Fragment]): RouteStructure = {
     if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder().segments(fragments)
+        unusedPaths = new SegmentBuilder().segments(fragments).map(RouteAnalyzerFunctions.segmentToPath)
       )
     }
     else if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder().segments(fragments)
+        unusedPaths = new SegmentBuilder().segments(fragments).map(RouteAnalyzerFunctions.segmentToPath)
       )
     }
     else if (routeNodeAnalysis.redundantNodes.size > 3) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder().segments(fragments)
+        unusedPaths = new SegmentBuilder().segments(fragments).map(RouteAnalyzerFunctions.segmentToPath)
       )
     }
     else {
@@ -90,8 +90,8 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
               (tag.key == "oneway" && tag.value == "yes")
           }
 
-          val routeForward = structure.forwardSegment.nonEmpty && !structure.forwardSegment.get.broken
-          val routeBackward = structure.backwardSegment.nonEmpty && !structure.backwardSegment.get.broken
+          val routeForward = !structure.forwardPath.exists(_.broken)
+          val routeBackward = !structure.backwardPath.exists(_.broken)
 
           if (routeForward) {
             if (routeBackward) {
@@ -126,14 +126,14 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         }
 
         if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
-          if (structure.forwardSegment.isEmpty || structure.forwardSegment.get.broken ||
-            structure.backwardSegment.isEmpty || structure.backwardSegment.get.broken) {
+          if (structure.forwardPath.isEmpty || structure.forwardPath.get.broken ||
+            structure.backwardPath.isEmpty || structure.backwardPath.get.broken) {
             facts += RouteNotContinious
           }
         }
 
         if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
-          if (structure.unusedSegments.nonEmpty) {
+          if (structure.unusedPaths.nonEmpty) {
             facts += RouteUnusedSegments
           }
 

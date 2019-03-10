@@ -32,26 +32,26 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
 
   private def buildRouteMap(routeNodeAnalysis: RouteNodeAnalysis, structure: RouteStructure, bounds: MapBounds): RouteMap = {
     val forwardBreakPoint = {
-      structure.forwardSegment match {
-        case Some(segment) if segment.broken => Some(RouteAnalyzerFunctions.toTrackPoint(segment.nodes.last))
+      structure.forwardPath match {
+        case Some(path) if path.broken => Some(RouteAnalyzerFunctions.toTrackPoint(path.segments.last.nodes.last))
         case _ => None
       }
     }
 
     val backwardBreakPoint = {
-      structure.backwardSegment match {
-        case Some(segment) if segment.broken => Some(RouteAnalyzerFunctions.toTrackPoint(segment.nodes.last))
+      structure.backwardPath match {
+        case Some(path) if path.broken => Some(RouteAnalyzerFunctions.toTrackPoint(path.segments.last.nodes.last))
         case _ => None
       }
     }
 
     RouteMap(
       bounds,
-      forwardSegments = structure.forwardSegment.toSeq.map(RouteAnalyzerFunctions.toTrackSegment),
-      backwardSegments = structure.backwardSegment.toSeq.map(RouteAnalyzerFunctions.toTrackSegment),
-      unusedSegments = structure.unusedSegments.map(RouteAnalyzerFunctions.toTrackSegment),
-      startTentacles = structure.tentacles.map(RouteAnalyzerFunctions.toTrackSegment),
-      //endTentacles = structure.endTentacles.map(toTrackSegment),
+      forwardPath = structure.forwardPath.map(RouteAnalyzerFunctions.toTrackPath),
+      backwardPath = structure.backwardPath.map(RouteAnalyzerFunctions.toTrackPath),
+      unusedPaths = structure.unusedPaths.map(RouteAnalyzerFunctions.toTrackPath),
+      startTentaclePaths = structure.startTentaclePaths.map(RouteAnalyzerFunctions.toTrackPath),
+      endTentaclePaths = structure.endTentaclePaths.map(RouteAnalyzerFunctions.toTrackPath),
       forwardBreakPoint = forwardBreakPoint,
       backwardBreakPoint = backwardBreakPoint,
       startNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.isEmpty) Seq() else Seq(routeNodeAnalysis.startNodes.head)),
@@ -59,9 +59,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       startTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.size <= 1) Seq() else routeNodeAnalysis.startNodes.tail),
       endTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.size <= 1) Seq() else routeNodeAnalysis.endNodes.tail),
       redundantNodes = RouteAnalyzerFunctions.toInfos(routeNodeAnalysis.redundantNodes)
-      // halfWayPoints Seq()
     )
   }
-
 
 }

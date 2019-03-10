@@ -144,9 +144,11 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     }
 
     private def evaluateTentacles: Option[String] = {
-      val tentacles = analysis.structure.tentacles.map(_.nodes.map(_.id))
-      if (tentacleBuffer != tentacles) {
-        Some("Tentacle mismatch, found: " + tentacles.mkString("+") + ", but expected: " + tentacleBuffer.mkString("+") + ".\n")
+      val startTentacleNodeIds = analysis.structure.startTentaclePaths.flatMap(_.segments).map(_.nodes.map(_.id))
+      val endTentacleNodeIds = analysis.structure.endTentaclePaths.flatMap(_.segments).map(_.nodes.map(_.id))
+      val tentacleNodeIds = startTentacleNodeIds ++ endTentacleNodeIds
+      if (tentacleBuffer != tentacleNodeIds) {
+        Some("Tentacle mismatch, found: " + tentacleNodeIds.mkString("+") + ", but expected: " + tentacleBuffer.mkString("+") + ".\n")
       }
       else {
         None

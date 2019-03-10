@@ -109,7 +109,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01.a-02 via +<01.a- 11>+<-02 12>)")
       structure("backward=(02-01.a via -<-02 12>-<01.a- 11>)")
-      structure("tentacles=(01.a-01.b via -<01.b-01.a 10>)")
+      structure("startTentacles=(01.a-01.b via -<01.b-01.a 10>)")
 
     }.analyze(d)
   }
@@ -139,7 +139,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01.a-02 via +<01.a- 12>+<-02 13>)")
       structure("backward=(02-01.a via -<-02 13>-<01.a- 12>)")
-      structure("tentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)")
+      structure("startTentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)")
 
     }.analyze(d)
   }
@@ -171,7 +171,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01-02.a via +<01- 10>+<11>+<12>+<-02.a 13>)")
       structure("backward=(02.a-01 via -<-02.a 13>-<12>-<11>-<01- 10>)")
-      structure("tentacles=(02.a-02.b via +<02.a- 14>+<-02.b 15>)")
+      structure("endTentacles=(02.a-02.b via +<02.a- 14>+<-02.b 15>)")
 
     }.analyze(d)
   }
@@ -209,7 +209,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01-02.a via +<01- 10>+<11>+<12>+<-02.a 13>)")
       structure("backward=(02.a-01 via -<-02.a 13>-<12>-<11>-<01- 10>)")
-      structure("tentacles=(02.a-02.b via +<02.a- 14>+<-02.b 15>,02.b-02.c via +<02.b- 16>+<-02.c 17>)")
+      structure("endTentacles=(02.a-02.b via +<02.a- 14>+<-02.b 15>,02.b-02.c via +<02.b- 16>+<-02.c 17>)")
 
     }.analyze(d)
 
@@ -247,7 +247,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01-02.a via +<01- 10>+<11>+<12>+<-02.a 13>)")
       structure("backward=(02.a-01 via -<-02.a 13>-<12>-<11>-<01- 10>)")
-      structure("tentacles=(02.a-02.b via +>02.a- 14>+>-02.b 15>,02.c-02.a via -<-02.c 17<-<02.a- 16<)")
+      structure("endTentacles=(02.a-02.b via +>02.a- 14>+>-02.b 15>,02.c-02.a via -<-02.c 17<-<02.a- 16<)")
 
     }.analyze(d)
   }

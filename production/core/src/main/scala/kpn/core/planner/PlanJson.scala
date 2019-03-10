@@ -1,7 +1,8 @@
 package kpn.core.planner
 
-import kpn.shared.NodeInfo
 import kpn.shared.NetworkType
+import kpn.shared.NodeInfo
+import kpn.shared.common.TrackSegment
 import kpn.shared.route.RouteInfo
 
 object PlanJson {
@@ -17,8 +18,11 @@ object PlanJson {
     }
 
     val routeFeatures = routes.map { route =>
-      val segments = route.analysis match {
-        case Some(analysis) => analysis.map.forwardSegments ++ analysis.map.backwardSegments ++ analysis.map.unusedSegments
+      val segments: Seq[TrackSegment] = route.analysis match {
+        case Some(analysis) =>
+          analysis.map.forwardPath.toSeq.flatMap(_.segments) ++
+            analysis.map.backwardPath.toSeq.flatMap(_.segments) ++
+            analysis.map.unusedPaths.flatMap(_.segments)
         case None => Seq()
       }
       val lineCoordinates = segments.map { segment =>

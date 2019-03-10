@@ -13,6 +13,7 @@ import kpn.core.db.couch.Database
 import kpn.core.db.couch.DatabaseImpl
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
+import kpn.core.db.views.PlannerDesign
 import kpn.core.repository.DesignRepositoryImpl
 import org.scalatest.Assertions
 
@@ -56,6 +57,7 @@ object TestSupport extends Assertions {
       database.create()
       new DesignRepositoryImpl(database).save(AnalyzerDesign)
       new DesignRepositoryImpl(database).save(ChangesDesign)
+      new DesignRepositoryImpl(database).save(PlannerDesign)
 
       try {
         f(database)
@@ -81,7 +83,7 @@ object TestSupport extends Assertions {
       val dbname = config.getString("couchdb.dbname.main")
       val changeDbname = config.getString("couchdb.dbname.changes")
 
-      val couchConfig = CouchConfig(host, port, user, password, "", "", "", "", "", "", "")
+      val couchConfig = CouchConfig(host, port, user, password, "", "", "", "", "", "", "", "")
       couch = Some(new Couch(system, couchConfig))
     }
 
