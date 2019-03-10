@@ -8,6 +8,7 @@ import kpn.core.db.json.JsonFormats.designDocFormat
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.Design
+import kpn.core.db.views.PlannerDesign
 import kpn.core.db.views.PoiDesign
 import kpn.core.util.Util
 
@@ -27,18 +28,16 @@ object DatabaseViewTool {
     val poisDbName = args(3)
 
     Couch.executeIn(host, masterDbName) { database =>
-      val design: Design = AnalyzerDesign
-      updateView(database, design)
+      updateView(database, AnalyzerDesign)
+      updateView(database, PlannerDesign)
     }
 
     Couch.executeIn(host, changesDbName) { database =>
-      val design: Design = ChangesDesign
-      updateView(database, design)
+      updateView(database, ChangesDesign)
     }
 
     Couch.executeIn(host, poisDbName) { database =>
-      val design: Design = PoiDesign
-      updateView(database, design)
+      updateView(database, PoiDesign)
     }
     println("Ready")
   }
