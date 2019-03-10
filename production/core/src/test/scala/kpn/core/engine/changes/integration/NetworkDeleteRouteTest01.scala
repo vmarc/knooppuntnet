@@ -51,7 +51,7 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
     tc.analysisData.orphanRoutes.watched.contains(11) should equal(true)
 
     (tc.networkRepository.save _).verify(
-      where { (networkInfo: NetworkInfo) =>
+      where { networkInfo: NetworkInfo =>
         networkInfo should equal(
           newNetworkInfo(
             newNetworkAttributes(
@@ -70,7 +70,7 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -93,7 +93,7 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange should equal(
           newNetworkChange(
             newChangeKey(elementId = 1),
@@ -111,7 +111,7 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveRouteChange _).verify(
-      where { (routeChange: RouteChange) =>
+      where { routeChange: RouteChange =>
 
         val routeData = newRouteData(
           Some(Country.nl),
@@ -158,7 +158,7 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNodeChange _).verify(
-      where { (nodeChange: NodeChange) =>
+      where { nodeChange: NodeChange =>
 
         if (nodeChange.id == 1001) {
           nodeChange should equal(

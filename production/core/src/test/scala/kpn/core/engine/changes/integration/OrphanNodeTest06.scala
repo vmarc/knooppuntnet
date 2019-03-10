@@ -23,7 +23,7 @@ class OrphanNodeTest06 extends AbstractTest {
     tc.analysisData.orphanNodes.ignored.contains(1001) should equal(true)
 
     (tc.analysisRepository.saveNode _).verify(
-      where { (nodeInfo: NodeInfo) =>
+      where { nodeInfo: NodeInfo =>
         nodeInfo should equal(
           NodeInfo(
             1001,

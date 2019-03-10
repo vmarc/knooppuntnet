@@ -100,7 +100,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
     (tc.analysisRepository.saveNode _).verify(*).never()
 
     (tc.analysisRepository.saveRoute _).verify(
-      where { (routeInfo: RouteInfo) =>
+      where { routeInfo: RouteInfo =>
         routeInfo should equal(
           newRouteInfo(
             newRouteSummary(
@@ -151,8 +151,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 "01-02",
                 RouteMap(
                   MapBounds("0.0", "0.0", "0.0", "0.0"),
-                  Some(TrackPath(1001, 1002, 0, Seq(TrackSegment(None, Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
-                  Some(TrackPath(1002, 1001, 0, Seq(TrackSegment(None, Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
+                  Some(TrackPath(1001, 1002, 0, Seq(TrackSegment("paved", Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
+                  Some(TrackPath(1002, 1001, 0, Seq(TrackSegment("paved", Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
                   Seq(),
                   Seq(),
                   Seq(),
@@ -181,7 +181,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -215,7 +215,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange should equal(
           newNetworkChange(
             newChangeKey(elementId = 1),
@@ -275,7 +275,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveRouteChange _).verify(
-      where { (routeChange: RouteChange) =>
+      where { routeChange: RouteChange =>
 
         val routeData = newRouteData(
           Some(Country.nl),

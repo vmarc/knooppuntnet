@@ -39,7 +39,7 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
     tc.analysisData.orphanNodes.watched.contains(1001) should equal(false)
 
     (tc.networkRepository.save _).verify(
-      where { (networkInfo: NetworkInfo) =>
+      where { networkInfo: NetworkInfo =>
         networkInfo should equal(
           newNetworkInfo(
             newNetworkAttributes(
@@ -60,7 +60,7 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
     (tc.analysisRepository.saveNode _).verify(*).once() // TODO CHANGE work out further details ? --> active = false
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -83,7 +83,7 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange should equal(
           newNetworkChange(
             newChangeKey(elementId = 1),
@@ -102,7 +102,7 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
     (tc.changeSetRepository.saveRouteChange _).verify(*).never()
 
     (tc.changeSetRepository.saveNodeChange _).verify(
-      where { (nodeChange: NodeChange) =>
+      where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
             newChangeKey(elementId = 1001),

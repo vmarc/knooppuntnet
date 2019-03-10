@@ -85,7 +85,7 @@ class NetworkUpdateNodeTest04 extends AbstractTest {
     (tc.analysisRepository.saveNetwork _).verify(*).once() // TODO should make test more detailed
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -111,7 +111,7 @@ class NetworkUpdateNodeTest04 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange should equal(
           newNetworkChange(
             newChangeKey(elementId = 1),
@@ -154,7 +154,7 @@ class NetworkUpdateNodeTest04 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNodeChange _).verify(
-      where { (nodeChange: NodeChange) =>
+      where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
             newChangeKey(elementId = 1002),

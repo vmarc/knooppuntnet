@@ -114,7 +114,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    )
     //
     //    (t.analysisRepository.saveNode _).verify(
-    //      where { (nodeInfo: NodeInfo) =>
+    //      where { nodeInfo: NodeInfo =>
     //        nodeInfo should equal(
     //          NodeInfo(
     //            id = nodeId,
@@ -219,7 +219,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    )
     //
     //    (t.analysisRepository.saveNode _).verify(
-    //      where { (nodeInfo: NodeInfo) =>
+    //      where { nodeInfo: NodeInfo =>
     //        nodeInfo should equal(
     //          NodeInfo(
     //            id = nodeId,
@@ -323,7 +323,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    )
     //
     //    (t.analysisRepository.saveNode _).verify(
-    //      where { (nodeInfo: NodeInfo) =>
+    //      where { nodeInfo: NodeInfo =>
     //        nodeInfo should equal(
     //          NodeInfo(
     //            id = nodeId,
@@ -439,7 +439,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    )
     //
     //    (t.analysisRepository.saveNode _).verify(
-    //      where { (nodeInfo: NodeInfo) =>
+    //      where { nodeInfo: NodeInfo =>
     //        nodeInfo should equal(
     //          NodeInfo(
     //            id = nodeId,
@@ -548,7 +548,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    )
     //
     //    (t.analysisRepository.saveNode _).verify(
-    //      where { (nodeInfo: NodeInfo) =>
+    //      where { nodeInfo: NodeInfo =>
     //        nodeInfo should equal(
     //          NodeInfo(
     //            id = nodeId,
@@ -662,7 +662,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    )
     //
     //    (t.analysisRepository.saveNode _).verify(
-    //      where { (nodeInfo: NodeInfo) =>
+    //      where { nodeInfo: NodeInfo =>
     //        nodeInfo should equal(
     //          NodeInfo(
     //            id = nodeId,
@@ -775,7 +775,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    )
     //
     //    (t.analysisRepository.saveNode _).verify(
-    //      where { (nodeInfo: NodeInfo) =>
+    //      where { nodeInfo: NodeInfo =>
     //        nodeInfo should equal(
     //          NodeInfo(
     //            id = nodeId,

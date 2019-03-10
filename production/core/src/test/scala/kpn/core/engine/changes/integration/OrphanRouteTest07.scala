@@ -26,7 +26,7 @@ class OrphanRouteTest07 extends AbstractTest {
     tc.analysisData.orphanRoutes.ignored.contains(11) should equal(true)
 
     (tc.analysisRepository.saveRoute _).verify(
-      where { (routeInfo: RouteInfo) =>
+      where { routeInfo: RouteInfo =>
         routeInfo.id should equal(11)
         routeInfo.active should equal(true)
         routeInfo.orphan should equal(true)

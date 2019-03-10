@@ -42,7 +42,7 @@ class OrphanNodeTest03 extends AbstractTest {
     tc.analysisData.orphanNodes.ignored.contains(1001) should equal(false)
 
     (tc.analysisRepository.saveNode _).verify(
-      where { (nodeInfo: NodeInfo) =>
+      where { nodeInfo: NodeInfo =>
         nodeInfo should equal(
           NodeInfo(
             1001,
@@ -70,7 +70,7 @@ class OrphanNodeTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -92,7 +92,7 @@ class OrphanNodeTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNodeChange _).verify(
-      where { (nodeChange: NodeChange) =>
+      where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
             newChangeKey(elementId = 1001),

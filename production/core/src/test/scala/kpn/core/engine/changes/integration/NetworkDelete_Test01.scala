@@ -33,14 +33,14 @@ class NetworkDelete_Test01 extends AbstractTest {
     tc.analysisData.networks.ignored.contains(1) should equal(false)
 
     (tc.networkRepository.save _).verify(
-      where { (networkInfo: NetworkInfo) =>
+      where { networkInfo: NetworkInfo =>
         networkInfo.active should equal(false)
         true
       }
     )
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           ChangeSetSummary(
             key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
@@ -78,7 +78,7 @@ class NetworkDelete_Test01 extends AbstractTest {
     //    ignoredNodes = RefChanges(newRefs = newIgnoredNodes),
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange.key.changeSetId should equal(123)
         networkChange.key.elementId should equal(1)
         networkChange.changeType should equal(ChangeType.Delete)

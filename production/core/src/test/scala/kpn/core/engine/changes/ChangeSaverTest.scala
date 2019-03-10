@@ -56,14 +56,14 @@ class ChangeSaverTest extends FunSuite with Matchers with MockFactory with Share
     (changeSetRepository.saveNodeChange _).verify(*).never()
 
     (changeSetRepository.saveNetworkChange _).verify(
-      where { (savedNetworkChange: NetworkChange) =>
+      where { savedNetworkChange: NetworkChange =>
         savedNetworkChange should equal(networkChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             networkChanges = NetworkChanges(
@@ -103,14 +103,14 @@ class ChangeSaverTest extends FunSuite with Matchers with MockFactory with Share
     (changeSetRepository.saveNodeChange _).verify(*).never()
 
     (changeSetRepository.saveRouteChange _).verify(
-      where { (savedRouteChange: RouteChange) =>
+      where { savedRouteChange: RouteChange =>
         savedRouteChange should equal(routeChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -153,14 +153,14 @@ class ChangeSaverTest extends FunSuite with Matchers with MockFactory with Share
     (changeSetRepository.saveRouteChange _).verify(*).never()
 
     (changeSetRepository.saveNodeChange _).verify(
-      where { (savedNodeChange: NodeChange) =>
+      where { savedNodeChange: NodeChange =>
         savedNodeChange should equal(nodeChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),

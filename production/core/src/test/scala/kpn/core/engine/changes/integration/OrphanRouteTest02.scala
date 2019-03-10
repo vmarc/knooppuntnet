@@ -61,7 +61,7 @@ class OrphanRouteTest02 extends AbstractTest {
     tc.analysisData.orphanRoutes.ignored.contains(11) should equal(false)
 
     (tc.analysisRepository.saveRoute _).verify(
-      where { (routeInfo: RouteInfo) =>
+      where { routeInfo: RouteInfo =>
         routeInfo.id should equal(11)
         routeInfo.active should equal(true)
         routeInfo.orphan should equal(true)
@@ -71,7 +71,7 @@ class OrphanRouteTest02 extends AbstractTest {
     ).once()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -90,7 +90,7 @@ class OrphanRouteTest02 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveRouteChange _).verify(
-      where { (routeChange: RouteChange) =>
+      where { routeChange: RouteChange =>
         routeChange should equal(
           newRouteChange(
             newChangeKey(elementId = 11),

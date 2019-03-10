@@ -42,7 +42,7 @@ class NetworkDeleteNodeTest04 extends AbstractTest {
     tc.analysisData.networks.watched.contains(1) should equal(false)
 
     (tc.networkRepository.save _).verify(
-      where { (networkInfo: NetworkInfo) =>
+      where { networkInfo: NetworkInfo =>
         networkInfo should equal(
           newNetworkInfo(
             newNetworkAttributes(
@@ -61,7 +61,7 @@ class NetworkDeleteNodeTest04 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -86,7 +86,7 @@ class NetworkDeleteNodeTest04 extends AbstractTest {
     (tc.analysisRepository.saveNode _).verify(*).once()
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange should equal(
           newNetworkChange(
             newChangeKey(elementId = 1),
@@ -105,7 +105,7 @@ class NetworkDeleteNodeTest04 extends AbstractTest {
     (tc.changeSetRepository.saveRouteChange _).verify(*).never()
 
     (tc.changeSetRepository.saveNodeChange _).verify(
-      where { (nodeChange: NodeChange) =>
+      where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
             newChangeKey(elementId = 1001),

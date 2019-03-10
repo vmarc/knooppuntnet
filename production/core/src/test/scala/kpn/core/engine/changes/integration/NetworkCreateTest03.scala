@@ -63,7 +63,7 @@ class NetworkCreateTest03 extends AbstractTest {
     tc.analysisData.orphanNodes.ignored.contains(1002) should equal(false)
 
     (tc.analysisRepository.saveNetwork _).verify(
-      where { (network: Network) =>
+      where { network: Network =>
         network.id should equal(1)
         // for remaining network structure - see NetworkAnalyzerTest
         true
@@ -71,7 +71,7 @@ class NetworkCreateTest03 extends AbstractTest {
     ).once()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -105,7 +105,7 @@ class NetworkCreateTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange should equal(
           newNetworkChange(
             newChangeKey(elementId = 1),
@@ -126,7 +126,7 @@ class NetworkCreateTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveRouteChange _).verify(
-      where { (routeChange: RouteChange) =>
+      where { routeChange: RouteChange =>
         routeChange should equal(
           newRouteChange(
             newChangeKey(elementId = 11),
@@ -192,7 +192,7 @@ class NetworkCreateTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNodeChange _).verify(
-      where { (nodeChange: NodeChange) =>
+      where { nodeChange: NodeChange =>
         nodeChange.key.elementId match {
 
           case (1001) =>

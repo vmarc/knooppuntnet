@@ -24,7 +24,7 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
     d.processor.process(None, d.loadedNode)
 
     (d.analysisRepository.saveNode _).verify(
-      where { (nodeInfo: NodeInfo) =>
+      where { nodeInfo: NodeInfo =>
         nodeInfo.id should equal(d.loadedNode.id)
         nodeInfo.orphan should equal(true)
         nodeInfo.ignored should equal(false)
@@ -56,7 +56,7 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
     d.processor.process(None, d.loadedNode)
 
     (d.analysisRepository.saveNode _).verify(
-      where { (nodeInfo: NodeInfo) =>
+      where { nodeInfo: NodeInfo =>
         nodeInfo.id should equal(d.loadedNode.id)
         nodeInfo.orphan should equal(true)
         nodeInfo.ignored should equal(true)

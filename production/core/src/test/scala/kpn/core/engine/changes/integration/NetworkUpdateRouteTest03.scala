@@ -86,7 +86,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
     (tc.analysisRepository.saveNetwork _).verify(*).once()
 
     (tc.analysisRepository.saveRoute _).verify(
-      where { (routeInfo: RouteInfo) =>
+      where { routeInfo: RouteInfo =>
         routeInfo should equal(
           newRouteInfo(
             newRouteSummary(
@@ -107,7 +107,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
     )
 
     (tc.analysisRepository.saveNode _).verify(
-      where { (nodeInfo: NodeInfo) =>
+      where { nodeInfo: NodeInfo =>
         nodeInfo should equal(
           newNodeInfo(
             1003,
@@ -123,7 +123,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
+      where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -153,7 +153,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { (networkChange: NetworkChange) =>
+      where { networkChange: NetworkChange =>
         networkChange should equal(
           newNetworkChange(
             newChangeKey(elementId = 1),
@@ -208,7 +208,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveRouteChange _).verify(
-      where { (routeChange: RouteChange) =>
+      where { routeChange: RouteChange =>
         routeChange should equal(
           newRouteChange(
             newChangeKey(elementId = 12),
@@ -250,7 +250,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
     )
 
     (tc.changeSetRepository.saveNodeChange _).verify(
-      where { (nodeChange: NodeChange) =>
+      where { nodeChange: NodeChange =>
 
         nodeChange.id match {
 

@@ -38,7 +38,7 @@ class NetworkCreateTest05 extends AbstractTest {
     tc.analysisData.networks.ignored.contains(1) should equal(true)
 
     (tc.analysisRepository.saveIgnoredNetwork _).verify(
-      where { (network: NetworkInfo) =>
+      where { network: NetworkInfo =>
         network.id should equal(1)
         network.attributes.name should equal("name")
         network.facts should equal(Seq(Fact.IgnoreForeignCountry))
