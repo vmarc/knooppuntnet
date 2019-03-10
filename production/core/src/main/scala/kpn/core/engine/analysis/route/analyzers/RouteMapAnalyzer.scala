@@ -49,7 +49,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       bounds,
       forwardPath = structure.forwardPath.map(RouteAnalyzerFunctions.toTrackPath),
       backwardPath = structure.backwardPath.map(RouteAnalyzerFunctions.toTrackPath),
-      unusedPaths = structure.unusedPaths.map(RouteAnalyzerFunctions.toTrackPath),
+      unusedSegments = structure.unusedSegments.map(RouteAnalyzerFunctions.toTrackSegment),
       startTentaclePaths = structure.startTentaclePaths.map(RouteAnalyzerFunctions.toTrackPath),
       endTentaclePaths = structure.endTentaclePaths.map(RouteAnalyzerFunctions.toTrackPath),
       forwardBreakPoint = forwardBreakPoint,

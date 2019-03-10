@@ -39,7 +39,7 @@ class SegmentTest extends FunSuite with Matchers with SharedTestObjects {
   }
 
   private def assertSegmentNodeIds(segmentFragments: Seq[SegmentFragment], expectedNodeIds: Long*): Unit = {
-    val nodes = Segment(segmentFragments = segmentFragments).nodes
+    val nodes = Segment("", fragments = segmentFragments).nodes
     nodes.map(_.id) should equal(expectedNodeIds)
   }
 }

@@ -39,7 +39,6 @@ import kpn.core.util.Log
 import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
-import kpn.shared.common.TrackSegmentFragment
 import kpn.shared.data.Node
 import kpn.shared.data.Tags
 import kpn.shared.route.Both
@@ -124,27 +123,13 @@ object RouteAnalyzerFunctions {
     }
   }
 
-  def segmentToPath(segment: Segment): Path = {
-    val nodes = segment.nodes
-    val startNodeId = nodes.head.id
-    val endNodeId = nodes.last.id
-    Path(
-      segment.start,
-      segment.end,
-      startNodeId,
-      endNodeId,
-      Seq(segment),
-      segment.broken
-    )
-  }
-
   def toTrackPath(path: Path): TrackPath = {
     val trackSegments = path.segments.map(toTrackSegment)
     TrackPath(path.startNodeId, path.endNodeId, path.meters, trackSegments)
   }
 
   def toTrackSegment(segment: Segment): TrackSegment = {
-      val trackPoints = segment.segmentFragments.flatMap(_.nodes).map(toTrackPoint)
+    val trackPoints = segment.fragments.flatMap(_.nodes).map(toTrackPoint)
     TrackSegment(segment.surface, trackPoints)
   }
 

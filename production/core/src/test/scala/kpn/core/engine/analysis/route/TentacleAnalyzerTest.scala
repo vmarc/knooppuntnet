@@ -1,7 +1,7 @@
 package kpn.core.engine.analysis.route
 
 import kpn.core.engine.analysis.route.segment.FragmentBuilder
-import kpn.core.engine.analysis.route.segment.Segment
+import kpn.core.engine.analysis.route.segment.Path
 import kpn.core.engine.analysis.route.segment.SegmentFinder
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
@@ -46,9 +46,9 @@ class TentacleAnalyzerTest extends FunSuite with Matchers with SharedTestObjects
     val nodes: Seq[Node] = Seq(n1, n3, n9)
     val segmentFinder: SegmentFinder = new SegmentFinder(NetworkType.hiking, allRouteNodes, allNodes)
 
-    val tentacles: Seq[Segment] = new TentacleAnalyzer(segmentFinder, b.fragments, nodes).findTentacles
+    val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, b.fragments, nodes).findTentacles
 
-    Segment.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 9), Seq(3, 4, 9)))
+    Path.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 9), Seq(3, 4, 9)))
   }
 
   test("2 stacked tentacles") {
@@ -76,9 +76,9 @@ class TentacleAnalyzerTest extends FunSuite with Matchers with SharedTestObjects
     val nodes: Seq[Node] = Seq(n1, n3, n5)
     val segmentFinder: SegmentFinder = new SegmentFinder(NetworkType.hiking, allRouteNodes, allNodes)
 
-    val tentacles: Seq[Segment] = new TentacleAnalyzer(segmentFinder, b.fragments, nodes).findTentacles
+    val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, b.fragments, nodes).findTentacles
 
-    Segment.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 3), Seq(3, 4, 5)))
+    Path.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 3), Seq(3, 4, 5)))
   }
 
   test("2 stacked tentacles reversed") {
@@ -106,8 +106,8 @@ class TentacleAnalyzerTest extends FunSuite with Matchers with SharedTestObjects
     val nodes: Seq[Node] = Seq(n1, n3, n5)
     val segmentFinder: SegmentFinder = new SegmentFinder(NetworkType.bicycle, allRouteNodes, allNodes)
 
-    val tentacles: Seq[Segment] = new TentacleAnalyzer(segmentFinder, b.fragments, nodes).findTentacles
+    val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, b.fragments, nodes).findTentacles
 
-    Segment.toNodeIds(tentacles) should equal(Set(Seq(3, 2, 1), Seq(5, 4, 3)))
+    Path.toNodeIds(tentacles) should equal(Set(Seq(3, 2, 1), Seq(5, 4, 3)))
   }
 }

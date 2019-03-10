@@ -22,7 +22,7 @@ object PlanJson {
         case Some(analysis) =>
           analysis.map.forwardPath.toSeq.flatMap(_.segments) ++
             analysis.map.backwardPath.toSeq.flatMap(_.segments) ++
-            analysis.map.unusedPaths.flatMap(_.segments)
+            analysis.map.unusedSegments
         case None => Seq()
       }
       val lineCoordinates = segments.map { segment =>

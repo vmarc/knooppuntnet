@@ -20,7 +20,7 @@ class RouteSortingOrderAnalyzer(fragments: Seq[Fragment], structure: RouteStruct
 
   private def sortingOrderOk(segments: Seq[Segment]): Boolean = {
     segments.forall { segment =>
-      val segmentWayIndexes = fragmentWays(segment.segmentFragments.map(_.fragment)).map(way => wayIndexes(way))
+      val segmentWayIndexes = fragmentWays(segment.fragments.map(_.fragment)).map(way => wayIndexes(way))
       val sorted = segmentWayIndexes.sorted
       segmentWayIndexes == sorted || segmentWayIndexes == sorted.reverse
     }

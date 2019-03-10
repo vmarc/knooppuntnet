@@ -28,7 +28,7 @@ class SegmentBuilder {
 
       val sfs = reverse(sfs2) ++ sfs1
 
-      val segments = PavedUnpavedSplitter.split(sfs).map(fs => Segment(None, None, fs))
+      val segments = PavedUnpavedSplitter.split(sfs)
       val newFoundSegments = foundSegments ++ segments
 
       findSegments(optimize, newFoundSegments, remaining(availableFragments, sfs))

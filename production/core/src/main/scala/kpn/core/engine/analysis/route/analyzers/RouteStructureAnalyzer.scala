@@ -1,6 +1,5 @@
 package kpn.core.engine.analysis.route.analyzers
 
-import kpn.core.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.core.engine.analysis.route.RouteNodeAnalysis
 import kpn.core.engine.analysis.route.RouteSortingOrderAnalyzer
 import kpn.core.engine.analysis.route.RouteStructure
@@ -44,17 +43,17 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis, fragments: Seq[Fragment]): RouteStructure = {
     if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
       RouteStructure(
-        unusedPaths = new SegmentBuilder().segments(fragments).map(RouteAnalyzerFunctions.segmentToPath)
+        unusedSegments = new SegmentBuilder().segments(fragments)
       )
     }
     else if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
       RouteStructure(
-        unusedPaths = new SegmentBuilder().segments(fragments).map(RouteAnalyzerFunctions.segmentToPath)
+        unusedSegments = new SegmentBuilder().segments(fragments)
       )
     }
     else if (routeNodeAnalysis.redundantNodes.size > 3) {
       RouteStructure(
-        unusedPaths = new SegmentBuilder().segments(fragments).map(RouteAnalyzerFunctions.segmentToPath)
+        unusedSegments = new SegmentBuilder().segments(fragments)
       )
     }
     else {
@@ -133,7 +132,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         }
 
         if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
-          if (structure.unusedPaths.nonEmpty) {
+          if (structure.unusedSegments.nonEmpty) {
             facts += RouteUnusedSegments
           }
 

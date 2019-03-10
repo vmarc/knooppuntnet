@@ -9,7 +9,7 @@ class UnusedSegmentAnalyzer(usedSegments: Iterable[Segment], allFragments: Seq[F
 
   def find: Seq[Segment] = {
 
-    val usedFragments = usedSegments.flatMap(_.segmentFragments.map(_.fragment)).toSet
+    val usedFragments = usedSegments.flatMap(_.fragments.map(_.fragment)).toSet
     val usedWays = usedFragments.map(_.way)
     val unusedFragments = (allFragments.toSet -- usedFragments).toSeq
 

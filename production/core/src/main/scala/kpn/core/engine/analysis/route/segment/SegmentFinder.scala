@@ -34,7 +34,7 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
     direction: SegmentDirection.Value,
     source: Node,
     target: Node
-  ): Option[Segment] = {
+  ): Option[Path] = {
 
     val context = SegmentFinderContext(
       new Timer(timeout),
@@ -49,12 +49,12 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
     recursiveFindSegments(context)
   }
 
-  private def recursiveFindSegments(context: SegmentFinderContext): Option[Segment] = {
+  private def recursiveFindSegments(context: SegmentFinderContext): Option[Path] = {
 
     val remainingFragments: Set[Fragment] = context.availableFragments.toSet -- context.usedFragments.toSet
     if (remainingFragments.isEmpty) {
       if (context.currentSegmentFragments.nonEmpty) {
-        Some(buildSegment(context.currentSegmentFragments, broken = true))
+        buildPath(context.currentSegmentFragments, broken = true)
       }
       else {
         None
@@ -85,7 +85,7 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
           debug(context.indent, "dead end: no connectable fragments found")
         }
         if (context.currentSegmentFragments.nonEmpty) {
-          Some(buildSegment(context.currentSegmentFragments, broken = true))
+          buildPath(context.currentSegmentFragments, broken = true)
         }
         else {
           None
@@ -120,7 +120,7 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
 
         val passedNodes = context.usedFragments.flatMap(fragment => fragment.nodes).filterNot(_ == context.node)
 
-        val segments: Seq[Segment] = connectableFragments.flatMap { segmentFragment =>
+        val paths: Seq[Path] = connectableFragments.flatMap { segmentFragment =>
 
           val path = context.currentSegmentFragments :+ segmentFragment
 
@@ -135,15 +135,15 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
               //noinspection SideEffectsInMonadicTransformation
               debug(context.indent, "dead end: already passed through node " + segmentFragment.endNode)
             }
-            Some(buildSegment(context.currentSegmentFragments, broken = true))
+            buildPath(context.currentSegmentFragments, broken = true)
           }
           else if (context.targetNode == segmentFragment.endNode) {
-            val newSegment = buildSegment(path)
-            if (log.isDebugEnabled) {
+            val newPath = buildPath(path)
+            if (log.isDebugEnabled && newPath.nonEmpty) {
               //noinspection SideEffectsInMonadicTransformation
-              debug(context.indent, "found main segment (potentialSolutionCount=" + context.potentialSolutionCount + "): " + new SegmentFormatter(newSegment).string)
+              debug(context.indent, "found main segment (potentialSolutionCount=" + context.potentialSolutionCount + "): " + new PathFormatter(newPath.get).string)
             }
-            Some(newSegment)
+            newPath
           }
           else if (allNodes.contains(segmentFragment.endNode)) {
             if (log.isDebugEnabled) {
@@ -165,7 +165,7 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
           }
         }
 
-        SegmentSelector.select(segments)
+        PathSelector.select(paths)
       }
     }
   }
@@ -178,16 +178,17 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
     connect
   }
 
-  private def buildSegment(segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Segment = {
+  private def buildPath(segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Option[Path] = {
     if (segmentFragments.isEmpty) {
-      Segment(None, None, Seq(), broken)
+      None
     }
     else {
-      val startNode = segmentFragments.head.startNode
-      val endNode = segmentFragments.last.endNode
-      val start: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node == startNode)
-      val end: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node == endNode)
-      Segment(start, end, segmentFragments, broken)
+      val startNodeId = segmentFragments.head.startNode.id
+      val endNodeId = segmentFragments.last.endNode.id
+      val start: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node.id == startNodeId)
+      val end: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node.id == endNodeId)
+      val segments = PavedUnpavedSplitter.split(segmentFragments)
+      Some(Path(start, end, startNodeId, endNodeId, segments, broken))
     }
   }
 

@@ -29,7 +29,7 @@ class TileRouteBuilder(z: Int) {
     routeInfo.analysis.flatMap { analysis =>
 
       // TODO MAP add some logic here to eliminate double ways (e.g. ways that are both part of forward and backward)
-      val segments = analysis.map.unusedPaths.flatMap(_.segments) ++
+      val segments = analysis.map.unusedSegments ++
         analysis.map.forwardPath.toSeq.flatMap(_.segments) ++
         analysis.map.backwardPath.toSeq.flatMap(_.segments) ++
         analysis.map.startTentaclePaths.flatMap(_.segments) ++

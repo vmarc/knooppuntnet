@@ -406,7 +406,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01-02 via +<01- 10>+<11(2-3)>+<-02 12>)")
       structure("backward=(02-01 via -<-02 12>-<11(2-3)>-<01- 10>)")
-      structure("unused=(None-None via +<11(3-4-5)>)")
+      structure("unused=(+<11(3-4-5)>)")
 
     }.analyze(d)
   }
@@ -444,7 +444,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01-None [broken] via +<01- 101>+<102>+>103>+>104>)")
       structure("backward=(02-01 via -<-02 110>-<109>-<108<-<107<-<106<-<102>-<01- 101>)")
-      structure("unused=(None-None via +>105>)")
+      structure("unused=(+>105>)")
 
     }.analyze(d)
   }
@@ -482,7 +482,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
       structure("forward=(01-02 via +<01- 101>+<102>+>103>+>104>+>105>+<109>+<-02 110>)")
       structure("backward=(02-None [broken] via -<-02 110>-<109>-<108<)")
-      structure("unused=(None-None via +<106<+<107<)")
+      structure("unused=(+<106<+<107<)")
 
     }.analyze(d)
   }

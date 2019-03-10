@@ -32,7 +32,7 @@ class UnusedSegmentAnalyzerTest extends FunSuite with Matchers with SharedTestOb
     b.fragment(way2, n6, n7)
     b.fragment(way2, n7, n8)
 
-    val segment1 = Segment(None, None, Seq(f1, f2))
+    val segment1 = Segment("", Seq(f1, f2))
     val usedSegments = Seq(segment1)
 
     analyze(usedSegments, b.fragments) should equal(Set(Seq(3, 4, 5), Seq(6, 7, 8)))
@@ -52,7 +52,7 @@ class UnusedSegmentAnalyzerTest extends FunSuite with Matchers with SharedTestOb
     b.fragment(way2, n6, n7)
     b.fragment(way2, n7, n8)
 
-    val segment1 = Segment(None, None, Seq(f1, f2))
+    val segment1 = Segment("", Seq(f1, f2))
     val usedSegments = Seq(segment1)
 
     analyze(usedSegments, b.fragments) should equal(Set(Seq(4, 5), Seq(6, 7, 8)))
@@ -70,7 +70,7 @@ class UnusedSegmentAnalyzerTest extends FunSuite with Matchers with SharedTestOb
     b.fragment(way2, n4, n5)
     b.fragment(way2, n5, n6)
 
-    val segment1 = Segment(None, None, Seq(f1, f2))
+    val segment1 = Segment("", Seq(f1, f2))
     val usedSegments = Seq(segment1)
 
     analyze(usedSegments, b.fragments) should equal(Set(Seq(4, 5, 6)))

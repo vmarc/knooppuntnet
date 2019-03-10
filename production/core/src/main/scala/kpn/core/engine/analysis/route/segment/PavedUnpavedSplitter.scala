@@ -2,12 +2,11 @@ package kpn.core.engine.analysis.route.segment
 
 import scala.annotation.tailrec
 
-case class SurfaceSegmentFragment(surface: String, segmentFragment: SegmentFragment)
-
-
 object PavedUnpavedSplitter {
 
-  def split(segmentFragments: Seq[SegmentFragment]): Seq[Seq[SegmentFragment]] = {
+  case class SurfaceSegmentFragment(surface: String, fragment: SegmentFragment)
+
+  def split(segmentFragments: Seq[SegmentFragment]): Seq[Segment] = {
 
     val surfaceSegmentFragments = segmentFragments.map { segmentFragment =>
       SurfaceSegmentFragment(
@@ -20,24 +19,29 @@ object PavedUnpavedSplitter {
       Seq()
     }
     else {
-      doSplit(Seq(Seq(surfaceSegmentFragments.head)), surfaceSegmentFragments.tail).map(c => c.map(_.segmentFragment))
+      val firstFragment = surfaceSegmentFragments.head
+      val initialSegment = Segment(firstFragment.surface, Seq(firstFragment.fragment))
+      doSplit(Seq(initialSegment), surfaceSegmentFragments.tail)
     }
   }
 
   @tailrec
-  private def doSplit(found: Seq[Seq[SurfaceSegmentFragment]], remaining: Seq[SurfaceSegmentFragment]): Seq[Seq[SurfaceSegmentFragment]] = {
+  private def doSplit(found: Seq[Segment], remaining: Seq[SurfaceSegmentFragment]): Seq[Segment] = {
     if (remaining.isEmpty) {
       found
     }
     else {
-      val lastFound = found.last.last
-      if (lastFound.surface == remaining.head.surface) {
-        val newFound: Seq[Seq[SurfaceSegmentFragment]] = found.take(found.size - 1) ++ Seq(found.last :+ remaining.head)
+      val surface = remaining.head.surface
+      val fragment = remaining.head.fragment
+      val lastSegment = found.last
+      if (lastSegment.surface == surface) {
+        val updatedSegment = lastSegment.copy(fragments = lastSegment.fragments :+ fragment)
+        val newFound = found.take(found.size - 1) :+ updatedSegment
         doSplit(newFound, remaining.tail)
       }
       else {
-        val newFound: Seq[Seq[SurfaceSegmentFragment]] = found ++ Seq(Seq(remaining.head))
-        doSplit(newFound, remaining.tail)
+        val newSegment = Segment(surface, Seq(fragment))
+        doSplit(found :+ newSegment, remaining.tail)
       }
     }
   }

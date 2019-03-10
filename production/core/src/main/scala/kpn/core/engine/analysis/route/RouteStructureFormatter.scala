@@ -1,26 +1,37 @@
 package kpn.core.engine.analysis.route
 
+import kpn.core.engine.analysis.route.segment.Path
+import kpn.core.engine.analysis.route.segment.PathFormatter
 import kpn.core.engine.analysis.route.segment.Segment
 import kpn.core.engine.analysis.route.segment.SegmentFormatter
 
 class RouteStructureFormatter(structure: RouteStructure) {
 
   def string: String = {
-    segmentStrings.flatten.mkString(",")
+    pathStrings.flatten.mkString(",")
   }
 
   def strings: Seq[String] = {
-    segmentStrings.flatten
+    pathStrings.flatten
   }
 
-  private def segmentStrings: Seq[Option[String]] = {
+  private def pathStrings: Seq[Option[String]] = {
     Seq(
-      segments("forward", structure.forwardPath.toSeq.flatMap(_.segments)),
-      segments("backward", structure.backwardPath.toSeq.flatMap(_.segments)),
-      segments("startTentacles", structure.startTentaclePaths.flatMap(_.segments)),
-      segments("endTentacles", structure.endTentaclePaths.flatMap(_.segments)),
-      segments("unused", structure.unusedPaths.flatMap(_.segments))
+      paths("forward", structure.forwardPath.toSeq),
+      paths("backward", structure.backwardPath.toSeq),
+      paths("startTentacles", structure.startTentaclePaths),
+      paths("endTentacles", structure.endTentaclePaths),
+      segments("unused", structure.unusedSegments)
     )
+  }
+
+  private def paths(title: String, paths: Seq[Path]): Option[String] = {
+    if (paths.nonEmpty) {
+      Some(title + paths.map(formatted).mkString("=(", ",", ")"))
+    }
+    else {
+      None
+    }
   }
 
   private def segments(title: String, segments: Seq[Segment]): Option[String] = {
@@ -30,6 +41,10 @@ class RouteStructureFormatter(structure: RouteStructure) {
     else {
       None
     }
+  }
+
+  private def formatted(path: Path): String = {
+    new PathFormatter(path).string
   }
 
   private def formatted(segment: Segment): String = {

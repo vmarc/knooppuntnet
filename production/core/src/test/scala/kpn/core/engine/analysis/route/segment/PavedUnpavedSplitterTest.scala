@@ -48,9 +48,9 @@ class PavedUnpavedSplitterTest extends FunSuite with Matchers {
 
     PavedUnpavedSplitter.split(segmentFragments) should equal(
       Seq(
-        Seq(fragment1, fragment2),
-        Seq(fragment3, fragment4),
-        Seq(fragment5)
+        Segment("paved", Seq(fragment1, fragment2)),
+        Segment("unpaved", Seq(fragment3, fragment4)),
+        Segment("paved", Seq(fragment5))
       )
     )
 
@@ -79,7 +79,7 @@ class PavedUnpavedSplitterTest extends FunSuite with Matchers {
 
     PavedUnpavedSplitter.split(segmentFragments) should equal(
       Seq(
-        Seq(fragment1)
+        Segment("paved", Seq(fragment1))
       )
     )
 
@@ -126,7 +126,7 @@ class PavedUnpavedSplitterTest extends FunSuite with Matchers {
 
     PavedUnpavedSplitter.split(segmentFragments) should equal(
       Seq(
-        Seq(fragment1, fragment2, fragment3, fragment4, fragment5)
+        Segment("paved", Seq(fragment1, fragment2, fragment3, fragment4, fragment5))
       )
     )
 
@@ -173,11 +173,11 @@ class PavedUnpavedSplitterTest extends FunSuite with Matchers {
 
     PavedUnpavedSplitter.split(segmentFragments) should equal(
       Seq(
-        Seq(fragment1),
-        Seq(fragment2),
-        Seq(fragment3),
-        Seq(fragment4),
-        Seq(fragment5)
+        Segment("paved", Seq(fragment1)),
+        Segment("unpaved", Seq(fragment2)),
+        Segment("paved", Seq(fragment3)),
+        Segment("unpaved", Seq(fragment4)),
+        Segment("paved", Seq(fragment5))
       )
     )
 

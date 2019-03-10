@@ -3,12 +3,13 @@ package kpn.shared.route
 import kpn.shared.common.MapBounds
 import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPoint
+import kpn.shared.common.TrackSegment
 
 case class RouteMap(
   bounds: MapBounds = MapBounds(),
   forwardPath: Option[TrackPath] = None,
   backwardPath: Option[TrackPath] = None,
-  unusedPaths: Seq[TrackPath] = Seq.empty,
+  unusedSegments: Seq[TrackSegment] = Seq.empty,
   startTentaclePaths: Seq[TrackPath] = Seq.empty,
   endTentaclePaths: Seq[TrackPath] = Seq.empty,
   forwardBreakPoint: Option[TrackPoint] = None,

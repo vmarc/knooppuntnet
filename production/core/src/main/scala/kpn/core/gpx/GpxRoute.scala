@@ -14,7 +14,7 @@ class GpxRoute() {
       Seq()
     }
     else if (ways.size == 1) {
-      Seq(TrackSegment(None, ways.head.nodes.map(toTrackPoint)))
+      Seq(TrackSegment("", ways.head.nodes.map(toTrackPoint)))
     }
     else {
       val trackSegments = ListBuffer[TrackSegment]()
@@ -25,7 +25,7 @@ class GpxRoute() {
         val lastNode = segmentNodes.last
         val nodes = if (way.nodes.last.id == lastNode.id) way.nodes.reverse else way.nodes
         if (lastNode.id != nodes.head.id) {
-          trackSegments += TrackSegment(None, segmentNodes.map(toTrackPoint))
+          trackSegments += TrackSegment("", segmentNodes.map(toTrackPoint))
           segmentNodes.clear()
           segmentNodes ++= nodes
         }
@@ -35,7 +35,7 @@ class GpxRoute() {
       }
 
       if (segmentNodes.nonEmpty) {
-        trackSegments += TrackSegment(None, segmentNodes.map(toTrackPoint))
+        trackSegments += TrackSegment("", segmentNodes.map(toTrackPoint))
       }
       trackSegments
     }

@@ -32,8 +32,8 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   private val trackPoint3 = TrackPoint("3", "3")
   private val trackPoint4 = TrackPoint("4", "4")
 
-  private val path1 = TrackPath(nodeId1, nodeId2, 100, Seq(TrackSegment(None, Seq(trackPoint1, trackPoint2))))
-  private val path2 = TrackPath(nodeId3, nodeId4, 200, Seq(TrackSegment(None, Seq(trackPoint3, trackPoint4))))
+  private val path1 = TrackPath(nodeId1, nodeId2, 100, Seq(TrackSegment("", Seq(trackPoint1, trackPoint2))))
+  private val path2 = TrackPath(nodeId3, nodeId4, 200, Seq(TrackSegment("", Seq(trackPoint3, trackPoint4))))
 
   test("graph edge forward path") {
     withDatabase() { database =>

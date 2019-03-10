@@ -28,8 +28,8 @@ class RoutingSortingOrderAnalyzerTest extends FunSuite with Matchers with Shared
     val sf2 = SegmentFragment(fragment2)
     val sf3 = SegmentFragment(fragment3)
 
-    val correctOrder = Path(None, None, node1.id, node4.id, Seq(Segment(segmentFragments = Seq(sf1, sf2, sf3))))
-    val wrongOrder = Path(None, None, node1.id, node4.id, Seq(Segment(segmentFragments = Seq(sf1, sf3, sf2))))
+    val correctOrder = Path(None, None, node1.id, node4.id, Seq(Segment("", fragments = Seq(sf1, sf2, sf3))))
+    val wrongOrder = Path(None, None, node1.id, node4.id, Seq(Segment("", fragments = Seq(sf1, sf3, sf2))))
 
     (fragments, correctOrder, wrongOrder)
   }
