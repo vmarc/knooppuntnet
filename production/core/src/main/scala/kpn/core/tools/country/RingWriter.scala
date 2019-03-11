@@ -2,7 +2,7 @@ package kpn.core.tools.country
 
 import java.io._
 
-import com.vividsolutions.jts.geom.LinearRing
+import org.locationtech.jts.geom.LinearRing
 
 /*
   Writes an html file with a leaflet map showing given ring outline (for debugging purposes).

@@ -2,7 +2,7 @@ package kpn.core.engine.analysis.country
 
 import java.io._
 
-import com.vividsolutions.jts.io.WKTReader
+import org.locationtech.jts.io.WKTReader
 import kpn.shared.Country
 
 object CountryBoundaryReader {

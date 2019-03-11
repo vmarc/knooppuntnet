@@ -1,8 +1,8 @@
 package kpn.core.tools.country
 
-import com.vividsolutions.jts.algorithm.locate.IndexedPointInAreaLocator
-import com.vividsolutions.jts.geom._
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence
+import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator
+import org.locationtech.jts.geom._
+import org.locationtech.jts.geom.impl.CoordinateArraySequence
 import kpn.shared.Country
 
 // https://wiki.openstreetmap.org/wiki/Relation:multipolygon

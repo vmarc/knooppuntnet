@@ -1,9 +1,9 @@
 package kpn.core.engine.analysis.country
 
-import com.vividsolutions.jts.algorithm.locate.IndexedPointInAreaLocator
-import com.vividsolutions.jts.geom.Coordinate
-import com.vividsolutions.jts.geom.Geometry
-import com.vividsolutions.jts.geom.Location
+import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom.Location
 import kpn.shared.Bounds
 
 class CountryBoundary(polygons: Seq[Geometry]) {

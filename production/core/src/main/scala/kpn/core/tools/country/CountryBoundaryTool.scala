@@ -2,8 +2,8 @@ package kpn.core.tools.country
 
 import java.io.FileWriter
 
-import com.vividsolutions.jts.geom.Polygon
-import com.vividsolutions.jts.io.WKTWriter
+import org.locationtech.jts.geom.Polygon
+import org.locationtech.jts.io.WKTWriter
 import kpn.shared.Country
 
 object CountryBoundaryTool {

@@ -1,6 +1,6 @@
 package kpn.core.tiles
 
-import com.vividsolutions.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.GeometryFactory
 import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TileNodes
 import kpn.core.tiles.domain.TileRoute

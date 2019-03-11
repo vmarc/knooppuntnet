@@ -1,7 +1,7 @@
 package kpn.core.tiles.vector.encoder
 
-import com.vividsolutions.jts.geom.Coordinate
-import com.vividsolutions.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
 import kpn.core.tiles.vector.ProtobufVectorTile
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

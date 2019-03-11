@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
 import kpn.shared.data.raw.RawMember
-import com.vividsolutions.jts.geom.Coordinate
+import org.locationtech.jts.geom.Coordinate
 import kpn.shared.Country
 
 class PolygonBuilderTest extends FunSuite with Matchers {

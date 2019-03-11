@@ -1,15 +1,14 @@
 package kpn.core.engine.analysis
 
-import com.vividsolutions.jts.geom.Coordinate
-import com.vividsolutions.jts.geom.GeometryCollection
-import com.vividsolutions.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryCollection
+import org.locationtech.jts.geom.GeometryFactory
 import kpn.core.changes.RelationAnalyzer
 import kpn.core.util.Log
 import kpn.shared.Bounds
 import kpn.shared.data.Node
 import kpn.shared.data.Relation
 import kpn.shared.network.NetworkShape
-import org.opensphere.geometry.algorithm.ConcaveHull
 
 class NetworkShapeAnalyzer(networkRelation: Relation) {
 
@@ -25,14 +24,14 @@ class NetworkShapeAnalyzer(networkRelation: Relation) {
   private def calculatedShape: Option[NetworkShape] = {
     val nodes = RelationAnalyzer.referencedNonConnectionNodes(networkRelation)
     val points = toGeometryCollection(nodes)
-    val coordinates = new ConcaveHull(points, 0.03d).getConcaveHull.getCoordinates.toList
-    if (coordinates.nonEmpty) {
-      log.debug(s"nodeCount=${nodes.size}")
-      Some(NetworkShape(bounds(coordinates), shapeCoordinate(coordinates)))
-    }
-    else {
+//    val coordinates = new ConcaveHull(points, 0.03d).getConcaveHull.getCoordinates.toList
+//    if (coordinates.nonEmpty) {
+//      log.debug(s"nodeCount=${nodes.size}")
+//      Some(NetworkShape(bounds(coordinates), shapeCoordinate(coordinates)))
+//    }
+//    else {
       None
-    }
+//    }
   }
 
   private def toGeometryCollection(nodes: Iterable[Node]): GeometryCollection = {

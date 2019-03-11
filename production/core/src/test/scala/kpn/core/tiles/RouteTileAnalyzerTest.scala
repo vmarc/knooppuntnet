@@ -31,6 +31,7 @@ class RouteTileAnalyzerTest  extends FunSuite with Matchers {
       "layer",
       segments = Seq(
         TileRouteSegment(
+          "",
           lines = Seq(
             line
           )
@@ -56,6 +57,7 @@ class RouteTileAnalyzerTest  extends FunSuite with Matchers {
       "layer",
       segments = Seq(
         TileRouteSegment(
+          "",
           lines = Seq(
             line
           )
@@ -81,6 +83,7 @@ class RouteTileAnalyzerTest  extends FunSuite with Matchers {
       "layer",
       segments = Seq(
         TileRouteSegment(
+          "",
           lines = Seq(
             line
           )

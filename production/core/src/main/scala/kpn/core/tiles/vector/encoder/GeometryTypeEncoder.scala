@@ -1,11 +1,11 @@
 package kpn.core.tiles.vector.encoder
 
-import com.vividsolutions.jts.geom.Geometry
-import com.vividsolutions.jts.geom.LineString
-import com.vividsolutions.jts.geom.MultiLineString
-import com.vividsolutions.jts.geom.MultiPoint
-import com.vividsolutions.jts.geom.Point
-import com.vividsolutions.jts.geom.Polygon
+import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom.LineString
+import org.locationtech.jts.geom.MultiLineString
+import org.locationtech.jts.geom.MultiPoint
+import org.locationtech.jts.geom.Point
+import org.locationtech.jts.geom.Polygon
 import kpn.core.tiles.vector.ProtobufVectorTile
 
 object GeometryTypeEncoder {
