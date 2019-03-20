@@ -19,6 +19,7 @@ import kpn.shared.common.Ref
 import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
+import kpn.shared.common.TrackSegmentFragment
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawMember
 import kpn.shared.diff.NetworkData
@@ -151,8 +152,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 "01-02",
                 RouteMap(
                   MapBounds("0.0", "0.0", "0.0", "0.0"),
-                  Some(TrackPath(1001, 1002, 0, Seq(TrackSegment("paved", Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
-                  Some(TrackPath(1002, 1001, 0, Seq(TrackSegment("paved", Seq(TrackPoint("0", "0"), TrackPoint("0", "0")))))),
+                  Some(TrackPath(1001, 1002, 0, Seq(TrackSegment("paved", TrackPoint("0", "0"), Seq(TrackSegmentFragment(TrackPoint("0", "0"), 0, 0, None)))))),
+                  Some(TrackPath(1002, 1001, 0, Seq(TrackSegment("paved", TrackPoint("0", "0"), Seq(TrackSegmentFragment(TrackPoint("0", "0"), 0, 0, None)))))),
                   Seq(),
                   Seq(),
                   Seq(),

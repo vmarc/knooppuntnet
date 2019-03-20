@@ -123,11 +123,11 @@ class MainRouteMap(networkType: NetworkType, routeMap: RouteMap)(implicit contex
   }
 
   private def segmentToFeature(name: String, color: ol.Color, segment: TrackSegment): ol.Feature = {
-    trackPointsToFeature(name, color, segment.trackPoints)
+    trackPointsToFeature(name, color, segment.fragments.map(_.trackPoint))
   }
 
   private def pathToFeature(name: String, color: ol.Color, path: TrackPath): ol.Feature = {
-    val trackPoints = path.segments.flatMap(segment => segment.trackPoints)
+    val trackPoints = path.segments.flatMap(segment => segment.fragments.map(_.trackPoint))
     trackPointsToFeature(name, color, trackPoints)
   }
 

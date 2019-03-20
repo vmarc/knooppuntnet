@@ -32,7 +32,8 @@ case class RouteAnalysisContext(
   routeMembers: Option[Seq[RouteMember]] = None,
   routeMap: Option[RouteMap] = None,
   ways: Option[Seq[Way]] = None,
-  allWayNodes: Option[Seq[Node]] = None
+  allWayNodes: Option[Seq[Node]] = None,
+  streets: Option[Seq[String]] = None
 
 ) {
 

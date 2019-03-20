@@ -26,7 +26,7 @@ object PlanJson {
         case None => Seq()
       }
       val lineCoordinates = segments.map { segment =>
-        val coordinates = segment.trackPoints.map(p => "[%s,%s]".format(p.lon, p.lat)).mkString(",")
+        val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map(p => "[%s,%s]".format(p.lon, p.lat)).mkString(",")
         "[%s]".format(coordinates)
       }.mkString(",")
       """{"type":"Feature","geometry":{"type":"MultiLineString","coordinates":[%s]},"properties":{"route":"01-02"}}""".format(lineCoordinates)

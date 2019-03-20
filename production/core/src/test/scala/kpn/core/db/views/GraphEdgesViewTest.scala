@@ -2,14 +2,17 @@ package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
+import kpn.core.planner.graph.GraphEdge
 import kpn.core.repository.RouteRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.NetworkType
 import kpn.shared.RouteSummary
 import kpn.shared.Timestamp
 import kpn.shared.common.TrackPath
+import kpn.shared.common.TrackPathKey
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
+import kpn.shared.common.TrackSegmentFragment
 import kpn.shared.data.Tags
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
@@ -32,14 +35,14 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   private val trackPoint3 = TrackPoint("3", "3")
   private val trackPoint4 = TrackPoint("4", "4")
 
-  private val path1 = TrackPath(nodeId1, nodeId2, 100, Seq(TrackSegment("", Seq(trackPoint1, trackPoint2))))
-  private val path2 = TrackPath(nodeId3, nodeId4, 200, Seq(TrackSegment("", Seq(trackPoint3, trackPoint4))))
+  private val path1 = TrackPath(nodeId1, nodeId2, 100, Seq(TrackSegment("", trackPoint1, Seq(TrackSegmentFragment(trackPoint2, 0, 0, None)))))
+  private val path2 = TrackPath(nodeId3, nodeId4, 200, Seq(TrackSegment("", trackPoint3, Seq(TrackSegmentFragment(trackPoint4, 0, 0, None)))))
 
   test("graph edge forward path") {
     withDatabase() { database =>
       doTest(database, RouteMap(forwardPath = Some(path1))) should equal(
         Seq(
-          GraphEdgesView.Row("rwn", routeId, "forward", 1, nodeId1, nodeId2, 100)
+          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "forward", 1))
         )
       )
     }
@@ -49,7 +52,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
     withDatabase() { database =>
       doTest(database, RouteMap(backwardPath = Some(path1))) should equal(
         Seq(
-          GraphEdgesView.Row("rwn", routeId, "backward", 1, nodeId1, nodeId2, 100)
+          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "backward", 1))
         )
       )
     }
@@ -59,8 +62,8 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
     withDatabase() { database =>
       doTest(database, RouteMap(startTentaclePaths = Seq(path1, path2))) should equal(
         Seq(
-          GraphEdgesView.Row("rwn", routeId, "start", 1, nodeId1, nodeId2, 100),
-          GraphEdgesView.Row("rwn", routeId, "start", 2, nodeId3, nodeId4, 200)
+          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "start", 1)),
+          GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, "start", 2))
         )
       )
     }
@@ -70,14 +73,14 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
     withDatabase() { database =>
       doTest(database, RouteMap(endTentaclePaths = Seq(path1, path2))) should equal(
         Seq(
-          GraphEdgesView.Row("rwn", routeId, "end", 1, nodeId1, nodeId2, 100),
-          GraphEdgesView.Row("rwn", routeId, "end", 2, nodeId3, nodeId4, 200)
+          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "end", 1)),
+          GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, "end", 2))
         )
       )
     }
   }
 
-  private def doTest(database: Database, routeMap: RouteMap): Seq[GraphEdgesView.Row] = {
+  private def doTest(database: Database, routeMap: RouteMap): Seq[GraphEdge] = {
 
     val routeRepository = new RouteRepositoryImpl(database)
     val routeInfo = buildRoute(routeMap)

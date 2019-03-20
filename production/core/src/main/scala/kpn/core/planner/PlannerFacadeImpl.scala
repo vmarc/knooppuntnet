@@ -1,12 +1,11 @@
 package kpn.core.planner
 
+import kpn.core.planner.graph.NodeNetworkGraph
+import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.repository.GraphRepository
 import kpn.core.repository.NodeRepository
 import kpn.core.repository.RouteRepository
 import kpn.shared.NetworkType
-
-import scalax.collection.edge.WLUnDiEdge
-import scalax.collection.immutable.Graph
 
 class PlannerFacadeImpl(
   graphRepository: GraphRepository,
@@ -45,9 +44,10 @@ class PlannerFacadeImpl(
     planBuilder.build(networkType, updatedEncodedPlan)
   }
 
-  private def buildGraph(networkType: NetworkType): Graph[Long, WLUnDiEdge] = {
+  private def buildGraph(networkType: NetworkType): NodeNetworkGraph = {
+    val graph = new NodeNetworkGraphImpl()
     val edges = graphRepository.edges(networkType)
-    val nodes = edges.flatten
-    Graph.from(nodes, edges)
+    edges.foreach(graph.add)
+    graph
   }
 }

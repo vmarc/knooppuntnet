@@ -27,6 +27,7 @@ import kpn.core.engine.changes.data.BlackList
 import kpn.core.engine.changes.data.BlackListEntry
 import kpn.core.engine.changes.data.OrphanNodesData
 import kpn.core.gpx.GpxFile
+import kpn.core.gpx.GpxSegment
 import kpn.core.gpx.WayPoint
 import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
@@ -85,6 +86,7 @@ import kpn.shared.common.Reference
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
 import kpn.shared.common.TrackPath
+import kpn.shared.common.TrackSegmentFragment
 import kpn.shared.data.MetaData
 import kpn.shared.data.Tag
 import kpn.shared.data.raw.RawData
@@ -211,11 +213,13 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeMemberInfoFormat: RootJsonFormat[RouteMemberInfo] = jsonFormat17(RouteMemberInfo)
 
   implicit val trackPointFormat: RootJsonFormat[TrackPoint] = jsonFormat2(TrackPoint)
-  implicit val trackSegmentFormat: RootJsonFormat[TrackSegment] = jsonFormat2(TrackSegment)
+
+  implicit val trackSegmentFragmentFormat: RootJsonFormat[TrackSegmentFragment] = jsonFormat4(TrackSegmentFragment)
+  implicit val trackSegmentFormat: RootJsonFormat[TrackSegment] = jsonFormat3(TrackSegment)
   implicit val trackPathFormat: RootJsonFormat[TrackPath] = jsonFormat4(TrackPath)
   implicit val mapBoundsFormat: RootJsonFormat[MapBounds] = jsonFormat4(MapBounds.apply)
 
-  implicit val routeMapFormat: RootJsonFormat[RouteMap] = jsonFormat13(RouteMap)
+  implicit val routeMapFormat: RootJsonFormat[RouteMap] = jsonFormat14(RouteMap)
 
   implicit val factFormat = FactFormat
 
@@ -256,6 +260,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val networkDocFormat: RootJsonFormat[NetworkDoc] = jsonFormat3(NetworkDoc)
 
   implicit val wayPointFormat: RootJsonFormat[WayPoint] = jsonFormat4(WayPoint)
+  implicit val gpxSegmentFormat: RootJsonFormat[GpxSegment] = jsonFormat1(GpxSegment)
   implicit val gpxFileFormat: RootJsonFormat[GpxFile] = jsonFormat4(GpxFile)
   implicit val gpxDocFormat: RootJsonFormat[GpxDoc] = jsonFormat3(GpxDoc)
 

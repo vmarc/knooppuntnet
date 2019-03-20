@@ -1,31 +1,27 @@
 package kpn.core.repository
 
+import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
+import kpn.core.db.views.GraphEdgesView
+import kpn.core.planner.graph.GraphEdge
 import kpn.shared.NetworkType
-
-import scalax.collection.edge.WLUnDiEdge
+import spray.http.Uri
+import spray.http.Uri.Query
 
 class GraphRepositoryImpl(database: Database) extends GraphRepository {
 
-  //  private val view = repository.design(AnalyzerDesign.name).view(GraphEdges.name)
+  override def edges(networkType: NetworkType): Seq[GraphEdge] = {
 
-  override def edges(networkType: NetworkType): Seq[WLUnDiEdge[Long]] = {
-    (0 to 9).flatMap(prefix => edges(networkType, prefix))
-  }
+    val uri = Uri(s"_design/PlannerDesign/_view/GraphEdgesView?reduce=false&stale=ok&startkey=[${networkType.name}]&endkey=[${networkType.name},{}]")
 
-  private def edges(networkType: NetworkType, prefix: Int): Seq[WLUnDiEdge[Long]] = {
-    //    val startkey = GraphEdges.Key(networkType.name, prefix, Long.MinValue)
-    //    val endkey = GraphEdges.Key(networkType.name, prefix, Long.MaxValue)
-    //    val result = view.query[GraphEdges.Key, GraphEdges.Value, Nothing](startkey=Some(startkey), endkey=Some(endkey))
-    //    result.rows.map { row =>
-    //      WLUnDiEdge.newEdge[String, String]((
-    //        row.value.startNodeId.toString,
-    //        row.value.endNodeId.toString),
-    //        row.value.meters,
-    //        row.key.routeId.toString
-    //      )
-    //    }
+    val parameters = Map(
+      "startkey" -> s"""["${networkType.name}"]""",
+      "endkey" -> s"""["${networkType.name}",{}]""",
+      "reduce" -> "false",
+      "stale" -> "ok"
+    )
 
-    Seq()
+    val request = uri.withQuery(Query(parameters))
+    database.getRows(request.toString(), Couch.uiTimeout).map(GraphEdgesView.convert)
   }
 }

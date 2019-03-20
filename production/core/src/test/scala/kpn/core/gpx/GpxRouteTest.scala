@@ -1,7 +1,6 @@
 package kpn.core.gpx
 
 import kpn.shared.SharedTestObjects
-import kpn.shared.common.TrackSegment
 import kpn.shared.data.Node
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -70,7 +69,7 @@ class GpxRouteTest extends FunSuite with Matchers with SharedTestObjects {
     assertSegment(trackSegments(1), Seq(node4, node5, node6))
   }
 
-  private def assertSegment(segment: TrackSegment, nodes: Seq[Node]): Unit = {
+  private def assertSegment(segment: GpxSegment, nodes: Seq[Node]): Unit = {
     segment.trackPoints.size should equal(nodes.size)
     segment.trackPoints.zip(nodes).foreach { case (trackPoint, node) =>
       trackPoint.lat should equal(node.latitude.toString)

@@ -1,3 +1,8 @@
 package kpn.shared.common
 
-case class TrackSegmentFragment(surface: Option[String], trackPoints: Seq[TrackPoint])
+case class TrackSegmentFragment(
+  trackPoint: TrackPoint,
+  meters: Int,
+  orientation: Double,
+  streetIndex: Option[Int]
+)

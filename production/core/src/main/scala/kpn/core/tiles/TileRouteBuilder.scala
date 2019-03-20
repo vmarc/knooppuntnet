@@ -37,7 +37,7 @@ class TileRouteBuilder(z: Int) {
 
       val tileRouteSegments = segments.flatMap { segment =>
 
-        val coordinates = segment.trackPoints.map { trackPoint =>
+        val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
           val lat = trackPoint.lat.toDouble
           val lon = trackPoint.lon.toDouble
           new Coordinate(lon, lat)

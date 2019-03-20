@@ -25,6 +25,7 @@ import kpn.core.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteNodeAnalyzer
+import kpn.core.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
@@ -32,14 +33,8 @@ import kpn.core.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.core.engine.analysis.route.segment.Path
-import kpn.core.engine.analysis.route.segment.Segment
 import kpn.core.load.data.LoadedRoute
 import kpn.core.util.Log
-import kpn.shared.common.TrackPath
-import kpn.shared.common.TrackPoint
-import kpn.shared.common.TrackSegment
-import kpn.shared.data.Node
 import kpn.shared.data.Tags
 import kpn.shared.route.Both
 import kpn.shared.route.RouteNetworkNodeInfo
@@ -81,6 +76,7 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         RouteFragmentAnalyzer,
         RouteStructureAnalyzer,
         RouteMemberAnalyzer,
+        RouteStreetsAnalyzer,
         RouteMapAnalyzer,
         IncompleteOkRouteAnalyzer,
         FactCombinationAnalyzer
@@ -123,19 +119,6 @@ object RouteAnalyzerFunctions {
     }
   }
 
-  def toTrackPath(path: Path): TrackPath = {
-    val trackSegments = path.segments.map(toTrackSegment)
-    TrackPath(path.startNodeId, path.endNodeId, path.meters, trackSegments)
-  }
-
-  def toTrackSegment(segment: Segment): TrackSegment = {
-    val trackPoints = segment.fragments.flatMap(_.nodes).map(toTrackPoint)
-    TrackSegment(segment.surface, trackPoints)
-  }
-
-  def toTrackPoint(node: Node): TrackPoint = {
-    TrackPoint(node.latitude.toString, node.longitude.toString)
-  }
 
   def oneWay(member: RouteMember): WayDirection = {
     member match {

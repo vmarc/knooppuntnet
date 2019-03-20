@@ -23,7 +23,6 @@ class GpxWriter(file: GpxFile) {
 
   out.printf("  <trk>\n")
   file.trackSegments foreach { segment =>
-
     out.printf("    <trkseg>\n")
     segment.trackPoints foreach { trkpt =>
       out.printf("      <trkpt lat=\"%s\" lon=\"%s\"/>\n", trkpt.lat, trkpt.lon)

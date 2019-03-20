@@ -1,7 +1,6 @@
 package kpn.core.planner
 
-import scalax.collection.edge.WLUnDiEdge
-import scalax.collection.immutable.Graph
+import kpn.core.planner.graph.NodeNetworkGraph
 
 /*
 
@@ -77,7 +76,7 @@ import scalax.collection.immutable.Graph
 case class RouteEdge(routeId: Long, startNodeId: Long, endNodeId: Long)
 
 
-class PlanUpdater(graph: Graph[Long, WLUnDiEdge]) {
+class PlanUpdater(graph: NodeNetworkGraph) {
 
   /**
     * Appends the path to given node to given plan.
@@ -88,47 +87,40 @@ class PlanUpdater(graph: Graph[Long, WLUnDiEdge]) {
       EncodedPlan(Seq(EncodedNode(nodeId)))
     }
     else {
-      val lastNodeId = before.userNodeIds.last
-      graph.find(lastNodeId) match {
-        case None => before.add(StartNodeNotFoundInGraph(lastNodeId, nodeId))
-        case Some(fromNode) =>
-          graph.find(nodeId) match {
-            case None => before.add(EndNodeNotFoundInGraph(lastNodeId, nodeId))
-            case Some(toNode) =>
-              fromNode.shortestPathTo(toNode) match {
-                case None => before.add(PathNotFoundInGraph(lastNodeId, nodeId))
-                case Some(path) =>
+      val fromNodeId = before.userNodeIds.last
+      graph.findPath(fromNodeId, nodeId) match {
+        case None => before.add(PathNotFoundInGraph(fromNodeId, nodeId))
+        case Some(path) =>
+          EncodedPlan(Seq())
 
-                  var nId = lastNodeId
-                  val routeEdges = path.edges.toSeq.map { edge =>
-
-                    val routeId: Long = edge.label match {
-                      case x: Long => x
-                      case x: String => throw new RuntimeException("unexpected value")
-                    }
-
-                    RouteEdge(routeId, edge._1, edge._2)
-                  }
-
-                  val sorted = routeEdges.map { edge =>
-                    if (edge.startNodeId == nId) {
-                      nId = edge.endNodeId
-                      edge
-                    }
-                    else {
-                      nId = edge.startNodeId
-                      RouteEdge(edge.routeId, edge.endNodeId, edge.startNodeId)
-                    }
-                  }
-
-                  val intermediateItems = sorted.init.flatMap { edge =>
-                    Seq(EncodedRoute(edge.routeId), EncodedIntermediateNode(edge.endNodeId))
-                  }
-                  val lastEdge = sorted.last
-                  val lastItems = Seq(EncodedRoute(lastEdge.routeId), EncodedNode(lastEdge.endNodeId))
-                  before.add(intermediateItems ++ lastItems)
-              }
-          }
+        //          var nId = lastNodeId
+        //          val routeEdges = path.edges.toSeq.map { edge =>
+        //
+        //            val routeId: Long = edge.label match {
+        //              case x: Long => x
+        //              case x: String => throw new RuntimeException("unexpected value")
+        //            }
+        //
+        //            RouteEdge(routeId, edge._1, edge._2)
+        //          }
+        //
+        //          val sorted = routeEdges.map { edge =>
+        //            if (edge.startNodeId == nId) {
+        //              nId = edge.endNodeId
+        //              edge
+        //            }
+        //            else {
+        //              nId = edge.startNodeId
+        //              RouteEdge(edge.routeId, edge.endNodeId, edge.startNodeId)
+        //            }
+        //          }
+        //
+        //          val intermediateItems = sorted.init.flatMap { edge =>
+        //            Seq(EncodedRoute(edge.routeId), EncodedIntermediateNode(edge.endNodeId))
+        //          }
+        //          val lastEdge = sorted.last
+        //          val lastItems = Seq(EncodedRoute(lastEdge.routeId), EncodedNode(lastEdge.endNodeId))
+        //          before.add(intermediateItems ++ lastItems)
       }
     }
   }

@@ -1,7 +1,6 @@
 package kpn.core.gpx
 
 import kpn.shared.common.TrackPoint
-import kpn.shared.common.TrackSegment
 import kpn.shared.data.Node
 import kpn.shared.data.Way
 
@@ -9,15 +8,16 @@ import scala.collection.mutable.ListBuffer
 
 class GpxRoute() {
 
-  def trackSegments(ways: Seq[Way]): Seq[TrackSegment] = {
+  def trackSegments(ways: Seq[Way]): Seq[GpxSegment] = {
     if (ways.isEmpty) {
       Seq()
     }
     else if (ways.size == 1) {
-      Seq(TrackSegment("", ways.head.nodes.map(toTrackPoint)))
+      val trackPoints = ways.head.nodes.map(toTrackPoint)
+      Seq(GpxSegment(trackPoints))
     }
     else {
-      val trackSegments = ListBuffer[TrackSegment]()
+      val trackSegments = ListBuffer[GpxSegment]()
       val segmentNodes = ListBuffer[Node]()
       segmentNodes ++= startNodes(ways)
 
@@ -25,7 +25,8 @@ class GpxRoute() {
         val lastNode = segmentNodes.last
         val nodes = if (way.nodes.last.id == lastNode.id) way.nodes.reverse else way.nodes
         if (lastNode.id != nodes.head.id) {
-          trackSegments += TrackSegment("", segmentNodes.map(toTrackPoint))
+          val trackPoints = segmentNodes.map(toTrackPoint)
+          trackSegments += GpxSegment(trackPoints)
           segmentNodes.clear()
           segmentNodes ++= nodes
         }
@@ -35,7 +36,8 @@ class GpxRoute() {
       }
 
       if (segmentNodes.nonEmpty) {
-        trackSegments += TrackSegment("", segmentNodes.map(toTrackPoint))
+        val trackPoints = segmentNodes.map(toTrackPoint)
+        trackSegments += GpxSegment(trackPoints)
       }
       trackSegments
     }
