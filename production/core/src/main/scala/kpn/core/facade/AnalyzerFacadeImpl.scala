@@ -56,6 +56,7 @@ import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
+import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
@@ -165,6 +166,13 @@ class AnalyzerFacadeImpl(
     val label = s"$user subsetFacts(${subset.string})"
     log.infoElapsed(label) {
       reply(label, Some(subsetFactsPageBuilder.build(subset)))
+    }
+  }
+
+  override def subsetFactsNew(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPageNew] = {
+    val label = s"$user subsetFacts(${subset.string})"
+    log.infoElapsed(label) {
+      reply(label, Some(subsetFactsPageBuilder.buildNew(subset)))
     }
   }
 

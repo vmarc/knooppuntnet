@@ -21,7 +21,8 @@ export class RouteMap {
               readonly endNodes: List<RouteNetworkNodeInfo>,
               readonly startTentacleNodes: List<RouteNetworkNodeInfo>,
               readonly endTentacleNodes: List<RouteNetworkNodeInfo>,
-              readonly redundantNodes: List<RouteNetworkNodeInfo>) {
+              readonly redundantNodes: List<RouteNetworkNodeInfo>,
+              readonly streets: List<string>) {
   }
 
   public static fromJSON(jsonObject): RouteMap {
@@ -41,7 +42,8 @@ export class RouteMap {
       jsonObject.endNodes ? List(jsonObject.endNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.redundantNodes ? List(jsonObject.redundantNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List()
+      jsonObject.redundantNodes ? List(jsonObject.redundantNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.streets ? List(jsonObject.streets) : List()
     );
   }
 }

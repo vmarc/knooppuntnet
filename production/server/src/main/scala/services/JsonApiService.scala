@@ -6,7 +6,6 @@ import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
 import kpn.shared.NetworkType
-import kpn.shared.Poi
 import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
 import kpn.shared.Subset
@@ -26,7 +25,7 @@ import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
-import kpn.shared.subset.SubsetFactsPage
+import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
@@ -42,8 +41,8 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
     analyzerFacade.subsetNetworks(user, subset)
   }
 
-  def subsetFacts(subset: Subset): ApiResponse[SubsetFactsPage] = {
-    analyzerFacade.subsetFacts(user, subset)
+  def subsetFacts(subset: Subset): ApiResponse[SubsetFactsPageNew] = {
+    analyzerFacade.subsetFactsNew(user, subset)
   }
 
   def subsetFactDetails(subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage] = {

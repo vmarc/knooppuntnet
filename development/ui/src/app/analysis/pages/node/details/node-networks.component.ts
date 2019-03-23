@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Reference} from "../../../kpn/shared/common/reference";
+import {Reference} from "../../../../kpn/shared/common/reference";
 import {List} from "immutable";
 
 @Component({

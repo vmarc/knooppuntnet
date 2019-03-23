@@ -3,11 +3,12 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
-import {SubsetFactsPage} from "../../../../kpn/shared/subset/subset-facts-page";
 import {Util} from "../../../../components/shared/util";
 import {Subset} from "../../../../kpn/shared/subset";
 import {PageService} from "../../../../components/shared/page.service";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
+import {SubsetFactsPageNew} from "../../../../kpn/shared/subset/subset-facts-page-new";
+import {FactCountNew} from "../../../../kpn/shared/fact-count-new";
 
 @Component({
   selector: 'kpn-subset-facts-page',
@@ -24,12 +25,13 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
       </div>
       <div *ngIf="hasFacts()">
         <kpn-items>
-          <kpn-item *ngFor="let factName of allFactNames; let i=index" index="{{i}}">
+          <kpn-item *ngFor="let factCount of response.result.factCounts; let i=index" index="{{i}}">
+            <a [routerLink]="factDetailLink(factCount)">
+              <kpn-fact-name [factName]="factCount.factName"></kpn-fact-name>
+            </a>
+            ({{factCount.count}})
             <p>
-              <kpn-fact-name [factName]="factName"></kpn-fact-name>
-            </p>
-            <p>
-              <kpn-fact-description [factName]="factName"></kpn-fact-description>
+              <kpn-fact-description [factName]="factCount.factName"></kpn-fact-description>
             </p>
           </kpn-item>
         </kpn-items>
@@ -41,60 +43,8 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
   subset: Subset;
-  response: ApiResponse<SubsetFactsPage>;
+  response: ApiResponse<SubsetFactsPageNew>;
   paramsSubscription: Subscription;
-
-  allFactNames = [
-    "RouteNotContinious",
-    "RouteUnusedSegments",
-    "RouteNodeMissingInWays",
-    "RouteRedundantNodes",
-    "RouteWithoutWays",
-    "RouteFixmetodo",
-    "RouteNameMissing",
-    "RouteEndNodeMismatch",
-    "RouteStartNodeMismatch",
-    "RouteTagMissing",
-    "RouteTagInvalid",
-    "RouteUnexpectedNode",
-    "RouteUnexpectedRelation",
-    "NetworkExtraMemberNode",
-    "NetworkExtraMemberWay",
-    "NetworkExtraMemberRelation",
-    "NodeMemberMissing",
-    "IntegrityCheckFailed",
-    "OrphanRoute",
-    "OrphanNode",
-    "RouteIncomplete",
-    "RouteIncompleteOk",
-    "RouteUnaccessible",
-    "RouteInvalidSortingOrder",
-    "RouteReversed",
-    "RouteNodeNameMismatch",
-    "RouteNotForward",
-    "RouteNotBackward",
-    "RouteAnalysisFailed",
-    "RouteOverlappingWays",
-    "RouteSuspiciousWays",
-    "RouteBroken",
-    "RouteOneWay",
-    "RouteNotOneWay",
-    "NameMissing",
-    "IgnoreForeignCountry",
-    "IgnoreNoNetworkNodes",
-    "IgnoreUnsupportedSubset",
-    "Added",
-    "BecomeIgnored",
-    "BecomeOrphan",
-    "Deleted",
-    "IgnoreNetworkCollection",
-    "IntegrityCheck",
-    "LostBicycleNodeTag",
-    "LostHikingNodeTag",
-    "LostRouteTags",
-    "WasIgnored",
-    "WasOrphan"
-  ];
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -120,7 +70,11 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
   }
 
   hasFacts() {
-    return this.response && this.response.result && this.response.result.factCounts.size > 0;
+    return this.response && this.response.result && this.response.result.subsetInfo.factCount > 0;
+  }
+
+  factDetailLink(factCount: FactCountNew): String {
+    return "/analysis/" + factCount.factName + "/" + this.subset.key();
   }
 
 }

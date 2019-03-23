@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NodeInfo} from "../../../kpn/shared/node-info";
+import {NodeInfo} from "../../../../kpn/shared/node-info";
 
 @Component({
   selector: 'node-summary',
@@ -13,9 +13,8 @@ import {NodeInfo} from "../../../kpn/shared/node-info";
         )
       </p>
 
-      <p *ngIf="!nodeInfo.active" class="warning">
+      <p *ngIf="!nodeInfo.active" class="warning" i18n="@@node.inactive">
         This network node is not active anymore.
-        <!-- Dit knooppunt is niet actief meer. -->
       </p>
 
       <!--
@@ -34,14 +33,12 @@ import {NodeInfo} from "../../../kpn/shared/node-info";
         <kpn-country-name [country]="nodeInfo.country"></kpn-country-name>
       </p>
 
-      <p *ngIf="nodeInfo.active && nodeInfo.orphan">
+      <p *ngIf="nodeInfo.active && nodeInfo.orphan" i18n="@@node.orphan">
         This network node does not belong to a known node network (orphan).
-        <!-- Dit knooppunt behoort niet tot een knooppuntnetwerk (wees). -->
       </p>
 
-      <p *ngIf="nodeInfo.ignored">
+      <p *ngIf="nodeInfo.ignored" i18n="@@node.ignored">
         This network node is not included in the analysis.
-        <!-- Dit knooppunt is niet in de analyse opgenomen.-->
       </p>
 
     </div>

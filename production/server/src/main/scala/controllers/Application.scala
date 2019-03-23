@@ -110,7 +110,7 @@ class Application(
         val subset = Subset.of(country, networkType).get
         reply(
           userApiService.subsetFacts(subset),
-          JsonFormats.subsetFactsPageFormat
+          JsonFormats.subsetFactsPageNewFormat
         )
 
       case subsetFactDetails(country, networkType) =>

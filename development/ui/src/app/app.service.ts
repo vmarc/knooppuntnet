@@ -11,7 +11,6 @@ import {ChangeSetPage} from "./kpn/shared/changes/change-set-page";
 import {MapDetailNode} from "./kpn/shared/node/map-detail-node";
 import {MapDetailRoute} from "./kpn/shared/route/map-detail-route";
 import {SubsetNetworksPage} from "./kpn/shared/subset/subset-networks-page";
-import {SubsetFactsPage} from "./kpn/shared/subset/subset-facts-page";
 import {SubsetFactDetailsPage} from "./kpn/shared/subset/subset-fact-details-page";
 import {SubsetOrphanNodesPage} from "./kpn/shared/subset/subset-orphan-nodes-page";
 import {SubsetOrphanRoutesPage} from "./kpn/shared/subset/subset-orphan-routes-page";
@@ -28,6 +27,7 @@ import {PoiPage} from "./kpn/shared/poi-page";
 import {Directions} from "./kpn/shared/directions/directions";
 import {MarkdownService} from "ngx-markdown";
 import {Statistics} from "./kpn/shared/statistics/statistics";
+import {SubsetFactsPageNew} from "./kpn/shared/subset/subset-facts-page-new";
 
 @Injectable()
 export class AppService {
@@ -53,10 +53,10 @@ export class AppService {
     );
   }
 
-  public subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
+  public subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPageNew>> {
     const url = this.subsetUrl(subset, "facts");
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, SubsetFactsPage.fromJSON))
+      map(response => ApiResponse.fromJSON(response, SubsetFactsPageNew.fromJSON))
     );
   }
 

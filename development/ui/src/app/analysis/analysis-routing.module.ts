@@ -8,9 +8,9 @@ import {NetworkFactsPageComponent} from "./pages/network/facts/_network-facts-pa
 import {NetworkMapPageComponent} from "./pages/network/map/_network-map-page.component";
 import {NetworkNodesPageComponent} from "./pages/network/nodes/_network-nodes-page.component";
 import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes-page.component";
-import {NodePageComponent} from "./pages/node/node-page.component";
+import {NodePageComponent} from "./pages/node/details/_node-page.component";
 import {OverviewPageComponent} from "./pages/overview/_overview-page.component";
-import {RoutePageComponent} from "./pages/route/_route-page.component";
+import {RoutePageComponent} from "./pages/route/details/_route-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";
 import {SubsetNetworksPageComponent} from "./pages/subset/networks/_subset-networks-page.component";
@@ -21,6 +21,10 @@ import {AnalysisPageComponent} from "./pages/analysis/analysis-page.component";
 import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
 import {AnalysisNlPageComponent} from "./pages/analysis/analysis-nl-page.component";
 import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
+import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.component";
+import {FactsPageComponent} from "./pages/facts/_facts-page.component";
+import {RouteChangesPageComponent} from "./pages/route/changes/_route-changes-page.component";
+import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.components";
 
 const routes: Routes = [
   {
@@ -81,6 +85,10 @@ const routes: Routes = [
     component: NodePageComponent
   },
   {
+    path: 'node-changes/:nodeId',
+    component: NodeChangesPageComponent
+  },
+  {
     path: 'overview',
     component: OverviewPageComponent
   },
@@ -89,12 +97,16 @@ const routes: Routes = [
     component: RoutePageComponent
   },
   {
+    path: 'route-changes/:routeId',
+    component: RouteChangesPageComponent
+  },
+  {
     path: 'changes/:country/:networkType',
     component: SubsetChangesPageComponent
   },
   {
     path: 'facts/:country/:networkType',
-    component: SubsetFactDetailsPageComponent
+    component: SubsetFactsPageComponent
   },
   {
     path: 'networks/:country/:networkType',
@@ -111,7 +123,12 @@ const routes: Routes = [
   {
     path: ':fact/:country/:networkType',
     component: SubsetFactDetailsPageComponent
+  },
+  {
+    path: 'facts',
+    component: FactsPageComponent
   }
+
 ];
 
 @NgModule({

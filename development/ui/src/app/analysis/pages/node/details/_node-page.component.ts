@@ -1,51 +1,52 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {AppService} from "../../../app.service";
-import {NodePage} from "../../../kpn/shared/node/node-page";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {PageService} from "../../../components/shared/page.service";
+import {AppService} from "../../../../app.service";
+import {NodePage} from "../../../../kpn/shared/node/node-page";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {PageService} from "../../../../components/shared/page.service";
 
 @Component({
   selector: 'kpn-node-page',
   template: `
+
+    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node'"></kpn-node-page-header>
+
     <div *ngIf="response?.result">
       <div *ngIf="!response.result">
-        <h1>Node not found</h1>
+        Node not found
       </div>
       <div *ngIf="response.result">
-
-        <h1>Node {{nodeInfo.name}}</h1>
 
         <!--
           UiPageContents(
         -->
 
-        <kpn-data title="Summary"> <!-- "Samenvatting" -->
+        <kpn-data title="Summary" i18n-title="@@node.summary">
           <node-summary [nodeInfo]="nodeInfo"></node-summary>
         </kpn-data>
 
-        <kpn-data title="Situation on"> <!-- "Situatie op" -->
+        <kpn-data title="Situation on" i18n-title="@@node.situation-on">
           <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
         </kpn-data>
 
-        <kpn-data title="Last updated"> <!-- "Laatst bewerkt" -->
+        <kpn-data title="Last updated" i18n-title="@@node.last-updated">
           <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
         </kpn-data>
 
-        <kpn-data title="Tags"> <!-- "Labels" -->
+        <kpn-data title="Tags" i18n-title="@@node.tags">
           <tags [tags]="nodeInfo.tags"></tags>
         </kpn-data>
 
-        <kpn-data title="Networks"> <!-- "Netwerken" -->
+        <kpn-data title="Networks" i18n-title="@@node.networks">
           <node-networks [networks]="references.networkReferences"></node-networks>
         </kpn-data>
 
-        <kpn-data title="Routes"> <!-- "Routes" -->
+        <kpn-data title="Routes" i18n-title="@@node.routes">
           <node-routes [routes]="references.routeReferences"></node-routes>
         </kpn-data>
 
-        <kpn-data title="Facts"> <!-- "Feiten" -->
+        <kpn-data title="Facts" i18n-title="@@node.feiten">
           TODO UiFacts(page.nodeInfo.facts)
         </kpn-data>
 
@@ -66,6 +67,7 @@ import {PageService} from "../../../components/shared/page.service";
 })
 export class NodePageComponent implements OnInit, OnDestroy {
 
+  nodeId: string;
   response: ApiResponse<NodePage>;
   paramsSubscription: Subscription;
 
@@ -77,8 +79,8 @@ export class NodePageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pageService.defaultMenu();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      const nodeId = params['nodeId'];
-      this.appService.node(nodeId).subscribe(response => {
+      this.nodeId = params['nodeId'];
+      this.appService.node(this.nodeId).subscribe(response => {
         this.response = response;
       });
     });

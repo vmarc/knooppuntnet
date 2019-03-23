@@ -104,6 +104,7 @@ import kpn.shared.subset.NetworkFactRefs
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
+import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetInfo
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
@@ -126,6 +127,7 @@ object KpnPicklers {
   implicit val apiResponseRoutePage: Pickler[ApiResponse[RoutePage]] = PicklerGenerator.generatePickler[ApiResponse[RoutePage]]
   implicit val apiResponseSubsetNetworksPage: Pickler[ApiResponse[SubsetNetworksPage]] = PicklerGenerator.generatePickler[ApiResponse[SubsetNetworksPage]]
   implicit val apiResponseSubsetFactsPage: Pickler[ApiResponse[SubsetFactsPage]] = PicklerGenerator.generatePickler[ApiResponse[SubsetFactsPage]]
+  implicit val apiResponseSubsetFactsPageNew: Pickler[ApiResponse[SubsetFactsPageNew]] = PicklerGenerator.generatePickler[ApiResponse[SubsetFactsPageNew]]
   implicit val apiResponseSubsetOrphanNodesPage: Pickler[ApiResponse[SubsetOrphanNodesPage]] = PicklerGenerator.generatePickler[ApiResponse[SubsetOrphanNodesPage]]
   implicit val apiResponseSubsetOrphanRoutesPage: Pickler[ApiResponse[SubsetOrphanRoutesPage]] = PicklerGenerator.generatePickler[ApiResponse[SubsetOrphanRoutesPage]]
   implicit val apiResponseSubsetChangesPage: Pickler[ApiResponse[SubsetChangesPage]] = PicklerGenerator.generatePickler[ApiResponse[SubsetChangesPage]]
@@ -211,6 +213,7 @@ object KpnPicklers {
   implicit val nodeInfoPickler: Pickler[NodeInfo] = PicklerGenerator.generatePickler[NodeInfo]
   implicit val networkMapInfoPickler: Pickler[NetworkMapInfo] = PicklerGenerator.generatePickler[NetworkMapInfo]
   implicit val factCountPickler: Pickler[FactCount] = PicklerGenerator.generatePickler[FactCount]
+  implicit val factCountNewPickler: Pickler[FactCountNew] = PicklerGenerator.generatePickler[FactCountNew]
 
   implicit val changesFilterPeriodPickler: Pickler[ChangesFilterPeriod] = PicklerGenerator.generatePickler[ChangesFilterPeriod]
   implicit val changesFilterPickler: Pickler[ChangesFilter] = PicklerGenerator.generatePickler[ChangesFilter]
@@ -241,6 +244,7 @@ object KpnPicklers {
   implicit val subsetOrphanNodesPagePickler: Pickler[SubsetOrphanNodesPage] = PicklerGenerator.generatePickler[SubsetOrphanNodesPage]
   implicit val subsetNetworksPagePickler: Pickler[SubsetNetworksPage] = PicklerGenerator.generatePickler[SubsetNetworksPage]
   implicit val subsetFactsPagePickler: Pickler[SubsetFactsPage] = PicklerGenerator.generatePickler[SubsetFactsPage]
+  implicit val subsetFactsPageNewPickler: Pickler[SubsetFactsPageNew] = PicklerGenerator.generatePickler[SubsetFactsPageNew]
   implicit val subsetChangesPagePickler: Pickler[SubsetChangesPage] = PicklerGenerator.generatePickler[SubsetChangesPage]
   implicit val networkRoutesPagePickler: Pickler[NetworkRoutesPage] = PicklerGenerator.generatePickler[NetworkRoutesPage]
   implicit val networkNodesPagePickler: Pickler[NetworkNodesPage] = PicklerGenerator.generatePickler[NetworkNodesPage]

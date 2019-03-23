@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from "@angular/common";
-import {RoutePageComponent} from './pages/route/_route-page.component';
-import {RouteMembersComponent} from './pages/route/route-members.component';
-import {NodePageComponent} from './pages/node/node-page.component';
+import {RoutePageComponent} from './pages/route/details/_route-page.component';
+import {RouteMembersComponent} from './pages/route/details/route-members.component';
+import {NodePageComponent} from './pages/node/details/_node-page.component';
 import {ChangesPageComponent} from './pages/changes/changes-page.component';
 import {SubsetOrphanNodesPageComponent} from "./pages/subset/orphan-nodes/_subset-orphan-nodes-page.component";
 import {SubsetOrphanRoutesPageComponent} from './pages/subset/orphan-routes/_subset-orphan-routes-page.component';
@@ -22,9 +22,9 @@ import {KpnMaterialModule} from "../material/kpn-material.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {SharedModule} from "../components/shared/shared.module";
 import {OlModule} from "../components/ol/ol.module";
-import {NodeSummaryComponent} from "./pages/node/node-summary.component";
-import {NodeNetworksComponent} from "./pages/node/node-networks.component";
-import {NodeRoutesComponent} from "./pages/node/node-routes.component";
+import {NodeSummaryComponent} from "./pages/node/details/node-summary.component";
+import {NodeNetworksComponent} from "./pages/node/details/node-networks.component";
+import {NodeRoutesComponent} from "./pages/node/details/node-routes.component";
 import {NetworkNodeTableComponent} from "./pages/network/nodes/network-node-table.component";
 import {NetworkNodeAnalysisComponent} from "./pages/network/nodes/network-node-analysis.component";
 import {NetworkNodeRoutesComponent} from "./pages/network/nodes/network-node-routes.component";
@@ -115,9 +115,9 @@ import {NodeDiffsComponent} from "./pages/changeset/node-diffs/_node-diffs.compo
 import {NodeDiffsUpdatedComponent} from "./pages/changeset/node-diffs/node-diffs-updated.component";
 import {NodeDiffsAddedComponent} from "./pages/changeset/node-diffs/node-diffs-added.component";
 import {NodeDiffsRemovedComponent} from "./pages/changeset/node-diffs/node-diffs-removed.component";
-import {RouteSummaryComponent} from "./pages/route/route-summary.component";
-import {RouteNodeComponent} from "./pages/route/route-node.component";
-import {RouteStructureComponent} from "./pages/route/route-structure.component";
+import {RouteSummaryComponent} from "./pages/route/details/route-summary.component";
+import {RouteNodeComponent} from "./pages/route/details/route-node.component";
+import {RouteStructureComponent} from "./pages/route/details/route-structure.component";
 import {AnalysisPageComponent} from './pages/analysis/analysis-page.component';
 import {NetworkPageHeaderComponent} from "./pages/network/components/network-page-header.component";
 import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
@@ -131,6 +131,11 @@ import {StatisticConfigurationComponent} from "./pages/overview/statistic-config
 import {OverviewTableComponent} from "./pages/overview/overview-table.component";
 import {OverviewService} from "./pages/overview/overview.service";
 import {OverviewTableCellComponent} from "./pages/overview/overview-table-cell.component";
+import {FactsPageComponent} from "./pages/facts/_facts-page.component";
+import {RouteChangesPageComponent} from "./pages/route/changes/_route-changes-page.component";
+import {RoutePageHeaderComponent} from "./pages/route/components/route-page-header.component";
+import {NodePageHeaderComponent} from "./pages/node/components/node-page-header.component";
+import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.components";
 
 @NgModule({
   imports: [
@@ -147,6 +152,7 @@ import {OverviewTableCellComponent} from "./pages/overview/overview-table-cell.c
     AnalysisBePageComponent,
     AnalysisDePageComponent,
     AnalysisNlPageComponent,
+    FactsPageComponent,
     ChangeSetPageComponent,
     ChangeSetHeaderComponent,
     ChangeSetAnalysisComponent,
@@ -171,6 +177,8 @@ import {OverviewTableCellComponent} from "./pages/overview/overview-table-cell.c
     NodeSummaryComponent,
     NodeNetworksComponent,
     NodeRoutesComponent,
+    NodeChangesPageComponent,
+    NodePageHeaderComponent,
     OverviewPageComponent,
     OverviewTableComponent,
     OverviewTableHeaderComponent,
@@ -179,10 +187,12 @@ import {OverviewTableCellComponent} from "./pages/overview/overview-table-cell.c
     StatisticConfigurationsComponent,
     StatisticConfigurationComponent,
     RoutePageComponent,
+    RoutePageHeaderComponent,
     RouteMembersComponent,
     RouteSummaryComponent,
     RouteNodeComponent,
     RouteStructureComponent,
+    RouteChangesPageComponent,
     SubsetChangesPageComponent,
     SubsetFactDetailsPageComponent,
     SubsetFactsPageComponent,

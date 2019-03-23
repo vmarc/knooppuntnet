@@ -26,6 +26,7 @@ import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
+import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
@@ -40,6 +41,8 @@ trait AnalyzerFacade {
   def subsetNetworks(user: Option[String], subset: Subset): ApiResponse[SubsetNetworksPage]
 
   def subsetFacts(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPage]
+
+  def subsetFactsNew(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPageNew]
 
   def subsetOrphanNodes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage]
 

@@ -14,7 +14,43 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
   template: `
     <kpn-subset-page-header [subset]="subset" pageName="facts"></kpn-subset-page-header>
 
+    <h2>
+      <kpn-fact-name [factName]="factName"></kpn-fact-name>
+    </h2>
+    
+    <p>
+      <kpn-fact-description [factName]="factName"></kpn-fact-description>
+    </p>
+
     <div *ngIf="response">
+      <p>
+        Situation on:
+        <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+      </p>
+      <div *ngIf="!hasFacts()">
+        <i>No facts</i>
+      </div>
+      <div *ngIf="hasFacts()">
+        <p>
+          {{routeCount()}} routes in {{response.result.networks.size}} networks.
+        </p>
+        
+        <kpn-items>
+          <kpn-item *ngFor="let networkFactRefs of response.result.networks; let i=index" index="{{i}}">
+            <a [routerLink]="'/analysis/network-details/' + networkFactRefs.networkId">
+              {{networkFactRefs.networkName}}
+            </a>
+            <br/>
+            {{networkFactRefs.factRefs.size}} routes:
+            <br/>
+            <span *ngFor="let ref of networkFactRefs.factRefs">
+              <a [routerLink]="'/analysis/route/' + ref.id">
+                {{ref.name}}
+              </a>
+            </span>
+          </kpn-item>
+        </kpn-items>
+      </div>
       <json [object]="response"></json>
     </div>
   `
@@ -22,6 +58,7 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
   subset: Subset;
+  factName: String;
   response: ApiResponse<SubsetFactDetailsPage>;
   paramsSubscription: Subscription;
 
@@ -35,6 +72,7 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
     this.pageService.initSubsetPage();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
       this.subset = Util.subsetInRoute(params);
+      this.factName = params["fact"];
       this.pageService.subset = this.subset;
       this.response = null;
       this.appService.subsetFactDetails(this.subset).subscribe(response => {
@@ -47,4 +85,13 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
   }
+
+  hasFacts() {
+    return this.response && this.response.result && this.response.result.networks.size > 0;
+  }
+
+  routeCount(): number {
+    return this.response.result.networks.map(n => n.factRefs.size).reduce((sum, current) => sum + current);
+  }
+
 }

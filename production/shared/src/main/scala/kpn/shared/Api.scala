@@ -13,9 +13,10 @@ import kpn.shared.node.NodePage
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
-import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetChangesPage
+import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
+import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage

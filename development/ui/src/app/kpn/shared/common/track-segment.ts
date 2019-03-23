@@ -2,11 +2,13 @@
 
 import {List} from 'immutable';
 import {TrackPoint} from './track-point';
+import {TrackSegmentFragment} from './track-segment-fragment';
 
 export class TrackSegment {
 
   constructor(readonly surface: string,
-              readonly trackPoints: List<TrackPoint>) {
+              readonly source: TrackPoint,
+              readonly fragments: List<TrackSegmentFragment>) {
   }
 
   public static fromJSON(jsonObject): TrackSegment {
@@ -15,7 +17,8 @@ export class TrackSegment {
     }
     return new TrackSegment(
       jsonObject.surface,
-      jsonObject.trackPoints ? List(jsonObject.trackPoints.map(json => TrackPoint.fromJSON(json))) : List()
+      TrackPoint.fromJSON(jsonObject.source),
+      jsonObject.fragments ? List(jsonObject.fragments.map(json => TrackSegmentFragment.fromJSON(json))) : List()
     );
   }
 }
