@@ -37,6 +37,7 @@ import {DirectionsInstructionComponent} from "./pages/directions/directions-inst
 import {DirectionsSummaryComponent} from "./pages/directions/directions-summary.component";
 import {DirectionsSignComponent} from "./pages/directions/directions-sign.component";
 import {MapTryout1PageComponent} from "./pages/tryout1/_map-tryout-1-page.component";
+import {MapTryout2PageComponent} from "./pages/tryout2/_map-tryout-2-page.component";
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import {MapTryout1PageComponent} from "./pages/tryout1/_map-tryout-1-page.compon
     DirectionsInstructionComponent,
     DirectionsSummaryComponent,
     DirectionsSignComponent,
-    MapTryout1PageComponent
+    MapTryout1PageComponent,
+    MapTryout2PageComponent
   ],
   exports: [
     MapPageComponent
