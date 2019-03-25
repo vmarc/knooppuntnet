@@ -39,7 +39,7 @@ import {PageService} from "../../../../components/shared/page.service";
         </kpn-data>
 
         <kpn-data title="Networks" i18n-title="@@node.networks">
-          <node-networks [networks]="references.networkReferences"></node-networks>
+          <node-networks [networkReferences]="references.networkReferences"></node-networks>
         </kpn-data>
 
         <kpn-data title="Routes" i18n-title="@@node.routes">

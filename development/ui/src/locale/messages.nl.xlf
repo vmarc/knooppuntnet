@@ -3118,7 +3118,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan" datatype="html">
@@ -3130,7 +3130,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.ignored" datatype="html">
@@ -3142,7 +3142,79 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rwn" datatype="html">
+        <source>Hiking</source>
+        <target>Wandelen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rcn" datatype="html">
+        <source>Cycling</source>
+        <target>Fietsen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rhn" datatype="html">
+        <source>Horse</source>
+        <target>Ruiter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rmn" datatype="html">
+        <source>Motorboat</source>
+        <target>Motorboot</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rpn" datatype="html">
+        <source>Canoe</source>
+        <target>Kano</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rin" datatype="html">
+        <source>Inline Skating</source>
+        <target>Inline Skating</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.nl" datatype="html">
+        <source>The Netherlands</source>
+        <target>Nederland</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.be" datatype="html">
+        <source>Belgium</source>
+        <target>België</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.de" datatype="html">
+        <source>Germany</source>
+        <target>Duitsland</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
     </body>

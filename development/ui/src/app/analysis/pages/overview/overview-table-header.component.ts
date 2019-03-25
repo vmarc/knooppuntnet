@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Subsets} from "../../../kpn/shared/common/subsets";
+import {Subsets} from "../../../kpn/common/subsets";
 
 @Component({
   selector: 'kpn-overview-table-header',
@@ -7,9 +7,9 @@ import {Subsets} from "../../../kpn/shared/common/subsets";
     <tr>
       <th rowspan="2">Detail</th>
       <th rowspan="2">Total</th> <!-- Totaal -->
-      <th colspan="6">The Netherlands</th> <!-- Nederland -->
-      <th colspan="2">Belgium</th> <!-- België -->
-      <th colspan="1">Germany</th> <!-- Duitsland -->
+      <th colspan="6" i18n="@@country.nl">The Netherlands</th>
+      <th colspan="2" i18n="@@country.be">Belgium</th>
+      <th colspan="1" i18n="@@country.de">Germany</th>
       <th rowspan="2">Comment</th> <!-- Commentaar -->
     </tr>
     <tr>

@@ -4,12 +4,12 @@ import {NetworkType} from "../../kpn/shared/network-type";
 @Component({
   selector: 'kpn-network-type-name',
   template: `
-    <ng-container *ngIf="networkType.name == 'rwn'">Hiking <!-- Wandelen --></ng-container>
-    <ng-container *ngIf="networkType.name == 'rcn'">Cycling <!-- Fietsen --></ng-container>
-    <ng-container *ngIf="networkType.name == 'rhn'">Horse <!-- Ruiter --></ng-container>
-    <ng-container *ngIf="networkType.name == 'rmn'">Motorboat <!-- Motorboot --></ng-container>
-    <ng-container *ngIf="networkType.name == 'rpn'">Canoe <!-- Kano --></ng-container>
-    <ng-container *ngIf="networkType.name == 'rin'">Inline Skating</ng-container>
+    <ng-container *ngIf="networkType.name == 'rwn'" i18n="@@network-type.rwn">Hiking</ng-container>
+    <ng-container *ngIf="networkType.name == 'rcn'" i18n="@@network-type.rcn">Cycling</ng-container>
+    <ng-container *ngIf="networkType.name == 'rhn'" i18n="@@network-type.rhn">Horse</ng-container>
+    <ng-container *ngIf="networkType.name == 'rmn'" i18n="@@network-type.rmn">Motorboat</ng-container>
+    <ng-container *ngIf="networkType.name == 'rpn'" i18n="@@network-type.rpn">Canoe</ng-container>
+    <ng-container *ngIf="networkType.name == 'rin'" i18n="@@network-type.rin">Inline Skating</ng-container>
   `
 })
 export class NetworkTypeNameComponent {

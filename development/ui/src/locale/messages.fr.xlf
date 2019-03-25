@@ -3226,7 +3226,6 @@
       <trans-unit id="node.inactive" datatype="html">
         <source>
         This network node is not active anymore.
-        
       </source>
         <target state="new">?
         This network node is not active anymore.
@@ -3234,13 +3233,12 @@
       ?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan" datatype="html">
         <source>
         This network node does not belong to a known node network (orphan).
-        
       </source>
         <target state="new">?
         This network node does not belong to a known node network (orphan).
@@ -3248,13 +3246,12 @@
       ?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.ignored" datatype="html">
         <source>
         This network node is not included in the analysis.
-        
       </source>
         <target state="new">?
         This network node is not included in the analysis.
@@ -3262,7 +3259,79 @@
       ?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rwn" datatype="html">
+        <source>Hiking</source>
+        <target state="new">?Hiking ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rcn" datatype="html">
+        <source>Cycling</source>
+        <target state="new">?Cycling ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rhn" datatype="html">
+        <source>Horse</source>
+        <target state="new">?Horse ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rmn" datatype="html">
+        <source>Motorboat</source>
+        <target state="new">?Motorboat ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rpn" datatype="html">
+        <source>Canoe</source>
+        <target state="new">?Canoe ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.rin" datatype="html">
+        <source>Inline Skating</source>
+        <target state="new">?Inline Skating?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.nl" datatype="html">
+        <source>The Netherlands</source>
+        <target state="new">?The Netherlands?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.be" datatype="html">
+        <source>Belgium</source>
+        <target state="new">?Belgium?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.de" datatype="html">
+        <source>Germany</source>
+        <target state="new">?Germany?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
     </body>
