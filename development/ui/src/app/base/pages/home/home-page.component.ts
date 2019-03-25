@@ -25,6 +25,10 @@ import {PageService} from "../../../components/shared/page.service";
       <div>
         <a routerLink="/map/directions/example-1">example 1</a>
       </div>
+      <h2>Test map features</h2>
+      <div>
+        <a routerLink="/map/tryout1">Openlayers measure</a>
+      </div>
     </div>
   `,
   styles: [`
