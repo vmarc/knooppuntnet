@@ -41,24 +41,11 @@ export class Crosshair {
     const y = coordinate[1];
     const r = this.circleRadius;
 
-    const x11 = x - r - r;
-    const x12 = x - r;
-    this.cross1a.setCoordinates([[x11, y], [x12, y]]);
-
-    const x21 = x + r;
-    const x22 = x + r + r;
-    this.cross1b.setCoordinates([[x21, y], [x22, y]]);
-
-    const y31 = y - r - r;
-    const y32 = y - r;
-    this.cross2a.setCoordinates([[x, y31], [x, y32]]);
-
-    const y41 = y + r;
-    const y42 = y + r + r;
-    this.cross2b.setCoordinates([[x, y41], [x, y42]]);
-
+    this.cross1a.setCoordinates([[x - r - r, y], [x - r, y]]);
+    this.cross1b.setCoordinates([[x + r, y], [x + r + r, y]]);
+    this.cross2a.setCoordinates([[x, y - r - r], [x, y - r]]);
+    this.cross2b.setCoordinates([[x, y + r], [x, y + r + r]]);
     this.circle.setCenter(coordinate);
-
   }
 
   private toFeature(geometry: Geometry): Feature {
