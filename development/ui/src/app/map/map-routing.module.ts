@@ -4,8 +4,13 @@ import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {MapPageComponent} from "./pages/map/_map-page.component";
 import {MapMainPageComponent} from "./pages/map/map-main-page.component";
 import {DirectionsPageComponent} from "./pages/directions/_directions-page.component";
+import {MapTryout1PageComponent} from "./pages/tryout1/_map-tryout-1-page.component";
 
 const routes: Routes = [
+  {
+    path: 'tryout1',
+    component: MapTryout1PageComponent
+  },
   {
     path: '',
     component: MapSidebarComponent,
