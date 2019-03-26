@@ -114,6 +114,7 @@ export class PlannerRouteLayer {
   private addNodeFlag(id: string, coordinate: Coordinate, style: Style) {
     const feature = new Feature(new Point(coordinate));
     feature.setId(id);
+    feature.set("layer", "leg-node");
     feature.setStyle(style);
     this.source.addFeature(feature);
   }
@@ -138,6 +139,7 @@ export class PlannerRouteLayer {
   public addRouteLeg(/*routeLegId, start, end,*/ coordinates: List<Coordinate>) {
     const feature = new Feature(new LineString(coordinates.toArray()));
     feature.setStyle(this.legStyle);
+    feature.set("layer", "leg");
     this.source.addFeature(feature);
     // - routeLegId niet nodig indien we direct aan het Feature object zelf kunnen geraken op het moment dat we het nodig hebben voor bijvoorbeeld remove
     //   (we kunnen routeLeg niet veilig identificeren aan de hand van de start en end nodes)

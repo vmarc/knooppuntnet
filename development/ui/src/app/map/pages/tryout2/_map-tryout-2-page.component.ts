@@ -14,6 +14,8 @@ import {OSM} from 'ol/source';
 import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import {TestRouteData} from "./test-route-data";
+import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
+import {NetworkTypes} from "../../../kpn/common/network-types";
 
 @Component({
   selector: 'kpn-map-tryout-2-page',
@@ -41,7 +43,8 @@ export class MapTryout2PageComponent {
       layers: [
         new TileLayer({
           source: new OSM()
-        })
+        }),
+        NetworkVectorTileLayer.build(NetworkTypes.rwn)
       ],
       target: "map-trout-2"
     });
@@ -72,6 +75,34 @@ export class MapTryout2PageComponent {
     const interaction = new PointerInteraction({
       handleDownEvent: (evt: MapBrowserEvent) => {
         this.updatePosition(evt.coordinate);
+        return true;
+      },
+      handleMoveEvent: evt => {
+
+        evt.map.forEachFeatureAtPixel(evt.pixel, feature => {
+          if (feature) {
+
+            const layer = feature.get("layer");
+            if(layer) {
+              if (layer == "leg") {
+                console.log("feature leg");
+              }
+              else if (layer == "leg-node") {
+                console.log("feature leg-node " + feature.getId());
+              }
+              else if (layer.endsWith("route")) {
+                console.log("feature route " + feature.get("id"));
+              } else if (layer.endsWith("node")) {
+                console.log("feature node " + feature.get("name"));
+              } else {
+                console.log("other feature, layer = " + layer);
+              }
+            } else {
+              console.log("other feature ");
+            }
+          }
+        });
+
         return true;
       },
       handleDragEvent: evt => {
