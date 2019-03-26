@@ -7,13 +7,13 @@ import {fromLonLat} from 'ol/proj';
 import {createXYZ} from 'ol/tilegrid';
 import {click, pointerMove} from 'ol/events/condition';
 import MapBrowserEvent from 'ol/events'
-import {Circle as CircleStyle, Fill, Icon, Stroke, Style} from 'ol/style';
-import Feature from 'ol/Feature';
+import {Fill, Icon, Stroke, Style} from 'ol/style';
 import PointerInteraction from 'ol/interaction/Pointer';
-import {LineString, Point} from 'ol/geom.js';
-import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-import {OSM, Vector as VectorSource} from 'ol/source';
-import {Crosshair} from "./crosshair";
+import {Tile as TileLayer} from 'ol/layer';
+import {OSM} from 'ol/source';
+import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
+import {PlannerRouteLayer} from "./planner-route-layer";
+import {TestRouteData} from "./test-route-data";
 
 @Component({
   selector: 'kpn-map-tryout-2-page',
@@ -32,59 +32,37 @@ import {Crosshair} from "./crosshair";
 })
 export class MapTryout2PageComponent {
 
-  crosshair = new Crosshair();
-
-  coordinates1 = fromLonLat([4.4484, 51.4627]); // Hemelrijk
-  coordinates2 = fromLonLat([4.4835, 51.4748]); // Steenpaal
-
-  point1 = new Feature(new Point(this.coordinates1));
-  point2 = new Feature(new Point(this.coordinates2));
-
-  line1 = new LineString([this.coordinates1, this.coordinates2]);
-  line2 = new LineString([this.coordinates2, this.coordinates1]);
+  crosshairLayer = new PlannerCrosshairLayer();
+  routeLayer = new PlannerRouteLayer();
 
   ngAfterViewInit(): void {
 
-    const raster = new TileLayer({
-      source: new OSM()
-    });
-
-    const ff: Array<Feature> = [
-      this.point1,
-      this.point2,
-      new Feature(this.line1),
-      new Feature(this.line2)
-    ];
-    const fff = ff.concat(this.crosshair.getFeatures());
-
-    const source = new VectorSource({
-      features: fff
-    });
-
-    const vector = new VectorLayer({
-      source: source,
-      style: new Style({
-        fill: new Fill({
-          color: "rgba(255, 255, 255, 0.2)"
-        }),
-        stroke: new Stroke({
-          color: "rgba(0, 0, 255, 0.7)",
-          lineDash: [10, 10],
-          width: 2
-        }),
-        image: new CircleStyle({
-          radius: 7,
-          fill: new Fill({
-            color: "#ff00ff"
-          })
-        })
-      })
-    });
-
     const map = new Map({
-      layers: [raster, vector],
+      layers: [
+        new TileLayer({
+          source: new OSM()
+        })
+      ],
       target: "map-trout-2"
     });
+
+    this.crosshairLayer.addToMap(map);
+
+    const testRouteData = new TestRouteData();
+
+    this.routeLayer.addStartNodeFlag("32", testRouteData.aCoordinates.get(0));
+    this.routeLayer.addViaNodeFlag("93", testRouteData.cCoordinates.get(0));
+    this.routeLayer.addViaNodeFlag("11", testRouteData.eCoordinates.get(0));
+    this.routeLayer.addEndNodeFlag("35", testRouteData.gCoordinates.get(testRouteData.gCoordinates.size - 1));
+    this.routeLayer.addRouteLeg(testRouteData.aCoordinates);
+    this.routeLayer.addRouteLeg(testRouteData.bCoordinates);
+    this.routeLayer.addRouteLeg(testRouteData.cCoordinates);
+    this.routeLayer.addRouteLeg(testRouteData.dCoordinates);
+    this.routeLayer.addRouteLeg(testRouteData.eCoordinates);
+    this.routeLayer.addRouteLeg(testRouteData.fCoordinates);
+    this.routeLayer.addRouteLeg(testRouteData.gCoordinates);
+
+    this.routeLayer.addToMap(map);
 
     const a: Coordinate = fromLonLat([4.43, 51.45]);
     const b: Coordinate = fromLonLat([4.52, 51.47]);
@@ -110,9 +88,8 @@ export class MapTryout2PageComponent {
   }
 
   private updatePosition(coordinate: Coordinate) {
-    this.line1.setCoordinates([this.coordinates1, coordinate]);
-    this.line2.setCoordinates([this.coordinates2, coordinate]);
-    this.crosshair.updatePosition(coordinate);
+    this.crosshairLayer.updatePosition(coordinate);
+    this.routeLayer.updateDoubleElasticBandPosition(coordinate);
   }
 
 }

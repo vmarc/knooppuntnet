@@ -14,8 +14,8 @@ export class Crosshair {
 
   private crossStyle = new Style({
     stroke: new Stroke({
-      color: "rgba(255, 0, 0, 0.7)",
-      width: 3
+      color: "rgba(0, 0, 0, 0.7)",
+      width: 1
     })
   });
 
@@ -41,10 +41,10 @@ export class Crosshair {
     const y = coordinate[1];
     const r = this.circleRadius;
 
-    this.cross1a.setCoordinates([[x - r - r, y], [x - r, y]]);
-    this.cross1b.setCoordinates([[x + r, y], [x + r + r, y]]);
-    this.cross2a.setCoordinates([[x, y - r - r], [x, y - r]]);
-    this.cross2b.setCoordinates([[x, y + r], [x, y + r + r]]);
+    this.cross1a.setCoordinates([[x - 10000, y], [x - r, y]]);
+    this.cross1b.setCoordinates([[x + r, y], [x + 10000, y]]);
+    this.cross2a.setCoordinates([[x, y - 10000], [x, y - r]]);
+    this.cross2b.setCoordinates([[x, y + r], [x, y + 10000]]);
     this.circle.setCenter(coordinate);
   }
 
