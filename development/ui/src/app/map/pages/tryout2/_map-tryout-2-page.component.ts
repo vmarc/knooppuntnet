@@ -6,9 +6,7 @@ import Extent from 'ol/View';
 import {fromLonLat} from 'ol/proj';
 import {createXYZ} from 'ol/tilegrid';
 import {click, pointerMove} from 'ol/events/condition';
-import MapBrowserEvent from 'ol/events'
 import {Fill, Icon, Stroke, Style} from 'ol/style';
-import PointerInteraction from 'ol/interaction/Pointer';
 import {Tile as TileLayer} from 'ol/layer';
 import {OSM} from 'ol/source';
 import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
@@ -16,6 +14,7 @@ import {PlannerRouteLayer} from "./planner-route-layer";
 import {TestRouteData} from "./test-route-data";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {NetworkTypes} from "../../../kpn/common/network-types";
+import {PlannerInteraction} from "./planner-interaction";
 
 @Component({
   selector: 'kpn-map-tryout-2-page',
@@ -36,6 +35,7 @@ export class MapTryout2PageComponent {
 
   crosshairLayer = new PlannerCrosshairLayer();
   routeLayer = new PlannerRouteLayer();
+  interaction = new PlannerInteraction(this.crosshairLayer, this.routeLayer);
 
   ngAfterViewInit(): void {
 
@@ -72,55 +72,8 @@ export class MapTryout2PageComponent {
     const extent: Extent = [a[0], a[1], b[0], b[1]];
     map.getView().fit(extent);
 
-    const interaction = new PointerInteraction({
-      handleDownEvent: (evt: MapBrowserEvent) => {
-        this.updatePosition(evt.coordinate);
-        return true;
-      },
-      handleMoveEvent: evt => {
+    map.addInteraction(this.interaction.interaction);
 
-        evt.map.forEachFeatureAtPixel(evt.pixel, feature => {
-          if (feature) {
-
-            const layer = feature.get("layer");
-            if(layer) {
-              if (layer == "leg") {
-                console.log("feature leg");
-              }
-              else if (layer == "leg-node") {
-                console.log("feature leg-node " + feature.getId());
-              }
-              else if (layer.endsWith("route")) {
-                console.log("feature route " + feature.get("id"));
-              } else if (layer.endsWith("node")) {
-                console.log("feature node " + feature.get("name"));
-              } else {
-                console.log("other feature, layer = " + layer);
-              }
-            } else {
-              console.log("other feature ");
-            }
-          }
-        });
-
-        return true;
-      },
-      handleDragEvent: evt => {
-        this.updatePosition(evt.coordinate);
-        return true;
-      },
-      handleUpEvent: evt => {
-        return false;
-      }
-    });
-
-    map.addInteraction(interaction);
-
-  }
-
-  private updatePosition(coordinate: Coordinate) {
-    this.crosshairLayer.updatePosition(coordinate);
-    this.routeLayer.updateDoubleElasticBandPosition(coordinate);
   }
 
 }
