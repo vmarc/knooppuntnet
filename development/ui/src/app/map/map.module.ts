@@ -38,6 +38,8 @@ import {DirectionsSummaryComponent} from "./pages/directions/directions-summary.
 import {DirectionsSignComponent} from "./pages/directions/directions-sign.component";
 import {MapTryout1PageComponent} from "./pages/tryout1/_map-tryout-1-page.component";
 import {MapTryout2PageComponent} from "./pages/tryout2/_map-tryout-2-page.component";
+import {PlannerService} from "./planner.service";
+import {PlanComponent} from "./sidebar/plan.component";
 
 @NgModule({
   imports: [
@@ -81,10 +83,14 @@ import {MapTryout2PageComponent} from "./pages/tryout2/_map-tryout-2-page.compon
     DirectionsSummaryComponent,
     DirectionsSignComponent,
     MapTryout1PageComponent,
-    MapTryout2PageComponent
+    MapTryout2PageComponent,
+    PlanComponent
   ],
   exports: [
     MapPageComponent
+  ],
+  providers: [
+    PlannerService
   ]
 })
 export class MapModule {

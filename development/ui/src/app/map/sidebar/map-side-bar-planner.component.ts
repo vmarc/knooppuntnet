@@ -20,6 +20,7 @@ import {Component} from '@angular/core';
         <p>
           bb bbb bbb
         </p>
+        <kpn-plan></kpn-plan>
       </ng-template>
     </mat-expansion-panel>
     <mat-expansion-panel>
