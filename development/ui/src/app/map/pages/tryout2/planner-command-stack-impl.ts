@@ -1,4 +1,3 @@
-import {BehaviorSubject, Observable} from "rxjs";
 import {List} from "immutable";
 import {PlannerCommandStack} from "./planner-command-stack";
 import {PlannerCommand} from "./planner-command";
@@ -28,8 +27,8 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
   private _commandCount: number = 0;
   private commands: List<PlannerCommand> = List();
 
-  private _canUndo = new BehaviorSubject<boolean>(false);
-  private _canRedo = new BehaviorSubject<boolean>(false);
+  private _canUndo = false;
+  private _canRedo = false;
 
   /*
     Number of commands in the command stack, NOT including that commands
@@ -84,20 +83,12 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
     return null;
   }
 
-  public get canUndo(): Observable<boolean> {
+  public get canUndo(): boolean {
     return this._canUndo;
   }
 
-  public get canRedo(): Observable<boolean> {
+  public get canRedo(): boolean {
     return this._canRedo;
-  }
-
-  public get currentCanUndo(): boolean {
-    return this._canUndo.value;
-  }
-
-  public get currentCanRedo(): boolean {
-    return this._canRedo.value;
   }
 
   private updateCanUndoRedo() {
@@ -106,16 +97,10 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
   }
 
   private updateCanUndo() {
-    const newValue = this.commandCount > 0;
-    if (this._canUndo.value !== newValue) {
-      this._canUndo.next(newValue);
-    }
+    this._canUndo = this.commandCount > 0;
   }
 
   private updateCanRedo() {
-    const newValue = this.commands.size > this.commandCount;
-    if (this._canRedo.value !== newValue) {
-      this._canRedo.next(newValue);
-    }
+    this._canRedo = this.commands.size > this.commandCount;
   }
 }

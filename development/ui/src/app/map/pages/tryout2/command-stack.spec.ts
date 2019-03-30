@@ -18,20 +18,16 @@ class TestCommand implements PlannerCommand {
 describe("PlannerCommandStack", () => {
 
   let stack: PlannerCommandStack;
-  let canUndo: boolean;
-  let canRedo: boolean;
 
   beforeEach(() => {
     stack = new PlannerCommandStackImpl();
-    stack.canUndo.subscribe(newValue => canUndo = newValue);
-    stack.canRedo.subscribe(newValue => canRedo = newValue);
   });
 
   it("empty stack", () => {
     expect(stack.commandCount).toEqual(0);
     expect(stack.size).toEqual(0);
-    expect(canUndo).toEqual(false);
-    expect(canRedo).toEqual(false);
+    expect(stack.canUndo).toEqual(false);
+    expect(stack.canRedo).toEqual(false);
     expect(stack.undo()).toEqual(null);
     expect(stack.redo()).toEqual(null);
   });
@@ -43,14 +39,14 @@ describe("PlannerCommandStack", () => {
     stack.push(command);
     expect(stack.commandCount).toEqual(1);
     expect(stack.size).toEqual(1);
-    expect(canUndo).toEqual(true);
-    expect(canRedo).toEqual(false);
+    expect(stack.canUndo).toEqual(true);
+    expect(stack.canRedo).toEqual(false);
 
     expect(stack.undo()).toEqual(command);
     expect(stack.commandCount).toEqual(0);
     expect(stack.size).toEqual(1);
-    expect(canUndo).toEqual(false);
-    expect(canRedo).toEqual(true);
+    expect(stack.canUndo).toEqual(false);
+    expect(stack.canRedo).toEqual(true);
   });
 
   it("undo/redo", () => {
@@ -63,20 +59,20 @@ describe("PlannerCommandStack", () => {
 
     expect(stack.commandCount).toEqual(2);
     expect(stack.size).toEqual(2);
-    expect(canUndo).toEqual(true);
-    expect(canRedo).toEqual(false);
+    expect(stack.canUndo).toEqual(true);
+    expect(stack.canRedo).toEqual(false);
 
     expect(stack.undo()).toEqual(command2);
     expect(stack.commandCount).toEqual(1);
     expect(stack.size).toEqual(2);
-    expect(canUndo).toEqual(true);
-    expect(canRedo).toEqual(true);
+    expect(stack.canUndo).toEqual(true);
+    expect(stack.canRedo).toEqual(true);
 
     expect(stack.redo()).toEqual(command2);
     expect(stack.commandCount).toEqual(2);
     expect(stack.size).toEqual(2);
-    expect(canUndo).toEqual(true);
-    expect(canRedo).toEqual(false);
+    expect(stack.canUndo).toEqual(true);
+    expect(stack.canRedo).toEqual(false);
 
   });
 
@@ -94,8 +90,8 @@ describe("PlannerCommandStack", () => {
 
     expect(stack.commandCount).toEqual(2);
     expect(stack.size).toEqual(2);
-    expect(canUndo).toEqual(true);
-    expect(canRedo).toEqual(false);
+    expect(stack.canUndo).toEqual(true);
+    expect(stack.canRedo).toEqual(false);
 
     expect(stack.undo()).toEqual(command3);
     expect(stack.undo()).toEqual(command1);

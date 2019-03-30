@@ -1,4 +1,3 @@
-import {Observable} from "rxjs";
 import {PlannerCommand} from "./planner-command";
 
 export interface PlannerCommandStack {
@@ -13,11 +12,8 @@ export interface PlannerCommandStack {
 
   redo(): PlannerCommand;
 
-  canUndo: Observable<boolean>;
+  canUndo: boolean;
 
-  canRedo: Observable<boolean>;
-
-  currentCanUndo: boolean;
-  currentCanRedo: boolean;
+  canRedo: boolean;
 
 }
