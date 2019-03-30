@@ -88,15 +88,15 @@ export class PlannerRouteLayer {
   }
 
   public addStartNodeFlag(nodeId: string, coordinate: Coordinate): Feature {
-    return this.addNodeFlag(this.startNodeKey(nodeId), coordinate, this.startFlagStyle);
+    return this.addNodeFlag(this.startNodeKey(nodeId), nodeId, coordinate, this.startFlagStyle);
   }
 
   public addEndNodeFlag(nodeId: string, coordinate: Coordinate): Feature {
-    return this.addNodeFlag(this.endNodeKey(nodeId), coordinate, this.endFlagStyle);
+    return this.addNodeFlag(this.endNodeKey(nodeId), nodeId, coordinate, this.endFlagStyle);
   }
 
   public addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): Feature {
-    return this.addNodeFlag(this.viaNodeKey(legId, nodeId), coordinate, this.viaFlagStyle);
+    return this.addNodeFlag(this.viaNodeKey(legId, nodeId), nodeId, coordinate, this.viaFlagStyle);
   }
 
   public removeStartNodeFlag(nodeId: string) {
@@ -111,10 +111,11 @@ export class PlannerRouteLayer {
     this.removeNodeFlag(this.viaNodeKey(legId, nodeId));
   }
 
-  private addNodeFlag(id: string, coordinate: Coordinate, style: Style): Feature {
+  private addNodeFlag(id: string, nodeId: string, coordinate: Coordinate, style: Style): Feature {
     const feature = new Feature(new Point(coordinate));
     feature.setId(id);
     feature.set("layer", "leg-node");
+    feature.set("nodeId", nodeId);
     feature.setStyle(style);
     this.source.addFeature(feature);
     return feature;
@@ -152,24 +153,27 @@ export class PlannerRouteLayer {
     }
   }
 
-  public showDoubleElasticBand(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate) {
+  showDoubleElasticBand(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate) {
+    this.coordinates1 = anchor1;
+    this.coordinates2 = anchor2;
+    this.updateDoubleElasticBandPosition(coordinate);
   }
 
-  public hideDoubleElasticBand() {
+  hideDoubleElasticBand() {
   }
 
-  public updateDoubleElasticBandPosition(coordinate: Coordinate) {
+  updateDoubleElasticBandPosition(coordinate: Coordinate) {
     this.line1.setCoordinates([this.coordinates1, coordinate]);
     this.line2.setCoordinates([this.coordinates2, coordinate]);
   }
 
-  public showSingleElasticBand(anchor: Coordinate, coordinate: Coordinate) {
+  showSingleElasticBand(anchor: Coordinate, coordinate: Coordinate) {
   }
 
-  public updateSingleElasticBandPosition(coordinate: Coordinate) {
+  updateSingleElasticBandPosition(coordinate: Coordinate) {
   }
 
-  public hideSingleElasticBand() {
+  hideSingleElasticBand() {
   }
 
 }

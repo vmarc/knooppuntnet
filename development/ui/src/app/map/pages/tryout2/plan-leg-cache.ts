@@ -13,4 +13,8 @@ export class PlanLegCache {
     return this.legs.find(leg => leg.source.nodeId === sourceNodeId && leg.sink.nodeId === sinkNodeId);
   }
 
+  getById(legId: string): PlanLeg {
+    return this.legs.find(leg => leg.legId === legId);
+  }
+
 }

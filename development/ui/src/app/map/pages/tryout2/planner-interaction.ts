@@ -1,105 +1,153 @@
-import {fromLonLat} from 'ol/proj';
-import {createXYZ} from 'ol/tilegrid';
-import {click, pointerMove} from 'ol/events/condition';
+import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/events'
-import {Fill, Icon, Stroke, Style} from 'ol/style';
 import PointerInteraction from 'ol/interaction/Pointer';
-import {OSM} from 'ol/source';
 import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import {PlannerEngine} from "./planner-engine";
+import {PlannerContext} from "./planner-context";
 
 export class PlannerInteraction {
 
-  constructor(private crosshairLayer: PlannerCrosshairLayer,
-              private routeLayer: PlannerRouteLayer,
+  viewPort: HTMLElement;
+
+  constructor(private context: PlannerContext,
               private engine: PlannerEngine) {
   }
 
-  public interaction = new PointerInteraction({
+  private interaction = new PointerInteraction({
     handleDownEvent: (evt: MapBrowserEvent) => {
 
       const tolerance = 20;
       const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
       if (features !== null) {
-        const networkNode: Feature = this.getClosestNetworkNode(features);
+        const legNode = this.findDraggableLegNode(features);
+        if (legNode !== null) {
+          console.log("DEBUG moving over leg node " + legNode.getId());
+          const nodeId = legNode.get("nodeId");
+          if (this.engine.legNodeDragStarted(legNode.getId(), nodeId, evt.coordinate)) {
+            return true;
+          }
+        }
+
+        const networkNode: Feature = this.findNetworkNode(features);
         if (networkNode !== null) {
           const nodeId = networkNode.get("id");
           const nodeName = networkNode.get("name");
           const point: Point = networkNode.getGeometry() as Point;
           this.engine.nodeSelected(nodeId, nodeName, point.getCoordinates());
-          this.crosshairLayer.updatePosition(point.getCoordinates());
+          this.context.crosshairLayer.updatePosition(point.getCoordinates());
+        } else {
+          const leg = this.findLeg(features);
+          if (leg !== null) {
+            if (this.engine.legDragStarted(leg.getId(), evt.coordinate)) {
+              return true;
+            }
+          }
+          this.context.crosshairLayer.updatePosition(evt.coordinate);
         }
-        else {
-          this.crosshairLayer.updatePosition(evt.coordinate);
-        }
-      }
-      else {
-        this.crosshairLayer.updatePosition(evt.coordinate);
+      } else {
+        this.context.crosshairLayer.updatePosition(evt.coordinate);
       }
 
-      // this.crosshairLayer.updatePosition(evt.coordinate);
-      // this.routeLayer.updateDoubleElasticBandPosition(evt.coordinate);
       return false;
     },
-    handleMoveEvent: evt => {
+    handleMoveEvent: (evt: MapBrowserEvent) => {
       const tolerance = 20;
       const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
       if (features !== null) {
-        const legNode: Feature = this.getClosestNetworkNode(features);
+        const legNode = this.findDraggableLegNode(features);
         if (legNode !== null) {
-          const point: Point = legNode.getGeometry() as Point;
-          this.crosshairLayer.updatePosition(point.getCoordinates());
+          console.log("DEBUG moving over leg node " + legNode.getId());
+          this.context.crosshairLayer.setVisible(false);
+          this.viewPort.style.cursor = "move";
         }
         else {
-          this.crosshairLayer.updatePosition(evt.coordinate);
+          const networkNode: Feature = this.findNetworkNode(features);
+          if (networkNode !== null) {
+            const point: Point = networkNode.getGeometry() as Point;
+            this.context.crosshairLayer.setVisible(true);
+            this.viewPort.style.cursor = "default";
+            this.context.crosshairLayer.updatePosition(point.getCoordinates());
+          } else {
+            const leg = this.findLeg(features);
+            if (leg !== null) {
+              console.log("DEBUG moving over leg " + leg.getId());
+              this.context.crosshairLayer.setVisible(false);
+              this.viewPort.style.cursor = "move";
+            } else {
+              this.context.crosshairLayer.setVisible(true);
+              this.viewPort.style.cursor = "default";
+              this.context.crosshairLayer.updatePosition(evt.coordinate);
+            }
+          }
         }
+      } else {
+        this.context.crosshairLayer.setVisible(true);
+        this.viewPort.style.cursor = "default";
+        this.context.crosshairLayer.updatePosition(evt.coordinate);
       }
-      else {
-        this.crosshairLayer.updatePosition(evt.coordinate);
-      }
-
-      // evt.map.forEachFeatureAtPixel(evt.pixel, feature => {
-      //   if (feature) {
-      //
-      //     const layer = feature.get("layer");
-      //     if (layer) {
-      //       if (layer == "leg") {
-      //         console.log("feature leg");
-      //       } else if (layer == "leg-node") {
-      //         console.log("feature leg-node " + feature.getId());
-      //       } else if (layer.endsWith("route")) {
-      //         console.log("feature route " + feature.get("id"));
-      //       } else if (layer.endsWith("node")) {
-      //         console.log("feature node " + feature.get("name"));
-      //       } else {
-      //         console.log("other feature, layer = " + layer);
-      //       }
-      //     } else {
-      //       console.log("other feature ");
-      //     }
-      //   }
-      // });
 
       return true;
     },
-    handleDragEvent: evt => {
-      this.crosshairLayer.updatePosition(evt.coordinate);
-      this.routeLayer.updateDoubleElasticBandPosition(evt.coordinate);
+    handleDragEvent: (evt: MapBrowserEvent) => {
+      this.context.routeLayer.updateDoubleElasticBandPosition(evt.coordinate);
       return true;
     },
-    handleUpEvent: evt => {
+    handleUpEvent: (evt: MapBrowserEvent) => {
       return false;
     }
   });
 
-  private getClosestNetworkNode(features: Array<Feature>): Feature {
+  addToMap(map: Map) {
+    map.addInteraction(this.interaction);
+    this.viewPort = map.getViewport();
+    map.getViewport().addEventListener("mouseout", (e) => this.handleMouseOut(e));
+    map.getViewport().addEventListener("mouseenter", (e) => this.handleMouseEnter(e));
+  }
+
+  private handleMouseOut(event: MouseEvent) {
+    this.context.crosshairLayer.setVisible(false);
+  }
+
+  private handleMouseEnter(event: MouseEvent) {
+    this.context.crosshairLayer.setVisible(true);
+  }
+
+  private findNetworkNode(features: Array<Feature>): Feature {
     const nodes = features.filter(f => {
       const layer = f.get("layer");
       return layer && layer.endsWith("node") && layer !== "leg-node";
     });
+    if (nodes.length == 0) {
+      return null;
+    }
+    return nodes[0]; // TODO find the closest
+  }
+
+  private findLeg(features: Array<Feature>): Feature {
+    const legs = features.filter(f => {
+      const layer = f.get("layer");
+      return layer == "leg";
+    });
+    if (legs.length == 0) {
+      return null;
+    }
+    return legs[0]; // TODO find the closest
+  }
+
+  private findDraggableLegNode(features: Array<Feature>): Feature {
+
+    if (this.context.plan.legs.isEmpty()) {
+      return null;
+    }
+
+    const nodes = features.filter(f => {
+      const layer = f.get("layer");
+      return layer == "leg-node";
+    });
+
     if (nodes.length == 0) {
       return null;
     }

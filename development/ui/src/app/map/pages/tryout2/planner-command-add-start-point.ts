@@ -16,7 +16,7 @@ export class PlannerCommandAddStartPoint implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
-    const plan = new Plan(null, List());
+    const plan = Plan.empty();
     context.updatePlan(plan);
     context.routeLayer.removeStartNodeFlag(this.node.nodeId);
   }

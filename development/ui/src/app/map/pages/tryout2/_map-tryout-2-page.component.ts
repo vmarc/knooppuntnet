@@ -35,8 +35,7 @@ export class MapTryout2PageComponent {
   }
 
   interaction = new PlannerInteraction(
-    this.plannerService.context.crosshairLayer,
-    this.plannerService.context.routeLayer,
+    this.plannerService.context,
     this.plannerService.engine
   );
 
@@ -54,14 +53,12 @@ export class MapTryout2PageComponent {
 
     this.plannerService.context.crosshairLayer.addToMap(map);
     this.plannerService.context.routeLayer.addToMap(map);
+    this.interaction.addToMap(map);
 
     const a: Coordinate = fromLonLat([4.43, 51.45]);
     const b: Coordinate = fromLonLat([4.52, 51.47]);
     const extent: Extent = [a[0], a[1], b[0], b[1]];
     map.getView().fit(extent);
-
-    map.addInteraction(this.interaction.interaction);
-
   }
 
 }

@@ -16,4 +16,7 @@ export class Plan {
     return this.source;
   }
 
+  static empty(): Plan {
+    return new Plan(null, List());
+  }
 }

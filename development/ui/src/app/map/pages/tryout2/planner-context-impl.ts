@@ -13,7 +13,7 @@ import {PlanLegCache} from "./plan-leg-cache";
 export class PlannerContextImpl implements PlannerContext {
 
   private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
-  private _plan = new BehaviorSubject<Plan>(new Plan(null, List()));
+  private _plan = new BehaviorSubject<Plan>(Plan.empty());
   public readonly legCache: PlanLegCache = new PlanLegCache();
 
   constructor(public commandStack: PlannerCommandStack,

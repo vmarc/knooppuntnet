@@ -9,12 +9,15 @@ import {List} from "immutable";
 import {PlanLegFragment} from "./plan-leg-fragment";
 import {fromLonLat} from 'ol/proj';
 import {PlanLeg} from "./plan-leg";
+import {PlannerNodeDragAnalyzer} from "./planner-node-drag-analyzer";
+import {PlannerNodeDrag} from "./planner-node-drag";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
   private legIdGenerator = 0;
+  private draggingLeg = false;
 
-  // construct layers here???
+  private nodeDrag: PlannerNodeDrag = null;
 
   constructor(private context: PlannerContext, private appService: AppService) {
   }
@@ -68,6 +71,29 @@ export class PlannerEngineImpl implements PlannerEngine {
         });
       }
     }
+  }
+
+  legDragStarted(legId: string, coordinate: Coordinate): boolean {
+    console.log("DEBUG start drag leg " + legId);
+    this.draggingLeg = true;
+    const leg = this.context.legCache.getById(legId);
+    if (leg) {
+      const anchor1 = leg.source.coordinate;
+      const anchor2 = leg.sink.coordinate;
+      this.context.routeLayer.showDoubleElasticBand(anchor1, anchor2, coordinate);
+      return true;
+    }
+    return false;
+  }
+
+  legNodeDragStarted(legNodeId: string, nodeId: string, coordinate: Coordinate): boolean {
+    console.log("DEBUG start drag leg node " + legNodeId);
+    this.nodeDrag = new PlannerNodeDragAnalyzer(this.context.plan).dragStarted(legNodeId, nodeId);
+    if (this.nodeDrag !== null) {
+      this.context.routeLayer.showDoubleElasticBand(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
+      return true;
+    }
+    return false;
   }
 
   public undo(): void {
