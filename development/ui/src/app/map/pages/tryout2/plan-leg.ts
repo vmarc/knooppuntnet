@@ -1,19 +1,13 @@
-import {PlanAbstractMember} from "./plan-abstract-member";
+import {List} from "immutable";
+import {PlanNode} from "./plan-node";
+import {PlanLegFragment} from "./plan-leg-fragment";
 
-export class PlanLeg extends PlanAbstractMember {
-
-  constructor(public id: string,
-              public distance: number,
-              public coordinates: Array<Coordinates>) {
-    super();
+export class PlanLeg {
+  
+  constructor(public readonly legId: string,
+              public readonly source: PlanNode,
+              public readonly sink: PlanNode,
+              public readonly fragments: List<PlanLegFragment>) {
   }
-
-  isLeg(): boolean {
-    return true;
-  }
-
-  toLeg(): PlanLeg {
-    return this;
-  }
-
+  
 }

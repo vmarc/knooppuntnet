@@ -16,4 +16,8 @@ export interface PlannerCommandStack {
   canUndo: Observable<boolean>;
 
   canRedo: Observable<boolean>;
+
+  currentCanUndo: boolean;
+  currentCanRedo: boolean;
+
 }

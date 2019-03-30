@@ -3,6 +3,9 @@ import {PlannerContext} from "./planner-context";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
+  constructor() {
+  }
+
   public do(context: PlannerContext) {
   }
 

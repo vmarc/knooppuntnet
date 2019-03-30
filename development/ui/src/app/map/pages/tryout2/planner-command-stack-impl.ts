@@ -25,18 +25,18 @@ import {PlannerCommand} from "./planner-command";
 */
 export class PlannerCommandStackImpl implements PlannerCommandStack {
 
-  private commandCount_: number = 0;
+  private _commandCount: number = 0;
   private commands: List<PlannerCommand> = List();
 
-  private canUndo_ = new BehaviorSubject<boolean>(false);
-  private canRedo_ = new BehaviorSubject<boolean>(false);
+  private _canUndo = new BehaviorSubject<boolean>(false);
+  private _canRedo = new BehaviorSubject<boolean>(false);
 
   /*
     Number of commands in the command stack, NOT including that commands
     that are available for "redo" operations.
   */
   public get commandCount(): number {
-    return this.commandCount_;
+    return this._commandCount;
   }
 
   /*
@@ -55,7 +55,7 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
       this.commands = this.commands.setSize(this.commandCount);
     }
     this.commands = this.commands.push(command);
-    this.commandCount_++;
+    this._commandCount++;
     this.updateCanUndoRedo();
   }
 
@@ -66,7 +66,7 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
   */
   public undo(): PlannerCommand {
     if (this.commandCount > 0) {
-      this.commandCount_--;
+      this._commandCount--;
       const command = this.commands.get(this.commandCount);
       this.updateCanUndoRedo();
       return command;
@@ -77,7 +77,7 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
   public redo(): PlannerCommand {
     if (this.commandCount < this.commands.size) {
       const command = this.commands.get(this.commandCount);
-      this.commandCount_++;
+      this._commandCount++;
       this.updateCanUndoRedo();
       return command;
     }
@@ -85,11 +85,19 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
   }
 
   public get canUndo(): Observable<boolean> {
-    return this.canUndo_;
+    return this._canUndo;
   }
 
   public get canRedo(): Observable<boolean> {
-    return this.canRedo_;
+    return this._canRedo;
+  }
+
+  public get currentCanUndo(): boolean {
+    return this._canUndo.value;
+  }
+
+  public get currentCanRedo(): boolean {
+    return this._canRedo.value;
   }
 
   private updateCanUndoRedo() {
@@ -99,15 +107,15 @@ export class PlannerCommandStackImpl implements PlannerCommandStack {
 
   private updateCanUndo() {
     const newValue = this.commandCount > 0;
-    if (this.canUndo_.value !== newValue) {
-      this.canUndo_.next(newValue);
+    if (this._canUndo.value !== newValue) {
+      this._canUndo.next(newValue);
     }
   }
 
   private updateCanRedo() {
     const newValue = this.commands.size > this.commandCount;
-    if (this.canRedo_.value !== newValue) {
-      this.canRedo_.next(newValue);
+    if (this._canRedo.value !== newValue) {
+      this._canRedo.next(newValue);
     }
   }
 }

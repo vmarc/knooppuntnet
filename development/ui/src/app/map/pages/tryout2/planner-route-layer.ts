@@ -87,16 +87,16 @@ export class PlannerRouteLayer {
     map.addLayer(this.layer);
   }
 
-  public addStartNodeFlag(nodeId: string, coordinate: Coordinate) {
-    this.addNodeFlag(this.startNodeKey(nodeId), coordinate, this.startFlagStyle);
+  public addStartNodeFlag(nodeId: string, coordinate: Coordinate): Feature {
+    return this.addNodeFlag(this.startNodeKey(nodeId), coordinate, this.startFlagStyle);
   }
 
-  public addEndNodeFlag(nodeId: string, coordinate: Coordinate) {
-    this.addNodeFlag(this.endNodeKey(nodeId), coordinate, this.endFlagStyle);
+  public addEndNodeFlag(nodeId: string, coordinate: Coordinate): Feature {
+    return this.addNodeFlag(this.endNodeKey(nodeId), coordinate, this.endFlagStyle);
   }
 
-  public addViaNodeFlag(nodeId: string, coordinate: Coordinate) {
-    this.addNodeFlag(this.viaNodeKey(nodeId), coordinate, this.viaFlagStyle);
+  public addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): Feature {
+    return this.addNodeFlag(this.viaNodeKey(legId, nodeId), coordinate, this.viaFlagStyle);
   }
 
   public removeStartNodeFlag(nodeId: string) {
@@ -107,16 +107,17 @@ export class PlannerRouteLayer {
     this.removeNodeFlag(this.endNodeKey(nodeId));
   }
 
-  public removeViaNodeFlag(nodeId: string) {
-    this.removeNodeFlag(this.viaNodeKey(nodeId));
+  public removeViaNodeFlag(legId: string, nodeId: string) {
+    this.removeNodeFlag(this.viaNodeKey(legId, nodeId));
   }
 
-  private addNodeFlag(id: string, coordinate: Coordinate, style: Style) {
+  private addNodeFlag(id: string, coordinate: Coordinate, style: Style): Feature {
     const feature = new Feature(new Point(coordinate));
     feature.setId(id);
     feature.set("layer", "leg-node");
     feature.setStyle(style);
     this.source.addFeature(feature);
+    return feature;
   }
 
   private removeNodeFlag(id: string) {
@@ -132,23 +133,23 @@ export class PlannerRouteLayer {
     return "end-node-flag-" + nodeId;
   }
 
-  private viaNodeKey(nodeId: string) {
-    return "via-node-flag-" + nodeId;
+  private viaNodeKey(legId: string, nodeId: string) {
+    return "leg-" + legId + "-via-node-" + nodeId;
   }
 
-  public addRouteLeg(/*routeLegId, start, end,*/ coordinates: List<Coordinate>) {
+  public addRouteLeg(legId: string, coordinates: List<Coordinate>) {
     const feature = new Feature(new LineString(coordinates.toArray()));
-    feature.setStyle(this.legStyle);
+    feature.setId(legId);
     feature.set("layer", "leg");
+    feature.setStyle(this.legStyle);
     this.source.addFeature(feature);
-    // - routeLegId niet nodig indien we direct aan het Feature object zelf kunnen geraken op het moment dat we het nodig hebben voor bijvoorbeeld remove
-    //   (we kunnen routeLeg niet veilig identificeren aan de hand van de start en end nodes)
-    // - add Feature for route leg
-    // - begin and end coordinates for double band drag as feature attribute
-    // - unique id for remove and for drag start
   }
 
-  public removeRouteLeg(routeLegId) {
+  public removeRouteLeg(legId: string) {
+    const feature = this.source.getFeatureById(legId);
+    if (feature) {
+      this.source.removeFeature(feature);
+    }
   }
 
   public showDoubleElasticBand(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate) {

@@ -16,4 +16,5 @@ object JsonFormatsDirections extends DefaultJsonProtocol {
   implicit val graphHopperDirectionsInstructionFormat: RootJsonFormat[GraphHopperDirectionsInstruction] = jsonFormat8(GraphHopperDirectionsInstruction)
   implicit val graphHopperDirectionsPathFormat: RootJsonFormat[GraphHopperDirectionsPath] = jsonFormat4(GraphHopperDirectionsPath)
   implicit val graphHopperDirectionsFormat: RootJsonFormat[GraphHopperDirections] = jsonFormat1(GraphHopperDirections)
+
 }

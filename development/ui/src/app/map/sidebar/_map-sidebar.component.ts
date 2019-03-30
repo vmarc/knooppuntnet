@@ -59,7 +59,7 @@ export class MapSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mapService.poiClicked.subscribe(poiId => {
+    this.mapService.poiClickedObserver.subscribe(poiId => {
       this.pageMode = "poi";
     });
   }

@@ -6,25 +6,49 @@ import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
 import {Plan} from "./plan";
 import {PlannerCommandStack} from "./planner-command-stack";
 import {List} from "immutable";
+import {PlanLegFragment} from "./plan-leg-fragment";
+import {PlanLeg} from "./plan-leg";
+import {PlanLegCache} from "./plan-leg-cache";
 
 export class PlannerContextImpl implements PlannerContext {
 
-  private mode_ = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
-
-  private plan_ = new BehaviorSubject<Plan>(new Plan(List()));
-
+  private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
+  private _plan = new BehaviorSubject<Plan>(new Plan(null, List()));
+  public readonly legCache: PlanLegCache = new PlanLegCache();
 
   constructor(public commandStack: PlannerCommandStack,
               public routeLayer: PlannerRouteLayer,
               public crosshairLayer: PlannerCrosshairLayer) {
   }
 
-  public get mode(): Observable<PlannerMode> {
-    return this.mode_;
+  get mode(): Observable<PlannerMode> {
+    return this._mode;
   }
 
-  public get plan(): Observable<Plan> {
-    return this.plan_;
+  get planObserver(): Observable<Plan> {
+    return this._plan;
+  }
+
+  get plan(): Plan {
+    return this._plan.value;
+  }
+
+  updatePlan(plan: Plan) {
+    this._plan.next(plan);
+  }
+
+  updatePlanLeg(legId: string, fragments: List<PlanLegFragment>) {
+    const newLegs = this.plan.legs.map(leg => {
+      if (leg.legId === legId) {
+        return new PlanLeg(legId, leg.source, leg.sink, fragments);
+      }
+      return leg;
+    });
+    const newPlan = new Plan(this.plan.source, newLegs);
+    this.updatePlan(newPlan);
+
+    const coordinates = fragments.flatMap(f => f.coordinates); // TODO this duplicates code from PlannerCommandAddLeg.do() - can share?
+    this.routeLayer.addRouteLeg(legId, coordinates);
   }
 
 }

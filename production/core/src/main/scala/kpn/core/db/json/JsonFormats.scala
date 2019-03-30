@@ -145,6 +145,9 @@ import kpn.shared.node.NodeNetworkRouteReference
 import kpn.shared.node.NodeOrphanRouteReference
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
+import kpn.shared.planner.RouteLeg
+import kpn.shared.planner.RouteLegFragment
+import kpn.shared.planner.RouteLegNode
 import kpn.shared.route.GeometryDiff
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.PointSegment
@@ -442,5 +445,9 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val clientPoiDefinitionFormat: RootJsonFormat[ClientPoiDefinition] = jsonFormat4(ClientPoiDefinition)
   implicit val clientPoiGroupFormat: RootJsonFormat[ClientPoiGroupDefinition] = jsonFormat3(ClientPoiGroupDefinition)
   implicit val clientPoiConfigurationFormat: RootJsonFormat[ClientPoiConfiguration] = jsonFormat1(ClientPoiConfiguration)
+
+  implicit val routeLegNodeFormat: RootJsonFormat[RouteLegNode] = jsonFormat3(RouteLegNode)
+  implicit val routeLegFragmentFormat: RootJsonFormat[RouteLegFragment] = jsonFormat3(RouteLegFragment)
+  implicit val routeLegFormat: RootJsonFormat[RouteLeg] = jsonFormat2(RouteLeg)
 
 }

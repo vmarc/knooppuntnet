@@ -9,7 +9,6 @@ import {click, pointerMove} from 'ol/events/condition';
 import {Fill, Icon, Stroke, Style} from 'ol/style';
 import {Tile as TileLayer} from 'ol/layer';
 import {OSM} from 'ol/source';
-import {TestRouteData} from "./test-route-data";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {NetworkTypes} from "../../../kpn/common/network-types";
 import {PlannerInteraction} from "./planner-interaction";
@@ -37,7 +36,8 @@ export class MapTryout2PageComponent {
 
   interaction = new PlannerInteraction(
     this.plannerService.context.crosshairLayer,
-    this.plannerService.context.routeLayer
+    this.plannerService.context.routeLayer,
+    this.plannerService.engine
   );
 
   ngAfterViewInit(): void {
@@ -53,23 +53,7 @@ export class MapTryout2PageComponent {
     });
 
     this.plannerService.context.crosshairLayer.addToMap(map);
-
-
-    const testRouteData = new TestRouteData();
-
-    const rl = this.plannerService.context.routeLayer;
-    rl.addStartNodeFlag("32", testRouteData.aCoordinates.get(0));
-    rl.addViaNodeFlag("93", testRouteData.cCoordinates.get(0));
-    rl.addViaNodeFlag("11", testRouteData.eCoordinates.get(0));
-    rl.addEndNodeFlag("35", testRouteData.gCoordinates.get(testRouteData.gCoordinates.size - 1));
-    rl.addRouteLeg(testRouteData.aCoordinates);
-    rl.addRouteLeg(testRouteData.bCoordinates);
-    rl.addRouteLeg(testRouteData.cCoordinates);
-    rl.addRouteLeg(testRouteData.dCoordinates);
-    rl.addRouteLeg(testRouteData.eCoordinates);
-    rl.addRouteLeg(testRouteData.fCoordinates);
-    rl.addRouteLeg(testRouteData.gCoordinates);
-    rl.addToMap(map);
+    this.plannerService.context.routeLayer.addToMap(map);
 
     const a: Coordinate = fromLonLat([4.43, 51.45]);
     const b: Coordinate = fromLonLat([4.52, 51.47]);

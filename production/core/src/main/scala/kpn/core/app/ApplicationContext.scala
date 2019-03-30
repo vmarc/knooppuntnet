@@ -8,6 +8,7 @@ import kpn.core.facade.AnalyzerFacade
 import kpn.core.facade.AnalyzerFacadeImpl
 import kpn.core.facade.pages.ChangeSetPageBuilderImpl
 import kpn.core.facade.pages.ChangesPageBuilderImpl
+import kpn.core.facade.pages.LegBuilderImpl
 import kpn.core.facade.pages.NetworkChangesPageBuilderImpl
 import kpn.core.facade.pages.NetworkDetailsPageBuilderImpl
 import kpn.core.facade.pages.NetworkFactsPageBuilderImpl
@@ -156,6 +157,8 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
 
     val directionsBuilder = new DirectionsBuilderImpl(directionsEngine)
 
+    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
+
     new AnalyzerFacadeImpl(
       nodeRepository,
       routeRepository,
@@ -181,7 +184,8 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       changeSetPageBuilder,
       networkChangesPageBuilder,
       poiPageBuilder,
-      directionsBuilder
+      directionsBuilder,
+      legBuilder
     )
   }
 

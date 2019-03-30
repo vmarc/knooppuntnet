@@ -39,7 +39,7 @@ export class MapClickHandler {
           const id = feature.get("id");
           const type = feature.get("type");
           if (type === "way" || type === "node" || type === "relation") {
-            this.mapService.poiClicked.next(new PoiId(type, id));
+            this.mapService.poiClicked(new PoiId(type, id));
           }
         }
       }

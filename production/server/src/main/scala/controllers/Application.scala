@@ -13,6 +13,7 @@ import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import kpn.shared.changes.filter.ChangesParameters
+import kpn.shared.planner.RouteLeg
 import play.api.mvc.AbstractController
 import play.api.mvc.ControllerComponents
 import play.api.mvc.Result
@@ -91,6 +92,7 @@ class Application(
     val poiConfiguration = """poi-configuration""".r
     val poi = """poi/(node|way|relation)/(\d*)""".r
     val directions = """directions/(en|nl|de)/(.*)""".r
+    val leg = """leg/(rcn|rwn|rhn|rmn|rpn|rin)/(.*)/(.*)/(.*)""".r
 
     val userApiService = request.session.get("user") match {
       case Some(user) => new JsonApiService(analyzerFacade, Some(user))(system)
@@ -236,6 +238,12 @@ class Application(
         reply(
           userApiService.directions(language, exampleName),
           JsonFormatsDirections.directionsFormat
+        )
+
+      case leg(networkType, legId, sourceNodeId, sinkNodeId) =>
+        reply(
+          userApiService.leg(networkType, legId, sourceNodeId, sinkNodeId),
+          JsonFormats.routeLegFormat
         )
 
       case _ =>

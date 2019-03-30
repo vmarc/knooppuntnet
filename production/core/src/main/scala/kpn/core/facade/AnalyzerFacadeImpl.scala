@@ -6,6 +6,7 @@ import kpn.core.common.TimestampLocal
 import kpn.core.db.couch.Couch
 import kpn.core.facade.pages.ChangeSetPageBuilder
 import kpn.core.facade.pages.ChangesPageBuilder
+import kpn.core.facade.pages.LegBuilder
 import kpn.core.facade.pages.NetworkChangesPageBuilder
 import kpn.core.facade.pages.NetworkDetailsPageBuilder
 import kpn.core.facade.pages.NetworkFactsPageBuilder
@@ -50,6 +51,7 @@ import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
+import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
@@ -87,7 +89,8 @@ class AnalyzerFacadeImpl(
   changeSetPageBuilder: ChangeSetPageBuilder,
   networkChangesPageBuilder: NetworkChangesPageBuilder,
   poiPageBuilder: PoiPageBuilder,
-  directionsBuilder: DirectionsBuilder
+  directionsBuilder: DirectionsBuilder,
+  legBuilder: LegBuilder
 ) extends AnalyzerFacade {
 
   private val log = Log(classOf[AnalyzerFacadeImpl])
@@ -285,6 +288,13 @@ class AnalyzerFacadeImpl(
     log.infoElapsed(s"$user directions($language, $exampleName)") {
       val directions = directionsBuilder.build(language, exampleName)
       ApiResponse(None, 1, directions)
+    }
+  }
+
+  override def leg(user: Option[String], networkType: String, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {
+    log.infoElapsed(s"$user leg($legId, $sourceNodeId, $sinkNodeId)") {
+      val leg = legBuilder.build(networkType, legId, sourceNodeId, sinkNodeId)
+      ApiResponse(None, 1, leg)
     }
   }
 

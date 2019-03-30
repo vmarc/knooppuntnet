@@ -9,11 +9,13 @@ import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
+import {PlannerEngine} from "./planner-engine";
 
 export class PlannerInteraction {
 
   constructor(private crosshairLayer: PlannerCrosshairLayer,
-              private routeLayer: PlannerRouteLayer) {
+              private routeLayer: PlannerRouteLayer,
+              private engine: PlannerEngine) {
   }
 
   public interaction = new PointerInteraction({
@@ -22,11 +24,12 @@ export class PlannerInteraction {
       const tolerance = 20;
       const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
       if (features !== null) {
-        const legNode: Feature = this.getClosestLegNode(features);
-        if (legNode !== null) {
-          console.log("select feature node " + legNode.get("name"));
-          const point: Point = legNode.getGeometry() as Point;
-          this.routeLayer.addStartNodeFlag(legNode.get("name"), point.getCoordinates());
+        const networkNode: Feature = this.getClosestNetworkNode(features);
+        if (networkNode !== null) {
+          const nodeId = networkNode.get("id");
+          const nodeName = networkNode.get("name");
+          const point: Point = networkNode.getGeometry() as Point;
+          this.engine.nodeSelected(nodeId, nodeName, point.getCoordinates());
           this.crosshairLayer.updatePosition(point.getCoordinates());
         }
         else {
@@ -45,7 +48,7 @@ export class PlannerInteraction {
       const tolerance = 20;
       const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
       if (features !== null) {
-        const legNode: Feature = this.getClosestLegNode(features);
+        const legNode: Feature = this.getClosestNetworkNode(features);
         if (legNode !== null) {
           const point: Point = legNode.getGeometry() as Point;
           this.crosshairLayer.updatePosition(point.getCoordinates());
@@ -92,15 +95,15 @@ export class PlannerInteraction {
     }
   });
 
-  private getClosestLegNode(features: Array<Feature>): Feature {
-    const legNodes = features.filter(f => {
+  private getClosestNetworkNode(features: Array<Feature>): Feature {
+    const nodes = features.filter(f => {
       const layer = f.get("layer");
       return layer && layer.endsWith("node") && layer !== "leg-node";
     });
-    if (legNodes.length == 0) {
+    if (nodes.length == 0) {
       return null;
     }
-    return legNodes[0]; // TODO find the closest
+    return nodes[0]; // TODO find the closest
   }
 
 }

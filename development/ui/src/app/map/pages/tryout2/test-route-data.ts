@@ -1,11 +1,18 @@
 import {List} from "immutable";
 import {fromLonLat} from 'ol/proj';
 import Coordinate from 'ol/View';
+import {Plan} from "./plan";
+import {PlanLeg} from "./plan-leg";
+import {PlanNode} from "./plan-node";
+import {PlannerContext} from "./planner-context";
+import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
+import {PlanLegFragment} from "./plan-leg-fragment";
+import {PlannerCommandAddLeg} from "./planner-command-add-leg";
 
 export class TestRouteData {
 
   // example-1-a-32-08.gpx
-  private aLatLons = List([
+  private abLatLons = List([
     [51.4822082, 4.4614283],
     [51.4820128, 4.4614065],
     [51.4819317, 4.4613848],
@@ -51,7 +58,7 @@ export class TestRouteData {
   ]);
 
   // example-1-b-08-93.gpx
-  private bLatLons = List([
+  private bcLatLons = List([
     [51.4689467, 4.4470508],
     [51.4684953, 4.4472845],
     [51.4678483, 4.4476107],
@@ -76,7 +83,7 @@ export class TestRouteData {
   ]);
 
   // example-1-c-93-92.gpx
-  private cLatLons = List([
+  private cdLatLons = List([
     [51.4626936, 4.448426],
     [51.4625707, 4.4484003],
     [51.4624584, 4.4484003],
@@ -128,7 +135,7 @@ export class TestRouteData {
   ]);
 
   // example-1-d-92-11.gpx
-  private dLatLons = List([
+  private deLatLons = List([
     [51.455518, 4.4647719],
     [51.4556958, 4.4652865],
     [51.4558898, 4.4658019],
@@ -261,7 +268,7 @@ export class TestRouteData {
   ]);
 
   // example-1-e-11-91.gpx
-  private eLatLons = List([
+  private efLatLons = List([
     [51.4748213, 4.4835459],
     [51.474086, 4.4837628],
     [51.4737586, 4.4838647],
@@ -277,7 +284,7 @@ export class TestRouteData {
   ]);
 
   // example-1-f-91-34.gpx
-  private fLatLons = List([
+  private fgLatLons = List([
     [51.470202, 4.4827435],
     [51.4701665, 4.4827221],
     [51.4699325, 4.4824968],
@@ -348,7 +355,7 @@ export class TestRouteData {
   ]);
 
   // example-1-g-34-35.gpx
-  private gLatLons = List([
+  private ghLatLons = List([
     [51.4520086, 4.4917143],
     [51.4512198, 4.4914647],
     [51.4510755, 4.4912434],
@@ -370,13 +377,60 @@ export class TestRouteData {
     [51.4486538, 4.4839935],
   ]);
 
-  public aCoordinates: List<Coordinate> = this.toCoordinates(this.aLatLons);
-  public bCoordinates: List<Coordinate> = this.toCoordinates(this.bLatLons);
-  public cCoordinates: List<Coordinate> = this.toCoordinates(this.cLatLons);
-  public dCoordinates: List<Coordinate> = this.toCoordinates(this.dLatLons);
-  public eCoordinates: List<Coordinate> = this.toCoordinates(this.eLatLons);
-  public fCoordinates: List<Coordinate> = this.toCoordinates(this.fLatLons);
-  public gCoordinates: List<Coordinate> = this.toCoordinates(this.gLatLons);
+  private abCoordinates: List<Coordinate> = this.toCoordinates(this.abLatLons);
+  private bcCoordinates: List<Coordinate> = this.toCoordinates(this.bcLatLons);
+  private cdCoordinates: List<Coordinate> = this.toCoordinates(this.cdLatLons);
+  private deCoordinates: List<Coordinate> = this.toCoordinates(this.deLatLons);
+  private efCoordinates: List<Coordinate> = this.toCoordinates(this.efLatLons);
+  private fgCoordinates: List<Coordinate> = this.toCoordinates(this.fgLatLons);
+  private ghCoordinates: List<Coordinate> = this.toCoordinates(this.ghLatLons);
+
+  public examplePlan(): Plan {
+
+    const a = new PlanNode("1001", "32", this.abCoordinates.get(0));
+    const b = new PlanNode("1002", "08", this.bcCoordinates.get(0));
+    const c = new PlanNode("1003", "93", this.cdCoordinates.get(0));
+    const d = new PlanNode("1004", "92", this.deCoordinates.get(0));
+    const e = new PlanNode("1005", "11", this.efCoordinates.get(0));
+    const f = new PlanNode("1006", "91", this.fgCoordinates.get(0));
+    const g = new PlanNode("1007", "34", this.ghCoordinates.get(0));
+    const h = new PlanNode("1008", "35", this.ghCoordinates.get(this.ghCoordinates.size - 1));
+
+    const ab = new PlanLegFragment(b, 1000, this.abCoordinates);
+    const bc = new PlanLegFragment(c, 1200, this.bcCoordinates);
+    const cd = new PlanLegFragment(d, 300, this.cdCoordinates);
+    const de = new PlanLegFragment(e, 950, this.deCoordinates);
+    const ef = new PlanLegFragment(f, 200, this.efCoordinates);
+    const fg = new PlanLegFragment(g, 1230, this.fgCoordinates);
+    const gh = new PlanLegFragment(h, 102, this.ghCoordinates);
+
+    const ad = new PlanLeg("x", a, d, List([ab, bc, cd]));
+    const df = new PlanLeg("y", d, f, List([de, ef]));
+    const fh = new PlanLeg("z", f, h, List([fg, gh]));
+
+    return new Plan(a, List([ad, df, fh]));
+  }
+
+  buildTestPlan(context: PlannerContext) {
+
+    const plan = this.examplePlan();
+
+    plan.legs.forEach(leg => {
+      context.legCache.add(leg);
+    });
+
+    const command = new PlannerCommandAddStartPoint(plan.source);
+    context.commandStack.push(command);
+    command.do(context);
+
+    plan.legs.forEach(leg => {
+      // simulate users clicking nodes in the map
+      const command = new PlannerCommandAddLeg(leg.legId, leg.source, leg.sink);
+      context.commandStack.push(command);
+      command.do(context);
+    });
+
+  }
 
   private toCoordinates(list: List<Array<number>>): List<Coordinate> {
     return list.map(xx => fromLonLat([xx[1], xx[0]]));

@@ -7,11 +7,16 @@ import {PlannerCrosshairLayer} from "./pages/tryout2/planner-crosshair-layer";
 import {PlannerCommandStackImpl} from "./pages/tryout2/planner-command-stack-impl";
 import {PlannerEngineImpl} from "./pages/tryout2/planner-engine-impl";
 import {PlannerEngine} from "./pages/tryout2/planner-engine";
+import {TestRouteData} from "./pages/tryout2/test-route-data";
+import {AppService} from "../app.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlannerService {
+
+  constructor(private appService: AppService) {
+  }
 
   private commandStack: PlannerCommandStack = new PlannerCommandStackImpl();
   private routeLayer = new PlannerRouteLayer();
@@ -19,6 +24,8 @@ export class PlannerService {
 
   context: PlannerContext = new PlannerContextImpl(this.commandStack, this.routeLayer, this.crosshairLayer);
 
-  engine: PlannerEngine = new PlannerEngineImpl(this.context);
+  engine: PlannerEngine = new PlannerEngineImpl(this.context, this.appService);
+
+  private simulationPlan = new TestRouteData().buildTestPlan(this.context);
 
 }

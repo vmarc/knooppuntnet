@@ -28,6 +28,7 @@ import {Directions} from "./kpn/shared/directions/directions";
 import {MarkdownService} from "ngx-markdown";
 import {Statistics} from "./kpn/shared/statistics/statistics";
 import {SubsetFactsPageNew} from "./kpn/shared/subset/subset-facts-page-new";
+import {RouteLeg} from "./kpn/shared/planner/route-leg";
 
 @Injectable()
 export class AppService {
@@ -186,10 +187,17 @@ export class AppService {
     );
   }
 
-  public directions(language: string, exampleName: String): Observable<ApiResponse<Directions>> {
+  public directions(language: string, exampleName: string): Observable<ApiResponse<Directions>> {
     const url = "/json-api/directions/" + language + "/" + exampleName;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, Directions.fromJSON))
+    );
+  }
+
+  public routeLeg(networkType: string, legId: string, sourceNodeId: string, sinkNodeId: string): Observable<ApiResponse<RouteLeg>> {
+    const url = "/json-api/leg/" + networkType + "/" + legId + "/" + sourceNodeId + "/" + sinkNodeId;
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, RouteLeg.fromJSON))
     );
   }
 

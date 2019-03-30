@@ -20,6 +20,7 @@ import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodePage
+import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
@@ -86,4 +87,5 @@ trait AnalyzerFacade {
 
   def directions(user: Option[String], language: String, exampleName: String): ApiResponse[Directions]
 
+  def leg(user: Option[String], networkType: String, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
 }

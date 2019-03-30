@@ -74,7 +74,7 @@ export class PoiDetailComponent {
   constructor(private mapService: MapService,
               private appService: AppService,
               private poiService: PoiService) {
-    mapService.poiClicked.subscribe(poiId => {
+    mapService.poiClickedObserver.subscribe(poiId => {
       if (poiId != null) {
         this.appService.poi(poiId.elementType, poiId.elementId).subscribe(response => {
           this.poiPage = response.result;
