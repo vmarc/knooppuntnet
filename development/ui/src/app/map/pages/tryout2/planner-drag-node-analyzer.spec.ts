@@ -1,7 +1,7 @@
 import Coordinate from 'ol/View';
 import {Plan} from "./plan";
 import {List} from "immutable";
-import {PlannerNodeDragAnalyzer} from "./planner-node-drag-analyzer";
+import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
 import {PlanNode} from "./plan-node";
 import {PlanLeg} from "./plan-leg";
 
@@ -23,20 +23,20 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("cannot initiate drag on empty plan", () => {
     const plan = Plan.empty();
-    const drag = new PlannerNodeDragAnalyzer(plan).dragStarted("start-node-flag-1001", "1001");
+    const drag = new PlannerDragNodeAnalyzer(plan).dragStarted("start-node-flag-1001", "1001");
     expect(drag).toBeNull();
   });
 
   it("cannot initiate drag on plan with no legs", () => {
     const plan = new Plan(node1, List());
-    const drag = new PlannerNodeDragAnalyzer(plan).dragStarted("start-node-flag-1001", "1001");
+    const drag = new PlannerDragNodeAnalyzer(plan).dragStarted("start-node-flag-1001", "1001");
     expect(drag).toBeNull();
   });
 
   it("start start-point drag", () => {
 
     const plan = new Plan(node1, List([leg12, leg23, leg34]));
-    const drag = new PlannerNodeDragAnalyzer(plan).dragStarted("start-node-flag-1001", "1001");
+    const drag = new PlannerDragNodeAnalyzer(plan).dragStarted("start-node-flag-1001", "1001");
 
     expect(drag.anchor1).toEqual(coordinate1);
     expect(drag.anchor2).toEqual(coordinate1);
@@ -46,7 +46,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   it("start via-point 2 drag", () => {
 
     const plan = new Plan(node1, List([leg12, leg23, leg34]));
-    const drag = new PlannerNodeDragAnalyzer(plan).dragStarted("leg-12-via-node-1002", "1002");
+    const drag = new PlannerDragNodeAnalyzer(plan).dragStarted("leg-12-via-node-1002", "1002");
 
     expect(drag.anchor1).toEqual(coordinate1);
     expect(drag.anchor2).toEqual(coordinate3);
@@ -56,7 +56,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   it("start via-point 3 drag", () => {
 
     const plan = new Plan(node1, List([leg12, leg23, leg34]));
-    const drag = new PlannerNodeDragAnalyzer(plan).dragStarted("leg-23-via-node-1003", "1003");
+    const drag = new PlannerDragNodeAnalyzer(plan).dragStarted("leg-23-via-node-1003", "1003");
 
     expect(drag.anchor1).toEqual(coordinate2);
     expect(drag.anchor2).toEqual(coordinate4);
@@ -66,7 +66,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   it("end-point", () => {
 
     const plan = new Plan(node1, List([leg12, leg23, leg34]));
-    const drag = new PlannerNodeDragAnalyzer(plan).dragStarted("leg-34-via-node-1004", "1004");
+    const drag = new PlannerDragNodeAnalyzer(plan).dragStarted("leg-34-via-node-1004", "1004");
 
     expect(drag.anchor1).toEqual(coordinate4);
     expect(drag.anchor2).toEqual(coordinate4);

@@ -160,6 +160,10 @@ export class PlannerRouteLayer {
   }
 
   hideDoubleElasticBand() {
+    // TODO change to set separate elastic band layer to invisible
+    this.coordinates1 = new Coordinate([0,0]);
+    this.coordinates2 = this.coordinates1;
+    this.updateDoubleElasticBandPosition(this.coordinates1);
   }
 
   updateDoubleElasticBandPosition(coordinate: Coordinate) {

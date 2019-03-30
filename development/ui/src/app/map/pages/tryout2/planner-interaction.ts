@@ -25,7 +25,7 @@ export class PlannerInteraction {
         const legNode = this.findDraggableLegNode(features);
         if (legNode !== null) {
           console.log("DEBUG moving over leg node " + legNode.getId());
-          const nodeId = legNode.get("nodeId");
+          const nodeId = legNode.get("id");
           if (this.engine.legNodeDragStarted(legNode.getId(), nodeId, evt.coordinate)) {
             return true;
           }
@@ -96,7 +96,41 @@ export class PlannerInteraction {
       return true;
     },
     handleUpEvent: (evt: MapBrowserEvent) => {
-      return false;
+
+      if (this.engine.isDraggingLeg() || this.engine.isDraggingNode()) {
+        this.viewPort.style.cursor = "default";
+        const tolerance = 20;
+        const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+        if (features !== null) {
+          const networkNode: Feature = this.findNetworkNode(features);
+          if (networkNode !== null) {
+
+            const point: Point = networkNode.getGeometry() as Point;
+            const nodeId = networkNode.get("id");
+            const nodeName = networkNode.get("name");
+
+            console.log("DEBUG PlannerInteraction handleUpEvent nodeId=" + nodeId + ", nodeName=" + nodeName);
+
+            if (nodeId) {
+              if (this.engine.isDraggingLeg()) {
+                this.engine.endDragLeg(nodeId, nodeName, point.getCoordinates());
+              }
+              else if (this.engine.isDraggingNode()) {
+                this.engine.endDragNode(nodeId, nodeName, point.getCoordinates());
+              }
+            }
+          }
+        }
+      }
+      else {
+        this.engine.dragCancel();
+      }
+
+      this.context.crosshairLayer.setVisible(true);
+
+      console.log("DEBUG PlannerInteraction handleUpEvent einde");
+
+      return true;
     }
   });
 
