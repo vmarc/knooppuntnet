@@ -1,8 +1,6 @@
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/events'
 import PointerInteraction from 'ol/interaction/Pointer';
-import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
-import {PlannerRouteLayer} from "./planner-route-layer";
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import {PlannerEngine} from "./planner-engine";
@@ -62,8 +60,7 @@ export class PlannerInteraction {
           console.log("DEBUG moving over leg node " + legNode.getId());
           this.context.crosshairLayer.setVisible(false);
           this.viewPort.style.cursor = "move";
-        }
-        else {
+        } else {
           const networkNode: Feature = this.findNetworkNode(features);
           if (networkNode !== null) {
             const point: Point = networkNode.getGeometry() as Point;
@@ -114,15 +111,13 @@ export class PlannerInteraction {
             if (nodeId) {
               if (this.engine.isDraggingLeg()) {
                 this.engine.endDragLeg(nodeId, nodeName, point.getCoordinates());
-              }
-              else if (this.engine.isDraggingNode()) {
+              } else if (this.engine.isDraggingNode()) {
                 this.engine.endDragNode(nodeId, nodeName, point.getCoordinates());
               }
             }
           }
         }
-      }
-      else {
+      } else {
         this.engine.dragCancel();
       }
 

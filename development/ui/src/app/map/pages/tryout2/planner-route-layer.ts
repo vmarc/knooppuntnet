@@ -1,13 +1,11 @@
 import Map from 'ol/Map';
 import Coordinate from 'ol/View';
 import {fromLonLat} from 'ol/proj';
-import {createXYZ} from 'ol/tilegrid';
-import {click, pointerMove} from 'ol/events/condition';
-import {Fill, Icon, Stroke, Style} from 'ol/style';
+import {Icon, Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
 import {LineString, Point} from 'ol/geom.js';
 import {Vector as VectorLayer} from 'ol/layer';
-import {OSM, Vector as VectorSource} from 'ol/source';
+import {Vector as VectorSource} from 'ol/source';
 import {List} from "immutable";
 
 /*
@@ -161,7 +159,7 @@ export class PlannerRouteLayer {
 
   hideDoubleElasticBand() {
     // TODO change to set separate elastic band layer to invisible
-    this.coordinates1 = new Coordinate([0,0]);
+    this.coordinates1 = new Coordinate([0, 0]);
     this.coordinates2 = this.coordinates1;
     this.updateDoubleElasticBandPosition(this.coordinates1);
   }

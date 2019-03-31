@@ -1,12 +1,8 @@
 import Coordinate from 'ol/View';
-import {fromLonLat} from 'ol/proj';
-import {createXYZ} from 'ol/tilegrid';
-import {click, pointerMove} from 'ol/events/condition';
-import {Fill, Icon, Stroke, Style} from 'ol/style';
+import {Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
-import {Circle, LineString, Geometry} from 'ol/geom';
+import {Circle, Geometry, LineString} from 'ol/geom';
 import {GeometryCollection} from 'ol/geom/GeometryCollection.js';
-import {OSM} from 'ol/source';
 
 export class Crosshair {
 

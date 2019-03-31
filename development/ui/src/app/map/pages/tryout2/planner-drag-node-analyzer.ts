@@ -1,6 +1,6 @@
-import {PlanLeg} from "./plan-leg";
 import {PlannerDragNode} from "./planner-drag-node";
-import {Plan} from "./plan";
+import {Plan} from "./plan/plan";
+import {PlanLeg} from "./plan/plan-leg";
 
 export class PlannerDragNodeAnalyzer {
 

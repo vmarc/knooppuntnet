@@ -1,9 +1,9 @@
 import Coordinate from 'ol/View';
-import {Plan} from "./plan";
 import {List} from "immutable";
 import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
-import {PlanNode} from "./plan-node";
-import {PlanLeg} from "./plan-leg";
+import {PlanLeg} from "./plan/plan-leg";
+import {PlanNode} from "./plan/plan-node";
+import {Plan} from "./plan/plan";
 
 describe("PlannerNodeDragAnalyzer", () => {
 

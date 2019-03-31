@@ -1,13 +1,13 @@
 import {List} from "immutable";
 import {fromLonLat} from 'ol/proj';
 import Coordinate from 'ol/View';
-import {Plan} from "./plan";
-import {PlanLeg} from "./plan-leg";
-import {PlanNode} from "./plan-node";
 import {PlannerContext} from "./planner-context";
-import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
-import {PlanLegFragment} from "./plan-leg-fragment";
-import {PlannerCommandAddLeg} from "./planner-command-add-leg";
+import {PlanNode} from "./plan/plan-node";
+import {Plan} from "./plan/plan";
+import {PlanLegFragment} from "./plan/plan-leg-fragment";
+import {PlanLeg} from "./plan/plan-leg";
+import {PlannerCommandAddStartPoint} from "./commands/planner-command-add-start-point";
+import {PlannerCommandAddLeg} from "./commands/planner-command-add-leg";
 
 export class TestRouteData {
 

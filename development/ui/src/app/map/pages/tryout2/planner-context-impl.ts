@@ -3,12 +3,12 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {PlannerMode} from "./planner-mode";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
-import {Plan} from "./plan";
-import {PlannerCommandStack} from "./planner-command-stack";
 import {List} from "immutable";
-import {PlanLegFragment} from "./plan-leg-fragment";
-import {PlanLeg} from "./plan-leg";
-import {PlanLegCache} from "./plan-leg-cache";
+import {Plan} from "./plan/plan";
+import {PlanLegCache} from "./plan/plan-leg-cache";
+import {PlannerCommandStack} from "./commands/planner-command-stack";
+import {PlanLegFragment} from "./plan/plan-leg-fragment";
+import {PlanLeg} from "./plan/plan-leg";
 
 export class PlannerContextImpl implements PlannerContext {
 

@@ -1,18 +1,18 @@
 import Coordinate from 'ol/View';
 import {PlannerEngine} from "./planner-engine";
 import {PlannerContext} from "./planner-context";
-import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
-import {PlanNode} from "./plan-node";
-import {PlannerCommandAddLeg} from "./planner-command-add-leg";
 import {AppService} from "../../../app.service";
 import {List} from "immutable";
-import {PlanLegFragment} from "./plan-leg-fragment";
 import {fromLonLat} from 'ol/proj';
-import {PlanLeg} from "./plan-leg";
 import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
 import {PlannerDragNode} from "./planner-drag-node";
 import {PlannerDragLeg} from "./planner-drag-leg";
-import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
+import {PlanNode} from "./plan/plan-node";
+import {PlannerCommandAddStartPoint} from "./commands/planner-command-add-start-point";
+import {PlannerCommandAddLeg} from "./commands/planner-command-add-leg";
+import {PlanLegFragment} from "./plan/plan-leg-fragment";
+import {PlanLeg} from "./plan/plan-leg";
+import {PlannerCommandSplitLeg} from "./commands/planner-command-split-leg";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
