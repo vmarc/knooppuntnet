@@ -1,10 +1,10 @@
 import {List} from "immutable";
 import {PlannerCommand} from "./planner-command";
-import {PlannerContext} from "./planner-context";
-import {Plan} from "./plan";
-import {PlanNode} from "./plan-node";
-import {PlanLeg} from "./plan-leg";
-import {PlanLegFragment} from "./plan-leg-fragment";
+import {PlanNode} from "../plan/plan-node";
+import {PlannerContext} from "../planner-context";
+import {PlanLegFragment} from "../plan/plan-leg-fragment";
+import {PlanLeg} from "../plan/plan-leg";
+import {Plan} from "../plan/plan";
 
 export class PlannerCommandAddLeg implements PlannerCommand {
 

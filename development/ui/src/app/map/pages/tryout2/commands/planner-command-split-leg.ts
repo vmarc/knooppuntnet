@@ -1,7 +1,7 @@
 import {PlannerCommand} from "./planner-command";
-import {PlannerContext} from "./planner-context";
-import {Plan} from "./plan";
-import {PlanLeg} from "./plan-leg";
+import {PlanLeg} from "../plan/plan-leg";
+import {PlannerContext} from "../planner-context";
+import {Plan} from "../plan/plan";
 
 export class PlannerCommandSplitLeg implements PlannerCommand {
 

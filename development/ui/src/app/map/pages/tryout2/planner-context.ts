@@ -1,12 +1,12 @@
-import {PlannerCommandStack} from "./planner-command-stack";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
 import {Observable} from "rxjs";
 import {PlannerMode} from "./planner-mode";
-import {Plan} from "./plan";
-import {PlanLegFragment} from "./plan-leg-fragment";
 import {List} from "immutable";
-import {PlanLegCache} from "./plan-leg-cache";
+import {PlannerCommandStack} from "./commands/planner-command-stack";
+import {Plan} from "./plan/plan";
+import {PlanLegCache} from "./plan/plan-leg-cache";
+import {PlanLegFragment} from "./plan/plan-leg-fragment";
 
 export interface PlannerContext {
   commandStack: PlannerCommandStack;

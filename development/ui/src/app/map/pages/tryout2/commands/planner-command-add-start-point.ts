@@ -1,8 +1,8 @@
 import {PlannerCommand} from "./planner-command";
-import {PlannerContext} from "./planner-context";
-import {Plan} from "./plan";
-import {PlanNode} from "./plan-node";
 import {List} from "immutable";
+import {PlanNode} from "../plan/plan-node";
+import {PlannerContext} from "../planner-context";
+import {Plan} from "../plan/plan";
 
 export class PlannerCommandAddStartPoint implements PlannerCommand {
 
