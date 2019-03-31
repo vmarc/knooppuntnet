@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {PlannerContextImpl} from "./pages/tryout2/planner-context-impl";
 import {PlannerContext} from "./pages/tryout2/planner-context";
-import {PlannerCommandStack} from "./pages/tryout2/planner-command-stack";
 import {PlannerRouteLayer} from "./pages/tryout2/planner-route-layer";
 import {PlannerCrosshairLayer} from "./pages/tryout2/planner-crosshair-layer";
-import {PlannerCommandStackImpl} from "./pages/tryout2/planner-command-stack-impl";
 import {PlannerEngineImpl} from "./pages/tryout2/planner-engine-impl";
 import {PlannerEngine} from "./pages/tryout2/planner-engine";
 import {TestRouteData} from "./pages/tryout2/test-route-data";
 import {AppService} from "../app.service";
+import {PlannerCommandStack} from "./pages/tryout2/commands/planner-command-stack";
+import {PlannerCommandStackImpl} from "./pages/tryout2/commands/planner-command-stack-impl";
 
 @Injectable({
   providedIn: 'root'

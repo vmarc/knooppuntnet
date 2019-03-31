@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PlannerService} from "../planner.service";
-import {Plan} from "../pages/tryout2/plan";
 import {Subscription} from "rxjs";
+import {Plan} from "../pages/tryout2/plan/plan";
 
 @Component({
   selector: 'kpn-plan',
