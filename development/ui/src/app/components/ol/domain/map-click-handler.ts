@@ -1,5 +1,4 @@
 import Feature from 'ol/Feature';
-import {click} from 'ol/events/condition';
 import {SelectedFeature} from "./selected-feature";
 import {MapService, PoiId} from "../map.service";
 import {SelectEvent} from 'ol/interaction/Select';

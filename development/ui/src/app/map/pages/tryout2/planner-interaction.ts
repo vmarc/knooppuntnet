@@ -1,10 +1,16 @@
 import Map from 'ol/Map';
+import Coordinate from 'ol/View';
 import MapBrowserEvent from 'ol/events'
 import PointerInteraction from 'ol/interaction/Pointer';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import {PlannerEngine} from "./planner-engine";
 import {PlannerContext} from "./planner-context";
+import {PlannerMapFeature} from "./features/planner-map-feature";
+import {List} from "immutable";
+import {PlannerMapFeatureLeg} from "./features/planner-map-feature-leg";
+import {PlannerMapFeatureLegNode} from "./features/planner-map-feature-leg-node";
+import {PlannerMapFeatureNetworkNode} from "./features/planner-map-feature-network-node";
 
 export class PlannerInteraction {
 
@@ -16,116 +22,18 @@ export class PlannerInteraction {
 
   private interaction = new PointerInteraction({
     handleDownEvent: (evt: MapBrowserEvent) => {
-
-      const tolerance = 20;
-      const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
-      if (features !== null) {
-        const legNode = this.findDraggableLegNode(features);
-        if (legNode !== null) {
-          console.log("DEBUG moving over leg node " + legNode.getId());
-          const nodeId = legNode.get("id");
-          if (this.engine.legNodeDragStarted(legNode.getId(), nodeId, evt.coordinate)) {
-            return true;
-          }
-        }
-
-        const networkNode: Feature = this.findNetworkNode(features);
-        if (networkNode !== null) {
-          const nodeId = networkNode.get("id");
-          const nodeName = networkNode.get("name");
-          const point: Point = networkNode.getGeometry() as Point;
-          this.engine.nodeSelected(nodeId, nodeName, point.getCoordinates());
-          this.context.crosshairLayer.updatePosition(point.getCoordinates());
-        } else {
-          const leg = this.findLeg(features);
-          if (leg !== null) {
-            if (this.engine.legDragStarted(leg.getId(), evt.coordinate)) {
-              return true;
-            }
-          }
-          this.context.crosshairLayer.updatePosition(evt.coordinate);
-        }
-      } else {
-        this.context.crosshairLayer.updatePosition(evt.coordinate);
-      }
-
-      return false;
+      return this.engine.handleDownEvent(evt.coordinate, this.getFeaturesAt(evt));
     },
     handleMoveEvent: (evt: MapBrowserEvent) => {
-      const tolerance = 20;
-      const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
-      if (features !== null) {
-        const legNode = this.findDraggableLegNode(features);
-        if (legNode !== null) {
-          console.log("DEBUG moving over leg node " + legNode.getId());
-          this.context.crosshairLayer.setVisible(false);
-          this.viewPort.style.cursor = "move";
-        } else {
-          const networkNode: Feature = this.findNetworkNode(features);
-          if (networkNode !== null) {
-            const point: Point = networkNode.getGeometry() as Point;
-            this.context.crosshairLayer.setVisible(true);
-            this.viewPort.style.cursor = "default";
-            this.context.crosshairLayer.updatePosition(point.getCoordinates());
-          } else {
-            const leg = this.findLeg(features);
-            if (leg !== null) {
-              console.log("DEBUG moving over leg " + leg.getId());
-              this.context.crosshairLayer.setVisible(false);
-              this.viewPort.style.cursor = "move";
-            } else {
-              this.context.crosshairLayer.setVisible(true);
-              this.viewPort.style.cursor = "default";
-              this.context.crosshairLayer.updatePosition(evt.coordinate);
-            }
-          }
-        }
-      } else {
-        this.context.crosshairLayer.setVisible(true);
-        this.viewPort.style.cursor = "default";
-        this.context.crosshairLayer.updatePosition(evt.coordinate);
-      }
-
-      return true;
+      return this.engine.handleMoveEvent(evt.coordinate, this.getFeaturesAt(evt));
     },
     handleDragEvent: (evt: MapBrowserEvent) => {
+      // get features --> snap to network node if above network node + highlight network node
       this.context.routeLayer.updateDoubleElasticBandPosition(evt.coordinate);
       return true;
     },
     handleUpEvent: (evt: MapBrowserEvent) => {
-
-      if (this.engine.isDraggingLeg() || this.engine.isDraggingNode()) {
-        this.viewPort.style.cursor = "default";
-        const tolerance = 20;
-        const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
-        if (features !== null) {
-          const networkNode: Feature = this.findNetworkNode(features);
-          if (networkNode !== null) {
-
-            const point: Point = networkNode.getGeometry() as Point;
-            const nodeId = networkNode.get("id");
-            const nodeName = networkNode.get("name");
-
-            console.log("DEBUG PlannerInteraction handleUpEvent nodeId=" + nodeId + ", nodeName=" + nodeName);
-
-            if (nodeId) {
-              if (this.engine.isDraggingLeg()) {
-                this.engine.endDragLeg(nodeId, nodeName, point.getCoordinates());
-              } else if (this.engine.isDraggingNode()) {
-                this.engine.endDragNode(nodeId, nodeName, point.getCoordinates());
-              }
-            }
-          }
-        }
-      } else {
-        this.engine.dragCancel();
-      }
-
-      this.context.crosshairLayer.setVisible(true);
-
-      console.log("DEBUG PlannerInteraction handleUpEvent einde");
-
-      return true;
+      return this.engine.handleUpEvent(evt.coordinate, this.getFeaturesAt(evt));
     }
   });
 
@@ -137,50 +45,46 @@ export class PlannerInteraction {
   }
 
   private handleMouseOut(event: MouseEvent) {
-    this.context.crosshairLayer.setVisible(false);
+    this.engine.handleMouseOut();
   }
 
   private handleMouseEnter(event: MouseEvent) {
-    this.context.crosshairLayer.setVisible(true);
+    this.engine.handleMouseEnter();
   }
 
-  private findNetworkNode(features: Array<Feature>): Feature {
-    const nodes = features.filter(f => {
-      const layer = f.get("layer");
-      return layer && layer.endsWith("node") && layer !== "leg-node";
-    });
-    if (nodes.length == 0) {
-      return null;
+  private getFeaturesAt(evt: MapBrowserEvent): List<PlannerMapFeature> {
+    const tolerance = 20;
+    const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+    if (features) {
+      return List(features.map(feature => this.fromFeature(feature)).filter(f => f !== null));
     }
-    return nodes[0]; // TODO find the closest
+    return List();
   }
 
-  private findLeg(features: Array<Feature>): Feature {
-    const legs = features.filter(f => {
-      const layer = f.get("layer");
-      return layer == "leg";
-    });
-    if (legs.length == 0) {
-      return null;
+  private fromFeature(feature: Feature): PlannerMapFeature {
+
+    const layer = feature.get("layer");
+    if (layer) {
+      if ("leg" === layer) {
+        const legId = feature.getId();
+        return new PlannerMapFeatureLeg(legId);
+      }
+      if ("leg-node" === layer) {
+        const id = feature.getId();
+        const nodeId = feature.get("id");
+        return new PlannerMapFeatureLegNode(id, nodeId);
+      }
+      if (layer.endsWith("node")) {
+        const nodeId = feature.get("id");
+        const nodeName = feature.get("name");
+        const point: Point = feature.getGeometry() as Point;
+        const coordinate: Coordinate = point.getCoordinates();
+        return new PlannerMapFeatureNetworkNode(nodeId, nodeName, coordinate);
+      }
     }
-    return legs[0]; // TODO find the closest
-  }
 
-  private findDraggableLegNode(features: Array<Feature>): Feature {
-
-    if (this.context.plan.legs.isEmpty()) {
-      return null;
-    }
-
-    const nodes = features.filter(f => {
-      const layer = f.get("layer");
-      return layer == "leg-node";
-    });
-
-    if (nodes.length == 0) {
-      return null;
-    }
-    return nodes[0]; // TODO find the closest
+    // we are not interested in the feature for planner purposes
+    return null;
   }
 
 }

@@ -13,27 +13,137 @@ import {PlannerCommandAddLeg} from "./commands/planner-command-add-leg";
 import {PlanLegFragment} from "./plan/plan-leg-fragment";
 import {PlanLeg} from "./plan/plan-leg";
 import {PlannerCommandSplitLeg} from "./commands/planner-command-split-leg";
+import {PlannerMapFeature} from "./features/planner-map-feature";
+import {PlannerMapFeatureLegNode} from "./features/planner-map-feature-leg-node";
+import {PlannerMapFeatureNetworkNode} from "./features/planner-map-feature-network-node";
+import {PlannerMapFeatureLeg} from "./features/planner-map-feature-leg";
 
 export class PlannerEngineImpl implements PlannerEngine {
+
+  viewPort: HTMLElement;
 
   private legIdGenerator = 0;
 
   private legDrag: PlannerDragLeg = null;
   private nodeDrag: PlannerDragNode = null;
 
-  constructor(private context: PlannerContext, private appService: AppService) {
+  constructor(private context: PlannerContext,
+              private appService: AppService) {
   }
 
-  nodeSelected(nodeId: string, nodeName: string, coordinate: Coordinate): void {
+  handleDownEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean {
+
+    if (features.isEmpty()) {
+      return false;
+    }
+
+    const legNode = this.findDraggableLegNode(features);
+    if (legNode != null) {
+      if (this.legNodeDragStarted(legNode, coordinate)) {
+        return true;
+      }
+    }
+
+    const networkNode = this.findNetworkNode(features);
+    if (networkNode != null) {
+      this.nodeSelected(networkNode);
+      this.context.crosshairLayer.updatePosition(networkNode.coordinate); // snap
+      return true;
+    }
+
+    const leg = this.findLeg(features);
+    if (leg != null) {
+      if (this.legDragStarted(leg.legId, coordinate)) {
+        return true;
+      }
+    }
+
+    this.context.crosshairLayer.updatePosition(coordinate);
+    return false;
+  }
+
+  handleMoveEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean {
+
+    if (features.isEmpty()) {
+      this.context.crosshairLayer.setVisible(true);
+      this.viewPort.style.cursor = "default";
+      this.context.crosshairLayer.updatePosition(coordinate);
+      return false;
+    }
+
+    const legNode = this.findDraggableLegNode(features);
+    if (legNode != null) {
+      this.context.crosshairLayer.setVisible(false);
+      this.viewPort.style.cursor = "move";
+      return true;
+    }
+
+    const networkNode = this.findNetworkNode(features);
+    if (networkNode != null) {
+      this.viewPort.style.cursor = "default";
+      this.context.crosshairLayer.updatePosition(networkNode.coordinate); // snap
+      return true;
+    }
+
+    const leg = this.findLeg(features);
+    if (leg != null) {
+      this.context.crosshairLayer.setVisible(false);
+      this.viewPort.style.cursor = "move";
+      return true;
+    }
+
+    this.context.crosshairLayer.setVisible(true);
+    this.viewPort.style.cursor = "default";
+    this.context.crosshairLayer.updatePosition(coordinate);
+
+    return true;
+  }
+
+  handleDragEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean {
+    return false;
+  }
+
+  handleUpEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean {
+
+    if (this.isDraggingLeg() || this.isDraggingNode()) {
+      this.viewPort.style.cursor = "default";
+
+      const networkNode = this.findNetworkNode(features);
+      if (networkNode != null) {
+
+        if (this.isDraggingLeg()) {
+          this.endDragLeg(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
+        } else if (this.isDraggingNode()) {
+          this.endDragNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
+        }
+        return true;
+      }
+
+      this.dragCancel();
+    }
+
+    this.context.crosshairLayer.setVisible(true);
+    return true;
+  }
+
+  handleMouseOut() {
+    this.context.crosshairLayer.setVisible(false);
+  }
+
+  handleMouseEnter() {
+    this.context.crosshairLayer.setVisible(true);
+  }
+
+  private nodeSelected(networkNode: PlannerMapFeatureNetworkNode): void {
     if (this.context.plan.source === null) {
-      const node = new PlanNode(nodeId, nodeName, coordinate);
+      const node = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const command = new PlannerCommandAddStartPoint(node);
       this.context.commandStack.push(command);
       command.do(this.context);
     } else {
       const legId = "" + ++this.legIdGenerator;
       const source: PlanNode = this.context.plan.lastNode();
-      const sink = new PlanNode(nodeId, nodeName, coordinate);
+      const sink = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const command = new PlannerCommandAddLeg(legId, source, sink);
       this.context.commandStack.push(command);
       command.do(this.context);
@@ -76,7 +186,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   legDragStarted(legId: string, coordinate: Coordinate): boolean {
-    console.log("DEBUG start drag leg " + legId);
     const leg = this.context.legCache.getById(legId);
     if (leg) {
       const anchor1 = leg.source.coordinate;
@@ -88,9 +197,8 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  legNodeDragStarted(legNodeId: string, nodeId: string, coordinate: Coordinate): boolean {
-    console.log("DEBUG start drag leg node " + legNodeId);
-    this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan).dragStarted(legNodeId, nodeId);
+  private legNodeDragStarted(legNode: PlannerMapFeatureLegNode, coordinate: Coordinate): boolean {
+    this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan).dragStarted(legNode.id, legNode.nodeId);
     if (this.nodeDrag !== null) {
       this.context.routeLayer.showDoubleElasticBand(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
       return true;
@@ -98,26 +206,21 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  isDraggingLeg(): boolean {
+  private isDraggingLeg(): boolean {
     return this.legDrag !== null;
   }
 
-  isDraggingNode(): boolean {
+  private isDraggingNode(): boolean {
     return this.nodeDrag !== null;
   }
 
-  endDragLeg(nodeId: string, nodeName: string, coordinate: Coordinate): void {
+  private endDragLeg(nodeId: string, nodeName: string, coordinate: Coordinate): void {
     if (this.legDrag !== null) {
-      const oldLeg = this.context.legCache.getById(this.legDrag.legId);
+      const oldLeg = this.context.legCache.getById(this.legDrag.oldLegId);
       if (oldLeg) {
         const connection = new PlanNode(nodeId, nodeName, coordinate);
-
-        const newLegId1 = "" + ++this.legIdGenerator;
-        const newLeg1 = this.buildLeg(newLegId1, oldLeg.source, connection);
-
-        const newLegId2 = "" + ++this.legIdGenerator;
-        const newLeg2 = this.buildLeg(newLegId2, connection, oldLeg.sink);
-
+        const newLeg1 = this.buildLeg(this.newLegId(), oldLeg.source, connection);
+        const newLeg2 = this.buildLeg(this.newLegId(), connection, oldLeg.sink);
         const command = new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2);
         this.context.commandStack.push(command);
         command.do(this.context);
@@ -126,11 +229,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
   }
 
-  endDragNode(nodeId: string, nodeName: string, coordinate: Coordinate): void {
-   this.nodeDrag = null;
+  private endDragNode(nodeId: string, nodeName: string, coordinate: Coordinate): void {
+    this.nodeDrag = null;
   }
 
-  dragCancel(): void {
+  private dragCancel(): void {
     if (this.legDrag !== null) {
       this.context.routeLayer.hideDoubleElasticBand();
       this.legDrag = null;
@@ -151,7 +254,6 @@ export class PlannerEngineImpl implements PlannerEngine {
     const command = this.context.commandStack.redo();
     command.do(this.context);
   }
-
 
   private buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
 
@@ -191,6 +293,40 @@ export class PlannerEngineImpl implements PlannerEngine {
       }
     });
     return new PlanLeg(legId, source, sink, List());
+  }
+
+  private newLegId(): string {
+    return "" + ++this.legIdGenerator;
+  }
+
+  private findDraggableLegNode(features: List<PlannerMapFeature>): PlannerMapFeatureLegNode {
+
+    if (this.context.plan.legs.isEmpty()) {
+      return null;
+    }
+
+    const nodes = features.filter(f => f.isLegNode());
+
+    if (nodes.isEmpty()) {
+      return null;
+    }
+    return nodes.get(0) as PlannerMapFeatureLegNode; // TODO find the closest
+  }
+
+  private findNetworkNode(features: List<PlannerMapFeature>): PlannerMapFeatureNetworkNode {
+    const nodes = features.filter(f => f.isNetworkNode());
+    if (nodes.isEmpty()) {
+      return null;
+    }
+    return nodes.get(0) as PlannerMapFeatureNetworkNode; // TODO find the closest
+  }
+
+  private findLeg(features: List<PlannerMapFeature>): PlannerMapFeatureLeg {
+    const legs = features.filter(f => f.isLeg());
+    if (legs.isEmpty()) {
+      return null;
+    }
+    return legs.get(0) as PlannerMapFeatureLeg; // TODO find the closest
   }
 
 }
