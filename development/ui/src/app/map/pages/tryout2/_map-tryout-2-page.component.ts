@@ -10,7 +10,7 @@ import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vect
 import {NetworkTypes} from "../../../kpn/common/network-types";
 import {PlannerInteraction} from "./planner-interaction";
 import {PlannerService} from "../../planner.service";
-import {PlannerEngineImpl} from "./planner-engine-impl";
+import {PlannerContextImpl} from "./planner-context-impl";
 
 @Component({
   selector: 'kpn-map-tryout-2-page',
@@ -49,9 +49,8 @@ export class MapTryout2PageComponent {
       target: "map-trout-2"
     });
 
-    (this.plannerService.engine as PlannerEngineImpl).viewPort = map.getViewport();
-    this.plannerService.context.crosshairLayer.addToMap(map);
-    this.plannerService.context.routeLayer.addToMap(map);
+    (this.plannerService.context as PlannerContextImpl).viewPort = map.getViewport();
+    this.plannerService.init(map);
     this.interaction.addToMap(map);
 
     const a: Coordinate = fromLonLat([4.43, 51.45]);

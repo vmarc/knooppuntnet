@@ -11,15 +11,15 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.routeLayer.addViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId, this.newLeg1.sink.coordinate);
+    context.addViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId, this.newLeg1.sink.coordinate);
     const legIndex = context.plan.legs.findIndex(leg => leg.legId === this.oldLeg.legId);
     if (legIndex > -1) {
-      context.routeLayer.removeRouteLeg(this.oldLeg.legId);
+      context.removeRouteLeg(this.oldLeg.legId);
       if (!this.newLeg1.fragments.isEmpty()) {
-        context.routeLayer.addRouteLeg(this.newLeg1.legId, this.newLeg1.fragments.flatMap(f => f.coordinates));
+        context.addRouteLeg(this.newLeg1.legId, this.newLeg1.fragments.flatMap(f => f.coordinates));
       }
       if (!this.newLeg2.fragments.isEmpty()) {
-        context.routeLayer.addRouteLeg(this.newLeg2.legId, this.newLeg2.fragments.flatMap(f => f.coordinates));
+        context.addRouteLeg(this.newLeg2.legId, this.newLeg2.fragments.flatMap(f => f.coordinates));
       }
       const newLegs = context.plan.legs.remove(legIndex).push(this.newLeg1).push(this.newLeg2);
       const newPlan = new Plan(context.plan.source, newLegs);
@@ -28,9 +28,9 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
-    context.routeLayer.removeViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId); // remove connection node
-    context.routeLayer.removeRouteLeg(this.newLeg1.legId);
-    context.routeLayer.removeRouteLeg(this.newLeg2.legId);
+    context.removeViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId); // remove connection node
+    context.removeRouteLeg(this.newLeg1.legId);
+    context.removeRouteLeg(this.newLeg2.legId);
 
     const legIndex = context.plan.legs.findIndex(leg => leg.legId === this.newLeg1.legId);
     if (legIndex > -1) {

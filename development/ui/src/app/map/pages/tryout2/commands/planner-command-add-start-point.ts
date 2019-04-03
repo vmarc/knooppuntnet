@@ -12,13 +12,13 @@ export class PlannerCommandAddStartPoint implements PlannerCommand {
   public do(context: PlannerContext) {
     const plan = new Plan(this.node, List());
     context.updatePlan(plan);
-    context.routeLayer.addStartNodeFlag(this.node.nodeId, this.node.coordinate);
+    context.addStartNodeFlag(this.node.nodeId, this.node.coordinate);
   }
 
   public undo(context: PlannerContext) {
     const plan = Plan.empty();
     context.updatePlan(plan);
-    context.routeLayer.removeStartNodeFlag(this.node.nodeId);
+    context.removeStartNodeFlag(this.node.nodeId);
   }
 
 }

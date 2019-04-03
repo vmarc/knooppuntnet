@@ -4,21 +4,16 @@ import {PlannerMapFeature} from "./features/planner-map-feature";
 
 export interface PlannerEngine {
 
-  handleDownEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean;
+  handleDownEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
 
-  handleMoveEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean;
+  handleMoveEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
 
-  handleDragEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean;
+  handleDragEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
 
-  handleUpEvent(coordinate: Coordinate, features: List<PlannerMapFeature>): boolean;
+  handleUpEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
 
   handleMouseOut();
 
   handleMouseEnter();
 
-  // ==========
-
-  undo(): void;
-
-  redo(): void;
 }

@@ -420,14 +420,12 @@ export class TestRouteData {
     });
 
     const command = new PlannerCommandAddStartPoint(plan.source);
-    context.commandStack.push(command);
-    command.do(context);
+    context.execute(command);
 
     plan.legs.forEach(leg => {
       // simulate users clicking nodes in the map
       const command = new PlannerCommandAddLeg(leg.legId, leg.source, leg.sink);
-      context.commandStack.push(command);
-      command.do(context);
+      context.execute(command);
     });
 
   }

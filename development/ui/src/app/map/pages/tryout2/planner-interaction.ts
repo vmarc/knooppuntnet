@@ -14,42 +14,29 @@ import {PlannerMapFeatureNetworkNode} from "./features/planner-map-feature-netwo
 
 export class PlannerInteraction {
 
-  viewPort: HTMLElement;
-
   constructor(private context: PlannerContext,
               private engine: PlannerEngine) {
   }
 
   private interaction = new PointerInteraction({
     handleDownEvent: (evt: MapBrowserEvent) => {
-      return this.engine.handleDownEvent(evt.coordinate, this.getFeaturesAt(evt));
+      return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate);
     },
     handleMoveEvent: (evt: MapBrowserEvent) => {
-      return this.engine.handleMoveEvent(evt.coordinate, this.getFeaturesAt(evt));
+      return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate);
     },
     handleDragEvent: (evt: MapBrowserEvent) => {
-      // get features --> snap to network node if above network node + highlight network node
-      this.context.routeLayer.updateDoubleElasticBandPosition(evt.coordinate);
-      return true;
+      return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate);
     },
     handleUpEvent: (evt: MapBrowserEvent) => {
-      return this.engine.handleUpEvent(evt.coordinate, this.getFeaturesAt(evt));
+      return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate);
     }
   });
 
   addToMap(map: Map) {
     map.addInteraction(this.interaction);
-    this.viewPort = map.getViewport();
-    map.getViewport().addEventListener("mouseout", (e) => this.handleMouseOut(e));
-    map.getViewport().addEventListener("mouseenter", (e) => this.handleMouseEnter(e));
-  }
-
-  private handleMouseOut(event: MouseEvent) {
-    this.engine.handleMouseOut();
-  }
-
-  private handleMouseEnter(event: MouseEvent) {
-    this.engine.handleMouseEnter();
+    map.getViewport().addEventListener("mouseout", (e) => this.engine.handleMouseOut());
+    map.getViewport().addEventListener("mouseenter", (e) => this.engine.handleMouseEnter());
   }
 
   private getFeaturesAt(evt: MapBrowserEvent): List<PlannerMapFeature> {
