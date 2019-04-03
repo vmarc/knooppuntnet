@@ -1,7 +1,7 @@
-import {PlannerCommand} from "./planner-command";
+import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerContext} from "../planner-context";
-import {Plan} from "../plan/plan";
+import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandSplitLeg implements PlannerCommand {
 
@@ -11,7 +11,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    const plan: Plan = context.tempPlan();
+    const plan: Plan = context.plan();
     context.addViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId, this.newLeg1.sink.coordinate);
     const legIndex = plan.legs.findIndex(leg => leg.legId === this.oldLeg.legId);
     if (legIndex > -1) {
@@ -29,14 +29,16 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
+
     context.removeViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId); // remove connection node
     context.removeRouteLeg(this.newLeg1.legId);
     context.removeRouteLeg(this.newLeg2.legId);
 
-    const legIndex = context.plan.legs.findIndex(leg => leg.legId === this.newLeg1.legId);
+    const plan: Plan = context.plan();
+    const legIndex = plan.legs.findIndex(leg => leg.legId === this.newLeg1.legId);
     if (legIndex > -1) {
-      const newLegs = context.plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, this.oldLeg);
-      const newPlan = new Plan(context.plan.source, newLegs);
+      const newLegs = plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, this.oldLeg);
+      const newPlan = new Plan(plan.source, newLegs);
       context.updatePlan(newPlan);
     }
   }

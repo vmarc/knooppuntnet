@@ -1,22 +1,22 @@
-import Coordinate from 'ol/coordinate';
-import {PlannerEngine} from "./planner-engine";
-import {PlannerContext} from "./planner-context";
-import {AppService} from "../../../app.service";
 import {List} from "immutable";
+import {Coordinate} from 'ol/coordinate';
 import {fromLonLat} from 'ol/proj';
-import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
-import {PlannerDragNode} from "./planner-drag-node";
-import {PlannerDragLeg} from "./planner-drag-leg";
-import {PlanNode} from "./plan/plan-node";
-import {PlannerCommandAddStartPoint} from "./commands/planner-command-add-start-point";
+import {AppService} from "../../../app.service";
 import {PlannerCommandAddLeg} from "./commands/planner-command-add-leg";
-import {PlanLegFragment} from "./plan/plan-leg-fragment";
-import {PlanLeg} from "./plan/plan-leg";
+import {PlannerCommandAddStartPoint} from "./commands/planner-command-add-start-point";
 import {PlannerCommandSplitLeg} from "./commands/planner-command-split-leg";
 import {PlannerMapFeature} from "./features/planner-map-feature";
+import {PlannerMapFeatureLeg} from "./features/planner-map-feature-leg";
 import {PlannerMapFeatureLegNode} from "./features/planner-map-feature-leg-node";
 import {PlannerMapFeatureNetworkNode} from "./features/planner-map-feature-network-node";
-import {PlannerMapFeatureLeg} from "./features/planner-map-feature-leg";
+import {PlanLeg} from "./plan/plan-leg";
+import {PlanLegFragment} from "./plan/plan-leg-fragment";
+import {PlanNode} from "./plan/plan-node";
+import {PlannerContext} from "./planner-context";
+import {PlannerDragLeg} from "./planner-drag-leg";
+import {PlannerDragNode} from "./planner-drag-node";
+import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
+import {PlannerEngine} from "./planner-engine";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -137,13 +137,13 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private nodeSelected(networkNode: PlannerMapFeatureNetworkNode): void {
-    if (this.context.plan.source === null) {
+    if (this.context.plan().source === null) {
       const node = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const command = new PlannerCommandAddStartPoint(node);
       this.context.execute(command);
     } else {
       const legId = "" + ++this.legIdGenerator;
-      const source: PlanNode = this.context.plan.lastNode();
+      const source: PlanNode = this.context.plan().lastNode();
       const sink = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const command = new PlannerCommandAddLeg(legId, source, sink);
       this.context.execute(command);
@@ -198,7 +198,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private legNodeDragStarted(legNode: PlannerMapFeatureLegNode, coordinate: Coordinate): boolean {
-    this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan).dragStarted(legNode.id, legNode.nodeId);
+    this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan()).dragStarted(legNode.id, legNode.nodeId);
     if (this.nodeDrag !== null) {
       this.context.setElasticBand(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
       return true;
@@ -290,7 +290,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private findDraggableLegNode(features: List<PlannerMapFeature>): PlannerMapFeatureLegNode {
 
-    if (this.context.plan.legs.isEmpty()) {
+    if (this.context.plan().legs.isEmpty()) {
       return null;
     }
 

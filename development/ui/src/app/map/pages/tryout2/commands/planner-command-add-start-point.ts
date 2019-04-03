@@ -1,8 +1,8 @@
-import {PlannerCommand} from "./planner-command";
 import {List} from "immutable";
+import {Plan} from "../plan/plan";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerContext} from "../planner-context";
-import {Plan} from "../plan/plan";
+import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandAddStartPoint implements PlannerCommand {
 
@@ -11,8 +11,8 @@ export class PlannerCommandAddStartPoint implements PlannerCommand {
 
   public do(context: PlannerContext) {
     const plan = new Plan(this.node, List());
-    context.updatePlan(plan);
     context.addStartNodeFlag(this.node.nodeId, this.node.coordinate);
+    context.updatePlan(plan);
   }
 
   public undo(context: PlannerContext) {

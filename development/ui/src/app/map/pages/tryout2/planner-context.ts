@@ -1,21 +1,20 @@
-import Coordinate from 'ol/coordinate';
-import {Observable} from "rxjs";
-import {PlannerMode} from "./planner-mode";
 import {List} from "immutable";
+import {Coordinate} from 'ol/coordinate';
+import Feature from 'ol/Feature';
+import {Observable} from "rxjs";
+import {PlannerCommand} from "./commands/planner-command";
 import {Plan} from "./plan/plan";
 import {PlanLegCache} from "./plan/plan-leg-cache";
 import {PlanLegFragment} from "./plan/plan-leg-fragment";
-import Feature from 'ol/Feature';
-import {PlannerCommand} from "./commands/planner-command";
+import {PlannerMode} from "./planner-mode";
 
 export interface PlannerContext {
 
   mode: Observable<PlannerMode>;
   planObserver: Observable<Plan>;
-  plan: Plan;
   legCache: PlanLegCache;
 
-  tempPlan(): Plan;
+  plan(): Plan;
 
   execute(command: PlannerCommand): void;
 

@@ -1,18 +1,18 @@
-import Coordinate from 'ol/coordinate';
-import {PlannerContext} from "./planner-context";
+import {List} from "immutable";
+import {Coordinate} from 'ol/coordinate';
+import {Feature} from 'ol/Feature';
 import {BehaviorSubject, Observable} from "rxjs";
+import {PlannerCommand} from "./commands/planner-command";
+import {PlannerCommandStack} from "./commands/planner-command-stack";
+import {Plan} from "./plan/plan";
+import {PlanLeg} from "./plan/plan-leg";
+import {PlanLegCache} from "./plan/plan-leg-cache";
+import {PlanLegFragment} from "./plan/plan-leg-fragment";
+import {PlannerContext} from "./planner-context";
+import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
+import {PlannerElasticBandLayer} from "./planner-elastic-band-layer";
 import {PlannerMode} from "./planner-mode";
 import {PlannerRouteLayer} from "./planner-route-layer";
-import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
-import {List} from "immutable";
-import {Plan} from "./plan/plan";
-import {PlanLegCache} from "./plan/plan-leg-cache";
-import {PlannerCommandStack} from "./commands/planner-command-stack";
-import {PlanLegFragment} from "./plan/plan-leg-fragment";
-import {PlanLeg} from "./plan/plan-leg";
-import {PlannerElasticBandLayer} from "./planner-elastic-band-layer";
-import Feature from 'ol/Feature';
-import {PlannerCommand} from "./commands/planner-command";
 
 export class PlannerContextImpl implements PlannerContext {
 
@@ -107,11 +107,7 @@ export class PlannerContextImpl implements PlannerContext {
     return this._plan;
   }
 
-  get plan(): Plan {
-    return this._plan.value;
-  }
-
-  tempPlan(): Plan {
+  plan(): Plan {
     return this._plan.value;
   }
 
@@ -120,13 +116,13 @@ export class PlannerContextImpl implements PlannerContext {
   }
 
   updatePlanLeg(legId: string, fragments: List<PlanLegFragment>) {
-    const newLegs = this.plan.legs.map(leg => {
+    const newLegs = this.plan().legs.map(leg => {
       if (leg.legId === legId) {
         return new PlanLeg(legId, leg.source, leg.sink, fragments);
       }
       return leg;
     });
-    const newPlan = new Plan(this.plan.source, newLegs);
+    const newPlan = new Plan(this.plan().source, newLegs);
     this.updatePlan(newPlan);
 
     const coordinates = fragments.flatMap(f => f.coordinates); // TODO this duplicates code from PlannerCommandAddLeg.do() - can share?

@@ -1,13 +1,13 @@
-import {PlanLeg} from "../plan/plan-leg";
-import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
-import {PlanNode} from "../plan/plan-node";
 import {List} from "immutable";
 import {Plan} from "../plan/plan";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegFragment} from "../plan/plan-leg-fragment";
+import {PlanNode} from "../plan/plan-node";
+import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
 
 describe("PlannerCommandSplitLeg", () => {
 
-  it("split", () => {
+  it("split leg - do and undo", () => {
 
     const coordinate1 = [1, 1];
     const coordinate2 = [2, 2];
@@ -31,7 +31,6 @@ describe("PlannerCommandSplitLeg", () => {
       "context",
       [
         "plan",
-        "tempPlan",
         "addViaNodeFlag",
         "removeRouteLeg",
         "addRouteLeg",
@@ -40,7 +39,7 @@ describe("PlannerCommandSplitLeg", () => {
     );
 
     const plan = new Plan(node1, List([oldLeg]));
-    context.tempPlan.and.returnValue(plan);
+    context.plan.and.returnValue(plan);
 
     command.do(context);
 
@@ -59,11 +58,6 @@ describe("PlannerCommandSplitLeg", () => {
     expect(newPlan.legs.get(1).legId).toEqual("32");
     expect(newPlan.legs.get(1).source.nodeId).toEqual("1003");
     expect(newPlan.legs.get(1).sink.nodeId).toEqual("1002");
-
-  });
-
-  it("test 2", () => {
-
 
   });
 

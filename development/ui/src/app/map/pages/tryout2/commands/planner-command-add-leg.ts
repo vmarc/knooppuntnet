@@ -1,10 +1,10 @@
 import {List} from "immutable";
-import {PlannerCommand} from "./planner-command";
+import {Plan} from "../plan/plan";
+import {PlanLeg} from "../plan/plan-leg";
+import {PlanLegFragment} from "../plan/plan-leg-fragment";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerContext} from "../planner-context";
-import {PlanLegFragment} from "../plan/plan-leg-fragment";
-import {PlanLeg} from "../plan/plan-leg";
-import {Plan} from "../plan/plan";
+import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandAddLeg implements PlannerCommand {
 
@@ -23,15 +23,15 @@ export class PlannerCommandAddLeg implements PlannerCommand {
       context.addRouteLeg(this.legId, coordinates);
     }
     const leg = new PlanLeg(this.legId, this.legSource, this.legSink, fragments);
-    const newLegs = context.plan.legs.push(leg);
-    const newPlan = new Plan(context.plan.source, newLegs);
+    const newLegs = context.plan().legs.push(leg);
+    const newPlan = new Plan(context.plan().source, newLegs);
     context.updatePlan(newPlan);
   }
 
   public undo(context: PlannerContext) {
-    const legs = context.plan.legs;
+    const legs = context.plan().legs;
     const newLegs = legs.setSize(legs.size - 1);
-    const plan = new Plan(context.plan.source, newLegs);
+    const plan = new Plan(context.plan().source, newLegs);
     context.updatePlan(plan);
     context.removeRouteLeg(this.legId);
     context.removeViaNodeFlag(this.legId, this.legSink.nodeId);
