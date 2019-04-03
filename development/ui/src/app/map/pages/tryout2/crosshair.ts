@@ -1,4 +1,4 @@
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
 import {Circle, Geometry, LineString} from 'ol/geom';

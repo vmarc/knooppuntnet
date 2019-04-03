@@ -1,4 +1,4 @@
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {Observable} from "rxjs";
 import {PlannerMode} from "./planner-mode";
 import {List} from "immutable";
@@ -14,6 +14,8 @@ export interface PlannerContext {
   planObserver: Observable<Plan>;
   plan: Plan;
   legCache: PlanLegCache;
+
+  tempPlan(): Plan;
 
   execute(command: PlannerCommand): void;
 

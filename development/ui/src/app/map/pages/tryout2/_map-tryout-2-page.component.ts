@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import Map from 'ol/Map';
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import Extent from 'ol/View';
 import {fromLonLat} from 'ol/proj';
 import {Tile as TileLayer} from 'ol/layer';

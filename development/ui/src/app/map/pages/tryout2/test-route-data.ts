@@ -1,6 +1,6 @@
 import {List} from "immutable";
 import {fromLonLat} from 'ol/proj';
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {PlannerContext} from "./planner-context";
 import {PlanNode} from "./plan/plan-node";
 import {Plan} from "./plan/plan";

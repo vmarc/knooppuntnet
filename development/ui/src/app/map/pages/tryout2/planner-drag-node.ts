@@ -1,4 +1,4 @@
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {PlanNode} from "./plan/plan-node";
 
 export class PlannerDragNode {

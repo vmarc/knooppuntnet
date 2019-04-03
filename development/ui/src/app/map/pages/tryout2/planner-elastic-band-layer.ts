@@ -1,5 +1,5 @@
 import Map from 'ol/Map';
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
 import {LineString} from 'ol/geom.js';

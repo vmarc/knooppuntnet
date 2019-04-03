@@ -1,5 +1,5 @@
 import Map from 'ol/Map';
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import MapBrowserEvent from 'ol/events'
 import PointerInteraction from 'ol/interaction/Pointer';
 import Feature from 'ol/Feature';

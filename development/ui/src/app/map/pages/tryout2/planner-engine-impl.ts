@@ -1,4 +1,4 @@
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {PlannerEngine} from "./planner-engine";
 import {PlannerContext} from "./planner-context";
 import {AppService} from "../../../app.service";
@@ -108,6 +108,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       this.context.setCursorStyle("default");
+      this.context.setElasticBandInvisible();
 
       const networkNode = this.findNetworkNode(features);
       if (networkNode != null) {

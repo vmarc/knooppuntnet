@@ -1,4 +1,4 @@
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {PlannerContext} from "./planner-context";
 import {BehaviorSubject, Observable} from "rxjs";
 import {PlannerMode} from "./planner-mode";
@@ -108,6 +108,10 @@ export class PlannerContextImpl implements PlannerContext {
   }
 
   get plan(): Plan {
+    return this._plan.value;
+  }
+
+  tempPlan(): Plan {
     return this._plan.value;
   }
 

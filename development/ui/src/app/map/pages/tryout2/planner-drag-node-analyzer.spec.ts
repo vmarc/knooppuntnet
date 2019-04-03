@@ -1,4 +1,4 @@
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {List} from "immutable";
 import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
 import {PlanLeg} from "./plan/plan-leg";

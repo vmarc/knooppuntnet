@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input} from '@angular/core';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import Extent from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';

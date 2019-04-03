@@ -1,4 +1,4 @@
-import Coordinate from 'ol/View';
+import Coordinate from 'ol/coordinate';
 import {List} from "immutable";
 import {PlannerMapFeature} from "./features/planner-map-feature";
 

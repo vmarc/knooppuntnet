@@ -2,12 +2,9 @@ import {Component} from '@angular/core';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
-import Coordinate from 'ol/View';
-import {fromLonLat} from 'ol/proj';
-import {createXYZ} from 'ol/tilegrid';
-import {click, pointerMove} from 'ol/events/condition';
+import Coordinate from 'ol/coordinate';
 import MapBrowserEvent from 'ol/events'
-import {Circle as CircleStyle, Fill, Icon, Stroke, Style} from 'ol/style';
+import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
 
 import {unByKey} from 'ol/Observable.js';
