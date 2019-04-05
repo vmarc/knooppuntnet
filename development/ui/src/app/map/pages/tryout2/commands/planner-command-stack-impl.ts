@@ -1,6 +1,6 @@
 import {List} from "immutable";
-import {PlannerCommandStack} from "./planner-command-stack";
 import {PlannerCommand} from "./planner-command";
+import {PlannerCommandStack} from "./planner-command-stack";
 
 /*
   Collection with planner commands that have been executed. We keep the details of these

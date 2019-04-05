@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {MapService, PoiId} from "../../components/ol/map.service";
 import {AppService} from "../../app.service";
+import {MapService, PoiId} from "../../components/ol/map.service";
 import {Tags} from "../../kpn/shared/data/tags";
 import {PoiPage} from "../../kpn/shared/poi-page";
 import {PoiService} from "../../poi.service";
@@ -14,7 +14,7 @@ import {PoiService} from "../../poi.service";
     </div>
 
     <kpn-poi-names></kpn-poi-names>
-    
+
     <div *ngIf="poiPage != null">
 
       <h2 *ngIf="poiPage.name">{{poiPage.name}}</h2>
@@ -28,8 +28,8 @@ import {PoiService} from "../../poi.service";
         <span *ngIf="poiPage.addressLine1">{{poiPage.addressLine1}}</span><br/>
         <span *ngIf="poiPage.addressLine2">{{poiPage.addressLine2}}</span>
       </p>
-      
-      
+
+
       <div *ngIf="poiPage.description">{{poiPage.description}}</div>
       <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>
       <div *ngIf="poiPage.image"><a [href]="poiPage.image" class="external" target="_blank">image</a></div>

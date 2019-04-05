@@ -1,10 +1,10 @@
-import Map from 'ol/Map';
 import Coordinate from 'ol/coordinate';
-import {Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
 import {LineString} from 'ol/geom.js';
 import {Vector as VectorLayer} from 'ol/layer';
+import Map from 'ol/Map';
 import {Vector as VectorSource} from 'ol/source';
+import {Stroke, Style} from 'ol/style';
 
 export class PlannerElasticBandLayer {
 

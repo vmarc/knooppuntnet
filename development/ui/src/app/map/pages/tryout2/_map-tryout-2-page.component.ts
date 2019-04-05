@@ -1,16 +1,15 @@
 import {Component} from '@angular/core';
-
-import Map from 'ol/Map';
 import Coordinate from 'ol/coordinate';
-import Extent from 'ol/View';
-import {fromLonLat} from 'ol/proj';
 import {Tile as TileLayer} from 'ol/layer';
+import Map from 'ol/Map';
+import {fromLonLat} from 'ol/proj';
 import {OSM} from 'ol/source';
+import Extent from 'ol/View';
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {NetworkTypes} from "../../../kpn/common/network-types";
-import {PlannerInteraction} from "./planner-interaction";
 import {PlannerService} from "../../planner.service";
 import {PlannerContextImpl} from "./planner-context-impl";
+import {PlannerInteraction} from "./planner-interaction";
 
 @Component({
   selector: 'kpn-map-tryout-2-page',

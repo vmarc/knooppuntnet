@@ -1,9 +1,11 @@
 package kpn.core.facade.pages.directions
 
+import kpn.core.db.json.JsonFormatsDirections
 import kpn.core.directions.DirectionsEngine
 import kpn.core.util.Log
 import kpn.shared.directions.Directions
 import kpn.shared.directions.DirectionsInstruction
+import spray.json.JsonParser
 
 import scala.io.Source
 
@@ -29,8 +31,31 @@ class DirectionsBuilderImpl(directionsEngine: DirectionsEngine) extends Directio
 
   override def build(language: String, exampleName: String): Option[Directions] = {
     DirectionsBuilderImpl.examples.get(exampleName) match {
-      case Some(legs) => Some(toDirections(legs, legs.flatMap(fetchDirections)))
+      case Some(legs) => Some(toDirections(legs, legs.flatMap(fetchDirectionResults)))
       case _ => None
+    }
+  }
+
+  private def fetchDirectionResults(leg: Leg): Option[GraphHopperDirections] = {
+
+    val filename = "/directions-examples/" + leg.gpxFilename + ".json"
+    val resource = getClass.getResourceAsStream(filename)
+    if (resource == null) {
+      log.error(s"Could not find resource with name $filename")
+      None
+    }
+    else {
+      try {
+        val string = Source.fromInputStream(resource).getLines().mkString
+        val json = JsonParser(string)
+        Some(JsonFormatsDirections.graphHopperDirectionsFormat.read(json))
+      }
+      catch {
+        case e: Exception =>
+          e.printStackTrace()
+          log.error(s"Could not interprete $filename", e)
+          None
+      }
     }
   }
 

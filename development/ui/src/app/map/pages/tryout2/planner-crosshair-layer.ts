@@ -1,6 +1,6 @@
-import Map from 'ol/Map';
 import Coordinate from 'ol/coordinate';
 import {Vector as VectorLayer} from 'ol/layer';
+import Map from 'ol/Map';
 import {Vector as VectorSource} from 'ol/source';
 import {Crosshair} from "./crosshair";
 

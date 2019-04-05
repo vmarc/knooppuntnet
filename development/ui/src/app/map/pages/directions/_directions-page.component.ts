@@ -1,8 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatIconRegistry} from "@angular/material";
 import {Directions} from "../../../kpn/shared/directions/directions";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
+import {PdfDirections} from "../../print/pdf-directions";
 
 @Component({
   selector: 'kpn-directions-page',
@@ -10,11 +12,14 @@ import {AppService} from "../../../app.service";
     <h1>
       Turn-by-turn directions
     </h1>
+    
     <h2 *ngIf="exampleName">
       {{exampleName}}
     </h2>
 
     <div *ngIf="directions != null">
+      <button mat-raised-button (click)="print()">Print</button>
+      <br/>
       <kpn-directions-summary [directions]="directions"></kpn-directions-summary>
       <br/>
       <mat-divider></mat-divider>
@@ -32,7 +37,8 @@ export class DirectionsPageComponent implements OnInit, OnDestroy {
   directions: Directions;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService) {
+              private appService: AppService,
+              private iconRegistry: MatIconRegistry) {
   }
 
   ngOnInit() {
@@ -46,5 +52,9 @@ export class DirectionsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
+  }
+
+  print() {
+    new PdfDirections(this.directions, this.iconRegistry).print();
   }
 }

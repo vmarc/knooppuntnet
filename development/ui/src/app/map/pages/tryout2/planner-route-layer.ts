@@ -1,11 +1,11 @@
-import Map from 'ol/Map';
+import {List} from "immutable";
 import Coordinate from 'ol/coordinate';
-import {Icon, Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
 import {LineString, Point} from 'ol/geom.js';
 import {Vector as VectorLayer} from 'ol/layer';
+import Map from 'ol/Map';
 import {Vector as VectorSource} from 'ol/source';
-import {List} from "immutable";
+import {Icon, Stroke, Style} from 'ol/style';
 
 /*
   - displays planned route

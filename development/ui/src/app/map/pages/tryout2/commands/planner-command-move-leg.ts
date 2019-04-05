@@ -1,5 +1,5 @@
-import {PlannerCommand} from "./planner-command";
 import {PlannerContext} from "../planner-context";
+import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveLeg implements PlannerCommand {
 

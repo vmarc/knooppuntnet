@@ -1,8 +1,8 @@
 import Coordinate from 'ol/coordinate';
-import {Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
 import {Circle, Geometry, LineString} from 'ol/geom';
 import {GeometryCollection} from 'ol/geom/GeometryCollection.js';
+import {Stroke, Style} from 'ol/style';
 
 export class Crosshair {
 

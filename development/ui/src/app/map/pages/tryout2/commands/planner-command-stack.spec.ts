@@ -1,7 +1,7 @@
+import {PlannerContext} from "../planner-context";
 import {PlannerCommand} from "./planner-command";
 import {PlannerCommandStack} from "./planner-command-stack";
 import {PlannerCommandStackImpl} from "./planner-command-stack-impl";
-import {PlannerContext} from "../planner-context";
 
 class TestCommand implements PlannerCommand {
 

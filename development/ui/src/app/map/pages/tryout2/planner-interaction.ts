@@ -1,16 +1,16 @@
-import Map from 'ol/Map';
+import {List} from "immutable";
 import Coordinate from 'ol/coordinate';
 import MapBrowserEvent from 'ol/events'
-import PointerInteraction from 'ol/interaction/Pointer';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
-import {PlannerEngine} from "./planner-engine";
-import {PlannerContext} from "./planner-context";
+import PointerInteraction from 'ol/interaction/Pointer';
+import Map from 'ol/Map';
 import {PlannerMapFeature} from "./features/planner-map-feature";
-import {List} from "immutable";
 import {PlannerMapFeatureLeg} from "./features/planner-map-feature-leg";
 import {PlannerMapFeatureLegNode} from "./features/planner-map-feature-leg-node";
 import {PlannerMapFeatureNetworkNode} from "./features/planner-map-feature-network-node";
+import {PlannerContext} from "./planner-context";
+import {PlannerEngine} from "./planner-engine";
 
 export class PlannerInteraction {
 

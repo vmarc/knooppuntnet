@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NetworkType} from "../../kpn/shared/network-type";
-import {SelectedFeature} from "../../components/ol/domain/selected-feature";
 import {MatButtonToggleChange} from "@angular/material";
 import {MapService} from 'src/app/components/ol/map.service';
+import {SelectedFeature} from "../../components/ol/domain/selected-feature";
+import {NetworkType} from "../../kpn/shared/network-type";
 
 @Component({
   selector: 'kpn-map-sidebar',
