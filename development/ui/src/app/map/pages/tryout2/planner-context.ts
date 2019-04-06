@@ -52,7 +52,6 @@ export interface PlannerContext {
 
   removeViaNodeFlag(legId: string, nodeId: string): void;
 
-  oldAddRouteLeg(legId: string, coordinates: List<Coordinate>): void;
   addRouteLeg(legId: string): void;
 
   removeRouteLeg(legId: string): void;

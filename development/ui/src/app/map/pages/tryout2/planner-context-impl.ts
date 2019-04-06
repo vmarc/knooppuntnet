@@ -95,10 +95,6 @@ export class PlannerContextImpl implements PlannerContext {
     this.routeLayer.removeViaNodeFlag(legId, nodeId);
   }
 
-  oldAddRouteLeg(legId: string, coordinates: List<Coordinate>): void {
-    this.routeLayer.addRouteLeg(legId, coordinates);
-  }
-
   addRouteLeg(legId: string): void {
     const cachedLeg = this.legCache.getById(legId);
     if (cachedLeg) {

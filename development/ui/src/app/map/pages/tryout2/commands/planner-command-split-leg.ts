@@ -11,17 +11,13 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    const plan: Plan = context.plan();
     context.addViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId, this.newLeg1.sink.coordinate);
+    const plan: Plan = context.plan();
     const legIndex = plan.legs.findIndex(leg => leg.legId === this.oldLeg.legId);
     if (legIndex > -1) {
       context.removeRouteLeg(this.oldLeg.legId);
-      if (!this.newLeg1.fragments.isEmpty()) {
-        context.oldAddRouteLeg(this.newLeg1.legId, this.newLeg1.fragments.flatMap(f => f.coordinates));
-      }
-      if (!this.newLeg2.fragments.isEmpty()) {
-        context.oldAddRouteLeg(this.newLeg2.legId, this.newLeg2.fragments.flatMap(f => f.coordinates));
-      }
+      context.addRouteLeg(this.newLeg1.legId);
+      context.addRouteLeg(this.newLeg2.legId);
       const newLegs = plan.legs.remove(legIndex).push(this.newLeg1).push(this.newLeg2);
       const newPlan = new Plan(plan.source, newLegs);
       context.updatePlan(newPlan);
@@ -29,11 +25,9 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
-
     context.removeViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId); // remove connection node
     context.removeRouteLeg(this.newLeg1.legId);
     context.removeRouteLeg(this.newLeg2.legId);
-
     const plan: Plan = context.plan();
     const legIndex = plan.legs.findIndex(leg => leg.legId === this.newLeg1.legId);
     if (legIndex > -1) {

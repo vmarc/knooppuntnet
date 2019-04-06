@@ -135,6 +135,10 @@ export class PlannerEngineImpl implements PlannerEngine {
         return true;
       }
 
+      if (this.isDraggingNode()) {
+        this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, this.nodeDrag.oldNode.coordinate);
+      }
+
       this.dragCancel();
     }
 
@@ -159,42 +163,9 @@ export class PlannerEngineImpl implements PlannerEngine {
       const legId = "" + ++this.legIdGenerator;
       const source: PlanNode = this.context.plan().lastNode();
       const sink = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
-      const command = new PlannerCommandAddLeg(legId, source, sink);
+      const leg = this.buildLeg(this.newLegId(), source, sink);
+      const command = new PlannerCommandAddLeg(leg);
       this.context.execute(command);
-
-      const cachedLeg = this.context.legCache.get(source.nodeId, sink.nodeId);
-      if (cachedLeg == null) {
-        this.appService.routeLeg("rwn", legId, source.nodeId, sink.nodeId).subscribe(response => {
-          if (response.result) {
-            const fragments = response.result.fragments.map(routeLegFragment => {
-              const nodeId: string = routeLegFragment.sink.nodeId;
-              const nodeName: string = routeLegFragment.sink.nodeName;
-
-              const lon = parseFloat(routeLegFragment.sink.latLon.longitude);
-              const lat = parseFloat(routeLegFragment.sink.latLon.latitude);
-
-              const coordinate: Coordinate = fromLonLat([lon, lat]);
-
-              const sink: PlanNode = new PlanNode(nodeId, nodeName, coordinate);
-              const meters: number = routeLegFragment.meters;
-              const coordinates: List<Coordinates> = routeLegFragment.latLons.map(f => {
-                const lon = parseFloat(f.longitude);
-                const lat = parseFloat(f.latitude);
-                return fromLonLat([lon, lat]);
-              });
-
-              return new PlanLegFragment(sink, meters, coordinates);
-            });
-
-            this.context.updatePlanLeg(legId, fragments);
-            const leg = new PlanLeg(legId, source, sink, fragments);
-            this.context.legCache.add(leg);
-            this.context.addRouteLeg(legId);
-          } else {
-            // TODO handle leg not found
-          }
-        });
-      }
     }
   }
 

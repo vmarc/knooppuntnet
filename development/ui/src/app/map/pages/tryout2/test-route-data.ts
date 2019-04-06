@@ -424,7 +424,7 @@ export class TestRouteData {
 
     plan.legs.forEach(leg => {
       // simulate users clicking nodes in the map
-      const command = new PlannerCommandAddLeg(leg.legId, leg.source, leg.sink);
+      const command = new PlannerCommandAddLeg(leg);
       context.execute(command);
     });
 
