@@ -22,7 +22,9 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
   }
 
   private update(context: PlannerContext, fromLeg1: PlanLeg, fromLeg2: PlanLeg, toLeg1: PlanLeg, toLeg2: PlanLeg) {
-    context.updateFlagPosition(this.startNodeFeatureId, toLeg2.source.coordinate);
+
+    context.removeViaNodeFlag(fromLeg1.legId, fromLeg1.sink.nodeId);
+    context.addViaNodeFlag(toLeg1.legId, toLeg1.sink.nodeId, toLeg1.sink.coordinate);
     context.removeRouteLeg(fromLeg1.legId);
     context.removeRouteLeg(fromLeg2.legId);
     context.addRouteLeg(toLeg1.legId);

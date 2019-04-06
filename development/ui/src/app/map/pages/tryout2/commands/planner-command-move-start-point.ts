@@ -11,7 +11,8 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.updateFlagPosition(this.startNodeFeatureId, this.newFirstLeg.source.coordinate);
+    context.removeStartNodeFlag(this.oldFirstLeg.source.nodeId);
+    context.addStartNodeFlag(this.newFirstLeg.source.nodeId, this.newFirstLeg.source.coordinate);
     context.removeRouteLeg(this.oldFirstLeg.legId);
     context.addRouteLeg(this.newFirstLeg.legId);
     const newSource = this.newFirstLeg.source;
@@ -21,7 +22,8 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
-    context.updateFlagPosition(this.startNodeFeatureId, this.oldFirstLeg.source.coordinate);
+    context.removeStartNodeFlag(this.newFirstLeg.source.nodeId);
+    context.addStartNodeFlag(this.oldFirstLeg.source.nodeId, this.oldFirstLeg.source.coordinate);
     context.removeRouteLeg(this.newFirstLeg.legId);
     context.addRouteLeg(this.oldFirstLeg.legId);
     const newSource = this.oldFirstLeg.source;

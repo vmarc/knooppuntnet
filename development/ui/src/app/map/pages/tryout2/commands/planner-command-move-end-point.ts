@@ -11,14 +11,16 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.updateFlagPosition(this.endNodeFeatureId, this.newLastLeg.sink.coordinate);
+    context.removeViaNodeFlag(this.oldLastLeg.legId, this.oldLastLeg.sink.nodeId);
+    context.addViaNodeFlag(this.newLastLeg.legId, this.newLastLeg.sink.nodeId, this.newLastLeg.sink.coordinate);
     context.removeRouteLeg(this.oldLastLeg.legId);
     context.addRouteLeg(this.newLastLeg.legId);
     this.updateLastLeg(context, this.newLastLeg);
   }
 
   public undo(context: PlannerContext) {
-    context.updateFlagPosition(this.endNodeFeatureId, this.oldLastLeg.sink.coordinate);
+    context.removeViaNodeFlag(this.newLastLeg.legId, this.newLastLeg.sink.nodeId);
+    context.addViaNodeFlag(this.oldLastLeg.legId, this.oldLastLeg.sink.nodeId, this.oldLastLeg.sink.coordinate);
     context.removeRouteLeg(this.newLastLeg.legId);
     context.addRouteLeg(this.oldLastLeg.legId);
     this.updateLastLeg(context, this.oldLastLeg);
