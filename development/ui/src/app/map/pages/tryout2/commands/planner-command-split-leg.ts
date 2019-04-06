@@ -28,6 +28,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.removeViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId); // remove connection node
     context.removeRouteLeg(this.newLeg1.legId);
     context.removeRouteLeg(this.newLeg2.legId);
+    context.addRouteLeg(this.oldLeg.legId);
     const plan: Plan = context.plan();
     const legIndex = plan.legs.findIndex(leg => leg.legId === this.newLeg1.legId);
     if (legIndex > -1) {
