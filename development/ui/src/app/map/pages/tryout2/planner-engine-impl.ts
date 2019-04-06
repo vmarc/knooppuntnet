@@ -115,8 +115,17 @@ export class PlannerEngineImpl implements PlannerEngine {
       return true;
     }
 
-    this.context.setElasticBandPosition(coordinate);
-    return true;
+    if (this.isDraggingLeg()) {
+      const networkNode = this.findNetworkNode(features);
+      if (networkNode != null) { // snap to node position
+        this.context.setElasticBandPosition(networkNode.coordinate);
+        return true;
+      }
+      this.context.setElasticBandPosition(coordinate);
+      return true;
+    }
+
+    return false;
   }
 
   handleUpEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
@@ -160,7 +169,6 @@ export class PlannerEngineImpl implements PlannerEngine {
       const command = new PlannerCommandAddStartPoint(node);
       this.context.execute(command);
     } else {
-      const legId = "" + ++this.legIdGenerator;
       const source: PlanNode = this.context.plan().lastNode();
       const sink = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const leg = this.buildLeg(this.newLegId(), source, sink);
