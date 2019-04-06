@@ -20,7 +20,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     if (cachedLeg) {
       fragments = cachedLeg.fragments;
       const coordinates = fragments.flatMap(f => f.coordinates);
-      context.addRouteLeg(this.legId, coordinates);
+      context.oldAddRouteLeg(this.legId, coordinates);
     }
     const leg = new PlanLeg(this.legId, this.legSource, this.legSink, fragments);
     const newLegs = context.plan().legs.push(leg);

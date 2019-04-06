@@ -17,10 +17,10 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     if (legIndex > -1) {
       context.removeRouteLeg(this.oldLeg.legId);
       if (!this.newLeg1.fragments.isEmpty()) {
-        context.addRouteLeg(this.newLeg1.legId, this.newLeg1.fragments.flatMap(f => f.coordinates));
+        context.oldAddRouteLeg(this.newLeg1.legId, this.newLeg1.fragments.flatMap(f => f.coordinates));
       }
       if (!this.newLeg2.fragments.isEmpty()) {
-        context.addRouteLeg(this.newLeg2.legId, this.newLeg2.fragments.flatMap(f => f.coordinates));
+        context.oldAddRouteLeg(this.newLeg2.legId, this.newLeg2.fragments.flatMap(f => f.coordinates));
       }
       const newLegs = plan.legs.remove(legIndex).push(this.newLeg1).push(this.newLeg2);
       const newPlan = new Plan(plan.source, newLegs);

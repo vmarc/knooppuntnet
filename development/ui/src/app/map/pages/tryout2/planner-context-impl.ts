@@ -63,6 +63,10 @@ export class PlannerContextImpl implements PlannerContext {
     this.viewPort.style.cursor = style;
   }
 
+  updateFlagPosition(flagId: string, coordinate: Coordinate): void {
+    this.routeLayer.updateFlagPosition(flagId, coordinate);
+  }
+
   setElasticBand(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate): void {
     this.elasticBandLayer.set(anchor1, anchor2, coordinate);
   }
@@ -91,8 +95,15 @@ export class PlannerContextImpl implements PlannerContext {
     this.routeLayer.removeViaNodeFlag(legId, nodeId);
   }
 
-  addRouteLeg(legId: string, coordinates: List<Coordinate>): void {
+  oldAddRouteLeg(legId: string, coordinates: List<Coordinate>): void {
     this.routeLayer.addRouteLeg(legId, coordinates);
+  }
+
+  addRouteLeg(legId: string): void {
+    const cachedLeg = this.legCache.getById(legId);
+    if (cachedLeg) {
+      this.routeLayer.addRouteLeg(legId, cachedLeg.coordinates());
+    }
   }
 
   removeRouteLeg(legId: string): void {

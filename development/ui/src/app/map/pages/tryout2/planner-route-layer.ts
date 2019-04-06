@@ -64,7 +64,15 @@ export class PlannerRouteLayer {
     this.removeNodeFlag(this.viaNodeKey(legId, nodeId));
   }
 
+  updateFlagPosition(featureId: string, coordinate: Coordinate): void {
+    const feature = this.source.getFeatureById(featureId);
+    if (feature) {
+      feature.getGeometry().setCoordinates(coordinate);
+    }
+  }
+
   addRouteLeg(legId: string, coordinates: List<Coordinate>) {
+    this.removeRouteLeg(legId);
     const feature = new Feature(new LineString(coordinates.toArray()));
     feature.setId(legId);
     feature.set("layer", "leg");

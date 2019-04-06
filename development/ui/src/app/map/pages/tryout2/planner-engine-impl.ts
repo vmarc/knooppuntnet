@@ -4,6 +4,9 @@ import {fromLonLat} from 'ol/proj';
 import {AppService} from "../../../app.service";
 import {PlannerCommandAddLeg} from "./commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "./commands/planner-command-add-start-point";
+import {PlannerCommandMoveEndPoint} from "./commands/planner-command-move-end-point";
+import {PlannerCommandMoveStartPoint} from "./commands/planner-command-move-start-point";
+import {PlannerCommandMoveViaPoint} from "./commands/planner-command-move-via-point";
 import {PlannerCommandSplitLeg} from "./commands/planner-command-split-leg";
 import {PlannerMapFeature} from "./features/planner-map-feature";
 import {PlannerMapFeatureLeg} from "./features/planner-map-feature-leg";
@@ -99,7 +102,19 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   handleDragEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
-    // get features --> snap to network node if above network node + highlight network node
+
+    if (this.isDraggingNode()) {
+      const networkNode = this.findNetworkNode(features);
+      if (networkNode != null) { // snap to node position
+        this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, networkNode.coordinate);
+        this.context.setElasticBandPosition(networkNode.coordinate);
+        return true;
+      }
+      this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, coordinate);
+      this.context.setElasticBandPosition(coordinate);
+      return true;
+    }
+
     this.context.setElasticBandPosition(coordinate);
     return true;
   }
@@ -112,7 +127,6 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       const networkNode = this.findNetworkNode(features);
       if (networkNode != null) {
-
         if (this.isDraggingLeg()) {
           this.endDragLeg(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
         } else if (this.isDraggingNode()) {
@@ -175,8 +189,7 @@ export class PlannerEngineImpl implements PlannerEngine {
             this.context.updatePlanLeg(legId, fragments);
             const leg = new PlanLeg(legId, source, sink, fragments);
             this.context.legCache.add(leg);
-            const coordinates = fragments.flatMap(f => f.coordinates);
-            this.context.addRouteLeg(legId, coordinates);
+            this.context.addRouteLeg(legId);
           } else {
             // TODO handle leg not found
           }
@@ -200,6 +213,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   private legNodeDragStarted(legNode: PlannerMapFeatureLegNode, coordinate: Coordinate): boolean {
     this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan()).dragStarted(legNode.id, legNode.nodeId);
     if (this.nodeDrag !== null) {
+      this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, coordinate);
       this.context.setElasticBand(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
       return true;
     }
@@ -228,7 +242,39 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
   }
 
-  private endDragNode(nodeId: string, nodeName: string, coordinate: Coordinate): void {
+  private endDragNode(newNodeId: string, newNodeName: string, newCoordinate: Coordinate): void {
+
+    if (this.nodeDrag.legNodeFeatureId.startsWith("start-node-flag-")) {
+      const newStartNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
+      const oldFirstLeg: PlanLeg = this.context.plan().legs.first();
+      const newFirstLeg: PlanLeg = this.buildLeg(this.newLegId(), newStartNode, oldFirstLeg.sink);
+      const command = new PlannerCommandMoveStartPoint(this.nodeDrag.legNodeFeatureId, oldFirstLeg, newFirstLeg);
+      this.context.execute(command);
+    } else { // end node
+      const oldLastLeg: PlanLeg = this.context.plan().legs.last();
+      if (this.nodeDrag.legNodeFeatureId.startsWith("leg-" + oldLastLeg.legId)) {
+        const newEndNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
+        const newLastLeg: PlanLeg = this.buildLeg(this.newLegId(), oldLastLeg.source, newEndNode);
+        const command = new PlannerCommandMoveEndPoint(this.nodeDrag.legNodeFeatureId, oldLastLeg, newLastLeg);
+        this.context.execute(command);
+      } else {
+        const legs = this.context.plan().legs;
+        const splitted = this.nodeDrag.legNodeFeatureId.split("-");
+        const legId = splitted[1];
+        const indexLeg1 = legs.findIndex(leg => leg.legId == legId);
+
+        const oldLeg1 = legs.get(indexLeg1);
+        const oldLeg2 = legs.get(indexLeg1 + 1);
+
+        const connection = new PlanNode(newNodeId, newNodeName, newCoordinate);
+        const newLeg1: PlanLeg = this.buildLeg(this.newLegId(), oldLeg1.source, connection);
+        const newLeg2: PlanLeg = this.buildLeg(this.newLegId(), connection, oldLeg2.sink);
+
+        const command = new PlannerCommandMoveViaPoint(this.nodeDrag.legNodeFeatureId, indexLeg1, oldLeg1, oldLeg2, newLeg1, newLeg2);
+        this.context.execute(command);
+      }
+    }
+
     this.nodeDrag = null;
   }
 
@@ -275,8 +321,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.updatePlanLeg(legId, fragments);
         const leg = new PlanLeg(legId, source, sink, fragments);
         this.context.legCache.add(leg);
-        const coordinates = fragments.flatMap(f => f.coordinates);
-        this.context.addRouteLeg(legId, coordinates);
+        this.context.addRouteLeg(legId);
       } else {
         // TODO handle leg not found
       }

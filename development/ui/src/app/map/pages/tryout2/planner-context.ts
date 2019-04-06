@@ -36,6 +36,8 @@ export interface PlannerContext {
 
   setCursorStyle(style: string): void;
 
+  updateFlagPosition(flagId: string, coordinate: Coordinate): void;
+
   setElasticBand(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate): void;
 
   setElasticBandInvisible(): void;
@@ -50,7 +52,8 @@ export interface PlannerContext {
 
   removeViaNodeFlag(legId: string, nodeId: string): void;
 
-  addRouteLeg(legId: string, coordinates: List<Coordinate>): void;
+  oldAddRouteLeg(legId: string, coordinates: List<Coordinate>): void;
+  addRouteLeg(legId: string): void;
 
   removeRouteLeg(legId: string): void;
 

@@ -1,6 +1,7 @@
 import {List} from "immutable";
-import {PlanNode} from "./plan-node";
+import {Coordinate} from 'ol/coordinate';
 import {PlanLegFragment} from "./plan-leg-fragment";
+import {PlanNode} from "./plan-node";
 
 export class PlanLeg {
 
@@ -12,6 +13,10 @@ export class PlanLeg {
 
   meters(): number {
     return this.fragments.map(f => f.meters).reduce((sum, current) => sum + current, 0);
+  }
+
+  coordinates(): List<Coordinate> {
+    return this.fragments.flatMap(f => f.coordinates);
   }
 
 }

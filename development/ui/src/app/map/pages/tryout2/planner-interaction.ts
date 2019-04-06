@@ -58,7 +58,7 @@ export class PlannerInteraction {
       }
       if ("leg-node" === layer) {
         const id = feature.getId();
-        const nodeId = feature.get("id");
+        const nodeId = feature.get("nodeId");
         return new PlannerMapFeatureLegNode(id, nodeId);
       }
       if (layer.endsWith("node")) {

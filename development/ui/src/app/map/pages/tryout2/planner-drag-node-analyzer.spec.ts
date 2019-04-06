@@ -1,16 +1,15 @@
 import {List} from "immutable";
-import Coordinate from 'ol/coordinate';
-import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
+import {Plan} from "./plan/plan";
 import {PlanLeg} from "./plan/plan-leg";
 import {PlanNode} from "./plan/plan-node";
-import {Plan} from "./plan/plan";
+import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
 
 describe("PlannerNodeDragAnalyzer", () => {
 
-  const coordinate1 = new Coordinate([1, 0]);
-  const coordinate2 = new Coordinate([2, 0]);
-  const coordinate3 = new Coordinate([3, 0]);
-  const coordinate4 = new Coordinate([4, 0]);
+  const coordinate1 = [1, 0];
+  const coordinate2 = [2, 0];
+  const coordinate3 = [3, 0];
+  const coordinate4 = [4, 0];
 
   const node1 = new PlanNode("1001", "01", coordinate1);
   const node2 = new PlanNode("1002", "02", coordinate2);
