@@ -49,7 +49,6 @@ export class PlannerEngineImpl implements PlannerEngine {
     const networkNode = this.findNetworkNode(features);
     if (networkNode != null) {
       this.nodeSelected(networkNode);
-      this.context.setCrosshairPosition(networkNode.coordinate); // snap
       return true;
     }
 
@@ -152,7 +151,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     this.context.setCrosshairVisible(true);
-    return true;
+    return false;
   }
 
   handleMouseOut() {
@@ -164,6 +163,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private nodeSelected(networkNode: PlannerMapFeatureNetworkNode): void {
+    this.context.setCrosshairPosition(networkNode.coordinate); // snap
     if (this.context.plan().source === null) {
       const node = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const command = new PlannerCommandAddStartPoint(node);
@@ -313,13 +313,10 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private findDraggableLegNode(features: List<PlannerMapFeature>): PlannerMapFeatureLegNode {
-
     if (this.context.plan().legs.isEmpty()) {
       return null;
     }
-
     const nodes = features.filter(f => f.isLegNode());
-
     if (nodes.isEmpty()) {
       return null;
     }

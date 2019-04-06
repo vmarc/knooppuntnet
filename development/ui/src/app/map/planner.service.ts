@@ -10,7 +10,6 @@ import {PlannerElasticBandLayer} from "./pages/tryout2/planner-elastic-band-laye
 import {PlannerEngine} from "./pages/tryout2/planner-engine";
 import {PlannerEngineImpl} from "./pages/tryout2/planner-engine-impl";
 import {PlannerRouteLayer} from "./pages/tryout2/planner-route-layer";
-import {TestRouteData} from "./pages/tryout2/test-route-data";
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +32,6 @@ export class PlannerService {
   );
 
   engine: PlannerEngine = new PlannerEngineImpl(this.context, this.appService);
-
-  private simulationPlan = new TestRouteData().buildTestPlan(this.context);
 
   init(map: Map): void {
     this.crosshairLayer.addToMap(map);
