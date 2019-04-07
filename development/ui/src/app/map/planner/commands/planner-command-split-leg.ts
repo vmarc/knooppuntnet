@@ -11,9 +11,9 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
-    const oldLeg = context.legCache.getById(this.oldLegId);
-    const newLeg1 = context.legCache.getById(this.newLegId1);
-    const newLeg2 = context.legCache.getById(this.newLegId2);
+    const oldLeg = context.legCache().getById(this.oldLegId);
+    const newLeg1 = context.legCache().getById(this.newLegId1);
+    const newLeg2 = context.legCache().getById(this.newLegId2);
 
     context.addViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId, newLeg1.sink.coordinate);
     const plan: Plan = context.plan();
@@ -30,9 +30,9 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
 
   public undo(context: PlannerContext) {
 
-    const oldLeg = context.legCache.getById(this.oldLegId);
-    const newLeg1 = context.legCache.getById(this.newLegId1);
-    const newLeg2 = context.legCache.getById(this.newLegId2);
+    const oldLeg = context.legCache().getById(this.oldLegId);
+    const newLeg1 = context.legCache().getById(this.newLegId1);
+    const newLeg2 = context.legCache().getById(this.newLegId2);
 
     context.removeViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId); // remove connection node
     context.removeRouteLeg(newLeg1.legId);

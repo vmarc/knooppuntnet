@@ -22,10 +22,10 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
   private update(context: PlannerContext, fromLegId1: string, fromLegId2: string, toLegId1: string, toLegId2: string) {
 
-    const fromLeg1 = context.legCache.getById(fromLegId1);
-    const fromLeg2 = context.legCache.getById(fromLegId2);
-    const toLeg1 = context.legCache.getById(toLegId1);
-    const toLeg2 = context.legCache.getById(toLegId2);
+    const fromLeg1 = context.legCache().getById(fromLegId1);
+    const fromLeg2 = context.legCache().getById(fromLegId2);
+    const toLeg1 = context.legCache().getById(toLegId1);
+    const toLeg2 = context.legCache().getById(toLegId2);
 
     context.removeViaNodeFlag(fromLeg1.legId, fromLeg1.sink.nodeId);
     context.addViaNodeFlag(toLeg1.legId, toLeg1.sink.nodeId, toLeg1.sink.coordinate);

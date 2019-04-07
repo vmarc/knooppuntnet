@@ -1,6 +1,7 @@
 import {List} from "immutable";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
+import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
 
@@ -20,12 +21,18 @@ describe("PlannerCommandSplitLeg", () => {
     const newLeg1: PlanLeg = new PlanLeg("13", node1, node3, List());
     const newLeg2: PlanLeg = new PlanLeg("32", node3, node2, List());
 
+    const legs = new PlanLegCache();
+    legs.add(oldLeg);
+    legs.add(newLeg1);
+    legs.add(newLeg2);
+
     const command = new PlannerCommandSplitLeg(oldLeg.legId, newLeg1.legId, newLeg2.legId);
 
     const context /*: PlannerContext */ = jasmine.createSpyObj(
       "context",
       [
         "plan",
+        "legCache",
         "addViaNodeFlag",
         "removeRouteLeg",
         "addRouteLeg",
@@ -35,6 +42,7 @@ describe("PlannerCommandSplitLeg", () => {
 
     const plan = new Plan(node1, List([oldLeg]));
     context.plan.and.returnValue(plan);
+    context.legCache.and.returnValue(legs);
 
     command.do(context);
 

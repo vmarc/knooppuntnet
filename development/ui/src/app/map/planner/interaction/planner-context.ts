@@ -12,7 +12,8 @@ export interface PlannerContext {
 
   mode: Observable<PlannerMode>;
   planObserver: Observable<Plan>;
-  legCache: PlanLegCache;
+
+  legCache(): PlanLegCache;
 
   plan(): Plan;
 

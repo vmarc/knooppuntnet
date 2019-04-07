@@ -18,7 +18,7 @@ export class PlannerContextImpl implements PlannerContext {
 
   private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
   private _plan = new BehaviorSubject<Plan>(Plan.empty());
-  public readonly legCache: PlanLegCache = new PlanLegCache();
+  private _legCache: PlanLegCache = new PlanLegCache();
 
   viewPort: HTMLElement;
 
@@ -26,6 +26,10 @@ export class PlannerContextImpl implements PlannerContext {
               private routeLayer: PlannerRouteLayer,
               private crosshairLayer: PlannerCrosshairLayer,
               private elasticBandLayer: PlannerElasticBandLayer) {
+  }
+
+  legCache(): PlanLegCache {
+    return this._legCache;
   }
 
   execute(command: PlannerCommand): void {
@@ -96,7 +100,7 @@ export class PlannerContextImpl implements PlannerContext {
   }
 
   addRouteLeg(legId: string): void {
-    const cachedLeg = this.legCache.getById(legId);
+    const cachedLeg = this.legCache().getById(legId);
     if (cachedLeg) {
       this.routeLayer.addRouteLeg(legId, cachedLeg.coordinates());
     }

@@ -178,7 +178,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private legDragStarted(legId: string, coordinate: Coordinate): boolean {
-    const leg = this.context.legCache.getById(legId);
+    const leg = this.context.legCache().getById(legId);
     if (leg) {
       const anchor1 = leg.source.coordinate;
       const anchor2 = leg.sink.coordinate;
@@ -209,7 +209,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private endDragLeg(nodeId: string, nodeName: string, coordinate: Coordinate): void {
     if (this.legDrag !== null) {
-      const oldLeg = this.context.legCache.getById(this.legDrag.oldLegId);
+      const oldLeg = this.context.legCache().getById(this.legDrag.oldLegId);
       if (oldLeg) {
         const connection = new PlanNode(nodeId, nodeName, coordinate);
         const newLeg1 = this.buildLeg(this.newLegId(), oldLeg.source, connection);
@@ -271,7 +271,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
 
-    const cachedLeg = this.context.legCache.get(source.nodeId, sink.nodeId);
+    const cachedLeg = this.context.legCache().get(source.nodeId, sink.nodeId);
     if (cachedLeg) {
       return new PlanLeg(legId, source, sink, cachedLeg.fragments);
     }
@@ -299,14 +299,14 @@ export class PlannerEngineImpl implements PlannerEngine {
 
         this.context.updatePlanLeg(legId, fragments);
         const leg = new PlanLeg(legId, source, sink, fragments);
-        this.context.legCache.add(leg);
+        this.context.legCache().add(leg);
         this.context.addRouteLeg(legId);
       } else {
         // TODO handle leg not found
       }
     });
     const leg = new PlanLeg(legId, source, sink, List());
-    this.context.legCache.add(leg);
+    this.context.legCache().add(leg);
     return leg;
   }
 

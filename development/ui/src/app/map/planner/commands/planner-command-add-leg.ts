@@ -8,7 +8,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    const leg = context.legCache.getById(this.legId);
+    const leg = context.legCache().getById(this.legId);
     context.addViaNodeFlag(leg.legId, leg.sink.nodeId, leg.sink.coordinate);
     context.addRouteLeg(this.legId);
     const newLegs = context.plan().legs.push(leg);
@@ -17,7 +17,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
-    const leg = context.legCache.getById(this.legId);
+    const leg = context.legCache().getById(this.legId);
     const plan = context.plan();
     const newLegs = plan.legs.slice(0, -1);
     const newPlan = new Plan(plan.source, newLegs);
