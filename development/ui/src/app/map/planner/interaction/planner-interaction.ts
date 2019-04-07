@@ -5,10 +5,10 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import PointerInteraction from 'ol/interaction/Pointer';
 import Map from 'ol/Map';
-import {PlannerMapFeature} from "./features/planner-map-feature";
-import {PlannerMapFeatureLeg} from "./features/planner-map-feature-leg";
-import {PlannerMapFeatureLegNode} from "./features/planner-map-feature-leg-node";
-import {PlannerMapFeatureNetworkNode} from "./features/planner-map-feature-network-node";
+import {PlannerMapFeature} from "../features/planner-map-feature";
+import {PlannerMapFeatureLeg} from "../features/planner-map-feature-leg";
+import {PlannerMapFeatureLegNode} from "../features/planner-map-feature-leg-node";
+import {PlannerMapFeatureNetworkNode} from "../features/planner-map-feature-network-node";
 import {PlannerContext} from "./planner-context";
 import {PlannerEngine} from "./planner-engine";
 

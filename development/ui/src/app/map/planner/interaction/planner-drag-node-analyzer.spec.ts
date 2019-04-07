@@ -1,7 +1,7 @@
 import {List} from "immutable";
-import {Plan} from "./plan/plan";
-import {PlanLeg} from "./plan/plan-leg";
-import {PlanNode} from "./plan/plan-node";
+import {Plan} from "../plan/plan";
+import {PlanLeg} from "../plan/plan-leg";
+import {PlanNode} from "../plan/plan-node";
 import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
 
 describe("PlannerNodeDragAnalyzer", () => {

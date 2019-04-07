@@ -8,8 +8,8 @@ import Extent from 'ol/View';
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {NetworkTypes} from "../../../kpn/common/network-types";
 import {PlannerService} from "../../planner.service";
-import {PlannerContextImpl} from "./planner-context-impl";
-import {PlannerInteraction} from "./planner-interaction";
+import {PlannerContextImpl} from "../../planner/interaction/planner-context-impl";
+import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 
 @Component({
   selector: 'kpn-map-tryout-2-page',

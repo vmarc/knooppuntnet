@@ -1,4 +1,4 @@
-import {PlannerContext} from "../planner-context";
+import {PlannerContext} from "../interaction/planner-context";
 
 export interface PlannerCommand {
   do(context: PlannerContext);
