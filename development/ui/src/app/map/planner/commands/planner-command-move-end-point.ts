@@ -5,19 +5,21 @@ import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveEndPoint implements PlannerCommand {
 
-  constructor(private readonly oldLastLeg: PlanLeg,
-              private readonly newLastLeg: PlanLeg) {
+  constructor(private readonly oldLastLegId: string,
+              private readonly newLastLegId: string) {
   }
 
   public do(context: PlannerContext) {
-    this.update(context, this.oldLastLeg, this.newLastLeg);
+    this.update(context, this.oldLastLegId, this.newLastLegId);
   }
 
   public undo(context: PlannerContext) {
-    this.update(context, this.newLastLeg, this.oldLastLeg);
+    this.update(context, this.newLastLegId, this.oldLastLegId);
   }
 
-  private update(context: PlannerContext, fromLeg: PlanLeg, toLeg: PlanLeg) {
+  private update(context: PlannerContext, fromLegId: string, toLegId: string) {
+    const fromLeg = context.legCache.getById(fromLegId);
+    const toLeg = context.legCache.getById(toLegId);
     context.removeViaNodeFlag(fromLeg.legId, fromLeg.sink.nodeId);
     context.addViaNodeFlag(toLeg.legId, toLeg.sink.nodeId, toLeg.sink.coordinate);
     context.removeRouteLeg(fromLeg.legId);

@@ -172,7 +172,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const source: PlanNode = this.context.plan().lastNode();
       const sink = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const leg = this.buildLeg(this.newLegId(), source, sink);
-      const command = new PlannerCommandAddLeg(leg);
+      const command = new PlannerCommandAddLeg(leg.legId);
       this.context.execute(command);
     }
   }
@@ -214,7 +214,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         const connection = new PlanNode(nodeId, nodeName, coordinate);
         const newLeg1 = this.buildLeg(this.newLegId(), oldLeg.source, connection);
         const newLeg2 = this.buildLeg(this.newLegId(), connection, oldLeg.sink);
-        const command = new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2);
+        const command = new PlannerCommandSplitLeg(oldLeg.legId, newLeg1.legId, newLeg2.legId);
         this.context.execute(command);
       }
       this.legDrag = null;
@@ -227,14 +227,14 @@ export class PlannerEngineImpl implements PlannerEngine {
       const newStartNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
       const oldFirstLeg: PlanLeg = this.context.plan().legs.first();
       const newFirstLeg: PlanLeg = this.buildLeg(this.newLegId(), newStartNode, oldFirstLeg.sink);
-      const command = new PlannerCommandMoveStartPoint(oldFirstLeg, newFirstLeg);
+      const command = new PlannerCommandMoveStartPoint(oldFirstLeg.legId, newFirstLeg.legId);
       this.context.execute(command);
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan().legs.last();
       if (this.nodeDrag.legNodeFeatureId.startsWith("leg-" + oldLastLeg.legId)) {
         const newEndNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
         const newLastLeg: PlanLeg = this.buildLeg(this.newLegId(), oldLastLeg.source, newEndNode);
-        const command = new PlannerCommandMoveEndPoint(oldLastLeg, newLastLeg);
+        const command = new PlannerCommandMoveEndPoint(oldLastLeg.legId, newLastLeg.legId);
         this.context.execute(command);
       } else {
         const legs = this.context.plan().legs;
@@ -249,7 +249,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         const newLeg1: PlanLeg = this.buildLeg(this.newLegId(), oldLeg1.source, connection);
         const newLeg2: PlanLeg = this.buildLeg(this.newLegId(), connection, oldLeg2.sink);
 
-        const command = new PlannerCommandMoveViaPoint(this.nodeDrag.legNodeFeatureId, indexLeg1, oldLeg1, oldLeg2, newLeg1, newLeg2);
+        const command = new PlannerCommandMoveViaPoint(this.nodeDrag.legNodeFeatureId, indexLeg1, oldLeg1.legId, oldLeg2.legId, newLeg1.legId, newLeg2.legId);
         this.context.execute(command);
       }
     }
@@ -305,7 +305,9 @@ export class PlannerEngineImpl implements PlannerEngine {
         // TODO handle leg not found
       }
     });
-    return new PlanLeg(legId, source, sink, List());
+    const leg = new PlanLeg(legId, source, sink, List());
+    this.context.legCache.add(leg);
+    return leg;
   }
 
   private newLegId(): string {

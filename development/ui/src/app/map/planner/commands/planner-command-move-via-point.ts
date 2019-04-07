@@ -1,27 +1,31 @@
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerContext} from "../interaction/planner-context";
+import {Plan} from "../plan/plan";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
   constructor(private readonly startNodeFeatureId: string,
               private readonly indexleg1: number,
-              private readonly oldLeg1: PlanLeg,
-              private readonly oldLeg2: PlanLeg,
-              private readonly newLeg1: PlanLeg,
-              private readonly newLeg2: PlanLeg) {
+              private readonly oldLegId1: string,
+              private readonly oldLegId2: string,
+              private readonly newLegId1: string,
+              private readonly newLegId2: string) {
   }
 
   public do(context: PlannerContext) {
-    this.update(context, this.oldLeg1, this.oldLeg2, this.newLeg1, this.newLeg2);
+    this.update(context, this.oldLegId1, this.oldLegId2, this.newLegId1, this.newLegId2);
   }
 
   public undo(context: PlannerContext) {
-    this.update(context, this.newLeg1, this.newLeg2, this.oldLeg1, this.oldLeg2);
+    this.update(context, this.newLegId1, this.newLegId2, this.oldLegId1, this.oldLegId2);
   }
 
-  private update(context: PlannerContext, fromLeg1: PlanLeg, fromLeg2: PlanLeg, toLeg1: PlanLeg, toLeg2: PlanLeg) {
+  private update(context: PlannerContext, fromLegId1: string, fromLegId2: string, toLegId1: string, toLegId2: string) {
+
+    const fromLeg1 = context.legCache.getById(fromLegId1);
+    const fromLeg2 = context.legCache.getById(fromLegId2);
+    const toLeg1 = context.legCache.getById(toLegId1);
+    const toLeg2 = context.legCache.getById(toLegId2);
 
     context.removeViaNodeFlag(fromLeg1.legId, fromLeg1.sink.nodeId);
     context.addViaNodeFlag(toLeg1.legId, toLeg1.sink.nodeId, toLeg1.sink.coordinate);

@@ -20,7 +20,7 @@ describe("PlannerCommandSplitLeg", () => {
     const newLeg1: PlanLeg = new PlanLeg("13", node1, node3, List());
     const newLeg2: PlanLeg = new PlanLeg("32", node3, node2, List());
 
-    const command = new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2);
+    const command = new PlannerCommandSplitLeg(oldLeg.legId, newLeg1.legId, newLeg2.legId);
 
     const context /*: PlannerContext */ = jasmine.createSpyObj(
       "context",

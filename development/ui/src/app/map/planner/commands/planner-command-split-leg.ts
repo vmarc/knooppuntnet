@@ -1,38 +1,47 @@
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerContext} from "../interaction/planner-context";
+import {Plan} from "../plan/plan";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandSplitLeg implements PlannerCommand {
 
-  constructor(private oldLeg: PlanLeg,
-              private newLeg1: PlanLeg,
-              private newLeg2: PlanLeg) {
+  constructor(private oldLegId: string,
+              private newLegId1: string,
+              private newLegId2: string) {
   }
 
   public do(context: PlannerContext) {
-    context.addViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId, this.newLeg1.sink.coordinate);
+
+    const oldLeg = context.legCache.getById(this.oldLegId);
+    const newLeg1 = context.legCache.getById(this.newLegId1);
+    const newLeg2 = context.legCache.getById(this.newLegId2);
+
+    context.addViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId, newLeg1.sink.coordinate);
     const plan: Plan = context.plan();
-    const legIndex = plan.legs.findIndex(leg => leg.legId === this.oldLeg.legId);
+    const legIndex = plan.legs.findIndex(leg => leg.legId === oldLeg.legId);
     if (legIndex > -1) {
-      context.removeRouteLeg(this.oldLeg.legId);
-      context.addRouteLeg(this.newLeg1.legId);
-      context.addRouteLeg(this.newLeg2.legId);
-      const newLegs = plan.legs.remove(legIndex).push(this.newLeg1).push(this.newLeg2);
+      context.removeRouteLeg(oldLeg.legId);
+      context.addRouteLeg(newLeg1.legId);
+      context.addRouteLeg(newLeg2.legId);
+      const newLegs = plan.legs.remove(legIndex).push(newLeg1).push(newLeg2);
       const newPlan = new Plan(plan.source, newLegs);
       context.updatePlan(newPlan);
     }
   }
 
   public undo(context: PlannerContext) {
-    context.removeViaNodeFlag(this.newLeg1.legId, this.newLeg1.sink.nodeId); // remove connection node
-    context.removeRouteLeg(this.newLeg1.legId);
-    context.removeRouteLeg(this.newLeg2.legId);
-    context.addRouteLeg(this.oldLeg.legId);
+
+    const oldLeg = context.legCache.getById(this.oldLegId);
+    const newLeg1 = context.legCache.getById(this.newLegId1);
+    const newLeg2 = context.legCache.getById(this.newLegId2);
+
+    context.removeViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId); // remove connection node
+    context.removeRouteLeg(newLeg1.legId);
+    context.removeRouteLeg(newLeg2.legId);
+    context.addRouteLeg(oldLeg.legId);
     const plan: Plan = context.plan();
-    const legIndex = plan.legs.findIndex(leg => leg.legId === this.newLeg1.legId);
+    const legIndex = plan.legs.findIndex(leg => leg.legId === newLeg1.legId);
     if (legIndex > -1) {
-      const newLegs = plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, this.oldLeg);
+      const newLegs = plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, oldLeg);
       const newPlan = new Plan(plan.source, newLegs);
       context.updatePlan(newPlan);
     }

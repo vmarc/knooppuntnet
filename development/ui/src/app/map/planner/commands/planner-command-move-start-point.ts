@@ -1,23 +1,24 @@
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerContext} from "../interaction/planner-context";
+import {Plan} from "../plan/plan";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveStartPoint implements PlannerCommand {
 
-  constructor(private readonly oldFirstLeg: PlanLeg,
-              private readonly newFirstLeg: PlanLeg) {
+  constructor(private readonly oldFirstLegId: string,
+              private readonly newFirstLegId: string) {
   }
 
   public do(context: PlannerContext) {
-    this.update(context, this.oldFirstLeg, this.newFirstLeg);
+    this.update(context, this.oldFirstLegId, this.newFirstLegId);
   }
 
   public undo(context: PlannerContext) {
-    this.update(context, this.newFirstLeg, this.oldFirstLeg);
+    this.update(context, this.newFirstLegId, this.oldFirstLegId);
   }
 
-  public update(context: PlannerContext, fromLeg: PlanLeg, toLeg: PlanLeg) {
+  public update(context: PlannerContext, fromLegId: string, toLegId: string) {
+    const fromLeg = context.legCache.getById(fromLegId);
+    const toLeg = context.legCache.getById(toLegId);
     context.removeStartNodeFlag(fromLeg.source.nodeId);
     context.addStartNodeFlag(toLeg.source.nodeId, toLeg.source.coordinate);
     context.removeRouteLeg(fromLeg.legId);
