@@ -29,7 +29,6 @@ import {PoiGroupTourismComponent} from "./pages/map/poi/poi-group-tourism.compon
 import {PoiGroupComponent} from "./pages/map/poi/poi-group.component";
 import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
 import {MapTryout1PageComponent} from "./pages/tryout1/_map-tryout-1-page.component";
-import {MapTryout2PageComponent} from "./pages/tryout2/_map-tryout-2-page.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {MapSidebarAnalysisComponent} from "./sidebar/map-side-bar-analysis.component";
@@ -83,7 +82,6 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     DirectionsSummaryComponent,
     DirectionsSignComponent,
     MapTryout1PageComponent,
-    MapTryout2PageComponent,
     PlanComponent
   ],
   exports: [
