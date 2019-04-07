@@ -1,27 +1,26 @@
 import {AfterViewInit, Component, Input} from '@angular/core';
-
-import Map from 'ol/Map';
-import View from 'ol/View';
 import Coordinate from 'ol/coordinate';
-import Extent from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import {fromLonLat} from 'ol/proj';
-import {createXYZ} from 'ol/tilegrid';
 import {click, pointerMove} from 'ol/events/condition';
 import Select from 'ol/interaction/Select';
-import {Icon, Style} from 'ol/style';
+import TileLayer from 'ol/layer/Tile';
+import VectorTileLayer from 'ol/layer/VectorTile';
 
-import {ZoomLevel} from "./domain/zoom-level";
+import Map from 'ol/Map';
+import {fromLonLat} from 'ol/proj';
+import {Style} from 'ol/style';
+import View from 'ol/View';
+import Extent from 'ol/View';
+import {PoiService} from "../../poi.service";
+import {DebugLayer} from "./domain/debug-layer";
 import {MainMapStyle} from "./domain/main-map-style";
 import {MapClickHandler} from "./domain/map-click-handler";
 import {MapMoveHandler} from "./domain/map-move-handler";
-import {MapService} from "./map.service";
-import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
-import {PoiService} from "../../poi.service";
+import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {OsmLayer} from "./domain/osm-layer";
-import {DebugLayer} from "./domain/debug-layer";
+
+import {ZoomLevel} from "./domain/zoom-level";
+import {MapService} from "./map.service";
 import {PoiTileLayerService} from "./poi-tile-layer.service";
 
 @Component({

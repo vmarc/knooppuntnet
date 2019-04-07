@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {List} from "immutable";
-import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
 import {Ref} from "../../../../kpn/shared/common/ref";
+import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
 
 @Component({
   selector: 'kpn-node-diffs-removed',

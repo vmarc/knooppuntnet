@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
-import {ApiResponse} from "../../../../kpn/shared/api-response";
-import {SubsetFactDetailsPage} from "../../../../kpn/shared/subset/subset-fact-details-page";
-import {Util} from "../../../../components/shared/util";
-import {Subset} from "../../../../kpn/shared/subset";
 import {PageService} from "../../../../components/shared/page.service";
+import {Util} from "../../../../components/shared/util";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {Subset} from "../../../../kpn/shared/subset";
+import {SubsetFactDetailsPage} from "../../../../kpn/shared/subset/subset-fact-details-page";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({

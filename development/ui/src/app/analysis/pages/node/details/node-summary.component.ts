@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {NodeInfo} from "../../../../kpn/shared/node-info";
 import {NetworkTypes} from "../../../../kpn/common/network-types";
+import {NodeInfo} from "../../../../kpn/shared/node-info";
 
 @Component({
   selector: 'node-summary',
@@ -9,7 +9,9 @@ import {NetworkTypes} from "../../../../kpn/common/network-types";
 
       <p>
         <osm-link-node nodeId="{{nodeInfo.id}}"></osm-link-node>
-        (<josm-node nodeId="{{nodeInfo.id}}"></josm-node>)
+        (
+        <josm-node nodeId="{{nodeInfo.id}}"></josm-node>
+        )
       </p>
 
       <p *ngIf="!nodeInfo.active" class="warning" i18n="@@node.inactive">

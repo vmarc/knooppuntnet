@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
+import {ApiResponse} from "../../../kpn/shared/api-response";
+import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 
 @Component({
   selector: 'kpn-change-set-page',

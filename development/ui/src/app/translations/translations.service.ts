@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {XliffParser} from "./domain/xliff-parser";
+import {map} from 'rxjs/operators';
 import {TranslationFile} from "./domain/translation-file";
+import {XliffParser} from "./domain/xliff-parser";
 
 @Injectable()
 export class TranslationsService {

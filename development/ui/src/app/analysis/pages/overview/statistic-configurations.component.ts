@@ -1,8 +1,8 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ViewChildren} from '@angular/core';
-import {StatisticConfigurationComponent} from "./statistic-configuration.component";
-import {OverviewService} from "./overview.service";
 import {List} from "immutable";
 import {Subset} from 'src/app/kpn/shared/subset';
+import {OverviewService} from "./overview.service";
+import {StatisticConfigurationComponent} from "./statistic-configuration.component";
 
 @Component({
   selector: 'kpn-statistic-configurations',

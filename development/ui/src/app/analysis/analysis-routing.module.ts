@@ -1,30 +1,30 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ChangeSetPageComponent} from "./pages/changeset/_change-set-page.component";
+import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
+import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
+import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
+import {AnalysisNlPageComponent} from "./pages/analysis/analysis-nl-page.component";
+import {AnalysisPageComponent} from "./pages/analysis/analysis-page.component";
 import {ChangesPageComponent} from "./pages/changes/changes-page.component";
+import {ChangeSetPageComponent} from "./pages/changeset/_change-set-page.component";
+import {FactsPageComponent} from "./pages/facts/_facts-page.component";
 import {NetworkChangesPageComponent} from "./pages/network/changes/_network-changes-page.component";
 import {NetworkDetailsPageComponent} from "./pages/network/details/_network-details-page.component";
 import {NetworkFactsPageComponent} from "./pages/network/facts/_network-facts-page.component";
 import {NetworkMapPageComponent} from "./pages/network/map/_network-map-page.component";
 import {NetworkNodesPageComponent} from "./pages/network/nodes/_network-nodes-page.component";
 import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes-page.component";
+import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.components";
 import {NodePageComponent} from "./pages/node/details/_node-page.component";
 import {OverviewPageComponent} from "./pages/overview/_overview-page.component";
+import {RouteChangesPageComponent} from "./pages/route/changes/_route-changes-page.component";
 import {RoutePageComponent} from "./pages/route/details/_route-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";
+import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.component";
 import {SubsetNetworksPageComponent} from "./pages/subset/networks/_subset-networks-page.component";
 import {SubsetOrphanNodesPageComponent} from "./pages/subset/orphan-nodes/_subset-orphan-nodes-page.component";
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset/orphan-routes/_subset-orphan-routes-page.component";
-import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
-import {AnalysisPageComponent} from "./pages/analysis/analysis-page.component";
-import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
-import {AnalysisNlPageComponent} from "./pages/analysis/analysis-nl-page.component";
-import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
-import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.component";
-import {FactsPageComponent} from "./pages/facts/_facts-page.component";
-import {RouteChangesPageComponent} from "./pages/route/changes/_route-changes-page.component";
-import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.components";
 
 const routes: Routes = [
   {

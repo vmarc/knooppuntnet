@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {TranslationsService} from "./translations.service";
+import {saveAs} from "file-saver";
+import {TranslationFile} from "./domain/translation-file";
 import {TranslationUnit} from "./domain/translation-unit";
 import {XliffWriter} from "./domain/xliff-writer";
-import {TranslationFile} from "./domain/translation-file";
-import {saveAs} from "file-saver";
+import {TranslationsService} from "./translations.service";
 
 @Component({
   selector: 'translations',

@@ -1,6 +1,6 @@
 import {List} from "immutable";
-import {PlanNode} from "./plan-node";
 import {PlanLeg} from "./plan-leg";
+import {PlanNode} from "./plan-node";
 
 export class Plan {
 

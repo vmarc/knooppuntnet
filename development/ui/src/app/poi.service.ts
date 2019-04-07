@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Map} from "immutable";
-import {PoiPreferences, PoiGroupPreference, PoiPreference} from "./poi-preferences";
 import {BehaviorSubject} from "rxjs";
-import {InterpretedPoiConfiguration} from "./components/ol/domain/interpreted-poi-configuration";
 import {AppService} from "./app.service";
+import {InterpretedPoiConfiguration} from "./components/ol/domain/interpreted-poi-configuration";
+import {PoiGroupPreference, PoiPreference, PoiPreferences} from "./poi-preferences";
 
 @Injectable()
 export class PoiService {

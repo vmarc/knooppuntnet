@@ -1,9 +1,11 @@
+import {NgModule} from "@angular/core";
 import {
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
@@ -16,11 +18,10 @@ import {
   MatSlideToggleModule,
   MatSortModule,
   MatTableModule,
+  MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule,
-  MatExpansionModule, MatTabsModule
+  MatTooltipModule
 } from '@angular/material';
-import {NgModule} from "@angular/core";
 
 @NgModule({
   imports: [

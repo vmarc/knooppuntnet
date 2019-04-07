@@ -2,12 +2,12 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
+import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
-import {NetworkDetailsPage} from "../../../../kpn/shared/network/network-details-page";
-import {Subset} from "../../../../kpn/shared/subset";
 import {Country} from "../../../../kpn/shared/country";
 import {NetworkType} from "../../../../kpn/shared/network-type";
-import {PageService} from "../../../../components/shared/page.service";
+import {NetworkDetailsPage} from "../../../../kpn/shared/network/network-details-page";
+import {Subset} from "../../../../kpn/shared/subset";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 
 @Component({

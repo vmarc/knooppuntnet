@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material";
-import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.component";
 import {NetworkIndicatorDialogComponent} from "./network-indicator-dialog.component";
 
 @Component({

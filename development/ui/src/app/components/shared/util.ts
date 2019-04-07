@@ -1,7 +1,7 @@
 import {Params} from "@angular/router";
-import {Subset} from "../../kpn/shared/subset";
 import {Country} from "../../kpn/shared/country";
 import {NetworkType} from "../../kpn/shared/network-type";
+import {Subset} from "../../kpn/shared/subset";
 
 interface IPropertyGetter<T> {
   (): T;

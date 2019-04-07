@@ -1,5 +1,5 @@
-import {PlannerMapFeature} from "./planner-map-feature";
 import Coordinate from 'ol/coordinate';
+import {PlannerMapFeature} from "./planner-map-feature";
 
 export class PlannerMapFeatureNetworkNode extends PlannerMapFeature {
 

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from "@angular/material";
-import {NetworkNodeInfo2} from "../../../../kpn/shared/network/network-node-info2";
 import {List} from "immutable";
+import {NetworkNodeInfo2} from "../../../../kpn/shared/network/network-node-info2";
 
 @Component({
   selector: 'network-node-table',

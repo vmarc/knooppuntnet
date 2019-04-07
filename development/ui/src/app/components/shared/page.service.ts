@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Subset} from "../../kpn/shared/subset";
 

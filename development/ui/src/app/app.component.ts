@@ -1,8 +1,8 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
-import {IconService} from "./icon.service";
 import {Subscription} from "rxjs";
-import {UserService} from "./user.service";
 import {PageService} from "./components/shared/page.service";
+import {IconService} from "./icon.service";
+import {UserService} from "./user.service";
 
 @Component({
   selector: 'app-root',

@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
-import {ChangeSetSubsetElementRefs} from "../../../kpn/shared/change-set-subset-element-refs";
-import {RefDiffs} from "../../../kpn/shared/diff/ref-diffs";
-import {Ref} from "../../../kpn/shared/common/ref";
-import {ChangeSetElementRef} from "../../../kpn/shared/change-set-element-ref";
 import {List} from "immutable";
+import {ChangeSetElementRef} from "../../../kpn/shared/change-set-element-ref";
+import {ChangeSetSubsetElementRefs} from "../../../kpn/shared/change-set-subset-element-refs";
+import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
+import {Ref} from "../../../kpn/shared/common/ref";
+import {RefDiffs} from "../../../kpn/shared/diff/ref-diffs";
 
 @Component({
   selector: 'kpn-change-set-orphan-node-changes',

@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {MapComponent} from "../../../components/ol/map.component";
 import {MapService} from "../../../components/ol/map.service";
 import {PageService} from "../../../components/shared/page.service";
-import {MapComponent} from "../../../components/ol/map.component";
+import {NetworkType} from "../../../kpn/shared/network-type";
 
 @Component({
   selector: 'kpn-map-main-page',

@@ -1,19 +1,19 @@
 import {Component} from '@angular/core';
-
-import Map from 'ol/Map';
-import View from 'ol/View';
 import Coordinate from 'ol/coordinate';
 import MapBrowserEvent from 'ol/events'
-import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
 import Feature from 'ol/Feature';
-
-import {unByKey} from 'ol/Observable.js';
-import Overlay from 'ol/Overlay.js';
-import {getLength} from 'ol/sphere.js';
 import {LineString} from 'ol/geom.js';
 import Draw from 'ol/interaction/Draw.js';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
+
+import Map from 'ol/Map';
+
+import {unByKey} from 'ol/Observable.js';
+import Overlay from 'ol/Overlay.js';
 import {OSM, Vector as VectorSource} from 'ol/source';
+import {getLength} from 'ol/sphere.js';
+import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
+import View from 'ol/View';
 
 @Component({
   selector: 'kpn-map-tryout-1-page',

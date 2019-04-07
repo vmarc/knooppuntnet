@@ -1,7 +1,7 @@
 import Feature from 'ol/Feature';
-import {SelectedFeature} from "./selected-feature";
-import {MapService, PoiId} from "../map.service";
 import {SelectEvent} from 'ol/interaction/Select';
+import {MapService, PoiId} from "../map.service";
+import {SelectedFeature} from "./selected-feature";
 
 export class MapClickHandler {
 

@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 
@@ -22,8 +22,7 @@ export class UserService {
       window.location.pathname === "/en/login" ||
       window.location.pathname === "/nl/login") {
       this.loginCallbackPage = "";
-    }
-    else {
+    } else {
       this.loginCallbackPage = window.location.pathname;
     }
   }
@@ -33,8 +32,7 @@ export class UserService {
     let whereWeComeFrom = "";
     if (this.loginCallbackPage.length == 0) {
       whereWeComeFrom = "/";
-    }
-    else {
+    } else {
       whereWeComeFrom = this.loginCallbackPage;
       this.loginCallbackPage = "";
     }

@@ -1,8 +1,8 @@
-import Style from 'ol/style/Style';
-import Stroke from 'ol/style/Stroke';
 import Feature from 'ol/Feature';
-import {MainStyleColors} from "./main-style-colors";
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
 import {MapService} from "../map.service";
+import {MainStyleColors} from "./main-style-colors";
 
 export class MainMapRouteStyle {
 

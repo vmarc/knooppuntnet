@@ -1,7 +1,7 @@
 import {DataSource} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
-import {map} from 'rxjs/operators';
 import {merge, Observable, of as observableOf} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {NodeInfo} from "../../../../kpn/shared/node-info";
 
 export class SubsetOrphanNodesTableItem {

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {OverviewService} from "./overview.service";
 import {Statistics} from "../../../kpn/shared/statistics/statistics";
+import {OverviewService} from "./overview.service";
 import {Stat} from "./stat";
 
 @Component({

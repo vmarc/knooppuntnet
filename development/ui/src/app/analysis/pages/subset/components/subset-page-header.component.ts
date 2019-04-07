@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {Subset} from "../../../../kpn/shared/subset";
-import {SubsetCacheService} from "../../../../services/subset-cache.service";
-import {SubsetInfo} from "../../../../kpn/shared/subset/subset-info";
 import {Util} from "../../../../components/shared/util";
+import {Subset} from "../../../../kpn/shared/subset";
+import {SubsetInfo} from "../../../../kpn/shared/subset/subset-info";
+import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
   selector: 'kpn-subset-page-header',

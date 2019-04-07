@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatIconRegistry} from "@angular/material";
-import {Directions} from "../../../kpn/shared/directions/directions";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
+import {Directions} from "../../../kpn/shared/directions/directions";
 import {PdfDirections} from "../../print/pdf-directions";
 
 @Component({

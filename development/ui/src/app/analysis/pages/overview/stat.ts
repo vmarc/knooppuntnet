@@ -1,6 +1,6 @@
-import {StatisticConfiguration} from "./statistic-configuration";
 import {Statistic} from "../../../kpn/shared/statistics/statistic";
 import {Subset} from "../../../kpn/shared/subset";
+import {StatisticConfiguration} from "./statistic-configuration";
 
 export class Stat {
 

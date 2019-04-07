@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input} from '@angular/core';
-import {StatisticConfiguration} from "./statistic-configuration";
 import {Subset} from "../../../kpn/shared/subset";
+import {StatisticConfiguration} from "./statistic-configuration";
 
 @Component({
   selector: 'kpn-statistic-configuration',

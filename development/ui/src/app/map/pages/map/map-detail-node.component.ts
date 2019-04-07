@@ -1,8 +1,8 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NodePage} from "../../../kpn/shared/node/node-page";
 import {AppService} from "../../../app.service";
+import {ApiResponse} from "../../../kpn/shared/api-response";
 import {NetworkType} from "../../../kpn/shared/network-type";
+import {NodePage} from "../../../kpn/shared/node/node-page";
 
 @Component({
   selector: 'kpn-map-detail-node',

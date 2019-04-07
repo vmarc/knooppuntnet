@@ -1,8 +1,8 @@
 import {Component, DoCheck, Input, IterableDiffer, IterableDiffers, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {TranslationUnit} from "../domain/translation-unit";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {debounceTime} from 'rxjs/operators';
+import {TranslationUnit} from "../domain/translation-unit";
 
 @Component({
   selector: 'translation-table',

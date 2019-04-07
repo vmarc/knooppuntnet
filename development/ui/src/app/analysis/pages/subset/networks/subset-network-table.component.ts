@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material";
-import {NetworkAttributes} from "../../../../kpn/shared/network/network-attributes";
 import {List} from "immutable";
+import {NetworkAttributes} from "../../../../kpn/shared/network/network-attributes";
 
 @Component({
   selector: 'kpn-subset-network-table',

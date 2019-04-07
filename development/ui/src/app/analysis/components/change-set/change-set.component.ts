@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info";
-import {ChangeSetNetworkAction} from "./components/change-set-network.component";
 import {List} from "immutable";
 import {ChangeSetNetwork} from "../../../kpn/shared/change-set-network";
+import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info";
+import {ChangeSetNetworkAction} from "./components/change-set-network.component";
 
 @Component({
   selector: 'kpn-change-set',

@@ -36,13 +36,12 @@ export class XliffParser {
       let lineNumber = "";
       const contextGroup = translationUnitElement.getElementsByTagName('context-group').item(0);
       const contexts = contextGroup.getElementsByTagName('context');
-      for(let j = 0; j < contexts.length; j++) {
+      for (let j = 0; j < contexts.length; j++) {
         const context = contexts.item(j);
         const contextType = context.getAttribute("context-type");
         if ("sourcefile" == contextType) {
           sourceFile = context.childNodes[0].nodeValue;
-        }
-        else if ("linenumber" == contextType) {
+        } else if ("linenumber" == contextType) {
           lineNumber = context.childNodes[0].nodeValue;
         }
       }

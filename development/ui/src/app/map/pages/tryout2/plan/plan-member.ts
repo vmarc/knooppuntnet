@@ -1,5 +1,5 @@
-import {PlanNode} from "./plan-node";
 import {PlanLeg} from "./plan-leg";
+import {PlanNode} from "./plan-node";
 
 export interface PlanMember {
 

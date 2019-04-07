@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {Reference} from "../../../../kpn/shared/common/reference";
 import {List} from "immutable";
+import {Reference} from "../../../../kpn/shared/common/reference";
 
 @Component({
   selector: 'node-routes',

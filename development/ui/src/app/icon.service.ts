@@ -1,8 +1,8 @@
 declare let require: any;
 
 import {Injectable} from "@angular/core";
-import {DomSanitizer} from "@angular/platform-browser";
 import {MatIconRegistry} from "@angular/material";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Injectable()
 export class IconService {

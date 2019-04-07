@@ -1,8 +1,7 @@
-import Map from 'ol/Map';
 import Feature from 'ol/Feature';
-import {pointerMove} from 'ol/events/condition';
-import {MapService} from "../map.service";
 import {SelectEvent} from 'ol/interaction/Select';
+import Map from 'ol/Map';
+import {MapService} from "../map.service";
 
 export class MapMoveHandler {
 

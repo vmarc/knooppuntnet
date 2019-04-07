@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Stat} from "./stat";
 import {Subset} from "../../../kpn/shared/subset";
+import {Stat} from "./stat";
 
 @Component({
   selector: 'kpn-overview-table-cell',

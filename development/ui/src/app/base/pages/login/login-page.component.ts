@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {UserService} from "../../../user.service";
 import {PageService} from "../../../components/shared/page.service";
+import {UserService} from "../../../user.service";
 
 @Component({
   selector: 'kpn-login-page',

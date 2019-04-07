@@ -1,5 +1,5 @@
-import {TranslationUnit} from "./translation-unit";
 import {TranslationFile} from "./translation-file";
+import {TranslationUnit} from "./translation-unit";
 
 export class XliffWriter {
 

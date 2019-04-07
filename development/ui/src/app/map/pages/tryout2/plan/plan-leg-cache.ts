@@ -1,5 +1,5 @@
-import {PlanLeg} from "./plan-leg";
 import {List} from "immutable";
+import {PlanLeg} from "./plan-leg";
 
 export class PlanLegCache {
 

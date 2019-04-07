@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
-import {ChangesPage} from "../../../kpn/shared/changes-page";
 import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info";
+import {ChangesPage} from "../../../kpn/shared/changes-page";
+import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
 
 @Component({
   selector: 'kpn-changes-table',

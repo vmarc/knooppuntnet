@@ -1,15 +1,12 @@
 import {Injectable} from "@angular/core";
-import {PoiService} from "../../poi.service";
+import Feature from 'ol/Feature';
 import MVT from 'ol/format/MVT';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
-import {fromLonLat} from 'ol/proj';
 import {createXYZ} from 'ol/tilegrid';
-import {click, pointerMove} from 'ol/events/condition';
-import Feature from 'ol/Feature';
-import {Icon, Style} from 'ol/style';
-import {ZoomLevel} from "./domain/zoom-level";
+import {PoiService} from "../../poi.service";
 import {PoiStyleMap} from "./domain/poi-style-map";
+import {ZoomLevel} from "./domain/zoom-level";
 
 @Injectable()
 export class PoiTileLayerService {

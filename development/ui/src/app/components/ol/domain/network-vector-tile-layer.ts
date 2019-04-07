@@ -1,14 +1,11 @@
+import Feature from 'ol/Feature';
 import MVT from 'ol/format/MVT';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
-import {fromLonLat} from 'ol/proj';
 import {createXYZ} from 'ol/tilegrid';
-import {click, pointerMove} from 'ol/events/condition';
-import Feature from 'ol/Feature';
-import {Icon, Style} from 'ol/style';
+import {NetworkType} from "../../../kpn/shared/network-type";
 
 import {ZoomLevel} from "./zoom-level";
-import {NetworkType} from "../../../kpn/shared/network-type";
 
 export class NetworkVectorTileLayer {
 

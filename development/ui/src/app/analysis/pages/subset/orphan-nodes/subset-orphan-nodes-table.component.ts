@@ -1,8 +1,8 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material';
-import {SubsetOrphanNodesTableDataSource} from './subset-orphan-nodes-table-datasource';
-import {NodeInfo} from "../../../../kpn/shared/node-info";
 import {List} from "immutable";
+import {NodeInfo} from "../../../../kpn/shared/node-info";
+import {SubsetOrphanNodesTableDataSource} from './subset-orphan-nodes-table-datasource';
 
 @Component({
   selector: 'kpn-subset-orphan-nodes-table',

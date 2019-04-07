@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
-import {RoutePage} from "../../../../kpn/shared/route/route-page";
-import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {PageService} from "../../../../components/shared/page.service";
+import {ApiResponse} from "../../../../kpn/shared/api-response";
+import {RoutePage} from "../../../../kpn/shared/route/route-page";
 
 @Component({
   selector: 'kpn-route-page',

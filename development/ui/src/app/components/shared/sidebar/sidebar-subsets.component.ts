@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Subset} from "../../../kpn/shared/subset";
 import {Country} from "../../../kpn/shared/country";
 import {NetworkType} from "../../../kpn/shared/network-type";
+import {Subset} from "../../../kpn/shared/subset";
 
 @Component({
   selector: 'kpn-sidebar-subsets',

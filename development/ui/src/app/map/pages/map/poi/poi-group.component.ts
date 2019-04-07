@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {PoiService} from "../../../../poi.service";
 import {MatCheckboxChange} from "@angular/material";
+import {PoiService} from "../../../../poi.service";
 
 @Component({
   selector: 'kpn-poi-group',
