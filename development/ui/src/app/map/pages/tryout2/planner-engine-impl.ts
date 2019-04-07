@@ -227,14 +227,14 @@ export class PlannerEngineImpl implements PlannerEngine {
       const newStartNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
       const oldFirstLeg: PlanLeg = this.context.plan().legs.first();
       const newFirstLeg: PlanLeg = this.buildLeg(this.newLegId(), newStartNode, oldFirstLeg.sink);
-      const command = new PlannerCommandMoveStartPoint(this.nodeDrag.legNodeFeatureId, oldFirstLeg, newFirstLeg);
+      const command = new PlannerCommandMoveStartPoint(oldFirstLeg, newFirstLeg);
       this.context.execute(command);
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan().legs.last();
       if (this.nodeDrag.legNodeFeatureId.startsWith("leg-" + oldLastLeg.legId)) {
         const newEndNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
         const newLastLeg: PlanLeg = this.buildLeg(this.newLegId(), oldLastLeg.source, newEndNode);
-        const command = new PlannerCommandMoveEndPoint(this.nodeDrag.legNodeFeatureId, oldLastLeg, newLastLeg);
+        const command = new PlannerCommandMoveEndPoint(oldLastLeg, newLastLeg);
         this.context.execute(command);
       } else {
         const legs = this.context.plan().legs;
