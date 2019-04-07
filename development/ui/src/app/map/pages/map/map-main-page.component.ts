@@ -6,8 +6,8 @@ import Select from 'ol/interaction/Select';
 import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
-import fromLonLat from 'ol/proj';
-import Style from 'ol/style';
+import {fromLonLat} from 'ol/proj';
+import {Style} from 'ol/style';
 import View from 'ol/View';
 import Extent from 'ol/View';
 import {Subscription} from "rxjs";
@@ -25,6 +25,9 @@ import {PoiTileLayerService} from "../../../components/ol/poi-tile-layer.service
 import {PageService} from "../../../components/shared/page.service";
 import {NetworkType} from "../../../kpn/shared/network-type";
 import {PoiService} from "../../../poi.service";
+import {PlannerService} from "../../planner.service";
+import {PlannerContextImpl} from "../../planner/interaction/planner-context-impl";
+import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 
 @Component({
   selector: 'kpn-map-main-page',
@@ -55,13 +58,19 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
   private lastKnownSidebarOpen = false;
 
+  interaction = new PlannerInteraction(
+    this.plannerService.context,
+    this.plannerService.engine
+  );
+
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
   constructor(private activatedRoute: ActivatedRoute,
               private pageService: PageService,
               private mapService: MapService,
               private poiService: PoiService,
-              private poiTileLayerService: PoiTileLayerService) {
+              private poiTileLayerService: PoiTileLayerService,
+              private plannerService: PlannerService) {
   }
 
   ngOnInit() {
@@ -111,8 +120,12 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
     this.mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
 
-    this.installClickInteraction();
-    this.installMoveInteraction();
+    (this.plannerService.context as PlannerContextImpl).viewPort = this.map.getViewport();
+    this.plannerService.init(this.map);
+    this.interaction.addToMap(this.map);
+
+    // this.installClickInteraction();
+    // this.installMoveInteraction();
 
     const a: Coordinate = fromLonLat([2.24, 50.16]);
     const b: Coordinate = fromLonLat([10.56, 54.09]);

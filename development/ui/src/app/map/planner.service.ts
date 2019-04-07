@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import Map from 'ol/Map';
 import {AppService} from "../app.service";
-import {PlannerCommandStack} from "./pages/tryout2/commands/planner-command-stack";
-import {PlannerCommandStackImpl} from "./pages/tryout2/commands/planner-command-stack-impl";
-import {PlannerContext} from "./pages/tryout2/planner-context";
-import {PlannerContextImpl} from "./pages/tryout2/planner-context-impl";
-import {PlannerCrosshairLayer} from "./pages/tryout2/planner-crosshair-layer";
-import {PlannerElasticBandLayer} from "./pages/tryout2/planner-elastic-band-layer";
-import {PlannerEngine} from "./pages/tryout2/planner-engine";
-import {PlannerEngineImpl} from "./pages/tryout2/planner-engine-impl";
-import {PlannerRouteLayer} from "./pages/tryout2/planner-route-layer";
+import {PlannerCommandStack} from "./planner/commands/planner-command-stack";
+import {PlannerCommandStackImpl} from "./planner/commands/planner-command-stack-impl";
+import {PlannerContext} from "./planner/interaction/planner-context";
+import {PlannerContextImpl} from "./planner/interaction/planner-context-impl";
+import {PlannerCrosshairLayer} from "./planner/interaction/planner-crosshair-layer";
+import {PlannerElasticBandLayer} from "./planner/interaction/planner-elastic-band-layer";
+import {PlannerEngine} from "./planner/interaction/planner-engine";
+import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
+import {PlannerRouteLayer} from "./planner/interaction/planner-route-layer";
 
 @Injectable({
   providedIn: 'root'

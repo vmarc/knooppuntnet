@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
-import {Plan} from "../pages/tryout2/plan/plan";
 import {PlannerService} from "../planner.service";
+import {Plan} from "../planner/plan/plan";
 import {PdfHorizontal} from "../print/pdf-horizontal";
 import {PdfVertical} from "../print/pdf-vertical";
 

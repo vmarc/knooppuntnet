@@ -276,7 +276,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       return new PlanLeg(legId, source, sink, cachedLeg.fragments);
     }
 
-    this.appService.routeLeg("rwn", legId, source.nodeId, sink.nodeId).subscribe(response => {
+    this.appService.routeLeg("rcn", legId, source.nodeId, sink.nodeId).subscribe(response => {
       if (response.result) {
         const fragments = response.result.fragments.map(routeLegFragment => {
           const nodeId: string = routeLegFragment.sink.nodeId;
