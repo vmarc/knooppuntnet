@@ -17,20 +17,14 @@ export class PlannerContext {
 
   private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
   private _plan = new BehaviorSubject<Plan>(Plan.empty());
-  private _legCache: PlanLegCache = new PlanLegCache();
 
   viewPort: HTMLElement;
 
-  constructor(private commandStack: PlannerCommandStack,
-              private routeLayer: PlannerRouteLayer,
-              private crosshair: PlannerCrosshair,
-              private elasticBand: PlannerElasticBand,
-              private legs: PlanLegCache) {
-    this._legCache = legs;
-  }
-
-  legCache(): PlanLegCache {
-    return this._legCache;
+  constructor(public readonly commandStack: PlannerCommandStack,
+              public readonly routeLayer: PlannerRouteLayer,
+              public readonly crosshair: PlannerCrosshair,
+              public readonly elasticBand: PlannerElasticBand,
+              public readonly legs: PlanLegCache) {
   }
 
   execute(command: PlannerCommand): void {
@@ -101,7 +95,7 @@ export class PlannerContext {
   }
 
   addRouteLeg(legId: string): void {
-    const cachedLeg = this.legCache().getById(legId);
+    const cachedLeg = this.legs.getById(legId);
     if (cachedLeg) {
       this.routeLayer.addRouteLeg(legId, cachedLeg.coordinates());
     }
