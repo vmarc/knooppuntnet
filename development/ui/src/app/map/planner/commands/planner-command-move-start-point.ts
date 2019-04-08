@@ -19,10 +19,10 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
   public update(context: PlannerContext, fromLegId: string, toLegId: string) {
     const fromLeg = context.legs.getById(fromLegId);
     const toLeg = context.legs.getById(toLegId);
-    context.removeStartNodeFlag(fromLeg.source.nodeId);
-    context.addStartNodeFlag(toLeg.source.nodeId, toLeg.source.coordinate);
-    context.removeRouteLeg(fromLeg.legId);
-    context.addRouteLeg(toLeg.legId);
+    context.routeLayer.removeStartNodeFlag(fromLeg.source.nodeId);
+    context.routeLayer.addStartNodeFlag(toLeg.source.nodeId, toLeg.source.coordinate);
+    context.routeLayer.removeRouteLeg(fromLeg.legId);
+    context.routeLayer.addRouteLeg(toLeg);
     const newSource = toLeg.source;
     const newLegs = context.plan().legs.update(0, () => toLeg);
     const newPlan = new Plan(newSource, newLegs);

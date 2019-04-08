@@ -32,14 +32,6 @@ export class PlannerContext {
     command.do(this);
   }
 
-  canUndo(): boolean {
-    return this.commandStack.canUndo;
-  }
-
-  canRedo(): boolean {
-    return this.commandStack.canRedo;
-  }
-
   undo(): void {
     const command = this.commandStack.undo();
     command.undo(this);
@@ -50,59 +42,8 @@ export class PlannerContext {
     command.do(this);
   }
 
-  setCrosshairVisible(visible: boolean): void {
-    this.crosshair.setVisible(visible);
-  }
-
-  setCrosshairPosition(coordinate: Coordinate): void {
-    this.crosshair.updatePosition(coordinate);
-  }
-
   setCursorStyle(style: string): void {
     this.viewPort.style.cursor = style;
-  }
-
-  updateFlagPosition(flagId: string, coordinate: Coordinate): void {
-    this.routeLayer.updateFlagPosition(flagId, coordinate);
-  }
-
-  setElasticBand(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate): void {
-    this.elasticBand.set(anchor1, anchor2, coordinate);
-  }
-
-  setElasticBandInvisible(): void {
-    this.elasticBand.setInvisible();
-  }
-
-  setElasticBandPosition(coordinate: Coordinate): void {
-    this.elasticBand.updatePosition(coordinate);
-  }
-
-  addStartNodeFlag(nodeId: string, coordinate: Coordinate): Feature {
-    return this.routeLayer.addStartNodeFlag(nodeId, coordinate);
-  }
-
-  addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): Feature {
-    return this.routeLayer.addViaNodeFlag(legId, nodeId, coordinate);
-  }
-
-  removeStartNodeFlag(nodeId: string): void {
-    this.routeLayer.removeStartNodeFlag(nodeId);
-  }
-
-  removeViaNodeFlag(legId: string, nodeId: string): void {
-    this.routeLayer.removeViaNodeFlag(legId, nodeId);
-  }
-
-  addRouteLeg(legId: string): void {
-    const cachedLeg = this.legs.getById(legId);
-    if (cachedLeg) {
-      this.routeLayer.addRouteLeg(legId, cachedLeg.coordinates());
-    }
-  }
-
-  removeRouteLeg(legId: string): void {
-    this.routeLayer.removeRouteLeg(legId);
   }
 
   get mode(): Observable<PlannerMode> {
@@ -122,17 +63,20 @@ export class PlannerContext {
   }
 
   updatePlanLeg(legId: string, fragments: List<PlanLegFragment>) {
+    const existingLeg = this.legs.getById(legId);
+    const newLeg = new PlanLeg(legId, existingLeg.source, existingLeg.sink, fragments)
+
+
     const newLegs = this.plan().legs.map(leg => {
       if (leg.legId === legId) {
-        return new PlanLeg(legId, leg.source, leg.sink, fragments);
+        return newLeg;
       }
       return leg;
     });
     const newPlan = new Plan(this.plan().source, newLegs);
     this.updatePlan(newPlan);
 
-    const coordinates = fragments.flatMap(f => f.coordinates); // TODO this duplicates code from PlannerCommandAddLeg.do() - can share?
-    this.routeLayer.addRouteLeg(legId, coordinates);
+    this.routeLayer.addRouteLeg(newLeg);
   }
 
 }

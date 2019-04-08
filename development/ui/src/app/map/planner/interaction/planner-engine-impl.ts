@@ -35,7 +35,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDownEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
-      this.context.setCrosshairPosition(coordinate);
+      this.context.crosshair.updatePosition(coordinate);
       return false;
     }
 
@@ -59,22 +59,22 @@ export class PlannerEngineImpl implements PlannerEngine {
       }
     }
 
-    this.context.setCrosshairPosition(coordinate);
+    this.context.crosshair.updatePosition(coordinate);
     return false;
   }
 
   handleMoveEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
-      this.context.setCrosshairVisible(true);
+      this.context.crosshair.setVisible(true);
       this.context.setCursorStyle("default");
-      this.context.setCrosshairPosition(coordinate);
+      this.context.crosshair.updatePosition(coordinate);
       return false;
     }
 
     const legNode = this.findDraggableLegNode(features);
     if (legNode != null) {
-      this.context.setCrosshairVisible(false);
+      this.context.crosshair.setVisible(false);
       this.context.setCursorStyle("move");
       return true;
     }
@@ -82,20 +82,20 @@ export class PlannerEngineImpl implements PlannerEngine {
     const networkNode = this.findNetworkNode(features);
     if (networkNode != null) {
       this.context.setCursorStyle("default");
-      this.context.setCrosshairPosition(networkNode.coordinate); // snap
+      this.context.crosshair.updatePosition(networkNode.coordinate); // snap
       return true;
     }
 
     const leg = this.findLeg(features);
     if (leg != null) {
-      this.context.setCrosshairVisible(false);
+      this.context.crosshair.setVisible(false);
       this.context.setCursorStyle("move");
       return true;
     }
 
-    this.context.setCrosshairVisible(true);
+    this.context.crosshair.setVisible(true);
     this.context.setCursorStyle("default");
-    this.context.setCrosshairPosition(coordinate);
+    this.context.crosshair.updatePosition(coordinate);
 
     return true;
   }
@@ -105,22 +105,22 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingNode()) {
       const networkNode = this.findNetworkNode(features);
       if (networkNode != null) { // snap to node position
-        this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, networkNode.coordinate);
-        this.context.setElasticBandPosition(networkNode.coordinate);
+        this.context.routeLayer.updateFlagPosition(this.nodeDrag.legNodeFeatureId, networkNode.coordinate);
+        this.context.elasticBand.updatePosition(networkNode.coordinate);
         return true;
       }
-      this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, coordinate);
-      this.context.setElasticBandPosition(coordinate);
+      this.context.routeLayer.updateFlagPosition(this.nodeDrag.legNodeFeatureId, coordinate);
+      this.context.elasticBand.updatePosition(coordinate);
       return true;
     }
 
     if (this.isDraggingLeg()) {
       const networkNode = this.findNetworkNode(features);
       if (networkNode != null) { // snap to node position
-        this.context.setElasticBandPosition(networkNode.coordinate);
+        this.context.elasticBand.updatePosition(networkNode.coordinate);
         return true;
       }
-      this.context.setElasticBandPosition(coordinate);
+      this.context.elasticBand.updatePosition(coordinate);
       return true;
     }
 
@@ -131,7 +131,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       this.context.setCursorStyle("default");
-      this.context.setElasticBandInvisible();
+      this.context.elasticBand.setInvisible();
 
       const networkNode = this.findNetworkNode(features);
       if (networkNode != null) {
@@ -144,26 +144,26 @@ export class PlannerEngineImpl implements PlannerEngine {
       }
 
       if (this.isDraggingNode()) {
-        this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, this.nodeDrag.oldNode.coordinate);
+        this.context.routeLayer.updateFlagPosition(this.nodeDrag.legNodeFeatureId, this.nodeDrag.oldNode.coordinate);
       }
 
       this.dragCancel();
     }
 
-    this.context.setCrosshairVisible(true);
+    this.context.crosshair.setVisible(true);
     return false;
   }
 
   handleMouseOut() {
-    this.context.setCrosshairVisible(false);
+    this.context.crosshair.setVisible(false);
   }
 
   handleMouseEnter() {
-    this.context.setCrosshairVisible(true);
+    this.context.crosshair.setVisible(true);
   }
 
   private nodeSelected(networkNode: PlannerMapFeatureNetworkNode): void {
-    this.context.setCrosshairPosition(networkNode.coordinate); // snap
+    this.context.crosshair.updatePosition(networkNode.coordinate); // snap
     if (this.context.plan().source === null) {
       const node = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const command = new PlannerCommandAddStartPoint(node);
@@ -183,7 +183,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const anchor1 = leg.source.coordinate;
       const anchor2 = leg.sink.coordinate;
       this.legDrag = new PlannerDragLeg(legId, anchor1, anchor2);
-      this.context.setElasticBand(anchor1, anchor2, coordinate);
+      this.context.elasticBand.set(anchor1, anchor2, coordinate);
       return true;
     }
     return false;
@@ -192,8 +192,8 @@ export class PlannerEngineImpl implements PlannerEngine {
   private legNodeDragStarted(legNode: PlannerMapFeatureLegNode, coordinate: Coordinate): boolean {
     this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan()).dragStarted(legNode.id, legNode.nodeId);
     if (this.nodeDrag !== null) {
-      this.context.updateFlagPosition(this.nodeDrag.legNodeFeatureId, coordinate);
-      this.context.setElasticBand(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
+      this.context.routeLayer.updateFlagPosition(this.nodeDrag.legNodeFeatureId, coordinate);
+      this.context.elasticBand.set(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
       return true;
     }
     return false;
@@ -259,12 +259,12 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private dragCancel(): void {
     if (this.legDrag !== null) {
-      this.context.setElasticBandInvisible();
+      this.context.elasticBand.setInvisible();
       this.legDrag = null;
     }
 
     if (this.nodeDrag !== null) {
-      this.context.setElasticBandInvisible();
+      this.context.elasticBand.setInvisible();
       this.nodeDrag = null;
     }
   }
@@ -300,7 +300,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.updatePlanLeg(legId, fragments);
         const leg = new PlanLeg(legId, source, sink, fragments);
         this.context.legs.add(leg);
-        this.context.addRouteLeg(legId);
+        this.context.routeLayer.addRouteLeg(leg);
       } else {
         // TODO handle leg not found
       }

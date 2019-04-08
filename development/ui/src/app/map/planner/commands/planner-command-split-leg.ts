@@ -15,13 +15,13 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
-    context.addViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId, newLeg1.sink.coordinate);
+    context.routeLayer.addViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId, newLeg1.sink.coordinate);
     const plan: Plan = context.plan();
     const legIndex = plan.legs.findIndex(leg => leg.legId === oldLeg.legId);
     if (legIndex > -1) {
-      context.removeRouteLeg(oldLeg.legId);
-      context.addRouteLeg(newLeg1.legId);
-      context.addRouteLeg(newLeg2.legId);
+      context.routeLayer.removeRouteLeg(oldLeg.legId);
+      context.routeLayer.addRouteLeg(newLeg1);
+      context.routeLayer.addRouteLeg(newLeg2);
       const newLegs = plan.legs.remove(legIndex).push(newLeg1).push(newLeg2);
       const newPlan = new Plan(plan.source, newLegs);
       context.updatePlan(newPlan);
@@ -34,10 +34,10 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
-    context.removeViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId); // remove connection node
-    context.removeRouteLeg(newLeg1.legId);
-    context.removeRouteLeg(newLeg2.legId);
-    context.addRouteLeg(oldLeg.legId);
+    context.routeLayer.removeViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId); // remove connection node
+    context.routeLayer.removeRouteLeg(newLeg1.legId);
+    context.routeLayer.removeRouteLeg(newLeg2.legId);
+    context.routeLayer.addRouteLeg(oldLeg);
     const plan: Plan = context.plan();
     const legIndex = plan.legs.findIndex(leg => leg.legId === newLeg1.legId);
     if (legIndex > -1) {

@@ -1,10 +1,11 @@
 import {List, Map} from "immutable";
 import Coordinate from 'ol/coordinate';
+import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
 export class PlannerRouteLayerMock implements PlannerRouteLayer {
 
-  private routeLegs: Map<string, List<Coordinate>> = Map();
+  private routeLegs: Map<string, PlanLeg> = Map();
   private startNodeFlags: Map<string, Coordinate> = Map();
   private viaNodeFlags: Map<string, Coordinate> = Map();
 
@@ -50,8 +51,8 @@ export class PlannerRouteLayerMock implements PlannerRouteLayer {
     // TODO
   }
 
-  addRouteLeg(legId: string, coordinates: List<Coordinate>): void {
-    this.routeLegs = this.routeLegs.set(legId, coordinates);
+  addRouteLeg(leg: PlanLeg): void {
+    this.routeLegs = this.routeLegs.set(leg.legId, leg);
   }
 
   removeRouteLeg(legId: string): void {

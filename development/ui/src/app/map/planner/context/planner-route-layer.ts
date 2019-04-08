@@ -1,6 +1,5 @@
-import {List} from "immutable";
 import Coordinate from 'ol/coordinate';
-import Feature from 'ol/Feature';
+import {PlanLeg} from "../plan/plan-leg";
 
 export interface PlannerRouteLayer {
 
@@ -14,7 +13,7 @@ export interface PlannerRouteLayer {
 
   updateFlagPosition(featureId: string, coordinate: Coordinate): void;
 
-  addRouteLeg(legId: string, coordinates: List<Coordinate>): void;
+  addRouteLeg(leg: PlanLeg): void;
 
   removeRouteLeg(legId: string): void;
 

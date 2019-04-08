@@ -41,7 +41,7 @@ describe("PlannerCommandSplitLeg", () => {
     const context = new PlannerContext(commandStack, routeLayer, crosshair, elasticBand, legs);
 
     const plan = new Plan(node1, List([oldLeg]));
-    context.addRouteLeg(oldLeg.legId);
+    context.routeLayer.addRouteLeg(oldLeg);
     context.updatePlan(plan);
 
     expect(routeLayer.routeLegCount()).toBe(1);

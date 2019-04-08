@@ -27,12 +27,12 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
     const toLeg1 = context.legs.getById(toLegId1);
     const toLeg2 = context.legs.getById(toLegId2);
 
-    context.removeViaNodeFlag(fromLeg1.legId, fromLeg1.sink.nodeId);
-    context.addViaNodeFlag(toLeg1.legId, toLeg1.sink.nodeId, toLeg1.sink.coordinate);
-    context.removeRouteLeg(fromLeg1.legId);
-    context.removeRouteLeg(fromLeg2.legId);
-    context.addRouteLeg(toLeg1.legId);
-    context.addRouteLeg(toLeg2.legId);
+    context.routeLayer.removeViaNodeFlag(fromLeg1.legId, fromLeg1.sink.nodeId);
+    context.routeLayer.addViaNodeFlag(toLeg1.legId, toLeg1.sink.nodeId, toLeg1.sink.coordinate);
+    context.routeLayer.removeRouteLeg(fromLeg1.legId);
+    context.routeLayer.removeRouteLeg(fromLeg2.legId);
+    context.routeLayer.addRouteLeg(toLeg1);
+    context.routeLayer.addRouteLeg(toLeg2);
 
     const plan = context.plan();
     const newLegs1 = plan.legs.update(this.indexleg1, () => toLeg1);

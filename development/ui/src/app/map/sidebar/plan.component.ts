@@ -112,11 +112,11 @@ export class PlanComponent implements OnInit, OnDestroy {
   }
 
   undoEnabled(): boolean {
-    return this.plannerService.context.canUndo();
+    return this.plannerService.context.commandStack.canUndo;
   }
 
   redoEnabled(): boolean {
-    return this.plannerService.context.canRedo();
+    return this.plannerService.context.commandStack.canRedo;
   }
 
   print1(): void {

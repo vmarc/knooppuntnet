@@ -1,4 +1,3 @@
-import {List} from "immutable";
 import Coordinate from 'ol/coordinate';
 import Feature from 'ol/Feature';
 import {LineString, Point} from 'ol/geom.js';
@@ -6,6 +5,7 @@ import {Vector as VectorLayer} from 'ol/layer';
 import Map from 'ol/Map';
 import {Vector as VectorSource} from 'ol/source';
 import {Icon, Stroke, Style} from 'ol/style';
+import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
 /*
@@ -72,10 +72,10 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
     }
   }
 
-  addRouteLeg(legId: string, coordinates: List<Coordinate>): void {
-    this.removeRouteLeg(legId);
-    const feature = new Feature(new LineString(coordinates.toArray()));
-    feature.setId(legId);
+  addRouteLeg(leg: PlanLeg): void {
+    this.removeRouteLeg(leg.legId);
+    const feature = new Feature(new LineString(leg.coordinates().toArray()));
+    feature.setId(leg.legId);
     feature.set("layer", "leg");
     feature.setStyle(this.legStyle);
     this.source.addFeature(feature);
