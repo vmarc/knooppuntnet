@@ -26,8 +26,6 @@ import kpn.core.facade.pages.SubsetOrphanNodesPageBuilderImpl
 import kpn.core.facade.pages.SubsetOrphanRoutesPageBuilderImpl
 import kpn.core.facade.pages.directions.DirectionsBuilderImpl
 import kpn.core.overpass.OverpassQueryExecutorHttp
-import kpn.core.planner.PlannerFacade
-import kpn.core.planner.PlannerFacadeImpl
 import kpn.core.poi.PoiRepositoryImpl
 import kpn.core.repository.AnalysisRepositoryImpl
 import kpn.core.repository.ChangeSetInfoRepositoryImpl
@@ -188,8 +186,6 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       legBuilder
     )
   }
-
-  val plannerFacade: PlannerFacade = new PlannerFacadeImpl(graphRepository, nodeRepository, routeRepository)
 
   val overpassQueryExecutor = new OverpassQueryExecutorHttp(system, "config.overpassAddress")
 
