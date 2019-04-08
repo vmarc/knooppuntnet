@@ -3,13 +3,13 @@ import Map from 'ol/Map';
 import {AppService} from "../app.service";
 import {PlannerCommandStack} from "./planner/commands/planner-command-stack";
 import {PlannerCommandStackImpl} from "./planner/commands/planner-command-stack-impl";
-import {PlannerContext} from "./planner/interaction/planner-context";
-import {PlannerContextImpl} from "./planner/interaction/planner-context-impl";
-import {PlannerCrosshairLayer} from "./planner/interaction/planner-crosshair-layer";
-import {PlannerElasticBandLayer} from "./planner/interaction/planner-elastic-band-layer";
+import {PlannerContext} from "./planner/context/planner-context";
+import {PlannerCrosshairImpl} from "./planner/context/planner-crosshair-impl";
+import {PlannerElasticBandImpl} from "./planner/context/planner-elastic-band-impl";
+import {PlannerRouteLayerImpl} from "./planner/context/planner-route-layer-impl";
 import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
-import {PlannerRouteLayer} from "./planner/interaction/planner-route-layer";
+import {PlanLegCache} from "./planner/plan/plan-leg-cache";
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +20,17 @@ export class PlannerService {
   }
 
   private commandStack: PlannerCommandStack = new PlannerCommandStackImpl();
-  private routeLayer = new PlannerRouteLayer();
-  private crosshairLayer = new PlannerCrosshairLayer();
-  private elasticBandLayer = new PlannerElasticBandLayer();
+  private routeLayer = new PlannerRouteLayerImpl();
+  private crosshairLayer = new PlannerCrosshairImpl();
+  private elasticBandLayer = new PlannerElasticBandImpl();
+  private legCache: PlanLegCache = new PlanLegCache();
 
-  context: PlannerContext = new PlannerContextImpl(
+  context: PlannerContext = new PlannerContext(
     this.commandStack,
     this.routeLayer,
     this.crosshairLayer,
-    this.elasticBandLayer
+    this.elasticBandLayer,
+    this.legCache
   );
 
   engine: PlannerEngine = new PlannerEngineImpl(this.context, this.appService);

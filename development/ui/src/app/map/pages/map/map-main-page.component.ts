@@ -26,7 +26,7 @@ import {PageService} from "../../../components/shared/page.service";
 import {NetworkType} from "../../../kpn/shared/network-type";
 import {PoiService} from "../../../poi.service";
 import {PlannerService} from "../../planner.service";
-import {PlannerContextImpl} from "../../planner/interaction/planner-context-impl";
+import {PlannerContext} from "../../planner/context/planner-context";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 
 @Component({
@@ -58,10 +58,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
   private lastKnownSidebarOpen = false;
 
-  interaction = new PlannerInteraction(
-    this.plannerService.context,
-    this.plannerService.engine
-  );
+  interaction = new PlannerInteraction(this.plannerService.engine);
 
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
@@ -120,7 +117,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
     this.mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
 
-    (this.plannerService.context as PlannerContextImpl).viewPort = this.map.getViewport();
+    this.plannerService.context.viewPort = this.map.getViewport();
     this.plannerService.init(this.map);
     this.interaction.addToMap(this.map);
 

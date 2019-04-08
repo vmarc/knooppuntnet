@@ -9,13 +9,11 @@ import {PlannerMapFeature} from "../features/planner-map-feature";
 import {PlannerMapFeatureLeg} from "../features/planner-map-feature-leg";
 import {PlannerMapFeatureLegNode} from "../features/planner-map-feature-leg-node";
 import {PlannerMapFeatureNetworkNode} from "../features/planner-map-feature-network-node";
-import {PlannerContext} from "./planner-context";
 import {PlannerEngine} from "./planner-engine";
 
 export class PlannerInteraction {
 
-  constructor(private context: PlannerContext,
-              private engine: PlannerEngine) {
+  constructor(private engine: PlannerEngine) {
   }
 
   private interaction = new PointerInteraction({

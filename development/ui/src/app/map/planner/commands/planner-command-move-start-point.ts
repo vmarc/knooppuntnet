@@ -1,4 +1,4 @@
-import {PlannerContext} from "../interaction/planner-context";
+import {PlannerContext} from "../context/planner-context";
 import {Plan} from "../plan/plan";
 import {PlannerCommand} from "./planner-command";
 

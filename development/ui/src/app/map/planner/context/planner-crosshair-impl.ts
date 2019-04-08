@@ -3,13 +3,14 @@ import {Vector as VectorLayer} from 'ol/layer';
 import Map from 'ol/Map';
 import {Vector as VectorSource} from 'ol/source';
 import {Crosshair} from "./crosshair";
+import {PlannerCrosshair} from "./planner-crosshair";
 
 /*
   - displays crosshair to be used for selection of nodes
   - this is layer different from PlannerLayer because z-index on top
     of node/route vector layer, while PlannerLayer needs z-index under node/route layer
  */
-export class PlannerCrosshairLayer {
+export class PlannerCrosshairImpl implements PlannerCrosshair {
 
   private crosshair = new Crosshair();
 
@@ -33,11 +34,11 @@ export class PlannerCrosshairLayer {
     // See: https://gis.stackexchange.com/questions/58570/openlayers-make-polygons-not-zoom
   }
 
-  public setVisible(visible: boolean) {
+  setVisible(visible: boolean) {
     this.layer.setVisible(visible);
   }
 
-  public updatePosition(coordinate: Coordinate) {
+  updatePosition(coordinate: Coordinate) {
     this.crosshair.updatePosition(coordinate);
   }
 }

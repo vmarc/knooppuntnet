@@ -1,0 +1,25 @@
+import Coordinate from 'ol/coordinate';
+import {PlannerCrosshair} from "./planner-crosshair";
+
+export class PlannerCrosshairMock implements PlannerCrosshair {
+
+  private _visible: boolean = false;
+  private _position: Coordinate = null;
+
+  setVisible(visible: boolean) {
+    this._visible = visible;
+  }
+
+  updatePosition(position: Coordinate) {
+    this._position = position;
+  }
+
+  isVisible(): boolean {
+    return this._visible;
+  }
+
+  position(): Coordinate {
+    return this._position;
+  }
+
+}

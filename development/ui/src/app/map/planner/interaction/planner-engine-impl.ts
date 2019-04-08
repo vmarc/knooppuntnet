@@ -15,7 +15,7 @@ import {PlannerMapFeatureNetworkNode} from "../features/planner-map-feature-netw
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegFragment} from "../plan/plan-leg-fragment";
 import {PlanNode} from "../plan/plan-node";
-import {PlannerContext} from "./planner-context";
+import {PlannerContext} from "../context/planner-context";
 import {PlannerDragLeg} from "./planner-drag-leg";
 import {PlannerDragNode} from "./planner-drag-node";
 import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";

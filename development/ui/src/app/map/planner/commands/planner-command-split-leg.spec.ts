@@ -1,9 +1,14 @@
 import {List} from "immutable";
+import {PlannerContext} from "../context/planner-context";
+import {PlannerCrosshairMock} from "../context/planner-crosshair-mock";
+import {PlannerElasticBandMock} from "../context/planner-elastic-band-mock";
+import {PlannerRouteLayerMock} from "../context/planner-route-layer-mock";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
+import {PlannerCommandStackImpl} from "./planner-command-stack-impl";
 
 describe("PlannerCommandSplitLeg", () => {
 
@@ -28,39 +33,38 @@ describe("PlannerCommandSplitLeg", () => {
 
     const command = new PlannerCommandSplitLeg(oldLeg.legId, newLeg1.legId, newLeg2.legId);
 
-    const context /*: PlannerContext */ = jasmine.createSpyObj(
-      "context",
-      [
-        "plan",
-        "legCache",
-        "addViaNodeFlag",
-        "removeRouteLeg",
-        "addRouteLeg",
-        "updatePlan"
-      ]
-    );
+    const commandStack = new PlannerCommandStackImpl();
+    const routeLayer = new PlannerRouteLayerMock();
+    const crosshair = new PlannerCrosshairMock();
+    const elasticBand = new PlannerElasticBandMock();
+
+    const context = new PlannerContext(commandStack, routeLayer, crosshair, elasticBand, legs);
 
     const plan = new Plan(node1, List([oldLeg]));
-    context.plan.and.returnValue(plan);
-    context.legCache.and.returnValue(legs);
+    context.addRouteLeg(oldLeg.legId);
+    context.updatePlan(plan);
+
+    expect(routeLayer.routeLegCount()).toBe(1);
+    routeLayer.expectRouteLegExists("12");
 
     command.do(context);
 
-    expect(context.addViaNodeFlag).toHaveBeenCalledWith("13", "1003", [3, 3]);
-    expect(context.removeRouteLeg).toHaveBeenCalledWith("12");
-    expect(context.addRouteLeg).toHaveBeenCalledTimes(2);
-    expect(context.addRouteLeg).toHaveBeenCalledWith("13");
-    expect(context.addRouteLeg).toHaveBeenCalledWith("32");
+    expect(routeLayer.viaNodeCount()).toBe(1);
+    routeLayer.expectViaNodeExists("13", "1003");
 
-    const newPlan: Plan = context.updatePlan.calls.mostRecent().args[0];
+    expect(routeLayer.routeLegCount()).toBe(2);
+    routeLayer.expectRouteLegExists("13");
+    routeLayer.expectRouteLegExists("32");
 
-    expect(newPlan.source.nodeId).toEqual("1001");
-    expect(newPlan.legs.get(0).legId).toEqual("13");
-    expect(newPlan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(newPlan.legs.get(0).sink.nodeId).toEqual("1003");
-    expect(newPlan.legs.get(1).legId).toEqual("32");
-    expect(newPlan.legs.get(1).source.nodeId).toEqual("1003");
-    expect(newPlan.legs.get(1).sink.nodeId).toEqual("1002");
+    const updatedPlan = context.plan();
+
+    expect(updatedPlan.source.nodeId).toEqual("1001");
+    expect(updatedPlan.legs.get(0).legId).toEqual("13");
+    expect(updatedPlan.legs.get(0).source.nodeId).toEqual("1001");
+    expect(updatedPlan.legs.get(0).sink.nodeId).toEqual("1003");
+    expect(updatedPlan.legs.get(1).legId).toEqual("32");
+    expect(updatedPlan.legs.get(1).source.nodeId).toEqual("1003");
+    expect(updatedPlan.legs.get(1).sink.nodeId).toEqual("1002");
 
   });
 

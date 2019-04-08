@@ -5,8 +5,9 @@ import {Vector as VectorLayer} from 'ol/layer';
 import Map from 'ol/Map';
 import {Vector as VectorSource} from 'ol/source';
 import {Stroke, Style} from 'ol/style';
+import {PlannerElasticBand} from "./planner-elastic-band";
 
-export class PlannerElasticBandLayer {
+export class PlannerElasticBandImpl implements PlannerElasticBand {
 
   private rubberBandStyle = new Style({
     stroke: new Stroke({
@@ -38,14 +39,14 @@ export class PlannerElasticBandLayer {
     this.layer.setVisible(false);
   }
 
-  public addToMap(map: Map) {
+  addToMap(map: Map) {
     map.addLayer(this.layer);
   }
 
-  set(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate) {
+  set(anchor1: Coordinate, anchor2: Coordinate, position: Coordinate) {
     this.anchor1 = anchor1;
     this.anchor2 = anchor2;
-    this.updatePosition(coordinate);
+    this.updatePosition(position);
     this.layer.setVisible(true);
   }
 
@@ -53,9 +54,9 @@ export class PlannerElasticBandLayer {
     this.layer.setVisible(false);
   }
 
-  updatePosition(coordinate: Coordinate) {
-    this.line1.setCoordinates([this.anchor1, coordinate]);
-    this.line2.setCoordinates([this.anchor2, coordinate]);
+  updatePosition(position: Coordinate) {
+    this.line1.setCoordinates([this.anchor1, position]);
+    this.line2.setCoordinates([this.anchor2, position]);
   }
 
 }

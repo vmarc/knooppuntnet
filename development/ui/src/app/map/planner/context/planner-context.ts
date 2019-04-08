@@ -8,13 +8,12 @@ import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanLegFragment} from "../plan/plan-leg-fragment";
-import {PlannerContext} from "./planner-context";
-import {PlannerCrosshairLayer} from "./planner-crosshair-layer";
-import {PlannerElasticBandLayer} from "./planner-elastic-band-layer";
+import {PlannerCrosshair} from "./planner-crosshair";
+import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerMode} from "./planner-mode";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
-export class PlannerContextImpl implements PlannerContext {
+export class PlannerContext {
 
   private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
   private _plan = new BehaviorSubject<Plan>(Plan.empty());
@@ -24,8 +23,10 @@ export class PlannerContextImpl implements PlannerContext {
 
   constructor(private commandStack: PlannerCommandStack,
               private routeLayer: PlannerRouteLayer,
-              private crosshairLayer: PlannerCrosshairLayer,
-              private elasticBandLayer: PlannerElasticBandLayer) {
+              private crosshair: PlannerCrosshair,
+              private elasticBand: PlannerElasticBand,
+              private legs: PlanLegCache) {
+    this._legCache = legs;
   }
 
   legCache(): PlanLegCache {
@@ -56,11 +57,11 @@ export class PlannerContextImpl implements PlannerContext {
   }
 
   setCrosshairVisible(visible: boolean): void {
-    this.crosshairLayer.setVisible(visible);
+    this.crosshair.setVisible(visible);
   }
 
   setCrosshairPosition(coordinate: Coordinate): void {
-    this.crosshairLayer.updatePosition(coordinate);
+    this.crosshair.updatePosition(coordinate);
   }
 
   setCursorStyle(style: string): void {
@@ -72,15 +73,15 @@ export class PlannerContextImpl implements PlannerContext {
   }
 
   setElasticBand(anchor1: Coordinate, anchor2: Coordinate, coordinate: Coordinate): void {
-    this.elasticBandLayer.set(anchor1, anchor2, coordinate);
+    this.elasticBand.set(anchor1, anchor2, coordinate);
   }
 
   setElasticBandInvisible(): void {
-    this.elasticBandLayer.setInvisible();
+    this.elasticBand.setInvisible();
   }
 
   setElasticBandPosition(coordinate: Coordinate): void {
-    this.elasticBandLayer.updatePosition(coordinate);
+    this.elasticBand.updatePosition(coordinate);
   }
 
   addStartNodeFlag(nodeId: string, coordinate: Coordinate): Feature {

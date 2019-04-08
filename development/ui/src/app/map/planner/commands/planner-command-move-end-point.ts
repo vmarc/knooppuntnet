@@ -1,6 +1,5 @@
+import {PlannerContext} from "../context/planner-context";
 import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlannerContext} from "../interaction/planner-context";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveEndPoint implements PlannerCommand {

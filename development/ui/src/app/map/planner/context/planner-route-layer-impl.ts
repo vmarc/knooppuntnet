@@ -6,12 +6,13 @@ import {Vector as VectorLayer} from 'ol/layer';
 import Map from 'ol/Map';
 import {Vector as VectorSource} from 'ol/source';
 import {Icon, Stroke, Style} from 'ol/style';
+import {PlannerRouteLayer} from "./planner-route-layer";
 
 /*
   - displays planned route
   - displays flags for the nodes in the route plan
  */
-export class PlannerRouteLayer {
+export class PlannerRouteLayerImpl implements PlannerRouteLayer {
 
   private startFlagStyle = new Style({
     image: new Icon({
@@ -48,19 +49,19 @@ export class PlannerRouteLayer {
     map.addLayer(this.layer);
   }
 
-  addStartNodeFlag(nodeId: string, coordinate: Coordinate): Feature {
+  addStartNodeFlag(nodeId: string, coordinate: Coordinate): void {
     return this.addNodeFlag(this.startNodeKey(nodeId), nodeId, coordinate, this.startFlagStyle);
   }
 
-  addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): Feature {
+  addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): void {
     return this.addNodeFlag(this.viaNodeKey(legId, nodeId), nodeId, coordinate, this.viaFlagStyle);
   }
 
-  removeStartNodeFlag(nodeId: string) {
+  removeStartNodeFlag(nodeId: string): void {
     this.removeNodeFlag(this.startNodeKey(nodeId));
   }
 
-  removeViaNodeFlag(legId: string, nodeId: string) {
+  removeViaNodeFlag(legId: string, nodeId: string): void {
     this.removeNodeFlag(this.viaNodeKey(legId, nodeId));
   }
 
@@ -71,7 +72,7 @@ export class PlannerRouteLayer {
     }
   }
 
-  addRouteLeg(legId: string, coordinates: List<Coordinate>) {
+  addRouteLeg(legId: string, coordinates: List<Coordinate>): void {
     this.removeRouteLeg(legId);
     const feature = new Feature(new LineString(coordinates.toArray()));
     feature.setId(legId);
@@ -80,21 +81,20 @@ export class PlannerRouteLayer {
     this.source.addFeature(feature);
   }
 
-  removeRouteLeg(legId: string) {
+  removeRouteLeg(legId: string): void {
     const feature = this.source.getFeatureById(legId);
     if (feature) {
       this.source.removeFeature(feature);
     }
   }
 
-  private addNodeFlag(id: string, nodeId: string, coordinate: Coordinate, style: Style): Feature {
+  private addNodeFlag(id: string, nodeId: string, coordinate: Coordinate, style: Style): void {
     const feature = new Feature(new Point(coordinate));
     feature.setId(id);
     feature.set("layer", "leg-node");
     feature.set("nodeId", nodeId);
     feature.setStyle(style);
     this.source.addFeature(feature);
-    return feature;
   }
 
   private removeNodeFlag(id: string) {
