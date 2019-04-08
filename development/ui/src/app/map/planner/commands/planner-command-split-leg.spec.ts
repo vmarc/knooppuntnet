@@ -56,15 +56,13 @@ describe("PlannerCommandSplitLeg", () => {
     routeLayer.expectRouteLegExists("13");
     routeLayer.expectRouteLegExists("32");
 
-    const updatedPlan = context.plan();
-
-    expect(updatedPlan.source.nodeId).toEqual("1001");
-    expect(updatedPlan.legs.get(0).legId).toEqual("13");
-    expect(updatedPlan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(updatedPlan.legs.get(0).sink.nodeId).toEqual("1003");
-    expect(updatedPlan.legs.get(1).legId).toEqual("32");
-    expect(updatedPlan.legs.get(1).source.nodeId).toEqual("1003");
-    expect(updatedPlan.legs.get(1).sink.nodeId).toEqual("1002");
+    expect(context.plan.source.nodeId).toEqual("1001");
+    expect(context.plan.legs.get(0).legId).toEqual("13");
+    expect(context.plan.legs.get(0).source.nodeId).toEqual("1001");
+    expect(context.plan.legs.get(0).sink.nodeId).toEqual("1003");
+    expect(context.plan.legs.get(1).legId).toEqual("32");
+    expect(context.plan.legs.get(1).source.nodeId).toEqual("1003");
+    expect(context.plan.legs.get(1).sink.nodeId).toEqual("1002");
 
   });
 

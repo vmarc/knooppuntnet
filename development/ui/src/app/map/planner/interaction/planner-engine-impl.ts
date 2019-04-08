@@ -8,6 +8,7 @@ import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-p
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
+import {PlannerContext} from "../context/planner-context";
 import {PlannerMapFeature} from "../features/planner-map-feature";
 import {PlannerMapFeatureLeg} from "../features/planner-map-feature-leg";
 import {PlannerMapFeatureLegNode} from "../features/planner-map-feature-leg-node";
@@ -15,7 +16,6 @@ import {PlannerMapFeatureNetworkNode} from "../features/planner-map-feature-netw
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegFragment} from "../plan/plan-leg-fragment";
 import {PlanNode} from "../plan/plan-node";
-import {PlannerContext} from "../context/planner-context";
 import {PlannerDragLeg} from "./planner-drag-leg";
 import {PlannerDragNode} from "./planner-drag-node";
 import {PlannerDragNodeAnalyzer} from "./planner-drag-node-analyzer";
@@ -164,12 +164,12 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private nodeSelected(networkNode: PlannerMapFeatureNetworkNode): void {
     this.context.crosshair.updatePosition(networkNode.coordinate); // snap
-    if (this.context.plan().source === null) {
+    if (this.context.plan.source === null) {
       const node = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const command = new PlannerCommandAddStartPoint(node);
       this.context.execute(command);
     } else {
-      const source: PlanNode = this.context.plan().lastNode();
+      const source: PlanNode = this.context.plan.lastNode();
       const sink = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
       const leg = this.buildLeg(this.newLegId(), source, sink);
       const command = new PlannerCommandAddLeg(leg.legId);
@@ -190,7 +190,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private legNodeDragStarted(legNode: PlannerMapFeatureLegNode, coordinate: Coordinate): boolean {
-    this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan()).dragStarted(legNode.id, legNode.nodeId);
+    this.nodeDrag = new PlannerDragNodeAnalyzer(this.context.plan).dragStarted(legNode.id, legNode.nodeId);
     if (this.nodeDrag !== null) {
       this.context.routeLayer.updateFlagPosition(this.nodeDrag.legNodeFeatureId, coordinate);
       this.context.elasticBand.set(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
@@ -225,19 +225,19 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.nodeDrag.legNodeFeatureId.startsWith("start-node-flag-")) {
       const newStartNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
-      const oldFirstLeg: PlanLeg = this.context.plan().legs.first();
+      const oldFirstLeg: PlanLeg = this.context.plan.legs.first();
       const newFirstLeg: PlanLeg = this.buildLeg(this.newLegId(), newStartNode, oldFirstLeg.sink);
       const command = new PlannerCommandMoveStartPoint(oldFirstLeg.legId, newFirstLeg.legId);
       this.context.execute(command);
     } else { // end node
-      const oldLastLeg: PlanLeg = this.context.plan().legs.last();
+      const oldLastLeg: PlanLeg = this.context.plan.legs.last();
       if (this.nodeDrag.legNodeFeatureId.startsWith("leg-" + oldLastLeg.legId)) {
         const newEndNode = new PlanNode(newNodeId, newNodeName, newCoordinate);
         const newLastLeg: PlanLeg = this.buildLeg(this.newLegId(), oldLastLeg.source, newEndNode);
         const command = new PlannerCommandMoveEndPoint(oldLastLeg.legId, newLastLeg.legId);
         this.context.execute(command);
       } else {
-        const legs = this.context.plan().legs;
+        const legs = this.context.plan.legs;
         const splitted = this.nodeDrag.legNodeFeatureId.split("-");
         const legId = splitted[1];
         const indexLeg1 = legs.findIndex(leg => leg.legId == legId);
@@ -315,7 +315,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private findDraggableLegNode(features: List<PlannerMapFeature>): PlannerMapFeatureLegNode {
-    if (this.context.plan().legs.isEmpty()) {
+    if (this.context.plan.legs.isEmpty()) {
       return null;
     }
     const nodes = features.filter(f => f.isLegNode());

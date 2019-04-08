@@ -54,7 +54,7 @@ export class PlannerContext {
     return this._plan;
   }
 
-  plan(): Plan {
+  get plan(): Plan {
     return this._plan.value;
   }
 
@@ -67,13 +67,13 @@ export class PlannerContext {
     const newLeg = new PlanLeg(legId, existingLeg.source, existingLeg.sink, fragments)
 
 
-    const newLegs = this.plan().legs.map(leg => {
+    const newLegs = this.plan.legs.map(leg => {
       if (leg.legId === legId) {
         return newLeg;
       }
       return leg;
     });
-    const newPlan = new Plan(this.plan().source, newLegs);
+    const newPlan = new Plan(this.plan.source, newLegs);
     this.updatePlan(newPlan);
 
     this.routeLayer.addRouteLeg(newLeg);

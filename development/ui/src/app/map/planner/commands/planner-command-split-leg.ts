@@ -16,14 +16,13 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const newLeg2 = context.legs.getById(this.newLegId2);
 
     context.routeLayer.addViaNodeFlag(newLeg1.legId, newLeg1.sink.nodeId, newLeg1.sink.coordinate);
-    const plan: Plan = context.plan();
-    const legIndex = plan.legs.findIndex(leg => leg.legId === oldLeg.legId);
+    const legIndex = context.plan.legs.findIndex(leg => leg.legId === oldLeg.legId);
     if (legIndex > -1) {
       context.routeLayer.removeRouteLeg(oldLeg.legId);
       context.routeLayer.addRouteLeg(newLeg1);
       context.routeLayer.addRouteLeg(newLeg2);
-      const newLegs = plan.legs.remove(legIndex).push(newLeg1).push(newLeg2);
-      const newPlan = new Plan(plan.source, newLegs);
+      const newLegs = context.plan.legs.remove(legIndex).push(newLeg1).push(newLeg2);
+      const newPlan = new Plan(context.plan.source, newLegs);
       context.updatePlan(newPlan);
     }
   }
@@ -38,11 +37,10 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.routeLayer.removeRouteLeg(newLeg1.legId);
     context.routeLayer.removeRouteLeg(newLeg2.legId);
     context.routeLayer.addRouteLeg(oldLeg);
-    const plan: Plan = context.plan();
-    const legIndex = plan.legs.findIndex(leg => leg.legId === newLeg1.legId);
+    const legIndex = context.plan.legs.findIndex(leg => leg.legId === newLeg1.legId);
     if (legIndex > -1) {
-      const newLegs = plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, oldLeg);
-      const newPlan = new Plan(plan.source, newLegs);
+      const newLegs = context.plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, oldLeg);
+      const newPlan = new Plan(context.plan.source, newLegs);
       context.updatePlan(newPlan);
     }
   }

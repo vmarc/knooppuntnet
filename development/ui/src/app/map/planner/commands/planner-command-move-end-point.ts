@@ -23,9 +23,8 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
     context.routeLayer.addViaNodeFlag(toLeg.legId, toLeg.sink.nodeId, toLeg.sink.coordinate);
     context.routeLayer.removeRouteLeg(fromLeg.legId);
     context.routeLayer.addRouteLeg(toLeg);
-    const plan = context.plan();
-    const newLegs = plan.legs.update(plan.legs.size - 1, () => toLeg);
-    const newPlan = new Plan(plan.source, newLegs);
+    const newLegs = context.plan.legs.update(context.plan.legs.size - 1, () => toLeg);
+    const newPlan = new Plan(context.plan.source, newLegs);
     context.updatePlan(newPlan);
   }
 

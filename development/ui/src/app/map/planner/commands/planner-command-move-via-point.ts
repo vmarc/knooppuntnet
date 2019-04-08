@@ -34,10 +34,9 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
     context.routeLayer.addRouteLeg(toLeg1);
     context.routeLayer.addRouteLeg(toLeg2);
 
-    const plan = context.plan();
-    const newLegs1 = plan.legs.update(this.indexleg1, () => toLeg1);
+    const newLegs1 = context.plan.legs.update(this.indexleg1, () => toLeg1);
     const newLegs2 = newLegs1.update(this.indexleg1 + 1, () => toLeg2);
-    const newPlan = new Plan(plan.source, newLegs2);
+    const newPlan = new Plan(context.plan.source, newLegs2);
     context.updatePlan(newPlan);
   }
 

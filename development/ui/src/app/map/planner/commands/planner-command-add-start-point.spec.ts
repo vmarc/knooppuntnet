@@ -29,17 +29,15 @@ describe("PlannerCommandAddStartPoint", () => {
     expect(routeLayer.startNodeCount()).toEqual(1);
     routeLayer.expectStartNodeExists("1001");
 
-    const newPlan: Plan = context.plan();
-    expect(newPlan.source.nodeId).toEqual("1001");
-    expect(newPlan.legs.size).toEqual(0);
+    expect(context.plan.source.nodeId).toEqual("1001");
+    expect(context.plan.legs.size).toEqual(0);
 
     command.undo(context);
 
     expect(routeLayer.startNodeCount()).toEqual(0);
 
-    const undonePlan: Plan = context.plan();
-    expect(undonePlan.source).toEqual(null);
-    expect(newPlan.legs.size).toEqual(0);
+    expect(context.plan.source).toEqual(null);
+    expect(context.plan.legs.size).toEqual(0);
   });
 
 });
