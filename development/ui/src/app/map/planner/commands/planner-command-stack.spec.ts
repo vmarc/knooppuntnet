@@ -1,7 +1,6 @@
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
 import {PlannerCommandStack} from "./planner-command-stack";
-import {PlannerCommandStackImpl} from "./planner-command-stack-impl";
 
 class TestCommand implements PlannerCommand {
 
@@ -20,7 +19,7 @@ describe("PlannerCommandStack", () => {
   let stack: PlannerCommandStack;
 
   beforeEach(() => {
-    stack = new PlannerCommandStackImpl();
+    stack = new PlannerCommandStack();
   });
 
   it("empty stack", () => {

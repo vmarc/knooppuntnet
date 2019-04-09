@@ -1,4 +1,4 @@
-import {List, Map} from "immutable";
+import {Map} from "immutable";
 import Coordinate from 'ol/coordinate';
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
@@ -19,12 +19,14 @@ export class PlannerRouteLayerMock implements PlannerRouteLayer {
     this.startNodeFlags = this.viaNodeFlags.remove(nodeId);
   }
 
-  startNodeCount(): number {
-    return this.startNodeFlags.size;
+  expectStartNodeCount(count: number): void {
+    expect(this.startNodeFlags.size).toEqual(count);
   }
 
-  expectStartNodeExists(nodeId): void {
-    expect(this.startNodeFlags.get(nodeId)).toBeDefined();
+  expectStartNodeExists(nodeId: string, coordinate: Coordinate): void {
+    const flagCoordinate = this.startNodeFlags.get(nodeId);
+    expect(flagCoordinate).toBeDefined();
+    expect(flagCoordinate).toEqual(coordinate);
   }
 
   // ---
@@ -37,12 +39,14 @@ export class PlannerRouteLayerMock implements PlannerRouteLayer {
     this.viaNodeFlags = this.viaNodeFlags.remove(legId + "-" + nodeId);
   }
 
-  viaNodeCount(): number {
-    return this.viaNodeFlags.size;
+  expectViaNodeCount(count: number): void {
+    expect(this.viaNodeFlags.size).toEqual(count);
   }
 
-  expectViaNodeExists(legId: string, nodeId: string): void {
-    expect(this.viaNodeFlags.get(legId + "-" + nodeId)).toBeDefined();
+  expectViaNodeExists(legId: string, nodeId: string, coordinate: Coordinate): void {
+    const flagCoordinate = this.viaNodeFlags.get(legId + "-" + nodeId);
+    expect(flagCoordinate).toBeDefined();
+    expect(flagCoordinate).toEqual(coordinate);
   }
 
   // --
@@ -59,12 +63,14 @@ export class PlannerRouteLayerMock implements PlannerRouteLayer {
     this.routeLegs = this.routeLegs.remove(legId);
   }
 
-  routeLegCount(): number {
-    return this.routeLegs.size;
+  expectRouteLegCount(count: number): void {
+    expect(this.routeLegs.size).toEqual(count);
   }
 
-  expectRouteLegExists(legId): void {
-    expect(this.routeLegs.get(legId)).toBeDefined();
+  expectRouteLegExists(legId: string, leg: PlanLeg): void {
+    const routeLeg = this.routeLegs.get(legId);
+    expect(routeLeg).toBeDefined();
+    expect(routeLeg).toEqual(leg);
   }
 
 }

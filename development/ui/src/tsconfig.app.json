@@ -8,6 +8,7 @@
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts",
+    "**/*-test-setup.ts",
     "**/*-mock.ts"
   ]
 }

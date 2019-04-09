@@ -249,7 +249,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         const newLeg1: PlanLeg = this.buildLeg(this.newLegId(), oldLeg1.source, connection);
         const newLeg2: PlanLeg = this.buildLeg(this.newLegId(), connection, oldLeg2.sink);
 
-        const command = new PlannerCommandMoveViaPoint(this.nodeDrag.legNodeFeatureId, indexLeg1, oldLeg1.legId, oldLeg2.legId, newLeg1.legId, newLeg2.legId);
+        const command = new PlannerCommandMoveViaPoint(indexLeg1, oldLeg1.legId, oldLeg2.legId, newLeg1.legId, newLeg2.legId);
         this.context.execute(command);
       }
     }

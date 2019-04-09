@@ -14,12 +14,12 @@ export class PlannerCrosshairMock implements PlannerCrosshair {
     this._position = position;
   }
 
-  isVisible(): boolean {
-    return this._visible;
+  expectVisible(visible: boolean): void {
+    expect(this._visible).toEqual(visible);
   }
 
-  position(): Coordinate {
-    return this._position;
+  expectPosition(position: Coordinate): void {
+    expect(this._position).toEqual(position);
   }
 
 }

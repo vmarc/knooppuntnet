@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import Map from 'ol/Map';
 import {AppService} from "../app.service";
 import {PlannerCommandStack} from "./planner/commands/planner-command-stack";
-import {PlannerCommandStackImpl} from "./planner/commands/planner-command-stack-impl";
 import {PlannerContext} from "./planner/context/planner-context";
 import {PlannerCrosshairImpl} from "./planner/context/planner-crosshair-impl";
 import {PlannerElasticBandImpl} from "./planner/context/planner-elastic-band-impl";
@@ -19,26 +18,26 @@ export class PlannerService {
   constructor(private appService: AppService) {
   }
 
-  private commandStack: PlannerCommandStack = new PlannerCommandStackImpl();
+  private commandStack = new PlannerCommandStack();
   private routeLayer = new PlannerRouteLayerImpl();
-  private crosshairLayer = new PlannerCrosshairImpl();
-  private elasticBandLayer = new PlannerElasticBandImpl();
+  private crosshair = new PlannerCrosshairImpl();
+  private elasticBand = new PlannerElasticBandImpl();
   private legCache: PlanLegCache = new PlanLegCache();
 
   context: PlannerContext = new PlannerContext(
     this.commandStack,
     this.routeLayer,
-    this.crosshairLayer,
-    this.elasticBandLayer,
+    this.crosshair,
+    this.elasticBand,
     this.legCache
   );
 
   engine: PlannerEngine = new PlannerEngineImpl(this.context, this.appService);
 
   init(map: Map): void {
-    this.crosshairLayer.addToMap(map);
+    this.crosshair.addToMap(map);
     this.routeLayer.addToMap(map);
-    this.elasticBandLayer.addToMap(map);
+    this.elasticBand.addToMap(map);
   }
 
 }

@@ -4,8 +4,7 @@ import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
-  constructor(private readonly startNodeFeatureId: string,
-              private readonly indexleg1: number,
+  constructor(private readonly indexleg1: number,
               private readonly oldLegId1: string,
               private readonly oldLegId2: string,
               private readonly newLegId1: string,
