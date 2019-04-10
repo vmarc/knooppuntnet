@@ -15,11 +15,11 @@
     "start:fr": "ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
     "test-no-watch": "ng test --single-run",
     "build-dev": "ng build --progress --output-path ../public",
-    "build-prod": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ../public/en --stats-json --source-map",
-    "build-prod:nl": "ng build --base-href /nl/ --configuration=production-nl --extract-css --progress --prod --aot --output-path ../public/nl --stats-json --source-map",
-    "build-prod:de": "ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ../public/de --stats-json --source-map",
-    "build-prod:fr": "ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ../public/fr --stats-json --source-map",
-    "bundle-report": "webpack-bundle-analyzer ../public/en/stats.json"
+    "build-prod": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ../public/en",
+    "build-prod:nl": "ng build --base-href /nl/ --configuration=production-nl --extract-css --progress --prod --aot --output-path ../public/nl",
+    "build-prod:de": "ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ../public/de",
+    "build-prod:fr": "ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ../public/fr",
+    "build-prod-with-map": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ../public/with-map --stats-json --source-map"
   },
   "private": true,
   "dependencies": {
