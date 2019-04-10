@@ -1,9 +1,9 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from '@angular/core';
+import {MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
-import {KpnMaterialModule} from "../material/kpn-material.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 import {ChangesSetComponent} from "./components/change-set/change-set.component";
@@ -141,7 +141,13 @@ import {SubsetOrphanRoutesTableComponent} from './pages/subset/orphan-routes/sub
   imports: [
     MarkdownModule,
     CommonModule,
-    KpnMaterialModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSortModule,
+    MatIconModule,
+    MatDialogModule,
+    MatDividerModule,
     SharedModule,
     OlModule,
     AnalysisRoutingModule

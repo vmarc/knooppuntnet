@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {MatButtonModule, MatDividerModule, MatIconModule, MatListModule, MatToolbarModule} from "@angular/material";
 import {RouterModule} from "@angular/router";
-import {KpnMaterialModule} from "../../material/kpn-material.module";
 import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
@@ -74,8 +74,12 @@ import {ToolbarComponent} from './toolbar/toolbar.component';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
-    KpnMaterialModule
+    MatIconModule,
+    MatToolbarModule,
+    MatListModule,
+    MatDividerModule,
+    MatButtonModule,
+    RouterModule
   ],
   declarations: [
     LinkChangesetComponent,

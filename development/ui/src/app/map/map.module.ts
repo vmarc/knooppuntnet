@@ -1,10 +1,17 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from "@angular/forms";
-import {MatRadioModule} from "@angular/material";
+import {
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatRadioModule
+} from "@angular/material";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
-import {KpnMaterialModule} from "../material/kpn-material.module";
 import {PdfModule} from "../pdf/pdf.module";
 import {MapRoutingModule} from "./map-routing.module";
 import {DirectionsPageComponent} from "./pages/directions/_directions-page.component";
@@ -45,10 +52,15 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
 @NgModule({
   imports: [
     CommonModule,
-    KpnMaterialModule,
-    MapRoutingModule,
     MatRadioModule,
-    ReactiveFormsModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MapRoutingModule,
     SharedModule,
     OlModule,
     PdfModule

@@ -1,8 +1,11 @@
 import {NgModule} from '@angular/core';
+import {MatIconModule} from "@angular/material";
 import {PdfService} from "./pdf.service";
 
 @NgModule({
-  imports: [],
+  imports: [
+    MatIconModule
+  ],
   declarations: [],
   exports: [
   ],

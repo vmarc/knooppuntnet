@@ -1,7 +1,7 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from '@angular/core';
+import {MatCardModule, MatDividerModule, MatIconModule} from "@angular/material";
 import {SharedModule} from "../components/shared/shared.module";
-import {KpnMaterialModule} from "../material/kpn-material.module";
 import {BaseRoutingModule} from "./base-routing.module";
 import {BaseSidebarComponent} from "./base-sidebar.component";
 import {AboutPageComponent} from "./pages/about/about-page.component";
@@ -18,7 +18,9 @@ import {NotFoundPageComponent} from "./pages/not-found/not-found-page.component"
 @NgModule({
   imports: [
     CommonModule,
-    KpnMaterialModule,
+    MatDividerModule,
+    MatCardModule,
+    MatIconModule,
     SharedModule,
     BaseRoutingModule
   ],

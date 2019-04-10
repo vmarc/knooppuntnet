@@ -1,6 +1,7 @@
 import {LayoutModule} from '@angular/cdk/layout';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {MatButtonModule, MatIconModule, MatSidenavModule} from "@angular/material";
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CookieService} from "ngx-cookie-service";
@@ -12,7 +13,6 @@ import {AppService} from './app.service';
 import {PageService} from "./components/shared/page.service";
 import {SharedModule} from "./components/shared/shared.module";
 import {IconService} from "./icon.service";
-import {KpnMaterialModule} from "./material/kpn-material.module";
 import {PoiService} from "./poi.service";
 import {UserService} from "./user.service";
 
@@ -25,7 +25,9 @@ import {UserService} from "./user.service";
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
-    KpnMaterialModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatButtonModule,
     HttpClientModule,
     SharedModule,
     AppRoutingModule

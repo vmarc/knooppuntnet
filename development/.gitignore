@@ -2,6 +2,7 @@
 *.log
 logs
 target
+/ui/map
 /.idea
 /.idea_modules
 /.classpath

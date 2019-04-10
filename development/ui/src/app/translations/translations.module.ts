@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {KpnMaterialModule} from "../material/kpn-material.module";
+import {MatDividerModule, MatFormFieldModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 import {TranslationTableComponent} from "./translation-table/translation-table.component";
 import {TranslationsRoutingModule} from "./translations-routing.module";
 import {TranslationsComponent} from "./translations.component";
@@ -11,7 +11,11 @@ import {TranslationsService} from "./translations.service";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    KpnMaterialModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatDividerModule,
     TranslationsRoutingModule
   ],
   declarations: [
