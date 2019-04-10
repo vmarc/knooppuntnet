@@ -31,6 +31,7 @@ import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
 import {MapTryout1PageComponent} from "./pages/tryout1/_map-tryout-1-page.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
+import {ExportDialogComponent} from "./sidebar/export-dialog.component";
 import {MapSidebarAnalysisComponent} from "./sidebar/map-side-bar-analysis.component";
 import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
@@ -82,13 +83,17 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     DirectionsSummaryComponent,
     DirectionsSignComponent,
     MapTryout1PageComponent,
-    PlanComponent
+    PlanComponent,
+    ExportDialogComponent
   ],
   exports: [
     MapPageComponent
   ],
   providers: [
     PlannerService
+  ],
+  entryComponents: [
+    ExportDialogComponent
   ]
 })
 export class MapModule {

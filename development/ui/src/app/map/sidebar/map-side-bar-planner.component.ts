@@ -11,15 +11,6 @@ import {Component} from '@angular/core';
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <p>
-          This is about how to use the route planner.
-        </p>
-        <p>
-          Zoom in ...
-        </p>
-        <p>
-          bb bbb bbb
-        </p>
         <kpn-plan></kpn-plan>
       </ng-template>
     </mat-expansion-panel>

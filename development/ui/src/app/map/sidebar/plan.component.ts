@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatDialog} from "@angular/material";
 import {Subscription} from "rxjs";
 import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
 import {PdfHorizontal} from "../print/pdf-horizontal";
 import {PdfVertical} from "../print/pdf-vertical";
+import {ExportDialogComponent} from "./export-dialog.component";
 
 @Component({
   selector: 'kpn-plan',
@@ -12,8 +14,7 @@ import {PdfVertical} from "../print/pdf-vertical";
     <div class="buttons">
       <button mat-raised-button (click)="undo()" [disabled]="!undoEnabled()">Undo</button>
       <button mat-raised-button (click)="redo()" [disabled]="!redoEnabled()">Redo</button>
-      <button mat-raised-button (click)="print1()">Print 1</button>
-      <button mat-raised-button (click)="print2()">Print 2</button>
+      <button mat-raised-button (click)="export()" [disabled]="!exportEnabled()">Export</button>
     </div>
 
     <div *ngIf="plan.source !== null" class="node user-selected">
@@ -90,7 +91,8 @@ export class PlanComponent implements OnInit, OnDestroy {
   plan: Plan;
   planSubscription: Subscription;
 
-  constructor(private plannerService: PlannerService) {
+  constructor(private plannerService: PlannerService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -119,12 +121,19 @@ export class PlanComponent implements OnInit, OnDestroy {
     return this.plannerService.context.commandStack.canRedo;
   }
 
-  print1(): void {
-    new PdfHorizontal(this.plan).print();
+  exportEnabled(): boolean {
+    return !this.plannerService.context.plan.legs.isEmpty();
   }
 
-  print2(): void {
-    new PdfVertical(this.plan).print();
+  export(): void {
+    const dialogRef = this.dialog.open(ExportDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == "pdf1") {
+        new PdfHorizontal(this.plan).print()
+      } else if (result == "pdf2") {
+        new PdfVertical(this.plan).print();
+      }
+    });
   }
 
 }
