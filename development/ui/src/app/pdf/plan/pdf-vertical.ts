@@ -1,5 +1,5 @@
 import * as JsPdf from 'jspdf'
-import {Plan} from "../planner/plan/plan";
+import {Plan} from "../../map/planner/plan/plan";
 import {PdfPage} from "./pdf-page";
 import {PdfPlanBuilder} from "./pdf-plan-builder";
 import {PdfSideBar} from "./pdf-side-bar";

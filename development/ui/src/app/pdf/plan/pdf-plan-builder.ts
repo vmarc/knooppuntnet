@@ -1,6 +1,6 @@
 import {List, Range} from "immutable";
-import {Plan} from "../planner/plan/plan";
-import {PlanLegFragment} from "../planner/plan/plan-leg-fragment";
+import {Plan} from "../../map/planner/plan/plan";
+import {PlanLegFragment} from "../../map/planner/plan/plan-leg-fragment";
 import {PdfPlan} from "./pdf-plan";
 import {PdfPlanNode} from "./pdf-plan-node";
 

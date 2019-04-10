@@ -4,7 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
 import {Directions} from "../../../kpn/shared/directions/directions";
-import {PdfDirections} from "../../print/pdf-directions";
+import {PdfDirections} from "../../../pdf/plan/pdf-directions";
 
 @Component({
   selector: 'kpn-directions-page',

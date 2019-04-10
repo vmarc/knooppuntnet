@@ -5,6 +5,7 @@ import {MatRadioModule} from "@angular/material";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
 import {KpnMaterialModule} from "../material/kpn-material.module";
+import {PdfModule} from "../pdf/pdf.module";
 import {MapRoutingModule} from "./map-routing.module";
 import {DirectionsPageComponent} from "./pages/directions/_directions-page.component";
 import {DirectionsInstructionComponent} from "./pages/directions/directions-instruction.component";
@@ -49,7 +50,8 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     MatRadioModule,
     ReactiveFormsModule,
     SharedModule,
-    OlModule
+    OlModule,
+    PdfModule
   ],
   declarations: [
     MapPageComponent,

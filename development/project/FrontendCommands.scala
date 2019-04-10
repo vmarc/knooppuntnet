@@ -6,4 +6,5 @@ object FrontendCommands {
   val buildNL: String = "yarn run build-prod:nl"
   val buildFR: String = "yarn run build-prod:fr"
   val buildDE: String = "yarn run build-prod:de"
+  val buildMap: String = "yarn run build-prod-map"
 }

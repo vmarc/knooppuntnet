@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {Subscription} from "rxjs";
+import {PdfService} from "../../pdf/pdf.service";
 import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
-import {PdfHorizontal} from "../print/pdf-horizontal";
-import {PdfVertical} from "../print/pdf-vertical";
 import {ExportDialogComponent} from "./export-dialog.component";
 
 @Component({
@@ -84,7 +83,10 @@ import {ExportDialogComponent} from "./export-dialog.component";
       text-align: center;
     }
 
-  `]
+  `],
+  providers: [
+    PdfService
+  ]
 })
 export class PlanComponent implements OnInit, OnDestroy {
 
@@ -92,6 +94,7 @@ export class PlanComponent implements OnInit, OnDestroy {
   planSubscription: Subscription;
 
   constructor(private plannerService: PlannerService,
+              private pdfService: PdfService,
               private dialog: MatDialog) {
   }
 
@@ -129,9 +132,9 @@ export class PlanComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ExportDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result == "pdf1") {
-        new PdfHorizontal(this.plan).print()
+        this.pdfService.printHorizontal(this.plan);
       } else if (result == "pdf2") {
-        new PdfVertical(this.plan).print();
+        this.pdfService.printVertical(this.plan);
       }
     });
   }

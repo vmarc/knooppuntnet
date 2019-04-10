@@ -19,7 +19,7 @@
     "build-prod:nl": "ng build --base-href /nl/ --configuration=production-nl --extract-css --progress --prod --aot --output-path ../public/nl",
     "build-prod:de": "ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ../public/de",
     "build-prod:fr": "ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ../public/fr",
-    "build-prod-with-map": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ../public/with-map --stats-json --source-map"
+    "build-map": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./map/with-map --stats-json --source-map"
   },
   "private": true,
   "dependencies": {
