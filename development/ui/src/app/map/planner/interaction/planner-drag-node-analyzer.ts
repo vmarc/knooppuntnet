@@ -9,15 +9,14 @@ export class PlannerDragNodeAnalyzer {
 
   dragStarted(legNodeFeatureId: string, nodeId: string): PlannerDragNode {
 
+    if (legNodeFeatureId.startsWith("start-node-flag-")) {
+      const anchor = this.plan.source.coordinate;
+      return new PlannerDragNode(legNodeFeatureId, anchor, anchor, this.plan.source);
+    }
+
     const legs = this.plan.legs;
     if (legs.isEmpty()) {
       return null;
-    }
-
-    if (legNodeFeatureId.startsWith("start-node-flag-")) {
-      const firstLeg: PlanLeg = legs.first();
-      const anchor = firstLeg.source.coordinate;
-      return new PlannerDragNode(legNodeFeatureId, anchor, anchor, firstLeg.source);
     }
 
     const lastLeg: PlanLeg = legs.last();

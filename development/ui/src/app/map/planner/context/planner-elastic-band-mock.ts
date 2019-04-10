@@ -8,6 +8,8 @@ export class PlannerElasticBandMock implements PlannerElasticBand {
   private _position: Coordinate;
   private _visible: boolean;
 
+  // interface implementation
+
   set(anchor1: Coordinate, anchor2: Coordinate, position: Coordinate) {
     this._anchor1 = anchor1;
     this._anchor2 = anchor2;
@@ -19,24 +21,26 @@ export class PlannerElasticBandMock implements PlannerElasticBand {
     this._visible = false;
   }
 
-  updatePosition(position: Coordinate) {
+  updatePosition(position: Coordinate): void {
     this._position = position;
   }
 
-  anchor1(): Coordinate {
-    return this._anchor1;
+  // assertions
+
+  expectAnchor1(anchor: Coordinate): void {
+    expect(this._anchor1).toEqual(anchor);
   }
 
-  anchor2(): Coordinate {
-    return this._anchor2;
+  expectAnchor2(anchor: Coordinate): void {
+    expect(this._anchor2).toEqual(anchor);
   }
 
-  position(): Coordinate {
-    return this._position;
+  expectPosition(position: Coordinate): void {
+    expect(this._position).toEqual(position);
   }
 
-  isVisible(): boolean {
-    return this._visible;
+  expectVisible(visible: boolean): void {
+    expect(this._visible).toEqual(visible);
   }
 
 }

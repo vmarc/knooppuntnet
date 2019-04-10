@@ -163,6 +163,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private nodeSelected(networkNode: PlannerMapFeatureNetworkNode): void {
+    this.context.crosshair.setVisible(true);
     this.context.crosshair.updatePosition(networkNode.coordinate); // snap
     if (this.context.plan.source === null) {
       const node = new PlanNode(networkNode.nodeId, networkNode.nodeName, networkNode.coordinate);
