@@ -21,20 +21,25 @@ export class PlannerService {
   private commandStack = new PlannerCommandStack();
   private routeLayer = new PlannerRouteLayerImpl();
   private crosshair = new PlannerCrosshairImpl();
+  private cursor = new PlannerCursorImpl();
   private elasticBand = new PlannerElasticBandImpl();
+  private legRepository = new PlannerLegRepositoryImpl(this.appService);
   private legCache: PlanLegCache = new PlanLegCache();
 
   context: PlannerContext = new PlannerContext(
     this.commandStack,
     this.routeLayer,
     this.crosshair,
+    this.cursor,
     this.elasticBand,
+    this.legRepository,
     this.legCache
   );
 
-  engine: PlannerEngine = new PlannerEngineImpl(this.context, this.appService);
+  engine: PlannerEngine = new PlannerEngineImpl(this.context);
 
   init(map: Map): void {
+    this.cursor.addToMap(map);
     this.crosshair.addToMap(map);
     this.routeLayer.addToMap(map);
     this.elasticBand.addToMap(map);

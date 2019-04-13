@@ -49,23 +49,26 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
     map.addLayer(this.layer);
   }
 
-  addStartNodeFlag(nodeId: string, coordinate: Coordinate): void {
-    return this.addNodeFlag(this.startNodeKey(nodeId), nodeId, coordinate, this.startFlagStyle);
+  addFlag(flag: PlanFlag): void {
+    const feature = new Feature(new Point(flag.coordinate));
+    feature.setId(flag.featureId);
+    feature.set("layer", "flag");
+    feature.set("flag-type", flag.flagType);
+    if (flag.flagType == PlanFlagType.Start) {
+      feature.setStyle(this.startFlagStyle);
+    } else if (flag.flagType == PlanFlagType.Via) {
+      feature.setStyle(this.viaFlagStyle);
+    }
+    // feature.set("nodeId", nodeId); // TODO do we need this???
+    this.source.addFeature(feature);
   }
 
-  addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): void {
-    return this.addNodeFlag(this.viaNodeKey(legId, nodeId), nodeId, coordinate, this.viaFlagStyle);
+  removeFlag(featureId: string): void {
+    const feature = this.source.getFeatureById(featureId);
+    this.source.removeFeature(feature);
   }
 
-  removeStartNodeFlag(nodeId: string): void {
-    this.removeNodeFlag(this.startNodeKey(nodeId));
-  }
-
-  removeViaNodeFlag(legId: string, nodeId: string): void {
-    this.removeNodeFlag(this.viaNodeKey(legId, nodeId));
-  }
-
-  updateFlagPosition(featureId: string, coordinate: Coordinate): void {
+  updateFlagCoordinate(featureId: string, coordinate: Coordinate): void {
     const feature = this.source.getFeatureById(featureId);
     if (feature) {
       feature.getGeometry().setCoordinates(coordinate);
@@ -73,9 +76,9 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
   }
 
   addRouteLeg(leg: PlanLeg): void {
-    this.removeRouteLeg(leg.legId);
+    this.removeRouteLeg(leg.featureId);
     const feature = new Feature(new LineString(leg.coordinates().toArray()));
-    feature.setId(leg.legId);
+    feature.setId(leg.featureId);
     feature.set("layer", "leg");
     feature.setStyle(this.legStyle);
     this.source.addFeature(feature);
@@ -88,10 +91,11 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
     }
   }
 
-  private addNodeFlag(id: string, nodeId: string, coordinate: Coordinate, style: Style): void {
+  private addNodeFlag(id: string, nodeId: string, coordinate: Coordinate, flagType: string, style: Style): void {
     const feature = new Feature(new Point(coordinate));
     feature.setId(id);
-    feature.set("layer", "leg-node");
+    feature.set("layer", "flag");
+    feature.set("flag-type", flagType);
     feature.set("nodeId", nodeId);
     feature.setStyle(style);
     this.source.addFeature(feature);
@@ -100,14 +104,6 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
   private removeNodeFlag(id: string) {
     const feature = this.source.getFeatureById(id);
     this.source.removeFeature(feature);
-  }
-
-  private startNodeKey(nodeId: string) {
-    return "start-node-flag-" + nodeId;
-  }
-
-  private viaNodeKey(legId: string, nodeId: string) {
-    return "leg-" + legId + "-via-node-" + nodeId;
   }
 
 }

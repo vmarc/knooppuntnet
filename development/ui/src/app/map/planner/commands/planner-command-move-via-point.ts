@@ -1,5 +1,6 @@
 import {PlannerContext} from "../context/planner-context";
 import {Plan} from "../plan/plan";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
@@ -26,10 +27,10 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
     const toLeg1 = context.legs.getById(toLegId1);
     const toLeg2 = context.legs.getById(toLegId2);
 
-    context.routeLayer.removeViaNodeFlag(fromLeg1.legId, fromLeg1.sink.nodeId);
-    context.routeLayer.addViaNodeFlag(toLeg1.legId, toLeg1.sink.nodeId, toLeg1.sink.coordinate);
-    context.routeLayer.removeRouteLeg(fromLeg1.legId);
-    context.routeLayer.removeRouteLeg(fromLeg2.legId);
+    context.routeLayer.removeFlag(fromLeg1.sink.featureId);
+    context.routeLayer.addFlag(PlanFlag.fromViaNode(toLeg1.sink));
+    context.routeLayer.removeRouteLeg(fromLeg1.featureId);
+    context.routeLayer.removeRouteLeg(fromLeg2.featureId);
     context.routeLayer.addRouteLeg(toLeg1);
     context.routeLayer.addRouteLeg(toLeg2);
 

@@ -1,15 +1,44 @@
-export abstract class PlannerMapFeature {
+import Coordinate from "ol/coordinate";
+import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanNode} from "../plan/plan-node";
 
-  isLeg() {
-    return false;
+export class PlannerMapFeature {
+
+  constructor(public readonly featureId: string,
+              public readonly legId: string,
+              public readonly flagType: PlanFlagType,
+              public readonly node: PlanNode) {
   }
 
-  isLegNode() {
-    return false;
+  isLeg() {
+    return this.featureId != null && this.legId != null && this.flagType == null && this.node == null;
+  }
+
+  isFlag() {
+    return this.featureId != null && this.flagType != null;
   }
 
   isNetworkNode() {
-    return false;
+    return this.featureId != null && this.node != null && this.legId == null && this.flagType == null;
   }
 
+  static networkNode(nodeId: string, nodeName: string, coordinate: Coordinate): PlannerMapFeature {
+    return new PlannerMapFeature(nodeId, null, null, PlanNode.create(nodeId, nodeName, coordinate));
+  }
+
+  static leg(featureId: string): PlannerMapFeature {
+    return new PlannerMapFeature(featureId, featureId, null, null);
+  }
+
+  static flag(flagType: PlanFlagType, featureId: string): PlannerMapFeature {
+    return new PlannerMapFeature(featureId, null, flagType, null);
+  }
+
+  static startFlag(featureId: string): PlannerMapFeature {
+    return new PlannerMapFeature(featureId, null, PlanFlagType.Start, null);
+  }
+
+  static viaFlag(featureId: string): PlannerMapFeature {
+    return new PlannerMapFeature(featureId, null, PlanFlagType.Via, null);
+  }
 }

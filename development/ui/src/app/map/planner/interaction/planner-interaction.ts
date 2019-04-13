@@ -52,19 +52,20 @@ export class PlannerInteraction {
     if (layer) {
       if ("leg" === layer) {
         const legId = feature.getId();
-        return new PlannerMapFeatureLeg(legId);
+        return PlannerMapFeature.leg(legId);
       }
-      if ("leg-node" === layer) {
+      if ("flag" === layer) {
         const id = feature.getId();
         const nodeId = feature.get("nodeId");
-        return new PlannerMapFeatureLegNode(id, nodeId);
+        const flagType = feature.get("flag-type");
+        return PlannerMapFeature.flag(flagType, id); // TODO nodeId not used now, is this correct?
       }
       if (layer.endsWith("node")) {
         const nodeId = feature.get("id");
         const nodeName = feature.get("name");
         const point: Point = feature.getGeometry() as Point;
         const coordinate: Coordinate = point.getCoordinates();
-        return new PlannerMapFeatureNetworkNode(nodeId, nodeName, coordinate);
+        return PlannerMapFeature.networkNode(nodeId, nodeName, coordinate);
       }
     }
 

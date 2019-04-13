@@ -5,7 +5,7 @@ import {PlanNode} from "./plan-node";
 
 export class PlanLeg {
 
-  constructor(public readonly legId: string,
+  constructor(public readonly featureId: string,
               public readonly source: PlanNode,
               public readonly sink: PlanNode,
               public readonly fragments: List<PlanLegFragment>) {

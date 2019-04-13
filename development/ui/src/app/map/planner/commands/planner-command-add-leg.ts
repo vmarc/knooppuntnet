@@ -9,7 +9,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
 
   public do(context: PlannerContext) {
     const leg = context.legs.getById(this.legId);
-    context.routeLayer.addViaNodeFlag(leg.legId, leg.sink.nodeId, leg.sink.coordinate);
+    context.routeLayer.addFlag(PlanFlag.fromViaNode(leg.sink));
     context.routeLayer.addRouteLeg(leg);
     const newLegs = context.plan.legs.push(leg);
     const newPlan = new Plan(context.plan.source, newLegs);
@@ -22,7 +22,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     const newPlan = new Plan(context.plan.source, newLegs);
     context.updatePlan(newPlan);
     context.routeLayer.removeRouteLeg(this.legId);
-    context.routeLayer.removeViaNodeFlag(this.legId, leg.sink.nodeId);
+    context.routeLayer.removeFlag(leg.sink.featureId);
   }
 
 }

@@ -6,7 +6,7 @@ export class PlanLegCache {
   private legs: Map<string, PlanLeg> = Map();
 
   add(leg: PlanLeg) {
-    this.legs = this.legs.set(leg.legId, leg);
+    this.legs = this.legs.set(leg.featureId, leg);
   }
 
   get(sourceNodeId: string, sinkNodeId: string): PlanLeg {

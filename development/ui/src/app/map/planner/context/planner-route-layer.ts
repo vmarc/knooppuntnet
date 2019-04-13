@@ -1,17 +1,14 @@
-import Coordinate from 'ol/coordinate';
+import Coordinate from "ol/coordinate";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanLeg} from "../plan/plan-leg";
 
 export interface PlannerRouteLayer {
 
-  addStartNodeFlag(nodeId: string, coordinate: Coordinate): void;
+  addFlag(flag: PlanFlag): void;
 
-  addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): void;
+  removeFlag(featureId: string): void;
 
-  removeStartNodeFlag(nodeId: string);
-
-  removeViaNodeFlag(legId: string, nodeId: string);
-
-  updateFlagPosition(featureId: string, coordinate: Coordinate): void;
+  updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
 
   addRouteLeg(leg: PlanLeg): void;
 

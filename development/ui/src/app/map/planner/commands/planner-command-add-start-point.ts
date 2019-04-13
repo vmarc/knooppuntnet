@@ -1,5 +1,6 @@
 import {List} from "immutable";
 import {Plan} from "../plan/plan";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
@@ -11,14 +12,14 @@ export class PlannerCommandAddStartPoint implements PlannerCommand {
 
   public do(context: PlannerContext) {
     const plan = new Plan(this.node, List());
-    context.routeLayer.addStartNodeFlag(this.node.nodeId, this.node.coordinate);
+    context.routeLayer.addFlag(PlanFlag.fromStartNode(this.node));
     context.updatePlan(plan);
   }
 
   public undo(context: PlannerContext) {
     const plan = Plan.empty();
     context.updatePlan(plan);
-    context.routeLayer.removeStartNodeFlag(this.node.nodeId);
+    context.routeLayer.removeFlag(this.node.featureId);
   }
 
 }

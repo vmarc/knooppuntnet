@@ -1,62 +1,43 @@
 import {Map} from "immutable";
-import Coordinate from 'ol/coordinate';
+import Coordinate from "ol/coordinate";
+import {PlanFlag} from "../plan/plan-flag";
+import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
 export class PlannerRouteLayerMock implements PlannerRouteLayer {
 
+  private flags: Map<string, PlanFlag> = Map();
   private routeLegs: Map<string, PlanLeg> = Map();
-  private startNodeFlags: Map<string, Coordinate> = Map();
-  private viaNodeFlags: Map<string, Coordinate> = Map();
 
-  // ---
-
-  addStartNodeFlag(nodeId: string, coordinate: Coordinate): void {
-    this.startNodeFlags = this.startNodeFlags.set(nodeId, coordinate);
+  addFlag(flag: PlanFlag): void {
+    this.flags = this.flags.set(flag.featureId, flag);
   }
 
-  removeStartNodeFlag(nodeId: string): void {
-    this.startNodeFlags = this.viaNodeFlags.remove(nodeId);
+  removeFlag(featureId: string): void {
+    this.flags = this.flags.remove(featureId);
   }
 
-  expectStartNodeCount(count: number): void {
-    expect(this.startNodeFlags.size).toEqual(count);
+  updateFlagCoordinate(featureId: string, coordinate: Coordinate): void {
+    const oldFlag = this.flags.get(featureId);
+    if (oldFlag) {
+      this.flags = this.flags.set(featureId, new PlanFlag(oldFlag.flagType, featureId, coordinate));
+    }
   }
 
-  expectStartNodeExists(nodeId: string, coordinate: Coordinate): void {
-    const flagCoordinate = this.startNodeFlags.get(nodeId);
-    expect(flagCoordinate).toBeDefined();
-    expect(flagCoordinate).toEqual(coordinate);
+  expectFlagCount(count: number): void {
+    expect(this.flags.size).toEqual(count);
   }
 
-  // ---
-
-  addViaNodeFlag(legId: string, nodeId: string, coordinate: Coordinate): void {
-    this.viaNodeFlags = this.viaNodeFlags.set(legId + "-" + nodeId, coordinate);
-  }
-
-  removeViaNodeFlag(legId: string, nodeId: string): void {
-    this.viaNodeFlags = this.viaNodeFlags.remove(legId + "-" + nodeId);
-  }
-
-  expectViaNodeCount(count: number): void {
-    expect(this.viaNodeFlags.size).toEqual(count);
-  }
-
-  expectViaNodeExists(legId: string, nodeId: string, coordinate: Coordinate): void {
-    const flagCoordinate = this.viaNodeFlags.get(legId + "-" + nodeId);
-    expect(flagCoordinate).toBeDefined();
-    expect(flagCoordinate).toEqual(coordinate);
-  }
-
-  // --
-
-  updateFlagPosition(featureId: string, coordinate: Coordinate): void {
-    // TODO
+  expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate): void {
+    const flag = this.flags.get(featureId);
+    expect(flag.featureId).toEqual(featureId);
+    expect(flag.flagType).toEqual(flagType);
+    expect(flag.coordinate).toEqual(coordinate);
   }
 
   addRouteLeg(leg: PlanLeg): void {
-    this.routeLegs = this.routeLegs.set(leg.legId, leg);
+    this.routeLegs = this.routeLegs.set(leg.featureId, leg);
   }
 
   removeRouteLeg(legId: string): void {
