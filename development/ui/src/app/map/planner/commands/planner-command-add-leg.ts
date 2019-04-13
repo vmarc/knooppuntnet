@@ -1,5 +1,6 @@
 import {PlannerContext} from "../context/planner-context";
 import {Plan} from "../plan/plan";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandAddLeg implements PlannerCommand {

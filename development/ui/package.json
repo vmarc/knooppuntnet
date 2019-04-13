@@ -9,10 +9,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "extract-i18n": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json nl de fr",
-    "start": "ng serve --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
-    "start:nl": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
-    "start:de": "ng serve --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
-    "start:fr": "ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0",
+    "start": "ng serve --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
+    "start:nl": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
+    "start:de": "ng serve --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
+    "start:fr": "ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "test-no-watch": "ng test --single-run",
     "build-dev": "ng build --progress --output-path ../public",
     "build-prod": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ../public/en",
@@ -45,6 +45,7 @@
     "ngx-i18nsupport": "^0.17.1",
     "ngx-markdown": "^7.1.3",
     "ol": "^5.3.0",
+    "qrious": "^4.0.2",
     "rxjs": "^6.4.0",
     "zone.js": "^0.9.0"
   },
@@ -66,9 +67,9 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.2",
     "svg-inline-loader": "^0.8.0",
-    "typescript": ">=3.1.1 <3.3",
     "ts-node": "~8.0.3",
-    "tslint": "c5.15.0"
+    "tslint": "c5.15.0",
+    "typescript": ">=3.1.1 <3.3"
   },
   "cli": {
     "packageManager": "yarn"

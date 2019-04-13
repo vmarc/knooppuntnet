@@ -26,7 +26,28 @@ export class PdfHorizontal {
 
   print(): void {
     this.drawGrid();
+    this.drawQrCode();
     this.doc.save("route.pdf");
+  }
+
+  private drawQrCode(): void {
+
+    const qrCodeSize = 40;
+    const x = PdfPage.xContentsRight - qrCodeSize;
+    const y = PdfPage.yContentsBottom - qrCodeSize;
+
+    let query = "";
+    Range(1, 40).map(n => "" + 1000 * n + "-").forEach(node => query = query.concat(node));
+
+    const qrious = new QRious({
+      value: "https://knooppuntnet.nl?" + query,
+      level: "H", // Error correction level of the QR code (L, M, Q, H)
+      mime: "image/png",
+      size: 100,
+      padding: 0
+    });
+
+    this.doc.addImage(qrious.toDataURL(), "PNG", x, y, qrCodeSize, qrCodeSize);
   }
 
   private drawGrid() {
