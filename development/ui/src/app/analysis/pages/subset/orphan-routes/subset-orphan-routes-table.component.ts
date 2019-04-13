@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
 import {RouteSummary} from "../../../../kpn/shared/route-summary";
 
 @Component({
-  selector: 'kpn-subset-orphan-routes-table',
+  selector: "kpn-subset-orphan-routes-table",
   template: `
     <mat-paginator
       #paginator
@@ -48,7 +48,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<RouteSummary>;
 
-  displayedColumns = ['rowNumber', 'route'];
+  displayedColumns = ["rowNumber", "route"];
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.orphanRoutes.toArray());

@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Country} from '../country';
-import {Fact} from '../fact';
-import {NetworkType} from '../network-type';
-import {RawNode} from '../data/raw/raw-node';
-import {RawRelation} from '../data/raw/raw-relation';
-import {RawWay} from '../data/raw/raw-way';
+import {List} from "immutable";
+import {Country} from "../country";
+import {Fact} from "../fact";
+import {NetworkType} from "../network-type";
+import {RawNode} from "../data/raw/raw-node";
+import {RawRelation} from "../data/raw/raw-relation";
+import {RawWay} from "../data/raw/raw-way";
 
 export class RouteData {
 

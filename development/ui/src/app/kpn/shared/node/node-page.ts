@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {NodeChangeInfos} from './node-change-infos';
-import {NodeInfo} from '../node-info';
-import {NodeReferences} from './node-references';
+import {NodeChangeInfos} from "./node-change-infos";
+import {NodeInfo} from "../node-info";
+import {NodeReferences} from "./node-references";
 
 export class NodePage {
 

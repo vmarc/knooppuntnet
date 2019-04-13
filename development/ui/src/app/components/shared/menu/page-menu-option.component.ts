@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-page-menu-option',
+  selector: "kpn-page-menu-option",
   template: `
     <a [ngClass]="{'selected': selectedPageName === pageName}" [routerLink]="link">
       {{pageTitle}}

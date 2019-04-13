@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
@@ -11,7 +11,7 @@ import {Subset} from "../../../../kpn/shared/subset";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 
 @Component({
-  selector: 'kpn-network-changes-page',
+  selector: "kpn-network-changes-page",
   template: `
     <kpn-network-page-header [networkId]="networkId" selectedPage="changes"></kpn-network-page-header>
     <div *ngIf="response">
@@ -37,7 +37,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     this.networkCacheService.updatePageTitle("changes", this.networkId);
     this.pageService.initNetworkPage();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      this.networkId = params['networkId'];
+      this.networkId = params["networkId"];
       this.pageService.networkId = this.networkId;
 
       this.appService.networkChanges(this.networkId).subscribe(response => {

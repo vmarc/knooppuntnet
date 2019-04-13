@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {RawRelation} from '../data/raw/raw-relation';
+import {RawRelation} from "../data/raw/raw-relation";
 
 export class NetworkData {
 

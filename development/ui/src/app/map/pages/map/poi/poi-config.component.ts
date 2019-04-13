@@ -1,11 +1,11 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {MatRadioChange} from "@angular/material";
 import {Subscription} from "rxjs";
 import {MapService} from "../../../../components/ol/map.service";
 import {PoiService} from "../../../../poi.service";
 
 @Component({
-  selector: 'kpn-poi-config',
+  selector: "kpn-poi-config",
   template: `
     <div class="poi-config">
 

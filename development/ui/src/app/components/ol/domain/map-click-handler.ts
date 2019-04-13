@@ -1,5 +1,5 @@
-import Feature from 'ol/Feature';
-import {SelectEvent} from 'ol/interaction/Select';
+import Feature from "ol/Feature";
+import SelectEvent from "ol/interaction/Select";
 import {MapService, PoiId} from "../map.service";
 import {SelectedFeature} from "./selected-feature";
 
@@ -47,7 +47,7 @@ export class MapClickHandler {
 
   private handleRouteSelection(feature: Feature) {
     const id = feature.get("id");
-    const id2 = id.substring(0, id.indexOf('-'));
+    const id2 = id.substring(0, id.indexOf("-"));
     const name = feature.get("name");
     this.mapService.selectedRouteId = id2 + "-";
     const selection = new SelectedFeature(+id2, name, "route");

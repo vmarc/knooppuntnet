@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatIconRegistry} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
@@ -7,7 +7,7 @@ import {Directions} from "../../../kpn/shared/directions/directions";
 import {PdfDirections} from "../../../pdf/plan/pdf-directions";
 
 @Component({
-  selector: 'kpn-directions-page',
+  selector: "kpn-directions-page",
   template: `
     <h1>
       Turn-by-turn directions
@@ -43,7 +43,7 @@ export class DirectionsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSubscription = this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      this.exampleName = params['exampleName'];
+      this.exampleName = params["exampleName"];
       this.appService.directions("nl", this.exampleName).subscribe(response => {
         this.directions = response.result;
       });

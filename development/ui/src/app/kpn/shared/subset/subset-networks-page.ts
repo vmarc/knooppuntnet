@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {NetworkAttributes} from '../network/network-attributes';
-import {SubsetInfo} from './subset-info';
+import {List} from "immutable";
+import {NetworkAttributes} from "../network/network-attributes";
+import {SubsetInfo} from "./subset-info";
 
 export class SubsetNetworksPage {
 

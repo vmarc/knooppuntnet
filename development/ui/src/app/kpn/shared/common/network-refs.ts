@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Country} from '../country';
-import {NetworkType} from '../network-type';
-import {Ref} from './ref';
+import {List} from "immutable";
+import {Country} from "../country";
+import {NetworkType} from "../network-type";
+import {Ref} from "./ref";
 
 export class NetworkRefs {
 

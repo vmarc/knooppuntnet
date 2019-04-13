@@ -1,5 +1,5 @@
-import {List} from 'immutable';
-import {RawRelation} from './raw/raw-relation';
+import {List} from "immutable";
+import {RawRelation} from "./raw/raw-relation";
 
 export class Relation {
   readonly raw: RawRelation;

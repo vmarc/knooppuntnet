@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {RouteMap} from './route-map';
-import {RouteMemberInfo} from './route-member-info';
-import {RouteNetworkNodeInfo} from './route-network-node-info';
+import {List} from "immutable";
+import {RouteMap} from "./route-map";
+import {RouteMemberInfo} from "./route-member-info";
+import {RouteNetworkNodeInfo} from "./route-network-node-info";
 
 export class RouteInfoAnalysis {
 

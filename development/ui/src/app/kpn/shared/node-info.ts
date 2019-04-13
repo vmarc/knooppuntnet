@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Country} from './country';
-import {Fact} from './fact';
-import {Tags} from './data/tags';
-import {Timestamp} from './timestamp';
+import {List} from "immutable";
+import {Country} from "./country";
+import {Fact} from "./fact";
+import {Tags} from "./data/tags";
+import {Timestamp} from "./timestamp";
 
 export class NodeInfo {
 

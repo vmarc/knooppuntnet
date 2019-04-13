@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, ElementRef, Input} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input} from "@angular/core";
 import {Subset} from "../../../kpn/shared/subset";
 import {StatisticConfiguration} from "./statistic-configuration";
 
 @Component({
-  selector: 'kpn-statistic-configuration',
+  selector: "kpn-statistic-configuration",
   template: `
     <ng-content></ng-content>
   `

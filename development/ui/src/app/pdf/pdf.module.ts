@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule} from "@angular/core";
 import {MatIconModule} from "@angular/material";
 import {PdfService} from "./pdf.service";
 

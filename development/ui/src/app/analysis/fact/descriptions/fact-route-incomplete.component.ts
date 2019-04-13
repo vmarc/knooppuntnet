@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-route-incomplete',
+  selector: "kpn-fact-route-incomplete",
   template: `
     <markdown i18n="@@fact.description.route-incomplete">
       The route is marked as having an incomplete definition. A route definition is explicitely

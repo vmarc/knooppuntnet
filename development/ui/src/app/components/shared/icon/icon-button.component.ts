@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 
 @Component({
-  selector: 'kpn-icon-button',
+  selector: "kpn-icon-button",
   template: `
     <a [routerLink]="routerLink">
       <div class="wrapper">

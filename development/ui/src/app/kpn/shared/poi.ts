@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Tags} from './data/tags';
+import {List} from "immutable";
+import {Tags} from "./data/tags";
 
 export class Poi {
 

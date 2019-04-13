@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Util} from "../../../../components/shared/util";
 import {NetworkSummary} from "../../../../kpn/shared/network/network-summary";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 
 @Component({
-  selector: 'kpn-network-page-header',
+  selector: "kpn-network-page-header",
   template: `
 
     <div>

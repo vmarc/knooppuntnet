@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {Statistics} from "../../../kpn/shared/statistics/statistics";
 
 @Component({
-  selector: 'kpn-overview-page',
+  selector: "kpn-overview-page",
   template: `
 
     <div>

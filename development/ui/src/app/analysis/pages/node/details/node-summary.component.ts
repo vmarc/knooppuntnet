@@ -3,7 +3,7 @@ import {NetworkTypes} from "../../../../kpn/common/network-types";
 import {NodeInfo} from "../../../../kpn/shared/node-info";
 
 @Component({
-  selector: 'node-summary',
+  selector: "node-summary",
   template: `
     <div>
 

@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-node',
+  selector: "kpn-link-node",
   template: `
     <a routerLink="{{'/analysis/node/' + nodeId}}">{{title}}</a>
   `

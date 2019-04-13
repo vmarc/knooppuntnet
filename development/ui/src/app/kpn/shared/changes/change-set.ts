@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Change} from './change';
-import {Timestamp} from '../timestamp';
+import {List} from "immutable";
+import {Change} from "./change";
+import {Timestamp} from "../timestamp";
 
 export class ChangeSet {
 

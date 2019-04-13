@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {NodeNetworkReference} from './node-network-reference';
-import {NodeOrphanRouteReference} from './node-orphan-route-reference';
+import {List} from "immutable";
+import {NodeNetworkReference} from "./node-network-reference";
+import {NodeOrphanRouteReference} from "./node-orphan-route-reference";
 
 export class NodeReferences {
 

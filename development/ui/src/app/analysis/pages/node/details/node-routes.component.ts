@@ -3,7 +3,7 @@ import {List} from "immutable";
 import {Reference} from "../../../../kpn/shared/common/reference";
 
 @Component({
-  selector: 'node-routes',
+  selector: "node-routes",
   template: `
     <p *ngIf="routes.isEmpty()">None</p> <!-- Geen -->
     <p *ngFor="let route of routes">

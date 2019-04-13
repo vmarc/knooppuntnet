@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {PageService} from "../page.service";
 
 @Component({
-  selector: 'kpn-toolbar',
+  selector: "kpn-toolbar",
   template: `
     <mat-toolbar>
       <button mat-icon-button (click)="toggleSidebarOpen()">

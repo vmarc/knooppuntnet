@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-subset-facts',
+  selector: "kpn-link-subset-facts",
   template: `
     <a routerLink="{{'/analysis/facts/' + country + '/' + networkType}}">Facts</a>
   `

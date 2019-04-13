@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-sidebar',
+  selector: "kpn-sidebar",
   template: `
     <mat-nav-list>
       <a mat-list-item routerLink="/about">about</a>

@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {Reference} from "../../../kpn/shared/common/reference";
 
 @Component({
-  selector: 'icon-link',
+  selector: "icon-link",
   template: `
     <kpn-network-type-icon [networkType]="reference.networkType"></kpn-network-type-icon>
     <a class="text" [routerLink]="url">{{reference.name}}</a>

@@ -1,11 +1,11 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {NetworkType} from "../../../kpn/shared/network-type";
 import {NodePage} from "../../../kpn/shared/node/node-page";
 
 @Component({
-  selector: 'kpn-map-detail-node',
+  selector: "kpn-map-detail-node",
   template: `
     <h2>
       Node <!-- Knooppunt --> {{nodeName}}
@@ -22,15 +22,15 @@ import {NodePage} from "../../../kpn/shared/node/node-page";
 
       <div *ngIf="!references.networkReferences.isEmpty()">
         Network(s): <!-- "Netwerken" -->
-        <div *ngFor="let network of references.networkReferences">
-          <a class="text" [routerLink]="'/analysis/network-details/' + network.id">{{network.name}}</a>
+        <div *ngFor="let ref of references.networkReferences">
+          <a class="text" [routerLink]="'/analysis/network-details/' + ref.networkId">{{ref.networkName}}</a>
         </div>
       </div>
 
       <div *ngIf="!references.routeReferences.isEmpty()">
         Routes <!-- "Routes" -->
-        <div *ngFor="let route of references.routeReferences">
-          <a class="text" [routerLink]="'/analysis/route/' + route.id">{{route.name}}</a>
+        <div *ngFor="let ref of references.routeReferences">
+          <a class="text" [routerLink]="'/analysis/route/' + ref.routeId">{{ref.routeName}}</a>
         </div>
       </div>
 

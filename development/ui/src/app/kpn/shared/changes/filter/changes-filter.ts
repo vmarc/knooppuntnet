@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangesFilterPeriod} from './changes-filter-period';
+import {List} from "immutable";
+import {ChangesFilterPeriod} from "./changes-filter-period";
 
 export class ChangesFilter {
 

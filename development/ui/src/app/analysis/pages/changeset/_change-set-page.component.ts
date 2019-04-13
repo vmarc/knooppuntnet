@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
@@ -8,7 +8,7 @@ import {ApiResponse} from "../../../kpn/shared/api-response";
 import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 
 @Component({
-  selector: 'kpn-change-set-page',
+  selector: "kpn-change-set-page",
   template: `
     <h1>
       <ng-container i18nX="@@kpn-change-set-page.title">Changeset</ng-container> <!-- Wijzigingenset -->
@@ -37,8 +37,8 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pageService.defaultMenu();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      const changeSetId = params['changeSetId'];
-      const replicationNumber = params['replicationNumber'];
+      const changeSetId = params["changeSetId"];
+      const replicationNumber = params["replicationNumber"];
       this.appService.changeSet(changeSetId, replicationNumber).subscribe(response => {
         this.response = response;
       });

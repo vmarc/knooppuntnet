@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-page-footer',
+  selector: "kpn-page-footer",
   template: `
     <div class="footer">
       <kpn-link-about></kpn-link-about>

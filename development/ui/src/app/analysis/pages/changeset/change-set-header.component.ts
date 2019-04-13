@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Util} from "../../../components/shared/util";
 import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 
 @Component({
-  selector: 'kpn-change-set-header',
+  selector: "kpn-change-set-header",
   template: `
     <table class="kpn-table">
       <tbody>

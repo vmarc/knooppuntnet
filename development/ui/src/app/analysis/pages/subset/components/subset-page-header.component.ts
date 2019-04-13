@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Util} from "../../../../components/shared/util";
 import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetInfo} from "../../../../kpn/shared/subset/subset-info";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
-  selector: 'kpn-subset-page-header',
+  selector: "kpn-subset-page-header",
   template: `
 
     <div>

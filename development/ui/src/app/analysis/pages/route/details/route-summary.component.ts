@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {RouteInfo} from "../../../../kpn/shared/route/route-info";
 
 @Component({
-  selector: 'kpn-route-summary',
+  selector: "kpn-route-summary",
   template: `
     <div>
 

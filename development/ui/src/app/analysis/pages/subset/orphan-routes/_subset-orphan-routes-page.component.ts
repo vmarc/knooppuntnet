@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
@@ -10,7 +10,7 @@ import {SubsetOrphanRoutesPage} from "../../../../kpn/shared/subset/subset-orpha
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
-  selector: 'kpn-subset-orphan-routes-page',
+  selector: "kpn-subset-orphan-routes-page",
   template: `
 
     <kpn-subset-page-header [subset]="subset" pageName="orphan-routes"></kpn-subset-page-header>

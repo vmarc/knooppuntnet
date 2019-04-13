@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {UserService} from "../../../user.service";
 
 @Component({
-  selector: 'kpn-link-login',
+  selector: "kpn-link-login",
   template: `
     <a routerLink="/login" (click)="registerLoginCallbackPage()">login</a>
   `

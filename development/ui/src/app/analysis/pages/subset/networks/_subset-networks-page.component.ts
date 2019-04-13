@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
@@ -11,7 +11,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
-  selector: 'kpn-subset-networks-page',
+  selector: "kpn-subset-networks-page",
   template: `
 
     <kpn-subset-page-header [subset]="subset" pageName="networks"></kpn-subset-page-header>
@@ -56,7 +56,7 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
       this.response = null;
       this.appService.subsetNetworks(this.subset).subscribe(response => {
         this.response = response;
-        this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
+        this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
         response.result.networks.forEach(networkAttributes => {
           this.networkCacheService.setNetworkName(networkAttributes.id.toString(), networkAttributes.name);
         });

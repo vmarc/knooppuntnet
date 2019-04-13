@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {ChangeSetNetwork} from "../../../../kpn/shared/change-set-network";
 
 export class ChangeSetNetworkAction {
@@ -8,7 +8,7 @@ export class ChangeSetNetworkAction {
 }
 
 @Component({
-  selector: 'kpn-change-set-network',
+  selector: "kpn-change-set-network",
   template: `
     <div class="kpn-line">
       <span>{{domain()}}</span>

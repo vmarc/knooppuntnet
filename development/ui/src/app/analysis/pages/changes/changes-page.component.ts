@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
 
 @Component({
-  selector: 'kpn-changes-page',
+  selector: "kpn-changes-page",
   template: `
 
     <div>

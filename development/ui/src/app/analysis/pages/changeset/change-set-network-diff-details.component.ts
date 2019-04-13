@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 
 @Component({
-  selector: 'kpn-change-set-network-diff-details',
+  selector: "kpn-change-set-network-diff-details",
   template: `
     <div *ngFor="let networkChangeInfo of page.networkChanges">
 

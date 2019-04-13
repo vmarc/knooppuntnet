@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
@@ -7,7 +7,7 @@ import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {NodePage} from "../../../../kpn/shared/node/node-page";
 
 @Component({
-  selector: 'kpn-node-page',
+  selector: "kpn-node-page",
   template: `
 
     <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node'"></kpn-node-page-header>
@@ -79,7 +79,7 @@ export class NodePageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pageService.defaultMenu();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      this.nodeId = params['nodeId'];
+      this.nodeId = params["nodeId"];
       this.appService.node(this.nodeId).subscribe(response => {
         this.response = response;
       });

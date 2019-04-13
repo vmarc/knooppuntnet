@@ -1,4 +1,6 @@
-import * as JsPdf from 'jspdf'
+import {Range} from "immutable"
+import * as JsPdf from "jspdf"
+import * as QRious from "qrious";
 import {Plan} from "../../map/planner/plan/plan";
 import {PdfPage} from "./pdf-page";
 import {PdfPlanBuilder} from "./pdf-plan-builder";

@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Fact} from './fact';
+import {Fact} from "./fact";
 
 export class FactCount {
 

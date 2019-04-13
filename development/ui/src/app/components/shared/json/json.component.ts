@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 
 @Component({
-  selector: 'json',
+  selector: "json",
   template: `
     <br/>
     <br/>

@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-changeset',
+  selector: "kpn-link-changeset",
   template: `
     <a routerLink="{{'/analysis/changeset/' + changeSetId + '/' + replicationNumber}}">{{changeSetId}}</a>
   `

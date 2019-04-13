@@ -1,6 +1,6 @@
-import Feature from 'ol/Feature';
-import Stroke from 'ol/style/Stroke';
-import Style from 'ol/style/Style';
+import Feature from "ol/Feature";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
 import {MapService} from "../map.service";
 import {MainStyleColors} from "./main-style-colors";
 

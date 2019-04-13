@@ -1,5 +1,6 @@
-import {Map} from 'immutable';
-import {Icon, Style} from 'ol/style';
+import {Map} from "immutable";
+import Icon from "ol/style/Icon";
+import Style from "ol/style/Style";
 import {InterpretedPoiConfiguration} from "./interpreted-poi-configuration";
 
 export class PoiStyleMap {
@@ -12,8 +13,8 @@ export class PoiStyleMap {
       return new Style({
         image: new Icon({
           anchor: [0.5, 37],
-          anchorXUnits: 'fraction',
-          anchorYUnits: 'pixels',
+          anchorXUnits: "fraction",
+          anchorYUnits: "pixels",
           src: image
         })
       });

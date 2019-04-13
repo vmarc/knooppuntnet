@@ -1,6 +1,6 @@
-import { AppPage } from './app.page';
+import { AppPage } from "./app.page";
 
-describe('workspace-project App', () => {
+describe("workspace-project App", () => {
 
   let page: AppPage;
 
@@ -8,8 +8,8 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display title', () => {
+  it("should display title", () => {
     page.navigateTo();
-    expect(page.title).toEqual('Home');
+    expect(page.title).toEqual("Home");
   });
 });

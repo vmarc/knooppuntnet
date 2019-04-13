@@ -3,7 +3,7 @@ import {List} from "immutable";
 import {StatisticConfiguration} from "./statistic-configuration";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class OverviewService {
   statisticConfigurations: List<StatisticConfiguration> = null;

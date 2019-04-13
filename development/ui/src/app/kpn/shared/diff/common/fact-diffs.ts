@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Fact} from '../../fact';
+import {List} from "immutable";
+import {Fact} from "../../fact";
 
 export class FactDiffs {
 

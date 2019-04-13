@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {UserService} from "../../../user.service";
 
 @Component({
-  selector: 'kpn-sidebar-footer',
+  selector: "kpn-sidebar-footer",
   template: `
     <kpn-sidebar-version-warning></kpn-sidebar-version-warning>
     <div class="footer">

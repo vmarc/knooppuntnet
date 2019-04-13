@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-sidebar-menu',
+  selector: "kpn-sidebar-menu",
   template: `
     <mat-nav-list>
       <mat-list-item (click)="toggleOpen()">

@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-indicator-icon',
+  selector: "kpn-indicator-icon",
   template: `
     <div class="indicator-icon {{color}}">
       {{letter}}

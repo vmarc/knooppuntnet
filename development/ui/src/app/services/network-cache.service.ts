@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Map} from 'immutable';
+import {Injectable} from "@angular/core";
+import {Map} from "immutable";
 import {PageTitleBuilder} from "../components/shared/page-title-builder";
 import {NetworkSummary} from "../kpn/shared/network/network-summary";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class NetworkCacheService {
 

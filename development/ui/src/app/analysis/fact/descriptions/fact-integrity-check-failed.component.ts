@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-integrity-check-failed',
+  selector: "kpn-fact-integrity-check-failed",
   template: `
     <ng-container i18n="@@fact.description.integrity-check-failed">
       The actual number of routes does not match the expected number of routes. Routes with

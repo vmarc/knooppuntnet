@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {RawNode} from '../data/raw/raw-node';
-import {RawWay} from '../data/raw/raw-way';
+import {List} from "immutable";
+import {RawNode} from "../data/raw/raw-node";
+import {RawWay} from "../data/raw/raw-way";
 
 export class WayData {
 

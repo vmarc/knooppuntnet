@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-was-orphan',
+  selector: "kpn-fact-was-orphan",
   template: `
     <ng-container i18n="@@fact.description.was-orphan">
       No longer an orphan.

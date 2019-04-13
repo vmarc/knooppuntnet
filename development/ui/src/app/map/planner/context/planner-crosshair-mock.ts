@@ -1,4 +1,4 @@
-import Coordinate from 'ol/coordinate';
+import Coordinate from "ol/coordinate";
 import {PlannerCrosshair} from "./planner-crosshair";
 
 export class PlannerCrosshairMock implements PlannerCrosshair {

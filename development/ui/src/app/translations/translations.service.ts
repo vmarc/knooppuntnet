@@ -1,7 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {map} from 'rxjs/operators';
+import {map} from "rxjs/operators";
 import {TranslationFile} from "./domain/translation-file";
 import {XliffParser} from "./domain/xliff-parser";
 
@@ -13,7 +13,7 @@ export class TranslationsService {
 
   public translationUnits(): Observable<TranslationFile> {
     const url = "https://raw.githubusercontent.com/vmarc/knooppuntnet/develop/ui/src/locale/messages.fr.xlf";
-    return this.http.get(url, {responseType: 'text'}).pipe(
+    return this.http.get(url, {responseType: "text"}).pipe(
       map(response => {
         return new XliffParser().parse(response);
       })

@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Relation} from './relation';
+import {Relation} from "./relation";
 
 export class RelationMember {
 

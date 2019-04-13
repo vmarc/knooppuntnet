@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {RouteInfo} from './route-info';
-import {RouteReferences} from './route-references';
+import {RouteInfo} from "./route-info";
+import {RouteReferences} from "./route-references";
 
 export class MapDetailRoute {
 

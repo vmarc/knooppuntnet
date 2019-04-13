@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Fact} from '../fact';
-import {NetworkType} from '../network-type';
-import {NodeNetworkIntegrityCheck} from './node-network-integrity-check';
-import {NodeNetworkRouteReference} from './node-network-route-reference';
+import {List} from "immutable";
+import {Fact} from "../fact";
+import {NetworkType} from "../network-type";
+import {NodeNetworkIntegrityCheck} from "./node-network-integrity-check";
+import {NodeNetworkRouteReference} from "./node-network-route-reference";
 
 export class NodeNetworkReference {
 

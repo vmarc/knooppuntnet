@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {PageService} from "../../../components/shared/page.service";
 
 @Component({
-  selector: 'kpn-not-found-page',
+  selector: "kpn-not-found-page",
   template: `
     <h1>
       Not found

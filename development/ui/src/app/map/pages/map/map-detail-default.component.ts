@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-map-detail-default',
+  selector: "kpn-map-detail-default",
   template: `
     <div>
       Click network... <!-- node or route for more details, after zooming in sufficiently.-->

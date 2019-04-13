@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {FactCountNew} from '../fact-count-new';
-import {SubsetInfo} from './subset-info';
+import {List} from "immutable";
+import {FactCountNew} from "../fact-count-new";
+import {SubsetInfo} from "./subset-info";
 
 export class SubsetFactsPageNew {
 

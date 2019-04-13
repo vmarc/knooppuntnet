@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {Facts} from "../../fact/facts";
 
 @Component({
-  selector: 'kpn-facts-page',
+  selector: "kpn-facts-page",
   template: `
     <h1>
       All facts

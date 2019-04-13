@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {NetworkType} from '../network-type';
+import {NetworkType} from "../network-type";
 
 export class NodeOrphanRouteReference {
 

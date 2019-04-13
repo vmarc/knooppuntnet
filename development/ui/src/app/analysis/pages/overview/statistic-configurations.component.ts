@@ -1,11 +1,11 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ViewChildren} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ViewChildren} from "@angular/core";
 import {List} from "immutable";
-import {Subset} from 'src/app/kpn/shared/subset';
+import {Subset} from "src/app/kpn/shared/subset";
 import {OverviewService} from "./overview.service";
 import {StatisticConfigurationComponent} from "./statistic-configuration.component";
 
 @Component({
-  selector: 'kpn-statistic-configurations',
+  selector: "kpn-statistic-configurations",
   template: `
 
     <div *ngIf="!isRegistryUpdated()">

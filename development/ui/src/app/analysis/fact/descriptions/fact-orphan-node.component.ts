@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-orphan-node',
+  selector: "kpn-fact-orphan-node",
   template: `
     <ng-container i18n="@@fact.description.orphan-node">
       This node does not belong to a network.

@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-route-tag-invalid',
+  selector: "kpn-fact-route-tag-invalid",
   template: `
     <markdown ngPreserveWhitespaces i18n="@@fact.description.route-tag-invalid">
       Invalid value in required tag _"route"_ in route relation.

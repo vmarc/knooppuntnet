@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Subset} from "../../../kpn/shared/subset";
 import {Stat} from "./stat";
 
 @Component({
-  selector: 'kpn-overview-table-cell',
+  selector: "kpn-overview-table-cell",
   template: `
     <a *ngIf="hasLink()" [routerLink]="link()">{{value()}}</a>
     <span *ngIf="!hasLink()">{{value()}}</span>

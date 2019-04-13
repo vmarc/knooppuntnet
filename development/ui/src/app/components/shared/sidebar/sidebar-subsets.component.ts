@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Country} from "../../../kpn/shared/country";
 import {NetworkType} from "../../../kpn/shared/network-type";
 import {Subset} from "../../../kpn/shared/subset";
 
 @Component({
-  selector: 'kpn-sidebar-subsets',
+  selector: "kpn-sidebar-subsets",
   template: `
     <kpn-sidebar-menu title="Analysis">
       <kpn-sidebar-sub-item *ngFor="let s of allSubsets" link="{{subsetUrl(s)}}">
@@ -30,7 +30,7 @@ export class SidebarSubsetsComponent {
   ];
 
   subsetUrl(s: Subset): string {
-    return '/analysis/networks/' + s.country.domain + '/' + s.networkType.name;
+    return "/analysis/networks/" + s.country.domain + "/" + s.networkType.name;
   }
 
   subsetTitle(s: Subset): string {

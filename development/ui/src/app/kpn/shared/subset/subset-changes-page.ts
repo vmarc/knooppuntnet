@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeSetSummaryInfo} from '../change-set-summary-info';
-import {ChangesFilter} from '../changes/filter/changes-filter';
-import {SubsetInfo} from './subset-info';
+import {List} from "immutable";
+import {ChangeSetSummaryInfo} from "../change-set-summary-info";
+import {ChangesFilter} from "../changes/filter/changes-filter";
+import {SubsetInfo} from "./subset-info";
 
 export class SubsetChangesPage {
 

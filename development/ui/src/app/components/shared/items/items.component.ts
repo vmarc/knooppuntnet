@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-items',
+  selector: "kpn-items",
   template: `
     <div class="items">
       <ng-content></ng-content>

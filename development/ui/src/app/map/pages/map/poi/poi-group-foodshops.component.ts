@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-poi-group-foodshops',
+  selector: "kpn-poi-group-foodshops",
   template: `
     <kpn-poi-group name="foodshops" title="Foodshops" i18n-title="@@poi.group.foodshops">
       <kpn-poi-config poiId="alcohol"></kpn-poi-config>

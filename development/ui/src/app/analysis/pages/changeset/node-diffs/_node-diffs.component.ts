@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {RefDiffs} from "../../../../kpn/shared/diff/ref-diffs";
 import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
 
 @Component({
-  selector: 'kpn-node-diffs',
+  selector: "kpn-node-diffs",
   template: `
 
     <kpn-node-diffs-removed

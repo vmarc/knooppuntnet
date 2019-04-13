@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {MatButtonToggleChange} from "@angular/material";
 import {Router} from "@angular/router";
 import {NetworkType} from "../../kpn/shared/network-type";
 
 @Component({
-  selector: 'kpn-network-type-selector',
+  selector: "kpn-network-type-selector",
   template: `
     <div>
       <mat-button-toggle-group [value]="networkType.name" (change)="networkTypeChanged($event)">

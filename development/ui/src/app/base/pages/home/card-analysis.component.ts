@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-card-analysis',
+  selector: "kpn-card-analysis",
   template: `
     <mat-card>
       <mat-card-header>

@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
 import {NetworkNodeInfo2} from "../../../../kpn/shared/network/network-node-info2";
 
 @Component({
-  selector: 'network-node-table',
+  selector: "network-node-table",
   template: `
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" showFirstLastButtons></mat-paginator>
     <mat-divider></mat-divider>
@@ -54,7 +54,7 @@ export class NetworkNodeTableComponent implements OnInit {
 
   @Input() nodes: List<NetworkNodeInfo2> = List();
 
-  displayedColumns = ['nr', 'analysis', 'node', 'routes', 'lastEdit'];
+  displayedColumns = ["nr", "analysis", "node", "routes", "lastEdit"];
 
   dataSource: MatTableDataSource<NetworkNodeInfo2>;
 

@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {LatLonImpl} from '../lat-lon-impl';
+import {List} from "immutable";
+import {LatLonImpl} from "../lat-lon-impl";
 
 export class WayGeometry {
 

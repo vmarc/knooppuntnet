@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeSetElementRef} from './change-set-element-ref';
+import {List} from "immutable";
+import {ChangeSetElementRef} from "./change-set-element-ref";
 
 export class ChangeSetElementRefs {
 

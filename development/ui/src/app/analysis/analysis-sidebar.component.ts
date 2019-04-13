@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {PageService} from "../components/shared/page.service";
 
 @Component({
-  selector: 'kpn-analysis-sidebar',
+  selector: "kpn-analysis-sidebar",
   template: `
     <kpn-sidebar-subsets *ngIf="showSubsetsMenu" [subset]="subset"></kpn-sidebar-subsets>
     <kpn-sidebar-subset *ngIf="showSubsetMenu" [subset]="subset"></kpn-sidebar-subset>

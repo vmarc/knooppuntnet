@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {Tags} from "../../../kpn/shared/data/tags";
 
 @Component({
-  selector: 'tags',
+  selector: "tags",
   template: `
     <ng-container *ngIf="tags.tags.isEmpty()">No tags</ng-container> <!-- Geen labels -->
 

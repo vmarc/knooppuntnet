@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
@@ -7,7 +7,7 @@ import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {RoutePage} from "../../../../kpn/shared/route/route-page";
 
 @Component({
-  selector: 'kpn-route-page',
+  selector: "kpn-route-page",
   template: `
     
     <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name" [pageName]="'route'"></kpn-route-page-header>
@@ -134,7 +134,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pageService.defaultMenu();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      this.routeId = params['routeId'];
+      this.routeId = params["routeId"];
       this.appService.route(this.routeId).subscribe(response => {
         this.response = response;
       });

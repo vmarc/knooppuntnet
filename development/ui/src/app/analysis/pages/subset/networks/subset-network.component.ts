@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import {NetworkAttributes} from "../../../../kpn/shared/network/network-attributes";
 import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
 
 @Component({
-  selector: 'kpn-subset-network',
+  selector: "kpn-subset-network",
   template: `
     <p class="first-line">
       <kpn-link-network-details [networkId]="network.id" [title]="network.name"></kpn-link-network-details>

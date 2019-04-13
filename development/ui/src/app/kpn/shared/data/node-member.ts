@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Node} from './node';
+import {Node} from "./node";
 
 export class NodeMember {
 

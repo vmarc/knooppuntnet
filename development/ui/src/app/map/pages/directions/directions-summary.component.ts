@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Directions} from "../../../kpn/shared/directions/directions";
 
 @Component({
-  selector: 'kpn-directions-summary',
+  selector: "kpn-directions-summary",
   template: `
     <table class="kpn-table">
       <tr>

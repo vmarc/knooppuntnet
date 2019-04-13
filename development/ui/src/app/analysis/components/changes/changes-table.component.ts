@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {AfterViewInit, Component, Input, ViewChild} from "@angular/core";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info";
@@ -7,7 +7,7 @@ import {ChangesPage} from "../../../kpn/shared/changes-page";
 import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
 
 @Component({
-  selector: 'kpn-changes-table',
+  selector: "kpn-changes-table",
   template: `
 
     <p *ngIf="response">
@@ -55,7 +55,7 @@ export class ChangesTableComponent implements AfterViewInit {
 
   dataSource: MatTableDataSource<ChangeSetSummaryInfo>;
 
-  displayedColumns = ['rowNumber', 'changeSet'];
+  displayedColumns = ["rowNumber", "changeSet"];
 
   constructor(private appService: AppService) {
   }

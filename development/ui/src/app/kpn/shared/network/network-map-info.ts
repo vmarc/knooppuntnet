@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {NetworkShape} from './network-shape';
+import {NetworkShape} from "./network-shape";
 
 export class NetworkMapInfo {
 

@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {NodeInfo} from '../node-info';
-import {NodeReferences} from './node-references';
+import {NodeInfo} from "../node-info";
+import {NodeReferences} from "./node-references";
 
 export class MapDetailNode {
 

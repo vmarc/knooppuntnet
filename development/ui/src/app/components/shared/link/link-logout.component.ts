@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-logout',
+  selector: "kpn-link-logout",
   template: `
     <a routerLink="/logout">logout</a>
   `

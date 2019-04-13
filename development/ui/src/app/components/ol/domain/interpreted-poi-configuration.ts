@@ -1,4 +1,4 @@
-import {List, Map} from 'immutable';
+import {List, Map} from "immutable";
 
 import {ClientPoiConfiguration} from "../../../kpn/shared/tiles/client-poi-configuration";
 import {ClientPoiDefinition} from "../../../kpn/shared/tiles/client-poi-definition";

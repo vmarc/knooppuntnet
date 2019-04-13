@@ -44,7 +44,7 @@ export class UserService {
     // TODO scala version has timeout = 25000
 
     this.http.get(loginUrl, {
-      responseType: 'text'
+      responseType: "text"
     }).subscribe(r => {
         console.log("DEBUG UserService success");
         console.log(JSON.stringify(r, null, 2));
@@ -61,7 +61,7 @@ export class UserService {
 
   public logout(): void {
     this.http.get("/api/logout", {
-      responseType: 'text'
+      responseType: "text"
     }).subscribe(r => {
         console.log("DEBUG logout success");
         console.log(JSON.stringify(r, null, 2));
@@ -78,7 +78,7 @@ export class UserService {
   authenticated() {
     let search = decodeURIComponent(window.location.search);
     this.http.get("/api/authenticated" + search, {
-      responseType: 'text'
+      responseType: "text"
     }).subscribe(r => {
         console.log("DEBUG authenticated success");
         console.log("DEBUG search=" + search);

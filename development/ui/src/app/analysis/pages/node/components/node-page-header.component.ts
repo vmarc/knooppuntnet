@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-node-page-header',
+  selector: "kpn-node-page-header",
   template: `
 
     <h1>Node {{nodeName}}</h1>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {Subscription} from "rxjs";
 import {PdfService} from "../../pdf/pdf.service";
@@ -7,7 +7,7 @@ import {Plan} from "../planner/plan/plan";
 import {ExportDialogComponent} from "./export-dialog.component";
 
 @Component({
-  selector: 'kpn-plan',
+  selector: "kpn-plan",
   template: `
 
     <div class="buttons">

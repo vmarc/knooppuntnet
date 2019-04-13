@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
@@ -10,7 +10,7 @@ import {SubsetChangesPage} from "../../../../kpn/shared/subset/subset-changes-pa
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
 @Component({
-  selector: 'kpn-subset-changes-page',
+  selector: "kpn-subset-changes-page",
   template: `
 
     <kpn-subset-page-header [subset]="subset" pageName="changes"></kpn-subset-page-header>

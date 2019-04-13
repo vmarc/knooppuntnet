@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-map-sidebar-planner',
+  selector: "kpn-map-sidebar-planner",
   template: `
 
     <mat-expansion-panel [expanded]="true">

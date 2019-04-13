@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {PointSegment} from './point-segment';
+import {List} from "immutable";
+import {PointSegment} from "./point-segment";
 
 export class GeometryDiff {
 

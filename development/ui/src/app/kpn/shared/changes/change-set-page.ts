@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeSetInfo} from './change-set-info';
-import {ChangeSetSummary} from '../change-set-summary';
-import {KnownElements} from '../common/known-elements';
-import {NetworkChangeInfo} from './details/network-change-info';
-import {NodeChangeInfo} from '../node/node-change-info';
-import {Review} from './review';
-import {RouteChangeInfo} from '../route/route-change-info';
+import {List} from "immutable";
+import {ChangeSetInfo} from "./change-set-info";
+import {ChangeSetSummary} from "../change-set-summary";
+import {KnownElements} from "../common/known-elements";
+import {NetworkChangeInfo} from "./details/network-change-info";
+import {NodeChangeInfo} from "../node/node-change-info";
+import {Review} from "./review";
+import {RouteChangeInfo} from "../route/route-change-info";
 
 export class ChangeSetPage {
 

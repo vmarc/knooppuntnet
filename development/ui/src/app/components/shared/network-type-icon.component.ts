@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {NetworkType} from "../../kpn/shared/network-type";
 
 @Component({
-  selector: 'kpn-network-type-icon',
+  selector: "kpn-network-type-icon",
   template: `
     <mat-icon svgIcon="rcn" *ngIf="networkType?.name == 'rcn'"></mat-icon>
     <mat-icon svgIcon="rwn" *ngIf="networkType?.name == 'rwn'"></mat-icon>

@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import Coordinate from 'ol/coordinate';
-import {click, pointerMove} from 'ol/events/condition';
-import Select from 'ol/interaction/Select';
-import TileLayer from 'ol/layer/Tile';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import Map from 'ol/Map';
-import {fromLonLat} from 'ol/proj';
-import {Style} from 'ol/style';
-import View from 'ol/View';
-import Extent from 'ol/View';
+import Coordinate from "ol/coordinate";
+import {click, pointerMove} from "ol/events/condition";
+import Select from "ol/interaction/Select";
+import TileLayer from "ol/layer/Tile";
+import VectorTileLayer from "ol/layer/VectorTile";
+import Map from "ol/Map";
+import {fromLonLat} from "ol/proj";
+import Style from "ol/style/Style";
+import View from "ol/View";
+import Extent from "ol/View";
 import {Subscription} from "rxjs";
 import {DebugLayer} from "../../../components/ol/domain/debug-layer";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
@@ -26,11 +26,10 @@ import {PageService} from "../../../components/shared/page.service";
 import {NetworkType} from "../../../kpn/shared/network-type";
 import {PoiService} from "../../../poi.service";
 import {PlannerService} from "../../planner.service";
-import {PlannerContext} from "../../planner/context/planner-context";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 
 @Component({
-  selector: 'kpn-map-main-page',
+  selector: "kpn-map-main-page",
   template: `
     <div id="main-map" class="map"></div>
   `,
@@ -74,7 +73,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
     this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
 
     this.paramsSubscription = this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      const networkTypeName = params['networkType'];
+      const networkTypeName = params["networkType"];
       this.mapService.networkType.next(new NetworkType(networkTypeName));
     });
 
@@ -117,7 +116,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
     this.mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
 
-    this.plannerService.context.viewPort = this.map.getViewport();
     this.plannerService.init(this.map);
     this.interaction.addToMap(this.map);
 

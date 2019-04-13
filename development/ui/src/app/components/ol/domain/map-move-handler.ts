@@ -1,6 +1,6 @@
-import Feature from 'ol/Feature';
-import {SelectEvent} from 'ol/interaction/Select';
-import Map from 'ol/Map';
+import Feature from "ol/Feature";
+import SelectEvent from "ol/interaction/Select";
+import Map from "ol/Map";
 import {MapService} from "../map.service";
 
 export class MapMoveHandler {
@@ -38,7 +38,7 @@ export class MapMoveHandler {
       const layer = feature.get("layer");
       const id = feature.get("id");
       if (layer.endsWith("route")) {
-        const routeId = id.substring(0, id.indexOf('-'));
+        const routeId = id.substring(0, id.indexOf("-"));
         this.mapService.highlightedRouteId = routeId;
       } else if (layer.endsWith("node")) {
         this.mapService.highlightedRouteId = null;

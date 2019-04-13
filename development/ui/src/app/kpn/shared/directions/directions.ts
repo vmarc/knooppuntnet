@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {DirectionsInstruction} from './directions-instruction';
+import {List} from "immutable";
+import {DirectionsInstruction} from "./directions-instruction";
 
 export class Directions {
 

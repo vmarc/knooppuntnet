@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import {MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
 import {NetworkAttributes} from "../../../../kpn/shared/network/network-attributes";
 
 @Component({
-  selector: 'kpn-subset-network-list',
+  selector: "kpn-subset-network-list",
   template: `
     <mat-divider></mat-divider>
     <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
@@ -35,7 +35,7 @@ export class SubsetNetworkListComponent implements OnInit {
 
   @Input() networks: List<NetworkAttributes>;
 
-  displayedColumns = ['networkNumber', 'network'];
+  displayedColumns = ["networkNumber", "network"];
 
   dataSource: MatTableDataSource<NetworkAttributes>;
 

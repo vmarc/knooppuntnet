@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-authenticate',
+  selector: "kpn-link-authenticate",
   template: `
     <a routerLink="/authenticate">Authenticate</a>
   `

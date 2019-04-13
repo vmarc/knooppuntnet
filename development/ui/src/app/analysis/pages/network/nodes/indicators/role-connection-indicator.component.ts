@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {RoleConnectionIndicatorDialogComponent} from "./role-connection-indicator-dialog.component";
 
 @Component({
-  selector: 'kpn-role-connection-indicator',
+  selector: "kpn-role-connection-indicator",
   template: `
     <kpn-indicator letter="C" [color]="color()" (openDialog)="onOpenDialog()"></kpn-indicator>
   `,

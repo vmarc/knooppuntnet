@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
+import {Subset} from "../../kpn/shared/subset";
 
 @Component({
-  selector: 'kpn-subset-name',
+  selector: "kpn-subset-name",
   template: `
     <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
     in
@@ -10,5 +11,5 @@ import {Component, Input} from '@angular/core';
   styles: []
 })
 export class SubsetNameComponent {
-  @Input() subset;
+  @Input() subset: Subset;
 }

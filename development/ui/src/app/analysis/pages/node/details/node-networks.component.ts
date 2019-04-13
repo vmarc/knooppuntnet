@@ -3,7 +3,7 @@ import {List} from "immutable";
 import {NodeNetworkReference} from "../../../../kpn/shared/node/node-network-reference";
 
 @Component({
-  selector: 'node-networks',
+  selector: "node-networks",
   template: `
     <p *ngIf="networkReferences.isEmpty()">None</p> <!-- Geen -->
     <p *ngFor="let networkReference of networkReferences">

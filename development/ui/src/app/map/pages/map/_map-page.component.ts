@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-map-page',
+  selector: "kpn-map-page",
   template: `
     <div>
       <a routerLink="/">Home</a> >

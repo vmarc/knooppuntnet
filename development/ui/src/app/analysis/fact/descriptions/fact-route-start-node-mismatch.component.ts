@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-route-start-node-mismatch',
+  selector: "kpn-fact-route-start-node-mismatch",
   template: `
     <ng-container i18n="@@fact.description.route-start-node-mismatch">
       The start node does not match the first node in the first way.

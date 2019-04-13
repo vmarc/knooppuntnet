@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeSetNetwork} from './change-set-network';
+import {List} from "immutable";
+import {ChangeSetNetwork} from "./change-set-network";
 
 export class NetworkChanges {
 

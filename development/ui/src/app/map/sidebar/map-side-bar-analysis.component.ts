@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {MapService} from 'src/app/components/ol/map.service';
+import {Component, Input} from "@angular/core";
+import {MapService} from "src/app/components/ol/map.service";
 import {NetworkType} from "../../kpn/shared/network-type";
 
 @Component({
-  selector: 'kpn-map-sidebar-analysis',
+  selector: "kpn-map-sidebar-analysis",
   template: `
 
     <mat-expansion-panel expanded="true">

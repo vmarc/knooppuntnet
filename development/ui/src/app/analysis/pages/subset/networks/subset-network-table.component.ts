@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import {MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
 import {NetworkAttributes} from "../../../../kpn/shared/network/network-attributes";
 
 @Component({
-  selector: 'kpn-subset-network-table',
+  selector: "kpn-subset-network-table",
   template: `
     <mat-divider></mat-divider>
     <table mat-table [dataSource]="dataSource" class="kpn-bordered-table">
@@ -102,33 +102,33 @@ export class SubsetNetworkTableComponent implements OnInit {
   @Input() networks: List<NetworkAttributes> = List();
 
   displayedColumnTitles = [
-    'networkName',
-    'length',
-    'nodeCount',
-    'routeCount',
-    'integrityCount',
-    'connectionCount'
+    "networkName",
+    "length",
+    "nodeCount",
+    "routeCount",
+    "integrityCount",
+    "connectionCount"
   ];
 
   displayedColumnTitles2 = [
-    'routeCount',
-    'brokenRouteCount',
-    'integrityCount',
-    'integrityOkRate'
+    "routeCount",
+    "brokenRouteCount",
+    "integrityCount",
+    "integrityOkRate"
   ];
 
   displayedColumns = [
-    'networkName',
-    'happy',
-    'length',
-    'nodeCount',
-    'routeCount',
-    'brokenRouteCount',
-    'brokenRoutePercentage',
-    'integrityCount',
-    'integrityCoverage',
-    'integrityOkRate',
-    'connectionCount'
+    "networkName",
+    "happy",
+    "length",
+    "nodeCount",
+    "routeCount",
+    "brokenRouteCount",
+    "brokenRoutePercentage",
+    "integrityCount",
+    "integrityCoverage",
+    "integrityOkRate",
+    "connectionCount"
   ];
 
   dataSource: MatTableDataSource<NetworkAttributes>;

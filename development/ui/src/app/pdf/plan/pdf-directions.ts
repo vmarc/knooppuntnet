@@ -1,6 +1,6 @@
 import {MatIconRegistry} from "@angular/material";
-import * as canvg from 'canvg';
-import * as JsPdf from 'jspdf';
+import * as canvg from "canvg";
+import * as JsPdf from "jspdf";
 import {Directions} from "../../kpn/shared/directions/directions";
 import {PdfPage} from "./pdf-page";
 import {PdfSideBar} from "./pdf-side-bar";

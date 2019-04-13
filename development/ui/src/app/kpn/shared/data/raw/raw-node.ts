@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {Tags} from '../tags';
-import {Timestamp} from '../../timestamp';
+import {Tags} from "../tags";
+import {Timestamp} from "../../timestamp";
 
 export class RawNode {
 

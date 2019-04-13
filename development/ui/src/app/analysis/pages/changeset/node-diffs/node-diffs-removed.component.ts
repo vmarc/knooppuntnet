@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {Ref} from "../../../../kpn/shared/common/ref";
 import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
 
 @Component({
-  selector: 'kpn-node-diffs-removed',
+  selector: "kpn-node-diffs-removed",
   template: `
     <div *ngIf="!nodeRefs.isEmpty()" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">

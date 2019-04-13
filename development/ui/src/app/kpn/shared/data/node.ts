@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {RawNode} from './raw/raw-node';
+import {RawNode} from "./raw/raw-node";
 
 export class Node {
 

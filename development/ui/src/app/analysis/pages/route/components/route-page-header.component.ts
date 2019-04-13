@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-route-page-header',
+  selector: "kpn-route-page-header",
   template: `
 
     <h1>Route {{routeName}}</h1>

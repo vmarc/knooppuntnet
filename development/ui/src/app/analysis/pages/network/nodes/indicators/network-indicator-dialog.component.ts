@@ -1,8 +1,8 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 
 @Component({
-  selector: 'kpn-network-indicator-dialog',
+  selector: "kpn-network-indicator-dialog",
   template: `
     <kpn-indicator-dialog letter="N" color="{{color}}" (closeDialog)="onCloseDialog()">
 

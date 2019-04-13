@@ -1,4 +1,4 @@
-import Coordinate from 'ol/coordinate';
+import Coordinate from "ol/coordinate";
 import {PlannerElasticBand} from "./planner-elastic-band";
 
 export class PlannerElasticBandMock implements PlannerElasticBand {

@@ -1,6 +1,6 @@
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import TileDebug from 'ol/source/TileDebug';
+import TileLayer from "ol/layer/Tile";
+import OSM from "ol/source/OSM";
+import TileDebug from "ol/source/TileDebug";
 
 export class DebugLayer {
 

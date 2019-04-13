@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {Subsets} from "../../../kpn/common/subsets";
 
 @Component({
-  selector: 'kpn-overview-table-header',
+  selector: "kpn-overview-table-header",
   template: `
     <tr>
       <th rowspan="2">Detail</th>

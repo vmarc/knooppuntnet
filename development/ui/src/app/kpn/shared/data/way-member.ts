@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Way} from './way';
+import {Way} from "./way";
 
 export class WayMember {
 

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {ChangeSetElementRef} from "../../../../kpn/shared/change-set-element-ref";
 
 export class ChangeSetElement {
@@ -9,7 +9,7 @@ export class ChangeSetElement {
 }
 
 @Component({
-  selector: 'kpn-change-set-element-ref',
+  selector: "kpn-change-set-element-ref",
   template: `
     <div [ngClass]="['ref-block', borderStyle()]">
       <div [ngClass]="['icon', element.action]">
@@ -21,7 +21,7 @@ export class ChangeSetElement {
       </div>
     </div>
   `,
-  styleUrls: ['./change-set-element-ref.component.scss']
+  styleUrls: ["./change-set-element-ref.component.scss"]
 })
 export class ChangesSetElementRefComponent {
 

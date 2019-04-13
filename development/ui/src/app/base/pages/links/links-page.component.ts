@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {PageService} from "../../../components/shared/page.service";
 
 @Component({
-  selector: 'kpn-links-page',
+  selector: "kpn-links-page",
   template: `
     <h1>
       Links

@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from "@angular/router";
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 import {AnalysisBePageComponent} from "./pages/analysis/analysis-be-page.component";
 import {AnalysisDePageComponent} from "./pages/analysis/analysis-de-page.component";
@@ -28,104 +28,104 @@ import {SubsetOrphanRoutesPageComponent} from "./pages/subset/orphan-routes/_sub
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: AnalysisSidebarComponent,
     outlet: "sidebar"
   },
   {
-    path: '',
+    path: "",
     component: AnalysisPageComponent
   },
   {
-    path: 'nl',
+    path: "nl",
     component: AnalysisNlPageComponent
   },
   {
-    path: 'be',
+    path: "be",
     component: AnalysisBePageComponent
   },
   {
-    path: 'de',
+    path: "de",
     component: AnalysisDePageComponent
   },
   {
-    path: 'changeset/:changeSetId/:replicationNumber',
+    path: "changeset/:changeSetId/:replicationNumber",
     component: ChangeSetPageComponent
   },
   {
-    path: 'changes',
+    path: "changes",
     component: ChangesPageComponent
   },
   {
-    path: 'network-changes/:networkId',
+    path: "network-changes/:networkId",
     component: NetworkChangesPageComponent
   },
   {
-    path: 'network-details/:networkId',
+    path: "network-details/:networkId",
     component: NetworkDetailsPageComponent
   },
   {
-    path: 'network-facts/:networkId',
+    path: "network-facts/:networkId",
     component: NetworkFactsPageComponent
   },
   {
-    path: 'network-map/:networkId',
+    path: "network-map/:networkId",
     component: NetworkMapPageComponent
   },
   {
-    path: 'network-nodes/:networkId',
+    path: "network-nodes/:networkId",
     component: NetworkNodesPageComponent
   },
   {
-    path: 'network-routes/:networkId',
+    path: "network-routes/:networkId",
     component: NetworkRoutesPageComponent
   },
   {
-    path: 'node/:nodeId',
+    path: "node/:nodeId",
     component: NodePageComponent
   },
   {
-    path: 'node-changes/:nodeId',
+    path: "node-changes/:nodeId",
     component: NodeChangesPageComponent
   },
   {
-    path: 'overview',
+    path: "overview",
     component: OverviewPageComponent
   },
   {
-    path: 'route/:routeId',
+    path: "route/:routeId",
     component: RoutePageComponent
   },
   {
-    path: 'route-changes/:routeId',
+    path: "route-changes/:routeId",
     component: RouteChangesPageComponent
   },
   {
-    path: 'changes/:country/:networkType',
+    path: "changes/:country/:networkType",
     component: SubsetChangesPageComponent
   },
   {
-    path: 'facts/:country/:networkType',
+    path: "facts/:country/:networkType",
     component: SubsetFactsPageComponent
   },
   {
-    path: 'networks/:country/:networkType',
+    path: "networks/:country/:networkType",
     component: SubsetNetworksPageComponent
   },
   {
-    path: 'orphan-nodes/:country/:networkType',
+    path: "orphan-nodes/:country/:networkType",
     component: SubsetOrphanNodesPageComponent
   },
   {
-    path: 'orphan-routes/:country/:networkType',
+    path: "orphan-routes/:country/:networkType",
     component: SubsetOrphanRoutesPageComponent
   },
   {
-    path: ':fact/:country/:networkType',
+    path: ":fact/:country/:networkType",
     component: SubsetFactDetailsPageComponent
   },
   {
-    path: 'facts',
+    path: "facts",
     component: FactsPageComponent
   }
 

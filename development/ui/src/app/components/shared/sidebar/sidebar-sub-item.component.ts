@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-sidebar-sub-item',
+  selector: "kpn-sidebar-sub-item",
   template: `
     <a mat-list-item routerLink="{{link}}"><span><ng-content></ng-content></span></a>
   `,

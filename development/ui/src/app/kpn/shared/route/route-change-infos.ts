@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {RouteChangeInfo} from './route-change-info';
+import {List} from "immutable";
+import {RouteChangeInfo} from "./route-change-info";
 
 export class RouteChangeInfos {
 

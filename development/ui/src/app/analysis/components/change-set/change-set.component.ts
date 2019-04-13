@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {ChangeSetNetwork} from "../../../kpn/shared/change-set-network";
 import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info";
 import {ChangeSetNetworkAction} from "./components/change-set-network.component";
 
 @Component({
-  selector: 'kpn-change-set',
+  selector: "kpn-change-set",
   template: `
 
     <div class="change-set">
@@ -39,7 +39,7 @@ import {ChangeSetNetworkAction} from "./components/change-set-network.component"
 
     </div>
   `,
-  styleUrls: ['./change-set.component.scss']
+  styleUrls: ["./change-set.component.scss"]
 })
 export class ChangesSetComponent {
 

@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-description',
+  selector: "kpn-fact-description",
   template: `
     <ng-container [ngSwitch]="factName">
       <kpn-fact-added *ngSwitchCase="'Added'"></kpn-fact-added>

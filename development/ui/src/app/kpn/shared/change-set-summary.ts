@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeKey} from './changes/details/change-key';
-import {ChangeSetSubsetElementRefs} from './change-set-subset-element-refs';
-import {NetworkChanges} from './network-changes';
-import {Subset} from './subset';
-import {Timestamp} from './timestamp';
+import {List} from "immutable";
+import {ChangeKey} from "./changes/details/change-key";
+import {ChangeSetSubsetElementRefs} from "./change-set-subset-element-refs";
+import {NetworkChanges} from "./network-changes";
+import {Subset} from "./subset";
+import {Timestamp} from "./timestamp";
 
 export class ChangeSetSummary {
 

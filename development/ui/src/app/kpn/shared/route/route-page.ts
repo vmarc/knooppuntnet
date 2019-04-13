@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {RouteChangeInfos} from './route-change-infos';
-import {RouteInfo} from './route-info';
-import {RouteReferences} from './route-references';
+import {RouteChangeInfos} from "./route-change-infos";
+import {RouteInfo} from "./route-info";
+import {RouteReferences} from "./route-references";
 
 export class RoutePage {
 

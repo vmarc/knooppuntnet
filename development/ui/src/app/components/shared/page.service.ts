@@ -1,10 +1,10 @@
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Subset} from "../../kpn/shared/subset";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PageService {
 
@@ -20,7 +20,7 @@ export class PageService {
   networkId: string = null;
 
   constructor(breakpointObserver: BreakpointObserver) {
-    const mediaQuery = '(max-width: 599px)';
+    const mediaQuery = "(max-width: 599px)";
     this.updateMobile(breakpointObserver.isMatched(mediaQuery));
     this.breakpointState = breakpointObserver.observe(mediaQuery);
     this.breakpointState.subscribe((b) => this.breakpointStateChanged(b));

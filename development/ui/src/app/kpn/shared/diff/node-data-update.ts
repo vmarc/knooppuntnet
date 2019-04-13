@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {NodeData} from './node-data';
-import {NodeMoved} from './node/node-moved';
-import {TagDiffs} from './tag-diffs';
+import {NodeData} from "./node-data";
+import {NodeMoved} from "./node/node-moved";
+import {TagDiffs} from "./tag-diffs";
 
 export class NodeDataUpdate {
 

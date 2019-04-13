@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeSetSummary} from '../change-set-summary';
-import {NetworkChange} from './details/network-change';
-import {NodeChange} from './details/node-change';
-import {RouteChange} from './details/route-change';
+import {List} from "immutable";
+import {ChangeSetSummary} from "../change-set-summary";
+import {NetworkChange} from "./details/network-change";
+import {NodeChange} from "./details/node-change";
+import {RouteChange} from "./details/route-change";
 
 export class ChangeSetData {
 

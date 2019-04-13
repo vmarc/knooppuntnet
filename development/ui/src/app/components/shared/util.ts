@@ -10,8 +10,8 @@ interface IPropertyGetter<T> {
 export class Util {
 
   public static subsetInRoute(params: Params): Subset {
-    const country = params['country'];
-    const networkType = params['networkType'];
+    const country = params["country"];
+    const networkType = params["networkType"];
     return new Subset(new Country(country), new NetworkType(networkType));
   }
 

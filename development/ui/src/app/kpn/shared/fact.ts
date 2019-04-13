@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {FactLevel} from './fact-level';
+import {FactLevel} from "./fact-level";
 
 export class Fact {
 

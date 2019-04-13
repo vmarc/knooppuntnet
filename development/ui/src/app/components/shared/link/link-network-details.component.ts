@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-network-details',
+  selector: "kpn-link-network-details",
   template: `
     <a routerLink="{{'/analysis/network-details/' + networkId}}">{{title}}</a>
   `

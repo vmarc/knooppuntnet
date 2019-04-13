@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {NodeInfo} from "../../../../kpn/shared/node-info";
 
 @Component({
-  selector: 'kpn-subset-orphan-node',
+  selector: "kpn-subset-orphan-node",
   template: `
     <p>
       <kpn-link-node [nodeId]="node.id" [title]="node.name"></kpn-link-node>

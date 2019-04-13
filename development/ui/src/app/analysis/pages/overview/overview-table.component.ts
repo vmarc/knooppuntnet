@@ -1,10 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Statistics} from "../../../kpn/shared/statistics/statistics";
 import {OverviewService} from "./overview.service";
 import {Stat} from "./stat";
 
 @Component({
-  selector: 'kpn-overview-table',
+  selector: "kpn-overview-table",
   template: `
     <table title="overview" class="kpn-table">
       <kpn-overview-table-header></kpn-overview-table-header>

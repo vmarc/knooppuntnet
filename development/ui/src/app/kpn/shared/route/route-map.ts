@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {MapBounds} from '../common/map-bounds';
-import {RouteNetworkNodeInfo} from './route-network-node-info';
-import {TrackPath} from '../common/track-path';
-import {TrackPoint} from '../common/track-point';
-import {TrackSegment} from '../common/track-segment';
+import {List} from "immutable";
+import {MapBounds} from "../common/map-bounds";
+import {RouteNetworkNodeInfo} from "./route-network-node-info";
+import {TrackPath} from "../common/track-path";
+import {TrackPoint} from "../common/track-point";
+import {TrackSegment} from "../common/track-segment";
 
 export class RouteMap {
 

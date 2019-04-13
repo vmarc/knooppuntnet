@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {Tags} from '../data/tags';
-import {Timestamp} from '../timestamp';
+import {Tags} from "../data/tags";
+import {Timestamp} from "../timestamp";
 
 export class ChangeSetInfo {
 

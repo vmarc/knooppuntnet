@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {NetworkType} from "../../kpn/shared/network-type";
 
 @Component({
-  selector: 'kpn-network-type',
+  selector: "kpn-network-type",
   template: `
     <div class="network-type">
       <kpn-network-type-icon [networkType]="networkType"></kpn-network-type-icon>

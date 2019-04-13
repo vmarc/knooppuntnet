@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Fact} from '../fact';
-import {RouteInfoAnalysis} from './route-info-analysis';
-import {RouteSummary} from '../route-summary';
-import {Tags} from '../data/tags';
-import {Timestamp} from '../timestamp';
+import {List} from "immutable";
+import {Fact} from "../fact";
+import {RouteInfoAnalysis} from "./route-info-analysis";
+import {RouteSummary} from "../route-summary";
+import {Tags} from "../data/tags";
+import {Timestamp} from "../timestamp";
 
 export class RouteInfo {
 

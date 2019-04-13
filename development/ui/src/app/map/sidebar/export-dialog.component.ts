@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {MatRadioChange} from "@angular/material";
 
 @Component({
-  selector: 'kpn-export-dialog',
+  selector: "kpn-export-dialog",
   template: `
     <h2 mat-dialog-title>Export</h2>
     <mat-dialog-content>

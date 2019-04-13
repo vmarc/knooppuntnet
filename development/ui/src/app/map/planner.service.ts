@@ -1,17 +1,19 @@
-import {Injectable} from '@angular/core';
-import Map from 'ol/Map';
+import {Injectable} from "@angular/core";
+import Map from "ol/Map";
 import {AppService} from "../app.service";
 import {PlannerCommandStack} from "./planner/commands/planner-command-stack";
 import {PlannerContext} from "./planner/context/planner-context";
 import {PlannerCrosshairImpl} from "./planner/context/planner-crosshair-impl";
+import {PlannerCursorImpl} from "./planner/context/planner-cursor-impl";
 import {PlannerElasticBandImpl} from "./planner/context/planner-elastic-band-impl";
+import {PlannerLegRepositoryImpl} from "./planner/context/planner-leg-repository-impl";
 import {PlannerRouteLayerImpl} from "./planner/context/planner-route-layer-impl";
 import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
 import {PlanLegCache} from "./planner/plan/plan-leg-cache";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PlannerService {
 

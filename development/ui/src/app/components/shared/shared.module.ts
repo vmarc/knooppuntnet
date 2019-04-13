@@ -1,16 +1,16 @@
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {MatButtonModule, MatDividerModule, MatIconModule, MatListModule, MatToolbarModule} from "@angular/material";
+import {CommonModule} from "@angular/common";
+import {NgModule} from "@angular/core";
+import {MatButtonModule, MatDialogModule, MatDividerModule, MatIconModule, MatListModule, MatToolbarModule} from "@angular/material";
 import {RouterModule} from "@angular/router";
 import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
 import {IconButtonComponent} from "./icon/icon-button.component";
-import {IndicatorDialogComponent} from './indicator/indicator-dialog.component';
-import {IndicatorIconComponent} from './indicator/indicator-icon.component';
-import {IndicatorComponent} from './indicator/indicator.component';
-import {ItemComponent} from './items/item.component';
-import {ItemsComponent} from './items/items.component';
+import {IndicatorDialogComponent} from "./indicator/indicator-dialog.component";
+import {IndicatorIconComponent} from "./indicator/indicator-icon.component";
+import {IndicatorComponent} from "./indicator/indicator.component";
+import {ItemComponent} from "./items/item.component";
+import {ItemsComponent} from "./items/items.component";
 import {JsonComponent} from "./json/json.component";
 import {IconLinkComponent} from "./link/icon-link.component";
 import {IconNetworkLinkComponent} from "./link/icon-network-link.component";
@@ -56,20 +56,20 @@ import {PageMenuComponent} from "./menu/page-menu.component";
 import {MetaDataComponent} from "./meta-data.component";
 import {NetworkTypeIconComponent} from "./network-type-icon.component";
 import {NetworkTypeNameComponent} from "./network-type-name.component";
-import {NetworkTypeComponent} from './network-type.component';
+import {NetworkTypeComponent} from "./network-type.component";
 import {PageFooterComponent} from "./page/page-footer.component";
-import {SidebarFooterComponent} from './sidebar/sidebar-footer.component';
-import {SidebarMenuComponent} from './sidebar/sidebar-menu.component';
-import {SidebarNetworkComponent} from './sidebar/sidebar-network.component';
-import {SidebarSubItemComponent} from './sidebar/sidebar-sub-item.component';
-import {SidebarSubsetComponent} from './sidebar/sidebar-subset.component';
-import {SidebarSubsetsComponent} from './sidebar/sidebar-subsets.component';
+import {SidebarFooterComponent} from "./sidebar/sidebar-footer.component";
+import {SidebarMenuComponent} from "./sidebar/sidebar-menu.component";
+import {SidebarNetworkComponent} from "./sidebar/sidebar-network.component";
+import {SidebarSubItemComponent} from "./sidebar/sidebar-sub-item.component";
+import {SidebarSubsetComponent} from "./sidebar/sidebar-subset.component";
+import {SidebarSubsetsComponent} from "./sidebar/sidebar-subsets.component";
 import {SidebarVersionWarningComponent} from "./sidebar/sidebar-version-warning.component";
-import {SidebarComponent} from './sidebar/sidebar.component';
-import {SubsetNameComponent} from './subset-name.component';
+import {SidebarComponent} from "./sidebar/sidebar.component";
+import {SubsetNameComponent} from "./subset-name.component";
 import {TagsComponent} from "./tags/tags.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
-import {ToolbarComponent} from './toolbar/toolbar.component';
+import {ToolbarComponent} from "./toolbar/toolbar.component";
 
 @NgModule({
   imports: [
@@ -79,6 +79,7 @@ import {ToolbarComponent} from './toolbar/toolbar.component';
     MatListModule,
     MatDividerModule,
     MatButtonModule,
+    MatDialogModule,
     RouterModule
   ],
   declarations: [

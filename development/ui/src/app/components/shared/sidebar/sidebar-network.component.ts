@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-sidebar-network',
+  selector: "kpn-sidebar-network",
   template: `
     <kpn-sidebar-menu title="Network">
       <kpn-sidebar-sub-item link="{{link('details')}}">Details</kpn-sidebar-sub-item>

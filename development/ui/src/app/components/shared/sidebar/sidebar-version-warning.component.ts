@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-sidebar-version-warning',
+  selector: "kpn-sidebar-version-warning",
   template: `
     <div class="warning">
       This version of knooppuntnet is still under construction.

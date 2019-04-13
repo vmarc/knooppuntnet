@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
-import {NgModule} from '@angular/core';
-import {MatCardModule, MatDividerModule, MatIconModule} from "@angular/material";
+import {NgModule} from "@angular/core";
+import {MatButtonModule, MatCardModule, MatDividerModule, MatIconModule} from "@angular/material";
 import {SharedModule} from "../components/shared/shared.module";
 import {BaseRoutingModule} from "./base-routing.module";
 import {BaseSidebarComponent} from "./base-sidebar.component";
@@ -21,6 +21,7 @@ import {NotFoundPageComponent} from "./pages/not-found/not-found-page.component"
     MatDividerModule,
     MatCardModule,
     MatIconModule,
+    MatButtonModule,
     SharedModule,
     BaseRoutingModule
   ],

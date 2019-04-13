@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from "@angular/router";
 import {BaseSidebarComponent} from "./base-sidebar.component";
 import {AboutPageComponent} from "./pages/about/about-page.component";
 import {AuthenticatePageComponent} from "./pages/authenticate/authenticate-page.component";
@@ -12,46 +12,46 @@ import {NotFoundPageComponent} from "./pages/not-found/not-found-page.component"
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: HomePageComponent
   },
   {
-    path: '',
+    path: "",
     component: BaseSidebarComponent,
     outlet: "sidebar"
   },
   {
-    path: 'about',
+    path: "about",
     component: AboutPageComponent
   },
   {
-    path: 'authenticate',
+    path: "authenticate",
     component: AuthenticatePageComponent
   },
   {
-    path: 'glossary',
+    path: "glossary",
     component: GlossaryPageComponent
   },
   {
-    path: 'links',
+    path: "links",
     component: LinksPageComponent
   },
   {
-    path: 'login',
+    path: "login",
     component: LoginPageComponent
   },
   {
-    path: 'logout',
+    path: "logout",
     component: LogoutPageComponent
   },
   {
-    path: 'not-found',
+    path: "not-found",
     component: NotFoundPageComponent
   },
   {
-    path: '**',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    path: "**",
+    redirectTo: "/home",
+    pathMatch: "full"
   }
 ];
 

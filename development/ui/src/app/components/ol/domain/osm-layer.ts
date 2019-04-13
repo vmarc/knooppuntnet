@@ -1,5 +1,5 @@
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
+import TileLayer from "ol/layer/Tile";
+import OSM from "ol/source/OSM";
 
 export class OsmLayer {
 

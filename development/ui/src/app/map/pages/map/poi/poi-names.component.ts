@@ -1,8 +1,8 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from "@angular/core";
 import {PoiService} from "../../../../poi.service";
 
 @Component({
-  selector: 'kpn-poi-names',
+  selector: "kpn-poi-names",
   template: `
     <div *ngIf="!isRegistryUpdated()">
       <span id="alcohol" i18n="@@poi.alcohol">Alcohol</span>

@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {FactDiffs} from '../common/fact-diffs';
-import {RouteNameDiff} from './route-name-diff';
-import {RouteNodeDiff} from './route-node-diff';
-import {RouteRoleDiff} from './route-role-diff';
-import {TagDiffs} from '../tag-diffs';
+import {List} from "immutable";
+import {FactDiffs} from "../common/fact-diffs";
+import {RouteNameDiff} from "./route-name-diff";
+import {RouteNodeDiff} from "./route-node-diff";
+import {RouteRoleDiff} from "./route-role-diff";
+import {TagDiffs} from "../tag-diffs";
 
 export class RouteDiff {
 

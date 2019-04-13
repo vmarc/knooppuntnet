@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.component";
 
 @Component({
-  selector: 'kpn-integrity-indicator',
+  selector: "kpn-integrity-indicator",
   template: `
     <kpn-indicator letter="E" [color]="color()" (openDialog)="onOpenDialog()"></kpn-indicator>
   `

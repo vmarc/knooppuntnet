@@ -1,11 +1,11 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from "@angular/core";
 import {Subscription} from "rxjs";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./icon.service";
 import {UserService} from "./user.service";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
     <mat-sidenav-container>
 

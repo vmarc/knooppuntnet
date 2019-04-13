@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-directions-sign',
+  selector: "kpn-directions-sign",
   template: `
     <mat-icon svgIcon={{sign}} class="sign-icon"></mat-icon>
   `,

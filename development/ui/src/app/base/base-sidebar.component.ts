@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-base-sidebar',
+  selector: "kpn-base-sidebar",
   template: `
     <kpn-sidebar-footer></kpn-sidebar-footer>
   `

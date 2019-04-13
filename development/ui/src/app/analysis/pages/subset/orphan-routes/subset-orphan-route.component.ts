@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-subset-orphan-route',
+  selector: "kpn-subset-orphan-route",
   template: `
     <p>
       <kpn-link-route [routeId]="route.id" [title]="route.name"></kpn-link-route>

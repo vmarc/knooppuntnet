@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {MatCheckboxChange} from "@angular/material";
 import {PoiService} from "../../../../poi.service";
 
 @Component({
-  selector: 'kpn-poi-group',
+  selector: "kpn-poi-group",
   template: `
     <mat-expansion-panel>
       <mat-expansion-panel-header>

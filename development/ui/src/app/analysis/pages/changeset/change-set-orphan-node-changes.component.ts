@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {ChangeSetElementRef} from "../../../kpn/shared/change-set-element-ref";
 import {ChangeSetSubsetElementRefs} from "../../../kpn/shared/change-set-subset-element-refs";
@@ -7,7 +7,7 @@ import {Ref} from "../../../kpn/shared/common/ref";
 import {RefDiffs} from "../../../kpn/shared/diff/ref-diffs";
 
 @Component({
-  selector: 'kpn-change-set-orphan-node-changes',
+  selector: "kpn-change-set-orphan-node-changes",
   template: `
     <div *ngFor="let changeSetSubsetElementRefs of page.summary.orphanNodeChanges">
       <div class="kpn-line"> <!-- orphansHeader() -->

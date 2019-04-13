@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Timestamp} from '../timestamp';
+import {Timestamp} from "../timestamp";
 
 export class MetaData {
 

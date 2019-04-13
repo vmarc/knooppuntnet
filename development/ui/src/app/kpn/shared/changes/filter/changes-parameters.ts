@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Subset} from '../../subset';
+import {Subset} from "../../subset";
 
 export class ChangesParameters {
 

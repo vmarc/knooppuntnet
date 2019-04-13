@@ -1,16 +1,16 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeKey} from './change-key';
-import {ChangeType} from './change-type';
-import {Fact} from '../../fact';
-import {FactDiffs} from '../../diff/common/fact-diffs';
-import {NodeMoved} from '../../diff/node/node-moved';
-import {RawNode} from '../../data/raw/raw-node';
-import {Ref} from '../../common/ref';
-import {RefBooleanChange} from './ref-boolean-change';
-import {Subset} from '../../subset';
-import {TagDiffs} from '../../diff/tag-diffs';
+import {List} from "immutable";
+import {ChangeKey} from "./change-key";
+import {ChangeType} from "./change-type";
+import {Fact} from "../../fact";
+import {FactDiffs} from "../../diff/common/fact-diffs";
+import {NodeMoved} from "../../diff/node/node-moved";
+import {RawNode} from "../../data/raw/raw-node";
+import {Ref} from "../../common/ref";
+import {RefBooleanChange} from "./ref-boolean-change";
+import {Subset} from "../../subset";
+import {TagDiffs} from "../../diff/tag-diffs";
 
 export class NodeChange {
 

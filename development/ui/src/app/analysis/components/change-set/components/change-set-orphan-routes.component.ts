@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {ChangeSetSubsetElementRefs} from "../../../../kpn/shared/change-set-subset-element-refs";
 
 @Component({
-  selector: 'kpn-change-set-orphan-routes',
+  selector: "kpn-change-set-orphan-routes",
   template: `
     <div class="kpn-line">
       <span>{{domain()}}</span>

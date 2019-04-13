@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-page-menu',
+  selector: "kpn-page-menu",
   template: `
     <div class="menu">
       <ng-content></ng-content>

@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {DirectionsInstruction} from "../../../kpn/shared/directions/directions-instruction";
 
 @Component({
-  selector: 'kpn-directions-instruction',
+  selector: "kpn-directions-instruction",
   template: `
     <div *ngIf="instruction.node" class="node">
       <div class="node-number">{{instruction.node}}</div>        

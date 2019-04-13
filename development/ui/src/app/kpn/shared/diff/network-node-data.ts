@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {Country} from '../country';
-import {RawNode} from '../data/raw/raw-node';
+import {Country} from "../country";
+import {RawNode} from "../data/raw/raw-node";
 
 export class NetworkNodeData {
 

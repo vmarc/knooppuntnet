@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {AppService} from "../../app.service";
 import {MapService, PoiId} from "../../components/ol/map.service";
 import {Tags} from "../../kpn/shared/data/tags";
@@ -6,7 +6,7 @@ import {PoiPage} from "../../kpn/shared/poi-page";
 import {PoiService} from "../../poi.service";
 
 @Component({
-  selector: 'kpn-poi-detail',
+  selector: "kpn-poi-detail",
   template: `
 
     <div *ngIf="poiId == null">

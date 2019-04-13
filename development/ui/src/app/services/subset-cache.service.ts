@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Map} from 'immutable';
+import {Injectable} from "@angular/core";
+import {Map} from "immutable";
 import {SubsetInfo} from "../kpn/shared/subset/subset-info";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SubsetCacheService {
 

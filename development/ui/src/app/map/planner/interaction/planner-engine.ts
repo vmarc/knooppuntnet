@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import Coordinate from 'ol/coordinate';
+import Coordinate from "ol/coordinate";
 import {PlannerMapFeature} from "../features/planner-map-feature";
 
 export interface PlannerEngine {

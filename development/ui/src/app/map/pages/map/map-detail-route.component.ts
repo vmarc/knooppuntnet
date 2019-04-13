@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-map-detail-route',
+  selector: "kpn-map-detail-route",
   template: `
     <p>
       map-detail-route

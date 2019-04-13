@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {RouteIndicatorDialogComponent} from "./route-indicator-dialog.component";
 
 @Component({
-  selector: 'kpn-route-indicator',
+  selector: "kpn-route-indicator",
   template: `
     <kpn-indicator letter="R" [color]="color()" (openDialog)="onOpenDialog()"></kpn-indicator>
   `

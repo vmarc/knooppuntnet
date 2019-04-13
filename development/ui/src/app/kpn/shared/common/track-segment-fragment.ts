@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {TrackPoint} from './track-point';
+import {TrackPoint} from "./track-point";
 
 export class TrackSegmentFragment {
 

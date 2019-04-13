@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {Coordinate} from 'ol/coordinate';
+import Coordinate from "ol/coordinate";
 import {PlanLegFragment} from "./plan-leg-fragment";
 import {PlanNode} from "./plan-node";
 

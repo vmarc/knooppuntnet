@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {RoutesFact} from '../routes-fact';
+import {RoutesFact} from "../routes-fact";
 
 export class NetworkRoutesFacts {
 

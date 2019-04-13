@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {NetworkNodeInfo2} from './network-node-info2';
-import {NetworkSummary} from './network-summary';
-import {NetworkType} from '../network-type';
-import {TimeInfo} from '../time-info';
+import {List} from "immutable";
+import {NetworkNodeInfo2} from "./network-node-info2";
+import {NetworkSummary} from "./network-summary";
+import {NetworkType} from "../network-type";
+import {TimeInfo} from "../time-info";
 
 export class NetworkNodesPage {
 

@@ -8,24 +8,24 @@ import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 
 const routes: Routes = [
   {
-    path: 'tryout1',
+    path: "tryout1",
     component: MapTryout1PageComponent
   },
   {
-    path: '',
+    path: "",
     component: MapSidebarComponent,
     outlet: "sidebar"
   },
   {
-    path: '',
+    path: "",
     component: MapPageComponent
   },
   {
-    path: 'directions/:exampleName',
+    path: "directions/:exampleName",
     component: DirectionsPageComponent
   },
   {
-    path: ':networkType',
+    path: ":networkType",
     component: MapMainPageComponent
   }
 ];

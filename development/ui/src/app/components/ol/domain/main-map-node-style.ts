@@ -1,9 +1,9 @@
-import Feature from 'ol/Feature';
-import Circle from 'ol/style/Circle';
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
-import Style from 'ol/style/Style';
-import Text from 'ol/style/Text';
+import Feature from "ol/Feature";
+import Circle from "ol/style/Circle";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
+import Text from "ol/style/Text";
 import {MapService} from "../map.service";
 import {MainStyleColors} from "./main-style-colors";
 

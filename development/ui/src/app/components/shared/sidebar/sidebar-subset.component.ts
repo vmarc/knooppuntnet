@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {Subset} from "../../../kpn/shared/subset";
 
 @Component({
-  selector: 'kpn-sidebar-subset',
+  selector: "kpn-sidebar-subset",
   template: `
     <kpn-sidebar-menu title="Analysis details">
       <kpn-sidebar-sub-item link="{{subsetLink('networks')}}">Networks</kpn-sidebar-sub-item>

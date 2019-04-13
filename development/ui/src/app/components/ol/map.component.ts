@@ -1,15 +1,14 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
-import Coordinate from 'ol/coordinate';
-import {click, pointerMove} from 'ol/events/condition';
-import Select from 'ol/interaction/Select';
-import TileLayer from 'ol/layer/Tile';
-import VectorTileLayer from 'ol/layer/VectorTile';
-
-import Map from 'ol/Map';
-import {fromLonLat} from 'ol/proj';
-import {Style} from 'ol/style';
-import View from 'ol/View';
-import Extent from 'ol/View';
+import {AfterViewInit, Component, Input} from "@angular/core";
+import Coordinate from "ol/coordinate";
+import {click, pointerMove} from "ol/events/condition";
+import Select from "ol/interaction/Select";
+import TileLayer from "ol/layer/Tile";
+import VectorTileLayer from "ol/layer/VectorTile";
+import Map from "ol/Map";
+import {fromLonLat} from "ol/proj";
+import Style from "ol/style/Style";
+import View from "ol/View";
+import Extent from "ol/View";
 import {PoiService} from "../../poi.service";
 import {DebugLayer} from "./domain/debug-layer";
 import {MainMapStyle} from "./domain/main-map-style";
@@ -18,13 +17,12 @@ import {MapMoveHandler} from "./domain/map-move-handler";
 import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {OsmLayer} from "./domain/osm-layer";
-
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapService} from "./map.service";
 import {PoiTileLayerService} from "./poi-tile-layer.service";
 
 @Component({
-  selector: 'kpn-map',
+  selector: "kpn-map",
   template: `
     <div id="{{id}}" class="map"></div>
   `,

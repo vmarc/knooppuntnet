@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {MatCheckboxChange} from "@angular/material";
 import {PoiService} from "../../poi.service";
 
 @Component({
-  selector: 'kpn-map-sidebar-poi-configuration',
+  selector: "kpn-map-sidebar-poi-configuration",
   template: `
     <mat-expansion-panel>
       <mat-expansion-panel-header>

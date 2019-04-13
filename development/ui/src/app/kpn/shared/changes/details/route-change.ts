@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeKey} from './change-key';
-import {ChangeType} from './change-type';
-import {Fact} from '../../fact';
-import {RawWay} from '../../data/raw/raw-way';
-import {Ref} from '../../common/ref';
-import {RouteData} from '../../diff/route-data';
-import {RouteDiff} from '../../diff/route/route-diff';
-import {WayUpdate} from '../../diff/way-update';
+import {List} from "immutable";
+import {ChangeKey} from "./change-key";
+import {ChangeType} from "./change-type";
+import {Fact} from "../../fact";
+import {RawWay} from "../../data/raw/raw-way";
+import {Ref} from "../../common/ref";
+import {RouteData} from "../../diff/route-data";
+import {RouteDiff} from "../../diff/route/route-diff";
+import {WayUpdate} from "../../diff/way-update";
 
 export class RouteChange {
 

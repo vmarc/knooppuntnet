@@ -1,5 +1,5 @@
-import {List} from 'immutable';
-import {Tag} from './tag';
+import {List} from "immutable";
+import {Tag} from "./tag";
 
 export class Tags {
   readonly tags: List<Tag>;

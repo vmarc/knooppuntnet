@@ -1,7 +1,7 @@
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {NgModule} from "@angular/core";
 import {ReactiveFormsModule} from "@angular/forms";
-import {MatDividerModule, MatFormFieldModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {MatButtonModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 import {TranslationTableComponent} from "./translation-table/translation-table.component";
 import {TranslationsRoutingModule} from "./translations-routing.module";
 import {TranslationsComponent} from "./translations.component";
@@ -14,8 +14,10 @@ import {TranslationsService} from "./translations.service";
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+    MatInputModule,
     MatFormFieldModule,
     MatDividerModule,
+    MatButtonModule,
     TranslationsRoutingModule
   ],
   declarations: [

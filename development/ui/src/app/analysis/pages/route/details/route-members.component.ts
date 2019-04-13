@@ -4,7 +4,7 @@ import {NetworkType} from "../../../../kpn/shared/network-type";
 import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
 
 @Component({
-  selector: 'kpn-route-members',
+  selector: "kpn-route-members",
   template: `
     <div>
       <h4>Route Members</h4> <!-- Route onderdelen -->
@@ -126,7 +126,7 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
   `,
   styles: [`
     .image-cell {
-      padding: 0px;
+      padding: 0;
       height: 40px;
       min-height: 40px;
       max-height: 40px;

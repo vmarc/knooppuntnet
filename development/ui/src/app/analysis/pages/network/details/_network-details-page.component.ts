@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
@@ -11,7 +11,7 @@ import {Subset} from "../../../../kpn/shared/subset";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 
 @Component({
-  selector: 'kpn-network-details-page',
+  selector: "kpn-network-details-page",
   template: `
 
     <kpn-network-page-header [networkId]="networkId" selectedPage="details"></kpn-network-page-header>
@@ -81,7 +81,7 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
     this.networkCacheService.updatePageTitle("details", this.networkId);
     this.pageService.initNetworkPage();
     this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      this.networkId = params['networkId'];
+      this.networkId = params["networkId"];
       this.pageService.networkId = this.networkId;
       // TODO this.subset = response.result.network.attributes.country + networkType
       this.subset = new Subset(new Country("nl"), new NetworkType("rwn"));

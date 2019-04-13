@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {NetworkNodeInfo2} from "../../../../kpn/shared/network/network-node-info2";
 
 @Component({
-  selector: 'network-node-analysis',
+  selector: "network-node-analysis",
   template: `
     <kpn-network-indicator></kpn-network-indicator>
     <kpn-route-indicator></kpn-route-indicator>

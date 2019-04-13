@@ -1,7 +1,7 @@
-import Coordinate from 'ol/coordinate';
-import {Vector as VectorLayer} from 'ol/layer';
-import Map from 'ol/Map';
-import {Vector as VectorSource} from 'ol/source';
+import Coordinate from "ol/coordinate";
+import VectorLayer from "ol/layer/Vector";
+import Map from "ol/Map";
+import VectorSource from "ol/source/Vector";
 import {Crosshair} from "./crosshair";
 import {PlannerCrosshair} from "./planner-crosshair";
 

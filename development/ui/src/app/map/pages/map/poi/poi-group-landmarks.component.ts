@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-poi-group-landmarks',
+  selector: "kpn-poi-group-landmarks",
   template: `
     <kpn-poi-group name="landmarks" title="Landmarks" i18n-title="@@poi.group.landmarks">
       <kpn-poi-config poiId="windmill"></kpn-poi-config>

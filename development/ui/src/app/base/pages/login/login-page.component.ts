@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {PageService} from "../../../components/shared/page.service";
 import {UserService} from "../../../user.service";
 
 @Component({
-  selector: 'kpn-login-page',
+  selector: "kpn-login-page",
   template: `
     <h1>
       Login

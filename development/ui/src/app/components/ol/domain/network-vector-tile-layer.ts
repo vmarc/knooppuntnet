@@ -1,8 +1,8 @@
-import Feature from 'ol/Feature';
-import MVT from 'ol/format/MVT';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import VectorTile from 'ol/source/VectorTile';
-import {createXYZ} from 'ol/tilegrid';
+import Feature from "ol/Feature";
+import MVT from "ol/format/MVT";
+import VectorTileLayer from "ol/layer/VectorTile";
+import VectorTile from "ol/source/VectorTile";
+import {createXYZ} from "ol/tilegrid";
 import {NetworkType} from "../../../kpn/shared/network-type";
 
 import {ZoomLevel} from "./zoom-level";

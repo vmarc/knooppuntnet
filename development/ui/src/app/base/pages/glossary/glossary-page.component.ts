@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {PageService} from "../../../components/shared/page.service";
 
 @Component({
-  selector: 'kpn-glossary-page',
+  selector: "kpn-glossary-page",
   template: `
     <h1>
       Glossary

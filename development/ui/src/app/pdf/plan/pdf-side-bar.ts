@@ -1,4 +1,4 @@
-import * as JsPdf from 'jspdf';
+import * as JsPdf from "jspdf";
 import {PdfPage} from "./pdf-page";
 
 export class PdfSideBar {

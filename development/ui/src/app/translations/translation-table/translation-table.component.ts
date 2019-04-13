@@ -1,11 +1,11 @@
-import {Component, DoCheck, Input, IterableDiffer, IterableDiffers, ViewChild} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffer, IterableDiffers, ViewChild} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {debounceTime} from 'rxjs/operators';
+import {debounceTime} from "rxjs/operators";
 import {TranslationUnit} from "../domain/translation-unit";
 
 @Component({
-  selector: 'translation-table',
+  selector: "translation-table",
   template: `
     <form [formGroup]="form">
       Filter:
@@ -59,7 +59,7 @@ export class TranslationTableComponent implements DoCheck {
 
   @Input() translationUnits: Array<TranslationUnit> = [];
 
-  displayedColumns: Array<string> = ['state', 'id', 'source', 'target', 'sourceFile'];
+  displayedColumns: Array<string> = ["state", "id", "source", "target", "sourceFile"];
   dataSource: MatTableDataSource<TranslationUnit>;
   readonly differ: IterableDiffer<TranslationUnit>;
 

@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {NetworkData} from './network-data';
+import {NetworkData} from "./network-data";
 
 export class NetworkDataUpdate {
 

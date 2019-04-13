@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import {NetworkAttributes} from "../../../../kpn/shared/network/network-attributes";
 import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
 
 @Component({
-  selector: 'kpn-subset-network-happy',
+  selector: "kpn-subset-network-happy",
   template: `
     <mat-icon svgIcon="happy" *ngIf="interpretedNetwork.happy()"></mat-icon>
     <mat-icon svgIcon="happy" *ngIf="interpretedNetwork.veryHappy()"></mat-icon>

@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-fact-network-extra-member-way',
+  selector: "kpn-fact-network-extra-member-way",
   template: `
     <markdown i18n="@@fact.description.network-extra-member-way">
       The network relation contains members of type _"way"_ (expect only route relations or

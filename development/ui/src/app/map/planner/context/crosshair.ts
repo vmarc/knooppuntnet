@@ -1,8 +1,10 @@
-import Coordinate from 'ol/coordinate';
-import Feature from 'ol/Feature';
-import {Circle, Geometry, LineString} from 'ol/geom';
-import {GeometryCollection} from 'ol/geom/GeometryCollection.js';
-import {Stroke, Style} from 'ol/style';
+import Coordinate from "ol/coordinate";
+import Feature from "ol/Feature";
+import Circle from "ol/geom/Circle";
+import Geometry from "ol/geom/Geometry";
+import LineString from "ol/geom/LineString";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
 
 export class Crosshair {
 

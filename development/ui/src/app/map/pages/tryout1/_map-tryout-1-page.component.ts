@@ -1,22 +1,25 @@
-import {Component} from '@angular/core';
-import Coordinate from 'ol/coordinate';
-import MapBrowserEvent from 'ol/events'
-import Feature from 'ol/Feature';
-import {LineString} from 'ol/geom.js';
-import Draw from 'ol/interaction/Draw.js';
-import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-
-import Map from 'ol/Map';
-
-import {unByKey} from 'ol/Observable.js';
-import Overlay from 'ol/Overlay.js';
-import {OSM, Vector as VectorSource} from 'ol/source';
-import {getLength} from 'ol/sphere.js';
-import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
-import View from 'ol/View';
+import {Component} from "@angular/core";
+import Coordinate from "ol/coordinate";
+import MapBrowserEvent from "ol/events"
+import Feature from "ol/Feature";
+import LineString from "ol/geom/LineString";
+import Draw from "ol/interaction/Draw";
+import TileLayer from "ol/layer/Tile";
+import VectorLayer from "ol/layer/Vector";
+import Map from "ol/Map";
+import {unByKey} from "ol/Observable";
+import Overlay from "ol/Overlay";
+import OSM from "ol/source/OSM";
+import VectorSource from "ol/source/Vector";
+import {getLength} from "ol/sphere";
+import CircleStyle from "ol/style/Circle";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
+import View from "ol/View";
 
 @Component({
-  selector: 'kpn-map-tryout-1-page',
+  selector: "kpn-map-tryout-1-page",
   template: `
     <div id="map-trout-1" class="map"></div>
   `,
@@ -82,16 +85,16 @@ export class MapTryout1PageComponent {
       source: source,
       style: new Style({
         fill: new Fill({
-          color: 'rgba(255, 255, 255, 0.2)'
+          color: "rgba(255, 255, 255, 0.2)"
         }),
         stroke: new Stroke({
-          color: '#ffcc33',
+          color: "#ffcc33",
           width: 2
         }),
         image: new CircleStyle({
           radius: 7,
           fill: new Fill({
-            color: '#ffcc33'
+            color: "#ffcc33"
           })
         })
       })
@@ -116,7 +119,7 @@ export class MapTryout1PageComponent {
       helpTooltipElement.innerHTML = helpMsg;
       helpTooltip.setPosition(evt.coordinate);
 
-      helpTooltipElement.classList.remove('hidden');
+      helpTooltipElement.classList.remove("hidden");
     };
 
 
@@ -132,7 +135,7 @@ export class MapTryout1PageComponent {
     map.on("pointermove", pointerMoveHandler);
 
     map.getViewport().addEventListener("mouseout", function () {
-      helpTooltipElement.classList.add('hidden');
+      helpTooltipElement.classList.add("hidden");
     });
 
     let draw: Draw; // global so we can remove it later

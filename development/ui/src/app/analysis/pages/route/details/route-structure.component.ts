@@ -3,7 +3,7 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {List} from "immutable";
 
 @Component({
-  selector: 'kpn-route-structure',
+  selector: "kpn-route-structure",
   template: `
     <table class="kpn-table">
       <tbody>

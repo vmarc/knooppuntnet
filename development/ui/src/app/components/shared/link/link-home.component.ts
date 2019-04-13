@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-home',
+  selector: "kpn-link-home",
   template: `
     <a routerLink="/home">Home</a>
   `

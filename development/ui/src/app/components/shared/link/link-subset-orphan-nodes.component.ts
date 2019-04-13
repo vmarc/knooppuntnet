@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: 'kpn-link-subset-orphan-nodes',
+  selector: "kpn-link-subset-orphan-nodes",
   template: `
     <a routerLink="{{'/analysis/orphan-nodes/' + country + '/' + networkType}}">Orphan nodes</a>
   `

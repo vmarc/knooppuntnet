@@ -1,10 +1,15 @@
-import Coordinate from 'ol/coordinate';
-import Feature from 'ol/Feature';
-import {LineString, Point} from 'ol/geom.js';
-import {Vector as VectorLayer} from 'ol/layer';
-import Map from 'ol/Map';
-import {Vector as VectorSource} from 'ol/source';
-import {Icon, Stroke, Style} from 'ol/style';
+import Coordinate from "ol/coordinate";
+import Feature from "ol/Feature";
+import LineString from "ol/geom/LineString";
+import Point from "ol/geom/Point";
+import VectorLayer from "ol/layer/Vector";
+import Map from "ol/Map";
+import VectorSource from "ol/source/Vector";
+import Icon from "ol/style/Icon";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
+import {PlanFlag} from "../plan/plan-flag";
+import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
 

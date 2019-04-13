@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {saveAs} from "file-saver";
 import {TranslationFile} from "./domain/translation-file";
 import {TranslationUnit} from "./domain/translation-unit";
@@ -6,7 +6,7 @@ import {XliffWriter} from "./domain/xliff-writer";
 import {TranslationsService} from "./translations.service";
 
 @Component({
-  selector: 'translations',
+  selector: "translations",
   template: `
     <h1>Translations</h1>
 
@@ -43,7 +43,7 @@ export class TranslationsComponent implements OnInit {
   export() {
     console.log("Export");
     const content = new XliffWriter().write(this.translationFile);
-    const blob = new Blob([content], {type: 'application/xml'});
+    const blob = new Blob([content], {type: "application/xml"});
     let filename = "messages." + this.translationFile.targetLanguage + ".xlf";
     saveAs(blob, filename);
   }
