@@ -8,7 +8,7 @@ export class Plan {
               public readonly legs: List<PlanLeg>) {
   }
 
-  lastNode(): PlanNode {
+  get sink(): PlanNode {
     const lastLeg = this.legs.last(null);
     if (lastLeg) {
       return lastLeg.sink;

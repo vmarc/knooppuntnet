@@ -1,4 +1,5 @@
 import Coordinate from "ol/coordinate";
+import {TestSupport} from "../../../util/test-support";
 import {PlannerElasticBand} from "./planner-elastic-band";
 
 export class PlannerElasticBandMock implements PlannerElasticBand {
@@ -28,15 +29,15 @@ export class PlannerElasticBandMock implements PlannerElasticBand {
   // assertions
 
   expectAnchor1(anchor: Coordinate): void {
-    expect(this._anchor1).toEqual(anchor);
+    TestSupport.expectCoordinate(this._anchor1, anchor);
   }
 
   expectAnchor2(anchor: Coordinate): void {
-    expect(this._anchor2).toEqual(anchor);
+    TestSupport.expectCoordinate(this._anchor2, anchor);
   }
 
   expectPosition(position: Coordinate): void {
-    expect(this._position).toEqual(position);
+    TestSupport.expectCoordinate(this._position, position);
   }
 
   expectVisible(visible: boolean): void {

@@ -82,6 +82,10 @@ export class PlannerCommandStack {
     return null;
   }
 
+  last(): PlannerCommand {
+    return this._commands.get(this.commandCount - 1);
+  }
+
   get canUndo(): boolean {
     return this._canUndo;
   }

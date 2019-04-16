@@ -93,7 +93,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     this.context.cursor.setStyle("default");
     this.context.crosshair.updatePosition(coordinate);
 
-    return true;
+    return false;
   }
 
   handleDragEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
@@ -150,6 +150,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     this.context.crosshair.setVisible(true);
+    this.context.crosshair.updatePosition(coordinate);
     return false;
   }
 
@@ -168,7 +169,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const command = new PlannerCommandAddStartPoint(networkNode.node);
       this.context.execute(command);
     } else {
-      const source: PlanNode = this.context.plan.lastNode();
+      const source: PlanNode = this.context.plan.sink;
       const leg = this.buildLeg(FeatureId.next(), source, networkNode.node);
       const command = new PlannerCommandAddLeg(leg.featureId);
       this.context.execute(command);
@@ -241,15 +242,15 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.execute(command);
       } else {
         const legs = this.context.plan.legs;
-        const indexLeg1 = legs.findIndex(leg => leg.featureId == this.nodeDrag.legFeatureId);
+        const nextLegIndex = legs.findIndex(leg => leg.featureId == this.nodeDrag.legFeatureId);
 
-        const oldLeg1 = legs.get(indexLeg1);
-        const oldLeg2 = legs.get(indexLeg1 + 1);
+        const oldLeg1 = legs.get(nextLegIndex - 1);
+        const oldLeg2 = legs.get(nextLegIndex);
 
         const newLeg1: PlanLeg = this.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
         const newLeg2: PlanLeg = this.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
 
-        const command = new PlannerCommandMoveViaPoint(indexLeg1, oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);
+        const command = new PlannerCommandMoveViaPoint(nextLegIndex, oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);
         this.context.execute(command);
       }
     }
@@ -295,8 +296,6 @@ export class PlannerEngineImpl implements PlannerEngine {
           return new PlanLegFragment(sink, meters, coordinates);
         });
 
-        console.log("DEBUG PlannerEngineImpl received leg " + legId);
-
         const leg = new PlanLeg(legId, source, sink, fragments);
         this.context.legs.add(leg);
         this.context.updatePlanLeg(legId, fragments);
@@ -305,6 +304,12 @@ export class PlannerEngineImpl implements PlannerEngine {
         // TODO handle leg not found
       }
     });
+
+    const cachedLeg2 = this.context.legs.get(source.nodeId, sink.nodeId);
+    if (cachedLeg2) {
+      return new PlanLeg(legId, source, sink, cachedLeg2.fragments);
+    }
+
     const leg = new PlanLeg(legId, source, sink, List());
     this.context.legs.add(leg);
     return leg;
