@@ -92,7 +92,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
 
       fragment.nodes.sliding(2).toSeq.map { case Seq(p1, p2) =>
         val meters = (Haversine.km(p1.lat, p1.lon, p2.lat, p2.lon) * 1000).toInt
-        val orientation = DirectionAnalyzer.calculateOrientation(Latlon(p1.lat, p1.lon), Latlon(p2.lat, p2.lon))
+        val orientation = DirectionAnalyzer.calculateHeading(Latlon(p1.lat, p1.lon), Latlon(p2.lat, p2.lon))
         TrackSegmentFragment(
           toTrackPoint(p2),
           meters,

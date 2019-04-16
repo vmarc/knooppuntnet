@@ -54,14 +54,14 @@ class DirectionAnalyzerTest extends FunSuite with Matchers {
   }
 
   test("calculateHeading") {
-    calculateHeading(center, north) should equal(.0 +- 0.1)
-    calculateHeading(center, northEast) should equal(45.0 +- 5)
-    calculateHeading(center, east) should equal(90.0 +- 1)
-    calculateHeading(center, southEast) should equal(135.0 +- 5)
-    calculateHeading(center, south) should equal(180.0 +- 1)
-    calculateHeading(center, southWest) should equal(225.0 +- 5)
-    calculateHeading(center, west) should equal(270.0 +- 1)
-    calculateHeading(center, northWest) should equal(315.0 +- 5)
+    calculateHeading(center, north) should equal(0)
+    calculateHeading(center, northEast) should equal(45)
+    calculateHeading(center, east) should equal(90 +- 1)
+    calculateHeading(center, southEast) should equal(135 +- 5)
+    calculateHeading(center, south) should equal(180 +- 1)
+    calculateHeading(center, southWest) should equal(225 +- 5)
+    calculateHeading(center, west) should equal(270 +- 1)
+    calculateHeading(center, northWest) should equal(315 +- 5)
   }
 
   test("calculateTurnText") {

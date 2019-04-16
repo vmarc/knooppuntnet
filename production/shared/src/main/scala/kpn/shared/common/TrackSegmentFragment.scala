@@ -3,6 +3,6 @@ package kpn.shared.common
 case class TrackSegmentFragment(
   trackPoint: TrackPoint,
   meters: Int,
-  orientation: Double,
+  orientation: Int,
   streetIndex: Option[Int]
 )

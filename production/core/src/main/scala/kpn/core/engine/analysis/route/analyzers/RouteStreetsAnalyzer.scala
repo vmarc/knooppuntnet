@@ -1,6 +1,8 @@
 package kpn.core.engine.analysis.route.analyzers
 
+import kpn.core.analysis.RouteMemberWay
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.shared.data.Way
 
 object RouteStreetsAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -11,7 +13,11 @@ object RouteStreetsAnalyzer extends RouteAnalyzer {
 class RouteStreetsAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val sortedStreets = context.ways.toSeq.flatten.flatMap(_.tags("name")).distinct.sorted
+    val ways: Seq[Way] = context.routeMembers.get.flatMap {
+      case w: RouteMemberWay => Some(w.way)
+      case _ => None
+    }
+    val sortedStreets = ways.flatMap(_.tags("name")).distinct.sorted
     context.copy(streets = Some(sortedStreets))
   }
 

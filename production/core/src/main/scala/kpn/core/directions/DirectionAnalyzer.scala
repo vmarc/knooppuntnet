@@ -2,10 +2,11 @@ package kpn.core.directions
 
 object DirectionAnalyzer {
 
-  def calculateHeading(p1: Latlon, p2: Latlon): Double = {
+  def calculateHeading(p1: Latlon, p2: Latlon): Int = {
     var orientation = Math.PI / 2 - calculateOrientation(p1, p2)
     if (orientation < 0) orientation += 2 * Math.PI
-    Math.toDegrees(orientation) % 360
+    val heading: Double = Math.toDegrees(orientation) % 360
+    Math.round(heading).toInt
   }
 
   /*
