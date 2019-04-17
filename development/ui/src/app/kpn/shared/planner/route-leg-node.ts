@@ -1,12 +1,11 @@
 // this class is generated, please do not modify
 
-import {LatLonImpl} from "../lat-lon-impl";
-
 export class RouteLegNode {
 
   constructor(readonly nodeId: string,
               readonly nodeName: string,
-              readonly latLon: LatLonImpl) {
+              readonly lat: string,
+              readonly lon: string) {
   }
 
   public static fromJSON(jsonObject): RouteLegNode {
@@ -16,7 +15,8 @@ export class RouteLegNode {
     return new RouteLegNode(
       jsonObject.nodeId,
       jsonObject.nodeName,
-      LatLonImpl.fromJSON(jsonObject.latLon)
+      jsonObject.lat,
+      jsonObject.lon
     );
   }
 }

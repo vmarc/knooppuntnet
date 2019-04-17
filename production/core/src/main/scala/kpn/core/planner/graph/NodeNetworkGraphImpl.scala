@@ -36,8 +36,8 @@ class NodeNetworkGraphImpl extends NodeNetworkGraph {
         None
       }
       else {
-        val legs = vertexList.tail.zip(edgeList).map { case (vertex, pathKey) => GraphPathLeg(vertex, pathKey) }
-        Some(GraphPath(sourceNodeId, legs))
+        val segments = vertexList.tail.zip(edgeList).map { case (vertex, pathKey) => GraphPathSegment(vertex, pathKey) }
+        Some(GraphPath(sourceNodeId, segments))
       }
     }
     catch {

@@ -5,13 +5,14 @@ import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.repository.GraphRepository
 import kpn.core.repository.RouteRepository
-import kpn.shared.LatLonImpl
 import kpn.shared.NetworkType
 import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPathKey
 import kpn.shared.planner.RouteLeg
 import kpn.shared.planner.RouteLegFragment
 import kpn.shared.planner.RouteLegNode
+import kpn.shared.planner.RouteLegRoute
+import kpn.shared.planner.RouteLegSegment
 import kpn.shared.route.RouteMap
 import kpn.shared.route.RouteNetworkNodeInfo
 
@@ -31,40 +32,52 @@ class LegBuilderImpl(
         graph.findPath(sourceNodeId.toLong, sinkNodeId.toLong) match {
           case Some(path) =>
 
-            val fragments: Seq[RouteLegFragment] = path.legs.flatMap { leg =>
-              val routeId = leg.pathKey.routeId
+            val legRoutes: Seq[RouteLegRoute] = path.segments.flatMap { segment =>
+              val routeId = segment.pathKey.routeId
               routeRepository.routeWithId(routeId, Couch.uiTimeout) match {
                 case None =>
                   println(s"route $routeId not found")
                   None
                 case Some(route) =>
                   val routeMap = route.analysis.get.map // TODO make more safe
-                  trackPathFromRouteMap(routeMap, leg.pathKey) match {
+                  trackPathFromRouteMap(routeMap, segment.pathKey) match {
                     case None => None
                     case Some(trackPath) =>
 
-                      val latLons: Seq[LatLonImpl] = trackPath.segments.flatMap { trackPathSegment =>
-                        trackPathSegment.fragments.map { fragment =>
-                          val tp = fragment.trackPoint
-                          LatLonImpl(tp.lat, tp.lon)
+                      val segments: Seq[RouteLegSegment] = trackPath.segments.map { trackPathSegment =>
+                        val fragments: Seq[RouteLegFragment] = trackPathSegment.fragments.map { fragment =>
+                          RouteLegFragment(
+                            fragment.trackPoint.lat,
+                            fragment.trackPoint.lon,
+                            fragment.meters,
+                            fragment.orientation,
+                            fragment.streetIndex
+                          )
                         }
+                        val meters = fragments.map(_.meters).sum
+                        RouteLegSegment(
+                          meters,
+                          trackPathSegment.surface,
+                          fragments
+                        )
                       }
 
-                      val meters = trackPath.segments.flatMap(_.fragments.map(_.meters)).sum
+                      val meters = segments.map(_.meters).sum
 
                       nodeFromRouteMap(routeMap, trackPath.endNodeId) match {
-                        case Some(routeNetworkNodeInfo) =>
-                          val nodeId = routeNetworkNodeInfo.id.toString
-                          val nodeName = routeNetworkNodeInfo.name
-                          val latLon = LatLonImpl(routeNetworkNodeInfo.lat, routeNetworkNodeInfo.lon)
-                          val sink = RouteLegNode(nodeId, nodeName, latLon)
+                        case Some(sinkRouteNetworkNodeInfo) =>
+                          val sinkNodeId = sinkRouteNetworkNodeInfo.id.toString
+                          val sinkodeName = sinkRouteNetworkNodeInfo.name
+                          val sink = RouteLegNode(sinkNodeId, sinkodeName, sinkRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
 
                           nodeFromRouteMap(routeMap, trackPath.startNodeId) match {
-                            case Some(routeNetworkNodeInfo2) =>
-                              val startLatLon = LatLonImpl(routeNetworkNodeInfo2.lat, routeNetworkNodeInfo2.lon)
-                              val allLatLons = startLatLon +: latLons
+                            case Some(sourceRouteNetworkNodeInfo) =>
+                              val sourceNodeId = sourceRouteNetworkNodeInfo.id.toString
+                              val sourceNodeName = sourceRouteNetworkNodeInfo.name
+                              val source = RouteLegNode(sourceNodeId, sourceNodeName, sourceRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
+                              val meters = segments.map(_.meters).sum
+                              Some(RouteLegRoute(source, sink, meters, segments, routeMap.streets))
 
-                              Some(RouteLegFragment(sink, meters, allLatLons))
                             case None =>
                               println(s"route $routeId source node ${trackPath.startNodeId} not found")
                               None
@@ -78,7 +91,7 @@ class LegBuilderImpl(
               }
             }
 
-            val routeLeg = RouteLeg(legId, fragments)
+            val routeLeg = RouteLeg(legId, legRoutes)
             Some(routeLeg)
 
           case None =>

@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
 import {List} from "immutable";
-import {RouteLegFragment} from "./route-leg-fragment";
+import {RouteLegRoute} from "./route-leg-route";
 
 export class RouteLeg {
 
   constructor(readonly legId: string,
-              readonly fragments: List<RouteLegFragment>) {
+              readonly routes: List<RouteLegRoute>) {
   }
 
   public static fromJSON(jsonObject): RouteLeg {
@@ -15,7 +15,7 @@ export class RouteLeg {
     }
     return new RouteLeg(
       jsonObject.legId,
-      jsonObject.fragments ? List(jsonObject.fragments.map(json => RouteLegFragment.fromJSON(json))) : List()
+      jsonObject.routes ? List(jsonObject.routes.map(json => RouteLegRoute.fromJSON(json))) : List()
     );
   }
 }

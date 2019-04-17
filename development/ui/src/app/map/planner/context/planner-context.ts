@@ -1,11 +1,9 @@
-import {List} from "immutable";
 import {BehaviorSubject, Observable} from "rxjs";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
-import {PlanLegFragment} from "../plan/plan-leg-fragment";
 import {PlannerCrosshair} from "./planner-crosshair";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
@@ -58,18 +56,17 @@ export class PlannerContext {
     this._plan.next(plan);
   }
 
-  updatePlanLeg(legId: string, fragments: List<PlanLegFragment>) {
-    const existingLeg = this.legs.getById(legId);
-    const newLeg = new PlanLeg(legId, existingLeg.source, existingLeg.sink, fragments);
+  updatePlanLeg(newLeg: PlanLeg) {
     const newLegs = this.plan.legs.map(leg => {
-      if (leg.featureId === legId) {
+      if (leg.featureId === newLeg.featureId) {
         return newLeg;
       }
       return leg;
     });
     const newPlan = new Plan(this.plan.source, newLegs);
-    this.updatePlan(newPlan);
 
+    console.log("DEBUG PlannerContext updatePlanLeg\n" + JSON.stringify(newPlan, null, 2));
+    this.updatePlan(newPlan);
     this.routeLayer.addRouteLeg(newLeg);
   }
 

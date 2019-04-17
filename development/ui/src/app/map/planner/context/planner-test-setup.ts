@@ -3,10 +3,12 @@ import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
+import {PlanFragment} from "../plan/plan-fragment";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
-import {PlanLegFragment} from "../plan/plan-leg-fragment";
 import {PlanNode} from "../plan/plan-node";
+import {PlanRoute} from "../plan/plan-route";
+import {PlanSegment} from "../plan/plan-segment";
 import {PlannerContext} from "./planner-context";
 import {PlannerCrosshairMock} from "./planner-crosshair-mock";
 import {PlannerCursorMock} from "./planner-cursor-mock";
@@ -32,26 +34,36 @@ export class PlannerTestSetup {
     this.legs
   );
 
+  readonly node1 = PlanNode.create("1001", "01", [1, 1]);
+  readonly node2 = PlanNode.create("1002", "02", [2, 2]);
+  readonly node3 = PlanNode.create("1003", "03", [3, 3]);
+  readonly node4 = PlanNode.create("1004", "04", [4, 4]);
+
+  createLeg(source: PlanNode, sink: PlanNode): PlanLeg {
+    const fragment = new PlanFragment(0, 0, -1, sink.coordinate);
+    const segment = new PlanSegment(0, "", List([fragment]));
+    const route = new PlanRoute(source, sink, 0, List([segment]), List());
+    const leg = new PlanLeg(FeatureId.next(), source, sink, 0, List([route]));
+    this.legRepository.add(leg);
+    this.legs.add(leg);
+    return leg;
+  }
+
   createPlanWithStartPointOnly(): Plan {
-    const startNode = PlanNode.create("1001", "01", [1, 1]);
-    const plan = new Plan(startNode, List());
+    const plan = new Plan(this.node1, List());
     this.context.updatePlan(plan);
-    this.routeLayer.addFlag(PlanFlag.fromStartNode(startNode));
+    this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
     return plan;
   }
 
   createOneLegPlan(): Plan {
 
-    const startNode = PlanNode.create("1001", "01", [1, 1]);
-    const endNode = PlanNode.create("1002", "02", [2, 2]);
-    const fragment = new PlanLegFragment(endNode, 10, List([startNode.coordinate, endNode.coordinate]));
-    const leg = new PlanLeg(FeatureId.next(), startNode, endNode, List([fragment]));
-    this.context.legs.add(leg);
-    const plan = new Plan(startNode, List([leg]));
+    const leg = this.createLeg(this.node1, this.node2);
+    const plan = new Plan(this.node1, List([leg]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(PlanFlag.fromStartNode(startNode));
-    this.routeLayer.addFlag(PlanFlag.fromViaNode(endNode));
+    this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
+    this.routeLayer.addFlag(PlanFlag.fromViaNode(this.node2));
     this.routeLayer.addRouteLeg(leg);
 
     return plan;
@@ -59,24 +71,14 @@ export class PlannerTestSetup {
 
   createTwoLegPlan(): Plan {
 
-    const startNode = PlanNode.create("1001", "01", [1, 1]);
-    const viaNode = PlanNode.create("1002", "02", [2, 2]);
-    const endNode = PlanNode.create("1003", "03", [3, 3]);
-
-    const fragment1 = new PlanLegFragment(viaNode, 10, List([startNode.coordinate, viaNode.coordinate]));
-    const leg1 = new PlanLeg(FeatureId.next(), startNode, viaNode, List([fragment1]));
-    this.context.legs.add(leg1);
-
-    const fragment2 = new PlanLegFragment(endNode, 10, List([viaNode.coordinate, endNode.coordinate]));
-    const leg2 = new PlanLeg(FeatureId.next(), viaNode, endNode, List([fragment2]));
-    this.context.legs.add(leg2);
-
-    const plan = new Plan(startNode, List([leg1, leg2]));
+    const leg1 = this.createLeg(this.node1, this.node2);
+    const leg2 = this.createLeg(this.node2, this.node3);
+    const plan = new Plan(this.node1, List([leg1, leg2]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(PlanFlag.fromStartNode(startNode));
-    this.routeLayer.addFlag(PlanFlag.fromViaNode(viaNode));
-    this.routeLayer.addFlag(PlanFlag.fromViaNode(endNode));
+    this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
+    this.routeLayer.addFlag(PlanFlag.fromViaNode(this.node2));
+    this.routeLayer.addFlag(PlanFlag.fromViaNode(this.node3));
     this.routeLayer.addRouteLeg(leg1);
     this.routeLayer.addRouteLeg(leg2);
 

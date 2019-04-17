@@ -1,8 +1,4 @@
 import {List} from "immutable";
-import {Util} from "../../../components/shared/util";
-import {RouteLeg} from "../../../kpn/shared/planner/route-leg";
-import {RouteLegFragment} from "../../../kpn/shared/planner/route-leg-fragment";
-import {RouteLegNode} from "../../../kpn/shared/planner/route-leg-node";
 import {TestSupport} from "../../../util/test-support";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
@@ -10,7 +6,6 @@ import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-sta
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
-import {FeatureId} from "../features/feature-id";
 import {PlannerMapFeature} from "../features/planner-map-feature";
 import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
@@ -236,10 +231,7 @@ describe("PlannerEngine", () => {
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
       const newStartNodeFeature = PlannerMapFeature.networkNode("1003", "03", [3, 3]);
-      const sink = new RouteLegNode("1002", "02", Util.latLonFromCoordinate([2, 2]));
-      const newRouteFragment = new RouteLegFragment(sink, 10, List([Util.latLonFromCoordinate([3, 3]), Util.latLonFromCoordinate([2, 2])]));
-      const newRouteLeg = new RouteLeg("222", List([newRouteFragment]));
-      setup.legRepository.add(newRouteLeg, "1003", "1002");
+      setup.createLeg(setup.node3, setup.node2);
       const oldStartNodeFeature = PlannerMapFeature.startFlag(oldPlan.source.featureId);
 
       // act - start drag
@@ -288,12 +280,7 @@ describe("PlannerEngine", () => {
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.source.nodeId).toEqual("1003");
       expect(newLeg.sink.nodeId).toEqual("1002");
-      expect(newLeg.fragments.size).toEqual(1);
-      const newFragment = newLeg.fragments.get(0);
-      expect(newFragment.sink.nodeId).toEqual("1002");
-      expect(newFragment.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment.coordinates.get(0), [3, 3]);
-      TestSupport.expectCoordinate(newFragment.coordinates.get(1), [2, 2]);
+      TestSupport.expectCoordinates(newLeg.coordinates(), [3, 3], [2, 2]);
 
       setup.crosshair.expectVisible(true);
       setup.crosshair.expectPosition([3.1, 3.1]); // no snap
@@ -371,10 +358,7 @@ describe("PlannerEngine", () => {
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
       const newEndNodeFeature = PlannerMapFeature.networkNode("1003", "03", [3, 3]);
-      const sink = new RouteLegNode("1003", "03", Util.latLonFromCoordinate([3, 3]));
-      const newRouteFragment = new RouteLegFragment(sink, 10, List([Util.latLonFromCoordinate([1, 1]), Util.latLonFromCoordinate([3, 3])]));
-      const newRouteLeg = new RouteLeg("bla", List([newRouteFragment]));
-      setup.legRepository.add(newRouteLeg, "1001", "1003");
+      setup.createLeg(setup.node1, setup.node3);
       const oldEndNodeFeature = PlannerMapFeature.viaFlag(oldPlan.sink.featureId);
 
       // act - start drag
@@ -422,12 +406,7 @@ describe("PlannerEngine", () => {
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.source.nodeId).toEqual("1001");
       expect(newLeg.sink.nodeId).toEqual("1003");
-      expect(newLeg.fragments.size).toEqual(1);
-      const newFragment = newLeg.fragments.get(0);
-      expect(newFragment.sink.nodeId).toEqual("1003");
-      expect(newFragment.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment.coordinates.get(0), [1, 1]);
-      TestSupport.expectCoordinate(newFragment.coordinates.get(1), [3, 3]);
+      TestSupport.expectCoordinates(newLeg.coordinates(), [1, 1], [3, 3]);
 
       setup.crosshair.expectVisible(true);
       setup.crosshair.expectPosition([3.1, 3.1]); // no snap
@@ -479,12 +458,7 @@ describe("PlannerEngine", () => {
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.source.nodeId).toEqual("1001");
       expect(newLeg.sink.nodeId).toEqual("1002");
-      expect(newLeg.fragments.size).toEqual(1);
-      const newFragment = newLeg.fragments.get(0);
-      expect(newFragment.sink.nodeId).toEqual("1002");
-      expect(newFragment.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment.coordinates.get(0), [1, 1]);
-      TestSupport.expectCoordinate(newFragment.coordinates.get(1), [2, 2]);
+      TestSupport.expectCoordinates(newLeg.coordinates(), [1, 1], [2, 2]);
 
       setup.crosshair.expectVisible(true);
       setup.crosshair.expectPosition([2.5, 2.5]);
@@ -510,17 +484,8 @@ describe("PlannerEngine", () => {
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createTwoLegPlan();
       const newViaNodeFeature = PlannerMapFeature.networkNode("1004", "04", [4, 4]);
-
-      const sink1 = new RouteLegNode("1004", "04", Util.latLonFromCoordinate([4, 4]));
-      const newRouteFragment1 = new RouteLegFragment(sink1, 10, List([Util.latLonFromCoordinate([1, 1]), Util.latLonFromCoordinate([4, 4])]));
-      const newRouteLeg1 = new RouteLeg(FeatureId.next(), List([newRouteFragment1]));
-      setup.legRepository.add(newRouteLeg1, "1001", "1004");
-
-      const sink2 = new RouteLegNode("1003", "03", Util.latLonFromCoordinate([3, 3]));
-      const newRouteFragment2 = new RouteLegFragment(sink2, 10, List([Util.latLonFromCoordinate([4, 4]), Util.latLonFromCoordinate([3, 3])]));
-      const newRouteLeg2 = new RouteLeg(FeatureId.next(), List([newRouteFragment2]));
-      setup.legRepository.add(newRouteLeg2, "1004", "1003");
-
+      setup.createLeg(setup.node1, setup.node4);
+      setup.createLeg(setup.node4, setup.node3);
       const oldViaNodeFeature = PlannerMapFeature.viaFlag(oldPlan.legs.get(0).sink.featureId);
 
       // act - start drag
@@ -577,20 +542,8 @@ describe("PlannerEngine", () => {
       expect(newLeg2.source.nodeId).toEqual("1004");
       expect(newLeg2.sink.nodeId).toEqual("1003");
 
-      expect(newLeg1.fragments.size).toEqual(1);
-      const newFragment1 = newLeg1.fragments.get(0);
-      expect(newFragment1.sink.nodeId).toEqual("1004");
-      expect(newFragment1.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(0), [1, 1]);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(1), [4, 4]);
-
-      expect(newLeg2.fragments.size).toEqual(1);
-      const newFragment2 = newLeg2.fragments.get(0);
-      expect(newFragment2.sink.nodeId).toEqual("1003");
-      expect(newFragment2.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment2.coordinates.get(0), [4, 4]);
-      TestSupport.expectCoordinate(newFragment2.coordinates.get(1), [3, 3]);
-
+      TestSupport.expectCoordinates(newLeg1.coordinates(), [1, 1], [4, 4]);
+      TestSupport.expectCoordinates(newLeg2.coordinates(), [4, 4], [3, 3]);
 
       setup.crosshair.expectVisible(true);
       setup.crosshair.expectPosition([4.1, 4.1]); // no snap
@@ -652,20 +605,8 @@ describe("PlannerEngine", () => {
       expect(newLeg2.source.nodeId).toEqual("1002");
       expect(newLeg2.sink.nodeId).toEqual("1003");
 
-      expect(newLeg1.fragments.size).toEqual(1);
-      const newFragment1 = newLeg1.fragments.get(0);
-      expect(newFragment1.sink.nodeId).toEqual("1002");
-      expect(newFragment1.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(0), [1, 1]);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(1), [2, 2]);
-
-      expect(newLeg2.fragments.size).toEqual(1);
-      const newFragment2 = newLeg2.fragments.get(0);
-      expect(newFragment2.sink.nodeId).toEqual("1003");
-      expect(newFragment2.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment2.coordinates.get(0), [2, 2]);
-      TestSupport.expectCoordinate(newFragment2.coordinates.get(1), [3, 3]);
-
+      TestSupport.expectCoordinates(newLeg1.coordinates(), [1, 1], [2, 2]);
+      TestSupport.expectCoordinates(newLeg2.coordinates(), [2, 2], [3, 3]);
 
       setup.crosshair.expectVisible(true);
       setup.crosshair.expectPosition([2.5, 2.5]);
@@ -692,17 +633,8 @@ describe("PlannerEngine", () => {
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
       const newViaNodeFeature = PlannerMapFeature.networkNode("1003", "03", [3, 3]);
-
-      const sink1 = new RouteLegNode("1003", "03", Util.latLonFromCoordinate([3, 3]));
-      const newRouteFragment1 = new RouteLegFragment(sink1, 10, List([Util.latLonFromCoordinate([1, 1]), Util.latLonFromCoordinate([3, 3])]));
-      const newRouteLeg1 = new RouteLeg(FeatureId.next(), List([newRouteFragment1]));
-      setup.legRepository.add(newRouteLeg1, "1001", "1003");
-
-      const sink2 = new RouteLegNode("1002", "02", Util.latLonFromCoordinate([2, 2]));
-      const newRouteFragment2 = new RouteLegFragment(sink2, 10, List([Util.latLonFromCoordinate([3, 3]), Util.latLonFromCoordinate([2, 2])]));
-      const newRouteLeg2 = new RouteLeg(FeatureId.next(), List([newRouteFragment2]));
-      setup.legRepository.add(newRouteLeg2, "1003", "1002");
-
+      setup.createLeg(setup.node1, setup.node3);
+      setup.createLeg(setup.node3, setup.node2);
       const oldLegFeature = PlannerMapFeature.leg(oldPlan.legs.get(0).featureId);
 
       // act - start drag
@@ -757,20 +689,8 @@ describe("PlannerEngine", () => {
       expect(newLeg2.source.nodeId).toEqual("1003");
       expect(newLeg2.sink.nodeId).toEqual("1002");
 
-      expect(newLeg1.fragments.size).toEqual(1);
-      const newFragment1 = newLeg1.fragments.get(0);
-      expect(newFragment1.sink.nodeId).toEqual("1003");
-      expect(newFragment1.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(0), [1, 1]);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(1), [3, 3]);
-
-      expect(newLeg2.fragments.size).toEqual(1);
-      const newFragment2 = newLeg2.fragments.get(0);
-      expect(newFragment2.sink.nodeId).toEqual("1002");
-      expect(newFragment2.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment2.coordinates.get(0), [3, 3]);
-      TestSupport.expectCoordinate(newFragment2.coordinates.get(1), [2, 2]);
-
+      TestSupport.expectCoordinates(newLeg1.coordinates(), [1, 1], [3, 3]);
+      TestSupport.expectCoordinates(newLeg2.coordinates(), [3, 3], [2, 2]);
 
       setup.crosshair.expectVisible(true);
       setup.crosshair.expectPosition([3.1, 3.1]); // no snap
@@ -828,12 +748,7 @@ describe("PlannerEngine", () => {
       expect(newLeg.source.nodeId).toEqual("1001");
       expect(newLeg.sink.nodeId).toEqual("1002");
 
-      expect(newLeg.fragments.size).toEqual(1);
-      const newFragment1 = newLeg.fragments.get(0);
-      expect(newFragment1.sink.nodeId).toEqual("1002");
-      expect(newFragment1.coordinates.size).toEqual(2);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(0), [1, 1]);
-      TestSupport.expectCoordinate(newFragment1.coordinates.get(1), [2, 2]);
+      TestSupport.expectCoordinates(newLeg.coordinates(), [1, 1], [2, 2]);
 
       setup.crosshair.expectVisible(true);
       setup.crosshair.expectPosition([1.7, 1.7]);

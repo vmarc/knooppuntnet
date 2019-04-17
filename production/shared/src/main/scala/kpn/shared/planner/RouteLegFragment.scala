@@ -1,5 +1,9 @@
 package kpn.shared.planner
 
-import kpn.shared.LatLonImpl
-
-case class RouteLegFragment(sink: RouteLegNode, meters: Int, latLons: Seq[LatLonImpl])
+case class RouteLegFragment(
+  lat: String,
+  lon: String,
+  meters: Int,
+  orientation: Int,
+  streetIndex: Option[Int]
+)

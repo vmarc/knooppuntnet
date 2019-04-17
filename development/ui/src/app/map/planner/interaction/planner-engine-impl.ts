@@ -1,6 +1,5 @@
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
-import {fromLonLat} from "ol/proj";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
@@ -13,7 +12,6 @@ import {FeatureId} from "../features/feature-id";
 import {PlannerMapFeature} from "../features/planner-map-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
-import {PlanLegFragment} from "../plan/plan-leg-fragment";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
@@ -274,43 +272,24 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const cachedLeg = this.context.legs.get(source.nodeId, sink.nodeId);
     if (cachedLeg) {
-      return new PlanLeg(legId, source, sink, cachedLeg.fragments);
+      const plan = new PlanLeg(legId, source, sink, cachedLeg.meters, cachedLeg.routes);
+      this.context.legs.add(plan);
     }
 
-    this.context.legRepository.routeLeg("rcn", legId, source.nodeId, sink.nodeId).subscribe(response => {
-      if (response.result) {
-        const fragments = response.result.fragments.map(routeLegFragment => {
-          const nodeId: string = routeLegFragment.sink.nodeId;
-          const nodeName: string = routeLegFragment.sink.nodeName;
-          const lon = parseFloat(routeLegFragment.sink.latLon.longitude);
-          const lat = parseFloat(routeLegFragment.sink.latLon.latitude);
-          const coordinate: Coordinate = fromLonLat([lon, lat]);
-          const sink: PlanNode = PlanNode.create(nodeId, nodeName, coordinate);
-          const meters: number = routeLegFragment.meters;
-          const coordinates: List<Coordinates> = routeLegFragment.latLons.map(f => {
-            const lon = parseFloat(f.longitude);
-            const lat = parseFloat(f.latitude);
-            return fromLonLat([lon, lat]);
-          });
-
-          return new PlanLegFragment(sink, meters, coordinates);
-        });
-
-        const leg = new PlanLeg(legId, source, sink, fragments);
-        this.context.legs.add(leg);
-        this.context.updatePlanLeg(legId, fragments);
-        this.context.routeLayer.addRouteLeg(leg);
-      } else {
-        // TODO handle leg not found
+    this.context.legRepository.planLeg("rwn", legId, source.nodeId, sink.nodeId).subscribe(planLeg => {
+      if (planLeg) {
+        this.context.legs.add(planLeg);
+        this.context.updatePlanLeg(planLeg);
+        this.context.routeLayer.addRouteLeg(planLeg);
       }
     });
 
     const cachedLeg2 = this.context.legs.get(source.nodeId, sink.nodeId);
     if (cachedLeg2) {
-      return new PlanLeg(legId, source, sink, cachedLeg2.fragments);
+      return new PlanLeg(legId, source, sink, cachedLeg2.meters, cachedLeg2.routes);
     }
 
-    const leg = new PlanLeg(legId, source, sink, List());
+    const leg = new PlanLeg(legId, source, sink, 0, List());
     this.context.legs.add(leg);
     return leg;
   }

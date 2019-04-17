@@ -18,7 +18,7 @@ export class Plan {
 
   cumulativeMetersLeg(legIndex: number): number {
     if (legIndex < this.legs.size) {
-      return this.legs.slice(0, legIndex + 1).map(l => l.meters()).reduce((sum, current) => sum + current, 0);
+      return this.legs.slice(0, legIndex + 1).map(l => l.meters).reduce((sum, current) => sum + current, 0);
     }
     return 0;
   }
@@ -33,4 +33,5 @@ export class Plan {
   static empty(): Plan {
     return new Plan(null, List());
   }
+
 }

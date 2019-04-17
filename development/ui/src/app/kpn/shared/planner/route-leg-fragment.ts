@@ -1,14 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {LatLonImpl} from "../lat-lon-impl";
-import {RouteLegNode} from "./route-leg-node";
-
 export class RouteLegFragment {
 
-  constructor(readonly sink: RouteLegNode,
+  constructor(readonly lat: string,
+              readonly lon: string,
               readonly meters: number,
-              readonly latLons: List<LatLonImpl>) {
+              readonly orientation: number,
+              readonly streetIndex: number) {
   }
 
   public static fromJSON(jsonObject): RouteLegFragment {
@@ -16,9 +14,11 @@ export class RouteLegFragment {
       return undefined;
     }
     return new RouteLegFragment(
-      RouteLegNode.fromJSON(jsonObject.sink),
+      jsonObject.lat,
+      jsonObject.lon,
       jsonObject.meters,
-      jsonObject.latLons ? List(jsonObject.latLons.map(json => LatLonImpl.fromJSON(json))) : List()
+      jsonObject.orientation,
+      jsonObject.streetIndex
     );
   }
 }

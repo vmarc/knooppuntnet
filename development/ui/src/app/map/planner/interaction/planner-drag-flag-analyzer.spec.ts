@@ -18,9 +18,9 @@ describe("PlannerNodeDragAnalyzer", () => {
   const node3 = PlanNode.create("1003", "03", coordinate3);
   const node4 = PlanNode.create("1004", "03", coordinate4);
 
-  const leg12 = new PlanLeg("12", node1, node2, List());
-  const leg23 = new PlanLeg("23", node2, node3, List());
-  const leg34 = new PlanLeg("34", node3, node4, List());
+  const leg12 = new PlanLeg("12", node1, node2, 0, List());
+  const leg23 = new PlanLeg("23", node2, node3, 0, List());
+  const leg34 = new PlanLeg("34", node3, node4, 0, List());
 
   it("start start-point drag", () => {
 
