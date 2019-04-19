@@ -5,7 +5,6 @@ import java.nio.ByteBuffer
 import akka.actor.ActorSystem
 import boopickle.DefaultBasic._
 import kpn.core.db.json.JsonFormats
-import kpn.core.db.json.JsonFormatsDirections
 import kpn.core.facade.AnalyzerFacade
 import kpn.core.util.Log
 import kpn.shared.ApiResponse
@@ -13,7 +12,6 @@ import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.planner.RouteLeg
 import play.api.mvc.AbstractController
 import play.api.mvc.ControllerComponents
 import play.api.mvc.Result
@@ -91,7 +89,6 @@ class Application(
     val mapDetailRoute = """route-detail/(\d*)""".r
     val poiConfiguration = """poi-configuration""".r
     val poi = """poi/(node|way|relation)/(\d*)""".r
-    val directions = """directions/(en|nl|de)/(.*)""".r
     val leg = """leg/(rcn|rwn|rhn|rmn|rpn|rin)/(.*)/(.*)/(.*)""".r
 
     val userApiService = request.session.get("user") match {
@@ -232,12 +229,6 @@ class Application(
         reply(
           userApiService.poi(elementType, elementId.toLong),
           JsonFormats.poiPageFormat
-        )
-
-      case directions(language, exampleName) =>
-        reply(
-          userApiService.directions(language, exampleName),
-          JsonFormatsDirections.directionsFormat
         )
 
       case leg(networkType, legId, sourceNodeId, sinkNodeId) =>

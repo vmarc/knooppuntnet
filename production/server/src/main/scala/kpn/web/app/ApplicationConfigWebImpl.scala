@@ -18,7 +18,6 @@ class ApplicationConfigWebImpl(configuration: Configuration) extends Application
     val userDbname = configuration.get[String]("couch.database.users")
     val reviewDbname = configuration.get[String]("couch.database.reviews")
     val taskDbname = configuration.get[String]("couch.database.tasks")
-    val graphhopperApiKey = configuration.get[String]("graphhopperApiKey")
 
     CouchConfig(
       host,
@@ -31,8 +30,7 @@ class ApplicationConfigWebImpl(configuration: Configuration) extends Application
       poiDbname,
       userDbname,
       reviewDbname,
-      taskDbname,
-      graphhopperApiKey
+      taskDbname
     )
   }
 }

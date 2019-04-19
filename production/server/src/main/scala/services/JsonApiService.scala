@@ -11,7 +11,6 @@ import kpn.shared.ReplicationId
 import kpn.shared.Subset
 import kpn.shared.changes.ChangeSetPage
 import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.directions.Directions
 import kpn.shared.network.NetworkChangesPage
 import kpn.shared.network.NetworkDetailsPage
 import kpn.shared.network.NetworkFactsPage
@@ -117,10 +116,6 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
 
   def poi(elementType: String, elementId: Long): ApiResponse[PoiPage] = {
     analyzerFacade.poi(user, elementType, elementId)
-  }
-
-  def directions(language: String, exampleName: String): ApiResponse[Directions] = {
-    analyzerFacade.directions(user, language, exampleName)
   }
 
   def leg(networkType: String, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {

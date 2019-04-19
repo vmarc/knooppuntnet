@@ -3,7 +3,6 @@ package kpn.core.app
 import akka.actor.ActorSystem
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
-import kpn.core.directions.DirectionsEngineImpl
 import kpn.core.facade.AnalyzerFacade
 import kpn.core.facade.AnalyzerFacadeImpl
 import kpn.core.facade.pages.ChangeSetPageBuilderImpl
@@ -24,7 +23,6 @@ import kpn.core.facade.pages.SubsetFactsPageBuilderImpl
 import kpn.core.facade.pages.SubsetNetworksPageBuilderImpl
 import kpn.core.facade.pages.SubsetOrphanNodesPageBuilderImpl
 import kpn.core.facade.pages.SubsetOrphanRoutesPageBuilderImpl
-import kpn.core.facade.pages.directions.DirectionsBuilderImpl
 import kpn.core.overpass.OverpassQueryExecutorHttp
 import kpn.core.poi.PoiRepositoryImpl
 import kpn.core.repository.AnalysisRepositoryImpl
@@ -147,14 +145,6 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       poiRepository
     )
 
-    val directionsEngine = new DirectionsEngineImpl(
-      system,
-      couch.materializer,
-      couch.config.graphhopperApiKey
-    )
-
-    val directionsBuilder = new DirectionsBuilderImpl(directionsEngine)
-
     val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
 
     new AnalyzerFacadeImpl(
@@ -182,7 +172,6 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       changeSetPageBuilder,
       networkChangesPageBuilder,
       poiPageBuilder,
-      directionsBuilder,
       legBuilder
     )
   }

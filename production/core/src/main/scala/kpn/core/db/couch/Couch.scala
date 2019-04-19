@@ -85,8 +85,7 @@ object Couch {
         config.getString("couchdb.dbname.pois"),
         config.getString("couchdb.dbname.users"),
         config.getString("couchdb.dbname.reviews"),
-        config.getString("couchdb.dbname.tasks"),
-        config.getString("graphhopperApiKey")
+        config.getString("couchdb.dbname.tasks")
       )
     }
     catch {
