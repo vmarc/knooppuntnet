@@ -16,34 +16,28 @@ import {ExportDialogComponent} from "./export-dialog.component";
       <button mat-raised-button (click)="export()" [disabled]="!exportEnabled()">Export</button>
     </div>
 
-    <div *ngIf="plan.source !== null" class="node user-selected">
-      <div class="text">
-        {{plan.source.nodeName}}
-      </div>
+    <div class="menu">
+      <span>
+        <a [ngClass]="{'selected': mode === 'compact'}" (click)="mode = 'compact'">
+          Compact
+        </a>
+      </span>
+      <span>
+        <a [ngClass]="{'selected': mode === 'detailed'}" (click)="mode = 'detailed'">
+          Detailed
+        </a>
+      </span>
+      <span>
+        <a [ngClass]="{'selected': mode === 'instructions'}" (click)="mode = 'instructions'">
+          Instructions
+        </a>
+      </span>
     </div>
 
-    <div *ngFor="let leg of plan.legs">
-      <div *ngIf="leg.fragments.isEmpty()">
-        <div class="leg">
-          Calculating...
-        </div>
-        <div class="node">
-          <div class="text">
-            {{leg.sink.nodeName}}
-          </div>
-        </div>
-      </div>
-      <div *ngFor="let legFragment of leg.fragments; let i = index">
-        <div class="leg">
-          {{legFragment.meters}} m
-        </div>
-        <div class="node" [class.server-selected]="i < leg.fragments.size - 1">
-          <div class="text">
-            {{legFragment.sink.nodeName}}
-          </div>
-        </div>
-      </div>
-    </div>
+    <kpn-plan-compact *ngIf="mode == 'compact'" [plan]="plan"></kpn-plan-compact>
+    <kpn-plan-detailed *ngIf="mode == 'detailed'" [plan]="plan"></kpn-plan-detailed>
+    <kpn-plan-instructions *ngIf="mode == 'instructions'" [plan]="plan"></kpn-plan-instructions>
+
   `,
   styles: [`
 
@@ -56,31 +50,19 @@ import {ExportDialogComponent} from "./export-dialog.component";
       margin-right: 10px;
     }
 
-    .leg {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-left: 35px;
+    .menu {
+      padding-bottom: 15px;
     }
 
-    .node {
-      display: inline-block;
-      border-color: gray;
-      border-radius: 50%;
-      border-style: solid;
-      border-width: 3px;
-      width: 30px;
-      height: 30px;
+    .menu :not(:last-child):after {
+      content: " | ";
+      padding-left: 5px;
+      padding-right: 5px;
     }
 
-    .server-selected {
-      border-width: 1px;
-      padding-left: 2px;
-    }
-
-    .text {
-      width: 30px;
-      margin-top: 5px;
-      text-align: center;
+    a.selected {
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: bold;
     }
 
   `],
@@ -92,6 +74,8 @@ export class PlanComponent implements OnInit, OnDestroy {
 
   plan: Plan;
   planSubscription: Subscription;
+
+  mode = "compact"; // compact | detailed | instructions
 
   constructor(private plannerService: PlannerService,
               private pdfService: PdfService,
@@ -135,6 +119,8 @@ export class PlanComponent implements OnInit, OnDestroy {
         this.pdfService.printHorizontal(this.plan);
       } else if (result == "pdf2") {
         this.pdfService.printVertical(this.plan);
+      } else if (result == "pdf3") {
+        this.pdfService.printInstructions(this.plan);
       }
     });
   }

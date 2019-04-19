@@ -21,7 +21,7 @@ describe("Plan", () => {
     const leg1 = new PlanLeg("1", null, null, 3000, List([route1, route2]));
     const leg2 = new PlanLeg("2", null, null, 4000, List([route3]));
 
-    const plan = new Plan(null, List([leg1, leg2]));
+    const plan = Plan.create(null, List([leg1, leg2]));
 
     expect(plan.cumulativeKmLeg(0)).toEqual("3 km");
     expect(plan.cumulativeKmLeg(1)).toEqual("7 km");

@@ -22,7 +22,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
 
-    const plan = new Plan(node1, List([oldLeg]));
+    const plan = Plan.create(node1, List([oldLeg]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveFirstLegSource("12", "32");

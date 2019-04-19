@@ -24,7 +24,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("start start-point drag", () => {
 
-    const plan = new Plan(node1, List([leg12, leg23, leg34]));
+    const plan = Plan.create(node1, List([leg12, leg23, leg34]));
     const flag = PlannerMapFeature.startFlag(node1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
@@ -35,7 +35,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("start via-point 2 drag", () => {
 
-    const plan = new Plan(node1, List([leg12, leg23, leg34]));
+    const plan = Plan.create(node1, List([leg12, leg23, leg34]));
     const flag = PlannerMapFeature.flag(PlanFlagType.Via, node2.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
@@ -46,7 +46,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("start via-point 3 drag", () => {
 
-    const plan = new Plan(node1, List([leg12, leg23, leg34]));
+    const plan = Plan.create(node1, List([leg12, leg23, leg34]));
     const flag = PlannerMapFeature.flag(PlanFlagType.Via, node3.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
@@ -56,7 +56,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   });
 
   it("cannot initiate drag of via node on plan with no legs", () => {
-    const plan = new Plan(node1, List());
+    const plan = Plan.create(node1, List());
     const flag = PlannerMapFeature.flag(PlanFlagType.Via, node1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
     expect(drag).toBeNull();
@@ -64,7 +64,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("end-point", () => {
 
-    const plan = new Plan(node1, List([leg12, leg23, leg34]));
+    const plan = Plan.create(node1, List([leg12, leg23, leg34]));
     const flag = PlannerMapFeature.flag(PlanFlagType.Via, node4.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 

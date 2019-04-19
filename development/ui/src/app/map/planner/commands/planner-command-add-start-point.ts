@@ -11,7 +11,7 @@ export class PlannerCommandAddStartPoint implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    const plan = new Plan(this.node, List());
+    const plan = Plan.create(this.node, List());
     context.routeLayer.addFlag(PlanFlag.fromStartNode(this.node));
     context.updatePlan(plan);
   }

@@ -13,14 +13,14 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     context.routeLayer.addFlag(PlanFlag.fromViaNode(leg.sink));
     context.routeLayer.addRouteLeg(leg);
     const newLegs = context.plan.legs.push(leg);
-    const newPlan = new Plan(context.plan.source, newLegs);
+    const newPlan = Plan.create(context.plan.source, newLegs);
     context.updatePlan(newPlan);
   }
 
   public undo(context: PlannerContext) {
     const leg = context.legs.getById(this.legId);
     const newLegs = context.plan.legs.slice(0, -1);
-    const newPlan = new Plan(context.plan.source, newLegs);
+    const newPlan = Plan.create(context.plan.source, newLegs);
     context.updatePlan(newPlan);
     context.routeLayer.removeRouteLeg(this.legId);
     context.routeLayer.removeFlag(leg.sink.featureId);

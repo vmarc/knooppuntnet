@@ -50,7 +50,7 @@ export class PlannerTestSetup {
   }
 
   createPlanWithStartPointOnly(): Plan {
-    const plan = new Plan(this.node1, List());
+    const plan = Plan.create(this.node1, List());
     this.context.updatePlan(plan);
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
     return plan;
@@ -59,7 +59,7 @@ export class PlannerTestSetup {
   createOneLegPlan(): Plan {
 
     const leg = this.createLeg(this.node1, this.node2);
-    const plan = new Plan(this.node1, List([leg]));
+    const plan = Plan.create(this.node1, List([leg]));
     this.context.updatePlan(plan);
 
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
@@ -73,7 +73,7 @@ export class PlannerTestSetup {
 
     const leg1 = this.createLeg(this.node1, this.node2);
     const leg2 = this.createLeg(this.node2, this.node3);
-    const plan = new Plan(this.node1, List([leg1, leg2]));
+    const plan = Plan.create(this.node1, List([leg1, leg2]));
     this.context.updatePlan(plan);
 
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));

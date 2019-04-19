@@ -74,24 +74,74 @@ export class PdfDirections {
 
           } else {
             let yy = y + PdfPage.spacer;
-            this.iconRegistry.getNamedSvgIcon(instruction.sign).subscribe(svgElement => {
-              const str: string = svgElement.outerHTML;
-              const canvas: HTMLCanvasElement = document.createElement("canvas");
-              // @ts-ignore
-              canvg(canvas, str);
-              const imgData = canvas.toDataURL("image/png");
-              this.doc.addImage(imgData, "PNG", x, yy, 80, 80);
-            });
+            if (instruction.command != null) {
+              this.iconRegistry.getNamedSvgIcon(instruction.command).subscribe(svgElement => {
+                const str: string = svgElement.outerHTML;
+                const canvas: HTMLCanvasElement = document.createElement("canvas");
+                // @ts-ignore
+                canvg(canvas, str);
+                const imgData = canvas.toDataURL("image/png");
+                this.doc.addImage(imgData, "PNG", x, yy, 80, 80);
+              });
+            }
 
             const xx = x + (circleRadius * 2) + PdfPage.spacer;
             this.doc.setFontSize(10);
-            this.doc.text(instruction.text, xx, yy, {baseline: "top", lineHeightFactor: "1"});
-            yy += 5;
 
-            if (instruction.streetName) {
-              this.doc.text(instruction.streetName, xx, yy, {baseline: "top", lineHeightFactor: "1"});
-              yy += 5;
+            let text = "";
+            // if (instruction.text != null) {
+            //   text = text + instruction.text + " ";
+            // }
+            if (instruction.command == "continue") {
+              if (instruction.street) {
+                text = text + "Rechtdoor op " + instruction.street;
+              } else {
+                text = text + "Rechtdoor";
+              }
+            } else if (instruction.command == "turn-slight-left") {
+              if (instruction.street) {
+                text = text + "Houd link aan naar " + instruction.street;
+              } else {
+                text = text + "Houd link aan";
+              }
+            } else if (instruction.command == "turn-slight-right") {
+              if (instruction.street) {
+                text = text + "Houd rechts aan naar " + instruction.street;
+              } else {
+                text = text + "Houd rechts aan";
+              }
+            } else if (instruction.command == "turn-left") {
+              if (instruction.street) {
+                text = text + "Linksaf naar " + instruction.street;
+              } else {
+                text = text + "Linksaf";
+              }
+            } else if (instruction.command == "turn-right") {
+              if (instruction.street) {
+                text = text + "Rechtsaf naar " + instruction.street;
+              } else {
+                text = text + "Rechtsaf";
+              }
+            } else if (instruction.command == "turn-sharp-left") {
+              if (instruction.street) {
+                text = text + "Scherp linksaf naar " + instruction.street;
+              } else {
+                text = text + "Scherp linksaf";
+              }
+            } else if (instruction.command == "turn-sharp-right") {
+              if (instruction.street) {
+                text = text + "Scherp rechtsaf naar " + instruction.street;
+              } else {
+                text = text + "Scherp rechtsaf";
+              }
+            } else {
+              if (instruction.street) {
+                text = text + instruction.street + " ";
+              }
             }
+
+            this.doc.text(text, xx, yy, {baseline: "top", lineHeightFactor: "1"});
+            yy += 5;
 
             this.doc.text(instruction.distance + " m", xx, yy, {baseline: "top", lineHeightFactor: "1"});
             yy += 5;

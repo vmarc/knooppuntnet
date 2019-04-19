@@ -14,10 +14,6 @@ import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
 import {PdfModule} from "../pdf/pdf.module";
 import {MapRoutingModule} from "./map-routing.module";
-import {DirectionsPageComponent} from "./pages/directions/_directions-page.component";
-import {DirectionsInstructionComponent} from "./pages/directions/directions-instruction.component";
-import {DirectionsSignComponent} from "./pages/directions/directions-sign.component";
-import {DirectionsSummaryComponent} from "./pages/directions/directions-summary.component";
 import {MapPageComponent} from "./pages/map/_map-page.component";
 import {MapDetailDefaultComponent} from "./pages/map/map-detail-default.component";
 import {MapDetailNodeComponent} from "./pages/map/map-detail-node.component";
@@ -46,6 +42,12 @@ import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component
 import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
 import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
 import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.component";
+import {PlanCompactComponent} from "./sidebar/plan-compact.component";
+import {PlanDetailedComponent} from "./sidebar/plan-detailed.component";
+import {PlanInstructionCommandComponent} from "./sidebar/plan-instruction-command.component";
+import {PlanInstructionComponent} from "./sidebar/plan-instruction.component";
+import {PlanInstructionsComponent} from "./sidebar/plan-instructions.component";
+import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
 import {PoiDetailComponent} from "./sidebar/poi-detail.component";
 
@@ -92,13 +94,15 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     PoiNamesComponent,
     NetworkTypeSelectorComponent,
     PoiDetailComponent,
-    DirectionsPageComponent,
-    DirectionsInstructionComponent,
-    DirectionsSummaryComponent,
-    DirectionsSignComponent,
+    PlanInstructionComponent,
+    PlanInstructionCommandComponent,
     MapTryout1PageComponent,
     PlanComponent,
-    ExportDialogComponent
+    PlanCompactComponent,
+    PlanDetailedComponent,
+    PlanInstructionsComponent,
+    ExportDialogComponent,
+    PlanTranslationsComponent
   ],
   exports: [
     MapPageComponent

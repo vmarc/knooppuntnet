@@ -1,7 +1,7 @@
 import {LayoutModule} from "@angular/cdk/layout";
 import {HttpClientModule} from "@angular/common/http";
 import {NgModule} from "@angular/core";
-import {MatButtonModule, MatIconModule, MatSidenavModule} from "@angular/material";
+import {MatButtonModule, MatIconModule, MatIconRegistry, MatSidenavModule} from "@angular/material";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CookieService} from "ngx-cookie-service";
@@ -37,6 +37,7 @@ import {UserService} from "./user.service";
     UserService,
     AppService,
     PageService,
+    MatIconRegistry,
     IconService,
     PoiService
   ],

@@ -26,7 +26,7 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
     context.routeLayer.addRouteLeg(toLeg);
     const newSource = toLeg.source;
     const newLegs = context.plan.legs.update(0, () => toLeg);
-    const newPlan = new Plan(newSource, newLegs);
+    const newPlan = Plan.create(newSource, newLegs);
     context.updatePlan(newPlan);
   }
 

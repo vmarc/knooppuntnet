@@ -1,4 +1,5 @@
 import {ChangeDetectorRef, Component} from "@angular/core";
+import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./icon.service";
@@ -68,8 +69,32 @@ export class AppComponent {
   constructor(private iconService: IconService,
               changeDetectorRef: ChangeDetectorRef,
               private userService: UserService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              router: Router) {
     this.breakPointStateSubscription = this.pageService.breakpointState.subscribe(() => changeDetectorRef.detectChanges());
+
+    router.events.subscribe(event => {
+
+      if (event instanceof RouteConfigLoadStart) {
+        console.log(`DEBUG AppComponent lazy load start: '${event.route.path}'`);
+        // TODO show spinner
+      } else if (event instanceof RouteConfigLoadEnd) {
+        console.log(`DEBUG AppComponent lazy load complete: '${event.route.path}'`);
+        // TODO hide spinner
+      } else if (event instanceof NavigationStart) {
+        console.log(`DEBUG AppComponent navigation start: '${event}'`);
+        // TODO show spinner
+      } else if (event instanceof NavigationEnd) {
+        console.log(`DEBUG AppComponent navigation end: '${event}'`);
+        // TODO hide spinner
+      } else if (event instanceof NavigationCancel) {
+        console.log(`DEBUG AppComponent navigation cancel: '${event}'`);
+        // TODO hide spinner
+      } else if (event instanceof NavigationError) {
+        console.log(`DEBUG AppComponent navigation error: '${event}'`);
+        // TODO hide spinner
+      }
+    })
   }
 
   ngOnDestroy(): void {

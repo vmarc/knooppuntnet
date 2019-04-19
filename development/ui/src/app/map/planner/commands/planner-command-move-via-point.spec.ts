@@ -27,7 +27,7 @@ describe("PlannerCommandMoveViaPoint", () => {
     setup.legs.add(newLeg1);
     setup.legs.add(newLeg2);
 
-    const plan = new Plan(node1, List([oldLeg1, oldLeg2]));
+    const plan = Plan.create(node1, List([oldLeg1, oldLeg2]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveViaPoint(1, oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);

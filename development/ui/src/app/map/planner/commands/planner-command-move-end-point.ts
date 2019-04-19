@@ -25,7 +25,7 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
     context.routeLayer.removeRouteLeg(fromLeg.featureId);
     context.routeLayer.addRouteLeg(toLeg);
     const newLegs = context.plan.legs.update(context.plan.legs.size - 1, () => toLeg);
-    const newPlan = new Plan(context.plan.source, newLegs);
+    const newPlan = Plan.create(context.plan.source, newLegs);
     context.updatePlan(newPlan);
   }
 

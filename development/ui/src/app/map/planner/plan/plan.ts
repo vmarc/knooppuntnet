@@ -1,11 +1,15 @@
 import {List} from "immutable";
+import {FeatureId} from "../features/feature-id";
 import {PlanLeg} from "./plan-leg";
 import {PlanNode} from "./plan-node";
 
 export class Plan {
 
-  constructor(public readonly source: PlanNode,
-              public readonly legs: List<PlanLeg>) {
+  private static _empty: Plan = new Plan("empty", null, List());
+
+  private constructor(readonly id: string,
+                      readonly source: PlanNode,
+                      readonly legs: List<PlanLeg>) {
   }
 
   get sink(): PlanNode {
@@ -31,7 +35,11 @@ export class Plan {
   }
 
   static empty(): Plan {
-    return new Plan(null, List());
+    return Plan._empty;
+  }
+
+  static create(source: PlanNode, legs: List<PlanLeg>): Plan {
+    return new Plan(FeatureId.next(), source, legs);
   }
 
 }

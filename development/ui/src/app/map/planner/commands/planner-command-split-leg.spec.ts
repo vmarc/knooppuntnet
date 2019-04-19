@@ -24,7 +24,7 @@ describe("PlannerCommandSplitLeg", () => {
     setup.context.legs.add(newLeg1);
     setup.context.legs.add(newLeg2);
 
-    const plan = new Plan(node1, List([oldLeg]));
+    const plan = Plan.create(node1, List([oldLeg]));
     setup.context.routeLayer.addRouteLeg(oldLeg);
     setup.context.updatePlan(plan);
 

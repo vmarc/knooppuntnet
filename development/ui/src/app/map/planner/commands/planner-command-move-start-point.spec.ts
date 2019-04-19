@@ -17,7 +17,7 @@ describe("PlannerCommandMoveStartPoint", () => {
 
     setup.routeLayer.addFlag(PlanFlag.fromStartNode(node1));
 
-    const plan = new Plan(node1, List());
+    const plan = Plan.create(node1, List());
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveStartPoint(node1, node2);

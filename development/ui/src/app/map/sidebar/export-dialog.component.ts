@@ -13,6 +13,9 @@ import {MatRadioChange} from "@angular/material";
         <mat-radio-button value="pdf2">
           Nodes vertically (pdf)
         </mat-radio-button>
+        <mat-radio-button value="pdf3">
+          Navigation instructions (pdf)
+        </mat-radio-button>
         <mat-radio-button value="gpx">
           GPX file
         </mat-radio-button>
