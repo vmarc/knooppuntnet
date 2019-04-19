@@ -1,7 +1,8 @@
 import {MatIconRegistry} from "@angular/material";
 import * as canvg from "canvg";
+import {List} from "immutable";
 import * as JsPdf from "jspdf";
-import {Directions} from "../../kpn/shared/directions/directions";
+import {PlanInstruction} from "../../map/planner/plan/plan-instruction";
 import {PdfPage} from "./pdf-page";
 import {PdfSideBar} from "./pdf-side-bar";
 
@@ -12,7 +13,7 @@ export class PdfDirections {
 
   private readonly doc = new JsPdf();
 
-  constructor(private directions: Directions,
+  constructor(private instructions: List<PlanInstruction>,
               private iconRegistry: MatIconRegistry) {
   }
 
@@ -23,10 +24,8 @@ export class PdfDirections {
 
   private draw() {
 
-    const instructions = this.directions.instructions;
-
-    let pageCount = Math.floor(instructions.size / this.instructionsPerPage);
-    if ((instructions.size % this.instructionsPerPage) > 0) {
+    let pageCount = Math.floor(this.instructions.size / this.instructionsPerPage);
+    if ((this.instructions.size % this.instructionsPerPage) > 0) {
       pageCount++;
     }
 
@@ -40,7 +39,7 @@ export class PdfDirections {
       if (pageIndex < pageCount - 1) {
         rowCount = this.instructionsPerPage;
       } else {
-        rowCount = instructions.size % this.instructionsPerPage;
+        rowCount = this.instructions.size % this.instructionsPerPage;
       }
 
 
@@ -52,9 +51,9 @@ export class PdfDirections {
 
         const instructionIndex = (this.instructionsPerPage * pageIndex) + rowIndex;
 
-        if (instructionIndex < instructions.size) {
+        if (instructionIndex < this.instructions.size) {
 
-          const instruction = instructions.get(instructionIndex);
+          const instruction = this.instructions.get(instructionIndex);
 
           const y = PdfPage.yContentsTop + (this.instructionHeight * rowIndex);
 
@@ -145,11 +144,6 @@ export class PdfDirections {
 
             this.doc.text(instruction.distance + " m", xx, yy, {baseline: "top", lineHeightFactor: "1"});
             yy += 5;
-
-            // instruction.annotationText
-            // instruction.annotationImportance
-            // instruction.exitNumber
-            // instruction.turnAngle
           }
         }
       }

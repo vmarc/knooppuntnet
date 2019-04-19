@@ -5,11 +5,11 @@ import {PlanSegment} from "./plan-segment";
 
 export class PlanRoute {
 
-  constructor(public readonly source: PlanNode,
-              public readonly sink: PlanNode,
-              public readonly meters: number,
-              public readonly segments: List<PlanSegment>,
-              public readonly streets: List<string>) {
+  constructor(readonly source: PlanNode,
+              readonly sink: PlanNode,
+              readonly meters: number,
+              readonly segments: List<PlanSegment>,
+              readonly streets: List<string>) {
   }
 
   coordinates(): List<Coordinate> {

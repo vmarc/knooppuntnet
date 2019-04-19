@@ -5,11 +5,11 @@ import {PlanRoute} from "./plan-route";
 
 export class PlanLeg {
 
-  constructor(public readonly featureId: string,
-              public readonly source: PlanNode,
-              public readonly sink: PlanNode,
-              public readonly meters: number,
-              public readonly routes: List<PlanRoute>) {
+  constructor(readonly featureId: string,
+              readonly source: PlanNode,
+              readonly sink: PlanNode,
+              readonly meters: number,
+              readonly routes: List<PlanRoute>) {
   }
 
   coordinates(): List<Coordinate> {

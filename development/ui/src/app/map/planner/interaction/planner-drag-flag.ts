@@ -3,11 +3,11 @@ import {PlanNode} from "../plan/plan-node";
 
 export class PlannerDragFlag {
 
-  constructor(public readonly flagType,
-              public readonly legFeatureId,
-              public readonly anchor1: Coordinate,
-              public readonly anchor2: Coordinate,
-              public readonly oldNode: PlanNode) {
+  constructor(readonly flagType,
+              readonly legFeatureId,
+              readonly anchor1: Coordinate,
+              readonly anchor2: Coordinate,
+              readonly oldNode: PlanNode) {
   }
 
 }

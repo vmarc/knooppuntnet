@@ -1,8 +1,8 @@
 export class PdfPlanNode {
 
-  constructor(public readonly nodeName: string,
-              public readonly distance: string,
-              public readonly cumulativeDistance: string) {
+  constructor(readonly nodeName: string,
+              readonly distance: string,
+              readonly cumulativeDistance: string) {
   }
 
 }

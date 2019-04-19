@@ -4,9 +4,9 @@ import {PlanNode} from "./plan-node";
 
 export class PlanFlag {
 
-  constructor(public readonly flagType: PlanFlagType,
-              public readonly featureId: string,
-              public readonly coordinate: Coordinate) {
+  constructor(readonly flagType: PlanFlagType,
+              readonly featureId: string,
+              readonly coordinate: Coordinate) {
   }
 
   static fromStartNode(node: PlanNode): PlanFlag {

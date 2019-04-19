@@ -16,13 +16,13 @@ export class PlannerContext {
   private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
   private _plan = new BehaviorSubject<Plan>(Plan.empty());
 
-  constructor(public readonly commandStack: PlannerCommandStack,
-              public readonly routeLayer: PlannerRouteLayer,
-              public readonly crosshair: PlannerCrosshair,
-              public readonly cursor: PlannerCursor,
-              public readonly elasticBand: PlannerElasticBand,
-              public readonly legRepository: PlannerLegRepository,
-              public readonly legs: PlanLegCache) {
+  constructor(readonly commandStack: PlannerCommandStack,
+              readonly routeLayer: PlannerRouteLayer,
+              readonly crosshair: PlannerCrosshair,
+              readonly cursor: PlannerCursor,
+              readonly elasticBand: PlannerElasticBand,
+              readonly legRepository: PlannerLegRepository,
+              readonly legs: PlanLegCache) {
   }
 
   execute(command: PlannerCommand): void {

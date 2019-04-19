@@ -7,19 +7,24 @@ fdescribe("directions", () => {
     const plan = DirectionsTestSetup.examplePlan();
     // console.log("DEBUG plan\n" + JSON.stringify(plan, null, 2));
 
-    plan.legs.forEach(leg => {
-      leg.routes.forEach(route => {
-        route.segments.forEach(segment => {
-          segment.fragments.forEach(fragment => {
-            if (fragment.streetIndex == null) {
-              console.log("DEBUG --- " + fragment.meters + " " + fragment.orientation);
-            }
-            else {
-              console.log("DEBUG " + route.streets.get(fragment.streetIndex) + " " +  + fragment.meters + " " + fragment.orientation);
-            }
-          });
-        });
-      });
+    const instructions = new DirectionsAnalyzer().analyze(plan);
+    instructions.forEach(instruction => {
+      if (instruction.node != null) {
+        console.log("node " + instruction.node);
+      } else {
+        let text = "";
+        // if (instruction.text != null) {
+        //   text = text + instruction.text + " ";
+        // }
+        if (instruction.command != null) {
+          text = text + instruction.command + " ";
+        }
+        if (instruction.street != null) {
+          text = text + instruction.street + " ";
+        }
+        text = text + instruction.distance + " m";
+        console.log(text);
+      }
     });
   });
 

@@ -3,10 +3,10 @@ import {FeatureId} from "../features/feature-id";
 
 export class PlanNode {
 
-  private constructor(public readonly featureId: string,
-                      public readonly nodeId: string,
-                      public readonly nodeName: string,
-                      public readonly coordinate: Coordinate) {
+  private constructor(readonly featureId: string,
+                      readonly nodeId: string,
+                      readonly nodeName: string,
+                      readonly coordinate: Coordinate) {
   }
 
   static create(nodeId: string, nodeName: string, coordinate: Coordinate): PlanNode {

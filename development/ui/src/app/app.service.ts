@@ -7,7 +7,6 @@ import {ApiResponse} from "./kpn/shared/api-response";
 import {ChangesPage} from "./kpn/shared/changes-page";
 import {ChangeSetPage} from "./kpn/shared/changes/change-set-page";
 import {ChangesParameters} from "./kpn/shared/changes/filter/changes-parameters";
-import {Directions} from "./kpn/shared/directions/directions";
 import {NetworkChangesPage} from "./kpn/shared/network/network-changes-page";
 import {NetworkDetailsPage} from "./kpn/shared/network/network-details-page";
 import {NetworkFactsPage} from "./kpn/shared/network/network-facts-page";
@@ -184,13 +183,6 @@ export class AppService {
     const url = "/json-api/poi/" + elementType + "/" + elementId;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, PoiPage.fromJSON))
-    );
-  }
-
-  public directions(language: string, exampleName: string): Observable<ApiResponse<Directions>> {
-    const url = "/json-api/directions/" + language + "/" + exampleName;
-    return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, Directions.fromJSON))
     );
   }
 

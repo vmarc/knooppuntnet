@@ -4,10 +4,10 @@ import {PlanNode} from "../plan/plan-node";
 
 export class PlannerMapFeature {
 
-  constructor(public readonly featureId: string,
-              public readonly legId: string,
-              public readonly flagType: PlanFlagType,
-              public readonly node: PlanNode) {
+  constructor(readonly featureId: string,
+              readonly legId: string,
+              readonly flagType: PlanFlagType,
+              readonly node: PlanNode) {
   }
 
   isLeg() {

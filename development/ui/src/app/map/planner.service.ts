@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {Map as TranslationMap} from "immutable";
 import Map from "ol/Map";
 import {AppService} from "../app.service";
 import {PlannerCommandStack} from "./planner/commands/planner-command-stack";
@@ -19,6 +20,8 @@ export class PlannerService {
 
   constructor(private appService: AppService) {
   }
+
+  private translations: TranslationMap<string, string> = null;
 
   private commandStack = new PlannerCommandStack();
   private routeLayer = new PlannerRouteLayerImpl();
@@ -45,6 +48,29 @@ export class PlannerService {
     this.crosshair.addToMap(map);
     this.routeLayer.addToMap(map);
     this.elasticBand.addToMap(map);
+  }
+
+  updateTranslationRegistry(translationElements: HTMLCollection) {
+    if (this.translations === null) {
+      const keysAndValues: Array<[string, string]> = [];
+      Array.from(translationElements).forEach(span => {
+        const id = span.getAttribute("id");
+        const translation = span.textContent;
+        keysAndValues.push([id, translation]);
+      });
+      this.translations = TranslationMap<string, string>(keysAndValues);
+    }
+  }
+
+  isTranslationRegistryUpdated() {
+    return this.translations != null;
+  }
+
+  translate(key: string): string {
+    if (this.translations == null) {
+      return "";
+    }
+    return this.translations.get(key);
   }
 
 }

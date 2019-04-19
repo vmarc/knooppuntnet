@@ -3,7 +3,7 @@ import {PdfPlanNode} from "./pdf-plan-node";
 
 export class PdfPlan {
 
-  constructor(public readonly nodes: List<PdfPlanNode>) {
+  constructor(readonly nodes: List<PdfPlanNode>) {
   }
 
 }

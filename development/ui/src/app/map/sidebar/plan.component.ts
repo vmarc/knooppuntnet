@@ -10,6 +10,8 @@ import {ExportDialogComponent} from "./export-dialog.component";
   selector: "kpn-plan",
   template: `
 
+    <kpn-plan-translations></kpn-plan-translations>
+    
     <div class="buttons">
       <button mat-raised-button (click)="undo()" [disabled]="!undoEnabled()">Undo</button>
       <button mat-raised-button (click)="redo()" [disabled]="!redoEnabled()">Redo</button>
