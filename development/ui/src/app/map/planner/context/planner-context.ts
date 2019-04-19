@@ -63,9 +63,7 @@ export class PlannerContext {
       }
       return leg;
     });
-    const newPlan = new Plan(this.plan.source, newLegs);
-
-    console.log("DEBUG PlannerContext updatePlanLeg\n" + JSON.stringify(newPlan, null, 2));
+    const newPlan = Plan.create(this.plan.source, newLegs);
     this.updatePlan(newPlan);
     this.routeLayer.addRouteLeg(newLeg);
   }

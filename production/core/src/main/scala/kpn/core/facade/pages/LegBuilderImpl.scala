@@ -74,7 +74,7 @@ class LegBuilderImpl(
                             case Some(sourceRouteNetworkNodeInfo) =>
                               val sourceNodeId = sourceRouteNetworkNodeInfo.id.toString
                               val sourceNodeName = sourceRouteNetworkNodeInfo.name
-                              val source = RouteLegNode(sourceNodeId, sourceNodeName, sourceRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
+                              val source = RouteLegNode(sourceNodeId, sourceNodeName, sourceRouteNetworkNodeInfo.lat, sourceRouteNetworkNodeInfo.lon)
                               val meters = segments.map(_.meters).sum
                               Some(RouteLegRoute(source, sink, meters, segments, routeMap.streets))
 

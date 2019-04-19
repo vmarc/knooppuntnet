@@ -70,7 +70,9 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
 
   removeFlag(featureId: string): void {
     const feature = this.source.getFeatureById(featureId);
-    this.source.removeFeature(feature);
+    if (feature != null) {
+      this.source.removeFeature(feature);
+    }
   }
 
   updateFlagCoordinate(featureId: string, coordinate: Coordinate): void {
@@ -94,21 +96,6 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
     if (feature) {
       this.source.removeFeature(feature);
     }
-  }
-
-  private addNodeFlag(id: string, nodeId: string, coordinate: Coordinate, flagType: string, style: Style): void {
-    const feature = new Feature(new Point(coordinate));
-    feature.setId(id);
-    feature.set("layer", "flag");
-    feature.set("flag-type", flagType);
-    feature.set("nodeId", nodeId);
-    feature.setStyle(style);
-    this.source.addFeature(feature);
-  }
-
-  private removeNodeFlag(id: string) {
-    const feature = this.source.getFeatureById(id);
-    this.source.removeFeature(feature);
   }
 
 }
