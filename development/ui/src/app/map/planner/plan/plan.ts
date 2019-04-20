@@ -1,14 +1,12 @@
 import {List} from "immutable";
-import {FeatureId} from "../features/feature-id";
 import {PlanLeg} from "./plan-leg";
 import {PlanNode} from "./plan-node";
 
 export class Plan {
 
-  private static _empty: Plan = new Plan("empty", null, List());
+  private static _empty: Plan = new Plan(null, List());
 
-  private constructor(readonly id: string,
-                      readonly source: PlanNode,
+  private constructor(readonly source: PlanNode,
                       readonly legs: List<PlanLeg>) {
   }
 
@@ -39,7 +37,7 @@ export class Plan {
   }
 
   static create(source: PlanNode, legs: List<PlanLeg>): Plan {
-    return new Plan(FeatureId.next(), source, legs);
+    return new Plan(source, legs);
   }
 
 }
