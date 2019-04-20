@@ -5,7 +5,7 @@ object Settings {
 
   val name = "kpn"
 
-  val version = "2.0.14" // keep in sync: Version.current
+  val version = "2.0.15-SNAPSHOT" // keep in sync: Version.current
 
   val scalacOptions = Seq(
     "-deprecation",

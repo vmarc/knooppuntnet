@@ -1,5 +1,5 @@
 package kpn.client.common
 
 object Version {
-  val current = "2.0.14"
+  val current = "2.0.15-SNAPSHOT"
 }
