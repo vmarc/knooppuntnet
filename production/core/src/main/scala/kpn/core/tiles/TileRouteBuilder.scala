@@ -1,20 +1,22 @@
 package kpn.core.tiles
 
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.LineString
-import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 import kpn.core.tiles.domain.Line
 import kpn.core.tiles.domain.Point
 import kpn.core.tiles.domain.Tile
 import kpn.core.tiles.domain.TileRoute
 import kpn.core.tiles.domain.TileRouteSegment
+import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.route.RouteInfo
 import kpn.shared.tiles.ZoomLevel
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.LineString
+import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
 class TileRouteBuilder(z: Int) {
 
+  private val log = Log(classOf[TileRouteBuilder])
   private val ROUTE_ALL_SEGMENTS_MIN_ZOOM_LEVEL = 1
 
   private val distanceTolerance = {
@@ -25,6 +27,16 @@ class TileRouteBuilder(z: Int) {
   private val geomFactory = new GeometryFactory
 
   def build(routeInfo: RouteInfo): Option[TileRoute] = {
+
+    val surveyDate: Option[String] = routeInfo.tags("survey:date").flatMap { tagValue =>
+      log.info(s"route ${routeInfo.id} surveyDate=$tagValue")
+      if (tagValue.length >= "2020-08".length) {
+        Some(tagValue.substring(0, "2020-08".length))
+      }
+      else {
+        None
+      }
+    }
 
     routeInfo.analysis.flatMap { analysis =>
 
@@ -86,7 +98,7 @@ class TileRouteBuilder(z: Int) {
           "route"
         }
 
-        Some(TileRoute(routeInfo.id, routeInfo.summary.name, layer, tileRouteSegments))
+        Some(TileRoute(routeInfo.id, routeInfo.summary.name, layer, surveyDate, tileRouteSegments))
       }
     }
   }

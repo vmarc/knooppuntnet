@@ -61,11 +61,21 @@ class VectorTileBuilder() extends TileBuilder {
           )
         }
         val lineString = geomFactory.createLineString(coordinates.toArray)
-        val userData = ListMap(
-          "id" -> (tileRoute.routeId.toString + "-" + index),
-          "name" -> tileRoute.routeName,
-          "surface" -> segment.surface
-        )
+        val userData: ListMap[String, String] = tileRoute.surveyDate match {
+          case Some(surveyDate) =>
+            ListMap(
+              "id" -> (tileRoute.routeId.toString + "-" + index),
+              "name" -> tileRoute.routeName,
+              "surface" -> segment.surface,
+              "survey" -> surveyDate
+            )
+          case None =>
+            ListMap(
+              "id" -> (tileRoute.routeId.toString + "-" + index),
+              "name" -> tileRoute.routeName,
+              "surface" -> segment.surface
+            )
+        }
         encoder.addLineStringFeature(tileRoute.layer, userData, lineString)
       }
     }
