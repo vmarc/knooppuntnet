@@ -9,6 +9,7 @@ import {PageService} from "../page.service";
         <mat-icon svgIcon="menu"></mat-icon>
       </button>
       <button mat-button routerLink="/" class="toolbar-app-name"><h1>knooppuntnet</h1></button>
+      <kpn-spinner></kpn-spinner>
       <span class="toolbar-spacer"></span>
     </mat-toolbar>
   `,

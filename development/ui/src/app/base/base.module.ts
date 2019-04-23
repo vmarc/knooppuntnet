@@ -2,6 +2,7 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatButtonModule, MatCardModule, MatDividerModule, MatIconModule} from "@angular/material";
 import {SharedModule} from "../components/shared/shared.module";
+import {SpinnerModule} from "../spinner/spinner.module";
 import {BaseRoutingModule} from "./base-routing.module";
 import {BaseSidebarComponent} from "./base-sidebar.component";
 import {AboutPageComponent} from "./pages/about/about-page.component";
@@ -23,7 +24,8 @@ import {NotFoundPageComponent} from "./pages/not-found/not-found-page.component"
     MatIconModule,
     MatButtonModule,
     SharedModule,
-    BaseRoutingModule
+    BaseRoutingModule,
+    SpinnerModule
   ],
   declarations: [
     BaseSidebarComponent,

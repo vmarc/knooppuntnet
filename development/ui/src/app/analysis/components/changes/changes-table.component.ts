@@ -10,6 +10,8 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
   selector: "kpn-changes-table",
   template: `
 
+    <kpn-spinner></kpn-spinner>
+
     <p *ngIf="response">
       Situation on:
       <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>

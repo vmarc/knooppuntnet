@@ -3,6 +3,7 @@ import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Route
 import {Subscription} from "rxjs";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./icon.service";
+import {SpinnerService} from "./spinner/spinner.service";
 import {UserService} from "./user.service";
 
 @Component({
@@ -70,6 +71,7 @@ export class AppComponent {
               changeDetectorRef: ChangeDetectorRef,
               private userService: UserService,
               private pageService: PageService,
+              private spinnerService: SpinnerService,
               router: Router) {
     this.breakPointStateSubscription = this.pageService.breakpointState.subscribe(() => changeDetectorRef.detectChanges());
 
@@ -77,22 +79,18 @@ export class AppComponent {
 
       if (event instanceof RouteConfigLoadStart) {
         console.log(`DEBUG AppComponent lazy load start: '${event.route.path}'`);
-        // TODO show spinner
+        this.spinnerService.show();
       } else if (event instanceof RouteConfigLoadEnd) {
         console.log(`DEBUG AppComponent lazy load complete: '${event.route.path}'`);
-        // TODO hide spinner
-      } else if (event instanceof NavigationStart) {
-        console.log(`DEBUG AppComponent navigation start: '${event}'`);
-        // TODO show spinner
-      } else if (event instanceof NavigationEnd) {
-        console.log(`DEBUG AppComponent navigation end: '${event}'`);
-        // TODO hide spinner
-      } else if (event instanceof NavigationCancel) {
-        console.log(`DEBUG AppComponent navigation cancel: '${event}'`);
-        // TODO hide spinner
-      } else if (event instanceof NavigationError) {
-        console.log(`DEBUG AppComponent navigation error: '${event}'`);
-        // TODO hide spinner
+        this.spinnerService.hide();
+      // } else if (event instanceof NavigationStart) {
+      //   console.log(`DEBUG AppComponent navigation start: '${event}'`);
+      // } else if (event instanceof NavigationEnd) {
+      //   console.log(`DEBUG AppComponent navigation end: '${event}'`);
+      // } else if (event instanceof NavigationCancel) {
+      //   console.log(`DEBUG AppComponent navigation cancel: '${event}'`);
+      // } else if (event instanceof NavigationError) {
+      //   console.log(`DEBUG AppComponent navigation error: '${event}'`);
       }
     })
   }

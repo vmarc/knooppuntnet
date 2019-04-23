@@ -4,6 +4,7 @@ import {MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, Ma
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
+import {SpinnerModule} from "../spinner/spinner.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
 import {ChangesSetComponent} from "./components/change-set/change-set.component";
@@ -150,7 +151,8 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     MatDividerModule,
     SharedModule,
     OlModule,
-    AnalysisRoutingModule
+    AnalysisRoutingModule,
+    SpinnerModule
   ],
   declarations: [
     AnalysisSidebarComponent,
