@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component} from "@angular/core";
-import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
+import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./icon.service";
@@ -78,19 +78,9 @@ export class AppComponent {
     router.events.subscribe(event => {
 
       if (event instanceof RouteConfigLoadStart) {
-        console.log(`DEBUG AppComponent lazy load start: '${event.route.path}'`);
-        this.spinnerService.show();
+        this.spinnerService.start(`lazy-load-${event.route.path}`);
       } else if (event instanceof RouteConfigLoadEnd) {
-        console.log(`DEBUG AppComponent lazy load complete: '${event.route.path}'`);
-        this.spinnerService.hide();
-      // } else if (event instanceof NavigationStart) {
-      //   console.log(`DEBUG AppComponent navigation start: '${event}'`);
-      // } else if (event instanceof NavigationEnd) {
-      //   console.log(`DEBUG AppComponent navigation end: '${event}'`);
-      // } else if (event instanceof NavigationCancel) {
-      //   console.log(`DEBUG AppComponent navigation cancel: '${event}'`);
-      // } else if (event instanceof NavigationError) {
-      //   console.log(`DEBUG AppComponent navigation error: '${event}'`);
+        this.spinnerService.end(`lazy-load-${event.route.path}`);
       }
     })
   }

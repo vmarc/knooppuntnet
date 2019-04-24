@@ -21,7 +21,13 @@ import {Component} from "@angular/core";
         </mat-radio-group>
       </ng-template>
     </mat-expansion-panel>
-  `
+  `,
+  styles: [`
+    mat-radio-button {
+      display: block;
+      margin: 10px;
+    }
+  `]
 })
 export class MapSidebarAppearanceComponent {
   analysisMode = "planner";

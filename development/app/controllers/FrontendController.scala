@@ -31,7 +31,12 @@ class FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandle
   }
 
   private def isActualAsset(resource: String): Boolean = {
-    resource.startsWith("images/") || resource.endsWith(".js") || resource.endsWith(".css")
+    resource.endsWith("manifest.json") ||
+      resource.endsWith(".ico") ||
+      resource.endsWith(".svg") ||
+      resource.endsWith(".png") ||
+      resource.endsWith(".js") ||
+      resource.endsWith(".css")
   }
 
   private def languageAsset(language: String, resource: String): Action[AnyContent] = {

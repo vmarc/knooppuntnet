@@ -24,7 +24,7 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
       anchor: [12, 41],
       anchorXUnits: "pixels",
       anchorYUnits: "pixels",
-      src: "/assets/images/marker-icon-green.png"
+      src: "assets/images/marker-icon-green.png"
     })
   });
 
@@ -33,7 +33,7 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
       anchor: [12, 41],
       anchorXUnits: "pixels",
       anchorYUnits: "pixels",
-      src: "/assets/images/marker-icon-orange.png"
+      src: "assets/images/marker-icon-orange.png"
     })
   });
 

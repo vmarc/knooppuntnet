@@ -11,11 +11,11 @@ import {ExportDialogComponent} from "./export-dialog.component";
   template: `
 
     <kpn-plan-translations></kpn-plan-translations>
-    
+
     <div class="buttons">
-      <button mat-raised-button (click)="undo()" [disabled]="!undoEnabled()">Undo</button>
-      <button mat-raised-button (click)="redo()" [disabled]="!redoEnabled()">Redo</button>
-      <button mat-raised-button (click)="export()" [disabled]="!exportEnabled()">Export</button>
+      <button mat-stroked-button (click)="undo()" [disabled]="!undoEnabled()">Undo</button>
+      <button mat-stroked-button (click)="redo()" [disabled]="!redoEnabled()">Redo</button>
+      <button mat-stroked-button (click)="export()" [disabled]="!exportEnabled()">Export</button>
     </div>
 
     <div class="menu">
@@ -48,7 +48,7 @@ import {ExportDialogComponent} from "./export-dialog.component";
       padding-bottom: 15px;
     }
 
-    .undo-redo-buttons :not(:last-child) {
+    .buttons :not(:last-child) {
       margin-right: 10px;
     }
 
