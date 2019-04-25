@@ -1,13 +1,17 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {applyBackground, applyStyle} from 'ol-mapbox-style';
 import Coordinate from "ol/coordinate";
 import {click, pointerMove} from "ol/events/condition";
+import MVT from "ol/format/MVT";
 import Select from "ol/interaction/Select";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
+import VectorTile from "ol/source/VectorTile";
 import Style from "ol/style/Style";
+import {createXYZ} from "ol/tilegrid";
 import View from "ol/View";
 import Extent from "ol/View";
 import {Subscription} from "rxjs";
@@ -17,7 +21,6 @@ import {MapClickHandler} from "../../../components/ol/domain/map-click-handler";
 import {MapMoveHandler} from "../../../components/ol/domain/map-move-handler";
 import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
-import {OsmLayer} from "../../../components/ol/domain/osm-layer";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapComponent} from "../../../components/ol/map.component";
 import {MapService} from "../../../components/ol/map.service";
@@ -99,10 +102,27 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
     this.vectorTileLayer = NetworkVectorTileLayer.build(this.mapService.networkType.value);
     this.poiTileLayer = this.poiTileLayerService.buildLayer();
 
+    const tileGrid = createXYZ({
+      // minZoom: ZoomLevel.vectorTileMinZoom
+      // maxZoom: ZoomLevel.vectorTileMaxOverZoom
+    });
+
+    const source = new VectorTile({
+      format: new MVT(),
+      tileGrid: tileGrid,
+      url: "http://localhost:8080/data/v3/{z}/{x}/{y}.pbf"
+    });
+
+    const layer = new VectorTileLayer({
+      source: source
+    });
+
+
     this.map = new Map({
       target: "main-map",
       layers: [
-        OsmLayer.build(),
+        layer,
+        //OsmLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer,
@@ -112,6 +132,16 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.maxZoom
       })
+    });
+
+
+    fetch("http://localhost:8080/styles/klokantech-basic/style.json").then((response) => {
+      response.json().then((glStyle) => {
+        applyBackground(this.map, glStyle);
+        applyStyle(layer, glStyle, "openmaptiles").then(() => {
+          this.map.addLayer(layer);
+        });
+      });
     });
 
     this.mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
