@@ -102,7 +102,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       }
     }
 
-    val source: TrackPoint = toTrackPoint(segment.fragments.head.fragment.nodes.head)
+    val source: TrackPoint = toTrackPoint(segment.fragments.head.nodes.head)
     TrackSegment(segment.surface, source, fragments)
   }
 

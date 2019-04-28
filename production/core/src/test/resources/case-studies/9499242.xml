@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2019-04-27T08:38:02Z"/>
+
+    <node id="43482800" lat="51.6790000" lon="4.9431800" version="2" timestamp="2009-12-23T17:46:43Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43482951" lat="51.6790035" lon="4.9429333" version="3" timestamp="2013-06-09T07:27:44Z" changeset="16477440" uid="334075" user="eggie"/>
+    <node id="43483876" lat="51.6792800" lon="4.9459100" version="2" timestamp="2009-12-23T17:46:34Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43484555" lat="51.6793560" lon="4.9480628" version="6" timestamp="2019-04-18T18:26:31Z" changeset="69355279" uid="1987570" user="FrankOverman">
+        <tag k="rcn_ref" v="48"/>
+        <tag k="rwn_ref" v="78"/>
+    </node>
+    <node id="43486798" lat="51.6799247" lon="4.9389572" version="3" timestamp="2013-06-09T07:28:14Z" changeset="16477440" uid="334075" user="eggie"/>
+    <node id="43487261" lat="51.6800700" lon="4.9383500" version="2" timestamp="2009-12-23T17:46:20Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43490751" lat="51.6809800" lon="4.9352300" version="2" timestamp="2009-12-23T17:46:05Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43491036" lat="51.6810600" lon="4.9350300" version="2" timestamp="2009-12-23T17:46:06Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43491834" lat="51.6812700" lon="4.9346100" version="2" timestamp="2009-12-23T17:44:36Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43492364" lat="51.6814000" lon="4.9343900" version="2" timestamp="2009-12-23T17:44:37Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43492657" lat="51.6814900" lon="4.9343300" version="2" timestamp="2009-12-23T17:44:38Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43494597" lat="51.6819600" lon="4.9341800" version="2" timestamp="2009-12-23T17:44:25Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43495986" lat="51.6823900" lon="4.9340100" version="2" timestamp="2009-12-23T17:44:34Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43497170" lat="51.6827000" lon="4.9339300" version="2" timestamp="2009-12-23T17:44:19Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="43499431" lat="51.6833221" lon="4.9338852" version="3" timestamp="2013-06-09T07:29:32Z" changeset="16477440" uid="334075" user="eggie"/>
+    <node id="43499520" lat="51.6834217" lon="4.9339394" version="3" timestamp="2013-06-09T07:29:32Z" changeset="16477440" uid="334075" user="eggie"/>
+    <node id="43500681" lat="51.6836700" lon="4.9343100" version="2" timestamp="2009-12-23T17:44:05Z" changeset="3436279" uid="12946" user="AND"/>
+    <node id="253352556" lat="51.6837672" lon="4.9343912" version="3" timestamp="2019-04-18T18:39:43Z" changeset="69355630" uid="1987570" user="FrankOverman">
+        <tag k="rwn_ref" v="72b"/>
+    </node>
+    <node id="2337857421" lat="51.6790334" lon="4.9427193" version="1" timestamp="2013-06-09T07:27:44Z" changeset="16477440" uid="334075" user="eggie"/>
+    <way id="7119890" version="5" timestamp="2014-05-31T16:29:52Z" changeset="22658146" uid="1989776" user="Sander H_BAG">
+        <nd ref="43482951"/>
+        <nd ref="2337857421"/>
+        <nd ref="43486798"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="horse" v="yes"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="name" v="Stadhoudersdijk"/>
+        <tag k="surface" v="paved"/>
+    </way>
+    <way id="7119891" version="5" timestamp="2014-05-31T16:29:52Z" changeset="22658146" uid="1989776" user="Sander H_BAG">
+        <nd ref="43482951"/>
+        <nd ref="43482800"/>
+        <nd ref="43483876"/>
+        <nd ref="43484555"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Stadhoudersdijk"/>
+    </way>
+    <way id="7119925" version="8" timestamp="2019-04-18T18:39:43Z" changeset="69355630" uid="1987570" user="FrankOverman">
+        <nd ref="43486798"/>
+        <nd ref="43487261"/>
+        <nd ref="43490751"/>
+        <nd ref="43491036"/>
+        <nd ref="43491834"/>
+        <nd ref="43492364"/>
+        <nd ref="43492657"/>
+        <nd ref="43494597"/>
+        <nd ref="43495986"/>
+        <nd ref="43497170"/>
+        <nd ref="43499431"/>
+        <nd ref="43499520"/>
+        <nd ref="43500681"/>
+        <nd ref="253352556"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="horse" v="yes"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="name" v="Stadhoudersdijk"/>
+        <tag k="surface" v="paved"/>
+    </way>
+    <relation id="9499242" version="1" timestamp="2019-04-18T18:39:42Z" changeset="69355630" uid="1987570" user="FrankOverman">
+        <member type="node" ref="253352556" role=""/>
+        <member type="way" ref="7119925" role=""/>
+        <member type="way" ref="7119890" role=""/>
+        <member type="way" ref="7119891" role=""/>
+        <member type="node" ref="43484555" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="note" v="72b-78"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
