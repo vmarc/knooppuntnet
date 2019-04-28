@@ -103,14 +103,14 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
     this.poiTileLayer = this.poiTileLayerService.buildLayer();
 
     const tileGrid = createXYZ({
-      // minZoom: ZoomLevel.vectorTileMinZoom
-      // maxZoom: ZoomLevel.vectorTileMaxOverZoom
+      tileSize: 512,
+      maxZoom: 14
     });
 
     const source = new VectorTile({
       format: new MVT(),
       tileGrid: tileGrid,
-      url: "http://localhost:8080/data/v3/{z}/{x}/{y}.pbf"
+      url: "/tiles/osm/{z}/{x}/{y}.pbf"
     });
 
     const layer = new VectorTileLayer({
@@ -119,6 +119,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
 
     this.map = new Map({
+      declutter: true,
       target: "main-map",
       layers: [
         layer,

@@ -5,26 +5,14 @@ import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 import {NetworkType} from "../../../kpn/shared/network-type";
 
-import {ZoomLevel} from "./zoom-level";
-
 export class NetworkVectorTileLayer {
 
   public static build(networkType: NetworkType): VectorTileLayer {
 
-    const urlFunction = function (tileCoord, pixelRatio, projection) {
-      const zIn = tileCoord[0];
-      const xIn = tileCoord[1];
-      const yIn = tileCoord[2];
-
-      const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
-      const x = xIn;
-      const y = -yIn - 1;
-      return "/tiles/" + networkType.name + "/" + z + "/" + x + "/" + y + ".mvt"
-    };
-
     const tileGrid = createXYZ({
-      // minZoom: ZoomLevel.vectorTileMinZoom
-      // maxZoom: ZoomLevel.vectorTileMaxOverZoom
+      tileSize: 512,
+      minZoom: 12,
+      maxZoom: 15
     });
 
     const source = new VectorTile({
@@ -32,7 +20,7 @@ export class NetworkVectorTileLayer {
         featureClass: Feature // this is important to avoid error upon first selection in the map
       }),
       tileGrid: tileGrid,
-      tileUrlFunction: urlFunction
+      url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.mvt"
     });
 
     const layer = new VectorTileLayer({
