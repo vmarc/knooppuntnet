@@ -127,7 +127,12 @@ class MainRouteMap(networkType: NetworkType, routeMap: RouteMap)(implicit contex
   }
 
   private def pathToFeature(name: String, color: ol.Color, path: TrackPath): ol.Feature = {
-    val trackPoints = path.segments.flatMap(segment => segment.fragments.map(_.trackPoint))
+    val trackPoints = if (path.segments.nonEmpty) {
+      path.segments.head.source +: path.segments.flatMap(segment => segment.fragments.map(_.trackPoint))
+    }
+    else {
+      Seq()
+    }
     trackPointsToFeature(name, color, trackPoints)
   }
 
