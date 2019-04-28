@@ -33,20 +33,6 @@ object Layers {
 
   def vectorTileLayer(networkType: NetworkType): ol.layer.VectorTile = {
 
-    val scalaFun: (ol.Ol.TileCoord, Double, ol.proj.Projection) => String = {
-      (tileCoord: ol.Ol.TileCoord, something: Double, projection: ol.proj.Projection) => {
-        val zIn = tileCoord._1.toInt
-        val xIn = tileCoord._2.toInt
-        val yIn = tileCoord._3.toInt
-        var z = if (zIn >= vectorTileMaxZoom) vectorTileMaxZoom else zIn
-        var x = xIn
-        var y = -yIn - 1
-        s"/tiles/${networkType.name}/$z/$x/$y.mvt"
-      }
-    }
-
-    val jsFun: TileUrlFunctionType = scalaFun
-
     new ol.layer.VectorTile(
       olx.layer.VectorTileOptions(
         renderMode = "vector",
@@ -59,12 +45,13 @@ object Layers {
             ),
             tileGrid = ol.tilegrid.Tilegrid.createXYZ(
               olx.tilegrid.XYZOptions(
+                tileSize = 512,
                 minZoom = vectorTileMinZoom.toDouble,
-                maxZoom = vectorTileMaxOverZoom.toDouble
+                maxZoom = vectorTileMaxZoom.toDouble
               )
             ),
             tilePixelRatio = vectorTileMaxZoom.toDouble,
-            tileUrlFunction = jsFun
+            url = s"/tiles/${networkType.name}/{z}/{x}/{y}.mvt"
           )
         )
       )

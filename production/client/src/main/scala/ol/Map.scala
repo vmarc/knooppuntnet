@@ -16,6 +16,7 @@ object Map {
   ): Map = {
     new Map(
       olx.MapOptions(
+        declutter = true,
         controls = controls,
         layers = layers,
         target = target,
