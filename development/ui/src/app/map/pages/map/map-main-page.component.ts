@@ -136,7 +136,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
     });
 
 
-    fetch("http://localhost:8080/styles/klokantech-basic/style.json").then((response) => {
+    fetch("assets/style.json").then((response) => {
       response.json().then((glStyle) => {
         applyBackground(this.map, glStyle);
         applyStyle(layer, glStyle, "openmaptiles").then(() => {
