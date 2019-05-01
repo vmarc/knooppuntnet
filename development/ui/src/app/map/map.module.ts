@@ -41,7 +41,6 @@ import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.c
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
 import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
 import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
-import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.component";
 import {PlanCompactComponent} from "./sidebar/plan-compact.component";
 import {PlanDetailedComponent} from "./sidebar/plan-detailed.component";
 import {PlanInstructionCommandComponent} from "./sidebar/plan-instruction-command.component";
@@ -92,7 +91,6 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     PoiGroupLandmarksComponent,
     PoiConfigComponent,
     PoiNamesComponent,
-    NetworkTypeSelectorComponent,
     PoiDetailComponent,
     PlanInstructionComponent,
     PlanInstructionCommandComponent,

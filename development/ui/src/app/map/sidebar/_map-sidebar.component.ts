@@ -8,8 +8,6 @@ import {NetworkType} from "../../kpn/shared/network-type";
   selector: "kpn-map-sidebar",
   template: `
 
-    <kpn-network-type-selector></kpn-network-type-selector>
-
     <div>
       <mat-button-toggle-group [value]="pageMode" (change)="pageModeChanged($event)">
         <mat-button-toggle value="planner">
