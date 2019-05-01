@@ -4,20 +4,22 @@ import {PageService} from "../../../components/shared/page.service";
 @Component({
   selector: "kpn-home-page",
   template: `
-    <h1 i18n="@@home-page-title">
+    <h1 i18n="@@home.page-title">
       Node networks
     </h1>
 
     <kpn-icon-button
       routerLink="/map"
       icon="map"
-      text="Map">
+      text="Map"
+      i18n-text="@@home.map">
     </kpn-icon-button>
 
     <kpn-icon-button
       routerLink="/analysis"
       icon="analysis"
-      text="Analysis">
+      text="Analysis"
+      i18n-text="@@home.analysis">
     </kpn-icon-button>
 
     <div class="test-section">
@@ -26,7 +28,7 @@ import {PageService} from "../../../components/shared/page.service";
         <a routerLink="/map/tryout1">Openlayers measure</a>
       </div>
     </div>
-  `,
+ `,
   styles: [`
     .test-section {
       margin-top: 100px;

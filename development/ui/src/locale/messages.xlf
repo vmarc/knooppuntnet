@@ -1690,13 +1690,27 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="home-page-title" datatype="html">
+      <trans-unit id="home.page-title" datatype="html">
         <source>
       Node networks
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.map" datatype="html">
+        <source>Map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.analysis" datatype="html">
+        <source>Analysis</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.amenity" datatype="html">

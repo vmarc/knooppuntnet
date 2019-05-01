@@ -2,16 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="de">
     <body>
-      <trans-unit id="home-page-title" datatype="html">
-        <source>
-      Node networks
-    </source>
-        <target>Startseite</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
         <source>Added</source>
         <target state="new">?Added?</target>
@@ -1066,6 +1056,34 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.page-title" datatype="html">
+        <source>
+      Node networks
+    </source>
+        <target state="new">?
+      Node networks
+    ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.map" datatype="html">
+        <source>Map</source>
+        <target state="new">?Map?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.analysis" datatype="html">
+        <source>Analysis</source>
+        <target state="new">?Analysis?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.orphan-node" datatype="html">
