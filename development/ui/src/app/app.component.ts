@@ -27,7 +27,7 @@ import {UserService} from "./user.service";
           <main>
             <router-outlet></router-outlet>
           </main>
-          <footer>
+          <footer *ngIf="isShowFooter()">
             <kpn-page-footer></kpn-page-footer>
           </footer>
         </div>
@@ -97,4 +97,7 @@ export class AppComponent {
     return this.pageService.isSidebarOpen();
   }
 
+  isShowFooter(): boolean {
+    return this.pageService.isShowFooter();
+  }
 }

@@ -18,6 +18,7 @@ export class PageService {
   showNetworkMenu: boolean = false;
   subset: Subset = null;
   networkId: string = null;
+  showFooter: boolean = true;
 
   constructor(breakpointObserver: BreakpointObserver) {
     const mediaQuery = "(max-width: 599px)";
@@ -31,6 +32,7 @@ export class PageService {
       this.showSubsetsMenu = false;
       this.showSubsetMenu = false;
       this.showNetworkMenu = false;
+      this.showFooter = true;
       this.subset = null;
       this.networkId = null;
     });
@@ -62,6 +64,10 @@ export class PageService {
 
   isMobile(): boolean {
     return this.mobile;
+  }
+
+  isShowFooter(): boolean {
+    return this.showFooter;
   }
 
   private breakpointStateChanged(breakpointState: BreakpointState) {

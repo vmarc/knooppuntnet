@@ -71,6 +71,9 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.pageService.showFooter = false;
+
     this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
 
     this.paramsSubscription = this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
@@ -153,6 +156,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
     this.selectedFeatureSubscription.unsubscribe();
+    this.pageService.showFooter = true;
   }
 
   private zoom(zoomLevel: number) {
