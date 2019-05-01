@@ -7,46 +7,46 @@ import {NetworkType} from "../../kpn/shared/network-type";
 @Component({
   selector: "kpn-map-sidebar",
   template: `
+    <div *ngIf="hasNetworkType()">
+      <div>
+        <mat-button-toggle-group [value]="pageMode" (change)="pageModeChanged($event)">
+          <mat-button-toggle value="planner">
+            <mat-icon svgIcon="map"></mat-icon>
+            Planner
+          </mat-button-toggle>
+          <mat-button-toggle value="analysis">
+            <mat-icon svgIcon="analysis"></mat-icon>
+            Analysis
+          </mat-button-toggle>
+          <mat-button-toggle value="poi">
+            <mat-icon svgIcon="help"></mat-icon>
+            POI
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
 
-    <div>
-      <mat-button-toggle-group [value]="pageMode" (change)="pageModeChanged($event)">
-        <mat-button-toggle value="planner">
-          <mat-icon svgIcon="map"></mat-icon>
-          Planner
-        </mat-button-toggle>
-        <mat-button-toggle value="analysis">
-          <mat-icon svgIcon="analysis"></mat-icon>
-          Analysis
-        </mat-button-toggle>
-        <mat-button-toggle value="poi">
-          <mat-icon svgIcon="help"></mat-icon>
-          POI
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+      <div *ngIf="pageMode === 'planner'">
+        <kpn-map-sidebar-planner></kpn-map-sidebar-planner>
+      </div>
+
+      <kpn-map-sidebar-analysis *ngIf="pageMode === 'analysis'" [networkType]="networkType()"></kpn-map-sidebar-analysis>
+
+      <div *ngIf="pageMode === 'poi'">
+        <kpn-poi-detail></kpn-poi-detail>
+      </div>
+
+      <ng-container *ngIf="pageMode !== 'poi'">
+        <mat-divider></mat-divider>
+        <kpn-map-sidebar-appearance></kpn-map-sidebar-appearance>
+        <kpn-map-sidebar-legend></kpn-map-sidebar-legend>
+        <kpn-map-sidebar-poi-configuration></kpn-map-sidebar-poi-configuration>
+      </ng-container>
     </div>
-
-    <div *ngIf="pageMode === 'planner'">
-      <kpn-map-sidebar-planner></kpn-map-sidebar-planner>
-    </div>
-
-    <kpn-map-sidebar-analysis *ngIf="pageMode === 'analysis'" [networkType]="networkType"></kpn-map-sidebar-analysis>
-
-    <div *ngIf="pageMode === 'poi'">
-      <kpn-poi-detail></kpn-poi-detail>
-    </div>
-
-    <ng-container *ngIf="pageMode !== 'poi'">
-      <mat-divider></mat-divider>
-      <kpn-map-sidebar-appearance></kpn-map-sidebar-appearance>
-      <kpn-map-sidebar-legend></kpn-map-sidebar-legend>
-      <kpn-map-sidebar-poi-configuration></kpn-map-sidebar-poi-configuration>
-    </ng-container>
   `
 })
 export class MapSidebarComponent implements OnInit {
 
   @Input() selectedFeature: SelectedFeature;
-  @Input() networkType: NetworkType = new NetworkType("rcn"); // TODO cleanup
 
   pageMode = "planner"; // "analysis" | "help"
 
@@ -60,6 +60,14 @@ export class MapSidebarComponent implements OnInit {
     this.mapService.poiClickedObserver.subscribe(poiId => {
       this.pageMode = "poi";
     });
+  }
+
+  hasNetworkType(): boolean {
+    return this.mapService.networkType.value !== null;
+  }
+
+  networkType(): NetworkType {
+    return this.mapService.networkType.value;
   }
 
   isDefault(): boolean {

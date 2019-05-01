@@ -276,7 +276,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.context.legs.add(plan);
     }
 
-    this.context.legRepository.planLeg("rwn", legId, source, sink).subscribe(planLeg => {
+    this.context.legRepository.planLeg(this.context.networkType.name, legId, source, sink).subscribe(planLeg => {
       if (planLeg) {
         this.context.legs.add(planLeg);
         this.context.updatePlanLeg(planLeg);

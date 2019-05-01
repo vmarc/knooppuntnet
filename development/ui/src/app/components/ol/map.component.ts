@@ -85,17 +85,8 @@ export class MapComponent implements AfterViewInit {
     view.fit(extent);
     view.on("change:resolution", () => this.zoom(view.getZoom()));
 
-    this.mapService.networkType.subscribe(networkType => {
-      this.bitmapTileLayer = NetworkBitmapTileLayer.build(networkType);
-      this.vectorTileLayer = NetworkVectorTileLayer.build(networkType);
-      this.vectorTileLayer.setStyle(this.mainMapStyle);
-      this.map.getLayers().removeAt(2);
-      this.map.getLayers().insertAt(2, this.bitmapTileLayer);
-      this.map.getLayers().removeAt(3);
-      this.map.getLayers().insertAt(3, this.vectorTileLayer);
-      this.updateLayerVisibility(view.getZoom());
-    });
-
+    this.vectorTileLayer.setStyle(this.mainMapStyle);
+    this.updateLayerVisibility(view.getZoom());
   }
 
   updateSize() {

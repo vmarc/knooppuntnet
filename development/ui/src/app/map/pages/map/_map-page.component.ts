@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {MapService} from "../../../components/ol/map.service";
 
 @Component({
   selector: "kpn-map-page",
@@ -49,5 +50,13 @@ import {Component} from "@angular/core";
     </kpn-icon-button>
   `
 })
-export class MapPageComponent {
+export class MapPageComponent implements OnInit {
+
+  constructor(private mapService: MapService) {
+  }
+
+  ngOnInit(): void {
+    this.mapService.networkType.next(null);
+  }
+
 }

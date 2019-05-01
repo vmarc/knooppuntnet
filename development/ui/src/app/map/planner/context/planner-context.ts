@@ -1,4 +1,5 @@
 import {BehaviorSubject, Observable} from "rxjs";
+import {NetworkType} from "../../../kpn/shared/network-type";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {Plan} from "../plan/plan";
@@ -15,6 +16,7 @@ export class PlannerContext {
 
   private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
   private _plan = new BehaviorSubject<Plan>(Plan.empty());
+  private _networkType = new BehaviorSubject<NetworkType>(null);
 
   constructor(readonly commandStack: PlannerCommandStack,
               readonly routeLayer: PlannerRouteLayer,
@@ -23,6 +25,14 @@ export class PlannerContext {
               readonly elasticBand: PlannerElasticBand,
               readonly legRepository: PlannerLegRepository,
               readonly legs: PlanLegCache) {
+  }
+
+  setNetworkType(networkType: NetworkType): void {
+    this._networkType.next(networkType);
+  }
+
+  get networkType(): NetworkType {
+    return this._networkType.value;
   }
 
   execute(command: PlannerCommand): void {

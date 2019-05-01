@@ -17,7 +17,7 @@ export class MapService {
   selectedRouteId: string;
   selectedNodeId: string;
 
-  networkType: BehaviorSubject<NetworkType> = new BehaviorSubject(new NetworkType("rcn"));
+  networkType: BehaviorSubject<NetworkType|null> = new BehaviorSubject(null);
   selectedFeature: BehaviorSubject<SelectedFeature> = new BehaviorSubject(null);
   _poiClickedObserver: Subject<PoiId> = new Subject(); // not a BehaviorSubject because we do not want subscriber notified upon subscribe
 
