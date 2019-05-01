@@ -3739,7 +3739,7 @@
       "type": "symbol",
       "source": "openmaptiles",
       "source-layer": "poi",
-      "minzoom": 16,
+      "minzoom": 20,
       "filter": [
         "all",
         [
@@ -3784,7 +3784,7 @@
       "type": "symbol",
       "source": "openmaptiles",
       "source-layer": "poi",
-      "minzoom": 16,
+      "minzoom": 20,
       "filter": [
         "all",
         [
@@ -3829,7 +3829,7 @@
       "type": "symbol",
       "source": "openmaptiles",
       "source-layer": "poi",
-      "minzoom": 15,
+      "minzoom": 20,
       "filter": [
         "all",
         [
@@ -3882,7 +3882,7 @@
       "type": "symbol",
       "source": "openmaptiles",
       "source-layer": "poi",
-      "minzoom": 15,
+      "minzoom": 20,
       "filter": [
         "all",
         [
@@ -3935,7 +3935,7 @@
       "type": "symbol",
       "source": "openmaptiles",
       "source-layer": "poi",
-      "minzoom": 14,
+      "minzoom": 20,
       "filter": [
         "all",
         [
@@ -3987,7 +3987,7 @@
       "type": "symbol",
       "source": "openmaptiles",
       "source-layer": "poi",
-      "minzoom": 14,
+      "minzoom": 20,
       "filter": [
         "all",
         [
