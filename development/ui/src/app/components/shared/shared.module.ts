@@ -26,7 +26,6 @@ import {LinkChangesComponent} from "./link/link-changes.component";
 import {LinkChangesetComponent} from "./link/link-changeset.component";
 import {LinkFactComponent} from "./link/link-fact.component";
 import {LinkGlossaryComponent} from "./link/link-glossary.component";
-import {LinkHomeComponent} from "./link/link-home.component";
 import {LinkLinksComponent} from "./link/link-links.component";
 import {LinkLoginComponent} from "./link/link-login.component";
 import {LinkLogoutComponent} from "./link/link-logout.component";
@@ -69,6 +68,7 @@ import {SidebarVersionWarningComponent} from "./sidebar/sidebar-version-warning.
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {SubsetNameComponent} from "./subset-name.component";
 import {TagsComponent} from "./tags/tags.component";
+import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
 
@@ -107,7 +107,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkAboutComponent,
     LinkAuthenticateComponent,
     LinkGlossaryComponent,
-    LinkHomeComponent,
     LinkLinksComponent,
     LinkLoginComponent,
     LinkLogoutComponent,
@@ -132,6 +131,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
+    SituationOnComponent,
     JsonComponent,
     TagsComponent,
     DataComponent,
@@ -178,7 +178,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkAboutComponent,
     LinkAuthenticateComponent,
     LinkGlossaryComponent,
-    LinkHomeComponent,
     LinkLinksComponent,
     LinkLoginComponent,
     LinkLogoutComponent,
@@ -203,6 +202,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
+    SituationOnComponent,
     JsonComponent,
     TagsComponent,
     DataComponent,

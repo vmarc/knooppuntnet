@@ -17,8 +17,7 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
     <div *ngIf="response">
       <p>
-        Situation on:
-        <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
       <div *ngIf="!hasFacts()">
         <i>No facts</i>

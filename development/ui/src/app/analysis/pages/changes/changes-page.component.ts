@@ -9,12 +9,12 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
   template: `
 
     <div>
-      <a routerLink="/">Home</a> >
-      <a routerLink="/analysis">Analysis</a> >
-      Changes
+      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
+      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+      <span i18n="@@breadcrumb.changes">Changes</span>
     </div>
 
-    <h1>
+    <h1 i18n="@@changes-page.title">
       Changes
     </h1>
 

@@ -9,24 +9,20 @@ import {Statistics} from "../../../kpn/shared/statistics/statistics";
   template: `
 
     <div>
-      <a routerLink="/">Home</a> >
-      <a routerLink="/analysis">Analysis</a> >
-      Overview
+      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
+      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+      <span i18n="@@breadcrumb.overview">Overview</span>
     </div>
 
-    <h1>
+    <h1 i18n="@@overview-page.title">
       Overview
     </h1>
 
     <kpn-statistic-configurations></kpn-statistic-configurations>
 
     <div *ngIf="response">
-
-      Situation on:
-      <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
-
+      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       <kpn-overview-table [statistics]="stats"></kpn-overview-table>
-
       <json [object]="response"></json>
     </div>
   `

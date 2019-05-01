@@ -396,9 +396,9 @@
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
         <source>
-      The route is broken: the begin- and end-networknodes cannot be connected through ways either
-      "in the forward direction or the backward direction or both.
-    </source>
+          The route is broken: the begin- and end-networknodes cannot be connected through ways either
+          "in the forward direction or the backward direction or both.
+        </source>
         <target state="new">?
           The route is broken: the begin- and end-networknodes cannot be connected through ways either
           "in the forward direction or the backward direction or both.
@@ -411,8 +411,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-unused-segments" datatype="html">
         <source>
-      The route contains ways or part of ways that are not used in the connection between the end nodes.
-    </source>
+          The route contains ways or part of ways that are not used in the connection between the end nodes.
+        </source>
         <target state="new">?
           The route contains ways or part of ways that are not used in the connection between the end nodes.
           ?
@@ -424,8 +424,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-node-missing-in-ways" datatype="html">
         <source>
-      The end node and/or the begin node is not found in any of the ways of this route.
-    </source>
+          The end node and/or the begin node is not found in any of the ways of this route.
+        </source>
         <target state="new">?
           The end node and/or the begin node is not found in any of the ways of this route.
           ?
@@ -437,8 +437,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-redundant-nodes" datatype="html">
         <source>
-      The ways of this route contain extra nodes other than the start and end nodes.
-    </source>
+          The ways of this route contain extra nodes other than the start and end nodes.
+        </source>
         <target state="new">?
           The ways of this route contain extra nodes other than the start and end nodes.
           ?
@@ -450,8 +450,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-without-ways" datatype="html">
         <source>
-      The route does not contain any ways (we expect the route to contain at least 1 way).
-    </source>
+          The route does not contain any ways (we expect the route to contain at least 1 way).
+        </source>
         <target state="new">?
           The route does not contain any ways (we expect the route to contain at least 1 way).
           ?
@@ -463,8 +463,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-fixmetodo" datatype="html">
         <source>
-      Route definition needs work (has tag _"fixmetodo"_).
-    </source>
+          Route definition needs work (has tag _"fixmetodo"_).
+        </source>
         <target state="new">?
           Route definition needs work (has tag _"fixmetodo"_).
           ?
@@ -476,8 +476,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-name-missing" datatype="html">
         <source>
-      The route relation does not have a _"note"_ tag with the route name.
-    </source>
+          The route relation does not have a _"note"_ tag with the route name.
+        </source>
         <target state="new">?
           The route relation does not have a _"note"_ tag with the route name.
           ?
@@ -489,8 +489,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-end-node-mismatch" datatype="html">
         <source>
-      The end node does not match the last node in the last way.
-    </source>
+          The end node does not match the last node in the last way.
+        </source>
         <target state="new">?
           The end node does not match the last node in the last way.
           ?
@@ -502,8 +502,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-start-node-mismatch" datatype="html">
         <source>
-      The start node does not match the first node in the first way.
-    </source>
+          The start node does not match the first node in the first way.
+        </source>
         <target state="new">?
           The start node does not match the first node in the first way.
           ?
@@ -515,8 +515,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-tag-missing" datatype="html">
         <source>
-      Routerelation does not contain the required _route_ tag.
-    </source>
+          Routerelation does not contain the required _route_ tag.
+        </source>
         <target state="new">?
           Routerelation does not contain the required _route_ tag.
           ?
@@ -528,14 +528,14 @@
       </trans-unit>
       <trans-unit id="fact.description.route-tag-invalid" datatype="html">
         <source>
-      Invalid value in required tag _"route"_ in route relation.
+          Invalid value in required tag _"route"_ in route relation.
 
-      A bicycle route relation needs to have value _"bicycle"_ in its _"route"_ tag.
+          A bicycle route relation needs to have value _"bicycle"_ in its _"route"_ tag.
 
-      A hiking route relation needs to have one of the following values in its _"route"_ tag: _"foot"_,
-      _"hiking"_, or _"walking"_. Note that _"walking"_ is a value that is frequently found,
-      but not actually documented as a valid value in the OSM wiki pages.
-    </source>
+          A hiking route relation needs to have one of the following values in its _"route"_ tag: _"foot"_,
+          _"hiking"_, or _"walking"_. Note that _"walking"_ is a value that is frequently found,
+          but not actually documented as a valid value in the OSM wiki pages.
+        </source>
         <target state="new">?
           Invalid value in required tag _"route"_ in route relation.
 
@@ -553,8 +553,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-node" datatype="html">
         <source>
-      The route relation contains 1 or more unexpected nodes
-    </source>
+          The route relation contains 1 or more unexpected nodes
+        </source>
         <target state="new">?
           The route relation contains 1 or more unexpected nodes
           ?
@@ -566,10 +566,10 @@
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-relation" datatype="html">
         <source>
-      The route relation contains one or more unexpected relation members. In route relations
-      we expect only members of type _"way"_, or members of type _"node"_ with a tag
-      _"rwn_ref"_ or _"rcn_ref"_.
-    </source>
+          The route relation contains one or more unexpected relation members. In route relations
+          we expect only members of type _"way"_, or members of type _"node"_ with a tag
+          _"rwn_ref"_ or _"rcn_ref"_.
+        </source>
         <target state="new">?
           The route relation contains one or more unexpected relation members. In route relations
           we expect only members of type _"way"_, or members of type _"node"_ with a tag
@@ -583,9 +583,9 @@
       </trans-unit>
       <trans-unit id="fact.description.network-extra-member-node" datatype="html">
         <source>
-      The network relation contains members of type _"node"_ that are unexpected (we expect
-      only network nodes or information maps as members in the network relation).
-    </source>
+          The network relation contains members of type _"node"_ that are unexpected (we expect
+          only network nodes or information maps as members in the network relation).
+        </source>
         <target state="new">?
           The network relation contains members of type _"node"_ that are unexpected (we expect
           only network nodes or information maps as members in the network relation).
@@ -598,9 +598,9 @@
       </trans-unit>
       <trans-unit id="fact.description.network-extra-member-way" datatype="html">
         <source>
-      The network relation contains members of type _"way"_ (expect only route relations or
-      network nodes as members in the node network relation).
-    </source>
+          The network relation contains members of type _"way"_ (expect only route relations or
+          network nodes as members in the node network relation).
+        </source>
         <target state="new">?
           The network relation contains members of type _"way"_ (expect only route relations or
           network nodes as members in the node network relation).
@@ -613,9 +613,9 @@
       </trans-unit>
       <trans-unit id="fact.description.network-extra-member-relation" datatype="html">
         <source>
-      The network relation contains members of type _"relation"_ that are unexpected
-      (expect only valid route relations or network nodes as members in the node network relation).
-    </source>
+          The network relation contains members of type _"relation"_ that are unexpected
+          (expect only valid route relations or network nodes as members in the node network relation).
+        </source>
         <target state="new">?
           The network relation contains members of type _"relation"_ that are unexpected
           (expect only valid route relations or network nodes as members in the node network relation).
@@ -628,8 +628,8 @@
       </trans-unit>
       <trans-unit id="fact.description.node-member-missing" datatype="html">
         <source>
-      The node is not member of the network relation.
-    </source>
+          The node is not member of the network relation.
+        </source>
         <target state="new">?
           The node is not member of the network relation.
           ?
@@ -641,9 +641,9 @@
       </trans-unit>
       <trans-unit id="fact.description.integrity-check-failed" datatype="html">
         <source>
-      The actual number of routes does not match the expected number of routes. Routes with
-      tag "state" equal to "connection or "alternate" are not counted.
-    </source>
+          The actual number of routes does not match the expected number of routes. Routes with
+          tag "state" equal to "connection or "alternate" are not counted.
+        </source>
         <target state="new">?
           The actual number of routes does not match the expected number of routes. Routes with
           tag "state" equal to "connection or "alternate" are not counted.
@@ -656,9 +656,9 @@
       </trans-unit>
       <trans-unit id="fact.description.orphan-route" datatype="html">
         <source>
-      This route does not belong to a network. The route was not added as a member to
-      a valid network relation.
-    </source>
+          This route does not belong to a network. The route was not added as a member to
+          a valid network relation.
+        </source>
         <target state="new">?
           This route does not belong to a network. The route was not added as a member to
           a valid network relation.
@@ -671,9 +671,9 @@
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete" datatype="html">
         <source>
-      The route is marked as having an incomplete definition. A route definition is explicitely
-      marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
-    </source>
+          The route is marked as having an incomplete definition. A route definition is explicitely
+          marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+        </source>
         <target state="new">?
           The route is marked as having an incomplete definition. A route definition is explicitely
           marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
@@ -686,10 +686,10 @@
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete-ok" datatype="html">
         <source>
-      The route is marked as having an incomplete definition. A route definition is explicitely
-      marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation. But
-      after analysis, the route seems to be ok.
-    </source>
+          The route is marked as having an incomplete definition. A route definition is explicitely
+          marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation. But
+          after analysis, the route seems to be ok.
+        </source>
         <target state="new">?
           The route is marked as having an incomplete definition. A route definition is explicitely
           marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation. But
@@ -703,10 +703,10 @@
       </trans-unit>
       <trans-unit id="fact.description.route-unaccessible" datatype="html">
         <source>
-      Part of the route does not seem
-      context.gotoGlossaryEntry("accessible", "accessible"),
-      .
-    </source>
+          Part of the route does not seem
+          context.gotoGlossaryEntry("accessible", "accessible"),
+          .
+        </source>
         <target state="new">?
           Part of the route does not seem
           context.gotoGlossaryEntry("accessible", "accessible"),
@@ -720,8 +720,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-invalid-sorting-order" datatype="html">
         <source>
-      The route is valid, but the sorting order of the ways is incorrect.
-    </source>
+          The route is valid, but the sorting order of the ways is incorrect.
+        </source>
         <target state="new">?
           The route is valid, but the sorting order of the ways is incorrect.
           ?
@@ -733,8 +733,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-reversed" datatype="html">
         <source>
-      The ways in this route are in reverse order (from high node number to low node number).
-    </source>
+          The ways in this route are in reverse order (from high node number to low node number).
+        </source>
         <target state="new">?
           The ways in this route are in reverse order (from high node number to low node number).
           ?
@@ -746,9 +746,9 @@
       </trans-unit>
       <trans-unit id="fact.description.route-node-name-mismatch" datatype="html">
         <source>
-      The route name in the _note_ tag in the route relation does not match the expected name as
-      derived from the start and end node of the route.
-    </source>
+          The route name in the _note_ tag in the route relation does not match the expected name as
+          derived from the start and end node of the route.
+        </source>
         <target state="new">?
           The route name in the _note_ tag in the route relation does not match the expected name as
           derived from the start and end node of the route.
@@ -761,8 +761,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-not-forward" datatype="html">
         <source>
-      There is no path in the forward direction (from start node to end node).
-    </source>
+          There is no path in the forward direction (from start node to end node).
+        </source>
         <target state="new">?
           There is no path in the forward direction (from start node to end node).
           ?
@@ -774,8 +774,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-not-backward" datatype="html">
         <source>
-      There is no path in the backward direction (from end node to start node).
-    </source>
+          There is no path in the backward direction (from end node to start node).
+        </source>
         <target state="new">?
           There is no path in the backward direction (from end node to start node).
           ?
@@ -787,8 +787,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-analysis-failed" datatype="html">
         <source>
-      The route could not be analyzed (too complex?).
-    </source>
+          The route could not be analyzed (too complex?).
+        </source>
         <target state="new">?
           The route could not be analyzed (too complex?).
           ?
@@ -800,8 +800,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-overlapping-ways" datatype="html">
         <source>
-      No detailed route analysis is performed because the route contains overlapping ways.
-    </source>
+          No detailed route analysis is performed because the route contains overlapping ways.
+        </source>
         <target state="new">?
           No detailed route analysis is performed because the route contains overlapping ways.
           ?
@@ -813,8 +813,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-suspicious-ways" datatype="html">
         <source>
-      Route with funny ways (for example ways with only 1 node).
-    </source>
+          Route with funny ways (for example ways with only 1 node).
+        </source>
         <target state="new">?
           Route with funny ways (for example ways with only 1 node).
           ?
@@ -826,8 +826,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-broken" datatype="html">
         <source>
-      TODO
-    </source>
+          TODO
+        </source>
         <target state="new">?
           TODO
           ?
@@ -839,8 +839,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-one-way" datatype="html">
         <source>
-      The route is tagged as useable in one direction only. This is OK.
-    </source>
+          The route is tagged as useable in one direction only. This is OK.
+        </source>
         <target state="new">?
           The route is tagged as useable in one direction only. This is OK.
           ?
@@ -852,8 +852,8 @@
       </trans-unit>
       <trans-unit id="fact.description.route-not-one-way" datatype="html">
         <source>
-      The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.
-    </source>
+          The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.
+        </source>
         <target state="new">?
           The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.
           ?
@@ -865,8 +865,8 @@
       </trans-unit>
       <trans-unit id="fact.description.name-missing" datatype="html">
         <source>
-      The network relation does not contain the mandatory tag with key "name".
-    </source>
+          The network relation does not contain the mandatory tag with key "name".
+        </source>
         <target state="new">?
           The network relation does not contain the mandatory tag with key "name".
           ?
@@ -878,8 +878,8 @@
       </trans-unit>
       <trans-unit id="fact.description.ignore-foreign-country" datatype="html">
         <source>
-      Not included in analysis: located in a country different from The Netherlands, Belgium or Germany.
-    </source>
+          Not included in analysis: located in a country different from The Netherlands, Belgium or Germany.
+        </source>
         <target state="new">?
           Not included in analysis: located in a country different from The Netherlands, Belgium or Germany.
           ?
@@ -891,8 +891,8 @@
       </trans-unit>
       <trans-unit id="fact.description.ignore-no-network-nodes" datatype="html">
         <source>
-      Not included in analysis: route does not contain network nodes.
-    </source>
+          Not included in analysis: route does not contain network nodes.
+        </source>
         <target state="new">?
           Not included in analysis: route does not contain network nodes.
           ?
@@ -904,8 +904,8 @@
       </trans-unit>
       <trans-unit id="fact.description.ignore-unsupported-subset" datatype="html">
         <source>
-      Not included in analysis: no hiking node networks in Germany.
-    </source>
+          Not included in analysis: no hiking node networks in Germany.
+        </source>
         <target state="new">?
           Not included in analysis: no hiking node networks in Germany.
           ?
@@ -917,8 +917,8 @@
       </trans-unit>
       <trans-unit id="fact.description.added" datatype="html">
         <source>
-      Added to the analysis.
-    </source>
+          Added to the analysis.
+        </source>
         <target state="new">?
           Added to the analysis.
           ?
@@ -930,8 +930,8 @@
       </trans-unit>
       <trans-unit id="fact.description.become-ignored" datatype="html">
         <source>
-      No longer included in the analysis.
-    </source>
+          No longer included in the analysis.
+        </source>
         <target state="new">?
           No longer included in the analysis.
           ?
@@ -943,8 +943,8 @@
       </trans-unit>
       <trans-unit id="fact.description.become-orphan" datatype="html">
         <source>
-      Has become orphan.
-    </source>
+          Has become orphan.
+        </source>
         <target state="new">?
           Has become orphan.
           ?
@@ -956,8 +956,8 @@
       </trans-unit>
       <trans-unit id="fact.description.deleted" datatype="html">
         <source>
-      Deleted from the OpenStreetMap database.
-    </source>
+          Deleted from the OpenStreetMap database.
+        </source>
         <target state="new">?
           Deleted from the OpenStreetMap database.
           ?
@@ -969,8 +969,8 @@
       </trans-unit>
       <trans-unit id="fact.description.ignore-network-collection" datatype="html">
         <source>
-      Not included in the analysis because this relation is a collection of networks.
-    </source>
+          Not included in the analysis because this relation is a collection of networks.
+        </source>
         <target state="new">?
           Not included in the analysis because this relation is a collection of networks.
           ?
@@ -982,8 +982,8 @@
       </trans-unit>
       <trans-unit id="fact.description.integrity-check" datatype="html">
         <source>
-      This network node has a tag that indicates the expected number of routes that arrive/depart in this node.
-    </source>
+          This network node has a tag that indicates the expected number of routes that arrive/depart in this node.
+        </source>
         <target state="new">?
           This network node has a tag that indicates the expected number of routes that arrive/depart in this node.
           ?
@@ -995,8 +995,8 @@
       </trans-unit>
       <trans-unit id="fact.description.lost-bicycle-node-tag" datatype="html">
         <source>
-      This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.
-    </source>
+          This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.
+        </source>
         <target state="new">?
           This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.
           ?
@@ -1008,8 +1008,8 @@
       </trans-unit>
       <trans-unit id="fact.description.lost-hiking-node-tag" datatype="html">
         <source>
-      This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
-    </source>
+          This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
+        </source>
         <target state="new">?
           This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
           ?
@@ -1021,8 +1021,8 @@
       </trans-unit>
       <trans-unit id="fact.description.lost-route-tags" datatype="html">
         <source>
-      This relation is no longer a valid network route because a required tag has been removed.
-    </source>
+          This relation is no longer a valid network route because a required tag has been removed.
+        </source>
         <target state="new">?
           This relation is no longer a valid network route because a required tag has been removed.
           ?
@@ -1034,8 +1034,8 @@
       </trans-unit>
       <trans-unit id="fact.description.was-ignored" datatype="html">
         <source>
-      No longer excluded from the analysis.
-    </source>
+          No longer excluded from the analysis.
+        </source>
         <target state="new">?
           No longer excluded from the analysis.
           ?
@@ -1047,8 +1047,8 @@
       </trans-unit>
       <trans-unit id="fact.description.was-orphan" datatype="html">
         <source>
-      No longer an orphan.
-    </source>
+          No longer an orphan.
+        </source>
         <target state="new">?
           No longer an orphan.
           ?
@@ -1058,13 +1058,110 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="breadcrumb.network" datatype="html">
+        <source>Network</source>
+        <target state="new">?Network?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-page.menu.details" datatype="html">
+        <source>Details</source>
+        <target state="new">?Details?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-page.menu.facts" datatype="html">
+        <source>Facts</source>
+        <target state="new">?Facts?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-page.menu.nodes" datatype="html">
+        <source>Nodes</source>
+        <target state="new">?Nodes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-page.menu.routes" datatype="html">
+        <source>Routes</source>
+        <target state="new">?Routes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-page.menu.map" datatype="html">
+        <source>Map</source>
+        <target state="new">?Map?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-page.menu.changes" datatype="html">
+        <source>Changes</source>
+        <target state="new">?Changes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.networks" datatype="html">
+        <source>Networks</source>
+        <target state="new">?Networks?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.facts" datatype="html">
+        <source>Facts</source>
+        <target state="new">?Facts?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.orphan-nodes" datatype="html">
+        <source>Orphan Nodes</source>
+        <target state="new">?Orphan Nodes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.orphan-routes" datatype="html">
+        <source>Orphan routes</source>
+        <target state="new">?Orphan routes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.changes" datatype="html">
+        <source>Changes</source>
+        <target state="new">?Changes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home.page-title" datatype="html">
         <source>
-      Node networks
-    </source>
+          Node networks
+        </source>
         <target state="new">?
-      Node networks
-    ?</target>
+          Node networks
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1086,19 +1183,28 @@
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="breadcrumb.map" datatype="html">
+        <source>Map</source>
+        <target state="new">?Map?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="fact.description.orphan-node" datatype="html">
         <source>
-      This node does not belong to a network.
-      The node was not added as a member to a valid network relation, and also not added
-      as a member to valid route relation (that itself was added as a member to a valid
-      network relation or is an orphan route).
-    </source>
+          This node does not belong to a network.
+          The node was not added as a member to a valid network relation, and also not added
+          as a member to valid route relation (that itself was added as a member to a valid
+          network relation or is an orphan route).
+        </source>
         <target state="new">?
-      This node does not belong to a network.
-      The node was not added as a member to a valid network relation, and also not added
-      as a member to valid route relation (that itself was added as a member to a valid
-      network relation or is an orphan route).
-    ?</target>
+          This node does not belong to a network.
+          The node was not added as a member to a valid network relation, and also not added
+          as a member to valid route relation (that itself was added as a member to a valid
+          network relation or is an orphan route).
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-orphan-node.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -2338,12 +2444,13 @@
       </trans-unit>
       <trans-unit id="stats.km.comment" datatype="html">
         <source>
-        Total length in kilometers.
-      </source>
-        <target state="new">? 
-        Total length in kilometers.
-        
-      ?</target>
+          Total length in kilometers.
+        </source>
+        <target state="new">?
+          Total length in kilometers.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -2359,12 +2466,13 @@
       </trans-unit>
       <trans-unit id="stats.network-count.comment" datatype="html">
         <source>
-        Number of networks.
-      </source>
-        <target state="new">? 
-        Number of networks.
-        
-      ?</target>
+          Number of networks.
+        </source>
+        <target state="new">?
+          Number of networks.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -2380,12 +2488,13 @@
       </trans-unit>
       <trans-unit id="stats.node-count.comment" datatype="html">
         <source>
-        Number of network nodes.
-      </source>
-        <target state="new">? 
-        Number of network nodes.
-        
-      ?</target>
+          Number of network nodes.
+        </source>
+        <target state="new">?
+          Number of network nodes.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -2401,12 +2510,13 @@
       </trans-unit>
       <trans-unit id="stats.route-count.comment" datatype="html">
         <source>
-        Number of routes.
-      </source>
-        <target state="new">? 
-        Number of routes.
-        
-      ?</target>
+          Number of routes.
+        </source>
+        <target state="new">?
+          Number of routes.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -2422,12 +2532,13 @@
       </trans-unit>
       <trans-unit id="stats.route-not-continious-network-count.comment" datatype="html">
         <source>
-        Number of networks with broken routes.
-      </source>
+          Number of networks with broken routes.
+        </source>
         <target state="new">?
-        Number of networks with broken routes.
-        
-      ?</target>
+          Number of networks with broken routes.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -2443,12 +2554,13 @@
       </trans-unit>
       <trans-unit id="stats.route-not-continious.comment" datatype="html">
         <source>
-        Number of broken routes.
-      </source>
+          Number of broken routes.
+        </source>
         <target state="new">?
-        Number of broken routes.
-        
-      ?</target>
+          Number of broken routes.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -2464,12 +2576,13 @@
       </trans-unit>
       <trans-unit id="stats.route-not-continious-percentage.comment" datatype="html">
         <source>
-        Percentage of broken routes.
-      </source>
-        <target state="new">? 
-        Percentage of broken routes.
-        
-      ?</target>
+          Percentage of broken routes.
+        </source>
+        <target state="new">?
+          Percentage of broken routes.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">59</context>
@@ -2485,12 +2598,13 @@
       </trans-unit>
       <trans-unit id="stats.route-broken-network-count.comment" datatype="html">
         <source>
-        Number of networks containing routes with issues.
-      </source>
-        <target state="new">? 
-        Number of networks containing routes with issues.
-        
-      ?</target>
+          Number of networks containing routes with issues.
+        </source>
+        <target state="new">?
+          Number of networks containing routes with issues.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">67</context>
@@ -2506,12 +2620,13 @@
       </trans-unit>
       <trans-unit id="stats.route-broken-count.comment" datatype="html">
         <source>
-        Number of routes with issues.
-      </source>
-        <target state="new">? 
-        Number of routes with issues.
-        
-      ?</target>
+          Number of routes with issues.
+        </source>
+        <target state="new">?
+          Number of routes with issues.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">75</context>
@@ -2527,12 +2642,13 @@
       </trans-unit>
       <trans-unit id="stats.route-broken-percentage.comment" datatype="html">
         <source>
-        Percentage of routes with issues.
-      </source>
-        <target state="new">? 
-        Percentage of routes with issues.
-        
-      ?</target>
+          Percentage of routes with issues.
+        </source>
+        <target state="new">?
+          Percentage of routes with issues.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">83</context>
@@ -2548,18 +2664,18 @@
       </trans-unit>
       <trans-unit id="stats.route-incomplete.comment" datatype="html">
         <source>
-        Number of routes that are marked as having an incomplete definition.\
-        A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
-        value _"incomplete"_ in the route relation.
-      </source>
+          Number of routes that are marked as having an incomplete definition.\
+          A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
+          value _"incomplete"_ in the route relation.
+        </source>
         <target state="new">?
-        Number of routes that are marked as having an incomplete definition.\
-        A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
-        value _"incomplete"_ in the route relation.
-        
-        
-        
-      ?</target>
+          Number of routes that are marked as having an incomplete definition.\
+          A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
+          value _"incomplete"_ in the route relation.
+
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">93</context>
@@ -2575,20 +2691,20 @@
       </trans-unit>
       <trans-unit id="stats.route-incomplete-ok.comment" datatype="html">
         <source>
-        Number of routes that are marked as having an incomplete definition, but
-        that look ok after analysis.\
-        A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
-        value _"incomplete"_ in the route relation.
-      </source>
+          Number of routes that are marked as having an incomplete definition, but
+          that look ok after analysis.\
+          A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
+          value _"incomplete"_ in the route relation.
+        </source>
         <target state="new">?
-        Number of routes that are marked as having an incomplete definition, but
-        that look ok after analysis.\
-        A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
-        value _"incomplete"_ in the route relation.
-        
-        
-        
-      ?</target>
+          Number of routes that are marked as having an incomplete definition, but
+          that look ok after analysis.\
+          A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
+          value _"incomplete"_ in the route relation.
+
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">105</context>
@@ -2604,12 +2720,13 @@
       </trans-unit>
       <trans-unit id="stats.route-fixmetodo.comment" datatype="html">
         <source>
-        Number of routes that are marked with _"fixmetodo"_.
-      </source>
+          Number of routes that are marked with _"fixmetodo"_.
+        </source>
         <target state="new">?
-        Number of routes that are marked with _"fixmetodo"_.
-        
-      ?</target>
+          Number of routes that are marked with _"fixmetodo"_.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">118</context>
@@ -2633,16 +2750,17 @@
       </trans-unit>
       <trans-unit id="stats.orphan-route-count.comment" datatype="html">
         <source>
-        Number of network routes that do not belong to a network.\
-        The route was not added as a member to a valid
-        [network relation](glossary#network-relation).
-      </source>
-        <target state="new">? 
-        Number of network routes that do not belong to a network.\
-        The route was not added as a member to a valid
-        [network relation](glossary#network-relation).
-        
-      ?</target>
+          Number of network routes that do not belong to a network.\
+          The route was not added as a member to a valid
+          [network relation](glossary#network-relation).
+        </source>
+        <target state="new">?
+          Number of network routes that do not belong to a network.\
+          The route was not added as a member to a valid
+          [network relation](glossary#network-relation).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">143</context>
@@ -2658,12 +2776,13 @@
       </trans-unit>
       <trans-unit id="stats.orphan-route-km.comment" datatype="html">
         <source>
-        Total length (km) of the orphan routes (not included in network length above).
-      </source>
-        <target state="new">? 
-        Total length (km) of the orphan routes (not included in network length above).
-        
-      ?</target>
+          Total length (km) of the orphan routes (not included in network length above).
+        </source>
+        <target state="new">?
+          Total length (km) of the orphan routes (not included in network length above).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">153</context>
@@ -2679,12 +2798,13 @@
       </trans-unit>
       <trans-unit id="stats.integrity-check-network-count.comment" datatype="html">
         <source>
-        Number of networks that include integrity check.
-      </source>
-        <target state="new">? 
-        Number of networks that include integrity check.
-        
-      ?</target>
+          Number of networks that include integrity check.
+        </source>
+        <target state="new">?
+          Number of networks that include integrity check.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">161</context>
@@ -2700,12 +2820,13 @@
       </trans-unit>
       <trans-unit id="stats.integrity-check.comment" datatype="html">
         <source>
-        Number of nodes with integrity check.
-      </source>
-        <target state="new">? 
-        Number of nodes with integrity check.
-        
-      ?</target>
+          Number of nodes with integrity check.
+        </source>
+        <target state="new">?
+          Number of nodes with integrity check.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">169</context>
@@ -2721,12 +2842,13 @@
       </trans-unit>
       <trans-unit id="stats.integrity-check-failed.comment" datatype="html">
         <source>
-        Number of failed integrity checks.
-      </source>
+          Number of failed integrity checks.
+        </source>
         <target state="new">?
-        Number of failed integrity checks.
-        
-      ?</target>
+          Number of failed integrity checks.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">178</context>
@@ -2742,12 +2864,13 @@
       </trans-unit>
       <trans-unit id="stats.integrity-check-pass-rate.comment" datatype="html">
         <source>
-        Integrity check pass rate (percentage of ok checks).
-      </source>
-        <target state="new">? 
-        Integrity check pass rate (percentage of ok checks).
-        
-      ?</target>
+          Integrity check pass rate (percentage of ok checks).
+        </source>
+        <target state="new">?
+          Integrity check pass rate (percentage of ok checks).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">186</context>
@@ -2763,12 +2886,13 @@
       </trans-unit>
       <trans-unit id="stats.integrity-check-coverage.comment" datatype="html">
         <source>
-        Integrity check coverage (percentage of nodes that do have integrity check information).
-      </source>
-        <target state="new">? 
-        Integrity check coverage (percentage of nodes that do have integrity check information).
-        
-      ?</target>
+          Integrity check coverage (percentage of nodes that do have integrity check information).
+        </source>
+        <target state="new">?
+          Integrity check coverage (percentage of nodes that do have integrity check information).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">194</context>
@@ -2784,15 +2908,16 @@
       </trans-unit>
       <trans-unit id="stats.route-unused-segments.comment" datatype="html">
         <source>
-        Number of routes where one or more of the ways (or part of ways) are not used in the
-        forward or backward path or in one of the tentacles.
-      </source>
+          Number of routes where one or more of the ways (or part of ways) are not used in the
+          forward or backward path or in one of the tentacles.
+        </source>
         <target state="new">?
-        Number of routes where one or more of the ways (or part of ways) are not used in the
-        forward or backward path or in one of the tentacles.
-        
-        
-      ?</target>
+          Number of routes where one or more of the ways (or part of ways) are not used in the
+          forward or backward path or in one of the tentacles.
+
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">203</context>
@@ -2808,12 +2933,13 @@
       </trans-unit>
       <trans-unit id="stats.route-node-missing-in-ways.comment" datatype="html">
         <source>
-        Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
-      </source>
+          Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
+        </source>
         <target state="new">?
-        Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
-        
-      ?</target>
+          Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">213</context>
@@ -2829,13 +2955,14 @@
       </trans-unit>
       <trans-unit id="stats.route-redundant-nodes.comment" datatype="html">
         <source>
-        Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
-      </source>
+          Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
+        </source>
         <target state="new">?
-        Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
-        
-        
-      ?</target>
+          Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
+
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">222</context>
@@ -2851,12 +2978,13 @@
       </trans-unit>
       <trans-unit id="stats.route-without-ways.comment" datatype="html">
         <source>
-        Routes without ways (a route is expected to have at least 1 way).
-      </source>
+          Routes without ways (a route is expected to have at least 1 way).
+        </source>
         <target state="new">?
-        Routes without ways (a route is expected to have at least 1 way).
-        
-      ?</target>
+          Routes without ways (a route is expected to have at least 1 way).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">232</context>
@@ -2872,12 +3000,13 @@
       </trans-unit>
       <trans-unit id="stats.route-name-missing.comment" datatype="html">
         <source>
-        Routes without a _"note"_ tag with the route name.
-      </source>
+          Routes without a _"note"_ tag with the route name.
+        </source>
         <target state="new">?
-        Routes without a _"note"_ tag with the route name.
-        
-      ?</target>
+          Routes without a _"note"_ tag with the route name.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">242</context>
@@ -2893,12 +3022,13 @@
       </trans-unit>
       <trans-unit id="stats.route-tag-missing.comment" datatype="html">
         <source>
-        The route relation does not contain a _"route"_ tag.
-      </source>
+          The route relation does not contain a _"route"_ tag.
+        </source>
         <target state="new">?
-        The route relation does not contain a _"route"_ tag.
-        
-      ?</target>
+          The route relation does not contain a _"route"_ tag.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">252</context>
@@ -2914,12 +3044,13 @@
       </trans-unit>
       <trans-unit id="stats.route-tag-invalid.comment" datatype="html">
         <source>
-        The value in the _"route"_ tag in the route relation is unexpected.
-      </source>
+          The value in the _"route"_ tag in the route relation is unexpected.
+        </source>
         <target state="new">?
-        The value in the _"route"_ tag in the route relation is unexpected.
-        
-      ?</target>
+          The value in the _"route"_ tag in the route relation is unexpected.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">262</context>
@@ -2935,15 +3066,16 @@
       </trans-unit>
       <trans-unit id="stats.route-unexpected-node.comment" datatype="html">
         <source>
-        Number of routes with one or more unexpected node members.\
-        In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
-      </source>
-        <target state="new">? 
-        Number of routes with one or more unexpected node members.\
-        In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
-        
-        
-      ?</target>
+          Number of routes with one or more unexpected node members.\
+          In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
+        </source>
+        <target state="new">?
+          Number of routes with one or more unexpected node members.\
+          In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
+
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">272</context>
@@ -2959,18 +3091,18 @@
       </trans-unit>
       <trans-unit id="stats.route-unexpected-relation.comment" datatype="html">
         <source>
-        Number of routes with one or more unexpected members.\In route relations we expect
-        only members of type _"way"_, or members of type _"node"_ with a
-        tag _"rwn_ref"_ or _"rcn_ref"_.
-      </source>
-        <target state="new">? 
-        Number of routes with one or more unexpected members.\In route relations we expect
-        only members of type _"way"_, or members of type _"node"_ with a
-        tag _"rwn_ref"_ or _"rcn_ref"_.
-        
-        
-        
-      ?</target>
+          Number of routes with one or more unexpected members.\In route relations we expect
+          only members of type _"way"_, or members of type _"node"_ with a
+          tag _"rwn_ref"_ or _"rcn_ref"_.
+        </source>
+        <target state="new">?
+          Number of routes with one or more unexpected members.\In route relations we expect
+          only members of type _"way"_, or members of type _"node"_ with a
+          tag _"rwn_ref"_ or _"rcn_ref"_.
+
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">283</context>
@@ -2986,16 +3118,17 @@
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
         <source>
-        Number of network relation members of type _"node"_ that are unexpected (expect only
-        [network nodes](glossary#node) or [information maps](glossary#info-map) as members
-        in the network relation).
-      </source>
+          Number of network relation members of type _"node"_ that are unexpected (expect only
+          [network nodes](glossary#node) or [information maps](glossary#info-map) as members
+          in the network relation).
+        </source>
         <target state="new">?
-        Number of network relation members of type _"node"_ that are unexpected (expect only
-        [network nodes](glossary#node) or [information maps](glossary#info-map) as members
-        in the network relation).
-        
-      ?</target>
+          Number of network relation members of type _"node"_ that are unexpected (expect only
+          [network nodes](glossary#node) or [information maps](glossary#info-map) as members
+          in the network relation).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">295</context>
@@ -3011,14 +3144,15 @@
       </trans-unit>
       <trans-unit id="stats.network-extra-member-way.comment" datatype="html">
         <source>
-        Number of network relation members of type _"way"_ (expect only route relations
-        or network nodes as members in the node network relation).
-      </source>
+          Number of network relation members of type _"way"_ (expect only route relations
+          or network nodes as members in the node network relation).
+        </source>
         <target state="new">?
-        Number of network relation members of type _"way"_ (expect only route relations
-        or network nodes as members in the node network relation).
-        
-      ?</target>
+          Number of network relation members of type _"way"_ (expect only route relations
+          or network nodes as members in the node network relation).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">307</context>
@@ -3034,15 +3168,16 @@
       </trans-unit>
       <trans-unit id="stats.network-extra-member-relation.comment" datatype="html">
         <source>
-        Number of network relation members of type _"relation"_ that are unexpected (expect only
-        valid route relations or network nodes as members in the node network relation).
-      </source>
+          Number of network relation members of type _"relation"_ that are unexpected (expect only
+          valid route relations or network nodes as members in the node network relation).
+        </source>
         <target state="new">?
-        Number of network relation members of type _"relation"_ that are unexpected (expect only
-        valid route relations or network nodes as members in the node network relation).
-        
-        
-      ?</target>
+          Number of network relation members of type _"relation"_ that are unexpected (expect only
+          valid route relations or network nodes as members in the node network relation).
+
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">318</context>
@@ -3058,12 +3193,13 @@
       </trans-unit>
       <trans-unit id="stats.node-member-missing.comment" datatype="html">
         <source>
-        Number of nodes that are not included in the network relation
-      </source>
+          Number of nodes that are not included in the network relation
+        </source>
         <target state="new">?
-        Number of nodes that are not included in the network relation
-        
-      ?</target>
+          Number of nodes that are not included in the network relation
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">328</context>
@@ -3079,12 +3215,13 @@
       </trans-unit>
       <trans-unit id="stats.name-missing.comment" datatype="html">
         <source>
-        Number of networks without _"name"_ tag in the network relation.
-      </source>
-        <target state="new">? 
-        Number of networks without _"name"_ tag in the network relation.
-        
-      ?</target>
+          Number of networks without _"name"_ tag in the network relation.
+        </source>
+        <target state="new">?
+          Number of networks without _"name"_ tag in the network relation.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">337</context>
@@ -3100,12 +3237,13 @@
       </trans-unit>
       <trans-unit id="stats.route-unaccessible.comment" datatype="html">
         <source>
-        Number of [unaccessible](glossary#accessible) routes.
-      </source>
-        <target state="new">? 
-        Number of [unaccessible](glossary#accessible) routes.
-        
-      ?</target>
+          Number of [unaccessible](glossary#accessible) routes.
+        </source>
+        <target state="new">?
+          Number of [unaccessible](glossary#accessible) routes.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">347</context>
@@ -3121,12 +3259,13 @@
       </trans-unit>
       <trans-unit id="stats.route-invalid-sorting-order.comment" datatype="html">
         <source>
-        Number of routes with ways in wrong sorting order.
-      </source>
+          Number of routes with ways in wrong sorting order.
+        </source>
         <target state="new">?
-        Number of routes with ways in wrong sorting order.
-        
-      ?</target>
+          Number of routes with ways in wrong sorting order.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">356</context>
@@ -3142,12 +3281,13 @@
       </trans-unit>
       <trans-unit id="stats.route-reversed.comment" datatype="html">
         <source>
-        Number of routes where the ways are in reverse order (from high node number to low node number).
-      </source>
+          Number of routes where the ways are in reverse order (from high node number to low node number).
+        </source>
         <target state="new">?
-        Number of routes where the ways are in reverse order (from high node number to low node number).
-        
-      ?</target>
+          Number of routes where the ways are in reverse order (from high node number to low node number).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">365</context>
@@ -3163,16 +3303,17 @@
       </trans-unit>
       <trans-unit id="stats.route-node-name-mismatch.comment" datatype="html">
         <source>
-        Routes where the route name does not match with the names of the start node and the end node. The
-        route name is expected to contain the start node name and the end node name, separated by a dash. The
-        start node is expected to have a lower number than the end node.
-      </source>
+          Routes where the route name does not match with the names of the start node and the end node. The
+          route name is expected to contain the start node name and the end node name, separated by a dash. The
+          start node is expected to have a lower number than the end node.
+        </source>
         <target state="new">?
-        Routes where the route name does not match with the names of the start node and the end node. The
-        route name is expected to contain the start node name and the end node name, separated by a dash. The
-        start node is expected to have a lower number than the end node.
-        
-      ?</target>
+          Routes where the route name does not match with the names of the start node and the end node. The
+          route name is expected to contain the start node name and the end node name, separated by a dash. The
+          start node is expected to have a lower number than the end node.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">374</context>
@@ -3356,21 +3497,22 @@
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.comment" datatype="html">
         <source>
-        Number of network nodes that do not belong to a network.\
-        The [node](glossary#node) was not added as a member to a valid
-        [network relation](glossary#network-relation)
-        and also not added as a member to a valid
-        [route relation](glossary#route-relation)
-        (that itself was added as a member to a valid network relation or is an orphan route).
-      </source>
-        <target state="new">? 
-        Number of network nodes that do not belong to a network.\
-        The [node](glossary#node) was not added as a member to a valid
-        [network relation](glossary#network-relation)
-        and also not added as a member to a valid
-        [route relation](glossary#route-relation)
-        (that itself was added as a member to a valid network relation or is an orphan route).
-      ?</target>
+          Number of network nodes that do not belong to a network.\
+          The [node](glossary#node) was not added as a member to a valid
+          [network relation](glossary#network-relation)
+          and also not added as a member to a valid
+          [route relation](glossary#route-relation)
+          (that itself was added as a member to a valid network relation or is an orphan route).
+        </source>
+        <target state="new">?
+          Number of network nodes that do not belong to a network.\
+          The [node](glossary#node) was not added as a member to a valid
+          [network relation](glossary#network-relation)
+          and also not added as a member to a valid
+          [route relation](glossary#route-relation)
+          (that itself was added as a member to a valid network relation or is an orphan route).
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">128</context>
@@ -3432,14 +3574,36 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="breadcrumb.overview" datatype="html">
+        <source>Overview</source>
+        <target state="new">?Overview?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/_overview-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="overview-page.title" datatype="html">
+        <source>
+          Overview
+        </source>
+        <target state="new">?
+          Overview
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/_overview-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.inactive" datatype="html">
         <source>
-        This network node is not active anymore.
-      </source>
+          This network node is not active anymore.
+        </source>
         <target state="new">?
-        This network node is not active anymore.
-        
-      ?</target>
+          This network node is not active anymore.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -3447,12 +3611,13 @@
       </trans-unit>
       <trans-unit id="node.orphan" datatype="html">
         <source>
-        This network node does not belong to a known node network (orphan).
-      </source>
+          This network node does not belong to a known node network (orphan).
+        </source>
         <target state="new">?
-        This network node does not belong to a known node network (orphan).
-        
-      ?</target>
+          This network node does not belong to a known node network (orphan).
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -3460,12 +3625,13 @@
       </trans-unit>
       <trans-unit id="node.ignored" datatype="html">
         <source>
-        This network node is not included in the analysis.
-      </source>
+          This network node is not included in the analysis.
+        </source>
         <target state="new">?
-        This network node is not included in the analysis.
-        
-      ?</target>
+          This network node is not included in the analysis.
+
+          ?
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">27</context>
@@ -3478,6 +3644,14 @@
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-type.rcn" datatype="html">
         <source>Cycling</source>
@@ -3485,6 +3659,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.rhn" datatype="html">
@@ -3494,6 +3680,10 @@
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-type.rmn" datatype="html">
         <source>Motorboat</source>
@@ -3501,6 +3691,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.rpn" datatype="html">
@@ -3510,6 +3704,10 @@
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-type.rin" datatype="html">
         <source>Inline Skating</source>
@@ -3518,6 +3716,10 @@
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="country.nl" datatype="html">
         <source>The Netherlands</source>
@@ -3525,6 +3727,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
@@ -3539,6 +3753,18 @@
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
@@ -3551,8 +3777,154 @@
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="situation-on" datatype="html">
+        <source>Situation on</source>
+        <target state="new">?Situation on?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/timestamp/situation-on.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="breadcrumb.home" datatype="html">
+        <source>Home</source>
+        <target state="new">?Home?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changes/changes-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/_overview-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="breadcrumb.analysis" datatype="html">
+        <source>Analysis</source>
+        <target state="new">?Analysis?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changes/changes-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/_overview-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="analysis-page.title" datatype="html">
+        <source>
+          Analysis
+        </source>
+        <target state="new">?
+          Analysis
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="analysis-page.overview" datatype="html">
+        <source>Overview</source>
+        <target state="new">?Overview?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="analysis-page.changes" datatype="html">
+        <source>Changes</source>
+        <target state="new">?Changes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="breadcrumb.changes" datatype="html">
+        <source>Changes</source>
+        <target state="new">?Changes?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changes/changes-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="changes-page.title" datatype="html">
+        <source>
+          Changes
+        </source>
+        <target state="new">?
+          Changes
+          ?
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changes/changes-page.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
     </body>

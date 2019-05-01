@@ -8,9 +8,9 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
   template: `
 
     <div>
-      <a routerLink="/">Home</a> >
-      <a routerLink="/analysis">Analysis</a> >
-      Network
+      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
+      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+      <ng-container i18n="@@breadcrumb.network">Network</ng-container>
     </div>
 
     <h1>
@@ -22,7 +22,8 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
         pageName="details"
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-details/' + networkId}}"
-        pageTitle="Details">
+        pageTitle="Details"
+        i18n-pageTitle="@@network-page.menu.details">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
@@ -30,6 +31,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-facts/' + networkId}}"
         pageTitle="Facts"
+        i18n-pageTitle="@@network-page.menu.facts"
         [elementCount]="factCount()">
       </kpn-page-menu-option>
 
@@ -38,6 +40,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-nodes/' + networkId}}"
         pageTitle="Nodes"
+        i18n-pageTitle="@@network-page.menu.nodes"
         [elementCount]="nodeCount()">
       </kpn-page-menu-option>
 
@@ -46,6 +49,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-routes/' + networkId}}"
         pageTitle="Routes"
+        i18n-pageTitle="@@network-page.menu.routes"
         [elementCount]="routeCount()">
       </kpn-page-menu-option>
 
@@ -53,14 +57,16 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
         pageName="map"
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-map/' + networkId}}"
-        pageTitle="Map">
+        pageTitle="Map"
+        i18n-pageTitle="@@network-page.menu.map">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         pageName="changes"
         selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-changes/' + networkId}}"
-        pageTitle="Changes">
+        pageTitle="Changes"
+        i18n-pageTitle="@@network-page.menu.changes">
       </kpn-page-menu-option>
 
     </kpn-page-menu>

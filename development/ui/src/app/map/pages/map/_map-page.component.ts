@@ -4,8 +4,8 @@ import {Component} from "@angular/core";
   selector: "kpn-map-page",
   template: `
     <div>
-      <a routerLink="/">Home</a> >
-      Map
+      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
+      <span i18n="@@breadcrumb.map">Map</span>
     </div>
 
     <h1>

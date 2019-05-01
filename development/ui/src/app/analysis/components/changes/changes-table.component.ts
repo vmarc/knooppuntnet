@@ -13,8 +13,7 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
     <kpn-spinner></kpn-spinner>
 
     <p *ngIf="response">
-      Situation on:
-      <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
     </p>
 
     <mat-paginator

@@ -9,9 +9,11 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
   template: `
 
     <div>
-      <a routerLink="/">Home</a> >
-      <a routerLink="/analysis">Analysis</a> >
-      <a routerLink="{{countryLink()}}"><kpn-country-name [country]="subset.country"></kpn-country-name></a> >
+      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
+      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+      <a routerLink="{{countryLink()}}">
+        <kpn-country-name [country]="subset.country"></kpn-country-name>
+      </a> >
       <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
     </div>
 
@@ -26,6 +28,7 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
         [selectedPageName]="pageName"
         [link]="link('networks')"
         pageTitle="Networks"
+        i18n-pageTitle="@@subset-page.menu.networks"
         [elementCount]="networkCount()">
       </kpn-page-menu-option>
 
@@ -34,6 +37,7 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
         [selectedPageName]="pageName"
         [link]="link('facts')"
         pageTitle="Facts"
+        i18n-pageTitle="@@subset-page.menu.facts"
         [elementCount]="factCount()">
       </kpn-page-menu-option>
 
@@ -42,6 +46,7 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
         [selectedPageName]="pageName"
         [link]="link('orphan-nodes')"
         pageTitle="Orphan Nodes"
+        i18n-pageTitle="@@subset-page.menu.orphan-nodes"
         [elementCount]="orphanNodeCount()">
       </kpn-page-menu-option>
 
@@ -50,6 +55,7 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
         [selectedPageName]="pageName"
         [link]="link('orphan-routes')"
         pageTitle="Orphan routes"
+        i18n-pageTitle="@@subset-page.menu.orphan-routes"
         [elementCount]="orphanRouteCount()">
       </kpn-page-menu-option>
 
@@ -57,7 +63,8 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
         pageName="changes"
         [selectedPageName]="pageName"
         [link]="link('changes')"
-        pageTitle="Changes">
+        pageTitle="Changes"
+        i18n-pageTitle="@@subset-page.menu.changes">
       </kpn-page-menu-option>
 
     </kpn-page-menu>
