@@ -11,14 +11,6 @@ import {UserService} from "./user.service";
   template: `
     <mat-sidenav-container>
 
-      <mat-sidenav
-        [mode]="isMobile() ? 'over' : 'side'"
-        [fixedInViewport]="!isMobile()"
-        fixedTopGap="48"
-        [opened]="isSidebarOpen()">
-        <router-outlet name="sidebar"></router-outlet>
-      </mat-sidenav>
-
       <mat-sidenav-content>
         <header>
           <kpn-toolbar></kpn-toolbar>
@@ -32,6 +24,15 @@ import {UserService} from "./user.service";
           </footer>
         </div>
       </mat-sidenav-content>
+
+      <mat-sidenav
+        [mode]="isMobile() ? 'over' : 'side'"
+        [fixedInViewport]="!isMobile()"
+        fixedTopGap="48"
+        [opened]="isSidebarOpen()">
+        <router-outlet name="sidebar"></router-outlet>
+      </mat-sidenav>
+
     </mat-sidenav-container>
   `,
   styles: [`
