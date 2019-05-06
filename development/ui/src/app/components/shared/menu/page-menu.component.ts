@@ -11,8 +11,11 @@ import {Component} from "@angular/core";
   styles: [`
 
     mat-divider {
-      margin-top: 10px;
       margin-bottom: 50px;
+    }
+
+    .menu {
+      line-height: 30px;
     }
 
     /deep/ .menu :not(:last-child):after {
