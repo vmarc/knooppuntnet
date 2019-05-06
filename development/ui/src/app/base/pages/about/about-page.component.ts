@@ -8,6 +8,18 @@ import {PageService} from "../../../components/shared/page.service";
       About
     </h1>
 
+    <h1>
+      Credits
+    </h1>
+
+    <p>
+      All map data is coming from <a href="http://www.openstreetmap.org" class="external">OpenStreetMap</a>.
+    </p>
+    
+    <p>
+      Background map tiles are created with <a href="https://openmaptiles.org" class="external">OpenMapTiles</a>.
+    </p>
+    
     <p>Point of interest icons are by <a href="https://mapicons.mapsmarker.com/" class="external" target="_blank">Map Icons</a>.</p>
 
     <p>Other icons are from <a href="https://www.flaticon.com/" title="Flaticon" class="external" target="_blank">www.flaticon.com</a>
