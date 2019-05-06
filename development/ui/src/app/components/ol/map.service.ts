@@ -19,7 +19,7 @@ export class MapService {
 
   networkType: BehaviorSubject<NetworkType|null> = new BehaviorSubject(null);
   selectedFeature: BehaviorSubject<SelectedFeature> = new BehaviorSubject(null);
-  _poiClickedObserver: Subject<PoiId> = new Subject(); // not a BehaviorSubject because we do not want subscriber notified upon subscribe
+   _poiClickedObserver: Subject<PoiId> = new Subject(); // not a BehaviorSubject because we do not want subscriber notified upon subscribe
 
   get poiClickedObserver(): Observable<PoiId> {
     return this._poiClickedObserver;

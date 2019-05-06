@@ -30,6 +30,7 @@
               "src/manifest.json"
             ],
             "styles": [
+              "src/theme.scss",
               "src/styles.scss",
               "node_modules/ol/ol.css"
             ],
