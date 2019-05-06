@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Attribution, defaults as defaultControls} from 'ol/control';
 import Coordinate from "ol/coordinate";
@@ -20,12 +20,12 @@ import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitm
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {OsmLayer} from "../../../components/ol/domain/osm-layer";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
-import {MapComponent} from "../../../components/ol/map.component";
 import {MapService} from "../../../components/ol/map.service";
 import {PoiTileLayerService} from "../../../components/ol/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
 import {NetworkType} from "../../../kpn/shared/network-type";
 import {PoiService} from "../../../poi.service";
+import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 
@@ -46,6 +46,8 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
 })
 export class MapMainPageComponent implements OnInit, OnDestroy {
 
+  subscriptions = new Subscriptions();
+
   map: Map;
   mainMapStyle: (feature, resolution) => Style;
 
@@ -53,14 +55,9 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
   vectorTileLayer: VectorTileLayer;
   poiTileLayer: VectorTileLayer;
 
-  paramsSubscription: Subscription;
-  selectedFeatureSubscription: Subscription;
-
   private lastKnownSidebarOpen = false;
 
   interaction = new PlannerInteraction(this.plannerService.engine);
-
-  @ViewChild(MapComponent) mapComponent: MapComponent;
 
   constructor(private activatedRoute: ActivatedRoute,
               private pageService: PageService,
@@ -76,25 +73,25 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
     this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
 
-    this.paramsSubscription = this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       const networkTypeName = params["networkType"];
       this.mapService.networkType.next(new NetworkType(networkTypeName));
-    });
+    }));
 
-    this.selectedFeatureSubscription = this.mapService.selectedFeature.subscribe(selectedFeature => {
+    this.subscriptions.add(this.mapService.selectedFeature.subscribe(selectedFeature => {
       if (selectedFeature == null) {
         console.log("DEBUG MapMainPageComponent selectedFeature null");
       } else {
         console.log("DEBUG MapMainPageComponent selectedFeature type=" + selectedFeature.featureType + ", id=" + selectedFeature.featureId + ", name=" + selectedFeature.name);
       }
-    });
-  }
+    }));
 
-  ngAfterContentChecked() {
-    if (this.lastKnownSidebarOpen !== this.pageService.sidebarOpen.value) {
-      this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
-      setTimeout(() => this.mapComponent.updateSize(), 500);
-    }
+    this.subscriptions.add(this.pageService.sidebarOpen.subscribe(state => {
+      if (this.map) {
+        setTimeout(() => this.map.updateSize(), 250);
+      }
+    }));
+
   }
 
   ngAfterViewInit(): void {
@@ -145,9 +142,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
-    this.selectedFeatureSubscription.unsubscribe();
     this.pageService.showFooter = true;
+    this.subscriptions.unsubscribe();
   }
 
   private zoom(zoomLevel: number) {
