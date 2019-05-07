@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {RoutePage} from "../../../../kpn/shared/route/route-page";
+import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-route-page",
   template: `
-    
+
     <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name" [pageName]="'route'"></kpn-route-page-header>
 
     <div *ngIf="response">
@@ -41,7 +41,7 @@ import {RoutePage} from "../../../../kpn/shared/route/route-page";
           <kpn-data title="Network" i18n-title="@@route.network">
             TODO UiNetworkReferences(page.references.networkReferences)
           </kpn-data>
-         
+
           <div *ngIf="route.analysis">
 
             <kpn-data title="Start node" i18n-title="@@route.start-node">
@@ -122,9 +122,10 @@ import {RoutePage} from "../../../../kpn/shared/route/route-page";
 })
 export class RoutePageComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   routeId: string;
   response: ApiResponse<RoutePage>;
-  paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -133,16 +134,16 @@ export class RoutePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.routeId = params["routeId"];
-      this.appService.route(this.routeId).subscribe(response => {
+      this.subscriptions.add(this.appService.route(this.routeId).subscribe(response => {
         this.response = response;
-      });
-    });
+      }));
+    }));
   }
 
-  ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   get route() {

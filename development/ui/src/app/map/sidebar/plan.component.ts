@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {Subscription} from "rxjs";
 import {PdfService} from "../../pdf/pdf.service";
+import {Subscriptions} from "../../util/Subscriptions";
 import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
 import {ExportDialogComponent} from "./export-dialog.component";
@@ -74,6 +75,8 @@ import {ExportDialogComponent} from "./export-dialog.component";
 })
 export class PlanComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   plan: Plan;
   planSubscription: Subscription;
 
@@ -85,13 +88,11 @@ export class PlanComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.planSubscription = this.plannerService.context.planObserver.subscribe(plan => this.plan = plan);
+    this.subscriptions.add(this.plannerService.context.planObserver.subscribe(plan => this.plan = plan));
   }
 
   ngOnDestroy(): void {
-    if (this.planSubscription) {
-      this.planSubscription.unsubscribe();
-    }
+    this.subscriptions.unsubscribe();
   }
 
   undo() {

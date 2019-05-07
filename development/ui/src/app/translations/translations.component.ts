@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {saveAs} from "file-saver";
+import {Subscriptions} from "../util/Subscriptions";
 import {TranslationFile} from "./domain/translation-file";
 import {TranslationUnit} from "./domain/translation-unit";
 import {XliffWriter} from "./domain/xliff-writer";
@@ -27,6 +28,8 @@ import {TranslationsService} from "./translations.service";
 })
 export class TranslationsComponent implements OnInit {
 
+  private readonly subscriptions = new Subscriptions();
+
   translationFile: TranslationFile;
   translationUnits: Array<TranslationUnit> = [];
 
@@ -34,10 +37,14 @@ export class TranslationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.translationsService.translationUnits().subscribe(translationFile => {
+    this.subscriptions.add(this.translationsService.translationUnits().subscribe(translationFile => {
       this.translationFile = translationFile;
       this.translationUnits = translationFile.translationUnits;
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   export() {

@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {NodePage} from "../../../../kpn/shared/node/node-page";
+import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-node-page",
@@ -67,9 +67,10 @@ import {NodePage} from "../../../../kpn/shared/node/node-page";
 })
 export class NodePageComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   nodeId: string;
   response: ApiResponse<NodePage>;
-  paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -78,16 +79,16 @@ export class NodePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.nodeId = params["nodeId"];
-      this.appService.node(this.nodeId).subscribe(response => {
+      this.subscriptions.add(this.appService.node(this.nodeId).subscribe(response => {
         this.response = response;
-      });
-    });
+      }));
+    }));
   }
 
-  ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   get nodeInfo() {

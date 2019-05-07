@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {RoutePage} from "../../../../kpn/shared/route/route-page";
+import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-route-changes-page",
@@ -26,9 +26,10 @@ import {RoutePage} from "../../../../kpn/shared/route/route-page";
 })
 export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   routeId: string;
   response: ApiResponse<RoutePage>;
-  paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -37,16 +38,16 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.routeId = params["routeId"];
-      this.appService.route(this.routeId).subscribe(response => {
+      this.subscriptions.add(this.appService.route(this.routeId).subscribe(response => {
         this.response = response;
-      });
-    });
+      }));
+    }));
   }
 
-  ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   get route() {

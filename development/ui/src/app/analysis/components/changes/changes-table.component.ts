@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, Input, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, Input, OnDestroy, ViewChild} from "@angular/core";
 import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info";
 import {ChangesPage} from "../../../kpn/shared/changes-page";
 import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
+import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-changes-table",
@@ -46,7 +47,9 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
     </div>
   `
 })
-export class ChangesTableComponent implements AfterViewInit {
+export class ChangesTableComponent implements AfterViewInit, OnDestroy {
+
+  private readonly subscriptions = new Subscriptions();
 
   response: ApiResponse<ChangesPage>;
 
@@ -63,17 +66,21 @@ export class ChangesTableComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource = new MatTableDataSource([]);
-    this.paginator.page.subscribe(event => this.reload());
+    this.subscriptions.add(this.paginator.page.subscribe(event => this.reload()));
     this.reload();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private reload() {
     this.updateParameters();
-    this.appService.changes(this.parameters).subscribe(response => {
+    this.subscriptions.add(this.appService.changes(this.parameters).subscribe(response => {
       this.response = response;
       this.dataSource.data = response.result.changes.toArray();
       this.paginator.length = response.result.totalCount;
-    });
+    }));
   }
 
   rowNumber(index: number): number {

@@ -1,8 +1,9 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {Statistics} from "../../../kpn/shared/statistics/statistics";
+import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-overview-page",
@@ -27,7 +28,9 @@ import {Statistics} from "../../../kpn/shared/statistics/statistics";
     </div>
   `
 })
-export class OverviewPageComponent implements OnInit {
+export class OverviewPageComponent implements OnInit, OnDestroy {
+
+  private readonly subscriptions = new Subscriptions();
 
   response: ApiResponse<Statistics>;
   stats: Statistics;
@@ -38,10 +41,14 @@ export class OverviewPageComponent implements OnInit {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.appService.overview().subscribe(response => {
+    this.subscriptions.add(this.appService.overview().subscribe(response => {
       this.response = response;
       this.stats = response.result;
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

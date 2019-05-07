@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {Util} from "../../../../components/shared/util";
@@ -8,6 +7,7 @@ import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetChangesPage} from "../../../../kpn/shared/subset/subset-changes-page";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
+import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-subset-changes-page",
@@ -22,9 +22,10 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 })
 export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   subset: Subset;
   response: ApiResponse<SubsetChangesPage>;
-  paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -34,19 +35,19 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initSubsetPage();
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.subset = Util.subsetInRoute(params);
       this.pageService.subset = this.subset;
       this.response = null;
-      this.appService.subsetChanges(this.subset).subscribe(response => {
+      this.subscriptions.add(this.appService.subsetChanges(this.subset).subscribe(response => {
         this.response = response;
         this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
-      });
-    });
+      }));
+    }));
   }
 
-  ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

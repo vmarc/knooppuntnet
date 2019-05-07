@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component} from "@angular/core";
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
-import {Subscription} from "rxjs";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./icon.service";
 import {SpinnerService} from "./spinner/spinner.service";
 import {UserService} from "./user.service";
+import {Subscriptions} from "./util/Subscriptions";
 
 @Component({
   selector: "app-root",
@@ -66,7 +66,7 @@ import {UserService} from "./user.service";
 })
 export class AppComponent {
 
-  breakPointStateSubscription: Subscription;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private iconService: IconService,
               changeDetectorRef: ChangeDetectorRef,
@@ -74,20 +74,20 @@ export class AppComponent {
               private pageService: PageService,
               private spinnerService: SpinnerService,
               router: Router) {
-    this.breakPointStateSubscription = this.pageService.breakpointState.subscribe(() => changeDetectorRef.detectChanges());
 
-    router.events.subscribe(event => {
+    this.subscriptions.add(this.pageService.breakpointState.subscribe(() => changeDetectorRef.detectChanges()));
 
+    this.subscriptions.add(router.events.subscribe(event => {
       if (event instanceof RouteConfigLoadStart) {
         this.spinnerService.start(`lazy-load-${event.route.path}`);
       } else if (event instanceof RouteConfigLoadEnd) {
         this.spinnerService.end(`lazy-load-${event.route.path}`);
       }
-    })
+    }));
   }
 
   ngOnDestroy(): void {
-    this.breakPointStateSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   isMobile(): boolean {

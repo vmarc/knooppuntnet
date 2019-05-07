@@ -4,6 +4,7 @@ import {MapService, PoiId} from "../../components/ol/map.service";
 import {Tags} from "../../kpn/shared/data/tags";
 import {PoiPage} from "../../kpn/shared/poi-page";
 import {PoiService} from "../../poi.service";
+import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({
   selector: "kpn-poi-detail",
@@ -65,6 +66,8 @@ import {PoiService} from "../../poi.service";
 })
 export class PoiDetailComponent {
 
+  private readonly subscriptions = new Subscriptions();
+
   poiId: PoiId;
   poiPage: PoiPage;
   tags: Tags;
@@ -74,17 +77,21 @@ export class PoiDetailComponent {
   constructor(private mapService: MapService,
               private appService: AppService,
               private poiService: PoiService) {
-    mapService.poiClickedObserver.subscribe(poiId => {
+    this.subscriptions.add(mapService.poiClickedObserver.subscribe(poiId => {
       if (poiId != null) {
-        this.appService.poi(poiId.elementType, poiId.elementId).subscribe(response => {
+        this.subscriptions.add(this.appService.poi(poiId.elementType, poiId.elementId).subscribe(response => {
           this.poiPage = response.result;
           this.latitude = response.result.latitude;
           this.longitude = response.result.longitude;
           this.tags = response.result.mainTags;
-        });
+        }));
         this.poiId = poiId;
       }
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   layerName(): string {

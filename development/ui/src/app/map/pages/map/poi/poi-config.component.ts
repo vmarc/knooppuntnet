@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {MatRadioChange} from "@angular/material";
-import {Subscription} from "rxjs";
 import {MapService} from "../../../../components/ol/map.service";
 import {PoiService} from "../../../../poi.service";
+import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-poi-config",
@@ -73,6 +73,8 @@ import {PoiService} from "../../../../poi.service";
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   @Input() poiId: string;
   @Input() name: string;
 
@@ -80,13 +82,11 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
   minLevel: number = 0;
   level: number = 0;
 
-  poiConfigurationSubscription: Subscription;
-
   constructor(private mapService: MapService, private poiService: PoiService) {
   }
 
   ngOnInit(): void {
-    this.poiConfigurationSubscription = this.poiService.poiConfiguration.subscribe(poiConfiguration => {
+    this.subscriptions.add(this.poiService.poiConfiguration.subscribe(poiConfiguration => {
       const definition = poiConfiguration.poiDefinitionWithName(this.poiId);
       if (definition != null) {
         this.icon = definition.icon;
@@ -94,13 +94,11 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
       } else {
         console.log("DEBUG PoiConfigComponent definition not found name=" + this.poiId);
       }
-    });
+    }));
   }
 
   ngOnDestroy(): void {
-    if (this.poiConfigurationSubscription != null) {
-      this.poiConfigurationSubscription.unsubscribe();
-    }
+    this.subscriptions.unsubscribe();
   }
 
   levelString(): string {

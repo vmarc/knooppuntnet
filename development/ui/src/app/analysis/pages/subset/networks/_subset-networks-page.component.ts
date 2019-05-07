@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {Util} from "../../../../components/shared/util";
@@ -9,13 +8,14 @@ import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetNetworksPage} from "../../../../kpn/shared/subset/subset-networks-page";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
+import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-subset-networks-page",
   template: `
 
     <kpn-subset-page-header [subset]="subset" pageName="networks"></kpn-subset-page-header>
-    
+
     <kpn-subset-network-list
       *ngIf="response"
       [networks]="response.result.networks">
@@ -37,9 +37,10 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 })
 export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   subset: Subset;
   response: ApiResponse<SubsetNetworksPage>;
-  paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -50,22 +51,22 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initSubsetPage();
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.subset = Util.subsetInRoute(params);
       this.pageService.subset = this.subset;
       this.response = null;
-      this.appService.subsetNetworks(this.subset).subscribe(response => {
+      this.subscriptions.add(this.appService.subsetNetworks(this.subset).subscribe(response => {
         this.response = response;
         this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
         response.result.networks.forEach(networkAttributes => {
           this.networkCacheService.setNetworkName(networkAttributes.id.toString(), networkAttributes.name);
         });
-      });
-    });
+      }));
+    }));
   }
 
-  ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

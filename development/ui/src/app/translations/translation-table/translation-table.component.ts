@@ -1,7 +1,8 @@
-import {Component, DoCheck, Input, IterableDiffer, IterableDiffers, ViewChild} from "@angular/core";
+import {Component, DoCheck, Input, IterableDiffer, IterableDiffers, OnDestroy, ViewChild} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {debounceTime} from "rxjs/operators";
+import {Subscriptions} from "../../util/Subscriptions";
 import {TranslationUnit} from "../domain/translation-unit";
 
 @Component({
@@ -55,7 +56,9 @@ import {TranslationUnit} from "../domain/translation-unit";
     }
   `]
 })
-export class TranslationTableComponent implements DoCheck {
+export class TranslationTableComponent implements DoCheck, OnDestroy {
+
+  private readonly subscriptions = new Subscriptions();
 
   @Input() translationUnits: Array<TranslationUnit> = [];
 
@@ -74,7 +77,7 @@ export class TranslationTableComponent implements DoCheck {
   ) {
     this.differ = differs.find([]).create(null);
     this.form = this.buildForm();
-    this.filter.valueChanges.pipe(debounceTime(500)).subscribe(() => this.onFilterChanged());
+    this.subscriptions.add(this.filter.valueChanges.pipe(debounceTime(500)).subscribe(() => this.onFilterChanged()));
   }
 
   ngDoCheck() {
@@ -83,6 +86,10 @@ export class TranslationTableComponent implements DoCheck {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private onFilterChanged() {

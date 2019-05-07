@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
+import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-change-set-page",
@@ -26,8 +26,9 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 })
 export class ChangeSetPageComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   response: ApiResponse<ChangeSetPage>;
-  paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -36,17 +37,17 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
+    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       const changeSetId = params["changeSetId"];
       const replicationNumber = params["replicationNumber"];
-      this.appService.changeSet(changeSetId, replicationNumber).subscribe(response => {
+      this.subscriptions.add(this.appService.changeSet(changeSetId, replicationNumber).subscribe(response => {
         this.response = response;
-      });
-    });
+      }));
+    }));
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   changeSetTitle() {

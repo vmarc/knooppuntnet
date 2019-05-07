@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {MatButtonToggleChange} from "@angular/material";
 import {MapService} from "src/app/components/ol/map.service";
 import {SelectedFeature} from "../../components/ol/domain/selected-feature";
 import {NetworkType} from "../../kpn/shared/network-type";
+import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({
   selector: "kpn-map-sidebar",
@@ -44,7 +45,9 @@ import {NetworkType} from "../../kpn/shared/network-type";
     </div>
   `
 })
-export class MapSidebarComponent implements OnInit {
+export class MapSidebarComponent implements OnInit, OnDestroy {
+
+  private readonly subscriptions = new Subscriptions();
 
   @Input() selectedFeature: SelectedFeature;
 
@@ -57,9 +60,13 @@ export class MapSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mapService.poiClickedObserver.subscribe(poiId => {
+    this.subscriptions.add(this.mapService.poiClickedObserver.subscribe(poiId => {
       this.pageMode = "poi";
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   hasNetworkType(): boolean {

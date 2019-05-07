@@ -11,7 +11,6 @@ import {fromLonLat} from "ol/proj";
 import Style from "ol/style/Style";
 import View from "ol/View";
 import Extent from "ol/View";
-import {Subscription} from "rxjs";
 import {DebugLayer} from "../../../components/ol/domain/debug-layer";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
 import {MapClickHandler} from "../../../components/ol/domain/map-click-handler";
@@ -46,7 +45,7 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
 })
 export class MapMainPageComponent implements OnInit, OnDestroy {
 
-  subscriptions = new Subscriptions();
+  private readonly subscriptions = new Subscriptions();
 
   map: Map;
   mainMapStyle: (feature, resolution) => Style;
@@ -65,11 +64,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
               private poiService: PoiService,
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService) {
+    this.pageService.showFooter = false;
   }
 
   ngOnInit() {
-
-    this.pageService.showFooter = false;
 
     this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
 
