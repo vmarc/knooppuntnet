@@ -23,14 +23,16 @@ object PoiView extends View {
       |function(doc) {
       |  var poi = doc.poi;
       |  if(poi) {
-      |    var key = [
-      |      poi.elementType,
-      |      poi.elementId,
-      |      poi.latitude,
-      |      poi.longitude,
-      |      poi.layers[0]
-      |    ];
-      |    emit(key, 1);
+      |    if (!!poi.layers && poi.layers.length > 0) {
+      |      var key = [
+      |        poi.elementType,
+      |        poi.elementId,
+      |        poi.latitude,
+      |        poi.longitude,
+      |        poi.layers[0]
+      |      ];
+      |      emit(key, 1);
+      |    }
       |  }
       |}
     """.stripMargin
