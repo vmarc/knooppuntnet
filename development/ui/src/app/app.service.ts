@@ -194,7 +194,7 @@ export class AppService {
   }
 
   private subsetUrl(subset: Subset, target: string): string {
-    return "/json-api/" + target + "/" + subset.country.domain + "/" + subset.networkType.name;
+    return `/json-api/${subset.country.domain}/${subset.networkType.name}/${target}`;
   }
 
 }

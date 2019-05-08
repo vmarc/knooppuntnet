@@ -84,5 +84,5 @@ trait AnalyzerFacade {
 
   def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage]
 
-  def leg(user: Option[String], networkType: String, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
+  def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
 }

@@ -85,7 +85,7 @@ const routes: Routes = [
     component: NodePageComponent
   },
   {
-    path: "node-changes/:nodeId",
+    path: "node/:nodeId/changes",
     component: NodeChangesPageComponent
   },
   {
@@ -97,31 +97,31 @@ const routes: Routes = [
     component: RoutePageComponent
   },
   {
-    path: "route-changes/:routeId",
+    path: "route/:routeId/changes",
     component: RouteChangesPageComponent
   },
   {
-    path: "changes/:country/:networkType",
+    path: ":country/:networkType/changes",
     component: SubsetChangesPageComponent
   },
   {
-    path: "facts/:country/:networkType",
+    path: ":country/:networkType/facts",
     component: SubsetFactsPageComponent
   },
   {
-    path: "networks/:country/:networkType",
+    path: ":country/:networkType/networks",
     component: SubsetNetworksPageComponent
   },
   {
-    path: "orphan-nodes/:country/:networkType",
+    path: ":country/:networkType/orphan-nodes",
     component: SubsetOrphanNodesPageComponent
   },
   {
-    path: "orphan-routes/:country/:networkType",
+    path: ":country/:networkType/orphan-routes",
     component: SubsetOrphanRoutesPageComponent
   },
   {
-    path: ":fact/:country/:networkType",
+    path: ":country/:networkType/:fact",
     component: SubsetFactDetailsPageComponent
   },
   {

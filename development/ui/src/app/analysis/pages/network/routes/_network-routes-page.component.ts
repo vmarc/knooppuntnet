@@ -41,7 +41,7 @@ export class NetworkRoutesPageComponent implements OnInit, OnDestroy {
       this.networkId = params["networkId"];
       this.pageService.networkId = this.networkId;
       // TODO this.subset = response.result.network.attributes.country + networkType
-      this.subset = new Subset(new Country("nl"), new NetworkType("rwn"));
+      this.subset = new Subset(new Country("nl"), new NetworkType("rwn", "hiking"));
       this.pageService.subset = this.subset;
       this.subscriptions.add(this.appService.networkRoutes(this.networkId).subscribe(response => {
         this.response = response;

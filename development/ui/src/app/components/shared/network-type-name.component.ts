@@ -4,12 +4,12 @@ import {NetworkType} from "../../kpn/shared/network-type";
 @Component({
   selector: "kpn-network-type-name",
   template: `
-    <ng-container *ngIf="networkType.name == 'rwn'" i18n="@@network-type.rwn">Hiking</ng-container>
-    <ng-container *ngIf="networkType.name == 'rcn'" i18n="@@network-type.rcn">Cycling</ng-container>
-    <ng-container *ngIf="networkType.name == 'rhn'" i18n="@@network-type.rhn">Horse</ng-container>
-    <ng-container *ngIf="networkType.name == 'rmn'" i18n="@@network-type.rmn">Motorboat</ng-container>
-    <ng-container *ngIf="networkType.name == 'rpn'" i18n="@@network-type.rpn">Canoe</ng-container>
-    <ng-container *ngIf="networkType.name == 'rin'" i18n="@@network-type.rin">Inline Skating</ng-container>
+    <ng-container *ngIf="networkType.name == 'hiking'" i18n="@@network-type.hiking">Hiking</ng-container>
+    <ng-container *ngIf="networkType.name == 'cycling'" i18n="@@network-type.cycling">Cycling</ng-container>
+    <ng-container *ngIf="networkType.name == 'horse'" i18n="@@network-type.horse">Horse</ng-container>
+    <ng-container *ngIf="networkType.name == 'motorboat'" i18n="@@network-type.motorboat">Motorboat</ng-container>
+    <ng-container *ngIf="networkType.name == 'canoe'" i18n="@@network-type.canoe">Canoe</ng-container>
+    <ng-container *ngIf="networkType.name == 'inline-skating'" i18n="@@network-type.inline-skating">Inline Skating</ng-container>
   `
 })
 export class NetworkTypeNameComponent {

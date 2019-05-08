@@ -38,22 +38,22 @@ export class IconService {
 
   private registerNetworkTypeIcons() {
 
-    this.iconRegistry.addSvgIconLiteral("rcn", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("cycling", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/man-cycling.svg")));
 
-    this.iconRegistry.addSvgIconLiteral("rwn", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("hiking", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/man-walking-to-right.svg")));
 
-    this.iconRegistry.addSvgIconLiteral("rhn", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("horse", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/horseshoe-black.svg")));
 
-    this.iconRegistry.addSvgIconLiteral("rmn", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("motorboat", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/boat.svg")));
 
-    this.iconRegistry.addSvgIconLiteral("rpn", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("canoe", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/canoe-racing.svg")));
 
-    this.iconRegistry.addSvgIconLiteral("rin", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("inline-skating", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/roller-skate.svg")));
   }
 

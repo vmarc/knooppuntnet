@@ -395,10 +395,10 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 })
 export class StatisticConfigurationsComponent implements AfterViewInit {
 
-  readonly networks = (id: string, subset: Subset) => "networks/" + subset.key();
-  readonly orphanNodes = (id: string, subset: Subset) => "orphan-nodes/" + subset.key();
-  readonly orphanRoutes = (id: string, subset: Subset) => "orphan-routes/" + subset.key();
-  readonly factDetailCounts = (id: string, subset: Subset) => id + "/" + subset.key();
+  readonly networks = (id: string, subset: Subset) => subset.key() + "/networks";
+  readonly orphanNodes = (id: string, subset: Subset) => subset.key() + "/orphan-nodes";
+  readonly orphanRoutes = (id: string, subset: Subset) => subset.key() + "orphan-routes";
+  readonly factDetailCounts = (id: string, subset: Subset) => subset.key() + "/" + id;
 
   @ViewChildren(StatisticConfigurationComponent) children: StatisticConfigurationComponent[];
 

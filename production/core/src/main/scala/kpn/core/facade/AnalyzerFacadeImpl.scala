@@ -281,7 +281,7 @@ class AnalyzerFacadeImpl(
     }
   }
 
-  override def leg(user: Option[String], networkType: String, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {
+  override def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {
     log.infoElapsed(s"$user leg($legId, $sourceNodeId, $sinkNodeId)") {
       val leg = legBuilder.build(networkType, legId, sourceNodeId, sinkNodeId)
       ApiResponse(None, 1, leg)

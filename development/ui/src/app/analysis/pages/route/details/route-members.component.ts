@@ -50,7 +50,7 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
               Unaccessible
               <!-- Ontoegankelijk -->
             </th>
-            <th colSpan="2" *ngIf="networkType.name == 'rcn'">
+            <th colSpan="2" *ngIf="networkType.name == 'cycling'">
               One Way
               <!-- Enkele richting -->
             </th>
@@ -104,7 +104,7 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
                 <--UiImage("warning.png")-->
               </div>
             </td>
-            <td *ngIf="networkType.name == 'rcn'">
+            <td *ngIf="networkType.name == 'cycling'">
               TODO
               <!--<div *ngIf="member.oneWay == Forward">-->
               <!--Yes-->

@@ -85,7 +85,7 @@ export class SubsetPageHeaderComponent {
 
   link(targetPageName: string) {
     if (this.subset != null) {
-      return "/analysis/" + targetPageName + "/" + this.subset.country.domain + "/" + this.subset.networkType.name;
+      return `/analysis/${this.subset.country.domain}/${this.subset.networkType.name}/${targetPageName}`;
     }
     return "/";
   }

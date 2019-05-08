@@ -13,7 +13,10 @@ import kpn.shared.NetworkType
 import kpn.shared.Subset
 import kpn.shared.changes.filter.ChangesParameters
 import play.api.mvc.AbstractController
+import play.api.mvc.Action
+import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
+import play.api.mvc.RawBuffer
 import play.api.mvc.Result
 import play.api.mvc.Results
 import services.ApiService
@@ -43,35 +46,35 @@ class Application(
   private val apiService = new ApiService(analyzerFacade)(system)
   private val jsonApiService = new JsonApiService(analyzerFacade)(system)
 
-  def index(path: String) = Action { request =>
+  def index(path: String): Action[AnyContent] = Action { request =>
     val user = request.session.get("user")
     log.infoElapsed(s"$user $path") {
       Results.Ok(views.html.index(assetsFinder))
     }
   }
 
-  def login() = Action { request =>
+  def login(): Action[AnyContent] = Action { request =>
     authenticiationService.retrieveRequestToken(request)
   }
 
-  def logout() = Action { request =>
+  def logout(): Action[AnyContent] = Action { request =>
     authenticiationService.logout(request)
   }
 
-  def authenticated() = Action { request =>
+  def authenticated(): Action[AnyContent] = Action { request =>
     authenticiationService.retrieveAccessRequestToken(request)
   }
 
-  def jsonApiGet(path: String) = Action { request =>
+  def jsonApiGet(path: String): Action[AnyContent] = Action { request =>
 
     def subsetPath(target: String): String = {
-      target + """/(be|de|nl)/(rcn|rwn|rhn|rmn|rpn|rin)"""
+      """(be|de|nl)/(cycling|hiking|horse|motorboat|canoe|inline-skating)/""" + target
     }
 
     val overview = """overview""".r
     val subsetNetworks = subsetPath("networks").r
     val subsetFacts = subsetPath("facts").r
-    val subsetFactDetails = """RouteBroken/(be|de|nl)/(rcn|rwn|rhn|rmn|rpn|rin)""".r
+    val subsetFactDetails = """(be|de|nl)/(cycling|hiking|horse|motorboat|canoe|inline-skating)/RouteBroken""".r
     val subsetOrphanNodes = subsetPath("orphan-nodes").r
     val subsetOrphanRoutes = subsetPath("orphan-routes").r
     val subsetChanges = subsetPath("changes").r
@@ -85,11 +88,11 @@ class Application(
     val route = """route/(\d*)""".r
     val changes = """changes""".r
     val changeSet = """changeset/(\d*)/(\d*)""".r
-    val mapDetailNode = """node-detail/(\d*)/(rcn|rwn|rhn|rmn|rpn|rin)""".r
+    val mapDetailNode = """node-detail/(\d*)/(cycling|hiking|horse|motorboat|canoe|inline-skating)""".r
     val mapDetailRoute = """route-detail/(\d*)""".r
     val poiConfiguration = """poi-configuration""".r
     val poi = """poi/(node|way|relation)/(\d*)""".r
-    val leg = """leg/(rcn|rwn|rhn|rmn|rpn|rin)/(.*)/(.*)/(.*)""".r
+    val leg = """leg/(cycling|hiking|horse|motorboat|canoe|inline-skating)/(.*)/(.*)/(.*)""".r
 
     val userApiService = request.session.get("user") match {
       case Some(user) => new JsonApiService(analyzerFacade, Some(user))(system)
@@ -99,42 +102,42 @@ class Application(
     path match {
 
       case subsetNetworks(country, networkType) =>
-        val subset = Subset.of(country, networkType).get
+        val subset = Subset.ofNewName(country, networkType).get
         reply(
           userApiService.subsetNetworks(subset),
           JsonFormats.subsetNetworksPageFormat
         )
 
       case subsetFacts(country, networkType) =>
-        val subset = Subset.of(country, networkType).get
+        val subset = Subset.ofNewName(country, networkType).get
         reply(
           userApiService.subsetFacts(subset),
           JsonFormats.subsetFactsPageNewFormat
         )
 
       case subsetFactDetails(country, networkType) =>
-        val subset = Subset.of(country, networkType).get
+        val subset = Subset.ofNewName(country, networkType).get
         reply(
           userApiService.subsetFactDetails(subset, Fact.RouteBroken /* TODO */),
           JsonFormats.subsetFactDetailsPageFormat
         )
 
       case subsetOrphanNodes(country, networkType) =>
-        val subset = Subset.of(country, networkType).get
+        val subset = Subset.ofNewName(country, networkType).get
         reply(
           userApiService.subsetOrphanNodes(subset),
           JsonFormats.subsetOrphanNodesPageFormat
         )
 
       case subsetOrphanRoutes(country, networkType) =>
-        val subset = Subset.of(country, networkType).get
+        val subset = Subset.ofNewName(country, networkType).get
         reply(
           userApiService.subsetOrphanRoutes(subset),
           JsonFormats.subsetOrphanRoutesPageFormat
         )
 
       case subsetChanges(country, networkType) =>
-        val subset1 = Subset.of(country, networkType).get
+        val subset1 = Subset.ofNewName(country, networkType).get
         reply(
           userApiService.subsetChanges(ChangesParameters(subset = Some(subset1))),
           JsonFormats.subsetChangesPageFormat
@@ -203,7 +206,7 @@ class Application(
 
       case mapDetailNode(nodeId, networkType) =>
         reply(
-          userApiService.mapDetailNode(NetworkType.withName(networkType).get, nodeId.toLong),
+          userApiService.mapDetailNode(NetworkType.withNewName(networkType).get, nodeId.toLong),
           JsonFormats.mapDetailNodeFormat
         )
 
@@ -233,7 +236,7 @@ class Application(
 
       case leg(networkType, legId, sourceNodeId, sinkNodeId) =>
         reply(
-          userApiService.leg(networkType, legId, sourceNodeId, sinkNodeId),
+          userApiService.leg(NetworkType.withNewName(networkType).get, legId, sourceNodeId, sinkNodeId),
           JsonFormats.routeLegFormat
         )
 
@@ -243,7 +246,7 @@ class Application(
     }
   }
 
-  def jsonApiPost(path: String) = Action { request =>
+  def jsonApiPost(path: String): Action[AnyContent] = Action { request =>
 
     val changes = """changes""".r
 
@@ -297,7 +300,7 @@ class Application(
     Ok(jsonResponse.toString()).as(JSON)
   }
 
-  def autowireApi(path: String) = Action.async(parse.raw) { implicit request =>
+  def autowireApi(path: String): Action[RawBuffer] = Action.async(parse.raw) { implicit request =>
     val userApiService = request.session.get("user") match {
       case Some(user) => new ApiService(analyzerFacade, Some(user))(system)
       case None => apiService

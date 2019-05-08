@@ -15,10 +15,10 @@ import {Component} from "@angular/core";
     </h1>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/de/rcn"
-      icon="rcn"
+      routerLink="/analysis/de/cycling/networks"
+      icon="cycling"
       text="Cycling"
-      i18n-text="@@network-type.rcn">
+      i18n-text="@@network-type.cycling">
     </kpn-icon-button>
   `
 })

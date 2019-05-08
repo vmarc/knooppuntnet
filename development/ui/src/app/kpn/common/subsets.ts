@@ -5,15 +5,15 @@ import {NetworkTypes} from "./network-types";
 export class Subsets {
 
   static all = [
-    new Subset(Countries.nl, NetworkTypes.rcn),
-    new Subset(Countries.nl, NetworkTypes.rwn),
-    new Subset(Countries.nl, NetworkTypes.rhn),
-    new Subset(Countries.nl, NetworkTypes.rmn),
-    new Subset(Countries.nl, NetworkTypes.rpn),
-    new Subset(Countries.nl, NetworkTypes.rin),
-    new Subset(Countries.be, NetworkTypes.rcn),
-    new Subset(Countries.be, NetworkTypes.rwn),
-    new Subset(Countries.de, NetworkTypes.rcn)
+    new Subset(Countries.nl, NetworkTypes.cycling),
+    new Subset(Countries.nl, NetworkTypes.hiking),
+    new Subset(Countries.nl, NetworkTypes.horse),
+    new Subset(Countries.nl, NetworkTypes.motorboat),
+    new Subset(Countries.nl, NetworkTypes.canoe),
+    new Subset(Countries.nl, NetworkTypes.inlineSkating),
+    new Subset(Countries.be, NetworkTypes.cycling),
+    new Subset(Countries.be, NetworkTypes.hiking),
+    new Subset(Countries.de, NetworkTypes.cycling)
   ];
 
 }

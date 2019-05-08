@@ -42,6 +42,10 @@ object Subset {
     all.find(s => s.country.domain == domain && s.networkType.name == networkType)
   }
 
+  def ofNewName(domain: String, networkTypeNewName: String): Option[Subset] = {
+    all.find(s => s.country.domain == domain && s.networkType.newName == networkTypeNewName)
+  }
+
   def of(country: Country, networkType: NetworkType): Option[Subset] = {
     all.find(s => s.country == country && s.networkType == networkType)
   }

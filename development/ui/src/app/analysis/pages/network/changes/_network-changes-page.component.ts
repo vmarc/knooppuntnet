@@ -43,7 +43,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
 
       this.subscriptions.add(this.appService.networkChanges(this.networkId).subscribe(response => {
         // TODO this.subset = response.result.network.attributes.country + networkType
-        this.subset = new Subset(new Country("nl"), new NetworkType("rwn"));
+        this.subset = new Subset(new Country("nl"), new NetworkType("rwn", "hiking"));
         this.pageService.subset = this.subset;
         this.response = response;
         // TODO

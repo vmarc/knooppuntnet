@@ -26,8 +26,8 @@ class LegBuilderImpl(
     (networkType.name, graph)
   }.toMap
 
-  override def build(networkType: String, legId: String, sourceNodeId: String, sinkNodeId: String): Option[RouteLeg] = {
-    graphMap.get(networkType) match {
+  override def build(networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): Option[RouteLeg] = {
+    graphMap.get(networkType.name) match {
       case Some(graph) =>
         graph.findPath(sourceNodeId.toLong, sinkNodeId.toLong) match {
           case Some(path) =>

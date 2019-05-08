@@ -39,11 +39,6 @@ import {LinkNetworkRoutesComponent} from "./link/link-network-routes.component";
 import {LinkNodeComponent} from "./link/link-node.component";
 import {LinkOverviewComponent} from "./link/link-overview.component";
 import {LinkRouteComponent} from "./link/link-route.component";
-import {LinkSubsetChangesComponent} from "./link/link-subset-changes.component";
-import {LinkSubsetFactsComponent} from "./link/link-subset-facts.component";
-import {LinkSubsetNetworksComponent} from "./link/link-subset-networks.component";
-import {LinkSubsetOrphanNodesComponent} from "./link/link-subset-orphan-nodes.component";
-import {LinkSubsetOrphanRoutesComponent} from "./link/link-subset-orphan-routes.component";
 import {OsmLinkChangeSetComponent} from "./link/osm-link-change-set.component";
 import {OsmLinkNodeComponent} from "./link/osm-link-node.component";
 import {OsmLinkRelationComponent} from "./link/osm-link-relation.component";
@@ -62,8 +57,6 @@ import {SidebarFooterComponent} from "./sidebar/sidebar-footer.component";
 import {SidebarMenuComponent} from "./sidebar/sidebar-menu.component";
 import {SidebarNetworkComponent} from "./sidebar/sidebar-network.component";
 import {SidebarSubItemComponent} from "./sidebar/sidebar-sub-item.component";
-import {SidebarSubsetComponent} from "./sidebar/sidebar-subset.component";
-import {SidebarSubsetsComponent} from "./sidebar/sidebar-subsets.component";
 import {SidebarVersionWarningComponent} from "./sidebar/sidebar-version-warning.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {SubsetNameComponent} from "./subset-name.component";
@@ -99,11 +92,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkRouteComponent,
     LinkChangesComponent,
     LinkFactComponent,
-    LinkSubsetFactsComponent,
-    LinkSubsetNetworksComponent,
-    LinkSubsetOrphanNodesComponent,
-    LinkSubsetOrphanRoutesComponent,
-    LinkSubsetChangesComponent,
     LinkAboutComponent,
     LinkAuthenticateComponent,
     LinkGlossaryComponent,
@@ -140,9 +128,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     SidebarComponent,
     SidebarFooterComponent,
     SidebarVersionWarningComponent,
-    SidebarSubsetsComponent,
     SidebarNetworkComponent,
-    SidebarSubsetComponent,
     SidebarMenuComponent,
     SidebarSubItemComponent,
     SubsetNameComponent,
@@ -170,11 +156,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkRouteComponent,
     LinkChangesComponent,
     LinkFactComponent,
-    LinkSubsetFactsComponent,
-    LinkSubsetNetworksComponent,
-    LinkSubsetOrphanNodesComponent,
-    LinkSubsetOrphanRoutesComponent,
-    LinkSubsetChangesComponent,
     LinkAboutComponent,
     LinkAuthenticateComponent,
     LinkGlossaryComponent,
@@ -211,9 +192,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     SidebarComponent,
     SidebarFooterComponent,
     SidebarVersionWarningComponent,
-    SidebarSubsetsComponent,
     SidebarNetworkComponent,
-    SidebarSubsetComponent,
     SidebarSubItemComponent,
     SubsetNameComponent,
     ItemsComponent,

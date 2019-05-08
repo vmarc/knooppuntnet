@@ -73,7 +73,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       const networkTypeName = params["networkType"];
-      this.mapService.networkType.next(new NetworkType(networkTypeName));
+      this.mapService.networkType.next(new NetworkType("", networkTypeName));
     }));
 
     this.subscriptions.add(this.mapService.selectedFeature.subscribe(selectedFeature => {

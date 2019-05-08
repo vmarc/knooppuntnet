@@ -2,7 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="network-type.rwn" datatype="html">
+      <trans-unit id="network-type.hiking" datatype="html">
         <source>Hiking</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
@@ -17,7 +17,7 @@
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.rcn" datatype="html">
+      <trans-unit id="network-type.cycling" datatype="html">
         <source>Cycling</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
@@ -36,7 +36,7 @@
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.rhn" datatype="html">
+      <trans-unit id="network-type.horse" datatype="html">
         <source>Horse</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
@@ -47,7 +47,7 @@
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.rmn" datatype="html">
+      <trans-unit id="network-type.motorboat" datatype="html">
         <source>Motorboat</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
@@ -58,7 +58,7 @@
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.rpn" datatype="html">
+      <trans-unit id="network-type.canoe" datatype="html">
         <source>Canoe</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
@@ -69,7 +69,7 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.rin" datatype="html">
+      <trans-unit id="network-type.inline-skating" datatype="html">
         <source>Inline Skating</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>

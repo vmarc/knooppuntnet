@@ -2,20 +2,24 @@ import {NetworkType} from "../shared/network-type";
 
 export class NetworkTypes {
 
-  static rcn = new NetworkType("rcn");
-  static rwn = new NetworkType("rwn");
-  static rhn = new NetworkType("rhn");
-  static rmn = new NetworkType("rmn");
-  static rpn = new NetworkType("rpn");
-  static rin = new NetworkType("rin");
+  static cycling = new NetworkType("rcn", "cycling");
+  static hiking = new NetworkType("rwn", "hiking");
+  static horse = new NetworkType("rhn", "horse");
+  static motorboat = new NetworkType("rmn", "motorboat");
+  static canoe = new NetworkType("rpn", "canoe");
+  static inlineSkating = new NetworkType("rin", "inline-skating");
 
   static all: Array<NetworkType> = [
-    NetworkTypes.rcn,
-    NetworkTypes.rwn,
-    NetworkTypes.rhn,
-    NetworkTypes.rmn,
-    NetworkTypes.rpn,
-    NetworkTypes.rin
+    NetworkTypes.cycling,
+    NetworkTypes.hiking,
+    NetworkTypes.horse,
+    NetworkTypes.motorboat,
+    NetworkTypes.canoe,
+    NetworkTypes.inlineSkating
   ];
+
+  static withName(name: string): NetworkType {
+    return NetworkTypes.all.find(n => n.name == name);
+  }
 
 }

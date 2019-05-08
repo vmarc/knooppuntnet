@@ -14,38 +14,38 @@ import {MapService} from "../../../components/ol/map.service";
     </h1>
 
     <kpn-icon-button
-      routerLink="/map/rcn"
-      icon="rcn"
+      routerLink="/map/cycling"
+      icon="cycling"
       text="Cycling">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/map/rwn"
-      icon="rwn"
+      routerLink="/map/hiking"
+      icon="hiking"
       text="Hiking">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/map/rhn"
-      icon="rhn"
+      routerLink="/map/horse"
+      icon="horse"
       text="Horse">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/map/rmn"
-      icon="rmn"
+      routerLink="/map/motorboat"
+      icon="motorboat"
       text="Motorboat">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/map/rpn"
-      icon="rpn"
+      routerLink="/map/canoe"
+      icon="canoe"
       text="Canoe">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/map/rin"
-      icon="rin"
+      routerLink="/map/inline-skating"
+      icon="inline-skating"
       text="Inline skating">
     </kpn-icon-button>
   `

@@ -118,7 +118,7 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
     analyzerFacade.poi(user, elementType, elementId)
   }
 
-  def leg(networkType: String, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {
+  def leg(networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {
     analyzerFacade.leg(user, networkType, legId, sourceNodeId, sinkNodeId)
   }
 

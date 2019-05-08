@@ -15,45 +15,45 @@ import {Component} from "@angular/core";
     </h1>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/nl/rcn"
-      icon="rcn"
+      routerLink="/analysis/nl/cycling/networks"
+      icon="cycling"
       text="Cycling"
-      i18n-text="@@network-type.rcn">
+      i18n-text="@@network-type.cycling">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/nl/rwn"
-      icon="rwn"
+      routerLink="/analysis/nl/hiking/networks"
+      icon="hiking"
       text="Hiking"
-      i18n-text="@@network-type.rwn">
+      i18n-text="@@network-type.hiking">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/nl/rhn"
-      icon="rhn"
+      routerLink="/analysis/nl/horse/networks"
+      icon="horse"
       text="Horse"
-      i18n-text="@@network-type.rhn">
+      i18n-text="@@network-type.horse">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/nl/rmn"
-      icon="rmn"
+      routerLink="/analysis/nl/motorboat/networks"
+      icon="motorboat"
       text="Motorboat"
-      i18n-text="@@network-type.rmn">
+      i18n-text="@@network-type.motorboat">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/nl/rpn"
-      icon="rpn"
+      routerLink="/analysis/nl/canoe/networks"
+      icon="canoe"
       text="Canoe"
-      i18n-text="@@network-type.rpn">
+      i18n-text="@@network-type.canoe">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/nl/rin"
-      icon="rin"
+      routerLink="/analysis/nl/inline-skating/networks"
+      icon="inline-skating"
       text="Inline skating"
-      i18n-text="@@network-type.rin">
+      i18n-text="@@network-type.inline-skating">
     </kpn-icon-button>
   `
 })

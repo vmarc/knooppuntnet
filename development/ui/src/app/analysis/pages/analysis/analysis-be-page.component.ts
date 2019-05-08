@@ -15,17 +15,17 @@ import {Component} from "@angular/core";
     </h1>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/be/rcn"
-      icon="rcn"
+      routerLink="/analysis/be/cycling/networks"
+      icon="cycling"
       text="Cycling"
-      i18n-text="@@network-type.rcn">
+      i18n-text="@@network-type.cycling">
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/analysis/networks/be/rwn"
-      icon="rwn"
+      routerLink="/analysis/be/hiking/networks"
+      icon="hiking"
       text="Hiking"
-      i18n-text="@@network-type.rwn">
+      i18n-text="@@network-type.hiking">
     </kpn-icon-button>
   `
 })
