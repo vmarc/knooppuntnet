@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {PageService} from "../../../components/shared/page.service";
-import {UserService} from "../../../user.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: "kpn-authenticate-page",

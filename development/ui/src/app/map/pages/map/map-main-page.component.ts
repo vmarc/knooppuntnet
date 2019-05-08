@@ -23,7 +23,7 @@ import {MapService} from "../../../components/ol/map.service";
 import {PoiTileLayerService} from "../../../components/ol/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
 import {NetworkType} from "../../../kpn/shared/network-type";
-import {PoiService} from "../../../poi.service";
+import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";

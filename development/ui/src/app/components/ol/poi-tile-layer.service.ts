@@ -4,7 +4,7 @@ import MVT from "ol/format/MVT";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
-import {PoiService} from "../../poi.service";
+import {PoiService} from "../../services/poi.service";
 import {PoiStyleMap} from "./domain/poi-style-map";
 import {ZoomLevel} from "./domain/zoom-level";
 

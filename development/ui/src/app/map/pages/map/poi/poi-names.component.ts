@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from "@angular/core";
-import {PoiService} from "../../../../poi.service";
+import {PoiService} from "../../../../services/poi.service";
 
 @Component({
   selector: "kpn-poi-names",

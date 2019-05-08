@@ -3,7 +3,7 @@ import {AppService} from "../../app.service";
 import {MapService, PoiId} from "../../components/ol/map.service";
 import {Tags} from "../../kpn/shared/data/tags";
 import {PoiPage} from "../../kpn/shared/poi-page";
-import {PoiService} from "../../poi.service";
+import {PoiService} from "../../services/poi.service";
 import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({

@@ -9,7 +9,7 @@ import {fromLonLat} from "ol/proj";
 import Style from "ol/style/Style";
 import View from "ol/View";
 import Extent from "ol/View";
-import {PoiService} from "../../poi.service";
+import {PoiService} from "../../services/poi.service";
 import {DebugLayer} from "./domain/debug-layer";
 import {MainMapStyle} from "./domain/main-map-style";
 import {MapClickHandler} from "./domain/map-click-handler";

@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component} from "@angular/core";
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
 import {PageService} from "./components/shared/page.service";
-import {IconService} from "./icon.service";
+import {IconService} from "./services/icon.service";
 import {SpinnerService} from "./spinner/spinner.service";
-import {UserService} from "./user.service";
+import {UserService} from "./services/user.service";
 import {Subscriptions} from "./util/Subscriptions";
 
 @Component({

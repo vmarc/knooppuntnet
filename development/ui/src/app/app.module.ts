@@ -11,12 +11,13 @@ import {AppComponent} from "./app.component";
 import {AppService} from "./app.service";
 import {PageService} from "./components/shared/page.service";
 import {SharedModule} from "./components/shared/shared.module";
-import {IconService} from "./icon.service";
-import {PoiService} from "./poi.service";
+import {IconService} from "./services/icon.service";
+import {PoiService} from "./services/poi.service";
+import {LogUpdateService} from "./services/log-update.service";
 import {SpinnerInterceptor} from "./spinner/spinner-interceptor";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {SpinnerService} from "./spinner/spinner.service";
-import {UserService} from "./user.service";
+import {UserService} from "./services/user.service";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
@@ -47,7 +48,8 @@ import { environment } from '../environments/environment';
     PageService,
     MatIconRegistry,
     IconService,
-    PoiService
+    PoiService,
+    LogUpdateService
   ],
   bootstrap: [
     AppComponent
