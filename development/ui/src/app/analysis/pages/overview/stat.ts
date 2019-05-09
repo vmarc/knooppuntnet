@@ -19,7 +19,7 @@ export class Stat {
     if (this.figures === null) {
       return "-";
     }
-    return this.figures[subset.country.domain][subset.networkType.name];
+    return this.figures[subset.country.domain][subset.networkType.oldName];
   }
 
 }
