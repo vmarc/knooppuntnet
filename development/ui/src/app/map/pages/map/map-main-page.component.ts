@@ -97,6 +97,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
     this.bitmapTileLayer = NetworkBitmapTileLayer.build(this.mapService.networkType.value);
     this.vectorTileLayer = NetworkVectorTileLayer.build(this.mapService.networkType.value);
     this.poiTileLayer = this.poiTileLayerService.buildLayer();
+    this.poiTileLayer.setVisible(false);
 
     const attribution = new Attribution({
       collapsible: false
@@ -109,8 +110,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
         OsmLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
-        this.vectorTileLayer,
-        DebugLayer.build()
+        this.vectorTileLayer
+        //DebugLayer.build()
       ],
       controls: defaultControls({attribution: false}).extend([attribution]),
       view: new View({

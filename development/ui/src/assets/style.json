@@ -51,7 +51,7 @@
       "url": "v3.json"
     }
   },
-  "sprite": "/assets/sprite",
+  "sprite": "assets/sprite",
   "glyphs": "",
   "layers": [
     {

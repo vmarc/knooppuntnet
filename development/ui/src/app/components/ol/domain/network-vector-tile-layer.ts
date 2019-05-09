@@ -12,7 +12,7 @@ export class NetworkVectorTileLayer {
     const tileGrid = createXYZ({
       tileSize: 512,
       minZoom: 12,
-      maxZoom: 15
+      maxZoom: 14
     });
 
     const source = new VectorTile({

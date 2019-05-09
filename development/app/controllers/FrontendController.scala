@@ -31,7 +31,7 @@ class FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandle
   }
 
   private def isActualAsset(resource: String): Boolean = {
-    resource.endsWith("manifest.json") ||
+    resource.endsWith(".json") ||
       resource.endsWith(".ico") ||
       resource.endsWith(".svg") ||
       resource.endsWith(".png") ||

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from "@angular/core";
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {MatButtonToggleChange} from "@angular/material";
 import {MapService} from "src/app/components/ol/map.service";
 import {SelectedFeature} from "../../components/ol/domain/selected-feature";
@@ -8,7 +8,7 @@ import {Subscriptions} from "../../util/Subscriptions";
 @Component({
   selector: "kpn-map-sidebar",
   template: `
-    <div *ngIf="hasNetworkType()">
+    <div *ngIf="!!networkType">
       <div>
         <mat-button-toggle-group [value]="pageMode" (change)="pageModeChanged($event)">
           <mat-button-toggle value="planner">
@@ -30,7 +30,7 @@ import {Subscriptions} from "../../util/Subscriptions";
         <kpn-map-sidebar-planner></kpn-map-sidebar-planner>
       </div>
 
-      <kpn-map-sidebar-analysis *ngIf="pageMode === 'analysis'" [networkType]="networkType()"></kpn-map-sidebar-analysis>
+      <kpn-map-sidebar-analysis *ngIf="pageMode === 'analysis'" [networkType]="networkType"></kpn-map-sidebar-analysis>
 
       <div *ngIf="pageMode === 'poi'">
         <kpn-poi-detail></kpn-poi-detail>
@@ -55,26 +55,24 @@ export class MapSidebarComponent implements OnInit, OnDestroy {
 
   analysisMode = "planner";
   poiMode = "enabled";
+  networkType: NetworkType = null;
 
-  constructor(private mapService: MapService) {
+  constructor(private mapService: MapService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.subscriptions.add(this.mapService.poiClickedObserver.subscribe(poiId => {
       this.pageMode = "poi";
     }));
+    this.subscriptions.add(this.mapService.networkType.subscribe(networkType => {
+      this.networkType = networkType;
+      this.cdr.detectChanges();
+    }));
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  hasNetworkType(): boolean {
-    return this.mapService.networkType.value !== null;
-  }
-
-  networkType(): NetworkType {
-    return this.mapService.networkType.value;
   }
 
   isDefault(): boolean {

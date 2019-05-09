@@ -10,7 +10,6 @@ import Style from "ol/style/Style";
 import View from "ol/View";
 import Extent from "ol/View";
 import {PoiService} from "../../services/poi.service";
-import {DebugLayer} from "./domain/debug-layer";
 import {MainMapStyle} from "./domain/main-map-style";
 import {MapClickHandler} from "./domain/map-click-handler";
 import {MapMoveHandler} from "./domain/map-move-handler";
@@ -64,8 +63,8 @@ export class MapComponent implements AfterViewInit {
         OsmLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
-        this.vectorTileLayer,
-        DebugLayer.build()
+        this.vectorTileLayer
+        //DebugLayer.build()
       ],
       view: new View({
         minZoom: ZoomLevel.minZoom,

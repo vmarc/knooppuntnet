@@ -6,7 +6,6 @@ import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 import {PoiService} from "../../services/poi.service";
 import {PoiStyleMap} from "./domain/poi-style-map";
-import {ZoomLevel} from "./domain/zoom-level";
 
 @Injectable()
 export class PoiTileLayerService {
@@ -23,20 +22,10 @@ export class PoiTileLayerService {
 
   public buildLayer(): VectorTileLayer {
 
-    const urlFunction = function (tileCoord, pixelRatio, projection) {
-      const zIn = tileCoord[0];
-      const xIn = tileCoord[1];
-      const yIn = tileCoord[2];
-
-      const z = zIn >= ZoomLevel.vectorTileMaxZoom ? ZoomLevel.vectorTileMaxZoom : zIn;
-      const x = xIn;
-      const y = -yIn - 1;
-      return "/tiles/poi/" + z + "/" + x + "/" + y + ".mvt"
-    };
-
     const tileGrid = createXYZ({
-      // minZoom: ZoomLevel.vectorTileMinZoom
-      // maxZoom: ZoomLevel.vectorTileMaxOverZoom
+      tileSize: 512,
+      minZoom: 12,
+      maxZoom: 15
     });
 
     const source = new VectorTile({
@@ -44,7 +33,7 @@ export class PoiTileLayerService {
         featureClass: Feature // this is important to avoid error upon first selection in the map
       }),
       tileGrid: tileGrid,
-      tileUrlFunction: urlFunction
+      url: "/tiles/poi/{z}/{x}/{y}.mvt"
     });
 
     const layer = new VectorTileLayer({
