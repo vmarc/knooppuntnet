@@ -2,14 +2,25 @@ import {ChangeDetectorRef, Component} from "@angular/core";
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./services/icon.service";
-import {SpinnerService} from "./spinner/spinner.service";
 import {UserService} from "./services/user.service";
+import {SpinnerService} from "./spinner/spinner.service";
 import {Subscriptions} from "./util/Subscriptions";
 
 @Component({
   selector: "app-root",
   template: `
     <mat-sidenav-container>
+
+      <mat-sidenav
+        [mode]="isMobile() ? 'over' : 'side'"
+        [fixedInViewport]="!isMobile()"
+        fixedTopGap="48"
+        [opened]="isSidebarOpen()">
+
+        <kpn-sidebar-back *ngIf="isMobile()"></kpn-sidebar-back>
+        <router-outlet name="sidebar"></router-outlet>
+
+      </mat-sidenav>
 
       <mat-sidenav-content>
         <header>
@@ -24,14 +35,6 @@ import {Subscriptions} from "./util/Subscriptions";
           </footer>
         </div>
       </mat-sidenav-content>
-
-      <mat-sidenav
-        [mode]="isMobile() ? 'over' : 'side'"
-        [fixedInViewport]="!isMobile()"
-        fixedTopGap="48"
-        [opened]="isSidebarOpen()">
-        <router-outlet name="sidebar"></router-outlet>
-      </mat-sidenav>
 
     </mat-sidenav-container>
   `,
@@ -101,4 +104,5 @@ export class AppComponent {
   isShowFooter(): boolean {
     return this.pageService.isShowFooter();
   }
+
 }

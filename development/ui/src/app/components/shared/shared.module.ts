@@ -53,6 +53,7 @@ import {NetworkTypeIconComponent} from "./network-type-icon.component";
 import {NetworkTypeNameComponent} from "./network-type-name.component";
 import {NetworkTypeComponent} from "./network-type.component";
 import {PageFooterComponent} from "./page/page-footer.component";
+import {SidebarBackComponent} from "./sidebar/sidebar-back.component";
 import {SidebarFooterComponent} from "./sidebar/sidebar-footer.component";
 import {SidebarMenuComponent} from "./sidebar/sidebar-menu.component";
 import {SidebarNetworkComponent} from "./sidebar/sidebar-network.component";
@@ -126,6 +127,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     PageFooterComponent,
     ToolbarComponent,
     SidebarComponent,
+    SidebarBackComponent,
     SidebarFooterComponent,
     SidebarVersionWarningComponent,
     SidebarNetworkComponent,
@@ -190,6 +192,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     PageFooterComponent,
     ToolbarComponent,
     SidebarComponent,
+    SidebarBackComponent,
     SidebarFooterComponent,
     SidebarVersionWarningComponent,
     SidebarNetworkComponent,

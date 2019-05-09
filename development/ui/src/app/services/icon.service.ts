@@ -91,6 +91,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("collapse", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/right.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("back", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/left-arrow.svg")));
   }
 
   private registerDirectionsIcons() {
