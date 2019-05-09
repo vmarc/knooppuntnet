@@ -12,7 +12,8 @@ import {ExportDialogComponent} from "./export-dialog.component";
   template: `
 
     <kpn-plan-translations></kpn-plan-translations>
-
+    <kpn-poi-names></kpn-poi-names>
+    
     <div class="buttons">
       <button mat-stroked-button (click)="undo()" [disabled]="!undoEnabled()">Undo</button>
       <button mat-stroked-button (click)="redo()" [disabled]="!redoEnabled()">Redo</button>

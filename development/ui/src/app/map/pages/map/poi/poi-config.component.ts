@@ -9,7 +9,7 @@ import {Subscriptions} from "../../../../util/Subscriptions";
   template: `
     <div class="poi-config">
 
-      <div class="col-icon"><img *ngIf="icon" width="32" height="37" [src]="'/assets/images/pois/' + icon" alt="icon"/></div>
+      <div class="col-icon"><img *ngIf="icon" width="32" height="37" [src]="'assets/images/pois/' + icon" alt="icon"/></div>
 
       <div class="col-name">
         {{poiName()}}

@@ -2082,14 +2082,14 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.alpine_hut" datatype="html">
+      <trans-unit id="poi.alpine-hut" datatype="html">
         <source>Alpine hut</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.american_football" datatype="html">
+      <trans-unit id="poi.american-football" datatype="html">
         <source>American football</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2103,7 +2103,7 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.arts_centre" datatype="html">
+      <trans-unit id="poi.arts-centre" datatype="html">
         <source>Arts centre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2201,14 +2201,14 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.bicycle_parking" datatype="html">
+      <trans-unit id="poi.bicycle-parking" datatype="html">
         <source>Bicycle parking</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.bicycle_rental" datatype="html">
+      <trans-unit id="poi.bicycle-rental" datatype="html">
         <source>Bicycle rental</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2222,21 +2222,21 @@
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.books_stationary" datatype="html">
+      <trans-unit id="poi.books-stationary" datatype="html">
         <source>Books/stationary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.buddhist_temple" datatype="html">
+      <trans-unit id="poi.buddhist-temple" datatype="html">
         <source>Buddhist temple</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.bus_stop" datatype="html">
+      <trans-unit id="poi.busstop" datatype="html">
         <source>Bus stop</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2257,7 +2257,7 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.camp_site" datatype="html">
+      <trans-unit id="poi.campsite" datatype="html">
         <source>Camp site</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2404,28 +2404,28 @@
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.department_store" datatype="html">
+      <trans-unit id="poi.departmentstore" datatype="html">
         <source>Department store</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.diy_hardware" datatype="html">
+      <trans-unit id="poi.diy-hardware" datatype="html">
         <source>DIY hardware</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.drinking_water" datatype="html">
+      <trans-unit id="poi.drinking-water" datatype="html">
         <source>Drinking water</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.ebike_charging" datatype="html">
+      <trans-unit id="poi.ebike-charging" datatype="html">
         <source>Ebike charging</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2439,7 +2439,7 @@
           <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.fast_food" datatype="html">
+      <trans-unit id="poi.fastfood" datatype="html">
         <source>Fast food</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2453,7 +2453,7 @@
           <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.food_court" datatype="html">
+      <trans-unit id="poi.foodcourt" datatype="html">
         <source>Food court</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2474,7 +2474,7 @@
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.garden_centre" datatype="html">
+      <trans-unit id="poi.garden-centre" datatype="html">
         <source>Garden centre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2509,7 +2509,7 @@
           <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.guest_house" datatype="html">
+      <trans-unit id="poi.guesthouse" datatype="html">
         <source>Guest house</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2537,7 +2537,7 @@
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.hindu_temple" datatype="html">
+      <trans-unit id="poi.hindu-temple" datatype="html">
         <source>Hindu temple</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2558,7 +2558,7 @@
           <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.horse_racing" datatype="html">
+      <trans-unit id="poi.horseracing" datatype="html">
         <source>Horse racing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2586,14 +2586,14 @@
           <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.ice_cream" datatype="html">
+      <trans-unit id="poi.ice-cream" datatype="html">
         <source>Ice cream</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.ice_hockey" datatype="html">
+      <trans-unit id="poi.icehockey" datatype="html">
         <source>Ice hockey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2642,14 +2642,14 @@
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.monumental_tree" datatype="html">
+      <trans-unit id="poi.monumental-tree" datatype="html">
         <source>Monumental tree</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.monument_memorial" datatype="html">
+      <trans-unit id="poi.monument-memorial" datatype="html">
         <source>Monument</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2677,14 +2677,14 @@
           <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.musical_instrument" datatype="html">
+      <trans-unit id="poi.musical-instrument" datatype="html">
         <source>Musical instrument</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.music_school" datatype="html">
+      <trans-unit id="poi.musicschool" datatype="html">
         <source>Music school</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2747,7 +2747,7 @@
           <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.place_of_worship" datatype="html">
+      <trans-unit id="poi.place-of-worship" datatype="html">
         <source>Place of worship</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2761,14 +2761,14 @@
           <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.post_box" datatype="html">
+      <trans-unit id="poi.postbox" datatype="html">
         <source>Post box</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.post_office" datatype="html">
+      <trans-unit id="poi.postoffice" datatype="html">
         <source>Post office</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2810,7 +2810,7 @@
           <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.shopping_centre" datatype="html">
+      <trans-unit id="poi.shoppingcentre" datatype="html">
         <source>Shopping centre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2824,7 +2824,7 @@
           <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.sports_centre" datatype="html">
+      <trans-unit id="poi.sportscentre" datatype="html">
         <source>Sports centre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2894,7 +2894,7 @@
           <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.theme_park" datatype="html">
+      <trans-unit id="poi.themepark" datatype="html">
         <source>Themepark</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -2922,7 +2922,7 @@
           <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.travel_agency" datatype="html">
+      <trans-unit id="poi.travelagency" datatype="html">
         <source>Travelagency</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
