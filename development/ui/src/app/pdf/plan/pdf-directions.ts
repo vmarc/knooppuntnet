@@ -1,5 +1,6 @@
 import {List} from "immutable";
 import * as JsPdf from "jspdf";
+import {PlannerService} from "../../map/planner.service";
 import {PlanInstruction} from "../../map/planner/plan/plan-instruction";
 import {BitmapIconService} from "../bitmap-icon.service";
 import {PdfPage} from "./pdf-page";
@@ -13,7 +14,8 @@ export class PdfDirections {
   private readonly doc = new JsPdf();
 
   constructor(private instructions: List<PlanInstruction>,
-              private iconService: BitmapIconService) {
+              private iconService: BitmapIconService,
+              private plannerService: PlannerService) {
   }
 
   print(): void {
@@ -82,54 +84,26 @@ export class PdfDirections {
             this.doc.setFontSize(10);
 
             let text = "";
-            // if (instruction.text != null) {
-            //   text = text + instruction.text + " ";
-            // }
-            if (instruction.command == "continue") {
-              if (instruction.street) {
-                text = text + "Rechtdoor op " + instruction.street;
-              } else {
-                text = text + "Rechtdoor";
-              }
-            } else if (instruction.command == "turn-slight-left") {
-              if (instruction.street) {
-                text = text + "Houd link aan naar " + instruction.street;
-              } else {
-                text = text + "Houd link aan";
-              }
-            } else if (instruction.command == "turn-slight-right") {
-              if (instruction.street) {
-                text = text + "Houd rechts aan naar " + instruction.street;
-              } else {
-                text = text + "Houd rechts aan";
-              }
-            } else if (instruction.command == "turn-left") {
-              if (instruction.street) {
-                text = text + "Linksaf naar " + instruction.street;
-              } else {
-                text = text + "Linksaf";
-              }
-            } else if (instruction.command == "turn-right") {
-              if (instruction.street) {
-                text = text + "Rechtsaf naar " + instruction.street;
-              } else {
-                text = text + "Rechtsaf";
-              }
-            } else if (instruction.command == "turn-sharp-left") {
-              if (instruction.street) {
-                text = text + "Scherp linksaf naar " + instruction.street;
-              } else {
-                text = text + "Scherp linksaf";
-              }
-            } else if (instruction.command == "turn-sharp-right") {
-              if (instruction.street) {
-                text = text + "Scherp rechtsaf naar " + instruction.street;
-              } else {
-                text = text + "Scherp rechtsaf";
+
+            if (!!instruction.heading) {
+
+              text = text +
+                this.plannerService.translate("head") +
+                " " +
+                this.plannerService.translate("heading-" + instruction.heading);
+
+              if (!!instruction.street) {
+                text = text +
+                  " " +
+                  this.plannerService.translate("onto") +
+                  " " +
+                  instruction.street;
               }
             } else {
-              if (instruction.street) {
-                text = text + instruction.street + " ";
+              const key = "command-" + instruction.command + (!!instruction.street ? "-street" : "");
+              text = text + this.plannerService.translate(key);
+              if (!!instruction.street) {
+                text = text + " " + instruction.street;
               }
             }
 

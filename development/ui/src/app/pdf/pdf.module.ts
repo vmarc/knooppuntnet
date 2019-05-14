@@ -1,5 +1,6 @@
 import {NgModule} from "@angular/core";
 import {MatIconModule} from "@angular/material";
+import {PlannerService} from "../map/planner.service";
 import {BitmapIconService} from "./bitmap-icon.service";
 import {PdfService} from "./pdf.service";
 
@@ -8,11 +9,11 @@ import {PdfService} from "./pdf.service";
     MatIconModule
   ],
   declarations: [],
-  exports: [
-  ],
+  exports: [],
   providers: [
     PdfService,
-    BitmapIconService
+    BitmapIconService,
+    PlannerService
   ]
 })
 export class PdfModule {
