@@ -83,29 +83,26 @@ export class PdfDirections {
             const xx = x + (circleRadius * 2) + PdfPage.spacer;
             this.doc.setFontSize(10);
 
-            let text = "";
-
+            let texts = List<string>();
             if (!!instruction.heading) {
-
-              text = text +
-                this.plannerService.translate("head") +
-                " " +
-                this.plannerService.translate("heading-" + instruction.heading);
-
+              texts = texts.push(this.plannerService.translate("head"));
+              texts = texts.push(" ");
+              texts = texts.push(this.plannerService.translate("heading-" + instruction.heading));
               if (!!instruction.street) {
-                text = text +
-                  " " +
-                  this.plannerService.translate("onto") +
-                  " " +
-                  instruction.street;
+                texts = texts.push(" ");
+                texts = texts.push(this.plannerService.translate("onto"));
+                texts = texts.push(" ");
+                texts = texts.push(instruction.street);
               }
             } else {
               const key = "command-" + instruction.command + (!!instruction.street ? "-street" : "");
-              text = text + this.plannerService.translate(key);
+              texts = texts.push(this.plannerService.translate(key));
               if (!!instruction.street) {
-                text = text + " " + instruction.street;
+                texts = texts.push(" ");
+                texts = texts.push(instruction.street);
               }
             }
+            const text = texts.join("");
 
             this.doc.text(text, xx, yy, {baseline: "top", lineHeightFactor: "1"});
             yy += 5;
