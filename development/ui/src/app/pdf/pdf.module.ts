@@ -1,5 +1,6 @@
 import {NgModule} from "@angular/core";
 import {MatIconModule} from "@angular/material";
+import {BitmapIconService} from "./bitmap-icon.service";
 import {PdfService} from "./pdf.service";
 
 @NgModule({
@@ -10,7 +11,8 @@ import {PdfService} from "./pdf.service";
   exports: [
   ],
   providers: [
-    PdfService
+    PdfService,
+    BitmapIconService
   ]
 })
 export class PdfModule {

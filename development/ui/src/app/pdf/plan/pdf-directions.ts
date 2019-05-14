@@ -1,8 +1,7 @@
-import {MatIconRegistry} from "@angular/material";
-import * as canvg from "canvg";
 import {List} from "immutable";
 import * as JsPdf from "jspdf";
 import {PlanInstruction} from "../../map/planner/plan/plan-instruction";
+import {BitmapIconService} from "../bitmap-icon.service";
 import {PdfPage} from "./pdf-page";
 import {PdfSideBar} from "./pdf-side-bar";
 
@@ -14,7 +13,7 @@ export class PdfDirections {
   private readonly doc = new JsPdf();
 
   constructor(private instructions: List<PlanInstruction>,
-              private iconRegistry: MatIconRegistry) {
+              private iconService: BitmapIconService) {
   }
 
   print(): void {
@@ -74,13 +73,8 @@ export class PdfDirections {
           } else {
             let yy = y + PdfPage.spacer;
             if (instruction.command != null) {
-              this.iconRegistry.getNamedSvgIcon(instruction.command).subscribe(svgElement => {
-                const str: string = svgElement.outerHTML;
-                const canvas: HTMLCanvasElement = document.createElement("canvas");
-                // @ts-ignore
-                canvg(canvas, str);
-                const imgData = canvas.toDataURL("image/png");
-                this.doc.addImage(imgData, "PNG", x, yy, 80, 80);
+              this.iconService.getIcon(instruction.command).subscribe(icon => {
+                this.doc.addImage(icon, "PNG", x, yy, 80, 80);
               });
             }
 

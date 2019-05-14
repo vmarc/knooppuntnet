@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {MatIconRegistry} from "@angular/material";
 import {DirectionsAnalyzer} from "../map/planner/directions/directions-analyzer";
 import {Plan} from "../map/planner/plan/plan";
+import {BitmapIconService} from "./bitmap-icon.service";
 import {PdfDirections} from "./plan/pdf-directions";
 import {PdfHorizontal} from "./plan/pdf-horizontal";
 import {PdfVertical} from "./plan/pdf-vertical";
@@ -9,7 +9,7 @@ import {PdfVertical} from "./plan/pdf-vertical";
 @Injectable()
 export class PdfService {
 
-  constructor(private iconRegistry: MatIconRegistry) {
+  constructor(private iconService: BitmapIconService) {
   }
 
   printVertical(plan: Plan): void {
@@ -22,7 +22,7 @@ export class PdfService {
 
   printInstructions(plan: Plan): void {
     const instructions = new DirectionsAnalyzer().analyze(plan);
-    new PdfDirections(instructions, this.iconRegistry).print();
+    new PdfDirections(instructions, this.iconService).print();
   }
 
 }

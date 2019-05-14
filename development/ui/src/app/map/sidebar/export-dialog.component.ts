@@ -22,8 +22,8 @@ import {MatRadioChange} from "@angular/material";
       </mat-radio-group>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button [mat-dialog-close]="export">OK</button>
+      <button mat-stroked-button mat-dialog-close>Cancel</button>
+      <button mat-stroked-button [mat-dialog-close]="export" cdkFocusInitial>OK</button>
     </mat-dialog-actions>
   `,
   styles: [`
@@ -36,6 +36,10 @@ import {MatRadioChange} from "@angular/material";
 
     mat-radio-button {
       margin: 5px;
+    }
+
+    mat-dialog-actions :not(:last-child) {
+      margin-right: 10px;
     }
 
   `]
