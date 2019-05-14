@@ -24,7 +24,8 @@ export class NetworkVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
-      source: source
+      source: source,
+      renderMode: 'image'
     });
 
     return layer;

@@ -37,7 +37,8 @@ export class PoiTileLayerService {
     });
 
     const layer = new VectorTileLayer({
-      source: source
+      source: source,
+      renderMode: 'image'
     });
 
     layer.setStyle(this.poiStyleFunction());

@@ -13,7 +13,7 @@ import {UserService} from "../../../services/user.service";
       </p>
 
       <p class="version">
-        version
+        2019-05-13
       </p>
 
       <p *ngIf="isLoggedIn()">

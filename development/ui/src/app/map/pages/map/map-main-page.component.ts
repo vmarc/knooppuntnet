@@ -108,7 +108,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
       target: "main-map",
       layers: [
         OsmLayer.build(),
-        this.poiTileLayer,
+        // this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer
         //DebugLayer.build()
@@ -147,7 +147,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
 
   private zoom(zoomLevel: number) {
     this.updateLayerVisibility(zoomLevel);
-    this.poiService.updateZoomLevel(zoomLevel);
+    // this.poiService.updateZoomLevel(zoomLevel);
     return true;
   }
 
@@ -160,11 +160,11 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
       this.bitmapTileLayer.setVisible(false);
       this.vectorTileLayer.setVisible(true);
     }
-    if (zoom >= 11) {
-      this.poiTileLayer.setVisible(true);
-    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
-      this.poiTileLayer.setVisible(false);
-    }
+    // if (zoom >= 11) {
+    //   this.poiTileLayer.setVisible(true);
+    // } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
+    //   this.poiTileLayer.setVisible(false);
+    // }
   }
 
 

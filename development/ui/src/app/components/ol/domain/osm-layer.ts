@@ -3,9 +3,20 @@ import MVT from "ol/format/MVT";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
+import XYZ from "ol/source/XYZ";
 import {createXYZ} from "ol/tilegrid";
 
 export class OsmLayer {
+
+  public static bitmapBuild() {
+    return new TileLayer({
+      source: new XYZ({
+        minZoom: 0,
+        maxZoom: 14,
+        url: "/tiles/osm-bitmap/{z}/{x}/{y}.png"
+      })
+    });
+  }
 
   public static build(): TileLayer {
 
@@ -25,7 +36,8 @@ export class OsmLayer {
     });
 
     const layer = new VectorTileLayer({
-      source: source
+      source: source,
+      renderMode: 'image'
     });
 
     fetch("assets/style.json").then((response) => {
