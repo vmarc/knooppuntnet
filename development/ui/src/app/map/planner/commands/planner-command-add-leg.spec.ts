@@ -10,8 +10,8 @@ describe("PlannerCommandAddLeg", () => {
 
   it("do and undo", () => {
 
-    const node1 = PlanNode.create("1001", "01", [1, 1]);
-    const node2 = PlanNode.create("1002", "02", [2, 2]);
+    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
     const leg = new PlanLeg("12", node1, node2, 0, List());
     const plan = Plan.create(node1, List());
 

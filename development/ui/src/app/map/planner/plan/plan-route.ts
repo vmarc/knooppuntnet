@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import Coordinate from "ol/coordinate";
+import {LatLonImpl} from "../../../kpn/shared/lat-lon-impl";
 import {PlanNode} from "./plan-node";
 import {PlanSegment} from "./plan-segment";
 
@@ -12,7 +12,11 @@ export class PlanRoute {
               readonly streets: List<string>) {
   }
 
-  coordinates(): List<Coordinate> {
+  latLons(): List<LatLonImpl> {
+    return List([this.source.latLon]).concat(this.segments.flatMap(segment => segment.fragments.map(fragment => fragment.latLon)));
+  }
+
+  coordinates(): List<LatLonImpl> {
     return List([this.source.coordinate]).concat(this.segments.flatMap(segment => segment.fragments.map(fragment => fragment.coordinate)));
   }
 

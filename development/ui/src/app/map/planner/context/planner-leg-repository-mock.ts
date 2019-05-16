@@ -12,7 +12,9 @@ export class PlannerLegRepositoryMock implements PlannerLegRepository {
     let planLeg = this.planLegs.find(leg => leg.featureId == legId);
     if (!planLeg) {
       const foundLeg = this.planLegs.find(leg => leg.source.nodeId == source.nodeId && leg.sink.nodeId == sink.nodeId);
-      planLeg = new PlanLeg(legId, source, sink, foundLeg.meters, foundLeg.routes);
+      if (foundLeg) {
+        planLeg = new PlanLeg(legId, source, sink, foundLeg.meters, foundLeg.routes);
+      }
     }
     return of(planLeg);
   }

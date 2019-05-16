@@ -110,8 +110,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy {
         OsmLayer.build(),
         // this.poiTileLayer,
         this.bitmapTileLayer,
-        this.vectorTileLayer
-        //DebugLayer.build()
+        this.vectorTileLayer,
+        DebugLayer.build()
       ],
       controls: defaultControls({attribution: false}).extend([attribution]),
       view: new View({

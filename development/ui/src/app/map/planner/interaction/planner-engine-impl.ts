@@ -66,8 +66,8 @@ export class PlannerEngineImpl implements PlannerEngine {
       return false;
     }
 
-    const legNode = this.findFlag(features);
-    if (legNode != null) {
+    const flagFeature = this.findFlag(features);
+    if (!!flagFeature) {
       this.context.crosshair.setVisible(false);
       this.context.cursor.setStyle("move");
       return true;
@@ -295,11 +295,11 @@ export class PlannerEngineImpl implements PlannerEngine {
 
 
   private findFlag(features: List<PlannerMapFeature>): PlannerMapFeature {
-    const nodes = features.filter(f => f.isFlag());
-    if (nodes.isEmpty()) {
+    const flagFeatures = features.filter(f => f.isFlag());
+    if (flagFeatures.isEmpty()) {
       return null;
     }
-    return nodes.get(0); // TODO find the closest
+    return flagFeatures.get(0); // TODO find the closest
   }
 
   private findNetworkNode(features: List<PlannerMapFeature>): PlannerMapFeature {

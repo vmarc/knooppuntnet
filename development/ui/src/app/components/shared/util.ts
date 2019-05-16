@@ -1,6 +1,6 @@
 import {Params} from "@angular/router";
 import {Coordinate} from "ol/coordinate";
-import {toLonLat} from "ol/proj";
+import {toLonLat, fromLonLat} from "ol/proj";
 import {NetworkTypes} from "../../kpn/common/network-types";
 import {Country} from "../../kpn/shared/country";
 import {LatLonImpl} from "../../kpn/shared/lat-lon-impl";
@@ -46,6 +46,12 @@ export class Util {
   public static latLonFromCoordinate(coordinate: Coordinate): LatLonImpl {
     const lonLat = toLonLat(coordinate);
     return new LatLonImpl("" + lonLat[1], "" + lonLat[0]);
+  }
+
+  public static latLonToCoordinate(latLon: LatLonImpl): Coordinate {
+    const latNumber = parseFloat(latLon.latitude);
+    const lonNumber = parseFloat(latLon.longitude);
+    return fromLonLat([lonNumber, latNumber]);
   }
 
 }

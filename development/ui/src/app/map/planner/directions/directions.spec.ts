@@ -1,7 +1,7 @@
 import {DirectionsAnalyzer} from "./directions-analyzer";
 import {DirectionsTestSetup} from "./directions-test-setup";
 
-fdescribe("directions", () => {
+describe("directions", () => {
 
   it("translate plan into directions", () => {
     const plan = DirectionsTestSetup.examplePlan();

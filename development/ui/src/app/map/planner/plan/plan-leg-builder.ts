@@ -1,6 +1,6 @@
 import {List} from "immutable";
-import Coordinate from "ol/coordinate";
-import {fromLonLat} from "ol/proj";
+import {Util} from "../../../components/shared/util";
+import {LatLonImpl} from "../../../kpn/shared/lat-lon-impl";
 import {RouteLeg} from "../../../kpn/shared/planner/route-leg";
 import {RouteLegFragment} from "../../../kpn/shared/planner/route-leg-fragment";
 import {RouteLegNode} from "../../../kpn/shared/planner/route-leg-node";
@@ -42,26 +42,22 @@ export class PlanLegBuilder {
   }
 
   private static toPlanFragment(fragment: RouteLegFragment): PlanFragment {
-    const coordinate = this.latLonToCoordinate(fragment.lat, fragment.lon);
+    const latLon = new LatLonImpl(fragment.lat, fragment.lon);
+    const coordinate = Util.latLonToCoordinate(latLon);
     return new PlanFragment(
       fragment.meters,
       fragment.orientation,
       fragment.streetIndex,
-      coordinate
+      coordinate,
+      latLon
     );
   }
 
   private static toPlanNode(routeLegNode: RouteLegNode): PlanNode {
     const nodeId: string = routeLegNode.nodeId;
     const nodeName: string = routeLegNode.nodeName;
-    const coordinate = this.latLonToCoordinate(routeLegNode.lat, routeLegNode.lon);
-    return PlanNode.create(nodeId, nodeName, coordinate);
-  }
-
-  private static latLonToCoordinate(lat: string, lon: string): Coordinate {
-    const latNumber = parseFloat(lat);
-    const lonNumber = parseFloat(lon);
-    return fromLonLat([lonNumber, latNumber]);
+    const latLon = new LatLonImpl(routeLegNode.lat, routeLegNode.lon);
+    return PlanNode.create(nodeId, nodeName, latLon);
   }
 
 }

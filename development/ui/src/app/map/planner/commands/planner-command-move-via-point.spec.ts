@@ -12,10 +12,10 @@ describe("PlannerCommandMoveViaPoint", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanNode.create("1001", "01", [1, 1]);
-    const node2 = PlanNode.create("1002", "02", [2, 2]);
-    const node3 = PlanNode.create("1003", "03", [3, 3]);
-    const node4 = PlanNode.create("1004", "04", [4, 4]);
+    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
+    const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
+    const node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
 
     const oldLeg1 = new PlanLeg("12", node1, node2, 0, List());
     const oldLeg2 = new PlanLeg("23", node2, node3, 0, List());

@@ -1,5 +1,6 @@
 import {Map} from "immutable";
 import Coordinate from "ol/coordinate";
+import {TestSupport} from "../../../util/test-support";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
@@ -29,11 +30,11 @@ export class PlannerRouteLayerMock implements PlannerRouteLayer {
     expect(this.flags.size).toEqual(count);
   }
 
-  expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate): void {
+  expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate: Coordinate): void {
     const flag = this.flags.get(featureId);
     expect(flag.featureId).toEqual(featureId);
     expect(flag.flagType).toEqual(flagType);
-    expect(flag.coordinate).toEqual(coordinate);
+    TestSupport.expectCoordinate(flag.coordinate, coordinate);
   }
 
   addRouteLeg(leg: PlanLeg): void {

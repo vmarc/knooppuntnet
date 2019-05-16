@@ -23,7 +23,7 @@ export class PlannerMapFeature {
   }
 
   static networkNode(nodeId: string, nodeName: string, coordinate: Coordinate): PlannerMapFeature {
-    return new PlannerMapFeature(nodeId, null, null, PlanNode.create(nodeId, nodeName, coordinate));
+    return new PlannerMapFeature(nodeId, null, null, PlanNode.withCoordinate(nodeId, nodeName, coordinate));
   }
 
   static leg(featureId: string): PlannerMapFeature {

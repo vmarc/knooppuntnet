@@ -10,6 +10,8 @@ export class PdfDirections {
 
   private readonly instructionsPerPage = 19;
   private readonly instructionHeight = (PdfPage.yContentsBottom - PdfPage.yContentsTop) / this.instructionsPerPage;
+  private readonly leftMargin = 30;
+  private readonly nodeCircleRadius = 5;
 
   private readonly doc = new JsPdf();
 
@@ -19,99 +21,112 @@ export class PdfDirections {
   }
 
   print(): void {
-    this.draw();
+    this.printPages();
     this.doc.save("knooppuntnet.pdf");
   }
 
-  private draw() {
-
-    let pageCount = Math.floor(this.instructions.size / this.instructionsPerPage);
-    if ((this.instructions.size % this.instructionsPerPage) > 0) {
-      pageCount++;
-    }
-
+  private printPages(): void {
+    const pageCount = this.calculatePageCount();
     for (let pageIndex = 0; pageIndex < pageCount; pageIndex++) {
       if (pageIndex > 0) {
         this.doc.addPage();
       }
-      new PdfSideBar(this.doc).print();
+      this.printSideBar();
+      this.printPage(pageIndex, pageCount);
+    }
+  }
 
-      let rowCount = 0;
-      if (pageIndex < pageCount - 1) {
-        rowCount = this.instructionsPerPage;
-      } else {
-        rowCount = this.instructions.size % this.instructionsPerPage;
-      }
+  private calculatePageCount(): number {
+    let pageCount = Math.floor(this.instructions.size / this.instructionsPerPage);
+    if ((this.instructions.size % this.instructionsPerPage) > 0) {
+      pageCount++;
+    }
+    return pageCount;
+  }
 
+  private calculatePageRowCount(pageIndex: number, pageCount: number): number {
+    if (pageIndex < pageCount - 1) {
+      return this.instructionsPerPage;
+    }
+    return this.instructions.size % this.instructionsPerPage;
+  }
 
-      let x = 30;
-      const circleRadius = 5;
+  private printSideBar(): void {
+    new PdfSideBar(this.doc).print();
+  }
 
-
-      for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-
-        const instructionIndex = (this.instructionsPerPage * pageIndex) + rowIndex;
-
-        if (instructionIndex < this.instructions.size) {
-
-          const instruction = this.instructions.get(instructionIndex);
-
-          const y = PdfPage.yContentsTop + (this.instructionHeight * rowIndex);
-
-          this.doc.setDrawColor(230);
-          this.doc.setLineWidth(0.05);
-          this.doc.line(x, y, PdfPage.width - PdfPage.marginRight, y);
-
-          if (instruction.node) {
-
-            const xCircleCenter = x + circleRadius;
-            const yCircleCenter = y + 2.5 + circleRadius;
-
-            this.doc.setLineWidth(0.05);
-            this.doc.circle(xCircleCenter, yCircleCenter, circleRadius);
-            this.doc.setFontSize(12);
-            this.doc.text(instruction.node, xCircleCenter, yCircleCenter, {align: "center", baseline: "middle", lineHeightFactor: "1"});
-
-          } else {
-            let yy = y + PdfPage.spacer;
-            if (instruction.command != null) {
-              this.iconService.getIcon(instruction.command).subscribe(icon => {
-                this.doc.addImage(icon, "PNG", x, yy, 80, 80);
-              });
-            }
-
-            const xx = x + (circleRadius * 2) + PdfPage.spacer;
-            this.doc.setFontSize(10);
-
-            let texts = List<string>();
-            if (!!instruction.heading) {
-              texts = texts.push(this.plannerService.translate("head"));
-              texts = texts.push(" ");
-              texts = texts.push(this.plannerService.translate("heading-" + instruction.heading));
-              if (!!instruction.street) {
-                texts = texts.push(" ");
-                texts = texts.push(this.plannerService.translate("onto"));
-                texts = texts.push(" ");
-                texts = texts.push(instruction.street);
-              }
-            } else {
-              const key = "command-" + instruction.command + (!!instruction.street ? "-street" : "");
-              texts = texts.push(this.plannerService.translate(key));
-              if (!!instruction.street) {
-                texts = texts.push(" ");
-                texts = texts.push(instruction.street);
-              }
-            }
-            const text = texts.join("");
-
-            this.doc.text(text, xx, yy, {baseline: "top", lineHeightFactor: "1"});
-            yy += 5;
-
-            this.doc.text(instruction.distance + " m", xx, yy, {baseline: "top", lineHeightFactor: "1"});
-            yy += 5;
-          }
-        }
+  private printPage(pageIndex: number, pageCount: number): void {
+    const rowCount = this.calculatePageRowCount(pageIndex, pageCount);
+    for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+      const instructionIndex = (this.instructionsPerPage * pageIndex) + rowIndex;
+      if (instructionIndex < this.instructions.size) {
+        const instruction = this.instructions.get(instructionIndex);
+        const y = PdfPage.yContentsTop + (this.instructionHeight * rowIndex);
+        this.printInstruction(y, instruction);
       }
     }
+  }
+
+  private printInstruction(y: number, instruction: PlanInstruction): void {
+    this.printInstructionDivider(y);
+    if (!!instruction.node) {
+      this.printNode(y, instruction.node);
+    } else {
+      let yy = y + PdfPage.spacer;
+      this.printInstructionIcon(yy, instruction.command);
+      this.printInstructionText(yy, instruction);
+    }
+  }
+
+  private printInstructionDivider(y: number): void {
+    this.doc.setDrawColor(230);
+    this.doc.setLineWidth(0.05);
+    this.doc.line(this.leftMargin, y, PdfPage.width - PdfPage.marginRight, y);
+  }
+
+  private printNode(y: number, node: string): void {
+    const xCircleCenter = this.leftMargin + this.nodeCircleRadius;
+    const yCircleCenter = y + 2.5 + this.nodeCircleRadius;
+    this.doc.setLineWidth(0.05);
+    this.doc.circle(xCircleCenter, yCircleCenter, this.nodeCircleRadius);
+    this.doc.setFontSize(12);
+    this.doc.text(node, xCircleCenter, yCircleCenter, {align: "center", baseline: "middle", lineHeightFactor: "1"});
+  }
+
+  private instructionText(instruction: PlanInstruction): string {
+    let texts = List<string>();
+    if (!!instruction.heading) {
+      texts = texts.push(this.plannerService.translate("head"));
+      texts = texts.push(" ");
+      texts = texts.push(this.plannerService.translate("heading-" + instruction.heading));
+      if (!!instruction.street) {
+        texts = texts.push(" ");
+        texts = texts.push(this.plannerService.translate("onto"));
+        texts = texts.push(" ");
+        texts = texts.push(instruction.street);
+      }
+    } else {
+      const key = "command-" + instruction.command + (!!instruction.street ? "-street" : "");
+      texts = texts.push(this.plannerService.translate(key));
+      if (!!instruction.street) {
+        texts = texts.push(" ");
+        texts = texts.push(instruction.street);
+      }
+    }
+    return texts.join("");
+  }
+
+  private printInstructionIcon(y: number, command: string): void {
+    this.iconService.getIcon(command).subscribe(icon => {
+      this.doc.addImage(icon, "PNG", this.leftMargin, y, 80, 80);
+    });
+  }
+
+  private printInstructionText(y: number, instruction: PlanInstruction): void {
+    this.doc.setFontSize(10);
+    const left = this.leftMargin + (this.nodeCircleRadius * 2) + PdfPage.spacer;
+    const text = this.instructionText(instruction);
+    this.doc.text(text, left, y, {baseline: "top", lineHeightFactor: "1"});
+    this.doc.text(instruction.distance + " m", left, y + 5, {baseline: "top", lineHeightFactor: "1"});
   }
 }

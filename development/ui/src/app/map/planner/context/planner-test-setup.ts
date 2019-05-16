@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import {NetworkTypes} from "src/app/kpn/common/network-types";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
@@ -34,13 +35,17 @@ export class PlannerTestSetup {
     this.legs
   );
 
-  readonly node1 = PlanNode.create("1001", "01", [1, 1]);
-  readonly node2 = PlanNode.create("1002", "02", [2, 2]);
-  readonly node3 = PlanNode.create("1003", "03", [3, 3]);
-  readonly node4 = PlanNode.create("1004", "04", [4, 4]);
+  readonly node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
+  readonly node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
+  readonly node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
+  readonly node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
+
+  constructor() {
+    this.context.setNetworkType(NetworkTypes.hiking);
+  }
 
   createLeg(source: PlanNode, sink: PlanNode): PlanLeg {
-    const fragment = new PlanFragment(0, 0, -1, sink.coordinate);
+    const fragment = new PlanFragment(0, 0, -1, sink.coordinate, sink.latLon);
     const segment = new PlanSegment(0, "", List([fragment]));
     const route = new PlanRoute(source, sink, 0, List([segment]), List());
     const leg = new PlanLeg(FeatureId.next(), source, sink, 0, List([route]));

@@ -19,7 +19,8 @@ export class PlannerCrosshairMock implements PlannerCrosshair {
   }
 
   expectPosition(position: Coordinate): void {
-    expect(this._position).toEqual(position);
+    expect(this._position[0]).toBeCloseTo(position[0], 0.01);
+    expect(this._position[1]).toBeCloseTo(position[1], 0.01);
   }
 
 }

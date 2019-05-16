@@ -8,15 +8,10 @@ import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
 
 describe("PlannerNodeDragAnalyzer", () => {
 
-  const coordinate1 = [1, 0];
-  const coordinate2 = [2, 0];
-  const coordinate3 = [3, 0];
-  const coordinate4 = [4, 0];
-
-  const node1 = PlanNode.create("1001", "01", coordinate1);
-  const node2 = PlanNode.create("1002", "02", coordinate2);
-  const node3 = PlanNode.create("1003", "03", coordinate3);
-  const node4 = PlanNode.create("1004", "03", coordinate4);
+  const node1 = PlanNode.withCoordinate("1001", "01", [1, 0]);
+  const node2 = PlanNode.withCoordinate("1002", "02", [2, 0]);
+  const node3 = PlanNode.withCoordinate("1003", "03", [3, 0]);
+  const node4 = PlanNode.withCoordinate("1004", "03", [4, 0]);
 
   const leg12 = new PlanLeg("12", node1, node2, 0, List());
   const leg23 = new PlanLeg("23", node2, node3, 0, List());
@@ -28,8 +23,8 @@ describe("PlannerNodeDragAnalyzer", () => {
     const flag = PlannerMapFeature.startFlag(node1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
-    expect(drag.anchor1).toEqual(coordinate1);
-    expect(drag.anchor2).toEqual(coordinate1);
+    expect(drag.anchor1).toEqual(node1.coordinate);
+    expect(drag.anchor2).toEqual(node1.coordinate);
     expect(drag.oldNode.nodeId).toEqual("1001");
   });
 
@@ -39,8 +34,8 @@ describe("PlannerNodeDragAnalyzer", () => {
     const flag = PlannerMapFeature.flag(PlanFlagType.Via, node2.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
-    expect(drag.anchor1).toEqual(coordinate1);
-    expect(drag.anchor2).toEqual(coordinate3);
+    expect(drag.anchor1).toEqual(node1.coordinate);
+    expect(drag.anchor2).toEqual(node3.coordinate);
     expect(drag.oldNode.nodeId).toEqual("1002");
   });
 
@@ -50,8 +45,8 @@ describe("PlannerNodeDragAnalyzer", () => {
     const flag = PlannerMapFeature.flag(PlanFlagType.Via, node3.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
-    expect(drag.anchor1).toEqual(coordinate2);
-    expect(drag.anchor2).toEqual(coordinate4);
+    expect(drag.anchor1).toEqual(node2.coordinate);
+    expect(drag.anchor2).toEqual(node4.coordinate);
     expect(drag.oldNode.nodeId).toEqual("1003");
   });
 
@@ -68,8 +63,8 @@ describe("PlannerNodeDragAnalyzer", () => {
     const flag = PlannerMapFeature.flag(PlanFlagType.Via, node4.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
-    expect(drag.anchor1).toEqual(coordinate4);
-    expect(drag.anchor2).toEqual(coordinate4);
+    expect(drag.anchor1).toEqual(node4.coordinate);
+    expect(drag.anchor2).toEqual(node4.coordinate);
     expect(drag.oldNode.nodeId).toEqual("1004");
   });
 

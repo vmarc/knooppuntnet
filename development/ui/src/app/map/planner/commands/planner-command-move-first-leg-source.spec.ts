@@ -12,9 +12,9 @@ describe("PlannerCommandMoveFirstLegSource", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanNode.create("1001", "01", [1, 1]);
-    const node2 = PlanNode.create("1002", "02", [2, 2]);
-    const node3 = PlanNode.create("1003", "03", [3, 3]);
+    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
+    const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
 
     const oldLeg = new PlanLeg("12", node1, node2, 0, List());
     const newLeg = new PlanLeg("32", node3, node2, 0, List());

@@ -64,7 +64,6 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
     } else if (flag.flagType == PlanFlagType.Via) {
       feature.setStyle(this.viaFlagStyle);
     }
-    // feature.set("nodeId", nodeId); // TODO do we need this???
     this.source.addFeature(feature);
   }
 
@@ -84,7 +83,7 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
 
   addRouteLeg(leg: PlanLeg): void {
     this.removeRouteLeg(leg.featureId);
-    const feature = new Feature(new LineString(leg.coordinates().toArray()));
+    const feature = new Feature(new LineString(leg.coordinates()));
     feature.setId(leg.featureId);
     feature.set("layer", "leg");
     feature.setStyle(this.legStyle);

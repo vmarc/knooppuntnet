@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {Subscription} from "rxjs";
 import {PdfService} from "../../pdf/pdf.service";
+import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {Subscriptions} from "../../util/Subscriptions";
 import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
@@ -13,7 +14,7 @@ import {ExportDialogComponent} from "./export-dialog.component";
 
     <kpn-plan-translations></kpn-plan-translations>
     <kpn-poi-names></kpn-poi-names>
-    
+
     <div class="buttons">
       <button mat-stroked-button (click)="undo()" [disabled]="!undoEnabled()">Undo</button>
       <button mat-stroked-button (click)="redo()" [disabled]="!redoEnabled()">Redo</button>
@@ -125,6 +126,8 @@ export class PlanComponent implements OnInit, OnDestroy {
         this.pdfService.printVertical(this.plan);
       } else if (result == "pdf3") {
         this.pdfService.printInstructions(this.plan);
+      } else if (result == "gpx") {
+        new GpxWriter().testWrite(this.plan);
       }
     });
   }

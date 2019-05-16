@@ -8,7 +8,7 @@ describe("PlannerCommandAddStartPoint", () => {
   it("add start point - do and undo", () => {
 
     const setup = new PlannerTestSetup();
-    const node = PlanNode.create("1001", "01", [1, 1]);
+    const node = PlanNode.withCoordinate("1001", "01", [1, 1]);
 
     const command = new PlannerCommandAddStartPoint(node);
     setup.context.execute(command);
