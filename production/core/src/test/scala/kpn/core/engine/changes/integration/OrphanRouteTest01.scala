@@ -51,7 +51,7 @@ class OrphanRouteTest01 extends AbstractTest {
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
         nodeInfo.id match {
-          case (1001) =>
+          case 1001 =>
             nodeInfo should equal(
               newNodeInfo(
                 1001,
@@ -60,7 +60,7 @@ class OrphanRouteTest01 extends AbstractTest {
               )
             )
 
-          case (1002) =>
+          case 1002 =>
             nodeInfo should equal(
               newNodeInfo(
                 1002,

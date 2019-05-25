@@ -2,7 +2,6 @@ package kpn.core.engine.changes.integration
 
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
@@ -15,7 +14,6 @@ import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.RouteChange
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawMember
-import kpn.shared.diff.RouteData
 import kpn.shared.diff.TagDetail
 import kpn.shared.diff.TagDetailType
 import kpn.shared.diff.TagDiffs

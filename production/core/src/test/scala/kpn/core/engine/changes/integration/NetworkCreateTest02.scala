@@ -195,7 +195,7 @@ class NetworkCreateTest02 extends AbstractTest {
       where { nodeChange: NodeChange =>
         nodeChange.key.elementId match {
 
-          case (1001) =>
+          case 1001 =>
             nodeChange should equal(
               newNodeChange(
                 newChangeKey(elementId = 1001),
@@ -216,7 +216,7 @@ class NetworkCreateTest02 extends AbstractTest {
             )
             true
 
-          case (1002) =>
+          case 1002 =>
             nodeChange should equal(
               newNodeChange(
                 newChangeKey(elementId = 1002),

@@ -186,7 +186,7 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
     (tc.changeSetRepository.saveNodeChange _).verify(
       where { nodeChange: NodeChange =>
         nodeChange.key.elementId match {
-          case (1001) =>
+          case 1001 =>
             nodeChange should equal(
               newNodeChange(
                 newChangeKey(elementId = 1001),
@@ -206,7 +206,7 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
             )
             true
 
-          case (1002) =>
+          case 1002 =>
             nodeChange should equal(
               newNodeChange(
                 newChangeKey(elementId = 1002),

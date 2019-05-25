@@ -557,7 +557,7 @@
       The route relation does not have a _"note"_ tag with the route name.
     </source>
         <target>
-          De route relatie bevat geen _"note"_ tag met de route naam.
+          De route relatie bevat geen _"note"_  tag met de route naam.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-name-missing.component.ts</context>
@@ -644,8 +644,8 @@
     </source>
         <target>
           De route relatie bevat 1 of meer overwachte relaties. In route relaties verwachten we enkel
-          onderdelen van het type _"way"_, of onderdelen van het type _"node"_ met een tag met sleutel
-          _"rwn_ref"_ of _"rcn_ref"_.
+          onderdelen van het type _"way"_, of onderdelen van het type _"node"_  met een tag met sleutel
+          _"rwn_ref"_  of _"rcn_ref"_.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
@@ -810,7 +810,7 @@
       derived from the start and end node of the route.
     </source>
         <target>
-          De route naam in de _"note"_ tag in de route relatie is anders dan wat we verwachten op basis van """ +
+          De route naam in de _"note"_ tag in de route relatie is anders dan wat we verwachten op basis van
           de start en eind knooppunten van de route.
         </target>
         <context-group purpose="location">
