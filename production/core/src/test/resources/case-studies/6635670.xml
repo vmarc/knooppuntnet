@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2019-05-23T13:05:02Z"/>
+
+    <node id="246197654" lat="50.6282079" lon="3.7723455" version="3" timestamp="2011-03-17T20:24:24Z" changeset="7589453" uid="7791" user="PhilippeP"/>
+    <node id="246197655" lat="50.6281646" lon="3.7726272" version="2" timestamp="2016-04-07T19:10:01Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="246197658" lat="50.6285759" lon="3.7742993" version="7" timestamp="2016-05-29T18:03:26Z" changeset="39647866" uid="77947" user="Roman Guy">
+        <tag k="rcn_ref" v="74"/>
+    </node>
+    <node id="246197662" lat="50.6278702" lon="3.7732217" version="3" timestamp="2016-04-07T19:10:01Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="246197663" lat="50.6278873" lon="3.7731753" version="3" timestamp="2016-04-07T19:10:01Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="261585012" lat="50.6279902" lon="3.7723416" version="1" timestamp="2008-05-02T13:32:01Z" changeset="312265" uid="7791" user="PhilippeP">
+        <tag k="created_by" v="JOSM"/>
+    </node>
+    <node id="261585013" lat="50.6277970" lon="3.7725623" version="4" timestamp="2018-12-23T19:02:49Z" changeset="65722391" uid="635080" user="bibi6"/>
+    <node id="261585014" lat="50.6277158" lon="3.7727212" version="4" timestamp="2016-04-07T19:10:01Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="261585015" lat="50.6275584" lon="3.7729363" version="5" timestamp="2016-04-07T19:10:01Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="1206304496" lat="50.6280894" lon="3.7723020" version="1" timestamp="2011-03-17T20:24:18Z" changeset="7589453" uid="7791" user="PhilippeP"/>
+    <node id="1325205157" lat="50.6281814" lon="3.7737811" version="2" timestamp="2016-04-07T19:10:00Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="1771833367" lat="50.6276469" lon="3.7728503" version="1" timestamp="2012-05-31T20:42:38Z" changeset="11762000" uid="77947" user="Roman Guy"/>
+    <node id="1771833387" lat="50.6275986" lon="3.7728972" version="1" timestamp="2012-05-31T20:42:38Z" changeset="11762000" uid="77947" user="Roman Guy"/>
+    <node id="2417824219" lat="50.6266522" lon="3.7724210" version="4" timestamp="2018-06-22T12:58:53Z" changeset="60075581" uid="7412463" user="Tommy Cmoi">
+        <tag k="rcn_ref" v="86"/>
+    </node>
+    <node id="3465971099" lat="50.6280367" lon="3.7723230" version="1" timestamp="2015-04-19T18:43:50Z" changeset="30338603" uid="287979" user="Matthieu Gaillet"/>
+    <node id="4105933921" lat="50.6278645" lon="3.7733269" version="1" timestamp="2016-04-07T19:09:58Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="4105933958" lat="50.6279170" lon="3.7724062" version="1" timestamp="2016-04-07T19:09:59Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="4105933967" lat="50.6281979" lon="3.7724812" version="1" timestamp="2016-04-07T19:09:59Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="4105933968" lat="50.6281895" lon="3.7725522" version="1" timestamp="2016-04-07T19:09:59Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="4105933969" lat="50.6278609" lon="3.7732743" version="1" timestamp="2016-04-07T19:09:59Z" changeset="38389318" uid="77947" user="Roman Guy"/>
+    <node id="4106004522" lat="50.6275215" lon="3.7728893" version="1" timestamp="2016-04-07T19:28:30Z" changeset="38389766" uid="77947" user="Roman Guy"/>
+    <node id="4107923721" lat="50.6280474" lon="3.7728589" version="1" timestamp="2016-04-08T15:59:10Z" changeset="38409853" uid="77947" user="Roman Guy"/>
+    <node id="4107923736" lat="50.6284539" lon="3.7741385" version="1" timestamp="2016-04-08T15:59:10Z" changeset="38409853" uid="77947" user="Roman Guy"/>
+    <node id="4202342756" lat="50.6269401" lon="3.7723540" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342762" lat="50.6267665" lon="3.7723828" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342763" lat="50.6266999" lon="3.7724159" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy">
+        <tag k="crossing" v="uncontrolled"/>
+        <tag k="crossing_ref" v="zebra"/>
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="4202342764" lat="50.6268843" lon="3.7723533" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342765" lat="50.6268303" lon="3.7723645" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342768" lat="50.6269980" lon="3.7723632" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342769" lat="50.6270629" lon="3.7723867" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342770" lat="50.6271179" lon="3.7724208" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342771" lat="50.6271507" lon="3.7724542" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4202342772" lat="50.6271845" lon="3.7724920" version="1" timestamp="2016-05-23T15:16:33Z" changeset="39512124" uid="77947" user="Roman Guy"/>
+    <node id="4210902490" lat="50.6268340" lon="3.7723637" version="1" timestamp="2016-05-27T16:22:38Z" changeset="39607984" uid="77947" user="Roman Guy"/>
+    <node id="4210902491" lat="50.6267129" lon="3.7724094" version="1" timestamp="2016-05-27T16:22:38Z" changeset="39607984" uid="77947" user="Roman Guy"/>
+    <way id="22888218" version="11" timestamp="2017-06-11T09:08:44Z" changeset="49437563" uid="1808319" user="Seazor">
+        <nd ref="246197663"/>
+        <nd ref="4107923721"/>
+        <nd ref="246197655"/>
+        <nd ref="4105933968"/>
+        <nd ref="4105933967"/>
+        <nd ref="246197654"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Promenade du Roi Baudouin"/>
+        <tag k="name:etymology:wikidata" v="Q12976"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="source:maxspeed" v="BE:zone:30"/>
+        <tag k="surface" v="sett"/>
+    </way>
+    <way id="22888219" version="6" timestamp="2017-06-11T09:08:44Z" changeset="49437563" uid="1808319" user="Seazor">
+        <nd ref="1325205157"/>
+        <nd ref="4105933921"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Rue de Pintamont"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="source:maxspeed" v="BE:zone:30"/>
+        <tag k="surface" v="sett"/>
+    </way>
+    <way id="22888220" version="10" timestamp="2017-06-11T09:08:45Z" changeset="49437563" uid="1808319" user="Seazor">
+        <nd ref="1325205157"/>
+        <nd ref="4107923736"/>
+        <nd ref="246197658"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Rue de Pintamont"/>
+        <tag k="source:maxspeed" v="BE:zone:30"/>
+        <tag k="surface" v="sett"/>
+    </way>
+    <way id="24148034" version="7" timestamp="2017-06-11T09:08:46Z" changeset="49437563" uid="1808319" user="Seazor">
+        <nd ref="246197654"/>
+        <nd ref="1206304496"/>
+        <nd ref="3465971099"/>
+        <nd ref="261585012"/>
+        <nd ref="4105933958"/>
+        <nd ref="261585013"/>
+        <nd ref="261585014"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Boulevard du Château"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="24148038" version="5" timestamp="2016-04-07T19:28:31Z" changeset="38389766" uid="77947" user="Roman Guy">
+        <nd ref="261585015"/>
+        <nd ref="4106004522"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="layer" v="-1"/>
+        <tag k="maxheight" v="3.5"/>
+    </way>
+    <way id="24148039" version="11" timestamp="2017-06-14T18:25:12Z" changeset="49537004" uid="1808319" user="Seazor">
+        <nd ref="4202342772"/>
+        <nd ref="4202342771"/>
+        <nd ref="4202342770"/>
+        <nd ref="4202342769"/>
+        <nd ref="4202342768"/>
+        <nd ref="4202342756"/>
+        <nd ref="4202342764"/>
+        <nd ref="4210902490"/>
+        <nd ref="4202342765"/>
+        <nd ref="4202342762"/>
+        <nd ref="4210902491"/>
+        <nd ref="4202342763"/>
+        <nd ref="2417824219"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Rue du Grand Pont"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="25165604" version="4" timestamp="2016-04-07T19:28:32Z" changeset="38389766" uid="77947" user="Roman Guy">
+        <nd ref="261585014"/>
+        <nd ref="1771833367"/>
+        <nd ref="1771833387"/>
+        <nd ref="261585015"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="lanes" v="1"/>
+        <tag k="layer" v="-1"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="221244820" version="2" timestamp="2016-04-07T19:10:05Z" changeset="38389318" uid="77947" user="Roman Guy">
+        <nd ref="4105933921"/>
+        <nd ref="4105933969"/>
+        <nd ref="246197662"/>
+        <nd ref="246197663"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Rue de Pintamont"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="source:maxspeed" v="BE:zone:30"/>
+    </way>
+    <way id="408693839" version="2" timestamp="2016-05-23T15:16:38Z" changeset="39512124" uid="77947" user="Roman Guy">
+        <nd ref="4106004522"/>
+        <nd ref="4202342772"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="layer" v="-1"/>
+        <tag k="maxheight" v="3.5"/>
+        <tag k="tunnel" v="yes"/>
+    </way>
+    <relation id="6635670" version="9" timestamp="2019-04-21T11:50:43Z" changeset="69422758" uid="8054928" user="noelbov">
+        <member type="way" ref="22888220" role=""/>
+        <member type="way" ref="22888219" role="forward"/>
+        <member type="way" ref="221244820" role="forward"/>
+        <member type="way" ref="22888218" role="forward"/>
+        <member type="way" ref="24148034" role="forward"/>
+        <member type="way" ref="25165604" role="forward"/>
+        <member type="way" ref="24148038" role=""/>
+        <member type="way" ref="408693839" role=""/>
+        <member type="way" ref="24148039" role=""/>
+        <tag k="description" v="Route signed in one direction. Backward (86 to 74) via 84."/>
+        <tag k="network" v="rcn"/>
+        <tag k="note" v="74-86"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="route" v="bicycle"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>

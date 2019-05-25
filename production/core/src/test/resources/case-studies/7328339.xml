@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2019-05-22T07:33:03Z"/>
+
+  <node id="271381484" lat="50.7156749" lon="4.6118491" version="8" timestamp="2017-05-01T09:25:44Z" changeset="48301526" uid="425006" user="music">
+    <tag k="rcn_ref" v="60"/>
+  </node>
+  <node id="271381485" lat="50.7158271" lon="4.6121237" version="3" timestamp="2009-03-06T14:41:05Z" changeset="746503" uid="90654" user="Jean Cayron"/>
+  <node id="271381486" lat="50.7160748" lon="4.6125982" version="4" timestamp="2018-06-05T11:38:23Z" changeset="59566736" uid="3401173" user="Anakil"/>
+  <node id="271381487" lat="50.7162890" lon="4.6130421" version="3" timestamp="2009-03-06T14:41:05Z" changeset="746503" uid="90654" user="Jean Cayron"/>
+  <node id="271381488" lat="50.7165910" lon="4.6136035" version="5" timestamp="2019-02-16T17:39:48Z" changeset="67258775" uid="3401173" user="Anakil"/>
+  <node id="271381490" lat="50.7166334" lon="4.6136604" version="5" timestamp="2019-02-16T17:39:48Z" changeset="67258775" uid="3401173" user="Anakil"/>
+  <node id="271381491" lat="50.7170215" lon="4.6143982" version="5" timestamp="2019-02-16T17:39:48Z" changeset="67258775" uid="3401173" user="Anakil"/>
+  <node id="271381493" lat="50.7172738" lon="4.6146700" version="6" timestamp="2019-02-16T17:39:48Z" changeset="67258775" uid="3401173" user="Anakil"/>
+  <node id="271381494" lat="50.7174861" lon="4.6148732" version="6" timestamp="2009-03-24T11:36:02Z" changeset="853510" uid="9796" user="Ben VdA"/>
+  <node id="347343802" lat="50.7191905" lon="4.6161314" version="4" timestamp="2017-05-01T09:25:43Z" changeset="48301526" uid="425006" user="music">
+    <tag k="highway" v="mini_roundabout"/>
+    <tag k="rcn_ref" v="61"/>
+  </node>
+  <node id="1618958373" lat="50.7159852" lon="4.6123958" version="2" timestamp="2019-01-22T21:10:21Z" changeset="66551339" uid="3401173" user="Anakil"/>
+  <node id="1640115032" lat="50.7164982" lon="4.6134202" version="2" timestamp="2019-02-16T17:39:49Z" changeset="67258775" uid="3401173" user="Anakil"/>
+  <node id="4594189425" lat="50.7190969" lon="4.6160806" version="1" timestamp="2017-01-07T11:35:01Z" changeset="44976742" uid="591881" user="Patchi"/>
+  <node id="5666539909" lat="50.7174224" lon="4.6148142" version="2" timestamp="2018-06-08T19:05:32Z" changeset="59676593" uid="3401173" user="Anakil">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6228202942" lat="50.7157230" lon="4.6119358" version="1" timestamp="2019-01-22T21:10:12Z" changeset="66551339" uid="3401173" user="Anakil">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6283137077" lat="50.7170549" lon="4.6144465" version="1" timestamp="2019-02-16T17:39:42Z" changeset="67258775" uid="3401173" user="Anakil"/>
+  <way id="31821464" version="12" timestamp="2019-03-06T08:08:54Z" changeset="67834528" uid="675543" user="filu">
+    <nd ref="271381494"/>
+    <nd ref="5666539909"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Quai du Trompette"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="37740759" version="3" timestamp="2017-01-07T11:36:06Z" changeset="44976742" uid="591881" user="Patchi">
+    <nd ref="271381494"/>
+    <nd ref="4594189425"/>
+    <nd ref="347343802"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="594190379" version="6" timestamp="2019-03-06T08:08:54Z" changeset="67834528" uid="675543" user="filu">
+    <nd ref="271381486"/>
+    <nd ref="1618958373"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Quai du Trompette"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="parking:condition:right" v="ticket"/>
+    <tag k="parking:lane:right" v="parallel"/>
+  </way>
+  <way id="594190380" version="7" timestamp="2019-03-06T08:08:54Z" changeset="67834528" uid="675543" user="filu">
+    <nd ref="271381488"/>
+    <nd ref="1640115032"/>
+    <nd ref="271381487"/>
+    <nd ref="271381486"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Quai du Trompette"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="parking:condition:right" v="ticket"/>
+    <tag k="parking:lane:right" v="parallel"/>
+  </way>
+  <way id="594190381" version="4" timestamp="2019-03-06T08:08:54Z" changeset="67834528" uid="675543" user="filu">
+    <nd ref="271381490"/>
+    <nd ref="271381488"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Quai du Trompette"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="594190384" version="6" timestamp="2019-03-06T08:08:54Z" changeset="67834528" uid="675543" user="filu">
+    <nd ref="271381493"/>
+    <nd ref="6283137077"/>
+    <nd ref="271381491"/>
+    <nd ref="271381490"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Quai du Trompette"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="parking:condition:left" v="ticket"/>
+    <tag k="parking:lane:left" v="parallel"/>
+  </way>
+  <way id="594190387" version="7" timestamp="2019-03-06T08:08:54Z" changeset="67834528" uid="675543" user="filu">
+    <nd ref="5666539909"/>
+    <nd ref="271381493"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Quai du Trompette"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="parking:condition:both" v="ticket"/>
+    <tag k="parking:lane:both" v="parallel"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="670932287" version="3" timestamp="2019-03-06T08:08:54Z" changeset="67834528" uid="675543" user="filu">
+    <nd ref="1618958373"/>
+    <nd ref="271381485"/>
+    <nd ref="6228202942"/>
+    <nd ref="271381484"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Quai du Trompette"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="parking:condition:right" v="ticket"/>
+    <tag k="parking:lane:right" v="parallel"/>
+  </way>
+  <relation id="7328339" version="10" timestamp="2019-05-20T23:11:06Z" changeset="70458449" uid="553736" user="A67-A67">
+    <member type="way" ref="670932287" role="forward"/>
+    <member type="way" ref="594190379" role="forward"/>
+    <member type="way" ref="594190380" role="forward"/>
+    <member type="way" ref="594190381" role="forward"/>
+    <member type="way" ref="594190384" role="forward"/>
+    <member type="way" ref="594190387" role="forward"/>
+    <member type="way" ref="31821464" role="forward"/>
+    <member type="way" ref="37740759" role="backward"/>
+    <tag k="direction" v="backward"/>
+    <tag k="network" v="rcn"/>
+    <tag k="note" v="60-61"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>

@@ -41,6 +41,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis, fragments: Seq[Fragment]): RouteStructure = {
+
     if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
       RouteStructure(
         unusedSegments = new SegmentBuilder().segments(fragments)
@@ -89,11 +90,11 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
               (tag.key == "oneway" && tag.value == "yes")
           }
 
-          val routeForward = !structure.forwardPath.exists(_.broken)
-          val routeBackward = !structure.backwardPath.exists(_.broken)
+          val hasValidForwardPath = structure.forwardPath.isDefined && !structure.forwardPath.exists(_.broken)
+          val hasValidBackwardPath = structure.backwardPath.isDefined && !structure.backwardPath.exists(_.broken)
 
-          if (routeForward) {
-            if (routeBackward) {
+          if (hasValidForwardPath) {
+            if (hasValidBackwardPath) {
               if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
                 facts += RouteNotOneWay
               }
@@ -107,7 +108,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
               }
             }
           }
-          else if (routeBackward) {
+          else if (hasValidBackwardPath) {
             if (oneWayRoute || oneWayRouteBackward) {
               facts += RouteOneWay
             }
