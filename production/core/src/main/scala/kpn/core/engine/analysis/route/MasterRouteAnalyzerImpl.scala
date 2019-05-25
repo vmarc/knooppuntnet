@@ -12,7 +12,6 @@ import kpn.core.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.core.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.ForeignCountryRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.GermanHikingRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IngoredRouteAnalysisBuilder
@@ -58,7 +57,6 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
 
       val analyzers: List[RouteAnalyzer] = List(
         ForeignCountryRouteAnalyzer,
-        GermanHikingRouteAnalyzer,
         BigGermanBicycleRouteWithoutNameRouteAnalyzer,
         RouteTagRouteAnalyzer,
         WithoutWaysRouteAnalyzer,

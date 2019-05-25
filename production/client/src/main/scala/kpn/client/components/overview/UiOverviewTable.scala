@@ -211,7 +211,10 @@ object UiOverviewTable {
         <.td(info.counts.nlRin),
         <.td(info.counts.beRcn),
         <.td(info.counts.beRwn),
-        <.td(info.counts.deRcn)
+        <.td(info.counts.beRhn),
+        <.td(info.counts.deRcn),
+        <.td(info.counts.deRwn),
+        <.td(info.counts.deRhn)
       ).toTagMod
     }
 
@@ -221,8 +224,8 @@ object UiOverviewTable {
           headerCell("Detail"),
           headerCell(nls("Total", "Totaal")),
           headerCellCountry(6, nls("The Netherlands", "Nederland")),
-          headerCellCountry(2, nls("Belgium", "België")),
-          headerCellCountry(1, nls("Germany", "Duitsland")),
+          headerCellCountry(3, nls("Belgium", "België")),
+          headerCellCountry(3, nls("Germany", "Duitsland")),
           headerCell(nls("Comment", "Commentaar"))
         ),
         <.tr(
@@ -234,7 +237,10 @@ object UiOverviewTable {
           headerCellNetworkType(NetworkType.inlineSkates),
           headerCellNetworkType(NetworkType.bicycle),
           headerCellNetworkType(NetworkType.hiking),
-          headerCellNetworkType(NetworkType.bicycle)
+          headerCellNetworkType(NetworkType.horse),
+          headerCellNetworkType(NetworkType.bicycle),
+          headerCellNetworkType(NetworkType.hiking),
+          headerCellNetworkType(NetworkType.horse)
         )
       )
     }

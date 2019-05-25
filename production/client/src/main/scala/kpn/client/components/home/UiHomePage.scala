@@ -21,6 +21,7 @@ import kpn.client.components.common.PageWidth
 import kpn.client.components.common.UiNetworkTypeIcon
 import kpn.client.components.common.UiPage
 import kpn.client.components.common.UiPageContents
+import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import scalacss.ScalaCssReact._
@@ -52,9 +53,16 @@ object UiHomePage {
       borderBottomWidth(1.px)
     )
 
+    val country: StyleA = style(
+      fontSize(18.px),
+      height(40.px),
+      display.flex,
+      alignItems.center
+    )
+
     val cardTitle: StyleA = style(
       unsafeChild("a")(
-        paddingLeft(12.px),
+        paddingLeft(24.px),
         fontSize(18.px)
       ),
       height(32.px),
@@ -98,7 +106,7 @@ object UiHomePage {
         UiPageContents(
           TagMod.when(nlsEN) {
             <.p(
-              "This is an analysis of the node networks for walking and cycling in The Netherlands, " +
+              "This is an analysis of the node networks in The Netherlands, " +
                 "Belgium and Germany, as defined in ",
               <.a(
                 ^.href := "https://www.openstreetmap.org",
@@ -111,7 +119,7 @@ object UiHomePage {
           },
           TagMod.when(nlsNL) {
             <.p(
-              "Dit is een analyse van de knooppuntnetwerken voor wandelaars en fieters in Nederland, België en Duitsland, " +
+              "Dit is een analyse van de knooppuntnetwerken in Nederland, België en Duitsland, " +
                 "zoals deze zijn opgenomen in ",
               <.a(
                 ^.href := "https://www.openstreetmap.org",
@@ -206,12 +214,24 @@ object UiHomePage {
       )
     }
 
-    private def subsets(): VdomElement = {
-      <.div(
-        Styles.item,
-        Subset.used.toTagMod(subsetCard)
-      )
-    }
+    private def subsets(): VdomElement = <.div(
+      Styles.item,
+      <.div(Styles.country, Nls.country(Some(Country.nl))),
+      subsetCard(Subset.nlBicycle),
+      subsetCard(Subset.nlHiking),
+      subsetCard(Subset.nlHorse),
+      subsetCard(Subset.nlCanoe),
+      subsetCard(Subset.nlMotorboat),
+      subsetCard(Subset.nlInlineSkates),
+      <.div(Styles.country, Nls.country(Some(Country.be))),
+      subsetCard(Subset.beBicycle),
+      subsetCard(Subset.beHiking),
+      subsetCard(Subset.beHorse),
+      <.div(Styles.country, Nls.country(Some(Country.de))),
+      subsetCard(Subset.deBicycle),
+      subsetCard(Subset.deHiking),
+      subsetCard(Subset.deHorse)
+    )
 
     private def subsetCard(subset: Subset): VdomElement = {
 
@@ -224,15 +244,11 @@ object UiHomePage {
         case NetworkType.inlineSkates => "Inline skates"
       }
 
-      val countryString = Nls.country(Some(subset.country))
-
-      val titleText = networkTypeString + " in " + countryString
-
       <.div(
         Styles.cardTitle,
         UiNetworkTypeIcon(subset.networkType),
         " ",
-        context.gotoSubsetNetworks(subset, Some(titleText))
+        context.gotoSubsetNetworks(subset, Some(networkTypeString))
       )
     }
   }

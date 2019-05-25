@@ -4,14 +4,18 @@ object Subset {
 
   val beHiking = Subset(Country.be, NetworkType.hiking)
   val beBicycle = Subset(Country.be, NetworkType.bicycle)
+  val beHorse = Subset(Country.be, NetworkType.horse)
+
   val nlHiking = Subset(Country.nl, NetworkType.hiking)
   val nlBicycle = Subset(Country.nl, NetworkType.bicycle)
   val nlHorse = Subset(Country.nl, NetworkType.horse)
   val nlCanoe = Subset(Country.nl, NetworkType.canoe)
   val nlMotorboat = Subset(Country.nl, NetworkType.motorboat)
   val nlInlineSkates = Subset(Country.nl, NetworkType.inlineSkates)
+
   val deHiking = Subset(Country.de, NetworkType.hiking)
   val deBicycle = Subset(Country.de, NetworkType.bicycle)
+  val deHorse = Subset(Country.de, NetworkType.horse)
 
   val all = Seq(
     nlBicycle,
@@ -21,6 +25,8 @@ object Subset {
     beHiking,
     deHiking,
     nlHorse,
+    beHorse,
+    deHorse,
     nlCanoe,
     nlMotorboat,
     nlInlineSkates
@@ -32,7 +38,10 @@ object Subset {
     deBicycle,
     nlHiking,
     beHiking,
+    deHiking,
     nlHorse,
+    beHorse,
+    deHorse,
     nlCanoe,
     nlMotorboat,
     nlInlineSkates

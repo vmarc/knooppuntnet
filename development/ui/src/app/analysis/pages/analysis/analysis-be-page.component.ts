@@ -27,6 +27,13 @@ import {Component} from "@angular/core";
       text="Hiking"
       i18n-text="@@network-type.hiking">
     </kpn-icon-button>
+
+    <kpn-icon-button
+      routerLink="/analysis/be/horse/networks"
+      icon="horse"
+      text="Horse"
+      i18n-text="@@network-type.horse">
+    </kpn-icon-button>
   `
 })
 export class AnalysisBePageComponent {

@@ -20,6 +20,21 @@ import {Component} from "@angular/core";
       text="Cycling"
       i18n-text="@@network-type.cycling">
     </kpn-icon-button>
+
+    <kpn-icon-button
+      routerLink="/analysis/de/hiking/networks"
+      icon="hiking"
+      text="Hiking"
+      i18n-text="@@network-type.hiking">
+    </kpn-icon-button>
+
+    <kpn-icon-button
+      routerLink="/analysis/de/horse/networks"
+      icon="horse"
+      text="Horse"
+      i18n-text="@@network-type.horse">
+    </kpn-icon-button>
+
   `
 })
 export class AnalysisDePageComponent {

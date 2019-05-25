@@ -4,14 +4,16 @@ import japgolly.scalajs.react.vdom.VdomElement
 
 case class UiOverviewCounts(
   total: VdomElement,
-  nlRwn: VdomElement,
   nlRcn: VdomElement,
+  nlRwn: VdomElement,
   nlRhn: VdomElement,
   nlRmn: VdomElement,
   nlRpn: VdomElement,
   nlRin: VdomElement,
-  beRwn: VdomElement,
   beRcn: VdomElement,
+  beRwn: VdomElement,
+  beRhn: VdomElement,
+  deRcn: VdomElement,
   deRwn: VdomElement,
-  deRcn: VdomElement
+  deRhn: VdomElement
 )

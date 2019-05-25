@@ -93,10 +93,10 @@ object UiOverviewList {
     private def counts(info: UiOverviewInfo): VdomElement = {
       <.table(
         <.tbody(
-          countryCounts(Country.nl, nls("The Netherlands", "Nederland"), info.counts.nlRwn, info.counts.nlRcn, info.counts.nlRhn, info.counts.nlRmn, info.counts.nlRpn,
+          countryCounts(Country.nl, nls("The Netherlands", "Nederland"), info.counts.nlRcn, info.counts.nlRwn, info.counts.nlRhn, info.counts.nlRmn, info.counts.nlRpn,
             info.counts.nlRin),
-          countryCounts(Country.be, nls("Belgium", "België"), info.counts.beRwn, info.counts.beRcn, null, null, null, null),
-          countryCounts(Country.de, nls("Germany", "Duitsland"), info.counts.deRwn, info.counts.deRcn, null, null, null, null),
+          countryCounts(Country.be, nls("Belgium", "België"), info.counts.beRcn, info.counts.beRwn, info.counts.beRhn, null, null, null),
+          countryCounts(Country.de, nls("Germany", "Duitsland"), info.counts.deRcn, info.counts.deRwn, info.counts.deRhn, null, null, null),
           <.tr(
             <.td(
               ^.colSpan := 2,
@@ -111,12 +111,12 @@ object UiOverviewList {
       )
     }
 
-    private def countryCounts(country: Country, countryName: String, rwn: VdomElement, rcn: VdomElement, rhn: VdomElement, rmn: VdomElement, rpn: VdomElement,
+    private def countryCounts(country: Country, countryName: String, rcn: VdomElement, rwn: VdomElement, rhn: VdomElement, rmn: VdomElement, rpn: VdomElement,
       rin: VdomElement): TagMod = {
       Seq(
         <.tr(
           <.td(
-            ^.rowSpan := (if (Country.nl == country) 6 else if (Country.be == country) 2 else 1),
+            ^.rowSpan := (if (Country.nl == country) 6 else 3),
             countryName
           ),
           <.td(
@@ -127,28 +127,24 @@ object UiOverviewList {
             rcn
           )
         ),
-        TagMod.when(Country.de != country) {
-          <.tr(
-            <.td(
-              UiNetworkTypeIcon(NetworkType.hiking)
-            ),
-            <.td(
-              UiOverviewPage.Styles.valueColumn,
-              rwn
-            )
+        <.tr(
+          <.td(
+            UiNetworkTypeIcon(NetworkType.hiking)
+          ),
+          <.td(
+            UiOverviewPage.Styles.valueColumn,
+            rwn
           )
-        },
-        TagMod.when(Country.nl == country) {
-          <.tr(
-            <.td(
-              UiNetworkTypeIcon(NetworkType.horse)
-            ),
-            <.td(
-              UiOverviewPage.Styles.valueColumn,
-              rhn
-            )
+        ),
+        <.tr(
+          <.td(
+            UiNetworkTypeIcon(NetworkType.horse)
+          ),
+          <.td(
+            UiOverviewPage.Styles.valueColumn,
+            rhn
           )
-        },
+        ),
         TagMod.when(Country.nl == country) {
           <.tr(
             <.td(

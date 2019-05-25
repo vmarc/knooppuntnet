@@ -13,7 +13,10 @@ export class Subsets {
     new Subset(Countries.nl, NetworkTypes.inlineSkating),
     new Subset(Countries.be, NetworkTypes.cycling),
     new Subset(Countries.be, NetworkTypes.hiking),
-    new Subset(Countries.de, NetworkTypes.cycling)
+    new Subset(Countries.be, NetworkTypes.horse),
+    new Subset(Countries.de, NetworkTypes.cycling),
+    new Subset(Countries.de, NetworkTypes.hiking),
+    new Subset(Countries.de, NetworkTypes.horse)
   ];
 
 }

@@ -184,6 +184,9 @@ if (doc) {
     if (doc.route.orphan === true && doc.route.display === true && doc.route.active === true && doc.route.ignored === false) {
       var index = subsetIndex(doc.route.summary);
       emitCount("OrphanRouteCount", index, 1);
+      emitCount("RouteCount", index, 1);
+      emitCount("NodeCount", index, doc.route.summary.nodeNames.length);
+      emitCount("MeterCount", index, doc.route.summary.meters);
     }
   }
 }

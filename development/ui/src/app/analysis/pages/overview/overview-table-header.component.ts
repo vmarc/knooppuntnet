@@ -8,8 +8,8 @@ import {Subsets} from "../../../kpn/common/subsets";
       <th rowspan="2">Detail</th>
       <th rowspan="2">Total</th> <!-- Totaal -->
       <th colspan="6" i18n="@@country.nl">The Netherlands</th>
-      <th colspan="2" i18n="@@country.be">Belgium</th>
-      <th colspan="1" i18n="@@country.de">Germany</th>
+      <th colspan="3" i18n="@@country.be">Belgium</th>
+      <th colspan="3" i18n="@@country.de">Germany</th>
       <th rowspan="2">Comment</th> <!-- Commentaar -->
     </tr>
     <tr>
