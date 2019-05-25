@@ -7,6 +7,8 @@ import {SharedModule} from "../components/shared/shared.module";
 import {SpinnerModule} from "../spinner/spinner.module";
 import {AnalysisRoutingModule} from "./analysis-routing.module";
 import {AnalysisSidebarComponent} from "./analysis-sidebar.component";
+import {ChangeHeaderComponent} from "./components/change-set/change-header.component";
+import {ChangeSetInfoComponent} from "./components/change-set/change-set-info.component";
 import {ChangesSetComponent} from "./components/change-set/change-set.component";
 import {ChangesSetElementRefComponent} from "./components/change-set/components/change-set-element-ref.component";
 import {ChangesSetElementRefsComponent} from "./components/change-set/components/change-set-element-refs.component";
@@ -14,6 +16,9 @@ import {ChangesSetNetworkComponent} from "./components/change-set/components/cha
 import {ChangesSetOrphanNodesComponent} from "./components/change-set/components/change-set-orphan-nodes.component";
 import {ChangesSetOrphanRoutesComponent} from "./components/change-set/components/change-set-orphan-routes.component";
 import {ChangesTableComponent} from "./components/changes/changes-table.component";
+import {FactCommaListComponent} from "./components/changes/fact-comma-list.component";
+import {FactDiffsComponent} from "./components/changes/fact-diffs.component";
+import {HistoryIncompleteWarningComponent} from "./components/changes/history-incomplete-warning.component";
 import {FactAddedComponent} from "./fact/descriptions/fact-added.component";
 import {FactBecomeIgnoredComponent} from "./fact/descriptions/fact-become-ignored.component";
 import {FactBecomeOrphanComponent} from "./fact/descriptions/fact-become-orphan.component";
@@ -116,12 +121,16 @@ import {OverviewService} from "./pages/overview/overview.service";
 import {StatisticConfigurationComponent} from "./pages/overview/statistic-configuration.component";
 import {StatisticConfigurationsComponent} from "./pages/overview/statistic-configurations.component";
 import {RouteChangesPageComponent} from "./pages/route/changes/_route-changes-page.component";
+import {RouteChangeDetailComponent} from "./pages/route/changes/route-change-detail.component";
+import {RouteChangeComponent} from "./pages/route/changes/route-change.component";
+import {RouteDiffComponent} from "./pages/route/changes/route-diff.component";
 import {RoutePageHeaderComponent} from "./pages/route/components/route-page-header.component";
 import {RoutePageComponent} from "./pages/route/details/_route-page.component";
 import {RouteMembersComponent} from "./pages/route/details/route-members.component";
 import {RouteNodeComponent} from "./pages/route/details/route-node.component";
 import {RouteStructureComponent} from "./pages/route/details/route-structure.component";
 import {RouteSummaryComponent} from "./pages/route/details/route-summary.component";
+import {RouteMapPageComponent} from "./pages/route/map/_route-map-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
 import {SubsetPageHeaderComponent} from "./pages/subset/components/subset-page-header.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";
@@ -163,6 +172,8 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     FactsPageComponent,
     ChangeSetPageComponent,
     ChangeSetHeaderComponent,
+    ChangeHeaderComponent,
+    ChangeSetInfoComponent,
     ChangeSetAnalysisComponent,
     ChangeSetNetworkDiffDetailsComponent,
     ChangeSetOrphanNodeChangesComponent,
@@ -201,6 +212,7 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     RouteNodeComponent,
     RouteStructureComponent,
     RouteChangesPageComponent,
+    RouteMapPageComponent,
     SubsetChangesPageComponent,
     SubsetFactDetailsPageComponent,
     SubsetFactsPageComponent,
@@ -284,7 +296,13 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     RoleConnectionIndicatorDialogComponent,
     RouteIndicatorDialogComponent,
     NetworkPageHeaderComponent,
-    SubsetPageHeaderComponent
+    SubsetPageHeaderComponent,
+    HistoryIncompleteWarningComponent,
+    RouteChangeComponent,
+    RouteChangeDetailComponent,
+    RouteDiffComponent,
+    FactDiffsComponent,
+    FactCommaListComponent
   ],
   entryComponents: [
     ConnectionIndicatorDialogComponent,

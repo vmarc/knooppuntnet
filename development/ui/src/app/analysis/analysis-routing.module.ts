@@ -19,6 +19,7 @@ import {NodePageComponent} from "./pages/node/details/_node-page.component";
 import {OverviewPageComponent} from "./pages/overview/_overview-page.component";
 import {RouteChangesPageComponent} from "./pages/route/changes/_route-changes-page.component";
 import {RoutePageComponent} from "./pages/route/details/_route-page.component";
+import {RouteMapPageComponent} from "./pages/route/map/_route-map-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.component";
@@ -95,6 +96,10 @@ const routes: Routes = [
   {
     path: "route/:routeId",
     component: RoutePageComponent
+  },
+  {
+    path: "route/:routeId/map",
+    component: RouteMapPageComponent
   },
   {
     path: "route/:routeId/changes",

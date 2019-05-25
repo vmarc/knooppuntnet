@@ -28,6 +28,11 @@ a.external {
   margin-right: 6px;
 }
 
+.note {
+  font-style: italic;
+  font-size: 13px;
+}
+
 .warning {
   color: red;
 }
@@ -87,10 +92,6 @@ table.kpn-bordered-table {
 }
 
 .mat-list .mat-list-item {
-  height: 32px;
-}
-
-.xxx {
   height: 32px;
 }
 

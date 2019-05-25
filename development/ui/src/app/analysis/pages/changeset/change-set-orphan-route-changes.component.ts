@@ -5,7 +5,7 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
   selector: "kpn-change-set-orphan-route-changes",
   template: `
     <div>
-      TODO change-set-orphan-route-changes
+      TODO change-set-orphan-route-changes    see: kpn-route-change-detail ???
     </div>
   `
 })

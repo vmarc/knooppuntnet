@@ -10,20 +10,12 @@ import {ChangeSetNetworkAction} from "./components/change-set-network.component"
 
     <div class="change-set">
 
-      <div class="kpn-line">
-        <kpn-link-changeset
-          [changeSetId]="changeSet.summary.key.changeSetId"
-          [replicationNumber]="changeSet.summary.key.replicationNumber"
-          class="kpn-thick">
-        </kpn-link-changeset>
-        <kpn-timestamp [timestamp]="changeSet.summary.key.timestamp" class="kpn-thin"></kpn-timestamp>
-        <mat-icon svgIcon="happy" *ngIf="changeSet.summary.happy"></mat-icon>
-        <mat-icon svgIcon="investigate" *ngIf="changeSet.summary.investigate"></mat-icon>
-      </div>
-
-      <div *ngIf="changeSet.comment" class="comment">
-        {{changeSet.comment}}
-      </div>
+      <kpn-change-header
+        [changeKey]="changeSet.summary.key"
+        [happy]="changeSet.summary.happy"
+        [investigate]="changeSet.summary.investigate"
+        [comment]="changeSet.comment">
+      </kpn-change-header>
 
       <div *ngFor="let action of networkActions">
         <kpn-change-set-network [changeSetNetworkAction]="action"></kpn-change-set-network>
@@ -39,7 +31,13 @@ import {ChangeSetNetworkAction} from "./components/change-set-network.component"
 
     </div>
   `,
-  styleUrls: ["./change-set.component.scss"]
+  styles: [`
+    .change-set {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+  `]
 })
 export class ChangesSetComponent {
 

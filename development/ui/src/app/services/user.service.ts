@@ -13,7 +13,11 @@ export class UserService {
               private cookieService: CookieService) {
   }
 
-  currentUser(): string {
+  public isLoggedIn(): boolean {
+    return !!this.currentUser();
+  }
+
+  public currentUser(): string {
     return this.cookieService.get("knooppuntnet-user");
   }
 
