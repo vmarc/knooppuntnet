@@ -53,6 +53,15 @@ object UiSubsetNetworksPage {
       minWidth(6.em)
     )
 
+    val dialogNetworkName: StyleA = style(
+      fontSize(26.px),
+      paddingBottom(20.px)
+    )
+
+    val dialogLink: StyleA = style(
+      paddingTop(20.px)
+    )
+
   }
 
   private case class State(pageState: PageState[SubsetNetworksPage] = PageState())
@@ -147,8 +156,8 @@ object UiSubsetNetworksPage {
               UiPageContents(
                 UiSituationOn(state.pageState.situationOn),
                 summary(page),
-                TagMod.when(!PageWidth.isVeryLarge)(networkList(page.networks)),
-                TagMod.when(PageWidth.isVeryLarge)(networkTable(page.networks))
+                TagMod.when(page.networkCount > 0 && !PageWidth.isVeryLarge)(networkList(page.networks)),
+                TagMod.when(page.networkCount > 0 && PageWidth.isVeryLarge)(networkTable(page.networks))
               )
             )
           }
@@ -157,10 +166,20 @@ object UiSubsetNetworksPage {
     }
 
     private def summary(page: SubsetNetworksPage): VdomElement = {
-      if (page.networkCount > 0) {
+      if (page.networkCount == 1) {
         UiMarked(
           nls(
-            s"_There are __${page.networkCount}__ networks, with a total of __${page.nodeCount}__ nodes " +
+            s"_There is __1__ network, with a total of __${page.nodeCount}__ nodes " +
+              s"and __${page.routeCount}__ routes with an overall length of __${page.km}__ km._",
+            s"_Er is __1__ netwerk, met in totaal __${page.nodeCount}__ knooppunten " +
+              s"en __${page.routeCount}__ routes met een totale lengte van __${page.km}__ km._"
+          )
+        )
+      }
+      else if (page.networkCount > 0) {
+        UiMarked(
+          nls(
+            s"_There is __${page.networkCount}__ networks, with a total of __${page.nodeCount}__ nodes " +
               s"and __${page.routeCount}__ routes with an overall length of __${page.km}__ km._",
             s"_Er zijn __${page.networkCount}__ netwerken, met in totaal __${page.nodeCount}__ knooppunten " +
               s"en __${page.routeCount}__ routes met een totale lengte van __${page.km}__ km._"

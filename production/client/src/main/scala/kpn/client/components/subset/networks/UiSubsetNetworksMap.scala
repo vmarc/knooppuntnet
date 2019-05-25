@@ -15,6 +15,7 @@ import kpn.client.common.Nls.nls
 import kpn.client.common.map.UiBigMap
 import kpn.shared.common.Ref
 import kpn.shared.subset.SubsetNetworksPage
+import scalacss.ScalaCssReact._
 
 object UiSubsetNetworksMap {
 
@@ -30,25 +31,49 @@ object UiSubsetNetworksMap {
     }
     private val closeDescription2 = (open: Boolean) => scope.setState(State(None))
 
+    def networkChanged(networkRef: Ref): Unit = {
+      scope.modState(_.copy(Some(networkRef))).runNow()
+    }
+
     def render(props: Props, state: State): VdomElement = {
       implicit val context: Context = props.context
 
+      val networkAttributesOption = state.network.flatMap { network =>
+        props.page.networks.find(na => na.id == network.id)
+      }
+
       <.div(
-        UiBigMap(new SubsetNetworksMap(props.page.networks)),
+        UiBigMap(new SubsetNetworksMap(props.page.networks, networkChanged)),
         MuiDialog(
           actions = MuiFlatButton(key = "1", label = nls("Close", "Sluiten"), secondary = true, onTouchTap = closeDescription1)(),
           open = state.network.isDefined,
           onRequestClose = closeDescription2
         )(
           <.div(
-            TagMod.when(state.network.isDefined) {
+            TagMod.when(networkAttributesOption.isDefined)  {
+              val a = networkAttributesOption.get
               <.div(
-                state.network.get.name
-              )
-            },
-            TagMod.when(state.network.isDefined) {
-              <.div(
-                context.gotoNetworkDetails(state.network.get.id, nls("Show network details", "Toon netwerk details"))
+                <.div(
+                  UiSubsetNetworksPage.Styles.dialogNetworkName,
+                  a.name
+                ),
+                <.div(
+                  a.km,
+                  " km"
+                ),
+                <.div(
+                  a.nodeCount,
+                  " ",
+                  nls("nodes", "knooppunten")
+                ),
+                <.div(
+                  a.routeCount,
+                  " routes"
+                ),
+                <.div(
+                  UiSubsetNetworksPage.Styles.dialogLink,
+                  context.gotoNetworkDetails(state.network.get.id, nls("Show network details", "Toon netwerk details"))
+                )
               )
             }
           )
