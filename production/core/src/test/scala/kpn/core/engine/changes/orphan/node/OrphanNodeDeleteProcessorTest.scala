@@ -19,7 +19,7 @@ import org.scalatest.Matchers
 
 class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFactory with TestObjects {
 
-  test("deleted node is removed from analysis data watched orphan nodes") {
+  test("deleted node is removed from analysis data watched orphan nodes, and set to non-active in the database") {
 
     val t = new Setup()
 
@@ -33,9 +33,19 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     t.processor.process(context, loadedNodeDelete)
 
     t.analysisData.orphanNodes.watched.contains(nodeId) should equal(false)
+
+    (t.analysisRepository.saveNode _).verify(
+      newNodeInfo(
+        nodeId,
+        country = Some(Country.nl),
+        active = false,
+        orphan = true,
+        facts = Seq(Fact.Deleted)
+      )
+    )
   }
 
-  test("deleted node is removed from analysis data ignored orphan nodes") {
+  test("deleted node is removed from analysis data ignored orphan nodes, and set to non-active in the database") {
 
     val t = new Setup()
 
@@ -49,6 +59,16 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     t.processor.process(context, loadedNodeDelete)
 
     t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(false)
+
+    (t.analysisRepository.saveNode _).verify(
+      newNodeInfo(
+        nodeId,
+        country = Some(Country.nl),
+        active = false,
+        orphan = true,
+        facts = Seq(Fact.Deleted)
+      )
+    )
   }
 
   test("if loaded node did not exist before the changeset, the node info is saved based on info in delete, but no change is generated") {
