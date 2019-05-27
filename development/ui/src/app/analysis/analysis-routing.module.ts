@@ -14,8 +14,9 @@ import {NetworkFactsPageComponent} from "./pages/network/facts/_network-facts-pa
 import {NetworkMapPageComponent} from "./pages/network/map/_network-map-page.component";
 import {NetworkNodesPageComponent} from "./pages/network/nodes/_network-nodes-page.component";
 import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes-page.component";
-import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.components";
+import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.component";
 import {NodePageComponent} from "./pages/node/details/_node-page.component";
+import {NodeMapPageComponent} from "./pages/node/map/_node-map-page.component";
 import {OverviewPageComponent} from "./pages/overview/_overview-page.component";
 import {RouteChangesPageComponent} from "./pages/route/changes/_route-changes-page.component";
 import {RoutePageComponent} from "./pages/route/details/_route-page.component";
@@ -84,6 +85,10 @@ const routes: Routes = [
   {
     path: "node/:nodeId",
     component: NodePageComponent
+  },
+  {
+    path: "node/:nodeId/map",
+    component: NodeMapPageComponent
   },
   {
     path: "node/:nodeId/changes",

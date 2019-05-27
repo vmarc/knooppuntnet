@@ -106,12 +106,13 @@ import {NetworkNodeAnalysisComponent} from "./pages/network/nodes/network-node-a
 import {NetworkNodeRoutesComponent} from "./pages/network/nodes/network-node-routes.component";
 import {NetworkNodeTableComponent} from "./pages/network/nodes/network-node-table.component";
 import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes-page.component";
-import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.components";
+import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.component";
 import {NodePageHeaderComponent} from "./pages/node/components/node-page-header.component";
 import {NodePageComponent} from "./pages/node/details/_node-page.component";
 import {NodeNetworksComponent} from "./pages/node/details/node-networks.component";
 import {NodeRoutesComponent} from "./pages/node/details/node-routes.component";
 import {NodeSummaryComponent} from "./pages/node/details/node-summary.component";
+import {NodeMapPageComponent} from "./pages/node/map/_node-map-page.component";
 import {OverviewPageComponent} from "./pages/overview/_overview-page.component";
 import {OverviewTableCellComponent} from "./pages/overview/overview-table-cell.component";
 import {OverviewTableHeaderComponent} from "./pages/overview/overview-table-header.component";
@@ -197,6 +198,7 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     NodeNetworksComponent,
     NodeRoutesComponent,
     NodeChangesPageComponent,
+    NodeMapPageComponent,
     NodePageHeaderComponent,
     OverviewPageComponent,
     OverviewTableComponent,
