@@ -146,7 +146,12 @@ object UiSubsetNetworksPage {
           if (props.pageProps.ui.isMapShown) {
             <.div(
               <.h1(title),
-              UiSubsetNetworksMap(page)
+              TagMod.when(page.networkCount > 0) {
+                UiSubsetNetworksMap(page)
+              },
+              TagMod.when(page.networkCount == 0) {
+                <.div(nls("No networks", "Geen netwerken"))
+              }
             )
           }
           else {
