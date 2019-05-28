@@ -9,15 +9,13 @@ import {Subscriptions} from "../../../../util/Subscriptions";
 @Component({
   selector: "kpn-node-map-page",
   template: `
-
     <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node-map'"></kpn-node-page-header>
-
     <div *ngIf="response?.result">
       <div *ngIf="!response.result">
         Node not found
       </div>
       <div *ngIf="response.result">
-        <json [object]="response"></json>
+        <kpn-node-map [nodeInfo]="nodeInfo"></kpn-node-map>
       </div>
     </div>
   `
@@ -32,6 +30,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService) {
+    this.pageService.showFooter = false;
   }
 
   ngOnInit() {
@@ -45,6 +44,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
   }
 

@@ -1,11 +1,10 @@
 import Feature from "ol/Feature";
 import Circle from "ol/style/Circle";
 import Fill from "ol/style/Fill";
-import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
-import Text from "ol/style/Text";
 import {MapService} from "../map.service";
 import {MainStyleColors} from "./main-style-colors";
+import {NodeStyle} from "./node-style";
 
 export class MainMapNodeStyle {
 
@@ -16,8 +15,8 @@ export class MainMapNodeStyle {
 
   private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(8);
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
-  private readonly smallNodeStyle = this.initSmallNodeStyle();
-  private readonly largeNodeStyle = this.initLargeNodeStyle();
+  private readonly smallNodeStyle = NodeStyle.smallNodeStyle();
+  private readonly largeNodeStyle = NodeStyle.largeNodeStyle();
 
   public nodeStyle(zoom: number, feature: Feature, enabled: boolean): Array<Style> {
 
@@ -68,46 +67,6 @@ export class MainMapNodeStyle {
       this.largeNodeStyle.getImage().setRadius(14);
     }
     return this.largeNodeStyle;
-  }
-
-  private initSmallNodeStyle(): Style {
-    return new Style({
-      image: new Circle({
-        radius: 3,
-        fill: new Fill({
-          color: MainStyleColors.white
-        }),
-        stroke: new Stroke({
-          color: MainStyleColors.green,
-          width: 2
-        })
-      })
-    });
-  }
-
-  private initLargeNodeStyle(): Style {
-    return new Style({
-      image: new Circle({
-        radius: 14,
-        fill: new Fill({
-          color: MainStyleColors.white
-        }),
-        stroke: new Stroke({
-          color: MainStyleColors.green,
-          width: 3
-        })
-      }),
-      text: new Text({
-        text: "",
-        textAlign: "center",
-        textBaseline: "middle",
-        font: "14px Arial, Verdana, Helvetica, sans-serif",
-        stroke: new Stroke({
-          color: MainStyleColors.white,
-          width: 5
-        })
-      })
-    })
   }
 
   private determineSmallNodeStyle(layer: string, enabled: boolean): Style {

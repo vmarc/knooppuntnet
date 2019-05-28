@@ -49,9 +49,12 @@ export class Util {
   }
 
   public static latLonToCoordinate(latLon: LatLonImpl): Coordinate {
-    const latNumber = parseFloat(latLon.latitude);
-    const lonNumber = parseFloat(latLon.longitude);
-    return fromLonLat([lonNumber, latNumber]);
+    return this.toCoordinate(latLon.latitude, latLon.longitude);
   }
 
+  public static toCoordinate(latitude: string, longitude: string): Coordinate {
+    const latNumber = parseFloat(latitude);
+    const lonNumber = parseFloat(longitude);
+    return fromLonLat([lonNumber, latNumber]);
+  }
 }

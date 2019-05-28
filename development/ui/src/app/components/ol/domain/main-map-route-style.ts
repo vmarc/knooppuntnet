@@ -3,10 +3,11 @@ import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import {MapService} from "../map.service";
 import {MainStyleColors} from "./main-style-colors";
+import {RouteStyle} from "./route-style";
 
 export class MainMapRouteStyle {
 
-  private readonly defaultRouteStyle = this.initRouteStyle();
+  private readonly routeStyleBuilder = new RouteStyle();
   private readonly defaultRouteSelectedStyle = this.initRouteSelectedStyle();
 
   constructor(private mapService: MapService) {
@@ -30,20 +31,9 @@ export class MainMapRouteStyle {
   private determineRouteStyle(feature: Feature, layer: string, enabled: boolean, zoom: number): Style {
 
     const color = this.routeColor(layer, enabled);
-    this.defaultRouteStyle.getStroke().setColor(color);
+    const highligthed = this.mapService.highlightedRouteId && feature.get("id").startsWith(this.mapService.highlightedRouteId);
 
-    if (zoom < 9) {
-      this.defaultRouteStyle.getStroke().setWidth(1);
-    } else if (zoom < 12) {
-      this.defaultRouteStyle.getStroke().setWidth(2);
-    } else {
-      if (this.mapService.highlightedRouteId && feature.get("id").startsWith(this.mapService.highlightedRouteId)) {
-        this.defaultRouteStyle.getStroke().setWidth(8)
-      } else {
-        this.defaultRouteStyle.getStroke().setWidth(4)
-      }
-    }
-    return this.defaultRouteStyle;
+    return this.routeStyleBuilder.style(color, zoom, highligthed);
   }
 
   private initRouteStyle() {

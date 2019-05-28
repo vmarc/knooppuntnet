@@ -22,9 +22,9 @@ import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
       flex-direction: row;
       align-items: center;
 
-    > :not(:first-child) {
-      padding-left: 10px;
-    }
+      > :not(:first-child) {
+        padding-left: 10px;
+      }
 
     }
   `]

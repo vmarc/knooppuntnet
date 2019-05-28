@@ -2,6 +2,7 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MapComponent} from "./map.component";
 import {MapService} from "./map.service";
+import {NodeMapComponent} from "./node-map.component";
 import {PoiTileLayerService} from "./poi-tile-layer.service";
 
 @NgModule({
@@ -9,10 +10,12 @@ import {PoiTileLayerService} from "./poi-tile-layer.service";
     CommonModule
   ],
   declarations: [
-    MapComponent
+    MapComponent,
+    NodeMapComponent
   ],
   exports: [
-    MapComponent
+    MapComponent,
+    NodeMapComponent
   ],
   providers: [
     MapService,

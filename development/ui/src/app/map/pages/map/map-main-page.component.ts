@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Attribution, defaults as defaultControls} from 'ol/control';
 import Coordinate from "ol/coordinate";
@@ -43,7 +43,7 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
     }
   `]
 })
-export class MapMainPageComponent implements OnInit, OnDestroy {
+export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private readonly subscriptions = new Subscriptions();
 
