@@ -157,8 +157,8 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
           TagMod.when(nodeMoved.distance > 0) {
             UiDetail(
               nls(
-                s"The node has moved ${nodeMoved.distance} meters.",
-                s"Het knooppunt is ${nodeMoved.distance} meter verplaatst."
+                s"The node has moved {nodeMoved.distance} meters.",
+                s"Het knooppunt is {nodeMoved.distance} meter verplaatst."
               )
             )
           },
@@ -176,8 +176,8 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
               <.div(
                 GlobalStyles.note,
                 nls(
-                  s"Note: Node position is shown as it was at ${nodeChange.changeKey.timestamp.yyyymmddhhmm}, while the map background is shown as it is today.",
-                  s"Noot: De knooppunt positie wordt getoond zoals die was op ${nodeChange.changeKey.timestamp.yyyymmddhhmm}, de kaart achtergrond toont " +
+                  s"Note: Node position is shown as it was at {nodeChange.changeKey.timestamp.yyyymmddhhmm}, while the map background is shown as it is today.",
+                  s"Noot: De knooppunt positie wordt getoond zoals die was op {nodeChange.changeKey.timestamp.yyyymmddhhmm}, de kaart achtergrond toont " +
                     s"de toestand van vandaag."
                 )
               )

@@ -12,6 +12,8 @@
     "polyfills.ts"
   ],
   "include": [
+    "**/*-test-setup.ts",
+    "**/test-support.ts",
     "**/*.spec.ts",
     "**/*.d.ts"
   ]

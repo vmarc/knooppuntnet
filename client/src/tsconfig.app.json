@@ -5,7 +5,10 @@
     "types": []
   },
   "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
+    "src/test.ts",
+    "**/test-support.ts",
+    "**/*.spec.ts",
+    "**/*-test-setup.ts",
+    "**/*-mock.ts"
   ]
 }
