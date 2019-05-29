@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.filter
 
 object TimeFilterKind extends Enumeration {

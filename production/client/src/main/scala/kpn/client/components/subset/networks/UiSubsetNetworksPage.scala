@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.subset.networks
 
 import japgolly.scalajs.react._

@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.common
 
 import com.karasiq.markedjs.Marked

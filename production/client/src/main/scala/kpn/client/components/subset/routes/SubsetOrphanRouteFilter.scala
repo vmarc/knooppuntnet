@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.subset.routes
 
 import japgolly.scalajs.react.CallbackTo

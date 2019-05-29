@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.network.nodes.indicators
 
 import japgolly.scalajs.react.vdom.VdomElement

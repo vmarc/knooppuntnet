@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.login
 
 import japgolly.scalajs.react.ScalaComponent

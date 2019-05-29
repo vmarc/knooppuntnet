@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.common.map.vector
 
 class MapMove(state: MapState, map: ol.Map, refreshCallback: () => Unit) {

@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.menu
 
 import chandu0101.scalajs.react.components.materialui.MuiMenuItem

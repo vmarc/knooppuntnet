@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components
 
 import japgolly.scalajs.react.BackendScope

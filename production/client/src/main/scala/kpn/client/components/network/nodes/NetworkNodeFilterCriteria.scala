@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.network.nodes
 
 import kpn.client.filter.TimeFilterKind

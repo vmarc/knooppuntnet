@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.home
 
 import chandu0101.scalajs.react.components.materialui.Mui.Styles.colors.grey800

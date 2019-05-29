@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.subset.networks
 
 import chandu0101.scalajs.react.components.Implicits._

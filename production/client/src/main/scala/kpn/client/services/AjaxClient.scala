@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.services
 
 import java.nio.ByteBuffer

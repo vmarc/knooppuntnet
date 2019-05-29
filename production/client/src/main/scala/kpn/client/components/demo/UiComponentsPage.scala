@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.demo
 
 import japgolly.scalajs.react._

@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.common
 
 import japgolly.scalajs.react.vdom.Implicits._

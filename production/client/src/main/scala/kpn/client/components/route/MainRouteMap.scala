@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.components.route
 
 import kpn.client.common.Context

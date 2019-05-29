@@ -1,3 +1,4 @@
+// TODO migrate to Angular
 package kpn.client.common.map
 
 import chandu0101.scalajs.react.components.Implicits._
