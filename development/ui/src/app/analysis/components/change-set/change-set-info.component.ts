@@ -2,9 +2,10 @@ import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {ChangeSetInfo} from "../../../kpn/shared/changes/change-set-info";
 import {Tag} from "../../../kpn/shared/data/tag";
+import {Tags} from "../../../kpn/shared/data/tags";
 
 @Component({
-  selector: "kpn-change-set-info",
+  selector: "kpn-change-set-info", // TODO rename to kpn-change-set-tags
   template: `
     <div *ngIf="hasTags()">
       <div class="tags">
@@ -34,11 +35,11 @@ import {Tag} from "../../../kpn/shared/data/tag";
 })
 export class ChangeSetInfoComponent {
 
-  @Input() changeSetInfo: ChangeSetInfo;
+  @Input() changeSetTags: Tags;
 
   tags(): List<Tag> {
-    if (this.changeSetInfo && this.changeSetInfo.tags && this.changeSetInfo.tags.tags) {
-      return this.changeSetInfo.tags.tags.filterNot(tag => tag.key == "comment");
+    if (this.changeSetTags && this.changeSetTags.tags) {
+      return this.changeSetTags.tags.filterNot(tag => tag.key == "comment");
     }
     return List();
   }

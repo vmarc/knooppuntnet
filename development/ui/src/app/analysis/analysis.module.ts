@@ -19,6 +19,7 @@ import {ChangesTableComponent} from "./components/changes/changes-table.componen
 import {FactCommaListComponent} from "./components/changes/fact-comma-list.component";
 import {FactDiffsComponent} from "./components/changes/fact-diffs.component";
 import {HistoryIncompleteWarningComponent} from "./components/changes/history-incomplete-warning.component";
+import {TagDiffsComponent} from "./components/changes/tag-diffs.component";
 import {FactAddedComponent} from "./fact/descriptions/fact-added.component";
 import {FactBecomeIgnoredComponent} from "./fact/descriptions/fact-become-ignored.component";
 import {FactBecomeOrphanComponent} from "./fact/descriptions/fact-become-orphan.component";
@@ -107,6 +108,8 @@ import {NetworkNodeRoutesComponent} from "./pages/network/nodes/network-node-rou
 import {NetworkNodeTableComponent} from "./pages/network/nodes/network-node-table.component";
 import {NetworkRoutesPageComponent} from "./pages/network/routes/_network-routes-page.component";
 import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.component";
+import {NodeChangeDetailComponent} from "./pages/node/changes/node-change-detail.component";
+import {NodeChangeComponent} from "./pages/node/changes/node-change.component";
 import {NodePageHeaderComponent} from "./pages/node/components/node-page-header.component";
 import {NodePageComponent} from "./pages/node/details/_node-page.component";
 import {NodeNetworksComponent} from "./pages/node/details/node-networks.component";
@@ -194,6 +197,8 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     NetworkNodeRoutesComponent,
     NetworkRoutesPageComponent,
     NodePageComponent,
+    NodeChangeComponent,
+    NodeChangeDetailComponent,
     NodeSummaryComponent,
     NodeNetworksComponent,
     NodeRoutesComponent,
@@ -303,6 +308,7 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     RouteChangeComponent,
     RouteChangeDetailComponent,
     RouteDiffComponent,
+    TagDiffsComponent,
     FactDiffsComponent,
     FactCommaListComponent
   ],
