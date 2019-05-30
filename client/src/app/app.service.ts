@@ -14,7 +14,6 @@ import {NetworkMapPage} from "./kpn/shared/network/network-map-page";
 import {NetworkNodesPage} from "./kpn/shared/network/network-nodes-page";
 import {NetworkRoutesPage} from "./kpn/shared/network/network-routes-page";
 import {MapDetailNode} from "./kpn/shared/node/map-detail-node";
-import {NodePage} from "./kpn/shared/node/node-page";
 import {RouteLeg} from "./kpn/shared/planner/route-leg";
 import {PoiPage} from "./kpn/shared/poi-page";
 import {MapDetailRoute} from "./kpn/shared/route/map-detail-route";
@@ -28,6 +27,9 @@ import {SubsetNetworksPage} from "./kpn/shared/subset/subset-networks-page";
 import {SubsetOrphanNodesPage} from "./kpn/shared/subset/subset-orphan-nodes-page";
 import {SubsetOrphanRoutesPage} from "./kpn/shared/subset/subset-orphan-routes-page";
 import {ClientPoiConfiguration} from "./kpn/shared/tiles/client-poi-configuration";
+import {NodeChangesPage} from "./kpn/shared/node/node-changes-page";
+import {NodeMapPage} from "./kpn/shared/node/node-map-page";
+import {NodeDetailsPage} from "./kpn/shared/node/node-details-page";
 
 @Injectable()
 export class AppService {
@@ -35,7 +37,7 @@ export class AppService {
   constructor(private http: HttpClient,
               markdownService: MarkdownService) {
     markdownService.renderer.link = (href: string, title: string, text: string) => {
-      return "<a href='" + href + "' title='" + title + "'target='_blank'>" + text + "</a>";
+      return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
     };
   }
 
@@ -130,10 +132,24 @@ export class AppService {
     );
   }
 
-  public node(nodeId: string): Observable<ApiResponse<NodePage>> {
-    const url = "/json-api/node/" + nodeId;
+  public nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
+    const url = `/json-api/node/${nodeId}`;
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, NodePage.fromJSON))
+      map(response => ApiResponse.fromJSON(response, NodeDetailsPage.fromJSON))
+    );
+  }
+
+  public nodeMap(nodeId: string): Observable<ApiResponse<NodeMapPage>> {
+    const url = `/json-api/node/${nodeId}/map`;
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, NodeMapPage.fromJSON))
+    );
+  }
+
+  public nodeChanges(nodeId: string): Observable<ApiResponse<NodeChangesPage>> {
+    const url = `/json-api/node/${nodeId}/changes`;
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, NodeChangesPage.fromJSON))
     );
   }
 

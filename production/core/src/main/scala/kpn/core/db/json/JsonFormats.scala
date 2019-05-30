@@ -144,6 +144,9 @@ import kpn.shared.node.NodeNetworkReference
 import kpn.shared.node.NodeNetworkRouteReference
 import kpn.shared.node.NodeOrphanRouteReference
 import kpn.shared.node.NodePage
+import kpn.shared.node.NodeDetailsPage
+import kpn.shared.node.NodeMapPage
+import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeReferences
 import kpn.shared.planner.RouteLeg
 import kpn.shared.planner.RouteLegFragment
@@ -368,8 +371,11 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val referenceFormat: RootJsonFormat[Reference] = jsonFormat4(Reference)
   implicit val nodeChangeInfoFormat: RootJsonFormat[NodeChangeInfo] = jsonFormat20(NodeChangeInfo)
-  implicit val nodeChangeInfosFormat: RootJsonFormat[NodeChangeInfos] = jsonFormat3(NodeChangeInfos)
+  implicit val nodeChangeInfosFormat: RootJsonFormat[NodeChangeInfos] = jsonFormat2(NodeChangeInfos)
   implicit val nodePageFormat: RootJsonFormat[NodePage] = jsonFormat3(NodePage)
+  implicit val nodeDetailsPageFormat: RootJsonFormat[NodeDetailsPage] = jsonFormat2(NodeDetailsPage)
+  implicit val nodeMapPageFormat: RootJsonFormat[NodeMapPage] = jsonFormat1(NodeMapPage)
+  implicit val nodeChangesPageFormat: RootJsonFormat[NodeChangesPage] = jsonFormat4(NodeChangesPage)
 
   implicit val knownElementsFormat: RootJsonFormat[KnownElements] = jsonFormat2(KnownElements)
   implicit val tagFormat: RootJsonFormat[Tag] = jsonFormat2(Tag)

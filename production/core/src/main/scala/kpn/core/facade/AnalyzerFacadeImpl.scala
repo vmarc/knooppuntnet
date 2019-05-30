@@ -47,6 +47,9 @@ import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.node.MapDetailNode
+import kpn.shared.node.NodeChangesPage
+import kpn.shared.node.NodeDetailsPage
+import kpn.shared.node.NodeMapPage
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 import kpn.shared.planner.RouteLeg
@@ -96,6 +99,27 @@ class AnalyzerFacadeImpl(
     val label = s"$user node($nodeId)"
     log.infoElapsed(label) {
       reply(label, nodePageBuilder.build(user, nodeId))
+    }
+  }
+
+  override def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage] = {
+    val label = s"$user node($nodeId)"
+    log.infoElapsed(label) {
+      reply(label, nodePageBuilder.buildDetailsPage(user, nodeId))
+    }
+  }
+
+  override def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage] = {
+    val label = s"$user node($nodeId)"
+    log.infoElapsed(label) {
+      reply(label, nodePageBuilder.buildMapPage(user, nodeId))
+    }
+  }
+
+  override def nodeChanges(user: Option[String], nodeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[NodeChangesPage] = {
+    val label = s"$user node($nodeId)"
+    log.infoElapsed(label) {
+      reply(label, nodePageBuilder.buildChangesPage(user, nodeId, itemsPerPage, pageIndex))
     }
   }
 

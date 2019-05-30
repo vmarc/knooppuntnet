@@ -6,8 +6,7 @@ import {NodeChangeInfo} from "./node-change-info";
 export class NodeChangeInfos {
 
   constructor(readonly changes: List<NodeChangeInfo>,
-              readonly incompleteWarning: boolean,
-              readonly more: boolean) {
+              readonly incompleteWarning: boolean) {
   }
 
   public static fromJSON(jsonObject): NodeChangeInfos {
@@ -16,8 +15,7 @@ export class NodeChangeInfos {
     }
     return new NodeChangeInfos(
       jsonObject.changes ? List(jsonObject.changes.map(json => NodeChangeInfo.fromJSON(json))) : List(),
-      jsonObject.incompleteWarning,
-      jsonObject.more
+      jsonObject.incompleteWarning
     );
   }
 }

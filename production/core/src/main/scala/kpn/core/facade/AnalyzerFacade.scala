@@ -18,6 +18,9 @@ import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.node.MapDetailNode
+import kpn.shared.node.NodeChangesPage
+import kpn.shared.node.NodeDetailsPage
+import kpn.shared.node.NodeMapPage
 import kpn.shared.node.NodePage
 import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
@@ -35,6 +38,12 @@ import kpn.shared.tiles.ClientPoiConfiguration
 trait AnalyzerFacade {
 
   def node(user: Option[String], nodeId: Long): ApiResponse[NodePage]
+
+  def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage]
+
+  def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage]
+
+  def nodeChanges(user: Option[String], nodeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[NodeChangesPage]
 
   def route(user: Option[String], routeId: Long): ApiResponse[RoutePage]
 

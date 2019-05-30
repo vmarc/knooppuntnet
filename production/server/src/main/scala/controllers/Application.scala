@@ -84,7 +84,9 @@ class Application(
     val networkNodes = """network-nodes/(\d*)""".r
     val networkRoutes = """network-routes/(\d*)""".r
     val networkChanges = """network-changes/(\d*)""".r
-    val node = """node/(\d*)""".r
+    val nodeDetails = """node/(\d*)""".r
+    val nodeMap = """node/(\d*)/map""".r
+    val nodeChanges = """node/(\d*)/changes""".r
     val route = """route/(\d*)""".r
     val changes = """changes""".r
     val changeSet = """changeset/(\d*)/(\d*)""".r
@@ -180,10 +182,22 @@ class Application(
           JsonFormats.networkChangesPageFormat
         )
 
-      case node(nodeId) =>
+      case nodeDetails(nodeId) =>
         reply(
-          userApiService.node(nodeId.toLong),
-          JsonFormats.nodePageFormat
+          userApiService.nodeDetails(nodeId.toLong),
+          JsonFormats.nodeDetailsPageFormat
+        )
+
+      case nodeMap(nodeId) =>
+        reply(
+          userApiService.nodeMap(nodeId.toLong),
+          JsonFormats.nodeMapPageFormat
+        )
+
+      case nodeChanges(nodeId) =>
+        reply(
+          userApiService.nodeChanges(nodeId.toLong, 3, 0),
+          JsonFormats.nodeChangesPageFormat
         )
 
       case route(routeId) =>

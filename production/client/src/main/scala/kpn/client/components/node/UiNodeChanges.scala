@@ -68,12 +68,8 @@ object UiNodeChanges {
                 },
                 TagMod.when(nodeChangeInfos.incompleteWarning) {
                   UiHistoryIncompleteWarning()
-                },
-                TagMod.when(nodeChangeInfos.more) {
-                  <.div("'more' link to be added here...")
                 }
               )
-
           }
         )
       }

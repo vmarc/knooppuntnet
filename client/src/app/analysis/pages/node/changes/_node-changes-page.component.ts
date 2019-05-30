@@ -3,9 +3,9 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
-import {NodePage} from "../../../../kpn/shared/node/node-page";
 import {UserService} from "../../../../services/user.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {NodeChangesPage} from "../../../../kpn/shared/node/node-changes-page";
 
 @Component({
   selector: "kpn-node-changes-page",
@@ -27,26 +27,21 @@ import {Subscriptions} from "../../../../util/Subscriptions";
       <div *ngIf="response.result">
 
 
-        <div *ngIf="response.result.nodeChanges.changes.isEmpty()">
+        <div *ngIf="response.result.changes.isEmpty()">
           No history
           <!-- Geen historiek -->
         </div>
 
-        <div *ngIf="!response.result.nodeChanges.changes.isEmpty()">
+        <div *ngIf="!response.result.changes.isEmpty()">
 
           <kpn-items>
-            <kpn-item *ngFor="let nodeChangeInfo of response.result.nodeChanges.changes; let i=index" index="{{i}}">
+            <kpn-item *ngFor="let nodeChangeInfo of response.result.changes; let i=index" index="{{i}}">
               <kpn-node-change [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change>
             </kpn-item>
           </kpn-items>
 
-          <div *ngIf="response.result.nodeChanges.incompleteWarning">
+          <div *ngIf="response.result.incompleteWarning">
             <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
-          </div>
-
-          <div *ngIf="response.result.nodeChanges.more">
-            <!-- TODO not needed anymore with paging mechanism -->
-            'more' link to be added here...
           </div>
 
         </div>
@@ -61,7 +56,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   nodeId: string;
-  response: ApiResponse<NodePage>;
+  response: ApiResponse<NodeChangesPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -78,7 +73,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.nodeId = params["nodeId"];
       if (this.userService.isLoggedIn()) {
-        this.subscriptions.add(this.appService.node(this.nodeId).subscribe(response => {
+        this.subscriptions.add(this.appService.nodeChanges(this.nodeId).subscribe(response => {
           this.response = response;
         }));
       }
@@ -87,14 +82,6 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  get nodeInfo() {
-    return this.response.result.nodeInfo;
-  }
-
-  get references() {
-    return this.response.result.references;
   }
 
 }

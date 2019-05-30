@@ -12,6 +12,9 @@ import kpn.shared.changes.details.NodeChange
 import kpn.shared.changes.filter.ChangesParameters
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
+import kpn.shared.node.NodeChangesPage
+import kpn.shared.node.NodeDetailsPage
+import kpn.shared.node.NodeMapPage
 import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 
@@ -34,22 +37,67 @@ class NodePageBuilderImpl(
     }
   }
 
-  private def buildNodePage(user: Option[String], nodeInfo: NodeInfo): NodePage = {
-    val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
-    val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)
-    val nodeReferences = NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
-    val nodeChanges = buildNodeChanges(user, nodeInfo)
-    NodePage(nodeInfo, nodeReferences, nodeChanges)
+  def buildDetailsPage(user: Option[String], nodeId: Long): Option[NodeDetailsPage] = {
+    if (nodeId == 1) {
+      Some(NodePageExample.nodeDetailsPage)
+    }
+    else {
+      nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
+        buildNodeDetailsPage(user, nodeInfo)
+      }
+    }
   }
 
-  private def buildNodeChanges(user: Option[String], nodeInfo: NodeInfo): NodeChangeInfos = {
+  def buildMapPage(user: Option[String], nodeId: Long): Option[NodeMapPage] = {
+    if (nodeId == 1) {
+      Some(NodePageExample.nodeMapPage)
+    }
+    else {
+      nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
+        buildNodeMapPage(user, nodeInfo)
+      }
+    }
+  }
+
+  def buildChangesPage(user: Option[String], nodeId: Long, itemsPerPage: Int, pageIndex: Int): Option[NodeChangesPage] = {
+    if (nodeId == 1) {
+      Some(NodePageExample.nodeChangesPage)
+    }
+    else {
+      nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
+        buildNodeChangesPage(user, nodeInfo, itemsPerPage, pageIndex)
+      }
+    }
+  }
+
+  private def buildNodePage(user: Option[String], nodeInfo: NodeInfo): NodePage = {
+    val nodeChangesPage = buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, 3, 0)
+    val nodeChanges = NodeChangeInfos(nodeChangesPage.changes, nodeChangesPage.incompleteWarning)
+    NodePage(nodeInfo, buildNodeReferences(nodeInfo), nodeChanges)
+  }
+
+  private def buildNodeDetailsPage(user: Option[String], nodeInfo: NodeInfo): NodeDetailsPage = {
+    NodeDetailsPage(nodeInfo, buildNodeReferences(nodeInfo))
+  }
+
+  private def buildNodeMapPage(user: Option[String], nodeInfo: NodeInfo): NodeMapPage = {
+    NodeMapPage(nodeInfo)
+  }
+
+  private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, itemsPerPage: Int, pageIndex: Int): NodeChangesPage = {
     val nodeChanges = collectNodeChanges(user, nodeInfo.id)
     val incompleteWarning = isIncomplete(nodeChanges)
     val more = nodeChanges.size > maxItemsPerPage
     val shownNodeChanges = if (more) nodeChanges.take(nodeChanges.size - 1) else nodeChanges
     val changeSetInfos = collectChangeSetInfos(shownNodeChanges, more)
     val changes = toNodeChangeInfos(shownNodeChanges, changeSetInfos)
-    NodeChangeInfos(changes, incompleteWarning, more)
+    NodeChangesPage(nodeInfo, changes, incompleteWarning, 100)
+  }
+
+  private def buildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {
+    val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
+    val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)
+    NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
   }
 
   private def collectNodeChanges(user: Option[String], nodeId: Long): Seq[NodeChange] = {

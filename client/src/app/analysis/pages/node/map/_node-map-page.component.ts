@@ -3,8 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
-import {NodePage} from "../../../../kpn/shared/node/node-page";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {NodeMapPage} from "../../../../kpn/shared/node/node-map-page";
 
 @Component({
   selector: "kpn-node-map-page",
@@ -25,7 +25,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   nodeId: string;
-  response: ApiResponse<NodePage>;
+  response: ApiResponse<NodeMapPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -37,7 +37,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
     this.pageService.defaultMenu();
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.nodeId = params["nodeId"];
-      this.subscriptions.add(this.appService.node(this.nodeId).subscribe(response => {
+      this.subscriptions.add(this.appService.nodeMap(this.nodeId).subscribe(response => {
         this.response = response;
       }));
     }));
@@ -50,10 +50,6 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
 
   get nodeInfo() {
     return this.response.result.nodeInfo;
-  }
-
-  get references() {
-    return this.response.result.references;
   }
 
 }
