@@ -1,16 +1,13 @@
+import PointerInteraction from "ol/interaction/Pointer";
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
-import {click, pointerMove} from "ol/events/condition";
 import Feature from "ol/Feature";
 import Interaction from "ol/interaction/Interaction";
-import Select from "ol/interaction/Select";
-import SelectEvent from "ol/interaction/Select";
 import Map from "ol/Map";
-import Style from "ol/style/Style";
+import MapBrowserEvent from "ol/events"
 
 /*
-   Navigates to node or route specific page when clicking on node or route
-   in the node or route map.
+   Navigates to the node or route specific page when clicking on node or route in the map.
  */
 @Injectable()
 export class MapClickService {
@@ -19,40 +16,52 @@ export class MapClickService {
   }
 
   installOn(map: Map): void {
-    map.addInteraction(this.buildClickInteraction());
-    map.addInteraction(this.buildMoveInteraction(map));
+    map.addInteraction(this.buildInteraction());
   }
 
-  private buildClickInteraction(): Interaction {
-    const interaction = new Select({
-      condition: click,
-      multi: false,
-      style: new Style() // this overrides the normal openlayers default edit style
+  private buildInteraction(): Interaction {
+    return new PointerInteraction({
+      handleDownEvent: (e) => this.handleDownEvent(e),
+      handleMoveEvent: (e) => this.handleMoveEvent(e)
     });
-    interaction.on("select", (e) => this.handleClick(e));
-    return interaction;
   }
 
-  private buildMoveInteraction(map: Map): Interaction {
-    const interaction = new Select({
-      condition: pointerMove,
-      multi: false,
-      style: new Style() // this overrides the normal openlayers default edit style
-    });
-    interaction.on("select", (e) => this.handleMove(e, map));
-    return interaction;
+  private handleDownEvent(evt: MapBrowserEvent): boolean {
+    const features = this.getFeatures(evt);
+    const nodeFeature = this.findFeature(features, this.isNode);
+    if (nodeFeature) {
+      this.handleNodeClicked(nodeFeature);
+      return true;
+    }
+    const routeFeature = this.findFeature(features, this.isRoute);
+    if (routeFeature) {
+      this.handleRouteClicked(routeFeature);
+      return true;
+    }
+    return false;
   }
 
-  private handleClick(e: SelectEvent): boolean {
-    for (let feature of e.selected) {
-      const layer = feature.get("layer");
-      if (layer.endsWith("route")) {
-        this.handleRouteClicked(feature);
-      } else if (layer.endsWith("node")) {
-        this.handleNodeClicked(feature);
+  private handleMoveEvent(evt: MapBrowserEvent): boolean {
+    let cursorStyle = "cursor: default";
+    if (this.isHooveringOverNodeOrRoute(evt)) {
+      cursorStyle = "cursor: pointer";
+    }
+    evt.map.getTargetElement().setAttribute("style", cursorStyle);
+    return true;
+  }
+
+  private getFeatures(evt: MapBrowserEvent): Array<Feature> {
+    const tolerance = 20;
+    return evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+  }
+
+  private findFeature(features: Array<Feature>, test: (feature: Feature) => boolean): Feature {
+    for (let feature of features) {
+      if (test(feature)) {
+        return feature;
       }
     }
-    return true;
+    return null;
   }
 
   private handleRouteClicked(feature: Feature): void {
@@ -66,25 +75,26 @@ export class MapClickService {
     this.router.navigateByUrl(`/analysis/node/${nodeId}`);
   }
 
-  private handleMove(e: SelectEvent, map: Map): boolean {
-    let cursorStyle = "cursor: default";
-    if (this.isHooveringOverNodeOrRoute(e)) {
-      cursorStyle = "cursor: pointer";
-    }
-    map.getTargetElement().setAttribute("style", cursorStyle);
-    return true;
-  }
-
-  private isHooveringOverNodeOrRoute(e: SelectEvent): boolean {
-    if (e) {
-      for (let feature of e.selected) {
-        const layer = feature.get("layer");
-        if (!!layer && (layer.endsWith("route") || layer.endsWith("node"))) {
+  private isHooveringOverNodeOrRoute(evt: MapBrowserEvent): boolean {
+    const features = this.getFeatures(evt);
+    if (features) {
+      for (let feature of features) {
+        if (this.isNode(feature) || this.isRoute(feature)) {
           return true;
         }
       }
     }
     return false;
+  }
+
+  private isNode(feature: Feature): boolean {
+    const layer = feature.get("layer");
+    return layer && layer.endsWith("node");
+  }
+
+  private isRoute(feature: Feature): boolean {
+    const layer = feature.get("layer");
+    return layer && layer.endsWith("route");
   }
 
 }
