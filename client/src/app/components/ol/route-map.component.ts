@@ -63,7 +63,7 @@ export class RouteMapComponent implements AfterViewInit {
       })
     });
 
-    this.map.addInteraction(this.mapClickService.createInteraction());
+    this.mapClickService.installOn(this.map);
 
     const view = this.map.getView();
     view.fit(routeMapBuilder.buildExtent());
