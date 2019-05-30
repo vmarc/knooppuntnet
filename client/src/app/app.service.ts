@@ -17,7 +17,6 @@ import {MapDetailNode} from "./kpn/shared/node/map-detail-node";
 import {RouteLeg} from "./kpn/shared/planner/route-leg";
 import {PoiPage} from "./kpn/shared/poi-page";
 import {MapDetailRoute} from "./kpn/shared/route/map-detail-route";
-import {RoutePage} from "./kpn/shared/route/route-page";
 import {Statistics} from "./kpn/shared/statistics/statistics";
 import {Subset} from "./kpn/shared/subset";
 import {SubsetChangesPage} from "./kpn/shared/subset/subset-changes-page";
@@ -30,6 +29,9 @@ import {ClientPoiConfiguration} from "./kpn/shared/tiles/client-poi-configuratio
 import {NodeChangesPage} from "./kpn/shared/node/node-changes-page";
 import {NodeMapPage} from "./kpn/shared/node/node-map-page";
 import {NodeDetailsPage} from "./kpn/shared/node/node-details-page";
+import {RouteDetailsPage} from "./kpn/shared/route/route-details-page";
+import {RouteMapPage} from "./kpn/shared/route/route-map-page";
+import {RouteChangesPage} from "./kpn/shared/route/route-changes-page";
 
 @Injectable()
 export class AppService {
@@ -91,42 +93,42 @@ export class AppService {
   }
 
   public networkDetails(networkId: string): Observable<ApiResponse<NetworkDetailsPage>> {
-    const url = "/json-api/network/" + networkId;
+    const url = `/json-api/network/${networkId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkDetailsPage.fromJSON))
     );
   }
 
   public networkMap(networkId: string): Observable<ApiResponse<NetworkMapPage>> {
-    const url = "/json-api/network-map/" + networkId;
+    const url = `/json-api/network-map/${networkId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkMapPage.fromJSON))
     );
   }
 
   public networkFacts(networkId: string): Observable<ApiResponse<NetworkFactsPage>> {
-    const url = "/json-api/network-facts/" + networkId;
+    const url = `/json-api/network-facts/${networkId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkFactsPage.fromJSON))
     );
   }
 
   public networkNodes(networkId: string): Observable<ApiResponse<NetworkNodesPage>> {
-    const url = "/json-api/network-nodes/" + networkId;
+    const url = `/json-api/network-nodes/${networkId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkNodesPage.fromJSON))
     );
   }
 
   public networkRoutes(networkId: string): Observable<ApiResponse<NetworkRoutesPage>> {
-    const url = "/json-api/network-routes/" + networkId;
+    const url = `/json-api/network-routes/${networkId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkRoutesPage.fromJSON))
     );
   }
 
   public networkChanges(networkId: string /*parameters: ChangesParameters*/): Observable<ApiResponse<NetworkChangesPage>> {
-    const url = "/json-api/network-changes/" + networkId;
+    const url = `/json-api/network-changes/${networkId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkChangesPage.fromJSON))
     );
@@ -153,10 +155,24 @@ export class AppService {
     );
   }
 
-  public route(routeId: string): Observable<ApiResponse<RoutePage>> {
-    const url = "/json-api/route/" + routeId;
+  public routeDetails(routeId: string): Observable<ApiResponse<RouteDetailsPage>> {
+    const url = `/json-api/route/${routeId}`;
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, RoutePage.fromJSON))
+      map(response => ApiResponse.fromJSON(response, RouteDetailsPage.fromJSON))
+    );
+  }
+
+  public routeMap(routeId: string): Observable<ApiResponse<RouteMapPage>> {
+    const url = `/json-api/route/${routeId}/map`;
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, RouteMapPage.fromJSON))
+    );
+  }
+
+  public routeChanges(routeId: string): Observable<ApiResponse<RouteChangesPage>> {
+    const url = `/json-api/route/${routeId}/changes`;
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, RouteChangesPage.fromJSON))
     );
   }
 
@@ -168,21 +184,21 @@ export class AppService {
   }
 
   public changeSet(changeSetId: string, replicationNumber: string): Observable<ApiResponse<ChangeSetPage>> {
-    const url = "/json-api/changeset/" + changeSetId + "/" + replicationNumber;
+    const url = `/json-api/changeset/${changeSetId}/${replicationNumber}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, ChangeSetPage.fromJSON))
     );
   }
 
   public mapDetailNode(networkType: string /*NetworkType*/, nodeId: string): Observable<ApiResponse<MapDetailNode>> {
-    const url = "/json-api/node-detail/" + nodeId + "/" + networkType;
+    const url = `/json-api/node-detail/${nodeId}/${networkType}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, MapDetailNode.fromJSON))
     );
   }
 
   public mapDetailRoute(routeId: string): Observable<ApiResponse<MapDetailRoute>> {
-    const url = "/json-api/route-detail/" + routeId;
+    const url = `/json-api/route-detail/${routeId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, MapDetailRoute.fromJSON))
     );
@@ -196,14 +212,14 @@ export class AppService {
   }
 
   public poi(elementType: string, elementId: number): Observable<ApiResponse<PoiPage>> {
-    const url = "/json-api/poi/" + elementType + "/" + elementId;
+    const url = `/json-api/poi/${elementType}/${elementId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, PoiPage.fromJSON))
     );
   }
 
   public routeLeg(networkType: string, legId: string, sourceNodeId: string, sinkNodeId: string): Observable<ApiResponse<RouteLeg>> {
-    const url = "/json-api/leg/" + networkType + "/" + legId + "/" + sourceNodeId + "/" + sinkNodeId;
+    const url = `/json-api/leg/${networkType}/${legId}/${sourceNodeId}/${sinkNodeId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, RouteLeg.fromJSON))
     );

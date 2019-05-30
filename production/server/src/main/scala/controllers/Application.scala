@@ -87,7 +87,9 @@ class Application(
     val nodeDetails = """node/(\d*)""".r
     val nodeMap = """node/(\d*)/map""".r
     val nodeChanges = """node/(\d*)/changes""".r
-    val route = """route/(\d*)""".r
+    val routeDetails = """route/(\d*)""".r
+    val routeMap = """route/(\d*)/map""".r
+    val routeChanges = """route/(\d*)/changes""".r
     val changes = """changes""".r
     val changeSet = """changeset/(\d*)/(\d*)""".r
     val mapDetailNode = """node-detail/(\d*)/(cycling|hiking|horse|motorboat|canoe|inline-skating)""".r
@@ -200,10 +202,22 @@ class Application(
           JsonFormats.nodeChangesPageFormat
         )
 
-      case route(routeId) =>
+      case routeDetails(routeId) =>
         reply(
-          userApiService.route(routeId.toLong),
-          JsonFormats.routePageFormat
+          userApiService.routeDetails(routeId.toLong),
+          JsonFormats.routeDetailsPageFormat
+        )
+
+      case routeMap(routeId) =>
+        reply(
+          userApiService.routeMap(routeId.toLong),
+          JsonFormats.routeMapPageFormat
+        )
+
+      case routeChanges(routeId) =>
+        reply(
+          userApiService.routeChanges(routeId.toLong, 5, 0),
+          JsonFormats.routeChangesPageFormat
         )
 
       case changes() =>

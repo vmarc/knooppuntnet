@@ -54,6 +54,9 @@ import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
+import kpn.shared.route.RouteChangesPage
+import kpn.shared.route.RouteDetailsPage
+import kpn.shared.route.RouteMapPage
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
@@ -127,6 +130,27 @@ class AnalyzerFacadeImpl(
     val label = s"$user route($routeId)"
     log.infoElapsed(label) {
       reply(label, routePageBuilder.build(user, routeId))
+    }
+  }
+
+  override def routeDetails(user: Option[String], routeId: Long): ApiResponse[RouteDetailsPage] = {
+    val label = s"$user route($routeId)"
+    log.infoElapsed(label) {
+      reply(label, routePageBuilder.buildDetailsPage(user, routeId))
+    }
+  }
+
+  override def routeMap(user: Option[String], routeId: Long): ApiResponse[RouteMapPage] = {
+    val label = s"$user route($routeId)"
+    log.infoElapsed(label) {
+      reply(label, routePageBuilder.buildMapPage(user, routeId))
+    }
+  }
+
+  override def routeChanges(user: Option[String], routeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[RouteChangesPage] = {
+    val label = s"$user route($routeId)"
+    log.infoElapsed(label) {
+      reply(label, routePageBuilder.buildChangesPage(user, routeId, itemsPerPage, pageIndex))
     }
   }
 

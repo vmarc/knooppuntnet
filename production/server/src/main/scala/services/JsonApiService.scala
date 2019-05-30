@@ -24,6 +24,9 @@ import kpn.shared.node.NodeMapPage
 import kpn.shared.node.NodePage
 import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
+import kpn.shared.route.RouteChangesPage
+import kpn.shared.route.RouteDetailsPage
+import kpn.shared.route.RouteMapPage
 import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
@@ -100,8 +103,16 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
     analyzerFacade.nodeChanges(user, nodeId, itemsPerPage, pageIndex)
   }
 
-  def route(routeId: Long): ApiResponse[RoutePage] = {
-    analyzerFacade.route(user, routeId)
+  def routeDetails(routeId: Long): ApiResponse[RouteDetailsPage] = {
+    analyzerFacade.routeDetails(user, routeId)
+  }
+
+  def routeMap(routeId: Long): ApiResponse[RouteMapPage] = {
+    analyzerFacade.routeMap(user, routeId)
+  }
+
+  def routeChanges(routeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[RouteChangesPage] = {
+    analyzerFacade.routeChanges(user, routeId, itemsPerPage, pageIndex)
   }
 
   def changes(parameters: ChangesParameters): ApiResponse[ChangesPage] = {

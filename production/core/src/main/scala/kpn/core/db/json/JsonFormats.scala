@@ -143,7 +143,6 @@ import kpn.shared.node.NodeNetworkIntegrityCheck
 import kpn.shared.node.NodeNetworkReference
 import kpn.shared.node.NodeNetworkRouteReference
 import kpn.shared.node.NodeOrphanRouteReference
-import kpn.shared.node.NodePage
 import kpn.shared.node.NodeDetailsPage
 import kpn.shared.node.NodeMapPage
 import kpn.shared.node.NodeChangesPage
@@ -163,7 +162,9 @@ import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap
 import kpn.shared.route.RouteMemberInfo
 import kpn.shared.route.RouteNetworkNodeInfo
-import kpn.shared.route.RoutePage
+import kpn.shared.route.RouteDetailsPage
+import kpn.shared.route.RouteMapPage
+import kpn.shared.route.RouteChangesPage
 import kpn.shared.route.RouteReferences
 import kpn.shared.route.WayGeometry
 import kpn.shared.statistics.CountryStatistic
@@ -372,7 +373,6 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val referenceFormat: RootJsonFormat[Reference] = jsonFormat4(Reference)
   implicit val nodeChangeInfoFormat: RootJsonFormat[NodeChangeInfo] = jsonFormat20(NodeChangeInfo)
   implicit val nodeChangeInfosFormat: RootJsonFormat[NodeChangeInfos] = jsonFormat2(NodeChangeInfos)
-  implicit val nodePageFormat: RootJsonFormat[NodePage] = jsonFormat3(NodePage)
   implicit val nodeDetailsPageFormat: RootJsonFormat[NodeDetailsPage] = jsonFormat2(NodeDetailsPage)
   implicit val nodeMapPageFormat: RootJsonFormat[NodeMapPage] = jsonFormat1(NodeMapPage)
   implicit val nodeChangesPageFormat: RootJsonFormat[NodeChangesPage] = jsonFormat4(NodeChangesPage)
@@ -434,7 +434,9 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeReferencesFormat: RootJsonFormat[RouteReferences] = jsonFormat1(RouteReferences)
   implicit val wayGeometryFormat: RootJsonFormat[WayGeometry] = jsonFormat2(WayGeometry.apply)
 
-  implicit val routePageFormat: RootJsonFormat[RoutePage] = jsonFormat3(RoutePage)
+  implicit val routeDetailsPageFormat: RootJsonFormat[RouteDetailsPage] = jsonFormat2(RouteDetailsPage)
+  implicit val routeMapPageFormat: RootJsonFormat[RouteMapPage] = jsonFormat1(RouteMapPage)
+  implicit val routeChangesPageFormat: RootJsonFormat[RouteChangesPage] = jsonFormat4(RouteChangesPage)
 
   implicit val changesParametersFormat: RootJsonFormat[ChangesParameters] = jsonFormat10(ChangesParameters)
 

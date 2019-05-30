@@ -3,8 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
-import {RoutePage} from "../../../../kpn/shared/route/route-page";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {RouteMapPage} from "../../../../kpn/shared/route/route-map-page";
 
 @Component({
   selector: "kpn-route-changes-page",
@@ -29,7 +29,7 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   routeId: string;
-  response: ApiResponse<RoutePage>;
+  response: ApiResponse<RouteMapPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -40,7 +40,7 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
     this.pageService.defaultMenu();
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.routeId = params["routeId"];
-      this.subscriptions.add(this.appService.route(this.routeId).subscribe(response => {
+      this.subscriptions.add(this.appService.routeMap(this.routeId).subscribe(response => {
         this.response = response;
       }));
     }));
