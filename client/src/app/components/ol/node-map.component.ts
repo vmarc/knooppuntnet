@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input} from "@angular/core";
-import {Attribution, defaults as defaultControls} from 'ol/control';
+import {Attribution, defaults as defaultControls} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import VectorLayer from "ol/layer/Vector";
 import VectorTileLayer from "ol/layer/VectorTile";
@@ -75,8 +75,7 @@ export class NodeMapComponent implements AfterViewInit {
       })
     });
 
-    // TODO also need move interaction to make the cursor change to indicate nodes and routes are clickable
-    this.map.addInteraction(this.mapClickService.createInteraction());
+    this.mapClickService.installOn(this.map);
 
     const view = this.map.getView();
     view.on("change:resolution", () => this.zoom(view.getZoom()));
