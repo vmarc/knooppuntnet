@@ -1,13 +1,12 @@
 {
-  "name": "knooppuntnet",
-  "version": "0.0.0",
+  "name": "knooppuntnet-client",
+  "version": "3.0.0-alpha-1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "extract-i18n": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json nl de fr",
     "start": "ng serve --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "start:nl": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
@@ -15,11 +14,13 @@
     "start:fr": "ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "test-no-watch": "ng test --single-run",
     "build-dev": "ng build --progress --output-path ./dist",
-    "build-prod": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./dist/en",
-    "build-prod:nl": "ng build --base-href /nl/ --configuration=production-nl --extract-css --progress --prod --aot --output-path ./dist/nl",
-    "build-prod:de": "ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ./dist/de",
-    "build-prod:fr": "ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ./dist/fr",
-    "build-map": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./map --stats-json --source-map"
+    "build-prod": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./dist/en;cd dist/en; gzip --keep *.js *.json *.css",
+    "build-prod:nl": "ng build --base-href /nl/ --configuration=production-nl --extract-css --progress --prod --aot --output-path ./dist/nl;cd dist/nl; gzip --keep *.js *.json *.css",
+    "build-prod:de": "ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ./dist/de;cd dist/de; gzip --keep *.js *.json *.css",
+    "build-prod:fr": "ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ./dist/fr;cd dist/fr; gzip --keep *.js *.json *.css",
+    "build-map": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./map --stats-json --source-map",
+    "zip": "mkdir ../dist; cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
+    "dist": "run-s build-prod build-prod:nl build-prod:de build-prod:fr zip"
   },
   "private": true,
   "dependencies": {
@@ -68,6 +69,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.5",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "npm-run-all": "^4.1.5",
     "protractor": "~5.4.2",
     "svg-inline-loader": "^0.8.0",
     "ts-node": "~8.0.3",
