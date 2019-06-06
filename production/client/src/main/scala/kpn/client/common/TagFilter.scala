@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: interpreted-tags.ts
 package kpn.client.common
 
 import kpn.shared.data.Tag

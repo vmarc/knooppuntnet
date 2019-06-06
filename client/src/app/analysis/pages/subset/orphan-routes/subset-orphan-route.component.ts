@@ -1,4 +1,6 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
+import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
+import {Tags} from "../../../../kpn/shared/data/tags";
 
 @Component({
   selector: "kpn-subset-orphan-route",
@@ -23,19 +25,19 @@ import {Component, Input} from "@angular/core";
       <josm-relation relationId="{{route.id}}"></josm-relation>
     </p>
 
-    <p *ngIf="extraTags()">
+    <p *ngIf="!extraTags.isEmpty()">
       <span>Extra tags:</span>
-      <tags [tags]="extraTags()"></tags>
+      <kpn-tags-table [tags]="extraTags"></kpn-tags-table>
     </p>
   `
 })
-export class SubsetOrphanRouteComponent {
+export class SubsetOrphanRouteComponent implements OnInit {
 
   @Input() route;
+  extraTags: InterpretedTags;
 
-  extraTags() {
-    // TODO Tags(RouteTagFilter(route).extraTags)
-    return this.route.tags;
+  ngOnInit(): void {
+    this.extraTags = InterpretedTags.all(new Tags(InterpretedTags.routeTags(this.route.tags).extraTags()));
   }
 
 }

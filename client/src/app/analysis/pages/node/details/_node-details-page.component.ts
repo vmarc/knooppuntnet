@@ -35,7 +35,7 @@ import {NodeDetailsPage} from "../../../../kpn/shared/node/node-details-page";
         </kpn-data>
 
         <kpn-data title="Tags" i18n-title="@@node.tags">
-          <tags [tags]="nodeInfo.tags"></tags>
+          <kpn-tags-table [tags]="tags"></kpn-tags-table>
         </kpn-data>
 
         <kpn-data title="Networks" i18n-title="@@node.networks">
@@ -58,8 +58,6 @@ import {NodeDetailsPage} from "../../../../kpn/shared/node/node-details-page";
           )
         -->
 
-        <kpn-link-login></kpn-link-login>
-
         <json [object]="response"></json>
       </div>
     </div>
@@ -71,6 +69,7 @@ export class NodePageComponent implements OnInit, OnDestroy {
 
   nodeId: string;
   response: ApiResponse<NodeDetailsPage>;
+  tags: InterpretedTags;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -83,6 +82,7 @@ export class NodePageComponent implements OnInit, OnDestroy {
       this.nodeId = params["nodeId"];
       this.subscriptions.add(this.appService.nodeDetails(this.nodeId).subscribe(response => {
         this.response = response;
+        this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
       }));
     }));
   }

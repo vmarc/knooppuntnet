@@ -61,7 +61,8 @@ import {SidebarSubItemComponent} from "./sidebar/sidebar-sub-item.component";
 import {SidebarVersionWarningComponent} from "./sidebar/sidebar-version-warning.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {SubsetNameComponent} from "./subset-name.component";
-import {TagsComponent} from "./tags/tags.component";
+import {TagsTableComponent} from "./tags/tags-table.component";
+import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
@@ -122,7 +123,8 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     TimestampComponent,
     SituationOnComponent,
     JsonComponent,
-    TagsComponent,
+    TagsTableComponent,
+    TagsTextComponent,
     DataComponent,
     PageFooterComponent,
     ToolbarComponent,
@@ -187,7 +189,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     TimestampComponent,
     SituationOnComponent,
     JsonComponent,
-    TagsComponent,
+    TagsTableComponent,
     DataComponent,
     PageFooterComponent,
     ToolbarComponent,

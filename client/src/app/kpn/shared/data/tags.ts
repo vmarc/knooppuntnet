@@ -8,6 +8,10 @@ export class Tags {
     this.tags = tags;
   }
 
+  isEmpty() {
+    return this.tags.isEmpty();
+  }
+
   has(key: string) {
     return this.tags.filter(t => t.key == key).size > 0;
   }
@@ -20,7 +24,15 @@ export class Tags {
     return null;
   }
 
-  public static fromJSON(jsonObject): Tags {
+  tagsWithKey(key: string): List<Tag> {
+    return this.tags.filter(t => t.key == key);
+  }
+
+  static fromArray(array: Array<Array<string>>): Tags {
+    return new Tags(List(array.map(row => new Tag(row[0], row[1]))));
+  }
+
+  static fromJSON(jsonObject): Tags {
     if (!jsonObject) {
       return undefined;
     }

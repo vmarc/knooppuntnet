@@ -5,6 +5,7 @@ import {Tags} from "../../kpn/shared/data/tags";
 import {PoiPage} from "../../kpn/shared/poi-page";
 import {PoiService} from "../../services/poi.service";
 import {Subscriptions} from "../../util/Subscriptions";
+import {InterpretedTags} from "../../components/shared/tags/interpreted-tags";
 
 @Component({
   selector: "kpn-poi-detail",
@@ -39,13 +40,12 @@ import {Subscriptions} from "../../util/Subscriptions";
       <josm-link kind="{{poiId.elementType}}" id="{{poiId.elementId}}" title="edit"></josm-link>
 
       <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()">
-        <tags [tags]="poiPage.mainTags"></tags>
+        <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
       </div>
 
       <div *ngIf="poiPage.extraTags && !poiPage.extraTags.tags.isEmpty()">
-        <tags [tags]="poiPage.extraTags"></tags>
+        <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
       </div>
-
 
       <br/>
       <br/>
@@ -98,4 +98,13 @@ export class PoiDetailComponent {
     const layer = this.poiPage.layers.get(0);
     return this.poiService.name(layer);
   }
+
+  mainTags(): InterpretedTags {
+    return InterpretedTags.all(this.poiPage.mainTags);
+  }
+
+  extraTags(): InterpretedTags {
+    return InterpretedTags.all(this.poiPage.extraTags);
+  }
+
 }

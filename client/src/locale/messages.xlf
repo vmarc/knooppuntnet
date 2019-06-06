@@ -13,6 +13,10 @@
           <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -41,6 +45,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
@@ -154,6 +166,31 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/timestamp/situation-on.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.no-tags" datatype="html">
+        <source>No tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/tags/tags-table.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/tags/tags-text.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.key" datatype="html">
+        <source>Key</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/tags/tags-table.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.value" datatype="html">
+        <source>Value</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/tags/tags-table.component.ts</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.home" datatype="html">

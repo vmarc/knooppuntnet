@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {NetworkType} from "../../../kpn/shared/network-type";
-import {NodePage} from "../../../kpn/shared/node/node-page";
+import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
 
 @Component({
   selector: "kpn-map-detail-node",
@@ -45,7 +45,7 @@ export class MapDetailNodeComponent implements OnChanges {
   @Input() nodeName: string;
   @Input() networkType: NetworkType;
 
-  response: ApiResponse<NodePage>;
+  response: ApiResponse<NodeDetailsPage>;
 
   constructor(private appService: AppService) {
   }
@@ -53,7 +53,7 @@ export class MapDetailNodeComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes["nodeId"]) {
       this.response = null;
-      this.appService.node("" + this.nodeId).subscribe(response => {
+      this.appService.nodeDetails(this.nodeId).subscribe(response => {
         this.response = response;
       });
     }

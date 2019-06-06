@@ -1,5 +1,7 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {NodeInfo} from "../../../../kpn/shared/node-info";
+import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
+import {Tags} from "../../../../kpn/shared/data/tags";
 
 @Component({
   selector: "kpn-subset-orphan-node",
@@ -10,9 +12,9 @@ import {NodeInfo} from "../../../../kpn/shared/node-info";
     <p>
       <kpn-timestamp [timestamp]="node.lastUpdated"></kpn-timestamp>
     </p>
-    <p *ngIf="extraTags()">
+    <p *ngIf="!extraTags.isEmpty()">
       <span>Extra tags:</span>
-      <tags [tags]="extraTags()"></tags>
+      <kpn-tags-table [tags]="extraTags"></kpn-tags-table>
     </p>
     <p>
       <osm-link-node nodeId="{{node.id}}"></osm-link-node>
@@ -20,13 +22,13 @@ import {NodeInfo} from "../../../../kpn/shared/node-info";
     </p>
   `
 })
-export class SubsetOrphanNodeComponent {
+export class SubsetOrphanNodeComponent implements OnInit {
 
   @Input() node: NodeInfo;
+  extraTags: InterpretedTags;
 
-  extraTags() {
-    // TODO Tags(RouteTagFilter(route).extraTags)
-    return this.node.tags;
+  ngOnInit(): void {
+    this.extraTags = InterpretedTags.all(new Tags(InterpretedTags.nodeTags(this.node.tags).extraTags()));
   }
 
 }

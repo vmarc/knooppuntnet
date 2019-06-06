@@ -9,6 +9,7 @@ import {NetworkDetailsPage} from "../../../../kpn/shared/network/network-details
 import {Subset} from "../../../../kpn/shared/subset";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
 
 @Component({
   selector: "kpn-network-details-page",
@@ -54,7 +55,7 @@ import {Subscriptions} from "../../../../util/Subscriptions";
         </kpn-data>
 
         <kpn-data title="Tags">
-          <tags [tags]="response.result.tags"></tags>
+          <kpn-tags-table [tags]="tags"></kpn-tags-table>
         </kpn-data>
       </div>
     </div>
@@ -71,6 +72,7 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
   networkId: string;
 
   response: ApiResponse<NetworkDetailsPage>;
+  tags: InterpretedTags;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -89,6 +91,7 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
       this.pageService.subset = this.subset;
       this.subscriptions.add(this.appService.networkDetails(this.networkId).subscribe(response => {
         this.response = response;
+        this.tags = InterpretedTags.networkTags(this.response.result.tags);
         this.networkCacheService.setNetworkName(this.networkId, response.result.networkSummary.name);
         this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
         this.networkCacheService.updatePageTitle("details", this.networkId);

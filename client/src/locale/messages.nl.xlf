@@ -14,6 +14,10 @@
           <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -44,6 +48,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
