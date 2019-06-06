@@ -1,0 +1,23 @@
+<div class="information-container" *ngIf="poiInformation">
+  <div class="title">
+    <h4>{{ "POI-INFORMATION.TITLE" | translate }} : {{poiInformation.name || poiInformation.layer ||
+      "POI-INFORMATION.UNKNOWN" | translate }}</h4>
+  </div>
+  <div class="address" *ngIf="poiInformation.address">
+    <h5>
+      {{ "POI-INFORMATION.ADDRESS" | translate }} :
+      {{poiInformation.address?.street}} {{poiInformation.address?.housenumber}} {{poiInformation.address?.postcode}}
+      {{poiInformation.address?.city}} {{poiInformation.address?.country}}
+    </h5>
+  </div>
+  <div class="website" *ngIf="poiInformation.website">
+    <h5>
+      {{ "POI-INFORMATION.WEBSITE" | translate }} : <a href="{{poiInformation.website}}" target="_blank">{{poiInformation.website}}</a>
+    </h5>
+  </div>
+  <div class="image" *ngIf="poiInformation.image">
+    <img src="{{poiInformation.image}}" width="inherit" height="60px"
+         alt="{{ 'POI-INFORMATION.PIC_FAILED' | translate }}">
+  </div>
+</div>
+

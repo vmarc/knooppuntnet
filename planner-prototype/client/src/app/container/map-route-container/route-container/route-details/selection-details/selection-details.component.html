@@ -1,0 +1,10 @@
+<div class="section-details">
+  <div *ngFor="let section of sections">
+    <div *ngIf="section" class="section-display">
+      <div class="start-from">
+        <h5>{{section.startNode}}</h5> ----- <h5>{{section.endNode}}</h5>
+      </div>
+      <h5 class="meters">{{section.meters}}m</h5>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+@import "~src/assets/scss/colors.scss";
+
+@mixin size-flag {
+  width: 34px;
+  height: 26px;
+}
+
+.header_style{
+  display: flex;
+  align-items: center;
+
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: 100%;
+  width: 100%;
+
+  background-image: linear-gradient(to right, $color-green, $color-white);
+}
+
+.faq-button {
+  margin-right: 1%;
+}
+
+.languages {
+  width: 100px;
+  display: flex;
+  align-items: center;
+
+  margin-left: 1%;
+}
+
+.languages button {
+  margin-right: 4%;
+}
+
+#en-btn {
+  @include size-flag;
+  background-image: url("../../../assets/images/i18n-flags/en.png");
+}
+
+#nl-btn {
+  @include size-flag;
+  background-image: url("../../../assets/images/i18n-flags/nl.png");
+}

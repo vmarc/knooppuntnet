@@ -1,0 +1,9 @@
+@import "~src/assets/scss/colors.scss";
+
+@mixin back_btn {
+  background-color: $color-white;
+  margin-left: 1%;
+  margin-top: 1%;
+
+  color: $color-black;
+}

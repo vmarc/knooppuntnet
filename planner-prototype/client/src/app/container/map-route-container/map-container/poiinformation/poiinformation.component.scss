@@ -1,0 +1,15 @@
+.information-container {
+  background-color: #66CC66;
+
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  min-height: 60px;
+}
+
+.information-container div {
+  margin-left: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}

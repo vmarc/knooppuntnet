@@ -1,0 +1,31 @@
+@import "~src/assets/scss/colors.scss";
+@import "~src/assets/scss/background.scss";
+@import "~src/assets/scss/buttons.scss";
+
+.faq-page {
+  @include background;
+}
+
+.faq-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  margin-top: 3%;
+
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.btn-back {
+  @include back_btn;
+}
+
+.exp-panel {
+  min-width: 50%;
+  margin-bottom: 3%;
+
+  z-index: 10;
+}

@@ -1,0 +1,26 @@
+@import "~src/assets/scss/colors.scss";
+@import "~src/assets/scss/buttons.scss";
+
+.action {
+  margin-bottom: 1%;
+}
+
+.btn-back {
+  @include back_btn;
+  margin-right: 1%;
+}
+
+.section-details {
+  margin-left: 5%;
+}
+
+.start-from h3 {
+  display: contents;
+  color: $color-black;
+}
+
+.meters {
+  display: inline;
+  margin-left: 3%;
+  color: $color-black;
+}

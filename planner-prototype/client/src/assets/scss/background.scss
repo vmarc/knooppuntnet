@@ -1,0 +1,20 @@
+@import "~src/assets/scss/colors.scss";
+
+@mixin background {
+  height: 90vh;
+  position: relative;
+  background-color: $color-dark-green;
+  margin-top: 1%;
+  border-radius: 15px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    z-index: 1;
+    width: 100%;
+    height: 200px;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' preserveAspectRatio='none'%3E%3Cpath d='M0%2C343c0%2C0 191.266%2C-188.125 400%2C0c208.734%2C188.125 370.649%2C52.478 400%2C0c0.477%2C1.24 0%2C257 0%2C257l-800%2C0l0%2C-257Z' style='fill:%23fff%3B'/%3E%3C/svg%3E");
+  }
+}
