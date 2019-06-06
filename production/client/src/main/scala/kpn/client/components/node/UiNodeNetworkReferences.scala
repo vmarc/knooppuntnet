@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: node-network-references.component.ts
 package kpn.client.components.node
 
 import japgolly.scalajs.react.ScalaComponent

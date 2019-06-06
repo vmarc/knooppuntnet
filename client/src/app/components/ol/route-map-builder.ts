@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import Color from "ol";
+import Color from "ol/color";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
 import Layer from "ol/layer";

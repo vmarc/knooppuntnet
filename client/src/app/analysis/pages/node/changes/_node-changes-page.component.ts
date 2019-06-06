@@ -21,7 +21,7 @@ import {NodeChangesPage} from "../../../../kpn/shared/node/node-changes-page";
     </div>
 
     <div *ngIf="response?.result">
-      <div *ngIf="!response.result">
+      <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
       </div>
       <div *ngIf="response.result">

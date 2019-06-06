@@ -111,9 +111,9 @@ import {NodeChangesPageComponent} from "./pages/node/changes/_node-changes-page.
 import {NodeChangeDetailComponent} from "./pages/node/changes/node-change-detail.component";
 import {NodeChangeComponent} from "./pages/node/changes/node-change.component";
 import {NodePageHeaderComponent} from "./pages/node/components/node-page-header.component";
-import {NodePageComponent} from "./pages/node/details/_node-page.component";
-import {NodeNetworksComponent} from "./pages/node/details/node-networks.component";
-import {NodeRoutesComponent} from "./pages/node/details/node-routes.component";
+import {NodeDetailsPageComponent} from "./pages/node/details/_node-details-page.component";
+import {NodeNetworkReferencesComponent} from "./pages/node/details/node-network-references.component";
+import {NodeOrphanRouteReferencesComponent} from "./pages/node/details/node-orphan-route-references.component";
 import {NodeSummaryComponent} from "./pages/node/details/node-summary.component";
 import {NodeMapPageComponent} from "./pages/node/map/_node-map-page.component";
 import {OverviewPageComponent} from "./pages/overview/_overview-page.component";
@@ -150,6 +150,8 @@ import {SubsetOrphanNodesTableComponent} from "./pages/subset/orphan-nodes/subse
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset/orphan-routes/_subset-orphan-routes-page.component";
 import {SubsetOrphanRouteComponent} from "./pages/subset/orphan-routes/subset-orphan-route.component";
 import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/subset-orphan-routes-table.component";
+import {NodeNetworkReferenceComponent} from "./pages/node/details/node-network-reference.component";
+import {NodeNetworkReferenceStatementComponent} from "./pages/node/details/node-network-reference-statement.component";
 
 @NgModule({
   imports: [
@@ -196,12 +198,14 @@ import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/sub
     NetworkNodeAnalysisComponent,
     NetworkNodeRoutesComponent,
     NetworkRoutesPageComponent,
-    NodePageComponent,
+    NodeDetailsPageComponent,
     NodeChangeComponent,
     NodeChangeDetailComponent,
     NodeSummaryComponent,
-    NodeNetworksComponent,
-    NodeRoutesComponent,
+    NodeNetworkReferencesComponent,
+    NodeNetworkReferenceComponent,
+    NodeNetworkReferenceStatementComponent,
+    NodeOrphanRouteReferencesComponent,
     NodeChangesPageComponent,
     NodeMapPageComponent,
     NodePageHeaderComponent,

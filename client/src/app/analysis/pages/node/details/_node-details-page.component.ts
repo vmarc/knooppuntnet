@@ -5,15 +5,17 @@ import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {NodeDetailsPage} from "../../../../kpn/shared/node/node-details-page";
+import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
+import {Facts} from "../../../fact/facts";
 
 @Component({
-  selector: "kpn-node-page",
+  selector: "kpn-node-details-page",
   template: `
 
     <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node'"></kpn-node-page-header>
 
     <div *ngIf="response?.result">
-      <div *ngIf="!response.result">
+      <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
       </div>
       <div *ngIf="response.result">
@@ -39,15 +41,25 @@ import {NodeDetailsPage} from "../../../../kpn/shared/node/node-details-page";
         </kpn-data>
 
         <kpn-data title="Networks" i18n-title="@@node.networks">
-          <node-networks [networkReferences]="references.networkReferences"></node-networks>
+          <kpn-node-network-references [nodeInfo]="nodeInfo" [references]="references.networkReferences"></kpn-node-network-references>
         </kpn-data>
 
-        <kpn-data title="Routes" i18n-title="@@node.routes">
-          <node-routes [routes]="references.routeReferences"></node-routes>
+        <kpn-data title="Orphan routes" i18n-title="@@node.orphan-routes">
+          <kpn-node-orphan-route-references [references]="references.routeReferences"></kpn-node-orphan-route-references>
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.feiten">
-          TODO UiFacts(page.nodeInfo.facts)
+          <div *ngFor="let fact of nodeInfo.facts">
+
+            <p>
+              <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
+              {{factLevel(fact.name)}}
+            </p>
+            <p>
+              <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
+            </p>
+            
+          </div>
         </kpn-data>
 
         <!--
@@ -63,7 +75,7 @@ import {NodeDetailsPage} from "../../../../kpn/shared/node/node-details-page";
     </div>
   `
 })
-export class NodePageComponent implements OnInit, OnDestroy {
+export class NodeDetailsPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
@@ -97,6 +109,10 @@ export class NodePageComponent implements OnInit, OnDestroy {
 
   get references() {
     return this.response.result.references;
+  }
+
+  factLevel(factName: string): string {
+    return Facts.factLevels.get(factName, "unknown");
   }
 
 }

@@ -1,14 +1,16 @@
+@import "../../../../variables";
+
 .data {
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  @media (max-width: $small-max-width) {
     padding-bottom: 20px;
   }
-  @media (min-width: 769px) {
+  @media (min-width: $medium-min-width) {
     margin-bottom: 35px;
   }
 }
 
 .title {
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  @media (max-width: $small-max-width) {
     overflow: hidden;
     text-overflow: "ellipsis";
     white-space: nowrap;
@@ -22,7 +24,7 @@
     border-bottom-style: solid;
     border-bottom-color: lightgray;
   }
-  @media (min-width: 769px) {
+  @media (min-width: $medium-min-width) {
     float: left;
     width: 160px;
     overflow: hidden;
@@ -31,17 +33,17 @@
     white-space: nowrap;
     color: black;
   }
-
 }
 
 .body {
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  min-height: 1px;
+  @media (max-width: $small-max-width) {
     margin-top: 15px;
     margin-left: 15px;
     margin-right: 15px;
     margin-bottom: 15px;
   }
-  @media (min-width: 769px) {
+  @media (min-width: $medium-min-width) {
     margin-left: 180px;
   }
 }

@@ -2,11 +2,11 @@ import {Component, Input} from "@angular/core";
 import {Reference} from "../../../kpn/shared/common/reference";
 
 @Component({
-  selector: "icon-route-link",
+  selector: "kpn-icon-route-link",
   template: `
-    <icon-link [reference]="route" [url]="'/analysis/route/' + route.id"></icon-link>
+    <kpn-icon-link [reference]="reference" [url]="'/analysis/route/' + reference.id"></kpn-icon-link>
   `
 })
 export class IconRouteLinkComponent {
-  @Input() route: Reference;
+  @Input() reference: Reference;
 }

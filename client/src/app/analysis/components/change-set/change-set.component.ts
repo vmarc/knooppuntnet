@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {ChangeSetNetwork} from "../../../kpn/shared/change-set-network";
 import {ChangeSetSummaryInfo} from "../../../kpn/shared/change-set-summary-info";
@@ -36,10 +36,9 @@ import {ChangeSetNetworkAction} from "./components/change-set-network.component"
       margin-top: 5px;
       margin-bottom: 5px;
     }
-
   `]
 })
-export class ChangesSetComponent {
+export class ChangesSetComponent implements OnInit {
 
   @Input() changeSet: ChangeSetSummaryInfo;
   networkActions: List<ChangeSetNetworkAction>;

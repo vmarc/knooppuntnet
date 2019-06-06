@@ -41,7 +41,7 @@ import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
 })
 export class MapDetailNodeComponent implements OnChanges {
 
-  @Input() nodeId: number;
+  @Input() nodeId: string;
   @Input() nodeName: string;
   @Input() networkType: NetworkType;
 

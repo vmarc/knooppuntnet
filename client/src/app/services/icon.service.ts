@@ -34,6 +34,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("overview", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/spreadsheet.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("link", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/link.svg")));
   }
 
   private registerNetworkTypeIcons() {
