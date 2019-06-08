@@ -6,7 +6,6 @@ import {TranslateService} from "@ngx-translate/core";
 import {catchError} from "rxjs/operators";
 import {EMPTY} from "rxjs";
 
-
 @Injectable()
 export class PdfResolver implements Resolve<any> {
 

@@ -8,7 +8,7 @@ import Feature from "ol/Feature";
 export function createWalkingPngLayer() {
   return new TileLayer({
     source: new XYZ({url: "/tiles/hiking/{z}/{x}/{y}.png"}),
-  })
+  });
 }
 
 export function createWalkingMvtLayer() {
@@ -19,5 +19,5 @@ export function createWalkingMvtLayer() {
     }),
     renderMode: "image",
     zIndex: 25
-  })
+  });
 }

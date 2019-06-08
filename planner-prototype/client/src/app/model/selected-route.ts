@@ -18,8 +18,8 @@ export class SelectedRoute {
   }
 
   replaceNode(draggedNode: Feature, droppedNode: Feature) {
-    let indexDropped = this.selectedNodesByUser.indexOf(+droppedNode.values_.id);
-    let indexDragged = this.selectedNodesByUser.indexOf(+draggedNode.values_.id);
+    const indexDropped = this.selectedNodesByUser.indexOf(+droppedNode.values_.id);
+    const indexDragged = this.selectedNodesByUser.indexOf(+draggedNode.values_.id);
 
     if (indexDragged > -1 && indexDropped < 0) {
       this.selectedNodesByUser[indexDragged] = +droppedNode.values_.id;

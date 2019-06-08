@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {MatRadioChange} from "@angular/material";
 import {Route, RouteState} from "../../../model/";
-import {NetworkService, RouteDetailsService} from "../../../service"
+import {NetworkService, RouteDetailsService} from "../../../service";
 
 @Component({
   selector: "app-route-container",
@@ -10,7 +10,7 @@ import {NetworkService, RouteDetailsService} from "../../../service"
 })
 export class RouteContainerComponent implements OnInit {
 
-  showHelp: boolean = false;
+  showHelp = false;
   routeState: RouteState;
   currentRoute: Route;
   currentRouteType: string;
@@ -34,7 +34,7 @@ export class RouteContainerComponent implements OnInit {
   }
 
   clearRoute() {
-    this.routeDetailsService.clearRoute()
+    this.routeDetailsService.clearRoute();
   }
 
   toggleHelp() {

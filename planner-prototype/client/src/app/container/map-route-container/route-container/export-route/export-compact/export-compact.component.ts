@@ -23,11 +23,11 @@ export class ExportCompactComponent implements OnInit {
   }
 
   createPdf() {
-    let source = window.document.getElementById("exportable");
+    const source = window.document.getElementById("exportable");
 
     html2canvas(source).then(canvas => {
-      let img = canvas.toDataURL("image/png");
-      let doc = new jsPDF();
+      const img = canvas.toDataURL("image/png");
+      const doc = new jsPDF();
       doc.addImage(img, "JPEG", 0, 0, "", "", "", "FAST");
       doc.save("compact.pdf");
     });

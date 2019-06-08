@@ -16,7 +16,7 @@ export class RouteService {
   }
 
   getCyclingNodesFromMultiline(routeId: string, latestNodeId: number): Observable<SelectedRoute> {
-    return this.http.get<SelectedRoute>(`/api/planner/cycling/${routeId}/${latestNodeId}`)
+    return this.http.get<SelectedRoute>(`/api/planner/cycling/${routeId}/${latestNodeId}`);
   }
 
   calculateHikingRoute(selected: SelectedRoute): Observable<Route> {
@@ -24,6 +24,6 @@ export class RouteService {
   }
 
   getHikingNodesFromMultiline(routeId: string, latestNodeId: number): Observable<SelectedRoute> {
-    return this.http.get<SelectedRoute>(`/api/planner/hiking/${routeId}/${latestNodeId}`)
+    return this.http.get<SelectedRoute>(`/api/planner/hiking/${routeId}/${latestNodeId}`);
   }
 }

@@ -9,7 +9,7 @@ import {ToastrService} from "ngx-toastr";
 import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
 import {PoiInformation, RouteState} from "../../../model";
-import {NetworkService, PoiService, RouteDetailsService, RouteService, RouteStateService} from "../../../service"
+import {NetworkService, PoiService, RouteDetailsService, RouteService, RouteStateService} from "../../../service";
 import {
   buildVectorSource,
   convertPoiToPoiInformation,
@@ -24,7 +24,7 @@ import {
   MapState,
   MapStyling,
   PoiLayer
-} from "./domain"
+} from "./domain";
 
 @Component({
   selector: "app-map-container",
@@ -130,7 +130,7 @@ export class MapContainerComponent implements OnInit {
     this.initializeMoveInteraction();
     this.map.addInteraction(this.moveInteraction);
 
-    let drag = new PointerInteraction({
+    const drag = new PointerInteraction({
       handleDownEvent: evt => {
         let dragEnabled = false;
 
@@ -154,7 +154,7 @@ export class MapContainerComponent implements OnInit {
 
         evt.map.forEachFeatureAtPixel(evt.pixel, feature => {
           if (this.draggedNode !== null && feature.values_.layer === "node") {
-            this.handleNodeClick(feature)
+            this.handleNodeClick(feature);
           }
         });
         return false;
@@ -167,7 +167,6 @@ export class MapContainerComponent implements OnInit {
     this.moveInteraction.on("select", (e) => {
       if (e.selected[0] !== undefined && e.selected[0].values_.layer === "node") {
         new MapMoveHandler(this.map, this.mapState).handle(e);
-        //this.styleFeatures(e.selected);
       }
     });
   }
@@ -175,7 +174,6 @@ export class MapContainerComponent implements OnInit {
   private resetRouteState(routeState: RouteState) {
     this.resetStyle();
     this.routeState = routeState;
-
     if (this.routeState.selectedRoute.selectedNodesByUser.length >= 2) {
       this.calculateRoute();
     }
@@ -188,7 +186,7 @@ export class MapContainerComponent implements OnInit {
 
   private getCurrentPosition() {
     navigator.geolocation.getCurrentPosition((pos) => {
-      let coords = fromLonLat([pos.coords.longitude, pos.coords.latitude]);
+      const coords = fromLonLat([pos.coords.longitude, pos.coords.latitude]);
       this.map.getView().animate({center: coords, zoom: 10});
     });
   }
@@ -214,7 +212,7 @@ export class MapContainerComponent implements OnInit {
       this.calculateRoute();
     } else {
       this.routeDetailsService.displayRoute(null);
-      this.styleFeatures(this.routeState.selectedFeatures)
+      this.styleFeatures(this.routeState.selectedFeatures);
     }
 
     this.draggedNode = null;

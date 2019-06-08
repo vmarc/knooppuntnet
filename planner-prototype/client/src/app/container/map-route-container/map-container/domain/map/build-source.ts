@@ -15,7 +15,8 @@ const style = new Style({
 });
 
 export function buildVectorSource(sections: Section[], features: Feature[]): VectorSource {
-  let featureArray = [];
+
+  const featureArray = [];
 
   sections.forEach((value: Section) => {
     const routeCoordinates = value.coordinates.map(c => fromLonLat([+c.lon, +c.lat]));
@@ -28,12 +29,12 @@ export function buildVectorSource(sections: Section[], features: Feature[]): Vec
   });
 
   features.forEach(f => {
-    let feature = f.clone();
+    const feature = f.clone();
     feature.setStyle(MapNodeStyling.selectedNodeStyle(f.values_.name));
     featureArray.push(feature);
   });
 
   return new VectorSource({
     features: featureArray
-  })
+  });
 }

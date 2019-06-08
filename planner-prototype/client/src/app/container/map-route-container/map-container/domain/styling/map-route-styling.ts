@@ -40,9 +40,9 @@ export class MapRouteStyling {
       this.defaultRouteStyle.getStroke().setWidth(2);
     } else {
       if (this.mapState.highlightedRouteId && feature.get("id").startsWith(this.mapState.highlightedRouteId)) {
-        this.defaultRouteStyle.getStroke().setWidth(8)
+        this.defaultRouteStyle.getStroke().setWidth(8);
       } else {
-        this.defaultRouteStyle.getStroke().setWidth(4)
+        this.defaultRouteStyle.getStroke().setWidth(4);
       }
     }
     return this.defaultRouteStyle;
@@ -69,15 +69,15 @@ export class MapRouteStyling {
   private routeColor(layer: string, surface: string, enabled: boolean) {
     let color = MapStylingColors.gray;
     if (enabled) {
-      if ("route" == layer && "unpaved" === surface) {
+      if ("route" === layer && "unpaved" === surface) {
         color = MapStylingColors.gray;
-      } else if ("route" == layer && "paved" === surface) {
+      } else if ("route" === layer && "paved" === surface) {
         color = MapStylingColors.green;
-      } else if ("orphan-route" == layer) {
+      } else if ("orphan-route" === layer) {
         color = MapStylingColors.darkGreen;
-      } else if ("incomplete-route" == layer) {
+      } else if ("incomplete-route" === layer) {
         color = MapStylingColors.red;
-      } else if ("error-route" == layer) {
+      } else if ("error-route" === layer) {
         color = MapStylingColors.black;
       }
     }

@@ -14,7 +14,7 @@ export class PoiStyle {
   hotelStyleMap: Map<string, Style> = new Map<string, Style>();
 
   constructor() {
-    this.initMaps()
+    this.initMaps();
   }
 
   private initMaps() {

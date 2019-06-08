@@ -35,7 +35,7 @@ export class MapNodeStyling {
 
   private determineNodeSelectedStyle(featureId: string, large: boolean): Style {
     let style = null;
-    if (this.mapState.selectedNodeId && featureId && featureId == this.mapState.selectedNodeId) {
+    if (this.mapState.selectedNodeId && featureId && featureId === this.mapState.selectedNodeId) {
       if (large) {
         style = this.largeNodeSelectedStyle;
       } else {
@@ -62,7 +62,7 @@ export class MapNodeStyling {
     this.largeNodeStyle.getText().setText(feature.get("name"));
     this.largeNodeStyle.getImage().getStroke().setColor(color);
 
-    if (this.mapState.highlightedNodeId && feature.get("id") == this.mapState.highlightedNodeId) {
+    if (this.mapState.highlightedNodeId && feature.get("id") === this.mapState.highlightedNodeId) {
       this.largeNodeStyle.getImage().getStroke().setWidth(5);
       this.largeNodeStyle.getImage().setRadius(16);
     } else {
@@ -109,11 +109,11 @@ export class MapNodeStyling {
           width: 5
         })
       })
-    })
+    });
   }
 
   private determineSmallNodeStyle(layer: string, enabled: boolean): Style {
-    let color = this.nodeColor(layer, enabled);
+    const color = this.nodeColor(layer, enabled);
     this.smallNodeStyle.getImage().getStroke().setColor(color);
     return this.smallNodeStyle;
   }
@@ -132,11 +132,11 @@ export class MapNodeStyling {
   private nodeColor(layer: string, enabled: boolean) {
     let nodeColor = MapStylingColors.gray;
     if (enabled) {
-      if ("error-node" == layer) {
+      if ("error-node" === layer) {
         nodeColor = MapStylingColors.blue;
-      } else if ("orphan-node" == layer) {
+      } else if ("orphan-node" === layer) {
         nodeColor = MapStylingColors.darkGreen;
-      } else if ("error-orphan-node" == layer) {
+      } else if ("error-orphan-node" === layer) {
         nodeColor = MapStylingColors.darkBlue;
       } else {
         nodeColor = MapStylingColors.green;
@@ -167,7 +167,7 @@ export class MapNodeStyling {
           width: 5
         })
       })
-    })
+    });
   }
 
 }

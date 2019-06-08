@@ -6,7 +6,7 @@ import {RouteState} from "../model";
 })
 export class RouteStateService {
 
-  saveState: boolean = false;
+  saveState = false;
   routeStates: RouteState[] = [];
 
   constructor() {
@@ -25,7 +25,7 @@ export class RouteStateService {
       });
 
       routeState.selectedFeatures.forEach(f => {
-        let feature = f.clone();
+        const feature = f.clone();
         newState.selectedFeatures.push(feature);
       });
 

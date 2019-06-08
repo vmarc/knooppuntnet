@@ -16,8 +16,8 @@ export class RouteState {
   }
 
   replaceFeature(draggedNode: Feature, droppedNode: Feature) {
-    let indexDropped = this.selectedFeatures.findIndex(f => f.values_.id === droppedNode.values_.id);
-    let indexDragged = this.selectedFeatures.findIndex(f => f.values_.id === draggedNode.values_.id);
+    const indexDropped = this.selectedFeatures.findIndex(f => f.values_.id === droppedNode.values_.id);
+    const indexDragged = this.selectedFeatures.findIndex(f => f.values_.id === draggedNode.values_.id);
 
     this.selectedRoute.replaceNode(draggedNode, droppedNode);
 

@@ -14,14 +14,14 @@ export class MapMoveHandler {
 
   private updateCursor(e) {
     if (e.selected.length > 0) {
-      this.map.getTargetElement().setAttribute("style", "cursor: pointer")
+      this.map.getTargetElement().setAttribute("style", "cursor: pointer");
     } else {
-      this.map.getTargetElement().setAttribute("style", "cursor: default")
+      this.map.getTargetElement().setAttribute("style", "cursor: default");
     }
   }
 
   private handleDeselectedFeatures(features: Feature[]) {
-    for (let feature of features) {
+    for (const feature of features) {
       const layer = feature.values_.layer;
 
       if (layer !== undefined) {
@@ -35,7 +35,7 @@ export class MapMoveHandler {
   }
 
   private handleSelectedFeatures(features: Feature[]) {
-    for (let feature of features) {
+    for (const feature of features) {
       const layer = feature.values_.layer;
       const id = feature.values_.id;
 

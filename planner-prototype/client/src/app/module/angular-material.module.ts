@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {MatButtonModule, MatExpansionModule, MatIconModule, MatRadioModule, MatTableModule, MatTooltipModule,} from "@angular/material";
+import {MatButtonModule, MatExpansionModule, MatIconModule, MatRadioModule, MatTableModule, MatTooltipModule} from "@angular/material";
 
 @NgModule({
   imports: [

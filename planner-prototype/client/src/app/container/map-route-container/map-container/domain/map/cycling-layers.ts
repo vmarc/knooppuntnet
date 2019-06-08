@@ -8,7 +8,7 @@ import Feature from "ol/Feature";
 export function createCyclingPngLayer() {
   return new TileLayer({
     source: new XYZ({url: "/tiles/cycling/{z}/{x}/{y}.png"}),
-  })
+  });
 }
 
 export function createCyclingMvtLayer() {
@@ -21,5 +21,5 @@ export function createCyclingMvtLayer() {
     }),
     renderMode: "image",
     zIndex: 25
-  })
+  });
 }

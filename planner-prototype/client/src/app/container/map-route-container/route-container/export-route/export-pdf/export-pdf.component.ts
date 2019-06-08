@@ -30,10 +30,10 @@ export class ExportPdfComponent implements OnInit {
     let source = window.document.getElementById("exportable");
 
     html2canvas(source, {logging: false}).then(canvas => {
-      let imgData = canvas.toDataURL("image/png");
+      const imgData = canvas.toDataURL("image/png");
       const imgWidth = 210;
       const pageHeight = 295;
-      console.log(canvas)
+      console.log(canvas);
       const imgHeight = canvas.height * imgWidth / canvas.width;
       let heightLeft = imgHeight;
 
@@ -50,7 +50,7 @@ export class ExportPdfComponent implements OnInit {
         heightLeft -= pageHeight;
       }
       this.spinner.hide();
-      doc.save("file.pdf");﻿
+      doc.save("file.pdf")﻿;
     });
   }
 

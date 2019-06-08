@@ -21,7 +21,7 @@ export class PoiLayer {
       source: source,
       zIndex: 25,
       style: (feature) => poiStyle.shopStyleMap.get(feature.values_.layer)
-    })
+    });
   }
 
   createCulturalLayer(title: string): VectorTileLayer {
@@ -31,7 +31,7 @@ export class PoiLayer {
       source: source,
       zIndex: 25,
       style: (feature) => poiStyle.culturalStyleMap.get(feature.values_.layer)
-    })
+    });
   }
 
   createPublicLayer(title: string): VectorTileLayer {
@@ -41,7 +41,7 @@ export class PoiLayer {
       source: source,
       zIndex: 25,
       style: (feature) => poiStyle.publicStyleMap.get(feature.values_.layer)
-    })
+    });
   }
 
   createDrinkAndFoodLayer(title: string): VectorTileLayer {
@@ -51,7 +51,7 @@ export class PoiLayer {
       source: source,
       zIndex: 25,
       style: (feature) => poiStyle.foodAndDrinkStyleMap.get(feature.values_.layer)
-    })
+    });
   }
 
   createHotelLayer(title: string): VectorTileLayer {
@@ -61,7 +61,7 @@ export class PoiLayer {
       source: source,
       zIndex: 25,
       style: (feature) => poiStyle.hotelStyleMap.get(feature.values_.layer)
-    })
+    });
   }
 
   createSportLayer(title: string): VectorTileLayer {
@@ -71,6 +71,6 @@ export class PoiLayer {
       source: source,
       zIndex: 25,
       style: (feature) => poiStyle.sportStyleMap.get(feature.values_.layer)
-    })
-  };
+    });
+  }
 }
