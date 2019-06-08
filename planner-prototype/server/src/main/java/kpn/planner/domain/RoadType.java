@@ -1,4 +1,4 @@
-package kpn.planner.util;
+package kpn.planner.domain;
 
 public enum RoadType {
 	cycling("bike"),

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kpn.planner.domain.Route;
 import kpn.planner.domain.pdf.PdfDocument;
 import kpn.planner.service.PdfService;
-import kpn.planner.util.RoadType;
+import kpn.planner.domain.RoadType;
 
 @RestController
 @RequestMapping("/api/pdf")
