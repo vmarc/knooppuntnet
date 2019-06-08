@@ -1,38 +1,34 @@
 package com.knooppuntnet.util;
 
+import java.net.MalformedURLException;
+
 import org.ektorp.CouchDbConnector;
 import org.ektorp.http.HttpClient;
 import org.ektorp.http.StdHttpClient;
 import org.ektorp.impl.StdCouchDbInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
-
+@Component
 public class ConnectorProducer {
-    private static final String URL = "http://xxx:5984/";
-    private static final String USERNAME = "xxx";
-    private static final String PASSWORD = "xxx";
-    private static final String DBNAMEKNOOPPUNT = "ben2";
-	private static final String DBNAMEPOI = "pois";
 
-    public static CouchDbConnector getCouchDbConnectorKnooppunt() {
+	@Autowired
+	private CouchConfiguration couchConfiguration;
+
+	public CouchDbConnector getCouchDbConnectorKnooppunt() {
 		StdCouchDbInstance db = new StdCouchDbInstance(getClient());
-
-		return db.createConnector(DBNAMEKNOOPPUNT, false);
+		return db.createConnector(couchConfiguration.getDbname().getMain(), false);
 	}
 
-	public static CouchDbConnector getCouchDbConnectorPoi() {
+	public CouchDbConnector getCouchDbConnectorPoi() {
 		StdCouchDbInstance db = new StdCouchDbInstance(getClient());
-
-		return db.createConnector(DBNAMEPOI, false);
+		return db.createConnector(couchConfiguration.getDbname().getPois(), false);
 	}
 
-	private static HttpClient getClient() {
+	private HttpClient getClient() {
 		try {
-    	return  new StdHttpClient.Builder()
-				.url(URL)
-//				.username(USERNAME)
-//				.password(PASSWORD)
-				.build();
+			String url = "http://" + couchConfiguration.getHost() + ":" + couchConfiguration.getPort() + "/";
+			return new StdHttpClient.Builder().url(url).username(couchConfiguration.getUser()).password(couchConfiguration.getPassword()).build();
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}

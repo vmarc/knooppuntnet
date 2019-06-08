@@ -1,33 +1,32 @@
 package com.knooppuntnet.service.impl;
 
-import com.knooppuntnet.domain.Route;
-import com.knooppuntnet.domain.Section;
-import com.knooppuntnet.repository.CyclingRepository;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+import com.knooppuntnet.domain.Route;
+import com.knooppuntnet.domain.Section;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner-prototype.properties")
 public class CyclingServiceImplTest {
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
-	private CyclingServiceImpl cyclingService;
 
-	@Before
-	public void setup() {
-		this.cyclingService = new CyclingServiceImpl(new CyclingRepository());
-	}
+	@Autowired
+	private CyclingServiceImpl cyclingService;
 
 	@Test
 	public void testCalculateShortestPath() {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/poi")
+@RequestMapping("/api/poi")
 public class PoiController {
 
 	private final PoiService poiService;

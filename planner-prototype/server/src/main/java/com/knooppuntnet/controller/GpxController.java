@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/gpx")
+@RequestMapping("/api/gpx")
 public class GpxController {
 
 	private final GpxService gpxService;

@@ -1,31 +1,29 @@
 package com.knooppuntnet.service.impl;
 
-import com.knooppuntnet.domain.poi.Poi;
-import com.knooppuntnet.repository.PoiRepository;
+import static org.junit.Assert.assertEquals;
+
 import org.ektorp.DocumentNotFoundException;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import com.knooppuntnet.domain.poi.Poi;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner-prototype.properties")
 public class PoiServiceImplTest {
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
+	@Autowired
 	private PoiServiceImpl poiService;
 
-	@Before
-	public void setup() {
-		this.poiService = new PoiServiceImpl(new PoiRepository() {});
-	}
-
-	//@Test
+	@Test
 	public void testGetPoiInformation() {
 		Poi poi = this.poiService.getPoiInformation("way", "50610511");
 

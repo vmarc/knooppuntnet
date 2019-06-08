@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cycling")
+@RequestMapping("/api/cycling")
 public class CyclingController {
 
 	private final CyclingService cyclingService;

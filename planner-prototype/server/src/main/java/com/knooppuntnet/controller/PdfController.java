@@ -7,7 +7,7 @@ import com.knooppuntnet.util.RoadType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/pdf")
+@RequestMapping("/api/pdf")
 public class PdfController {
 
 	private final PdfService pdfService;
