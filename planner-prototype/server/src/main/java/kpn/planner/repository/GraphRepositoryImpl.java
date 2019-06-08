@@ -6,6 +6,8 @@ import java.util.List;
 import org.ektorp.CouchDbConnector;
 import org.ektorp.ViewQuery;
 import org.ektorp.ViewResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +21,8 @@ import kpn.planner.util.Databases;
 
 @Repository
 public class GraphRepositoryImpl implements GraphRepository {
+
+	private static Logger logger = LoggerFactory.getLogger(GraphRepositoryImpl.class);
 
 	private final CouchDbConnector database;
 
@@ -46,6 +50,8 @@ public class GraphRepositoryImpl implements GraphRepository {
 		query.queryParam("endkey", endkey);
 
 		ViewResult result = database.queryView(query);
+
+		logger.info("Loaded graph edges " + networkType.name() + ": " + result.getSize());
 
 		return parseViewResult(result);
 	}
