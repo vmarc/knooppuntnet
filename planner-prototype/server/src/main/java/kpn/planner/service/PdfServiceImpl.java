@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 
+import kpn.planner.config.GraphHopperConfiguration;
 import kpn.planner.domain.Route;
 import kpn.planner.domain.Section;
 import kpn.planner.domain.pdf.MapMatching;
@@ -27,12 +28,14 @@ import kpn.planner.domain.pdf.SectionInformation;
 @Service
 public class PdfServiceImpl implements PdfService {
 
-	private static final String KEY = "xxx";
-	private static final String VERSION = "https://graphhopper.com/api/1/match?key=" + KEY;
-	private final GpxService gpxService;
+	private static final String URL = "https://graphhopper.com/api/1/match?key=";
 
-	public PdfServiceImpl(GpxService gpxService) {
+	private final GpxService gpxService;
+	private final GraphHopperConfiguration graphHopperConfiguration;
+
+	public PdfServiceImpl(GpxService gpxService, GraphHopperConfiguration graphHopperConfiguration) {
 		this.gpxService = gpxService;
+		this.graphHopperConfiguration = graphHopperConfiguration;
 	}
 
 	public PdfDocument createPdf(String type, String language, Route route) {
@@ -66,7 +69,8 @@ public class PdfServiceImpl implements PdfService {
 
 	private MapMatching getMapMatching(RestTemplate restTemplate, HttpHeaders headers, StringBuilder query, String output) {
 		HttpEntity<String> request = new HttpEntity<>(output, headers);
-		return restTemplate.postForObject(VERSION + query, request, MapMatching.class);
+		String url = URL + graphHopperConfiguration.getApikey() + query;
+		return restTemplate.postForObject(url, request, MapMatching.class);
 	}
 
 	private String getStringOutput(Section section) throws ParserConfigurationException, TransformerException {

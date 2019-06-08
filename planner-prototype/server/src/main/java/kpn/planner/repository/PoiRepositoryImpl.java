@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import kpn.planner.domain.poi.Poi;
 import kpn.planner.domain.poi.PoiElement;
-import kpn.planner.util.Databases;
+import kpn.planner.config.Databases;
 
 @Repository
 public class PoiRepositoryImpl implements PoiRepository {

@@ -1,4 +1,4 @@
-package kpn.planner.util;
+package kpn.planner.config;
 
 import java.net.MalformedURLException;
 

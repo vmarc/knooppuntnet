@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kpn.planner.domain.NetworkType;
 import kpn.planner.domain.document.JsonNodeMapper;
 import kpn.planner.domain.document.RouteDocument;
-import kpn.planner.util.Databases;
+import kpn.planner.config.Databases;
 
 @Repository
 public class GraphRepositoryImpl implements GraphRepository {
