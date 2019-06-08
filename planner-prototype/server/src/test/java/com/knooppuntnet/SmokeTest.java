@@ -1,6 +1,6 @@
 package com.knooppuntnet;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import com.knooppuntnet.controller.HikingController;
 import com.knooppuntnet.controller.PdfController;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner-prototype.properties")
+@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
 public class SmokeTest {
 
 	@Autowired
@@ -31,9 +31,9 @@ public class SmokeTest {
 
 	@Test
 	public void contextLoads() {
-		assertThat(pdfController).isNotNull();
-		assertThat(gpxController).isNotNull();
-		assertThat(cyclingController).isNotNull();
-		assertThat(hikingController).isNotNull();
+		assertNotNull(pdfController);
+		assertNotNull(gpxController);
+		assertNotNull(cyclingController);
+		assertNotNull(hikingController);
 	}
 }

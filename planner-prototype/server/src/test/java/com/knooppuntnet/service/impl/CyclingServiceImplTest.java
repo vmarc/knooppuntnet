@@ -19,7 +19,7 @@ import com.knooppuntnet.domain.Route;
 import com.knooppuntnet.domain.Section;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner-prototype.properties")
+@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
 public class CyclingServiceImplTest {
 
 	@Rule
@@ -31,7 +31,6 @@ public class CyclingServiceImplTest {
 	@Test
 	public void testCalculateShortestPath() {
 		Route route = cyclingService.calculateShortestRoute(Arrays.asList(304735214L, 322765579L));
-
 		assertEquals(304735214L, (long) route.getSections().get(0).getStartNodeId());
 		assertEquals(322765579L, (long) route.getSections().get(route.getSections().size() - 1).getEndNodeId());
 	}
@@ -40,7 +39,6 @@ public class CyclingServiceImplTest {
 	public void testCalculateShortestPathWithWrongArguments() {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("graph must contain the source vertex");
-
 		Route route = cyclingService.calculateShortestRoute(Arrays.asList(0L, 1L));
 	}
 

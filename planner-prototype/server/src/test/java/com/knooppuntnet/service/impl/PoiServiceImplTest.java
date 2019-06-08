@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.knooppuntnet.domain.poi.Poi;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner-prototype.properties")
+@SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
 public class PoiServiceImplTest {
 
 	@Rule
@@ -37,7 +37,6 @@ public class PoiServiceImplTest {
 	@Test
 	public void testGetPoiInformationWithWrongArguments() {
 		expectedException.expect(DocumentNotFoundException.class);
-
 		Poi poi = this.poiService.getPoiInformation("invalid", "50610511");
 	}
 }

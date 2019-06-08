@@ -1,9 +1,9 @@
 package com.knooppuntnet.controller;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.knooppuntnet.domain.Route;
-import com.knooppuntnet.service.GpxService;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,15 +13,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.HttpServletResponse;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.knooppuntnet.domain.Route;
+import com.knooppuntnet.service.GpxService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GpxControllerTest {
@@ -36,8 +32,7 @@ public class GpxControllerTest {
 
 	@Before
 	public void init() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(gpxController)
-				.build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(gpxController).build();
 	}
 
 	@Test
@@ -53,11 +48,7 @@ public class GpxControllerTest {
 			e.printStackTrace();
 		}
 
-		this.mockMvc.perform(post("/gpx")
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(string))
-				.andDo(print())
+		this.mockMvc.perform(post("/api/gpx").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON_VALUE).content(string)).andDo(print())
 				.andExpect(status().isOk());
 	}
 }

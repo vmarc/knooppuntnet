@@ -1,6 +1,9 @@
 package com.knooppuntnet.controller;
 
-import com.knooppuntnet.service.HikingService;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,9 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.knooppuntnet.service.HikingService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HikingControllerTest {
@@ -27,21 +28,16 @@ public class HikingControllerTest {
 
 	@Before
 	public void init() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(hikingController)
-				.build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(hikingController).build();
 	}
 
 	@Test
 	public void testCalculateRouteFromMultiline() throws Exception {
-		this.mockMvc.perform(get("/hiking/10017/48306139"))
-				.andDo(print())
-				.andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/hiking/10017/48306139")).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	public void testCalculateRouteFromMultilineWithNoNodeId() throws Exception {
-		this.mockMvc.perform(get("/hiking/10017/-1"))
-				.andDo(print())
-				.andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/hiking/10017/-1")).andDo(print()).andExpect(status().isOk());
 	}
 }
