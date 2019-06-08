@@ -1,16 +1,16 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {BrowserModule} from "@angular/platform-browser";
+import {NgModule} from "@angular/core";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AppComponent} from './app.component';
-import {AppRoutingModule} from "./module/app-routing.module";
+import {AppComponent} from "./app.component";
+import {AppRoutingModule} from "./app-routing.module";
 import {AngularMaterialModule} from "./module/angular-material.module";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {NgxSpinnerModule} from 'ngx-spinner';
-import {ToastrModule} from 'ngx-toastr';
-import {PdfResolver} from "./resolver/pdf.resolver";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {NgxSpinnerModule} from "ngx-spinner";
+import {ToastrModule} from "ngx-toastr";
+import {PdfResolver} from "./resolver/pdf-resolver";
 import {
   ContainerComponent,
   ExportCompactComponent,
@@ -24,11 +24,10 @@ import {
   RouteContainerComponent,
   RouteDetailsComponent,
   SelectionDetailsComponent
-} from './container';
-
+} from "./container";
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
 @NgModule({
@@ -57,7 +56,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularMaterialModule,
     ToastrModule.forRoot({
       timeOut: 3000,
-      positionClass: 'toast-top-right',
+      positionClass: "toast-top-right",
       preventDuplicates: true,
     }),
     TranslateModule.forRoot({

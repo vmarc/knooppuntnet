@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Route, RouteState} from "../../../../model";
 import {TranslateService} from "@ngx-translate/core";
 import {GpxService, NetworkService, RouteDetailsService, RouteStateService} from "../../../../service";
@@ -7,9 +7,9 @@ import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-export-route',
-  templateUrl: './export-route.component.html',
-  styleUrls: ['./export-route.component.scss']
+  selector: "app-export-route",
+  templateUrl: "./export-route.component.html",
+  styleUrls: ["./export-route.component.scss"]
 })
 export class ExportRouteComponent implements OnInit {
 
@@ -33,7 +33,7 @@ export class ExportRouteComponent implements OnInit {
 
   downloadPDF() {
     if (this.currentRoute && this.routeState.selectedRoute.selectedNodesByUser.length >= 2) {
-      this.router.navigate(['/knooppuntnet/export/pdf']);
+      this.router.navigate(["/knooppuntnet/export/pdf"]);
     } else {
       this.translate.get("NO_ROUTE_SELECTED").subscribe(response => this.toastr.error(response));
     }
@@ -42,9 +42,9 @@ export class ExportRouteComponent implements OnInit {
   downloadGPX() {
     if (this.currentRoute && this.routeState.selectedRoute.selectedNodesByUser.length >= 2) {
       this.gpxService.downloadGPX(this.currentRoute).subscribe(response => {
-        const fileName: string = 'knooppuntnet.gpx';
+        const fileName: string = "knooppuntnet.gpx";
         const objectUrl: string = URL.createObjectURL(response);
-        const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+        const a: HTMLAnchorElement = document.createElement("a") as HTMLAnchorElement;
 
         a.href = objectUrl;
         a.download = fileName;
@@ -63,13 +63,13 @@ export class ExportRouteComponent implements OnInit {
 
   downloadCompact() {
     if (this.currentRoute && this.routeState.selectedRoute.selectedNodesByUser.length >= 2) {
-      this.router.navigate(['/knooppuntnet/export/compact']);
+      this.router.navigate(["/knooppuntnet/export/compact"]);
     } else {
       this.translate.get("NO_ROUTE_SELECTED").subscribe(response => this.toastr.error(response));
     }
   }
 
   homePage() {
-    this.router.navigate(['/knooppuntnet']);
+    this.router.navigate(["/knooppuntnet"]);
   }
 }

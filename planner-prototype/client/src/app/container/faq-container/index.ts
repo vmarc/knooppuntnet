@@ -1,1 +1,1 @@
-export * from './faq-container.component';
+export * from "./faq-container.component";

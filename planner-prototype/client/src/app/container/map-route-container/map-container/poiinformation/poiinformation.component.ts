@@ -1,18 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {PoiInformation} from "../../../../model";
 
 @Component({
-  selector: 'app-poiinformation',
-  templateUrl: './poiinformation.component.html',
-  styleUrls: ['./poiinformation.component.scss']
+  selector: "app-poiinformation",
+  templateUrl: "./poiinformation.component.html",
+  styleUrls: ["./poiinformation.component.scss"]
 })
-export class PoiinformationComponent implements OnInit {
+export class PoiinformationComponent {
 
   @Input() poiInformation: PoiInformation;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

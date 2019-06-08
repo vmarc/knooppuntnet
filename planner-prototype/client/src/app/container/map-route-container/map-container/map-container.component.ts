@@ -1,19 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Feature, Map, Overlay, View, Style} from 'ol';
-import {fromLonLat} from 'ol/proj';
-import PointerInteraction from 'ol/interaction/Pointer';
-import LayerSwitcher from 'ol-layerswitcher';
-import Group from 'ol/layer/Group';
-import VectorLayer from 'ol/layer/Vector';
-
+import {Component, OnInit} from "@angular/core";
+import {Feature, Map, Overlay, Style, View} from "ol";
+import {fromLonLat} from "ol/proj";
+import PointerInteraction from "ol/interaction/Pointer";
+import LayerSwitcher from "ol-layerswitcher";
+import Group from "ol/layer/Group";
+import VectorLayer from "ol/layer/Vector";
 import {ToastrService} from "ngx-toastr";
 import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
-
 import {PoiInformation, RouteState} from "../../../model";
-
-import {NetworkService, PoiService, RouteDetailsService, RouteService, RouteStateService} from '../../../service'
-
+import {NetworkService, PoiService, RouteDetailsService, RouteService, RouteStateService} from "../../../service"
 import {
   buildVectorSource,
   convertPoiToPoiInformation,
@@ -28,12 +24,12 @@ import {
   MapState,
   MapStyling,
   PoiLayer
-} from './domain'
+} from "./domain"
 
 @Component({
-  selector: 'app-map-container',
-  templateUrl: './map-container.component.html',
-  styleUrls: ['./map-container.component.scss']
+  selector: "app-map-container",
+  templateUrl: "./map-container.component.html",
+  styleUrls: ["./map-container.component.scss"]
 })
 export class MapContainerComponent implements OnInit {
 
@@ -73,9 +69,9 @@ export class MapContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.container = document.getElementById('popup');
-    this.content = document.getElementById('popup-content');
-    this.closer = document.getElementById('popup-closer');
+    this.container = document.getElementById("popup");
+    this.content = document.getElementById("popup-content");
+    this.closer = document.getElementById("popup-closer");
 
     this.overlay = new Overlay({
       element: this.container,
@@ -86,7 +82,7 @@ export class MapContainerComponent implements OnInit {
     });
 
     this.map = new Map({
-      target: 'map-container',
+      target: "map-container",
       view: new View({
         center: fromLonLat([4.3517103, 50.8503396]),
         zoom: 7,
@@ -128,8 +124,8 @@ export class MapContainerComponent implements OnInit {
 
     this.getCurrentPosition();
 
-    this.geocoder.on('addresschosen', (evt) => this.map.getView().animate({center: evt.coordinate}));
-    this.map.getView().on('change:resolution', () => this.zoom(this.map.getView().getZoom()));
+    this.geocoder.on("addresschosen", (evt) => this.map.getView().animate({center: evt.coordinate}));
+    this.map.getView().on("change:resolution", () => this.zoom(this.map.getView().getZoom()));
 
     this.initializeMoveInteraction();
     this.map.addInteraction(this.moveInteraction);
@@ -139,11 +135,11 @@ export class MapContainerComponent implements OnInit {
         let dragEnabled = false;
 
         evt.map.forEachFeatureAtPixel(evt.pixel, feature => {
-          if (feature.values_.layer === 'node') {
+          if (feature.values_.layer === "node") {
             this.draggedNode = feature;
             dragEnabled = true;
           } else {
-            if (feature.values_.type === 'way' || feature.values_.type === 'node') {
+            if (feature.values_.type === "way" || feature.values_.type === "node") {
               this.handlePoiClick(feature);
             }
           }
@@ -157,7 +153,7 @@ export class MapContainerComponent implements OnInit {
       handleUpEvent: evt => {
 
         evt.map.forEachFeatureAtPixel(evt.pixel, feature => {
-          if (this.draggedNode !== null && feature.values_.layer === 'node') {
+          if (this.draggedNode !== null && feature.values_.layer === "node") {
             this.handleNodeClick(feature)
           }
         });
@@ -169,7 +165,7 @@ export class MapContainerComponent implements OnInit {
 
   private initializeMoveInteraction() {
     this.moveInteraction.on("select", (e) => {
-      if (e.selected[0] !== undefined && e.selected[0].values_.layer === 'node') {
+      if (e.selected[0] !== undefined && e.selected[0].values_.layer === "node") {
         new MapMoveHandler(this.map, this.mapState).handle(e);
         //this.styleFeatures(e.selected);
       }
@@ -252,7 +248,7 @@ export class MapContainerComponent implements OnInit {
 
   private displayNetworkLayer(networkType: string) {
     this.routeDetailsService.clearRoute();
-    localStorage.setItem('type', networkType.toLowerCase());
+    localStorage.setItem("type", networkType.toLowerCase());
 
     if (networkType.toLowerCase() === "cycling") {
       this.map.removeLayer(this.walkingPngLayer);

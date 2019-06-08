@@ -1,7 +1,6 @@
 import {Coordinates} from "./coordinates";
 
 export class Section {
-
   startNodeId: number;
   endNodeId: number;
   startNode: string;

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Section} from "../../../../../model";
 
 @Component({
@@ -6,14 +6,8 @@ import {Section} from "../../../../../model";
   templateUrl: "./selection-details.component.html",
   styleUrls: ["./selection-details.component.scss"]
 })
-export class SelectionDetailsComponent implements OnInit {
+export class SelectionDetailsComponent {
 
   @Input() sections: Section[];
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
 
 }

@@ -1,19 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-header-container',
-  templateUrl: './header-container.component.html',
-  styleUrls: ['./header-container.component.scss']
+  selector: "app-header-container",
+  templateUrl: "./header-container.component.html",
+  styleUrls: ["./header-container.component.scss"]
 })
-export class HeaderContainerComponent implements OnInit {
+export class HeaderContainerComponent {
 
-  constructor(
-    private translate: TranslateService,
-  ) {
-  }
-
-  ngOnInit() {
+  constructor(private translate: TranslateService) {
   }
 
   useLanguage(language: string) {

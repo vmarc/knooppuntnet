@@ -1,7 +1,6 @@
-import Select from 'ol/interaction/Select';
-import Style from 'ol/style/Style';
-import {pointerMove} from 'ol/events/condition';
-
+import Select from "ol/interaction/Select";
+import Style from "ol/style/Style";
+import {pointerMove} from "ol/events/condition";
 
 export function createMoveInteraction() {
   return new Select({
@@ -10,5 +9,3 @@ export function createMoveInteraction() {
     style: new Style()
   });
 }
-
-

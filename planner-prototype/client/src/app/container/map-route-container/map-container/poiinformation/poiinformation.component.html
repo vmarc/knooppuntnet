@@ -1,7 +1,7 @@
 <div class="information-container" *ngIf="poiInformation">
   <div class="title">
     <h4>{{ "POI-INFORMATION.TITLE" | translate }} : {{poiInformation.name || poiInformation.layer ||
-      "POI-INFORMATION.UNKNOWN" | translate }}</h4>
+    "POI-INFORMATION.UNKNOWN" | translate }}</h4>
   </div>
   <div class="address" *ngIf="poiInformation.address">
     <h5>

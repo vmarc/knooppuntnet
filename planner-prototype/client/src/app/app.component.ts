@@ -1,27 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from "@angular/core";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  template: `
+    <router-outlet></router-outlet>
+  `
 })
-
-
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   defaultLanguage = "nl";
 
-  constructor(
-    private translate: TranslateService) {
+  constructor(private translate: TranslateService) {
     this.configureLanguages();
   }
 
-  ngOnInit() {
-  }
-
   private configureLanguages() {
-    this.translate.addLangs(['en', 'nl']);
+
+    this.translate.addLangs(["en", "nl"]);
     this.translate.setDefaultLang(this.defaultLanguage);
 
     if (localStorage.getItem("lang") == null) {

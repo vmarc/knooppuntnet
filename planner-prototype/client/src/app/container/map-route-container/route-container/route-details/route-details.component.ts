@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import {Route, RouteState, Section} from "../../../../model/";
-import {RouteDetailsService} from '../../../../service';
+import {RouteDetailsService} from "../../../../service";
 
 @Component({
-  selector: 'app-route-details',
-  templateUrl: './route-details.component.html',
-  styleUrls: ['./route-details.component.scss']
+  selector: "app-route-details",
+  templateUrl: "./route-details.component.html",
+  styleUrls: ["./route-details.component.scss"]
 })
 export class RouteDetailsComponent implements OnInit {
 

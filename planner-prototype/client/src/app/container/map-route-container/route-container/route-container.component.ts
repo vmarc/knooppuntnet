@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {MatRadioChange} from "@angular/material";
-
 import {Route, RouteState} from "../../../model/";
-import {NetworkService, RouteDetailsService} from '../../../service'
-
+import {NetworkService, RouteDetailsService} from "../../../service"
 
 @Component({
-  selector: 'app-route-container',
-  templateUrl: './route-container.component.html',
-  styleUrls: ['./route-container.component.scss']
+  selector: "app-route-container",
+  templateUrl: "./route-container.component.html",
+  styleUrls: ["./route-container.component.scss"]
 })
 export class RouteContainerComponent implements OnInit {
 

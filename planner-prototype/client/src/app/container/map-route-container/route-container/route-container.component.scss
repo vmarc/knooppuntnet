@@ -11,7 +11,7 @@
 }
 
 .legend div:first-child p:first-child {
-   background: $color-green;
+  background: $color-green;
 }
 
 .legend div:first-child p:last-child {
@@ -86,8 +86,8 @@
 
 .ol-popup {
   background-color: $color-details-table-even-child;
-  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
   padding: 15px;
   border-radius: 10px;
   border: 1px solid $color-border-popup;

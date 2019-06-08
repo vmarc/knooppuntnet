@@ -1,19 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-faq-container',
-  templateUrl: './faq-container.component.html',
-  styleUrls: ['./faq-container.component.scss']
+  selector: "app-faq-container",
+  templateUrl: "./faq-container.component.html",
+  styleUrls: ["./faq-container.component.scss"]
 })
-export class FaqContainerComponent implements OnInit {
+export class FaqContainerComponent {
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+  constructor(private router: Router) {
   }
 
   homePage() {
-    this.router.navigate(['/knooppuntnet']);
+    this.router.navigate(["/knooppuntnet"]);
   }
 }
