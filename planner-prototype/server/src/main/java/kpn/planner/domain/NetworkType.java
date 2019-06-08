@@ -8,7 +8,7 @@ public enum NetworkType {
 	canoe("rpn"),
 	inlineSkating("rin");
 
-	private String tagKey;
+	private final String tagKey;
 
 	NetworkType(String tagKey) {
 		this.tagKey = tagKey;

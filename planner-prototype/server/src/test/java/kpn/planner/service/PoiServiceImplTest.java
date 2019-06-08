@@ -12,14 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import kpn.planner.domain.poi.Poi;
-import kpn.planner.service.PoiServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
 public class PoiServiceImplTest {
 
 	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
+	public final ExpectedException expectedException = ExpectedException.none();
 
 	@Autowired
 	private PoiServiceImpl poiService;

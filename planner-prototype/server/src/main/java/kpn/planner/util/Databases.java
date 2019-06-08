@@ -6,7 +6,6 @@ import org.ektorp.CouchDbConnector;
 import org.ektorp.http.HttpClient;
 import org.ektorp.http.StdHttpClient;
 import org.ektorp.impl.StdCouchDbInstance;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +14,6 @@ public class Databases {
 	private final CouchDbConnector main;
 	private final CouchDbConnector pois;
 
-	@Autowired
 	public Databases(CouchConfiguration configuration) {
 		StdCouchDbInstance db = new StdCouchDbInstance(getClient(configuration));
 		main = db.createConnector(configuration.getDbname().getMain(), false);

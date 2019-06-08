@@ -60,7 +60,7 @@ public class PlannerServiceImpl implements PlannerService {
 
 		TreeMap<Long, Node> map = new TreeMap<>();
 		nodesByDocument.forEach(node -> {
-			DijkstraShortestPath dijstra = this.graphs.get(networkType);
+			DijkstraShortestPath<Long, RoutingEdge> dijstra = this.graphs.get(networkType);
 			GraphPath<Long, RoutingEdge> path = dijstra.getPath(nodeId, node.getId());
 			Long meters = path.getEdgeList().get(0).getMeters();
 			map.put(meters, node);
@@ -184,8 +184,8 @@ public class PlannerServiceImpl implements PlannerService {
 	}
 
 	private class NodeMapper {
-		private Long startNodeId;
-		private Long endNodeId;
+		private final Long startNodeId;
+		private final Long endNodeId;
 
 		NodeMapper(Long startNodeId, Long endNodeId) {
 			this.startNodeId = startNodeId;

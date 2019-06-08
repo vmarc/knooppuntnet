@@ -8,7 +8,6 @@ import org.ektorp.ViewQuery;
 import org.ektorp.ViewResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -22,11 +21,10 @@ import kpn.planner.util.Databases;
 @Repository
 public class GraphRepositoryImpl implements GraphRepository {
 
-	private static Logger logger = LoggerFactory.getLogger(GraphRepositoryImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(GraphRepositoryImpl.class);
 
 	private final CouchDbConnector database;
 
-	@Autowired
 	public GraphRepositoryImpl(Databases databases) {
 		this.database = databases.getMain();
 	}

@@ -1,6 +1,5 @@
 package kpn.planner.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kpn.planner.domain.poi.Poi;
@@ -10,9 +9,8 @@ import kpn.planner.util.Databases;
 @Repository
 public class PoiRepositoryImpl implements PoiRepository {
 
-	private Databases databases;
+	private final Databases databases;
 
-	@Autowired
 	public PoiRepositoryImpl(Databases databases) {
 		this.databases = databases;
 	}

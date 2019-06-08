@@ -4,7 +4,7 @@ public enum RoadType {
 	cycling("bike"),
 	hiking("foot");
 
-	private String name;
+	private final String name;
 
 	RoadType(String name) {
 		this.name = name;

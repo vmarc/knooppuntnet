@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 @ControllerAdvice
 public class RestResponseEntityException extends ResponseEntityExceptionHandler {
 
-	private static Logger logger = Logger.getLogger(ResponseEntityExceptionHandler.class.getSimpleName());
+	private static final Logger logger = Logger.getLogger(ResponseEntityExceptionHandler.class.getSimpleName());
 
 	@ExceptionHandler(value = { UnrecognizedPropertyException.class, IllegalArgumentException.class, DocumentNotFoundException.class })
 	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {

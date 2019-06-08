@@ -18,14 +18,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import kpn.planner.domain.NetworkType;
 import kpn.planner.domain.Route;
 import kpn.planner.domain.Section;
-import kpn.planner.service.PlannerService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
 public class PlannerServiceImplTest {
 
 	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
+	public final ExpectedException expectedException = ExpectedException.none();
 
 	@Autowired
 	private PlannerService plannerService;
