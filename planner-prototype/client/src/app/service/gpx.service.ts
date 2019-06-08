@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
 import {Route} from "../model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class GpxService {
 
@@ -12,6 +11,6 @@ export class GpxService {
   }
 
   downloadGPX(route: Route) {
-    return this.http.post(environment.knooppuntUrl + '/gpx', route, {responseType: 'blob'});
+    return this.http.post("/api/gpx", route, {responseType: "blob"});
   }
 }
