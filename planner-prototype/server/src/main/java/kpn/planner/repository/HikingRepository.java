@@ -10,25 +10,25 @@ import org.springframework.stereotype.Repository;
 
 import kpn.planner.domain.document.Document;
 import kpn.planner.domain.document.JsonNodeMapper;
-import kpn.planner.util.ConnectorProducer;
+import kpn.planner.util.Databases;
 
 @Repository
 public class HikingRepository implements CouchDbRepository {
 
-	private final ConnectorProducer connectorProducer;
+	private final Databases databases;
 
 	@Autowired
-	public HikingRepository(ConnectorProducer connectorProducer) {
-		this.connectorProducer = connectorProducer;
+	public HikingRepository(Databases databases) {
+		this.databases = databases;
 	}
 
 	public Document getRouteDocumentById(String routeId) {
-		CouchDbConnector connector = connectorProducer.getCouchDbConnectorKnooppunt();
+		CouchDbConnector connector = databases.getMain();
 		return connector.get(Document.class, "route:" + routeId);
 	}
 
 	public List<JsonNodeMapper> getNodesFromFiles() {
-		CouchDbConnector connector = connectorProducer.getCouchDbConnectorKnooppunt();
+		CouchDbConnector connector = databases.getMain();
 
 		ViewQuery query = new ViewQuery();
 		query.designDocId("_design/PlannerDesign");
