@@ -1,10 +1,9 @@
-package kpn.planner.service.impl;
+package kpn.planner.service;
 
 import org.springframework.stereotype.Service;
 
 import kpn.planner.domain.poi.Poi;
 import kpn.planner.repository.PoiRepository;
-import kpn.planner.service.PoiService;
 
 @Service
 public class PoiServiceImpl implements PoiService {
@@ -16,7 +15,7 @@ public class PoiServiceImpl implements PoiService {
 	}
 
 	@Override
-	public Poi getPoiInformation(String type, String poiId) {
-		return this.poiRepository.getPoiInformation(type, poiId);
+	public Poi getPoi(String type, String poiId) {
+		return this.poiRepository.getPoi(type, poiId);
 	}
 }

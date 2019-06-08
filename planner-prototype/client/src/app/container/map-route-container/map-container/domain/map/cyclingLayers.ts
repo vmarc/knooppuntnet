@@ -7,14 +7,14 @@ import Feature from "ol/Feature";
 
 export function createCyclingPngLayer() {
   return new TileLayer({
-    source: new XYZ({url: "/tiles/rcn/{z}/{x}/{y}.png"}),
+    source: new XYZ({url: "/tiles/cycling/{z}/{x}/{y}.png"}),
   })
 }
 
 export function createCyclingMvtLayer() {
   return new VectorTileLayer({
     source: new VectorTileSource({
-      url: "/tiles/rcn/{z}/{x}/{y}.mvt",
+      url: "/tiles/cycling/{z}/{x}/{y}.mvt",
       format: new MVT({
         featureClass: Feature
       })

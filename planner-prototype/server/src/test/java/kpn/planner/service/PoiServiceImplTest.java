@@ -1,4 +1,4 @@
-package kpn.planner.service.impl;
+package kpn.planner.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import kpn.planner.domain.poi.Poi;
+import kpn.planner.service.PoiServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
@@ -25,7 +26,7 @@ public class PoiServiceImplTest {
 
 	@Test
 	public void testGetPoiInformation() {
-		Poi poi = this.poiService.getPoiInformation("way", "50610511");
+		Poi poi = this.poiService.getPoi("way", "50610511");
 
 		assertEquals(poi.getElementType(), "way");
 		assertEquals(poi.getElementId(), Long.valueOf(50610511));
@@ -37,6 +38,6 @@ public class PoiServiceImplTest {
 	@Test
 	public void testGetPoiInformationWithWrongArguments() {
 		expectedException.expect(DocumentNotFoundException.class);
-		Poi poi = this.poiService.getPoiInformation("invalid", "50610511");
+		Poi poi = this.poiService.getPoi("invalid", "50610511");
 	}
 }

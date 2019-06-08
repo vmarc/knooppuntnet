@@ -7,14 +7,14 @@ import Feature from "ol/Feature";
 
 export function createWalkingPngLayer() {
   return new TileLayer({
-    source: new XYZ({url: "/tiles/rwn/{z}/{x}/{y}.png"}),
+    source: new XYZ({url: "/tiles/hiking/{z}/{x}/{y}.png"}),
   })
 }
 
 export function createWalkingMvtLayer() {
   return new VectorTileLayer({
     source: new VectorTileSource({
-      url: "/tiles/rwn/{z}/{x}/{y}.mvt",
+      url: "/tiles/hiking/{z}/{x}/{y}.mvt",
       format: new MVT({featureClass: Feature})
     }),
     renderMode: "image",

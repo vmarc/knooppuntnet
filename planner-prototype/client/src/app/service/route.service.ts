@@ -12,18 +12,18 @@ export class RouteService {
   }
 
   calculateCyclingRoute(selected: SelectedRoute): Observable<Route> {
-    return this.http.get<Route>(`/api/cycling/route?nodes=${selected.selectedNodesByUser}`);
+    return this.http.get<Route>(`/api/planner/cycling/route?nodes=${selected.selectedNodesByUser}`);
   }
 
   getCyclingNodesFromMultiline(routeId: string, latestNodeId: number): Observable<SelectedRoute> {
-    return this.http.get<SelectedRoute>(`/api/cycling/${routeId}/${latestNodeId}`)
+    return this.http.get<SelectedRoute>(`/api/planner/cycling/${routeId}/${latestNodeId}`)
   }
 
   calculateHikingRoute(selected: SelectedRoute): Observable<Route> {
-    return this.http.get<Route>(`/api/hiking/route?nodes=${selected.selectedNodesByUser}`);
+    return this.http.get<Route>(`/api/planner/hiking/route?nodes=${selected.selectedNodesByUser}`);
   }
 
   getHikingNodesFromMultiline(routeId: string, latestNodeId: number): Observable<SelectedRoute> {
-    return this.http.get<SelectedRoute>(`/api/hiking/${routeId}/${latestNodeId}`)
+    return this.http.get<SelectedRoute>(`/api/planner/hiking/${routeId}/${latestNodeId}`)
   }
 }

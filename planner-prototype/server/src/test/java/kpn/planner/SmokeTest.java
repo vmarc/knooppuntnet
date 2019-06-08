@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import kpn.planner.controller.CyclingController;
 import kpn.planner.controller.GpxController;
-import kpn.planner.controller.HikingController;
 import kpn.planner.controller.PdfController;
+import kpn.planner.controller.PlannerController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
@@ -24,16 +23,12 @@ public class SmokeTest {
 	private GpxController gpxController;
 
 	@Autowired
-	private CyclingController cyclingController;
-
-	@Autowired
-	private HikingController hikingController;
+	private PlannerController plannerController;
 
 	@Test
 	public void contextLoads() {
 		assertNotNull(pdfController);
 		assertNotNull(gpxController);
-		assertNotNull(cyclingController);
-		assertNotNull(hikingController);
+		assertNotNull(plannerController);
 	}
 }

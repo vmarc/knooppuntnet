@@ -7,5 +7,5 @@ import kpn.planner.domain.poi.Poi;
 @Service
 public interface PoiService {
 
-	Poi getPoiInformation(String type, String poiId);
+	Poi getPoi(String type, String poiId);
 }

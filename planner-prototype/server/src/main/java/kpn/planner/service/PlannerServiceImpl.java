@@ -1,60 +1,70 @@
-package kpn.planner.service.impl;
+package kpn.planner.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.AbstractBaseGraph;
 import org.jgrapht.graph.WeightedMultigraph;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import kpn.planner.domain.Coordinates;
+import kpn.planner.domain.NetworkType;
 import kpn.planner.domain.Route;
 import kpn.planner.domain.RoutingEdge;
 import kpn.planner.domain.Section;
 import kpn.planner.domain.document.Analysis;
-import kpn.planner.domain.document.Document;
 import kpn.planner.domain.document.JsonNodeMapper;
-import kpn.planner.domain.document.Map;
 import kpn.planner.domain.document.Node;
 import kpn.planner.domain.document.Path;
+import kpn.planner.domain.document.RouteDocument;
 import kpn.planner.domain.document.Segment;
-import kpn.planner.repository.CouchDbRepository;
+import kpn.planner.repository.GraphRepository;
 
-public abstract class AbstractGraphService {
+@Service
+public class PlannerServiceImpl implements PlannerService {
 
-	private final CouchDbRepository couchDbRepository;
-	private final DijkstraShortestPath<Long, RoutingEdge> dijkstraShortestPath;
+	private final GraphRepository graphRepository;
 
-	@Autowired
-	protected AbstractGraphService(CouchDbRepository couchDbRepository) {
-		this.couchDbRepository = couchDbRepository;
-		this.dijkstraShortestPath = new DijkstraShortestPath<>(this.initializeGraph());
+	private final Map<NetworkType, DijkstraShortestPath<Long, RoutingEdge>> graphs;
+
+	public PlannerServiceImpl(GraphRepository graphRepository) {
+		this.graphRepository = graphRepository;
+		this.graphs = new HashMap<>();
+		this.graphs.put(NetworkType.cycling, new DijkstraShortestPath<>(this.initializeGraph(NetworkType.cycling)));
+		this.graphs.put(NetworkType.hiking, new DijkstraShortestPath<>(this.initializeGraph(NetworkType.hiking)));
 	}
 
-	protected Route calculateShortestRoute(List<Long> nodes) {
+	public Route calculateShortestPath(NetworkType networkType, List<Long> nodes) {
 		Route route = new Route();
-		getNodeMappers(getNodesFromDijkstra(nodes)).forEach(mapper -> route.addSection(createSectionBetweenNodes(mapper)));
-
+		getNodeMappers(getNodesFromDijkstra(networkType, nodes)).forEach(mapper -> route.addSection(createSectionBetweenNodes(networkType, mapper)));
 		return route;
 	}
 
-	protected List<Long> calculateShortestRoute(String routeId, Long nodeId) {
-		Analysis analysis = this.couchDbRepository.getRouteDocumentById(routeId.split("-")[0]).getRoute().getAnalysis();
+	public List<Long> calculateShortestPathFromMultiline(NetworkType networkType, String routeId, Long nodeId) {
+		Analysis analysis = this.graphRepository.getRouteDocumentById(routeId.split("-")[0]).getRoute().getAnalysis();
 
 		List<Node> nodesByDocument = Stream.of(analysis.getStartNodes(), analysis.getStartTentacleNodes(), analysis.getEndNodes(), analysis.getEndTentacleNodes())
 				.flatMap(Collection::stream).collect(Collectors.toList());
 
 		TreeMap<Long, Node> map = new TreeMap<>();
-		nodesByDocument.forEach(node -> map.put(this.dijkstraShortestPath.getPath(nodeId, node.getId()).getEdgeList().get(0).getMeters(), node));
+		nodesByDocument.forEach(node -> {
+			DijkstraShortestPath dijstra = this.graphs.get(networkType);
+			GraphPath<Long, RoutingEdge> path = dijstra.getPath(nodeId, node.getId());
+			Long meters = path.getEdgeList().get(0).getMeters();
+			map.put(meters, node);
+		});
 
 		Node firstNode = map.get(map.firstKey());
 		Node lastNode = map.get(map.lastKey());
@@ -67,18 +77,18 @@ public abstract class AbstractGraphService {
 				.mapToObj(i -> new NodeMapper(nodeList.get(i), nodeList.get(i + 1))).collect(Collectors.toCollection(LinkedList::new));
 	}
 
-	private List<Long> getNodesFromDijkstra(List<Long> nodes) {
+	private List<Long> getNodesFromDijkstra(NetworkType networkType, List<Long> nodes) {
 		List<Long> nodeList = new ArrayList<>();
 
-		IntStream.range(0, nodes.size() - 1).mapToObj(i -> this.dijkstraShortestPath.getPath(nodes.get(i), nodes.get(i + 1)).getVertexList())
+		IntStream.range(0, nodes.size() - 1).mapToObj(i -> graphs.get(networkType).getPath(nodes.get(i), nodes.get(i + 1)).getVertexList())
 				.forEachOrdered(nodeList::addAll);
 
 		return nodeList;
 	}
 
-	private Section createSectionBetweenNodes(NodeMapper nodeMapper) {
-		RoutingEdge routingEdge = this.dijkstraShortestPath.getPath(nodeMapper.startNodeId, nodeMapper.endNodeId).getEdgeList().get(0);
-		Document document = this.couchDbRepository.getRouteDocumentById(routingEdge.getRouteId());
+	private Section createSectionBetweenNodes(NetworkType networkType, NodeMapper nodeMapper) {
+		RoutingEdge routingEdge = this.graphs.get(networkType).getPath(nodeMapper.startNodeId, nodeMapper.endNodeId).getEdgeList().get(0);
+		RouteDocument document = this.graphRepository.getRouteDocumentById(routingEdge.getRouteId());
 		Section section = new Section();
 
 		section.setStartNodeId(nodeMapper.startNodeId);
@@ -91,7 +101,7 @@ public abstract class AbstractGraphService {
 		return section;
 	}
 
-	private void getNodeNames(Document document, Section section) {
+	private void getNodeNames(RouteDocument document, Section section) {
 		Analysis analysis = document.getRoute().getAnalysis();
 
 		List<Node> nodeList = Stream.of(analysis.getStartNodes(), analysis.getEndNodes(), analysis.getStartTentacleNodes(), analysis.getEndTentacleNodes())
@@ -109,8 +119,8 @@ public abstract class AbstractGraphService {
 		}
 	}
 
-	private void getCoordinatesBetweenNodes(Document document, String pathType, Section section) {
-		Map map = document.getRoute().getAnalysis().getMap();
+	private void getCoordinatesBetweenNodes(RouteDocument document, String pathType, Section section) {
+		kpn.planner.domain.document.Map map = document.getRoute().getAnalysis().getMap();
 		List<Segment> segments = new ArrayList<>();
 
 		switch (pathType) {
@@ -145,9 +155,9 @@ public abstract class AbstractGraphService {
 		return path.map(Path::getSegments).orElse(null);
 	}
 
-	private AbstractBaseGraph<Long, RoutingEdge> initializeGraph() {
+	private AbstractBaseGraph<Long, RoutingEdge> initializeGraph(NetworkType networkType) {
 		AbstractBaseGraph<Long, RoutingEdge> abstractBaseGraph = new WeightedMultigraph<>(RoutingEdge.class);
-		List<JsonNodeMapper> list = this.couchDbRepository.getNodesFromFiles();
+		List<JsonNodeMapper> list = this.graphRepository.getNodesFromFiles(networkType);
 
 		list.forEach(jsonNodeMapper -> {
 			Long startNodeId = jsonNodeMapper.getValues().get(0);

@@ -1,4 +1,4 @@
-package kpn.planner.service.impl;
+package kpn.planner.service;
 
 import java.io.IOException;
 
@@ -19,7 +19,6 @@ import org.w3c.dom.Element;
 
 import kpn.planner.domain.Route;
 import kpn.planner.domain.Section;
-import kpn.planner.service.GpxService;
 
 @Service
 public class GpxServiceImpl implements GpxService {

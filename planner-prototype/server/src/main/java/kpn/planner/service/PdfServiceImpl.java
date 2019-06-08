@@ -1,4 +1,4 @@
-package kpn.planner.service.impl;
+package kpn.planner.service;
 
 import java.io.StringWriter;
 
@@ -23,8 +23,6 @@ import kpn.planner.domain.pdf.MapMatching;
 import kpn.planner.domain.pdf.PdfDocument;
 import kpn.planner.domain.pdf.PdfSection;
 import kpn.planner.domain.pdf.SectionInformation;
-import kpn.planner.service.GpxService;
-import kpn.planner.service.PdfService;
 
 @Service
 public class PdfServiceImpl implements PdfService {

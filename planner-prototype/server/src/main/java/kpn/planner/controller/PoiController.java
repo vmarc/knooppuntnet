@@ -20,6 +20,6 @@ public class PoiController {
 
 	@GetMapping("/{type}/{poiId}")
 	public Poi getPoiInformation(@PathVariable("type") String type, @PathVariable("poiId") String poiId) {
-		return this.poiService.getPoiInformation(type, poiId);
+		return this.poiService.getPoi(type, poiId);
 	}
 }

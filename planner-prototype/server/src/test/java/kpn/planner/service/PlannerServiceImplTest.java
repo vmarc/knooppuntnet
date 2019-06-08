@@ -1,4 +1,4 @@
-package kpn.planner.service.impl;
+package kpn.planner.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,22 +15,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import kpn.planner.domain.NetworkType;
 import kpn.planner.domain.Route;
 import kpn.planner.domain.Section;
+import kpn.planner.service.PlannerService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.config.location=file:/kpn/conf/planner.properties")
-public class HikingServiceImplTest {
+public class PlannerServiceImplTest {
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
 	@Autowired
-	private HikingServiceImpl hikingService;
+	private PlannerService plannerService;
 
 	@Test
 	public void testCalculateShortestPath() {
-		Route route = hikingService.calculateShortestRoute(Arrays.asList(370128968L, 371723061L));
+		Route route = plannerService.calculateShortestPath(NetworkType.hiking, Arrays.asList(370128968L, 371723061L));
 		assertEquals(370128968L, (long) route.getSections().get(0).getStartNodeId());
 		assertEquals(371723061L, (long) route.getSections().get(route.getSections().size() - 1).getEndNodeId());
 	}
@@ -39,7 +41,7 @@ public class HikingServiceImplTest {
 	public void testCalculateShortestPathWithWrongArguments() {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("graph must contain the source vertex");
-		Route route = hikingService.calculateShortestRoute(Arrays.asList(0L, 1L));
+		Route route = plannerService.calculateShortestPath(NetworkType.hiking, Arrays.asList(0L, 1L));
 	}
 
 	@Test
@@ -47,11 +49,11 @@ public class HikingServiceImplTest {
 		String routeId = "7583009";
 		Long nodeId = 1307118521L;
 
-		List<Long> nodes = hikingService.calculateShortestPathFromMultiline(routeId, nodeId);
-		Route shortestRoute = hikingService.calculateShortestPath(nodes);
+		List<Long> nodes = plannerService.calculateShortestPathFromMultiline(NetworkType.hiking, routeId, nodeId);
+		Route shortestRoute = plannerService.calculateShortestPath(NetworkType.hiking, nodes);
 
 		Collections.reverse(nodes);
-		Route longestRoute = hikingService.calculateShortestPath(nodes);
+		Route longestRoute = plannerService.calculateShortestPath(NetworkType.hiking, nodes);
 
 		Long totalMetersShortestRoute = 0L;
 		for (Section section : shortestRoute.getSections()) {
