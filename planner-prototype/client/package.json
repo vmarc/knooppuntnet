@@ -1,17 +1,18 @@
 {
-  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.",
+  "description": "Prototype for knooppuntnet planner",
   "main": "index.js",
-  "author": "Ben",
-  "license": "ISC",
-  "name": "knooppuntnet",
-  "version": "0.0.0",
+  "author": "Ben Vandervorst",
+  "license": "MIT",
+  "name": "planner-client",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config src/proxy.conf.js",
-    "build": "ng build",
+    "build": "ng build --progress --output-path ./dist/${npm_package_name}-${npm_package_version}",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "zip": "mkdir ../../dist; cd dist; tar -czf ../../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
+    "dist": "run-s build zip"
   },
   "private": true,
   "dependencies": {
@@ -60,6 +61,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "npm-run-all": "^4.1.5",
     "protractor": "^5.4.1",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
