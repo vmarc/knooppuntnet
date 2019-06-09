@@ -1,8 +1,8 @@
-import MVT from "ol/format/MVT.js";
+import MVT from "ol/format/MVT";
 import XYZ from "ol/source/XYZ";
-import VectorTileSource from "ol/source/VectorTile.js";
-import TileLayer from "ol/layer/Tile.js";
-import VectorTileLayer from "ol/layer/VectorTile.js";
+import VectorTileSource from "ol/source/VectorTile";
+import TileLayer from "ol/layer/Tile";
+import VectorTileLayer from "ol/layer/VectorTile";
 import Feature from "ol/Feature";
 
 export function createWalkingPngLayer() {

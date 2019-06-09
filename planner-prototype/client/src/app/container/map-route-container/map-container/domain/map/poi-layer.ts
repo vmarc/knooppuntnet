@@ -1,6 +1,6 @@
-import MVT from "ol/format/MVT.js";
-import VectorTileSource from "ol/source/VectorTile.js";
-import VectorTileLayer from "ol/layer/VectorTile.js";
+import MVT from "ol/format/MVT";
+import VectorTileSource from "ol/source/VectorTile";
+import VectorTileLayer from "ol/layer/VectorTile";
 import Feature from "ol/Feature";
 import {PoiStyle} from "../../../../../model";
 
