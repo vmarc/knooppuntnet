@@ -3,7 +3,7 @@ package kpn.planner.domain.document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Route {
+public class RouteInfo {
 
 	private float changeSetId;
 	private boolean orphan;
@@ -11,13 +11,13 @@ public class Route {
 	private List<Object> tags;
 	private List<Object> facts;
 	private float version;
-	private Analysis analysis;
+	private RouteInfoAnalysis analysis;
 	private boolean ignored;
-	private Summary summary;
+	private RouteSummary summary;
 	private boolean display;
 	private boolean active;
 
-	public Route() {
+	public RouteInfo() {
 	}
 
 	public float getChangeSetId() {
@@ -52,11 +52,11 @@ public class Route {
 		this.version = version;
 	}
 
-	public Analysis getAnalysis() {
+	public RouteInfoAnalysis getAnalysis() {
 		return analysis;
 	}
 
-	public void setAnalysis(Analysis analysis) {
+	public void setAnalysis(RouteInfoAnalysis analysis) {
 		this.analysis = analysis;
 	}
 
@@ -68,11 +68,11 @@ public class Route {
 		this.ignored = ignored;
 	}
 
-	public Summary getSummary() {
+	public RouteSummary getSummary() {
 		return summary;
 	}
 
-	public void setSummary(Summary summary) {
+	public void setSummary(RouteSummary summary) {
 		this.summary = summary;
 	}
 

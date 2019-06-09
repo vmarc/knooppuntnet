@@ -4,11 +4,11 @@ import java.util.List;
 
 import kpn.planner.domain.NetworkType;
 import kpn.planner.domain.document.JsonNodeMapper;
-import kpn.planner.domain.document.RouteDocument;
+import kpn.planner.domain.document.RouteDoc;
 
 public interface GraphRepository {
 
-	RouteDocument getRouteDocumentById(String routeId);
+	RouteDoc getRouteDocumentById(String routeId);
 
 	List<JsonNodeMapper> getNodesFromFiles(NetworkType networkType);
 }

@@ -1,13 +1,11 @@
 package kpn.planner.domain.document;
 
-public class Bounds {
+public class MapBounds {
+
 	private String latMin;
 	private String latMax;
 	private String lonMin;
 	private String lonMax;
-
-	public Bounds() {
-	}
 
 	public String getLatMin() {
 		return latMin;

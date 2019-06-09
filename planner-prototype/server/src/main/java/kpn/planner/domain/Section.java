@@ -75,7 +75,11 @@ public class Section {
 		this.waypoints.put(name, coordinates);
 	}
 
-	public void addCoordinates(List<Coordinates> coordinates) {
-		this.coordinates.addAll(coordinates);
+	public void addAllCoordinates(List<Coordinates> coordinatesList) {
+		this.coordinates.addAll(coordinatesList);
+	}
+
+	public void addCoordinates(Coordinates coordinates) {
+		this.coordinates.add(coordinates);
 	}
 }

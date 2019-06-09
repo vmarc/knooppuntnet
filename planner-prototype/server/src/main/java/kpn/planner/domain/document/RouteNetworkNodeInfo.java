@@ -1,12 +1,12 @@
 package kpn.planner.domain.document;
 
-public class Node {
+public class RouteNetworkNodeInfo {
 
+	private Long id;
 	private String name;
 	private String alternateName;
-	private Long id;
-	private Double lon;
-	private Double lat;
+	private String lat;
+	private String lon;
 
 	public String getName() {
 		return name;
@@ -32,19 +32,19 @@ public class Node {
 		this.id = id;
 	}
 
-	public Double getLon() {
+	public String getLon() {
 		return lon;
 	}
 
-	public void setLon(Double lon) {
+	public void setLon(String lon) {
 		this.lon = lon;
 	}
 
-	public Double getLat() {
+	public String getLat() {
 		return lat;
 	}
 
-	public void setLat(Double lat) {
+	public void setLat(String lat) {
 		this.lat = lat;
 	}
 }

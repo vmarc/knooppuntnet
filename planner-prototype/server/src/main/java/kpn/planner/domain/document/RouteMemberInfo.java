@@ -3,25 +3,25 @@ package kpn.planner.domain.document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Member {
+public class RouteMemberInfo {
 
-	private List<Object> oneWayTags;
-	private String timestamp;
-	private String linkName;
-	private String role;
-	private String oneWay;
-	private String description;
-	private Boolean isAccessible;
-	private String nodeCount;
-	private String to;
+	private Long id;
 	private String memberType;
-	private Long toNodeId;
 	private Boolean isWay;
-	private Float id;
-	private List<Object> nodes;
-	private Long fromNodeId;
+	private List<Object> nodes; // RouteNetworkNodeInfo
+	private String linkName;
 	private String from;
+	private Long fromNodeId;
+	private String to;
+	private Long toNodeId;
+	private String role;
+	private String timestamp;
+	private Boolean isAccessible;
 	private String length;
+	private String nodeCount;
+	private String description;
+	private String oneWay;
+	private List<Object> oneWayTags; // Tags
 
 	public List<Object> getOneWayTags() {
 		return oneWayTags;
@@ -119,11 +119,11 @@ public class Member {
 		this.isWay = isWay;
 	}
 
-	public Float getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Float id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -159,4 +159,3 @@ public class Member {
 		this.length = length;
 	}
 }
-

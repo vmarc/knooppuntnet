@@ -92,8 +92,8 @@ public class GpxServiceImpl implements GpxService {
 	private void getBackAndForthWayPoints(Document document, Element root, Section section) {
 		Element start = document.createElement("wpt");
 		root.appendChild(start);
-		start.setAttribute("lat", section.getWaypoints().get(section.getStartNode()).getLat().toString());
-		start.setAttribute("lon", section.getWaypoints().get(section.getStartNode()).getLon().toString());
+		start.setAttribute("lat", section.getWaypoints().get(section.getStartNode()).getLat());
+		start.setAttribute("lon", section.getWaypoints().get(section.getStartNode()).getLon());
 
 		Element wptName = document.createElement("name");
 		wptName.appendChild(document.createTextNode(section.getStartNode()));
@@ -101,8 +101,8 @@ public class GpxServiceImpl implements GpxService {
 
 		Element end = document.createElement("wpt");
 		root.appendChild(end);
-		end.setAttribute("lat", section.getWaypoints().get(section.getEndNode()).getLat().toString());
-		end.setAttribute("lon", section.getWaypoints().get(section.getEndNode()).getLon().toString());
+		end.setAttribute("lat", section.getWaypoints().get(section.getEndNode()).getLat());
+		end.setAttribute("lon", section.getWaypoints().get(section.getEndNode()).getLon());
 
 		Element wptEnd = document.createElement("name");
 		wptEnd.appendChild(document.createTextNode(section.getEndNode()));
@@ -112,8 +112,8 @@ public class GpxServiceImpl implements GpxService {
 	private void getElementsFromCoordinates(Section section, Document document, Element trkSegment) {
 		section.getCoordinates().stream().distinct().forEach(coordinates -> {
 			Element trkpt = document.createElement("trkpt");
-			trkpt.setAttribute("lat", coordinates.getLat().toString());
-			trkpt.setAttribute("lon", coordinates.getLon().toString());
+			trkpt.setAttribute("lat", coordinates.getLat());
+			trkpt.setAttribute("lon", coordinates.getLon());
 
 			trkSegment.appendChild(trkpt);
 

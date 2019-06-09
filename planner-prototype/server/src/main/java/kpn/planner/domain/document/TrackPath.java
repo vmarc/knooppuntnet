@@ -2,14 +2,14 @@ package kpn.planner.domain.document;
 
 import java.util.List;
 
-public class Path {
+public class TrackPath {
 
 	private Long startNodeId;
 	private Long endNodeId;
 	private Long meters;
-	private List<Segment> segments;
+	private List<TrackSegment> segments;
 
-	public Path() {
+	public TrackPath() {
 	}
 
 	public Long getStartNodeId() {
@@ -36,11 +36,11 @@ public class Path {
 		this.meters = meters;
 	}
 
-	public List<Segment> getSegments() {
+	public List<TrackSegment> getSegments() {
 		return segments;
 	}
 
-	public void setSegments(List<Segment> segments) {
+	public void setSegments(List<TrackSegment> segments) {
 		this.segments = segments;
 	}
 }

@@ -6,22 +6,18 @@ import java.util.List;
 import org.ektorp.CouchDbConnector;
 import org.ektorp.ViewQuery;
 import org.ektorp.ViewResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kpn.planner.config.Databases;
 import kpn.planner.domain.NetworkType;
 import kpn.planner.domain.document.JsonNodeMapper;
-import kpn.planner.domain.document.RouteDocument;
-import kpn.planner.config.Databases;
+import kpn.planner.domain.document.RouteDoc;
 
 @Repository
 public class GraphRepositoryImpl implements GraphRepository {
-
-	private static final Logger logger = LoggerFactory.getLogger(GraphRepositoryImpl.class);
 
 	private final CouchDbConnector database;
 
@@ -29,8 +25,8 @@ public class GraphRepositoryImpl implements GraphRepository {
 		this.database = databases.getMain();
 	}
 
-	public RouteDocument getRouteDocumentById(String routeId) {
-		return database.get(RouteDocument.class, "route:" + routeId);
+	public RouteDoc getRouteDocumentById(String routeId) {
+		return database.get(RouteDoc.class, "route:" + routeId);
 	}
 
 	public List<JsonNodeMapper> getNodesFromFiles(NetworkType networkType) {
@@ -48,9 +44,6 @@ public class GraphRepositoryImpl implements GraphRepository {
 		query.queryParam("endkey", endkey);
 
 		ViewResult result = database.queryView(query);
-
-		logger.info("Loaded graph edges " + networkType.name() + ": " + result.getSize());
-
 		return parseViewResult(result);
 	}
 

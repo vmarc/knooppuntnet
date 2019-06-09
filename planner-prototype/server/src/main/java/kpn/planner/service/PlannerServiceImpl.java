@@ -17,6 +17,8 @@ import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.AbstractBaseGraph;
 import org.jgrapht.graph.WeightedMultigraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kpn.planner.domain.Coordinates;
@@ -24,16 +26,19 @@ import kpn.planner.domain.NetworkType;
 import kpn.planner.domain.Route;
 import kpn.planner.domain.RoutingEdge;
 import kpn.planner.domain.Section;
-import kpn.planner.domain.document.Analysis;
 import kpn.planner.domain.document.JsonNodeMapper;
-import kpn.planner.domain.document.Node;
-import kpn.planner.domain.document.Path;
-import kpn.planner.domain.document.RouteDocument;
-import kpn.planner.domain.document.Segment;
+import kpn.planner.domain.document.RouteDoc;
+import kpn.planner.domain.document.RouteInfoAnalysis;
+import kpn.planner.domain.document.RouteMap;
+import kpn.planner.domain.document.RouteNetworkNodeInfo;
+import kpn.planner.domain.document.TrackPath;
+import kpn.planner.domain.document.TrackSegment;
 import kpn.planner.repository.GraphRepository;
 
 @Service
 public class PlannerServiceImpl implements PlannerService {
+
+	private static final Logger logger = LoggerFactory.getLogger(PlannerServiceImpl.class);
 
 	private final GraphRepository graphRepository;
 
@@ -42,6 +47,7 @@ public class PlannerServiceImpl implements PlannerService {
 	public PlannerServiceImpl(GraphRepository graphRepository) {
 		this.graphRepository = graphRepository;
 		this.graphs = new HashMap<>();
+		logger.info("Loading graph edges");
 		this.graphs.put(NetworkType.cycling, new DijkstraShortestPath<>(this.initializeGraph(NetworkType.cycling)));
 		this.graphs.put(NetworkType.hiking, new DijkstraShortestPath<>(this.initializeGraph(NetworkType.hiking)));
 	}
@@ -53,12 +59,13 @@ public class PlannerServiceImpl implements PlannerService {
 	}
 
 	public List<Long> calculateShortestPathFromMultiline(NetworkType networkType, String routeId, Long nodeId) {
-		Analysis analysis = this.graphRepository.getRouteDocumentById(routeId.split("-")[0]).getRoute().getAnalysis();
+		RouteInfoAnalysis analysis = this.graphRepository.getRouteDocumentById(routeId.split("-")[0]).getRoute().getAnalysis();
 
-		List<Node> nodesByDocument = Stream.of(analysis.getStartNodes(), analysis.getStartTentacleNodes(), analysis.getEndNodes(), analysis.getEndTentacleNodes())
-				.flatMap(Collection::stream).collect(Collectors.toList());
+		List<RouteNetworkNodeInfo> nodesByDocument = Stream
+				.of(analysis.getStartNodes(), analysis.getStartTentacleNodes(), analysis.getEndNodes(), analysis.getEndTentacleNodes()).flatMap(Collection::stream)
+				.collect(Collectors.toList());
 
-		TreeMap<Long, Node> map = new TreeMap<>();
+		TreeMap<Long, RouteNetworkNodeInfo> map = new TreeMap<>();
 		nodesByDocument.forEach(node -> {
 			DijkstraShortestPath<Long, RoutingEdge> dijstra = this.graphs.get(networkType);
 			GraphPath<Long, RoutingEdge> path = dijstra.getPath(nodeId, node.getId());
@@ -66,8 +73,8 @@ public class PlannerServiceImpl implements PlannerService {
 			map.put(meters, node);
 		});
 
-		Node firstNode = map.get(map.firstKey());
-		Node lastNode = map.get(map.lastKey());
+		RouteNetworkNodeInfo firstNode = map.get(map.firstKey());
+		RouteNetworkNodeInfo lastNode = map.get(map.lastKey());
 
 		return Arrays.asList(firstNode.getId(), lastNode.getId());
 	}
@@ -88,7 +95,7 @@ public class PlannerServiceImpl implements PlannerService {
 
 	private Section createSectionBetweenNodes(NetworkType networkType, NodeMapper nodeMapper) {
 		RoutingEdge routingEdge = this.graphs.get(networkType).getPath(nodeMapper.startNodeId, nodeMapper.endNodeId).getEdgeList().get(0);
-		RouteDocument document = this.graphRepository.getRouteDocumentById(routingEdge.getRouteId());
+		RouteDoc document = this.graphRepository.getRouteDocumentById(routingEdge.getRouteId());
 		Section section = new Section();
 
 		section.setStartNodeId(nodeMapper.startNodeId);
@@ -101,14 +108,15 @@ public class PlannerServiceImpl implements PlannerService {
 		return section;
 	}
 
-	private void getNodeNames(RouteDocument document, Section section) {
-		Analysis analysis = document.getRoute().getAnalysis();
+	private void getNodeNames(RouteDoc document, Section section) {
+		RouteInfoAnalysis analysis = document.getRoute().getAnalysis();
 
-		List<Node> nodeList = Stream.of(analysis.getStartNodes(), analysis.getEndNodes(), analysis.getStartTentacleNodes(), analysis.getEndTentacleNodes())
-				.flatMap(Collection::stream).collect(Collectors.toList());
+		List<RouteNetworkNodeInfo> nodeList = Stream
+				.of(analysis.getStartNodes(), analysis.getEndNodes(), analysis.getStartTentacleNodes(), analysis.getEndTentacleNodes()).flatMap(Collection::stream)
+				.collect(Collectors.toList());
 
-		Node start = nodeList.stream().filter(n -> n.getId().equals(section.getStartNodeId())).findFirst().orElse(null);
-		Node end = nodeList.stream().filter(n -> n.getId().equals(section.getEndNodeId())).findAny().orElse(null);
+		RouteNetworkNodeInfo start = nodeList.stream().filter(n -> n.getId().equals(section.getStartNodeId())).findFirst().orElse(null);
+		RouteNetworkNodeInfo end = nodeList.stream().filter(n -> n.getId().equals(section.getEndNodeId())).findAny().orElse(null);
 
 		if (start != null & end != null) {
 			section.setStartNode(start.getName());
@@ -119,9 +127,9 @@ public class PlannerServiceImpl implements PlannerService {
 		}
 	}
 
-	private void getCoordinatesBetweenNodes(RouteDocument document, String pathType, Section section) {
-		kpn.planner.domain.document.Map map = document.getRoute().getAnalysis().getMap();
-		List<Segment> segments = new ArrayList<>();
+	private void getCoordinatesBetweenNodes(RouteDoc document, String pathType, Section section) {
+		RouteMap map = document.getRoute().getAnalysis().getMap();
+		List<TrackSegment> segments = new ArrayList<>();
 
 		switch (pathType) {
 			case "forward":
@@ -140,11 +148,16 @@ public class PlannerServiceImpl implements PlannerService {
 			}
 		}
 
-		segments.forEach(segment -> section.addCoordinates(segment.getTrackPoints()));
+		segments.forEach(segment -> {
+			section.addCoordinates(segment.getSource().toCoordinates());
+			segment.getFragments().forEach(fragment -> {
+				section.addCoordinates(fragment.getTrackPoint().toCoordinates());
+			});
+		});
 	}
 
-	private List<Segment> getSegmentsForTentaclePaths(Section section, List<Path> tentaclePaths) {
-		Optional<Path> path = tentaclePaths.stream().filter(p -> p.getStartNodeId().equals(section.getStartNodeId()))
+	private List<TrackSegment> getSegmentsForTentaclePaths(Section section, List<TrackPath> tentaclePaths) {
+		Optional<TrackPath> path = tentaclePaths.stream().filter(p -> p.getStartNodeId().equals(section.getStartNodeId()))
 				.filter(p -> p.getEndNodeId().equals(section.getEndNodeId())).findAny();
 
 		if (!path.isPresent()) {
@@ -152,7 +165,7 @@ public class PlannerServiceImpl implements PlannerService {
 					.findAny();
 		}
 
-		return path.map(Path::getSegments).orElse(null);
+		return path.map(TrackPath::getSegments).orElse(null);
 	}
 
 	private AbstractBaseGraph<Long, RoutingEdge> initializeGraph(NetworkType networkType) {
@@ -179,6 +192,8 @@ public class PlannerServiceImpl implements PlannerService {
 
 			abstractBaseGraph.setEdgeWeight(edge, Double.valueOf(meters));
 		});
+
+		logger.info("Loaded graph edges " + networkType.name() + ": " + abstractBaseGraph.edgeSet().size());
 
 		return abstractBaseGraph;
 	}

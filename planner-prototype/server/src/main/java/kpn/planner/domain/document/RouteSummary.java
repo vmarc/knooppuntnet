@@ -3,7 +3,7 @@ package kpn.planner.domain.document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Summary {
+public class RouteSummary {
 
 	private String name;
 	private String networkType;
@@ -16,7 +16,7 @@ public class Summary {
 	private float meters;
 	private List<Object> nodeNames;
 
-	public Summary() {
+	public RouteSummary() {
 	}
 
 	public String getName() {

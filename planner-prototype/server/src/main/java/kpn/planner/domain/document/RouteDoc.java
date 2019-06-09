@@ -2,17 +2,16 @@ package kpn.planner.domain.document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RouteDocument {
+public class RouteDoc {
 
 	@JsonProperty("_id")
 	private String _id;
+
 	@JsonProperty("_rev")
 	private String _rev;
-	@JsonProperty("route")
-	private Route route;
 
-	public RouteDocument() {
-	}
+	@JsonProperty("route")
+	private RouteInfo route;
 
 	public String get_id() {
 		return _id;
@@ -30,11 +29,11 @@ public class RouteDocument {
 		this._rev = _rev;
 	}
 
-	public Route getRoute() {
+	public RouteInfo getRoute() {
 		return route;
 	}
 
-	public void setRoute(Route routeObject) {
+	public void setRoute(RouteInfo routeObject) {
 		this.route = routeObject;
 	}
 }
