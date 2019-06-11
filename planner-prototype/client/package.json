@@ -11,7 +11,7 @@
     "build": "ng build --progress --output-path ./dist/${npm_package_name}-${npm_package_version}",
     "test": "ng test",
     "lint": "ng lint",
-    "zip": "mkdir ../../dist; cd dist; tar -czf ../../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
+    "zip": "cd dist; tar -czf ../../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
     "dist": "run-s build zip"
   },
   "private": true,
