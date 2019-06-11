@@ -271,7 +271,7 @@ export class MapContainerComponent implements OnInit {
       this.cyclingMvtLayer.setVisible(false);
       this.walkingPngLayer.setVisible(false);
       this.walkingMvtLayer.setVisible(false);
-    } else if (zoom <= 12) {
+    } else if (zoom < 12) {
       this.cyclingPngLayer.setVisible(true);
       this.cyclingMvtLayer.setVisible(false);
       this.walkingPngLayer.setVisible(true);
