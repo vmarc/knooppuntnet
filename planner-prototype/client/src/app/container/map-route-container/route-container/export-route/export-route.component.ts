@@ -42,9 +42,9 @@ export class ExportRouteComponent implements OnInit {
   downloadGPX() {
     if (this.currentRoute && this.routeState.selectedRoute.selectedNodesByUser.length >= 2) {
       this.gpxService.downloadGPX(this.currentRoute).subscribe(response => {
-        const fileName: string = "knooppuntnet.gpx";
-        const objectUrl: string = URL.createObjectURL(response);
-        const a: HTMLAnchorElement = document.createElement("a") as HTMLAnchorElement;
+        const fileName = "knooppuntnet.gpx";
+        const objectUrl = URL.createObjectURL(response);
+        const a = document.createElement("a") as HTMLAnchorElement;
 
         a.href = objectUrl;
         a.download = fileName;

@@ -22,12 +22,14 @@ export class ExportPdfComponent implements OnInit {
 
   ngOnInit() {
     this.pdfDocument = this.route.snapshot.data["pdfDocument"];
-    this.timeRepresentation = this.pdfDocument.totalHoursParsed + " h " + this.pdfDocument.totalMinutesParsed + " m " + this.pdfDocument.totalSecondsParsed + " s";
+    this.timeRepresentation = this.pdfDocument.totalHoursParsed + " h " +
+      this.pdfDocument.totalMinutesParsed + " m " +
+      this.pdfDocument.totalSecondsParsed + " s";
   }
 
   createPdf() {
     this.spinner.show();
-    let source = window.document.getElementById("exportable");
+    const source = window.document.getElementById("exportable");
 
     html2canvas(source, {logging: false}).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
@@ -59,9 +61,9 @@ export class ExportPdfComponent implements OnInit {
   }
 
   convertTime(time: number): string {
-    let convertToSeconds = Math.floor(time / 1000);
-    let minutes = Math.floor(convertToSeconds / 60);
-    let seconds = convertToSeconds - (minutes * 60);
+    const convertToSeconds = Math.floor(time / 1000);
+    const minutes = Math.floor(convertToSeconds / 60);
+    const seconds = convertToSeconds - (minutes * 60);
 
     return minutes + " m " + seconds + " s";
   }

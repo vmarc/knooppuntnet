@@ -43,20 +43,20 @@ export class RouteDetailsComponent implements OnInit {
     if (this.route !== null && this.routeState.selectedRoute.selectedNamesByUser.length >= 2) {
       this.nodeSectionMapper = [];
       for (let i = 0; i < this.routeState.selectedRoute.selectedNamesByUser.length; i++) {
-        let startName = this.routeState.selectedRoute.selectedNamesByUser[i];
-        let endName = this.routeState.selectedRoute.selectedNamesByUser[i + 1];
+        const startName = this.routeState.selectedRoute.selectedNamesByUser[i];
+        const endName = this.routeState.selectedRoute.selectedNamesByUser[i + 1];
 
-        let index = this.route.sections.indexOf(this.route.sections.find(x => x.startNode === startName && x.endNode === endName));
+        const index = this.route.sections.indexOf(this.route.sections.find(x => x.startNode === startName && x.endNode === endName));
 
         if (index > -1) {
-          this.nodeSectionMapper.push({name: startName, sections: [this.route.sections[index]]})
+          this.nodeSectionMapper.push({name: startName, sections: [this.route.sections[index]]});
         } else {
-          let beginRoute = this.route.sections.indexOf(this.route.sections.find(x => x.startNode === startName));
-          let endRoute = this.route.sections.indexOf(this.route.sections.find(x => x.endNode === endName));
+          const beginRoute = this.route.sections.indexOf(this.route.sections.find(x => x.startNode === startName));
+          const endRoute = this.route.sections.indexOf(this.route.sections.find(x => x.endNode === endName));
 
-          let sections = [];
-          for (let i = beginRoute; i <= endRoute; i++) {
-            sections.push(this.route.sections[i]);
+          const sections = [];
+          for (let j = beginRoute; j <= endRoute; j++) {
+            sections.push(this.route.sections[j]);
           }
 
           this.nodeSectionMapper.push({name: startName, sections: sections});
