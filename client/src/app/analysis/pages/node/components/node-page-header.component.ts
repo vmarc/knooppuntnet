@@ -4,7 +4,7 @@ import {Component, Input} from "@angular/core";
   selector: "kpn-node-page-header",
   template: `
 
-    <h1>Node {{nodeName}}</h1>
+    <kpn-page-header [subject]="'node-page'" [title]="'Node ' + nodeName"></kpn-page-header>
 
     <kpn-page-menu>
 
@@ -58,7 +58,5 @@ export class NodePageHeaderComponent {
   private linkRoute(suffix: string): string {
     return `/analysis/node/${this.nodeId}${suffix}`;
   }
-
-
 
 }

@@ -13,9 +13,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       <ng-container i18n="@@breadcrumb.network">Network</ng-container>
     </div>
 
-    <h1>
-      {{networkName()}}
-    </h1>
+    <kpn-page-header [subject]="'network-page'" [title]="networkName()"></kpn-page-header>
 
     <kpn-page-menu>
       <kpn-page-menu-option

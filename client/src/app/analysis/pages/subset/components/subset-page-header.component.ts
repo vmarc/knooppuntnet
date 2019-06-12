@@ -19,6 +19,7 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 
     <h1>
       <kpn-subset-name [subset]="subset"></kpn-subset-name>
+      <kpn-doc-link [subject]="pageName + '-page'"></kpn-doc-link>
     </h1>
 
     <kpn-page-menu>

@@ -5,9 +5,8 @@ import {UserService} from "../../../services/user.service";
 @Component({
   selector: "kpn-login-page",
   template: `
-    <h1>
-      Login
-    </h1>
+
+    <kpn-page-header [subject]="'login-page'" [title]="'Login'"></kpn-page-header>
 
     <div class="note">
       <p>

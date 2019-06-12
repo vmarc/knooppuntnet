@@ -5,10 +5,9 @@ import {UserService} from "../../../services/user.service";
 @Component({
   selector: "kpn-logout-page",
   template: `
-    <h1>
-      Logout
-    </h1>
 
+    <kpn-page-header [subject]="'logout-page'" [title]="'Logout'"></kpn-page-header>
+    
     <div *ngIf="loggedIn()">
 
       <p>

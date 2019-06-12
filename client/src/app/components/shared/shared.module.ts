@@ -66,6 +66,8 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
+import {DocLinkComponent} from "./link/doc-link.component";
+import {PageHeaderComponent} from "./page/page-header.component";
 
 @NgModule({
   imports: [
@@ -126,6 +128,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     TagsTableComponent,
     TagsTextComponent,
     DataComponent,
+    PageHeaderComponent,
     PageFooterComponent,
     ToolbarComponent,
     SidebarComponent,
@@ -144,6 +147,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     IconButtonComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
+    DocLinkComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -191,6 +195,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     JsonComponent,
     TagsTableComponent,
     DataComponent,
+    PageHeaderComponent,
     PageFooterComponent,
     ToolbarComponent,
     SidebarComponent,
@@ -208,6 +213,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     IconButtonComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
+    DocLinkComponent
   ]
 })
 export class SharedModule {

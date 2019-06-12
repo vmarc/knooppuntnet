@@ -6,14 +6,34 @@ import {Component} from "@angular/core";
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h1>Route planner</h1>
+          <div class="header">
+            <h1>Route planner</h1>
+            <kpn-doc-link [subject]="'planner'"></kpn-doc-link>
+          </div>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <kpn-plan></kpn-plan>
       </ng-template>
     </mat-expansion-panel>
-  `
+  `,
+  styles: [`
+
+    .header {
+      display: flex;
+      width: 100%;
+    }
+
+    .header h1 {
+      flex: 1;
+      display: inline-block;
+    }
+
+    kpn-doc-link {
+      padding-top: 10px;
+    }
+
+  `]
 })
 export class MapSidebarPlannerComponent {
 }
