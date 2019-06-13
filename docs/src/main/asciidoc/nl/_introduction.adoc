@@ -1,0 +1,39 @@
+== Inleiding
+
+
+=== Verder lezen
+
+==== Algemeen
+
+* https://openstreetmap.org[OpenStreetMap] +
+Start pagina voor OpenStreetMap.
+
+* https://wiki.openstreetmap.org/wiki/NL:Hoofdpagina[Wiki] +
+OpenStreetMap documentatie.
+
+* https://www.osm.be/[osm.be] +
+OSM België
+
+
+* https://lists.openstreetmap.org/mailman/listinfo/talk-be[talk-be] (Engels) +
+Belgische email lijst
+
+* https://forum.openstreetmap.org/viewforum.php?id=12[forum nl] +
+OSM Forum Nederland
+
+
+==== Knooppunt netwerken
+
+* https://wiki.openstreetmap.org/wiki/Cycle_Node_Network_Tagging[Mappen van fietsnetwerken] (Engels)
+https://wiki.openstreetmap.org/wiki/Talk:Cycle_Node_Network_Tagging[discussie]
+(Nederlands) +
+Details over het mappen van fietsnetwerken (ook geldig voor wandelnetwerken).
+
+* https://wiki.openstreetmap.org/wiki/WikiProject_Nederland_Wandelroutes#Tagging[Wandelnetwerken in Nederland] +
+Achtergrond informatie bij het mappen van wandelnetwerken in Nederland.
+
+* https://wiki.openstreetmap.org/wiki/WikiProject_Belgium/Conventions/Walking_Routes[Wandel routes in Belgie] (Engels) +
+Achtergrond informatie bij het mappen van wandelnetwerken in Belgie.
+                  )
+* https://wiki.openstreetmap.org/wiki/User:Polyglot/Some_ways_to_simplify_editing_cycle_node_routes_with_JOSM[Hulpmiddel voor JOSM] (Engels) +
+Hulpmiddel om het mappen van knooppuntnetwerken te vereenvoudigen wanneer met JOSM gewerkt wordt.

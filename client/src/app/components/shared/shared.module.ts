@@ -147,7 +147,8 @@ import {PageHeaderComponent} from "./page/page-header.component";
     IconButtonComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
-    DocLinkComponent
+    DocLinkComponent,
+    DocLinkSmallComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -213,7 +214,8 @@ import {PageHeaderComponent} from "./page/page-header.component";
     IconButtonComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
-    DocLinkComponent
+    DocLinkComponent,
+    DocLinkSmallComponent
   ]
 })
 export class SharedModule {

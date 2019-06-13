@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: "kpn-doc-link",
+  selector: "kpn-doc-link-small",
   template: `
     <a [href]="href()" target="knooppuntnet-documentation" title="Go to documentation" class="help-link">
       <div class="help">?</div>
@@ -15,25 +15,25 @@ import {Component, Input} from "@angular/core";
       color: lightgray;
       border-radius: 50%;
       border-style: solid;
-      border-width: 2px;
-      width: 40px;
-      height: 40px;
+      border-width: 1px;
+      width: 20px;
+      height: 20px;
     }
 
     .help {
-      font-size: 30px;
-      width: 40px;
-      margin-top: 2px;
+      font-size: 15px;
+      width: 20px;
+      margin-top: 1px;
       text-align: center;
     }
 
   `]
 })
-export class DocLinkComponent {
+export class DocLinkSmallComponent {
 
   @Input() subject;
 
   href(): string {
-    return `docs/html/en_user.html#${this.subject}`;
+    return `docs/en.html#${this.subject}`;
   }
 }

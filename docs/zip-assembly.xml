@@ -1,0 +1,26 @@
+<assembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <id>distribution</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>target/html</directory>
+            <outputDirectory>${project.artifactId}-${project.version}</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <files>
+        <file>
+            <source>target/pdf/en.pdf</source>
+            <outputDirectory>${project.artifactId}-${project.version}/pdf/</outputDirectory>
+            <destName>knooppuntnet-en.pdf</destName>
+        </file>
+        <file>
+            <source>target/pdf/nl.pdf</source>
+            <outputDirectory>${project.artifactId}-${project.version}/pdf/</outputDirectory>
+            <destName>knooppuntnet-nl.pdf</destName>
+        </file>
+    </files>
+</assembly>

@@ -1,0 +1,195 @@
+[#planner]
+== Planner
+
+// TODO embed video here?
+
+=== Navigate to planner
+
+From the knooppuntnet https://experimental.knooppuntnet.nl/en[home] page you can navigate to the route
+planner by clicking on the map icon:
+
+image::map-icon.png[]
+
+Next, you select the type of map that you want to go to by clicking on the corresponding icon.
+
+Following map types are available:
+
+- cycling
+- walking
+- horse
+- motorboat
+- inline skating
+
+For example, to go to the bicycle map, click the following icon:
+
+image::cycling-icon.png[]
+
+You have now reached the route planner page. If you intent to come back to this page regularly,
+this might be a good moment to create a bookmark or add this page to your favourites, so that
+next time you do not have to go through the home page and network type selection anymore to get here.
+
+=== Plan a route
+
+==== Zoom in
+
+The first step in planning the route is to zoom in on the map to the location of
+the node where you want to start the route.
+
+
+===== Automatic zoom in
+
+If you allow the browser to read your current location, the map will be zoomed in to your current
+location automatically.
+
+
+
+TIP: The browser will only ask this the first time, and remember the answer.
+
+// TODO screenshot of browser asking for permission
+
+
+Click on button to zoom/pan to current location --> TODO implement.
+
+
+
+
+
+===== Place name
+
+Alternatively
+
+
+===== Manually zoom in
+
+To plan a route, first zoom in to the location on the map until you see the node from which
+you want to start.
+
+- mouse wheel
+
+- To move the map arround (pan) moving the mouse over a location on the map and holding down the left
+mouse button and then moving the mouse up/down/left/right. When the mouse is hoovering over a node
+of part of the route, you will select that node, so before starting the move, make sure you are
+above a portion of the map without nodes and the mouse cursor still looks like this:
+
+// TODO screenshot crosshair? ...
+// TODO add wikipedia link? or link on OSM site? or openlayers site?
+
+  - https://subscription.packtpub.com/book/hardware_and_creative/9781847197504/2/ch02lvl1sec17/how-to-use-the-slippy-map
+  - https://wiki.openstreetmap.org/wiki/Browsing
+
+
+- use plus and minus buttons at the top left of the map
+
+// TODO include screenshot of zoom buttons
+
+
+
+
+
+==== Select the route starting point
+
+When you have found the node from which you want to start, click it.
+
+- crosshair
+- snap functionality
+
+
+
+==== Select the route destination point
+
+Click on the node that you want to be the final destination of your route.
+
+The application will now calculate the shortest route between the start and end point.
+
+The total distance of the route is displayed on the left, as well as all the nodes
+that the route passes through.
+
+// TODO screenshot 'distance' and 'compact nodes'
+
+If you are happy with the route as shown on the screen, you can now skip to "Export route".
+
+==== Further fine-tune the route
+
+...
+
+
+
+
+
+
+
+
+==== Export route
+
+  - click several intermediate points
+
+
+  - planner undo/redo
+
+  - planner modify route
+    - drag selected node
+    - start dragging from route leg
+    - drag start node
+    - drag end node
+    - delete intermediate point --> not implemented yet
+
+// TODO screenshot export button
+
+// TODO screenshot selection dialog
+
+// TODO screenshot pdf output
+
+=== Change map looks
+
+==== The default look
+
+// TODO screenshot of map legend
+
+  paved/unpaved
+
+==== Analysis
+
+Can change to show analysis results:
+
+// TODO screenshot of map legend
+
+  orphan
+  failed
+
+==== Survey date
+
+Can change to show latest survey date.
+
+// TODO screenshot of map legend
+
+
+=== Points of interest
+
+==== Enable/disable
+
+Click on the icon.
+
+To close the dialog:
+- click on other icon
+- click on cross in upper right corner
+
+
+Information:
+
+- name
+
+- address
+
+- link
+
+- photos
+
+- tag details
+
+
+
+==== Setup
+
+
+
+
