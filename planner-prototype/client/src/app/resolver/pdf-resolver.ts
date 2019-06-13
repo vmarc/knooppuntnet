@@ -27,7 +27,7 @@ export class PdfResolver implements Resolve<any> {
 
     return this.pdfService.downloadPDF(this.currentLanguage, this.currentType, this.route).pipe(
       catchError(() => {
-        this.router.navigate(["/knooppuntnet"]);
+        this.router.navigate(["/"]);
         return EMPTY;
       }));
   }

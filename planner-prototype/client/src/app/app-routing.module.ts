@@ -4,12 +4,12 @@ import {PdfResolver} from "./resolver/pdf-resolver";
 import {ContainerComponent, ExportCompactComponent, ExportPdfComponent, ExportRouteComponent, FaqContainerComponent} from "./container";
 
 const routes: Routes = [
-  {path: "knooppuntnet", component: ContainerComponent},
-  {path: "knooppuntnet/faq", component: FaqContainerComponent},
-  {path: "knooppuntnet/export", component: ExportRouteComponent},
-  {path: "knooppuntnet/export/pdf", component: ExportPdfComponent, resolve: {pdfDocument: PdfResolver}},
-  {path: "knooppuntnet/export/compact", component: ExportCompactComponent},
-  {path: "", redirectTo: "/knooppuntnet", pathMatch: "full"}
+  {path: "", component: ContainerComponent},
+  {path: "faq", component: FaqContainerComponent},
+  {path: "export", component: ExportRouteComponent},
+  {path: "export/pdf", component: ExportPdfComponent, resolve: {pdfDocument: PdfResolver}},
+  {path: "export/compact", component: ExportCompactComponent},
+  {path: "", redirectTo: "/", pathMatch: "full"}
 ];
 
 @NgModule({

@@ -33,7 +33,7 @@ export class ExportRouteComponent implements OnInit {
 
   downloadPDF() {
     if (this.currentRoute && this.routeState.selectedRoute.selectedNodesByUser.length >= 2) {
-      this.router.navigate(["/knooppuntnet/export/pdf"]);
+      this.router.navigate(["/export/pdf"]);
     } else {
       this.translate.get("NO_ROUTE_SELECTED").subscribe(response => this.toastr.error(response));
     }
@@ -63,13 +63,13 @@ export class ExportRouteComponent implements OnInit {
 
   downloadCompact() {
     if (this.currentRoute && this.routeState.selectedRoute.selectedNodesByUser.length >= 2) {
-      this.router.navigate(["/knooppuntnet/export/compact"]);
+      this.router.navigate(["/export/compact"]);
     } else {
       this.translate.get("NO_ROUTE_SELECTED").subscribe(response => this.toastr.error(response));
     }
   }
 
   homePage() {
-    this.router.navigate(["/knooppuntnet"]);
+    this.router.navigate(["/"]);
   }
 }

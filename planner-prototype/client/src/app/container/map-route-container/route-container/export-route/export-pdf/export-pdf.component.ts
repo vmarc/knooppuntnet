@@ -57,7 +57,7 @@ export class ExportPdfComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(["/knooppuntnet/export"]);
+    this.router.navigate(["/export"]);
   }
 
   convertTime(time: number): string {

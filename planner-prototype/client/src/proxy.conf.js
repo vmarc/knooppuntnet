@@ -11,7 +11,6 @@ PROXY_CONFIG = {
     "target": "http://localhost:9003",
     "secure": false,
     "bypass": function (req) {
-      console.log("URL " + req.url);
       if (req.headers.accept.indexOf("html") !== -1) {
         return "/index.html";
       }

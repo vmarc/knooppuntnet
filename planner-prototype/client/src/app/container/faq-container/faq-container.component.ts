@@ -12,6 +12,6 @@ export class FaqContainerComponent {
   }
 
   homePage() {
-    this.router.navigate(["/knooppuntnet"]);
+    this.router.navigate(["/"]);
   }
 }
