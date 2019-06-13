@@ -27,6 +27,7 @@ import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
+import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 
 @Component({
   selector: "kpn-map-main-page",
@@ -138,6 +139,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.vectorTileLayer.setStyle(this.mainMapStyle);
     this.updateLayerVisibility(view.getZoom());
+
+    MapGeocoder.install(this.map);
   }
 
   ngOnDestroy() {
