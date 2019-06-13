@@ -34,6 +34,6 @@ export class DocLinkComponent {
   @Input() subject;
 
   href(): string {
-    return `docs/html/en_user.html#${this.subject}`;
+    return `docs/en.html#${this.subject}`;
   }
 }

@@ -15,9 +15,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
       <span i18n="@@breadcrumb.overview">Overview</span>
     </div>
 
-    <h1 i18n="@@overview-page.title">
-      Overview
-    </h1>
+    <kpn-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title">Overview</kpn-page-header>
 
     <kpn-statistic-configurations></kpn-statistic-configurations>
 

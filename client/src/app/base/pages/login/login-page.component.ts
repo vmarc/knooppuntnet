@@ -6,7 +6,7 @@ import {UserService} from "../../../services/user.service";
   selector: "kpn-login-page",
   template: `
 
-    <kpn-page-header [subject]="'login-page'" [title]="'Login'"></kpn-page-header>
+    <kpn-page-header subject="login-page">Login</kpn-page-header>
 
     <div class="note">
       <p>

@@ -20,13 +20,10 @@ import {JosmLinkComponent} from "./link/josm-link.component";
 import {JosmNodeComponent} from "./link/josm-node.component";
 import {JosmRelationComponent} from "./link/josm-relation.component";
 import {JosmWayComponent} from "./link/josm-way.component";
-import {LinkAboutComponent} from "./link/link-about.component";
 import {LinkAuthenticateComponent} from "./link/link-authenticate.component";
 import {LinkChangesComponent} from "./link/link-changes.component";
 import {LinkChangesetComponent} from "./link/link-changeset.component";
 import {LinkFactComponent} from "./link/link-fact.component";
-import {LinkGlossaryComponent} from "./link/link-glossary.component";
-import {LinkLinksComponent} from "./link/link-links.component";
 import {LinkLoginComponent} from "./link/link-login.component";
 import {LinkLogoutComponent} from "./link/link-logout.component";
 import {LinkMapComponent} from "./link/link-map.component";
@@ -37,7 +34,6 @@ import {LinkNetworkMapComponent} from "./link/link-network-map.component";
 import {LinkNetworkNodesComponent} from "./link/link-network-nodes.component";
 import {LinkNetworkRoutesComponent} from "./link/link-network-routes.component";
 import {LinkNodeComponent} from "./link/link-node.component";
-import {LinkOverviewComponent} from "./link/link-overview.component";
 import {LinkRouteComponent} from "./link/link-route.component";
 import {OsmLinkChangeSetComponent} from "./link/osm-link-change-set.component";
 import {OsmLinkNodeComponent} from "./link/osm-link-node.component";
@@ -68,6 +64,7 @@ import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
 import {DocLinkComponent} from "./link/doc-link.component";
 import {PageHeaderComponent} from "./page/page-header.component";
+import {DocLinkSmallComponent} from "./link/doc-link-small.component";
 
 @NgModule({
   imports: [
@@ -92,14 +89,10 @@ import {PageHeaderComponent} from "./page/page-header.component";
     LinkNetworkNodesComponent,
     LinkNetworkRoutesComponent,
     LinkNodeComponent,
-    LinkOverviewComponent,
     LinkRouteComponent,
     LinkChangesComponent,
     LinkFactComponent,
-    LinkAboutComponent,
     LinkAuthenticateComponent,
-    LinkGlossaryComponent,
-    LinkLinksComponent,
     LinkLoginComponent,
     LinkLogoutComponent,
     JosmLinkComponent,
@@ -161,14 +154,10 @@ import {PageHeaderComponent} from "./page/page-header.component";
     LinkNetworkNodesComponent,
     LinkNetworkRoutesComponent,
     LinkNodeComponent,
-    LinkOverviewComponent,
     LinkRouteComponent,
     LinkChangesComponent,
     LinkFactComponent,
-    LinkAboutComponent,
     LinkAuthenticateComponent,
-    LinkGlossaryComponent,
-    LinkLinksComponent,
     LinkLoginComponent,
     LinkLogoutComponent,
     JosmNodeComponent,

@@ -4,10 +4,9 @@ import {PageService} from "../../../components/shared/page.service";
 @Component({
   selector: "kpn-home-page",
   template: `
-    <h1 i18n="@@home.page-title">
-      Node networks
-    </h1>
 
+    <kpn-page-header subject="" i18n="@@home.page-title">Node networks</kpn-page-header>
+    
     <kpn-icon-button
       routerLink="/map"
       icon="map"

@@ -14,9 +14,7 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
       <span i18n="@@breadcrumb.changes">Changes</span>
     </div>
 
-    <h1 i18n="@@changes-page.title">
-      Changes
-    </h1>
+    <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
 
     <kpn-changes-table [parameters]="parameters"></kpn-changes-table>
   `

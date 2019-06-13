@@ -4,8 +4,8 @@ import {Component, Input} from "@angular/core";
   selector: "kpn-route-page-header",
   template: `
 
-    <kpn-page-header [subject]="'route-page'" [title]="'Route ' + routeName"></kpn-page-header>
-    
+    <kpn-page-header subject="route-page">{{'Route ' + routeName}}</kpn-page-header>
+
     <kpn-page-menu>
 
       <kpn-page-menu-option

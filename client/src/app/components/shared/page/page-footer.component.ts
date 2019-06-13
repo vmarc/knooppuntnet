@@ -4,17 +4,11 @@ import {Component} from "@angular/core";
   selector: "kpn-page-footer",
   template: `
     <div class="footer">
-      <kpn-link-about></kpn-link-about>
+      <a [href]="docsUrl()" class="external" target="knooppuntnet-documentation">documentation</a>
       |
-      <kpn-link-glossary></kpn-link-glossary>
+      <a href="https://www.openstreetmap.org/message/new/vmarc" class="external" target="_blank">contact</a>
       |
-      <kpn-link-links></kpn-link-links>
-      |
-      <kpn-link-overview></kpn-link-overview>
-      |
-      <a href="https://www.openstreetmap.org/message/new/vmarc" class="external" target="_blank">Contact</a>
-      |
-      <a href="https://github.com/vmarc/knooppuntnet/issues" class="external" target="_blank">Issues</a>
+      <a href="https://github.com/vmarc/knooppuntnet/issues" class="external" target="_blank">issues</a>
     </div>
   `,
   styles: [`
@@ -28,4 +22,9 @@ import {Component} from "@angular/core";
   `]
 })
 export class PageFooterComponent {
+
+  docsUrl(): string {
+    return "docs/en.html";
+  }
+
 }

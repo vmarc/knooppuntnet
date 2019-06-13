@@ -17,11 +17,10 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
       <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
     </div>
 
-    <h1>
+    <kpn-page-header [subject]="'subset-' + pageName + '-page'">
       <kpn-subset-name [subset]="subset"></kpn-subset-name>
-      <kpn-doc-link [subject]="pageName + '-page'"></kpn-doc-link>
-    </h1>
-
+    </kpn-page-header>
+    
     <kpn-page-menu>
 
       <kpn-page-menu-option

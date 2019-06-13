@@ -9,8 +9,8 @@ import {MapService} from "../../../components/ol/map.service";
       <span i18n="@@breadcrumb.map">Map</span>
     </div>
 
-    <kpn-page-header [subject]="'planner'" [title]="'Map'"></kpn-page-header>
-    
+    <kpn-page-header subject="planner">Map</kpn-page-header>
+
     <kpn-icon-button
       routerLink="/map/cycling"
       icon="cycling"

@@ -4,7 +4,9 @@ import {Component, Input} from "@angular/core";
   selector: "kpn-page-header",
   template: `
     <div class="header">
-      <h1>{{title}}</h1>
+      <h1>
+        <ng-content></ng-content>
+      </h1>
       <kpn-doc-link [subject]="subject"></kpn-doc-link>
     </div>
   `,
