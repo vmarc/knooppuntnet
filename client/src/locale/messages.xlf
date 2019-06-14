@@ -298,9 +298,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="changes-page.title" datatype="html">
-        <source>
-      Changes
-    </source>
+        <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/changes/changes-page.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -380,9 +378,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="overview-page.title" datatype="html">
-        <source>
-      Overview
-    </source>
+        <source>Overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/_overview-page.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -2037,42 +2033,42 @@
         <source>Details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.facts" datatype="html">
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.nodes" datatype="html">
         <source>Nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.routes" datatype="html">
         <source>Routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.map" datatype="html">
         <source>Map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.changes" datatype="html">
         <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.networks" datatype="html">
@@ -2111,26 +2107,24 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home.page-title" datatype="html">
-        <source>
-      Node networks
-    </source>
+        <source>Node networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.map" datatype="html">
         <source>Map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.analysis" datatype="html">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.map" datatype="html">
