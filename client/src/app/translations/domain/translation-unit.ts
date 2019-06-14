@@ -1,11 +1,11 @@
 export class TranslationUnit {
 
-  constructor(public id: string,
-              public source: string,
-              public target: string,
-              public state: string,
-              public sourceFile: string,
-              public lineNumber: string) {
+  constructor(readonly id: string,
+              readonly source: string,
+              readonly target: string,
+              readonly state: string,
+              readonly sourceFile: string,
+              readonly lineNumber: string) {
   }
 
 }

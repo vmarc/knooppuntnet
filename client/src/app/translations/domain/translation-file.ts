@@ -1,10 +1,11 @@
 import {TranslationUnit} from "./translation-unit";
+import {List} from "immutable";
 
 export class TranslationFile {
 
-  constructor(public sourceLanguage: string,
-              public targetLanguage: string,
-              public translationUnits: Array<TranslationUnit>) {
+  constructor(readonly sourceLanguage: string,
+              readonly targetLanguage: string,
+              readonly translationUnits: List<TranslationUnit>) {
   }
 
 }

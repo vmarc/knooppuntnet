@@ -2,6 +2,7 @@
 
 import {TranslationFile} from "./translation-file";
 import {TranslationUnit} from "./translation-unit";
+import {List} from "immutable";
 
 export class XliffParser {
 
@@ -22,7 +23,7 @@ export class XliffParser {
     return new TranslationFile(sourceLanguage, targetLanguage, translationUnits);
   }
 
-  private parseTranslationUnits(xmlDocument: Document): Array<TranslationUnit> {
+  private parseTranslationUnits(xmlDocument: Document): List<TranslationUnit> {
     const translationUnits: Array<TranslationUnit> = [];
     const translationUnitElements = xmlDocument.getElementsByTagName("trans-unit");
     for (let i = 0; i < translationUnitElements.length; i++) {
@@ -49,7 +50,7 @@ export class XliffParser {
       const translationUnit = new TranslationUnit(id, source, target, state, sourceFile, lineNumber);
       translationUnits.push(translationUnit);
     }
-    return translationUnits;
+    return List(translationUnits);
   }
 
 }
