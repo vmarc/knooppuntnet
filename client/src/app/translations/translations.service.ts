@@ -12,16 +12,7 @@ export class TranslationsService {
   }
 
   public loadTranslationFile(language: string): Observable<TranslationFile> {
-    const url = `https://raw.githubusercontent.com/vmarc/knooppuntnet/master/client/src/locale/messages.${language}.xlf`;
-    return this.http.get(url, {responseType: "text"}).pipe(
-      map(response => {
-        return new XliffParser().parse(response);
-      })
-    );
-  }
-
-  public translationUnits(): Observable<TranslationFile> {
-    const url = "https://raw.githubusercontent.com/vmarc/knooppuntnet/master/client/src/locale/messages.fr.xlf";
+    const url = `https://raw.githubusercontent.com/vmarc/knooppuntnet/master/client/src/locale/translations.${language}.xlf`;
     return this.http.get(url, {responseType: "text"}).pipe(
       map(response => {
         return new XliffParser().parse(response);

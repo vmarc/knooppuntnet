@@ -75,7 +75,7 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "outputPath": "dist/kpn-nl/",
-              "i18nFile": "src/locale/messages.nl.xlf",
+              "i18nFile": "src/locale/translations.nl.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "nl",
               "i18nMissingTranslation": "error"
@@ -97,7 +97,7 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "outputPath": "dist/kpn-fr/",
-              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nFile": "src/locale/translations.fr.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "fr",
               "i18nMissingTranslation": "error"
@@ -119,7 +119,7 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "outputPath": "dist/kpn-de/",
-              "i18nFile": "src/locale/messages.de.xlf",
+              "i18nFile": "src/locale/translations.de.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "de",
               "i18nMissingTranslation": "error"
@@ -127,7 +127,7 @@
             "nl": {
               "aot": true,
               "outputPath": "dist/kpn-nl/",
-              "i18nFile": "src/locale/messages.nl.xlf",
+              "i18nFile": "src/locale/translations.nl.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "nl",
               "i18nMissingTranslation": "error"
@@ -135,7 +135,7 @@
             "fr": {
               "aot": true,
               "outputPath": "dist/kpn-fr/",
-              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nFile": "src/locale/translations.fr.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "fr",
               "i18nMissingTranslation": "error"
@@ -143,7 +143,7 @@
             "de": {
               "aot": true,
               "outputPath": "dist/kpn-de/",
-              "i18nFile": "src/locale/messages.de.xlf",
+              "i18nFile": "src/locale/translations.de.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "de",
               "i18nMissingTranslation": "error"
@@ -174,7 +174,8 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "knooppuntnet:build"
+            "browserTarget": "knooppuntnet:build",
+            "outFile": "translations.xlf"
           }
         },
         "test": {
