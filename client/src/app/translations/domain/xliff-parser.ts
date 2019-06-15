@@ -27,9 +27,9 @@ export class XliffParser {
     for (let i = 0; i < translationUnitElements.length; i++) {
       const translationUnitElement = translationUnitElements.item(i);
       const id = translationUnitElement.getAttribute("id");
-      const source = translationUnitElement.getElementsByTagName("source").item(0).childNodes[0].nodeValue;
+      const source = translationUnitElement.getElementsByTagName("source").item(0).innerHTML.split('xmlns="urn:oasis:names:tc:xliff:document:1.2"').join("");
       const targetElement = translationUnitElement.getElementsByTagName("target").item(0);
-      const target = targetElement.childNodes[0].nodeValue;
+      const target = targetElement.innerHTML.split('xmlns="urn:oasis:names:tc:xliff:document:1.2"').join("");
       const state = targetElement.getAttribute("state");
 
       let locations: List<TranslationLocation> = List();

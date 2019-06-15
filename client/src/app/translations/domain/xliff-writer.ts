@@ -30,9 +30,9 @@ export class XliffWriter {
 
   private translationFileEnd(): Array<string> {
     return [
-      "    </body>",
-      "  </file>",
-      "</xliff>\n"
+      `    </body>`,
+      `  </file>`,
+      `</xliff>\n`
     ];
   }
 
@@ -41,13 +41,13 @@ export class XliffWriter {
     return [
       `      <trans-unit id="${translationUnit.id}" datatype="html">`,
       `        <source>${translationUnit.source}</source>`,
-      `        <target ${state}>${translationUnit.target}</target>`
+      `        <target${state}>${translationUnit.target}</target>`
     ];
   }
 
   private translationUnitEnd(): Array<string> {
     return [
-      "      </trans-unit>"
+      `      </trans-unit>`
     ];
   }
 
