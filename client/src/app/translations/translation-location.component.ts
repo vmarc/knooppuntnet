@@ -6,14 +6,24 @@ import {TranslationLocation} from "./domain/translation-location";
   selector: "kpn-translation-location",
   template: `
     <div>
-      {{location.sourceFile}}, line: {{location.lineNumber}}
-      <pre>{{sourceCode}}</pre>
+      <div class="title">
+        {{location.sourceFile}}, line: {{location.lineNumber}}
+      </div>
+      <div class="body">
+        <pre>{{sourceCode}}</pre>
+      </div>
     </div>
   `,
   styles: [`
 
-    pre {
-      background-color: lightgrey;
+    .title {
+      padding-top: 10px;
+      font-size: 0.8em;
+    }
+
+    .body {
+      padding: 3px;
+      background-color: #f8f8f8;
     }
 
   `]

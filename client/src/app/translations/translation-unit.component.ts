@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from "@angular/core";
 import {TranslationUnit} from "./domain/translation-unit";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {TranslationLocation} from "./domain/translation-location";
+import {List} from "immutable";
 
 @Component({
   selector: "kpn-translation-unit",
@@ -23,12 +25,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
       <button mat-stroked-button (click)="onSave()" [disabled]="form.pristine">Save &amp; Next</button>
     </form>
 
-    <mat-checkbox [checked]="showLocations" (change)="toggleShowLocations()">Show source code usage locations ({{translationUnit?.locations.size}})</mat-checkbox>
-    <div *ngIf="showLocations">
-      <div *ngFor="let location of translationUnit?.locations">
-        <kpn-translation-location [location]="location"></kpn-translation-location>
-      </div>
-    </div>
+    <kpn-translation-locations [locations]="locations()"></kpn-translation-locations>
 
   `,
   styles: [`
@@ -57,8 +54,6 @@ export class TranslationUnitComponent implements OnChanges {
   readonly form: FormGroup;
   readonly source = new FormControl();
   readonly target = new FormControl();
-
-  showLocations = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.buildForm();
@@ -95,8 +90,11 @@ export class TranslationUnitComponent implements OnChanges {
     }
   }
 
-  toggleShowLocations(): void {
-    this.showLocations = !this.showLocations;
+  locations(): List<TranslationLocation> {
+    if (this.translationUnit) {
+      return this.translationUnit.locations;
+    }
+    return List();
   }
 
   private buildForm(): FormGroup {

@@ -1,6 +1,5 @@
-import {Component, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {saveAs} from "file-saver";
-import {Subscriptions} from "../util/Subscriptions";
 import {TranslationFile} from "./domain/translation-file";
 import {XliffWriter} from "./domain/xliff-writer";
 import {TranslationUnit} from "./domain/translation-unit";
@@ -14,8 +13,8 @@ import {List} from "immutable";
     to be translated: {{toBeTranslatedCount()}},
     not saved yet:  {{dirtyCount()}}
 
-    <mat-divider></mat-divider>
     <button mat-stroked-button (click)="save()">Save to file</button>
+
     <mat-divider></mat-divider>
 
     <kpn-translation-unit [translationUnit]="translationUnit" (edited)="edited($event)"></kpn-translation-unit>
@@ -29,9 +28,7 @@ import {List} from "immutable";
 
   `]
 })
-export class TranslationsEditComponent implements OnInit, OnDestroy {
-
-  private readonly subscriptions = new Subscriptions();
+export class TranslationsEditComponent implements OnInit {
 
   @Input() translationFile: TranslationFile;
 
@@ -42,10 +39,6 @@ export class TranslationsEditComponent implements OnInit, OnDestroy {
     this.translationUnits = this.translationFile.translationUnits;
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   save() {
     const newTranslationFile = new TranslationFile(
       this.translationFile.sourceLanguage,
@@ -54,7 +47,7 @@ export class TranslationsEditComponent implements OnInit, OnDestroy {
     );
     const content = new XliffWriter().write(newTranslationFile);
     const blob = new Blob([content], {type: "application/xml"});
-    let filename = "messages." + this.translationFile.targetLanguage + ".xlf";
+    const filename = "messages." + this.translationFile.targetLanguage + ".xlf";
     saveAs(blob, filename);
   }
 

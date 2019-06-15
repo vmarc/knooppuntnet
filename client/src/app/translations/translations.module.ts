@@ -19,6 +19,7 @@ import {TranslationsLoadComponent} from "./translations-load.component";
 import {TranslationsEditComponent} from "./translations-edit.component";
 import {TranslationLocationComponent} from "./translation-location.component";
 import {TranslationUnitComponent} from "./translation-unit.component";
+import {TranslationLocationsComponent} from "./translation-locations.component";
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import {TranslationUnitComponent} from "./translation-unit.component";
     TranslationsComponent,
     TranslationUnitComponent,
     TranslationLocationComponent,
+    TranslationLocationsComponent,
     TranslationsLoadComponent,
     TranslationsEditComponent,
     TranslationTableComponent
