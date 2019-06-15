@@ -5,7 +5,7 @@ export class TranslationUnit {
               readonly target: string,
               readonly state: string,
               readonly sourceFile: string,
-              readonly lineNumber: string) {
+              readonly lineNumber: number) {
   }
 
 }

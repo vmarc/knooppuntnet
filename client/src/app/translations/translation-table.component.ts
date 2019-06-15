@@ -1,10 +1,11 @@
-import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {debounceTime} from "rxjs/operators";
 import {Subscriptions} from "../util/Subscriptions";
 import {TranslationUnit} from "./domain/translation-unit";
 import {List} from "immutable";
+import {SelectionModel} from "@angular/cdk/collections";
 
 @Component({
   selector: "kpn-translation-table",
@@ -52,12 +53,21 @@ import {List} from "immutable";
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{'selected-row': selection.isSelected(row), 'selectable': true}"
+        (click)="selection.toggle(row)">
+      </mat-row>
+
     </mat-table>
   `,
   styles: [`
     mat-table {
       width: 100%;
+    }
+    
+    .selected-row {
+      background-color: lightgrey;
     }
   `]
 })
@@ -66,6 +76,7 @@ export class TranslationTableComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   @Input() translationUnits: List<TranslationUnit>;
+  @Output() selected = new EventEmitter<TranslationUnit>();
 
   showTranslated = false;
 
@@ -78,9 +89,15 @@ export class TranslationTableComponent implements OnInit, OnDestroy {
   readonly form: FormGroup;
   readonly filter = new FormControl();
 
+  readonly selection = new SelectionModel<TranslationUnit>(false, [], true);
+
   constructor(private fb: FormBuilder) {
     this.form = this.buildForm();
     this.subscriptions.add(this.filter.valueChanges.pipe(debounceTime(500)).subscribe(() => this.onFilterChanged()));
+    this.selection.changed.subscribe(change => {
+      const translationUnit = this.selection.selected.length > 0 ? this.selection.selected[0] : null;
+      this.selected.emit(translationUnit);
+    });
   }
 
   ngOnInit() {

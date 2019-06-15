@@ -34,7 +34,7 @@ export class XliffParser {
       const target = targetElement.childNodes[0].nodeValue;
       const state = targetElement.getAttribute("state");
       let sourceFile = "";
-      let lineNumber = "";
+      let lineNumber = 0;
       const contextGroup = translationUnitElement.getElementsByTagName("context-group").item(0);
       const contexts = contextGroup.getElementsByTagName("context");
       for (let j = 0; j < contexts.length; j++) {
@@ -43,7 +43,7 @@ export class XliffParser {
         if ("sourcefile" == contextType) {
           sourceFile = context.childNodes[0].nodeValue;
         } else if ("linenumber" == contextType) {
-          lineNumber = context.childNodes[0].nodeValue;
+          lineNumber = +context.childNodes[0].nodeValue;
         }
       }
 
