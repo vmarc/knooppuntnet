@@ -23,8 +23,11 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
       <button mat-stroked-button (click)="onSave()" [disabled]="form.pristine">Save &amp; Next</button>
     </form>
 
-    <div *ngFor="let location of translationUnit?.locations">
-      <kpn-translation-location [location]="location"></kpn-translation-location>
+    <mat-checkbox [checked]="showLocations" (change)="toggleShowLocations()">Show source code usage locations ({{translationUnit?.locations.size}})</mat-checkbox>
+    <div *ngIf="showLocations">
+      <div *ngFor="let location of translationUnit?.locations">
+        <kpn-translation-location [location]="location"></kpn-translation-location>
+      </div>
     </div>
 
   `,
@@ -54,6 +57,8 @@ export class TranslationUnitComponent implements OnChanges {
   readonly form: FormGroup;
   readonly source = new FormControl();
   readonly target = new FormControl();
+
+  showLocations = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.buildForm();
@@ -88,6 +93,10 @@ export class TranslationUnitComponent implements OnChanges {
       );
       this.edited.emit(newTranslationUnit);
     }
+  }
+
+  toggleShowLocations(): void {
+    this.showLocations = !this.showLocations;
   }
 
   private buildForm(): FormGroup {

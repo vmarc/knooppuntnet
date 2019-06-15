@@ -15,7 +15,7 @@ import {List} from "immutable";
     not saved yet:  {{dirtyCount()}}
 
     <mat-divider></mat-divider>
-    <button mat-raised-button color="primary" (click)="export()">Export</button>
+    <button mat-stroked-button (click)="save()">Save to file</button>
     <mat-divider></mat-divider>
 
     <kpn-translation-unit [translationUnit]="translationUnit" (edited)="edited($event)"></kpn-translation-unit>
@@ -46,7 +46,7 @@ export class TranslationsEditComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  export() {
+  save() {
     const newTranslationFile = new TranslationFile(
       this.translationFile.sourceLanguage,
       this.translationFile.targetLanguage,
