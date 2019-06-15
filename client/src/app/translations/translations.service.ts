@@ -4,12 +4,12 @@ import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {TranslationFile} from "./domain/translation-file";
 import {XliffParser} from "./domain/xliff-parser";
-import {TranslationUnit} from "./domain/translation-unit";
+import {TranslationLocation} from "./domain/translation-location";
 
 @Injectable()
 export class TranslationsService {
 
-  readonly root = "https://raw.githubusercontent.com/vmarc/knooppuntnet/master/client/src";
+  private readonly root = "https://raw.githubusercontent.com/vmarc/knooppuntnet/master/client/src";
 
   constructor(private http: HttpClient) {
   }
@@ -23,11 +23,11 @@ export class TranslationsService {
     );
   }
 
-  public loadSource(translationUnit: TranslationUnit): Observable<string> {
-    const url = `${this.root}/${translationUnit.sourceFile}`;
+  public loadSource(location: TranslationLocation): Observable<string> {
+    const url = `${this.root}/${location.sourceFile}`;
     return this.http.get(url, {responseType: "text"}).pipe(
       map(response => {
-        const lineIndex = translationUnit.lineNumber;
+        const lineIndex = location.lineNumber;
         const lines = response.split("\n");
         const templateStartIndex = lines.findIndex(line => line.indexOf("template:") >= 0);
         const templateStart = templateStartIndex == -1 ? 0 : templateStartIndex - 1;

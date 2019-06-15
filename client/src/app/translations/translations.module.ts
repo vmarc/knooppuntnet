@@ -17,6 +17,8 @@ import {TranslationsComponent} from "./translations.component";
 import {TranslationsService} from "./translations.service";
 import {TranslationsLoadComponent} from "./translations-load.component";
 import {TranslationsEditComponent} from "./translations-edit.component";
+import {TranslationLocationComponent} from "./translation-location.component";
+import {TranslationUnitComponent} from "./translation-unit.component";
 
 @NgModule({
   imports: [
@@ -35,6 +37,8 @@ import {TranslationsEditComponent} from "./translations-edit.component";
   ],
   declarations: [
     TranslationsComponent,
+    TranslationUnitComponent,
+    TranslationLocationComponent,
     TranslationsLoadComponent,
     TranslationsEditComponent,
     TranslationTableComponent

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {debounceTime} from "rxjs/operators";
@@ -65,13 +65,13 @@ import {SelectionModel} from "@angular/cdk/collections";
     mat-table {
       width: 100%;
     }
-    
+
     .selected-row {
       background-color: lightgrey;
     }
   `]
 })
-export class TranslationTableComponent implements OnInit, OnDestroy {
+export class TranslationTableComponent implements OnInit, OnChanges, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
@@ -100,8 +100,14 @@ export class TranslationTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.updateDataSource();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["translationUnits"]) {
+      this.updateDataSource();
+    }
   }
 
   ngOnDestroy(): void {
@@ -114,9 +120,13 @@ export class TranslationTableComponent implements OnInit, OnDestroy {
   }
 
   private updateDataSource(): void {
-    this.dataSource = new MatTableDataSource(this.filteredTranslationUnits());
+    const units = this.filteredTranslationUnits();
+    this.dataSource = new MatTableDataSource(units);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    if (units.length > 0) {
+      this.selection.select(units[0]);
+    }
   }
 
   private filteredTranslationUnits(): Array<TranslationUnit> {
