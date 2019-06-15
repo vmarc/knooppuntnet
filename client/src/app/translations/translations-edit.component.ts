@@ -17,8 +17,8 @@ import {ActivatedRoute} from "@angular/router";
     <button mat-raised-button color="primary" (click)="export()">Export</button>
     <mat-divider></mat-divider>
 
-    <translation-table [translationUnits]="translationFile.translationUnits">
-    </translation-table>
+    <kpn-translation-table [translationUnits]="translationFile.translationUnits">
+    </kpn-translation-table>
   `,
   styles: [`
     mat-table {

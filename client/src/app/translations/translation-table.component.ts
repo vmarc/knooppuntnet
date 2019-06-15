@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, IterableDiffer, IterableDiffers, OnDestroy, ViewChild} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {debounceTime} from "rxjs/operators";
@@ -7,16 +7,17 @@ import {TranslationUnit} from "./domain/translation-unit";
 import {List} from "immutable";
 
 @Component({
-  selector: "translation-table",
+  selector: "kpn-translation-table",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form [formGroup]="form">
       Filter:
       <mat-form-field>
         <input matInput formControlName="filter">
       </mat-form-field>
-      
-      <mat-checkbox [checked]="showTranslated" (change)="toggleShowTranslated()"></mat-checkbox>
-      
+
+      <mat-checkbox [checked]="showTranslated" (change)="toggleShowTranslated()">Show translated</mat-checkbox>
+
     </form>
 
     <mat-divider></mat-divider>
@@ -60,8 +61,7 @@ import {List} from "immutable";
     }
   `]
 })
-export class TranslationTableComponent implements DoCheck, OnDestroy {
-
+export class TranslationTableComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
@@ -71,7 +71,6 @@ export class TranslationTableComponent implements DoCheck, OnDestroy {
 
   displayedColumns: Array<string> = ["state", "id", "source", "target", "sourceFile"];
   dataSource: MatTableDataSource<TranslationUnit>;
-  readonly differ: IterableDiffer<TranslationUnit>;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -79,20 +78,13 @@ export class TranslationTableComponent implements DoCheck, OnDestroy {
   readonly form: FormGroup;
   readonly filter = new FormControl();
 
-  constructor(private fb: FormBuilder,
-              private differs: IterableDiffers,
-  ) {
-    this.differ = differs.find([]).create(null);
+  constructor(private fb: FormBuilder) {
     this.form = this.buildForm();
     this.subscriptions.add(this.filter.valueChanges.pipe(debounceTime(500)).subscribe(() => this.onFilterChanged()));
   }
 
-  ngDoCheck() {
-    if (this.differ.diff(this.translationUnits)) {
-      this.dataSource = new MatTableDataSource(this.translationUnits.toArray());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    }
+  ngOnInit() {
+    this.updateDataSource();
   }
 
   ngOnDestroy(): void {
@@ -101,7 +93,17 @@ export class TranslationTableComponent implements DoCheck, OnDestroy {
 
   toggleShowTranslated() {
     this.showTranslated = !this.showTranslated;
-    this.dataSource = new MatTableDataSource(this.translationUnits.filter(tu => this.showTranslated || tu.state === "new").toArray());
+    this.updateDataSource();
+  }
+
+  private updateDataSource(): void {
+    this.dataSource = new MatTableDataSource(this.filteredTranslationUnits());
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  private filteredTranslationUnits(): Array<TranslationUnit> {
+    return this.translationUnits.filter(tu => this.showTranslated || tu.state === "new").toArray();
   }
 
   private onFilterChanged() {
