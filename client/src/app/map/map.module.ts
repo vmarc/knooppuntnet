@@ -32,7 +32,6 @@ import {PoiGroupSportsComponent} from "./pages/map/poi/poi-group-sports.componen
 import {PoiGroupTourismComponent} from "./pages/map/poi/poi-group-tourism.component";
 import {PoiGroupComponent} from "./pages/map/poi/poi-group.component";
 import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
-import {MapTryout1PageComponent} from "./pages/tryout1/_map-tryout-1-page.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {ExportDialogComponent} from "./sidebar/export-dialog.component";
@@ -95,7 +94,6 @@ import {PlanDistanceComponent} from "./sidebar/plan-distance.component";
     PoiDetailComponent,
     PlanInstructionComponent,
     PlanInstructionCommandComponent,
-    MapTryout1PageComponent,
     PlanComponent,
     PlanDistanceComponent,
     PlanCompactComponent,

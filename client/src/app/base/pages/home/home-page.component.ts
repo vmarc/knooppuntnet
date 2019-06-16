@@ -6,7 +6,7 @@ import {PageService} from "../../../components/shared/page.service";
   template: `
 
     <kpn-page-header subject="" i18n="@@home.page-title">Node networks</kpn-page-header>
-    
+
     <kpn-icon-button
       routerLink="/map"
       icon="map"
@@ -20,19 +20,7 @@ import {PageService} from "../../../components/shared/page.service";
       text="Analysis"
       i18n-text="@@home.analysis">
     </kpn-icon-button>
-
-    <div class="test-section">
-      <h2>Test map features</h2>
-      <div>
-        <a routerLink="/map/tryout1">Openlayers measure</a>
-      </div>
-    </div>
- `,
-  styles: [`
-    .test-section {
-      margin-top: 100px;
-    }
-  `]
+  `
 })
 export class HomePageComponent implements OnInit {
 
