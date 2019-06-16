@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {UserService} from "../../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "kpn-sidebar-footer",
@@ -7,13 +8,17 @@ import {UserService} from "../../../services/user.service";
     <kpn-sidebar-version-warning></kpn-sidebar-version-warning>
     <div class="footer">
       <p>
-        <a>English</a>
+        <a [href]="link('en')">English</a>
         |
-        <a>Nederlands</a>
+        <a [href]="link('nl')">Nederlands</a>
+        |
+        <a [href]="link('fr')">Français</a>
+        |
+        <a [href]="link('de')">Deutsch</a>
       </p>
 
       <p class="version">
-        2019-05-13
+        2019-06-16
       </p>
 
       <p *ngIf="isLoggedIn()">
@@ -43,7 +48,8 @@ import {UserService} from "../../../services/user.service";
 })
 export class SidebarFooterComponent {
 
-  constructor(private userService: UserService) {
+  constructor(private router: Router,
+              private userService: UserService) {
   }
 
   currentUser(): string {
@@ -52,6 +58,14 @@ export class SidebarFooterComponent {
 
   isLoggedIn(): boolean {
     return this.currentUser().length > 0;
+  }
+
+  link(language: string): string {
+    let path = this.router.url;
+    if (path.startsWith("/en/") || path.startsWith("/nl/") || path.startsWith("/fr/") || path.startsWith("/de/")) {
+      path = path.substring(3);
+    }
+    return `/${language}${path}`;
   }
 
 }
