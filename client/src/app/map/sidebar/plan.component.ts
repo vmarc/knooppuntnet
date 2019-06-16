@@ -39,6 +39,7 @@ import {ExportDialogComponent} from "./export-dialog.component";
       </span>
     </div>
 
+    <kpn-plan-distance [plan]="plan"></kpn-plan-distance>
     <kpn-plan-compact *ngIf="mode == 'compact'" [plan]="plan"></kpn-plan-compact>
     <kpn-plan-detailed *ngIf="mode == 'detailed'" [plan]="plan"></kpn-plan-detailed>
     <kpn-plan-instructions *ngIf="mode == 'instructions'" [plan]="plan"></kpn-plan-instructions>
@@ -56,7 +57,7 @@ import {ExportDialogComponent} from "./export-dialog.component";
     }
 
     .menu {
-      padding-bottom: 15px;
+      padding-bottom: 5px;
     }
 
     .menu :not(:last-child):after {

@@ -1,4 +1,3 @@
-import {Range} from "immutable"
 import * as JsPdf from "jspdf"
 import * as QRious from "qrious";
 import {Plan} from "../../map/planner/plan/plan";
@@ -36,11 +35,8 @@ export class PdfHorizontal {
     const x = PdfPage.xContentsRight - qrCodeSize;
     const y = PdfPage.yContentsBottom - qrCodeSize;
 
-    let query = "";
-    Range(1, 40).map(n => "" + 1000 * n + "-").forEach(node => query = query.concat(node));
-
     const qrious = new QRious({
-      value: "https://knooppuntnet.nl?" + query,
+      value: "https://knooppuntnet.nl",
       level: "H", // Error correction level of the QR code (L, M, Q, H)
       mime: "image/png",
       size: 100,

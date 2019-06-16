@@ -18,6 +18,10 @@ export class Plan {
     return this.source;
   }
 
+  meters(): number {
+    return this.legs.map(l => l.meters).reduce((sum, current) => sum + current, 0);
+  }
+
   cumulativeMetersLeg(legIndex: number): number {
     if (legIndex < this.legs.size) {
       return this.legs.slice(0, legIndex + 1).map(l => l.meters).reduce((sum, current) => sum + current, 0);

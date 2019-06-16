@@ -3107,6 +3107,13 @@
           <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="plan.distance" datatype="html">
+        <source>Distance</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="plan.head" datatype="html">
         <source>Head</source>
         <context-group purpose="location">

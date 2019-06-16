@@ -49,6 +49,7 @@ import {PlanInstructionsComponent} from "./sidebar/plan-instructions.component";
 import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
 import {PoiDetailComponent} from "./sidebar/poi-detail.component";
+import {PlanDistanceComponent} from "./sidebar/plan-distance.component";
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     PlanInstructionCommandComponent,
     MapTryout1PageComponent,
     PlanComponent,
+    PlanDistanceComponent,
     PlanCompactComponent,
     PlanDetailedComponent,
     PlanInstructionsComponent,

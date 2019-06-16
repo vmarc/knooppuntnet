@@ -1629,6 +1629,14 @@
           <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="plan.distance" datatype="html">
+        <source>Distance</source>
+        <target>Afstand</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="plan.head" datatype="html">
         <source>Head</source>
         <target>Ga richting</target>
@@ -3567,11 +3575,11 @@
       </trans-unit>
       <trans-unit id="node.network.integrity-check-failed" datatype="html">
         <source>
-            Integritycheck failed: expected <x  id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/> routes, but found <x  id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>.
+            Integritycheck failed: expected <x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/> routes, but found <x id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>.
           </source>
         <target>
-          Onverwacht aantal routes (<x  id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>),
-          verwacht: <x  id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>.
+          Onverwacht aantal routes (<x id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>),
+          verwacht: <x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-network-reference.component.ts</context>
@@ -3580,10 +3588,10 @@
       </trans-unit>
       <trans-unit id="node.network.integrity-check-ok" datatype="html">
         <source>
-            Expected number of routes (<x  id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>) matches the number of routes found.
+            Expected number of routes (<x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>) matches the number of routes found.
           </source>
         <target>
-          Verwacht aantal routes (<x  id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>) klopt.
+          Verwacht aantal routes (<x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>) klopt.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-network-reference.component.ts</context>
@@ -3633,12 +3641,12 @@
       <trans-unit id="node.network.not-network-member-invalid" datatype="html">
         <source>
       This node is not included as member in the networkrelation:
-      the _"<x  id="INTERPOLATION" equiv-text="{{expectedRouteRelationsTag}}"/>"_ tag does not apply
+      the _"<x id="INTERPOLATION" equiv-text="{{expectedRouteRelationsTag}}"/>"_ tag does not apply
       to this netwerk.
     </source>
         <target>
           Dit knooppunt is niet opgenomen in de netwerkrelatie:
-          de _"<x  id="INTERPOLATION" equiv-text="{{expectedRouteRelationsTag}}"/>"_ tag is niet van
+          de _"<x id="INTERPOLATION" equiv-text="{{expectedRouteRelationsTag}}"/>"_ tag is niet van
           toepassing voor dit netwerk.
         </target>
         <context-group purpose="location">

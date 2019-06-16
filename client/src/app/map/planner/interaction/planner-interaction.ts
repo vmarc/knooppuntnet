@@ -5,7 +5,6 @@ import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
 import PointerInteraction from "ol/interaction/Pointer";
 import Map from "ol/Map";
-import {Util} from "../../../components/shared/util";
 import {PlannerMapFeature} from "../features/planner-map-feature";
 import {PlannerEngine} from "./planner-engine";
 
@@ -63,8 +62,7 @@ export class PlannerInteraction {
         const nodeName = feature.get("name");
         const point: Point = feature.getGeometry() as Point;
         const coordinate: Coordinate = point.getCoordinates();
-        const latLon = Util.latLonFromCoordinate(coordinate);
-        return PlannerMapFeature.networkNode(nodeId, nodeName, latLon);
+        return PlannerMapFeature.networkNode(nodeId, nodeName, coordinate);
       }
     }
 

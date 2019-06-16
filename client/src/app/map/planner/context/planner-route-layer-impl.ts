@@ -63,7 +63,7 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
 
   addRouteLeg(leg: PlanLeg): void {
     this.removeRouteLeg(leg.featureId);
-    const feature = new Feature(new LineString(leg.coordinates()));
+    const feature = new Feature(new LineString(leg.coordinates().toArray()));
     feature.setId(leg.featureId);
     feature.set("layer", "leg");
     feature.setStyle(this.legStyle);
