@@ -16,9 +16,7 @@ import {SelectionModel} from "@angular/cdk/collections";
       <mat-form-field>
         <input matInput formControlName="filter">
       </mat-form-field>
-
       <mat-checkbox [checked]="showTranslated" (change)="toggleShowTranslated()">Show translated</mat-checkbox>
-
     </form>
 
     <mat-divider></mat-divider>
@@ -62,6 +60,7 @@ import {SelectionModel} from "@angular/cdk/collections";
     </mat-table>
   `,
   styles: [`
+    
     mat-table {
       width: 100%;
     }

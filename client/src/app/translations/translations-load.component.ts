@@ -32,7 +32,6 @@ import {TranslationFile} from "./domain/translation-file";
       <input id="selectedFile" type="file" (change)="fileChangeListener($event)">
       <button mat-stroked-button (click)="loadLocalFile()" class="action">Load file</button>
     </div>
-
   `,
   styles: [`
 

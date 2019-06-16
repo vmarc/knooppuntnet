@@ -7,9 +7,7 @@ import {TranslationFile} from "./domain/translation-file";
     <h1>Translations</h1>
     <kpn-translations-load *ngIf="!loaded" (translationFile)="translationFileLoaded($event)"></kpn-translations-load>
     <kpn-translations-edit *ngIf="loaded" [translationFile]="translationFile"></kpn-translations-edit>
-  `,
-  styles: [`
-  `]
+  `
 })
 export class TranslationsComponent {
 
@@ -17,7 +15,7 @@ export class TranslationsComponent {
 
   loaded = false;
 
-  translationFileLoaded(translationFile) {
+  translationFileLoaded(translationFile: TranslationFile) {
     this.translationFile = translationFile;
     this.loaded = true;
   }

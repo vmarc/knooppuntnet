@@ -2,7 +2,8 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {
-  MatButtonModule, MatCheckboxModule,
+  MatButtonModule,
+  MatCheckboxModule,
   MatDividerModule,
   MatFormFieldModule,
   MatInputModule,
@@ -25,24 +26,24 @@ import {TranslationLocationsComponent} from "./translation-locations.component";
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatPaginatorModule,
+    MatRadioModule,
     MatSortModule,
     MatTableModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDividerModule,
-    MatButtonModule,
-    TranslationsRoutingModule,
-    MatRadioModule,
-    MatCheckboxModule
+    TranslationsRoutingModule
   ],
   declarations: [
     TranslationsComponent,
+    TranslationsLoadComponent,
+    TranslationsEditComponent,
     TranslationUnitComponent,
     TranslationLocationComponent,
     TranslationLocationsComponent,
-    TranslationsLoadComponent,
-    TranslationsEditComponent,
     TranslationTableComponent
   ],
   providers: [

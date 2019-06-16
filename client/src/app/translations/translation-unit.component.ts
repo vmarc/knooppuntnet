@@ -18,15 +18,19 @@ import {List} from "immutable";
 
     <form [formGroup]="form">
       <div class="text-areas">
-        <textarea readonly formControlName="source"></textarea>
-        <textarea formControlName="target" (keyup.control.enter)="onSave()"></textarea>
+        <div>
+          <textarea readonly formControlName="source" rows="5"></textarea>
+        </div>
+        <div>
+          <textarea formControlName="target" (keyup.control.enter)="onSave()" rows="5"></textarea>
+          <button mat-stroked-button (click)="onCancel()" [disabled]="form.pristine">Cancel</button>
+          <button mat-stroked-button (click)="onSave()" [disabled]="form.pristine">Save &amp; Next</button>
+          <span class="hint">control+enter to save and go to next translation</span>
+        </div>
       </div>
-      <button mat-stroked-button (click)="onCancel()" [disabled]="form.pristine">Cancel</button>
-      <button mat-stroked-button (click)="onSave()" [disabled]="form.pristine">Save &amp; Next</button>
     </form>
 
     <kpn-translation-locations [locations]="locations()"></kpn-translation-locations>
-
   `,
   styles: [`
 
@@ -35,15 +39,32 @@ import {List} from "immutable";
     }
 
     .text-areas {
+      margin-top: 10px;
       display: flex;
     }
 
-    .text-areas > textarea {
-      margin: 8px;
-      padding: 4px;
-      flex-grow: 1;
+    .text-areas > div {
+      flex: 1;
+    }
+
+    .text-areas :first-child {
+      margin-right: 20px;
+    }
+    
+    .text-areas > div > textarea {
+      width: 100%;
       font-size: 18px;
     }
+
+    .text-areas > div > button {
+      margin-right: 10px;
+    }
+
+    .hint {
+      color: lightgrey;
+      font-style: italic;
+    }
+
   `]
 })
 export class TranslationUnitComponent implements OnChanges {

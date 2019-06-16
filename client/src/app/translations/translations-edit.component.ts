@@ -9,13 +9,14 @@ import {List} from "immutable";
   selector: "kpn-translations-edit",
   template: `
 
-    Number of translations: {{translationCount()}},
-    to be translated: {{toBeTranslatedCount()}},
-    not saved yet:  {{dirtyCount()}}
-
-    <button mat-stroked-button (click)="save()">Save to file</button>
-
-    <mat-divider></mat-divider>
+    <div class="top">
+      <div class="left">
+        Number of translations: {{translationCount()}},
+        to be translated: {{toBeTranslatedCount()}},
+        not saved yet:  {{dirtyCount()}}
+      </div>
+      <button mat-raised-button color="primary" (click)="save()">Save to file</button>
+    </div>
 
     <kpn-translation-unit [translationUnit]="translationUnit" (edited)="edited($event)"></kpn-translation-unit>
 
@@ -25,6 +26,15 @@ import {List} from "immutable";
     </kpn-translation-table>
   `,
   styles: [`
+    
+    .top {
+      display: flex;
+      margin-bottom: 5px;
+    }
+    
+    .left {
+      flex: 1;
+    }
 
   `]
 })
