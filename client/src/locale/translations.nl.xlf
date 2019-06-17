@@ -21,6 +21,10 @@
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-type.cycling" datatype="html">
         <source>Cycling</source>
@@ -40,6 +44,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.horse" datatype="html">
@@ -61,6 +69,10 @@
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-type.motorboat" datatype="html">
         <source>Motorboat</source>
@@ -72,6 +84,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.canoe" datatype="html">
@@ -85,6 +101,10 @@
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">44</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-type.inline-skating" datatype="html">
         <source>Inline Skating</source>
@@ -96,6 +116,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
           <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -1234,6 +1258,178 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="planner.map" datatype="html">
+        <source>Map</source>
+        <target state="new">[Map]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.menu.planner" datatype="html">
+        <source>Planner</source>
+        <target state="new">[Planner]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/_map-sidebar.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.menu.analysis" datatype="html">
+        <source>Analysis</source>
+        <target state="new">[Analysis]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/_map-sidebar.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.menu.poi" datatype="html">
+        <source>POI</source>
+        <target state="new">[POI]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/_map-sidebar.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.title" datatype="html">
+        <source>Route planner</source>
+        <target state="new">[Route planner]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-planner.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.legend" datatype="html">
+        <source>
+        Legend
+      </source>
+        <target state="new">[
+        Legend
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.appearance-options" datatype="html">
+        <source>
+        Map appearance options
+      </source>
+        <target state="new">[
+        Map appearance options
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.surface" datatype="html">
+        <source>
+            Surface
+          </source>
+        <target state="new">[
+            Surface
+          ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.quality" datatype="html">
+        <source>
+            Node and route quality status
+          </source>
+        <target state="new">[
+            Node and route quality status
+          ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.survey" datatype="html">
+        <source>
+            Date last survey
+          </source>
+        <target state="new">[
+            Date last survey
+          ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.title" datatype="html">
+        <source>Points of interest</source>
+        <target state="new">[Points of interest]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.enabled-disabled" datatype="html">
+        <source>(Enabled/Disabled)</source>
+        <target state="new">[(Enabled/Disabled)]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.enabled" datatype="html">
+        <source>
+          Show points of interest on the map
+        </source>
+        <target state="new">[
+          Show points of interest on the map
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.zoom-in" datatype="html">
+        <source>
+            Zoom in to see the icons on the map.
+          </source>
+        <target state="new">[
+            Zoom in to see the icons on the map.
+          ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.reset" datatype="html">
+        <source>Reset configuration to default</source>
+        <target state="new">[Reset configuration to default]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.show-all" datatype="html">
+        <source>Show all</source>
+        <target state="new">[Show all]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.hide-all" datatype="html">
+        <source>Hide all</source>
+        <target state="new">[Hide all]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.pois.default" datatype="html">
+        <source>Default</source>
+        <target state="new">[Default]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="fact.description.orphan-node" datatype="html">
         <source>
       This node does not belong to a network.
@@ -1627,6 +1823,66 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.undo" datatype="html">
+        <source>Undo</source>
+        <target state="new">[Undo]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.redo" datatype="html">
+        <source>Redo</source>
+        <target state="new">[Redo]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.export" datatype="html">
+        <source>Export</source>
+        <target state="new">[Export]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.compact" datatype="html">
+        <source>
+          Compact
+        </source>
+        <target state="new">[
+          Compact
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.detailed" datatype="html">
+        <source>
+          Detailed
+        </source>
+        <target state="new">[
+          Detailed
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.instructions" datatype="html">
+        <source>
+          Instructions
+        </source>
+        <target state="new">[
+          Instructions
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.distance" datatype="html">
@@ -3768,6 +4024,30 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/tags/tags-table.component.ts</context>
           <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.documentation" datatype="html">
+        <source>documentation</source>
+        <target state="new">[documentation]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.contact" datatype="html">
+        <source>contact</source>
+        <target state="new">[contact]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.issues" datatype="html">
+        <source>issues</source>
+        <target state="new">[issues]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.home" datatype="html">

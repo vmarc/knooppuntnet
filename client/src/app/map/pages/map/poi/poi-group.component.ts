@@ -8,9 +8,13 @@ import {PoiService} from "../../../../services/poi.service";
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <mat-checkbox (click)="$event.stopPropagation();" [checked]="isEnabled()" (change)="groupEnabledChanged($event)"></mat-checkbox>
+          <mat-checkbox
+            (click)="$event.stopPropagation();"
+            [checked]="isEnabled()"
+            (change)="groupEnabledChanged($event)">
+          </mat-checkbox>
           <span class="title">{{title}}</span>
-           <span class="kpn-thin">(10/10)</span>
+          <span class="kpn-thin">(10/10)</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
@@ -19,9 +23,9 @@ import {PoiService} from "../../../../services/poi.service";
         </div>
 
         <div>
-          <button mat-stroked-button (click)="showAllClicked()">Show all</button>
-          <button mat-stroked-button (click)="hideAllClicked()">Hide all</button>
-          <button mat-stroked-button (click)="defaultClicked()">Default</button>
+          <button mat-stroked-button (click)="showAllClicked()" i18n="@@planner.pois.show-all">Show all</button>
+          <button mat-stroked-button (click)="hideAllClicked()" i18n="@@planner.pois.hide-all">Hide all</button>
+          <button mat-stroked-button (click)="defaultClicked()" i18n="@@planner.pois.default">Default</button>
         </div>
 
         <div>

@@ -20,7 +20,7 @@ import {TranslationFile} from "./domain/translation-file";
           <mat-radio-button [checked]="language.value === 'de'" value="de">German</mat-radio-button>
           <mat-radio-button [checked]="language.value === 'fr'" value="fr">French</mat-radio-button>
         </mat-radio-group>
-        <button mat-stroked-button (click)="loadMessages()">Load messages</button>
+        <button mat-stroked-button (click)="loadMessages()">Load from github</button>
       </form>
     </div>
 
@@ -30,7 +30,7 @@ import {TranslationFile} from "./domain/translation-file";
 
     <div class="section-body">
       <input id="selectedFile" type="file" (change)="fileChangeListener($event)">
-      <button mat-stroked-button (click)="loadLocalFile()" class="action">Load file</button>
+      <button mat-stroked-button (click)="loadLocalFile()" class="action">Load from file</button>
     </div>
   `,
   styles: [`

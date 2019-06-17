@@ -4,7 +4,7 @@ import {Component} from "@angular/core";
   selector: "kpn-map-sidebar-legend",
   template: `
     <mat-expansion-panel>
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header i18n="@@planner.legend">
         Legend
       </mat-expansion-panel-header>
       <pre>

@@ -7,7 +7,7 @@ import {Component} from "@angular/core";
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div class="header">
-            <h1>Route planner</h1>
+            <h1 i18n="@@planner.title">Route planner</h1>
             <kpn-doc-link [subject]="'planner'"></kpn-doc-link>
           </div>
         </mat-panel-title>

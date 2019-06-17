@@ -16,24 +16,24 @@ import {ExportDialogComponent} from "./export-dialog.component";
     <kpn-poi-names></kpn-poi-names>
 
     <div class="buttons">
-      <button mat-stroked-button (click)="undo()" [disabled]="!undoEnabled()">Undo</button>
-      <button mat-stroked-button (click)="redo()" [disabled]="!redoEnabled()">Redo</button>
-      <button mat-stroked-button (click)="export()" [disabled]="!exportEnabled()">Export</button>
+      <button mat-stroked-button (click)="undo()" [disabled]="!undoEnabled()" i18n="@@planner.undo">Undo</button>
+      <button mat-stroked-button (click)="redo()" [disabled]="!redoEnabled()" i18n="@@planner.redo">Redo</button>
+      <button mat-stroked-button (click)="export()" [disabled]="!exportEnabled()" i18n="@@planner.export">Export</button>
     </div>
 
     <div class="menu">
       <span>
-        <a [ngClass]="{'selected': mode === 'compact'}" (click)="mode = 'compact'">
+        <a [ngClass]="{'selected': mode === 'compact'}" (click)="mode = 'compact'" i18n="@@planner.compact">
           Compact
         </a>
       </span>
       <span>
-        <a [ngClass]="{'selected': mode === 'detailed'}" (click)="mode = 'detailed'">
+        <a [ngClass]="{'selected': mode === 'detailed'}" (click)="mode = 'detailed'" i18n="@@planner.detailed">
           Detailed
         </a>
       </span>
       <span>
-        <a [ngClass]="{'selected': mode === 'instructions'}" (click)="mode = 'instructions'">
+        <a [ngClass]="{'selected': mode === 'instructions'}" (click)="mode = 'instructions'" i18n="@@planner.instructions">
           Instructions
         </a>
       </span>

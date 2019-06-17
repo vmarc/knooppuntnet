@@ -13,15 +13,15 @@ import {Subscriptions} from "../../util/Subscriptions";
         <mat-button-toggle-group [value]="pageMode" (change)="pageModeChanged($event)">
           <mat-button-toggle value="planner">
             <mat-icon svgIcon="map"></mat-icon>
-            Planner
+            <span  i18n="@@planner.menu.planner">Planner</span>
           </mat-button-toggle>
           <mat-button-toggle value="analysis">
             <mat-icon svgIcon="analysis"></mat-icon>
-            Analysis
+            <span  i18n="@@planner.menu.analysis">Analysis</span>
           </mat-button-toggle>
           <mat-button-toggle value="poi">
             <mat-icon svgIcon="help"></mat-icon>
-            POI
+            <span  i18n="@@planner.menu.poi">POI</span>
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
