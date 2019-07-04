@@ -19,24 +19,30 @@ export class PdfPlanBuilder {
 
     const nodes = Range(0, allRoutes.size + 1).map(nodeIndex => {
       if (nodeIndex == 0) {
-        return new PdfPlanNode(plan.source.nodeName, "" + allMeters.get(0) + " m", "START");
+        return new PdfPlanNode(plan.source.nodeName, PdfPlanBuilder.distanceToString(allMeters.get(0)), "START");
       }
       const routeIndex = nodeIndex - 1;
 
       const route = allRoutes.get(routeIndex);
       const nodeName = route.sink.nodeName;
-      const cumulativeDistance = cumulativeDistances.get(routeIndex);
-      const km = Math.round(cumulativeDistance / 100) / 10;
-      const kmString = parseFloat(km.toFixed(1)) + " km";
+      const cumulativeDistance = PdfPlanBuilder.distanceToString(cumulativeDistances.get(routeIndex));
       let distance = "END";
       if (routeIndex < allRoutes.size - 1) {
-        distance = "" + allMeters.get(routeIndex + 1) + " m";
+        distance = PdfPlanBuilder.distanceToString(allMeters.get(routeIndex + 1));
       }
 
-      return new PdfPlanNode(nodeName, distance, kmString);
+      return new PdfPlanNode(nodeName, distance, cumulativeDistance);
     });
 
     return new PdfPlan(nodes.toList());
+  }
+
+  private static distanceToString(distance: number): string {
+    if (distance >= 1000) {
+      const km = Math.round(distance / 100) / 10;
+      return parseFloat(km.toFixed(1)) + " km";
+    }
+    return `${distance} m`;
   }
 
 }

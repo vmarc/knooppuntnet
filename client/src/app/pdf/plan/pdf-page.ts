@@ -8,6 +8,7 @@ export class PdfPage {
   static marginRight = 10;
   static marginTop = 10;
   static marginBottom = 10;
+  static footerHeight = 8;
 
   static sidebarWidth = 7;
 
@@ -16,6 +17,6 @@ export class PdfPage {
   static xContentsLeft = PdfPage.marginLeft + PdfPage.sidebarWidth + PdfPage.spacer;
   static xContentsRight = PdfPage.width - PdfPage.marginRight;
   static yContentsTop = PdfPage.marginTop;
-  static yContentsBottom = PdfPage.height - PdfPage.marginBottom;
+  static yContentsBottom = PdfPage.height - PdfPage.marginBottom - PdfPage.footerHeight;
 
 }

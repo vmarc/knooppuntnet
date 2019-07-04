@@ -4,8 +4,8 @@ import {DirectionsAnalyzer} from "../map/planner/directions/directions-analyzer"
 import {Plan} from "../map/planner/plan/plan";
 import {BitmapIconService} from "./bitmap-icon.service";
 import {PdfDirections} from "./plan/pdf-directions";
-import {PdfHorizontal} from "./plan/pdf-horizontal";
-import {PdfVertical} from "./plan/pdf-vertical";
+import {PdfDocument} from "./plan/pdf-document";
+import {PdfStripDocument} from "./plan/pdf-strip-document";
 
 @Injectable()
 export class PdfService {
@@ -14,12 +14,12 @@ export class PdfService {
               private plannerService: PlannerService) {
   }
 
-  printVertical(plan: Plan): void {
-    new PdfVertical(plan).print();
+  printDocument(plan: Plan): void {
+    new PdfDocument(plan).print()
   }
 
-  printHorizontal(plan: Plan): void {
-    new PdfHorizontal(plan).print()
+  printStripDocument(plan: Plan): void {
+    new PdfStripDocument(plan, this.iconService).print();
   }
 
   printInstructions(plan: Plan): void {

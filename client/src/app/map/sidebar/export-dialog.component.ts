@@ -8,10 +8,10 @@ import {MatRadioChange} from "@angular/material";
     <mat-dialog-content>
       <mat-radio-group [value]="exportString()" (change)="exportChanged($event)">
         <mat-radio-button value="pdf1">
-          Nodes horizontally (pdf)
+          Print (pdf)
         </mat-radio-button>
         <mat-radio-button value="pdf2">
-          Nodes vertically (pdf)
+          Node strip (pdf)
         </mat-radio-button>
         <mat-radio-button value="pdf3">
           Navigation instructions (pdf)

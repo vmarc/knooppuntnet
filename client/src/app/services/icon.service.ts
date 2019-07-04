@@ -135,6 +135,10 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("keep-right", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/directions/keep-right.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("scissors", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/scissors.svg")));
+
   }
 
 }

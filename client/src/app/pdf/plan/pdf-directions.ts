@@ -118,7 +118,7 @@ export class PdfDirections {
 
   private printInstructionIcon(y: number, command: string): void {
     this.iconService.getIcon(command).subscribe(icon => {
-      this.doc.addImage(icon, "PNG", this.leftMargin, y, 80, 80);
+      this.doc.addImage(icon, "PNG", this.leftMargin, y, 80, 80, "", "FAST");
     });
   }
 
