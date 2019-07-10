@@ -27,6 +27,7 @@ class TypescriptTool() {
     "NetworkType",
     "Timestamp",
     "Fact",
+    "FactLevel",
     "Tags",
     "Tag",
     "RouteMemberInfo", // Ignored because of reference to WayDirection

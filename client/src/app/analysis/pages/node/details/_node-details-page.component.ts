@@ -20,10 +20,6 @@ import {Facts} from "../../../fact/facts";
       </div>
       <div *ngIf="response.result">
 
-        <!--
-          UiPageContents(
-        -->
-
         <kpn-data title="Summary" i18n-title="@@node.summary">
           <node-summary [nodeInfo]="nodeInfo"></node-summary>
         </kpn-data>
@@ -48,27 +44,9 @@ import {Facts} from "../../../fact/facts";
           <kpn-node-orphan-route-references [references]="references.routeReferences"></kpn-node-orphan-route-references>
         </kpn-data>
 
-        <kpn-data title="Facts" i18n-title="@@node.feiten">
-          <div *ngFor="let fact of nodeInfo.facts">
-
-            <p>
-              <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
-              {{factLevel(fact.name)}}
-            </p>
-            <p>
-              <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
-            </p>
-            
-          </div>
+        <kpn-data title="Facts" i18n-title="@@node.facts">
+          <kpn-facts [facts]="nodeInfo.facts"></kpn-facts>
         </kpn-data>
-
-        <!--
-          TagMod.when(PageWidth.isVeryLarge) {
-            UiEmbeddedMap(new NodeMap(page.nodeInfo))
-          },
-          UiNodeChanges(page.nodeChanges)
-          )
-        -->
 
         <json [object]="response"></json>
       </div>
@@ -109,10 +87,6 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
 
   get references() {
     return this.response.result.references;
-  }
-
-  factLevel(factName: string): string {
-    return Facts.factLevels.get(factName, "unknown");
   }
 
 }

@@ -7,6 +7,7 @@ import {NetworkType} from "../../kpn/shared/network-type";
     <div class="network-type">
       <kpn-network-type-icon [networkType]="networkType"></kpn-network-type-icon>
       <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
+      <ng-content></ng-content>
     </div>
   `,
   styles: [`

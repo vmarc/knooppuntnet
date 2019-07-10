@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: fact-level.component.ts
 package kpn.client.components.common
 
 import chandu0101.scalajs.react.components.materialui.Mui

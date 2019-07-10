@@ -152,6 +152,8 @@ import {SubsetOrphanRouteComponent} from "./pages/subset/orphan-routes/subset-or
 import {SubsetOrphanRoutesTableComponent} from "./pages/subset/orphan-routes/subset-orphan-routes-table.component";
 import {NodeNetworkReferenceComponent} from "./pages/node/details/node-network-reference.component";
 import {NodeNetworkReferenceStatementComponent} from "./pages/node/details/node-network-reference-statement.component";
+import {FactsComponent} from "./fact/facts.component";
+import {FactLevelComponent} from "./fact/fact-level.component";
 
 @NgModule({
   imports: [
@@ -245,6 +247,8 @@ import {NodeNetworkReferenceStatementComponent} from "./pages/node/details/node-
     ChangesSetOrphanRoutesComponent,
     ChangesSetElementRefsComponent,
     ChangesSetElementRefComponent,
+    FactsComponent,
+    FactLevelComponent,
     FactNameComponent,
     FactRouteNotContiniousComponent,
     FactRouteUnusedSegmentsComponent,

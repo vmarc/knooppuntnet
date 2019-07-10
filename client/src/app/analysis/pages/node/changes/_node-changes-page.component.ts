@@ -68,7 +68,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
     return this.userService.isLoggedIn();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageService.defaultMenu();
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.nodeId = params["nodeId"];

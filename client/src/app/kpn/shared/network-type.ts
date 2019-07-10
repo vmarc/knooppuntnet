@@ -1,6 +1,6 @@
 export class NetworkType {
 
-  constructor(public readonly oldName: string,
+  constructor(public readonly id: string,
               public readonly name: string) {
   }
 
