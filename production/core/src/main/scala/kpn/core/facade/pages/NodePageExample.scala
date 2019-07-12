@@ -207,7 +207,16 @@ object NodePageExample {
       tagDiffs = Some(
         TagDiffs(
           mainTags = Seq(
-            TagDetail(TagDetailType.Update, "rwn_ref", Some("01"), Some("02"))
+            TagDetail(TagDetailType.Add, "add", None, Some("added")),
+            TagDetail(TagDetailType.Update, "rwn_ref", Some("01"), Some("02")),
+            TagDetail(TagDetailType.Delete, "delete", Some("deleted"), None),
+            TagDetail(TagDetailType.Same, "same", Some("value"), Some("value"))
+          ),
+          extraTags = Seq(
+            TagDetail(TagDetailType.Add, "add", None, Some("added")),
+            TagDetail(TagDetailType.Update, "rwn_ref", Some("01"), Some("02")),
+            TagDetail(TagDetailType.Delete, "delete", Some("deleted"), None),
+            TagDetail(TagDetailType.Same, "same", Some("value"), Some("value"))
           )
         )
       ),

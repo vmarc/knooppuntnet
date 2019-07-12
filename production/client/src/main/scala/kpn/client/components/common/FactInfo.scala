@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: fact-info.ts
 package kpn.client.components.common
 
 import kpn.shared.Fact

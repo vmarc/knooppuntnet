@@ -349,6 +349,13 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="node.login-required" datatype="html">
+        <source>The node history is available to registered OpenStreetMap contributors only, after</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/_node-changes-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.node-not-found" datatype="html">
         <source>
         Node not found
@@ -366,53 +373,63 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="node.no-history" datatype="html">
+        <source>
+          No history
+          
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/_node-changes-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.summary" datatype="html">
         <source>Summary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.situation-on" datatype="html">
         <source>Situation on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.last-updated" datatype="html">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.tags" datatype="html">
         <source>Tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.networks" datatype="html">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
         <source>Orphan routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node.feiten" datatype="html">
+      <trans-unit id="node.facts" datatype="html">
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.overview" datatype="html">
@@ -513,6 +530,76 @@
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="node-change.belongs-to-another-network" datatype="html">
+        <source>This node belongs to another network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.no-longer-belongs-to-another-network" datatype="html">
+        <source>This node no longer belongs to another network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.received-role-connection-in-network-relation" datatype="html">
+        <source>This node received role &quot;connection&quot; in the network relation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.lost-role-connection-in-network-relation" datatype="html">
+        <source>This node no longer has role &quot;connection&quot; in the network relation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.added-to-network-relation" datatype="html">
+        <source>Added to network relation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.removed-from-network-relation" datatype="html">
+        <source>Removed from network relation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.added-to-route" datatype="html">
+        <source>Added to route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.added-to-network" datatype="html">
+        <source>Added to network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.removed-from-route" datatype="html">
+        <source>Removed from route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.removed-from-network" datatype="html">
+        <source>Removed from network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.inactive" datatype="html">
         <source>
         This network node is not active anymore.
@@ -520,6 +607,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.node" datatype="html">
+        <source>network node</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/details/node-summary.component.ts</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan" datatype="html">
@@ -1258,6 +1352,15 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/overview/statistic-configurations.component.ts</context>
           <context context-type="linenumber">371</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="facts.none" datatype="html">
+        <source>
+      None 
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/facts.component.ts</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -2039,6 +2142,28 @@
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-hiking-node-tag.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-horse-node-tag.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.lost-motorboat-node-tag" datatype="html">
+        <source>
+      This node is no longer a valid motorboatnetwork node because the rmn_ref tag has been removed.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-motorboat-node-tag.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.lost-canoe-node-tag" datatype="html">
+        <source>
+      This node is no longer a valid canoenetwork node because the rpn_ref tag has been removed.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-canoe-node-tag.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="fact.description.lost-route-tags" datatype="html">
         <source>
@@ -2046,6 +2171,15 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-route-tags.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.lost-inline-skate-node-tag" datatype="html">
+        <source>
+      This node is no longer a valid inline skating network node because the rin_ref tag has been removed.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-inline-skate-node-tag.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
@@ -2149,6 +2283,145 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
           <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="history-incomplete.warning" datatype="html">
+        <source>
+        Older changes cannot be shown. The history in the analysis database 
+        does not go beyond
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/history-incomplete-warning.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="history-incomplete.license-change" datatype="html">
+        <source>
+        License change
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/history-incomplete-warning.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.key" datatype="html">
+        <source>Key</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.before" datatype="html">
+        <source>Before</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.after" datatype="html">
+        <source>After</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.deleted-tag" datatype="html">
+        <source>Deleted tag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.deleted-tags" datatype="html">
+        <source>Deleted tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.value" datatype="html">
+        <source>Value</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.added-tag" datatype="html">
+        <source>Added tag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.added-tags" datatype="html">
+        <source>Added tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.updated-tag" datatype="html">
+        <source>Updated tag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.updated-tags" datatype="html">
+        <source>Updated tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.same-tag" datatype="html">
+        <source>Same tag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.same-tags" datatype="html">
+        <source>Same tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.page-title" datatype="html">

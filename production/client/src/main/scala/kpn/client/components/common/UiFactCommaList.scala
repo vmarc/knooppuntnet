@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: functionality included in fact-diffs.component.ts (assume RouteBroken filtering will be done on server)
 package kpn.client.components.common
 
 import japgolly.scalajs.react.vdom.Implicits._

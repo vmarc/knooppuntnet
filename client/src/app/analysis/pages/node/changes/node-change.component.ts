@@ -1,6 +1,5 @@
 import {Component, Input} from "@angular/core";
 import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
-import {RouteChangeInfo} from "../../../../kpn/shared/route/route-change-info";
 
 @Component({
   selector: "kpn-node-change",
@@ -21,18 +20,11 @@ import {RouteChangeInfo} from "../../../../kpn/shared/route/route-change-info";
 
     <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change-detail>
 
-    <pre>
-      {{contents()}}
-    </pre>
   `
 })
 export class NodeChangeComponent {
 
   @Input() nodeChangeInfo: NodeChangeInfo;
-
-  contents(): string {
-    return JSON.stringify(this.nodeChangeInfo, null, 2);
-  }
 
   isVersionUnchanged(): boolean {
     const before = this.nodeChangeInfo.before ? this.nodeChangeInfo.before.version : null;

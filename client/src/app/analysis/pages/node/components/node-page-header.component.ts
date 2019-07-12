@@ -4,7 +4,10 @@ import {Component, Input} from "@angular/core";
   selector: "kpn-node-page-header",
   template: `
 
-    <kpn-page-header subject="node-page">{{"Node " + nodeName}}</kpn-page-header>
+    <kpn-page-header subject="node-page">
+      <span>Node</span>
+      <span *ngIf="nodeName">&nbsp;{{nodeName}}</span>
+    </kpn-page-header>
 
     <kpn-page-menu>
 

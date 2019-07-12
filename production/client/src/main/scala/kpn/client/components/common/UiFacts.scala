@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: facts.component.ts
 package kpn.client.components.common
 
 import japgolly.scalajs.react.ScalaComponent
@@ -43,7 +43,7 @@ object UiFacts {
 
   private case class Props(context: Context, factInfos: Seq[FactInfo])
 
-  private val component = ScalaComponent.builder[Props]("example")
+  private val component = ScalaComponent.builder[Props]("facts")
     .render_P { props =>
 
       implicit val context: Context = props.context

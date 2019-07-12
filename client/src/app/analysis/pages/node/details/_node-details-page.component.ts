@@ -6,7 +6,9 @@ import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {NodeDetailsPage} from "../../../../kpn/shared/node/node-details-page";
 import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
-import {Facts} from "../../../fact/facts";
+import {Ref} from "../../../../kpn/shared/common/ref";
+import {FactInfo} from "../../../fact/fact-info";
+import {List} from "immutable";
 
 @Component({
   selector: "kpn-node-details-page",
@@ -45,7 +47,7 @@ import {Facts} from "../../../fact/facts";
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.facts">
-          <kpn-facts [facts]="nodeInfo.facts"></kpn-facts>
+          <kpn-facts [factInfos]="factInfos"></kpn-facts>
         </kpn-data>
 
         <json [object]="response"></json>
@@ -87,6 +89,20 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
 
   get references() {
     return this.response.result.references;
+  }
+
+  get factInfos(): List<FactInfo> {
+
+    const nodeFacts = this.nodeInfo.facts.map(fact => new FactInfo(fact));
+
+    const extraFacts = this.response.result.references.networkReferences.flatMap(networkReference => {
+      return networkReference.facts.map(fact => {
+        const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
+        return new FactInfo(fact, networkRef, null, null);
+      });
+    });
+
+    return nodeFacts.concat(extraFacts);
   }
 
 }

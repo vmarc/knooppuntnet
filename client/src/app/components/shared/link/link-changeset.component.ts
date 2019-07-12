@@ -7,6 +7,6 @@ import {Component, Input} from "@angular/core";
   `
 })
 export class LinkChangesetComponent {
-  @Input() changeSetId: string;
-  @Input() replicationNumber: string;
+  @Input() changeSetId: number;
+  @Input() replicationNumber: number;
 }

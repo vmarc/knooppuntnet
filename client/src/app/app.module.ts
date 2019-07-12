@@ -20,6 +20,7 @@ import {UserService} from "./services/user.service";
 import {SpinnerInterceptor} from "./spinner/spinner-interceptor";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {SpinnerService} from "./spinner/spinner.service";
+import {PageWidthService} from "./components/shared/page-width.service";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {SpinnerService} from "./spinner/spinner.service";
     AppService,
     SpinnerService,
     PageService,
+    PageWidthService,
     MatIconRegistry,
     IconService,
     PoiService,

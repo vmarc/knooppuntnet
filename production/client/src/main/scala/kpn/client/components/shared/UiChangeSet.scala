@@ -1,4 +1,5 @@
 // TODO migrate to Angular
+// Migrated to Angular: change-header.component.ts (except for all the styles that are not used locally in this component)
 package kpn.client.components.shared
 
 import japgolly.scalajs.react.ScalaComponent
@@ -15,7 +16,6 @@ import kpn.client.components.common.UiLine
 import kpn.client.components.common.UiThick
 import kpn.client.components.common.UiThin
 import kpn.shared.changes.details.ChangeKey
-
 import scalacss.ScalaCssReact._
 
 object UiChangeSet {

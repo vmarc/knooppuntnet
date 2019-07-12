@@ -5,6 +5,7 @@ import {IconService} from "./services/icon.service";
 import {UserService} from "./services/user.service";
 import {SpinnerService} from "./spinner/spinner.service";
 import {Subscriptions} from "./util/Subscriptions";
+import {PageWidthService} from "./components/shared/page-width.service";
 
 @Component({
   selector: "app-root",
@@ -12,12 +13,12 @@ import {Subscriptions} from "./util/Subscriptions";
     <mat-sidenav-container>
 
       <mat-sidenav
-        [mode]="isMobile() ? 'over' : 'side'"
-        [fixedInViewport]="!isMobile()"
+        [mode]="isSmall() ? 'over' : 'side'"
+        [fixedInViewport]="!isSmall()"
         fixedTopGap="48"
         [opened]="isSidebarOpen()">
 
-        <kpn-sidebar-back *ngIf="isMobile()"></kpn-sidebar-back>
+        <kpn-sidebar-back *ngIf="isSmall()"></kpn-sidebar-back>
         <router-outlet name="sidebar"></router-outlet>
 
       </mat-sidenav>
@@ -75,10 +76,11 @@ export class AppComponent {
               changeDetectorRef: ChangeDetectorRef,
               private userService: UserService,
               private pageService: PageService,
+              private pageWidthService: PageWidthService,
               private spinnerService: SpinnerService,
               router: Router) {
 
-    this.subscriptions.add(this.pageService.breakpointState.subscribe(() => changeDetectorRef.detectChanges()));
+    this.subscriptions.add(this.pageWidthService.current.subscribe(() => changeDetectorRef.detectChanges()));
 
     this.subscriptions.add(router.events.subscribe(event => {
       if (event instanceof RouteConfigLoadStart) {
@@ -93,8 +95,8 @@ export class AppComponent {
     this.subscriptions.unsubscribe();
   }
 
-  isMobile(): boolean {
-    return this.pageService.isMobile();
+  isSmall(): boolean {
+    return this.pageWidthService.isSmall();
   }
 
   isSidebarOpen(): boolean {

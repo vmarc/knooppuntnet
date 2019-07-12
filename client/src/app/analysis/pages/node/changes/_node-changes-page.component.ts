@@ -14,8 +14,8 @@ import {NodeChangesPage} from "../../../../kpn/shared/node/node-changes-page";
     <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node-changes'"></kpn-node-page-header>
 
     <div *ngIf="!isLoggedIn()">
-      <span>The node history is available to registered OpenStreetMap contributors only, after</span>
-      <!-- De node historiek is enkel beschikbaar voor OpenStreetMap gebruikers, na  -->
+      <span i18n="@@node.login-required">The node history is available to registered OpenStreetMap contributors only, after</span>
+      <!--@@ De node historiek is enkel beschikbaar voor OpenStreetMap gebruikers, na  -->
       <kpn-link-login></kpn-link-login>
       .
     </div>
@@ -26,10 +26,9 @@ import {NodeChangesPage} from "../../../../kpn/shared/node/node-changes-page";
       </div>
       <div *ngIf="response.result">
 
-
-        <div *ngIf="response.result.changes.isEmpty()">
+        <div *ngIf="response.result.changes.isEmpty()" i18n="@@node.no-history">
           No history
-          <!-- Geen historiek -->
+          <!--@@ Geen historiek -->
         </div>
 
         <div *ngIf="!response.result.changes.isEmpty()">

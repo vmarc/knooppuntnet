@@ -12,10 +12,14 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-ignore-network-collection *ngSwitchCase="'IgnoreNetworkCollection'"></kpn-fact-ignore-network-collection>
       <kpn-fact-ignore-no-network-nodes *ngSwitchCase="'IgnoreNoNetworkNodes'"></kpn-fact-ignore-no-network-nodes>
       <kpn-fact-ignore-unsupported-subset *ngSwitchCase="'IgnoreUnsupportedSubset'"></kpn-fact-ignore-unsupported-subset>
-      <kpn-fact-integrity-check *ngSwitchCase="'IntegrityCheck'"></kpn-fact-integrity-check>
       <kpn-fact-integrity-check-failed *ngSwitchCase="'IntegrityCheckFailed'"></kpn-fact-integrity-check-failed>
+      <kpn-fact-integrity-check *ngSwitchCase="'IntegrityCheck'"></kpn-fact-integrity-check>
       <kpn-fact-lost-bicycle-node-tag *ngSwitchCase="'LostBicycleNodeTag'"></kpn-fact-lost-bicycle-node-tag>
+      <kpn-fact-lost-canoe-node-tag *ngSwitchCase="'LostCanoeNodeTag'"></kpn-fact-lost-canoe-node-tag>
       <kpn-fact-lost-hiking-node-tag *ngSwitchCase="'LostHikingNodeTag'"></kpn-fact-lost-hiking-node-tag>
+      <kpn-fact-lost-horse-node-tag *ngSwitchCase="'LostHorseNodeTag'"></kpn-fact-lost-horse-node-tag>
+      <kpn-fact-lost-inline-skate-node-tag *ngSwitchCase="'LostInlineSkateNodeTag'"></kpn-fact-lost-inline-skate-node-tag>
+      <kpn-fact-lost-motorboat-node-tag *ngSwitchCase="'LostMotorboatNodeTag'"></kpn-fact-lost-motorboat-node-tag>
       <kpn-fact-lost-route-tags *ngSwitchCase="'LostRouteTags'"></kpn-fact-lost-route-tags>
       <kpn-fact-name-missing *ngSwitchCase="'NameMissing'"></kpn-fact-name-missing>
       <kpn-fact-network-extra-member-node *ngSwitchCase="'NetworkExtraMemberNode'"></kpn-fact-network-extra-member-node>

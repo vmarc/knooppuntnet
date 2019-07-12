@@ -1,17 +1,14 @@
-import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {Subset} from "../../kpn/shared/subset";
+import {PageWidthService} from "./page-width.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class PageService {
 
-  breakpointState: Observable<BreakpointState>;
-  sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(true);
-
-  private mobile: boolean;
+  readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(this.sidebarOpenInitialState());
 
   showSubsetsMenu: boolean = false;
   showSubsetMenu: boolean = false;
@@ -20,11 +17,8 @@ export class PageService {
   networkId: string = null;
   showFooter: boolean = true;
 
-  constructor(breakpointObserver: BreakpointObserver) {
-    const mediaQuery = "(max-width: 599px)";
-    this.updateMobile(breakpointObserver.isMatched(mediaQuery));
-    this.breakpointState = breakpointObserver.observe(mediaQuery);
-    this.breakpointState.subscribe((b) => this.breakpointStateChanged(b));
+  constructor(private pageWidthService: PageWidthService) {
+    pageWidthService.current.subscribe(() => this.pageWidthChanged());
   }
 
   defaultMenu() {
@@ -62,23 +56,19 @@ export class PageService {
     return this.sidebarOpen.value;
   }
 
-  isMobile(): boolean {
-    return this.mobile;
-  }
-
   isShowFooter(): boolean {
     return this.showFooter;
   }
 
-  private breakpointStateChanged(breakpointState: BreakpointState) {
-    this.updateMobile(breakpointState.matches);
+  private pageWidthChanged(): void {
+    const sidebarOpen = this.sidebarOpenInitialState();
+    if (this.sidebarOpen.value !== sidebarOpen) {
+      this.sidebarOpen.next(sidebarOpen);
+    }
   }
 
-  private updateMobile(mobile: boolean) {
-    this.mobile = mobile;
-    if (this.sidebarOpen.value === mobile) {
-      this.sidebarOpen.next(!mobile);
-    }
+  private sidebarOpenInitialState(): boolean {
+    return !this.pageWidthService.isSmall();
   }
 
 }

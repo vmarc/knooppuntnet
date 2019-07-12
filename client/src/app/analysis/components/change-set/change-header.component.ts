@@ -1,10 +1,26 @@
 import {Component, Input} from "@angular/core";
 import {ChangeKey} from "../../../kpn/shared/changes/details/change-key";
+import {PageWidthService} from "../../../components/shared/page-width.service";
 
 @Component({
   selector: "kpn-change-header",
   template: `
-    <div class="kpn-line">
+    <div *ngIf="isSmall()">
+      <div class="kpn-line">
+        <kpn-link-changeset
+          [changeSetId]="changeKey.changeSetId"
+          [replicationNumber]="changeKey.replicationNumber"
+          class="kpn-thick">
+        </kpn-link-changeset>
+        <mat-icon svgIcon="happy" *ngIf="happy"></mat-icon>
+        <mat-icon svgIcon="investigate" *ngIf="investigate"></mat-icon>
+      </div>
+      <div>
+        <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
+      </div>
+    </div>
+
+    <div *ngIf="!isSmall()" class="kpn-line">
       <kpn-link-changeset
         [changeSetId]="changeKey.changeSetId"
         [replicationNumber]="changeKey.replicationNumber"
@@ -29,9 +45,17 @@ import {ChangeKey} from "../../../kpn/shared/changes/details/change-key";
   `]
 })
 export class ChangeHeaderComponent {
+
   @Input() changeKey: ChangeKey;
   @Input() happy: boolean;
   @Input() investigate: boolean;
   @Input() comment: string;
+
+  constructor(private pageWidthService: PageWidthService) {
+  }
+
+  isSmall() {
+    return this.pageWidthService.isSmall();
+  }
 
 }

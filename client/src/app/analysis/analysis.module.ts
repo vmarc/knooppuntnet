@@ -154,6 +154,14 @@ import {NodeNetworkReferenceComponent} from "./pages/node/details/node-network-r
 import {NodeNetworkReferenceStatementComponent} from "./pages/node/details/node-network-reference-statement.component";
 import {FactsComponent} from "./fact/facts.component";
 import {FactLevelComponent} from "./fact/fact-level.component";
+import {FactLostHorseNodeTagComponent} from "./fact/descriptions/fact-lost-horse-node-tag.component";
+import {FactLostMotorboatNodeTagComponent} from "./fact/descriptions/fact-lost-motorboat-node-tag.component";
+import {FactLostCanoeNodeTagComponent} from "./fact/descriptions/fact-lost-canoe-node-tag.component";
+import {FactLostInlineSkateNodeTagComponent} from "./fact/descriptions/fact-lost-inline-skate-node-tag.component";
+import {TagDiffActionComponent} from "./components/changes/tag-diff-action.component";
+import {TagDiffsTableComponent} from "./components/changes/tag-diffs-table.component";
+import {TagDiffsTextComponent} from "./components/changes/tag-diffs-text.component";
+import {NodeChangeMovedComponent} from "./pages/node/changes/node-change-moved.component";
 
 @NgModule({
   imports: [
@@ -203,6 +211,7 @@ import {FactLevelComponent} from "./fact/fact-level.component";
     NodeDetailsPageComponent,
     NodeChangeComponent,
     NodeChangeDetailComponent,
+    NodeChangeMovedComponent,
     NodeSummaryComponent,
     NodeNetworkReferencesComponent,
     NodeNetworkReferenceComponent,
@@ -296,7 +305,11 @@ import {FactLevelComponent} from "./fact/fact-level.component";
     FactIntegrityCheckComponent,
     FactLostBicycleNodeTagComponent,
     FactLostHikingNodeTagComponent,
+    FactLostHorseNodeTagComponent,
+    FactLostMotorboatNodeTagComponent,
+    FactLostCanoeNodeTagComponent,
     FactLostRouteTagsComponent,
+    FactLostInlineSkateNodeTagComponent,
     FactWasIgnoredComponent,
     FactWasOrphanComponent,
     FactDescriptionComponent,
@@ -317,6 +330,9 @@ import {FactLevelComponent} from "./fact/fact-level.component";
     RouteChangeDetailComponent,
     RouteDiffComponent,
     TagDiffsComponent,
+    TagDiffsTableComponent,
+    TagDiffsTextComponent,
+    TagDiffActionComponent,
     FactDiffsComponent,
     FactCommaListComponent
   ],

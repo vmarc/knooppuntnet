@@ -14,6 +14,7 @@ export class IconService {
 
   registerIcons() {
     this.registerApplicationIcons();
+    this.registerActionIcons();
     this.registerNetworkTypeIcons();
     this.registerCountryIcons();
     this.registerAnalysisResultsIcons();
@@ -37,6 +38,27 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("link", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/link.svg")));
+  }
+
+  private registerActionIcons() {
+
+    this.iconRegistry.addSvgIconLiteral("add", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/add.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("update", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/update.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("remove", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/remove.svg")));
+  }
+
+  private register(iconName: string, iconFile: string): void {
+    this.iconRegistry.addSvgIconLiteral(
+      iconName,
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require(`!svg-inline-loader!src/assets/${iconFile}`)
+      )
+    );
   }
 
   private registerNetworkTypeIcons() {
