@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Map} from "immutable";
-import {PageTitleBuilder} from "../components/shared/page-title-builder";
 import {NetworkSummary} from "../kpn/shared/network/network-summary";
 
 @Injectable({
@@ -25,15 +24,6 @@ export class NetworkCacheService {
 
   setNetworkSummary(networkId: string, networkSummary: NetworkSummary) {
     this.networkSummaries = this.networkSummaries.set(networkId, networkSummary);
-  }
-
-  updatePageTitle(pageName: string, networkId: string) {
-    const networkName = this.getNetworkName(networkId);
-    if (networkName == null) {
-      PageTitleBuilder.setTitle("details");
-    } else {
-      PageTitleBuilder.setNetworkPageTitle(pageName, networkName);
-    }
   }
 
 }

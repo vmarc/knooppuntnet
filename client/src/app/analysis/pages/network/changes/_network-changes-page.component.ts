@@ -35,10 +35,15 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.networkCacheService.updatePageTitle("changes", this.networkId);
+
     this.pageService.initNetworkPage();
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.networkId = params["networkId"];
+      const cachedNetworkName = this.networkCacheService.getNetworkName(this.networkId);
+      if (cachedNetworkName) {
+        this.pageService.setNetworkPageTitle("changes", cachedNetworkName);
+      }
+
       this.pageService.networkId = this.networkId;
 
       this.subscriptions.add(this.appService.networkChanges(this.networkId).subscribe(response => {
@@ -47,9 +52,10 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
         this.pageService.subset = this.subset;
         this.response = response;
         // TODO
-        // this.networkCacheService.setNetworkName(this.networkId, response.result.networkSummary.name);
         // this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
-        this.networkCacheService.updatePageTitle("changes", this.networkId);
+        const networkName = response.result.network.attributes.name;
+        this.networkCacheService.setNetworkName(this.networkId, networkName);
+        this.pageService.setNetworkPageTitle("changes", networkName);
       }));
     }));
   }

@@ -36,19 +36,23 @@ export class NetworkNodesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.networkCacheService.updatePageTitle("nodes", this.networkId);
     this.pageService.initNetworkPage();
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.networkId = params["networkId"];
       this.pageService.networkId = this.networkId;
+      const cachedNetworkName = this.networkCacheService.getNetworkName(this.networkId);
+      if (cachedNetworkName) {
+        this.pageService.setNetworkPageTitle("nodes", cachedNetworkName);
+      }
       // TODO this.subset = response.result.network.attributes.country + networkType
       this.subset = new Subset(new Country("nl"), new NetworkType("rwn", "hiking"));
       this.pageService.subset = this.subset;
       this.subscriptions.add(this.appService.networkNodes(this.networkId).subscribe(response => {
         this.response = response;
-        this.networkCacheService.setNetworkName(this.networkId, response.result.networkSummary.name);
         this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
-        this.networkCacheService.updatePageTitle("nodes", this.networkId);
+        const networkName = response.result.networkSummary.name;
+        this.networkCacheService.setNetworkName(this.networkId, networkName);
+        this.pageService.setNetworkPageTitle("nodes", networkName);
       }));
     }));
   }

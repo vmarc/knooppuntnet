@@ -74,6 +74,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
       if (this.userService.isLoggedIn()) {
         this.subscriptions.add(this.appService.nodeChanges(this.nodeId).subscribe(response => {
           this.response = response;
+          this.pageService.setTitle(response.result.nodeInfo.name);
         }));
       }
     }));

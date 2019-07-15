@@ -2,11 +2,14 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {Subset} from "../../kpn/shared/subset";
 import {PageWidthService} from "./page-width.service";
+import {Title} from "@angular/platform-browser";
 
 @Injectable({
   providedIn: "root"
 })
 export class PageService {
+
+  readonly defaultTitle = "knooppuntnet";
 
   readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(this.sidebarOpenInitialState());
 
@@ -17,7 +20,8 @@ export class PageService {
   networkId: string = null;
   showFooter: boolean = true;
 
-  constructor(private pageWidthService: PageWidthService) {
+  constructor(private pageWidthService: PageWidthService,
+              private titleService: Title) {
     pageWidthService.current.subscribe(() => this.pageWidthChanged());
   }
 
@@ -58,6 +62,14 @@ export class PageService {
 
   isShowFooter(): boolean {
     return this.showFooter;
+  }
+
+  setTitle(prefix: string): void {
+    this.titleService.setTitle(prefix + " | " + this.defaultTitle);
+  }
+
+  setNetworkPageTitle(prefix: string, networkName: string): void {
+    this.setTitle(networkName + " | " + prefix);
   }
 
   private pageWidthChanged(): void {
