@@ -162,6 +162,7 @@ import {TagDiffActionComponent} from "./components/changes/tag-diff-action.compo
 import {TagDiffsTableComponent} from "./components/changes/tag-diffs-table.component";
 import {TagDiffsTextComponent} from "./components/changes/tag-diffs-text.component";
 import {NodeChangeMovedComponent} from "./pages/node/changes/node-change-moved.component";
+import {SubsetPageHeaderBlockComponent} from "./pages/subset/components/subset-page-header-block.component";
 
 @NgModule({
   imports: [
@@ -325,6 +326,7 @@ import {NodeChangeMovedComponent} from "./pages/node/changes/node-change-moved.c
     RouteIndicatorDialogComponent,
     NetworkPageHeaderComponent,
     SubsetPageHeaderComponent,
+    SubsetPageHeaderBlockComponent,
     HistoryIncompleteWarningComponent,
     RouteChangeComponent,
     RouteChangeDetailComponent,

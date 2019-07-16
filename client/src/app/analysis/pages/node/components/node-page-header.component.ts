@@ -4,7 +4,7 @@ import {Component, Input} from "@angular/core";
   selector: "kpn-node-page-header",
   template: `
 
-    <kpn-page-header subject="node-page">
+    <kpn-page-header [pageTitle]="nodeName" subject="node-page">
       <span>Node</span>
       <span *ngIf="nodeName">&nbsp;{{nodeName}}</span>
     </kpn-page-header>

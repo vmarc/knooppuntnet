@@ -12,8 +12,13 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 @Component({
   selector: "kpn-subset-orphan-routes-page",
   template: `
-
-    <kpn-subset-page-header [subset]="subset" pageName="orphan-routes"></kpn-subset-page-header>
+    
+    <kpn-subset-page-header-block
+      [subset]="subset"
+      pageName="orphan-routes"
+      pageTitle="Orphan routes"
+      i18n-pageTitle="@@subset-orphan-routes.title">
+    </kpn-subset-page-header-block>
 
     <div *ngIf="response">
       <kpn-subset-orphan-routes-table [orphanRoutes]="response.result.rows"></kpn-subset-orphan-routes-table>

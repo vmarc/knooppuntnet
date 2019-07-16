@@ -39,7 +39,6 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
       this.nodeId = params["nodeId"];
       this.subscriptions.add(this.appService.nodeMap(this.nodeId).subscribe(response => {
         this.response = response;
-        this.pageService.setTitle(response.result.nodeInfo.name);
       }));
     }));
   }

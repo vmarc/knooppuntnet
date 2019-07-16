@@ -12,8 +12,14 @@ import {Subscriptions} from "../../../../util/Subscriptions";
 @Component({
   selector: "kpn-subset-fact-details-page",
   template: `
-    <kpn-subset-page-header [subset]="subset" pageName="facts"></kpn-subset-page-header>
 
+    <kpn-subset-page-header-block
+      [subset]="subset"
+      pageName="facts"
+      pageTitle="Facts"
+      i18n-pageTitle="@@subset-facts.title">
+    </kpn-subset-page-header-block>
+    
     <h2>
       <kpn-fact-name [factName]="factName"></kpn-fact-name>
     </h2>

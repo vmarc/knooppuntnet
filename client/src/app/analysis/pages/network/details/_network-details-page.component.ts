@@ -15,8 +15,13 @@ import {InterpretedTags} from "../../../../components/shared/tags/interpreted-ta
   selector: "kpn-network-details-page",
   template: `
 
-    <kpn-network-page-header [networkId]="networkId" selectedPage="details"></kpn-network-page-header>
-
+    <kpn-network-page-header
+      [networkId]="networkId"
+      selectedPage="details"
+      pageTitle="Details"
+      i18n-pageTitle="@@network-details.title">
+    </kpn-network-page-header>
+    
     <div *ngIf="response?.result">
       <div *ngIf="!response.result">
         <p>Network not found</p>
@@ -84,10 +89,6 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
     this.pageService.initNetworkPage();
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.networkId = params["networkId"];
-      const cachedNetworkName = this.networkCacheService.getNetworkName(this.networkId);
-      if (cachedNetworkName) {
-        this.pageService.setNetworkPageTitle("details", cachedNetworkName);
-      }
       this.pageService.networkId = this.networkId;
       // TODO this.subset = response.result.network.attributes.country + networkType
       this.subset = new Subset(new Country("nl"), new NetworkType("rwn", "hiking"));
@@ -98,7 +99,6 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
         this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
         const networkName = response.result.networkSummary.name;
         this.networkCacheService.setNetworkName(this.networkId, networkName);
-        this.pageService.setNetworkPageTitle("details", networkName);
       }));
     }));
   }

@@ -21,6 +21,7 @@ import {SpinnerInterceptor} from "./spinner/spinner-interceptor";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {SpinnerService} from "./spinner/spinner.service";
 import {PageWidthService} from "./components/shared/page-width.service";
+import {I18nService} from "./i18n/i18n.service";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {PageWidthService} from "./components/shared/page-width.service";
     CookieService,
     UserService,
     AppService,
+    I18nService,
     SpinnerService,
     PageService,
     PageWidthService,

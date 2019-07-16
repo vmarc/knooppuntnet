@@ -10,9 +10,7 @@ import {Component} from "@angular/core";
       <ng-container i18n="@@country.de">Germany</ng-container>
     </div>
 
-    <h1 i18n="@@country.de">
-      Germany
-    </h1>
+    <kpn-page-header i18n="@@country.de">Germany</kpn-page-header>
 
     <kpn-icon-button
       routerLink="/analysis/de/cycling/networks"

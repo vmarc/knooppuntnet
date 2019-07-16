@@ -13,7 +13,7 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       <ng-container i18n="@@breadcrumb.network">Network</ng-container>
     </div>
 
-    <kpn-page-header subject="network-page">{{networkName()}}</kpn-page-header>
+    <kpn-page-header [pageTitle]="networkPageTitle()" subject="network-page">{{networkName()}}</kpn-page-header>
 
     <kpn-page-menu>
       <kpn-page-menu-option
@@ -74,12 +74,21 @@ export class NetworkPageHeaderComponent {
 
   @Input() networkId;
   @Input() selectedPage;
+  @Input() pageTitle;
 
   constructor(private networkCacheService: NetworkCacheService) {
   }
 
   networkName(): string {
     return this.networkCacheService.getNetworkName(this.networkId);
+  }
+
+  networkPageTitle(): string {
+    const networkName = this.networkCacheService.getNetworkName(this.networkId);
+    if (networkName) {
+      return `${networkName} | ${this.pageTitle}`
+    }
+    return null;
   }
 
   factCount() {

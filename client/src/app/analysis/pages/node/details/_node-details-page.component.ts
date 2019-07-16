@@ -75,7 +75,6 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
       this.subscriptions.add(this.appService.nodeDetails(this.nodeId).subscribe(response => {
         this.response = response;
         this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
-        this.pageService.setTitle(response.result.nodeInfo.name);
       }));
     }));
   }

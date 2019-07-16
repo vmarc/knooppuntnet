@@ -30,6 +30,7 @@ import {PageWidthService} from "./components/shared/page-width.service";
         <div class="page-contents">
           <main>
             <router-outlet></router-outlet>
+            <kpn-i18n></kpn-i18n>
           </main>
           <footer *ngIf="isShowFooter()">
             <kpn-page-footer></kpn-page-footer>

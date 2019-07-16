@@ -9,9 +9,7 @@ import {Component} from "@angular/core";
       <span i18n="@@breadcrumb.analysis">Analysis</span>
     </div>
 
-    <h1 i18n="@@analysis-page.title">
-      Analysis
-    </h1>
+    <kpn-page-header i18n="@@analysis-page.title">Analysis</kpn-page-header>
 
     <div class="buttons">
       <kpn-icon-button

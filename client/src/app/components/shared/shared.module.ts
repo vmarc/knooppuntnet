@@ -65,6 +65,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
 import {DocLinkComponent} from "./link/doc-link.component";
 import {PageHeaderComponent} from "./page/page-header.component";
 import {DocLinkSmallComponent} from "./link/doc-link-small.component";
+import {I18nComponent} from "../../i18n/i18n.component";
 
 @NgModule({
   imports: [
@@ -141,7 +142,8 @@ import {DocLinkSmallComponent} from "./link/doc-link-small.component";
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
-    DocLinkSmallComponent
+    DocLinkSmallComponent,
+    I18nComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -204,7 +206,8 @@ import {DocLinkSmallComponent} from "./link/doc-link-small.component";
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
-    DocLinkSmallComponent
+    DocLinkSmallComponent,
+    I18nComponent
   ]
 })
 export class SharedModule {

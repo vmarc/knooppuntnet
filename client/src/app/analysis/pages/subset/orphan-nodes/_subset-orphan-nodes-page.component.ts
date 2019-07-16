@@ -13,7 +13,12 @@ import {Subscriptions} from "../../../../util/Subscriptions";
   selector: "kpn-subset-orphan-nodes-page",
   template: `
 
-    <kpn-subset-page-header [subset]="subset" pageName="orphan-nodes"></kpn-subset-page-header>
+    <kpn-subset-page-header-block
+      [subset]="subset"
+      pageName="orphan-nodes"
+      pageTitle="Orphan nodes"
+      i18n-pageTitle="@@subset-orphan-nodes.title">
+    </kpn-subset-page-header-block>
 
     <div *ngIf="response">
       <kpn-subset-orphan-nodes-table [nodes]="response.result.rows"></kpn-subset-orphan-nodes-table>

@@ -13,7 +13,13 @@ import {Subscriptions} from "../../../../util/Subscriptions";
 @Component({
   selector: "kpn-network-facts-page",
   template: `
-    <kpn-network-page-header [networkId]="networkId" selectedPage="facts"></kpn-network-page-header>
+    
+    <kpn-network-page-header
+      [networkId]="networkId"
+      selectedPage="facts"
+      pageTitle="Facts"
+      i18n-pageTitle="@@network-facts.title">
+    </kpn-network-page-header>
 
     <div *ngIf="response">
       <json [object]="response"></json>
@@ -40,10 +46,6 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.networkId = params["networkId"];
       this.pageService.networkId = this.networkId;
-      const cachedNetworkName = this.networkCacheService.getNetworkName(this.networkId);
-      if (cachedNetworkName) {
-        this.pageService.setNetworkPageTitle("facts", cachedNetworkName);
-      }
       // TODO this.subset = response.result.network.attributes.country + networkType
       this.subset = new Subset(new Country("nl"), new NetworkType("rwn", "hiking"));
       this.pageService.subset = this.subset;
@@ -51,7 +53,6 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
         this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
         const networkName = response.result.networkSummary.name;
         this.networkCacheService.setNetworkName(this.networkId, networkName);
-        this.pageService.setNetworkPageTitle("facts", networkName);
         this.response = response;
       }));
     }));

@@ -13,7 +13,12 @@ import {Subscriptions} from "../../../../util/Subscriptions";
   selector: "kpn-subset-changes-page",
   template: `
 
-    <kpn-subset-page-header [subset]="subset" pageName="changes"></kpn-subset-page-header>
+    <kpn-subset-page-header-block 
+      [subset]="subset" 
+      pageName="changes"
+      pageTitle="Changes"
+      i18n-pageTitle="@@subset-changes.title">
+    </kpn-subset-page-header-block>
 
     <div *ngIf="response">
       <json [object]="response"></json>

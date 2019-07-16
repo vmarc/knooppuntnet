@@ -13,7 +13,13 @@ import {Subscriptions} from "../../../../util/Subscriptions";
 @Component({
   selector: "kpn-subset-facts-page",
   template: `
-    <kpn-subset-page-header [subset]="subset" pageName="facts"></kpn-subset-page-header>
+
+    <kpn-subset-page-header-block
+      [subset]="subset"
+      pageName="facts"
+      pageTitle="Facts"
+      i18n-pageTitle="@@subset-facts.title">
+    </kpn-subset-page-header-block>
 
     <div *ngIf="response">
       <p>

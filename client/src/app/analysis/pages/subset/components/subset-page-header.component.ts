@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, ElementRef, Input, SimpleChanges, ViewChild} from "@angular/core";
 import {Util} from "../../../../components/shared/util";
 import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetInfo} from "../../../../kpn/shared/subset/subset-info";
@@ -7,67 +7,9 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 @Component({
   selector: "kpn-subset-page-header",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
-      <a routerLink="{{countryLink()}}">
-        <kpn-country-name [country]="subset.country"></kpn-country-name>
-      </a> >
-      <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
-    </div>
-
-    <kpn-page-header [subject]="'subset-' + pageName + '-page'">
-      <kpn-subset-name [subset]="subset"></kpn-subset-name>
+    <kpn-page-header [pageTitle]="subsetPageTitle" [subject]="'subset-' + pageName + '-page'">
+      <kpn-subset-name #title [subset]="subset"></kpn-subset-name>
     </kpn-page-header>
-    
-    <kpn-page-menu>
-
-      <kpn-page-menu-option
-        pageName="networks"
-        [selectedPageName]="pageName"
-        [link]="link('networks')"
-        pageTitle="Networks"
-        i18n-pageTitle="@@subset-page.menu.networks"
-        [elementCount]="networkCount()">
-      </kpn-page-menu-option>
-
-      <kpn-page-menu-option
-        pageName="facts"
-        [selectedPageName]="pageName"
-        [link]="link('facts')"
-        pageTitle="Facts"
-        i18n-pageTitle="@@subset-page.menu.facts"
-        [elementCount]="factCount()">
-      </kpn-page-menu-option>
-
-      <kpn-page-menu-option
-        pageName="orphan-nodes"
-        [selectedPageName]="pageName"
-        [link]="link('orphan-nodes')"
-        pageTitle="Orphan Nodes"
-        i18n-pageTitle="@@subset-page.menu.orphan-nodes"
-        [elementCount]="orphanNodeCount()">
-      </kpn-page-menu-option>
-
-      <kpn-page-menu-option
-        pageName="orphan-routes"
-        [selectedPageName]="pageName"
-        [link]="link('orphan-routes')"
-        pageTitle="Orphan routes"
-        i18n-pageTitle="@@subset-page.menu.orphan-routes"
-        [elementCount]="orphanRouteCount()">
-      </kpn-page-menu-option>
-
-      <kpn-page-menu-option
-        pageName="changes"
-        [selectedPageName]="pageName"
-        [link]="link('changes')"
-        pageTitle="Changes"
-        i18n-pageTitle="@@subset-page.menu.changes">
-      </kpn-page-menu-option>
-
-    </kpn-page-menu>
 
   `
 })
@@ -75,6 +17,11 @@ export class SubsetPageHeaderComponent {
 
   @Input() subset: Subset;
   @Input() pageName: string;
+  @Input() pageTitle: string;
+
+  subsetPageTitle: string = "";
+
+  @ViewChild("title", {read: ElementRef}) renderedTitle: ElementRef;
 
   constructor(private subsetCacheService: SubsetCacheService) {
   }
@@ -108,6 +55,21 @@ export class SubsetPageHeaderComponent {
 
   subsetInfo(): SubsetInfo {
     return this.subsetCacheService.getSubsetInfo(this.subset.key());
+  }
+
+  ngAfterViewInit(): void {
+    this.updatePageTitle();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["pageTitle"]) {
+      this.updatePageTitle();
+    }
+  }
+
+  private updatePageTitle() {
+    const titleFromPage = this.renderedTitle.nativeElement.textContent.trim();
+    this.subsetPageTitle =  `${titleFromPage} | ${this.pageTitle}`;
   }
 
 }

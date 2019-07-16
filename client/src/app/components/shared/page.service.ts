@@ -65,11 +65,8 @@ export class PageService {
   }
 
   setTitle(prefix: string): void {
-    this.titleService.setTitle(prefix + " | " + this.defaultTitle);
-  }
-
-  setNetworkPageTitle(prefix: string, networkName: string): void {
-    this.setTitle(networkName + " | " + prefix);
+    const title = prefix ? prefix + " | " + this.defaultTitle : this.defaultTitle;
+    this.titleService.setTitle(title);
   }
 
   private pageWidthChanged(): void {

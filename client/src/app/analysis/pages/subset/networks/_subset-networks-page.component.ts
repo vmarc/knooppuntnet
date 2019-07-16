@@ -14,7 +14,12 @@ import {Subscriptions} from "../../../../util/Subscriptions";
   selector: "kpn-subset-networks-page",
   template: `
 
-    <kpn-subset-page-header [subset]="subset" pageName="networks"></kpn-subset-page-header>
+    <kpn-subset-page-header-block
+      [subset]="subset"
+      pageName="networks"
+      pageTitle="Networks"
+      i18n-pageTitle="@@subset-networks.title">
+    </kpn-subset-page-header-block>
 
     <kpn-subset-network-list
       *ngIf="response"
