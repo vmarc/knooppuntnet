@@ -1,5 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {RouteInfo} from "../../../../kpn/shared/route/route-info";
+import {Util} from "../../../../components/shared/util";
+import {I18nService} from "../../../../i18n/i18n.service";
 
 @Component({
   selector: "kpn-route-summary",
@@ -55,6 +57,9 @@ export class RouteSummaryComponent {
 
   @Input() route: RouteInfo;
 
+  constructor(private i18nService: I18nService) {
+  }
+
   isRouteBroken() {
     // TODO this.route.facts.contains(Fact.RouteBroken))
     return true;
@@ -65,4 +70,7 @@ export class RouteSummaryComponent {
     return true;
   }
 
+  countryName(): string {
+    return this.i18nService.name("country." + Util.safeGet(() => this.route.summary.country.domain));
+  }
 }

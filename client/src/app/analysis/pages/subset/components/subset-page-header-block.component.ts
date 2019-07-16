@@ -13,7 +13,7 @@ import {I18nService} from "../../../../i18n/i18n.service";
       <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
       <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
       <a routerLink="{{countryLink()}}">
-        <kpn-country-name [country]="subset.country"></kpn-country-name>
+        {{countryName()}}
       </a> >
       <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
     </div>
@@ -80,6 +80,10 @@ export class SubsetPageHeaderBlockComponent {
 
   constructor(private subsetCacheService: SubsetCacheService,
               private i18nService: I18nService) {
+  }
+
+  countryName(): string {
+    return this.i18nService.name("country." + Util.safeGet(() => this.subset.country.domain));
   }
 
   countryLink(): string {

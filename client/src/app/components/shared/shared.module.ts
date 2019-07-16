@@ -3,7 +3,6 @@ import {NgModule} from "@angular/core";
 import {MatButtonModule, MatDialogModule, MatDividerModule, MatIconModule, MatListModule, MatToolbarModule} from "@angular/material";
 import {RouterModule} from "@angular/router";
 import {SpinnerModule} from "../../spinner/spinner.module";
-import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
 import {IconButtonComponent} from "./icon/icon-button.component";
@@ -56,7 +55,6 @@ import {SidebarNetworkComponent} from "./sidebar/sidebar-network.component";
 import {SidebarSubItemComponent} from "./sidebar/sidebar-sub-item.component";
 import {SidebarVersionWarningComponent} from "./sidebar/sidebar-version-warning.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
-import {SubsetNameComponent} from "./subset-name.component";
 import {TagsTableComponent} from "./tags/tags-table.component";
 import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
@@ -113,7 +111,6 @@ import {I18nComponent} from "../../i18n/i18n.component";
     NetworkTypeComponent,
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
-    CountryNameComponent,
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
@@ -132,7 +129,6 @@ import {I18nComponent} from "../../i18n/i18n.component";
     SidebarNetworkComponent,
     SidebarMenuComponent,
     SidebarSubItemComponent,
-    SubsetNameComponent,
     ItemsComponent,
     ItemComponent,
     IndicatorIconComponent,
@@ -179,7 +175,6 @@ import {I18nComponent} from "../../i18n/i18n.component";
     NetworkTypeComponent,
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
-    CountryNameComponent,
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
@@ -196,7 +191,6 @@ import {I18nComponent} from "../../i18n/i18n.component";
     SidebarVersionWarningComponent,
     SidebarNetworkComponent,
     SidebarSubItemComponent,
-    SubsetNameComponent,
     ItemsComponent,
     ItemComponent,
     IndicatorComponent,

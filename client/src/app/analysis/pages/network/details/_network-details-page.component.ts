@@ -10,6 +10,8 @@ import {Subset} from "../../../../kpn/shared/subset";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
+import {I18nService} from "../../../../i18n/i18n.service";
+import {Util} from "../../../../components/shared/util";
 
 @Component({
   selector: "kpn-network-details-page",
@@ -48,7 +50,7 @@ import {InterpretedTags} from "../../../../components/shared/tags/interpreted-ta
         </kpn-data>
 
         <kpn-data title="Country">
-          <kpn-country-name [country]="response.result.attributes.country"></kpn-country-name>
+          {{countryName()}}
         </kpn-data>
 
         <kpn-data title="Last updated">
@@ -82,7 +84,8 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService,
-              private networkCacheService: NetworkCacheService) {
+              private networkCacheService: NetworkCacheService,
+              private i18nService: I18nService) {
   }
 
   ngOnInit() {
@@ -107,4 +110,7 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  countryName(): string {
+    return this.i18nService.name("country." + Util.safeGet(() => this.response.result.attributes.country.domain));
+  }
 }
