@@ -22,7 +22,7 @@ export class I18nService {
     return this.translations !== null;
   }
 
-  name(key: string): string {
+  translation(key: string): string {
     return this.translations.get(key);
   }
 

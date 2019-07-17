@@ -64,6 +64,7 @@ import {DocLinkComponent} from "./link/doc-link.component";
 import {PageHeaderComponent} from "./page/page-header.component";
 import {DocLinkSmallComponent} from "./link/doc-link-small.component";
 import {I18nComponent} from "../../i18n/i18n.component";
+import {CountryNameComponent} from "./country-name.component";
 
 @NgModule({
   imports: [
@@ -114,6 +115,7 @@ import {I18nComponent} from "../../i18n/i18n.component";
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
+    CountryNameComponent,
     SituationOnComponent,
     JsonComponent,
     TagsTableComponent,
@@ -178,6 +180,7 @@ import {I18nComponent} from "../../i18n/i18n.component";
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
+    CountryNameComponent,
     SituationOnComponent,
     JsonComponent,
     TagsTableComponent,

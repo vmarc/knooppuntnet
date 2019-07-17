@@ -136,7 +136,6 @@ import {RouteStructureComponent} from "./pages/route/details/route-structure.com
 import {RouteSummaryComponent} from "./pages/route/details/route-summary.component";
 import {RouteMapPageComponent} from "./pages/route/map/_route-map-page.component";
 import {SubsetChangesPageComponent} from "./pages/subset/changes/_subset-changes-page.component";
-import {SubsetPageHeaderComponent} from "./pages/subset/components/subset-page-header.component";
 import {SubsetFactDetailsPageComponent} from "./pages/subset/fact-details/_subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.component";
 import {SubsetNetworksPageComponent} from "./pages/subset/networks/_subset-networks-page.component";
@@ -325,7 +324,6 @@ import {SubsetPageHeaderBlockComponent} from "./pages/subset/components/subset-p
     RoleConnectionIndicatorDialogComponent,
     RouteIndicatorDialogComponent,
     NetworkPageHeaderComponent,
-    SubsetPageHeaderComponent,
     SubsetPageHeaderBlockComponent,
     HistoryIncompleteWarningComponent,
     RouteChangeComponent,

@@ -3,8 +3,6 @@ import {NetworkTypes} from "../../../../kpn/common/network-types";
 import {NodeInfo} from "../../../../kpn/shared/node-info";
 import {NetworkType} from "../../../../kpn/shared/network-type";
 import {List} from "immutable";
-import {Util} from "../../../../components/shared/util";
-import {I18nService} from "../../../../i18n/i18n.service";
 
 @Component({
   selector: "node-summary",
@@ -27,7 +25,7 @@ import {I18nService} from "../../../../i18n/i18n.service";
       </p>
 
       <p *ngIf="nodeInfo.country">
-        {{countryName()}}
+        <kpn-country-name [country]="nodeInfo.country"></kpn-country-name>
       </p>
 
       <p *ngIf="nodeInfo.active && nodeInfo.orphan" i18n="@@node.orphan">
@@ -45,14 +43,8 @@ export class NodeSummaryComponent {
 
   @Input() nodeInfo: NodeInfo;
 
-  constructor(private i18nService: I18nService) {
-  }
-
   networkTypes(): List<NetworkType> {
     return NetworkTypes.all.filter(networkType => this.nodeInfo.tags.has(networkType.id + "_ref"));
   }
 
-  countryName(): string {
-    return this.i18nService.name("country." + Util.safeGet(() => this.nodeInfo.country.domain));
-  }
 }
