@@ -9,6 +9,7 @@ import {SubsetNetworksPage} from "../../../../kpn/shared/subset/subset-networks-
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-subset-networks-page",
@@ -56,18 +57,22 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initSubsetPage();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.subset = Util.subsetInRoute(params);
-      this.pageService.subset = this.subset;
-      this.response = null;
-      this.subscriptions.add(this.appService.subsetNetworks(this.subset).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => Util.subsetInRoute(params)),
+        tap(subset => {
+          this.subset = subset;
+          this.pageService.subset = subset;
+        }),
+        flatMap(subset => this.appService.subsetNetworks(subset))
+      ).subscribe(response => {
         this.response = response;
         this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
         response.result.networks.forEach(networkAttributes => {
           this.networkCacheService.setNetworkName(networkAttributes.id.toString(), networkAttributes.name);
         });
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy(): void {

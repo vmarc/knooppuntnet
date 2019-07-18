@@ -6,6 +6,7 @@ import {PoiPage} from "../../kpn/shared/poi-page";
 import {PoiService} from "../../services/poi.service";
 import {Subscriptions} from "../../util/Subscriptions";
 import {InterpretedTags} from "../../components/shared/tags/interpreted-tags";
+import {filter, flatMap, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-poi-detail",
@@ -77,17 +78,19 @@ export class PoiDetailComponent {
   constructor(private mapService: MapService,
               private appService: AppService,
               private poiService: PoiService) {
-    this.subscriptions.add(mapService.poiClickedObserver.subscribe(poiId => {
-      if (poiId != null) {
-        this.subscriptions.add(this.appService.poi(poiId.elementType, poiId.elementId).subscribe(response => {
-          this.poiPage = response.result;
-          this.latitude = response.result.latitude;
-          this.longitude = response.result.longitude;
-          this.tags = response.result.mainTags;
-        }));
-        this.poiId = poiId;
-      }
-    }));
+
+    this.subscriptions.add(
+      mapService.poiClickedObserver.pipe(
+        tap(poiId => this.poiId = poiId),
+        filter(poiId => poiId !== null),
+        flatMap(poiId => this.appService.poi(poiId.elementType, poiId.elementId))
+      ).subscribe(response => {
+        this.poiPage = response.result;
+        this.latitude = response.result.latitude;
+        this.longitude = response.result.longitude;
+        this.tags = response.result.mainTags;
+      })
+    );
   }
 
   ngOnDestroy(): void {

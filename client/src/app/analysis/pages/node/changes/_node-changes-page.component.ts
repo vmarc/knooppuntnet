@@ -6,6 +6,7 @@ import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {UserService} from "../../../../services/user.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {NodeChangesPage} from "../../../../kpn/shared/node/node-changes-page";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-node-changes-page",
@@ -54,7 +55,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
-  nodeId: string;
+  nodeId: number;
   response: ApiResponse<NodeChangesPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -69,14 +70,15 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageService.defaultMenu();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.nodeId = params["nodeId"];
-      if (this.userService.isLoggedIn()) {
-        this.subscriptions.add(this.appService.nodeChanges(this.nodeId).subscribe(response => {
-          this.response = response;
-        }));
-      }
-    }));
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => params["nodeId"]),
+        tap(nodeId => this.nodeId = +nodeId),
+        flatMap(nodeId => this.appService.nodeChanges(nodeId))
+      ).subscribe(response => {
+        this.response = response;
+      })
+    );
   }
 
   ngOnDestroy(): void {

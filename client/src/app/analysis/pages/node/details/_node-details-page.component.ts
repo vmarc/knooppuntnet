@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
@@ -9,6 +9,7 @@ import {InterpretedTags} from "../../../../components/shared/tags/interpreted-ta
 import {Ref} from "../../../../kpn/shared/common/ref";
 import {FactInfo} from "../../../fact/fact-info";
 import {List} from "immutable";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-node-details-page",
@@ -59,10 +60,10 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
-  nodeId: string;
+  nodeId: number;
   nodeName: string;
-  response: ApiResponse<NodeDetailsPage>;
   tags: InterpretedTags;
+  response: ApiResponse<NodeDetailsPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -72,17 +73,17 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.nodeName = history.state.nodeName;
     this.pageService.defaultMenu();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.nodeId = params["nodeId"];
-
-
-      this.subscriptions.add(this.appService.nodeDetails(this.nodeId).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => params["nodeId"]),
+        tap(nodeId => this.nodeId = nodeId),
+        flatMap(nodeId => this.appService.nodeDetails(nodeId))
+      ).subscribe(response => {
         this.response = response;
         this.nodeName = response.result.nodeInfo.name;
         this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
-      }));
-    }));
-
+      })
+    );
   }
 
   ngOnDestroy(): void {

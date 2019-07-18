@@ -9,6 +9,7 @@ import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetFactsPageNew} from "../../../../kpn/shared/subset/subset-facts-page-new";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-subset-facts-page",
@@ -60,15 +61,19 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initSubsetPage();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.subset = Util.subsetInRoute(params);
-      this.pageService.subset = this.subset;
-      this.response = null;
-      this.subscriptions.add(this.appService.subsetFacts(this.subset).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => Util.subsetInRoute(params)),
+        tap(subset => {
+          this.subset = subset;
+          this.pageService.subset = subset;
+        }),
+        flatMap(subset => this.appService.subsetFacts(subset))
+      ).subscribe(response => {
         this.response = response;
         this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -80,7 +85,7 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
   }
 
   factDetailLink(factCount: FactCountNew): String {
-    return "/analysis/" + factCount.factName + "/" + this.subset.key();
+    return "/analysis/" + this.subset.key() + "/" + factCount.factName;
   }
 
 }

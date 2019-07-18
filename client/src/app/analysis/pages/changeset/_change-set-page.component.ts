@@ -6,6 +6,13 @@ import {Util} from "../../../components/shared/util";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {flatMap, map} from "rxjs/operators";
+
+class ChangeSetKey {
+  constructor(readonly changeSetId: string,
+              readonly replicationNumber: string) {
+  }
+}
 
 @Component({
   selector: "kpn-change-set-page",
@@ -37,13 +44,18 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      const changeSetId = params["changeSetId"];
-      const replicationNumber = params["replicationNumber"];
-      this.subscriptions.add(this.appService.changeSet(changeSetId, replicationNumber).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => {
+          const changeSetId = params["changeSetId"];
+          const replicationNumber = params["replicationNumber"];
+          return new ChangeSetKey(changeSetId, replicationNumber);
+        }),
+        flatMap(key => this.appService.changeSet(key.changeSetId, key.replicationNumber))
+      ).subscribe(response => {
         this.response = response;
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy() {

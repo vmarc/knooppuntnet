@@ -3,17 +3,15 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
-import {Country} from "../../../../kpn/shared/country";
-import {NetworkType} from "../../../../kpn/shared/network-type";
 import {NetworkFactsPage} from "../../../../kpn/shared/network/network-facts-page";
-import {Subset} from "../../../../kpn/shared/subset";
 import {NetworkCacheService} from "../../../../services/network-cache.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-network-facts-page",
   template: `
-    
+
     <kpn-network-page-header
       [networkId]="networkId"
       pageTitle="Facts"
@@ -29,9 +27,7 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
-  subset: Subset;
   networkId: string;
-
   response: ApiResponse<NetworkFactsPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -42,19 +38,22 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initNetworkPage();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.networkId = params["networkId"];
-      this.pageService.networkId = this.networkId;
-      // TODO this.subset = response.result.network.attributes.country + networkType
-      this.subset = new Subset(new Country("nl"), new NetworkType("rwn", "hiking"));
-      this.pageService.subset = this.subset;
-      this.subscriptions.add(this.appService.networkFacts(this.networkId).subscribe(response => {
+
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => params["networkId"]),
+        tap(networkId => {
+          this.networkId = networkId;
+          this.pageService.networkId = networkId;
+        }),
+        flatMap(networkId => this.appService.networkFacts(networkId))
+      ).subscribe(response => {
+        this.response = response;
         this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
         const networkName = response.result.networkSummary.name;
         this.networkCacheService.setNetworkName(this.networkId, networkName);
-        this.response = response;
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy(): void {

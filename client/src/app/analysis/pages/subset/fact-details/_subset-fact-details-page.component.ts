@@ -8,6 +8,13 @@ import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetFactDetailsPage} from "../../../../kpn/shared/subset/subset-fact-details-page";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {flatMap, map} from "rxjs/operators";
+
+class SubsetFact {
+  constructor(readonly subset: Subset,
+              readonly factName: string) {
+  }
+}
 
 @Component({
   selector: "kpn-subset-fact-details-page",
@@ -19,7 +26,7 @@ import {Subscriptions} from "../../../../util/Subscriptions";
       pageTitle="Facts"
       i18n-pageTitle="@@subset-facts.title">
     </kpn-subset-page-header-block>
-    
+
     <h2>
       <kpn-fact-name [factName]="factName"></kpn-fact-name>
     </h2>
@@ -76,16 +83,23 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initSubsetPage();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.subset = Util.subsetInRoute(params);
-      this.factName = params["fact"];
-      this.pageService.subset = this.subset;
-      this.response = null;
-      this.subscriptions.add(this.appService.subsetFactDetails(this.subset).subscribe(response => {
+
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => {
+          const subset = Util.subsetInRoute(params);
+          const factName = params["fact"];
+          this.subset = subset;
+          this.factName = factName;
+          this.pageService.subset = subset;
+          return new SubsetFact(subset, factName);
+        }),
+        flatMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset /* TODO: add parameter, subsetFact.factName*/))
+      ).subscribe(response => {
         this.response = response;
         this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy(): void {

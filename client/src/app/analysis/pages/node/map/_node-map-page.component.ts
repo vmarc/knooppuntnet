@@ -5,6 +5,7 @@ import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {NodeMapPage} from "../../../../kpn/shared/node/node-map-page";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-node-map-page",
@@ -35,12 +36,15 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.nodeId = params["nodeId"];
-      this.subscriptions.add(this.appService.nodeMap(this.nodeId).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => params["nodeId"]),
+        tap(nodeId => this.nodeId = nodeId),
+        flatMap(nodeId => this.appService.nodeMap(nodeId))
+      ).subscribe(response => {
         this.response = response;
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy(): void {

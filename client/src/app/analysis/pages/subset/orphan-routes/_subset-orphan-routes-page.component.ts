@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {Util} from "../../../../components/shared/util";
@@ -8,11 +7,13 @@ import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetOrphanRoutesPage} from "../../../../kpn/shared/subset/subset-orphan-routes-page";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
+import {flatMap, map, tap} from "rxjs/operators";
+import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-subset-orphan-routes-page",
   template: `
-    
+
     <kpn-subset-page-header-block
       [subset]="subset"
       pageName="orphan-routes"
@@ -28,9 +29,10 @@ import {SubsetCacheService} from "../../../../services/subset-cache.service";
 })
 export class SubsetOrphanRoutesPageComponent implements OnInit, OnDestroy {
 
+  private readonly subscriptions = new Subscriptions();
+
   subset: Subset;
   response: ApiResponse<SubsetOrphanRoutesPage>;
-  paramsSubscription: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -40,19 +42,23 @@ export class SubsetOrphanRoutesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initSubsetPage();
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      this.subset = Util.subsetInRoute(params);
-      this.pageService.subset = this.subset;
-      this.response = null;
-      this.appService.subsetOrphanRoutes(this.subset).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => Util.subsetInRoute(params)),
+        tap(subset => {
+          this.subset = subset;
+          this.pageService.subset = subset;
+        }),
+        flatMap(subset => this.appService.subsetOrphanRoutes(subset))
+      ).subscribe(response => {
         this.response = response;
         this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
-      });
-    });
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.paramsSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
 }

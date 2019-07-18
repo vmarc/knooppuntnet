@@ -76,11 +76,13 @@ export class ChangesTableComponent implements AfterViewInit, OnDestroy {
 
   private reload() {
     this.updateParameters();
-    this.subscriptions.add(this.appService.changes(this.parameters).subscribe(response => {
-      this.response = response;
-      this.dataSource.data = response.result.changes.toArray();
-      this.paginator.length = response.result.totalCount;
-    }));
+    this.subscriptions.add(
+      this.appService.changes(this.parameters).subscribe(response => {
+        this.response = response;
+        this.dataSource.data = response.result.changes.toArray();
+        this.paginator.length = response.result.totalCount;
+      })
+    );
   }
 
   rowNumber(index: number): number {

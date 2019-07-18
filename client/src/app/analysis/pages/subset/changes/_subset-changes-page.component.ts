@@ -8,13 +8,14 @@ import {Subset} from "../../../../kpn/shared/subset";
 import {SubsetChangesPage} from "../../../../kpn/shared/subset/subset-changes-page";
 import {SubsetCacheService} from "../../../../services/subset-cache.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-subset-changes-page",
   template: `
 
-    <kpn-subset-page-header-block 
-      [subset]="subset" 
+    <kpn-subset-page-header-block
+      [subset]="subset"
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@subset-changes.title">
@@ -40,15 +41,19 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.initSubsetPage();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.subset = Util.subsetInRoute(params);
-      this.pageService.subset = this.subset;
-      this.response = null;
-      this.subscriptions.add(this.appService.subsetChanges(this.subset).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => Util.subsetInRoute(params)),
+        tap(subset => {
+          this.subset = subset;
+          this.pageService.subset = subset;
+        }),
+        flatMap(subset => this.appService.subsetChanges(subset))
+      ).subscribe(response => {
         this.response = response;
         this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy(): void {

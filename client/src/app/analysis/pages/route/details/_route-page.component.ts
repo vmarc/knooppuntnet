@@ -9,6 +9,7 @@ import {InterpretedTags} from "../../../../components/shared/tags/interpreted-ta
 import {List} from "immutable";
 import {FactInfo} from "../../../fact/fact-info";
 import {PageWidthService} from "../../../../components/shared/page-width.service";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-route-page",
@@ -138,12 +139,16 @@ export class RoutePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.routeId = params["routeId"];
-      this.subscriptions.add(this.appService.routeDetails(this.routeId).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => params["routeId"]),
+        tap(routeId => this.routeId = routeId),
+        flatMap(routeId => this.appService.routeDetails(routeId))
+      ).subscribe(response => {
         this.response = response;
-      }));
-    }));
+        this.tags = InterpretedTags.routeTags(this.response.result.route.tags);
+      })
+    );
   }
 
   ngOnDestroy(): void {

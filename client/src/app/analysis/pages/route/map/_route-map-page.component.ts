@@ -5,6 +5,7 @@ import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {RouteMapPage} from "../../../../kpn/shared/route/route-map-page";
+import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-route-changes-page",
@@ -38,12 +39,15 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.pageService.defaultMenu();
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      this.routeId = params["routeId"];
-      this.subscriptions.add(this.appService.routeMap(this.routeId).subscribe(response => {
+    this.subscriptions.add(
+      this.activatedRoute.params.pipe(
+        map(params => params["routeId"]),
+        tap(routeId => this.routeId = routeId),
+        flatMap(routeId => this.appService.routeMap(routeId))
+      ).subscribe(response => {
         this.response = response;
-      }));
-    }));
+      })
+    );
   }
 
   ngOnDestroy(): void {
