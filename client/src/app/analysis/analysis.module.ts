@@ -162,6 +162,10 @@ import {TagDiffsTableComponent} from "./components/changes/tag-diffs-table.compo
 import {TagDiffsTextComponent} from "./components/changes/tag-diffs-text.component";
 import {NodeChangeMovedComponent} from "./pages/node/changes/node-change-moved.component";
 import {SubsetPageHeaderBlockComponent} from "./pages/subset/components/subset-page-header-block.component";
+import {RouteNetworkReferencesComponent} from "./pages/route/details/route-network-references.component";
+import {RouteEndNodesComponent} from "./pages/route/details/route-end-nodes.component";
+import {RouteRedundantNodesComponent} from "./pages/route/details/route-redundant-nodes.component";
+import {RouteStartNodesComponent} from "./pages/route/details/route-start-nodes.component";
 
 @NgModule({
   imports: [
@@ -232,6 +236,10 @@ import {SubsetPageHeaderBlockComponent} from "./pages/subset/components/subset-p
     RouteMembersComponent,
     RouteSummaryComponent,
     RouteNodeComponent,
+    RouteNetworkReferencesComponent,
+    RouteEndNodesComponent,
+    RouteStartNodesComponent,
+    RouteRedundantNodesComponent,
     RouteStructureComponent,
     RouteChangesPageComponent,
     RouteMapPageComponent,

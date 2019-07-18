@@ -204,7 +204,8 @@ import {CountryNameComponent} from "./country-name.component";
     PageMenuOptionComponent,
     DocLinkComponent,
     DocLinkSmallComponent,
-    I18nComponent
+    I18nComponent,
+    TagsTextComponent
   ]
 })
 export class SharedModule {

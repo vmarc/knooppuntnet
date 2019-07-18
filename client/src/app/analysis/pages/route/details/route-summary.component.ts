@@ -23,29 +23,24 @@ import {RouteInfo} from "../../../../kpn/shared/route/route-info";
         <kpn-country-name [country]="route.summary.country"></kpn-country-name>
       </p>
 
-      <p *ngIf="!route.ignored && isRouteBroken()">
-        TODO <!-- UiImage("warning.png") -->
-        <span>This route seems broken.</span> <!-- Er lijkt iets mis met deze route. -->
-        )
+      <p *ngIf="!route.ignored && isRouteBroken()" class="kpn-line">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span i18n="@@route.broken">This route seems broken.</span>
       </p>
 
-      <p *ngIf="!route.ignored && isRouteIncomplete()">
-
-        TODO <!-- UiImage("warning.png")-->
-
-        Route definition is incomplete (has tag _"fixme=incomplete"_).
-        <!--De route definitie is onvolledig (heeft tag _"fixme=incomplete"_).-->
+      <p *ngIf="!route.ignored && isRouteIncomplete()" class="kpn-line">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <markdown i18n="@@route.incomplete">
+          Route definition is incomplete (has tag _"fixme=incomplete"_).
+        </markdown>        
       </p>
 
-
-      <p *ngIf="route.ignored">
+      <p *ngIf="route.ignored" i18n="@@route.ignored">
         This route is not included in the analysis.
-        <!-- Deze route is niet opgenomen in de analyse. -->
       </p>
 
-      <p *ngIf="!route.ignored && !route.active" class="warning">
+      <p *ngIf="!route.ignored && !route.active" class="warning" i18n="@@route.not-active">
         This route is not active anymore.
-        <!-- Deze route is niet actief meer. -->
       </p>
 
     </div>
@@ -56,13 +51,11 @@ export class RouteSummaryComponent {
   @Input() route: RouteInfo;
 
   isRouteBroken() {
-    // TODO this.route.facts.contains(Fact.RouteBroken))
-    return true;
+    return this.route.facts.map(fact => fact.name).contains("RouteBroken");
   }
 
   isRouteIncomplete() {
-    // TODO this.route.facts.contains(Fact.RouteIncomplete)
-    return true;
+    return this.route.facts.map(fact => fact.name).contains("RouteIncomplete");
   }
 
 }

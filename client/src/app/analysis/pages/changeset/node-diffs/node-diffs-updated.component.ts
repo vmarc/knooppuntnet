@@ -8,7 +8,7 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
   template: `
     <div *ngIf="!nodeRefs.isEmpty()" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
-        <span class="kpn-thick">Updated network nodes</span> <!-- Gewijzigde knooppunten -->
+        <span class="kpn-thick" i18n="@@node-diffs-updated.title">Updated network nodes</span>
         <span>({{nodeRefs.size}})</span>
       </div>
       <div class="kpn-level-2-body">
@@ -21,11 +21,15 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
           <div class="kpn-level-3-body">
             <div *ngFor="let nodeChangeInfo of findNodeChangeInfo(nodeRef.id)">
               <ng-container *ngIf="nodeChangeInfo.before == nodeChangeInfo.after">
-                Existing node <!-- Bestaand knooppunt -->
+                <ng-container i18n="@@node-diffs-updated.existing-node">
+                  Existing node
+                </ng-container>
                 v{{nodeChangeInfo.after.version}}
               </ng-container>
               <ng-container *ngIf="nodeChangeInfo.before != nodeChangeInfo.after">
-                Node change to <!-- Knooppunt veranderd naar -->
+                <ng-container i18n="@@node-diffs-updated.node-changed">
+                  Node change to
+                </ng-container>
                 v{{nodeChangeInfo.after.version}}
               </ng-container>
               <kpn-meta-data [metaData]="nodeChangeInfo.after"></kpn-meta-data>
@@ -38,24 +42,22 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
 
                 <!--connectionChanges,-->
                 <div *ngFor="let refBooleanChange of nodeChangeInfo.connectionChanges" class="kpn-detail">
-                  <span *ngIf="refBooleanChange.after === true">
+                  <span *ngIf="refBooleanChange.after === true" i18n="@@node-diffs-updated.node-belongs-to-other-network">
                     This node belongs to another network.
-                  </span> <!-- Dit knooppunt behoort tot een ander netwerk.-->
-                  <span *ngIf="refBooleanChange.after === false">
+                  </span>
+                  <span *ngIf="refBooleanChange.after === false" i18n="@@node-diffs-updated.node-no-longer-belongs-to-other-network">
                     This node is no longer belongs to another network.
-                    <!-- Dit knooppunt behoort niet langer tot een ander netwerk. -->
                   </span>
                   <kpn-link-network-details [networkId]="refBooleanChange.ref.id" [title]="refBooleanChange.ref.name"></kpn-link-network-details>
                 </div>
 
                 <!--roleConnectionChanges,-->
                 <div *ngFor="let refBooleanChange of nodeChangeInfo.roleConnectionChanges" class="kpn-detail">
-                  <span *ngIf="refBooleanChange.after === true">
-                    This node received role "connection" in the network relation <!-- Dit knooppunt kreeg rol "connection" in de netwerk relatie -->
+                  <span *ngIf="refBooleanChange.after === true" i18n="@@node-diffs-updated.received-role-connection">
+                    This node received role "connection" in the network relation
                   </span>
-                  <span *ngIf="refBooleanChange.after === false">
+                  <span *ngIf="refBooleanChange.after === false" i18n="@@node-diffs-updated.lost-role-connection">
                     This node is no longer has role "connection" in the network relation.
-                    <!-- Dit knooppunt heeft niet langer de rol "connectinon" in de netwerk relatie.-->
                   </span>
                   <kpn-link-network-details [networkId]="refBooleanChange.ref.id" [title]="refBooleanChange.ref.name"></kpn-link-network-details>
                 </div>
@@ -63,33 +65,32 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
 
                 <!--definedInNetworkChanges,-->
                 <div *ngFor="let refBooleanChange of nodeChangeInfo.definedInNetworkChanges" class="kpn-detail">
-                  <span *ngIf="refBooleanChange.after === true">
+                  <span *ngIf="refBooleanChange.after === true" i18n="@@node-diffs-updated.added-to-network-relation">
                     Added to network relation of
-                  </span> <!--Toegevoegd aan netwerkrelatie van -->
-                  <span *ngIf="refBooleanChange.after === false">
-                    Removed from network relation of  <!--Verwijderd uit netwerkrelatie van -->
+                  </span>
+                  <span *ngIf="refBooleanChange.after === false" i18n="@@node-diffs-updated.removed-from-network-relation">
+                    Removed from network relation of
                   </span>
                   <kpn-link-network-details [networkId]="refBooleanChange.ref.id" [title]="refBooleanChange.ref.name"></kpn-link-network-details>
                 </div>
 
-
                 <div *ngFor="let ref of nodeChangeInfo.addedToRoute" class="kpn-detail">
-                  <span>Added to route</span> <!--Toegevoegd aan route -->
+                  <span i18n="@@node-diffs-updated.added-to-route">Added to route</span>
                   <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
                 </div>
 
                 <div *ngFor="let ref of nodeChangeInfo.addedToNetwork" class="kpn-detail">
-                  <span>Added to network</span> <!-- Toegevoegd aan netwerk -->
+                  <span i18n="@@node-diffs-updated.added-to-network">Added to network</span>
                   <kpn-link-network-details [networkId]="ref.id" [title]="ref.name"></kpn-link-network-details>
                 </div>
 
                 <div *ngFor="let ref of nodeChangeInfo.removedFromRoute" class="kpn-detail">
-                  <span>Removed from route</span> <!--Verwijderd uit route -->
+                  <span i18n="@@node-diffs-updated.removed-from-route">Removed from route</span>
                   <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
                 </div>
 
                 <div *ngFor="let ref of nodeChangeInfo.removedFromNetwork" class="kpn-detail">
-                  <span>Removed from network</span> <!-- Verwijderd uit netwerk -->
+                  <span i18n="@@node-diffs-updated.removed-from-network">Removed from network</span>
                   <kpn-link-network-details [networkId]="ref.id" [title]="ref.name"></kpn-link-network-details>
                 </div>
 

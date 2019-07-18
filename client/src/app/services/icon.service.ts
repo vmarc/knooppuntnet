@@ -101,6 +101,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("investigate", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/investigate.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("warning", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/warning.svg")));
   }
 
   private registerMenuIcons() {

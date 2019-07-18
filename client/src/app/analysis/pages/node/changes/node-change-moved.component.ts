@@ -7,29 +7,25 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
 
     <div *ngIf="!!nodeMoved">
 
-      <div *ngIf="nodeMoved.distance > 0" class="kpn-detail">
+      <div *ngIf="nodeMoved.distance > 0" class="kpn-detail" i18n="@@node-change.moved.meters">
         The node has moved {{nodeMoved.distance}} meters.
-        <!--@@ Het knooppunt is {nodeMoved.distance} meter verplaatst. -->
       </div>
 
-      <div *ngIf="nodeMoved.distance == 0" class="kpn-detail">
+      <div *ngIf="nodeMoved.distance == 0" class="kpn-detail" i18n="@@node-change.moved.less-than-1-meter">
         The node has moved less than 1 meter.
-        <!--@@ Het knooppunt is minder dan 1 meter verplaatst. -->
       </div>
 
       <kpn-node-moved-map [nodeMoved]="nodeMoved"></kpn-node-moved-map>
 
       <div class="note">
-        Note: Node position is shown as it was at
+        <span i18n="@@node-change.moved.note.1">
+          Note: Node position is shown as it was at
+        </span>
         <kpn-timestamp [timestamp]="nodeChangeInfo.changeKey.timestamp"></kpn-timestamp>
         ,
-        while the map background is shown as it is today.
-
-        <!--@@
-        s"Noot: De knooppunt positie wordt getoond zoals die was op {nodeChange.changeKey.timestamp.yyyymmddhhmm}, de kaart achtergrond toont " +
-        s"de toestand van vandaag."
-        -->
-
+        <span i18n="@@node-change.moved.note.2">
+          while the map background is shown as it is today.
+        </span>
       </div>
 
     </div>

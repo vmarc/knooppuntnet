@@ -6,55 +6,24 @@ import {Tags} from "../data/tags";
 import {Timestamp} from "../timestamp";
 
 export class RouteMemberInfo {
-  readonly id: number;
-  readonly memberType: string;
-  readonly isWay: boolean;
-  readonly nodes: List<RouteNetworkNodeInfo>;
-  readonly linkName: string;
-  readonly from: string;
-  readonly fromNodeId: number;
-  readonly to: string;
-  readonly toNodeId: number;
-  readonly role: string;
-  readonly timestamp: Timestamp;
-  readonly isAccessible: boolean;
-  readonly length: string;
-  readonly nodeCount: string;
-  readonly description: string;
-  readonly oneWayTags: Tags;
 
-  constructor(id: number,
-              memberType: string,
-              isWay: boolean,
-              nodes: List<RouteNetworkNodeInfo>,
-              linkName: string,
-              from: string,
-              fromNodeId: number,
-              to: string,
-              toNodeId: number,
-              role: string,
-              timestamp: Timestamp,
-              isAccessible: boolean,
-              length: string,
-              nodeCount: string,
-              description: string,
-              oneWayTags: Tags) {
-    this.id = id;
-    this.memberType = memberType;
-    this.isWay = isWay;
-    this.nodes = nodes;
-    this.linkName = linkName;
-    this.from = from;
-    this.fromNodeId = fromNodeId;
-    this.to = to;
-    this.toNodeId = toNodeId;
-    this.role = role;
-    this.timestamp = timestamp;
-    this.isAccessible = isAccessible;
-    this.length = length;
-    this.nodeCount = nodeCount;
-    this.description = description;
-    this.oneWayTags = oneWayTags;
+  constructor(readonly id: number,
+              readonly memberType: string,
+              readonly isWay: boolean,
+              readonly nodes: List<RouteNetworkNodeInfo>,
+              readonly linkName: string,
+              readonly from: string,
+              readonly fromNodeId: number,
+              readonly to: string,
+              readonly toNodeId: number,
+              readonly role: string,
+              readonly timestamp: Timestamp,
+              readonly isAccessible: boolean,
+              readonly length: string,
+              readonly nodeCount: string,
+              readonly description: string,
+              readonly oneWay: string,
+              readonly oneWayTags: Tags) {
   }
 
   public static fromJSON(jsonObject): RouteMemberInfo {
@@ -77,6 +46,7 @@ export class RouteMemberInfo {
       jsonObject.length,
       jsonObject.nodeCount,
       jsonObject.description,
+      jsonObject.oneWay,
       Tags.fromJSON(jsonObject.oneWayTags)
     );
   }

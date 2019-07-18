@@ -9,29 +9,27 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
       <a [id]="networkChangeInfo.networkId"></a>
       <div class="kpn-line">
         <kpn-network-type-icon [networkType]="networkChangeInfo.networkType"></kpn-network-type-icon>
-        <span>Network</span>
-        <!-- Netwerk -->
+        <span i18n="@@change-set.network-diffs.network">Network</span>
         <kpn-link-network-details [networkId]="networkChangeInfo.networkId" [title]="networkChangeInfo.networkName"></kpn-link-network-details>
       </div>
 
       <div *ngIf="networkChangeInfo.changeType.name == 'create'">
-        <b>
+        <b i18n="@@change-set.network-diffs.network-created">
           Network created
-          <!-- Netwerk nieuw aangemaakt -->
         </b>
       </div>
       <div *ngIf="networkChangeInfo.changeType.name == 'delete'">
-        <b>
+        <b i18n="@@change-set.network-diffs.network-deleted">
           Network deleted
-          <!-- Netwerk verwijderd -->
         </b>
       </div>
       <!-- no changeType text for "Updated" -->
 
 
       <div *ngIf="!networkChangeInfo.orphanRoutes.oldRefs.isEmpty()" class="kpn-line">
-        <span>Orphan routes added to this network</span>
-        <!-- Route wezen toegevoegd aan dit netwerk -->
+        <span i18n="@@change-set.network-diffs.orphan-routes-resolved">
+          Orphan routes added to this network
+        </span>
         <div class="kpn-comma-list">
           <kpn-link-route
             *ngFor="let ref of networkChangeInfo.orphanRoutes.oldRefs"
@@ -44,8 +42,9 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 
 
       <div *ngIf="!networkChangeInfo.orphanRoutes.newRefs.isEmpty()" class="kpn-line">
-        <span>Following routes that used to be part of this network have become orphan</span>
-        <!-- Volgende routes maakten deel uit van dit netwerk, maar zijn nu route wees geworden -->
+        <span i18n="@@change-set.network-diffs.orphan-routes-introduced">
+          Following routes that used to be part of this network have become orphan
+        </span>
         <div class="kpn-comma-list">
           <kpn-link-route
             *ngFor="let ref of networkChangeInfo.orphanRoutes.newRefs"
@@ -58,8 +57,9 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 
 
       <div *ngIf="!networkChangeInfo.orphanNodes.oldRefs.isEmpty()" class="kpn-line">
-        <span>Orphan nodes added to this network</span>
-        <!-- Knooppuntwezen toegevoegd aan dit netwerk -->
+        <span i18n="@@change-set.network-diffs.orphan-nodes-resolved">
+          Orphan nodes added to this network
+        </span>
         <div class="kpn-comma-list">
           <kpn-link-node
             *ngFor="let ref of networkChangeInfo.orphanNodes.oldRefs"
@@ -72,8 +72,9 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
 
 
       <div *ngIf="!networkChangeInfo.orphanNodes.newRefs.isEmpty()" class="kpn-line">
-        <span>Following nodes that used to be part of this network have become orphan</span>
-        <!-- Volgende knooppunten maakten tot nu toe deel uit van dit netwerk, maar zijn knooppunt wees geworden -->
+        <span i18n="@@change-set.network-diffs.orphan-nodes-introduced">
+          Following nodes that used to be part of this network have become orphan
+        </span>
         <div class="kpn-comma-list">
           <kpn-link-node
             *ngFor="let ref of networkChangeInfo.orphanNodes.newRefs"

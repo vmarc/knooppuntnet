@@ -8,8 +8,8 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
     <table class="kpn-table">
       <tbody>
       <tr>
-        <td>
-          Changeset <!-- Wijzigingenset -->
+        <td i18n="@@change-set.header.change-set">
+          Changeset
         </td>
         <td>
           <div class="kpn-line">
@@ -26,27 +26,24 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
         </td>
       </tr>
       <tr>
-        <td>
-          Minute diff 
-          <!-- Replicatie nummer -->
+        <td i18n="@@change-set.header.replication-number">
+          Minute diff
         </td>
         <td>
           {{replicationName()}}
         </td>
       </tr>
       <tr *ngIf="hasComment()">
-        <td>
-          Comment 
-          <!-- Commentaar -->
+        <td i18n="@@change-set.header.comment">
+          Comment
         </td>
         <td>
           {{comment()}}
         </td>
       </tr>
       <tr>
-        <td>
-          Analysis 
-          <!-- Analyse -->
+        <td i18n="@@change-set.header.analysis">
+          Analysis
         </td>
         <td>
           <kpn-change-set-analysis [page]="page"></kpn-change-set-analysis>

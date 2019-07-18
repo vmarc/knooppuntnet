@@ -7,7 +7,7 @@ import {ChangeSetSubsetElementRefs} from "../../../../kpn/shared/change-set-subs
     <div class="kpn-line">
       <span>{{domain()}}</span>
       <span><kpn-network-type-icon [networkType]="networkType()"></kpn-network-type-icon></span>
-      <span>Orphan node(s)</span> <!-- Knooppunt wezen -->
+      <span>Orphan node(s)</span> <!--@@ Knooppunt wezen -->
     </div>
     <kpn-change-set-element-refs [elementType]="'node'" [changeSetElementRefs]="subsetElementRefs.elementRefs"></kpn-change-set-element-refs>
   `

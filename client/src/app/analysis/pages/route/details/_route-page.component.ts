@@ -19,7 +19,7 @@ import {flatMap, map, tap} from "rxjs/operators";
 
     <div *ngIf="response">
 
-      <div *ngIf="!response.result">
+      <div *ngIf="!response.result" i18n="@@route.route-not-found">
         Route not found
       </div>
 
@@ -41,58 +41,40 @@ import {flatMap, map, tap} from "rxjs/operators";
           <kpn-timestamp [timestamp]="route.summary.timestamp"></kpn-timestamp>
         </kpn-data>
 
-        <div *ngIf="route.ignored === false">
+        <div *ngIf="!route.ignored">
 
           <kpn-data title="Network" i18n-title="@@route.network">
-            TODO UiNetworkReferences(page.references.networkReferences)
+            <kpn-route-network-references [references]="response.result.references.networkReferences"></kpn-route-network-references>
           </kpn-data>
 
           <div *ngIf="route.analysis">
 
             <kpn-data title="Start node" i18n-title="@@route.start-node">
-              <p *ngIf="route.analysis.startNodes.isEmpty()">?</p>
-              <p *ngFor="let node of route.analysis.startNodes">
-                <kpn-route-node [node]="node" title="marker-icon-green-small.png"></kpn-route-node>
-              </p>
-              <p *ngFor="let node of route.analysis.startTentacleNodes">
-                <kpn-route-node [node]="node" title="marker-icon-orange-small.png"></kpn-route-node>
-              </p>
+              <kpn-route-start-nodes [analysis]="route.analysis"></kpn-route-start-nodes>
             </kpn-data>
 
             <kpn-data title="End node" i18n-title="@@route.end-node">
-              <p *ngIf="route.analysis.endNodes.isEmpty()">?</p>
-              <p *ngFor="let node of route.analysis.endNodes">
-                <kpn-route-node [node]="node" title="marker-icon-red-small.png"></kpn-route-node>
-              </p>
-              <p *ngFor="let node of route.analysis.endTentacleNodes">
-                <kpn-route-node [node]="node" title="marker-icon-purple-small.png"></kpn-route-node>
-              </p>
+              <kpn-route-end-nodes [analysis]="route.analysis"></kpn-route-end-nodes>
             </kpn-data>
 
 
-            <div *ngIf="route.analysis.map.redundantNodes.isEmpty()">
-              <kpn-data title="Redundant nodes" i18n-title="@@route.redundant-nodes">
-                <p *ngFor="let node of route.analysis.map.redundantNodes">
-                  <kpn-route-node [node]="node" title="marker-icon-yellow-small.png"></kpn-route-node>
-                </p>
+            <div *ngIf="!route.analysis.map.redundantNodes.isEmpty()">
+              <kpn-data title="Redundant node" i18n-title="@@route.redundant-node">
+                <kpn-route-redundant-nodes [analysis]="route.analysis"></kpn-route-redundant-nodes>
               </kpn-data>
             </div>
 
             <kpn-data title="Number of ways" i18n-title="@@route.number-of-ways">
-              <p>
-                {{route.summary.wayCount}}
-              </p>
+              {{route.summary.wayCount}}
             </kpn-data>
           </div>
 
           <kpn-data title="Tags" i18n-title="@@route.tags">
-            <p>
-              TODO UiTagsTable(RouteTagFilter(page.route))
-            </p>
+            <kpn-tags-table [tags]="tags"></kpn-tags-table>
           </kpn-data>
 
 
-          <div *ngIf="route.analysis && true"> <!-- && (PageWidth.isLarge || PageWidth.isVeryLarge)) -->
+          <div *ngIf="route.analysis && !isPageSmall()">
             <kpn-data title="Structure" i18n-title="@@route.structure">
               <kpn-route-structure [structureStrings]="route.analysis.structureStrings"></kpn-route-structure>
             </kpn-data>
@@ -100,24 +82,12 @@ import {flatMap, map, tap} from "rxjs/operators";
 
 
           <kpn-data title="Facts" i18n-title="@@route.facts">
-            TODO UiFacts(route.facts.map(FactInfo(_)))
+            <kpn-facts [factInfos]="factInfos()"></kpn-facts>
           </kpn-data>
 
-          <div *ngIf="true"> <!-- (PageWidth.isLarge || PageWidth.isVeryLarge)) -->
+          <div *ngIf="!isPageSmall()">
             <kpn-route-members [networkType]="route.summary.networkType" [members]="route.analysis.members"></kpn-route-members>
           </div>
-
-          <!--
-            TagMod.when(page.routeChangeInfos.changes.nonEmpty) {
-              UiRouteChanges(page.routeChangeInfos)
-            }
-          -->
-
-          <!--
-            TagMod.when(route.analysis.isDefined && PageWidth.isVeryLarge) {
-              UiEmbeddedMap(new MainRouteMap(route.summary.networkType, route.analysis.get.map))
-            }
-          -->
 
         </div>
       </div>
@@ -131,10 +101,12 @@ export class RoutePageComponent implements OnInit, OnDestroy {
 
   routeId: string;
   response: ApiResponse<RouteDetailsPage>;
+  tags: InterpretedTags;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private pageWidthService: PageWidthService) {
   }
 
   ngOnInit() {
@@ -158,4 +130,13 @@ export class RoutePageComponent implements OnInit, OnDestroy {
   get route() {
     return this.response.result.route;
   }
+
+  factInfos(): List<FactInfo> {
+    return this.route.facts.map(fact => new FactInfo(fact));
+  }
+
+  isPageSmall(): boolean {
+    return this.pageWidthService.isSmall();
+  }
+
 }

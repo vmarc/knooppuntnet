@@ -8,27 +8,27 @@ import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
   selector: "kpn-map-detail-node",
   template: `
     <h2>
-      Node <!-- Knooppunt --> {{nodeName}}
+      Node <!--@@ Knooppunt --> {{nodeName}}
     </h2>
 
     <div *ngIf="nodeInfo">
       <a class="text" [routerLink]="'/analysis/node/' + nodeId">More details</a>
 
       <p>
-        Last updated: <!-- "Laatst bewerkt" -->
+        Last updated: <!--@@ "Laatst bewerkt" -->
         <br>
         <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
       </p>
 
       <div *ngIf="!references.networkReferences.isEmpty()">
-        Network(s): <!-- "Netwerken" -->
+        Network(s): <!--@@ "Netwerken" -->
         <div *ngFor="let ref of references.networkReferences">
           <a class="text" [routerLink]="'/analysis/network-details/' + ref.networkId">{{ref.networkName}}</a>
         </div>
       </div>
 
       <div *ngIf="!references.routeReferences.isEmpty()">
-        Routes <!-- "Routes" -->
+        Routes <!--@@ "Routes" -->
         <div *ngFor="let ref of references.routeReferences">
           <a class="text" [routerLink]="'/analysis/route/' + ref.routeId">{{ref.routeName}}</a>
         </div>

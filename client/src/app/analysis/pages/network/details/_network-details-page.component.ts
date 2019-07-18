@@ -21,42 +21,44 @@ import {flatMap, map, tap} from "rxjs/operators";
 
     <div *ngIf="response?.result">
       <div *ngIf="!response.result">
-        <p>Network not found</p>
+        <p i18n="@@network-details.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
 
-        <kpn-data title="Situation on"> <!-- "Situatie op" -->
+        <kpn-data title="Situation on" i18n-title="@@network-details.situation-on">
           <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
         </kpn-data>
 
-        <kpn-data title="Summary"> <!-- "Samenvatting" -->
+        <kpn-data title="Summary" i18n-title="@@network-details.summary">
           <p>
             {{response.result.attributes.km}} km
           </p>
           <p>
-            {{response.result.networkSummary.nodeCount}} nodes
+            {{response.result.networkSummary.nodeCount}}
+            <ng-container i18n="@@network-details.nodes">nodes</ng-container>
           </p>
           <p>
-            {{response.result.networkSummary.routeCount}} routes
+            {{response.result.networkSummary.routeCount}}
+            <ng-container i18n="@@network-details.routes">routes</ng-container>
           </p>
           <p>
             <kpn-network-type [networkType]="response.result.attributes.networkType"></kpn-network-type>
           </p>
         </kpn-data>
 
-        <kpn-data title="Country">
+        <kpn-data title="Country" i18n-title="@@network-details.country">
           <kpn-country-name [country]="response.result.attributes.country"></kpn-country-name>
         </kpn-data>
 
-        <kpn-data title="Last updated">
+        <kpn-data title="Last updated" i18n-title="@@network-details.last-updated">
           <kpn-timestamp [timestamp]="response.result.attributes.lastUpdated"></kpn-timestamp>
         </kpn-data>
 
-        <kpn-data title="Relation last updated">
+        <kpn-data title="Relation last updated" i18n-title="@@network-details.relation-last-updated">
           <kpn-timestamp [timestamp]="response.result.attributes.relationLastUpdated"></kpn-timestamp>
         </kpn-data>
 
-        <kpn-data title="Tags">
+        <kpn-data title="Tags" i18n-title="@@network-details.tags">
           <kpn-tags-table [tags]="tags"></kpn-tags-table>
         </kpn-data>
       </div>

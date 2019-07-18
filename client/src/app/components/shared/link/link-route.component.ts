@@ -7,6 +7,6 @@ import {Component, Input} from "@angular/core";
   `
 })
 export class LinkRouteComponent {
-  @Input() routeId: string;
+  @Input() routeId: number;
   @Input() title: string;
 }

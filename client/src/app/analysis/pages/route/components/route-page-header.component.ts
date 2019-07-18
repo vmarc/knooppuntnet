@@ -4,23 +4,29 @@ import {Component, Input} from "@angular/core";
   selector: "kpn-route-page-header",
   template: `
 
-    <kpn-page-header subject="route-page">{{'Route ' + routeName}}</kpn-page-header>
+    <kpn-page-header [pageTitle]="routeName" subject="route-page">
+      <span i18n="@@route.title">Route</span>
+      <span *ngIf="routeName">&nbsp;{{routeName}}</span>
+    </kpn-page-header>
 
     <kpn-page-menu>
 
       <kpn-page-menu-option
         [link]="linkRouteDetails()"
-        pageTitle="Details">
+        pageTitle="Details"
+        i18n-pageTitle="@@route.menu.details">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkRouteMap()"
-        pageTitle="Map">
+        pageTitle="Map"
+        i18n-pageTitle="@@route.menu.map">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkRouteChanges()"
-        pageTitle="Changes">
+        pageTitle="Changes"
+        i18n-pageTitle="@@route.menu.changes">
       </kpn-page-menu-option>
 
     </kpn-page-menu>

@@ -2,189 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="network-type.hiking" datatype="html">
-        <source>Hiking</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-type.cycling" datatype="html">
-        <source>Cycling</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-type.horse" datatype="html">
-        <source>Horse</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-type.motorboat" datatype="html">
-        <source>Motorboat</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">37</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-type.canoe" datatype="html">
-        <source>Canoe</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-type.inline-skating" datatype="html">
-        <source>Inline Skating</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/network-type-name.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">47</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="country.nl" datatype="html">
-        <source>The Netherlands</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="country.be" datatype="html">
-        <source>Belgium</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="country.de" datatype="html">
-        <source>Germany</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
-          <context context-type="linenumber">46</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="situation-on" datatype="html">
         <source>Situation on</source>
         <context-group purpose="location">
@@ -238,6 +55,196 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="country.nl" datatype="html">
+        <source>The Netherlands</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.be" datatype="html">
+        <source>Belgium</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.de" datatype="html">
+        <source>Germany</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.hiking" datatype="html">
+        <source>Hiking</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.cycling" datatype="html">
+        <source>Cycling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.horse" datatype="html">
+        <source>Horse</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-be-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-de-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.motorboat" datatype="html">
+        <source>Motorboat</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.canoe" datatype="html">
+        <source>Canoe</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.inline-skating" datatype="html">
+        <source>Inline Skating</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/analysis/analysis-nl-page.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset.in" datatype="html">
+        <source>in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="breadcrumb.home" datatype="html">
         <source>Home</source>
         <context-group purpose="location">
@@ -269,7 +276,7 @@
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
@@ -308,14 +315,12 @@
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="analysis-page.title" datatype="html">
-        <source>
-      Analysis
-    </source>
+        <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -325,14 +330,14 @@
         <source>Overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="analysis-page.changes" datatype="html">
         <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/analysis/analysis-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.changes" datatype="html">
@@ -349,6 +354,118 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="change-set.title" datatype="html">
+        <source>Changeset</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/_change-set-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.title" datatype="html">
+        <source>Changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/_network-changes-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.title" datatype="html">
+        <source>Details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.network-not-found" datatype="html">
+        <source>Network not found</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.situation-on" datatype="html">
+        <source>Situation on</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.nodes" datatype="html">
+        <source>nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.routes" datatype="html">
+        <source>routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.summary" datatype="html">
+        <source>Summary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.country" datatype="html">
+        <source>Country</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.last-updated" datatype="html">
+        <source>Last updated</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.relation-last-updated" datatype="html">
+        <source>Relation last updated</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-details.tags" datatype="html">
+        <source>Tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-facts.title" datatype="html">
+        <source>Facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/facts/_network-facts-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.title" datatype="html">
+        <source>Map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/map/_network-map-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.title" datatype="html">
+        <source>Nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/nodes/_network-nodes-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.title" datatype="html">
+        <source>Routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/_network-routes-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.login-required" datatype="html">
         <source>The node history is available to registered OpenStreetMap contributors only, after</source>
         <context-group purpose="location">
@@ -362,7 +479,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/_node-details-page.component.ts</context>
@@ -376,11 +493,10 @@
       <trans-unit id="node.no-history" datatype="html">
         <source>
           No history
-          
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.summary" datatype="html">
@@ -446,6 +562,15 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="route.route-not-found" datatype="html">
+        <source>
+        Route not found
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/_route-page.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="route.summary" datatype="html">
         <source>Summary</source>
         <context-group purpose="location">
@@ -492,98 +617,391 @@
         <source>End node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="route.redundant-nodes" datatype="html">
-        <source>Redundant nodes</source>
+      <trans-unit id="route.redundant-node" datatype="html">
+        <source>Redundant node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.number-of-ways" datatype="html">
         <source>Number of ways</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.tags" datatype="html">
         <source>Tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.structure" datatype="html">
         <source>Structure</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.facts" datatype="html">
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-changes.title" datatype="html">
+        <source>Changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/changes/_subset-changes-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-facts.title" datatype="html">
+        <source>Facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/fact-details/_subset-fact-details-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/facts/_subset-facts-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.title" datatype="html">
+        <source>Networks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.title" datatype="html">
+        <source>Orphan nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.title" datatype="html">
+        <source>Orphan routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.change-set" datatype="html">
+        <source>
+          Changeset
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.replication-number" datatype="html">
+        <source>
+          Minute diff
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.comment" datatype="html">
+        <source>
+          Comment
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.analysis" datatype="html">
+        <source>
+          Analysis
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.network" datatype="html">
+        <source>Network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.network-created" datatype="html">
+        <source>
+          Network created
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.network-deleted" datatype="html">
+        <source>
+          Network deleted
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.orphan-routes-resolved" datatype="html">
+        <source>
+          Orphan routes added to this network
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.orphan-routes-introduced" datatype="html">
+        <source>
+          Following routes that used to be part of this network have become orphan
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.orphan-nodes-resolved" datatype="html">
+        <source>
+          Orphan nodes added to this network
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.orphan-nodes-introduced" datatype="html">
+        <source>
+          Following nodes that used to be part of this network have become orphan
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.orphan-nodes.title" datatype="html">
+        <source>Orphan nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/change-set-orphan-node-changes.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-removed.title" datatype="html">
+        <source>Removed network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-removed.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.title" datatype="html">
+        <source>Added network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.change-set-created" datatype="html">
+        <source>Created in this changeset.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.change-set-updated" datatype="html">
+        <source>Updated in this changeset.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.change-set-existing" datatype="html">
+        <source>Existing node</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.title" datatype="html">
+        <source>Updated network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.existing-node" datatype="html">
+        <source>
+                  Existing node
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.node-changed" datatype="html">
+        <source>
+                  Node change to
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.node-belongs-to-other-network" datatype="html">
+        <source>
+                    This node belongs to another network.
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.node-no-longer-belongs-to-other-network" datatype="html">
+        <source>
+                    This node is no longer belongs to another network.
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.received-role-connection" datatype="html">
+        <source>
+                    This node received role &quot;connection&quot; in the network relation
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.lost-role-connection" datatype="html">
+        <source>
+                    This node is no longer has role &quot;connection&quot; in the network relation.
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.added-to-network-relation" datatype="html">
+        <source>
+                    Added to network relation of
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.removed-from-network-relation" datatype="html">
+        <source>
+                    Removed from network relation of
+                  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.added-to-route" datatype="html">
+        <source>Added to route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.added-to-network" datatype="html">
+        <source>Added to network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.removed-from-route" datatype="html">
+        <source>Removed from route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.removed-from-network" datatype="html">
+        <source>Removed from network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.belongs-to-another-network" datatype="html">
-        <source>This node belongs to another network</source>
+        <source>
+        This node belongs to another network
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.no-longer-belongs-to-another-network" datatype="html">
-        <source>This node no longer belongs to another network</source>
+        <source>
+        This node no longer belongs to another network
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.received-role-connection-in-network-relation" datatype="html">
-        <source>This node received role &quot;connection&quot; in the network relation</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.lost-role-connection-in-network-relation" datatype="html">
-        <source>This node no longer has role &quot;connection&quot; in the network relation</source>
+        <source>
+        This node received role &quot;connection&quot; in the network relation
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
           <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.lost-role-connection-in-network-relation" datatype="html">
+        <source>
+        This node no longer has role &quot;connection&quot; in the network relation
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.added-to-network-relation" datatype="html">
         <source>Added to network relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.removed-from-network-relation" datatype="html">
         <source>Removed from network relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.added-to-route" datatype="html">
         <source>Added to route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.added-to-network" datatype="html">
         <source>Added to network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.removed-from-route" datatype="html">
@@ -597,7 +1015,43 @@
         <source>Removed from network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.meters" datatype="html">
+        <source>
+        The node has moved <x id="INTERPOLATION" equiv-text="{{nodeMoved.distance}}"/> meters.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-moved.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.less-than-1-meter" datatype="html">
+        <source>
+        The node has moved less than 1 meter.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-moved.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.note.1" datatype="html">
+        <source>
+          Note: Node position is shown as it was at
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-moved.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.note.2" datatype="html">
+        <source>
+          while the map background is shown as it is today.
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/changes/node-change-moved.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.inactive" datatype="html">
@@ -706,6 +1160,55 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/node/details/node-orphan-route-references.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.title" datatype="html">
+        <source>Node</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/components/node-page-header.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.menu.details" datatype="html">
+        <source>Details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/components/node-page-header.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.menu.map" datatype="html">
+        <source>Map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/components/node-page-header.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.menu.changes" datatype="html">
+        <source>Changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/node/components/node-page-header.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="overview-table.detail" datatype="html">
+        <source>Detail</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="overview-table.total" datatype="html">
+        <source>Total</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="overview-table.comment" datatype="html">
+        <source>Comment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.km.comment" datatype="html">
@@ -1354,9 +1857,169 @@
           <context context-type="linenumber">371</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="route.title" datatype="html">
+        <source>Route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/components/route-page-header.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.menu.details" datatype="html">
+        <source>Details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/components/route-page-header.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.menu.map" datatype="html">
+        <source>Map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/components/route-page-header.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.menu.changes" datatype="html">
+        <source>Changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/components/route-page-header.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.title" datatype="html">
+        <source>Route Members</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.none" datatype="html">
+        <source>None</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.node" datatype="html">
+        <source>Node</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.id" datatype="html">
+        <source>Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.nodes" datatype="html">
+        <source>Nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.role" datatype="html">
+        <source>Role</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.length" datatype="html">
+        <source>Length</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.node-count" datatype="html">
+        <source>#Nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.name" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.unaccessible" datatype="html">
+        <source>Unaccessible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.one-way" datatype="html">
+        <source>One Way</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.one-way.yes" datatype="html">
+        <source>Yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.members.table.one-way.reverse" datatype="html">
+        <source>Reverse</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-members.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.broken" datatype="html">
+        <source>This route seems broken.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.incomplete" datatype="html">
+        <source>
+          Route definition is incomplete (has tag _&quot;fixme=incomplete&quot;_).
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.ignored" datatype="html">
+        <source>
+        This route is not included in the analysis.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.not-active" datatype="html">
+        <source>
+        This route is not active anymore.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.no-network-references" datatype="html">
+        <source>None</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/details/route-network-references.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="facts.none" datatype="html">
         <source>
-      None 
+      None
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/facts.component.ts</context>
@@ -2253,35 +2916,35 @@
       <trans-unit id="subset-page.menu.networks" datatype="html">
         <source>Networks</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.facts" datatype="html">
         <source>Facts</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.orphan-nodes" datatype="html">
         <source>Orphan Nodes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.orphan-routes" datatype="html">
         <source>Orphan routes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.changes" datatype="html">
         <source>Changes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/pages/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
@@ -2302,6 +2965,45 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/history-incomplete-warning.component.ts</context>
           <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
+        <source>
+      Route name changed from &quot;<x id="INTERPOLATION" equiv-text="{{diffs.nameDiff.before}}"/>&quot; to &quot;<x id="INTERPOLATION_1" equiv-text="{{diffs.nameDiff.after}}"/>&quot;.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/changes/route-diff.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.route-diff.role-added" datatype="html">
+        <source>
+      Route role &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>&quot; added to networkrelation.
+      
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/changes/route-diff.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
+        <source>
+      Route role &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>&quot; removed from networkrelation.
+      
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/changes/route-diff.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
+        <source>
+      Route role in networkrelation changed from &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>&quot; to &quot;<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>&quot;.
+      
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/route/changes/route-diff.component.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.key" datatype="html">
@@ -2355,6 +3057,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tag-diffs.table" datatype="html">
+        <source>Tag differences</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.deleted-tag" datatype="html">
@@ -2422,6 +3131,48 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact-diffs.resolved-fact" datatype="html">
+        <source>Resolved fact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/fact-diffs.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact-diffs.resolved-facts" datatype="html">
+        <source>Resolved facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/fact-diffs.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact-diffs.introduced-fact" datatype="html">
+        <source>Introduced fact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/fact-diffs.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact-diffs.introduced-facts" datatype="html">
+        <source>Introduced facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/fact-diffs.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact-diffs.remaining-fact" datatype="html">
+        <source>Remaining fact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/fact-diffs.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact-diffs.remaining-facts" datatype="html">
+        <source>Remaining facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/fact-diffs.component.ts</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.page-title" datatype="html">

@@ -5,11 +5,11 @@ import {Component} from "@angular/core";
   template: `
     <div>
       Click network... <!-- node or route for more details, after zooming in sufficiently.-->
-      <!-- Zoom in en klik op knooppunt of route voor verdere details. -->
+      <!--@@ Zoom in en klik op knooppunt of route voor verdere details. -->
     </div>
     <div class="note">
       The map contents... <!--is currently updated once every two hours.-->
-      <!-- De kaart wordt momenteel om de twee uur automatisch aangepast aan de meest recente informatie in OpenStreetMap.-->
+      <!--@@ De kaart wordt momenteel om de twee uur automatisch aangepast aan de meest recente informatie in OpenStreetMap.-->
     </div>
   `,
   styles: [`

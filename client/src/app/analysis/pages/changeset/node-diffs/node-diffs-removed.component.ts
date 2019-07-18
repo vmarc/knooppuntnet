@@ -8,7 +8,7 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
   template: `
     <div *ngIf="!nodeRefs.isEmpty()" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
-        <span class="kpn-thick">Removed network nodes</span> <!-- Verwijderde knooppunten -->
+        <span class="kpn-thick" i18n="@@node-diffs-removed.title">Removed network nodes</span>
         <span>({{nodeRefs.size}})</span>
         <mat-icon svgIcon="investigate"></mat-icon>
       </div>

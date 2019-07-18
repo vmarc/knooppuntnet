@@ -7,6 +7,6 @@ import {Component, Input} from "@angular/core";
   `
 })
 export class LinkNetworkDetailsComponent {
-  @Input() networkId: string;
+  @Input() networkId: number;
   @Input() title: string;
 }

@@ -16,7 +16,6 @@ import {flatMap, map, tap} from "rxjs/operators";
 
     <div *ngIf="!isLoggedIn()">
       <span i18n="@@node.login-required">The node history is available to registered OpenStreetMap contributors only, after</span>
-      <!--@@ De node historiek is enkel beschikbaar voor OpenStreetMap gebruikers, na  -->
       <kpn-link-login></kpn-link-login>
       .
     </div>
@@ -29,7 +28,6 @@ import {flatMap, map, tap} from "rxjs/operators";
 
         <div *ngIf="response.result.changes.isEmpty()" i18n="@@node.no-history">
           No history
-          <!--@@ Geen historiek -->
         </div>
 
         <div *ngIf="!response.result.changes.isEmpty()">

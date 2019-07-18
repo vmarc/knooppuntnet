@@ -18,7 +18,7 @@ class ChangeSetKey {
   selector: "kpn-change-set-page",
   template: `
     <h1>
-      <ng-container i18nX="@@kpn-change-set-page.title">Changeset</ng-container> <!-- Wijzigingenset -->
+      <ng-container i18n="@@change-set.title">Changeset</ng-container>
       {{changeSetTitle()}}
     </h1>
 

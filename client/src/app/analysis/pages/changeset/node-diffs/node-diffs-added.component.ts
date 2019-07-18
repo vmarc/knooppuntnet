@@ -8,7 +8,7 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
   template: `
     <div *ngIf="!nodeRefs.isEmpty()" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
-        <span class="kpn-thick" i18nX="@@node-diffs-added.title">Added network nodes</span> <!-- Toegevoegde knooppunten -->
+        <span class="kpn-thick" i18n="@@node-diffs-added.title">Added network nodes</span>
         <span>({{nodeRefs.size}})</span>
         <mat-icon svgIcon="happy"></mat-icon>
       </div>
@@ -24,14 +24,14 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
               <div *ngIf="nodeChangeInfo.after">
                 <ng-container [ngSwitch]="nodeChangeInfo.after.version">
                   <div *ngSwitchCase="1">
-                    <ng-container i18nX="@@node-diffs-added.change-set-created">Created in this changeset.</ng-container> <!-- Nieuw in deze changeset. -->
+                    <ng-container i18n="@@node-diffs-added.change-set-created">Created in this changeset.</ng-container>
                   </div>
                   <div *ngSwitchCase="changeSetId">
-                    <ng-container i18nX="@@node-diffs-added.change-set-updated">Updated in this changeset.</ng-container> <!--Aangepast in deze changeset-->
+                    <ng-container i18n="@@node-diffs-added.change-set-updated">Updated in this changeset.</ng-container>
                     v{{nodeChangeInfo.after.version}}.
                   </div>
                   <div *ngSwitchDefault>
-                    <ng-container i18nX="@@node-diffs-added.change-set-existing">Existing node</ng-container> <!-- Bestaand knooppunt -->
+                    <ng-container i18n="@@node-diffs-added.change-set-existing">Existing node</ng-container>
                     <kpn-meta-data [metaData]="nodeChangeInfo.after"></kpn-meta-data>
                   </div>
                 </ng-container>

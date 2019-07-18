@@ -7,6 +7,6 @@ import {Component, Input} from "@angular/core";
   `
 })
 export class LinkNodeComponent {
-  @Input() nodeId: string;
+  @Input() nodeId: number;
   @Input() title: string;
 }

@@ -7,9 +7,9 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
   selector: "kpn-route-members",
   template: `
     <div>
-      <h4>Route Members</h4> <!-- Route onderdelen -->
+      <h4 i18n="@@route.members.title">Route Members</h4>
       <div *ngIf="members.isEmpty()">
-        <span>None</span> <!--Geen -->
+        <span i18n="@@route.members.none">None</span>
       </div>
       <div *ngIf="!members.isEmpty()">
 
@@ -17,43 +17,15 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
           <thead>
           <tr>
             <th></th>
-            <th>
-              Node
-              <!-- Knoop -->
-            </th>
-            <th>
-              Id
-              <!-- Id -->
-            </th>
-            <th colSpan="2">
-              Nodes
-              <!-- Knooppunten -->
-            </th>
-            <th>
-              Role
-              <!-- Rol -->
-            </th>
-
-            <th>
-              Length
-              <!-- Lengte -->
-            </th>
-            <th>
-              #Nodes
-              <!-- #Knopen -->
-            </th>
-            <th>
-              Name
-              <!-- Naam -->
-            </th>
-            <th>
-              Unaccessible
-              <!-- Ontoegankelijk -->
-            </th>
-            <th colSpan="2" *ngIf="networkType.name == 'cycling'">
-              One Way
-              <!-- Enkele richting -->
-            </th>
+            <th i18n="@@route.members.table.node">Node</th>
+            <th i18n="@@route.members.table.id">Id</th>
+            <th colSpan="2" i18n="@@route.members.table.nodes">Nodes</th>
+            <th i18n="@@route.members.table.role">Role</th>
+            <th i18n="@@route.members.table.length">Length</th>
+            <th i18n="@@route.members.table.node-count">#Nodes</th>
+            <th i18n="@@route.members.table.name">Name</th>
+            <th i18n="@@route.members.table.unaccessible">Unaccessible</th>
+            <th colSpan="2" *ngIf="networkType.name == 'cycling'" i18n="@@route.members.table.one-way">One Way</th>
           </tr>
           </thead>
 
@@ -61,7 +33,7 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
           <tr *ngFor="let member of members">
 
             <td class="image-cell">
-              <img [src]="'/assets/images/links/' + member.linkName + '.png'">
+              <img [src]="'/assets/images/links/' + member.linkName + '.png'" [alt]="member.linkName">
             </td>
             <td>
               <div class="kpn-comma-list">
@@ -73,16 +45,13 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
               </div>
             </td>
             <td>
-              UiOsmLink.osmLink(member.memberType, member.id)
+              <osm-link kind="{{member.memberType}}" id="{{member.id}}" title="{{member.id}}"></osm-link>
             </td>
             <td>
-              UiOsmLink.link("node", member.fromNodeId, member.from)
+              <osm-link kind="node" id="{{member.fromNodeId}}" title="{{member.from}}"></osm-link>
             </td>
             <td>
-              TODO
-              <!--TagMod.when(member.isWay) {-->
-              <!--UiOsmLink.link("way", member.toNodeId, member.to)-->
-              <!--}-->
+              <osm-link *ngIf="member.isWay" kind="node" id="{{member.toNodeId}}" title="{{member.to}}"></osm-link>
             </td>
             <td>
               {{member.role}}
@@ -100,23 +69,15 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
             </td>
             <td>
               <div *ngIf="!member.isAccessible">
-                TODO
-                <--UiImage("warning.png")-->
+                <mat-icon svgIcon="warning"></mat-icon>
               </div>
             </td>
             <td *ngIf="networkType.name == 'cycling'">
-              TODO
-              <!--<div *ngIf="member.oneWay == Forward">-->
-              <!--Yes-->
-              <!--&lt;!&ndash; Ja &ndash;&gt;-->
-              <!--</div>-->
-              <!--<div *ngIf="member.oneWay == Backward">-->
-              <!--Reverse-->
-              <!--&lt;!&ndash; Omgekeerd &ndash;&gt;-->
-              <!--</div>-->
+              <div *ngIf="member.oneWay == 'Forward'" i18n="@@route.members.table.one-way.yes">Yes</div> <!--@@ Ja -->
+              <div *ngIf="member.oneWay == 'Backward'" i18n="@@route.members.table.one-way.reverse">Reverse</div> <!--@@ Omgekeerd --> 
             </td>
             <td>
-              {{member.oneWayTags.tagString}}
+              <kpn-tags-text *ngIf="!member.oneWayTags.isEmpty()" [tags]="member.oneWayTags"></kpn-tags-text>
             </td>
           </tr>
           </tbody>
@@ -134,6 +95,6 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
   `]
 })
 export class RouteMembersComponent {
-  @Input() networkType: NetworkType; // page.route.summary.networkType
+  @Input() networkType: NetworkType;
   @Input() members: List<RouteMemberInfo>;
 }

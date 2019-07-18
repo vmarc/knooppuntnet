@@ -9,7 +9,7 @@ import {FactLevel} from "./fact-level";
   template: `
 
     <div *ngIf="filteredFactInfos.isEmpty()" i18n="@@facts.none">
-      None <!--@@ Geen -->
+      None
     </div>
 
     <div *ngFor="let factInfo of filteredFactInfos" class="fact">

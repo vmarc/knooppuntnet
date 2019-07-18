@@ -13,8 +13,7 @@ import {RefDiffs} from "../../../kpn/shared/diff/ref-diffs";
       <div class="kpn-line"> <!-- orphansHeader() -->
         <kpn-network-type-icon [networkType]="changeSetSubsetElementRefs.subset.networkType"></kpn-network-type-icon>
         <span>{{changeSetSubsetElementRefs.subset.country.domain.toUpperCase()}}</span>
-        <span>Orphan nodes</span>
-        <!-- Knooppunt wezen -->
+        <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
       </div>
       <kpn-node-diffs
         [changeSetId]="page.summary.key.changeSetId"

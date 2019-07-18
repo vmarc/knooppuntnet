@@ -5,7 +5,7 @@ import {Component, Input} from "@angular/core";
   template: `
 
     <kpn-page-header [pageTitle]="nodeName" subject="node-page">
-      <span>Node</span>
+      <span i18n="@@node.title">Node</span>
       <span *ngIf="nodeName">&nbsp;{{nodeName}}</span>
     </kpn-page-header>
 
@@ -13,17 +13,20 @@ import {Component, Input} from "@angular/core";
 
       <kpn-page-menu-option
         [link]="linkNodeDetails()"
-        pageTitle="Details">
+        pageTitle="Details"
+        i18n-pageTitle="@@node.menu.details">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkNodeMap()"
-        pageTitle="Map">
+        pageTitle="Map"
+        i18n-pageTitle="@@node.menu.map">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkNodeChanges()"
-        pageTitle="Changes">
+        pageTitle="Changes"
+        i18n-pageTitle="@@node.menu.changes">
       </kpn-page-menu-option>
 
     </kpn-page-menu>
@@ -36,18 +39,18 @@ export class NodePageHeaderComponent {
   @Input() nodeName: string;
 
   linkNodeDetails(): string {
-    return this.linkRoute("");
+    return this.linkNode("");
   }
 
   linkNodeMap(): string {
-    return this.linkRoute("/map");
+    return this.linkNode("/map");
   }
 
   linkNodeChanges(): string {
-    return this.linkRoute("/changes");
+    return this.linkNode("/changes");
   }
 
-  private linkRoute(suffix: string): string {
+  private linkNode(suffix: string): string {
     return `/analysis/node/${this.nodeId}${suffix}`;
   }
 
