@@ -17,7 +17,6 @@ import {InterpretedTags} from "../../../../components/shared/tags/interpreted-ta
 
     <kpn-network-page-header
       [networkId]="networkId"
-      selectedPage="details"
       pageTitle="Details"
       i18n-pageTitle="@@network-details.title">
     </kpn-network-page-header>

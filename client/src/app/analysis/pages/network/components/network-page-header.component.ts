@@ -17,16 +17,12 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
 
     <kpn-page-menu>
       <kpn-page-menu-option
-        pageName="details"
-        selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-details/' + networkId}}"
         pageTitle="Details"
         i18n-pageTitle="@@network-page.menu.details">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="facts"
-        selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-facts/' + networkId}}"
         pageTitle="Facts"
         i18n-pageTitle="@@network-page.menu.facts"
@@ -34,8 +30,6 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="nodes"
-        selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-nodes/' + networkId}}"
         pageTitle="Nodes"
         i18n-pageTitle="@@network-page.menu.nodes"
@@ -43,8 +37,6 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="routes"
-        selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-routes/' + networkId}}"
         pageTitle="Routes"
         i18n-pageTitle="@@network-page.menu.routes"
@@ -52,16 +44,12 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="map"
-        selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-map/' + networkId}}"
         pageTitle="Map"
         i18n-pageTitle="@@network-page.menu.map">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="changes"
-        selectedPageName="{{selectedPage}}"
         link="{{'/analysis/network-changes/' + networkId}}"
         pageTitle="Changes"
         i18n-pageTitle="@@network-page.menu.changes">
@@ -73,7 +61,6 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
 export class NetworkPageHeaderComponent {
 
   @Input() networkId;
-  @Input() selectedPage;
   @Input() pageTitle;
 
   constructor(private networkCacheService: NetworkCacheService) {

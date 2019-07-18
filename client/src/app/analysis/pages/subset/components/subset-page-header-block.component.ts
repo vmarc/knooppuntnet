@@ -25,8 +25,6 @@ import {I18nService} from "../../../../i18n/i18n.service";
     <kpn-page-menu>
 
       <kpn-page-menu-option
-        pageName="networks"
-        [selectedPageName]="pageName"
         [link]="link('networks')"
         pageTitle="Networks"
         i18n-pageTitle="@@subset-page.menu.networks"
@@ -34,8 +32,6 @@ import {I18nService} from "../../../../i18n/i18n.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="facts"
-        [selectedPageName]="pageName"
         [link]="link('facts')"
         pageTitle="Facts"
         i18n-pageTitle="@@subset-page.menu.facts"
@@ -43,8 +39,6 @@ import {I18nService} from "../../../../i18n/i18n.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="orphan-nodes"
-        [selectedPageName]="pageName"
         [link]="link('orphan-nodes')"
         pageTitle="Orphan Nodes"
         i18n-pageTitle="@@subset-page.menu.orphan-nodes"
@@ -52,8 +46,6 @@ import {I18nService} from "../../../../i18n/i18n.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="orphan-routes"
-        [selectedPageName]="pageName"
         [link]="link('orphan-routes')"
         pageTitle="Orphan routes"
         i18n-pageTitle="@@subset-page.menu.orphan-routes"
@@ -61,8 +53,6 @@ import {I18nService} from "../../../../i18n/i18n.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="changes"
-        [selectedPageName]="pageName"
         [link]="link('changes')"
         pageTitle="Changes"
         i18n-pageTitle="@@subset-page.menu.changes">

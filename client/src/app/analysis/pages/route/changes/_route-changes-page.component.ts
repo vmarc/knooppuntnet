@@ -10,7 +10,7 @@ import {RouteChangesPage} from "../../../../kpn/shared/route/route-changes-page"
 @Component({
   selector: "kpn-route-changes-page",
   template: `
-    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name" [pageName]="'route-changes'"></kpn-route-page-header>
+    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name"></kpn-route-page-header>
 
     <div *ngIf="!isLoggedIn()">
       <span>The route history is available to registered OpenStreetMap contributors only, after</span>

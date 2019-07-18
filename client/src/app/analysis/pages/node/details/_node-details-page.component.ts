@@ -14,7 +14,7 @@ import {List} from "immutable";
   selector: "kpn-node-details-page",
   template: `
 
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node'"></kpn-node-page-header>
+    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name"></kpn-node-page-header>
 
     <div *ngIf="response?.result">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">

@@ -5,12 +5,16 @@ import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {RouteDetailsPage} from "../../../../kpn/shared/route/route-details-page";
+import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
+import {List} from "immutable";
+import {FactInfo} from "../../../fact/fact-info";
+import {PageWidthService} from "../../../../components/shared/page-width.service";
 
 @Component({
   selector: "kpn-route-page",
   template: `
 
-    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name" [pageName]="'route'"></kpn-route-page-header>
+    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name"></kpn-route-page-header>
 
     <div *ngIf="response">
 

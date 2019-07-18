@@ -9,7 +9,7 @@ import {NodeMapPage} from "../../../../kpn/shared/node/node-map-page";
 @Component({
   selector: "kpn-node-map-page",
   template: `
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node-map'"></kpn-node-page-header>
+    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name"></kpn-node-page-header>
     <div *ngIf="response?.result">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found

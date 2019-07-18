@@ -15,7 +15,6 @@ import {Subscriptions} from "../../../../util/Subscriptions";
   template: `
     <kpn-network-page-header
       [networkId]="networkId"
-      selectedPage="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@network-changes.title">
     </kpn-network-page-header>

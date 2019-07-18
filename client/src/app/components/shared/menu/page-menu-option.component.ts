@@ -3,14 +3,14 @@ import {Component, Input} from "@angular/core";
 @Component({
   selector: "kpn-page-menu-option",
   template: `
-    <a [ngClass]="{'selected': selectedPageName === pageName}" [routerLink]="link">
+    <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="link">
       {{pageTitle}}
       <span *ngIf="elementCount != null" class="element-count"> ({{elementCount}})</span>
     </a>
   `,
   styles: [`
 
-    .selected {
+    .active {
       color: rgba(0, 0, 0, 0.87);
       font-weight: bold;
     }
@@ -23,11 +23,7 @@ import {Component, Input} from "@angular/core";
   `]
 })
 export class PageMenuOptionComponent {
-
-  @Input() pageName: string;
-  @Input() selectedPageName: string;
   @Input() link: string;
   @Input() pageTitle: string;
   @Input() elementCount: number;
-
 }

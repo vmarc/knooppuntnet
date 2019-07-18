@@ -11,7 +11,7 @@ import {NodeChangesPage} from "../../../../kpn/shared/node/node-changes-page";
   selector: "kpn-node-changes-page",
   template: `
 
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name" [pageName]="'node-changes'"></kpn-node-page-header>
+    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name"></kpn-node-page-header>
 
     <div *ngIf="!isLoggedIn()">
       <span i18n="@@node.login-required">The node history is available to registered OpenStreetMap contributors only, after</span>

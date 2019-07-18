@@ -9,7 +9,7 @@ import {RouteMapPage} from "../../../../kpn/shared/route/route-map-page";
 @Component({
   selector: "kpn-route-changes-page",
   template: `
-    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name" [pageName]="'route-map'"></kpn-route-page-header>
+    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name"></kpn-route-page-header>
 
     <div *ngIf="response">
 

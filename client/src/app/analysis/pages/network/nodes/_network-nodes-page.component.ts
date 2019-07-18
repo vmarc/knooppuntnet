@@ -16,7 +16,6 @@ import {Subscriptions} from "../../../../util/Subscriptions";
     
     <kpn-network-page-header
       [networkId]="networkId"
-      selectedPage="nodes"
       pageTitle="Nodes"
       i18n-pageTitle="@@network-nodes.title">
     </kpn-network-page-header>

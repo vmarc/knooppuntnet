@@ -12,22 +12,16 @@ import {Component, Input} from "@angular/core";
     <kpn-page-menu>
 
       <kpn-page-menu-option
-        pageName="node"
-        [selectedPageName]="pageName"
         [link]="linkNodeDetails()"
         pageTitle="Details">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="node-map"
-        [selectedPageName]="pageName"
         [link]="linkNodeMap()"
         pageTitle="Map">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        pageName="node-changes"
-        [selectedPageName]="pageName"
         [link]="linkNodeChanges()"
         pageTitle="Changes">
       </kpn-page-menu-option>
@@ -40,11 +34,6 @@ export class NodePageHeaderComponent {
 
   @Input() nodeId;
   @Input() nodeName;
-  @Input() pageName;
-
-  link(pageName: string): string {
-    return "/analysis/" + pageName + "/" + this.nodeId;
-  }
 
   linkNodeDetails(): string {
     return this.linkRoute("");
