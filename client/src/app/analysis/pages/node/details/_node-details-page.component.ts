@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {ApiResponse} from "../../../../kpn/shared/api-response";
@@ -14,7 +14,7 @@ import {List} from "immutable";
   selector: "kpn-node-details-page",
   template: `
 
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name"></kpn-node-page-header>
+    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="nodeName"></kpn-node-page-header>
 
     <div *ngIf="response?.result">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
@@ -60,6 +60,7 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   nodeId: string;
+  nodeName: string;
   response: ApiResponse<NodeDetailsPage>;
   tags: InterpretedTags;
 
@@ -69,14 +70,19 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.nodeName = history.state.nodeName;
     this.pageService.defaultMenu();
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       this.nodeId = params["nodeId"];
+
+
       this.subscriptions.add(this.appService.nodeDetails(this.nodeId).subscribe(response => {
         this.response = response;
+        this.nodeName = response.result.nodeInfo.name;
         this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
       }));
     }));
+
   }
 
   ngOnDestroy(): void {

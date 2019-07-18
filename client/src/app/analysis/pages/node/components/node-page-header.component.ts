@@ -32,8 +32,8 @@ import {Component, Input} from "@angular/core";
 })
 export class NodePageHeaderComponent {
 
-  @Input() nodeId;
-  @Input() nodeName;
+  @Input() nodeId: number;
+  @Input() nodeName: string;
 
   linkNodeDetails(): string {
     return this.linkRoute("");
