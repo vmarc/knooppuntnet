@@ -42,22 +42,26 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["networkId"]),
-        tap(networkId => {
-          this.networkId = networkId;
-          this.pageService.networkId = networkId;
-        }),
+        tap(networkId => this.processNetworkId(networkId)),
         flatMap(networkId => this.appService.networkChanges(networkId))
-      ).subscribe(response => {
-        this.response = response;
-        // TODO this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
-        const networkName = response.result.network.attributes.name;
-        this.networkCacheService.setNetworkName(this.networkId, networkName);
-      })
+      ).subscribe(response => this.processResponse(response))
     );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  private processNetworkId(networkId: string) {
+    this.networkId = networkId;
+    this.pageService.networkId = networkId;
+  }
+
+  private processResponse(response: ApiResponse<NetworkChangesPage>) {
+    this.response = response;
+    // TODO this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
+    const networkName = response.result.network.attributes.name;
+    this.networkCacheService.setNetworkName(this.networkId, networkName);
   }
 
 }
