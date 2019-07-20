@@ -41,9 +41,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
         map(params => params["nodeId"]),
         tap(nodeId => this.nodeId = nodeId),
         flatMap(nodeId => this.appService.nodeMap(nodeId))
-      ).subscribe(response => {
-        this.response = response;
-      })
+      ).subscribe(response => this.response = response)
     );
   }
 

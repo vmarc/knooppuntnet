@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
@@ -46,15 +46,9 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
     this.pageService.defaultMenu();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
-        map(params => {
-          const changeSetId = params["changeSetId"];
-          const replicationNumber = params["replicationNumber"];
-          return new ChangeSetKey(changeSetId, replicationNumber);
-        }),
+        map(params => this.interpreteParams(params)),
         flatMap(key => this.appService.changeSet(key.changeSetId, key.replicationNumber))
-      ).subscribe(response => {
-        this.response = response;
-      })
+      ).subscribe(response => this.response = response)
     );
   }
 
@@ -69,6 +63,12 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
       return a + " " + b;
     }
     return "";
+  }
+
+  private interpreteParams(params: Params): ChangeSetKey {
+    const changeSetId = params["changeSetId"];
+    const replicationNumber = params["replicationNumber"];
+    return new ChangeSetKey(changeSetId, replicationNumber);
   }
 
 }

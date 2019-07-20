@@ -78,11 +78,7 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
         map(params => params["nodeId"]),
         tap(nodeId => this.nodeId = nodeId),
         flatMap(nodeId => this.appService.nodeDetails(nodeId))
-      ).subscribe(response => {
-        this.response = response;
-        this.nodeName = response.result.nodeInfo.name;
-        this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
-      })
+      ).subscribe(response => this.processResponse(response))
     );
   }
 
@@ -110,6 +106,12 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
     });
 
     return nodeFacts.concat(extraFacts);
+  }
+
+  private processResponse(response: ApiResponse<NodeDetailsPage>) {
+    this.response = response;
+    this.nodeName = response.result.nodeInfo.name;
+    this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
   }
 
 }

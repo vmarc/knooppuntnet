@@ -67,9 +67,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
         map(params => params["routeId"]),
         tap(routeId => this.routeId = routeId),
         flatMap(routeId => this.appService.routeChanges(routeId))
-      ).subscribe(response => {
-        this.response = response;
-      })
+      ).subscribe(response => this.response = response)
     );
   }
 

@@ -44,9 +44,7 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
         map(params => params["routeId"]),
         tap(routeId => this.routeId = routeId),
         flatMap(routeId => this.appService.routeMap(routeId))
-      ).subscribe(response => {
-        this.response = response;
-      })
+      ).subscribe(response => this.response = response)
     );
   }
 

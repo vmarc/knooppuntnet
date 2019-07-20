@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {AppService} from "../../../../app.service";
 import {PageService} from "../../../../components/shared/page.service";
 import {Util} from "../../../../components/shared/util";
@@ -86,19 +86,9 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
-        map(params => {
-          const subset = Util.subsetInRoute(params);
-          const factName = params["fact"];
-          this.subset = subset;
-          this.factName = factName;
-          this.pageService.subset = subset;
-          return new SubsetFact(subset, factName);
-        }),
+        map(params => this.interpreteParams(params)),
         flatMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset /* TODO: add parameter, subsetFact.factName*/))
-      ).subscribe(response => {
-        this.response = response;
-        this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
-      })
+      ).subscribe(response => this.processResponse(response))
     );
   }
 
@@ -112,6 +102,20 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
   routeCount(): number {
     return this.response.result.networks.map(n => n.factRefs.size).reduce((sum, current) => sum + current);
+  }
+
+  private interpreteParams(params: Params): SubsetFact {
+    const subset = Util.subsetInRoute(params);
+    const factName = params["fact"];
+    this.subset = subset;
+    this.factName = factName;
+    this.pageService.subset = subset;
+    return new SubsetFact(subset, factName);
+  }
+
+  private processResponse(response: ApiResponse<SubsetFactDetailsPage>) {
+    this.response = response;
+    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
   }
 
 }

@@ -116,10 +116,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
         map(params => params["routeId"]),
         tap(routeId => this.routeId = routeId),
         flatMap(routeId => this.appService.routeDetails(routeId))
-      ).subscribe(response => {
-        this.response = response;
-        this.tags = InterpretedTags.routeTags(this.response.result.route.tags);
-      })
+      ).subscribe(response => this.processResponse(response))
     );
   }
 
@@ -137,6 +134,11 @@ export class RoutePageComponent implements OnInit, OnDestroy {
 
   isPageSmall(): boolean {
     return this.pageWidthService.isSmall();
+  }
+
+  private processResponse(response: ApiResponse<RouteDetailsPage>) {
+    this.response = response;
+    this.tags = InterpretedTags.routeTags(this.response.result.route.tags);
   }
 
 }
