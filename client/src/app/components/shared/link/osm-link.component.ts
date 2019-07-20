@@ -3,9 +3,9 @@ import {Component, Input} from "@angular/core";
 @Component({
   selector: "osm-link",
   template: `
-    <a 
-      class="external" 
-      rel="nofollow" 
+    <a
+      class="external"
+      rel="nofollow"
       target="_blank"
       href="https://www.openstreetmap.org/{{kind}}/{{id}}">
       {{title}}
@@ -14,8 +14,8 @@ import {Component, Input} from "@angular/core";
 })
 export class OsmLinkComponent {
 
-  @Input() kind = "";
-  @Input() id = "";
-  @Input() title = "";
+  @Input() kind: string;
+  @Input() id: number;
+  @Input() title: string;
 
 }
