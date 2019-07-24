@@ -40,7 +40,7 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
                 <kpn-link-node
                   *ngFor="let node of member.nodes"
                   [nodeId]="node.id"
-                  [title]="node.alternateName">
+                  [nodeName]="node.alternateName">
                 </kpn-link-node>
               </div>
             </td>

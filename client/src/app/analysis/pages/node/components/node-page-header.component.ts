@@ -13,18 +13,21 @@ import {Component, Input} from "@angular/core";
 
       <kpn-page-menu-option
         [link]="linkNodeDetails()"
+        [state]="state()"
         pageTitle="Details"
         i18n-pageTitle="@@node.menu.details">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkNodeMap()"
+        [state]="state()"
         pageTitle="Map"
         i18n-pageTitle="@@node.menu.map">
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkNodeChanges()"
+        [state]="state()"
         pageTitle="Changes"
         i18n-pageTitle="@@node.menu.changes">
       </kpn-page-menu-option>
@@ -48,6 +51,10 @@ export class NodePageHeaderComponent {
 
   linkNodeChanges(): string {
     return this.linkNode("/changes");
+  }
+
+  state(): {[k: string]: any;} {
+    return {nodeName: this.nodeName};
   }
 
   private linkNode(suffix: string): string {

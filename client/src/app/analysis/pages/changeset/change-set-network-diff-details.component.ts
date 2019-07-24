@@ -64,7 +64,7 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
           <kpn-link-node
             *ngFor="let ref of networkChangeInfo.orphanNodes.oldRefs"
             [nodeId]="ref.id"
-            [title]="ref.name">
+            [nodeName]="ref.name">
           </kpn-link-node>
         </div>
         <mat-icon svgIcon="happy"></mat-icon>
@@ -79,7 +79,7 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
           <kpn-link-node
             *ngFor="let ref of networkChangeInfo.orphanNodes.newRefs"
             [nodeId]="ref.id"
-            [title]="ref.name">
+            [nodeName]="ref.name">
           </kpn-link-node>
         </div>
         <mat-icon svgIcon="investigate"></mat-icon>

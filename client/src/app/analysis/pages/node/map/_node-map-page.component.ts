@@ -10,7 +10,7 @@ import {flatMap, map, tap} from "rxjs/operators";
 @Component({
   selector: "kpn-node-map-page",
   template: `
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name"></kpn-node-page-header>
+    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="nodeName"></kpn-node-page-header>
     <div *ngIf="response?.result">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
@@ -25,7 +25,8 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
-  nodeId: string;
+  nodeId: number;
+  nodeName: string;
   response: ApiResponse<NodeMapPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -35,13 +36,14 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.nodeName = history.state.nodeName;
     this.pageService.defaultMenu();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["nodeId"]),
-        tap(nodeId => this.nodeId = nodeId),
+        tap(nodeId => this.nodeId = +nodeId),
         flatMap(nodeId => this.appService.nodeMap(nodeId))
-      ).subscribe(response => this.response = response)
+      ).subscribe(response => this.processResponse(response))
     );
   }
 
@@ -52,6 +54,11 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
 
   get nodeInfo() {
     return this.response.result.nodeInfo;
+  }
+
+  private processResponse(response: ApiResponse<NodeMapPage>) {
+    this.response = response;
+    this.nodeName = response.result.nodeInfo.name;
   }
 
 }

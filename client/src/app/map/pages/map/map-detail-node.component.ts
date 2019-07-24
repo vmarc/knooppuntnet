@@ -12,7 +12,7 @@ import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
     </h2>
 
     <div *ngIf="nodeInfo">
-      <a class="text" [routerLink]="'/analysis/node/' + nodeId">More details</a>
+      <a class="text" [routerLink]="'/analysis/node/' + nodeId" [state]="{nodeName: nodeName}">More details</a>
 
       <p>
         Last updated: <!--@@ "Laatst bewerkt" -->

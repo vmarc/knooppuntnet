@@ -66,13 +66,15 @@ export class MapClickService {
 
   private handleRouteClicked(feature: Feature): void {
     const featureId = feature.get("id");
+    const routeName = feature.get("name");
     const routeId = featureId.substring(0, featureId.indexOf("-"));
-    this.router.navigateByUrl(`/analysis/route/${routeId}`);
+    this.router.navigateByUrl(`/analysis/route/${routeId}`, {state: {routeName: routeName}});
   }
 
   private handleNodeClicked(feature: Feature): void {
     const nodeId = feature.get("id");
-    this.router.navigateByUrl(`/analysis/node/${nodeId}`);
+    const nodeName = feature.get("name");
+    this.router.navigateByUrl(`/analysis/node/${nodeId}`, {state: {nodeName: nodeName}});
   }
 
   private isHooveringOverNodeOrRoute(evt: MapBrowserEvent): boolean {

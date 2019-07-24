@@ -7,12 +7,13 @@ import {UserService} from "../../../../services/user.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {NodeChangesPage} from "../../../../kpn/shared/node/node-changes-page";
 import {flatMap, map, tap} from "rxjs/operators";
+import {Util} from "../../../../components/shared/util";
 
 @Component({
   selector: "kpn-node-changes-page",
   template: `
 
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="response?.result?.nodeInfo.name"></kpn-node-page-header>
+    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="nodeName"></kpn-node-page-header>
 
     <div *ngIf="!isLoggedIn()">
       <span i18n="@@node.login-required">The node history is available to registered OpenStreetMap contributors only, after</span>
@@ -54,6 +55,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   nodeId: number;
+  nodeName: string;
   response: ApiResponse<NodeChangesPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -67,18 +69,24 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.nodeName = history.state.nodeName;
     this.pageService.defaultMenu();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["nodeId"]),
         tap(nodeId => this.nodeId = +nodeId),
         flatMap(nodeId => this.appService.nodeChanges(nodeId))
-      ).subscribe(response => this.response = response)
+      ).subscribe(response => this.processResponse(response))
     );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  private processResponse(response: ApiResponse<NodeChangesPage>) {
+    this.response = response;
+    this.nodeName = Util.safeGet(() => response.result.nodeInfo.name);
   }
 
 }

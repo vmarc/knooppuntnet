@@ -23,7 +23,7 @@ import {FactLevel} from "./fact-level";
           (<a class="text" [routerLink]="'/analysis/route/' + factInfo.routeRef.id">{{factInfo.routeRef.name}}</a>)
         </div>
         <div *ngIf="factInfo.nodeRef" class="reference">
-          (<a class="text" [routerLink]="'/analysis/node/' + factInfo.nodeRef.id">{{factInfo.nodeRef.name}}</a>)
+          (<kpn-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name"></kpn-link-node>)
         </div>
       </div>
       <div class="description">

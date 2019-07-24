@@ -7,7 +7,7 @@ import {Tags} from "../../../../kpn/shared/data/tags";
   selector: "kpn-subset-orphan-node",
   template: `
     <p>
-      <kpn-link-node [nodeId]="node.id" [title]="node.name"></kpn-link-node>
+      <kpn-link-node [nodeId]="node.id" [nodeName]="node.name"></kpn-link-node>
     </p>
     <p>
       <kpn-timestamp [timestamp]="node.lastUpdated"></kpn-timestamp>
