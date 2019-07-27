@@ -26,36 +26,36 @@ import {I18nService} from "../../../../i18n/i18n.service";
 
       <kpn-page-menu-option
         [link]="link('networks')"
-        pageTitle="Networks"
-        i18n-pageTitle="@@subset-page.menu.networks"
-        [elementCount]="networkCount()">
+        [elementCount]="networkCount()"
+        i18n="@@subset-page.menu.networks">
+        Networks
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="link('facts')"
-        pageTitle="Facts"
-        i18n-pageTitle="@@subset-page.menu.facts"
-        [elementCount]="factCount()">
+        [elementCount]="factCount()"
+        i18n="@@subset-page.menu.facts">
+        Facts
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="link('orphan-nodes')"
-        pageTitle="Orphan Nodes"
-        i18n-pageTitle="@@subset-page.menu.orphan-nodes"
-        [elementCount]="orphanNodeCount()">
+        [elementCount]="orphanNodeCount()"
+        i18n="@@subset-page.menu.orphan-nodes">
+        Orphan Nodes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="link('orphan-routes')"
-        pageTitle="Orphan routes"
-        i18n-pageTitle="@@subset-page.menu.orphan-routes"
-        [elementCount]="orphanRouteCount()">
+        [elementCount]="orphanRouteCount()"
+        i18n="@@subset-page.menu.orphan-routes">
+        Orphan routes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="link('changes')"
-        pageTitle="Changes"
-        i18n-pageTitle="@@subset-page.menu.changes">
+        i18n="@@subset-page.menu.changes">
+        Changes
       </kpn-page-menu-option>
 
     </kpn-page-menu>

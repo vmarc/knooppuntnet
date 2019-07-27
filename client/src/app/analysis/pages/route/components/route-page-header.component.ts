@@ -10,25 +10,9 @@ import {Component, Input} from "@angular/core";
     </kpn-page-header>
 
     <kpn-page-menu>
-
-      <kpn-page-menu-option
-        [link]="linkRouteDetails()"
-        pageTitle="Details"
-        i18n-pageTitle="@@route.menu.details">
-      </kpn-page-menu-option>
-
-      <kpn-page-menu-option
-        [link]="linkRouteMap()"
-        pageTitle="Map"
-        i18n-pageTitle="@@route.menu.map">
-      </kpn-page-menu-option>
-
-      <kpn-page-menu-option
-        [link]="linkRouteChanges()"
-        pageTitle="Changes"
-        i18n-pageTitle="@@route.menu.changes">
-      </kpn-page-menu-option>
-
+      <kpn-page-menu-option [link]="linkRouteDetails()" i18n="@@route.menu.details">Details</kpn-page-menu-option>
+      <kpn-page-menu-option [link]="linkRouteMap()" i18n="@@route.menu.map">Map</kpn-page-menu-option>
+      <kpn-page-menu-option [link]="linkRouteChanges()" i18n="@@route.menu.changes">Changes</kpn-page-menu-option>
     </kpn-page-menu>
 
   `

@@ -18,41 +18,41 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
     <kpn-page-menu>
       <kpn-page-menu-option
         link="{{'/analysis/network-details/' + networkId}}"
-        pageTitle="Details"
-        i18n-pageTitle="@@network-page.menu.details">
+        i18n="@@network-page.menu.details">
+        Details
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         link="{{'/analysis/network-facts/' + networkId}}"
-        pageTitle="Facts"
-        i18n-pageTitle="@@network-page.menu.facts"
+        i18n="@@network-page.menu.facts"
         [elementCount]="factCount()">
+        Facts
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         link="{{'/analysis/network-nodes/' + networkId}}"
-        pageTitle="Nodes"
-        i18n-pageTitle="@@network-page.menu.nodes"
+        i18n="@@network-page.menu.nodes"
         [elementCount]="nodeCount()">
+        Nodes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         link="{{'/analysis/network-routes/' + networkId}}"
-        pageTitle="Routes"
-        i18n-pageTitle="@@network-page.menu.routes"
+        i18n="@@network-page.menu.routes"
         [elementCount]="routeCount()">
+        Routes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         link="{{'/analysis/network-map/' + networkId}}"
-        pageTitle="Map"
-        i18n-pageTitle="@@network-page.menu.map">
+        i18n="@@network-page.menu.map">
+        Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         link="{{'/analysis/network-changes/' + networkId}}"
-        pageTitle="Changes"
-        i18n-pageTitle="@@network-page.menu.changes">
+        i18n="@@network-page.menu.changes">
+        Changes
       </kpn-page-menu-option>
 
     </kpn-page-menu>
