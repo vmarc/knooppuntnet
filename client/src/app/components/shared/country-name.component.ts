@@ -6,10 +6,16 @@ import {I18nService} from "../../i18n/i18n.service";
 @Component({
   selector: "kpn-country-name",
   template: `
-    {{countryName()}}
+    <ng-container *ngIf="country">
+      {{countryName()}}
+    </ng-container>
+    <ng-container *ngIf="!country">
+      Unsupported (not Belgium, The Netherlands, Germany or France)
+    </ng-container>
   `
 })
 export class CountryNameComponent {
+
   @Input() country: Country;
 
   constructor(private i18nService: I18nService) {

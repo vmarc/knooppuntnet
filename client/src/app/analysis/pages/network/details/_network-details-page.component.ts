@@ -20,42 +20,29 @@ import {flatMap, map, tap} from "rxjs/operators";
     </kpn-network-page-header>
 
     <div *ngIf="response?.result">
-      <div *ngIf="!response.result">
+      <div *ngIf="!page">
         <p i18n="@@network-details.network-not-found">Network not found</p>
       </div>
-      <div *ngIf="response.result">
+      <div *ngIf="page">
 
         <kpn-data title="Situation on" i18n-title="@@network-details.situation-on">
           <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
         </kpn-data>
 
         <kpn-data title="Summary" i18n-title="@@network-details.summary">
-          <p>
-            {{response.result.attributes.km}} km
-          </p>
-          <p>
-            {{response.result.networkSummary.nodeCount}}
-            <ng-container i18n="@@network-details.nodes">nodes</ng-container>
-          </p>
-          <p>
-            {{response.result.networkSummary.routeCount}}
-            <ng-container i18n="@@network-details.routes">routes</ng-container>
-          </p>
-          <p>
-            <kpn-network-type [networkType]="response.result.attributes.networkType"></kpn-network-type>
-          </p>
+          <kpn-network-summary [page]="page"></kpn-network-summary>
         </kpn-data>
 
         <kpn-data title="Country" i18n-title="@@network-details.country">
-          <kpn-country-name [country]="response.result.attributes.country"></kpn-country-name>
+          <kpn-country-name [country]="page.attributes.country"></kpn-country-name>
         </kpn-data>
 
         <kpn-data title="Last updated" i18n-title="@@network-details.last-updated">
-          <kpn-timestamp [timestamp]="response.result.attributes.lastUpdated"></kpn-timestamp>
+          <kpn-timestamp [timestamp]="page.attributes.lastUpdated"></kpn-timestamp>
         </kpn-data>
 
         <kpn-data title="Relation last updated" i18n-title="@@network-details.relation-last-updated">
-          <kpn-timestamp [timestamp]="response.result.attributes.relationLastUpdated"></kpn-timestamp>
+          <kpn-timestamp [timestamp]="page.attributes.relationLastUpdated"></kpn-timestamp>
         </kpn-data>
 
         <kpn-data title="Tags" i18n-title="@@network-details.tags">
@@ -97,6 +84,10 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  get page() {
+    return this.response.result;
+  }
+
   private processNetworkId(networkId: string) {
     this.networkId = networkId;
     this.pageService.networkId = networkId;
@@ -104,10 +95,9 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
 
   private processResponse(response: ApiResponse<NetworkDetailsPage>) {
     this.response = response;
-    this.tags = InterpretedTags.networkTags(response.result.tags);
-    this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
-    const networkName = response.result.networkSummary.name;
-    this.networkCacheService.setNetworkName(this.networkId, networkName);
+    this.tags = InterpretedTags.networkTags(this.page.tags);
+    this.networkCacheService.setNetworkSummary(this.networkId, this.page.networkSummary);
+    this.networkCacheService.setNetworkName(this.networkId, this.page.networkSummary.name);
   }
 
 }

@@ -166,6 +166,7 @@ import {RouteNetworkReferencesComponent} from "./pages/route/details/route-netwo
 import {RouteEndNodesComponent} from "./pages/route/details/route-end-nodes.component";
 import {RouteRedundantNodesComponent} from "./pages/route/details/route-redundant-nodes.component";
 import {RouteStartNodesComponent} from "./pages/route/details/route-start-nodes.component";
+import {NetworkSummaryComponent} from "./pages/network/details/network-summary.component";
 
 @NgModule({
   imports: [
@@ -205,6 +206,7 @@ import {RouteStartNodesComponent} from "./pages/route/details/route-start-nodes.
     ChangesPageComponent,
     NetworkChangesPageComponent,
     NetworkDetailsPageComponent,
+    NetworkSummaryComponent,
     NetworkFactsPageComponent,
     NetworkMapPageComponent,
     NetworkNodesPageComponent,

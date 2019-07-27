@@ -5,5 +5,5 @@ import {Component, Input} from "@angular/core";
   template: `<josm-link kind="relation" id="{{relationId}}" full="true"></josm-link>`
 })
 export class JosmRelationComponent {
-  @Input() relationId = "";
+  @Input() relationId: number;
 }

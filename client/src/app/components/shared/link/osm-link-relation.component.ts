@@ -8,6 +8,6 @@ import {Component, Input} from "@angular/core";
 })
 export class OsmLinkRelationComponent {
 
-  @Input() relationId = "";
+  @Input() relationId: number;
 
 }

@@ -21,8 +21,8 @@ import {Tags} from "../../../../kpn/shared/data/tags";
       <kpn-timestamp [timestamp]="route.timestamp"></kpn-timestamp>
     </p>
     <p>
-      <osm-link-relation relationId="{{route.id}}"></osm-link-relation>
-      <josm-relation relationId="{{route.id}}"></josm-relation>
+      <osm-link-relation [relationId]="route.id"></osm-link-relation>
+      <josm-relation [relationId]="route.id"></josm-relation>
     </p>
 
     <p *ngIf="!extraTags.isEmpty()">

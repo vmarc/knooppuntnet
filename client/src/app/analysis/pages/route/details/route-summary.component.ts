@@ -11,9 +11,9 @@ import {RouteInfo} from "../../../../kpn/shared/route/route-info";
       </p>
 
       <p>
-        <osm-link-relation relationId="route.id"></osm-link-relation>
+        <osm-link-relation [relationId]="route.summary.id"></osm-link-relation>
         (
-        <josm-relation relationId="route.id"></josm-relation>
+        <josm-relation [relationId]="route.summary.id"></josm-relation>
         )
       </p>
 
