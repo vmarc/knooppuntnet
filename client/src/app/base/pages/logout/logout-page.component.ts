@@ -12,7 +12,7 @@ import {UserService} from "../../../services/user.service";
 
       <p>
         You are currently logged in as
-        <osm-link-user user="{{loggedInUser()}}"></osm-link-user>
+        <kpn-osm-link-user user="{{loggedInUser()}}"></kpn-osm-link-user>
         .
       </p>
 
@@ -25,7 +25,7 @@ import {UserService} from "../../../services/user.service";
           After logging out you can continue to use this website. However, the additional information
           such as changesets, network changes, route changes and node changes will not be visible anymore.
           Your personal OpenStreetMap
-          <osm-link-user-oath-clients user="{{loggedInUser}}" title="list of authorised applications"></osm-link-user-oath-clients>
+          <kpn-osm-link-user-oath-clients user="{{loggedInUser}}" title="list of authorised applications"></kpn-osm-link-user-oath-clients>
           will still contain this application. The application can safely be revoked.
           The authorization will not be used anymore. A new authorization will be created when logging in again.
         </p>
@@ -44,7 +44,7 @@ import {UserService} from "../../../services/user.service";
       <p>
         You can <a routerLink="/login">login</a> to view extra information that is
         available to
-        <osm-website></osm-website>
+        <kpn-osm-website></kpn-osm-website>
         users only.
       </p>
 

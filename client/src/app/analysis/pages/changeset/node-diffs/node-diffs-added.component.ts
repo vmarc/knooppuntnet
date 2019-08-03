@@ -17,7 +17,7 @@ import {NodeChangeInfo} from "../../../../kpn/shared/node/node-change-info";
           <div class="kpn-line kpn-level-3-header">
             <!-- TODO show name only instead of link if nodeId not in knownElements.nodeIds -->
             <kpn-link-node [nodeId]="nodeRef.id" [nodeName]="nodeRef.name" class="kpn-thick"></kpn-link-node>
-            <osm-link-node [nodeId]="nodeRef.id"></osm-link-node>
+            <kpn-osm-link-node [nodeId]="nodeRef.id"></kpn-osm-link-node>
           </div>
           <div class="kpn-level-3-body">
             <div *ngFor="let nodeChangeInfo of findNodeChangeInfo(nodeRef.id)">

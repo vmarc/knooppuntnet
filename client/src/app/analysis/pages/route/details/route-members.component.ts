@@ -45,13 +45,13 @@ import {RouteMemberInfo} from "../../../../kpn/shared/route/route-member-info";
               </div>
             </td>
             <td>
-              <osm-link kind="{{member.memberType}}" id="{{member.id}}" title="{{member.id}}"></osm-link>
+              <kpn-osm-link kind="{{member.memberType}}" id="{{member.id}}" title="{{member.id}}"></kpn-osm-link>
             </td>
             <td>
-              <osm-link kind="node" id="{{member.fromNodeId}}" title="{{member.from}}"></osm-link>
+              <kpn-osm-link kind="node" id="{{member.fromNodeId}}" title="{{member.from}}"></kpn-osm-link>
             </td>
             <td>
-              <osm-link *ngIf="member.isWay" kind="node" id="{{member.toNodeId}}" title="{{member.to}}"></osm-link>
+              <kpn-osm-link *ngIf="member.isWay" kind="node" id="{{member.toNodeId}}" title="{{member.to}}"></kpn-osm-link>
             </td>
             <td>
               {{member.role}}

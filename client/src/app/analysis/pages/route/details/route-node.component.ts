@@ -7,7 +7,7 @@ import {RouteNetworkNodeInfo} from "../../../../kpn/shared/route/route-network-n
     <p class="kpn-line">
       <img [src]="'/assets/images/' + title" class="image">
       <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName"></kpn-link-node>
-      (<osm-link-node [nodeId]="node.id"></osm-link-node>)
+      (<kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>)
     </p>
   `
 })

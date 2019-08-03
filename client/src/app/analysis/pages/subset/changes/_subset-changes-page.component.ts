@@ -22,7 +22,7 @@ import {flatMap, map, tap} from "rxjs/operators";
     </kpn-subset-page-header-block>
 
     <div *ngIf="response">
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

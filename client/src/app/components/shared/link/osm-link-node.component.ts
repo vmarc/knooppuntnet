@@ -1,9 +1,9 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: "osm-link-node",
+  selector: "kpn-osm-link-node",
   template: `
-    <osm-link kind="node" id="{{nodeId}}" title="osm"></osm-link>
+    <kpn-osm-link kind="node" id="{{nodeId}}" title="osm"></kpn-osm-link>
   `
 })
 export class OsmLinkNodeComponent {

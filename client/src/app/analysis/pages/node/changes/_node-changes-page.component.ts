@@ -45,7 +45,7 @@ import {Util} from "../../../../components/shared/util";
 
         </div>
 
-        <json [object]="response"></json>
+        <kpn-json [object]="response"></kpn-json>
       </div>
     </div>
   `

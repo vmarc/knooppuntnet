@@ -63,7 +63,7 @@ class SubsetFact {
           </kpn-item>
         </kpn-items>
       </div>
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

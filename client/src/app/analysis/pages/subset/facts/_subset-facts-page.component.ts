@@ -42,7 +42,7 @@ import {flatMap, map, tap} from "rxjs/operators";
           </kpn-item>
         </kpn-items>
       </div>
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

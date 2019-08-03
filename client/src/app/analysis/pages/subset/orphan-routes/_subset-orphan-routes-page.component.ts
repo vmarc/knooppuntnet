@@ -23,7 +23,7 @@ import {Subscriptions} from "../../../../util/Subscriptions";
 
     <div *ngIf="response">
       <kpn-subset-orphan-routes-table [orphanRoutes]="response.result.rows"></kpn-subset-orphan-routes-table>
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

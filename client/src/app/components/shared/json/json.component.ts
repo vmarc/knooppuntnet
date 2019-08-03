@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 
 @Component({
-  selector: "json",
+  selector: "kpn-json",
   template: `
     <br/>
     <br/>

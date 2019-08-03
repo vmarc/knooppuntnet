@@ -23,7 +23,7 @@ import {flatMap, map, tap} from "rxjs/operators";
 
     <div *ngIf="response">
       <kpn-subset-orphan-nodes-table [nodes]="response.result.rows"></kpn-subset-orphan-nodes-table>
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

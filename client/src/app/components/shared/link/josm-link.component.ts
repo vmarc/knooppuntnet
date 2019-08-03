@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: "josm-link",
+  selector: "kpn-josm-link",
   template: `
     <a
       rel="nofollow"

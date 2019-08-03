@@ -43,7 +43,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
         <tr mat-row *matRowDef="let changeSet; columns: displayedColumns;"></tr>
 
       </table>
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

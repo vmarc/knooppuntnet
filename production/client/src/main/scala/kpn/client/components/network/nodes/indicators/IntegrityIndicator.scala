@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: integrity-indicator.component.ts and integrity-indicator-dialog.component.ts
 package kpn.client.components.network.nodes.indicators
 
 import japgolly.scalajs.react.vdom.VdomElement

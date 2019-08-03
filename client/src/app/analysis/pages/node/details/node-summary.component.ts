@@ -5,14 +5,14 @@ import {NetworkType} from "../../../../kpn/shared/network-type";
 import {List} from "immutable";
 
 @Component({
-  selector: "node-summary",
+  selector: "kpn-node-summary",
   template: `
     <div>
 
       <p>
-        <osm-link-node nodeId="{{nodeInfo.id}}"></osm-link-node>
+        <kpn-osm-link-node nodeId="{{nodeInfo.id}}"></kpn-osm-link-node>
         (
-        <josm-node nodeId="{{nodeInfo.id}}"></josm-node>
+        <kpn-josm-node nodeId="{{nodeInfo.id}}"></kpn-josm-node>
         )
       </p>
 

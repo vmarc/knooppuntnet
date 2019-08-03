@@ -51,7 +51,7 @@ import {flatMap, map, tap} from "rxjs/operators";
       </div>
     </div>
     <div *ngIf="response">
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

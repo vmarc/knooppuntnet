@@ -14,7 +14,7 @@ import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
         <td>
           <div class="kpn-line">
             <span>{{page.summary.key.changeSetId}}</span>
-            <osm-link-change-set [changeSetId]="page.summary.key.changeSetId"></osm-link-change-set>
+            <kpn-osm-link-change-set [changeSetId]="page.summary.key.changeSetId"></kpn-osm-link-change-set>
             <a
               class="external"
               rel="nofollow"

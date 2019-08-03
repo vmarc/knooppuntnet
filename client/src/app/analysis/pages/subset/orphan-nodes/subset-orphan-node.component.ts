@@ -17,8 +17,8 @@ import {Tags} from "../../../../kpn/shared/data/tags";
       <kpn-tags-table [tags]="extraTags"></kpn-tags-table>
     </p>
     <p>
-      <osm-link-node nodeId="{{node.id}}"></osm-link-node>
-      <josm-node nodeId="{{node.id}}"></josm-node>
+      <kpn-osm-link-node nodeId="{{node.id}}"></kpn-osm-link-node>
+      <kpn-josm-node nodeId="{{node.id}}"></kpn-josm-node>
     </p>
   `
 })

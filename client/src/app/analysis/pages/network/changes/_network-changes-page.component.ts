@@ -18,7 +18,7 @@ import {flatMap, map, tap} from "rxjs/operators";
       i18n-pageTitle="@@network-changes.title">
     </kpn-network-page-header>
     <div *ngIf="response">
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

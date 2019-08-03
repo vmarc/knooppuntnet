@@ -37,8 +37,8 @@ import {filter, flatMap, tap} from "rxjs/operators";
       <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>
       <div *ngIf="poiPage.image"><a [href]="poiPage.image" class="external" target="_blank">image</a></div>
 
-      <osm-link kind="{{poiId.elementType}}" id="{{poiId.elementId}}" title="osm"></osm-link>
-      <josm-link kind="{{poiId.elementType}}" id="{{poiId.elementId}}" title="edit"></josm-link>
+      <kpn-osm-link kind="{{poiId.elementType}}" id="{{poiId.elementId}}" title="osm"></kpn-osm-link>
+      <kpn-josm-link kind="{{poiId.elementType}}" id="{{poiId.elementId}}" title="edit"></kpn-josm-link>
 
       <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()">
         <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>

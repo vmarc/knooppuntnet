@@ -22,7 +22,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
     <div *ngIf="response">
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       <kpn-overview-table [statistics]="stats"></kpn-overview-table>
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

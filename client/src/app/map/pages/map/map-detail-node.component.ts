@@ -34,7 +34,7 @@ import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
         </div>
       </div>
 
-      <json [object]="response"></json>
+      <kpn-json [object]="response"></kpn-json>
 
     </div>
   `

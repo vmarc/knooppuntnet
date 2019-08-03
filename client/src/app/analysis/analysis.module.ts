@@ -93,8 +93,8 @@ import {NetworkDetailsPageComponent} from "./pages/network/details/_network-deta
 import {NetworkFactsPageComponent} from "./pages/network/facts/_network-facts-page.component";
 import {NetworkMapPageComponent} from "./pages/network/map/_network-map-page.component";
 import {NetworkNodesPageComponent} from "./pages/network/nodes/_network-nodes-page.component";
-import {ConnectionIndicatorDialogComponent} from "./pages/network/nodes/indicators/connection-indicator-dialog.component";
-import {ConnectionIndicatorComponent} from "./pages/network/nodes/indicators/connection-indicator.component";
+import {NodeConnectionIndicatorDialogComponent} from "./pages/network/nodes/indicators/node-connection-indicator-dialog.component";
+import {NodeConnectionIndicatorComponent} from "./pages/network/nodes/indicators/node-connection-indicator.component";
 import {IntegrityIndicatorDialogComponent} from "./pages/network/nodes/indicators/integrity-indicator-dialog.component";
 import {IntegrityIndicatorComponent} from "./pages/network/nodes/indicators/integrity-indicator.component";
 import {NetworkIndicatorDialogComponent} from "./pages/network/nodes/indicators/network-indicator-dialog.component";
@@ -324,11 +324,11 @@ import {NetworkSummaryComponent} from "./pages/network/details/network-summary.c
     FactWasOrphanComponent,
     FactDescriptionComponent,
     NetworkIndicatorComponent,
-    ConnectionIndicatorComponent,
+    NodeConnectionIndicatorComponent,
     IntegrityIndicatorComponent,
     RoleConnectionIndicatorComponent,
     RouteIndicatorComponent,
-    ConnectionIndicatorDialogComponent,
+    NodeConnectionIndicatorDialogComponent,
     IntegrityIndicatorDialogComponent,
     NetworkIndicatorDialogComponent,
     RoleConnectionIndicatorDialogComponent,
@@ -347,7 +347,7 @@ import {NetworkSummaryComponent} from "./pages/network/details/network-summary.c
     FactCommaListComponent
   ],
   entryComponents: [
-    ConnectionIndicatorDialogComponent,
+    NodeConnectionIndicatorDialogComponent,
     IntegrityIndicatorDialogComponent,
     NetworkIndicatorDialogComponent,
     RoleConnectionIndicatorDialogComponent,

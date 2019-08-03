@@ -19,8 +19,8 @@ import {NetworkDetailsPage} from "../../../../kpn/shared/network/network-details
       <kpn-network-type [networkType]="page.attributes.networkType"></kpn-network-type>
     </p>
     <p>
-      <osm-link-relation [relationId]="page.attributes.id"></osm-link-relation>
-      <josm-relation [relationId]="page.attributes.id"></josm-relation>
+      <kpn-osm-link-relation [relationId]="page.attributes.id"></kpn-osm-link-relation>
+      <kpn-josm-relation [relationId]="page.attributes.id"></kpn-josm-relation>
     </p>
     
     <p *ngIf="page.attributes.brokenRouteCount > 0" class="kpn-line">

@@ -24,7 +24,7 @@ import {flatMap, map, tap} from "rxjs/operators";
       <div *ngIf="response.result">
 
         <kpn-data title="Summary" i18n-title="@@node.summary">
-          <node-summary [nodeInfo]="nodeInfo"></node-summary>
+          <kpn-node-summary [nodeInfo]="nodeInfo"></kpn-node-summary>
         </kpn-data>
 
         <kpn-data title="Situation on" i18n-title="@@node.situation-on">
@@ -51,7 +51,7 @@ import {flatMap, map, tap} from "rxjs/operators";
           <kpn-facts [factInfos]="factInfos"></kpn-facts>
         </kpn-data>
 
-        <json [object]="response"></json>
+        <kpn-json [object]="response"></kpn-json>
       </div>
     </div>
   `

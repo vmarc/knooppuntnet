@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: "osm-link",
+  selector: "kpn-osm-link",
   template: `
     <a
       class="external"

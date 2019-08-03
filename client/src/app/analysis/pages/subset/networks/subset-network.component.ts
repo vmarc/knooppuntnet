@@ -12,8 +12,8 @@ import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
     </p>
     <p>{{network.km}} km, {{network.nodeCount}} nodes, {{network.routeCount}} routes</p>
     <p>
-      <osm-link-relation [relationId]="network.id"></osm-link-relation>
-      <josm-relation [relationId]="network.id"></josm-relation>
+      <kpn-osm-link-relation [relationId]="network.id"></kpn-osm-link-relation>
+      <kpn-josm-relation [relationId]="network.id"></kpn-josm-relation>
     </p>
   `,
   styles: [`

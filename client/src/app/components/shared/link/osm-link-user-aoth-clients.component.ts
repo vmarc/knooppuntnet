@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 
 @Component({
-  selector: "osm-link-user-oath-clients",
+  selector: "kpn-osm-link-user-oath-clients",
   template: `
     <a
       class="external"
