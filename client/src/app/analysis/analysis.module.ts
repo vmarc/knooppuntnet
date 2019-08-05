@@ -167,6 +167,14 @@ import {RouteEndNodesComponent} from "./pages/route/details/route-end-nodes.comp
 import {RouteRedundantNodesComponent} from "./pages/route/details/route-redundant-nodes.component";
 import {RouteStartNodesComponent} from "./pages/route/details/route-start-nodes.component";
 import {NetworkSummaryComponent} from "./pages/network/details/network-summary.component";
+import {NetworkRouteTableComponent} from "./pages/network/routes/network-route-table.component";
+import {NetworkRouteAnalysisComponent} from "./pages/network/routes/network-route-analysis.component";
+import {RouteInvestigateIndicatorDialogComponent} from "./pages/network/routes/indicators/route-investigate-indicator-dialog.component";
+import {RouteInvestigateIndicatorComponent} from "./pages/network/routes/indicators/route-investigate-indicator.component";
+import {RouteConnectionIndicatorComponent} from "./pages/network/routes/indicators/route-connection-indicator.component";
+import {RouteConnectionIndicatorDialogComponent} from "./pages/network/routes/indicators/route-connection-indicator-dialog.component";
+import {RouteAccessibleIndicatorDialogComponent} from "./pages/network/routes/indicators/route-accessible-indicator-dialog.component";
+import {RouteAccessibleIndicatorComponent} from "./pages/network/routes/indicators/route-accessible-indicator.component";
 
 @NgModule({
   imports: [
@@ -214,6 +222,14 @@ import {NetworkSummaryComponent} from "./pages/network/details/network-summary.c
     NetworkNodeAnalysisComponent,
     NetworkNodeRoutesComponent,
     NetworkRoutesPageComponent,
+    NetworkRouteTableComponent,
+    NetworkRouteAnalysisComponent,
+    RouteAccessibleIndicatorComponent,
+    RouteAccessibleIndicatorDialogComponent,
+    RouteConnectionIndicatorComponent,
+    RouteConnectionIndicatorDialogComponent,
+    RouteInvestigateIndicatorComponent,
+    RouteInvestigateIndicatorDialogComponent,
     NodeDetailsPageComponent,
     NodeChangeComponent,
     NodeChangeDetailComponent,
@@ -351,7 +367,10 @@ import {NetworkSummaryComponent} from "./pages/network/details/network-summary.c
     IntegrityIndicatorDialogComponent,
     NetworkIndicatorDialogComponent,
     RoleConnectionIndicatorDialogComponent,
-    RouteIndicatorDialogComponent
+    RouteIndicatorDialogComponent,
+    RouteAccessibleIndicatorDialogComponent,
+    RouteConnectionIndicatorDialogComponent,
+    RouteInvestigateIndicatorDialogComponent
   ],
   providers: [
     OverviewService

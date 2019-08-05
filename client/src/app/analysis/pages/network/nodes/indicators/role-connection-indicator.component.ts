@@ -12,8 +12,7 @@ import {NetworkNodeInfo2} from "../../../../../kpn/shared/network/network-node-i
       [color]="color" 
       (openDialog)="onOpenDialog()">
     </kpn-indicator>
-  `,
-  styles: []
+  `
 })
 export class RoleConnectionIndicatorComponent {
 

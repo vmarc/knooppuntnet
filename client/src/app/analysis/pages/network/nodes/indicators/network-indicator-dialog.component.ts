@@ -50,8 +50,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
       </div>
 
     </kpn-indicator-dialog>
-  `,
-  styles: []
+  `
 })
 export class NetworkIndicatorDialogComponent {
 

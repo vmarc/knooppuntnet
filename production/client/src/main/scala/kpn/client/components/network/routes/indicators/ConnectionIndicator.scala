@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: route-connection-indicator.component.ts
 package kpn.client.components.network.routes.indicators
 
 import japgolly.scalajs.react.vdom.VdomElement
