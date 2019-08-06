@@ -13,10 +13,8 @@ import kpn.client.components.network.routes.UiNetworkRoutes.Styles
 import kpn.client.components.network.routes.indicators.AccessibleIndicator
 import kpn.client.components.network.routes.indicators.ConnectionIndicator
 import kpn.client.components.network.routes.indicators.InvestigateIndicator
-import kpn.shared.Fact
 import kpn.shared.NetworkType
-import kpn.shared.network.NetworkRouteInfo
-
+import kpn.shared.network.NetworkRouteRow
 import scalacss.ScalaCssReact._
 
 object UiNetworkRouteRow {
@@ -27,7 +25,7 @@ object UiNetworkRouteRow {
     pageWidth: PageWidth.Value,
     number: Int,
     networkType: NetworkType,
-    route: NetworkRouteInfo
+    route: NetworkRouteRow
   )
 
   private val component = ScalaComponent.builder[Props]("route-row")
@@ -37,11 +35,11 @@ object UiNetworkRouteRow {
     }
     .build
 
-  def apply(pageWidth: PageWidth.Value, number: Int, networkType: NetworkType, route: NetworkRouteInfo)(implicit context: Context): VdomElement = {
+  def apply(pageWidth: PageWidth.Value, number: Int, networkType: NetworkType, route: NetworkRouteRow)(implicit context: Context): VdomElement = {
     component(Props(route.id.toString, context, pageWidth, number, networkType, route))
   }
 
-  private class Renderer(number: Int, networkType: NetworkType, route: NetworkRouteInfo)(implicit context: Context) {
+  private class Renderer(number: Int, networkType: NetworkType, route: NetworkRouteRow)(implicit context: Context) {
 
     def render(): VdomElement = {
       <.div(
@@ -67,9 +65,9 @@ object UiNetworkRouteRow {
     private def analysis: VdomElement = {
       <.div(
         Styles.analysisValue,
-        InvestigateIndicator(route.facts.contains(Fact.RouteBroken)),
-        AccessibleIndicator(networkType, !route.facts.contains(Fact.RouteUnaccessible)),
-        ConnectionIndicator(route.role.contains("connection"))
+        InvestigateIndicator(route.investigate),
+        AccessibleIndicator(networkType, route.accessible),
+        ConnectionIndicator(route.roleConnection)
       )
     }
 

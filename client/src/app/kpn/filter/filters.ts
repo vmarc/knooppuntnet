@@ -1,0 +1,25 @@
+import {Filter} from "./filter";
+import {List} from "immutable";
+
+export class Filters<T> {
+
+  constructor(readonly filters: List<Filter<T>>) {
+  }
+
+  passes(element: T): boolean {
+    return this.passesAll(element, this.filters);
+  }
+
+  filterExcept(elements: List<T>, filter: Filter<T>): List<T> {
+    return this.filtered(elements, this.filters.filterNot(f => f.name === filter.name));
+  }
+
+  private filtered(elements: List<T>, filterCollection: List<Filter<T>>): List<T> {
+    return elements.filter(element => this.passesAll(element, filterCollection));
+  }
+
+  private passesAll(element: T, filterCollection: List<Filter<T>>): boolean {
+    return filterCollection.findIndex(f => !f.passes(element)) < 0;
+  }
+
+}

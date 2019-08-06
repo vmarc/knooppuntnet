@@ -133,8 +133,8 @@ object UiNetworkRoutesPage {
   private class Renderer(
     props: NetworkRoutesProps,
     state: State,
-    updateCriteria: (NetworkRouteFilterCriteria) => Unit,
-    pageIndexChanged: (Int) => Unit)
+    updateCriteria: NetworkRouteFilterCriteria => Unit,
+    pageIndexChanged: Int => Unit)
     extends NetworkPageRenderer(UiNetworkMenu.routes, state.pageState.ui.status, props.networkName, props.networkSummary)(props) {
 
     private val routes = state.pageState.response.toSeq.flatMap(_.result.map(_.routes)).flatten

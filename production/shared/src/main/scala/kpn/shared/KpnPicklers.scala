@@ -68,6 +68,7 @@ import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
 import kpn.shared.network.NetworkRouteInfo
+import kpn.shared.network.NetworkRouteRow
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.network.NetworkShape
 import kpn.shared.network.NetworkSummary
@@ -246,6 +247,7 @@ object KpnPicklers {
   implicit val subsetFactsPagePickler: Pickler[SubsetFactsPage] = PicklerGenerator.generatePickler[SubsetFactsPage]
   implicit val subsetFactsPageNewPickler: Pickler[SubsetFactsPageNew] = PicklerGenerator.generatePickler[SubsetFactsPageNew]
   implicit val subsetChangesPagePickler: Pickler[SubsetChangesPage] = PicklerGenerator.generatePickler[SubsetChangesPage]
+  implicit val networkRouteRowPickler: Pickler[NetworkRouteRow] = PicklerGenerator.generatePickler[NetworkRouteRow]
   implicit val networkRoutesPagePickler: Pickler[NetworkRoutesPage] = PicklerGenerator.generatePickler[NetworkRoutesPage]
   implicit val networkNodesPagePickler: Pickler[NetworkNodesPage] = PicklerGenerator.generatePickler[NetworkNodesPage]
   implicit val networkDetailsPagePickler: Pickler[NetworkDetailsPage] = PicklerGenerator.generatePickler[NetworkDetailsPage]

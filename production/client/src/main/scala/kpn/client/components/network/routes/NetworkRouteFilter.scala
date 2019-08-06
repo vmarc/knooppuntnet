@@ -5,19 +5,17 @@ import japgolly.scalajs.react.CallbackTo
 import kpn.client.filter.BooleanFilter
 import kpn.client.filter.FilterOptions
 import kpn.client.filter.Filters
-import kpn.client.filter.StringFilter
 import kpn.client.filter.TimeFilterKind
 import kpn.client.filter.TimestampFilter
-import kpn.shared.Fact
 import kpn.shared.TimeInfo
-import kpn.shared.network.NetworkRouteInfo
+import kpn.shared.network.NetworkRouteRow
 
-class NetworkRouteFilter(timeInfo: TimeInfo, criteria: NetworkRouteFilterCriteria, updateCriteria: (NetworkRouteFilterCriteria) => Unit) {
+class NetworkRouteFilter(timeInfo: TimeInfo, criteria: NetworkRouteFilterCriteria, updateCriteria: NetworkRouteFilterCriteria => Unit) {
 
-  private val investigateFilter = new BooleanFilter[NetworkRouteInfo](
+  private val investigateFilter = new BooleanFilter[NetworkRouteRow](
     "investigate",
     criteria.investigate,
-    _.facts.contains(Fact.RouteBroken),
+    _.investigate,
     CallbackTo {
       updateCriteria(criteria.copy(investigate = None))
     },
@@ -29,33 +27,37 @@ class NetworkRouteFilter(timeInfo: TimeInfo, criteria: NetworkRouteFilterCriteri
     }
   )
 
-  private val unaccessibleFilter = new BooleanFilter[NetworkRouteInfo](
-    "unaccessible",
-    criteria.unaccessible,
-    _.facts.contains(Fact.RouteUnaccessible),
+  private val accessibleFilter = new BooleanFilter[NetworkRouteRow](
+    "accessible",
+    criteria.accessible,
+    _.accessible,
     CallbackTo {
-      updateCriteria(criteria.copy(unaccessible = None))
+      updateCriteria(criteria.copy(accessible = None))
     },
     CallbackTo {
-      updateCriteria(criteria.copy(unaccessible = Some(true)))
+      updateCriteria(criteria.copy(accessible = Some(true)))
     },
     CallbackTo {
-      updateCriteria(criteria.copy(unaccessible = Some(false)))
+      updateCriteria(criteria.copy(accessible = Some(false)))
     }
   )
 
-  private def updateRoleCriteria(strings: Seq[String]): Unit = {
-    updateCriteria(criteria.copy(role = strings))
-  }
-
-  private val roleFilter = new StringFilter[NetworkRouteInfo](
-    "role",
-    criteria.role,
-    (r) => r.role,
-    updateRoleCriteria
+  private val roleConnectionFilter = new BooleanFilter[NetworkRouteRow](
+    "roleConnection",
+    criteria.roleConnection,
+    _.roleConnection,
+    CallbackTo {
+      updateCriteria(criteria.copy(roleConnection = None))
+    },
+    CallbackTo {
+      updateCriteria(criteria.copy(roleConnection = Some(true)))
+    },
+    CallbackTo {
+      updateCriteria(criteria.copy(roleConnection = Some(false)))
+    }
   )
 
-  private val lastUpdatedFilter = new TimestampFilter[NetworkRouteInfo](
+  private val lastUpdatedFilter = new TimestampFilter[NetworkRouteRow](
     criteria.lastUpdated,
     _.relationLastUpdated,
     timeInfo,
@@ -76,32 +78,31 @@ class NetworkRouteFilter(timeInfo: TimeInfo, criteria: NetworkRouteFilterCriteri
     }
   )
 
-  private val allFilters = new Filters[NetworkRouteInfo](
+  private val allFilters = new Filters[NetworkRouteRow](
     investigateFilter,
-    unaccessibleFilter,
-    roleFilter,
+    accessibleFilter,
+    roleConnectionFilter,
     lastUpdatedFilter
   )
 
-  def filter(nodes: Seq[NetworkRouteInfo]): Seq[NetworkRouteInfo] = {
+  def filter(nodes: Seq[NetworkRouteRow]): Seq[NetworkRouteRow] = {
     nodes.filter(allFilters.passes)
   }
 
-  def filterOptions(routes: Seq[NetworkRouteInfo]): FilterOptions = {
+  def filterOptions(routes: Seq[NetworkRouteRow]): FilterOptions = {
 
     val totalCount = routes.size
     val filteredCount = routes.count(allFilters.passes)
 
     val investigate = investigateFilter.filterOptions(allFilters, routes)
-    val unaccessible = unaccessibleFilter.filterOptions(allFilters, routes)
-    val role = roleFilter.filterOptions(allFilters, routes)
-
+    val accessible = accessibleFilter.filterOptions(allFilters, routes)
+    val roleConnection = roleConnectionFilter.filterOptions(allFilters, routes)
     val lastUpdated = lastUpdatedFilter.filterOptions(allFilters, routes)
 
     val groups = Seq(
       investigate,
-      unaccessible,
-      role,
+      accessible,
+      roleConnection,
       lastUpdated
     ).flatten
 

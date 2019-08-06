@@ -1,23 +1,23 @@
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material";
-import {NetworkRouteInfo} from "../../../../../kpn/shared/network/network-route-info";
 import {RouteConnectionIndicatorDialogComponent} from "./route-connection-indicator-dialog.component";
+import {NetworkRouteRow} from "../../../../../kpn/shared/network/network-route-row";
 
 @Component({
   selector: "kpn-route-connection-indicator",
   template: `
     <!--@@ letter V -->
     <kpn-indicator
-      letter="C"
-      i18n-letter="@@route-connection-indicator.letter"
-      [color]="color"
-      (openDialog)="onOpenDialog()">
+        letter="C"
+        i18n-letter="@@route-connection-indicator.letter"
+        [color]="color"
+        (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `
 })
 export class RouteConnectionIndicatorComponent {
 
-  @Input() route: NetworkRouteInfo;
+  @Input() route: NetworkRouteRow;
 
   constructor(private dialog: MatDialog) {
   }
@@ -27,11 +27,7 @@ export class RouteConnectionIndicatorComponent {
   }
 
   get color() {
-    return this.isConnection() ? "blue" : "gray";
-  }
-
-  private isConnection(): boolean {
-    return this.route.role && this.route.role === "connection"
+    return this.route.roleConnection ? "blue" : "gray";
   }
 
 }

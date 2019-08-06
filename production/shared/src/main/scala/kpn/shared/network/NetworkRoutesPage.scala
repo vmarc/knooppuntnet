@@ -7,5 +7,5 @@ case class NetworkRoutesPage(
   timeInfo: TimeInfo,
   networkType: NetworkType,
   networkSummary: NetworkSummary,
-  routes: Seq[NetworkRouteInfo]
+  routes: Seq[NetworkRouteRow]
 )

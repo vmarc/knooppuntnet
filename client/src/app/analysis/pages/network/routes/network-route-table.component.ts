@@ -3,11 +3,19 @@ import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
 import {PageWidthService} from "../../../../components/shared/page-width.service";
 import {NetworkType} from "../../../../kpn/shared/network-type";
-import {NetworkRouteInfo} from "../../../../kpn/shared/network/network-route-info";
+import {BehaviorSubject} from "rxjs";
+import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
+import {TimeInfo} from "../../../../kpn/shared/time-info";
+import {NetworkRouteFilter} from "./network-route-filter";
+import {NetworkRouteRow} from "../../../../kpn/shared/network/network-route-row";
+import {FilterOptions} from "../../../../kpn/filter/filter-options";
 
 @Component({
   selector: "kpn-network-route-table",
   template: `
+
+    <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
+
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="routes?.size" showFirstLastButtons></mat-paginator>
     <mat-divider></mat-divider>
 
@@ -15,7 +23,7 @@ import {NetworkRouteInfo} from "../../../../kpn/shared/network/network-route-inf
 
       <ng-container matColumnDef="nr">
         <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let route">{{route.id}}</mat-cell>
+        <mat-cell *matCellDef="let route; let i = index">{{i + 1}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -82,18 +90,27 @@ import {NetworkRouteInfo} from "../../../../kpn/shared/network/network-route-inf
 export class NetworkRouteTableComponent implements OnInit {
 
   @Input() networkType: NetworkType;
-  @Input() routes: List<NetworkRouteInfo> = List();
+  @Input() routes: List<NetworkRouteRow>;
 
-  dataSource: MatTableDataSource<NetworkRouteInfo>;
+  dataSource: MatTableDataSource<NetworkRouteRow>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  private readonly filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(new NetworkRouteFilterCriteria());
+  filterOptions: FilterOptions = FilterOptions.empty();
 
   constructor(private pageWidthService: PageWidthService) {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.routes.toArray());
+    this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
+    this.filterCriteria.subscribe(criteria => {
+      const timeInfo: TimeInfo = null;
+      const filter = new NetworkRouteFilter(timeInfo, criteria, this.filterCriteria);
+      this.dataSource.data = filter.filter(this.routes).toArray();
+      this.filterOptions = filter.filterOptions(this.routes);
+    });
   }
 
   get displayedColumns() {

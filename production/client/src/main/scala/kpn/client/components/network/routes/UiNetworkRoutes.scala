@@ -13,7 +13,7 @@ import kpn.client.components.common.PageWidth
 import kpn.client.components.common.UiItems
 import kpn.shared.NetworkType
 import kpn.shared.network.NetworkRouteInfo
-
+import kpn.shared.network.NetworkRouteRow
 import scalacss.ScalaCssReact._
 
 object UiNetworkRoutes {
@@ -166,7 +166,7 @@ object UiNetworkRoutes {
     )
   }
 
-  private case class Props(context: Context, pageWidth: PageWidth.Value, networkType: NetworkType, routes: Seq[NetworkRouteInfo], startIndex: Int)
+  private case class Props(context: Context, pageWidth: PageWidth.Value, networkType: NetworkType, routes: Seq[NetworkRouteRow], startIndex: Int)
 
   private case class State(rowCount: Int = 10)
 
@@ -179,10 +179,10 @@ object UiNetworkRoutes {
     }
     .build
 
-  def apply(pageWidth: PageWidth.Value, networkType: NetworkType, routes: Seq[NetworkRouteInfo], startIndex: Int)(implicit context: Context): VdomElement =
+  def apply(pageWidth: PageWidth.Value, networkType: NetworkType, routes: Seq[NetworkRouteRow], startIndex: Int)(implicit context: Context): VdomElement =
     component(Props(context, pageWidth, networkType, routes, startIndex))
 
-  private class Renderer(pageWidth: PageWidth.Value, networkType: NetworkType, routes: Seq[NetworkRouteInfo], startIndex: Int, rowCount: Int)(implicit
+  private class Renderer(pageWidth: PageWidth.Value, networkType: NetworkType, routes: Seq[NetworkRouteRow], startIndex: Int, rowCount: Int)(implicit
     context:
     Context) {
 

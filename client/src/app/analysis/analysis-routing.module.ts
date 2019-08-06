@@ -27,118 +27,373 @@ import {SubsetFactsPageComponent} from "./pages/subset/facts/_subset-facts-page.
 import {SubsetNetworksPageComponent} from "./pages/subset/networks/_subset-networks-page.component";
 import {SubsetOrphanNodesPageComponent} from "./pages/subset/orphan-nodes/_subset-orphan-nodes-page.component";
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset/orphan-routes/_subset-orphan-routes-page.component";
+import {NetworkRoutesSidebarComponent} from "./pages/network/routes/network-routes-sidebar.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: AnalysisSidebarComponent,
-    outlet: "sidebar"
-  },
-  {
-    path: "",
-    component: AnalysisPageComponent
+    children: [
+      {
+        path: "",
+        component: AnalysisPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "nl",
-    component: AnalysisNlPageComponent
+    children: [
+      {
+        path: "",
+        component: AnalysisNlPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "be",
-    component: AnalysisBePageComponent
+    children: [
+      {
+        path: "",
+        component: AnalysisBePageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "de",
-    component: AnalysisDePageComponent
+    children: [
+      {
+        path: "",
+        component: AnalysisDePageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "changeset/:changeSetId/:replicationNumber",
-    component: ChangeSetPageComponent
+    children: [
+      {
+        path: "",
+        component: ChangeSetPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "changes",
-    component: ChangesPageComponent
+    children: [
+      {
+        path: "",
+        component: ChangesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "network-changes/:networkId",
-    component: NetworkChangesPageComponent
+    children: [
+      {
+        path: "",
+        component: NetworkChangesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "network-details/:networkId",
-    component: NetworkDetailsPageComponent
+    children: [
+      {
+        path: "",
+        component: NetworkDetailsPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "network-facts/:networkId",
-    component: NetworkFactsPageComponent
+    children: [
+      {
+        path: "",
+        component: NetworkFactsPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "network-map/:networkId",
-    component: NetworkMapPageComponent
+    children: [
+      {
+        path: "",
+        component: NetworkMapPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "network-nodes/:networkId",
-    component: NetworkNodesPageComponent
+    children: [
+      {
+        path: "",
+        component: NetworkNodesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "network-routes/:networkId",
-    component: NetworkRoutesPageComponent
+    children: [
+      {
+        path: "",
+        component: NetworkRoutesPageComponent
+      },
+      {
+        path: "",
+        component: NetworkRoutesSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "node/:nodeId",
-    component: NodeDetailsPageComponent
+    children: [
+      {
+        path: "",
+        component: NodeDetailsPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "node/:nodeId/map",
-    component: NodeMapPageComponent
+    children: [
+      {
+        path: "",
+        component: NodeMapPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "node/:nodeId/changes",
-    component: NodeChangesPageComponent
+    children: [
+      {
+        path: "",
+        component: NodeChangesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "overview",
-    component: OverviewPageComponent
+    children: [
+      {
+        path: "",
+        component: OverviewPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "route/:routeId",
-    component: RoutePageComponent
+    children: [
+      {
+        path: "",
+        component: RoutePageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "route/:routeId/map",
-    component: RouteMapPageComponent
+    children: [
+      {
+        path: "",
+        component: RouteMapPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "route/:routeId/changes",
-    component: RouteChangesPageComponent
+    children: [
+      {
+        path: "",
+        component: RouteChangesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: ":country/:networkType/changes",
-    component: SubsetChangesPageComponent
+    children: [
+      {
+        path: "",
+        component: SubsetChangesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: ":country/:networkType/facts",
-    component: SubsetFactsPageComponent
+    children: [
+      {
+        path: "",
+        component: SubsetFactsPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: ":country/:networkType/networks",
-    component: SubsetNetworksPageComponent
+    children: [
+      {
+        path: "",
+        component: SubsetNetworksPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: ":country/:networkType/orphan-nodes",
-    component: SubsetOrphanNodesPageComponent
+    children: [
+      {
+        path: "",
+        component: SubsetOrphanNodesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: ":country/:networkType/orphan-routes",
-    component: SubsetOrphanRoutesPageComponent
+    children: [
+      {
+        path: "",
+        component: SubsetOrphanRoutesPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: ":country/:networkType/:fact",
-    component: SubsetFactDetailsPageComponent
+    children: [
+      {
+        path: "",
+        component: SubsetFactDetailsPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   },
   {
     path: "facts",
-    component: FactsPageComponent
+    children: [
+      {
+        path: "",
+        component: FactsPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
   }
-
 ];
 
 @NgModule({

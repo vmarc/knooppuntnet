@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatRadioModule, MatSortModule, MatTableModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
@@ -175,6 +175,12 @@ import {RouteConnectionIndicatorComponent} from "./pages/network/routes/indicato
 import {RouteConnectionIndicatorDialogComponent} from "./pages/network/routes/indicators/route-connection-indicator-dialog.component";
 import {RouteAccessibleIndicatorDialogComponent} from "./pages/network/routes/indicators/route-accessible-indicator-dialog.component";
 import {RouteAccessibleIndicatorComponent} from "./pages/network/routes/indicators/route-accessible-indicator.component";
+import {FilterComponent} from "./components/filter/filter.component";
+import {FilterCheckboxComponent} from "./components/filter/filter-checkbox.component";
+import {FilterCheckboxGroupComponent} from "./components/filter/filter-checkbox-group.component";
+import {FilterRadioGroupComponent} from "./components/filter/filter-radio-group.component";
+import {FilterTitleComponent} from "./components/filter/filter-title.component";
+import {NetworkRoutesSidebarComponent} from "./pages/network/routes/network-routes-sidebar.component";
 
 @NgModule({
   imports: [
@@ -190,7 +196,8 @@ import {RouteAccessibleIndicatorComponent} from "./pages/network/routes/indicato
     SharedModule,
     OlModule,
     AnalysisRoutingModule,
-    SpinnerModule
+    SpinnerModule,
+    MatRadioModule
   ],
   declarations: [
     AnalysisSidebarComponent,
@@ -222,6 +229,7 @@ import {RouteAccessibleIndicatorComponent} from "./pages/network/routes/indicato
     NetworkNodeAnalysisComponent,
     NetworkNodeRoutesComponent,
     NetworkRoutesPageComponent,
+    NetworkRoutesSidebarComponent,
     NetworkRouteTableComponent,
     NetworkRouteAnalysisComponent,
     RouteAccessibleIndicatorComponent,
@@ -360,7 +368,12 @@ import {RouteAccessibleIndicatorComponent} from "./pages/network/routes/indicato
     TagDiffsTextComponent,
     TagDiffActionComponent,
     FactDiffsComponent,
-    FactCommaListComponent
+    FactCommaListComponent,
+    FilterComponent,
+    FilterCheckboxComponent,
+    FilterCheckboxGroupComponent,
+    FilterRadioGroupComponent,
+    FilterTitleComponent
   ],
   entryComponents: [
     NodeConnectionIndicatorDialogComponent,
