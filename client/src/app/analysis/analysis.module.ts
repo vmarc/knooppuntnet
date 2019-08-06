@@ -181,6 +181,7 @@ import {FilterCheckboxGroupComponent} from "./components/filter/filter-checkbox-
 import {FilterRadioGroupComponent} from "./components/filter/filter-radio-group.component";
 import {FilterTitleComponent} from "./components/filter/filter-title.component";
 import {NetworkRoutesSidebarComponent} from "./pages/network/routes/network-routes-sidebar.component";
+import {NetworkRoutesService} from "./pages/network/routes/network-routes.service";
 
 @NgModule({
   imports: [
@@ -386,7 +387,8 @@ import {NetworkRoutesSidebarComponent} from "./pages/network/routes/network-rout
     RouteInvestigateIndicatorDialogComponent
   ],
   providers: [
-    OverviewService
+    OverviewService,
+    NetworkRoutesService
   ]
 })
 export class AnalysisModule {

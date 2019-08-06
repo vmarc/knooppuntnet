@@ -8,13 +8,11 @@ import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
 import {TimeInfo} from "../../../../kpn/shared/time-info";
 import {NetworkRouteFilter} from "./network-route-filter";
 import {NetworkRouteRow} from "../../../../kpn/shared/network/network-route-row";
-import {FilterOptions} from "../../../../kpn/filter/filter-options";
+import {NetworkRoutesService} from "./network-routes.service";
 
 @Component({
   selector: "kpn-network-route-table",
   template: `
-
-    <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="routes?.size" showFirstLastButtons></mat-paginator>
     <mat-divider></mat-divider>
@@ -97,9 +95,9 @@ export class NetworkRouteTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private readonly filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(new NetworkRouteFilterCriteria());
-  filterOptions: FilterOptions = FilterOptions.empty();
 
-  constructor(private pageWidthService: PageWidthService) {
+  constructor(private pageWidthService: PageWidthService,
+              private networkRoutesService: NetworkRoutesService) {
   }
 
   ngOnInit() {
@@ -109,7 +107,7 @@ export class NetworkRouteTableComponent implements OnInit {
       const timeInfo: TimeInfo = null;
       const filter = new NetworkRouteFilter(timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.routes).toArray();
-      this.filterOptions = filter.filterOptions(this.routes);
+      this.networkRoutesService.filterOptions.next(filter.filterOptions(this.routes));
     });
   }
 

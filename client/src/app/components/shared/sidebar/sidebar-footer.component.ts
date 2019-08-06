@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 @Component({
   selector: "kpn-sidebar-footer",
   template: `
-    <kpn-sidebar-version-warning></kpn-sidebar-version-warning>
     <div class="footer">
       <p>
         <a [href]="link('en')">English</a>
