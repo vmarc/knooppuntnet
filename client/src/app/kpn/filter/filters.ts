@@ -3,7 +3,10 @@ import {List} from "immutable";
 
 export class Filters<T> {
 
-  constructor(readonly filters: List<Filter<T>>) {
+  readonly filters: List<Filter<T>>;
+
+  constructor(...filters: Filter<T>[]) {
+    this.filters = List(filters)
   }
 
   passes(element: T): boolean {

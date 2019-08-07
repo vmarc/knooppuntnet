@@ -9,36 +9,36 @@ import {BehaviorSubject} from "rxjs";
 
 export class NetworkRouteFilter {
 
-  constructor(readonly timeInfo: TimeInfo,
-              readonly criteria: NetworkRouteFilterCriteria,
-              readonly filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria>) {
+  constructor(private timeInfo: TimeInfo,
+              private criteria: NetworkRouteFilterCriteria,
+              private filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria>) {
   }
 
-  private investigateFilter: BooleanFilter<NetworkRouteRow> = new BooleanFilter<NetworkRouteRow>(
+  private investigateFilter = new BooleanFilter<NetworkRouteRow>(
     "investigate",
     this.criteria.investigate,
     (row) => row.investigate,
-    () => this.filterCriteria.next({...this.criteria, investigate: null}),
-    () => this.filterCriteria.next({...this.criteria, investigate: true}),
-    () => this.filterCriteria.next({...this.criteria, investigate: false})
+    this.update({...this.criteria, investigate: null}),
+    this.update({...this.criteria, investigate: true}),
+    this.update({...this.criteria, investigate: false})
   );
 
-  private accessibleFilter: BooleanFilter<NetworkRouteRow> = new BooleanFilter<NetworkRouteRow>(
+  private accessibleFilter = new BooleanFilter<NetworkRouteRow>(
     "accessible",
     this.criteria.accessible,
     (row) => row.accessible,
-    () => this.filterCriteria.next({...this.criteria, accessible: null}),
-    () => this.filterCriteria.next({...this.criteria, accessible: true}),
-    () => this.filterCriteria.next({...this.criteria, accessible: false})
+    this.update({...this.criteria, accessible: null}),
+    this.update({...this.criteria, accessible: true}),
+    this.update({...this.criteria, accessible: false})
   );
 
-  private roleConnectionFilter: BooleanFilter<NetworkRouteRow> = new BooleanFilter<NetworkRouteRow>(
+  private roleConnectionFilter = new BooleanFilter<NetworkRouteRow>(
     "roleConnection",
     this.criteria.roleConnection,
     (row) => row.roleConnection,
-    () => this.filterCriteria.next({...this.criteria, roleConnection: null}),
-    () => this.filterCriteria.next({...this.criteria, roleConnection: true}),
-    () => this.filterCriteria.next({...this.criteria, roleConnection: false})
+    this.update({...this.criteria, roleConnection: null}),
+    this.update({...this.criteria, roleConnection: true}),
+    this.update({...this.criteria, roleConnection: false})
   );
 
   // private lastUpdatedFilter: Filter<NetworkRouteRow> = null; //  = new TimestampFilter<NetworkRouteRow>();
@@ -63,12 +63,10 @@ export class NetworkRouteFilter {
   // )
 
   private allFilters = new Filters<NetworkRouteRow>(
-    List([
-      this.investigateFilter,
-      this.accessibleFilter,
-      this.roleConnectionFilter
-      // this.lastUpdatedFilter
-    ])
+    this.investigateFilter,
+    this.accessibleFilter,
+    this.roleConnectionFilter
+    // this.lastUpdatedFilter
   );
 
   filter(routes: List<NetworkRouteRow>): List<NetworkRouteRow> {
@@ -78,7 +76,7 @@ export class NetworkRouteFilter {
   filterOptions(routes: List<NetworkRouteRow>): FilterOptions {
 
     const totalCount = routes.size;
-    const filteredCount = routes.count(r => this.allFilters.passes(r));
+    const filteredCount = routes.count(route => this.allFilters.passes(route));
 
     const investigate = this.investigateFilter.filterOptions(this.allFilters, routes);
     const accessible = this.accessibleFilter.filterOptions(this.allFilters, routes);
@@ -97,4 +95,9 @@ export class NetworkRouteFilter {
       totalCount,
       groups);
   }
+
+  private update(criteria: NetworkRouteFilterCriteria) {
+    return () => this.filterCriteria.next(criteria);
+  }
+
 }

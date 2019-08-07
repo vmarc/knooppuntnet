@@ -5716,6 +5716,318 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="network-routes.table.nr" datatype="html">
+        <source>Nr</source>
+        <target state="new">[Nr]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.analysis" datatype="html">
+        <source>Analysis</source>
+        <target state="new">[Analysis]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.node" datatype="html">
+        <source>Route</source>
+        <target state="new">[Route]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.last-edit" datatype="html">
+        <source>Last edit</source>
+        <target state="new">[Last edit]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.gray.title" datatype="html">
+        <source>
+        OK - Accessibility unknown
+      </source>
+        <target state="new">[
+        OK - Accessibility unknown
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.gray.text" datatype="html">
+        <source>
+        Accessibility information is unknown for this type of route.
+      </source>
+        <target state="new">[
+        Accessibility information is unknown for this type of route.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.green.title" datatype="html">
+        <source>
+        OK - Accessible        
+      </source>
+        <target state="new">[
+        OK - Accessible        
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.green.text.cycling" datatype="html">
+        <source>
+        This route is completely accessible for bicycle.
+      </source>
+        <target state="new">[
+        This route is completely accessible for bicycle.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.green.text.hiking" datatype="html">
+        <source>
+        This route is completely accessible for hiking.
+      </source>
+        <target state="new">[
+        This route is completely accessible for hiking.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.green.text.motorboat" datatype="html">
+        <source>
+        This route is completely accessible for motorboat.
+      </source>
+        <target state="new">[
+        This route is completely accessible for motorboat.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.green.text.canoe" datatype="html">
+        <source>
+        This route is completely accessible for canoe.
+      </source>
+        <target state="new">[
+        This route is completely accessible for canoe.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.red.title" datatype="html">
+        <source>
+        NOK - Not Accessible        
+      </source>
+        <target state="new">[
+        NOK - Not Accessible        
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.red.text.cycling" datatype="html">
+        <source>
+        This route is not completely accessible for bicycle.
+      </source>
+        <target state="new">[
+        This route is not completely accessible for bicycle.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.red.text.hiking" datatype="html">
+        <source>
+        This route is not completely accessible for hiking.
+      </source>
+        <target state="new">[
+        This route is not completely accessible for hiking.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.red.text.motorboat" datatype="html">
+        <source>
+        This route is not completely accessible for motorboat.
+      </source>
+        <target state="new">[
+        This route is not completely accessible for motorboat.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.red.text.canoe" datatype="html">
+        <source>
+        This route is not completely accessible for canoe.
+      </source>
+        <target state="new">[
+        This route is not completely accessible for canoe.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-accessible-indicator.letter" datatype="html">
+        <source>A</source>
+        <target state="new">[A]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-connection-indicator.blue.title" datatype="html">
+        <source>
+        OK - Connection       
+      </source>
+        <target state="new">[
+        OK - Connection       
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-connection-indicator.blue.text" datatype="html">
+        <source>
+        This route is a connection to another network.
+      </source>
+        <target state="new">[
+        This route is a connection to another network.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-connection-indicator.gray.title" datatype="html">
+        <source>
+       OK - No connection
+      </source>
+        <target state="new">[
+       OK - No connection
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-connection-indicator.gray.text" datatype="html">
+        <source>
+        This route is not a connection to another network.
+      </source>
+        <target state="new">[
+        This route is not a connection to another network.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-connection.indicator.letter" datatype="html">
+        <source>C</source>
+        <target state="new">[C]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-connection-indicator.letter" datatype="html">
+        <source>C</source>
+        <target state="new">[C]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-connection-indicator.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-investigate-indicator.green.title" datatype="html">
+        <source>
+        OK - No facts       
+      </source>
+        <target state="new">[
+        OK - No facts       
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-investigate-indicator.green.text" datatype="html">
+        <source>
+        No issues found during route analysis.
+      </source>
+        <target state="new">[
+        No issues found during route analysis.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-investigate-indicator.red.title" datatype="html">
+        <source>
+        NOK - Investigate facts
+      </source>
+        <target state="new">[
+        NOK - Investigate facts
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-investigate-indicator.red.text" datatype="html">
+        <source>
+        Something is wrong with this route.
+      </source>
+        <target state="new">[
+        Something is wrong with this route.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-investigate-indicator.letter" datatype="html">
+        <source>F</source>
+        <target state="new">[F]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-investigate-indicator.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="network-details.summary" datatype="html">
         <source>Summary</source>
         <target>Samenvatting</target>
@@ -5796,6 +6108,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/routes/_network-routes-page.component.ts</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.no-routes" datatype="html">
+        <source>
+        No network routes in network
+      </source>
+        <target state="new">[
+        No network routes in network
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/routes/_network-routes-page.component.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.login-required" datatype="html">
