@@ -4,6 +4,11 @@ import {List} from "immutable";
 import {NetworkNodeInfo2} from "../../../../kpn/shared/network/network-node-info2";
 import {PageWidthService} from "../../../../components/shared/page-width.service";
 import {NetworkType} from "../../../../kpn/shared/network-type";
+import {BehaviorSubject} from "rxjs";
+import {NetworkNodesService} from "./network-nodes.service";
+import {TimeInfo} from "../../../../kpn/shared/time-info";
+import {NetworkNodeFilter} from "./network-node-filter";
+import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
 
 @Component({
   selector: "kpn-network-node-table",
@@ -99,12 +104,21 @@ export class NetworkNodeTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private pageWidthService: PageWidthService) {
+  private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> = new BehaviorSubject(new NetworkNodeFilterCriteria());
+
+  constructor(private pageWidthService: PageWidthService,
+              private networkNodesService: NetworkNodesService) {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.nodes.toArray());
+    this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
+    this.filterCriteria.subscribe(criteria => {
+      const timeInfo: TimeInfo = null;
+      const filter = new NetworkNodeFilter(timeInfo, criteria, this.filterCriteria);
+      this.dataSource.data = filter.filter(this.nodes).toArray();
+      this.networkNodesService.filterOptions.next(filter.filterOptions(this.nodes));
+    });
   }
 
   get displayedColumns() {

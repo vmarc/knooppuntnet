@@ -24,6 +24,7 @@ import {flatMap, map, tap} from "rxjs/operators";
       </div>
       <kpn-network-route-table
         *ngIf="!response.result.routes.isEmpty()"
+        [timeInfo]="response.result.timeInfo"
         [networkType]="response.result.networkType"
         [routes]="response.result.routes">
       </kpn-network-route-table>

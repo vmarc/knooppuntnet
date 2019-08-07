@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: filter-title.component.ts
 package kpn.client.components.filter
 
 import japgolly.scalajs.react._

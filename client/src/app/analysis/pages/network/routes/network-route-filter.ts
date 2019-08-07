@@ -6,6 +6,8 @@ import {Filters} from "../../../../kpn/filter/filters";
 import {List} from "immutable";
 import {FilterOptions} from "../../../../kpn/filter/filter-options";
 import {BehaviorSubject} from "rxjs";
+import {TimestampFilter} from "../../../../kpn/filter/timestamp-filter";
+import {TimestampFilterKind} from "../../../../kpn/filter/timestamp-filter-kind";
 
 export class NetworkRouteFilter {
 
@@ -14,7 +16,7 @@ export class NetworkRouteFilter {
               private filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria>) {
   }
 
-  private investigateFilter = new BooleanFilter<NetworkRouteRow>(
+  private readonly investigateFilter = new BooleanFilter<NetworkRouteRow>(
     "investigate",
     this.criteria.investigate,
     (row) => row.investigate,
@@ -23,7 +25,7 @@ export class NetworkRouteFilter {
     this.update({...this.criteria, investigate: false})
   );
 
-  private accessibleFilter = new BooleanFilter<NetworkRouteRow>(
+  private readonly accessibleFilter = new BooleanFilter<NetworkRouteRow>(
     "accessible",
     this.criteria.accessible,
     (row) => row.accessible,
@@ -32,7 +34,7 @@ export class NetworkRouteFilter {
     this.update({...this.criteria, accessible: false})
   );
 
-  private roleConnectionFilter = new BooleanFilter<NetworkRouteRow>(
+  private readonly roleConnectionFilter = new BooleanFilter<NetworkRouteRow>(
     "roleConnection",
     this.criteria.roleConnection,
     (row) => row.roleConnection,
@@ -41,32 +43,22 @@ export class NetworkRouteFilter {
     this.update({...this.criteria, roleConnection: false})
   );
 
-  // private lastUpdatedFilter: Filter<NetworkRouteRow> = null; //  = new TimestampFilter<NetworkRouteRow>();
-  //   criteria.lastUpdated,
-  //   _.relationLastUpdated,
-  //   timeInfo,
-  //   CallbackTo {
-  //   updateCriteria(criteria.copy(lastUpdated = TimeFilterKind.ALL))
-  // },
-  // CallbackTo {
-  //   updateCriteria(criteria.copy(lastUpdated = TimeFilterKind.LAST_WEEK))
-  // },
-  // CallbackTo {
-  //   updateCriteria(criteria.copy(lastUpdated = TimeFilterKind.LAST_MONTH))
-  // },
-  // CallbackTo {
-  //   updateCriteria(criteria.copy(lastUpdated = TimeFilterKind.LAST_YEAR))
-  // },
-  // CallbackTo {
-  //   updateCriteria(criteria.copy(lastUpdated = TimeFilterKind.OLDER))
-  // }
-  // )
+  private readonly lastUpdatedFilter = new TimestampFilter<NetworkRouteRow>(
+    this.criteria.relationLastUpdated,
+    (row) => row.relationLastUpdated,
+    this.timeInfo,
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.ALL}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.LAST_WEEK}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.LAST_MONTH}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.LAST_YEAR}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.OLDER})
+  );
 
-  private allFilters = new Filters<NetworkRouteRow>(
+  private readonly allFilters = new Filters<NetworkRouteRow>(
     this.investigateFilter,
     this.accessibleFilter,
-    this.roleConnectionFilter
-    // this.lastUpdatedFilter
+    this.roleConnectionFilter,
+    this.lastUpdatedFilter
   );
 
   filter(routes: List<NetworkRouteRow>): List<NetworkRouteRow> {
@@ -81,13 +73,13 @@ export class NetworkRouteFilter {
     const investigate = this.investigateFilter.filterOptions(this.allFilters, routes);
     const accessible = this.accessibleFilter.filterOptions(this.allFilters, routes);
     const roleConnection = this.roleConnectionFilter.filterOptions(this.allFilters, routes);
-    // const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);
+    const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);
 
     const groups = List([
       investigate,
       accessible,
-      roleConnection
-      // lastUpdated
+      roleConnection,
+      lastUpdated
     ]).filter(g => g !== null);
 
     return new FilterOptions(

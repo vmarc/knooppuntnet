@@ -22,6 +22,6 @@ class GraphRepositoryImpl(database: Database) extends GraphRepository {
     )
 
     val request = uri.withQuery(Query(parameters))
-    database.getRows(request.toString(), Couch.uiTimeout).map(GraphEdgesView.convert)
+    database.getRows(request.toString(), Couch.batchTimeout).map(GraphEdgesView.convert)
   }
 }

@@ -1,0 +1,91 @@
+.filter {
+  width: 200px; /* filterWidth =  UiPage.sideBarWidth - (2 * paddingHorizontal) */
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-left: 15px; /* paddingHorizontal.px */
+  padding-right: 15px; /* paddingHorizontal.px */
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: lightgray;
+}
+
+.row {
+  display: block;
+  padding-top: 5px;
+  min-height: 17px;
+  width: 210px; /* filterRowWidth.px */
+}
+
+.row i {
+  vertical-align: top;
+}
+
+.title {
+  display: inline-block;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.total {
+  display: inline-block;
+  padding-right: 10px;
+  font-weight: normal;
+  float: right;
+}
+
+.group-name {
+  padding-top: 15px;
+}
+
+.option-name {
+  padding-left: 5px;
+  flex: 1;
+  //display: inline-block;
+  //width: 140px; // filterOptionNameWidth.px
+  //max-width: 140px; // filterOptionNameWidth.px
+  word-wrap: break-word;
+}
+
+.option-count {
+  flex: 0;
+  //float: right;
+  //display: inline-block;
+}
+
+.count-links {
+  padding-right: 10px;
+  float: right;
+  display: inline-block;
+}
+
+.year {
+  display: inline-block;
+}
+
+.month {
+  display: inline-block;
+  padding-left: 20px;
+}
+
+.day {
+  display: inline-block;
+  padding-left: 40px;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px;
+}
+
+:host /deep/ .mat-radio-label {
+  display: flex;
+}
+
+:host /deep/ .mat-radio-label-content {
+  flex: 1;
+  display: flex;
+}

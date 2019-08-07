@@ -87,6 +87,7 @@ import {NetworkRoutesService} from "./network-routes.service";
 })
 export class NetworkRouteTableComponent implements OnInit {
 
+  @Input() timeInfo: TimeInfo;
   @Input() networkType: NetworkType;
   @Input() routes: List<NetworkRouteRow>;
 
@@ -104,8 +105,7 @@ export class NetworkRouteTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.filterCriteria.subscribe(criteria => {
-      const timeInfo: TimeInfo = null;
-      const filter = new NetworkRouteFilter(timeInfo, criteria, this.filterCriteria);
+      const filter = new NetworkRouteFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.routes).toArray();
       this.networkRoutesService.filterOptions.next(filter.filterOptions(this.routes));
     });

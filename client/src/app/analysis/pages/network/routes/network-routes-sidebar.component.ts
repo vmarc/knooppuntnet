@@ -8,7 +8,24 @@ import {Subscriptions} from "../../../../util/Subscriptions";
   template: `
     <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
     <kpn-sidebar-footer></kpn-sidebar-footer>
-  `
+  `,
+  styles: [`
+    
+    :host {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 48px);
+    }
+
+    kpn-filter {
+      flex: 1;
+    }
+
+    kpn-side-bar-footer {
+      flex: 0;
+    }
+    
+  `]
 })
 export class NetworkRoutesSidebarComponent implements OnInit, OnDestroy {
 

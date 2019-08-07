@@ -28,6 +28,7 @@ import {SubsetNetworksPageComponent} from "./pages/subset/networks/_subset-netwo
 import {SubsetOrphanNodesPageComponent} from "./pages/subset/orphan-nodes/_subset-orphan-nodes-page.component";
 import {SubsetOrphanRoutesPageComponent} from "./pages/subset/orphan-routes/_subset-orphan-routes-page.component";
 import {NetworkRoutesSidebarComponent} from "./pages/network/routes/network-routes-sidebar.component";
+import {NetworkNodesSidebarComponent} from "./pages/network/nodes/network-nodes-sidebar.component";
 
 const routes: Routes = [
   {
@@ -179,7 +180,7 @@ const routes: Routes = [
       },
       {
         path: "",
-        component: AnalysisSidebarComponent,
+        component: NetworkNodesSidebarComponent,
         outlet: "sidebar"
       }
     ]
