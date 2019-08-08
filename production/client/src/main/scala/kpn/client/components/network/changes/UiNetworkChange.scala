@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: network-change.component.ts
 package kpn.client.components.network.changes
 
 import japgolly.scalajs.react.ScalaComponent

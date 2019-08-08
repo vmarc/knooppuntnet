@@ -183,6 +183,7 @@ import {NetworkRoutesSidebarComponent} from "./pages/network/routes/network-rout
 import {NetworkRoutesService} from "./pages/network/routes/network-routes.service";
 import {NetworkNodesService} from "./pages/network/nodes/network-nodes.service";
 import {NetworkNodesSidebarComponent} from "./pages/network/nodes/network-nodes-sidebar.component";
+import {NetworkChangeComponent} from "./pages/network/changes/network-change.component";
 
 @NgModule({
   imports: [
@@ -376,7 +377,8 @@ import {NetworkNodesSidebarComponent} from "./pages/network/nodes/network-nodes-
     FilterComponent,
     FilterCheckboxGroupComponent,
     FilterRadioGroupComponent,
-    FilterTitleComponent
+    FilterTitleComponent,
+    NetworkChangeComponent
   ],
   entryComponents: [
     NodeConnectionIndicatorDialogComponent,

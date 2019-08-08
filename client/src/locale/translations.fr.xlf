@@ -2020,6 +2020,226 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="filter.title" datatype="html">
+        <source>
+        Filter  
+      </source>
+        <target state="new">[
+        Filter  
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/filter/filter-title.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-created" datatype="html">
+        <source>
+          Network created
+        </source>
+        <target state="new">[
+          Network created
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-deleted" datatype="html">
+        <source>
+          Network deleted
+        </source>
+        <target state="new">[
+          Network deleted
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-nodes.added" datatype="html">
+        <source>Added node(s)</source>
+        <target state="new">[Added node(s)]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.routes.added" datatype="html">
+        <source>Added route(s)</source>
+        <target state="new">[Added route(s)]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.nodes.added" datatype="html">
+        <source>
+          Added non-network node member(s) in network relation
+        </source>
+        <target state="new">[
+          Added non-network node member(s) in network relation
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.ways.added" datatype="html">
+        <source>
+          Added way member(s) in network relation
+        </source>
+        <target state="new">[
+          Added way member(s) in network relation
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.relations.added" datatype="html">
+        <source>
+          Added non-route relation(s) in network relation
+        </source>
+        <target state="new">[
+          Added non-route relation(s) in network relation
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-relation-updated" datatype="html">
+        <source>
+          Updated network relation
+        </source>
+        <target state="new">[
+          Updated network relation
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-nodes.updated" datatype="html">
+        <source>
+          Updated network node(s)
+        </source>
+        <target state="new">[
+          Updated network node(s)
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.routes.updated" datatype="html">
+        <source>
+          Updated route(s)
+        </source>
+        <target state="new">[
+          Updated route(s)
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.nodes.updated" datatype="html">
+        <source>
+          Updated non-network node(s)
+        </source>
+        <target state="new">[
+          Updated non-network node(s)
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.ways.updated" datatype="html">
+        <source>
+          Updated way member(s)
+        </source>
+        <target state="new">[
+          Updated way member(s)
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.relations.updated" datatype="html">
+        <source>
+          Updated non-route relation(s)
+        </source>
+        <target state="new">[
+          Updated non-route relation(s)
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-nodes.removed" datatype="html">
+        <source>
+          Removed network node(s)
+        </source>
+        <target state="new">[
+          Removed network node(s)
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.routes.removed" datatype="html">
+        <source>
+          Removed route(s)
+        </source>
+        <target state="new">[
+          Removed route(s)
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.nodes.removed" datatype="html">
+        <source>
+          Removed non-network node member(s) from network relation
+        </source>
+        <target state="new">[
+          Removed non-network node member(s) from network relation
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.ways.removed" datatype="html">
+        <source>
+          Removed way member(s) from network relation
+        </source>
+        <target state="new">[
+          Removed way member(s) from network relation
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.relations.removed" datatype="html">
+        <source>
+          Removed non-route relation(s) from network relation
+        </source>
+        <target state="new">[
+          Removed non-route relation(s) from network relation
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home.page-title" datatype="html">
         <source>Node networks</source>
         <target state="new">[

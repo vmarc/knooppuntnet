@@ -1173,8 +1173,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
-        <source> 
-        Unexpected - Defined in network relation        
+        <source>
+        Unexpected - Defined in network relation
       </source>
         <target>Overwacht - Opgenomen in netwerk relatie</target>
         <context-group purpose="location">
@@ -1249,7 +1249,7 @@
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
         <source>
-        NOK - Not defined in network relation        
+        NOK - Not defined in network relation
       </source>
         <target>NOK - Niet opgenomen in netwerk relatie</target>
         <context-group purpose="location">
@@ -1380,7 +1380,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.green.title" datatype="html">
         <source>
-        OK - expected route count       
+        OK - expected route count
       </source>
         <target>OK - verwacht aantal routes</target>
         <context-group purpose="location">
@@ -1407,7 +1407,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
         <source>
-        NOK - unexpected route count     
+        NOK - unexpected route count
       </source>
         <target>NOK - onverwacht aantal routes</target>
         <context-group purpose="location">
@@ -1445,7 +1445,7 @@
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection        
+        OK - Connection
       </source>
         <target>OK - Verbinding</target>
         <context-group purpose="location">
@@ -1503,7 +1503,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.green.title" datatype="html">
         <source>
-        OK - Defined in route relation        
+        OK - Defined in route relation
       </source>
         <target>OK - Opgenomen in route relatie</target>
         <context-group purpose="location">
@@ -1535,7 +1535,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.gray.text" datatype="html">
         <source>
-        This node is not included as a member in any route relations. This is OK as including de 
+        This node is not included as a member in any route relations. This is OK as including de
         node as member in the route relations is optional.
       </source>
         <target>
@@ -1679,7 +1679,7 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database 
+        Older changes cannot be shown. The history in the analysis database
         does not go beyond
       </source>
         <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank gaat niet verder terug dan</target>
@@ -1714,7 +1714,7 @@
       <trans-unit id="route-changes.route-diff.role-added" datatype="html">
         <source>
       Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>" added to networkrelation.
-      
+
     </source>
         <target state="new">[
           Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>" added to networkrelation.
@@ -1729,7 +1729,7 @@
       <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
         <source>
       Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" removed from networkrelation.
-      
+
     </source>
         <target state="new">[
           Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" removed from networkrelation.
@@ -1744,7 +1744,7 @@
       <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
         <source>
       Route role in networkrelation changed from "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" to "<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>".
-      
+
     </source>
         <target state="new">[
           Route role in networkrelation changed from "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" to "<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>".
@@ -1942,6 +1942,194 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/fact-diffs.component.ts</context>
           <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.title" datatype="html">
+        <source>
+        Filter
+      </source>
+        <target state="new">[
+        Filter
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/filter/filter-title.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-created" datatype="html">
+        <source>
+          Network created
+        </source>
+        <target>Netwerk nieuw aangemaakt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-deleted" datatype="html">
+        <source>
+          Network deleted
+        </source>
+        <target>Netwerk verwijderd</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-nodes.added" datatype="html">
+        <source>Added node(s)</source>
+        <target>Toegevoegde knooppunten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.routes.added" datatype="html">
+        <source>Added route(s)</source>
+        <target>Toegevoegde route(s)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.nodes.added" datatype="html">
+        <source>
+          Added non-network node member(s) in network relation
+        </source>
+        <target>Niet-network-knooppunt(en) toegevoegd in netwerk relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.ways.added" datatype="html">
+        <source>
+          Added way member(s) in network relation
+        </source>
+        <target>Weg(en) toegevoegd in netwerk relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.relations.added" datatype="html">
+        <source>
+          Added non-route relation(s) in network relation
+        </source>
+        <target>Niet-route relatie(s) toegevoegd in netwerk relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-relation-updated" datatype="html">
+        <source>
+          Updated network relation
+        </source>
+        <target>Netwerk relatie aangepast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-nodes.updated" datatype="html">
+        <source>
+          Updated network node(s)
+        </source>
+        <target>Knooppunt(en) aangepast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.routes.updated" datatype="html">
+        <source>
+          Updated route(s)
+        </source>
+        <target>Route(s) aangepast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.nodes.updated" datatype="html">
+        <source>
+          Updated non-network node(s)
+        </source>
+        <target>Niet-netwerk-knooppunt(en) aangepast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.ways.updated" datatype="html">
+        <source>
+          Updated way member(s)
+        </source>
+        <target>Weg(en) aangepast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.relations.updated" datatype="html">
+        <source>
+          Updated non-route relation(s)
+        </source>
+        <target>Niet-route relatie aangepast</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.network-nodes.removed" datatype="html">
+        <source>
+          Removed network node(s)
+        </source>
+        <target>Network knooppunt(en) verwijderd</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.routes.removed" datatype="html">
+        <source>
+          Removed route(s)
+        </source>
+        <target>Verwijderde route(s)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.nodes.removed" datatype="html">
+        <source>
+          Removed non-network node member(s) from network relation
+        </source>
+        <target>Knooppunt dat geen networkknooppunt is verwijderd uit netwerk relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.ways.removed" datatype="html">
+        <source>
+          Removed way member(s) from network relation
+        </source>
+        <target>Weg(en) verwijderd uit netwerk relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-changes.relations.removed" datatype="html">
+        <source>
+          Removed non-route relation(s) from network relation
+        </source>
+        <target>Niet-route relatie(s) verwijderd uit netwerk relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/pages/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.page-title" datatype="html">
@@ -5655,7 +5843,7 @@
       </trans-unit>
       <trans-unit id="network-details.not-active" datatype="html">
         <source>
-      Not active      
+      Not active
     </source>
         <target state="new">[
           Not active
@@ -5774,10 +5962,10 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.title" datatype="html">
         <source>
-        OK - Accessible        
+        OK - Accessible
       </source>
         <target state="new">[
-        OK - Accessible        
+        OK - Accessible
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
@@ -5834,10 +6022,10 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>
-        NOK - Not Accessible        
+        NOK - Not Accessible
       </source>
         <target state="new">[
-        NOK - Not Accessible        
+        NOK - Not Accessible
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
@@ -5906,10 +6094,10 @@
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection       
+        OK - Connection
       </source>
         <target state="new">[
-        OK - Connection       
+        OK - Connection
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
@@ -5970,10 +6158,10 @@
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
         <source>
-        OK - No facts       
+        OK - No facts
       </source>
         <target state="new">[
-        OK - No facts       
+        OK - No facts
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/pages/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>

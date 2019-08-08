@@ -12,7 +12,8 @@
         "@schematics/angular:component": {
           "styleext": "scss",
           "inlineStyle": true,
-          "inlineTemplate": true
+          "inlineTemplate": true,
+          "flat": true
         }
       },
       "architect": {
@@ -49,7 +50,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
               "aot": true,
@@ -67,7 +68,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
               "aot": true,
@@ -89,7 +90,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
               "aot": true,
@@ -111,7 +112,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
               "aot": true,
