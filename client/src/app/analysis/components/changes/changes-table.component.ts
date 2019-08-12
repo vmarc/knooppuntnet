@@ -11,8 +11,6 @@ import {Subscriptions} from "../../../util/Subscriptions";
   selector: "kpn-changes-table",
   template: `
 
-    <kpn-spinner></kpn-spinner>
-
     <p *ngIf="response">
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
     </p>

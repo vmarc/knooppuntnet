@@ -17,41 +17,41 @@ import {NetworkCacheService} from "../../../../services/network-cache.service";
 
     <kpn-page-menu>
       <kpn-page-menu-option
-        link="{{'/analysis/network-details/' + networkId}}"
-        i18n="@@network-page.menu.details">
+          link="{{'/analysis/network/' + networkId}}"
+          i18n="@@network-page.menu.details">
         Details
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        link="{{'/analysis/network-facts/' + networkId}}"
-        i18n="@@network-page.menu.facts"
-        [elementCount]="factCount()">
+          link="{{'/analysis/network/' + networkId + '/facts'}}"
+          i18n="@@network-page.menu.facts"
+          [elementCount]="factCount()">
         Facts
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        link="{{'/analysis/network-nodes/' + networkId}}"
-        i18n="@@network-page.menu.nodes"
-        [elementCount]="nodeCount()">
+          link="{{'/analysis/network/' + networkId + '/nodes'}}"
+          i18n="@@network-page.menu.nodes"
+          [elementCount]="nodeCount()">
         Nodes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        link="{{'/analysis/network-routes/' + networkId}}"
-        i18n="@@network-page.menu.routes"
-        [elementCount]="routeCount()">
+          link="{{'/analysis/network/' + networkId + '/routes'}}"
+          i18n="@@network-page.menu.routes"
+          [elementCount]="routeCount()">
         Routes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        link="{{'/analysis/network-map/' + networkId}}"
-        i18n="@@network-page.menu.map">
+          link="{{'/analysis/network/' + networkId + '/map'}}"
+          i18n="@@network-page.menu.map">
         Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        link="{{'/analysis/network-changes/' + networkId}}"
-        i18n="@@network-page.menu.changes">
+          link="{{'/analysis/network/' + networkId + '/changes'}}"
+          i18n="@@network-page.menu.changes">
         Changes
       </kpn-page-menu-option>
 

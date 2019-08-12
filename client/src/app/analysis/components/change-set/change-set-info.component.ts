@@ -1,6 +1,5 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {ChangeSetInfo} from "../../../kpn/shared/changes/change-set-info";
 import {Tag} from "../../../kpn/shared/data/tag";
 import {Tags} from "../../../kpn/shared/data/tags";
 

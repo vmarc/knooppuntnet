@@ -23,7 +23,7 @@ import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
       <div *ngIf="!references.networkReferences.isEmpty()">
         Network(s): <!--@@ "Netwerken" -->
         <div *ngFor="let ref of references.networkReferences">
-          <a class="text" [routerLink]="'/analysis/network-details/' + ref.networkId">{{ref.networkName}}</a>
+          <a class="text" [routerLink]="'/analysis/network/' + ref.networkId">{{ref.networkName}}</a>
         </div>
       </div>
 

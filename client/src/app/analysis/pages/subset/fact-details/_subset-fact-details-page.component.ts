@@ -21,10 +21,10 @@ class SubsetFact {
   template: `
 
     <kpn-subset-page-header-block
-      [subset]="subset"
-      pageName="facts"
-      pageTitle="Facts"
-      i18n-pageTitle="@@subset-facts.title">
+        [subset]="subset"
+        pageName="facts"
+        pageTitle="Facts"
+        i18n-pageTitle="@@subset-facts.title">
     </kpn-subset-page-header-block>
 
     <h2>
@@ -49,7 +49,7 @@ class SubsetFact {
 
         <kpn-items>
           <kpn-item *ngFor="let networkFactRefs of response.result.networks; let i=index" index="{{i}}">
-            <a [routerLink]="'/analysis/network-details/' + networkFactRefs.networkId">
+            <a [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
               {{networkFactRefs.networkName}}
             </a>
             <br/>

@@ -3,7 +3,7 @@ import {Component, Input} from "@angular/core";
 @Component({
   selector: "kpn-link-network-routes",
   template: `
-    <a routerLink="{{'/analysis/network-routes/' + networkId}}">Routes</a>
+    <a routerLink="{{'/analysis/network/' + networkId + '/routes'}}">Routes</a>
   `
 })
 export class LinkNetworkRoutesComponent {

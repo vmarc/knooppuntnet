@@ -65,6 +65,7 @@ import {PageHeaderComponent} from "./page/page-header.component";
 import {DocLinkSmallComponent} from "./link/doc-link-small.component";
 import {I18nComponent} from "../../i18n/i18n.component";
 import {CountryNameComponent} from "./country-name.component";
+import {AnalysisSidebarComponent} from "./sidebar/analysis-sidebar.component";
 
 @NgModule({
   imports: [
@@ -141,7 +142,8 @@ import {CountryNameComponent} from "./country-name.component";
     PageMenuOptionComponent,
     DocLinkComponent,
     DocLinkSmallComponent,
-    I18nComponent
+    I18nComponent,
+    AnalysisSidebarComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -205,7 +207,8 @@ import {CountryNameComponent} from "./country-name.component";
     DocLinkComponent,
     DocLinkSmallComponent,
     I18nComponent,
-    TagsTextComponent
+    TagsTextComponent,
+    AnalysisSidebarComponent
   ]
 })
 export class SharedModule {
