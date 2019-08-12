@@ -16,9 +16,9 @@ import {SubsetOrphanNodesTableComponent} from "./orphan-nodes/subset-orphan-node
 import {SubsetOrphanRoutesPageComponent} from "./orphan-routes/_subset-orphan-routes-page.component";
 import {SubsetOrphanRouteComponent} from "./orphan-routes/subset-orphan-route.component";
 import {SubsetOrphanRoutesTableComponent} from "./orphan-routes/subset-orphan-routes-table.component";
-import {SubsetRoutingModule} from "./subset-routing.module";
+import {SubsetRoutingModule} from "./_subset-routing.module";
 import {SubsetPageHeaderBlockComponent} from "./components/subset-page-header-block.component";
-import {FactModule} from "../fact/fact.module";
+import {FactModule} from "../fact/_fact.module";
 
 @NgModule({
   imports: [

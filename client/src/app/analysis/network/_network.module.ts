@@ -27,7 +27,7 @@ import {NetworkRoutesSidebarComponent} from "./routes/network-routes-sidebar.com
 import {NetworkRoutesService} from "./routes/network-routes.service";
 import {NetworkNodesService} from "./nodes/network-nodes.service";
 import {NetworkNodesSidebarComponent} from "./nodes/network-nodes-sidebar.component";
-import {NetworkRoutingModule} from "./network-routing.module";
+import {NetworkRoutingModule} from "./_network-routing.module";
 import {NetworkPageHeaderComponent} from "./components/network-page-header.component";
 import {NetworkChangeComponent} from "./changes/network-change.component";
 import {IntegrityIndicatorComponent} from "./nodes/indicators/integrity-indicator.component";
@@ -35,7 +35,7 @@ import {NetworkIndicatorComponent} from "./nodes/indicators/network-indicator.co
 import {NodeConnectionIndicatorComponent} from "./nodes/indicators/node-connection-indicator.component";
 import {RoleConnectionIndicatorComponent} from "./nodes/indicators/role-connection-indicator.component";
 import {RouteIndicatorComponent} from "./nodes/indicators/route-indicator.component";
-import {AnalysisComponentsModule} from "../components/analysis-components.module";
+import {AnalysisComponentsModule} from "../components/_analysis-components.module";
 import {RouteAccessibleIndicatorComponent} from "./routes/indicators/route-accessible-indicator.component";
 import {RouteConnectionIndicatorComponent} from "./routes/indicators/route-connection-indicator.component";
 import {RouteInvestigateIndicatorComponent} from "./routes/indicators/route-investigate-indicator.component";

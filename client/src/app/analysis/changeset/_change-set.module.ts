@@ -12,7 +12,7 @@ import {NodeDiffsAddedComponent} from "./node-diffs/node-diffs-added.component";
 import {NodeDiffsRemovedComponent} from "./node-diffs/node-diffs-removed.component";
 import {NodeDiffsUpdatedComponent} from "./node-diffs/node-diffs-updated.component";
 import {SharedModule} from "../../components/shared/shared.module";
-import {ChangeSetRoutingModule} from "./change-set-routing.module";
+import {ChangeSetRoutingModule} from "./_change-set-routing.module";
 
 @NgModule({
   imports: [

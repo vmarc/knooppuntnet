@@ -11,7 +11,7 @@ import {OverviewService} from "./overview.service";
 import {StatisticConfigurationComponent} from "./statistic-configuration.component";
 import {StatisticConfigurationsComponent} from "./statistic-configurations.component";
 import {SharedModule} from "../../components/shared/shared.module";
-import {OverviewRoutingModule} from "./overview-routing.module";
+import {OverviewRoutingModule} from "./_overview-routing.module";
 
 @NgModule({
   imports: [

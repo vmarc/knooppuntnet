@@ -18,9 +18,9 @@ import {RouteNetworkReferencesComponent} from "./details/route-network-reference
 import {RouteEndNodesComponent} from "./details/route-end-nodes.component";
 import {RouteRedundantNodesComponent} from "./details/route-redundant-nodes.component";
 import {RouteStartNodesComponent} from "./details/route-start-nodes.component";
-import {RouteRoutingModule} from "./route-routing.module";
-import {AnalysisComponentsModule} from "../components/analysis-components.module";
-import {FactModule} from "../fact/fact.module";
+import {RouteRoutingModule} from "./_route-routing.module";
+import {AnalysisComponentsModule} from "../components/_analysis-components.module";
+import {FactModule} from "../fact/_fact.module";
 
 @NgModule({
   imports: [

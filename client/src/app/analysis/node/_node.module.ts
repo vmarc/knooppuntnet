@@ -15,9 +15,9 @@ import {NodeMapPageComponent} from "./map/_node-map-page.component";
 import {NodeNetworkReferenceComponent} from "./details/node-network-reference.component";
 import {NodeNetworkReferenceStatementComponent} from "./details/node-network-reference-statement.component";
 import {NodeChangeMovedComponent} from "./changes/node-change-moved.component";
-import {NodeRoutingModule} from "./node-routing.module";
-import {AnalysisComponentsModule} from "../components/analysis-components.module";
-import {FactModule} from "../fact/fact.module";
+import {NodeRoutingModule} from "./_node-routing.module";
+import {AnalysisComponentsModule} from "../components/_analysis-components.module";
+import {FactModule} from "../fact/_fact.module";
 
 @NgModule({
   imports: [

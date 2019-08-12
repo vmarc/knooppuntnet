@@ -65,35 +65,35 @@ const routes: Routes = [
   },
   {
     path: "node",
-    loadChildren: "../node/node.module#NodeModule"
+    loadChildren: "../node/_node.module#NodeModule"
   },
   {
     path: "route",
-    loadChildren: "../route/route.module#RouteModule"
+    loadChildren: "../route/_route.module#RouteModule"
   },
   {
     path: "network",
-    loadChildren: "../network/network.module#NetworkModule"
+    loadChildren: "../network/_network.module#NetworkModule"
   },
   {
     path: "changeset",
-    loadChildren: "../changeset/change-set.module#ChangeSetModule"
+    loadChildren: "../changeset/_change-set.module#ChangeSetModule"
   },
   {
     path: "changes",
-    loadChildren: "../changes/changes.module#ChangesModule"
+    loadChildren: "../changes/_changes.module#ChangesModule"
   },
   {
     path: "facts",
-    loadChildren: "../facts/facts.module#FactsModule"
+    loadChildren: "../facts/_facts.module#FactsModule"
   },
   {
     path: "overview",
-    loadChildren: "../overview/overview.module#OverviewModule"
+    loadChildren: "../overview/_overview.module#OverviewModule"
   },
   {
     path: "",
-    loadChildren: "../subset/subset.module#SubsetModule"
+    loadChildren: "../subset/_subset.module#SubsetModule"
   }
 ];
 
