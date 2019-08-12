@@ -4,7 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 export const routes: Routes = [
   {
     path: "analysis",
-    loadChildren: "./analysis/pages/analysis/analysis.module#AnalysisModule"
+    loadChildren: "./analysis/analysis/analysis.module#AnalysisModule"
   },
   {
     path: "map",
