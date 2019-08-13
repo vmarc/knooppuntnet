@@ -24,6 +24,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
       <kpn-network-node-table
           *ngIf="!response.result.nodes.isEmpty()"
           [networkType]="response.result.networkType"
+          [timeInfo]="response.result.timeInfo"
           [nodes]="response.result.nodes">
       </kpn-network-node-table>
       <kpn-json [object]="response"></kpn-json>

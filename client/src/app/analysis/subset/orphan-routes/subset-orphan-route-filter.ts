@@ -48,7 +48,7 @@ export class SubsetOrphanRouteFilter {
   filterOptions(routes: List<RouteSummary>): FilterOptions {
 
     const totalCount = routes.size;
-    const filteredCount = routes.count(this.allFilters.passes);
+    const filteredCount = routes.count(route => this.allFilters.passes(route));
 
     // TODO this.definedInNetworkRelationFilter ??
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);

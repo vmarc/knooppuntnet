@@ -37,7 +37,7 @@ export class NetworkNodeFilter {
   private readonly referencedInRouteFilter = new BooleanFilter<NetworkNodeInfo2>(
     "referencedInRoute",
     this.criteria.referencedInRoute,
-    (row) => row.routeReferences.nonEmpty(),
+    (row) => !row.routeReferences.isEmpty(),
     this.update({...this.criteria, referencedInRoute: null}),
     this.update({...this.criteria, referencedInRoute: true}),
     this.update({...this.criteria, referencedInRoute: false})
@@ -102,13 +102,13 @@ export class NetworkNodeFilter {
   );
 
   filter(nodes: List<NetworkNodeInfo2>): List<NetworkNodeInfo2> {
-    return nodes.filter(this.allFilters.passes);
+    return nodes.filter(node => this.allFilters.passes(node));
   }
 
   filterOptions(nodes: List<NetworkNodeInfo2>): FilterOptions {
 
     const totalCount = nodes.size;
-    const filteredCount = nodes.count(this.allFilters.passes);
+    const filteredCount = nodes.count(node => this.allFilters.passes(node));
 
     const definedInNetworkRelation = this.definedInNetworkRelationFilter.filterOptions(this.allFilters, nodes);
     const definedInRouteRelation = this.definedInRouteRelationFilter.filterOptions(this.allFilters, nodes);

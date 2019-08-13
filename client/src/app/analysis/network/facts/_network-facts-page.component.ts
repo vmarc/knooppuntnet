@@ -17,6 +17,8 @@ import {Subscriptions} from "../../../util/Subscriptions";
         i18n-pageTitle="@@network-facts.title">
     </kpn-network-page-header>
 
+    TODO
+    
     <div *ngIf="response">
       <kpn-json [object]="response"></kpn-json>
     </div>

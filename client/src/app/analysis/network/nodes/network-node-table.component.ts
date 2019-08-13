@@ -98,6 +98,7 @@ import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
 export class NetworkNodeTableComponent implements OnInit {
 
   @Input() networkType: NetworkType;
+  @Input() timeInfo: TimeInfo;
   @Input() nodes: List<NetworkNodeInfo2> = List();
 
   dataSource: MatTableDataSource<NetworkNodeInfo2>;
@@ -114,8 +115,7 @@ export class NetworkNodeTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.filterCriteria.subscribe(criteria => {
-      const timeInfo: TimeInfo = null;
-      const filter = new NetworkNodeFilter(timeInfo, criteria, this.filterCriteria);
+      const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.nodes).toArray();
       this.networkNodesService.filterOptions.next(filter.filterOptions(this.nodes));
     });

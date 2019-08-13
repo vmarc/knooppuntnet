@@ -18,6 +18,8 @@ import {flatMap, map, tap} from "rxjs/operators";
       i18n-pageTitle="@@network-map.title">
     </kpn-network-page-header>
 
+    TODO
+
     <div *ngIf="response">
       <kpn-json [object]="response"></kpn-json>
     </div>
