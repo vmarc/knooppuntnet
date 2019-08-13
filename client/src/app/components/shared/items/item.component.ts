@@ -5,7 +5,7 @@ import {Component, Input} from "@angular/core";
   template: `
     <div class="item">
       <div class="item-left">
-        {{index}}
+        {{index + 1}}
       </div>
       <div class="item-right">
         <ng-content></ng-content>
@@ -47,6 +47,6 @@ import {Component, Input} from "@angular/core";
 })
 export class ItemComponent {
 
-  @Input() index: string;
+  @Input() index: number;
 
 }

@@ -18,6 +18,7 @@ class RoutePageBuilderImpl(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends RoutePageBuilder {
 
+  /* supports scalajs-react version only */
   def build(user: Option[String], routeId: Long): Option[RoutePage] = {
     if (routeId == 1) {
       Some(RoutePageExample.page)
@@ -64,14 +65,15 @@ class RoutePageBuilderImpl(
     }
   }
 
-  def buildChangesPage(user: Option[String], routeId: Long, itemsPerPage: Int, pageIndex: Int): Option[RouteChangesPage] = {
+  def buildChangesPage(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
     if (routeId == 1) {
       Some(RoutePageExample.changesPage)
     }
     else {
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
+        val changesFilter = changeSetRepository.nodeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
+        val totalCount = changesFilter.currentItemCount(parameters.impact)
         val routeChanges: Seq[RouteChange] = if (user.isDefined) {
-          val parameters = ChangesParameters(routeId = Some(route.id), itemsPerPage = itemsPerPage, pageIndex = pageIndex)
           changeSetRepository.routeChanges(parameters)
         }
         else {
@@ -82,7 +84,7 @@ class RoutePageBuilderImpl(
           changeSetInfoRepository.all(changeSetIds)
         }
         val history = new RouteHistoryAnalyzer(routeChanges, changeSetInfos).history
-        RouteChangesPage(route, history.changes, history.incompleteWarning, 3)
+        RouteChangesPage(route, changesFilter, history.changes, history.incompleteWarning, totalCount)
       }
     }
   }

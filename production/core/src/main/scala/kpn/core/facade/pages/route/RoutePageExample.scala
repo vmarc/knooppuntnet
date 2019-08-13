@@ -7,6 +7,7 @@ import kpn.shared.NetworkType
 import kpn.shared.RouteSummary
 import kpn.shared.Timestamp
 import kpn.shared.changes.details.ChangeKey
+import kpn.shared.changes.filter.ChangesFilter
 import kpn.shared.common.Ref
 import kpn.shared.common.Reference
 import kpn.shared.data.Tags
@@ -47,6 +48,7 @@ object RoutePageExample {
   val changesPage: RouteChangesPage = {
     RouteChangesPage(
       route(),
+      ChangesFilter(Seq()),
       changes(),
       incompleteWarning = true,
       totalCount = 3

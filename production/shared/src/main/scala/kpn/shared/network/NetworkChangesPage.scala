@@ -4,10 +4,8 @@ import kpn.shared.changes.details.NetworkChangeInfo
 import kpn.shared.changes.filter.ChangesFilter
 
 case class NetworkChangesPage(
-  network: NetworkInfo,
+  network: NetworkSummary,
   filter: ChangesFilter,
   changes: Seq[NetworkChangeInfo],
-  totalCount: Int
-) {
-  def networkId: Long = network.id
+  totalCount: Int) {
 }

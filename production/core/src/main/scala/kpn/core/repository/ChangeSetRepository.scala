@@ -27,13 +27,19 @@ trait ChangeSetRepository {
 
   def changesFilter(subset: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
 
+  def networkChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange]
+
   def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
 
-  def networkChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange]
+  def networkChangesCount(networkId: Long, stale: Boolean = true): Int
 
   def routeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange]
 
+  def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+
   def nodeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange]
+
+  def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
 
   def allChangeSetIds(): Seq[String]
 

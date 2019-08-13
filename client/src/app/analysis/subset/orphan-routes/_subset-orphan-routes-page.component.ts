@@ -41,7 +41,6 @@ export class SubsetOrphanRoutesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pageService.initSubsetPage();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),

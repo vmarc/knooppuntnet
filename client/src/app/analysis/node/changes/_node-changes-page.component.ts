@@ -1,19 +1,31 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {MatPaginator} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
+import {Util} from "../../../components/shared/util";
 import {ApiResponse} from "../../../kpn/shared/api-response";
+import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
+import {NodeChangesPage} from "../../../kpn/shared/node/node-changes-page";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {NodeChangesPage} from "../../../kpn/shared/node/node-changes-page";
-import {flatMap, map, tap} from "rxjs/operators";
-import {Util} from "../../../components/shared/util";
 
 @Component({
   selector: "kpn-node-changes-page",
   template: `
 
     <kpn-node-page-header [nodeId]="nodeId" [nodeName]="nodeName"></kpn-node-page-header>
+
+    <p *ngIf="response">
+      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+    </p>
+
+    <mat-paginator
+        [pageIndex]="0"
+        [pageSize]="parameters.itemsPerPage"
+        [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]">
+    </mat-paginator>
 
     <div *ngIf="!isLoggedIn()">
       <span i18n="@@node.login-required">The node history is available to registered OpenStreetMap contributors only, after</span>
@@ -34,7 +46,7 @@ import {Util} from "../../../components/shared/util";
         <div *ngIf="!response.result.changes.isEmpty()">
 
           <kpn-items>
-            <kpn-item *ngFor="let nodeChangeInfo of response.result.changes; let i=index" index="{{i}}">
+            <kpn-item *ngFor="let nodeChangeInfo of response.result.changes; let i=index" [index]="i">
               <kpn-node-change [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change>
             </kpn-item>
           </kpn-items>
@@ -57,6 +69,10 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   nodeId: number;
   nodeName: string;
   response: ApiResponse<NodeChangesPage>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+
+  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -75,7 +91,10 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
       this.activatedRoute.params.pipe(
         map(params => params["nodeId"]),
         tap(nodeId => this.nodeId = +nodeId),
-        flatMap(nodeId => this.appService.nodeChanges(nodeId))
+        flatMap(nodeId => {
+          this.updateParameters();
+          return this.appService.nodeChanges(nodeId, this.parameters)
+        })
       ).subscribe(response => this.processResponse(response))
     );
   }
@@ -87,6 +106,21 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   private processResponse(response: ApiResponse<NodeChangesPage>) {
     this.response = response;
     this.nodeName = Util.safeGet(() => response.result.nodeInfo.name);
+  }
+
+  private updateParameters() {
+    this.parameters = new ChangesParameters(
+      null,
+      null,
+      null,
+      this.nodeId,
+      this.parameters.year,
+      this.parameters.month,
+      this.parameters.day,
+      this.paginator.pageSize,
+      this.paginator.pageIndex,
+      this.parameters.impact
+    );
   }
 
 }

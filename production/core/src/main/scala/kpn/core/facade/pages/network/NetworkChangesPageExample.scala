@@ -15,7 +15,7 @@ object NetworkChangesPageExample {
 
   val page: NetworkChangesPage = {
 
-    val network: NetworkInfo = NetworkInfo(
+    val networkInfo: NetworkInfo = NetworkInfo(
       attributes = NetworkDetailsPageExample.networkAttributes(),
       active = false,
       ignored = true,
@@ -38,7 +38,7 @@ object NetworkChangesPageExample {
     val changes: Seq[NetworkChangeInfo] = Seq()
 
     NetworkChangesPage(
-      network,
+      NetworkSummaryBuilder.toSummary(networkInfo, 123),
       filter,
       changes,
       totalCount = 10

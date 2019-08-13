@@ -7,10 +7,8 @@ import kpn.core.repository.ChangeSetRepository
 import kpn.core.repository.NodeRepository
 import kpn.shared.NodeInfo
 import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeSetInfo
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
@@ -59,19 +57,20 @@ class NodePageBuilderImpl(
     }
   }
 
-  def buildChangesPage(user: Option[String], nodeId: Long, itemsPerPage: Int, pageIndex: Int): Option[NodeChangesPage] = {
+  def buildChangesPage(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
     if (nodeId == 1) {
       Some(NodePageExample.nodeChangesPage)
     }
     else {
       nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
-        buildNodeChangesPage(user, nodeInfo, itemsPerPage, pageIndex)
+        buildNodeChangesPage(user, nodeInfo, parameters)
       }
     }
   }
 
   private def buildNodePage(user: Option[String], nodeInfo: NodeInfo): NodePage = {
-    val nodeChangesPage = buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, 3, 0)
+    val parameters = ChangesParameters().copy(nodeId = Some(nodeInfo.id))
+    val nodeChangesPage = buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters)
     val nodeChanges = NodeChangeInfos(nodeChangesPage.changes, nodeChangesPage.incompleteWarning)
     NodePage(nodeInfo, buildNodeReferences(nodeInfo), nodeChanges)
   }
@@ -84,35 +83,30 @@ class NodePageBuilderImpl(
     NodeMapPage(nodeInfo)
   }
 
-  private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, itemsPerPage: Int, pageIndex: Int): NodeChangesPage = {
-    val nodeChanges = collectNodeChanges(user, nodeInfo.id)
+  private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters: ChangesParameters): NodeChangesPage = {
+    val changesFilter = changeSetRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
+    val totalCount = changesFilter.currentItemCount(parameters.impact)
+    val nodeChanges = if (user.isDefined) {
+      changeSetRepository.nodeChanges(parameters)
+    }
+    else {
+      // user is not logged in; we do not show change information
+      Seq()
+    }
+
     val incompleteWarning = isIncomplete(nodeChanges)
-    val more = nodeChanges.size > maxItemsPerPage
-    val shownNodeChanges = if (more) nodeChanges.take(nodeChanges.size - 1) else nodeChanges
-    val changeSetInfos = collectChangeSetInfos(shownNodeChanges, more)
-    val changes = toNodeChangeInfos(shownNodeChanges, changeSetInfos)
-    NodeChangesPage(nodeInfo, changes, incompleteWarning, 100)
+    val changeSetIds = nodeChanges.map(_.key.changeSetId)
+    val changeSetInfos = changeSetInfoRepository.all(changeSetIds)
+    val changes = nodeChanges.map { nodeChange =>
+      new NodeChangeInfoBuilder().build(nodeChange, changeSetInfos)
+    }
+    NodeChangesPage(nodeInfo, changesFilter, changes, incompleteWarning, totalCount)
   }
 
   private def buildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {
     val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
     val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)
     NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
-  }
-
-  private def collectNodeChanges(user: Option[String], nodeId: Long): Seq[NodeChange] = {
-    if (user.isDefined) {
-      changeSetRepository.nodeChanges(ChangesParameters(nodeId = Some(nodeId), itemsPerPage = maxItemsPerPage + 1))
-    }
-    else {
-      // user is not logged in; we do not show change information
-      Seq()
-    }
-  }
-
-  private def collectChangeSetInfos(nodeChanges: Seq[NodeChange], more: Boolean): Seq[ChangeSetInfo] = {
-    val changeSetIds = nodeChanges.map(_.key.changeSetId)
-    changeSetInfoRepository.all(changeSetIds)
   }
 
   private def isIncomplete(nodeChanges: Seq[NodeChange]) = {
@@ -127,9 +121,4 @@ class NodePageBuilderImpl(
     }
   }
 
-  private def toNodeChangeInfos(nodeChanges: Seq[NodeChange], changeSetInfos: Seq[ChangeSetInfo]): Seq[NodeChangeInfo] = {
-    nodeChanges.map { nodeChange =>
-      new NodeChangeInfoBuilder().build(nodeChange, changeSetInfos)
-    }
-  }
 }

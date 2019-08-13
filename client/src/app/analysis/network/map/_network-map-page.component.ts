@@ -32,16 +32,14 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService,
               private networkCacheService: NetworkCacheService) {
   }
 
   ngOnInit() {
-    this.pageService.initNetworkPage();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["networkId"]),
-        tap(networkId => this.processNetworkId(networkId)),
+        tap(networkId => this.networkId = networkId),
         flatMap(networkId => this.appService.networkMap(networkId))
       ).subscribe(response => this.processResponse(response))
     );
@@ -49,11 +47,6 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  private processNetworkId(networkId: string) {
-    this.networkId = networkId;
-    this.pageService.networkId = networkId;
   }
 
   private processResponse(response: ApiResponse<NetworkMapPage>) {

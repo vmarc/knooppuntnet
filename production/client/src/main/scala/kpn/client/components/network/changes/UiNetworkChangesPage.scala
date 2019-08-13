@@ -40,7 +40,6 @@ import kpn.shared.ApiResponse
 import kpn.shared.changes.details.NetworkChangeInfo
 import kpn.shared.changes.filter.ChangesParameters
 import kpn.shared.network.NetworkChangesPage
-import kpn.shared.network.NetworkSummary
 import scalacss.ScalaCssReact._
 
 object UiNetworkChangesPage {
@@ -143,28 +142,10 @@ object UiNetworkChangesPage {
         case None => NetworkSummaryCache.get(args.networkId)
         case Some(apiResponse) =>
           apiResponse.result.map { page =>
-            val summary = page.network.detail match {
-              case None =>
-                NetworkSummary(
-                  page.network.attributes.networkType,
-                  page.network.attributes.name,
-                  page.network.factCount,
-                  0,
-                  0
-                )
-              case Some(detail) =>
-                NetworkSummary(
-                  page.network.attributes.networkType,
-                  page.network.attributes.name,
-                  page.network.factCount,
-                  detail.nodes.size,
-                  detail.routes.size
-                )
-            }
-            NetworkSummaryCache.put(args.networkId, summary)
-            NetworkNameCache.put(args.networkId, summary.name)
-            PageTitleBuilder.setNetworkPageTitle(nls("Changes", "Wijzigingen"), summary.name)
-            summary
+            NetworkSummaryCache.put(args.networkId, page.network)
+            NetworkNameCache.put(args.networkId, page.network.name)
+            PageTitleBuilder.setNetworkPageTitle(nls("Changes", "Wijzigingen"), page.network.name)
+            page.network
           }
       }
 
@@ -259,7 +240,7 @@ object UiNetworkChangesPage {
         }
 
         <.div(
-          <.h1(state.pageState.response.get.result.get.network.attributes.name),
+          <.h1(state.pageState.response.get.result.get.network.name),
           <.h2(nls("Changes", "Wijzigingen")),
           UiPageContents(
             impact(),

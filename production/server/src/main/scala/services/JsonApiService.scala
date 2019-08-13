@@ -99,8 +99,8 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
     analyzerFacade.nodeMap(user, nodeId)
   }
 
-  def nodeChanges(nodeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[NodeChangesPage] = {
-    analyzerFacade.nodeChanges(user, nodeId, itemsPerPage, pageIndex)
+  def nodeChanges(nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage] = {
+    analyzerFacade.nodeChanges(user, nodeId, parameters)
   }
 
   def routeDetails(routeId: Long): ApiResponse[RouteDetailsPage] = {
@@ -111,8 +111,8 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
     analyzerFacade.routeMap(user, routeId)
   }
 
-  def routeChanges(routeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[RouteChangesPage] = {
-    analyzerFacade.routeChanges(user, routeId, itemsPerPage, pageIndex)
+  def routeChanges(routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage] = {
+    analyzerFacade.routeChanges(user, routeId, parameters)
   }
 
   def changes(parameters: ChangesParameters): ApiResponse[ChangesPage] = {

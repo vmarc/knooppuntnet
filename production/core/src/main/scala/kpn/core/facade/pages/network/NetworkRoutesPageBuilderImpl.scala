@@ -2,6 +2,7 @@ package kpn.core.facade.pages.network
 
 import kpn.core.db.couch.Couch
 import kpn.core.facade.pages.TimeInfoBuilder
+import kpn.core.repository.ChangeSetRepository
 import kpn.core.repository.NetworkRepository
 import kpn.core.util.NaturalSorting
 import kpn.shared.Fact
@@ -10,7 +11,8 @@ import kpn.shared.network.NetworkRouteRow
 import kpn.shared.network.NetworkRoutesPage
 
 class NetworkRoutesPageBuilderImpl(
-  networkRepository: NetworkRepository
+  networkRepository: NetworkRepository,
+  changeSetRepository: ChangeSetRepository
 ) extends NetworkRoutesPageBuilder {
 
   override def build(networkId: Long): Option[NetworkRoutesPage] = {
@@ -27,6 +29,9 @@ class NetworkRoutesPageBuilderImpl(
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkRoutesPage = {
+
+    val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
+
     val detailRoutes = networkInfo.detail match {
       case Some(detail) => NaturalSorting.sortBy(detail.routes)(_.name)
       case None => Seq()
@@ -48,7 +53,7 @@ class NetworkRoutesPageBuilderImpl(
     NetworkRoutesPage(
       TimeInfoBuilder.timeInfo,
       networkInfo.attributes.networkType,
-      NetworkSummaryBuilder.toSummary(networkInfo),
+      NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       routes
     )
   }

@@ -32,8 +32,9 @@ class NetworkChangesPageBuilderImpl(
     }
   }
 
-  private def buildPageContents(user: Option[String], parameters: ChangesParameters, network: NetworkInfo): NetworkChangesPage = {
-    val changesFilter = changeSetRepository.networkChangesFilter(network.attributes.id, parameters.year, parameters.month, parameters.day)
+  private def buildPageContents(user: Option[String], parameters: ChangesParameters, networkInfo: NetworkInfo): NetworkChangesPage = {
+    val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
+    val changesFilter = changeSetRepository.networkChangesFilter(networkInfo.attributes.id, parameters.year, parameters.month, parameters.day)
     val totalCount = changesFilter.currentItemCount(parameters.impact)
     val changes: Seq[NetworkChange] = if (user.isDefined) {
       changeSetRepository.networkChanges(parameters)
@@ -47,7 +48,12 @@ class NetworkChangesPageBuilderImpl(
     val networkUpdateInfos = changes.map { change =>
       new NetworkChangeInfoBuilder().build(change, changeSetInfos)
     }
-    NetworkChangesPage(network, changesFilter, networkUpdateInfos, totalCount)
+    NetworkChangesPage(
+      NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
+      changesFilter,
+      networkUpdateInfos,
+      totalCount
+    )
   }
 
 }

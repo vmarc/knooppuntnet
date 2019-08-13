@@ -46,7 +46,7 @@ trait AnalyzerFacade {
 
   def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage]
 
-  def nodeChanges(user: Option[String], nodeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[NodeChangesPage]
+  def nodeChanges(user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage]
 
   def route(user: Option[String], routeId: Long): ApiResponse[RoutePage]
 
@@ -54,7 +54,7 @@ trait AnalyzerFacade {
 
   def routeMap(user: Option[String], routeId: Long): ApiResponse[RouteMapPage]
 
-  def routeChanges(user: Option[String], routeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[RouteChangesPage]
+  def routeChanges(user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage]
 
   def subsetNetworks(user: Option[String], subset: Subset): ApiResponse[SubsetNetworksPage]
 

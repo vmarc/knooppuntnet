@@ -5,7 +5,8 @@ import kpn.shared.network.NetworkSummary
 
 object NetworkSummaryBuilder {
 
-  def toSummary(networkInfo: NetworkInfo): NetworkSummary = {
+  def toSummary(networkInfo: NetworkInfo, changeCount: Int): NetworkSummary = {
+
     val nodeCount = networkInfo.detail match {
       case Some(detail) => detail.nodes.size
       case None => 0
@@ -21,7 +22,8 @@ object NetworkSummaryBuilder {
       networkInfo.attributes.name,
       networkInfo.factCount,
       nodeCount,
-      routeCount
+      routeCount,
+      changeCount
     )
   }
 }

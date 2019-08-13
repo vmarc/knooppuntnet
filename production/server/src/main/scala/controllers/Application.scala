@@ -67,10 +67,6 @@ class Application(
 
   def jsonApiGet(path: String): Action[AnyContent] = Action { request =>
 
-    def subsetPath(target: String): String = {
-      """(be|de|nl)/(cycling|hiking|horse|motorboat|canoe|inline-skating)/""" + target
-    }
-
     val overview = """overview""".r
     val subsetNetworks = subsetPath("networks").r
     val subsetFacts = subsetPath("facts").r
@@ -79,11 +75,11 @@ class Application(
     val subsetOrphanRoutes = subsetPath("orphan-routes").r
     val subsetChanges = subsetPath("changes").r
     val networkDetails = """network/(\d*)""".r
-    val networkMap = """network-map/(\d*)""".r
-    val networkFacts = """network-facts/(\d*)""".r
-    val networkNodes = """network-nodes/(\d*)""".r
-    val networkRoutes = """network-routes/(\d*)""".r
-    val networkChanges = """network-changes/(\d*)""".r
+    val networkMap = """network/(\d*)/map""".r
+    val networkFacts = """network/(\d*)/facts""".r
+    val networkNodes = """network/(\d*)/nodes""".r
+    val networkRoutes = """network/(\d*)/routes""".r
+    val networkChanges = """network/(\d*)/changes""".r
     val nodeDetails = """node/(\d*)""".r
     val nodeMap = """node/(\d*)/map""".r
     val nodeChanges = """node/(\d*)/changes""".r
@@ -142,8 +138,9 @@ class Application(
 
       case subsetChanges(country, networkType) =>
         val subset1 = Subset.ofNewName(country, networkType).get
+        val parameters = ChangesParameters(subset = Some(subset1))
         reply(
-          userApiService.subsetChanges(ChangesParameters(subset = Some(subset1))),
+          userApiService.subsetChanges(parameters),
           JsonFormats.subsetChangesPageFormat
         )
 
@@ -178,7 +175,8 @@ class Application(
         )
 
       case networkChanges(networkId) =>
-        val res = userApiService.networkChanges(ChangesParameters(networkId = Some(networkId.toLong)))
+        val parameters = ChangesParameters(networkId = Some(networkId.toLong))
+        val res = userApiService.networkChanges(parameters)
         reply(
           res,
           JsonFormats.networkChangesPageFormat
@@ -197,8 +195,9 @@ class Application(
         )
 
       case nodeChanges(nodeId) =>
+        val parameters = ChangesParameters(nodeId = Some(nodeId.toLong))
         reply(
-          userApiService.nodeChanges(nodeId.toLong, 3, 0),
+          userApiService.nodeChanges(nodeId.toLong, parameters),
           JsonFormats.nodeChangesPageFormat
         )
 
@@ -215,8 +214,9 @@ class Application(
         )
 
       case routeChanges(routeId) =>
+        val parameters = ChangesParameters(routeId = Some(routeId.toLong))
         reply(
-          userApiService.routeChanges(routeId.toLong, 5, 0),
+          userApiService.routeChanges(routeId.toLong, parameters),
           JsonFormats.routeChangesPageFormat
         )
 
@@ -276,6 +276,10 @@ class Application(
 
   def jsonApiPost(path: String): Action[AnyContent] = Action { request =>
 
+    val subsetChanges = subsetPath("changes").r
+    val networkChanges = """network/(\d*)/changes""".r
+    val nodeChanges = """node/(\d*)/changes""".r
+    val routeChanges = """route/(\d*)/changes""".r
     val changes = """changes""".r
 
     val userApiService = request.session.get("user") match {
@@ -284,6 +288,70 @@ class Application(
     }
 
     path match {
+
+      case subsetChanges(country, networkType) =>
+        val subset1 = Subset.ofNewName(country, networkType).get
+        request.body.asJson match {
+          case Some(playJsValue) =>
+            val string = playJsValue.toString
+            val sprayJsValue = JsonParser(string)
+            val parameters = JsonFormats.changesParametersFormat.read(sprayJsValue)
+            reply(
+              userApiService.subsetChanges(parameters.copy(subset = Some(subset1))),
+              JsonFormats.subsetChangesPageFormat
+            )
+
+          case None =>
+            NotFound("invalid ChangeParameters in request body")
+        }
+
+      case networkChanges(networkId) =>
+
+        request.body.asJson match {
+          case Some(playJsValue) =>
+            val string = playJsValue.toString
+            val sprayJsValue = JsonParser(string)
+            val parameters = JsonFormats.changesParametersFormat.read(sprayJsValue)
+            val res = userApiService.networkChanges(parameters.copy(networkId = Some(networkId.toLong)))
+            reply(
+              res,
+              JsonFormats.networkChangesPageFormat
+            )
+
+          case None =>
+            NotFound("invalid ChangeParameters in request body")
+        }
+
+
+      case nodeChanges(nodeId) =>
+        request.body.asJson match {
+          case Some(playJsValue) =>
+            val string = playJsValue.toString
+            val sprayJsValue = JsonParser(string)
+            val parameters = JsonFormats.changesParametersFormat.read(sprayJsValue)
+            reply(
+              userApiService.nodeChanges(nodeId.toLong, parameters),
+              JsonFormats.nodeChangesPageFormat
+            )
+
+          case None =>
+            NotFound("invalid ChangeParameters in request body")
+        }
+
+      case routeChanges(routeId) =>
+        request.body.asJson match {
+          case Some(playJsValue) =>
+            val string = playJsValue.toString
+            val sprayJsValue = JsonParser(string)
+            val parameters = JsonFormats.changesParametersFormat.read(sprayJsValue)
+            reply(
+              userApiService.routeChanges(routeId.toLong, parameters),
+              JsonFormats.routeChangesPageFormat
+            )
+
+          case None =>
+            NotFound("invalid ChangeParameters in request body")
+        }
 
       case changes() =>
 
@@ -336,4 +404,9 @@ class Application(
     val byteString = request.body.asBytes(parse.UNLIMITED).get
     new AutoWireService().unpickle(path, byteString.asByteBuffer, userApiService)
   }
+
+  private def subsetPath(target: String): String = {
+    """(be|de|nl)/(cycling|hiking|horse|motorboat|canoe|inline-skating)/""" + target
+  }
+
 }

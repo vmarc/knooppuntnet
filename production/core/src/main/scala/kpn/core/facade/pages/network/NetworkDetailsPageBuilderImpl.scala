@@ -1,13 +1,15 @@
 package kpn.core.facade.pages.network
 
 import kpn.core.db.couch.Couch
+import kpn.core.repository.ChangeSetRepository
 import kpn.core.repository.NetworkRepository
 import kpn.shared.NetworkFacts
 import kpn.shared.network.NetworkDetailsPage
 import kpn.shared.network.NetworkInfo
 
 class NetworkDetailsPageBuilderImpl(
-  networkRepository: NetworkRepository
+  networkRepository: NetworkRepository,
+  changeSetRepository: ChangeSetRepository
 ) extends NetworkDetailsPageBuilder {
 
   def build(networkId: Long): Option[NetworkDetailsPage] = {
@@ -24,8 +26,9 @@ class NetworkDetailsPageBuilderImpl(
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkDetailsPage = {
+    val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
     NetworkDetailsPage(
-      NetworkSummaryBuilder.toSummary(networkInfo),
+      NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       networkInfo.active,
       networkInfo.ignored,
       networkInfo.attributes,

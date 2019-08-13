@@ -31,7 +31,7 @@ import {flatMap, map, tap} from "rxjs/operators";
       </div>
       <div *ngIf="hasFacts()">
         <kpn-items>
-          <kpn-item *ngFor="let factCount of response.result.factCounts; let i=index" index="{{i}}">
+          <kpn-item *ngFor="let factCount of response.result.factCounts; let i=index" [index]="i">
             <a [routerLink]="factDetailLink(factCount)">
               <kpn-fact-name [factName]="factCount.factName"></kpn-fact-name>
             </a>
@@ -60,7 +60,6 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pageService.initSubsetPage();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),

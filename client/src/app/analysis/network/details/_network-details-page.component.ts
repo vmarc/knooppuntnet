@@ -1,22 +1,21 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
+import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {NetworkDetailsPage} from "../../../kpn/shared/network/network-details-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-network-details-page",
   template: `
 
     <kpn-network-page-header
-      [networkId]="networkId"
-      pageTitle="Details"
-      i18n-pageTitle="@@network-details.title">
+        [networkId]="networkId"
+        pageTitle="Details"
+        i18n-pageTitle="@@network-details.title">
     </kpn-network-page-header>
 
     <div *ngIf="response?.result">
@@ -65,16 +64,14 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService,
               private networkCacheService: NetworkCacheService) {
   }
 
   ngOnInit() {
-    this.pageService.initNetworkPage();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["networkId"]),
-        tap(networkId => this.processNetworkId(networkId)),
+        tap(networkId => this.networkId = networkId),
         flatMap(networkId => this.appService.networkDetails(networkId))
       ).subscribe(response => this.processResponse(response))
     );
@@ -86,11 +83,6 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
 
   get page() {
     return this.response.result;
-  }
-
-  private processNetworkId(networkId: string) {
-    this.networkId = networkId;
-    this.pageService.networkId = networkId;
   }
 
   private processResponse(response: ApiResponse<NetworkDetailsPage>) {

@@ -87,11 +87,11 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       changeSetInfoRepository
     )
 
-    val networkDetailsPageBuilder = new NetworkDetailsPageBuilderImpl(networkRepository)
-    val networkMapPageBuilder = new NetworkMapPageBuilderImpl(networkRepository)
-    val networkFactsPageBuilder = new NetworkFactsPageBuilderImpl(networkRepository)
-    val networkNodesPageBuilder = new NetworkNodesPageBuilderImpl(networkRepository)
-    val networkRoutesPageBuilder = new NetworkRoutesPageBuilderImpl(networkRepository)
+    val networkDetailsPageBuilder = new NetworkDetailsPageBuilderImpl(networkRepository, changeSetRepository)
+    val networkMapPageBuilder = new NetworkMapPageBuilderImpl(networkRepository, changeSetRepository)
+    val networkFactsPageBuilder = new NetworkFactsPageBuilderImpl(networkRepository, changeSetRepository)
+    val networkNodesPageBuilder = new NetworkNodesPageBuilderImpl(networkRepository, changeSetRepository)
+    val networkRoutesPageBuilder = new NetworkRoutesPageBuilderImpl(networkRepository, changeSetRepository)
 
     val subsetNetworksPageBuilder = new SubsetNetworksPageBuilderImpl(
       overviewRepository,

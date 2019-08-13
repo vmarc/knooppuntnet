@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
+import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {RouteChangesPage} from "../../../kpn/shared/route/route-changes-page";
@@ -28,7 +29,7 @@ import {flatMap, map, tap} from "rxjs/operators";
       <div *ngIf="response.result">
 
         <kpn-items>
-          <kpn-item *ngFor="let routeChangeInfo of response.result.changes; let i=index" index="{{i}}">
+          <kpn-item *ngFor="let routeChangeInfo of response.result.changes; let i=index" [index]="i">
             <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
           </kpn-item>
         </kpn-items>
@@ -49,6 +50,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   routeId: string;
   response: ApiResponse<RouteChangesPage>;
+  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -66,7 +68,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
       this.activatedRoute.params.pipe(
         map(params => params["routeId"]),
         tap(routeId => this.routeId = routeId),
-        flatMap(routeId => this.appService.routeChanges(routeId))
+        flatMap(routeId => this.appService.routeChanges(routeId, this.parameters))
       ).subscribe(response => this.response = response)
     );
   }

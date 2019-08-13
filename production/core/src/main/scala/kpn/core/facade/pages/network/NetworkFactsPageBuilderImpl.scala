@@ -1,6 +1,7 @@
 package kpn.core.facade.pages.network
 
 import kpn.core.db.couch.Couch
+import kpn.core.repository.ChangeSetRepository
 import kpn.core.repository.NetworkRepository
 import kpn.shared.Fact
 import kpn.shared.NetworkFacts
@@ -11,7 +12,8 @@ import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
 
 class NetworkFactsPageBuilderImpl(
-  networkRepository: NetworkRepository
+  networkRepository: NetworkRepository,
+  changeSetRepository: ChangeSetRepository
 ) extends NetworkFactsPageBuilder {
 
   override def build(networkId: Long): Option[NetworkFactsPage] = {
@@ -28,6 +30,8 @@ class NetworkFactsPageBuilderImpl(
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkFactsPage = {
+
+    val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
 
     val networkFacts = networkInfo.detail match {
       case Some(detail) => detail.networkFacts
@@ -49,7 +53,7 @@ class NetworkFactsPageBuilderImpl(
     }
 
     NetworkFactsPage(
-      NetworkSummaryBuilder.toSummary(networkInfo),
+      NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       networkFacts,
       nodeFacts,
       routeFacts,

@@ -1,21 +1,20 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {NetworkFactsPage} from "../../../kpn/shared/network/network-facts-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-network-facts-page",
   template: `
 
     <kpn-network-page-header
-      [networkId]="networkId"
-      pageTitle="Facts"
-      i18n-pageTitle="@@network-facts.title">
+        [networkId]="networkId"
+        pageTitle="Facts"
+        i18n-pageTitle="@@network-facts.title">
     </kpn-network-page-header>
 
     <div *ngIf="response">
@@ -32,16 +31,14 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService,
               private networkCacheService: NetworkCacheService) {
   }
 
   ngOnInit() {
-    this.pageService.initNetworkPage();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["networkId"]),
-        tap(networkId => this.processNetworkId(networkId)),
+        tap(networkId => this.networkId = networkId),
         flatMap(networkId => this.appService.networkFacts(networkId))
       ).subscribe(response => this.processResponse(response))
     );
@@ -49,11 +46,6 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  private processNetworkId(networkId: string) {
-    this.networkId = networkId;
-    this.pageService.networkId = networkId;
   }
 
   private processResponse(response: ApiResponse<NetworkFactsPage>) {

@@ -8,6 +8,7 @@ import kpn.shared.NodeInfo
 import kpn.shared.Timestamp
 import kpn.shared.changes.details.ChangeKey
 import kpn.shared.changes.details.RefBooleanChange
+import kpn.shared.changes.filter.ChangesFilter
 import kpn.shared.common.Ref
 import kpn.shared.data.Tags
 import kpn.shared.diff.TagDetail
@@ -43,6 +44,7 @@ object NodePageExample {
   val nodeChangesPage: NodeChangesPage = {
     NodeChangesPage(
       nodeInfo(),
+      ChangesFilter(Seq()),
       changes(),
       incompleteWarning = true,
       10

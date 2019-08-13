@@ -48,7 +48,7 @@ class SubsetFact {
         </p>
 
         <kpn-items>
-          <kpn-item *ngFor="let networkFactRefs of response.result.networks; let i=index" index="{{i}}">
+          <kpn-item *ngFor="let networkFactRefs of response.result.networks; let i=index" [index]="i">
             <a [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
               {{networkFactRefs.networkName}}
             </a>
@@ -82,8 +82,6 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pageService.initSubsetPage();
-
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => this.interpreteParams(params)),

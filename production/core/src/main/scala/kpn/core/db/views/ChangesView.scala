@@ -25,5 +25,13 @@ object ChangesView extends View {
     }
   }
 
+  def extractTotal(rowValue: JsValue): Int = {
+    val row = toRow(rowValue)
+    row.value match {
+      case JsArray(Vector(JsNumber(total), JsNumber(impacted))) => total.toInt
+      case _ => throw DeserializationException("Total and impacted counts expected")
+    }
+  }
+
   override val reduce: Option[String] = Some("_sum")
 }

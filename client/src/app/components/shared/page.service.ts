@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
+import {Title} from "@angular/platform-browser";
 import {BehaviorSubject} from "rxjs";
 import {Subset} from "../../kpn/shared/subset";
 import {PageWidthService} from "./page-width.service";
-import {Title} from "@angular/platform-browser";
 
 @Injectable({
   providedIn: "root"
@@ -13,9 +13,6 @@ export class PageService {
 
   readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(this.sidebarOpenInitialState());
 
-  showSubsetsMenu: boolean = false;
-  showSubsetMenu: boolean = false;
-  showNetworkMenu: boolean = false;
   subset: Subset = null;
   networkId: string = null;
   showFooter: boolean = true;
@@ -27,28 +24,8 @@ export class PageService {
 
   defaultMenu() {
     setTimeout(() => {
-      this.showSubsetsMenu = false;
-      this.showSubsetMenu = false;
-      this.showNetworkMenu = false;
       this.showFooter = true;
       this.subset = null;
-      this.networkId = null;
-    });
-  }
-
-  initSubsetPage() {
-    setTimeout(() => {
-      this.showSubsetsMenu = true;
-      this.showSubsetMenu = true;
-      this.showNetworkMenu = false;
-    });
-  }
-
-  initNetworkPage() {
-    setTimeout(() => {
-      this.showSubsetsMenu = true;
-      this.showSubsetMenu = false;
-      this.showNetworkMenu = true;
     });
   }
 

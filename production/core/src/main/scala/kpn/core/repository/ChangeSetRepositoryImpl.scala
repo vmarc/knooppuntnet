@@ -4,7 +4,10 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats
 import kpn.core.db.json.JsonFormats._
+import kpn.core.db.views.AnalyzerDesign
+import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.ChangesView
+import kpn.core.db.views.OrphanRouteView
 import kpn.core.util.Log
 import kpn.shared.ChangeSetSummary
 import kpn.shared.ChangeSetSummaryDoc
@@ -173,8 +176,20 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
     readChanges("changeSetSummary", parameters, stale).map(_.convertTo[ChangeSetSummary])
   }
 
+  override def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
+    changesFilter(Seq("node", nodeId.toString), year, month, day, stale)
+  }
+
+  override def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
+    changesFilter(Seq("route", routeId.toString), year, month, day, stale)
+  }
+
   override def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
     changesFilter(Seq("network", networkId.toString), year, month, day, stale)
+  }
+
+  override def networkChangesCount(networkId: Long, stale: Boolean = true): Int = {
+    changesCount("network", networkId.toString, stale)
   }
 
   override def changesFilter(subsetOption: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
@@ -245,6 +260,17 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
 
     val rows = query("changesFilterPeriod", queryParameters, stale)
     rows.map(ChangesView.convertToPeriod)
+  }
+
+  private def changesCount(elementType: String, id: String, stale: Boolean): Int = {
+    val rows = database.groupQuery(2, ChangesDesign, ChangesView, stale = stale)(elementType, id)
+    val totals = rows.map(ChangesView.extractTotal)
+    if (totals.size == 1) {
+      totals.head
+    }
+    else {
+      0
+    }
   }
 
   private def suffix(size: Int, character: String): String = Seq.fill(size)(character).mkString

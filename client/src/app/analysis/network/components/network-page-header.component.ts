@@ -51,7 +51,8 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
 
       <kpn-page-menu-option
           link="{{'/analysis/network/' + networkId + '/changes'}}"
-          i18n="@@network-page.menu.changes">
+          i18n="@@network-page.menu.changes"
+          [elementCount]="changeCount()">
         Changes
       </kpn-page-menu-option>
 
@@ -88,6 +89,10 @@ export class NetworkPageHeaderComponent {
 
   routeCount() {
     return Util.safeGet(() => this.networkSummary().routeCount);
+  }
+
+  changeCount() {
+    return Util.safeGet(() => this.networkSummary().changeCount);
   }
 
   private networkSummary(): NetworkSummary {

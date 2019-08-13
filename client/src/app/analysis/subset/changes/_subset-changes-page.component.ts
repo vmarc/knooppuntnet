@@ -4,6 +4,7 @@ import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
 import {ApiResponse} from "../../../kpn/shared/api-response";
+import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
 import {Subset} from "../../../kpn/shared/subset";
 import {SubsetChangesPage} from "../../../kpn/shared/subset/subset-changes-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
@@ -32,6 +33,7 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   subset: Subset;
   response: ApiResponse<SubsetChangesPage>;
+  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -40,12 +42,11 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pageService.initSubsetPage();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),
         tap(subset => this.processSubset(subset)),
-        flatMap(subset => this.appService.subsetChanges(subset))
+        flatMap(subset => this.appService.subsetChanges(subset, this.parameters))
       ).subscribe(response => this.processResponse(response))
     );
   }

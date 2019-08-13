@@ -7,5 +7,6 @@ case class NetworkSummary(
   name: String,
   factCount: Int,
   nodeCount: Int,
-  routeCount: Int
+  routeCount: Int,
+  changeCount: Int
 )

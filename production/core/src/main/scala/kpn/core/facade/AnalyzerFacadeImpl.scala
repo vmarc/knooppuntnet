@@ -119,10 +119,10 @@ class AnalyzerFacadeImpl(
     }
   }
 
-  override def nodeChanges(user: Option[String], nodeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[NodeChangesPage] = {
+  override def nodeChanges(user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage] = {
     val label = s"$user node($nodeId)"
     log.infoElapsed(label) {
-      reply(label, nodePageBuilder.buildChangesPage(user, nodeId, itemsPerPage, pageIndex))
+      reply(label, nodePageBuilder.buildChangesPage(user, nodeId, parameters))
     }
   }
 
@@ -147,10 +147,10 @@ class AnalyzerFacadeImpl(
     }
   }
 
-  override def routeChanges(user: Option[String], routeId: Long, itemsPerPage: Int, pageIndex: Int): ApiResponse[RouteChangesPage] = {
+  override def routeChanges(user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage] = {
     val label = s"$user route($routeId)"
     log.infoElapsed(label) {
-      reply(label, routePageBuilder.buildChangesPage(user, routeId, itemsPerPage, pageIndex))
+      reply(label, routePageBuilder.buildChangesPage(user, routeId, parameters))
     }
   }
 
