@@ -40,6 +40,7 @@ import {RouteAccessibleIndicatorComponent} from "./routes/indicators/route-acces
 import {RouteConnectionIndicatorComponent} from "./routes/indicators/route-connection-indicator.component";
 import {RouteInvestigateIndicatorComponent} from "./routes/indicators/route-investigate-indicator.component";
 import { NetworkChangeSetComponent } from './changes/network-change-set.component';
+import { NetworkDetailsComponent } from './details/network-details.component';
 
 @NgModule({
   imports: [
@@ -89,7 +90,8 @@ import { NetworkChangeSetComponent } from './changes/network-change-set.componen
     RouteConnectionIndicatorDialogComponent,
     RouteInvestigateIndicatorComponent,
     RouteInvestigateIndicatorDialogComponent,
-    NetworkChangeSetComponent
+    NetworkChangeSetComponent,
+    NetworkDetailsComponent
   ],
   entryComponents: [
     NodeConnectionIndicatorDialogComponent,

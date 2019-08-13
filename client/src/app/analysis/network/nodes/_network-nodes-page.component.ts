@@ -18,15 +18,20 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </kpn-network-page-header>
 
     <div *ngIf="response">
-      <div *ngIf="response.result.nodes.isEmpty()" i18n="@@network-nodes.no-nodes">
-        No network nodes in network
+      <div *ngIf="!page">
+        <p i18n="@@network-nodes.network-not-found">Network not found</p>
       </div>
-      <kpn-network-node-table
-          *ngIf="!response.result.nodes.isEmpty()"
-          [networkType]="response.result.networkType"
-          [timeInfo]="response.result.timeInfo"
-          [nodes]="response.result.nodes">
-      </kpn-network-node-table>
+      <div *ngIf="page">
+        <div *ngIf="page.nodes.isEmpty()" i18n="@@network-nodes.no-nodes">
+          No network nodes in network
+        </div>
+        <kpn-network-node-table
+            *ngIf="!page.nodes.isEmpty()"
+            [networkType]="page.networkType"
+            [timeInfo]="page.timeInfo"
+            [nodes]="page.nodes">
+        </kpn-network-node-table>
+      </div>
       <kpn-json [object]="response"></kpn-json>
     </div>
   `
@@ -35,7 +40,7 @@ export class NetworkNodesPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
-  networkId: string;
+  networkId: number;
   response: ApiResponse<NetworkNodesPage>;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -46,7 +51,7 @@ export class NetworkNodesPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
-        map(params => params["networkId"]),
+        map(params => +params["networkId"]),
         tap(networkId => this.networkId = networkId),
         flatMap(networkId => this.appService.networkNodes(networkId))
       ).subscribe(response => this.processResponse(response))
@@ -57,11 +62,16 @@ export class NetworkNodesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  get page(): NetworkNodesPage {
+    return this.response.result;
+  }
+
   private processResponse(response: ApiResponse<NetworkNodesPage>) {
     this.response = response;
-    this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
-    const networkName = response.result.networkSummary.name;
-    this.networkCacheService.setNetworkName(this.networkId, networkName);
+    if (this.page) {
+      this.networkCacheService.setNetworkSummary(this.networkId, this.page.networkSummary);
+      this.networkCacheService.setNetworkName(this.networkId, this.page.networkSummary.name);
+    }
   }
 
 }

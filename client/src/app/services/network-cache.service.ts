@@ -7,22 +7,22 @@ import {NetworkSummary} from "../kpn/shared/network/network-summary";
 })
 export class NetworkCacheService {
 
-  private networkNames = Map<string, string>();
-  private networkSummaries = Map<string, NetworkSummary>();
+  private networkNames = Map<number, string>();
+  private networkSummaries = Map<number, NetworkSummary>();
 
-  getNetworkName(networkId: string): string {
+  getNetworkName(networkId: number): string {
     return this.networkNames.get(networkId);
   }
 
-  setNetworkName(networkId: string, networkName: string) {
+  setNetworkName(networkId: number, networkName: string) {
     this.networkNames = this.networkNames.set(networkId, networkName);
   }
 
-  getNetworkSummary(networkId: string): NetworkSummary {
+  getNetworkSummary(networkId: number): NetworkSummary {
     return this.networkSummaries.get(networkId);
   }
 
-  setNetworkSummary(networkId: string, networkSummary: NetworkSummary) {
+  setNetworkSummary(networkId: number, networkSummary: NetworkSummary) {
     this.networkSummaries = this.networkSummaries.set(networkId, networkSummary);
   }
 

@@ -78,7 +78,7 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
     this.response = response;
     this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
     response.result.networks.forEach(networkAttributes => {
-      this.networkCacheService.setNetworkName(networkAttributes.id.toString(), networkAttributes.name);
+      this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
     });
   }
 

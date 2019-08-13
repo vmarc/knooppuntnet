@@ -5798,7 +5798,7 @@
         <target state="new">[The network history is available to registered OpenStreetMap contributors only, after]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-not-found" datatype="html">
@@ -5810,7 +5810,7 @@
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.no-history" datatype="html">
@@ -5822,7 +5822,7 @@
         ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.title" datatype="html">
@@ -5845,8 +5845,8 @@
         <source>Situation on</source>
         <target>Situatie op</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.nodes" datatype="html">
@@ -6252,40 +6252,40 @@
         <source>Summary</source>
         <target>Samenvatting</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.country" datatype="html">
         <source>Country</source>
         <target>Land</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.last-updated" datatype="html">
         <source>Last updated</source>
         <target>Laatst bewerkt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.relation-last-updated" datatype="html">
         <source>Relation last updated</source>
         <target>Relatie laatst bewerkt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.tags" datatype="html">
         <source>Tags</source>
         <target state="new">[Tags]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-facts.title" datatype="html">
@@ -6312,14 +6312,22 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="network-nodes.network-not-found" datatype="html">
+        <source>Network not found</source>
+        <target state="new">[Network not found]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="network-nodes.no-nodes" datatype="html">
         <source>
-        No network nodes in network
-      </source>
+          No network nodes in network
+        </source>
         <target>Geen netwerk knooppunten in netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.title" datatype="html">
@@ -6330,16 +6338,24 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="network-routes.network-not-found" datatype="html">
+        <source>Network not found</source>
+        <target state="new">[Network not found]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="network-routes.no-routes" datatype="html">
         <source>
-        No network routes in network
-      </source>
+          No network routes in network
+        </source>
         <target state="new">[
         No network routes in network
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.login-required" datatype="html">

@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {MatPaginator, MatSlideToggleChange, PageEvent} from "@angular/material";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {MatSlideToggleChange, PageEvent} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
@@ -18,45 +18,47 @@ import {Subscriptions} from "../../../util/Subscriptions";
         i18n-pageTitle="@@network-changes.title">
     </kpn-network-page-header>
 
-    <p *ngIf="response">
-      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-    </p>
-
-    <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)">Impact</mat-slide-toggle>
-
-    <mat-paginator
-        [pageIndex]="parameters.pageIndex"
-        [pageSize]="parameters.itemsPerPage"
-        [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
-        [showFirstLastButtons]="true">
-    </mat-paginator>
-
     <div *ngIf="!isLoggedIn()">
       <span i18n="@@network-changes.login-required">The network history is available to registered OpenStreetMap contributors only, after</span>
       <kpn-link-login></kpn-link-login>
       .
     </div>
 
-    <div *ngIf="response?.result">
-      <div *ngIf="!response.result" i18n="@@network-changes.network-not-found">
+    <div *ngIf="response">
+      <div *ngIf="!page" i18n="@@network-changes.network-not-found">
         Network not found
       </div>
-      <div *ngIf="response.result">
-        <div *ngIf="response.result.changes.isEmpty()" i18n="@@network-changes.no-history">
+      <div *ngIf="page">
+
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+
+        <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)">Impact</mat-slide-toggle>
+
+        <div *ngIf="page.changes.isEmpty()" i18n="@@network-changes.no-history">
           No history
         </div>
-        <div *ngIf="!response.result.changes.isEmpty()">
+        <div *ngIf="!page.changes.isEmpty()">
+
+          <mat-paginator
+              (page)="pageChanged($event)"
+              [pageIndex]="parameters.pageIndex"
+              [pageSize]="parameters.itemsPerPage"
+              [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
+              [length]="page.totalCount"
+              [showFirstLastButtons]="true">
+          </mat-paginator>
+
           <kpn-items>
-            <kpn-item *ngFor="let networkChangeInfo of response.result.changes; let i=index" [index]="rowIndex(i)">
+            <kpn-item *ngFor="let networkChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
               <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
             </kpn-item>
           </kpn-items>
 
           <mat-paginator
-              (page)="bottomPageChanged($event)"
+              (page)="pageChanged($event)"
               [pageIndex]="parameters.pageIndex"
               [pageSize]="parameters.itemsPerPage"
-              [length]="response.result.totalCount"
+              [length]="page.totalCount"
               [hidePageSize]="true">
           </mat-paginator>
 
@@ -66,15 +68,13 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </div>
   `
 })
-export class NetworkChangesPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NetworkChangesPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
-  networkId: string;
+  networkId: number;
   response: ApiResponse<NetworkChangesPage>;
   parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, true);
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -84,30 +84,12 @@ export class NetworkChangesPageComponent implements OnInit, AfterViewInit, OnDes
 
   ngOnInit() {
     this.subscriptions.add(
-      this.activatedRoute.params.subscribe(params => this.networkId = params["networkId"])
-    );
-  }
-
-  ngAfterViewInit() {
-
-    this.parameters = {
-      ...this.parameters,
-      networkId: +this.networkId,
-      itemsPerPage: this.paginator.pageSize,
-      pageIndex: this.paginator.pageIndex
-    };
-
-    this.subscriptions.add(
-      this.paginator.page.subscribe(event => {
-        this.parameters = {
-          ...this.parameters,
-          itemsPerPage: this.paginator.pageSize,
-          pageIndex: this.paginator.pageIndex
-        };
-        this.reload()
+      this.activatedRoute.params.subscribe(params => {
+        this.networkId = +params["networkId"];
+        this.parameters = {...this.parameters, networkId: this.networkId};
+        this.reload();
       })
     );
-    this.reload();
   }
 
   ngOnDestroy(): void {
@@ -131,24 +113,29 @@ export class NetworkChangesPageComponent implements OnInit, AfterViewInit, OnDes
     this.reload();
   }
 
-  bottomPageChanged(event: PageEvent) {
+  pageChanged(event: PageEvent) {
     this.parameters = {...this.parameters, pageIndex: event.pageIndex};
     this.reload();
+  }
+
+  get page(): NetworkChangesPage {
+    return this.response.result;
   }
 
   private reload() {
     this.subscriptions.add(
       this.appService.networkChanges(this.networkId, this.parameters).subscribe(response => {
         this.processResponse(response);
-        this.paginator.length = this.response.result.totalCount;
       })
     );
   }
 
   private processResponse(response: ApiResponse<NetworkChangesPage>) {
     this.response = response;
-    this.networkCacheService.setNetworkSummary(this.networkId, this.response.result.network);
-    this.networkCacheService.setNetworkName(this.networkId, this.response.result.network.name);
+    if (this.page) {
+      this.networkCacheService.setNetworkSummary(this.networkId, this.page.network);
+      this.networkCacheService.setNetworkName(this.networkId, this.page.network.name);
+    }
   }
 
 }
