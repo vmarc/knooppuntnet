@@ -1,13 +1,12 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
+import {RouteChangesPage} from "../../../kpn/shared/route/route-changes-page";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {RouteChangesPage} from "../../../kpn/shared/route/route-changes-page";
-import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-route-changes-page",
@@ -44,7 +43,7 @@ import {flatMap, map, tap} from "rxjs/operators";
     </div>
   `
 })
-export class RouteChangesPageComponent implements OnInit, OnDestroy {
+export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
@@ -65,11 +64,27 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pageService.defaultMenu();
     this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => params["routeId"]),
-        tap(routeId => this.routeId = routeId),
-        flatMap(routeId => this.appService.routeChanges(routeId, this.parameters))
-      ).subscribe(response => this.response = response)
+      this.activatedRoute.params.subscribe(params => {
+        this.routeId = params["routeId"];
+        this.parameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 5, 0, false);
+      })
+    );
+  }
+
+  ngAfterViewInit() {
+    // this.subscriptions.add(
+    //   this.paginator.page.subscribe(event => this.reload())
+    // );
+    this.reload();
+  }
+
+  private reload() {
+    // this.updateParameters();
+    this.subscriptions.add(
+      this.appService.routeChanges(this.routeId.toString(), this.parameters).subscribe(response => {
+        this.response = response;
+        // this.paginator.length = this.response.result.totalCount;
+      })
     );
   }
 

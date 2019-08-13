@@ -1,7 +1,6 @@
-import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {MatPaginator} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
-import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
@@ -62,7 +61,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </div>
   `
 })
-export class NodeChangesPageComponent implements OnInit, OnDestroy {
+export class NodeChangesPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
@@ -70,7 +69,6 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   nodeName: string;
   response: ApiResponse<NodeChangesPage>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
 
   parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
@@ -88,14 +86,27 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
     this.nodeName = history.state.nodeName;
     this.pageService.defaultMenu();
     this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => params["nodeId"]),
-        tap(nodeId => this.nodeId = +nodeId),
-        flatMap(nodeId => {
-          this.updateParameters();
-          return this.appService.nodeChanges(nodeId, this.parameters)
-        })
-      ).subscribe(response => this.processResponse(response))
+      this.activatedRoute.params.subscribe(params => {
+        const nodeId = params["nodeId"];
+        this.nodeId = +nodeId;
+      })
+    );
+  }
+
+  ngAfterViewInit() {
+    this.subscriptions.add(
+      this.paginator.page.subscribe(event => this.reload())
+    );
+    this.reload();
+  }
+
+  private reload() {
+    this.updateParameters();
+    this.subscriptions.add(
+      this.appService.nodeChanges(this.nodeId.toString(), this.parameters).subscribe(response => {
+        this.processResponse(response);
+        this.paginator.length = this.response.result.totalCount;
+      })
     );
   }
 
