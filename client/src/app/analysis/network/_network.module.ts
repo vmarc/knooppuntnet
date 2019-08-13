@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSlideToggleModule, MatSortModule, MatTableModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
 import {SharedModule} from "../../components/shared/shared.module";
 import {NetworkChangesPageComponent} from "./changes/_network-changes-page.component";
@@ -39,6 +39,7 @@ import {AnalysisComponentsModule} from "../components/_analysis-components.modul
 import {RouteAccessibleIndicatorComponent} from "./routes/indicators/route-accessible-indicator.component";
 import {RouteConnectionIndicatorComponent} from "./routes/indicators/route-connection-indicator.component";
 import {RouteInvestigateIndicatorComponent} from "./routes/indicators/route-investigate-indicator.component";
+import { NetworkChangeSetComponent } from './changes/network-change-set.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import {RouteInvestigateIndicatorComponent} from "./routes/indicators/route-inve
     MatTableModule,
     SharedModule,
     AnalysisComponentsModule,
-    NetworkRoutingModule
+    NetworkRoutingModule,
+    MatSlideToggleModule
   ],
   declarations: [
     NetworkChangesPageComponent,
@@ -86,7 +88,8 @@ import {RouteInvestigateIndicatorComponent} from "./routes/indicators/route-inve
     RouteConnectionIndicatorComponent,
     RouteConnectionIndicatorDialogComponent,
     RouteInvestigateIndicatorComponent,
-    RouteInvestigateIndicatorDialogComponent
+    RouteInvestigateIndicatorDialogComponent,
+    NetworkChangeSetComponent
   ],
   entryComponents: [
     NodeConnectionIndicatorDialogComponent,

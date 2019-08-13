@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {MatPaginator} from "@angular/material";
+import {MatPaginator, MatSlideToggleChange, PageEvent} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
@@ -22,8 +22,10 @@ import {Subscriptions} from "../../../util/Subscriptions";
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
     </p>
 
+    <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)">Impact</mat-slide-toggle>
+
     <mat-paginator
-        [pageIndex]="0"
+        [pageIndex]="parameters.pageIndex"
         [pageSize]="parameters.itemsPerPage"
         [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
         [showFirstLastButtons]="true">
@@ -46,9 +48,18 @@ import {Subscriptions} from "../../../util/Subscriptions";
         <div *ngIf="!response.result.changes.isEmpty()">
           <kpn-items>
             <kpn-item *ngFor="let networkChangeInfo of response.result.changes; let i=index" [index]="rowIndex(i)">
-              <kpn-network-change [networkChangeInfo]="networkChangeInfo"></kpn-network-change>
+              <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
             </kpn-item>
           </kpn-items>
+
+          <mat-paginator
+              (page)="bottomPageChanged($event)"
+              [pageIndex]="parameters.pageIndex"
+              [pageSize]="parameters.itemsPerPage"
+              [length]="response.result.totalCount"
+              [hidePageSize]="true">
+          </mat-paginator>
+
         </div>
       </div>
       <kpn-json [object]="response"></kpn-json>
@@ -61,7 +72,7 @@ export class NetworkChangesPageComponent implements OnInit, AfterViewInit, OnDes
 
   networkId: string;
   response: ApiResponse<NetworkChangesPage>;
-  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, true);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -78,8 +89,23 @@ export class NetworkChangesPageComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngAfterViewInit() {
+
+    this.parameters = {
+      ...this.parameters,
+      networkId: +this.networkId,
+      itemsPerPage: this.paginator.pageSize,
+      pageIndex: this.paginator.pageIndex
+    };
+
     this.subscriptions.add(
-      this.paginator.page.subscribe(event => this.reload())
+      this.paginator.page.subscribe(event => {
+        this.parameters = {
+          ...this.parameters,
+          itemsPerPage: this.paginator.pageSize,
+          pageIndex: this.paginator.pageIndex
+        };
+        this.reload()
+      })
     );
     this.reload();
   }
@@ -96,8 +122,21 @@ export class NetworkChangesPageComponent implements OnInit, AfterViewInit, OnDes
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
   }
 
+  impactChanged(event: MatSlideToggleChange) {
+    this.parameters = {
+      ...this.parameters,
+      impact: event.checked,
+      pageIndex: 0
+    };
+    this.reload();
+  }
+
+  bottomPageChanged(event: PageEvent) {
+    this.parameters = {...this.parameters, pageIndex: event.pageIndex};
+    this.reload();
+  }
+
   private reload() {
-    this.updateParameters();
     this.subscriptions.add(
       this.appService.networkChanges(this.networkId, this.parameters).subscribe(response => {
         this.processResponse(response);
@@ -110,21 +149,6 @@ export class NetworkChangesPageComponent implements OnInit, AfterViewInit, OnDes
     this.response = response;
     this.networkCacheService.setNetworkSummary(this.networkId, this.response.result.network);
     this.networkCacheService.setNetworkName(this.networkId, this.response.result.network.name);
-  }
-
-  private updateParameters() {
-    this.parameters = new ChangesParameters(
-      this.parameters.subset,
-      this.parameters.networkId,
-      this.parameters.routeId,
-      this.parameters.nodeId,
-      this.parameters.year,
-      this.parameters.month,
-      this.parameters.day,
-      this.paginator.pageSize,
-      this.paginator.pageIndex,
-      this.parameters.impact
-    );
   }
 
 }
