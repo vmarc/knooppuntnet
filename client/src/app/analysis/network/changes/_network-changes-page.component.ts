@@ -39,28 +39,23 @@ import {Subscriptions} from "../../../util/Subscriptions";
         </div>
         <div *ngIf="!page.changes.isEmpty()">
 
-          <mat-paginator
-              (page)="pageChanged($event)"
-              [pageIndex]="parameters.pageIndex"
-              [pageSize]="parameters.itemsPerPage"
-              [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
-              [length]="page.totalCount"
-              [showFirstLastButtons]="true">
-          </mat-paginator>
-
+          <kpn-changes-top-paginator 
+              [parameters]="parameters" 
+              [totalCount]="page.totalCount" 
+              (pageIndexChanged)="pageIndexChanged($event)">
+          </kpn-changes-top-paginator>
+          
           <kpn-items>
             <kpn-item *ngFor="let networkChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
               <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
             </kpn-item>
           </kpn-items>
 
-          <mat-paginator
-              (page)="pageChanged($event)"
-              [pageIndex]="parameters.pageIndex"
-              [pageSize]="parameters.itemsPerPage"
-              [length]="page.totalCount"
-              [hidePageSize]="true">
-          </mat-paginator>
+          <kpn-changes-bottom-paginator
+              [parameters]="parameters"
+              [totalCount]="page.totalCount"
+              (pageIndexChanged)="pageIndexChanged($event)">
+          </kpn-changes-bottom-paginator>
 
         </div>
       </div>
@@ -113,8 +108,8 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     this.reload();
   }
 
-  pageChanged(event: PageEvent) {
-    this.parameters = {...this.parameters, pageIndex: event.pageIndex};
+  pageIndexChanged(pageIndex: number) {
+    this.parameters = {...this.parameters, pageIndex: pageIndex};
     this.reload();
   }
 
@@ -123,11 +118,9 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
   }
 
   private reload() {
-    this.subscriptions.add(
-      this.appService.networkChanges(this.networkId, this.parameters).subscribe(response => {
-        this.processResponse(response);
-      })
-    );
+    this.appService.networkChanges(this.networkId, this.parameters).subscribe(response => {
+      this.processResponse(response);
+    });
   }
 
   private processResponse(response: ApiResponse<NetworkChangesPage>) {

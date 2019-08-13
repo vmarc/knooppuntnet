@@ -23,6 +23,8 @@ import {FilterCheckboxGroupComponent} from "./filter/filter-checkbox-group.compo
 import {FilterRadioGroupComponent} from "./filter/filter-radio-group.component";
 import {FilterTitleComponent} from "./filter/filter-title.component";
 import {SharedModule} from "../../components/shared/shared.module";
+import { ChangesTopPaginatorComponent } from './changes/changes-top-paginator.component';
+import { ChangesBottomPaginatorComponent } from './changes/changes-bottom-paginator.component';
 
 @NgModule({
   imports: [
@@ -59,7 +61,9 @@ import {SharedModule} from "../../components/shared/shared.module";
     FilterComponent,
     FilterCheckboxGroupComponent,
     FilterRadioGroupComponent,
-    FilterTitleComponent
+    FilterTitleComponent,
+    ChangesTopPaginatorComponent,
+    ChangesBottomPaginatorComponent
   ],
   exports: [
     ChangeHeaderComponent,
@@ -81,7 +85,10 @@ import {SharedModule} from "../../components/shared/shared.module";
     FilterComponent,
     FilterCheckboxGroupComponent,
     FilterRadioGroupComponent,
-    FilterTitleComponent
+    FilterTitleComponent,
+    ChangesTopPaginatorComponent,
+    ChangesBottomPaginatorComponent
+
   ]
 })
 export class AnalysisComponentsModule {
