@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {MatSlideToggleChange, PageEvent} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
@@ -32,32 +31,14 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
 
-        <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)">Impact</mat-slide-toggle>
-
-        <div *ngIf="page.changes.isEmpty()" i18n="@@network-changes.no-history">
-          No history
-        </div>
-        <div *ngIf="!page.changes.isEmpty()">
-
-          <kpn-changes-top-paginator 
-              [parameters]="parameters" 
-              [totalCount]="page.totalCount" 
-              (pageIndexChanged)="pageIndexChanged($event)">
-          </kpn-changes-top-paginator>
-          
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount">
           <kpn-items>
             <kpn-item *ngFor="let networkChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
               <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
             </kpn-item>
           </kpn-items>
+        </kpn-changes>
 
-          <kpn-changes-bottom-paginator
-              [parameters]="parameters"
-              [totalCount]="page.totalCount"
-              (pageIndexChanged)="pageIndexChanged($event)">
-          </kpn-changes-bottom-paginator>
-
-        </div>
       </div>
       <kpn-json [object]="response"></kpn-json>
     </div>
@@ -69,7 +50,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
 
   networkId: number;
   response: ApiResponse<NetworkChangesPage>;
-  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, true);
+  _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, true);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -82,7 +63,6 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
       this.activatedRoute.params.subscribe(params => {
         this.networkId = +params["networkId"];
         this.parameters = {...this.parameters, networkId: this.networkId};
-        this.reload();
       })
     );
   }
@@ -99,17 +79,12 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
   }
 
-  impactChanged(event: MatSlideToggleChange) {
-    this.parameters = {
-      ...this.parameters,
-      impact: event.checked,
-      pageIndex: 0
-    };
-    this.reload();
+  get parameters() {
+    return this._parameters;
   }
 
-  pageIndexChanged(pageIndex: number) {
-    this.parameters = {...this.parameters, pageIndex: pageIndex};
+  set parameters(parameters: ChangesParameters) {
+    this._parameters = parameters;
     this.reload();
   }
 
