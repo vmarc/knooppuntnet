@@ -11,7 +11,7 @@ export class RouteChangesPage {
               readonly filter: ChangesFilter,
               readonly changes: List<RouteChangeInfo>,
               readonly incompleteWarning: boolean,
-              readonly totalCount: number) {
+              readonly changeCount: number) {
   }
 
   public static fromJSON(jsonObject): RouteChangesPage {
@@ -23,7 +23,7 @@ export class RouteChangesPage {
       ChangesFilter.fromJSON(jsonObject.filter),
       jsonObject.changes ? List(jsonObject.changes.map(json => RouteChangeInfo.fromJSON(json))) : List(),
       jsonObject.incompleteWarning,
-      jsonObject.totalCount
+      jsonObject.changeCount
     );
   }
 }

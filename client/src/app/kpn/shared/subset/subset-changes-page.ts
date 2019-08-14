@@ -10,7 +10,7 @@ export class SubsetChangesPage {
   constructor(readonly subsetInfo: SubsetInfo,
               readonly filter: ChangesFilter,
               readonly changes: List<ChangeSetSummaryInfo>,
-              readonly totalCount: number) {
+              readonly changeCount: number) {
   }
 
   public static fromJSON(jsonObject): SubsetChangesPage {
@@ -21,7 +21,7 @@ export class SubsetChangesPage {
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
       ChangesFilter.fromJSON(jsonObject.filter),
       jsonObject.changes ? List(jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json))) : List(),
-      jsonObject.totalCount
+      jsonObject.changeCount
     );
   }
 }

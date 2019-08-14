@@ -73,6 +73,7 @@ class RoutePageBuilderImpl(
     }
     else {
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
+        val changeCount = changeSetRepository.routeChangesCount(route.id)
         val changesFilter = changeSetRepository.nodeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
         val totalCount = changesFilter.currentItemCount(parameters.impact)
         val routeChanges: Seq[RouteChange] = if (user.isDefined) {
@@ -86,7 +87,7 @@ class RoutePageBuilderImpl(
           changeSetInfoRepository.all(changeSetIds)
         }
         val history = new RouteHistoryAnalyzer(routeChanges, changeSetInfos).history
-        RouteChangesPage(route, changesFilter, history.changes, history.incompleteWarning, totalCount)
+        RouteChangesPage(route, changesFilter, history.changes, history.incompleteWarning, totalCount, changeCount)
       }
     }
   }

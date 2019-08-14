@@ -36,10 +36,10 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
               private appService: AppService,
               private pageService: PageService,
               private networkCacheService: NetworkCacheService) {
+    this.pageService.showFooter = false;
   }
 
   ngOnInit(): void {
-    this.pageService.showFooter = false;
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => +params["networkId"]),

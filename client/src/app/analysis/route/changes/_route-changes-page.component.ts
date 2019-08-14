@@ -14,7 +14,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
     <kpn-route-page-header
       [routeId]="routeId"
       [routeName]="response?.result?.route.summary.name"
-      [changeCount]="response?.result?.totalCount">
+      [changeCount]="response?.result?.changeCount">
     </kpn-route-page-header>
 
     <div *ngIf="!isLoggedIn()">
@@ -87,7 +87,6 @@ export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestr
     this.subscriptions.add(
       this.appService.routeChanges(this.routeId.toString(), this.parameters).subscribe(response => {
         this.response = response;
-        // this.paginator.length = this.response.result.totalCount;
       })
     );
   }

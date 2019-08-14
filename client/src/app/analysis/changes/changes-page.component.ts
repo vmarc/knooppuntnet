@@ -23,7 +23,7 @@ import {Subscriptions} from "../../util/Subscriptions";
 
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
 
-      <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [showFirstLastButtons]="false">
+      <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [showFirstLastButtons]="false">
         <kpn-items>
           <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
             <kpn-change-set [changeSet]="changeSet"></kpn-change-set>

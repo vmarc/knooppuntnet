@@ -52,7 +52,8 @@ object RoutePageExample {
       ChangesFilter(Seq()),
       changes(),
       incompleteWarning = true,
-      totalCount = 3
+      totalCount = 3,
+      changeCount = 3
     )
   }
 

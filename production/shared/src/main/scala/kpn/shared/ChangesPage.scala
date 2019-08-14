@@ -5,5 +5,5 @@ import kpn.shared.changes.filter.ChangesFilter
 case class ChangesPage(
   filter: ChangesFilter,
   changes: Seq[ChangeSetSummaryInfo],
-  totalCount: Int
+  changeCount: Int
 )

@@ -439,7 +439,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val routeDetailsPageFormat: RootJsonFormat[RouteDetailsPage] = jsonFormat3(RouteDetailsPage)
   implicit val routeMapPageFormat: RootJsonFormat[RouteMapPage] = jsonFormat2(RouteMapPage)
-  implicit val routeChangesPageFormat: RootJsonFormat[RouteChangesPage] = jsonFormat5(RouteChangesPage)
+  implicit val routeChangesPageFormat: RootJsonFormat[RouteChangesPage] = jsonFormat6(RouteChangesPage)
 
   implicit val changesParametersFormat: RootJsonFormat[ChangesParameters] = jsonFormat10(ChangesParameters)
 

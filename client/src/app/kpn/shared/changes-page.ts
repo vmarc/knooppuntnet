@@ -8,7 +8,7 @@ export class ChangesPage {
 
   constructor(readonly filter: ChangesFilter,
               readonly changes: List<ChangeSetSummaryInfo>,
-              readonly totalCount: number) {
+              readonly changeCount: number) {
   }
 
   public static fromJSON(jsonObject): ChangesPage {
@@ -18,7 +18,7 @@ export class ChangesPage {
     return new ChangesPage(
       ChangesFilter.fromJSON(jsonObject.filter),
       jsonObject.changes ? List(jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json))) : List(),
-      jsonObject.totalCount
+      jsonObject.changeCount
     );
   }
 }

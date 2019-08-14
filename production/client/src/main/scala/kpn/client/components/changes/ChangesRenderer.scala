@@ -31,14 +31,14 @@ class ChangesRenderer(
       fromTo(),
       UiPager(
         parameters.itemsPerPage,
-        page.totalCount,
+        page.changeCount,
         parameters.pageIndex,
         pageIndexChanged
       ),
       changes(),
       UiPager(
         parameters.itemsPerPage,
-        page.totalCount,
+        page.changeCount,
         parameters.pageIndex,
         pageIndexChanged
       )

@@ -17,7 +17,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
     <kpn-node-page-header
       [nodeId]="nodeId"
       [nodeName]="nodeName"
-      [changeCount]="response?.result?.totalCount">
+      [changeCount]="response?.result?.changeCount">
     </kpn-node-page-header>
 
     <p *ngIf="response">
@@ -109,7 +109,7 @@ export class NodeChangesPageComponent implements OnInit, AfterViewInit, OnDestro
     this.subscriptions.add(
       this.appService.nodeChanges(this.nodeId.toString(), this.parameters).subscribe(response => {
         this.processResponse(response);
-        this.paginator.length = this.response.result.totalCount;
+        this.paginator.length = this.response.result.changeCount;
       })
     );
   }

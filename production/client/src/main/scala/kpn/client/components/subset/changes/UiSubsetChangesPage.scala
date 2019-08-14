@@ -41,7 +41,7 @@ object UiSubsetChangesPage {
     override protected def currentPage: Option[ChangesPage] = {
       scope.state.runNow().pageState.response.flatMap { response =>
         response.result.map { subsetPage =>
-          ChangesPage(subsetPage.filter, subsetPage.changes, subsetPage.totalCount)
+          ChangesPage(subsetPage.filter, subsetPage.changes, subsetPage.changeCount)
         }
       }
     }

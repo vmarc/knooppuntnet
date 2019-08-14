@@ -21,7 +21,7 @@ class SubsetChangesPageBuilderImpl(
       val figures = overviewRepository.figures(Couch.uiTimeout)
       val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
       val filter = changeSetRepository.changesFilter(parameters.subset, parameters.year, parameters.month, parameters.day)
-      val totalCount = filter.currentItemCount(parameters.impact)
+      val changeCount = filter.currentItemCount(parameters.impact)
       val changeSetSummaries: Seq[ChangeSetSummary] = if (user.isDefined) {
         changeSetRepository.changes(parameters)
       }
@@ -32,7 +32,7 @@ class SubsetChangesPageBuilderImpl(
         ChangeSetSummarySubsetFilter.filter(changeSetSummary, subset)
       }
       val changeSetSummaryInfos = new ChangeSetSummaryInfosBuilder(changeSetInfoRepository).toChangeSetSummaryInfos(changeSetSummariesWithSubsetRelatedChangesOnly)
-      SubsetChangesPage(subsetInfo, filter, changeSetSummaryInfos, totalCount)
+      SubsetChangesPage(subsetInfo, filter, changeSetSummaryInfos, changeCount)
     }
   }
 }

@@ -47,7 +47,7 @@ abstract class AbstractChangesPageBackend[T] extends AbstractBackend[T] {
       case Some(page) =>
         currentParameters match {
           case Some(parameters) =>
-            new ChangesRenderer(page, parameters, page.totalCount, pageIndexChanged, onToggleImpact).render()
+            new ChangesRenderer(page, parameters, page.changeCount, pageIndexChanged, onToggleImpact).render()
 
           case None =>
             <.div()

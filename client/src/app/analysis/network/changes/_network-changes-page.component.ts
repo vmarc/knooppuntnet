@@ -12,9 +12,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
   selector: "kpn-network-changes-page",
   template: `
     <kpn-network-page-header
-        [networkId]="networkId"
-        pageTitle="Changes"
-        i18n-pageTitle="@@network-changes.title">
+      [networkId]="networkId"
+      pageTitle="Changes"
+      i18n-pageTitle="@@network-changes.title">
     </kpn-network-page-header>
 
     <div *ngIf="!isLoggedIn()">
@@ -67,7 +67,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
 
@@ -79,7 +79,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
   }
 
-  get parameters() {
+  get parameters(): ChangesParameters {
     return this._parameters;
   }
 

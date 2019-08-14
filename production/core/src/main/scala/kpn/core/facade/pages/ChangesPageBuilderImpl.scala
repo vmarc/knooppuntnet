@@ -13,7 +13,7 @@ class ChangesPageBuilderImpl(
 
   override def build(user: Option[String], parameters: ChangesParameters): ChangesPage = {
     val changesFilter = changeSetRepository.changesFilter(None, parameters.year, parameters.month, parameters.day)
-    val totalCount = changesFilter.currentItemCount(parameters.impact)
+    val changeCount = changesFilter.currentItemCount(parameters.impact)
     val changeSetSummaries: Seq[ChangeSetSummary] = if (user.isDefined) {
       changeSetRepository.changes(parameters)
     }
@@ -21,6 +21,6 @@ class ChangesPageBuilderImpl(
       Seq()
     }
     val changeSetSummaryInfos = new ChangeSetSummaryInfosBuilder(changeSetInfoRepository).toChangeSetSummaryInfos(changeSetSummaries)
-    ChangesPage(changesFilter, changeSetSummaryInfos, totalCount)
+    ChangesPage(changesFilter, changeSetSummaryInfos, changeCount)
   }
 }
