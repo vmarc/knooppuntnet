@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
+import {RouteInfo} from "../../../kpn/shared/route/route-info";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {RouteMapPage} from "../../../kpn/shared/route/route-map-page";
 import {flatMap, map, tap} from "rxjs/operators";
@@ -39,8 +40,8 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
               private pageService: PageService) {
   }
 
-  ngOnInit() {
-    this.pageService.defaultMenu();
+  ngOnInit(): void {
+    this.pageService.showFooter = false;
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["routeId"]),
@@ -51,10 +52,11 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
   }
 
-  get route() {
+  get route(): RouteInfo {
     return this.response.result.route;
   }
 }

@@ -37,7 +37,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.nodeName = history.state.nodeName;
-    this.pageService.defaultMenu();
+    this.pageService.showFooter = false;
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["nodeId"]),

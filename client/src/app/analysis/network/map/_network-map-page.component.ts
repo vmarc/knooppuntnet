@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
+import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {NetworkMapPage} from "../../../kpn/shared/network/network-map-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
@@ -33,10 +34,12 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
+              private pageService: PageService,
               private networkCacheService: NetworkCacheService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.pageService.showFooter = false;
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => +params["networkId"]),
@@ -47,6 +50,7 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
   }
 
@@ -54,7 +58,7 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
     return this.response.result;
   }
 
-  private processResponse(response: ApiResponse<NetworkMapPage>) {
+  private processResponse(response: ApiResponse<NetworkMapPage>): void {
     this.response = response;
     if (this.page) {
       this.networkCacheService.setNetworkSummary(this.networkId, this.page.networkSummary);
