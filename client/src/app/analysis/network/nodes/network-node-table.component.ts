@@ -111,7 +111,7 @@ export class NetworkNodeTableComponent implements OnInit {
               private networkNodesService: NetworkNodesService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.filterCriteria.subscribe(criteria => {

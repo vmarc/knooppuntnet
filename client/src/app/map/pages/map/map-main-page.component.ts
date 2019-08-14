@@ -68,7 +68,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.pageService.showFooter = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
 
@@ -143,7 +143,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     MapGeocoder.install(this.map);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
   }

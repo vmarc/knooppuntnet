@@ -58,7 +58,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
               private userService: UserService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
         this.networkId = +params["networkId"];
@@ -67,7 +67,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 

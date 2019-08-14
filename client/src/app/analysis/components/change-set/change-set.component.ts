@@ -43,7 +43,7 @@ export class ChangesSetComponent implements OnInit {
   @Input() changeSet: ChangeSetSummaryInfo;
   networkActions: List<ChangeSetNetworkAction>;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.networkActions = this.buildNetworkActions();
   }
 

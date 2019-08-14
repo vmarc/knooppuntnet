@@ -42,7 +42,7 @@ export class SubsetNetworkListComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.networks.toArray());
   }
 

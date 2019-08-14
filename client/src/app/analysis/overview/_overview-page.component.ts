@@ -37,7 +37,7 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
               private pageService: PageService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageService.defaultMenu();
     this.subscriptions.add(
       this.appService.overview().subscribe(response => {

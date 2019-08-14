@@ -37,7 +37,7 @@ export class SubsetNetworkComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.interpretedNetwork = new InterpretedNetworkAttributes(this.network);
   }
 }

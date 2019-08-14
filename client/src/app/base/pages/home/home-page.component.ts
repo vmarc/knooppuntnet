@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
   constructor(private pageService: PageService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageService.defaultMenu();
   }
 

@@ -40,7 +40,7 @@ export class SubsetOrphanRoutesPageComponent implements OnInit, OnDestroy {
               private subsetCacheService: SubsetCacheService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),
@@ -50,7 +50,7 @@ export class SubsetOrphanRoutesPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 

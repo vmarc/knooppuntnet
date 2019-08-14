@@ -19,7 +19,7 @@ export class SubsetNetworkHappyComponent implements OnInit {
   @Input() network: NetworkAttributes;
   interpretedNetwork: InterpretedNetworkAttributes;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.interpretedNetwork = new InterpretedNetworkAttributes(this.network);
   }
 }

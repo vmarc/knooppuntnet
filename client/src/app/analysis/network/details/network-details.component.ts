@@ -38,7 +38,7 @@ export class NetworkDetailsComponent implements OnInit {
 
   tags: InterpretedTags;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.tags = InterpretedTags.networkTags(this.response.result.tags);
   }
 

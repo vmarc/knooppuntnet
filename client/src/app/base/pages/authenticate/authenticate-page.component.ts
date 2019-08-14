@@ -16,7 +16,7 @@ export class AuthenticatePageComponent implements OnInit {
               private pageService: PageService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageService.defaultMenu();
     this.userService.authenticated();
   }

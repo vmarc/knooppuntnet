@@ -74,7 +74,7 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
               private pageService: PageService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.nodeName = history.state.nodeName;
     this.pageService.defaultMenu();
     this.subscriptions.add(

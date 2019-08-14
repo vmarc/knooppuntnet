@@ -48,7 +48,7 @@ export class NetworkNodesPageComponent implements OnInit, OnDestroy {
               private networkCacheService: NetworkCacheService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => +params["networkId"]),

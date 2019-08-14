@@ -42,7 +42,7 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
               private pageService: PageService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageService.defaultMenu();
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
@@ -52,7 +52,7 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 

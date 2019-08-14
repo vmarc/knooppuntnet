@@ -50,7 +50,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   displayedColumns = ["rowNumber", "route"];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.orphanRoutes.toArray());
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

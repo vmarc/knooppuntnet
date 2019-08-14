@@ -22,11 +22,11 @@ export class JsonComponent implements OnInit {
   contents: string = "";
   visible = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.contents = JSON.stringify(this.object, null, 2);
   }
 
-  toggleVisible() {
+  toggleVisible(): void {
     this.visible = !this.visible;
   }
 }

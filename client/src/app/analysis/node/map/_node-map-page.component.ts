@@ -39,7 +39,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
     this.pageService.showFooter = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.nodeName = history.state.nodeName;
     this.pageService.showFooter = false;
     this.subscriptions.add(

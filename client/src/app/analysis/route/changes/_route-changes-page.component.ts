@@ -65,7 +65,7 @@ export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestr
     return this.userService.isLoggedIn();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageService.defaultMenu();
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
@@ -75,14 +75,14 @@ export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestr
     );
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // this.subscriptions.add(
     //   this.paginator.page.subscribe(event => this.reload())
     // );
     this.reload();
   }
 
-  private reload() {
+  private reload(): void {
     // this.updateParameters();
     this.subscriptions.add(
       this.appService.routeChanges(this.routeId.toString(), this.parameters).subscribe(response => {

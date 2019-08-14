@@ -14,7 +14,7 @@ export class NotFoundPageComponent implements OnInit {
   constructor(private pageService: PageService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pageService.defaultMenu();
   }
 

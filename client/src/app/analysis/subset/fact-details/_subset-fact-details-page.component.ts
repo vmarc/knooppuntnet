@@ -81,7 +81,7 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
               private subsetCacheService: SubsetCacheService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => this.interpreteParams(params)),

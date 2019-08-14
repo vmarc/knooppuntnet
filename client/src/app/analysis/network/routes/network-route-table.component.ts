@@ -101,7 +101,7 @@ export class NetworkRouteTableComponent implements OnInit {
               private networkRoutesService: NetworkRoutesService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.filterCriteria.subscribe(criteria => {

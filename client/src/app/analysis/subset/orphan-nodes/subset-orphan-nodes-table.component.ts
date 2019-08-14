@@ -49,7 +49,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   displayedColumns = ["rowNumber", "node"];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataSource = new SubsetOrphanNodesTableDataSource(this.paginator, this.nodes.toArray());
   }
 }
