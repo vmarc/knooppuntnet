@@ -1,7 +1,9 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatCheckboxModule, MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatRadioModule, MatSortModule, MatTableModule} from "@angular/material";
+import {RouterModule} from "@angular/router";
 import {MarkdownModule} from "ngx-markdown";
+import {SharedModule} from "../../components/shared/shared.module";
 import {FactAddedComponent} from "./descriptions/fact-added.component";
 import {FactBecomeIgnoredComponent} from "./descriptions/fact-become-ignored.component";
 import {FactBecomeOrphanComponent} from "./descriptions/fact-become-orphan.component";
@@ -13,7 +15,11 @@ import {FactIgnoreUnsupportedSubsetComponent} from "./descriptions/fact-ignore-u
 import {FactIntegrityCheckFailedComponent} from "./descriptions/fact-integrity-check-failed.component";
 import {FactIntegrityCheckComponent} from "./descriptions/fact-integrity-check.component";
 import {FactLostBicycleNodeTagComponent} from "./descriptions/fact-lost-bicycle-node-tag.component";
+import {FactLostCanoeNodeTagComponent} from "./descriptions/fact-lost-canoe-node-tag.component";
 import {FactLostHikingNodeTagComponent} from "./descriptions/fact-lost-hiking-node-tag.component";
+import {FactLostHorseNodeTagComponent} from "./descriptions/fact-lost-horse-node-tag.component";
+import {FactLostInlineSkateNodeTagComponent} from "./descriptions/fact-lost-inline-skate-node-tag.component";
+import {FactLostMotorboatNodeTagComponent} from "./descriptions/fact-lost-motorboat-node-tag.component";
 import {FactLostRouteTagsComponent} from "./descriptions/fact-lost-route-tags.component";
 import {FactNameMissingComponent} from "./descriptions/fact-name-missing.component";
 import {FactNetworkExtraMemberNodeComponent} from "./descriptions/fact-network-extra-member-node.component";
@@ -52,15 +58,10 @@ import {FactRouteWithoutWaysComponent} from "./descriptions/fact-route-without-w
 import {FactWasIgnoredComponent} from "./descriptions/fact-was-ignored.component";
 import {FactWasOrphanComponent} from "./descriptions/fact-was-orphan.component";
 import {FactDescriptionComponent} from "./fact-description.component";
+import {FactHeaderComponent} from "./fact-header.component";
+import {FactLevelComponent} from "./fact-level.component";
 import {FactNameComponent} from "./fact-name.component";
 import {FactsComponent} from "./facts.component";
-import {FactLevelComponent} from "./fact-level.component";
-import {FactLostHorseNodeTagComponent} from "./descriptions/fact-lost-horse-node-tag.component";
-import {FactLostMotorboatNodeTagComponent} from "./descriptions/fact-lost-motorboat-node-tag.component";
-import {FactLostCanoeNodeTagComponent} from "./descriptions/fact-lost-canoe-node-tag.component";
-import {FactLostInlineSkateNodeTagComponent} from "./descriptions/fact-lost-inline-skate-node-tag.component";
-import {SharedModule} from "../../components/shared/shared.module";
-import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
@@ -135,13 +136,15 @@ import {RouterModule} from "@angular/router";
     FactLostInlineSkateNodeTagComponent,
     FactWasIgnoredComponent,
     FactWasOrphanComponent,
-    FactDescriptionComponent
+    FactDescriptionComponent,
+    FactHeaderComponent
   ],
   exports: [
     FactNameComponent,
     FactDescriptionComponent,
     FactsComponent,
-    FactLevelComponent
+    FactLevelComponent,
+    FactHeaderComponent
   ]
 })
 export class FactModule {

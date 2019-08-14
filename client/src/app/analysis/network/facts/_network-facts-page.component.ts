@@ -34,39 +34,21 @@ import {Facts} from "../../fact/facts";
 
         <kpn-items *ngIf="hasFacts()">
 
-          <kpn-item *ngFor="let fact of page.facts; let i=index" [index]="i">
-            <div class="kpn-thick kpn-line">
-              <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
-              <kpn-fact-level [factLevel]="factLevel(fact.name)" class="level"></kpn-fact-level>
-            </div>
-            <div>
-              <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
-            </div>
+          <kpn-item *ngFor="let fact of page.facts; let i=index" [index]="nextIndex()">
+            <kpn-fact-header [factName]="fact.name"></kpn-fact-header>
           </kpn-item>
 
 
-          <kpn-item *ngIf="page.networkFacts.nameMissing" [index]="0">
-            <!--@@ NetwerkNaamOntbreekt -->
-            <div class="kpn-thick kpn-line">
-              <kpn-fact-name [factName]="'NetworkNameMissing'"></kpn-fact-name>
-
-            </div>
+          <kpn-item *ngIf="page.networkFacts.nameMissing" [index]="nextIndex()">
+            <kpn-fact-header [factName]="'NetworkNameMissing'"></kpn-fact-header>
           </kpn-item>
 
 
-          <kpn-item *ngIf="!page.networkFacts.networkExtraMemberNode.isEmpty()" [index]="0">
-            <div class="kpn-line">
-                <span class="kpn-thick">
-                  <kpn-fact-name factName="NetworkExtraMemberNode"></kpn-fact-name>
-                </span>
-              <span>
-                  ({{page.networkFacts.networkExtraMemberNode.size}})
-                </span>
-              <kpn-fact-level [factLevel]="factLevel('NetworkExtraMemberNode')" class="level"></kpn-fact-level>
-            </div>
-            <div>
-              <kpn-fact-description factName="NetworkExtraMemberNode"></kpn-fact-description>
-            </div>
+          <kpn-item *ngIf="!page.networkFacts.networkExtraMemberNode.isEmpty()" [index]="nextIndex()">
+            <kpn-fact-header
+              [factName]="'NetworkExtraMemberNode'"
+              [factCount]="page.networkFacts.networkExtraMemberNode.size">
+            </kpn-fact-header>
             <div *ngFor="let fact of page.networkFacts.networkExtraMemberNode">
               <kpn-osm-link-node [nodeId]="fact.memberId" [title]="fact.memberId.toString()"></kpn-osm-link-node>
               (
@@ -76,19 +58,11 @@ import {Facts} from "../../fact/facts";
           </kpn-item>
 
 
-          <kpn-item *ngIf="!page.networkFacts.networkExtraMemberWay.isEmpty()" [index]="0">
-            <div class="kpn-line">
-                <span class="kpn-thick">
-                  <kpn-fact-name factName="NetworkExtraMemberWay"></kpn-fact-name>
-                </span>
-              <span>
-                  ({{page.networkFacts.networkExtraMemberWay.size}})
-                </span>
-              <kpn-fact-level [factLevel]="factLevel('NetworkExtraMemberWay')" class="level"></kpn-fact-level>
-            </div>
-            <div>
-              <kpn-fact-description factName="NetworkExtraMemberWay"></kpn-fact-description>
-            </div>
+          <kpn-item *ngIf="!page.networkFacts.networkExtraMemberWay.isEmpty()" [index]="nextIndex()">
+            <kpn-fact-header
+              [factName]="'NetworkExtraMemberWay'"
+              [factCount]="page.networkFacts.networkExtraMemberWay.size">
+            </kpn-fact-header>
             <div *ngFor="let fact of page.networkFacts.networkExtraMemberWay">
               <kpn-osm-link-way [wayId]="fact.memberId" [title]="fact.memberId.toString()"></kpn-osm-link-way>
               (
@@ -98,19 +72,11 @@ import {Facts} from "../../fact/facts";
           </kpn-item>
 
 
-          <kpn-item *ngIf="!page.networkFacts.networkExtraMemberRelation.isEmpty()" [index]="0">
-            <div class="kpn-line">
-              <span class="kpn-thick">
-                <kpn-fact-name factName="NetworkExtraMemberRelation"></kpn-fact-name>
-              </span>
-              <span>
-                ({{page.networkFacts.networkExtraMemberRelation.size}})
-              </span>
-              <kpn-fact-level [factLevel]="factLevel('NetworkExtraMemberRelation')" class="level"></kpn-fact-level>
-            </div>
-            <div>
-              <kpn-fact-description factName="NetworkExtraMemberRelation"></kpn-fact-description>
-            </div>
+          <kpn-item *ngIf="!page.networkFacts.networkExtraMemberRelation.isEmpty()" [index]="nextIndex()">
+            <kpn-fact-header
+              [factName]="'NetworkExtraMemberRelation'"
+              [factCount]="page.networkFacts.networkExtraMemberRelation.size">
+            </kpn-fact-header>
             <div *ngFor="let fact of page.networkFacts.networkExtraMemberRelation">
               <kpn-osm-link-relation [relationId]="fact.memberId" [title]="fact.memberId.toString()"></kpn-osm-link-relation>
               (
@@ -120,24 +86,18 @@ import {Facts} from "../../fact/facts";
           </kpn-item>
 
 
-          <kpn-item *ngIf="page.networkFacts.integrityCheckFailed" [index]="0">
+          <kpn-item *ngIf="page.networkFacts.integrityCheckFailed" [index]="nextIndex()">
             <kpn-network-fact-integrity-check-failed
               [integrityCheckFailed]="page.networkFacts.integrityCheckFailed">
             </kpn-network-fact-integrity-check-failed>
           </kpn-item>
 
 
-          <kpn-item *ngFor="let fact of page.nodeFacts" [index]="0">
-            <div class="kpn-thick kpn-line">
-              <kpn-fact-name [factName]="fact.fact.name"></kpn-fact-name>
-              <span>
-                ({{fact.nodes.size}})
-              </span>
-              <kpn-fact-level [factLevel]="factLevel(fact.fact.name)" class="level"></kpn-fact-level>
-            </div>
-            <div>
-              <kpn-fact-description [factName]="fact.fact.name"></kpn-fact-description>
-            </div>
+          <kpn-item *ngFor="let fact of page.nodeFacts" [index]="nextIndex()">
+            <kpn-fact-header
+              [factName]="fact.fact.name"
+              [factCount]="fact.nodes.size">
+            </kpn-fact-header>
             <div *ngIf="fact.nodes.size == 1">
               <span i18n="TODO">Node</span>:
             </div>
@@ -152,17 +112,11 @@ import {Facts} from "../../fact/facts";
           </kpn-item>
 
 
-          <kpn-item *ngFor="let fact of page.routeFacts" [index]="0">
-            <div class="kpn-thick kpn-line">
-              <kpn-fact-name [factName]="fact.fact.name"></kpn-fact-name>
-              <span>
-                ({{fact.routes.size}})
-              </span>
-              <kpn-fact-level [factLevel]="factLevel(fact.fact.name)" class="level"></kpn-fact-level>
-            </div>
-            <div>
-              <kpn-fact-description [factName]="fact.fact.name"></kpn-fact-description>
-            </div>
+          <kpn-item *ngFor="let fact of page.routeFacts" [index]="nextIndex()">
+            <kpn-fact-header
+              [factName]="fact.fact.name"
+              [factCount]="fact.routes.size">
+            </kpn-fact-header>
             <div *ngIf="fact.routes.size == 1">
               <span i18n="TODO">Route</span>:
             </div>
@@ -184,14 +138,19 @@ import {Facts} from "../../fact/facts";
 })
 export class NetworkFactsPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   networkId: number;
   response: ApiResponse<NetworkFactsPage>;
+  private readonly subscriptions = new Subscriptions();
+
+  private itemIndex = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private networkCacheService: NetworkCacheService) {
+  }
+
+  get page(): NetworkFactsPage {
+    return this.response.result;
   }
 
   ngOnInit(): void {
@@ -208,10 +167,6 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  get page(): NetworkFactsPage {
-    return this.response.result;
-  }
-
   hasFacts(): boolean {
     // return this.hasNetworkFacts() ||
     //   !this.page.nodeFacts.isEmpty() ||
@@ -221,8 +176,8 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  factLevel(factName: string): FactLevel {
-    return Facts.factLevels.get(factName);
+  nextIndex(): number {
+    return this.itemIndex++;
   }
 
   private hasNetworkFacts(): boolean {
@@ -237,6 +192,7 @@ export class NetworkFactsPageComponent implements OnInit, OnDestroy {
 
   private processResponse(response: ApiResponse<NetworkFactsPage>) {
     this.response = response;
+    this.itemIndex = 0;
     if (this.page) {
       this.networkCacheService.setNetworkSummary(this.networkId, this.page.networkSummary);
       this.networkCacheService.setNetworkName(this.networkId, this.page.networkSummary.name);
