@@ -44,7 +44,7 @@ export class SubsetOrphanNodesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),
-        tap(subset => this.processSubset(subset)),
+        tap(subset => this.subset = subset),
         flatMap(subset => this.appService.subsetOrphanNodes(subset))
       ).subscribe(response => this.processResponse(response))
     );
@@ -52,11 +52,6 @@ export class SubsetOrphanNodesPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  private processSubset(subset: Subset) {
-    this.subset = subset;
-    this.pageService.subset = subset;
   }
 
   private processResponse(response: ApiResponse<SubsetOrphanNodesPage>) {

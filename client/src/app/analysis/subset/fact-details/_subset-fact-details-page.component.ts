@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
+import {flatMap, map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
@@ -8,7 +9,6 @@ import {Subset} from "../../../kpn/shared/subset";
 import {SubsetFactDetailsPage} from "../../../kpn/shared/subset/subset-fact-details-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {flatMap, map} from "rxjs/operators";
 
 class SubsetFact {
   constructor(readonly subset: Subset,
@@ -107,7 +107,6 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
     const factName = params["fact"];
     this.subset = subset;
     this.factName = factName;
-    this.pageService.subset = subset;
     return new SubsetFact(subset, factName);
   }
 

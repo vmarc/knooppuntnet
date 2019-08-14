@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
@@ -7,7 +8,6 @@ import {ApiResponse} from "../../../kpn/shared/api-response";
 import {Subset} from "../../../kpn/shared/subset";
 import {SubsetOrphanRoutesPage} from "../../../kpn/shared/subset/subset-orphan-routes-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {flatMap, map, tap} from "rxjs/operators";
 import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
@@ -15,10 +15,10 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-subset-page-header-block
-      [subset]="subset"
-      pageName="orphan-routes"
-      pageTitle="Orphan routes"
-      i18n-pageTitle="@@subset-orphan-routes.title">
+        [subset]="subset"
+        pageName="orphan-routes"
+        pageTitle="Orphan routes"
+        i18n-pageTitle="@@subset-orphan-routes.title">
     </kpn-subset-page-header-block>
 
     <div *ngIf="response">
@@ -44,7 +44,7 @@ export class SubsetOrphanRoutesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),
-        tap(subset => this.processSubset(subset)),
+        tap(subset => this.subset = subset),
         flatMap(subset => this.appService.subsetOrphanRoutes(subset))
       ).subscribe(response => this.processResponse(response))
     );
@@ -52,11 +52,6 @@ export class SubsetOrphanRoutesPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
-  }
-
-  private processSubset(subset: Subset) {
-    this.subset = subset;
-    this.pageService.subset = subset;
   }
 
   private processResponse(response: ApiResponse<SubsetOrphanRoutesPage>) {

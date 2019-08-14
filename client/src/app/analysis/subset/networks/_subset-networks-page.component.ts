@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
@@ -9,22 +10,21 @@ import {SubsetNetworksPage} from "../../../kpn/shared/subset/subset-networks-pag
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-subset-networks-page",
   template: `
 
     <kpn-subset-page-header-block
-      [subset]="subset"
-      pageName="networks"
-      pageTitle="Networks"
-      i18n-pageTitle="@@subset-networks.title">
+        [subset]="subset"
+        pageName="networks"
+        pageTitle="Networks"
+        i18n-pageTitle="@@subset-networks.title">
     </kpn-subset-page-header-block>
 
     <kpn-subset-network-list
-      *ngIf="response"
-      [networks]="response.result.networks">
+        *ngIf="response"
+        [networks]="response.result.networks">
     </kpn-subset-network-list>
 
     <br/>
@@ -32,8 +32,8 @@ import {flatMap, map, tap} from "rxjs/operators";
     <br/>
 
     <kpn-subset-network-table
-      *ngIf="response"
-      [networks]="response.result.networks">
+        *ngIf="response"
+        [networks]="response.result.networks">
     </kpn-subset-network-table>
 
     <div *ngIf="response">
@@ -59,7 +59,7 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),
-        tap(subset => this.processSubset(subset)),
+        tap(subset => this.subset = subset),
         flatMap(subset => this.appService.subsetNetworks(subset))
       ).subscribe(response => this.processResponse(response))
     );
@@ -67,11 +67,6 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  private processSubset(subset: Subset) {
-    this.subset = subset;
-    this.pageService.subset = subset;
   }
 
   private processResponse(response: ApiResponse<SubsetNetworksPage>) {

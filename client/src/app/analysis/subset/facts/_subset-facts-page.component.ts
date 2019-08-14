@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
@@ -9,17 +10,16 @@ import {Subset} from "../../../kpn/shared/subset";
 import {SubsetFactsPageNew} from "../../../kpn/shared/subset/subset-facts-page-new";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {flatMap, map, tap} from "rxjs/operators";
 
 @Component({
   selector: "kpn-subset-facts-page",
   template: `
 
     <kpn-subset-page-header-block
-      [subset]="subset"
-      pageName="facts"
-      pageTitle="Facts"
-      i18n-pageTitle="@@subset-facts.title">
+        [subset]="subset"
+        pageName="facts"
+        pageTitle="Facts"
+        i18n-pageTitle="@@subset-facts.title">
     </kpn-subset-page-header-block>
 
     <div *ngIf="response">
@@ -63,7 +63,7 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => Util.subsetInRoute(params)),
-        tap(subset => this.processSubset(subset)),
+        tap(subset => this.subset = subset),
         flatMap(subset => this.appService.subsetFacts(subset))
       ).subscribe(response => this.processResponse(response))
     );
@@ -79,11 +79,6 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
   factDetailLink(factCount: FactCountNew): String {
     return "/analysis/" + this.subset.key() + "/" + factCount.factName;
-  }
-
-  private processSubset(subset: Subset) {
-    this.subset = subset;
-    this.pageService.subset = subset;
   }
 
   private processResponse(response: ApiResponse<SubsetFactsPageNew>) {

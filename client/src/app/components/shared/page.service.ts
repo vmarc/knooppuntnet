@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Title} from "@angular/platform-browser";
 import {BehaviorSubject} from "rxjs";
-import {Subset} from "../../kpn/shared/subset";
 import {PageWidthService} from "./page-width.service";
 
 @Injectable({
@@ -13,8 +12,6 @@ export class PageService {
 
   readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(this.sidebarOpenInitialState());
 
-  subset: Subset = null;
-  networkId: string = null;
   showFooter: boolean = true;
 
   constructor(private pageWidthService: PageWidthService,
@@ -25,7 +22,6 @@ export class PageService {
   defaultMenu() {
     setTimeout(() => {
       this.showFooter = true;
-      this.subset = null;
     });
   }
 
