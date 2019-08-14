@@ -5,5 +5,5 @@ import {Component, Input} from "@angular/core";
   template: `<kpn-josm-link kind="node" id="{{nodeId}}"></kpn-josm-link>`
 })
 export class JosmNodeComponent {
-  @Input() nodeId = "";
+  @Input() nodeId: number;
 }

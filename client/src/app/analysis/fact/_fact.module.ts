@@ -140,7 +140,8 @@ import {RouterModule} from "@angular/router";
   exports: [
     FactNameComponent,
     FactDescriptionComponent,
-    FactsComponent
+    FactsComponent,
+    FactLevelComponent
   ]
 })
 export class FactModule {

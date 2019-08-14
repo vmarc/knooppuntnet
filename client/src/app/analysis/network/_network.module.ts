@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSlideToggleModule, MatSortModule, MatTableModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
 import {SharedModule} from "../../components/shared/shared.module";
+import {FactModule} from "../fact/_fact.module";
 import {NetworkChangesPageComponent} from "./changes/_network-changes-page.component";
 import {NetworkDetailsPageComponent} from "./details/_network-details-page.component";
 import {NetworkFactsPageComponent} from "./facts/_network-facts-page.component";
@@ -41,6 +42,7 @@ import {RouteConnectionIndicatorComponent} from "./routes/indicators/route-conne
 import {RouteInvestigateIndicatorComponent} from "./routes/indicators/route-investigate-indicator.component";
 import { NetworkChangeSetComponent } from './changes/network-change-set.component';
 import { NetworkDetailsComponent } from './details/network-details.component';
+import { NetworkFactIntegrityCheckFailedComponent } from './facts/network-fact-integrity-check-failed.component';
 
 @NgModule({
   imports: [
@@ -55,7 +57,8 @@ import { NetworkDetailsComponent } from './details/network-details.component';
     SharedModule,
     AnalysisComponentsModule,
     NetworkRoutingModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FactModule
   ],
   declarations: [
     NetworkChangesPageComponent,
@@ -91,7 +94,8 @@ import { NetworkDetailsComponent } from './details/network-details.component';
     RouteInvestigateIndicatorComponent,
     RouteInvestigateIndicatorDialogComponent,
     NetworkChangeSetComponent,
-    NetworkDetailsComponent
+    NetworkDetailsComponent,
+    NetworkFactIntegrityCheckFailedComponent
   ],
   entryComponents: [
     NodeConnectionIndicatorDialogComponent,

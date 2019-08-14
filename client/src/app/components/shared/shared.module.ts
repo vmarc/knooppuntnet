@@ -2,7 +2,9 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatButtonModule, MatDialogModule, MatDividerModule, MatIconModule, MatListModule, MatToolbarModule} from "@angular/material";
 import {RouterModule} from "@angular/router";
+import {I18nComponent} from "../../i18n/i18n.component";
 import {SpinnerModule} from "../../spinner/spinner.module";
+import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
 import {IconButtonComponent} from "./icon/icon-button.component";
@@ -12,6 +14,8 @@ import {IndicatorComponent} from "./indicator/indicator.component";
 import {ItemComponent} from "./items/item.component";
 import {ItemsComponent} from "./items/items.component";
 import {JsonComponent} from "./json/json.component";
+import {DocLinkSmallComponent} from "./link/doc-link-small.component";
+import {DocLinkComponent} from "./link/doc-link.component";
 import {IconLinkComponent} from "./link/icon-link.component";
 import {IconNetworkLinkComponent} from "./link/icon-network-link.component";
 import {IconRouteLinkComponent} from "./link/icon-route-link.component";
@@ -39,6 +43,7 @@ import {OsmLinkNodeComponent} from "./link/osm-link-node.component";
 import {OsmLinkRelationComponent} from "./link/osm-link-relation.component";
 import {OsmLinkUserAothClientsComponent} from "./link/osm-link-user-aoth-clients.component";
 import {OsmLinkUserComponent} from "./link/osm-link-user.component";
+import {OsmLinkWayComponent} from "./link/osm-link-way.component";
 import {OsmLinkComponent} from "./link/osm-link.component";
 import {OsmWebsiteComponent} from "./link/osm-website.component";
 import {PageMenuOptionComponent} from "./menu/page-menu-option.component";
@@ -48,6 +53,8 @@ import {NetworkTypeIconComponent} from "./network-type-icon.component";
 import {NetworkTypeNameComponent} from "./network-type-name.component";
 import {NetworkTypeComponent} from "./network-type.component";
 import {PageFooterComponent} from "./page/page-footer.component";
+import {PageHeaderComponent} from "./page/page-header.component";
+import {AnalysisSidebarComponent} from "./sidebar/analysis-sidebar.component";
 import {SidebarBackComponent} from "./sidebar/sidebar-back.component";
 import {SidebarFooterComponent} from "./sidebar/sidebar-footer.component";
 import {SidebarMenuComponent} from "./sidebar/sidebar-menu.component";
@@ -60,12 +67,6 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
-import {DocLinkComponent} from "./link/doc-link.component";
-import {PageHeaderComponent} from "./page/page-header.component";
-import {DocLinkSmallComponent} from "./link/doc-link-small.component";
-import {I18nComponent} from "../../i18n/i18n.component";
-import {CountryNameComponent} from "./country-name.component";
-import {AnalysisSidebarComponent} from "./sidebar/analysis-sidebar.component";
 
 @NgModule({
   imports: [
@@ -102,6 +103,7 @@ import {AnalysisSidebarComponent} from "./sidebar/analysis-sidebar.component";
     JosmRelationComponent,
     OsmLinkComponent,
     OsmLinkNodeComponent,
+    OsmLinkWayComponent,
     OsmLinkChangeSetComponent,
     OsmLinkRelationComponent,
     OsmLinkUserComponent,
@@ -168,6 +170,7 @@ import {AnalysisSidebarComponent} from "./sidebar/analysis-sidebar.component";
     JosmLinkComponent,
     OsmLinkComponent,
     OsmLinkNodeComponent,
+    OsmLinkWayComponent,
     OsmLinkChangeSetComponent,
     OsmLinkRelationComponent,
     OsmLinkUserComponent,
