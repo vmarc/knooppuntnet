@@ -1,20 +1,25 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
 import {RouteInfo} from "../../../kpn/shared/route/route-info";
-import {Subscriptions} from "../../../util/Subscriptions";
 import {RouteMapPage} from "../../../kpn/shared/route/route-map-page";
-import {flatMap, map, tap} from "rxjs/operators";
+import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-route-changes-page",
   template: `
-    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name"></kpn-route-page-header>
 
-    TODO 
-    
+    <kpn-route-page-header
+      [routeId]="routeId"
+      [routeName]="response?.result?.route.summary.name"
+      [changeCount]="response?.result?.changeCount">
+    </kpn-route-page-header>
+
+    TODO
+
     <div *ngIf="response">
 
       <div *ngIf="!response.result">
@@ -38,10 +43,10 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService) {
+    this.pageService.showFooter = false;
   }
 
   ngOnInit(): void {
-    this.pageService.showFooter = false;
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => params["routeId"]),

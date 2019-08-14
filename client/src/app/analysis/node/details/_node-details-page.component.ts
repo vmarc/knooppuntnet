@@ -1,21 +1,25 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
-import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {Ref} from "../../../kpn/shared/common/ref";
-import {FactInfo} from "../../fact/fact-info";
 import {List} from "immutable";
 import {flatMap, map, tap} from "rxjs/operators";
+import {AppService} from "../../../app.service";
+import {PageService} from "../../../components/shared/page.service";
+import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
+import {ApiResponse} from "../../../kpn/shared/api-response";
+import {Ref} from "../../../kpn/shared/common/ref";
+import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
+import {Subscriptions} from "../../../util/Subscriptions";
+import {FactInfo} from "../../fact/fact-info";
 
 @Component({
   selector: "kpn-node-details-page",
   template: `
 
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="nodeName"></kpn-node-page-header>
+    <kpn-node-page-header
+      [nodeId]="nodeId"
+      [nodeName]="nodeName"
+      [changeCount]="response?.result?.changeCount">
+    </kpn-node-page-header>
 
     <div *ngIf="response?.result">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">

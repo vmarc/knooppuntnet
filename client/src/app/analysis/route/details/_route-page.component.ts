@@ -1,21 +1,25 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {RouteDetailsPage} from "../../../kpn/shared/route/route-details-page";
-import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
 import {List} from "immutable";
-import {FactInfo} from "../../fact/fact-info";
-import {PageWidthService} from "../../../components/shared/page-width.service";
 import {flatMap, map, tap} from "rxjs/operators";
+import {AppService} from "../../../app.service";
+import {PageWidthService} from "../../../components/shared/page-width.service";
+import {PageService} from "../../../components/shared/page.service";
+import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
+import {ApiResponse} from "../../../kpn/shared/api-response";
+import {RouteDetailsPage} from "../../../kpn/shared/route/route-details-page";
+import {Subscriptions} from "../../../util/Subscriptions";
+import {FactInfo} from "../../fact/fact-info";
 
 @Component({
   selector: "kpn-route-page",
   template: `
 
-    <kpn-route-page-header [routeId]="routeId" [routeName]="response?.result?.route.summary.name"></kpn-route-page-header>
+    <kpn-route-page-header
+      [routeId]="routeId"
+      [routeName]="response?.result?.route.summary.name"
+      [changeCount]="response?.result?.changeCount">
+    </kpn-route-page-header>
 
     <div *ngIf="response">
 

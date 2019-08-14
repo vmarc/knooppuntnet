@@ -27,7 +27,7 @@ class RoutePageBuilderImpl(
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
         val routeReferences = routeRepository.routeReferences(routeId, Couch.uiTimeout)
         val routeChanges: Seq[RouteChange] = if (user.isDefined) {
-          changeSetRepository.routeChanges(ChangesParameters(routeId = Some(route.id), itemsPerPage = 5))
+          changeSetRepository.routeChanges(ChangesParameters(routeId = Some(route.id)))
         }
         else {
           Seq()
@@ -48,8 +48,9 @@ class RoutePageBuilderImpl(
     }
     else {
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
+        val changeCount = changeSetRepository.routeChangesCount(route.id)
         val routeReferences = routeRepository.routeReferences(routeId, Couch.uiTimeout)
-        RouteDetailsPage(route, routeReferences)
+        RouteDetailsPage(route, routeReferences, changeCount)
       }
     }
   }
@@ -60,7 +61,8 @@ class RoutePageBuilderImpl(
     }
     else {
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
-        RouteMapPage(route)
+        val changeCount = changeSetRepository.routeChangesCount(route.id)
+        RouteMapPage(route, changeCount)
       }
     }
   }

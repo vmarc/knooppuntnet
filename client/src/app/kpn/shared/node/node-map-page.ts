@@ -4,7 +4,8 @@ import {NodeInfo} from "../node-info";
 
 export class NodeMapPage {
 
-  constructor(readonly nodeInfo: NodeInfo) {
+  constructor(readonly nodeInfo: NodeInfo,
+              readonly changeCount: number) {
   }
 
   public static fromJSON(jsonObject): NodeMapPage {
@@ -12,7 +13,8 @@ export class NodeMapPage {
       return undefined;
     }
     return new NodeMapPage(
-      NodeInfo.fromJSON(jsonObject.nodeInfo)
+      NodeInfo.fromJSON(jsonObject.nodeInfo),
+      jsonObject.changeCount
     );
   }
 }

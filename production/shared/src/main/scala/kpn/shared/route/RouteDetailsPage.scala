@@ -2,5 +2,6 @@ package kpn.shared.route
 
 case class RouteDetailsPage(
   route: RouteInfo,
-  references: RouteReferences
+  references: RouteReferences,
+  changeCount: Int
 )

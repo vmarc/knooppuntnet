@@ -180,8 +180,16 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
     changesFilter(Seq("node", nodeId.toString), year, month, day, stale)
   }
 
+  override def nodeChangesCount(nodeId: Long, stale: Boolean = true): Int = {
+    changesCount("node", nodeId.toString, stale)
+  }
+
   override def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
     changesFilter(Seq("route", routeId.toString), year, month, day, stale)
+  }
+
+  override def routeChangesCount(routeId: Long, stale: Boolean = true): Int = {
+    changesCount("route", routeId.toString, stale)
   }
 
   override def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {

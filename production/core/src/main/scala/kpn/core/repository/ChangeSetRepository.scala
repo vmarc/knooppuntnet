@@ -37,9 +37,13 @@ trait ChangeSetRepository {
 
   def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
 
+  def routeChangesCount(routeId: Long, stale: Boolean = true): Int
+
   def nodeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange]
 
   def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+
+  def nodeChangesCount(nodeId: Long, stale: Boolean = true): Int
 
   def allChangeSetIds(): Seq[String]
 

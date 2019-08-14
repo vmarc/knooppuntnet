@@ -377,8 +377,8 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val referenceFormat: RootJsonFormat[Reference] = jsonFormat4(Reference)
   implicit val nodeChangeInfoFormat: RootJsonFormat[NodeChangeInfo] = jsonFormat20(NodeChangeInfo)
   implicit val nodeChangeInfosFormat: RootJsonFormat[NodeChangeInfos] = jsonFormat2(NodeChangeInfos)
-  implicit val nodeDetailsPageFormat: RootJsonFormat[NodeDetailsPage] = jsonFormat2(NodeDetailsPage)
-  implicit val nodeMapPageFormat: RootJsonFormat[NodeMapPage] = jsonFormat1(NodeMapPage)
+  implicit val nodeDetailsPageFormat: RootJsonFormat[NodeDetailsPage] = jsonFormat3(NodeDetailsPage)
+  implicit val nodeMapPageFormat: RootJsonFormat[NodeMapPage] = jsonFormat2(NodeMapPage)
   implicit val nodeChangesPageFormat: RootJsonFormat[NodeChangesPage] = jsonFormat5(NodeChangesPage)
 
   implicit val knownElementsFormat: RootJsonFormat[KnownElements] = jsonFormat2(KnownElements)
@@ -437,8 +437,8 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeReferencesFormat: RootJsonFormat[RouteReferences] = jsonFormat1(RouteReferences)
   implicit val wayGeometryFormat: RootJsonFormat[WayGeometry] = jsonFormat2(WayGeometry.apply)
 
-  implicit val routeDetailsPageFormat: RootJsonFormat[RouteDetailsPage] = jsonFormat2(RouteDetailsPage)
-  implicit val routeMapPageFormat: RootJsonFormat[RouteMapPage] = jsonFormat1(RouteMapPage)
+  implicit val routeDetailsPageFormat: RootJsonFormat[RouteDetailsPage] = jsonFormat3(RouteDetailsPage)
+  implicit val routeMapPageFormat: RootJsonFormat[RouteMapPage] = jsonFormat2(RouteMapPage)
   implicit val routeChangesPageFormat: RootJsonFormat[RouteChangesPage] = jsonFormat5(RouteChangesPage)
 
   implicit val changesParametersFormat: RootJsonFormat[ChangesParameters] = jsonFormat10(ChangesParameters)

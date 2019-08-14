@@ -6,7 +6,8 @@ import {NodeReferences} from "./node-references";
 export class NodeDetailsPage {
 
   constructor(readonly nodeInfo: NodeInfo,
-              readonly references: NodeReferences) {
+              readonly references: NodeReferences,
+              readonly changeCount: number) {
   }
 
   public static fromJSON(jsonObject): NodeDetailsPage {
@@ -15,7 +16,8 @@ export class NodeDetailsPage {
     }
     return new NodeDetailsPage(
       NodeInfo.fromJSON(jsonObject.nodeInfo),
-      NodeReferences.fromJSON(jsonObject.references)
+      NodeReferences.fromJSON(jsonObject.references),
+      jsonObject.changeCount
     );
   }
 }

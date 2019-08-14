@@ -33,12 +33,13 @@ object NodePageExample {
   val nodeDetailsPage: NodeDetailsPage = {
     NodeDetailsPage(
       nodeInfo(),
-      nodeReferences()
+      nodeReferences(),
+      123
     )
   }
 
   val nodeMapPage: NodeMapPage = {
-    NodeMapPage(nodeInfo())
+    NodeMapPage(nodeInfo(), 123)
   }
 
   val nodeChangesPage: NodeChangesPage = {

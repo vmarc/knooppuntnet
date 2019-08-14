@@ -4,5 +4,6 @@ import kpn.shared.NodeInfo
 
 case class NodeDetailsPage(
   nodeInfo: NodeInfo,
-  references: NodeReferences
+  references: NodeReferences,
+  changeCount: Int
 )

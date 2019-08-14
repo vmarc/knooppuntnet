@@ -37,12 +37,13 @@ object RoutePageExample {
   val detailsPage: RouteDetailsPage = {
     RouteDetailsPage(
       route(),
-      routeReferences()
+      routeReferences(),
+      123
     )
   }
 
   val mapPage: RouteMapPage = {
-    RouteMapPage(route())
+    RouteMapPage(route(), 123)
   }
 
   val changesPage: RouteChangesPage = {

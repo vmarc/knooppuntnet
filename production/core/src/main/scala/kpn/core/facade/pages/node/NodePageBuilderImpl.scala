@@ -76,11 +76,13 @@ class NodePageBuilderImpl(
   }
 
   private def buildNodeDetailsPage(user: Option[String], nodeInfo: NodeInfo): NodeDetailsPage = {
-    NodeDetailsPage(nodeInfo, buildNodeReferences(nodeInfo))
+    val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+    NodeDetailsPage(nodeInfo, buildNodeReferences(nodeInfo), changeCount)
   }
 
   private def buildNodeMapPage(user: Option[String], nodeInfo: NodeInfo): NodeMapPage = {
-    NodeMapPage(nodeInfo)
+    val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+    NodeMapPage(nodeInfo, changeCount)
   }
 
   private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters: ChangesParameters): NodeChangesPage = {

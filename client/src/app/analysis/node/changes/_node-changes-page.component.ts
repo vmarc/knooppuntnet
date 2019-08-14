@@ -14,16 +14,20 @@ import {Subscriptions} from "../../../util/Subscriptions";
   selector: "kpn-node-changes-page",
   template: `
 
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="nodeName"></kpn-node-page-header>
+    <kpn-node-page-header
+      [nodeId]="nodeId"
+      [nodeName]="nodeName"
+      [changeCount]="response?.result?.totalCount">
+    </kpn-node-page-header>
 
     <p *ngIf="response">
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
     </p>
 
     <mat-paginator
-        [pageIndex]="0"
-        [pageSize]="parameters.itemsPerPage"
-        [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]">
+      [pageIndex]="0"
+      [pageSize]="parameters.itemsPerPage"
+      [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]">
     </mat-paginator>
 
     <div *ngIf="!isLoggedIn()">

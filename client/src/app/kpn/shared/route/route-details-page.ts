@@ -6,7 +6,8 @@ import {RouteReferences} from "./route-references";
 export class RouteDetailsPage {
 
   constructor(readonly route: RouteInfo,
-              readonly references: RouteReferences) {
+              readonly references: RouteReferences,
+              readonly changeCount: number) {
   }
 
   public static fromJSON(jsonObject): RouteDetailsPage {
@@ -15,7 +16,8 @@ export class RouteDetailsPage {
     }
     return new RouteDetailsPage(
       RouteInfo.fromJSON(jsonObject.route),
-      RouteReferences.fromJSON(jsonObject.references)
+      RouteReferences.fromJSON(jsonObject.references),
+      jsonObject.changeCount
     );
   }
 }

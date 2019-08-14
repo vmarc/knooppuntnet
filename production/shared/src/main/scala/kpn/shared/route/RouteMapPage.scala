@@ -1,3 +1,6 @@
 package kpn.shared.route
 
-case class RouteMapPage(route: RouteInfo)
+case class RouteMapPage(
+  route: RouteInfo,
+  changeCount: Int
+)

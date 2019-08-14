@@ -28,6 +28,7 @@ import {Component, Input} from "@angular/core";
       <kpn-page-menu-option
         [link]="linkNodeChanges()"
         [state]="state()"
+        [elementCount]="changeCount"
         i18n="@@node.menu.changes">
         Changes
       </kpn-page-menu-option>
@@ -39,6 +40,7 @@ export class NodePageHeaderComponent {
 
   @Input() nodeId: number;
   @Input() nodeName: string;
+  @Input() changeCount: number;
 
   linkNodeDetails(): string {
     return this.linkNode("");

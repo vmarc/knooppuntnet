@@ -1,16 +1,20 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/shared/api-response";
-import {Subscriptions} from "../../../util/Subscriptions";
 import {NodeMapPage} from "../../../kpn/shared/node/node-map-page";
-import {flatMap, map, tap} from "rxjs/operators";
+import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-node-map-page",
   template: `
-    <kpn-node-page-header [nodeId]="nodeId" [nodeName]="nodeName"></kpn-node-page-header>
+    <kpn-node-page-header
+      [nodeId]="nodeId"
+      [nodeName]="nodeName"
+      [changeCount]="response?.result?.changeCount">
+    </kpn-node-page-header>
     <div *ngIf="response?.result">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
