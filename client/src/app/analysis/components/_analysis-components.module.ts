@@ -21,7 +21,6 @@ import {ChangesSetElementRefsComponent} from "./change-set/components/change-set
 import {ChangesSetNetworkComponent} from "./change-set/components/change-set-network.component";
 import {ChangesSetOrphanNodesComponent} from "./change-set/components/change-set-orphan-nodes.component";
 import {ChangesSetOrphanRoutesComponent} from "./change-set/components/change-set-orphan-routes.component";
-import {ChangesTableComponent} from "./changes/changes-table.component";
 import {ChangesComponent} from "./changes/changes.component";
 import {FactCommaListComponent} from "./changes/fact-comma-list.component";
 import {FactDiffsComponent} from "./changes/fact-diffs.component";
@@ -54,7 +53,6 @@ import {FilterComponent} from "./filter/filter.component";
   declarations: [
     ChangeHeaderComponent,
     ChangeSetInfoComponent,
-    ChangesTableComponent,
     ChangesSetComponent,
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,
@@ -77,7 +75,6 @@ import {FilterComponent} from "./filter/filter.component";
   exports: [
     ChangeHeaderComponent,
     ChangeSetInfoComponent,
-    ChangesTableComponent,
     ChangesSetComponent,
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,

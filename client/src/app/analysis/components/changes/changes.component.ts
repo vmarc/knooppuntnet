@@ -20,7 +20,7 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
           [pageSize]="parameters.itemsPerPage"
           [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
           [length]="totalCount"
-          [showFirstLastButtons]="true">
+          [showFirstLastButtons]="showFirstLastButtons">
       </mat-paginator>
 
       <ng-content></ng-content>
@@ -42,6 +42,8 @@ export class ChangesComponent {
 
   @Input() parameters: ChangesParameters;
   @Output() parametersChange = new EventEmitter<ChangesParameters>();
+
+  @Input() showFirstLastButtons = true;
 
   impactChanged(event: MatSlideToggleChange) {
     this.parametersChange.emit({...this.parameters, impact: event.checked, pageIndex: 0});
