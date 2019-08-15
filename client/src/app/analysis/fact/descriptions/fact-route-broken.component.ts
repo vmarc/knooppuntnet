@@ -3,9 +3,9 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-fact-route-broken",
   template: `
-    <ng-container i18n="@@fact.description.route-broken">
+    <p i18n="@@fact.description.route-broken">
       TODO
-    </ng-container>
+    </p>
   `
 })
 export class FactRouteBrokenComponent {

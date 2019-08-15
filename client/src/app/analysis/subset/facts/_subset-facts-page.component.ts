@@ -36,9 +36,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
               <kpn-fact-name [factName]="factCount.factName"></kpn-fact-name>
             </a>
             ({{factCount.count}})
-            <p>
-              <kpn-fact-description [factName]="factCount.factName"></kpn-fact-description>
-            </p>
+            <kpn-fact-description [factName]="factCount.factName"></kpn-fact-description>
           </kpn-item>
         </kpn-items>
       </div>

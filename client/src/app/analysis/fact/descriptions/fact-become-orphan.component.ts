@@ -3,9 +3,9 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-fact-become-orphan",
   template: `
-    <ng-container i18n="@@fact.description.become-orphan">
+    <p i18n="@@fact.description.become-orphan">
       Has become orphan.
-    </ng-container>
+    </p>
     
   `
 })

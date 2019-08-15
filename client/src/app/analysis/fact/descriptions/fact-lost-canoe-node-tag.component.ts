@@ -3,9 +3,9 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-fact-lost-canoe-node-tag",
   template: `
-    <ng-container i18n="@@fact.description.lost-canoe-node-tag">
+    <p i18n="@@fact.description.lost-canoe-node-tag">
       This node is no longer a valid canoenetwork node because the rpn_ref tag has been removed.
-    </ng-container>
+    </p>
   `
 })
 export class FactLostCanoeNodeTagComponent {

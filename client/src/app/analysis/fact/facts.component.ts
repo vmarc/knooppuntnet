@@ -45,8 +45,7 @@ import {FactLevel} from "./fact-level";
     .description {
       display: inline-block;
       padding-left: 25px; /* level-width */
-      padding-top: 10px;
-      padding-bottom: 20px;
+      padding-bottom: 10px;
       font-style: italic;
     }
 

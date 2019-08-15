@@ -3,9 +3,9 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-fact-deleted",
   template: `
-    <ng-container i18n="@@fact.description.deleted">
+    <p i18n="@@fact.description.deleted">
       Deleted from the OpenStreetMap database.
-    </ng-container>
+    </p>
   `
 })
 export class FactDeletedComponent {

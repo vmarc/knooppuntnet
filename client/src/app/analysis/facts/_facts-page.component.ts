@@ -13,9 +13,7 @@ import {Facts} from "../fact/facts";
         <p>
           <kpn-fact-name [factName]="factName"></kpn-fact-name>
         </p>
-        <p>
-          <kpn-fact-description [factName]="factName"></kpn-fact-description>
-        </p>
+        <kpn-fact-description [factName]="factName"></kpn-fact-description>
       </kpn-item>
     </kpn-items>
   `

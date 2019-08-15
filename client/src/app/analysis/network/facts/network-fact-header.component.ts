@@ -16,12 +16,15 @@ import {Facts} from "../../fact/facts";
       <span *ngIf="!fact.elementIds.isEmpty()">
         ({{fact.elementIds.size}})
       </span>
+      <span *ngIf="!fact.checks.isEmpty()">
+        ({{fact.checks.size}})
+      </span>
       <kpn-fact-level [factLevel]="factLevel()" class="level"></kpn-fact-level>
     </div>
-    <div>
-      <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
-    </div>
-  `
+    <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
+  `,
+  styles: [
+  ]
 })
 export class NetworkFactHeaderComponent {
 

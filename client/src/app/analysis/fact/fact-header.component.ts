@@ -14,9 +14,7 @@ import {Facts} from "./facts";
       </span>
       <kpn-fact-level [factLevel]="factLevel(factName)" class="level"></kpn-fact-level>
     </div>
-    <div>
-      <kpn-fact-description [factName]="factName"></kpn-fact-description>
-    </div>
+    <kpn-fact-description [factName]="factName"></kpn-fact-description>
   `,
   styles: []
 })

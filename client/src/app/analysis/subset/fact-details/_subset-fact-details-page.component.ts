@@ -31,9 +31,7 @@ class SubsetFact {
       <kpn-fact-name [factName]="factName"></kpn-fact-name>
     </h2>
 
-    <p>
-      <kpn-fact-description [factName]="factName"></kpn-fact-description>
-    </p>
+    <kpn-fact-description [factName]="factName"></kpn-fact-description>
 
     <div *ngIf="response">
       <p>
