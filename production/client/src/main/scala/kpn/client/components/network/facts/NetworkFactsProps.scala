@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _network-facts-page.component.ts
 package kpn.client.components.network.facts
 
 import kpn.client.common.NetworkPageArgs

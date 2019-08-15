@@ -17,6 +17,7 @@ import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
+import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodePage
 import kpn.shared.route.MapDetailRoute
@@ -76,7 +77,7 @@ object ApiClient {
     AjaxClient[Api].networkMap(networkId).call()
   }
 
-  def networkFacts(networkId: Long): Future[ApiResponse[NetworkFactsPage]] = {
+  def networkFacts(networkId: Long): Future[ApiResponse[OldNetworkFactsPage]] = {
     AjaxClient[Api].networkFacts(networkId).call()
   }
 

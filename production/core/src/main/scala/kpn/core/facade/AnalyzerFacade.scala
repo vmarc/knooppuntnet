@@ -17,6 +17,7 @@ import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
+import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
@@ -73,6 +74,8 @@ trait AnalyzerFacade {
   def networkMap(user: Option[String], networkId: Long): ApiResponse[NetworkMapPage]
 
   def networkFacts(user: Option[String], id: Long): ApiResponse[NetworkFactsPage]
+
+  def oldNetworkFacts(user: Option[String], id: Long): ApiResponse[OldNetworkFactsPage]
 
   def networkNodes(user: Option[String], id: Long): ApiResponse[NetworkNodesPage]
 

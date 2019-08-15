@@ -13,6 +13,7 @@
           "styleext": "scss",
           "inlineStyle": true,
           "inlineTemplate": true,
+          "spec": false,
           "flat": true
         }
       },

@@ -72,6 +72,7 @@ import kpn.shared.network.NetworkRouteRow
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.network.NetworkShape
 import kpn.shared.network.NetworkSummary
+import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
@@ -115,10 +116,14 @@ object KpnPicklers {
 
   import boopickle.DefaultBasic._
 
+  implicit val check: Pickler[Check] = PicklerGenerator.generatePickler[Check]
+  implicit val networkFact: Pickler[NetworkFact] = PicklerGenerator.generatePickler[NetworkFact]
+
   implicit val timestamp: Pickler[Timestamp] = PicklerGenerator.generatePickler[Timestamp]
   implicit val apiResponseNetworkDetailsPage: Pickler[ApiResponse[NetworkDetailsPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkDetailsPage]]
   implicit val apiResponseNetworkMapPage: Pickler[ApiResponse[NetworkMapPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkMapPage]]
   implicit val apiResponseNetworkFactsPage: Pickler[ApiResponse[NetworkFactsPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkFactsPage]]
+  implicit val apiResponseOldNetworkFactsPage: Pickler[ApiResponse[OldNetworkFactsPage]] = PicklerGenerator.generatePickler[ApiResponse[OldNetworkFactsPage]]
   implicit val apiResponseNetworkNodesPage: Pickler[ApiResponse[NetworkNodesPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkNodesPage]]
   implicit val apiResponseNetworkRoutesPage: Pickler[ApiResponse[NetworkRoutesPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkRoutesPage]]
   implicit val apiResponseNetworkChangesPage: Pickler[ApiResponse[NetworkChangesPage]] = PicklerGenerator.generatePickler[ApiResponse[NetworkChangesPage]]
@@ -253,6 +258,7 @@ object KpnPicklers {
   implicit val networkDetailsPagePickler: Pickler[NetworkDetailsPage] = PicklerGenerator.generatePickler[NetworkDetailsPage]
   implicit val networkMapPagePickler: Pickler[NetworkMapPage] = PicklerGenerator.generatePickler[NetworkMapPage]
   implicit val networkFactsPagePickler: Pickler[NetworkFactsPage] = PicklerGenerator.generatePickler[NetworkFactsPage]
+  implicit val oldNetworkFactsPagePickler: Pickler[OldNetworkFactsPage] = PicklerGenerator.generatePickler[OldNetworkFactsPage]
   implicit val networkFactRefsPickler: Pickler[NetworkFactRefs] = PicklerGenerator.generatePickler[NetworkFactRefs]
   implicit val routesFactPagePickler: Pickler[SubsetFactDetailsPage] = PicklerGenerator.generatePickler[SubsetFactDetailsPage]
 

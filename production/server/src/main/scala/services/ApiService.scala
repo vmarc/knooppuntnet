@@ -17,6 +17,7 @@ import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
+import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodePage
 import kpn.shared.route.MapDetailRoute
@@ -68,8 +69,8 @@ class ApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None)(im
     analyzerFacade.networkMap(user, networkId)
   }
 
-  override def networkFacts(networkId: Long): ApiResponse[NetworkFactsPage] = {
-    analyzerFacade.networkFacts(user, networkId)
+  override def networkFacts(networkId: Long): ApiResponse[OldNetworkFactsPage] = {
+    analyzerFacade.oldNetworkFacts(user, networkId)
   }
 
   override def networkNodes(networkId: Long): ApiResponse[NetworkNodesPage] = {

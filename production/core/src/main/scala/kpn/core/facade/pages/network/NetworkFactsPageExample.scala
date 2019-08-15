@@ -1,23 +1,86 @@
 package kpn.core.facade.pages.network
 
+import kpn.shared.Check
 import kpn.shared.Fact
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
+import kpn.shared.NetworkFact
 import kpn.shared.NetworkFacts
 import kpn.shared.NetworkIntegrityCheckFailed
 import kpn.shared.NetworkNameMissing
-import kpn.shared.NetworkType
 import kpn.shared.NodeIntegrityCheck
 import kpn.shared.common.Ref
 import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
-import kpn.shared.network.NetworkSummary
+import kpn.shared.network.OldNetworkFactsPage
 
 object NetworkFactsPageExample {
 
   val page = NetworkFactsPage(
+    NetworkDetailsPageExample.networkSummary(),
+    Seq(
+      NetworkFact(Fact.IgnoreForeignCountry.name),
+      NetworkFact(Fact.IgnoreNotNodeNetwork.name),
+      NetworkFact(Fact.IgnoreNetworkTaggedAsRoute.name),
+      NetworkFact(Fact.IgnoreNoNetworkNodes.name),
+      NetworkFact(Fact.IgnoreNetworkCollection.name),
+      NetworkFact(Fact.IgnoreUnsupportedSubset.name),
+      NetworkFact(
+        Fact.NetworkExtraMemberNode.name,
+        elementType = Some("node"),
+        elementIds = Some(Seq(111, 222, 333))
+      ),
+      NetworkFact(
+        Fact.NetworkExtraMemberWay.name,
+        elementType = Some("way"),
+        elementIds = Some(Seq(444, 555, 666))
+      ),
+      NetworkFact(
+        Fact.NetworkExtraMemberRelation.name,
+        elementType = Some("relation"),
+        elementIds = Some(Seq(777, 888, 999))
+      ),
+      NetworkFact(
+        Fact.IntegrityCheckFailed.name,
+        checks = Some(
+          Seq(
+            Check(nodeId = 1, nodeName = "01", actual = 1, expected = 3),
+            Check(nodeId = 2, nodeName = "02", actual = 2, expected = 3),
+            Check(nodeId = 3, nodeName = "03", actual = 4, expected = 3),
+            Check(nodeId = 4, nodeName = "04", actual = 5, expected = 3)
+          )
+        )
+      ),
+      NetworkFact(Fact.NameMissing.name),
+      NetworkFact(
+        Fact.NodeMemberMissing.name,
+        elementType = Some("node"),
+        elements = Some(
+          Seq(
+            Ref(1001, "01"),
+            Ref(1002, "02"),
+            Ref(1003, "03")
+          )
+        )
+      ),
+      NetworkFact(
+        Fact.RouteNotBackward.name,
+        elementType = Some("route"),
+        elements = Some(
+          Seq(
+            Ref(12, "01-02"),
+            Ref(13, "01-03"),
+            Ref(14, "01-04"),
+            Ref(15, "01-05")
+          )
+        )
+      )
+    )
+  )
+
+  val oldPage = OldNetworkFactsPage(
     NetworkDetailsPageExample.networkSummary(),
     NetworkFacts(
       networkExtraMemberNode = Some(

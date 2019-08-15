@@ -221,3 +221,14 @@ table.kpn-bordered-table {
     content: ", ";
   }
 }
+
+.kpn-brackets a::before {
+  content: "(";
+  color: grey;
+  padding-left: 5px;
+}
+
+.kpn-brackets a::after {
+  content: ")";
+  color: grey;
+}

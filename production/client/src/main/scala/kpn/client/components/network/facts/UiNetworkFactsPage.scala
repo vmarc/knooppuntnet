@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _network-facts-page.component.ts
 package kpn.client.components.network.facts
 
 import japgolly.scalajs.react._
@@ -41,16 +41,17 @@ import kpn.shared.NetworkNameMissing
 import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
+import kpn.shared.network.OldNetworkFactsPage
 
 object UiNetworkFactsPage {
 
-  private case class State(pageState: PageState[NetworkFactsPage] = PageState())
+  private case class State(pageState: PageState[OldNetworkFactsPage] = PageState())
 
-  private class Backend(scope: BackendScope[NetworkPageArgs, State]) extends AbstractBackend[NetworkFactsPage] {
+  private class Backend(scope: BackendScope[NetworkPageArgs, State]) extends AbstractBackend[OldNetworkFactsPage] {
 
-    protected def pageState: PageState[NetworkFactsPage] = scope.state.runNow().pageState
+    protected def pageState: PageState[OldNetworkFactsPage] = scope.state.runNow().pageState
 
-    protected def updatePageState(pageState: PageState[NetworkFactsPage]): Unit = {
+    protected def updatePageState(pageState: PageState[OldNetworkFactsPage]): Unit = {
       scope.modState(_.copy(pageState = pageState)).runNow()
     }
 
@@ -90,11 +91,11 @@ object UiNetworkFactsPage {
         scope.modState(s => s.copy(pageState = s.pageState.withStatus(status))).runNow()
       }
 
-      def updateResult(response: ApiResponse[NetworkFactsPage]): Unit = {
+      def updateResult(response: ApiResponse[OldNetworkFactsPage]): Unit = {
         scope.modState(s => s.copy(pageState = s.pageState.withResponse(response))).runNow()
       }
 
-      new Loader[ApiResponse[NetworkFactsPage]].load(
+      new Loader[ApiResponse[OldNetworkFactsPage]].load(
         ApiClient.networkFacts(props.networkId),
         PageStatus.LoadStarting,
         updatePageStatus,

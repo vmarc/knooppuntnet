@@ -1,14 +1,10 @@
 import {Component, Input} from "@angular/core";
-import {NetworkIntegrityCheckFailed} from "../../../kpn/shared/network-integrity-check-failed";
+import {List} from "immutable";
+import {Check} from "../../../kpn/shared/check";
 
 @Component({
-  selector: "kpn-network-fact-integrity-check-failed",
+  selector: "kpn-network-fact-checks",
   template: `
-
-    <kpn-fact-header
-      [factName]="'IntegrityCheckFailed'"
-      [factCount]="integrityCheckFailed.checks.size">
-    </kpn-fact-header>
 
     <table title="node integrity check failures" i18n-title="@@TODO" class="kpn-table">
       <thead>
@@ -19,7 +15,7 @@ import {NetworkIntegrityCheckFailed} from "../../../kpn/shared/network-integrity
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let check of integrityCheckFailed.checks">
+      <tr *ngFor="let check of checks">
         <td>
           <kpn-link-node [nodeId]="check.nodeId" [nodeName]="check.nodeName"></kpn-link-node>
         </td>
@@ -34,6 +30,6 @@ import {NetworkIntegrityCheckFailed} from "../../../kpn/shared/network-integrity
     </table>
   `
 })
-export class NetworkFactIntegrityCheckFailedComponent {
-  @Input() integrityCheckFailed: NetworkIntegrityCheckFailed;
+export class NetworkFactChecksComponent {
+  @Input() checks: List<Check>;
 }

@@ -46,6 +46,7 @@ import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
+import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
@@ -172,6 +173,13 @@ class AnalyzerFacadeImpl(
     val label = s"$user networkFacts($networkId)"
     log.infoElapsed(label) {
       reply(label, networkFactsPageBuilder.build(networkId))
+    }
+  }
+
+  override def oldNetworkFacts(user: Option[String], networkId: Long): ApiResponse[OldNetworkFactsPage] = {
+    val label = s"$user networkFacts($networkId)"
+    log.infoElapsed(label) {
+      reply(label, networkFactsPageBuilder.oldBuild(networkId))
     }
   }
 
