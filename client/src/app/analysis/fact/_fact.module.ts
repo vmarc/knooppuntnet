@@ -58,7 +58,6 @@ import {FactRouteWithoutWaysComponent} from "./descriptions/fact-route-without-w
 import {FactWasIgnoredComponent} from "./descriptions/fact-was-ignored.component";
 import {FactWasOrphanComponent} from "./descriptions/fact-was-orphan.component";
 import {FactDescriptionComponent} from "./fact-description.component";
-import {FactHeaderComponent} from "./fact-header.component";
 import {FactLevelComponent} from "./fact-level.component";
 import {FactNameComponent} from "./fact-name.component";
 import {FactsComponent} from "./facts.component";
@@ -136,15 +135,13 @@ import {FactsComponent} from "./facts.component";
     FactLostInlineSkateNodeTagComponent,
     FactWasIgnoredComponent,
     FactWasOrphanComponent,
-    FactDescriptionComponent,
-    FactHeaderComponent
+    FactDescriptionComponent
   ],
   exports: [
     FactNameComponent,
     FactDescriptionComponent,
     FactsComponent,
-    FactLevelComponent,
-    FactHeaderComponent
+    FactLevelComponent
   ]
 })
 export class FactModule {

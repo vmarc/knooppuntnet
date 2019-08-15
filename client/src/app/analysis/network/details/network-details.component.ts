@@ -29,8 +29,7 @@ import {NetworkDetailsPage} from "../../../kpn/shared/network/network-details-pa
     <kpn-data title="Tags" i18n-title="@@network-details.tags">
       <kpn-tags-table [tags]="tags"></kpn-tags-table>
     </kpn-data>
-  `,
-  styles: []
+  `
 })
 export class NetworkDetailsComponent implements OnInit {
 

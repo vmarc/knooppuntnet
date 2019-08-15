@@ -38,7 +38,6 @@ import kpn.shared.NetworkExtraMemberWay
 import kpn.shared.NetworkFacts
 import kpn.shared.NetworkIntegrityCheckFailed
 import kpn.shared.NetworkNameMissing
-import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
 import kpn.shared.network.OldNetworkFactsPage
@@ -151,9 +150,6 @@ object UiNetworkFactsPage {
 
     private def allFacts(): VdomElement = {
       val page = state.pageState.response.get.result.get
-
-      println(page)
-
       if (page.factCount == 0) {
         <.div(
           <.br(),

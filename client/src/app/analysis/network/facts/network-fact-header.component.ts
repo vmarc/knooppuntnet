@@ -21,10 +21,15 @@ import {Facts} from "../../fact/facts";
       </span>
       <kpn-fact-level [factLevel]="factLevel()" class="level"></kpn-fact-level>
     </div>
-    <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
+    <div class="description">
+      <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
+    </div>
   `,
-  styles: [
-  ]
+  styles: [`
+    .description {
+      max-width: 60em;
+    }
+  `]
 })
 export class NetworkFactHeaderComponent {
 
