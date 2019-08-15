@@ -66,6 +66,15 @@ object NetworkFactsPageExample {
         )
       ),
       NetworkFact(
+        Fact.OrphanNode.name,
+        elementType = Some("node"),
+        elements = Some(
+          Seq(
+            Ref(1001, "01")
+          )
+        )
+      ),
+      NetworkFact(
         Fact.RouteNotBackward.name,
         elementType = Some("route"),
         elements = Some(
@@ -74,6 +83,15 @@ object NetworkFactsPageExample {
             Ref(13, "01-03"),
             Ref(14, "01-04"),
             Ref(15, "01-05")
+          )
+        )
+      ),
+      NetworkFact(
+        Fact.RouteUnusedSegments.name,
+        elementType = Some("route"),
+        elements = Some(
+          Seq(
+            Ref(12, "01-02")
           )
         )
       )
@@ -128,6 +146,12 @@ object NetworkFactsPageExample {
           Ref(1002, "02"),
           Ref(1003, "03")
         )
+      ),
+      NetworkNodeFact(
+        fact = Fact.OrphanNode,
+        nodes = Seq(
+          Ref(1001, "01")
+        )
       )
     ),
     routeFacts = Seq(
@@ -138,6 +162,12 @@ object NetworkFactsPageExample {
           Ref(13, "01-03"),
           Ref(14, "01-04"),
           Ref(15, "01-05")
+        )
+      ),
+      NetworkRouteFact(
+        fact = Fact.RouteUnusedSegments,
+        routes = Seq(
+          Ref(12, "01-02")
         )
       )
     ),

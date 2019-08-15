@@ -57,7 +57,7 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-route-without-ways *ngSwitchCase="'RouteWithoutWays'"></kpn-fact-route-without-ways>
       <kpn-fact-was-ignored *ngSwitchCase="'WasIgnored'"></kpn-fact-was-ignored>
       <kpn-fact-was-orphan *ngSwitchCase="'WasOrphan'"></kpn-fact-was-orphan>
-      <p *ngSwitchDefault>{{factName}} description missing</p> <!--@@ beschrijving ontbreekt nog-->
+      <p *ngSwitchDefault>{{factName}} description missing</p>
     </ng-container>
   `
 })

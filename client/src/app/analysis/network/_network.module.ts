@@ -49,6 +49,7 @@ import {NetworkRouteAnalysisComponent} from "./routes/network-route-analysis.com
 import {NetworkRouteTableComponent} from "./routes/network-route-table.component";
 import {NetworkRoutesSidebarComponent} from "./routes/network-routes-sidebar.component";
 import {NetworkRoutesService} from "./routes/network-routes.service";
+import { NetworkFactComponent } from './facts/network-fact.component';
 
 @NgModule({
   imports: [
@@ -107,7 +108,8 @@ import {NetworkRoutesService} from "./routes/network-routes.service";
     NetworkFactWayIdsComponent,
     NetworkFactRelationIdsComponent,
     NetworkFactNodesComponent,
-    NetworkFactRoutesComponent
+    NetworkFactRoutesComponent,
+    NetworkFactComponent
   ],
   entryComponents: [
     NodeConnectionIndicatorDialogComponent,

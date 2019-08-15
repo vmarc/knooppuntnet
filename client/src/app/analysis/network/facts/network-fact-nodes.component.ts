@@ -5,16 +5,16 @@ import {Ref} from "../../../kpn/shared/common/ref";
 @Component({
   selector: "kpn-network-fact-nodes",
   template: `
-    <div *ngIf="nodes.size == 1">
-      <span i18n="TODO">Node</span>:
-    </div>
-    <div *ngIf="nodes.size > 1">
-      <span i18n="TODO">Nodes</span>:
-    </div>
+    <span *ngIf="nodes.size == 1" class="title" i18n="@@network-facts.node">
+      Node:
+    </span>
+    <span *ngIf="nodes.size > 1" class="title" i18n="@@network-facts.nodes">
+      Nodes:
+    </span>
     <div class="kpn-comma-list">
       <kpn-link-node
         *ngFor="let node of nodes"
-        [nodeId]="node.id" 
+        [nodeId]="node.id"
         [nodeName]="node.name">
       </kpn-link-node>
     </div>

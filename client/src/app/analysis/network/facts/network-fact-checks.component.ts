@@ -6,12 +6,12 @@ import {Check} from "../../../kpn/shared/check";
   selector: "kpn-network-fact-checks",
   template: `
 
-    <table title="node integrity check failures" i18n-title="@@TODO" class="kpn-table">
+    <table title="node integrity check failures" i18n-title="@@network-facts.checks-table.title" class="kpn-table">
       <thead>
       <tr>
-        <th>Node</th> <!--@@ Knooppunt -->
-        <th>Expected</th> <!--@@ Verwacht -->
-        <th>Actual</th> <!--@@ Gevonden -->
+        <th i18n="@@network-facts.checks-table.node">Node</th>
+        <th i18n="@@network-facts.checks-table.expected">Expected</th>
+        <th i18n="@@network-facts.checks-table.actual">Actual</th>
       </tr>
       </thead>
       <tbody>
