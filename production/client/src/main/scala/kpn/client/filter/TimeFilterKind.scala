@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: timestamp-filter-kind.ts
 package kpn.client.filter
 
 object TimeFilterKind extends Enumeration {

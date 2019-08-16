@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular
 package kpn.client.components.network.nodes
 
 import kpn.client.common.NetworkPageArgs

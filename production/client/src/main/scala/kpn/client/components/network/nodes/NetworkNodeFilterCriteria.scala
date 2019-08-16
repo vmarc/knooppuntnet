@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: network-node-filter-criteria.ts
 package kpn.client.components.network.nodes
 
 import kpn.client.filter.TimeFilterKind

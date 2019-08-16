@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: use ngx-cookie-service
 package kpn.client.common
 
 import org.scalajs.dom

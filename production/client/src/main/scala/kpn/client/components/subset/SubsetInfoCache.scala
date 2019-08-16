@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: subset-cache.service.ts
 package kpn.client.components.subset
 
 import kpn.shared.Subset

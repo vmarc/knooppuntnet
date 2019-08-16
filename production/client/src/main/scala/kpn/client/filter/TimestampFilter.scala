@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: timestamp-filter.ts
 package kpn.client.filter
 
 import japgolly.scalajs.react.Callback

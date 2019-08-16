@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// TODO migrate to Angular: still missing: integrityCheckFilter + integrityCheckFailedFilter
 package kpn.client.components.network.nodes
 
 import japgolly.scalajs.react.CallbackTo

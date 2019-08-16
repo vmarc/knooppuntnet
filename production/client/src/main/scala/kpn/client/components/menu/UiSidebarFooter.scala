@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: page-footer.component.ts
 package kpn.client.components.menu
 
 import japgolly.scalajs.react.ScalaComponent
@@ -6,7 +6,6 @@ import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
 import japgolly.scalajs.react.vdom.html_<^.^
-import kpn.client.common.Nls.nls
 import kpn.client.common.User
 import kpn.client.common.Version
 import kpn.client.components.common.CssSettings.default._

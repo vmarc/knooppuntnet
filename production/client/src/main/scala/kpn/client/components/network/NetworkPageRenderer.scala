@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular
 package kpn.client.components.network
 
 import chandu0101.scalajs.react.components.materialui.MuiDivider

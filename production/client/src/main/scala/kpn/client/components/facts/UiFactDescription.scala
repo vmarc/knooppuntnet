@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: fact-description.component.ts
 package kpn.client.components.facts
 
 import japgolly.scalajs.react.ScalaComponent

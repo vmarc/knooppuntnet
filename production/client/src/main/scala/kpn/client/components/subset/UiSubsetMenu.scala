@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: subset-page-header-block.component.ts
 package kpn.client.components.subset
 
 import chandu0101.scalajs.react.components.Implicits._

@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: page-menu-option.component.ts
 package kpn.client.components.menu
 
 import chandu0101.scalajs.react.components.materialui.MuiMenuItem

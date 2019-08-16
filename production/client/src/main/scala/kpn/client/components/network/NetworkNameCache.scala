@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: network-cache.service.ts
 package kpn.client.components.network
 
 object NetworkNameCache {

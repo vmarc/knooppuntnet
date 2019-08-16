@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: routing
 package kpn.client.common
 
 import kpn.client.RouteConfiguration.Goto

@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: network-route-table.component.ts
 package kpn.client.components.network.routes
 
 import japgolly.scalajs.react._

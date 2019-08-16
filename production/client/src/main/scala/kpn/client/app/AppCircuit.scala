@@ -1,4 +1,3 @@
-// TODO migrate to Angular
 package kpn.client.app
 
 import autowire._

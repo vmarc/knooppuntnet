@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: filters.ts
 package kpn.client.filter
 
 class Filters[T](filters: Filter[T]*) {

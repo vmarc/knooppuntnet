@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: app.service.ts
 package kpn.client.api
 
 import autowire._
