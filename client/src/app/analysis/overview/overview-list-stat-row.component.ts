@@ -15,7 +15,7 @@ import {Stat} from "./stat";
         <kpn-network-type-icon [networkType]="networkType"></kpn-network-type-icon>
       </td>
       <td class="value">
-        <kpn-overview-table-cell [stat]="stat" [subset]="subset(country, networkType)"></kpn-overview-table-cell>
+        <kpn-overview-value [stat]="stat" [subset]="subset(country, networkType)"></kpn-overview-value>
       </td>
     </tr>
   `,
@@ -29,7 +29,6 @@ import {Stat} from "./stat";
       vertical-align: middle;
       width: 3.5em;
     }
-    
   `]
 })
 export class OverviewListStatRowComponent {

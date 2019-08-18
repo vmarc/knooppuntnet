@@ -3,7 +3,7 @@ import {Subset} from "../../kpn/shared/subset";
 import {Stat} from "./stat";
 
 @Component({
-  selector: "kpn-overview-table-cell",
+  selector: "kpn-overview-value",
   template: `
     <a *ngIf="hasLink()" [routerLink]="link()">{{value()}}</a>
     <span *ngIf="!hasLink()">{{value()}}</span>
@@ -14,7 +14,7 @@ import {Stat} from "./stat";
     }
   `]
 })
-export class OverviewTableCellComponent {
+export class OverviewValueComponent {
 
   @Input() stat: Stat;
   @Input() subset: Subset;

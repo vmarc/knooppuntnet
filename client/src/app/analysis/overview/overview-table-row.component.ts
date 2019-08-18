@@ -12,7 +12,7 @@ import {Stat} from "./stat";
       {{total()}}
     </td>
     <td class="value-cell" *ngFor="let subset of subsets()">
-      <kpn-overview-table-cell [stat]="stat" [subset]="subset"></kpn-overview-table-cell>
+      <kpn-overview-value [stat]="stat" [subset]="subset"></kpn-overview-value>
     </td>
     <td class="comment-cell">
       <markdown *ngIf="stat.configuration.markdown" [data]="comment()"></markdown>

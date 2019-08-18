@@ -9,7 +9,7 @@ import {OverviewListStatRowComponent} from "./overview-list-stat-row.component";
 import {OverviewListStatTableComponent} from "./overview-list-stat-table.component";
 import {OverviewListStatComponent} from "./overview-list-stat.component";
 import {OverviewListComponent} from "./overview-list.component";
-import {OverviewTableCellComponent} from "./overview-table-cell.component";
+import {OverviewValueComponent} from "./overview-value.component";
 import {OverviewTableHeaderComponent} from "./overview-table-header.component";
 import {OverviewTableRowComponent} from "./overview-table-row.component";
 import {OverviewTableComponent} from "./overview-table.component";
@@ -31,7 +31,7 @@ import {StatisticConfigurationsComponent} from "./statistic-configurations.compo
     OverviewListStatRowComponent,
     OverviewListStatTableComponent,
     OverviewPageComponent,
-    OverviewTableCellComponent,
+    OverviewValueComponent,
     OverviewTableComponent,
     OverviewTableHeaderComponent,
     OverviewTableRowComponent,
