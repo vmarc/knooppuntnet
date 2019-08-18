@@ -13,7 +13,7 @@ import {Tags} from "../../../kpn/shared/data/tags";
       <kpn-timestamp [timestamp]="node.lastUpdated"></kpn-timestamp>
     </p>
     <p *ngIf="!extraTags.isEmpty()">
-      <span>Extra tags:</span>
+      <span i18n="@@subset-orphan-nodes.extra-tags">Extra tags:</span>
       <kpn-tags-table [tags]="extraTags"></kpn-tags-table>
     </p>
     <p>

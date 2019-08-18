@@ -16,24 +16,26 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-subset-page-header-block
-        [subset]="subset"
-        pageName="changes"
-        pageTitle="Changes"
-        i18n-pageTitle="@@subset-changes.title">
+      [subset]="subset"
+      pageName="changes"
+      pageTitle="Changes"
+      i18n-pageTitle="@@subset-changes.title">
     </kpn-subset-page-header-block>
 
     <div *ngIf="response">
+      <p>
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      </p>
       <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
 export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   subset: Subset;
   response: ApiResponse<SubsetChangesPage>;
   parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,

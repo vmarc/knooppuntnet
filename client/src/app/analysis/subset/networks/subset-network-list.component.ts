@@ -26,9 +26,21 @@ import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes"
     </table>
   `,
   styles: [`
+
     table {
       width: 100%;
     }
+
+    .mat-column-networkNumber {
+      width: 50px;
+      vertical-align: top;
+      padding-top: 15px;
+    }
+
+    td.mat-cell:first-of-type {
+      padding-left: 10px;
+    }
+
   `]
 })
 export class SubsetNetworkListComponent implements OnInit {

@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _subset-orphan-routes-page.component.ts
 package kpn.client.components.subset.routes
 
 import japgolly.scalajs.react._

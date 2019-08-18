@@ -1,12 +1,15 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
+import {AnalysisSidebarComponent} from "../../components/shared/sidebar/analysis-sidebar.component";
 import {SubsetChangesPageComponent} from "./changes/_subset-changes-page.component";
+import {SubsetChangesSidebarComponent} from "./changes/subset-changes-sidebar.component";
 import {SubsetFactDetailsPageComponent} from "./fact-details/_subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./facts/_subset-facts-page.component";
 import {SubsetNetworksPageComponent} from "./networks/_subset-networks-page.component";
 import {SubsetOrphanNodesPageComponent} from "./orphan-nodes/_subset-orphan-nodes-page.component";
+import {SubsetOrphanNodesSidebarComponent} from "./orphan-nodes/subset-orphan-nodes-sidebar.component";
 import {SubsetOrphanRoutesPageComponent} from "./orphan-routes/_subset-orphan-routes-page.component";
-import {AnalysisSidebarComponent} from "../../components/shared/sidebar/analysis-sidebar.component";
+import {SubsetOrphanRoutesSidebarComponent} from "./orphan-routes/subset-orphan-routes-sidebar.component";
 
 const routes: Routes = [
   {
@@ -46,7 +49,7 @@ const routes: Routes = [
       },
       {
         path: "",
-        component: AnalysisSidebarComponent,
+        component: SubsetOrphanNodesSidebarComponent,
         outlet: "sidebar"
       }
     ]
@@ -60,7 +63,7 @@ const routes: Routes = [
       },
       {
         path: "",
-        component: AnalysisSidebarComponent,
+        component: SubsetOrphanRoutesSidebarComponent,
         outlet: "sidebar"
       }
     ]
@@ -74,7 +77,7 @@ const routes: Routes = [
       },
       {
         path: "",
-        component: AnalysisSidebarComponent,
+        component: SubsetChangesSidebarComponent,
         outlet: "sidebar"
       }
     ]

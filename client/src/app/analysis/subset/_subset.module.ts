@@ -2,7 +2,13 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 import {SharedModule} from "../../components/shared/shared.module";
+import {AnalysisComponentsModule} from "../components/_analysis-components.module";
+import {FactModule} from "../fact/_fact.module";
+import {SubsetRoutingModule} from "./_subset-routing.module";
 import {SubsetChangesPageComponent} from "./changes/_subset-changes-page.component";
+import {SubsetChangesSidebarComponent} from "./changes/subset-changes-sidebar.component";
+import {SubsetChangesService} from "./changes/subset-changes.service";
+import {SubsetPageHeaderBlockComponent} from "./components/subset-page-header-block.component";
 import {SubsetFactDetailsPageComponent} from "./fact-details/_subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./facts/_subset-facts-page.component";
 import {SubsetNetworksPageComponent} from "./networks/_subset-networks-page.component";
@@ -12,13 +18,14 @@ import {SubsetNetworkTableComponent} from "./networks/subset-network-table.compo
 import {SubsetNetworkComponent} from "./networks/subset-network.component";
 import {SubsetOrphanNodesPageComponent} from "./orphan-nodes/_subset-orphan-nodes-page.component";
 import {SubsetOrphanNodeComponent} from "./orphan-nodes/subset-orphan-node.component";
+import {SubsetOrphanNodesSidebarComponent} from "./orphan-nodes/subset-orphan-nodes-sidebar.component";
 import {SubsetOrphanNodesTableComponent} from "./orphan-nodes/subset-orphan-nodes-table.component";
+import {SubsetOrphanNodesService} from "./orphan-nodes/subset-orphan-nodes.service";
 import {SubsetOrphanRoutesPageComponent} from "./orphan-routes/_subset-orphan-routes-page.component";
 import {SubsetOrphanRouteComponent} from "./orphan-routes/subset-orphan-route.component";
+import {SubsetOrphanRoutesSidebarComponent} from "./orphan-routes/subset-orphan-routes-sidebar.component";
 import {SubsetOrphanRoutesTableComponent} from "./orphan-routes/subset-orphan-routes-table.component";
-import {SubsetRoutingModule} from "./_subset-routing.module";
-import {SubsetPageHeaderBlockComponent} from "./components/subset-page-header-block.component";
-import {FactModule} from "../fact/_fact.module";
+import {SubsetOrphanRoutesService} from "./orphan-routes/subset-orphan-routes.service";
 
 @NgModule({
   imports: [
@@ -30,7 +37,8 @@ import {FactModule} from "../fact/_fact.module";
     MatTableModule,
     SharedModule,
     FactModule,
-    SubsetRoutingModule
+    SubsetRoutingModule,
+    AnalysisComponentsModule
   ],
   declarations: [
     SubsetChangesPageComponent,
@@ -47,8 +55,17 @@ import {FactModule} from "../fact/_fact.module";
     SubsetOrphanRouteComponent,
     SubsetOrphanNodeComponent,
     SubsetOrphanNodesTableComponent,
-    SubsetPageHeaderBlockComponent
+    SubsetPageHeaderBlockComponent,
+    SubsetOrphanNodesSidebarComponent,
+    SubsetOrphanRoutesSidebarComponent,
+    SubsetChangesSidebarComponent
+  ],
+  providers: [
+    SubsetOrphanNodesService,
+    SubsetOrphanRoutesService,
+    SubsetChangesService
   ]
+
 })
 export class SubsetModule {
 }

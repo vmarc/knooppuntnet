@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: subset-orphan-route-filter.ts
 package kpn.client.components.subset.routes
 
 import japgolly.scalajs.react.CallbackTo
@@ -12,7 +12,7 @@ import kpn.shared.TimeInfo
 
 class SubsetOrphanRouteFilter(timeInfo: TimeInfo, criteria: SubsetOrphanRouteFilterCriteria, updateCriteria: (SubsetOrphanRouteFilterCriteria) => Unit) {
 
-  private val definedInNetworkRelationFilter = new BooleanFilter[RouteSummary](
+  private val brokenFilter = new BooleanFilter[RouteSummary](
     "definedInNetworkRelation",
     criteria.broken,
     _.isBroken,
@@ -49,6 +49,7 @@ class SubsetOrphanRouteFilter(timeInfo: TimeInfo, criteria: SubsetOrphanRouteFil
   )
 
   private val allFilters = new Filters[RouteSummary](
+    brokenFilter,
     lastUpdatedFilter
   )
 
@@ -61,9 +62,11 @@ class SubsetOrphanRouteFilter(timeInfo: TimeInfo, criteria: SubsetOrphanRouteFil
     val totalCount = routes.size
     val filteredCount = routes.count(allFilters.passes)
 
+    val broken = brokenFilter.filterOptions(allFilters, routes)
     val lastUpdated = lastUpdatedFilter.filterOptions(allFilters, routes)
 
     val groups = Seq(
+      broken,
       lastUpdated
     ).flatten
 

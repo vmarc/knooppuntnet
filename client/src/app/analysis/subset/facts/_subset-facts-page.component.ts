@@ -16,20 +16,21 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-subset-page-header-block
-        [subset]="subset"
-        pageName="facts"
-        pageTitle="Facts"
-        i18n-pageTitle="@@subset-facts.title">
+      [subset]="subset"
+      pageName="facts"
+      pageTitle="Facts"
+      i18n-pageTitle="@@subset-facts.title">
     </kpn-subset-page-header-block>
 
     <div *ngIf="response">
-      <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      </p>
-      <div *ngIf="!hasFacts()">
-        <i>No facts</i>
+      <div *ngIf="!hasFacts()" class="kpn-line">
+        <mat-icon svgIcon="happy"></mat-icon>
+        <span i18n="@@subset-facts.no-facts">No facts</span>
       </div>
       <div *ngIf="hasFacts()">
+        <p>
+          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        </p>
         <kpn-items>
           <kpn-item *ngFor="let factCount of response.result.factCounts; let i=index" [index]="i">
             <a [routerLink]="factDetailLink(factCount)">
@@ -46,10 +47,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
 })
 export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   subset: Subset;
   response: ApiResponse<SubsetFactsPageNew>;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,

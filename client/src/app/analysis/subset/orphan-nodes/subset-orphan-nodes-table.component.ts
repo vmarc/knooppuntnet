@@ -1,8 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
-import {MatPaginator} from "@angular/material";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
+import {BehaviorSubject} from "rxjs";
 import {NodeInfo} from "../../../kpn/shared/node-info";
-import {SubsetOrphanNodesTableDataSource} from "./subset-orphan-nodes-table-datasource";
+import {TimeInfo} from "../../../kpn/shared/time-info";
+import {SubsetOrphanNodeFilter} from "./subset-orphan-node-filter";
+import {SubsetOrphanNodeFilterCriteria} from "./subset-orphan-node-filter-criteria";
+import {SubsetOrphanNodesService} from "./subset-orphan-nodes.service";
 
 @Component({
   selector: "kpn-subset-orphan-nodes-table",
@@ -19,37 +23,60 @@ import {SubsetOrphanNodesTableDataSource} from "./subset-orphan-nodes-table-data
     <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
 
       <ng-container matColumnDef="rowNumber">
-        <td mat-cell *matCellDef="let item">
-          {{item.row}}
+        <td mat-cell *matCellDef="let route; let i = index">
+          {{i + 1}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="node">
-        <td mat-cell *matCellDef="let item">
-          <kpn-subset-orphan-node [node]="item.node"></kpn-subset-orphan-node>
+        <td mat-cell *matCellDef="let node">
+          <kpn-subset-orphan-node [node]="node"></kpn-subset-orphan-node>
         </td>
       </ng-container>
 
-      <tr mat-row *matRowDef="let item; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns;"></tr>
 
     </table>
   `,
   styles: [`
+
     table {
       width: 100%;
     }
+
+    .mat-column-rowNumber {
+      width: 50px;
+      vertical-align: top;
+      padding-top: 15px;
+    }
+
+    td.mat-cell:first-of-type {
+      padding-left: 10px;
+    }
+
   `]
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {
 
+  @Input() timeInfo: TimeInfo;
   @Input() nodes: List<NodeInfo>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource: SubsetOrphanNodesTableDataSource;
+  dataSource: MatTableDataSource<NodeInfo>;
 
   displayedColumns = ["rowNumber", "node"];
 
+  private readonly filterCriteria: BehaviorSubject<SubsetOrphanNodeFilterCriteria> = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
+
+  constructor(private subsetOrphanNodesService: SubsetOrphanNodesService) {
+  }
+
   ngOnInit(): void {
-    this.dataSource = new SubsetOrphanNodesTableDataSource(this.paginator, this.nodes.toArray());
+    this.dataSource = new MatTableDataSource();
+    this.filterCriteria.subscribe(criteria => {
+      const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria);
+      this.dataSource.data = filter.filter(this.nodes).toArray();
+      this.subsetOrphanNodesService.filterOptions.next(filter.filterOptions(this.nodes));
+    });
   }
 }

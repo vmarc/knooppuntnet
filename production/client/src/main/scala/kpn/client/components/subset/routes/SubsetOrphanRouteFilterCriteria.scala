@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: subset-orphan-route-filter-criteria.ts
 package kpn.client.components.subset.routes
 
 import kpn.client.filter.TimeFilterKind

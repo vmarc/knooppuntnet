@@ -1719,7 +1719,7 @@
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/_network-facts-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.title" datatype="html">
@@ -3077,6 +3077,15 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="overview.total" datatype="html">
+        <source>
+          Total
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/overview-list-stat-table.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="overview-table.detail" datatype="html">
         <source>Detail</source>
         <context-group purpose="location">
@@ -4060,11 +4069,27 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="subset-facts.no-facts" datatype="html">
+        <source>No facts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/facts/_subset-facts-page.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subset-networks.title" datatype="html">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.no-networks" datatype="html">
+        <source>
+        No networks
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-nodes.title" datatype="html">
@@ -4074,11 +4099,48 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="subset-orphan-nodes.no-routes" datatype="html">
+        <source>No orphan nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subset-orphan-routes.title" datatype="html">
         <source>Orphan routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.no-routes" datatype="html">
+        <source>No orphan routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.route-is-broken" datatype="html">
+        <source>
+      route is broken
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/orphan-routes/subset-orphan-route.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.extra-tags" datatype="html">
+        <source>Extra tags:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/orphan-routes/subset-orphan-route.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.extra-tags" datatype="html">
+        <source>Extra tags:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/orphan-nodes/subset-orphan-node.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.networks" datatype="html">

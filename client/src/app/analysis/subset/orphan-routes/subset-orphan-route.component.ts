@@ -11,7 +11,7 @@ import {Tags} from "../../../kpn/shared/data/tags";
     <p>
       {{route.meters}}m
     </p>
-    <p *ngIf="route.isBroken">
+    <p *ngIf="route.isBroken" i18n="@@subset-orphan-routes.route-is-broken">
       route is broken
     </p>
     <p>
@@ -26,7 +26,7 @@ import {Tags} from "../../../kpn/shared/data/tags";
     </p>
 
     <p *ngIf="!extraTags.isEmpty()">
-      <span>Extra tags:</span>
+      <span i18n="@@subset-orphan-routes.extra-tags">Extra tags:</span>
       <kpn-tags-table [tags]="extraTags"></kpn-tags-table>
     </p>
   `
