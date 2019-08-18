@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _overview-page.component.ts
 package kpn.client.components.overview
 
 import chandu0101.scalajs.react.components.materialui.MuiDivider

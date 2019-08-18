@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: statistic-configurations.component.ts
 package kpn.client.components.overview
 
 import japgolly.scalajs.react.vdom.Implicits._
