@@ -1,4 +1,5 @@
 import {Component, Input} from "@angular/core";
+import {List} from "immutable";
 import {Statistics} from "../../kpn/shared/statistics/statistics";
 import {OverviewService} from "./overview.service";
 import {Stat} from "./stat";
@@ -23,7 +24,7 @@ export class OverviewTableComponent {
   constructor(private overviewService: OverviewService) {
   }
 
-  stats() {
+  stats(): List<Stat> {
     return this.overviewService.statisticConfigurations.map(configuration => {
       const figures = this.statistics.get(configuration.id);
       return new Stat(figures, configuration);

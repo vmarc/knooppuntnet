@@ -28,7 +28,7 @@ export class OverviewTableCellComponent {
   }
 
   link() {
-    return "../" + this.stat.configuration.linkFunction(this.stat.configuration.id, this.subset);
+    return "/analysis/" + this.stat.configuration.linkFunction(this.stat.configuration.id, this.subset);
   }
 
 }

@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {AppService} from "../../app.service";
+import {PageWidthService} from "../../components/shared/page-width.service";
 import {PageService} from "../../components/shared/page.service";
 import {ApiResponse} from "../../kpn/shared/api-response";
 import {Statistics} from "../../kpn/shared/statistics/statistics";
@@ -20,21 +21,31 @@ import {Subscriptions} from "../../util/Subscriptions";
     <kpn-statistic-configurations></kpn-statistic-configurations>
 
     <div *ngIf="response">
-      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      <kpn-overview-table [statistics]="stats"></kpn-overview-table>
+      <div class="situation-on">
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      </div>
+
+      <kpn-overview-list *ngIf="!isVeryLarge()" [statistics]="stats"></kpn-overview-list>
+      <kpn-overview-table *ngIf="isVeryLarge()" [statistics]="stats"></kpn-overview-table>
+
       <kpn-json [object]="response"></kpn-json>
     </div>
-  `
+  `,
+  styles: [`
+    .situation-on {
+      padding-bottom: 15px;
+    }
+  `]
 })
 export class OverviewPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   response: ApiResponse<Statistics>;
   stats: Statistics;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private appService: AppService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private pageWidthService: PageWidthService) {
   }
 
   ngOnInit(): void {
@@ -51,4 +62,8 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  isVeryLarge(): boolean {
+    return this.pageWidthService.isVeryLarge();
+
+  }
 }

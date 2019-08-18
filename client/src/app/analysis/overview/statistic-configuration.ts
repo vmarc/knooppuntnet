@@ -6,8 +6,7 @@ export class StatisticConfiguration {
               readonly name: string,
               readonly markdown: boolean,
               readonly comment: string,
-              readonly linkFunction: (id: string, subset: Subset) => string | null
-  ) {
+              readonly linkFunction: (id: string, subset: Subset) => string | null) {
   }
 
 }
