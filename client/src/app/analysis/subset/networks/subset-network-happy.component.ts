@@ -6,11 +6,11 @@ import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
   selector: "kpn-subset-network-happy",
   template: `
     <mat-icon svgIcon="happy" *ngIf="interpretedNetwork.happy()"></mat-icon>
-    <mat-icon svgIcon="happy" *ngIf="interpretedNetwork.veryHappy()"></mat-icon>
+    <mat-icon svgIcon="happy" *ngIf="interpretedNetwork.veryHappy()" class="very-happy"></mat-icon>
   `,
   styles: [`
-    mat-icon {
-      color: gray;
+    .very-happy {
+      padding-left: 5px;
     }
   `]
 })

@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _subset-networks-page.component.ts
 package kpn.client.components.subset.networks
 
 import japgolly.scalajs.react._
@@ -185,7 +185,7 @@ object UiSubsetNetworksPage {
       else if (page.networkCount > 0) {
         UiMarked(
           nls(
-            s"_There is __${page.networkCount}__ networks, with a total of __${page.nodeCount}__ nodes " +
+            s"_There are __${page.networkCount}__ networks, with a total of __${page.nodeCount}__ nodes " +
               s"and __${page.routeCount}__ routes with an overall length of __${page.km}__ km._",
             s"_Er zijn __${page.networkCount}__ netwerken, met in totaal __${page.nodeCount}__ knooppunten " +
               s"en __${page.routeCount}__ routes met een totale lengte van __${page.km}__ km._"

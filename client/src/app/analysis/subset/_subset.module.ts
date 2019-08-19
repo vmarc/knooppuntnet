@@ -1,6 +1,7 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {MarkdownModule} from "ngx-markdown";
 import {SharedModule} from "../../components/shared/shared.module";
 import {AnalysisComponentsModule} from "../components/_analysis-components.module";
 import {FactModule} from "../fact/_fact.module";
@@ -38,7 +39,8 @@ import {SubsetOrphanRoutesService} from "./orphan-routes/subset-orphan-routes.se
     SharedModule,
     FactModule,
     SubsetRoutingModule,
-    AnalysisComponentsModule
+    AnalysisComponentsModule,
+    MarkdownModule
   ],
   declarations: [
     SubsetChangesPageComponent,

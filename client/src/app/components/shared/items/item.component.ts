@@ -22,26 +22,32 @@ import {Component, Input} from "@angular/core";
     .item-right {
       display: table-cell;
       padding: 10px;
-      /*
-        media.minWidth((PageWidth.SmallMaxWidth + 1).px)(*/
-      border-left-color: lightgray;
-      border-left-style: solid;
-      border-left-width: 1px;
-      /*        )
-			*/
+    }
+
+    @media (min-width: 769px) {
+      /*media.minWidth((PageWidth.SmallMaxWidth + 1).px) */
+      .item-right {
+        border-left-color: lightgray;
+        border-left-style: solid;
+        border-left-width: 1px;
+      }
     }
 
     .item-left {
-      /*
-        media.maxWidth(PageWidth.SmallMaxWidth.px)(
-          display.none
-        ),
-        media.minWidth((PageWidth.SmallMaxWidth + 1).px)(*/
       display: table-cell;
       width: 40px;
-      padding: 10px; /* (itemPadding.px) */
-      /*        )
-			*/
+      padding: 10px; /* itemPadding.px */
+    }
+
+    @media (max-width: 768px) {
+      /* media.maxWidth(PageWidth.SmallMaxWidth.px) */
+      .item-left {
+        display: none;
+      }
+      .item-right {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
     }
   `]
 })

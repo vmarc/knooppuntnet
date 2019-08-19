@@ -5112,6 +5112,20 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="subset-networks.summary" datatype="html">
+        <source>
+          _There are __<x id="INTERPOLATION" equiv-text="{{page.networkCount}}"/>__ networks, with a total of __<x id="INTERPOLATION_1" equiv-text="{{page.nodeCount}}"/>__ nodes
+          and __<x id="INTERPOLATION_2" equiv-text="{{page.routeCount}}"/>__ routes with an overall length of __<x id="INTERPOLATION_3" equiv-text="{{page.km}}"/>__ km._
+        </source>
+        <target state="new">[
+          _There are __<x id="INTERPOLATION" equiv-text="{{page.networkCount}}"/>__ networks, with a total of __<x id="INTERPOLATION_1" equiv-text="{{page.nodeCount}}"/>__ nodes
+          and __<x id="INTERPOLATION_2" equiv-text="{{page.routeCount}}"/>__ routes with an overall length of __<x id="INTERPOLATION_3" equiv-text="{{page.km}}"/>__ km._
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subset-orphan-nodes.title" datatype="html">
         <source>Orphan nodes</source>
         <target state="new">[Orphan nodes]</target>
@@ -5142,6 +5156,70 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.network" datatype="html">
+        <source>Network</source>
+        <target state="new">[Network]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.length" datatype="html">
+        <source>Length</source>
+        <target state="new">[Length]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.nodes" datatype="html">
+        <source>Nodes</source>
+        <target state="new">[Nodes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.routes" datatype="html">
+        <source>Routes</source>
+        <target state="new">[Routes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.integrity" datatype="html">
+        <source>Integrity</source>
+        <target state="new">[Integrity]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.connections" datatype="html">
+        <source>Connections</source>
+        <target state="new">[Connections]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.broken" datatype="html">
+        <source>Broken</source>
+        <target state="new">[Broken]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.integrity-nodes" datatype="html">
+        <source>Nodes</source>
+        <target state="new">[Nodes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.route-is-broken" datatype="html">

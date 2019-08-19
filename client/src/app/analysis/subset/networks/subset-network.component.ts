@@ -1,29 +1,44 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes";
 import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
 
 @Component({
   selector: "kpn-subset-network",
   template: `
-    <p class="kpn-line">
+    <div class="title">
       <kpn-link-network-details [networkId]="network.id" [title]="network.name"></kpn-link-network-details>
-      <span>{{interpretedNetwork.percentageOk()}}</span>
-      <kpn-subset-network-happy [network]="network"></kpn-subset-network-happy>
-    </p>
-    <p>{{network.km}} km, {{network.nodeCount}} nodes, {{network.routeCount}} routes</p>
-    <p>
+      <span class="percentage">{{interpretedNetwork.percentageOk()}}</span>
+      <kpn-subset-network-happy [network]="network" class="happy"></kpn-subset-network-happy>
+    </div>
+    <div>{{network.km}} km, {{network.nodeCount}} nodes, {{network.routeCount}} routes</div>
+    <div>
       <kpn-osm-link-relation [relationId]="network.id"></kpn-osm-link-relation>
       <kpn-josm-relation [relationId]="network.id"></kpn-josm-relation>
-    </p>
-  `
+    </div>
+  `,
+  styles: [`
+
+    .title {
+      display: flex;
+      align-items: center;
+    }
+
+    .percentage {
+      padding-left: 10px;
+    }
+
+    .happy {
+      padding-left: 10px;
+      height: 25px;
+      white-space: nowrap;
+    }
+
+  `]
 })
-export class SubsetNetworkComponent implements OnInit {
+export class SubsetNetworkComponent {
 
   @Input() network: NetworkAttributes;
   interpretedNetwork: InterpretedNetworkAttributes;
-
-  constructor() {
-  }
 
   ngOnInit(): void {
     this.interpretedNetwork = new InterpretedNetworkAttributes(this.network);

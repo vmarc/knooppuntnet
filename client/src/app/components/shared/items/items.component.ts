@@ -8,16 +8,19 @@ import {Component} from "@angular/core";
     </div>
   `,
   styles: [`
+
     .items {
       margin-top: 20px;
       border-top-color: lightgray;
       border-top-style: solid;
       border-top-width: 1px;
-      /*
-       media . maxWidth(PageWidth . SmallMaxWidth . px)(
-       marginLeft((-UiPage . smallContentsMargin) . px),
-       marginRight((-UiPage . smallContentsMargin) . px)
-    */
+    }
+
+    @media (max-width: 768px) { /* media.maxWidth(PageWidth.SmallMaxWidth.px) */
+      .items {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
     }
 
   `]

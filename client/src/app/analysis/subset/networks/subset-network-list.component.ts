@@ -1,61 +1,17 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {MatTableDataSource} from "@angular/material";
+import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes";
 
 @Component({
   selector: "kpn-subset-network-list",
   template: `
-    <mat-divider></mat-divider>
-    <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
-
-      <ng-container matColumnDef="networkNumber">
-        <td mat-cell *matCellDef="let network; let i = index">
-          {{i + 1}}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="network">
-        <td mat-cell *matCellDef="let network">
-          <kpn-subset-network [network]="network"></kpn-subset-network>
-        </td>
-      </ng-container>
-
-      <tr mat-row *matRowDef="let network; columns: displayedColumns;"></tr>
-
-    </table>
-  `,
-  styles: [`
-
-    table {
-      width: 100%;
-    }
-
-    .mat-column-networkNumber {
-      width: 50px;
-      vertical-align: top;
-      padding-top: 15px;
-    }
-
-    td.mat-cell:first-of-type {
-      padding-left: 10px;
-    }
-
-  `]
+    <kpn-items>
+      <kpn-item *ngFor="let network of networks; let i=index" [index]="i">
+        <kpn-subset-network [network]="network"></kpn-subset-network>
+      </kpn-item>
+    </kpn-items>
+  `
 })
-export class SubsetNetworkListComponent implements OnInit {
-
+export class SubsetNetworkListComponent {
   @Input() networks: List<NetworkAttributes>;
-
-  displayedColumns = ["networkNumber", "network"];
-
-  dataSource: MatTableDataSource<NetworkAttributes>;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.networks.toArray());
-  }
-
 }
