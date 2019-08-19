@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _subset-map-page.component.ts
 package kpn.client.components.subset.networks
 
 import chandu0101.scalajs.react.components.Implicits._

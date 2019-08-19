@@ -4,7 +4,6 @@ import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
 import {ApiResponse} from "../../../kpn/shared/api-response";
@@ -45,6 +44,14 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
     this.pageService.showFooter = false;
   }
 
+  get page(): SubsetNetworksPage {
+    return this.response.result;
+  }
+
+  get networks(): List<NetworkAttributes> {
+    return this.page.networks;
+  }
+
   ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
@@ -58,14 +65,6 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
-  }
-
-  get page(): SubsetNetworksPage {
-    return this.response.result;
-  }
-
-  get networks(): List<NetworkAttributes> {
-    return this.page.networks;
   }
 
   networkClicked(networkId: number): void {

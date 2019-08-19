@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: subset-map.component.ts
 package kpn.client.components.subset.networks
 
 import kpn.client.common.Context
