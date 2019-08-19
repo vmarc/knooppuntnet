@@ -5,6 +5,7 @@ import {SubsetChangesPageComponent} from "./changes/_subset-changes-page.compone
 import {SubsetChangesSidebarComponent} from "./changes/subset-changes-sidebar.component";
 import {SubsetFactDetailsPageComponent} from "./fact-details/_subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./facts/_subset-facts-page.component";
+import {SubsetMapPageComponent} from "./map/_subset-map-page.component";
 import {SubsetNetworksPageComponent} from "./networks/_subset-networks-page.component";
 import {SubsetOrphanNodesPageComponent} from "./orphan-nodes/_subset-orphan-nodes-page.component";
 import {SubsetOrphanNodesSidebarComponent} from "./orphan-nodes/subset-orphan-nodes-sidebar.component";
@@ -64,6 +65,20 @@ const routes: Routes = [
       {
         path: "",
         component: SubsetOrphanRoutesSidebarComponent,
+        outlet: "sidebar"
+      }
+    ]
+  },
+  {
+    path: ":country/:networkType/map",
+    children: [
+      {
+        path: "",
+        component: SubsetMapPageComponent
+      },
+      {
+        path: "",
+        component: AnalysisSidebarComponent,
         outlet: "sidebar"
       }
     ]

@@ -1,7 +1,8 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {MatButtonModule, MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
+import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
 import {AnalysisComponentsModule} from "../components/_analysis-components.module";
 import {FactModule} from "../fact/_fact.module";
@@ -13,6 +14,7 @@ import {SubsetPageHeaderBlockComponent} from "./components/subset-page-header-bl
 import {SubsetFactDetailsPageComponent} from "./fact-details/_subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./facts/_subset-facts-page.component";
 import {SubsetMapPageComponent} from "./map/_subset-map-page.component";
+import {SubsetMapNetworkDialogComponent} from "./map/subset-map-network-dialog.component";
 import {SubsetNetworksPageComponent} from "./networks/_subset-networks-page.component";
 import {SubsetNetworkHappyComponent} from "./networks/subset-network-happy.component";
 import {SubsetNetworkListComponent} from "./networks/subset-network-list.component";
@@ -41,7 +43,10 @@ import {SubsetOrphanRoutesService} from "./orphan-routes/subset-orphan-routes.se
     FactModule,
     SubsetRoutingModule,
     AnalysisComponentsModule,
-    MarkdownModule
+    OlModule,
+    MarkdownModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   declarations: [
     SubsetChangesPageComponent,
@@ -62,14 +67,17 @@ import {SubsetOrphanRoutesService} from "./orphan-routes/subset-orphan-routes.se
     SubsetOrphanNodesSidebarComponent,
     SubsetOrphanRoutesSidebarComponent,
     SubsetChangesSidebarComponent,
-    SubsetMapPageComponent
+    SubsetMapPageComponent,
+    SubsetMapNetworkDialogComponent
   ],
   providers: [
     SubsetOrphanNodesService,
     SubsetOrphanRoutesService,
     SubsetChangesService
+  ],
+  entryComponents: [
+    SubsetMapNetworkDialogComponent
   ]
-
 })
 export class SubsetModule {
 }

@@ -1,4 +1,5 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {MatDialog} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {flatMap, map, tap} from "rxjs/operators";
@@ -13,26 +14,23 @@ import {SubsetNetworksPage} from "../../../kpn/shared/subset/subset-networks-pag
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {SubsetMapNetworkDialogComponent} from "./subset-map-network-dialog.component";
 
 @Component({
   selector: "kpn-subset-map-page",
   template: `
-
     <kpn-subset-page-header-block
       [subset]="subset"
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@subset-map.title">
     </kpn-subset-page-header-block>
-
     <div *ngIf="response">
-      <p>TODO</p>
-      <kpn-json [object]="response"></kpn-json>
+      <kpn-subset-map [networks]="networks" (networkClicked)="networkClicked($event)"></kpn-subset-map>
     </div>
-  `,
-  styles: []
+  `
 })
-export class SubsetMapPageComponent implements OnInit {
+export class SubsetMapPageComponent implements OnInit, OnDestroy {
 
   subset: Subset;
   response: ApiResponse<SubsetNetworksPage>;
@@ -41,17 +39,10 @@ export class SubsetMapPageComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService,
-              private pageWidthService: PageWidthService,
               private networkCacheService: NetworkCacheService,
-              private subsetCacheService: SubsetCacheService) {
-  }
-
-  get page(): SubsetNetworksPage {
-    return this.response.result;
-  }
-
-  get networks(): List<NetworkAttributes> {
-    return this.page.networks;
+              private subsetCacheService: SubsetCacheService,
+              private dialog: MatDialog) {
+    this.pageService.showFooter = false;
   }
 
   ngOnInit(): void {
@@ -65,7 +56,23 @@ export class SubsetMapPageComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
+  }
+
+  get page(): SubsetNetworksPage {
+    return this.response.result;
+  }
+
+  get networks(): List<NetworkAttributes> {
+    return this.page.networks;
+  }
+
+  networkClicked(networkId: number): void {
+    const network = this.networks.find(network => network.id === networkId);
+    if (network) {
+      this.dialog.open(SubsetMapNetworkDialogComponent, {data: network});
+    }
   }
 
   private processResponse(response: ApiResponse<SubsetNetworksPage>) {

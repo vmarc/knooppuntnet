@@ -4076,6 +4076,43 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="subset-map.dialog.nodeCount" datatype="html">
+        <source>nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.dialog.routeCount" datatype="html">
+        <source>routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.dialog.show-network-details" datatype="html">
+        <source>
+            Show network details
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.dialog.close" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.title" datatype="html">
+        <source>Map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/_subset-map-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subset-networks.title" datatype="html">
         <source>Networks</source>
         <context-group purpose="location">
@@ -4261,13 +4298,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">54</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="subset-map.title" datatype="html">
-        <source>Map</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/subset/map/_subset-map-page.component.ts</context>
-          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.page-title" datatype="html">

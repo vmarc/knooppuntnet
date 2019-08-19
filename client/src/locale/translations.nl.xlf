@@ -1692,7 +1692,7 @@
         <target>Kaart</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/map/_subset-map-page.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
@@ -4851,6 +4851,40 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/facts/_subset-facts-page.component.ts</context>
           <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.dialog.nodeCount" datatype="html">
+        <source>nodes</source>
+        <target>knooppunten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.dialog.routeCount" datatype="html">
+        <source>routes</source>
+        <target>routes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.dialog.show-network-details" datatype="html">
+        <source>
+            Show network details
+          </source>
+        <target>Ga naar netwerk details</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.dialog.close" datatype="html">
+        <source>Close</source>
+        <target>Sluiten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-networks.title" datatype="html">

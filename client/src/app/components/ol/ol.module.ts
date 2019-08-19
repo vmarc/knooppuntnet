@@ -7,6 +7,7 @@ import {NodeMapComponent} from "./node-map.component";
 import {PoiTileLayerService} from "./poi-tile-layer.service";
 import {RouteMapComponent} from "./route-map.component";
 import {NodeMovedMapComponent} from "./node-moved-map.component";
+import { SubsetMapComponent } from './subset-map.component';
 
 @NgModule({
   imports: [
@@ -16,13 +17,15 @@ import {NodeMovedMapComponent} from "./node-moved-map.component";
     MapComponent,
     NodeMapComponent,
     NodeMovedMapComponent,
-    RouteMapComponent
+    RouteMapComponent,
+    SubsetMapComponent
   ],
   exports: [
     MapComponent,
     NodeMapComponent,
     NodeMovedMapComponent,
-    RouteMapComponent
+    RouteMapComponent,
+    SubsetMapComponent
   ],
   providers: [
     MapService,
