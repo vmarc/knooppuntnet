@@ -12,6 +12,7 @@ import {SubsetChangesService} from "./changes/subset-changes.service";
 import {SubsetPageHeaderBlockComponent} from "./components/subset-page-header-block.component";
 import {SubsetFactDetailsPageComponent} from "./fact-details/_subset-fact-details-page.component";
 import {SubsetFactsPageComponent} from "./facts/_subset-facts-page.component";
+import {SubsetMapPageComponent} from "./map/_subset-map-page.component";
 import {SubsetNetworksPageComponent} from "./networks/_subset-networks-page.component";
 import {SubsetNetworkHappyComponent} from "./networks/subset-network-happy.component";
 import {SubsetNetworkListComponent} from "./networks/subset-network-list.component";
@@ -60,7 +61,8 @@ import {SubsetOrphanRoutesService} from "./orphan-routes/subset-orphan-routes.se
     SubsetPageHeaderBlockComponent,
     SubsetOrphanNodesSidebarComponent,
     SubsetOrphanRoutesSidebarComponent,
-    SubsetChangesSidebarComponent
+    SubsetChangesSidebarComponent,
+    SubsetMapPageComponent
   ],
   providers: [
     SubsetOrphanNodesService,

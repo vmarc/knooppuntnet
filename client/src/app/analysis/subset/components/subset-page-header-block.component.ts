@@ -53,6 +53,12 @@ import {I18nService} from "../../../i18n/i18n.service";
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
+        [link]="link('map')"
+        i18n="@@subset-page.menu.map">
+        Map
+      </kpn-page-menu-option>
+
+      <kpn-page-menu-option
         [link]="link('changes')"
         i18n="@@subset-page.menu.changes">
         Changes

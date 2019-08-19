@@ -1742,6 +1742,18 @@
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="subset-page.menu.map" datatype="html">
+        <source>
+        Map
+      </source>
+        <target state="new">[
+        Map
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subset-page.menu.changes" datatype="html">
         <source>
         Changes
@@ -1749,7 +1761,15 @@
         <target state="new">[Changes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-map.title" datatype="html">
+        <source>Map</source>
+        <target state="new">[Map]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/map/_subset-map-page.component.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
