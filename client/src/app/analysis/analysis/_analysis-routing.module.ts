@@ -1,5 +1,6 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
+import {Util} from "../../components/shared/util";
 import {AnalysisBePageComponent} from "./analysis-be-page.component";
 import {AnalysisDePageComponent} from "./analysis-de-page.component";
 import {AnalysisNlPageComponent} from "./analysis-nl-page.component";
@@ -7,62 +8,10 @@ import {AnalysisPageComponent} from "./analysis-page.component";
 import {AnalysisSidebarComponent} from "../../components/shared/sidebar/analysis-sidebar.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    children: [
-      {
-        path: "",
-        component: AnalysisPageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: "nl",
-    children: [
-      {
-        path: "",
-        component: AnalysisNlPageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: "be",
-    children: [
-      {
-        path: "",
-        component: AnalysisBePageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: "de",
-    children: [
-      {
-        path: "",
-        component: AnalysisDePageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
+  Util.routePath("", AnalysisPageComponent, AnalysisSidebarComponent),
+  Util.routePath("nl", AnalysisNlPageComponent, AnalysisSidebarComponent),
+  Util.routePath("be", AnalysisBePageComponent, AnalysisSidebarComponent),
+  Util.routePath("de", AnalysisDePageComponent, AnalysisSidebarComponent),
   {
     path: "node",
     loadChildren: "../node/_node.module#NodeModule"

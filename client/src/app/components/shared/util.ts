@@ -1,4 +1,4 @@
-import {Params} from "@angular/router";
+import {Params, Route} from "@angular/router";
 import {Coordinate} from "ol/coordinate";
 import {toLonLat, fromLonLat} from "ol/proj";
 import {NetworkTypes} from "../../kpn/common/network-types";
@@ -11,6 +11,23 @@ interface IPropertyGetter<T> {
 }
 
 export class Util {
+
+  public static routePath(path: string, component: any, sidebarComponent: any): Route {
+    return {
+      path: path,
+      children: [
+        {
+          path: "",
+          component: component
+        },
+        {
+          path: "",
+          component: sidebarComponent,
+          outlet: "sidebar"
+        }
+      ]
+    };
+  }
 
   public static subsetInRoute(params: Params): Subset {
     const country = params["country"];

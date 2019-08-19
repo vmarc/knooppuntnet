@@ -1,23 +1,11 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
+import {Util} from "../../components/shared/util";
 import {ChangesPageComponent} from "./changes-page.component";
 import {AnalysisSidebarComponent} from "../../components/shared/sidebar/analysis-sidebar.component";
 
 const routes: Routes = [
-  {
-    path: "",
-    children: [
-      {
-        path: "",
-        component: ChangesPageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  }
+  Util.routePath("", ChangesPageComponent, AnalysisSidebarComponent)
 ];
 
 @NgModule({

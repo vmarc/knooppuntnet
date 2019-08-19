@@ -1,6 +1,7 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {AnalysisSidebarComponent} from "../../components/shared/sidebar/analysis-sidebar.component";
+import {Util} from "../../components/shared/util";
 import {SubsetChangesPageComponent} from "./changes/_subset-changes-page.component";
 import {SubsetChangesSidebarComponent} from "./changes/subset-changes-sidebar.component";
 import {SubsetFactDetailsPageComponent} from "./fact-details/_subset-fact-details-page.component";
@@ -13,104 +14,13 @@ import {SubsetOrphanRoutesPageComponent} from "./orphan-routes/_subset-orphan-ro
 import {SubsetOrphanRoutesSidebarComponent} from "./orphan-routes/subset-orphan-routes-sidebar.component";
 
 const routes: Routes = [
-  {
-    path: ":country/:networkType/networks",
-    children: [
-      {
-        path: "",
-        component: SubsetNetworksPageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: ":country/:networkType/facts",
-    children: [
-      {
-        path: "",
-        component: SubsetFactsPageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: ":country/:networkType/orphan-nodes",
-    children: [
-      {
-        path: "",
-        component: SubsetOrphanNodesPageComponent
-      },
-      {
-        path: "",
-        component: SubsetOrphanNodesSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: ":country/:networkType/orphan-routes",
-    children: [
-      {
-        path: "",
-        component: SubsetOrphanRoutesPageComponent
-      },
-      {
-        path: "",
-        component: SubsetOrphanRoutesSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: ":country/:networkType/map",
-    children: [
-      {
-        path: "",
-        component: SubsetMapPageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: ":country/:networkType/changes",
-    children: [
-      {
-        path: "",
-        component: SubsetChangesPageComponent
-      },
-      {
-        path: "",
-        component: SubsetChangesSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  },
-  {
-    path: ":country/:networkType/:fact",
-    children: [
-      {
-        path: "",
-        component: SubsetFactDetailsPageComponent
-      },
-      {
-        path: "",
-        component: AnalysisSidebarComponent,
-        outlet: "sidebar"
-      }
-    ]
-  }
+  Util.routePath(":country/:networkType/networks", SubsetNetworksPageComponent, AnalysisSidebarComponent),
+  Util.routePath(":country/:networkType/facts", SubsetFactsPageComponent, AnalysisSidebarComponent),
+  Util.routePath(":country/:networkType/orphan-nodes", SubsetOrphanNodesPageComponent, SubsetOrphanNodesSidebarComponent),
+  Util.routePath(":country/:networkType/orphan-routes", SubsetOrphanRoutesPageComponent, SubsetOrphanRoutesSidebarComponent),
+  Util.routePath(":country/:networkType/map", SubsetMapPageComponent, AnalysisSidebarComponent),
+  Util.routePath(":country/:networkType/changes", SubsetChangesPageComponent, SubsetChangesSidebarComponent),
+  Util.routePath(":country/:networkType/:fact", SubsetFactDetailsPageComponent, AnalysisSidebarComponent)
 ];
 
 @NgModule({
