@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Attribution, defaults as defaultControls} from 'ol/control';
+import {Attribution, defaults as defaultControls} from "ol/control";
 import Coordinate from "ol/coordinate";
 import {click, pointerMove} from "ol/events/condition";
 import Select from "ol/interaction/Select";
@@ -11,9 +11,9 @@ import {fromLonLat} from "ol/proj";
 import Style from "ol/style/Style";
 import View from "ol/View";
 import Extent from "ol/View";
-import {DebugLayer} from "../../../components/ol/domain/debug-layer";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
 import {MapClickHandler} from "../../../components/ol/domain/map-click-handler";
+import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {MapMoveHandler} from "../../../components/ol/domain/map-move-handler";
 import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
@@ -27,7 +27,6 @@ import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
-import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 
 @Component({
   selector: "kpn-map-main-page",
@@ -46,18 +45,16 @@ import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 })
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private readonly subscriptions = new Subscriptions();
-
   map: Map;
   mainMapStyle: (feature, resolution) => Style;
 
   bitmapTileLayer: TileLayer;
   vectorTileLayer: VectorTileLayer;
   poiTileLayer: VectorTileLayer;
-
-  private lastKnownSidebarOpen = false;
-
   interaction = new PlannerInteraction(this.plannerService.engine);
+
+  private readonly subscriptions = new Subscriptions();
+  private lastKnownSidebarOpen = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private pageService: PageService,
@@ -111,8 +108,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         OsmLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
-        this.vectorTileLayer,
-        DebugLayer.build()
+        this.vectorTileLayer
       ],
       controls: defaultControls({attribution: false}).extend([attribution]),
       view: new View({

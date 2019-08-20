@@ -64,7 +64,6 @@ export class MapComponent implements AfterViewInit {
         this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer
-        //DebugLayer.build()
       ],
       view: new View({
         minZoom: ZoomLevel.minZoom,

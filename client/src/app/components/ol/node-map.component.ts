@@ -9,7 +9,6 @@ import View from "ol/View";
 import {NetworkTypes} from "../../kpn/common/network-types";
 import {NodeInfo} from "../../kpn/shared/node-info";
 import {Util} from "../shared/util";
-import {DebugLayer} from "./domain/debug-layer";
 import {Marker} from "./domain/marker";
 import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
@@ -63,8 +62,7 @@ export class NodeMapComponent implements AfterViewInit {
         OsmLayer.build(),
         this.bitmapTileLayer,
         this.vectorTileLayer,
-        this.buildMarkerLayer(),
-        DebugLayer.build()
+        this.buildMarkerLayer()
       ],
       controls: defaultControls({attribution: false}).extend([attribution]),
       view: new View({
@@ -112,10 +110,6 @@ export class NodeMapComponent implements AfterViewInit {
   }
 
   private updateLayerVisibility(zoomLevel: number) {
-
-    console.log(`DEBUG NodeMapComponent updateLayerVisibility zoomLevel=${zoomLevel}`);
-
-
     const zoom = Math.round(zoomLevel);
     if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
       this.bitmapTileLayer.setVisible(true);
