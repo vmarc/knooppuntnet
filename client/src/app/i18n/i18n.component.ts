@@ -19,6 +19,19 @@ import {I18nService} from "./i18n.service";
 
       <span id="@@subset.in" i18n="@@subset.in">in</span>
 
+      <span id="@@map.start-node" i18n="@@map.start-node">Start node</span>
+      <span id="@@map.end-node" i18n="@@map.end-node">End node</span>
+      <span id="@@map.start-tentacle-node" i18n="@@map.start-tentacle-node">Start tentacle node</span>
+      <span id="@@map.end-tentacle-node" i18n="@@map.end-tentacle-node">End tentacle node</span>
+      <span id="@@map.redundant-node" i18n="@@map.redundant-node">Redundant node</span>
+
+      <span id="@@map.layer.forward-route" i18n="@@map.layer.forward-route">Forward route</span>
+      <span id="@@map.layer.backward-route" i18n="@@map.layer.backward-route">Backward route</span>
+      <span id="@@map.layer.start-tentacle" i18n="@@map.layer.start-tentacle">Start tentacle</span>
+      <span id="@@map.layer.end-tentacle" i18n="@@map.layer.end-tentacle">End tentacle</span>
+      <span id="@@map.layer.unused" i18n="@@map.layer.unused">Unused</span>
+      <span id="@@map.layer.nodes" i18n="@@map.layer.nodes">Nodes</span>
+
     </div>
   `,
   styles: [`

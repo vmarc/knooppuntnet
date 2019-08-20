@@ -2,6 +2,7 @@ import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatIconModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
+import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
 import {RouteChangesPageComponent} from "./changes/_route-changes-page.component";
 import {RouteChangeDetailComponent} from "./changes/route-change-detail.component";
@@ -31,6 +32,7 @@ import {FactModule} from "../fact/_fact.module";
     FactModule,
     AnalysisComponentsModule,
     RouteRoutingModule,
+    OlModule
   ],
   declarations: [
     RoutePageComponent,

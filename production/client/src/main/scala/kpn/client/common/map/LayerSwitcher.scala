@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: layer-switcher.component.ts
 package kpn.client.common.map
 
 import japgolly.scalajs.react._

@@ -20,16 +20,13 @@ export class NetworkVectorTileLayer {
         featureClass: Feature // this is important to avoid error upon first selection in the map
       }),
       tileGrid: tileGrid,
-      url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.mvt"
+      url: "/tiles/" + networkType.id + "/{z}/{x}/{y}.mvt"
     });
 
-    const layer = new VectorTileLayer({
+    return new VectorTileLayer({
       source: source,
-      renderMode: 'image'
+      renderMode: "image"
     });
-
-    return layer;
-
   }
 
 }

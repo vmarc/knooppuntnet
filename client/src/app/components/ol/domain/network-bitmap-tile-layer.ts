@@ -11,7 +11,7 @@ export class NetworkBitmapTileLayer {
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.png"
+        url: "/tiles/" + networkType.id + "/{z}/{x}/{y}.png"
       })
     });
   }

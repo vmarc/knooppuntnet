@@ -18,32 +18,31 @@ import {Subscriptions} from "../../../util/Subscriptions";
       [changeCount]="response?.result?.changeCount">
     </kpn-route-page-header>
 
-    TODO
-
     <div *ngIf="response">
-
-      <div *ngIf="!response.result">
+      <div *ngIf="!response.result" i18n="@@route-map-page.route-not-found">
         Route not found
       </div>
-
       <div *ngIf="response.result">
+        <kpn-route-map [routeInfo]="response.result.route"></kpn-route-map>
       </div>
-
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
 export class RouteMapPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   routeId: string;
   response: ApiResponse<RouteMapPage>;
+
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService) {
     this.pageService.showFooter = false;
+  }
+
+  get route(): RouteInfo {
+    return this.response.result.route;
   }
 
   ngOnInit(): void {
@@ -59,9 +58,5 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
-  }
-
-  get route(): RouteInfo {
-    return this.response.result.route;
   }
 }
