@@ -1261,8 +1261,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
-        <source>
-        Unexpected - Defined in network relation
+        <source> 
+        Unexpected - Defined in network relation        
       </source>
         <target>Overwacht - Opgenomen in netwerk relatie</target>
         <context-group purpose="location">
@@ -1337,7 +1337,7 @@
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
         <source>
-        NOK - Not defined in network relation
+        NOK - Not defined in network relation        
       </source>
         <target>NOK - Niet opgenomen in netwerk relatie</target>
         <context-group purpose="location">
@@ -1468,7 +1468,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.green.title" datatype="html">
         <source>
-        OK - expected route count
+        OK - expected route count       
       </source>
         <target>OK - verwacht aantal routes</target>
         <context-group purpose="location">
@@ -1495,7 +1495,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
         <source>
-        NOK - unexpected route count
+        NOK - unexpected route count     
       </source>
         <target>NOK - onverwacht aantal routes</target>
         <context-group purpose="location">
@@ -1533,7 +1533,7 @@
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection
+        OK - Connection        
       </source>
         <target>OK - Verbinding</target>
         <context-group purpose="location">
@@ -1591,7 +1591,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.green.title" datatype="html">
         <source>
-        OK - Defined in route relation
+        OK - Defined in route relation        
       </source>
         <target>OK - Opgenomen in route relatie</target>
         <context-group purpose="location">
@@ -1623,7 +1623,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.gray.text" datatype="html">
         <source>
-        This node is not included as a member in any route relations. This is OK as including de
+        This node is not included as a member in any route relations. This is OK as including de 
         node as member in the route relations is optional.
       </source>
         <target>
@@ -1785,7 +1785,7 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database
+        Older changes cannot be shown. The history in the analysis database 
         does not go beyond
       </source>
         <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank gaat niet verder terug dan</target>
@@ -1820,7 +1820,7 @@
       <trans-unit id="route-changes.route-diff.role-added" datatype="html">
         <source>
       Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>" added to networkrelation.
-
+      
     </source>
         <target state="new">[
           Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>" added to networkrelation.
@@ -1835,7 +1835,7 @@
       <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
         <source>
       Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" removed from networkrelation.
-
+      
     </source>
         <target state="new">[
           Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" removed from networkrelation.
@@ -1850,7 +1850,7 @@
       <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
         <source>
       Route role in networkrelation changed from "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" to "<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>".
-
+      
     </source>
         <target state="new">[
           Route role in networkrelation changed from "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" to "<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>".
@@ -2052,7 +2052,7 @@
       </trans-unit>
       <trans-unit id="filter.title" datatype="html">
         <source>
-        Filter
+        Filter  
       </source>
         <target>Filter</target>
         <context-group purpose="location">
@@ -6175,7 +6175,7 @@
       </trans-unit>
       <trans-unit id="network-details.not-active" datatype="html">
         <source>
-      Not active
+      Not active      
     </source>
         <target>Niet actief</target>
         <context-group purpose="location">
@@ -6293,7 +6293,7 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.title" datatype="html">
         <source>
-        OK - Accessible
+        OK - Accessible        
       </source>
         <target state="new">[
           OK - Accessible
@@ -6358,7 +6358,7 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>
-        NOK - Not Accessible
+        NOK - Not Accessible        
       </source>
         <target state="new">[
           NOK - Not Accessible
@@ -6435,7 +6435,7 @@
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection
+        OK - Connection       
       </source>
         <target state="new">[
           OK - Connection
@@ -6503,7 +6503,7 @@
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
         <source>
-        OK - No facts
+        OK - No facts       
       </source>
         <target state="new">[
           OK - No facts

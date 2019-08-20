@@ -17,7 +17,7 @@ import {Router} from "@angular/router";
       </p>
 
       <p class="version">
-        2019-06-16
+        v3.0.0-alpha-1
       </p>
 
       <p *ngIf="isLoggedIn()">
