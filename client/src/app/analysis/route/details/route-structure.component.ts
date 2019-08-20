@@ -7,11 +7,11 @@ import {List} from "immutable";
   template: `
     <table class="kpn-table">
       <tbody>
-        <tr *ngFor="let structureString of structureStrings">
-          <td>
-            <span [innerHTML]="formatted(structureString)"></span>
-          </td>
-        </tr>
+      <tr *ngFor="let structureString of structureStrings">
+        <td>
+          <span [innerHTML]="formatted(structureString)"></span>
+        </td>
+      </tr>
       </tbody>
     </table>
   `

@@ -33,7 +33,9 @@ import {RouteMemberInfo} from "../../../kpn/shared/route/route-member-info";
           <tr *ngFor="let member of members">
 
             <td class="image-cell">
-              <img [src]="'/assets/images/links/' + member.linkName + '.png'" [alt]="member.linkName">
+              <div class="image">
+                <img [src]="'/assets/images/links/' + member.linkName + '.png'" [alt]="member.linkName">
+              </div>
             </td>
             <td>
               <div class="kpn-comma-list">
@@ -58,11 +60,9 @@ import {RouteMemberInfo} from "../../../kpn/shared/route/route-member-info";
             </td>
             <td>
               {{member.length}}
-
             </td>
             <td>
               {{member.nodeCount}}
-
             </td>
             <td>
               {{member.description}}
@@ -73,8 +73,8 @@ import {RouteMemberInfo} from "../../../kpn/shared/route/route-member-info";
               </div>
             </td>
             <td *ngIf="networkType.name == 'cycling'">
-              <div *ngIf="member.oneWay == 'Forward'" i18n="@@route.members.table.one-way.yes">Yes</div> <!--@@ Ja -->
-              <div *ngIf="member.oneWay == 'Backward'" i18n="@@route.members.table.one-way.reverse">Reverse</div> <!--@@ Omgekeerd --> 
+              <div *ngIf="member.oneWay == 'Forward'" i18n="@@route.members.table.one-way.yes">Yes</div>
+              <div *ngIf="member.oneWay == 'Backward'" i18n="@@route.members.table.one-way.reverse">Reverse</div> 
             </td>
             <td>
               <kpn-tags-text *ngIf="!member.oneWayTags.isEmpty()" [tags]="member.oneWayTags"></kpn-tags-text>
@@ -91,6 +91,11 @@ import {RouteMemberInfo} from "../../../kpn/shared/route/route-member-info";
       height: 40px;
       min-height: 40px;
       max-height: 40px;
+    }
+    .image {
+      height: 40px;
+      padding: 0;
+      margin: 0;
     }
   `]
 })

@@ -61,7 +61,6 @@ import {FactInfo} from "../../fact/fact-info";
               <kpn-route-end-nodes [analysis]="route.analysis"></kpn-route-end-nodes>
             </kpn-data>
 
-
             <div *ngIf="!route.analysis.map.redundantNodes.isEmpty()">
               <kpn-data title="Redundant node" i18n-title="@@route.redundant-node">
                 <kpn-route-redundant-nodes [analysis]="route.analysis"></kpn-route-redundant-nodes>
@@ -77,13 +76,11 @@ import {FactInfo} from "../../fact/fact-info";
             <kpn-tags-table [tags]="tags"></kpn-tags-table>
           </kpn-data>
 
-
           <div *ngIf="route.analysis && !isPageSmall()">
             <kpn-data title="Structure" i18n-title="@@route.structure">
               <kpn-route-structure [structureStrings]="route.analysis.structureStrings"></kpn-route-structure>
             </kpn-data>
           </div>
-
 
           <kpn-data title="Facts" i18n-title="@@route.facts">
             <kpn-facts [factInfos]="factInfos()"></kpn-facts>

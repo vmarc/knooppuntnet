@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _route-page.component.ts
 package kpn.client.components.route
 
 import japgolly.scalajs.react._
@@ -29,7 +29,6 @@ import kpn.client.components.menu.UiSidebarFooter
 import kpn.shared.ApiResponse
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RoutePage
-import org.scalajs.dom
 
 object UiRoutePage {
 
