@@ -19,7 +19,7 @@
     "build-prod:de": "ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ./dist/${npm_package_name}-${npm_package_version}/de;cd dist/${npm_package_name}-${npm_package_version}/de; gzip --keep *.js *.json *.css",
     "build-prod:fr": "ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ./dist/${npm_package_name}-${npm_package_version}/fr;cd dist/${npm_package_name}-${npm_package_version}/fr; gzip --keep *.js *.json *.css",
     "build-map": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./map --stats-json --source-map",
-    "zip": "mkdir ../dist; cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
+    "zip": "cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
     "dist": "run-s build-prod build-prod:nl build-prod:de build-prod:fr zip"
   },
   "private": true,
