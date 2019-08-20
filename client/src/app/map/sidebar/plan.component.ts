@@ -128,7 +128,7 @@ export class PlanComponent implements OnInit, OnDestroy {
       } else if (result == "pdf3") {
         this.pdfService.printInstructions(this.plan);
       } else if (result == "gpx") {
-        new GpxWriter().testWrite(this.plan);
+        new GpxWriter().write(this.plan);
       }
     });
   }

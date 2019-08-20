@@ -1,3 +1,4 @@
+import {saveAs} from "file-saver";
 import {List} from "immutable";
 import {LatLonImpl} from "../../kpn/shared/lat-lon-impl";
 import {Plan} from "../../map/planner/plan/plan";
@@ -5,15 +6,11 @@ import {PlanNode} from "../../map/planner/plan/plan-node";
 
 export class GpxWriter {
 
-  constructor() {
-  }
-
-  testWrite(plan: Plan): void {
-    console.log(this.write(plan));
-  }
-
-  write(plan: Plan): string {
-    return this.header().concat(this.body(plan)).concat(this.footer()).join("\n");
+  write(plan: Plan): void {
+    const content = this.header().concat(this.body(plan)).concat(this.footer()).join("\n");
+    const blob = new Blob([content], {type: "application/xml"});
+    const filename = "knooppuntnet.gpx";
+    saveAs(blob, filename);
   }
 
   private header(): List<string> {

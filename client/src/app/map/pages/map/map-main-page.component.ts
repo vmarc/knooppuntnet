@@ -22,7 +22,7 @@ import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapService} from "../../../components/ol/map.service";
 import {PoiTileLayerService} from "../../../components/ol/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {NetworkTypes} from "../../../kpn/common/network-types";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
@@ -71,7 +71,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       const networkTypeName = params["networkType"];
-      this.mapService.networkType.next(new NetworkType("", networkTypeName));
+      const networkType = NetworkTypes.withName(networkTypeName);
+      this.mapService.networkType.next(networkType);
     }));
 
     this.subscriptions.add(this.mapService.selectedFeature.subscribe(selectedFeature => {
