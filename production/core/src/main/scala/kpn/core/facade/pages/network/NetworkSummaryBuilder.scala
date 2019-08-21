@@ -17,13 +17,21 @@ object NetworkSummaryBuilder {
       case None => 0
     }
 
+    val factCount = if (networkInfo.active) {
+      networkInfo.factCount
+    }
+    else {
+      0
+    }
+
     NetworkSummary(
       networkInfo.attributes.networkType,
       networkInfo.attributes.name,
-      networkInfo.factCount,
+      factCount,
       nodeCount,
       routeCount,
-      changeCount
+      changeCount,
+      networkInfo.active
     )
   }
 }

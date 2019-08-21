@@ -8,15 +8,17 @@ import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.html_<^.<
 import kpn.client.common.Context
 import kpn.client.common.Nls.nls
+import kpn.client.components.common.GlobalStyles
 import kpn.client.components.common.UiData
 import kpn.client.components.common.UiImage
 import kpn.client.components.common.UiNetworkType
 import kpn.client.components.common.UiOsmLink
 import kpn.shared.network.NetworkAttributes
+import scalacss.ScalaCssReact._
 
 object UiNetworkSummary {
 
-  private case class Props(context: Context, attributes: NetworkAttributes)
+  private case class Props(context: Context, attributes: NetworkAttributes, active: Boolean)
 
   private val component = ScalaComponent.builder[Props]("network-summary")
     .render_P { props =>
@@ -35,7 +37,16 @@ object UiNetworkSummary {
             UiOsmLink.relation(a.id),
             ")"
           ),
-          TagMod.when(a.brokenRouteCount > 0) {
+          TagMod.unless(props.active) {
+            <.p(
+              GlobalStyles.red,
+              nls(
+                "This network is not active anymore.",
+                "Dit netwerk is niet meer actief."
+              )
+            )
+          },
+          TagMod.when(props.active && a.brokenRouteCount > 0) {
             <.p(
               UiImage("warning.png"),
               " ",
@@ -50,5 +61,5 @@ object UiNetworkSummary {
     }
     .build
 
-  def apply(attributes: NetworkAttributes)(implicit context: Context): VdomElement = component(Props(context, attributes))
+  def apply(attributes: NetworkAttributes, active: Boolean)(implicit context: Context): VdomElement = component(Props(context, attributes, active))
 }

@@ -26,11 +26,10 @@ import {NetworkDetailsPage} from "../../../kpn/shared/network/network-details-pa
     <p *ngIf="page.attributes.brokenRouteCount > 0" class="kpn-line">
       <mat-icon svgIcon="warning"></mat-icon>
       <span i18n="@@network-details.contains-broken-routes">This network contains broken (non-continuous) routes.</span>
-      <!--@@ Dit network bevat verbindingen die niet geheel aaneensluitend zijn. -->
     </p>
     
-    <p *ngIf="!page.active" i18n="@@network-details.not-active">
-      Not active      
+    <p *ngIf="!page.active" class="warning" i18n="@@network-details.not-active">
+      This network is not active anymore.
     </p>
     
   `

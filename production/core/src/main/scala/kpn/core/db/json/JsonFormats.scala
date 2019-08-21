@@ -393,8 +393,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val factLevelFormat: RootJsonFormat[FactLevel] = jsonFormat1(FactLevel.apply)
 
-
-  implicit val networkSummaryFormat: RootJsonFormat[NetworkSummary] = jsonFormat6(NetworkSummary)
+  implicit val networkSummaryFormat: RootJsonFormat[NetworkSummary] = jsonFormat7(NetworkSummary)
   implicit val networkNodeFactFormat: RootJsonFormat[NetworkNodeFact] = jsonFormat2(NetworkNodeFact)
   implicit val networkRouteFactFormat: RootJsonFormat[NetworkRouteFact] = jsonFormat2(NetworkRouteFact)
   implicit val networkChangesPageFormat: RootJsonFormat[NetworkChangesPage] = jsonFormat4(NetworkChangesPage)

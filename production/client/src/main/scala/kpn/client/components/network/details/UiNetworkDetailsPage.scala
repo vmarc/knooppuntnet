@@ -137,12 +137,11 @@ object UiNetworkDetailsPage {
         <.h2("Details"),
         UiPageContents(
           situationOn(),
-          UiNetworkSummary(attributes),
+          UiNetworkSummary(attributes, active),
           country(),
           lastUpdated(),
           relationLastUpdated(),
-          tags(),
-          <.div("active=" + active)
+          tags()
         )
       )
     }

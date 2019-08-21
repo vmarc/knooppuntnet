@@ -9,12 +9,14 @@ import japgolly.scalajs.react.vdom.html_<^.<
 import kpn.client.common.Context
 import kpn.client.common.Nls
 import kpn.client.common.Nls.nls
+import kpn.client.components.common.GlobalStyles
 import kpn.client.components.common.UiImage
 import kpn.client.components.common.UiMarked
 import kpn.client.components.common.UiNetworkType
 import kpn.client.components.common.UiOsmLink
 import kpn.shared.Fact
 import kpn.shared.route.RouteInfo
+import scalacss.ScalaCssReact._
 
 object UiRouteSummary {
 
@@ -60,7 +62,16 @@ object UiRouteSummary {
         networkType(),
         country(),
         broken(),
-        incomplete()
+        incomplete(),
+        TagMod.unless(routeInfo.active) {
+          <.p(
+            GlobalStyles.red,
+            nls(
+              "This route is not active anymore.",
+              "Deze route is niet meer actief."
+            )
+          )
+        }
       )
     }
 
@@ -115,4 +126,5 @@ object UiRouteSummary {
       }
     }
   }
+
 }

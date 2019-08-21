@@ -25,9 +25,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
 
-        <div *ngIf="page.facts.isEmpty()" i18n="@@network-facts.no-facts">
+        <p *ngIf="page.facts.isEmpty()" i18n="@@network-facts.no-facts">
           No facts
-        </div>
+        </p>
 
         <kpn-items *ngIf="!page.facts.isEmpty()">
           <kpn-item *ngFor="let fact of page.facts; let i=index" [index]="i">

@@ -196,7 +196,7 @@ object UiNodePage {
             Styles.red,
             nls(
               "This network node is not active anymore.",
-              "Dit knooppunt is niet actief meer."
+              "Dit knooppunt is niet meer actief."
             )
           )
         },

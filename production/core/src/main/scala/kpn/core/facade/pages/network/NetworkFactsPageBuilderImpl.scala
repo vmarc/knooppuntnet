@@ -109,7 +109,13 @@ class NetworkFactsPageBuilderImpl(
 
     val networkInfoFacts = networkInfo.facts.map(f => NetworkFact(f.name))
 
-    val facts =  networkInfoFacts ++ networkFacts ++ nodeFacts ++ routeFacts
+    val facts = if(networkInfo.active) {
+      networkInfoFacts ++ networkFacts ++ nodeFacts ++ routeFacts
+    }
+    else {
+      // do not report the fact details when the network is not active anymore
+      Seq()
+    }
 
     NetworkFactsPage(
       NetworkSummaryBuilder.toSummary(networkInfo, changeCount),

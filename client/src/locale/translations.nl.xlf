@@ -6167,7 +6167,7 @@
       </trans-unit>
       <trans-unit id="network-details.contains-broken-routes" datatype="html">
         <source>This network contains broken (non-continuous) routes.</source>
-        <target state="new">[This network contains broken (non-continuous) routes.]</target>
+        <target>Dit network bevat verbindingen die niet geheel aaneensluitend zijn.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-summary.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -6175,12 +6175,12 @@
       </trans-unit>
       <trans-unit id="network-details.not-active" datatype="html">
         <source>
-      Not active      
+      This network is not active anymore.
     </source>
-        <target>Niet actief</target>
+        <target>Dit netwerk is niet meer actief.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-summary.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.nr" datatype="html">

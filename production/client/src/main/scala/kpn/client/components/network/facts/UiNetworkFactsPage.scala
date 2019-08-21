@@ -13,6 +13,7 @@ import kpn.client.common.NetworkPageArgs
 import kpn.client.common.Nls.nls
 import kpn.client.common.Nls.nlsNL
 import kpn.client.components.common.AbstractBackend
+import kpn.client.components.common.GlobalStyles
 import kpn.client.components.common.PageState
 import kpn.client.components.common.PageStatus
 import kpn.client.components.common.UiCommaList
@@ -41,6 +42,7 @@ import kpn.shared.NetworkNameMissing
 import kpn.shared.network.NetworkNodeFact
 import kpn.shared.network.NetworkRouteFact
 import kpn.shared.network.OldNetworkFactsPage
+import scalacss.ScalaCssReact._
 
 object UiNetworkFactsPage {
 
@@ -128,12 +130,27 @@ object UiNetworkFactsPage {
     extends NetworkPageRenderer(UiNetworkMenu.facts, state.pageState.ui.status, props.networkName, props.networkSummary)(props) {
 
     protected def contents(): VdomElement = {
+      val name = state.pageState.response.get.result.get.networkSummary.name
+      val active = state.pageState.response.get.result.get.networkSummary.active
       <.div(
-        <.h1(state.pageState.response.get.result.get.networkSummary.name),
+        <.h1(name),
         <.h2(nls("Facts", "Feiten")),
         UiPageContents(
-          UiSituationOn(state.pageState.situationOn),
-          allFacts()
+          TagMod.unless(active) {
+            <.p(
+              GlobalStyles.red,
+              nls(
+                "This network is not active anymore.",
+                "Dit netwerk is niet meer actief."
+              )
+            )
+          },
+          TagMod.when(active) {
+            <.div(
+              UiSituationOn(state.pageState.situationOn),
+              allFacts()
+            )
+          }
         )
       )
     }
