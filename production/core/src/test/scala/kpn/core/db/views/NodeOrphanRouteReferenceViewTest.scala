@@ -94,6 +94,31 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
     }
   }
 
+  test("node references in non-active orphan routes are ignored") {
+    withDatabase { database =>
+      val routeRepository = new RouteRepositoryImpl(database)
+      routeRepository.save(
+        newRoute(
+          id = 10,
+          orphan = true,
+          active = false,
+          networkType = NetworkType.hiking,
+          name = "01-02",
+          analysis = newRouteInfoAnalysis(
+            startNodes = Seq(
+              newRouteNetworkNodeInfo(
+                id = 1001,
+                name = "01"
+              )
+            )
+          )
+        )
+      )
+
+      queryNode(database, 1001) should equal(Seq())
+    }
+  }
+
   def queryNode(database: Database, nodeId: Long): Seq[NodeOrphanRouteReference] = {
     database.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale = false)(nodeId).map(NodeOrphanRouteReferenceView.convert)
   }

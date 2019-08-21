@@ -18,10 +18,10 @@ var emitRef = function (elementType, elementId, referrerType, referrerId, networ
   emit(key, value);
 };
 
-if (doc && doc.node) {
+if (doc && doc.node && doc.node.active === true) {
   emitRef("node", doc.node.id, "node", doc.node.id, "", doc.node.name, "false");
 }
-else if (doc && doc.route && doc.route.analysis) {
+else if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   var s = doc.route.summary;
   var a = doc.route.analysis;
   for (var i = 0; i < a.startNodes.length; i++) {
@@ -32,7 +32,7 @@ else if (doc && doc.route && doc.route.analysis) {
   }
   emitRef("route", s.id, "route", s.id, s.networkType, s.name, "false");
 }
-else if (doc && doc.network) {
+else if (doc && doc.network && doc.network.active === true) {
   var a = doc.network.attributes;
   if (doc.network.detail) {
     var d = doc.network.detail;

@@ -1,4 +1,4 @@
-if (doc && doc.route) {
+if (doc && doc.route && doc.route.active === true) {
   var r = doc.route;
   if (r.active === true && (r.orphan === true || r.ignored === true)) {
     var key = [

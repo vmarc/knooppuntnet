@@ -9,7 +9,7 @@ function emitOrphanRouteReferences(routeId, orphanRouteReference, nodes) {
   }
 }
 
-if (doc && doc.route) {
+if (doc && doc.route && doc.route.active === true) {
 
   var route = doc.route;
 

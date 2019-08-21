@@ -1,4 +1,4 @@
-if (doc && doc.node) {
+if (doc && doc.node && doc.node.active === true) {
   var n = doc.node;
   if (n.active === true && (n.orphan === true || n.ignored === true)) {
     if (n.rwnName.length > 0) {

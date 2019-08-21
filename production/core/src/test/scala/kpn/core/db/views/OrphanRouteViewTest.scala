@@ -81,11 +81,19 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
     }
   }
 
-  private def route(database: Database, orphan: Boolean, ignored: Boolean, display: Boolean): Seq[(OrphanRouteKey, RouteSummary)] = {
+  test("inactive orphan routes are not included in the view") {
+    withDatabase { database =>
+      val rows = route(database, orphan = true, ignored = false, display = true, active = false)
+      rows should equal(Seq())
+    }
+  }
+
+  private def route(database: Database, orphan: Boolean, ignored: Boolean, display: Boolean, active: Boolean = true): Seq[(OrphanRouteKey, RouteSummary)] = {
     val routeInfo = newRoute(
       11,
       display = display,
       ignored = ignored,
+      active = active,
       orphan = orphan,
       country = Some(Country.nl),
       networkType = NetworkType.hiking

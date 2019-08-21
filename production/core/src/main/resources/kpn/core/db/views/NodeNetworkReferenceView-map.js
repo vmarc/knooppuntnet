@@ -1,4 +1,4 @@
-if (doc && doc.network) {
+if (doc && doc.network && doc.network.active === true) {
 
   var attributes = doc.network.attributes;
   var detail = doc.network.detail;

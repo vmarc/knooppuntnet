@@ -82,9 +82,16 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
     }
   }
 
-  private def node(database: Database, tags: Tags, orphan: Boolean, ignored: Boolean): Seq[(OrphanNodeKey, NodeInfo)] = {
+  test("inactive orphan nodes are not included in the view") {
+    withDatabase { database =>
+      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = true, ignored = false, active = false)
+      rows should equal(Seq())
+    }
+  }
+
+  private def node(database: Database, tags: Tags, orphan: Boolean, ignored: Boolean, active: Boolean = true): Seq[(OrphanNodeKey, NodeInfo)] = {
     val b = new TestDocBuilder(database)
-    b.node(10001, Country.nl, tags, orphan = orphan, ignored = ignored)
+    b.node(10001, Country.nl, tags, orphan = orphan, ignored = ignored, active = active)
     database.query(AnalyzerDesign, OrphanNodeView, Couch.uiTimeout, stale = false)().map(OrphanNodeView.toKeyAndValue)
   }
 }

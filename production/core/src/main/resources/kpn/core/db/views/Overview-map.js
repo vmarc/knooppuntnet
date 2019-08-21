@@ -80,7 +80,7 @@ var subsetIndex = function (element) {
 
 if (doc) {
 
-  if (doc.network && doc.network.attributes) {
+  if (doc.network && doc.network.attributes && doc.network.active === true) {
 
     var index = subsetIndex(doc.network.attributes);
 
@@ -168,7 +168,7 @@ if (doc) {
       }
     }
   }
-  else if (doc.node) {
+  else if (doc.node && doc.node.active === true) {
     if (doc.node.orphan === true && doc.node.display === true && doc.node.active === true && doc.node.ignored === false) {
       if (doc.node.rcnName.length > 0) {
         var index = calculateSubsetIndex(doc.node.country, "rcn");
@@ -180,7 +180,7 @@ if (doc) {
       }
     }
   }
-  else if (doc.route && doc.route.summary) {
+  else if (doc.route && doc.route.summary && doc.route.active === true) {
     if (doc.route.orphan === true && doc.route.display === true && doc.route.active === true && doc.route.ignored === false) {
       var index = subsetIndex(doc.route.summary);
       emitCount("OrphanRouteCount", index, 1);

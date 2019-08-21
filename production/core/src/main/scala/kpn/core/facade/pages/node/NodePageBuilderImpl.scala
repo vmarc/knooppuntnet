@@ -22,8 +22,6 @@ class NodePageBuilderImpl(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends NodePageBuilder {
 
-  private val maxItemsPerPage = 3
-
   def build(user: Option[String], nodeId: Long): Option[NodePage] = {
     if (nodeId == 1) {
       Some(NodePageExample.page)

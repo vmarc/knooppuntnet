@@ -1,4 +1,4 @@
-if (doc && doc.network) {
+if (doc && doc.network && doc.network.active === true) {
   var a = doc.network.attributes;
   var facts = doc.network.facts;
   for (var i = 0; i < facts.length; i++) {

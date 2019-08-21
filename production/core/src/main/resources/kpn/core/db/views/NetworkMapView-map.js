@@ -1,4 +1,4 @@
-if (doc && doc.network && doc.network.detail && doc.network.detail.shape) {
+if (doc && doc.network && doc.network.detail && doc.network.detail.shape && doc.network.active === true) {
   var a = doc.network.attributes;
   var s = doc.network.detail.shape;
   var key = [
