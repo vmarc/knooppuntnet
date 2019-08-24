@@ -6,6 +6,8 @@ import {ApiResponse} from "../../kpn/shared/api-response";
 import {ChangesPage} from "../../kpn/shared/changes-page";
 import {ChangesParameters} from "../../kpn/shared/changes/filter/changes-parameters";
 import {Subscriptions} from "../../util/Subscriptions";
+import {ChangeFilterOptions} from "../components/changes/filter/change-filter-options";
+import {ChangesService} from "../components/changes/filter/changes.service";
 
 @Component({
   selector: "kpn-changes-page",
@@ -37,14 +39,28 @@ import {Subscriptions} from "../../util/Subscriptions";
 })
 export class ChangesPageComponent implements OnInit {
 
-  private readonly subscriptions = new Subscriptions();
-
   response: ApiResponse<ChangesPage>;
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
+              private changesService: ChangesService,
               private pageService: PageService) {
+  }
+
+  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
+
+  get parameters() {
+    return this._parameters;
+  }
+
+  set parameters(parameters: ChangesParameters) {
+    this._parameters = parameters;
+    this.reload();
+  }
+
+  get page(): ChangesPage {
+    return this.response.result;
   }
 
   ngOnInit(): void {
@@ -56,19 +72,6 @@ export class ChangesPageComponent implements OnInit {
     this.subscriptions.unsubscribe();
   }
 
-  get page(): ChangesPage {
-    return this.response.result;
-  }
-
-  get parameters() {
-    return this._parameters;
-  }
-
-  set parameters(parameters: ChangesParameters) {
-    this._parameters = parameters;
-    this.reload();
-  }
-
   rowIndex(index: number): number {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
   }
@@ -76,6 +79,13 @@ export class ChangesPageComponent implements OnInit {
   private reload() {
     this.appService.changes(this.parameters).subscribe(response => {
       this.response = response;
+      this.changesService.filterOptions.next(
+        ChangeFilterOptions.from(
+          this.parameters,
+          this.response.result.filter,
+          (parameters: ChangesParameters) => this.parameters = parameters
+        )
+      );
     });
   }
 

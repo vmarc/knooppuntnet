@@ -1,4 +1,5 @@
 import {Params, Route} from "@angular/router";
+import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
 import {toLonLat, fromLonLat} from "ol/proj";
 import {NetworkTypes} from "../../kpn/common/network-types";
@@ -74,4 +75,9 @@ export class Util {
     const lonNumber = parseFloat(longitude);
     return fromLonLat([lonNumber, latNumber]);
   }
+
+  public static sum(list: List<number>): number {
+    return list.reduce((prev, current) => prev + current);
+  }
+
 }

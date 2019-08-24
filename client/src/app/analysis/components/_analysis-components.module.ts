@@ -33,6 +33,9 @@ import {FilterCheckboxGroupComponent} from "./filter/filter-checkbox-group.compo
 import {FilterRadioGroupComponent} from "./filter/filter-radio-group.component";
 import {FilterTitleComponent} from "./filter/filter-title.component";
 import {FilterComponent} from "./filter/filter.component";
+import { ChangeFilterComponent } from './changes/filter/change-filter.component';
+import { ChangeFilterPeriodComponent } from './changes/filter/change-filter-period.component';
+import { ChangesSidebarComponent } from './changes/filter/changes-sidebar.component';
 
 @NgModule({
   imports: [
@@ -70,7 +73,10 @@ import {FilterComponent} from "./filter/filter.component";
     FilterCheckboxGroupComponent,
     FilterRadioGroupComponent,
     FilterTitleComponent,
-    ChangesComponent
+    ChangesComponent,
+    ChangeFilterComponent,
+    ChangeFilterPeriodComponent,
+    ChangesSidebarComponent
   ],
   exports: [
     ChangeHeaderComponent,
