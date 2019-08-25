@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: change-set.component.ts
 package kpn.client.components.changes
 
 import japgolly.scalajs.react.ScalaComponent

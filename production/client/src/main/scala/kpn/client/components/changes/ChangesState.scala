@@ -1,4 +1,3 @@
-// TODO migrate to Angular
 package kpn.client.components.changes
 
 import kpn.client.components.common.PageState
