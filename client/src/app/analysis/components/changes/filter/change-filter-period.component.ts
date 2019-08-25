@@ -7,6 +7,7 @@ import {ChangeFilterOption} from "./change-filter-option";
     <div class="row">
       <div [ngClass]="option.level">
         {{option.period.name}}
+        <ng-container *ngIf="option.period.current">*</ng-container>
       </div>
       <div class="count-links">
         <a (click)="option.impactedCountClicked()" class="link">{{option.period.impactedCount}}</a> /

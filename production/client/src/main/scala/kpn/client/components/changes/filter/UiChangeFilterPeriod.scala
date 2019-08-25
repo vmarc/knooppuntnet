@@ -1,3 +1,4 @@
+// Migrated to Angular: change-filter-period.component.ts
 package kpn.client.components.changes.filter
 
 import japgolly.scalajs.react.Callback

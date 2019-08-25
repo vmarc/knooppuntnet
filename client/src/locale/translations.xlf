@@ -341,7 +341,7 @@
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
@@ -380,7 +380,7 @@
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
@@ -420,14 +420,14 @@
       <trans-unit id="breadcrumb.changes" datatype="html">
         <source>Changes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changes-page.title" datatype="html">
         <source>Changes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -635,6 +635,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/changes.component.ts</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-filter.title" datatype="html">
+        <source>Filter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-filter.legend" datatype="html">
+        <source>
+          impacted / all
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter.component.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.title" datatype="html">

@@ -4,10 +4,8 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats
 import kpn.core.db.json.JsonFormats._
-import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.ChangesView
-import kpn.core.db.views.OrphanRouteView
 import kpn.core.util.Log
 import kpn.shared.ChangeSetSummary
 import kpn.shared.ChangeSetSummaryDoc
@@ -209,7 +207,6 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
   }
 
   private def changesFilter(keys: Seq[String], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
-
     val yearPeriods = changesFilterPeriod(4, keys, stale)
     if (yearPeriods.isEmpty) {
       ChangesFilter(Seq())
@@ -218,19 +215,12 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
       val selectedYear = year.getOrElse(yearPeriods.head.name)
       val modifiedYears = yearPeriods.map { yearPeriod =>
         if (yearPeriod.name == selectedYear) {
-
           val monthPeriods = changesFilterPeriod(2, keys :+ selectedYear, stale)
-          val selectedMonth = month.getOrElse(monthPeriods.head.name)
-
           val modifiedMonthPeriods = monthPeriods.map { monthPeriod: ChangesFilterPeriod =>
-            if (monthPeriod.name == selectedMonth) {
-
-              val dayPeriods = changesFilterPeriod(2, keys ++ Seq(selectedYear, selectedMonth), stale)
-
-              val selectedDay = day.getOrElse(dayPeriods.head.name)
-
+            if (month.contains(monthPeriod.name)) {
+              val dayPeriods = changesFilterPeriod(2, keys ++ Seq(selectedYear, monthPeriod.name), stale)
               val modifiedDays = dayPeriods.map { dayPeriod =>
-                if (dayPeriod.name == selectedDay) {
+                if (day.contains(dayPeriod.name)) {
                   dayPeriod.copy(selected = day.nonEmpty, current = day.nonEmpty)
                 }
                 else {
@@ -298,8 +288,12 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
   override def allChangeSetIds(): Seq[String] = {
 
     val uriHead = Uri("_all_docs")
-    val startKey = { """"change:"""" }
-    val endKey = { """"change:zzz"""" }
+    val startKey = {
+      """"change:""""
+    }
+    val endKey = {
+      """"change:zzz""""
+    }
 
     val parameters = Map(
       "startkey" -> startKey,
@@ -322,7 +316,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
         val id = row.asJsObject.getFields("id").head.toString
         id.split(":")(1)
       }
-    }.distinct.sorted
+      }.distinct.sorted
   }
 
   private def readChanges(elementType: String, parameters: ChangesParameters, stale: Boolean): Seq[JsObject] = {

@@ -1,3 +1,4 @@
+// Migrated to Angular: change-filter.component.ts
 package kpn.client.components.changes.filter
 
 import chandu0101.scalajs.react.components.materialui.TouchTapEvent
@@ -23,7 +24,7 @@ object UiChangeFilter {
     changesFilter: ChangesFilter,
     filterChanged: (Option[String], Option[String], Option[String], Boolean) => Unit,
     itemsPerPage: Int,
-    itemsPerPageChanged: (Int) => Unit
+    itemsPerPageChanged: Int => Unit
   )
 
   private val component = ScalaComponent.builder[Props]("changes-filter")
@@ -41,7 +42,7 @@ object UiChangeFilter {
     changesFilter: ChangesFilter,
     filterChanged: (Option[String], Option[String], Option[String], Boolean) => Unit,
     itemsPerPage: Int,
-    itemsPerPageChanged: (Int) => Unit
+    itemsPerPageChanged: Int => Unit
   )(implicit context: Context): VdomElement = {
     component(
       Props(
@@ -58,7 +59,7 @@ object UiChangeFilter {
     filter: ChangesFilter,
     filterChanged: (Option[String], Option[String], Option[String], Boolean) => Unit,
     itemsPerPage: Int,
-    itemsPerPageChanged: (Int) => Unit
+    itemsPerPageChanged: Int => Unit
   )(implicit context: Context) {
 
     def render(): VdomElement = {

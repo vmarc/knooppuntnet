@@ -5,9 +5,9 @@ import {ChangeFilterOptions} from "./change-filter-options";
   selector: "kpn-change-filter",
   template: `
     <div class="filter">
-      <div class="title">Filter</div>
+      <div class="title" i18n="@@change-filter.title">Filter</div>
       <div class="row">
-        <div class="count-links">
+        <div class="count-links" i18n="@@change-filter.legend">
           impacted / all
         </div>
       </div>

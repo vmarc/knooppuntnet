@@ -16,25 +16,7 @@ export class ChangeFilterOptions {
 
   public static from(parameters: ChangesParameters, filter: ChangesFilter, update: (ChangesParameters) => void): ChangeFilterOptions {
 
-    const totalCount = Util.sum(filter.periods.map(period => period.totalCount));
-    const impactedCount = Util.sum(filter.periods.map(period => period.impactedCount));
-
-    const allPeriod = new ChangesFilterPeriod(
-      "All",
-      totalCount,
-      impactedCount,
-      false,
-      false,
-      List()
-    );
-
-    const all = new ChangeFilterOption(
-      "year",
-      allPeriod,
-      List(),
-      () => update(this.updatedParameters(parameters, true)),
-      () => update(this.updatedParameters(parameters, false))
-    );
+    const all = this.buildAll(parameters, filter, update);
 
     const options = filter.periods.map(year => {
       const months = year.periods.map(month => {
@@ -86,13 +68,35 @@ export class ChangeFilterOptions {
       parameters.networkId,
       parameters.routeId,
       parameters.nodeId,
-      year == null ? parameters.year : year,
-      month == null ? parameters.month : month,
-      day == null ? parameters.day : day,
+      year,
+      month,
+      day,
       parameters.itemsPerPage,
       parameters.pageIndex,
       impact
     );
   }
 
+  private static buildAll(parameters: ChangesParameters, filter: ChangesFilter, update: (ChangesParameters) => void): ChangeFilterOption {
+
+    const totalCount = Util.sum(filter.periods.map(period => period.totalCount));
+    const impactedCount = Util.sum(filter.periods.map(period => period.impactedCount));
+
+    const all = new ChangesFilterPeriod(
+      "All",
+      totalCount,
+      impactedCount,
+      false,
+      false,
+      List()
+    );
+
+    return new ChangeFilterOption(
+      "year",
+      all,
+      List(),
+      () => update(this.updatedParameters(parameters, true)),
+      () => update(this.updatedParameters(parameters, false))
+    );
+  }
 }
