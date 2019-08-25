@@ -12,10 +12,12 @@ import {NodeChangeInfo} from "../../../kpn/shared/node/node-change-info";
       [comment]="nodeChangeInfo.comment">
     </kpn-change-header>
 
-    <kpn-change-set-info [changeSetTags]="nodeChangeInfo.changeTags"></kpn-change-set-info>
+    <kpn-change-set-tags [changeSetTags]="nodeChangeInfo.changeTags"></kpn-change-set-tags>
 
     <div class="kpn-detail">
-      Version {{nodeChangeInfo.version}} <span *ngIf="isVersionUnchanged()">(Unchanged)</span>
+      <span i18n="@@node.version">Version</span> 
+      {{nodeChangeInfo.version}} 
+      <span *ngIf="isVersionUnchanged()" i18n="@@node.unchanged">(Unchanged)</span>
     </div>
 
     <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change-detail>

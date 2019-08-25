@@ -4,7 +4,7 @@ import {Tag} from "../../../kpn/shared/data/tag";
 import {Tags} from "../../../kpn/shared/data/tags";
 
 @Component({
-  selector: "kpn-change-set-info", // TODO rename to kpn-change-set-tags
+  selector: "kpn-change-set-tags",
   template: `
     <div *ngIf="hasTags()">
       <div class="tags">
@@ -32,7 +32,7 @@ import {Tags} from "../../../kpn/shared/data/tags";
 
   `]
 })
-export class ChangeSetInfoComponent {
+export class ChangeSetTagsComponent {
 
   @Input() changeSetTags: Tags;
 

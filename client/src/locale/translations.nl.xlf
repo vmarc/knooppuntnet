@@ -5622,6 +5622,22 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="node.version" datatype="html">
+        <source>Version</source>
+        <target>Versie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/changes/node-change.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.unchanged" datatype="html">
+        <source>(Unchanged)</source>
+        <target>(Niet gewijzigd)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/changes/node-change.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="breadcrumb.overview" datatype="html">
         <source>Overview</source>
         <target>Overzicht in cijfers</target>

@@ -14,7 +14,7 @@ import {
 import {MarkdownModule} from "ngx-markdown";
 import {SharedModule} from "../../components/shared/shared.module";
 import {ChangeHeaderComponent} from "./change-set/change-header.component";
-import {ChangeSetInfoComponent} from "./change-set/change-set-info.component";
+import {ChangeSetTagsComponent} from "./change-set/change-set-tags.component";
 import {ChangesSetComponent} from "./change-set/change-set.component";
 import {ChangesSetElementRefComponent} from "./change-set/components/change-set-element-ref.component";
 import {ChangesSetElementRefsComponent} from "./change-set/components/change-set-element-refs.component";
@@ -55,7 +55,7 @@ import { ChangesSidebarComponent } from './changes/filter/changes-sidebar.compon
   ],
   declarations: [
     ChangeHeaderComponent,
-    ChangeSetInfoComponent,
+    ChangeSetTagsComponent,
     ChangesSetComponent,
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,
@@ -80,7 +80,7 @@ import { ChangesSidebarComponent } from './changes/filter/changes-sidebar.compon
   ],
   exports: [
     ChangeHeaderComponent,
-    ChangeSetInfoComponent,
+    ChangeSetTagsComponent,
     ChangesSetComponent,
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,

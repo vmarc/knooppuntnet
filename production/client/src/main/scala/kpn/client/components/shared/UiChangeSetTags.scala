@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: change-set-tags.component.ts
 package kpn.client.components.shared
 
 import japgolly.scalajs.react.ScalaComponent
