@@ -412,9 +412,8 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val pointSegmentFormat: RootJsonFormat[PointSegment] = jsonFormat2(PointSegment)
   implicit val geometryDiffFormat: RootJsonFormat[GeometryDiff] = jsonFormat3(GeometryDiff)
-  implicit val routeChangeInfoFormat: RootJsonFormat[RouteChangeInfo] = jsonFormat22(RouteChangeInfo)
+  implicit val routeChangeInfoFormat: RootJsonFormat[RouteChangeInfo] = jsonFormat16(RouteChangeInfo)
   implicit val routeChangeInfosFormat: RootJsonFormat[RouteChangeInfos] = jsonFormat2(RouteChangeInfos)
-
 
   implicit val changeSetPageFormat: RootJsonFormat[ChangeSetPage] = jsonFormat7(ChangeSetPage)
 

@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _route-changes-page.component.ts
 package kpn.client.components.route
 
 import japgolly.scalajs.react.ScalaComponent

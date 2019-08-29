@@ -18,29 +18,28 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </kpn-route-page-header>
 
     <div *ngIf="!isLoggedIn()">
-      <span>The route history is available to registered OpenStreetMap contributors only, after</span>
+      <span i18n="@@route-changes.login-required">The route history is available to registered OpenStreetMap contributors only, after</span>
       <kpn-link-login></kpn-link-login>
       .
     </div>
 
     <div *ngIf="response">
 
-      <div *ngIf="!response.result">
+      <div *ngIf="!response.result" i18n="@@route-changes.route-not-found">
         Route not found
       </div>
 
       <div *ngIf="response.result">
-
-        <kpn-items>
-          <kpn-item *ngFor="let routeChangeInfo of response.result.changes; let i=index" [index]="i">
-            <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
-          </kpn-item>
-        </kpn-items>
-
+        <kpn-changes [(parameters)]="parameters" [totalCount]="response.result.changeCount" [showFirstLastButtons]="false">
+          <kpn-items>
+            <kpn-item *ngFor="let routeChangeInfo of response.result.changes; let i=index" [index]="i">
+              <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
+            </kpn-item>
+          </kpn-items>
+        </kpn-changes>
         <div *ngIf="response.result.incompleteWarning">
           <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
         </div>
-
       </div>
 
       <kpn-json [object]="response"></kpn-json>
@@ -49,16 +48,20 @@ import {Subscriptions} from "../../../util/Subscriptions";
 })
 export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   routeId: string;
   response: ApiResponse<RouteChangesPage>;
   parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService,
               private userService: UserService) {
+  }
+
+  get route() {
+    return this.response.result.route;
   }
 
   isLoggedIn(): boolean {
@@ -82,6 +85,10 @@ export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestr
     this.reload();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   private reload(): void {
     // this.updateParameters();
     this.subscriptions.add(
@@ -89,14 +96,6 @@ export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestr
         this.response = response;
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  get route() {
-    return this.response.result.route;
   }
 
 }

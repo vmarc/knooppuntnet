@@ -12,6 +12,8 @@ import kpn.shared.common.Ref
 import kpn.shared.common.Reference
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawNode
+import kpn.shared.diff.TagDetail
+import kpn.shared.diff.TagDetailType
 import kpn.shared.diff.TagDiffs
 import kpn.shared.diff.common.FactDiffs
 import kpn.shared.diff.route.RouteDiff
@@ -297,7 +299,38 @@ object RoutePageExample {
           ),
           nodeDiffs = Seq(
             RouteNodeDiff(
-              title = "title",
+              title = "startNodes",
+              added = Seq[Ref](
+                Ref(1001, "01"),
+                Ref(1002, "02"),
+                Ref(1003, "03"),
+                Ref(1004, "04"),
+                Ref(1005, "05")
+              ),
+              removed = Seq[Ref](
+                Ref(1002, "02")
+              )
+            ),
+            RouteNodeDiff(
+              title = "endNodes",
+              added = Seq[Ref](
+                Ref(1001, "01")
+              ),
+              removed = Seq[Ref](
+                Ref(1002, "02")
+              )
+            ),
+            RouteNodeDiff(
+              title = "startTentacleNodes",
+              added = Seq[Ref](
+                Ref(1001, "01")
+              ),
+              removed = Seq[Ref](
+                Ref(1002, "02")
+              )
+            ),
+            RouteNodeDiff(
+              title = "endTentacleNodes",
               added = Seq[Ref](
                 Ref(1001, "01")
               ),
@@ -308,18 +341,19 @@ object RoutePageExample {
           ),
           memberOrderChanged = true,
           tagDiffs = Some(
-            TagDiffs()
+            TagDiffs(
+              mainTags = Seq(
+                TagDetail(TagDetailType.Same, "same", Some("Same"), Some("Same"))
+              ),
+              extraTags = Seq(
+                TagDetail(TagDetailType.Update, "tag", Some("before"), Some("after"))
+              )
+            )
           )
         ),
         nodes = Seq[RawNode](
         ),
         changeSetInfo = None, //Some(ChangeSetInfo()),  TODO do we actually show this???
-        addedNodes = Seq[Long](1001),
-        deletedNodes = Seq[Long](1002),
-        commonNodes = Seq[Long](1003),
-        addedWayIds = Seq[Long](101),
-        deletedWayIds = Seq[Long](102),
-        commonWayIds = Seq[Long](103),
         geometryDiff = None,
         bounds = Bounds(
         ),

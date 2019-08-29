@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: route-diff.component.ts
 package kpn.client.components.changeset.diff
 
 import japgolly.scalajs.react._

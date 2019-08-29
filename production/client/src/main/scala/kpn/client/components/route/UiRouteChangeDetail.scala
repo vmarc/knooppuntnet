@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: route-change-detail.component.ts
 package kpn.client.components.route
 
 import japgolly.scalajs.react.ScalaComponent
@@ -15,16 +15,13 @@ import kpn.client.components.changeset.diff.UiRouteDiff
 import kpn.client.components.common.UiCommaList
 import kpn.client.components.common.UiDetail
 import kpn.client.components.common.UiLevel4
-import kpn.client.components.common.UiLine
 import kpn.client.components.common.UiOsmLink
 import kpn.client.components.common.UiTagDiffs
 import kpn.client.components.common.UiTagsTable
 import kpn.client.components.common.UiThin
 import kpn.shared.common.KnownElements
-import kpn.shared.data.raw.RawNode
 import kpn.shared.diff.WayInfo
 import kpn.shared.diff.WayUpdate
-import kpn.shared.node.NodeNameAnalyzer
 import kpn.shared.route.RouteChangeInfo
 
 object UiRouteChangeDetail {
@@ -48,16 +45,6 @@ object UiRouteChangeDetail {
       <.div(
         UiRouteDiff(routeChangeInfo.diffs, KnownElements()),
 
-        renderNodes(routeChangeInfo, "Added network node", "Toegevoegd knooppunt", routeChangeInfo.addedNodes),
-        renderNodes(routeChangeInfo, "Deleted network node", "Verwijderd knooppunt", routeChangeInfo.deletedNodes),
-        renderNodes(routeChangeInfo, "Unchanged network node", "Onveranderd knooppunt", routeChangeInfo.commonNodes),
-
-        TagMod.when(routeChangeInfo.addedWayIds.nonEmpty) {
-          UiDetail(nls("Added ways", "Toegevoegde wegen") + "=" + routeChangeInfo.addedWayIds.mkString(", "))
-        },
-        TagMod.when(routeChangeInfo.deletedWayIds.nonEmpty) {
-          UiDetail(nls("Deleted ways", "Verwijderde wegen") + "=" + routeChangeInfo.deletedWayIds.mkString(", "))
-        },
         TagMod.when(routeChangeInfo.geometryDiff.isEmpty) {
           UiDetail(nls("No geometry change", "Geometrie niet veranderd"))
         },
@@ -76,38 +63,6 @@ object UiRouteChangeDetail {
         routeRemovedWays(routeChangeInfo.removedWays),
         routeAddedWays(routeChangeInfo.addedWays),
         routeUpdatedWays(routeChangeInfo.updatedWays)
-      )
-    }
-
-    private def version: VdomElement = {
-      UiDetail(
-        nls("Version", "Versie") + " " + routeChangeInfo.version
-      )
-    }
-
-    private def renderNodes(entry: RouteChangeInfo, en: String, nl: String, nodeIds: Seq[Long]): TagMod = {
-      nodeIds.flatMap { nodeId =>
-        entry.nodes.filter(_.id == nodeId).map { node =>
-          nodeLine(en, nl, node)
-        }
-      }.toTagMod
-    }
-
-    private def nodeLine(en: String, nl: String, node: RawNode): VdomElement = {
-      val nodeName = NodeNameAnalyzer.name(node.tags)
-      UiDetail(
-        UiLine(
-          <.span(
-            nls(
-              en,
-              nl
-            ) + ":"
-          ),
-          context.gotoNode(node.id, nodeName),
-          <.span(
-            "v" + node.version
-          )
-        )
       )
     }
 
@@ -223,7 +178,7 @@ object UiRouteChangeDetail {
           ),
           wayUpdate.updatedNodes.map(_.id)
         ),
-        wayUpdate.tagDiffs.whenDefined{ tagDiffs =>
+        wayUpdate.tagDiffs.whenDefined { tagDiffs =>
           UiDetail(
             UiTagDiffs(tagDiffs)
           )

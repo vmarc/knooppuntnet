@@ -607,12 +607,6 @@ object ChangeSetPageExample {
             // RawNode()
           ),
           changeSetInfo = None, // no need to populate, already provided above
-          addedNodes = Seq(nodeId1, nodeId2, nodeId3),
-          deletedNodes = Seq(nodeId1, nodeId2, nodeId3),
-          commonNodes = Seq(nodeId1, nodeId2, nodeId3),
-          addedWayIds = Seq(101, 102),
-          deletedWayIds = Seq(103, 104),
-          commonWayIds = Seq(105, 106),
           geometryDiff = Some(
             GeometryDiff(
               // common: Seq[PointSegment] = Seq.empty, // blue

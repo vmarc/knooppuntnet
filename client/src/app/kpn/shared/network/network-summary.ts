@@ -9,7 +9,8 @@ export class NetworkSummary {
               readonly factCount: number,
               readonly nodeCount: number,
               readonly routeCount: number,
-              readonly changeCount: number) {
+              readonly changeCount: number,
+              readonly active: boolean) {
   }
 
   public static fromJSON(jsonObject): NetworkSummary {
@@ -22,7 +23,8 @@ export class NetworkSummary {
       jsonObject.factCount,
       jsonObject.nodeCount,
       jsonObject.routeCount,
-      jsonObject.changeCount
+      jsonObject.changeCount,
+      jsonObject.active
     );
   }
 }

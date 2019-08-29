@@ -12,10 +12,12 @@ import {RouteChangeInfo} from "../../../kpn/shared/route/route-change-info";
       [comment]="routeChangeInfo.comment">
     </kpn-change-header>
 
-    <kpn-change-set-tags [changeSetTags]="routeChangeInfo.changeSetInfo.tags"></kpn-change-set-tags>
+    <kpn-change-set-tags [changeSetTags]="routeChangeInfo.changeSetInfo?.tags"></kpn-change-set-tags>
 
     <div class="kpn-detail">
-      Version {{routeChangeInfo.version}} <span *ngIf="isVersionUnchanged()">(Unchanged)</span>
+      <span i18n="@@route-change.version">Version</span> 
+      {{routeChangeInfo.version}} 
+      <span *ngIf="isVersionUnchanged()" i18n="@@route-change.unchanged">(Unchanged)</span>
     </div>
 
     <kpn-route-change-detail [routeChangeInfo]="routeChangeInfo"></kpn-route-change-detail>

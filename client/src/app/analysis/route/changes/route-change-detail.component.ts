@@ -6,47 +6,42 @@ import {RouteChangeInfo} from "../../../kpn/shared/route/route-change-info";
   template: `
 
     <kpn-route-diff [diffs]="routeChangeInfo.diffs"></kpn-route-diff>
-    
-    
-    <!--
-		  <.div(
-	
-			renderNodes(routeChangeInfo, "Added network node", "Toegevoegd knooppunt", routeChangeInfo.addedNodes),
-			renderNodes(routeChangeInfo, "Deleted network node", "Verwijderd knooppunt", routeChangeInfo.deletedNodes),
-			renderNodes(routeChangeInfo, "Unchanged network node", "Onveranderd knooppunt", routeChangeInfo.commonNodes),
-	
-			TagMod.when(routeChangeInfo.addedWayIds.nonEmpty) {
-			  UiDetail(nls("Added ways", "Toegevoegde wegen") + "=" + routeChangeInfo.addedWayIds.mkString(", "))
-			},
-			TagMod.when(routeChangeInfo.deletedWayIds.nonEmpty) {
-			  UiDetail(nls("Deleted ways", "Verwijderde wegen") + "=" + routeChangeInfo.deletedWayIds.mkString(", "))
-			},
-			TagMod.when(routeChangeInfo.geometryDiff.isEmpty) {
-			  UiDetail(nls("No geometry change", "Geometrie niet veranderd"))
-			},
-			routeChangeInfo.geometryDiff.whenDefined { geometryDiff =>
-			  UiDetail(
-				UiSmallMap(
+
+    <div *ngIf="!routeChangeInfo.geometryDiff" class="kpn-detail" i18n="@@route-change.no-geometry-diff">
+      No geometry change
+    </div>
+
+    <div *ngIf="routeChangeInfo.geometryDiff" class="kpn-detail">
+      MAP
+      <!--
+        UiSmallMap(
 				  new RouteHistoryMap(
-					"map-" + key,
-					routeChangeInfo.nodes,
-					routeChangeInfo.bounds,
-					geometryDiff
+					  "map-" + key,
+					  routeChangeInfo.nodes,
+					  routeChangeInfo.bounds,
+					  geometryDiff
 				  )
 				)
-			  )
-			},
-			routeRemovedWays(routeChangeInfo.removedWays),
-			routeAddedWays(routeChangeInfo.addedWays),
-			routeUpdatedWays(routeChangeInfo.updatedWays)
-		  )
-	
-	
-	-->  `
+      -->
+    </div>
+
+    <kpn-route-change-way-removed
+      *ngFor="let removedWayInfo of routeChangeInfo.removedWays"
+      [wayInfo]="removedWayInfo">
+    </kpn-route-change-way-removed>
+
+    <kpn-route-change-way-added
+      *ngFor="let addedWayInfo of routeChangeInfo.addedWays"
+      [routeChangeInfo]="routeChangeInfo"
+      [wayInfo]="addedWayInfo">
+    </kpn-route-change-way-added>
+
+    <kpn-route-change-way-updated
+      *ngFor="let wayUpdate of routeChangeInfo.updatedWays"
+      [wayUpdate]="wayUpdate">
+    </kpn-route-change-way-updated>
+  `
 })
 export class RouteChangeDetailComponent {
-
   @Input() routeChangeInfo: RouteChangeInfo;
-
-
 }
