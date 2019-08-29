@@ -8,6 +8,7 @@ import {AnalysisComponentsModule} from "../components/_analysis-components.modul
 import {FactModule} from "../fact/_fact.module";
 import {RouteRoutingModule} from "./_route-routing.module";
 import {RouteChangesPageComponent} from "./changes/_route-changes-page.component";
+import {NodeListComponent} from "./changes/node-list.component";
 import {RouteChangeDetailComponent} from "./changes/route-change-detail.component";
 import {RouteChangeWayAddedComponent} from "./changes/route-change-way-added.component";
 import {RouteChangeWayRemovedComponent} from "./changes/route-change-way-removed.component";
@@ -39,25 +40,26 @@ import {RouteMapPageComponent} from "./map/_route-map-page.component";
     OlModule
   ],
   declarations: [
-    RoutePageComponent,
-    RoutePageHeaderComponent,
-    RouteMembersComponent,
-    RouteSummaryComponent,
-    RouteNodeComponent,
-    RouteNetworkReferencesComponent,
-    RouteEndNodesComponent,
-    RouteStartNodesComponent,
-    RouteRedundantNodesComponent,
-    RouteStructureComponent,
-    RouteChangesPageComponent,
-    RouteMapPageComponent,
+    NodeListComponent,
     RouteChangeComponent,
     RouteChangeDetailComponent,
-    RouteDiffComponent,
-    RouteNodeDiffComponent,
-    RouteChangeWayUpdatedComponent,
+    RouteChangesPageComponent,
     RouteChangeWayAddedComponent,
-    RouteChangeWayRemovedComponent
+    RouteChangeWayRemovedComponent,
+    RouteChangeWayUpdatedComponent,
+    RouteDiffComponent,
+    RouteEndNodesComponent,
+    RouteMapPageComponent,
+    RouteMembersComponent,
+    RouteNetworkReferencesComponent,
+    RouteNodeComponent,
+    RouteNodeDiffComponent,
+    RoutePageComponent,
+    RoutePageHeaderComponent,
+    RouteRedundantNodesComponent,
+    RouteStartNodesComponent,
+    RouteStructureComponent,
+    RouteSummaryComponent
   ]
 })
 export class RouteModule {

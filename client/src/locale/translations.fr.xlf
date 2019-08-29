@@ -2031,14 +2031,26 @@
       </trans-unit>
       <trans-unit id="route-change.way-update.version-unchanged" datatype="html">
         <source>
-          Way version unchanged
-        </source>
+              Way version unchanged
+            </source>
         <target state="new">[
           Way version unchanged
         ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.direction-reversed" datatype="html">
+        <source>
+          Direction reversed
+        </source>
+        <target state="new">[
+          Direction reversed
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.removed-nodes" datatype="html">
@@ -2046,7 +2058,7 @@
         <target state="new">[Removed node(s)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.added-nodes" datatype="html">
@@ -2054,7 +2066,7 @@
         <target state="new">[Added node(s)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.updated-nodes" datatype="html">
@@ -2062,7 +2074,7 @@
         <target state="new">[Updated node(s)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-added.title" datatype="html">
@@ -2086,7 +2098,7 @@
         <target state="new">[Removed way]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-removed.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.key" datatype="html">
@@ -5206,7 +5218,7 @@
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-detail.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="facts.none" datatype="html">

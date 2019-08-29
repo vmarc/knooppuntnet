@@ -6,25 +6,26 @@ import {RouteChangeInfo} from "../../../kpn/shared/route/route-change-info";
 @Component({
   selector: "kpn-route-change-way-added",
   template: `
-    <div>
-      <span i18n="@@route-change.way-added.title">Added way</span>
-      <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()"></kpn-osm-link-way>
-    </div>
-
-    <div *ngIf="isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
-      <div class="kpn-thin">
-        [ v{{wayInfo.version}} <i i18n="@@route-change.way-added.this-changeset">this changeset</i>]
+    <div class="kpn-level-4">
+      <div class="kpn-level-4-header">
+        <span i18n="@@route-change.way-added.title">Added way</span>
+        <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()"></kpn-osm-link-way>
       </div>
-    </div>
-
-    <div *ngIf="!isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
-      <div class="kpn-thin">
-        <kpn-meta-data [metaData]="wayInfo"></kpn-meta-data>
+      <div class="kpn-level-4-body">
+        <div *ngIf="isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
+          <div class="kpn-thin">
+            [ v{{wayInfo.version}} <i i18n="@@route-change.way-added.this-changeset">this changeset</i> ]
+          </div>
+        </div>
+        <div *ngIf="!isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
+          <div class="kpn-thin">
+            <kpn-meta-data [metaData]="wayInfo"></kpn-meta-data>
+          </div>
+        </div>
+        <div class="kpn-detail">
+          <kpn-tags-table [tags]="wayTags(wayInfo)"></kpn-tags-table>
+        </div>
       </div>
-    </div>
-
-    <div class="kpn-detail">
-      <kpn-tags-table [tags]="wayTags(wayInfo)"></kpn-tags-table>
     </div>
   `
 })

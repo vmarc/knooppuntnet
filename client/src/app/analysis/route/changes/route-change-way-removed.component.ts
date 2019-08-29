@@ -5,17 +5,21 @@ import {WayInfo} from "../../../kpn/shared/diff/way-info";
 @Component({
   selector: "kpn-route-change-way-removed",
   template: `
-    <div>
-      <span i18n="@@route-change.way-removed.title">Removed way</span>
-      <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()"></kpn-osm-link-way>
-    </div>
-    <div class="kpn-detail">
-      <div class="kpn-thin">
-        <kpn-meta-data [metaData]="wayInfo"></kpn-meta-data>
+    <div class="kpn-level-4">
+      <div class="kpn-level-4-header">
+        <span i18n="@@route-change.way-removed.title">Removed way</span>
+        <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()"></kpn-osm-link-way>
       </div>
-    </div>
-    <div class="kpn-detail">
-      <kpn-tags-table [tags]="wayTags(wayInfo)"></kpn-tags-table>
+      <div class="kpn-level-4-body">
+        <div class="kpn-detail">
+          <div class="kpn-thin">
+            <kpn-meta-data [metaData]="wayInfo"></kpn-meta-data>
+          </div>
+        </div>
+        <div class="kpn-detail">
+          <kpn-tags-table [tags]="wayTags(wayInfo)"></kpn-tags-table>
+        </div>
+      </div>
     </div>
   `
 })

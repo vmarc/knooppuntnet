@@ -18,7 +18,7 @@ class RoutePageBuilderImpl(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends RoutePageBuilder {
 
-  /* supports scalajs-react version only */
+  /* supports legacy scalajs-react version only */
   def build(user: Option[String], routeId: Long): Option[RoutePage] = {
     if (routeId == 1) {
       Some(RoutePageExample.page)
@@ -44,7 +44,7 @@ class RoutePageBuilderImpl(
 
   def buildDetailsPage(user: Option[String], routeId: Long): Option[RouteDetailsPage] = {
     if (routeId == 1) {
-      Some(RoutePageExample.detailsPage)
+      Some(RouteDetailsPageExample.page)
     }
     else {
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
@@ -57,7 +57,7 @@ class RoutePageBuilderImpl(
 
   def buildMapPage(user: Option[String], routeId: Long): Option[RouteMapPage] = {
     if (routeId == 1) {
-      Some(RoutePageExample.mapPage)
+      Some(RouteMapPageExample.page)
     }
     else {
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
@@ -69,7 +69,7 @@ class RoutePageBuilderImpl(
 
   def buildChangesPage(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
     if (routeId == 1) {
-      Some(RoutePageExample.changesPage)
+      Some(RouteChangesPageExample.page)
     }
     else {
       routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
