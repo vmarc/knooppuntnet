@@ -25,19 +25,19 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
     <div *ngIf="response">
 
-      <div *ngIf="!response.result" i18n="@@route-changes.route-not-found">
+      <div *ngIf="!page" i18n="@@route-changes.route-not-found">
         Route not found
       </div>
 
-      <div *ngIf="response.result">
-        <kpn-changes [(parameters)]="parameters" [totalCount]="response.result.changeCount" [showFirstLastButtons]="false">
+      <div *ngIf="page">
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount"  [changeCount]="page.changes.size" >
           <kpn-items>
-            <kpn-item *ngFor="let routeChangeInfo of response.result.changes; let i=index" [index]="i">
+            <kpn-item *ngFor="let routeChangeInfo of page.changes; let i=index" [index]="i">
               <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
             </kpn-item>
           </kpn-items>
         </kpn-changes>
-        <div *ngIf="response.result.incompleteWarning">
+        <div *ngIf="page.incompleteWarning">
           <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
         </div>
       </div>
@@ -58,6 +58,10 @@ export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestr
               private appService: AppService,
               private pageService: PageService,
               private userService: UserService) {
+  }
+
+  get page(): RouteChangesPage {
+    return this.response.result;
   }
 
   get route() {

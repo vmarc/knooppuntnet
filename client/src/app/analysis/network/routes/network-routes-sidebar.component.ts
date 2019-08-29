@@ -1,37 +1,20 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {NetworkRoutesService} from "./network-routes.service";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {NetworkRoutesService} from "./network-routes.service";
 
 @Component({
   selector: "kpn-network-routes-sidebar",
   template: `
-    <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
-    <kpn-sidebar-footer></kpn-sidebar-footer>
-  `,
-  styles: [`
-    
-    :host {
-      display: flex;
-      flex-direction: column;
-      min-height: calc(100vh - 48px);
-    }
-
-    kpn-filter {
-      flex: 1;
-    }
-
-    kpn-side-bar-footer {
-      flex: 0;
-    }
-    
-  `]
+    <kpn-sidebar>
+      <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
+    </kpn-sidebar>
+  `
 })
 export class NetworkRoutesSidebarComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   filterOptions: FilterOptions;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private networkRoutesService: NetworkRoutesService) {
   }

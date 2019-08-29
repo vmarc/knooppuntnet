@@ -85,7 +85,6 @@ class NodePageBuilderImpl(
 
   private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters: ChangesParameters): NodeChangesPage = {
     val changesFilter = changeSetRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
-    val changeCount = changesFilter.currentItemCount(parameters.impact)
     val nodeChanges = if (user.isDefined) {
       changeSetRepository.nodeChanges(parameters)
     }
@@ -100,7 +99,7 @@ class NodePageBuilderImpl(
     val changes = nodeChanges.map { nodeChange =>
       new NodeChangeInfoBuilder().build(nodeChange, changeSetInfos)
     }
-    NodeChangesPage(nodeInfo, changesFilter, changes, incompleteWarning, changeCount)
+    NodeChangesPage(nodeInfo, changesFilter, changes, incompleteWarning, changesFilter.totalCount)
   }
 
   private def buildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {

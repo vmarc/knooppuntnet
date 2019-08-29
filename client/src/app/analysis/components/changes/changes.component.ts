@@ -6,44 +6,42 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
   selector: "kpn-changes",
   template: `
 
-    <div *ngIf="totalCount == 0" i18n="@@changes.no-changes">
+    <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)">Impact</mat-slide-toggle>
+
+    <mat-paginator
+      (page)="pageChanged($event)"
+      [pageIndex]="parameters.pageIndex"
+      [pageSize]="parameters.itemsPerPage"
+      [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
+      [length]="changeCount"
+      [showFirstLastButtons]="showFirstLastButtons">
+    </mat-paginator>
+
+    <div *ngIf="changeCount == 0" i18n="@@changes.no-changes">
       No changes
     </div>
 
-    <div *ngIf="totalCount > 0">
+    <ng-content></ng-content>
 
-      <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)">Impact</mat-slide-toggle>
-
+    <div *ngIf="changeCount > 0">
       <mat-paginator
-          (page)="pageChanged($event)"
-          [pageIndex]="parameters.pageIndex"
-          [pageSize]="parameters.itemsPerPage"
-          [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
-          [length]="totalCount"
-          [showFirstLastButtons]="showFirstLastButtons">
+        (page)="bottomPageChanged($event)"
+        [pageIndex]="parameters.pageIndex"
+        [pageSize]="parameters.itemsPerPage"
+        [length]="changeCount"
+        [hidePageSize]="true">
       </mat-paginator>
-
-      <ng-content></ng-content>
-
-      <mat-paginator
-          (page)="bottomPageChanged($event)"
-          [pageIndex]="parameters.pageIndex"
-          [pageSize]="parameters.itemsPerPage"
-          [length]="totalCount"
-          [hidePageSize]="true">
-      </mat-paginator>
-
     </div>
   `
 })
 export class ChangesComponent {
 
   @Input() totalCount: number;
+  @Input() changeCount: number;
+  @Input() showFirstLastButtons = true;
 
   @Input() parameters: ChangesParameters;
   @Output() parametersChange = new EventEmitter<ChangesParameters>();
-
-  @Input() showFirstLastButtons = true;
 
   impactChanged(event: MatSlideToggleChange) {
     this.parametersChange.emit({...this.parameters, impact: event.checked, pageIndex: 0});
@@ -58,4 +56,5 @@ export class ChangesComponent {
     window.scroll(0, 0);
     this.pageChanged(event);
   }
+
 }

@@ -4,21 +4,24 @@ import {MatPaginatorModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
+import {AnalysisComponentsModule} from "../components/_analysis-components.module";
+import {ChangesService} from "../components/changes/filter/changes.service";
+import {FactModule} from "../fact/_fact.module";
+import {NodeRoutingModule} from "./_node-routing.module";
 import {NodeChangesPageComponent} from "./changes/_node-changes-page.component";
 import {NodeChangeDetailComponent} from "./changes/node-change-detail.component";
+import {NodeChangeMovedComponent} from "./changes/node-change-moved.component";
 import {NodeChangeComponent} from "./changes/node-change.component";
+import {NodeChangesSidebarComponent} from "./changes/node-changes-sidebar.component";
+import {NodeChangesService} from "./changes/node-changes.service";
 import {NodePageHeaderComponent} from "./components/node-page-header.component";
 import {NodeDetailsPageComponent} from "./details/_node-details-page.component";
+import {NodeNetworkReferenceStatementComponent} from "./details/node-network-reference-statement.component";
+import {NodeNetworkReferenceComponent} from "./details/node-network-reference.component";
 import {NodeNetworkReferencesComponent} from "./details/node-network-references.component";
 import {NodeOrphanRouteReferencesComponent} from "./details/node-orphan-route-references.component";
 import {NodeSummaryComponent} from "./details/node-summary.component";
 import {NodeMapPageComponent} from "./map/_node-map-page.component";
-import {NodeNetworkReferenceComponent} from "./details/node-network-reference.component";
-import {NodeNetworkReferenceStatementComponent} from "./details/node-network-reference-statement.component";
-import {NodeChangeMovedComponent} from "./changes/node-change-moved.component";
-import {NodeRoutingModule} from "./_node-routing.module";
-import {AnalysisComponentsModule} from "../components/_analysis-components.module";
-import {FactModule} from "../fact/_fact.module";
 
 @NgModule({
   imports: [
@@ -44,6 +47,10 @@ import {FactModule} from "../fact/_fact.module";
     NodeChangesPageComponent,
     NodeMapPageComponent,
     NodePageHeaderComponent,
+    NodeChangesSidebarComponent,
+  ],
+  providers: [
+    NodeChangesService
   ]
 })
 export class NodeModule {

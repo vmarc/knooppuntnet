@@ -6,26 +6,10 @@ import {SubsetOrphanNodesService} from "./subset-orphan-nodes.service";
 @Component({
   selector: "kpn-subset-orphan-nodes-sidebar",
   template: `
-    <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
-    <kpn-sidebar-footer></kpn-sidebar-footer>
-  `,
-  styles: [`
-
-    :host {
-      display: flex;
-      flex-direction: column;
-      min-height: calc(100vh - 48px);
-    }
-
-    kpn-filter {
-      flex: 1;
-    }
-
-    kpn-side-bar-footer {
-      flex: 0;
-    }
-
-  `]
+    <kpn-sidebar>
+      <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
+    </kpn-sidebar>
+  `
 })
 export class SubsetOrphanNodesSidebarComponent implements OnInit, OnDestroy {
 

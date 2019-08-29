@@ -24,6 +24,9 @@ import {ChangesSetOrphanRoutesComponent} from "./change-set/components/change-se
 import {ChangesComponent} from "./changes/changes.component";
 import {FactCommaListComponent} from "./changes/fact-comma-list.component";
 import {FactDiffsComponent} from "./changes/fact-diffs.component";
+import {ChangeFilterPeriodComponent} from "./changes/filter/change-filter-period.component";
+import {ChangeFilterComponent} from "./changes/filter/change-filter.component";
+import {ChangesSidebarComponent} from "./changes/filter/changes-sidebar.component";
 import {HistoryIncompleteWarningComponent} from "./changes/history-incomplete-warning.component";
 import {TagDiffActionComponent} from "./changes/tag-diff-action.component";
 import {TagDiffsTableComponent} from "./changes/tag-diffs-table.component";
@@ -33,9 +36,6 @@ import {FilterCheckboxGroupComponent} from "./filter/filter-checkbox-group.compo
 import {FilterRadioGroupComponent} from "./filter/filter-radio-group.component";
 import {FilterTitleComponent} from "./filter/filter-title.component";
 import {FilterComponent} from "./filter/filter.component";
-import { ChangeFilterComponent } from './changes/filter/change-filter.component';
-import { ChangeFilterPeriodComponent } from './changes/filter/change-filter-period.component';
-import { ChangesSidebarComponent } from './changes/filter/changes-sidebar.component';
 
 @NgModule({
   imports: [
@@ -98,6 +98,7 @@ import { ChangesSidebarComponent } from './changes/filter/changes-sidebar.compon
     FilterCheckboxGroupComponent,
     FilterRadioGroupComponent,
     FilterTitleComponent,
+    ChangeFilterComponent,
     ChangesComponent
   ]
 })

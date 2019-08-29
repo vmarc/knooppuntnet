@@ -1,12 +1,9 @@
 .filter {
   width: 200px; /* filterWidth =  UiPage.sideBarWidth - (2 * paddingHorizontal) */
-  padding-top: 10px;
-  padding-bottom: 15px;
-  padding-left: 15px; /* paddingHorizontal.px */
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px; /* paddingHorizontal.px */
   padding-right: 15px; /* paddingHorizontal.px */
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: lightgray;
 }
 
 .row {

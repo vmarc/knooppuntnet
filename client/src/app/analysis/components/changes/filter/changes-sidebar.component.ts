@@ -6,8 +6,9 @@ import {ChangesService} from "./changes.service";
 @Component({
   selector: "kpn-changes-sidebar",
   template: `
-    <kpn-change-filter [filterOptions]="filterOptions"></kpn-change-filter>
-    <kpn-sidebar-footer></kpn-sidebar-footer>
+    <kpn-sidebar>
+      <kpn-change-filter [filterOptions]="filterOptions"></kpn-change-filter>
+    </kpn-sidebar>
   `
 })
 export class ChangesSidebarComponent implements OnInit, OnDestroy {

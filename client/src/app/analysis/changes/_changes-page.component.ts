@@ -23,9 +23,11 @@ import {ChangesService} from "../components/changes/filter/changes.service";
 
     <div *ngIf="response">
 
-      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      <p>
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      </p>
 
-      <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [showFirstLastButtons]="false">
+      <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size" [showFirstLastButtons]="false">
         <kpn-items>
           <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
             <kpn-change-set [changeSet]="changeSet"></kpn-change-set>

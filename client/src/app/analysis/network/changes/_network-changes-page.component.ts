@@ -31,7 +31,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
 
-        <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount">
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
           <kpn-items>
             <kpn-item *ngFor="let networkChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
               <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>

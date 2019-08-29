@@ -77,7 +77,7 @@ if (doc._id.indexOf("change:") === 0) {
     }
   }
   else if (doc.nodeChange) {
-    var key = doc.nodeChange.key
+    var key = doc.nodeChange.key;
     var timestamp = key.timestamp;
     var year = timestamp.substring(0, 4);
     var month = timestamp.substring(5, 7);

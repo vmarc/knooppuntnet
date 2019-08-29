@@ -3,13 +3,30 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-sidebar",
   template: `
-    <mat-nav-list>
-      <a mat-list-item routerLink="/about">about</a>
-      <a mat-list-item routerLink="/overview" [ngClass]="{'nav-item-selected': true}">overview</a>
-      <a mat-list-item routerLink="/login">login</a>
-      <a mat-list-item routerLink="/logout">logout</a>
-    </mat-nav-list>
-  `
+    <div class="sidebar-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="sidebar-footer">
+      <kpn-sidebar-footer></kpn-sidebar-footer>
+    </div>
+  `,
+  styles: [`
+
+    :host {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 48px);
+    }
+
+    .sidebar-body {
+      flex: 1;
+    }
+
+    .sidebar-footer {
+      flex: 0;
+    }
+
+  `]
 })
 export class SidebarComponent {
 

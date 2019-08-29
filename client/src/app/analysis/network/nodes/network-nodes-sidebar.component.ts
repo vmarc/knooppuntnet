@@ -6,15 +6,15 @@ import {NetworkNodesService} from "./network-nodes.service";
 @Component({
   selector: "kpn-network-nodes-sidebar",
   template: `
-    <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
-    <kpn-sidebar-footer></kpn-sidebar-footer>
+    <kpn-sidebar>
+      <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
+    </kpn-sidebar>
   `
 })
 export class NetworkNodesSidebarComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   filterOptions: FilterOptions;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private networkNodesService: NetworkNodesService) {
   }

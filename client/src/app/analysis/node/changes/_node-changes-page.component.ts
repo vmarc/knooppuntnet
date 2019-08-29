@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {MatPaginator} from "@angular/material";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
@@ -9,6 +8,8 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
 import {NodeChangesPage} from "../../../kpn/shared/node/node-changes-page";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
+import {NodeChangesService} from "./node-changes.service";
 
 @Component({
   selector: "kpn-node-changes-page",
@@ -24,12 +25,6 @@ import {Subscriptions} from "../../../util/Subscriptions";
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
     </p>
 
-    <mat-paginator
-      [pageIndex]="0"
-      [pageSize]="parameters.itemsPerPage"
-      [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]">
-    </mat-paginator>
-
     <div *ngIf="!isLoggedIn()">
       <span i18n="@@node.login-required">The node history is available to registered OpenStreetMap contributors only, after</span>
       <kpn-link-login></kpn-link-login>
@@ -37,49 +32,57 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </div>
 
     <div *ngIf="response?.result">
-      <div *ngIf="!response.result" i18n="@@node.node-not-found">
+      <div *ngIf="!page" i18n="@@node.node-not-found">
         Node not found
       </div>
-      <div *ngIf="response.result">
+      <div *ngIf="page">
 
-        <div *ngIf="response.result.changes.isEmpty()" i18n="@@node.no-history">
-          No history
-        </div>
-
-        <div *ngIf="!response.result.changes.isEmpty()">
-
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size">
           <kpn-items>
-            <kpn-item *ngFor="let nodeChangeInfo of response.result.changes; let i=index" [index]="i">
+            <kpn-item *ngFor="let nodeChangeInfo of page.changes; let i=index" [index]="i">
               <kpn-node-change [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change>
             </kpn-item>
           </kpn-items>
+        </kpn-changes>
 
-          <div *ngIf="response.result.incompleteWarning">
-            <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
-          </div>
-
+        <div *ngIf="page.incompleteWarning">
+          <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
         </div>
 
-        <kpn-json [object]="response"></kpn-json>
       </div>
+
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
-export class NodeChangesPageComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  private readonly subscriptions = new Subscriptions();
+export class NodeChangesPageComponent implements OnInit, OnDestroy {
 
   nodeId: number;
   nodeName: string;
   response: ApiResponse<NodeChangesPage>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
+              private nodeChangesService: NodeChangesService,
               private pageService: PageService,
               private userService: UserService) {
+  }
+
+  _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+
+  get parameters() {
+    return this._parameters;
+  }
+
+  set parameters(parameters: ChangesParameters) {
+    this._parameters = parameters;
+    this.reload();
+  }
+
+  get page(): NodeChangesPage {
+    return this.response.result;
   }
 
   isLoggedIn(): boolean {
@@ -93,29 +96,28 @@ export class NodeChangesPageComponent implements OnInit, AfterViewInit, OnDestro
       this.activatedRoute.params.subscribe(params => {
         const nodeId = params["nodeId"];
         this.nodeId = +nodeId;
-      })
-    );
-  }
-
-  ngAfterViewInit() {
-    this.subscriptions.add(
-      this.paginator.page.subscribe(event => this.reload())
-    );
-    this.reload();
-  }
-
-  private reload() {
-    this.updateParameters();
-    this.subscriptions.add(
-      this.appService.nodeChanges(this.nodeId.toString(), this.parameters).subscribe(response => {
-        this.processResponse(response);
-        this.paginator.length = this.response.result.changeCount;
+        this.updateParameters();
       })
     );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  private reload() {
+    this.subscriptions.add(
+      this.appService.nodeChanges(this.nodeId.toString(), this.parameters).subscribe(response => {
+        this.processResponse(response);
+        this.nodeChangesService.filterOptions.next(
+          ChangeFilterOptions.from(
+            this.parameters,
+            this.response.result.filter,
+            (parameters: ChangesParameters) => this.parameters = parameters
+          )
+        );
+      })
+    );
   }
 
   private processResponse(response: ApiResponse<NodeChangesPage>) {
@@ -132,8 +134,8 @@ export class NodeChangesPageComponent implements OnInit, AfterViewInit, OnDestro
       this.parameters.year,
       this.parameters.month,
       this.parameters.day,
-      this.paginator.pageSize,
-      this.paginator.pageIndex,
+      this.parameters.itemsPerPage,
+      this.parameters.pageIndex,
       this.parameters.impact
     );
   }
