@@ -48,6 +48,7 @@ object NodePageExample {
       ChangesFilter(Seq()),
       changes(),
       incompleteWarning = true,
+      10,
       10
     )
   }

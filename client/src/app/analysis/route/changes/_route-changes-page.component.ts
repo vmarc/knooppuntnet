@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
@@ -7,6 +7,8 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
 import {RouteChangesPage} from "../../../kpn/shared/route/route-changes-page";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
+import {RouteChangesService} from "./route-changes.service";
 
 @Component({
   selector: "kpn-route-changes-page",
@@ -30,7 +32,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
       </div>
 
       <div *ngIf="page">
-        <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount"  [changeCount]="page.changes.size" >
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
           <kpn-items>
             <kpn-item *ngFor="let routeChangeInfo of page.changes; let i=index" [index]="i">
               <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
@@ -46,18 +48,28 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </div>
   `
 })
-export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   routeId: string;
   response: ApiResponse<RouteChangesPage>;
-  parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
-
   private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
+              private routeChangesService: RouteChangesService,
               private pageService: PageService,
               private userService: UserService) {
+  }
+
+  _parameters: ChangesParameters;
+
+  get parameters() {
+    return this._parameters;
+  }
+
+  set parameters(parameters: ChangesParameters) {
+    this._parameters = parameters;
+    this.reload();
   }
 
   get page(): RouteChangesPage {
@@ -82,22 +94,21 @@ export class RouteChangesPageComponent implements OnInit, AfterViewInit, OnDestr
     );
   }
 
-  ngAfterViewInit(): void {
-    // this.subscriptions.add(
-    //   this.paginator.page.subscribe(event => this.reload())
-    // );
-    this.reload();
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
   private reload(): void {
-    // this.updateParameters();
     this.subscriptions.add(
       this.appService.routeChanges(this.routeId.toString(), this.parameters).subscribe(response => {
         this.response = response;
+        this.routeChangesService.filterOptions.next(
+          ChangeFilterOptions.from(
+            this.parameters,
+            this.response.result.filter,
+            (parameters: ChangesParameters) => this.parameters = parameters
+          )
+        );
       })
     );
   }

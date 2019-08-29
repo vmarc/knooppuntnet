@@ -8,5 +8,6 @@ case class NodeChangesPage(
   filter: ChangesFilter,
   changes: Seq[NodeChangeInfo],
   incompleteWarning: Boolean,
+  totalCount: Int,
   changeCount: Int
 )

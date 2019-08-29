@@ -15,6 +15,9 @@
           "inlineTemplate": true,
           "spec": false,
           "flat": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "architect": {

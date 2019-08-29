@@ -37,7 +37,7 @@ import {NodeChangesService} from "./node-changes.service";
       </div>
       <div *ngIf="page">
 
-        <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size">
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
           <kpn-items>
             <kpn-item *ngFor="let nodeChangeInfo of page.changes; let i=index" [index]="i">
               <kpn-node-change [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change>

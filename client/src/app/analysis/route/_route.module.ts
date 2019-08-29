@@ -14,6 +14,7 @@ import {RouteChangeWayAddedComponent} from "./changes/route-change-way-added.com
 import {RouteChangeWayRemovedComponent} from "./changes/route-change-way-removed.component";
 import {RouteChangeWayUpdatedComponent} from "./changes/route-change-way-updated.component";
 import {RouteChangeComponent} from "./changes/route-change.component";
+import {RouteChangesService} from "./changes/route-changes.service";
 import {RouteDiffComponent} from "./changes/route-diff.component";
 import {RouteNodeDiffComponent} from "./changes/route-node-diff.component";
 import {RoutePageHeaderComponent} from "./components/route-page-header.component";
@@ -27,6 +28,7 @@ import {RouteStartNodesComponent} from "./details/route-start-nodes.component";
 import {RouteStructureComponent} from "./details/route-structure.component";
 import {RouteSummaryComponent} from "./details/route-summary.component";
 import {RouteMapPageComponent} from "./map/_route-map-page.component";
+import { RouteChangesSidebarComponent } from './changes/route-changes-sidebar.component';
 
 @NgModule({
   imports: [
@@ -59,7 +61,11 @@ import {RouteMapPageComponent} from "./map/_route-map-page.component";
     RouteRedundantNodesComponent,
     RouteStartNodesComponent,
     RouteStructureComponent,
-    RouteSummaryComponent
+    RouteSummaryComponent,
+    RouteChangesSidebarComponent
+  ],
+  providers: [
+    RouteChangesService
   ]
 })
 export class RouteModule {

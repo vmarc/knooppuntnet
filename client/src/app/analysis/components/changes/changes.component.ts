@@ -13,22 +13,23 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
       [pageIndex]="parameters.pageIndex"
       [pageSize]="parameters.itemsPerPage"
       [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
-      [length]="changeCount"
+      [length]="totalCount"
       [showFirstLastButtons]="showFirstLastButtons">
     </mat-paginator>
 
-    <div *ngIf="changeCount == 0" i18n="@@changes.no-changes">
+    <div *ngIf="totalCount == 0" i18n="@@changes.no-changes">
       No changes
     </div>
 
-    <ng-content></ng-content>
-
     <div *ngIf="changeCount > 0">
+
+      <ng-content></ng-content>
+
       <mat-paginator
         (page)="bottomPageChanged($event)"
         [pageIndex]="parameters.pageIndex"
         [pageSize]="parameters.itemsPerPage"
-        [length]="changeCount"
+        [length]="totalCount"
         [hidePageSize]="true">
       </mat-paginator>
     </div>
@@ -36,8 +37,8 @@ import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-para
 })
 export class ChangesComponent {
 
-  @Input() totalCount: number;
   @Input() changeCount: number;
+  @Input() totalCount: number;
   @Input() showFirstLastButtons = true;
 
   @Input() parameters: ChangesParameters;

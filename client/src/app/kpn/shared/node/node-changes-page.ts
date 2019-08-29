@@ -11,6 +11,7 @@ export class NodeChangesPage {
               readonly filter: ChangesFilter,
               readonly changes: List<NodeChangeInfo>,
               readonly incompleteWarning: boolean,
+              readonly totalCount: number,
               readonly changeCount: number) {
   }
 
@@ -23,6 +24,7 @@ export class NodeChangesPage {
       ChangesFilter.fromJSON(jsonObject.filter),
       jsonObject.changes ? List(jsonObject.changes.map(json => NodeChangeInfo.fromJSON(json))) : List(),
       jsonObject.incompleteWarning,
+      jsonObject.totalCount,
       jsonObject.changeCount
     );
   }

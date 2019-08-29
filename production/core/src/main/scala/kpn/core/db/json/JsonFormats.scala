@@ -382,7 +382,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val nodeChangeInfosFormat: RootJsonFormat[NodeChangeInfos] = jsonFormat2(NodeChangeInfos)
   implicit val nodeDetailsPageFormat: RootJsonFormat[NodeDetailsPage] = jsonFormat3(NodeDetailsPage)
   implicit val nodeMapPageFormat: RootJsonFormat[NodeMapPage] = jsonFormat2(NodeMapPage)
-  implicit val nodeChangesPageFormat: RootJsonFormat[NodeChangesPage] = jsonFormat5(NodeChangesPage)
+  implicit val nodeChangesPageFormat: RootJsonFormat[NodeChangesPage] = jsonFormat6(NodeChangesPage)
 
   implicit val knownElementsFormat: RootJsonFormat[KnownElements] = jsonFormat2(KnownElements)
   implicit val tagFormat: RootJsonFormat[Tag] = jsonFormat2(Tag)
