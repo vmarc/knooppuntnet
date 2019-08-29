@@ -62,31 +62,13 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   response: ApiResponse<NodeChangesPage>;
 
   private readonly subscriptions = new Subscriptions();
+  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private nodeChangesService: NodeChangesService,
               private pageService: PageService,
               private userService: UserService) {
-  }
-
-  _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
-
-  get parameters() {
-    return this._parameters;
-  }
-
-  set parameters(parameters: ChangesParameters) {
-    this._parameters = parameters;
-    this.reload();
-  }
-
-  get page(): NodeChangesPage {
-    return this.response.result;
-  }
-
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
   }
 
   ngOnInit(): void {
@@ -105,17 +87,27 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  get parameters() {
+    return this._parameters;
+  }
+
+  set parameters(parameters: ChangesParameters) {
+    this._parameters = parameters;
+    this.reload();
+  }
+
+  get page(): NodeChangesPage {
+    return this.response.result;
+  }
+
+  isLoggedIn(): boolean {
+    return this.userService.isLoggedIn();
+  }
+
   private reload() {
     this.subscriptions.add(
       this.appService.nodeChanges(this.nodeId.toString(), this.parameters).subscribe(response => {
         this.processResponse(response);
-        this.nodeChangesService.filterOptions.next(
-          ChangeFilterOptions.from(
-            this.parameters,
-            this.response.result.filter,
-            (parameters: ChangesParameters) => this.parameters = parameters
-          )
-        );
       })
     );
   }
@@ -123,6 +115,13 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   private processResponse(response: ApiResponse<NodeChangesPage>) {
     this.response = response;
     this.nodeName = Util.safeGet(() => response.result.nodeInfo.name);
+    this.nodeChangesService.filterOptions.next(
+      ChangeFilterOptions.from(
+        this.parameters,
+        this.response.result.filter,
+        (parameters: ChangesParameters) => this.parameters = parameters
+      )
+    );
   }
 
   private updateParameters() {

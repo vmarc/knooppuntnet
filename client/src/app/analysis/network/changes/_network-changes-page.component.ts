@@ -7,6 +7,8 @@ import {NetworkChangesPage} from "../../../kpn/shared/network/network-changes-pa
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
+import {NetworkChangesService} from "./network-changes.service";
 
 @Component({
   selector: "kpn-network-changes-page",
@@ -29,7 +31,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
       </div>
       <div *ngIf="page">
 
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        <p>
+          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        </p>
 
         <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
           <kpn-items>
@@ -46,18 +50,18 @@ import {Subscriptions} from "../../../util/Subscriptions";
 })
 export class NetworkChangesPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   networkId: number;
   response: ApiResponse<NetworkChangesPage>;
-  _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, true);
+
+  private readonly subscriptions = new Subscriptions();
+  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
+              private networkChangesService: NetworkChangesService,
               private networkCacheService: NetworkCacheService,
               private userService: UserService) {
   }
-
   ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
@@ -71,13 +75,6 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
-  }
-
-  rowIndex(index: number): number {
-    return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
-  }
 
   get parameters(): ChangesParameters {
     return this._parameters;
@@ -92,6 +89,14 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     return this.response.result;
   }
 
+  isLoggedIn(): boolean {
+    return this.userService.isLoggedIn();
+  }
+
+  rowIndex(index: number): number {
+    return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
+  }
+
   private reload() {
     this.appService.networkChanges(this.networkId, this.parameters).subscribe(response => {
       this.processResponse(response);
@@ -103,6 +108,13 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     if (this.page) {
       this.networkCacheService.setNetworkSummary(this.networkId, this.page.network);
       this.networkCacheService.setNetworkName(this.networkId, this.page.network.name);
+      this.networkChangesService.filterOptions.next(
+        ChangeFilterOptions.from(
+          this.parameters,
+          this.response.result.filter,
+          (parameters: ChangesParameters) => this.parameters = parameters
+        )
+      );
     }
   }
 

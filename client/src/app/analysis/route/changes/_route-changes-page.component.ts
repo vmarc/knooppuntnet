@@ -53,6 +53,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   routeId: string;
   response: ApiResponse<RouteChangesPage>;
   private readonly subscriptions = new Subscriptions();
+  private _parameters: ChangesParameters;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -61,7 +62,19 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
               private userService: UserService) {
   }
 
-  _parameters: ChangesParameters;
+  ngOnInit(): void {
+    this.pageService.defaultMenu();
+    this.subscriptions.add(
+      this.activatedRoute.params.subscribe(params => {
+        this.routeId = params["routeId"];
+        this.parameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 5, 0, false);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   get parameters() {
     return this._parameters;
@@ -82,20 +95,6 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
-  }
-
-  ngOnInit(): void {
-    this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.activatedRoute.params.subscribe(params => {
-        this.routeId = params["routeId"];
-        this.parameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 5, 0, false);
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   private reload(): void {

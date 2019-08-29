@@ -43,6 +43,7 @@ export class ChangesPageComponent implements OnInit {
 
   response: ApiResponse<ChangesPage>;
   private readonly subscriptions = new Subscriptions();
+  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -50,7 +51,14 @@ export class ChangesPageComponent implements OnInit {
               private pageService: PageService) {
   }
 
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
+  ngOnInit(): void {
+    this.pageService.defaultMenu();
+    this.reload();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   get parameters() {
     return this._parameters;
@@ -63,15 +71,6 @@ export class ChangesPageComponent implements OnInit {
 
   get page(): ChangesPage {
     return this.response.result;
-  }
-
-  ngOnInit(): void {
-    this.pageService.defaultMenu();
-    this.reload();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   rowIndex(index: number): number {

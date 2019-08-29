@@ -9,6 +9,8 @@ import {NetworkRoutingModule} from "./_network-routing.module";
 import {NetworkChangesPageComponent} from "./changes/_network-changes-page.component";
 import {NetworkChangeSetComponent} from "./changes/network-change-set.component";
 import {NetworkChangeComponent} from "./changes/network-change.component";
+import {NetworkChangesSidebarComponent} from "./changes/network-changes-sidebar.component";
+import {NetworkChangesService} from "./changes/network-changes.service";
 import {NetworkPageHeaderComponent} from "./components/network-page-header.component";
 import {NetworkDetailsPageComponent} from "./details/_network-details-page.component";
 import {NetworkDetailsComponent} from "./details/network-details.component";
@@ -21,6 +23,7 @@ import {NetworkFactNodesComponent} from "./facts/network-fact-nodes.component";
 import {NetworkFactRelationIdsComponent} from "./facts/network-fact-relation-ids.component";
 import {NetworkFactRoutesComponent} from "./facts/network-fact-routes.component";
 import {NetworkFactWayIdsComponent} from "./facts/network-fact-way-ids.component";
+import {NetworkFactComponent} from "./facts/network-fact.component";
 import {NetworkMapPageComponent} from "./map/_network-map-page.component";
 import {NetworkNodesPageComponent} from "./nodes/_network-nodes-page.component";
 import {IntegrityIndicatorDialogComponent} from "./nodes/indicators/integrity-indicator-dialog.component";
@@ -49,7 +52,6 @@ import {NetworkRouteAnalysisComponent} from "./routes/network-route-analysis.com
 import {NetworkRouteTableComponent} from "./routes/network-route-table.component";
 import {NetworkRoutesSidebarComponent} from "./routes/network-routes-sidebar.component";
 import {NetworkRoutesService} from "./routes/network-routes.service";
-import { NetworkFactComponent } from './facts/network-fact.component';
 
 @NgModule({
   imports: [
@@ -109,7 +111,8 @@ import { NetworkFactComponent } from './facts/network-fact.component';
     NetworkFactRelationIdsComponent,
     NetworkFactNodesComponent,
     NetworkFactRoutesComponent,
-    NetworkFactComponent
+    NetworkFactComponent,
+    NetworkChangesSidebarComponent
   ],
   entryComponents: [
     NodeConnectionIndicatorDialogComponent,
@@ -122,6 +125,7 @@ import { NetworkFactComponent } from './facts/network-fact.component';
     RouteInvestigateIndicatorDialogComponent,
   ],
   providers: [
+    NetworkChangesService,
     NetworkNodesService,
     NetworkRoutesService
   ]
