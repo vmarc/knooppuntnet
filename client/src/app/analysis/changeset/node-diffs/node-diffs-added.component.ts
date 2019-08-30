@@ -1,32 +1,30 @@
 import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {Ref} from "../../../kpn/shared/common/ref";
-import {NodeChangeInfo} from "../../../kpn/shared/node/node-change-info";
+import {NodeDiffsData} from "./node-diffs-data";
 
 @Component({
   selector: "kpn-node-diffs-added",
   template: `
-    <div *ngIf="!nodeRefs.isEmpty()" class="kpn-level-2">
+    <div *ngIf="!refs().isEmpty()" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
         <span class="kpn-thick" i18n="@@node-diffs-added.title">Added network nodes</span>
-        <span>({{nodeRefs.size}})</span>
+        <span>({{refs().size}})</span>
         <kpn-icon-happy></kpn-icon-happy>
       </div>
       <div class="kpn-level-2-body">
-        <div *ngFor="let nodeRef of nodeRefs" class="kpn-level-3">
+        <div *ngFor="let nodeRef of refs()" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
             <!-- TODO show name only instead of link if nodeId not in knownElements.nodeIds -->
             <kpn-link-node [nodeId]="nodeRef.id" [nodeName]="nodeRef.name" class="kpn-thick"></kpn-link-node>
             <kpn-osm-link-node [nodeId]="nodeRef.id"></kpn-osm-link-node>
           </div>
           <div class="kpn-level-3-body">
-            <div *ngFor="let nodeChangeInfo of findNodeChangeInfo(nodeRef.id)">
+            <div *ngFor="let nodeChangeInfo of data.findNodeChangeInfo(nodeRef)">
               <div *ngIf="nodeChangeInfo.after">
                 <ng-container [ngSwitch]="nodeChangeInfo.after.version">
                   <div *ngSwitchCase="1">
                     <ng-container i18n="@@node-diffs-added.change-set-created">Created in this changeset.</ng-container>
                   </div>
-                  <div *ngSwitchCase="changeSetId">
+                  <div *ngSwitchCase="data.changeSetId">
                     <ng-container i18n="@@node-diffs-added.change-set-updated">Updated in this changeset.</ng-container>
                     v{{nodeChangeInfo.after.version}}.
                   </div>
@@ -45,12 +43,10 @@ import {NodeChangeInfo} from "../../../kpn/shared/node/node-change-info";
 })
 export class NodeDiffsAddedComponent {
 
-  @Input() changeSetId: number;
-  @Input() nodeRefs: List<Ref>;
-  @Input() nodeChangeInfos: List<NodeChangeInfo>;
+  @Input() data: NodeDiffsData;
 
-  findNodeChangeInfo(nodeId: number): List<NodeChangeInfo> {
-    return this.nodeChangeInfos.filter(n => n.id === nodeId);
+  refs() {
+    return this.data.refDiffs.added;
   }
 
 }

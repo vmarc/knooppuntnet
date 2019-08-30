@@ -5,21 +5,18 @@ import {ChangeSetSubsetElementRefs} from "../../kpn/shared/change-set-subset-ele
 import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
 import {Ref} from "../../kpn/shared/common/ref";
 import {RefDiffs} from "../../kpn/shared/diff/ref-diffs";
+import {NodeDiffsData} from "./node-diffs/node-diffs-data";
 
 @Component({
   selector: "kpn-change-set-orphan-node-changes",
   template: `
-    <div *ngFor="let changeSetSubsetElementRefs of page.summary.orphanNodeChanges">
+    <div *ngFor="let refs of page.summary.orphanNodeChanges">
       <div class="kpn-line"> <!-- orphansHeader() -->
-        <kpn-network-type-icon [networkType]="changeSetSubsetElementRefs.subset.networkType"></kpn-network-type-icon>
-        <span>{{changeSetSubsetElementRefs.subset.country.domain.toUpperCase()}}</span>
+        <kpn-network-type-icon [networkType]="refs.subset.networkType"></kpn-network-type-icon>
+        <span>{{refs.subset.country.domain.toUpperCase()}}</span>
         <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
       </div>
-      <kpn-node-diffs
-        [changeSetId]="page.summary.key.changeSetId"
-        [nodeDiffs]="nodeDiffs(changeSetSubsetElementRefs)"
-        [nodeChangeInfos]="page.nodeChanges">
-      </kpn-node-diffs>
+      <kpn-node-diffs [data]="nodeDiffs(refs)"></kpn-node-diffs>
     </div>
   `
 })
@@ -27,12 +24,19 @@ export class ChangeSetOrphanNodeChangesComponent {
 
   @Input() page: ChangeSetPage;
 
-  nodeDiffs(refs: ChangeSetSubsetElementRefs) {
-    return new RefDiffs(
+  nodeDiffs(refs: ChangeSetSubsetElementRefs): NodeDiffsData {
+
+    const refDiffs = new RefDiffs(
       this.toRefs(refs.elementRefs.removed),
       this.toRefs(refs.elementRefs.added),
       this.toRefs(refs.elementRefs.updated)
     );
+
+    return new NodeDiffsData(
+      refDiffs,
+      this.page.summary.key.changeSetId,
+      this.page.knownElements,
+      this.page.nodeChanges);
   }
 
   private toRefs(refs: List<ChangeSetElementRef>): List<Ref> {

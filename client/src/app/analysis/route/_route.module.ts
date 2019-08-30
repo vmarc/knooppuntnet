@@ -64,6 +64,9 @@ import { RouteChangesSidebarComponent } from './changes/route-changes-sidebar.co
     RouteSummaryComponent,
     RouteChangesSidebarComponent
   ],
+  exports: [
+    RouteChangeDetailComponent
+  ],
   providers: [
     RouteChangesService
   ]
