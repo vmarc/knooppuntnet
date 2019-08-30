@@ -25,7 +25,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
     <div *ngIf="response">
       <div *ngIf="nodes.isEmpty()" class="kpn-line">
-        <mat-icon svgIcon="happy"></mat-icon>
+        <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
       </div>
       <div *ngIf="!nodes.isEmpty()">

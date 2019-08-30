@@ -37,7 +37,7 @@ import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
             [title]="ref.name">
           </kpn-link-route>
         </div>
-        <mat-icon svgIcon="happy"></mat-icon>
+        <kpn-icon-happy></kpn-icon-happy>
       </div>
 
 
@@ -52,7 +52,7 @@ import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
             [title]="ref.name">
           </kpn-link-route>
         </div>
-        <mat-icon svgIcon="investigate"></mat-icon>
+        <kpn-icon-investigate></kpn-icon-investigate>
       </div>
 
 
@@ -67,7 +67,7 @@ import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
             [nodeName]="ref.name">
           </kpn-link-node>
         </div>
-        <mat-icon svgIcon="happy"></mat-icon>
+        <kpn-icon-happy></kpn-icon-happy>
       </div>
 
 
@@ -82,7 +82,7 @@ import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
             [nodeName]="ref.name">
           </kpn-link-node>
         </div>
-        <mat-icon svgIcon="investigate"></mat-icon>
+        <kpn-icon-investigate></kpn-icon-investigate>
       </div>
 
       <div>TODO UiNetworkDiff(changeSetSummary, networkChangeInfo, routeChangeInfos, nodeChangeInfos, knownElements)</div>

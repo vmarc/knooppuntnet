@@ -24,7 +24,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
     <div *ngIf="response">
       <div *ngIf="!hasFacts()" class="kpn-line">
-        <mat-icon svgIcon="happy"></mat-icon>
+        <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-facts.no-facts">No facts</span>
       </div>
       <div *ngIf="hasFacts()">

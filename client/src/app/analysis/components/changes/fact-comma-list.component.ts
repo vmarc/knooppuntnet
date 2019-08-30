@@ -12,8 +12,8 @@ import {Fact} from "../../../kpn/shared/fact";
           {{fact.name}}
         </div>
       </div>
-      <mat-icon *ngIf="icon == 'happy'" svgIcon="happy"></mat-icon>
-      <mat-icon *ngIf="icon == 'investigate'" svgIcon="investigate"></mat-icon>
+      <kpn-icon-happy *ngIf="icon == 'happy'"></kpn-icon-happy>
+      <kpn-icon-investigate *ngIf="icon == 'investigate'"></kpn-icon-investigate>
     </div>
   `
 })

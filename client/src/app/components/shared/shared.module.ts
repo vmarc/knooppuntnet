@@ -67,6 +67,8 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
+import { IconHappyComponent } from './icon/icon-happy.component';
+import { IconInvestigateComponent } from './icon/icon-investigate.component';
 
 @NgModule({
   imports: [
@@ -145,7 +147,9 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     DocLinkComponent,
     DocLinkSmallComponent,
     I18nComponent,
-    AnalysisSidebarComponent
+    AnalysisSidebarComponent,
+    IconHappyComponent,
+    IconInvestigateComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -211,7 +215,9 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     DocLinkSmallComponent,
     I18nComponent,
     TagsTextComponent,
-    AnalysisSidebarComponent
+    AnalysisSidebarComponent,
+    IconHappyComponent,
+    IconInvestigateComponent
   ]
 })
 export class SharedModule {

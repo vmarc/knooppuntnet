@@ -10,7 +10,7 @@ import {NodeChangeInfo} from "../../../kpn/shared/node/node-change-info";
       <div class="kpn-line kpn-level-2-header">
         <span class="kpn-thick" i18n="@@node-diffs-removed.title">Removed network nodes</span>
         <span>({{nodeRefs.size}})</span>
-        <mat-icon svgIcon="investigate"></mat-icon>
+        <kpn-icon-investigate></kpn-icon-investigate>
       </div>
       <div class="kpn-level-2-body">
         <div *ngFor="let nodeRef of nodeRefs" class="kpn-level-3">

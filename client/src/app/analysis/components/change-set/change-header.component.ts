@@ -12,8 +12,8 @@ import {PageWidthService} from "../../../components/shared/page-width.service";
           [replicationNumber]="changeKey.replicationNumber"
           class="kpn-thick">
         </kpn-link-changeset>
-        <mat-icon svgIcon="happy" *ngIf="happy"></mat-icon>
-        <mat-icon svgIcon="investigate" *ngIf="investigate"></mat-icon>
+        <kpn-icon-happy *ngIf="happy"></kpn-icon-happy>
+        <kpn-icon-investigate *ngIf="investigate"></kpn-icon-investigate>
       </div>
       <div>
         <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
@@ -27,8 +27,8 @@ import {PageWidthService} from "../../../components/shared/page-width.service";
         class="kpn-thick">
       </kpn-link-changeset>
       <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
-      <mat-icon svgIcon="happy" *ngIf="happy"></mat-icon>
-      <mat-icon svgIcon="investigate" *ngIf="investigate"></mat-icon>
+      <kpn-icon-happy *ngIf="happy"></kpn-icon-happy>
+      <kpn-icon-investigate *ngIf="investigate"></kpn-icon-investigate>
     </div>
 
     <div *ngIf="comment" class="comment">

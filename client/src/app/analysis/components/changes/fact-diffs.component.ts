@@ -19,7 +19,7 @@ import {FactDiffs} from "../../../kpn/shared/diff/common/fact-diffs";
             </div>
           </div>
         </div>
-        <mat-icon svgIcon="happy"></mat-icon>
+        <kpn-icon-happy></kpn-icon-happy>
       </div>
 
 
@@ -36,7 +36,7 @@ import {FactDiffs} from "../../../kpn/shared/diff/common/fact-diffs";
             </div>
           </div>
         </div>
-        <mat-icon svgIcon="investigate"></mat-icon>
+        <kpn-icon-investigate></kpn-icon-investigate>
       </div>
 
 

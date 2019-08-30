@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: change-set-header.component.ts
 package kpn.client.components.changeset
 
 import japgolly.scalajs.react._

@@ -2050,7 +2050,7 @@
         ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.removed-nodes" datatype="html">
@@ -2058,7 +2058,7 @@
         <target state="new">[Removed node(s)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.added-nodes" datatype="html">
@@ -2066,7 +2066,7 @@
         <target state="new">[Added node(s)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.updated-nodes" datatype="html">
@@ -2074,7 +2074,7 @@
         <target state="new">[Updated node(s)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-added.title" datatype="html">
@@ -2310,7 +2310,7 @@
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/changes.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-filter.title" datatype="html">
@@ -5683,6 +5683,42 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="change-set.header.analysis.happy" datatype="html">
+        <source>
+        This changeset brought improvements.
+      </source>
+        <target state="new">[
+        This changeset brought improvements.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.analysis.investigate" datatype="html">
+        <source>
+        Maybe this changeset is worth a closer look.
+      </source>
+        <target state="new">[
+        Maybe this changeset is worth a closer look.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.analysis.no-impact" datatype="html">
+        <source>
+        The changes do not seem to have an impact on the analysis result.
+      </source>
+        <target state="new">[
+        The changes do not seem to have an impact on the analysis result.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="change-set.network-diffs.network" datatype="html">
         <source>Network</source>
         <target state="new">[Network]</target>
@@ -7366,7 +7402,7 @@
         <target state="new">[The node history is available to registered OpenStreetMap contributors only, after]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.node-not-found" datatype="html">
@@ -7378,7 +7414,7 @@
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
@@ -7387,19 +7423,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/map/_node-map-page.component.ts</context>
           <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node.no-history" datatype="html">
-        <source>
-          No history
-        </source>
-        <target state="new">[
-          No history
-          
-        ]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
     </body>
