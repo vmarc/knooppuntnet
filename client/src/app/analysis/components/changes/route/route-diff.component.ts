@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {RouteDiff} from "../../../kpn/shared/diff/route/route-diff";
+import {RouteDiff} from "../../../../kpn/shared/diff/route/route-diff";
 
 @Component({
   selector: "kpn-route-diff",

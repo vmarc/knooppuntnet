@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {RouteChangeInfo} from "../../../kpn/shared/route/route-change-info";
+import {RouteChangeInfo} from "../../../../kpn/shared/route/route-change-info";
 
 @Component({
   selector: "kpn-route-change-detail",
@@ -12,7 +12,7 @@ import {RouteChangeInfo} from "../../../kpn/shared/route/route-change-info";
     </div>
 
     <div *ngIf="routeChangeInfo.geometryDiff" class="kpn-detail">
-      MAP
+      TODO MAP
       <!--
         UiSmallMap(
 				  new RouteHistoryMap(

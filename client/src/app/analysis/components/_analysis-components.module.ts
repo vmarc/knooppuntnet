@@ -28,6 +28,7 @@ import {ChangeFilterPeriodComponent} from "./changes/filter/change-filter-period
 import {ChangeFilterComponent} from "./changes/filter/change-filter.component";
 import {ChangesSidebarComponent} from "./changes/filter/changes-sidebar.component";
 import {HistoryIncompleteWarningComponent} from "./changes/history-incomplete-warning.component";
+import {RouteDiffComponent} from "./changes/route/route-diff.component";
 import {TagDiffActionComponent} from "./changes/tag-diff-action.component";
 import {TagDiffsTableComponent} from "./changes/tag-diffs-table.component";
 import {TagDiffsTextComponent} from "./changes/tag-diffs-text.component";
@@ -36,6 +37,11 @@ import {FilterCheckboxGroupComponent} from "./filter/filter-checkbox-group.compo
 import {FilterRadioGroupComponent} from "./filter/filter-radio-group.component";
 import {FilterTitleComponent} from "./filter/filter-title.component";
 import {FilterComponent} from "./filter/filter.component";
+import {RouteChangeDetailComponent} from "./changes/route/route-change-detail.component";
+import {RouteChangeWayAddedComponent} from "./changes/route/route-change-way-added.component";
+import {RouteChangeWayRemovedComponent} from "./changes/route/route-change-way-removed.component";
+import {RouteChangeWayUpdatedComponent} from "./changes/route/route-change-way-updated.component";
+import {RouteNodeDiffComponent} from "./changes/route/route-node-diff.component";
 
 @NgModule({
   imports: [
@@ -76,7 +82,13 @@ import {FilterComponent} from "./filter/filter.component";
     ChangesComponent,
     ChangeFilterComponent,
     ChangeFilterPeriodComponent,
-    ChangesSidebarComponent
+    ChangesSidebarComponent,
+    RouteChangeDetailComponent,
+    RouteChangeWayAddedComponent,
+    RouteChangeWayRemovedComponent,
+    RouteChangeWayUpdatedComponent,
+    RouteNodeDiffComponent,
+    RouteDiffComponent
   ],
   exports: [
     ChangeHeaderComponent,
@@ -99,7 +111,9 @@ import {FilterComponent} from "./filter/filter.component";
     FilterRadioGroupComponent,
     FilterTitleComponent,
     ChangeFilterComponent,
-    ChangesComponent
+    ChangesComponent,
+    RouteChangeDetailComponent,
+    RouteDiffComponent
   ]
 })
 export class AnalysisComponentsModule {

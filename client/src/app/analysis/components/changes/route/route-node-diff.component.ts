@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {Ref} from "../../../kpn/shared/common/ref";
+import {Ref} from "../../../../kpn/shared/common/ref";
 
 @Component({
   selector: "kpn-route-node-diff",

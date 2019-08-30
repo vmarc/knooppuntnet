@@ -38,6 +38,7 @@ import {LinkNetworkNodesComponent} from "./link/link-network-nodes.component";
 import {LinkNetworkRoutesComponent} from "./link/link-network-routes.component";
 import {LinkNodeComponent} from "./link/link-node.component";
 import {LinkRouteComponent} from "./link/link-route.component";
+import {NodeListComponent} from "./link/node-list.component";
 import {OsmLinkChangeSetComponent} from "./link/osm-link-change-set.component";
 import {OsmLinkNodeComponent} from "./link/osm-link-node.component";
 import {OsmLinkRelationComponent} from "./link/osm-link-relation.component";
@@ -153,7 +154,8 @@ import { LinkRouteRefComponent } from './link/link-route-ref.component';
     IconHappyComponent,
     IconInvestigateComponent,
     LinkNodeRefComponent,
-    LinkRouteRefComponent
+    LinkRouteRefComponent,
+    NodeListComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -223,7 +225,8 @@ import { LinkRouteRefComponent } from './link/link-route-ref.component';
     IconHappyComponent,
     IconInvestigateComponent,
     LinkNodeRefComponent,
-    LinkRouteRefComponent
+    LinkRouteRefComponent,
+    NodeListComponent
   ]
 })
 export class SharedModule {

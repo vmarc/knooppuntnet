@@ -8,15 +8,9 @@ import {AnalysisComponentsModule} from "../components/_analysis-components.modul
 import {FactModule} from "../fact/_fact.module";
 import {RouteRoutingModule} from "./_route-routing.module";
 import {RouteChangesPageComponent} from "./changes/_route-changes-page.component";
-import {NodeListComponent} from "./changes/node-list.component";
-import {RouteChangeDetailComponent} from "./changes/route-change-detail.component";
-import {RouteChangeWayAddedComponent} from "./changes/route-change-way-added.component";
-import {RouteChangeWayRemovedComponent} from "./changes/route-change-way-removed.component";
-import {RouteChangeWayUpdatedComponent} from "./changes/route-change-way-updated.component";
 import {RouteChangeComponent} from "./changes/route-change.component";
+import {RouteChangesSidebarComponent} from "./changes/route-changes-sidebar.component";
 import {RouteChangesService} from "./changes/route-changes.service";
-import {RouteDiffComponent} from "./changes/route-diff.component";
-import {RouteNodeDiffComponent} from "./changes/route-node-diff.component";
 import {RoutePageHeaderComponent} from "./components/route-page-header.component";
 import {RoutePageComponent} from "./details/_route-page.component";
 import {RouteEndNodesComponent} from "./details/route-end-nodes.component";
@@ -28,7 +22,6 @@ import {RouteStartNodesComponent} from "./details/route-start-nodes.component";
 import {RouteStructureComponent} from "./details/route-structure.component";
 import {RouteSummaryComponent} from "./details/route-summary.component";
 import {RouteMapPageComponent} from "./map/_route-map-page.component";
-import { RouteChangesSidebarComponent } from './changes/route-changes-sidebar.component';
 
 @NgModule({
   imports: [
@@ -42,20 +35,13 @@ import { RouteChangesSidebarComponent } from './changes/route-changes-sidebar.co
     OlModule
   ],
   declarations: [
-    NodeListComponent,
     RouteChangeComponent,
-    RouteChangeDetailComponent,
     RouteChangesPageComponent,
-    RouteChangeWayAddedComponent,
-    RouteChangeWayRemovedComponent,
-    RouteChangeWayUpdatedComponent,
-    RouteDiffComponent,
     RouteEndNodesComponent,
     RouteMapPageComponent,
     RouteMembersComponent,
     RouteNetworkReferencesComponent,
     RouteNodeComponent,
-    RouteNodeDiffComponent,
     RoutePageComponent,
     RoutePageHeaderComponent,
     RouteRedundantNodesComponent,
@@ -63,9 +49,6 @@ import { RouteChangesSidebarComponent } from './changes/route-changes-sidebar.co
     RouteStructureComponent,
     RouteSummaryComponent,
     RouteChangesSidebarComponent
-  ],
-  exports: [
-    RouteChangeDetailComponent
   ],
   providers: [
     RouteChangesService
