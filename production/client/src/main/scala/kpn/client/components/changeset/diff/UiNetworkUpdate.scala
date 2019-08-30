@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: change-set-network-diff-details.component.ts
 package kpn.client.components.changeset.diff
 
 import japgolly.scalajs.react.ScalaComponent

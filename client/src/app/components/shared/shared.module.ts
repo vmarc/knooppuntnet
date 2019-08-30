@@ -69,6 +69,8 @@ import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
 import { IconHappyComponent } from './icon/icon-happy.component';
 import { IconInvestigateComponent } from './icon/icon-investigate.component';
+import { LinkNodeRefComponent } from './link/link-node-ref.component';
+import { LinkRouteRefComponent } from './link/link-route-ref.component';
 
 @NgModule({
   imports: [
@@ -149,7 +151,9 @@ import { IconInvestigateComponent } from './icon/icon-investigate.component';
     I18nComponent,
     AnalysisSidebarComponent,
     IconHappyComponent,
-    IconInvestigateComponent
+    IconInvestigateComponent,
+    LinkNodeRefComponent,
+    LinkRouteRefComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -217,7 +221,9 @@ import { IconInvestigateComponent } from './icon/icon-investigate.component';
     TagsTextComponent,
     AnalysisSidebarComponent,
     IconHappyComponent,
-    IconInvestigateComponent
+    IconInvestigateComponent,
+    LinkNodeRefComponent,
+    LinkRouteRefComponent
   ]
 })
 export class SharedModule {

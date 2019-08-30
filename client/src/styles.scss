@@ -109,7 +109,7 @@ table.kpn-bordered-table {
   justify-content: flex-start;
   align-items: center;
 
-  :not(:last-child) {
+  > :not(:last-child) {
     padding-right: 0.8em;
   }
 }
@@ -127,11 +127,11 @@ table.kpn-bordered-table {
 .kpn-thin {
   display: inline;
   color: gray;
+
   a {
     color: rgba(0, 0, 255, 0.7);
   }
 }
-
 
 
 .kpn-level-1 {
@@ -226,6 +226,7 @@ table.kpn-bordered-table {
 
 .kpn-comma-list {
   display: inline-block;
+
   :not(:last-child):after {
     content: ", ";
   }
@@ -241,3 +242,8 @@ table.kpn-bordered-table {
   content: ")";
   color: grey;
 }
+
+.kpn-label::after {
+  content: ": ";
+}
+
