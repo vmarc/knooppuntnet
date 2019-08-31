@@ -8,7 +8,7 @@ import org.scalatest.Matchers
 
 class CountryAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 
-  private val repo = new CountryAnalyzerImpl()
+  private val analyzer = new CountryAnalyzerImpl()
 
   private val be1 = node("51.47464736069959", "4.478302001953125")
   private val be2 = node("51.43563788497879", "4.941433668136596")
@@ -19,53 +19,53 @@ class CountryAnalyzerTest extends FunSuite with Matchers with SharedTestObjects 
   private val unknown2 = node("2", "2")
 
   test("regular nodes") {
-    repo.countries(be1) should equal(Seq(Country.be))
-    repo.countries(nl1) should equal(Seq(Country.nl))
-    repo.countries(de1) should equal(Seq(Country.de))
+    analyzer.countries(be1) should equal(Seq(Country.be))
+    analyzer.countries(nl1) should equal(Seq(Country.nl))
+    analyzer.countries(de1) should equal(Seq(Country.de))
   }
 
   test("outer 1 Baarle Nassau") {
-    repo.countries(node("51.43581846832453", "4.926767349243164")) should equal(Seq(Country.be))
+    analyzer.countries(node("51.43581846832453", "4.926767349243164")) should equal(Seq(Country.be))
   }
 
   test("outer 2 Baarle Nassau") {
-    repo.countries(node("51.43563788497879", "4.941433668136596")) should equal(Seq(Country.be))
+    analyzer.countries(node("51.43563788497879", "4.941433668136596")) should equal(Seq(Country.be))
   }
 
   test("inner in be outer Baarle Nassau") {
-    repo.countries(node("51.43948683099483", "4.931525588035583")) should equal(Seq(Country.nl))
+    analyzer.countries(node("51.43948683099483", "4.931525588035583")) should equal(Seq(Country.nl))
   }
 
   test("country be1") {
-    repo.country(Seq(be1)) should equal(Some(Country.be))
+    analyzer.country(Seq(be1)) should equal(Some(Country.be))
   }
 
   test("country nl1") {
-    repo.country(Seq(nl1)) should equal(Some(Country.nl))
+    analyzer.country(Seq(nl1)) should equal(Some(Country.nl))
   }
 
   test("country be1, be2, nl1") {
-    repo.country(Seq(be1, be2, nl1)) should equal(Some(Country.be))
+    analyzer.country(Seq(be1, be2, nl1)) should equal(Some(Country.be))
   }
 
   test("country be1, nl1, nl2") {
-    repo.country(Seq(be1, nl1, nl2)) should equal(Some(Country.nl))
+    analyzer.country(Seq(be1, nl1, nl2)) should equal(Some(Country.nl))
   }
 
   test("country be1, be2, nl1, nl2") {
-    repo.country(Seq(be1, be2, nl1, nl2)) should equal(Some(Country.be))
+    analyzer.country(Seq(be1, be2, nl1, nl2)) should equal(Some(Country.be))
   }
 
   test("country nl1, nl2, be1, be2") {
-    repo.country(Seq(nl1, nl2, be1, be2)) should equal(Some(Country.be))
+    analyzer.country(Seq(nl1, nl2, be1, be2)) should equal(Some(Country.be))
   }
 
   test("country unknown1") {
-    repo.country(Seq(unknown1)) should equal(None)
+    analyzer.country(Seq(unknown1)) should equal(None)
   }
 
   test("country be1, unknown1n unknwon2") {
-    repo.country(Seq(be1, unknown1, unknown2)) should equal(Some(Country.be))
+    analyzer.country(Seq(be1, unknown1, unknown2)) should equal(Some(Country.be))
   }
 
   private def node(latitude: String, longitude: String): LatLon = {

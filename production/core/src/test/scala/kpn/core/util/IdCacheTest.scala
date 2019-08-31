@@ -7,7 +7,7 @@ import scala.collection.JavaConverters._
 
 class IdCacheTest extends FunSuite with Matchers {
 
-  test("LinkedHashMap stores values in access order, and automaticall removes oldest entries") {
+  test("LinkedHashMap stores values in access order, and automatically removes oldest entries") {
 
     val map = new java.util.LinkedHashMap[Long, Unit](100, 0.7f, true) {
       override def removeEldestEntry(e: java.util.Map.Entry[Long, Unit]): Boolean = {

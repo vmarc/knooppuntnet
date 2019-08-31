@@ -46,7 +46,7 @@ object CountryBoundaryTool {
         case 1 => "with one hole"
         case _ => s"with $holeCount holes"
       }
-      print(s"     polygon with $nodeCount nodes $holeInfo")
+      println(s"     polygon with $nodeCount nodes $holeInfo")
       0 until holeCount foreach { index =>
         val holeNodeCount = polygon.getInteriorRingN(index).getCoordinates.length
         println(s"       hole with $holeNodeCount nodes")
