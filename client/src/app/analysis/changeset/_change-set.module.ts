@@ -7,17 +7,32 @@ import {ChangeSetPageComponent} from "./_change-set-page.component";
 import {ChangeSetRoutingModule} from "./_change-set-routing.module";
 import {ChangeSetAnalysisComponent} from "./change-set-analysis.component";
 import {ChangeSetHeaderComponent} from "./change-set-header.component";
-import {ChangeSetNetworkDiffDetailsComponent} from "./change-set-network-diff-details.component";
+import {ChangeSetNetworkChangeNodesAddedComponent} from "./change-set-network-change-nodes-added.component";
+import {ChangeSetNetworkChangeNodesRemovedComponent} from "./change-set-network-change-nodes-removed.component";
+import {ChangeSetNetworkChangeNodesUpdatedComponent} from "./change-set-network-change-nodes-updated.component";
+import {ChangeSetNetworkChangeOrphanNodesNewComponent} from "./change-set-network-change-orphan-nodes-new.component";
+import {ChangeSetNetworkChangeOrphanNodesOldComponent} from "./change-set-network-change-orphan-nodes-old.component";
+import {ChangeSetNetworkChangeOrphanRoutesNewComponent} from "./change-set-network-change-orphan-routes-new.component";
+import {ChangeSetNetworkChangeOrphanRoutesOldComponent} from "./change-set-network-change-orphan-routes-old.component";
+import {ChangeSetNetworkChangeRelationsAddedComponent} from "./change-set-network-change-relations-added.component";
+import {ChangeSetNetworkChangeRelationsRemovedComponent} from "./change-set-network-change-relations-removed.component";
+import {ChangeSetNetworkChangeRelationsUpdatedComponent} from "./change-set-network-change-relations-updated.component";
+import {ChangeSetNetworkChangeTypeComponent} from "./change-set-network-change-type.component";
+import {ChangeSetNetworkChangeWaysAddedComponent} from "./change-set-network-change-ways-added.component";
+import {ChangeSetNetworkChangeWaysRemovedComponent} from "./change-set-network-change-ways-removed.component";
+import {ChangeSetNetworkChangeWaysUpdatedComponent} from "./change-set-network-change-ways-updated.component";
+import {ChangeSetNetworkChangeComponent} from "./change-set-network-change.component";
+import {ChangeSetNetworkChangesComponent} from "./change-set-network-changes.component";
 import {ChangeSetOrphanNodeChangesComponent} from "./change-set-orphan-node-changes.component";
 import {ChangeSetOrphanRouteChangesComponent} from "./change-set-orphan-route-changes.component";
 import {NodeDiffsComponent} from "./node-diffs/_node-diffs.component";
 import {NodeDiffsAddedComponent} from "./node-diffs/node-diffs-added.component";
 import {NodeDiffsRemovedComponent} from "./node-diffs/node-diffs-removed.component";
 import {NodeDiffsUpdatedComponent} from "./node-diffs/node-diffs-updated.component";
+import {RouteDiffsComponent} from "./route-diffs/_route-diffs.component";
 import {RouteDiffsAddedComponent} from "./route-diffs/route-diffs-added.component";
 import {RouteDiffsRemovedComponent} from "./route-diffs/route-diffs-removed.component";
 import {RouteDiffsUpdatedComponent} from "./route-diffs/route-diffs-updated.component";
-import {RouteDiffsComponent} from "./route-diffs/_route-diffs.component";
 import {VersionChangeComponent} from "./version-change.component";
 
 @NgModule({
@@ -32,7 +47,7 @@ import {VersionChangeComponent} from "./version-change.component";
     ChangeSetPageComponent,
     ChangeSetHeaderComponent,
     ChangeSetAnalysisComponent,
-    ChangeSetNetworkDiffDetailsComponent,
+    ChangeSetNetworkChangesComponent,
     ChangeSetOrphanNodeChangesComponent,
     ChangeSetOrphanRouteChangesComponent,
     NodeDiffsComponent,
@@ -43,7 +58,22 @@ import {VersionChangeComponent} from "./version-change.component";
     RouteDiffsAddedComponent,
     RouteDiffsRemovedComponent,
     RouteDiffsUpdatedComponent,
-    VersionChangeComponent
+    VersionChangeComponent,
+    ChangeSetNetworkChangeTypeComponent,
+    ChangeSetNetworkChangeOrphanRoutesOldComponent,
+    ChangeSetNetworkChangeOrphanRoutesNewComponent,
+    ChangeSetNetworkChangeOrphanNodesOldComponent,
+    ChangeSetNetworkChangeOrphanNodesNewComponent,
+    ChangeSetNetworkChangeComponent,
+    ChangeSetNetworkChangeNodesAddedComponent,
+    ChangeSetNetworkChangeNodesRemovedComponent,
+    ChangeSetNetworkChangeNodesUpdatedComponent,
+    ChangeSetNetworkChangeWaysAddedComponent,
+    ChangeSetNetworkChangeWaysRemovedComponent,
+    ChangeSetNetworkChangeWaysUpdatedComponent,
+    ChangeSetNetworkChangeRelationsAddedComponent,
+    ChangeSetNetworkChangeRelationsUpdatedComponent,
+    ChangeSetNetworkChangeRelationsRemovedComponent
   ]
 })
 export class ChangeSetModule {

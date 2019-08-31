@@ -5415,7 +5415,7 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.network" datatype="html">
+      <trans-unit id="change-set.network-changes.network" datatype="html">
         <source>Network</source>
         <target>Netwerk</target>
         <context-group purpose="location">
@@ -5423,7 +5423,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.network-created" datatype="html">
+      <trans-unit id="change-set.network-changes.network-created" datatype="html">
         <source>
           Network created
         </source>
@@ -5433,7 +5433,7 @@
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.network-deleted" datatype="html">
+      <trans-unit id="change-set.network-changes.network-deleted" datatype="html">
         <source>
           Network deleted
         </source>
@@ -5443,7 +5443,7 @@
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-routes-resolved" datatype="html">
+      <trans-unit id="change-set.network-changes.orphan-routes-resolved" datatype="html">
         <source>
           Orphan routes added to this network
         </source>
@@ -5453,7 +5453,7 @@
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-routes-introduced" datatype="html">
+      <trans-unit id="change-set.network-changes.orphan-routes-introduced" datatype="html">
         <source>
           Following routes that used to be part of this network have become orphan
         </source>
@@ -5463,7 +5463,7 @@
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-nodes-resolved" datatype="html">
+      <trans-unit id="change-set.network-changes.orphan-nodes-resolved" datatype="html">
         <source>
           Orphan nodes added to this network
         </source>
@@ -5473,7 +5473,7 @@
           <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-nodes-introduced" datatype="html">
+      <trans-unit id="change-set.network-changes.orphan-nodes-introduced" datatype="html">
         <source>
           Following nodes that used to be part of this network have become orphan
         </source>

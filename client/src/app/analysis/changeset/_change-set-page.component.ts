@@ -24,7 +24,7 @@ class ChangeSetKey {
 
     <div *ngIf="response">
       <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
-      <kpn-change-set-network-diff-details [page]="response.result"></kpn-change-set-network-diff-details>
+      <kpn-change-set-network-changes [page]="response.result"></kpn-change-set-network-changes>
       <kpn-change-set-orphan-node-changes [page]="response.result"></kpn-change-set-orphan-node-changes>
       <kpn-change-set-orphan-route-changes [page]="response.result"></kpn-change-set-orphan-route-changes>
       <kpn-json [object]="response"></kpn-json>
