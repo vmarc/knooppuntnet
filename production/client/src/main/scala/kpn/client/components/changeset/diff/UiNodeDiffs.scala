@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular: _node-diffs.component.ts
 package kpn.client.components.changeset.diff
 
 import japgolly.scalajs.react.ScalaComponent

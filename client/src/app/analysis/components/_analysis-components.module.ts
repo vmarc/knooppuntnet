@@ -12,7 +12,9 @@ import {
   MatTableModule
 } from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
+import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
+import {FactModule} from "../fact/_fact.module";
 import {ChangeHeaderComponent} from "./change-set/change-header.component";
 import {ChangeSetTagsComponent} from "./change-set/change-set-tags.component";
 import {ChangesSetComponent} from "./change-set/change-set.component";
@@ -28,7 +30,14 @@ import {ChangeFilterPeriodComponent} from "./changes/filter/change-filter-period
 import {ChangeFilterComponent} from "./changes/filter/change-filter.component";
 import {ChangesSidebarComponent} from "./changes/filter/changes-sidebar.component";
 import {HistoryIncompleteWarningComponent} from "./changes/history-incomplete-warning.component";
+import {NodeChangeDetailComponent} from "./changes/node/node-change-detail.component";
+import {NodeChangeMovedComponent} from "./changes/node/node-change-moved.component";
+import {RouteChangeDetailComponent} from "./changes/route/route-change-detail.component";
+import {RouteChangeWayAddedComponent} from "./changes/route/route-change-way-added.component";
+import {RouteChangeWayRemovedComponent} from "./changes/route/route-change-way-removed.component";
+import {RouteChangeWayUpdatedComponent} from "./changes/route/route-change-way-updated.component";
 import {RouteDiffComponent} from "./changes/route/route-diff.component";
+import {RouteNodeDiffComponent} from "./changes/route/route-node-diff.component";
 import {TagDiffActionComponent} from "./changes/tag-diff-action.component";
 import {TagDiffsTableComponent} from "./changes/tag-diffs-table.component";
 import {TagDiffsTextComponent} from "./changes/tag-diffs-text.component";
@@ -37,11 +46,6 @@ import {FilterCheckboxGroupComponent} from "./filter/filter-checkbox-group.compo
 import {FilterRadioGroupComponent} from "./filter/filter-radio-group.component";
 import {FilterTitleComponent} from "./filter/filter-title.component";
 import {FilterComponent} from "./filter/filter.component";
-import {RouteChangeDetailComponent} from "./changes/route/route-change-detail.component";
-import {RouteChangeWayAddedComponent} from "./changes/route/route-change-way-added.component";
-import {RouteChangeWayRemovedComponent} from "./changes/route/route-change-way-removed.component";
-import {RouteChangeWayUpdatedComponent} from "./changes/route/route-change-way-updated.component";
-import {RouteNodeDiffComponent} from "./changes/route/route-node-diff.component";
 
 @NgModule({
   imports: [
@@ -57,7 +61,9 @@ import {RouteNodeDiffComponent} from "./changes/route/route-node-diff.component"
     SharedModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    OlModule,
+    FactModule
   ],
   declarations: [
     ChangeHeaderComponent,
@@ -88,7 +94,9 @@ import {RouteNodeDiffComponent} from "./changes/route/route-node-diff.component"
     RouteChangeWayRemovedComponent,
     RouteChangeWayUpdatedComponent,
     RouteNodeDiffComponent,
-    RouteDiffComponent
+    RouteDiffComponent,
+    NodeChangeDetailComponent,
+    NodeChangeMovedComponent
   ],
   exports: [
     ChangeHeaderComponent,
@@ -113,7 +121,8 @@ import {RouteNodeDiffComponent} from "./changes/route/route-node-diff.component"
     ChangeFilterComponent,
     ChangesComponent,
     RouteChangeDetailComponent,
-    RouteDiffComponent
+    RouteDiffComponent,
+    NodeChangeDetailComponent
   ]
 })
 export class AnalysisComponentsModule {

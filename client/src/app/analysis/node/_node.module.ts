@@ -5,12 +5,9 @@ import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
 import {AnalysisComponentsModule} from "../components/_analysis-components.module";
-import {ChangesService} from "../components/changes/filter/changes.service";
 import {FactModule} from "../fact/_fact.module";
 import {NodeRoutingModule} from "./_node-routing.module";
 import {NodeChangesPageComponent} from "./changes/_node-changes-page.component";
-import {NodeChangeDetailComponent} from "./changes/node-change-detail.component";
-import {NodeChangeMovedComponent} from "./changes/node-change-moved.component";
 import {NodeChangeComponent} from "./changes/node-change.component";
 import {NodeChangesSidebarComponent} from "./changes/node-changes-sidebar.component";
 import {NodeChangesService} from "./changes/node-changes.service";
@@ -37,8 +34,6 @@ import {NodeMapPageComponent} from "./map/_node-map-page.component";
   declarations: [
     NodeDetailsPageComponent,
     NodeChangeComponent,
-    NodeChangeDetailComponent,
-    NodeChangeMovedComponent,
     NodeSummaryComponent,
     NodeNetworkReferencesComponent,
     NodeNetworkReferenceComponent,
