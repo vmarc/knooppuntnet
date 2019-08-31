@@ -3,7 +3,7 @@ import {List} from "immutable";
 import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
 
 @Component({
-  selector: "kpn-change-set-network-change-nodes-added",
+  selector: "kpn-cs-nc-nodes-added",
   template: `
     <div *ngIf="!nodeIds().isEmpty()" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
@@ -18,7 +18,7 @@ import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-cha
     </div>
   `
 })
-export class ChangeSetNetworkChangeNodesAddedComponent {
+export class CsNcNodesAddedComponent {
 
   @Input() networkChangeInfo: NetworkChangeInfo;
 

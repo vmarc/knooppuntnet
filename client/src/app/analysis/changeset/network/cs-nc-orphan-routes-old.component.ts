@@ -5,11 +5,11 @@ import {KnownElements} from "../../../kpn/shared/common/known-elements";
 import {Ref} from "../../../kpn/shared/common/ref";
 
 @Component({
-  selector: "kpn-change-set-network-change-orphan-routes-new",
+  selector: "kpn-cs-nc-orphan-routes-old",
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-detail kpn-line">
       <span i18n="@@change-set.network-changes.orphan-routes-introduced" class="kpn-label">
-        Following routes that used to be part of this network have become orphan
+        Orphan routes added to this network
       </span>
       <div class="kpn-comma-list">
         <kpn-link-route-ref
@@ -22,13 +22,13 @@ import {Ref} from "../../../kpn/shared/common/ref";
     </div>
   `
 })
-export class ChangeSetNetworkChangeOrphanRoutesNewComponent {
+export class CsNcOrphanRoutesOldComponent {
 
   @Input() networkChangeInfo: NetworkChangeInfo;
   @Input() knownElements: KnownElements;
 
   refs(): List<Ref> {
-    return this.networkChangeInfo.orphanRoutes.newRefs;
+    return this.networkChangeInfo.orphanRoutes.oldRefs;
   }
 
 }

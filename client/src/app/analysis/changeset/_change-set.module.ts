@@ -10,21 +10,21 @@ import {ChangeSetHeaderComponent} from "./change-set-header.component";
 import {ChangeSetNetworkChangesComponent} from "./change-set-network-changes.component";
 import {ChangeSetOrphanNodeChangesComponent} from "./change-set-orphan-node-changes.component";
 import {ChangeSetOrphanRouteChangesComponent} from "./change-set-orphan-route-changes.component";
-import {ChangeSetNetworkChangeNodesAddedComponent} from "./network/change-set-network-change-nodes-added.component";
-import {ChangeSetNetworkChangeNodesRemovedComponent} from "./network/change-set-network-change-nodes-removed.component";
-import {ChangeSetNetworkChangeNodesUpdatedComponent} from "./network/change-set-network-change-nodes-updated.component";
-import {ChangeSetNetworkChangeOrphanNodesNewComponent} from "./network/change-set-network-change-orphan-nodes-new.component";
-import {ChangeSetNetworkChangeOrphanNodesOldComponent} from "./network/change-set-network-change-orphan-nodes-old.component";
-import {ChangeSetNetworkChangeOrphanRoutesNewComponent} from "./network/change-set-network-change-orphan-routes-new.component";
-import {ChangeSetNetworkChangeOrphanRoutesOldComponent} from "./network/change-set-network-change-orphan-routes-old.component";
-import {ChangeSetNetworkChangeRelationsAddedComponent} from "./network/change-set-network-change-relations-added.component";
-import {ChangeSetNetworkChangeRelationsRemovedComponent} from "./network/change-set-network-change-relations-removed.component";
-import {ChangeSetNetworkChangeRelationsUpdatedComponent} from "./network/change-set-network-change-relations-updated.component";
-import {ChangeSetNetworkChangeTypeComponent} from "./network/change-set-network-change-type.component";
-import {ChangeSetNetworkChangeWaysAddedComponent} from "./network/change-set-network-change-ways-added.component";
-import {ChangeSetNetworkChangeWaysRemovedComponent} from "./network/change-set-network-change-ways-removed.component";
-import {ChangeSetNetworkChangeWaysUpdatedComponent} from "./network/change-set-network-change-ways-updated.component";
-import {ChangeSetNetworkChangeComponent} from "./network/change-set-network-change.component";
+import {CsNcNodesAddedComponent} from "./network/cs-nc-nodes-added.component";
+import {CsNcNodesRemovedComponent} from "./network/cs-nc-nodes-removed.component";
+import {CsNcNodesUpdatedComponent} from "./network/cs-nc-nodes-updated.component";
+import {CsNcOrphanNodesNewComponent} from "./network/cs-nc-orphan-nodes-new.component";
+import {CsNcOrphanNodesOldComponent} from "./network/cs-nc-orphan-nodes-old.component";
+import {CsNcOrphanRoutesNewComponent} from "./network/cs-nc-orphan-routes-new.component";
+import {CsNcOrphanRoutesOldComponent} from "./network/cs-nc-orphan-routes-old.component";
+import {CsNcRelationsAddedComponent} from "./network/cs-nc-relations-added.component";
+import {CsNcRelationsRemovedComponent} from "./network/cs-nc-relations-removed.component";
+import {CsNcRelationsUpdatedComponent} from "./network/cs-nc-relations-updated.component";
+import {CsNcTypeComponent} from "./network/cs-nc-type.component";
+import {CsNcWaysAddedComponent} from "./network/cs-nc-ways-added.component";
+import {CsNcWaysRemovedComponent} from "./network/cs-nc-ways-removed.component";
+import {CsNcWaysUpdatedComponent} from "./network/cs-nc-ways-updated.component";
+import {CsNcComponent} from "./network/cs-nc.component";
 import {NodeDiffsComponent} from "./node-diffs/_node-diffs.component";
 import {NodeDiffsAddedComponent} from "./node-diffs/node-diffs-added.component";
 import {NodeDiffsRemovedComponent} from "./node-diffs/node-diffs-removed.component";
@@ -59,21 +59,21 @@ import {VersionChangeComponent} from "./version-change.component";
     RouteDiffsRemovedComponent,
     RouteDiffsUpdatedComponent,
     VersionChangeComponent,
-    ChangeSetNetworkChangeTypeComponent,
-    ChangeSetNetworkChangeOrphanRoutesOldComponent,
-    ChangeSetNetworkChangeOrphanRoutesNewComponent,
-    ChangeSetNetworkChangeOrphanNodesOldComponent,
-    ChangeSetNetworkChangeOrphanNodesNewComponent,
-    ChangeSetNetworkChangeComponent,
-    ChangeSetNetworkChangeNodesAddedComponent,
-    ChangeSetNetworkChangeNodesRemovedComponent,
-    ChangeSetNetworkChangeNodesUpdatedComponent,
-    ChangeSetNetworkChangeWaysAddedComponent,
-    ChangeSetNetworkChangeWaysRemovedComponent,
-    ChangeSetNetworkChangeWaysUpdatedComponent,
-    ChangeSetNetworkChangeRelationsAddedComponent,
-    ChangeSetNetworkChangeRelationsUpdatedComponent,
-    ChangeSetNetworkChangeRelationsRemovedComponent
+    CsNcTypeComponent,
+    CsNcOrphanRoutesOldComponent,
+    CsNcOrphanRoutesNewComponent,
+    CsNcOrphanNodesOldComponent,
+    CsNcOrphanNodesNewComponent,
+    CsNcComponent,
+    CsNcNodesAddedComponent,
+    CsNcNodesRemovedComponent,
+    CsNcNodesUpdatedComponent,
+    CsNcWaysAddedComponent,
+    CsNcWaysRemovedComponent,
+    CsNcWaysUpdatedComponent,
+    CsNcRelationsAddedComponent,
+    CsNcRelationsUpdatedComponent,
+    CsNcRelationsRemovedComponent
   ]
 })
 export class ChangeSetModule {

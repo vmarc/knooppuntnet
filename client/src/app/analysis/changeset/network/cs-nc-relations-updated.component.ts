@@ -3,14 +3,13 @@ import {List} from "immutable";
 import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
 
 @Component({
-  selector: "kpn-change-set-network-change-relations-removed",
+  selector: "kpn-cs-nc-relations-updated",
   template: `
     <div *ngIf="!relationIds().isEmpty()" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <!-- @@ Verwijderde relaties die geen route relatie zijn -->
-        <span i18n="@@change-set.network-changes.removed-relations">Removed non-route relations</span>
+        <!-- @@ Aangepaste relaties die geen route relatie zijn -->
+        <span i18n="@@change-set.network-changes.updated-relations">Updated non-route relations</span>
         <span class="kpn-thin">{{relationIds().size}}</span>
-        <kpn-icon-happy></kpn-icon-happy>
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
         <kpn-osm-link-relation
@@ -21,12 +20,12 @@ import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-cha
     </div>
   `
 })
-export class ChangeSetNetworkChangeRelationsRemovedComponent {
+export class CsNcRelationsUpdatedComponent {
 
   @Input() networkChangeInfo: NetworkChangeInfo;
 
   relationIds(): List<number> {
-    return this.networkChangeInfo.relations.removed;
+    return this.networkChangeInfo.relations.updated;
   }
 
 }

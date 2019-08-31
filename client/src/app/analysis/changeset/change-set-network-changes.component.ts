@@ -16,10 +16,7 @@ import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
       </div>
 
       <div class="kpn-level-1-body">
-        <kpn-change-set-network-change-component
-          [page]="page"
-          [networkChangeInfo]="networkChangeInfo">
-        </kpn-change-set-network-change-component>
+        <kpn-cs-nc-component [page]="page" [networkChangeInfo]="networkChangeInfo"></kpn-cs-nc-component>
       </div>
 
     </div>

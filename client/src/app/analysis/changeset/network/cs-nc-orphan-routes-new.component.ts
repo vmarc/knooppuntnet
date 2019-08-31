@@ -5,30 +5,30 @@ import {KnownElements} from "../../../kpn/shared/common/known-elements";
 import {Ref} from "../../../kpn/shared/common/ref";
 
 @Component({
-  selector: "kpn-change-set-network-change-orphan-nodes-new",
+  selector: "kpn-cs-nc-orphan-routes-new",
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-detail kpn-line">
-      <span i18n="@@change-set.network-changes.orphan-nodes-introduced" class="kpn-label">
-        Following nodes that used to be part of this network have become orphan
+      <span i18n="@@change-set.network-changes.orphan-routes-introduced" class="kpn-label">
+        Following routes that used to be part of this network have become orphan
       </span>
       <div class="kpn-comma-list">
-        <kpn-link-node-ref
+        <kpn-link-route-ref
           *ngFor="let ref of refs()"
           [ref]="ref"
           [knownElements]="knownElements">
-        </kpn-link-node-ref>
+        </kpn-link-route-ref>
       </div>
       <kpn-icon-investigate></kpn-icon-investigate>
     </div>
   `
 })
-export class ChangeSetNetworkChangeOrphanNodesNewComponent {
+export class CsNcOrphanRoutesNewComponent {
 
   @Input() networkChangeInfo: NetworkChangeInfo;
   @Input() knownElements: KnownElements;
 
   refs(): List<Ref> {
-    return this.networkChangeInfo.orphanNodes.newRefs;
+    return this.networkChangeInfo.orphanRoutes.newRefs;
   }
 
 }

@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
 
 @Component({
-  selector: "kpn-change-set-network-change-type",
+  selector: "kpn-cs-nc-type",
   template: `
     <div *ngIf="networkChangeInfo.changeType.name == 'Create'" class="kpn-detail">
       <b i18n="@@change-set.network-diffs.network-created">
@@ -17,6 +17,6 @@ import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-cha
     <!-- no changeType text for "Update" -->
   `
 })
-export class ChangeSetNetworkChangeTypeComponent {
+export class CsNcTypeComponent {
   @Input() networkChangeInfo: NetworkChangeInfo;
 }
