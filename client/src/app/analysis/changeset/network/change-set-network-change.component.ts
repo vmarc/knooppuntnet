@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
-import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
-import {NetworkChangeInfo} from "../../kpn/shared/changes/details/network-change-info";
-import {NodeDiffsData} from "./node-diffs/node-diffs-data";
-import {RouteDiffsData} from "./route-diffs/route-diffs-data";
+import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
+import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
+import {NodeDiffsData} from "../node-diffs/node-diffs-data";
+import {RouteDiffsData} from "../route-diffs/route-diffs-data";
 
 @Component({
   selector: "kpn-change-set-network-change-component",
@@ -49,10 +49,8 @@ import {RouteDiffsData} from "./route-diffs/route-diffs-data";
     <kpn-change-set-network-change-relations-added [networkChangeInfo]="networkChangeInfo"></kpn-change-set-network-change-relations-added>
     <kpn-change-set-network-change-relations-updated [networkChangeInfo]="networkChangeInfo"></kpn-change-set-network-change-relations-updated>
 
-    <!-- UiNodeDiffs -->
     <kpn-node-diffs [data]="nodeDiffs(networkChangeInfo)"></kpn-node-diffs>
 
-    <!-- UiRouteDiffs -->
     <kpn-route-diffs [data]="routeDiffs(networkChangeInfo)"></kpn-route-diffs>
   `
 })
