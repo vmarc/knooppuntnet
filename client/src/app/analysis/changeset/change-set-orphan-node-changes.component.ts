@@ -10,13 +10,15 @@ import {NodeDiffsData} from "./node-diffs/node-diffs-data";
 @Component({
   selector: "kpn-change-set-orphan-node-changes",
   template: `
-    <div *ngFor="let refs of page.summary.orphanNodeChanges">
-      <div class="kpn-line"> <!-- orphansHeader() -->
+    <div *ngFor="let refs of page.summary.orphanNodeChanges" class="kpn-level-1">
+      <div class="kpn-level-1-header kpn-line">
         <kpn-network-type-icon [networkType]="refs.subset.networkType"></kpn-network-type-icon>
         <span>{{refs.subset.country.domain.toUpperCase()}}</span>
         <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
       </div>
-      <kpn-node-diffs [data]="nodeDiffs(refs)"></kpn-node-diffs>
+      <div class="kpn-level-1-body">
+        <kpn-node-diffs [data]="nodeDiffs(refs)"></kpn-node-diffs>
+      </div>
     </div>
   `
 })

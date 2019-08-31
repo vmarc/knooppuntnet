@@ -23,18 +23,18 @@ import {RouteDiffsData} from "./route-diffs-data";
                 <div class="kpn-thin">
                   <ng-container *ngIf="routeChangeInfo.after.changeSetId == data.changeSetId">
                     <!-- @@ Nieuwe relatie -->
-                    <ng-container *ngIf="routeChangeInfo.after.version == 1">
+                    <ng-container *ngIf="routeChangeInfo.after.version == 1" i18n="@@route-diffs-added.new-relation">
                       New relation
                     </ng-container>
                     <!-- @@ Relatie gewijzigd in deze wijzigingenset -->
-                    <ng-container *ngIf="routeChangeInfo.after.version > 1">
+                    <ng-container *ngIf="routeChangeInfo.after.version > 1" i18n="@@route-diffs-added.updated-relation">
                       Relation updated in this changeset
                     </ng-container>
                     v{{routeChangeInfo.after.version}}
                   </ng-container>
                   <ng-container *ngIf="routeChangeInfo.after.changeSetId != data.changeSetId">
                     <!-- @@ Bestaande relatie -->
-                    <ng-container>Existing relation</ng-container>
+                    <ng-container i18n="@@route-diffs-added.existing-relation">Existing relation</ng-container>
                     <kpn-meta-data [metaData]="routeChangeInfo.after"></kpn-meta-data>
                   </ng-container>
                 </div>
