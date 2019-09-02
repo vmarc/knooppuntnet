@@ -38,8 +38,8 @@ class OrphanNodeUpdateProcessorImpl(
         else {
           None
         },
-        if (new Interpreter(NetworkType.horse).isNetworkNode(loadedNodeChange.before.node.raw) &&
-          !new Interpreter(NetworkType.horse).isNetworkNode(loadedNodeChange.after.node.raw)) {
+        if (new Interpreter(NetworkType.horseRiding).isNetworkNode(loadedNodeChange.before.node.raw) &&
+          !new Interpreter(NetworkType.horseRiding).isNetworkNode(loadedNodeChange.after.node.raw)) {
           Some(Fact.LostHorseNodeTag)
         }
         else {
@@ -82,7 +82,7 @@ class OrphanNodeUpdateProcessorImpl(
 
     val isNetworkNodeX = new Interpreter(NetworkType.hiking).isNetworkNode(loadedNodeChange.after.node.raw) ||
       new Interpreter(NetworkType.bicycle).isNetworkNode(loadedNodeChange.after.node.raw) ||
-      new Interpreter(NetworkType.horse).isNetworkNode(loadedNodeChange.after.node.raw) ||
+      new Interpreter(NetworkType.horseRiding).isNetworkNode(loadedNodeChange.after.node.raw) ||
       new Interpreter(NetworkType.motorboat).isNetworkNode(loadedNodeChange.after.node.raw) ||
       new Interpreter(NetworkType.canoe).isNetworkNode(loadedNodeChange.after.node.raw) ||
       new Interpreter(NetworkType.inlineSkates).isNetworkNode(loadedNodeChange.after.node.raw)

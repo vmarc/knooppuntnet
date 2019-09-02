@@ -20,7 +20,7 @@ export class NetworkVectorTileLayer {
         featureClass: Feature // this is important to avoid error upon first selection in the map
       }),
       tileGrid: tileGrid,
-      url: "/tiles/" + networkType.id + "/{z}/{x}/{y}.mvt"
+      url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.mvt"
     });
 
     return new VectorTileLayer({

@@ -33,16 +33,16 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
       <.div(statistics.get("NetworkCount").total),
       context.gotoSubsetNetworks(Subset.nlBicycle, Some(statistics.get("NetworkCount").nl.rcn)),
       context.gotoSubsetNetworks(Subset.nlHiking, Some(statistics.get("NetworkCount").nl.rwn)),
-      context.gotoSubsetNetworks(Subset.nlHorse, Some(statistics.get("NetworkCount").nl.rhn)),
+      context.gotoSubsetNetworks(Subset.nlHorseRiding, Some(statistics.get("NetworkCount").nl.rhn)),
       context.gotoSubsetNetworks(Subset.nlMotorboat, Some(statistics.get("NetworkCount").nl.rmn)),
       context.gotoSubsetNetworks(Subset.nlCanoe, Some(statistics.get("NetworkCount").nl.rpn)),
       context.gotoSubsetNetworks(Subset.nlInlineSkates, Some(statistics.get("NetworkCount").nl.rin)),
       context.gotoSubsetNetworks(Subset.beBicycle, Some(statistics.get("NetworkCount").be.rcn)),
       context.gotoSubsetNetworks(Subset.beHiking, Some(statistics.get("NetworkCount").be.rwn)),
-      context.gotoSubsetNetworks(Subset.beHorse, Some(statistics.get("NetworkCount").be.rhn)),
+      context.gotoSubsetNetworks(Subset.beHorseRiding, Some(statistics.get("NetworkCount").be.rhn)),
       context.gotoSubsetNetworks(Subset.deBicycle, Some(statistics.get("NetworkCount").de.rcn)),
       context.gotoSubsetNetworks(Subset.deHiking, Some(statistics.get("NetworkCount").de.rwn)),
-      context.gotoSubsetNetworks(Subset.deHorse, Some(statistics.get("NetworkCount").de.rhn))
+      context.gotoSubsetNetworks(Subset.deHorseRiding, Some(statistics.get("NetworkCount").de.rhn))
     ),
     <.div(
       nls(
@@ -192,16 +192,16 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
       <.div(statistics.get("OrphanNodeCount").total),
       context.gotoSubsetOrphanNodes(Subset.nlBicycle, statistics.get("OrphanNodeCount").nl.rcn),
       context.gotoSubsetOrphanNodes(Subset.nlHiking, statistics.get("OrphanNodeCount").nl.rwn),
-      context.gotoSubsetOrphanNodes(Subset.nlHorse, statistics.get("OrphanNodeCount").nl.rhn),
+      context.gotoSubsetOrphanNodes(Subset.nlHorseRiding, statistics.get("OrphanNodeCount").nl.rhn),
       context.gotoSubsetOrphanNodes(Subset.nlMotorboat, statistics.get("OrphanNodeCount").nl.rmn),
       context.gotoSubsetOrphanNodes(Subset.nlCanoe, statistics.get("OrphanNodeCount").nl.rpn),
       context.gotoSubsetOrphanNodes(Subset.nlInlineSkates, statistics.get("OrphanNodeCount").nl.rin),
       context.gotoSubsetOrphanNodes(Subset.beBicycle, statistics.get("OrphanNodeCount").be.rcn),
       context.gotoSubsetOrphanNodes(Subset.beHiking, statistics.get("OrphanNodeCount").be.rwn),
-      context.gotoSubsetOrphanNodes(Subset.beHorse, statistics.get("OrphanNodeCount").be.rhn),
+      context.gotoSubsetOrphanNodes(Subset.beHorseRiding, statistics.get("OrphanNodeCount").be.rhn),
       context.gotoSubsetOrphanNodes(Subset.deBicycle, statistics.get("OrphanNodeCount").de.rcn),
       context.gotoSubsetOrphanNodes(Subset.deHiking, statistics.get("OrphanNodeCount").de.rwn),
-      context.gotoSubsetOrphanNodes(Subset.deHorse, statistics.get("OrphanNodeCount").de.rhn)
+      context.gotoSubsetOrphanNodes(Subset.deHorseRiding, statistics.get("OrphanNodeCount").de.rhn)
     ),
     if (nlsNL) {
       <.div(
@@ -241,16 +241,16 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
       <.div(statistics.get("OrphanRouteCount").total),
       context.gotoSubsetOrphanRoutes(Subset.nlBicycle, statistics.get("OrphanRouteCount").nl.rcn),
       context.gotoSubsetOrphanRoutes(Subset.nlHiking, statistics.get("OrphanRouteCount").nl.rwn),
-      context.gotoSubsetOrphanRoutes(Subset.nlHorse, statistics.get("OrphanRouteCount").nl.rhn),
+      context.gotoSubsetOrphanRoutes(Subset.nlHorseRiding, statistics.get("OrphanRouteCount").nl.rhn),
       context.gotoSubsetOrphanRoutes(Subset.nlMotorboat, statistics.get("OrphanRouteCount").nl.rmn),
       context.gotoSubsetOrphanRoutes(Subset.nlCanoe, statistics.get("OrphanRouteCount").nl.rpn),
       context.gotoSubsetOrphanRoutes(Subset.nlInlineSkates, statistics.get("OrphanRouteCount").nl.rin),
       context.gotoSubsetOrphanRoutes(Subset.beBicycle, statistics.get("OrphanRouteCount").be.rcn),
       context.gotoSubsetOrphanRoutes(Subset.beHiking, statistics.get("OrphanRouteCount").be.rwn),
-      context.gotoSubsetOrphanRoutes(Subset.beHorse, statistics.get("OrphanRouteCount").be.rhn),
+      context.gotoSubsetOrphanRoutes(Subset.beHorseRiding, statistics.get("OrphanRouteCount").be.rhn),
       context.gotoSubsetOrphanRoutes(Subset.deBicycle, statistics.get("OrphanRouteCount").de.rcn),
       context.gotoSubsetOrphanRoutes(Subset.deHiking, statistics.get("OrphanRouteCount").de.rwn),
-      context.gotoSubsetOrphanRoutes(Subset.deHorse, statistics.get("OrphanRouteCount").de.rhn)
+      context.gotoSubsetOrphanRoutes(Subset.deHorseRiding, statistics.get("OrphanRouteCount").de.rhn)
     ),
     if (nlsNL) {
       <.div(
@@ -595,16 +595,16 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
         count(stat.total),
         context.gotoSubsetFactDetails(Subset.nlBicycle, fact, "", stat.nl.rcn),
         context.gotoSubsetFactDetails(Subset.nlHiking, fact, "", stat.nl.rwn),
-        context.gotoSubsetFactDetails(Subset.nlHorse, fact, "", stat.nl.rhn),
+        context.gotoSubsetFactDetails(Subset.nlHorseRiding, fact, "", stat.nl.rhn),
         context.gotoSubsetFactDetails(Subset.nlMotorboat, fact, "", stat.nl.rmn),
         context.gotoSubsetFactDetails(Subset.nlCanoe, fact, "", stat.nl.rpn),
         context.gotoSubsetFactDetails(Subset.nlInlineSkates, fact, "", stat.nl.rin),
         context.gotoSubsetFactDetails(Subset.beBicycle, fact, "", stat.be.rcn),
         context.gotoSubsetFactDetails(Subset.beHiking, fact, "", stat.be.rwn),
-        context.gotoSubsetFactDetails(Subset.beHorse, fact, "", stat.be.rhn),
+        context.gotoSubsetFactDetails(Subset.beHorseRiding, fact, "", stat.be.rhn),
         context.gotoSubsetFactDetails(Subset.deBicycle, fact, "", stat.de.rcn),
         context.gotoSubsetFactDetails(Subset.deHiking, fact, "", stat.de.rwn),
-        context.gotoSubsetFactDetails(Subset.deHorse, fact, "", stat.de.rhn)
+        context.gotoSubsetFactDetails(Subset.deHorseRiding, fact, "", stat.de.rhn)
       ),
       comment
     )

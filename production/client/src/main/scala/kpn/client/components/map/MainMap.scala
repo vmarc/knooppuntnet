@@ -17,7 +17,7 @@ class MainMap(networkType: NetworkType, selectionHolder: SelectedFeatureHolder) 
   override def onMounted(): Unit = {
     updateTarget()
     val bounds = networkType match {
-      case NetworkType.horse =>
+      case NetworkType.horseRiding =>
         ol.Extent(
           toCoordinate(5.21, 52.03),
           toCoordinate(6.98, 52.58)

@@ -17,7 +17,7 @@ class SubsetTitle(implicit val context: Context) {
     subset.networkType match {
       case NetworkType.hiking => nls("Walking", "Wandelen")
       case NetworkType.bicycle => nls("Cycling", "Fietsen")
-      case NetworkType.horse => nls("Horse", "Ruiter")
+      case NetworkType.horseRiding => nls("Horse riding", "Ruiter")
       case NetworkType.motorboat => nls("Motorboat", "Motorboot")
       case NetworkType.canoe => nls("Canoe", "Kano")
       case NetworkType.inlineSkates => "Inline skates"

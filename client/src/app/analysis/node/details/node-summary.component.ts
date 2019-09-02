@@ -1,8 +1,7 @@
 import {Component, Input} from "@angular/core";
-import {NetworkTypes} from "../../../kpn/common/network-types";
-import {NodeInfo} from "../../../kpn/shared/node-info";
-import {NetworkType} from "../../../kpn/shared/network-type";
 import {List} from "immutable";
+import {NetworkType} from "../../../kpn/shared/network-type";
+import {NodeInfo} from "../../../kpn/shared/node-info";
 
 @Component({
   selector: "kpn-node-summary",
@@ -44,7 +43,7 @@ export class NodeSummaryComponent {
   @Input() nodeInfo: NodeInfo;
 
   networkTypes(): List<NetworkType> {
-    return NetworkTypes.all.filter(networkType => this.nodeInfo.tags.has(networkType.id + "_ref"));
+    return NetworkType.all.filter(networkType => this.nodeInfo.tags.has(networkType.id + "_ref"));
   }
 
 }

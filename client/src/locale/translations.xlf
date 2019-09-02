@@ -170,8 +170,8 @@
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.horse" datatype="html">
-        <source>Horse</source>
+      <trans-unit id="network-type.horse-riding" datatype="html">
+        <source>Horse riding</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -653,293 +653,140 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.title" datatype="html">
-        <source>Changeset</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/_change-set-page.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="change-set.header.change-set" datatype="html">
+      <trans-unit id="route-change.no-geometry-diff" datatype="html">
         <source>
-          Changeset
-        </source>
+      No geometry change
+    </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-detail.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.header.replication-number" datatype="html">
+      <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
         <source>
-          Minute diff
-        </source>
+      Route name changed from &quot;<x id="INTERPOLATION" equiv-text="{{diffs.nameDiff.before}}"/>&quot; to &quot;<x id="INTERPOLATION_1" equiv-text="{{diffs.nameDiff.after}}"/>&quot;.
+    </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.header.comment" datatype="html">
+      <trans-unit id="route-changes.route-diff.role-added" datatype="html">
         <source>
-          Comment
-        </source>
+      Route role &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>&quot; added to networkrelation.
+    </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.header.analysis" datatype="html">
+      <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
         <source>
-          Analysis
-        </source>
+      Route role &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>&quot; removed from networkrelation.
+    </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.header.analysis.happy" datatype="html">
+      <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
         <source>
-        This changeset brought improvements.
-      </source>
+      Route role in networkrelation changed from &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>&quot; to &quot;<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>&quot;.
+    </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="change-set.header.analysis.investigate" datatype="html">
-        <source>
-        Maybe this changeset is worth a closer look.
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="change-set.header.analysis.no-impact" datatype="html">
-        <source>
-        The changes do not seem to have an impact on the analysis result.
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="change-set.network-diffs.network" datatype="html">
-        <source>Network</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-diff-details.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="change-set.network-diffs.network-created" datatype="html">
-        <source>
-          Network created
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-diff-details.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="change-set.network-diffs.network-deleted" datatype="html">
-        <source>
-          Network deleted
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-diff-details.component.ts</context>
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-routes-resolved" datatype="html">
+      <trans-unit id="route-changes.route-diff.member-order-changed" datatype="html">
         <source>
-          Orphan routes added to this network
-        </source>
+      Member order changed.
+    </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-diff-details.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-routes-introduced" datatype="html">
+      <trans-unit id="node-change.belongs-to-another-network" datatype="html">
         <source>
-          Following routes that used to be part of this network have become orphan
-        </source>
+        This node belongs to another network
+      </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-diff-details.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-nodes-resolved" datatype="html">
+      <trans-unit id="node-change.no-longer-belongs-to-another-network" datatype="html">
         <source>
-          Orphan nodes added to this network
-        </source>
+        This node no longer belongs to another network
+      </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-diff-details.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="change-set.network-diffs.orphan-nodes-introduced" datatype="html">
+      <trans-unit id="node-change.received-role-connection-in-network-relation" datatype="html">
         <source>
-          Following nodes that used to be part of this network have become orphan
-        </source>
+        This node received role &quot;connection&quot; in the network relation
+      </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-diff-details.component.ts</context>
-          <context context-type="linenumber">70</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="change-set.orphan-nodes.title" datatype="html">
-        <source>Orphan nodes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-orphan-node-changes.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-removed.title" datatype="html">
-        <source>Removed network nodes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-removed.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-added.title" datatype="html">
-        <source>Added network nodes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-added.change-set-created" datatype="html">
-        <source>Created in this changeset.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-added.change-set-updated" datatype="html">
-        <source>Updated in this changeset.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-diffs-added.change-set-existing" datatype="html">
-        <source>Existing node</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-updated.title" datatype="html">
-        <source>Updated network nodes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-updated.existing-node" datatype="html">
+      <trans-unit id="node-change.lost-role-connection-in-network-relation" datatype="html">
         <source>
-                  Existing node
-                </source>
+        This node no longer has role &quot;connection&quot; in the network relation
+      </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-diffs-updated.node-changed" datatype="html">
+      <trans-unit id="node-change.added-to-network-relation" datatype="html">
         <source>
-                  Node change to
-                </source>
+        Added to network relation
+      </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-diffs-updated.node-belongs-to-other-network" datatype="html">
+      <trans-unit id="node-change.removed-from-network-relation" datatype="html">
         <source>
-                    This node belongs to another network.
-                  </source>
+        Removed from network relation
+      </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-diffs-updated.node-no-longer-belongs-to-other-network" datatype="html">
-        <source>
-                    This node is no longer belongs to another network.
-                  </source>
+      <trans-unit id="node-change.added-to-route" datatype="html">
+        <source>Added to route</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-diffs-updated.received-role-connection" datatype="html">
-        <source>
-                    This node received role &quot;connection&quot; in the network relation
-                  </source>
+      <trans-unit id="node-change.added-to-network" datatype="html">
+        <source>Added to network</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">49</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-updated.lost-role-connection" datatype="html">
-        <source>
-                    This node is no longer has role &quot;connection&quot; in the network relation.
-                  </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-diffs-updated.added-to-network-relation" datatype="html">
-        <source>
-                    Added to network relation of
-                  </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-updated.removed-from-network-relation" datatype="html">
-        <source>
-                    Removed from network relation of
-                  </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">64</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-updated.added-to-route" datatype="html">
-        <source>Added to route</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">71</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-updated.added-to-network" datatype="html">
-        <source>Added to network</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">76</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-diffs-updated.removed-from-route" datatype="html">
+      <trans-unit id="node-change.removed-from-route" datatype="html">
         <source>Removed from route</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-diffs-updated.removed-from-network" datatype="html">
+      <trans-unit id="node-change.removed-from-network" datatype="html">
         <source>Removed from network</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">86</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="facts.none" datatype="html">
-        <source>
-      None
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/fact/facts.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -1283,6 +1130,175 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="facts.none" datatype="html">
+        <source>
+      None
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/facts.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-added.title" datatype="html">
+        <source>Added way</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-added.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-added.this-changeset" datatype="html">
+        <source>this changeset</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-added.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-removed.title" datatype="html">
+        <source>Removed way</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-removed.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.title" datatype="html">
+        <source>Updated way</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.changed-to" datatype="html">
+        <source>Changed to</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.version-unchanged" datatype="html">
+        <source>
+              Way version unchanged
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.direction-reversed" datatype="html">
+        <source>
+          Direction reversed
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.removed-nodes" datatype="html">
+        <source>Removed node(s)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.added-nodes" datatype="html">
+        <source>Added node(s)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-change.way-update.updated-nodes" datatype="html">
+        <source>Updated node(s)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.node-diff.start-nodes" datatype="html">
+        <source>
+        Start nodes
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.node-diff.end-nodes" datatype="html">
+        <source>
+        End nodes
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.node-diff.start-tentacle-nodes" datatype="html">
+        <source>
+        Start tentacle nodes
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.node-diff.end-tentacle-nodes" datatype="html">
+        <source>
+        End tentacle nodes
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.node-diff.added" datatype="html">
+        <source>added</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-changes.node-diff.removed" datatype="html">
+        <source>removed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.meters" datatype="html">
+        <source>
+        The node has moved <x id="INTERPOLATION" equiv-text="{{nodeMoved.distance}}"/> meters.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.less-than-1-meter" datatype="html">
+        <source>
+        The node has moved less than 1 meter.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.note.1" datatype="html">
+        <source>
+          Note: Node position is shown as it was at
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-change.moved.note.2" datatype="html">
+        <source>
+          while the map background is shown as it is today.
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
@@ -1721,6 +1737,11 @@
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-hiking-node-tag.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.lost-horse-riding-node-tag" datatype="html">
+        <source>
+      This node is no longer a valid horse riding network node because the rhn_ref tag has been removed.
+    </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-horse-node-tag.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1778,6 +1799,329 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.title" datatype="html">
+        <source>Changeset</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/_change-set-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.change-set" datatype="html">
+        <source>
+          Changeset
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.replication-number" datatype="html">
+        <source>
+          Minute diff
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.comment" datatype="html">
+        <source>
+          Comment
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.analysis" datatype="html">
+        <source>
+          Analysis
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.analysis.happy" datatype="html">
+        <source>
+        This changeset brought improvements.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.analysis.investigate" datatype="html">
+        <source>
+        Maybe this changeset is worth a closer look.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.header.analysis.no-impact" datatype="html">
+        <source>
+        The changes do not seem to have an impact on the analysis result.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.network" datatype="html">
+        <source>Network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-network-changes.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.orphan-nodes.title" datatype="html">
+        <source>Orphan nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-orphan-node-changes.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.orphan-routes.title" datatype="html">
+        <source>Orphan routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/change-set-orphan-route-changes.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-removed.title" datatype="html">
+        <source>Removed network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-removed.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.title" datatype="html">
+        <source>Added network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.change-set-created" datatype="html">
+        <source>Created in this changeset.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.change-set-updated" datatype="html">
+        <source>Updated in this changeset.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-added.change-set-existing" datatype="html">
+        <source>Existing node</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.title" datatype="html">
+        <source>Updated network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.existing-node" datatype="html">
+        <source>
+                  Existing node
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node-diffs-updated.node-changed" datatype="html">
+        <source>
+                  Node change to
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-diffs-added.title" datatype="html">
+        <source>Added routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-diffs-added.new-relation" datatype="html">
+        <source>
+                      New relation
+                    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-diffs-added.updated-relation" datatype="html">
+        <source>
+                      Relation updated in this changeset
+                    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-diffs-added.existing-relation" datatype="html">
+        <source>Existing relation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-diffs-removed.title" datatype="html">
+        <source>Removed routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-removed.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-diffs-updated.title" datatype="html">
+        <source>Updated routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-updated.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="version-change.relation-changed-to" datatype="html">
+        <source>Relation changed to</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="version-change.relation-unchanged" datatype="html">
+        <source>Relation unchanged</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.network-created" datatype="html">
+        <source>
+        Network created
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-type.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.network-deleted" datatype="html">
+        <source>
+        Network deleted
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-type.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.orphan-routes-introduced" datatype="html">
+        <source>
+        Orphan routes added to this network
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-routes-old.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-routes-new.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-diffs.orphan-nodes-resolved" datatype="html">
+        <source>
+        Orphan nodes added to this network
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-nodes-old.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.orphan-nodes-introduced" datatype="html">
+        <source>
+        Following nodes that used to be part of this network have become orphan
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-nodes-new.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.added-nodes" datatype="html">
+        <source>Added non-network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-nodes-added.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.removed-nodes" datatype="html">
+        <source>Removed non-network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-nodes-removed.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.updated-nodes" datatype="html">
+        <source>Updated non-network nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-nodes-updated.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.added-ways" datatype="html">
+        <source>Added ways</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-ways-added.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.removed-ways" datatype="html">
+        <source>Removed ways</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-ways-removed.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.updated-ways" datatype="html">
+        <source>Updated ways</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-ways-updated.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.added-relations" datatype="html">
+        <source>Added non-route relations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-relations-added.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.updated-relations" datatype="html">
+        <source>Updated non-route relations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-relations-updated.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="change-set.network-changes.removed-relations" datatype="html">
+        <source>Removed non-route relations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-relations-removed.component.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.title" datatype="html">
@@ -2932,120 +3276,6 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="node-change.belongs-to-another-network" datatype="html">
-        <source>
-        This node belongs to another network
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.no-longer-belongs-to-another-network" datatype="html">
-        <source>
-        This node no longer belongs to another network
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.received-role-connection-in-network-relation" datatype="html">
-        <source>
-        This node received role &quot;connection&quot; in the network relation
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.lost-role-connection-in-network-relation" datatype="html">
-        <source>
-        This node no longer has role &quot;connection&quot; in the network relation
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.added-to-network-relation" datatype="html">
-        <source>Added to network relation</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.removed-from-network-relation" datatype="html">
-        <source>Removed from network relation</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">36</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.added-to-route" datatype="html">
-        <source>Added to route</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.added-to-network" datatype="html">
-        <source>Added to network</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.removed-from-route" datatype="html">
-        <source>Removed from route</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.removed-from-network" datatype="html">
-        <source>Removed from network</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-detail.component.ts</context>
-          <context context-type="linenumber">64</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.moved.meters" datatype="html">
-        <source>
-        The node has moved <x id="INTERPOLATION" equiv-text="{{nodeMoved.distance}}"/> meters.
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-moved.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.moved.less-than-1-meter" datatype="html">
-        <source>
-        The node has moved less than 1 meter.
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-moved.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.moved.note.1" datatype="html">
-        <source>
-          Note: Node position is shown as it was at
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-moved.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node-change.moved.note.2" datatype="html">
-        <source>
-          while the map background is shown as it is today.
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/changes/node-change-moved.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="node.inactive" datatype="html">
         <source>
         This network node is not active anymore.
@@ -4010,134 +4240,6 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="route-change.no-geometry-diff" datatype="html">
-        <source>
-      No geometry change
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-detail.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-added.title" datatype="html">
-        <source>Added way</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-added.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-added.this-changeset" datatype="html">
-        <source>this changeset</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-added.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-removed.title" datatype="html">
-        <source>Removed way</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-removed.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-update.title" datatype="html">
-        <source>Updated way</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-update.changed-to" datatype="html">
-        <source>Changed to</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-update.version-unchanged" datatype="html">
-        <source>
-              Way version unchanged
-            </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-update.direction-reversed" datatype="html">
-        <source>
-          Direction reversed
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-update.removed-nodes" datatype="html">
-        <source>Removed node(s)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-update.added-nodes" datatype="html">
-        <source>Added node(s)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-change.way-update.updated-nodes" datatype="html">
-        <source>Updated node(s)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">37</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
-        <source>
-      Route name changed from &quot;<x id="INTERPOLATION" equiv-text="{{diffs.nameDiff.before}}"/>&quot; to &quot;<x id="INTERPOLATION_1" equiv-text="{{diffs.nameDiff.after}}"/>&quot;.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-diff.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.route-diff.role-added" datatype="html">
-        <source>
-      Route role &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>&quot; added to networkrelation.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-diff.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
-        <source>
-      Route role &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>&quot; removed from networkrelation.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-diff.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
-        <source>
-      Route role in networkrelation changed from &quot;<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>&quot; to &quot;<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>&quot;.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-diff.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.route-diff.member-order-changed" datatype="html">
-        <source>
-      Member order changed.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-diff.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="route.members.title" datatype="html">
         <source>Route Members</source>
         <context-group purpose="location">
@@ -4234,56 +4336,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-network-references.component.ts</context>
           <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.node-diff.start-nodes" datatype="html">
-        <source>
-        Start nodes
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-node-diff.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.node-diff.end-nodes" datatype="html">
-        <source>
-        End nodes
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-node-diff.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.node-diff.start-tentacle-nodes" datatype="html">
-        <source>
-        Start tentacle nodes
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-node-diff.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.node-diff.end-tentacle-nodes" datatype="html">
-        <source>
-        End tentacle nodes
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-node-diff.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.node-diff.added" datatype="html">
-        <source>added</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-node-diff.component.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-changes.node-diff.removed" datatype="html">
-        <source>removed</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/changes/route-node-diff.component.ts</context>
-          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.title" datatype="html">

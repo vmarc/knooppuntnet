@@ -6,7 +6,7 @@ import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import VectorSource from "ol/source/Vector";
 import View from "ol/View";
-import {NetworkTypes} from "../../kpn/common/network-types";
+import {NetworkType} from "../../kpn/shared/network-type";
 import {NodeInfo} from "../../kpn/shared/node-info";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
@@ -46,8 +46,8 @@ export class NodeMapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    this.bitmapTileLayer = NetworkBitmapTileLayer.build(NetworkTypes.hiking);
-    this.vectorTileLayer = NetworkVectorTileLayer.build(NetworkTypes.hiking);
+    this.bitmapTileLayer = NetworkBitmapTileLayer.build(NetworkType.hiking);
+    this.vectorTileLayer = NetworkVectorTileLayer.build(NetworkType.hiking);
 
     const attribution = new Attribution({
       collapsible: false

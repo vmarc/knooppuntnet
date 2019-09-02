@@ -39,7 +39,7 @@ case class Figure(
         subset.networkType match {
           case NetworkType.hiking => nlRwn
           case NetworkType.bicycle => nlRcn
-          case NetworkType.horse => nlRhn
+          case NetworkType.horseRiding => nlRhn
           case NetworkType.motorboat => nlRmn
           case NetworkType.canoe => nlRpn
           case NetworkType.inlineSkates => nlRin
@@ -48,7 +48,7 @@ case class Figure(
         subset.networkType match {
           case NetworkType.hiking => beRwn
           case NetworkType.bicycle => beRcn
-          case NetworkType.horse => beRhn
+          case NetworkType.horseRiding => beRhn
           case NetworkType.motorboat => beRmn
           case NetworkType.canoe => beRpn
           case NetworkType.inlineSkates => beRin
@@ -57,7 +57,7 @@ case class Figure(
         subset.networkType match {
           case NetworkType.hiking => deRwn
           case NetworkType.bicycle => deRcn
-          case NetworkType.horse => deRhn
+          case NetworkType.horseRiding => deRhn
           case NetworkType.motorboat => deRmn
           case NetworkType.canoe => deRpn
           case NetworkType.inlineSkates => deRin

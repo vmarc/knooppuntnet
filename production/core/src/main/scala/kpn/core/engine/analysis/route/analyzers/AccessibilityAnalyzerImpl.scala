@@ -9,7 +9,7 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
     networkType match {
       case NetworkType.bicycle => bicycleAccessible(way)
       case NetworkType.hiking => hikingAccessible(way)
-      case NetworkType.horse => horseAccessible(way)
+      case NetworkType.horseRiding => horseAccessible(way)
       case NetworkType.motorboat => motorboatAccessible(way)
       case NetworkType.canoe => canoeAccessible(way)
       case NetworkType.inlineSkates => inlineSkatesAccessible(way)

@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Subsets} from "../../kpn/common/subsets";
+import {Subset} from "../../kpn/shared/subset";
 
 @Component({
   selector: "kpn-overview-table-header",
@@ -26,6 +26,6 @@ import {Subsets} from "../../kpn/common/subsets";
 })
 export class OverviewTableHeaderComponent {
   subsets() {
-    return Subsets.all;
+    return Subset.all;
   }
 }

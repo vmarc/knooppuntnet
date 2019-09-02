@@ -206,8 +206,8 @@ object UiNodePage {
         TagMod.when(page.nodeInfo.tags.has(NetworkType.bicycle.nodeTagKey)) {
           UiNetworkTypeAndText(NetworkType.bicycle, <.span(nls("Bicycle network node", "Fietsknooppunt")))
         },
-        TagMod.when(page.nodeInfo.tags.has(NetworkType.horse.nodeTagKey)) {
-          UiNetworkTypeAndText(NetworkType.horse, <.span(nls("Horse network node", "Ruiterknooppunt")))
+        TagMod.when(page.nodeInfo.tags.has(NetworkType.horseRiding.nodeTagKey)) {
+          UiNetworkTypeAndText(NetworkType.horseRiding, <.span(nls("Horse riding network node", "Ruiterknooppunt")))
         },
         TagMod.when(page.nodeInfo.tags.has(NetworkType.motorboat.nodeTagKey)) {
           UiNetworkTypeAndText(NetworkType.motorboat, <.span(nls("Motorboat network node", "Moterbootknooppunt")))

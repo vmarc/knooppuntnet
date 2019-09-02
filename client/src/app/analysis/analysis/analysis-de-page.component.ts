@@ -27,10 +27,10 @@ import {Component} from "@angular/core";
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/analysis/de/horse/networks"
-      icon="horse"
-      text="Horse"
-      i18n-text="@@network-type.horse">
+      routerLink="/analysis/de/horse-riding/networks"
+      icon="horse-riding"
+      text="Horse riding"
+      i18n-text="@@network-type.horse-riding">
     </kpn-icon-button>
 
   `

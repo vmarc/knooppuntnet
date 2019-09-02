@@ -232,16 +232,16 @@ object UiOverviewTable {
         <.tr(
           headerCellNetworkType(NetworkType.bicycle),
           headerCellNetworkType(NetworkType.hiking),
-          headerCellNetworkType(NetworkType.horse),
+          headerCellNetworkType(NetworkType.horseRiding),
           headerCellNetworkType(NetworkType.motorboat),
           headerCellNetworkType(NetworkType.canoe),
           headerCellNetworkType(NetworkType.inlineSkates),
           headerCellNetworkType(NetworkType.bicycle),
           headerCellNetworkType(NetworkType.hiking),
-          headerCellNetworkType(NetworkType.horse),
+          headerCellNetworkType(NetworkType.horseRiding),
           headerCellNetworkType(NetworkType.bicycle),
           headerCellNetworkType(NetworkType.hiking),
-          headerCellNetworkType(NetworkType.horse)
+          headerCellNetworkType(NetworkType.horseRiding)
         )
       )
     }

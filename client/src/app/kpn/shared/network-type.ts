@@ -1,7 +1,9 @@
+import {List} from "immutable";
+
 export class NetworkType {
 
-  constructor(public readonly id: string,
-              public readonly name: string) {
+  constructor(readonly id: string,
+              readonly name: string) {
   }
 
   public static fromJSON(jsonObject): NetworkType {
@@ -9,23 +11,44 @@ export class NetworkType {
       return undefined;
     }
     if (jsonObject == "rcn") {
-      return new NetworkType("rcn", "cycling");
+      return NetworkType.cycling;
     }
     if (jsonObject == "rwn") {
-      return new NetworkType("rwn", "hiking");
+      return NetworkType.hiking;
     }
     if (jsonObject == "rhn") {
-      return new NetworkType("rhn", "horse");
+      return NetworkType.horseRiding;
     }
     if (jsonObject == "rmn") {
-      return new NetworkType("rmn", "motorboat");
+      return NetworkType.motorboat;
     }
     if (jsonObject == "rpn") {
-      return new NetworkType("rpn", "canoe");
+      return NetworkType.canoe;
     }
     if (jsonObject == "rin") {
-      return new NetworkType("rin", "inline-skating");
+      return NetworkType.inlineSkating;
     }
     return undefined;
   }
+
+  static cycling = new NetworkType("rcn", "cycling");
+  static hiking = new NetworkType("rwn", "hiking");
+  static horseRiding = new NetworkType("rhn", "horse-riding");
+  static motorboat = new NetworkType("rmn", "motorboat");
+  static canoe = new NetworkType("rpn", "canoe");
+  static inlineSkating = new NetworkType("rin", "inline-skating");
+
+  static all: List<NetworkType> = List([
+    NetworkType.cycling,
+    NetworkType.hiking,
+    NetworkType.horseRiding,
+    NetworkType.motorboat,
+    NetworkType.canoe,
+    NetworkType.inlineSkating
+  ]);
+
+  static withName(name: string): NetworkType {
+    return NetworkType.all.find(n => n.name == name);
+  }
+
 }

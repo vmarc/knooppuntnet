@@ -64,7 +64,7 @@ class OrphanRouteChangeAnalyzer(
   private def isRouteRelation(relation: RawRelation): Boolean = {
     new Interpreter(NetworkType.hiking).isRouteRelation(relation) ||
       new Interpreter(NetworkType.bicycle).isRouteRelation(relation) ||
-      new Interpreter(NetworkType.horse).isRouteRelation(relation) ||
+      new Interpreter(NetworkType.horseRiding).isRouteRelation(relation) ||
       new Interpreter(NetworkType.motorboat).isRouteRelation(relation) ||
       new Interpreter(NetworkType.canoe).isRouteRelation(relation) ||
       new Interpreter(NetworkType.inlineSkates).isRouteRelation(relation)

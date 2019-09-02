@@ -139,7 +139,7 @@ object UiOverviewList {
         ),
         <.tr(
           <.td(
-            UiNetworkTypeIcon(NetworkType.horse)
+            UiNetworkTypeIcon(NetworkType.horseRiding)
           ),
           <.td(
             UiOverviewPage.Styles.valueColumn,

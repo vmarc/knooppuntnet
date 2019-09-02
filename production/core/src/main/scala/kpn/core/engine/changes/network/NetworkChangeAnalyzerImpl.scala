@@ -70,7 +70,7 @@ class NetworkChangeAnalyzerImpl(
   private def isNetworkRelation(relation: RawRelation): Boolean = {
     new Interpreter(NetworkType.hiking).isNetworkRelation(relation) ||
       new Interpreter(NetworkType.bicycle).isNetworkRelation(relation) ||
-      new Interpreter(NetworkType.horse).isNetworkRelation(relation) ||
+      new Interpreter(NetworkType.horseRiding).isNetworkRelation(relation) ||
       new Interpreter(NetworkType.motorboat).isNetworkRelation(relation) ||
       new Interpreter(NetworkType.canoe).isNetworkRelation(relation) ||
       new Interpreter(NetworkType.inlineSkates).isNetworkRelation(relation)

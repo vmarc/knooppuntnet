@@ -196,7 +196,7 @@ object UiNetworkNodesPage {
         if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
           nodesMap.rwnBitmapTileLayer.setVisible(NetworkType.hiking == networkSummary.networkType)
           nodesMap.rcnBitmapTileLayer.setVisible(NetworkType.bicycle == networkSummary.networkType)
-          nodesMap.rhnBitmapTileLayer.setVisible(NetworkType.horse == networkSummary.networkType)
+          nodesMap.rhnBitmapTileLayer.setVisible(NetworkType.horseRiding == networkSummary.networkType)
           nodesMap.rmnBitmapTileLayer.setVisible(NetworkType.motorboat == networkSummary.networkType)
           nodesMap.rpnBitmapTileLayer.setVisible(NetworkType.canoe == networkSummary.networkType)
           nodesMap.rinBitmapTileLayer.setVisible(NetworkType.inlineSkates == networkSummary.networkType)
@@ -216,7 +216,7 @@ object UiNetworkNodesPage {
           nodesMap.rinBitmapTileLayer.setVisible(false)
           nodesMap.rwnVectorTileLayer.layer.setVisible(NetworkType.hiking == networkSummary.networkType)
           nodesMap.rcnVectorTileLayer.layer.setVisible(NetworkType.bicycle == networkSummary.networkType)
-          nodesMap.rhnVectorTileLayer.layer.setVisible(NetworkType.horse == networkSummary.networkType)
+          nodesMap.rhnVectorTileLayer.layer.setVisible(NetworkType.horseRiding == networkSummary.networkType)
           nodesMap.rmnVectorTileLayer.layer.setVisible(NetworkType.motorboat == networkSummary.networkType)
           nodesMap.rpnVectorTileLayer.layer.setVisible(NetworkType.canoe == networkSummary.networkType)
           nodesMap.rinVectorTileLayer.layer.setVisible(NetworkType.inlineSkates == networkSummary.networkType)

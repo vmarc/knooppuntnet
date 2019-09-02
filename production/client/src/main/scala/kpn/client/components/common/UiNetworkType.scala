@@ -22,8 +22,8 @@ object UiNetworkType {
       else if (props.networkType == NetworkType.bicycle) {
         nls("Cycling network", "Fietsnetwerk")
       }
-      else if (props.networkType == NetworkType.horse) {
-        nls("Horse network", "Ruiternetwerk")
+      else if (props.networkType == NetworkType.horseRiding) {
+        nls("Horse riding network", "Ruiternetwerk")
       }
       else if (props.networkType == NetworkType.motorboat) {
         nls("Motorboat network", "Motorbootnetwerk")

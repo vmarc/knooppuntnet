@@ -104,7 +104,7 @@ object UiMapDetail {
       val title = props.networkType match {
         case NetworkType.hiking => nls("Hiking", "Wandelen")
         case NetworkType.bicycle => nls("Cycling", "Fietsen")
-        case NetworkType.horse => nls("Horse", "Ruiter")
+        case NetworkType.horseRiding => nls("Horse riding", "Ruiter")
         case NetworkType.motorboat => nls("Motorboat", "Motorboot")
         case NetworkType.canoe => nls("Canoe", "Kano")
         case NetworkType.inlineSkates => "Inline Skates"

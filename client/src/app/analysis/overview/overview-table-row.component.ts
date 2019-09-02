@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Subsets} from "../../kpn/common/subsets";
+import {Subset} from "../../kpn/shared/subset";
 import {Stat} from "./stat";
 
 @Component({
@@ -40,7 +40,7 @@ export class OverviewTableRowComponent {
   @Input() stat: Stat;
 
   subsets() {
-    return Subsets.all;
+    return Subset.all;
   }
 
   total() {

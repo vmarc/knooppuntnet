@@ -2,9 +2,9 @@ import {Params, Route} from "@angular/router";
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
 import {toLonLat, fromLonLat} from "ol/proj";
-import {NetworkTypes} from "../../kpn/common/network-types";
 import {Country} from "../../kpn/shared/country";
 import {LatLonImpl} from "../../kpn/shared/lat-lon-impl";
+import {NetworkType} from "../../kpn/shared/network-type";
 import {Subset} from "../../kpn/shared/subset";
 
 interface IPropertyGetter<T> {
@@ -33,7 +33,7 @@ export class Util {
   public static subsetInRoute(params: Params): Subset {
     const country = params["country"];
     const networkType = params["networkType"];
-    return new Subset(new Country(country), NetworkTypes.withName(networkType));
+    return new Subset(new Country(country), NetworkType.withName(networkType));
   }
 
   public static replicationName(replicationNumber: number): string {

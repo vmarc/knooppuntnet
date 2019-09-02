@@ -155,7 +155,7 @@ object UiHomePage {
       val title = networkType match {
         case NetworkType.hiking => nls("Hiking map", "Wandelkaart")
         case NetworkType.bicycle => nls("Cycling map", "Fietskaart")
-        case NetworkType.horse => nls("Horse map", "Ruiterkaart")
+        case NetworkType.horseRiding => nls("Horse riding map", "Ruiterkaart")
         case NetworkType.motorboat => nls("Motorboat map", "Motorbootkaart")
         case NetworkType.canoe => nls("Canoe map", "Kanokaart")
         case NetworkType.inlineSkates => nls("Inline skates map", "Inline skate kaart")
@@ -220,18 +220,18 @@ object UiHomePage {
       <.div(Styles.country, Nls.country(Some(Country.nl))),
       subsetCard(Subset.nlBicycle),
       subsetCard(Subset.nlHiking),
-      subsetCard(Subset.nlHorse),
+      subsetCard(Subset.nlHorseRiding),
       subsetCard(Subset.nlCanoe),
       subsetCard(Subset.nlMotorboat),
       subsetCard(Subset.nlInlineSkates),
       <.div(Styles.country, Nls.country(Some(Country.be))),
       subsetCard(Subset.beBicycle),
       subsetCard(Subset.beHiking),
-      subsetCard(Subset.beHorse),
+      subsetCard(Subset.beHorseRiding),
       <.div(Styles.country, Nls.country(Some(Country.de))),
       subsetCard(Subset.deBicycle),
       subsetCard(Subset.deHiking),
-      subsetCard(Subset.deHorse)
+      subsetCard(Subset.deHorseRiding)
     )
 
     private def subsetCard(subset: Subset): VdomElement = {
@@ -239,7 +239,7 @@ object UiHomePage {
       val networkTypeString = subset.networkType match {
         case NetworkType.hiking => nls("Hiking", "Wandelen")
         case NetworkType.bicycle => nls("Cycling", "Fietsen")
-        case NetworkType.horse => nls("Horse", "Ruiter")
+        case NetworkType.horseRiding => nls("Horse riding", "Ruiter")
         case NetworkType.motorboat => nls("Motorboat", "Motorboot")
         case NetworkType.canoe => nls("Canoe", "Kano")
         case NetworkType.inlineSkates => "Inline skates"

@@ -9,16 +9,16 @@ object SubsetInfoCache {
   private val subsetInfoMap = scala.collection.mutable.Map[Subset, SubsetInfo](
     Subset.nlBicycle -> SubsetInfo("nl", "rcn"),
     Subset.nlHiking -> SubsetInfo("nl", "rwn"),
-    Subset.nlHorse -> SubsetInfo("nl", "rhn"),
+    Subset.nlHorseRiding -> SubsetInfo("nl", "rhn"),
     Subset.nlMotorboat -> SubsetInfo("nl", "rmn"),
     Subset.nlCanoe -> SubsetInfo("nl", "rpn"),
     Subset.nlInlineSkates -> SubsetInfo("nl", "rpn"),
     Subset.beBicycle -> SubsetInfo("be", "rcn"),
     Subset.beHiking -> SubsetInfo("be", "rwn"),
-    Subset.beHorse -> SubsetInfo("be", "rhn"),
+    Subset.beHorseRiding -> SubsetInfo("be", "rhn"),
     Subset.deHiking -> SubsetInfo("de", "rwn"),
     Subset.deBicycle -> SubsetInfo("de", "rcn"),
-    Subset.deHorse -> SubsetInfo("de", "rhn")
+    Subset.deHorseRiding -> SubsetInfo("de", "rhn")
   )
 
   def get(subset: Subset): SubsetInfo = {

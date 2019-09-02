@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {NetworkTypes} from "src/app/kpn/common/network-types";
+import {NetworkType} from "../../../kpn/shared/network-type";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
@@ -41,7 +41,7 @@ export class PlannerTestSetup {
   readonly node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
 
   constructor() {
-    this.context.setNetworkType(NetworkTypes.hiking);
+    this.context.setNetworkType(NetworkType.hiking);
   }
 
   createLeg(source: PlanNode, sink: PlanNode): PlanLeg {

@@ -80,7 +80,7 @@ class OrphanNodeChangeAnalyzerImpl(
   private def isNetworkNode(node: RawNode): Boolean = {
     new Interpreter(NetworkType.hiking).isNetworkNode(node) ||
       new Interpreter(NetworkType.bicycle).isNetworkNode(node) ||
-      new Interpreter(NetworkType.horse).isNetworkNode(node) ||
+      new Interpreter(NetworkType.horseRiding).isNetworkNode(node) ||
       new Interpreter(NetworkType.motorboat).isNetworkNode(node) ||
       new Interpreter(NetworkType.canoe).isNetworkNode(node) ||
       new Interpreter(NetworkType.inlineSkates).isNetworkNode(node)

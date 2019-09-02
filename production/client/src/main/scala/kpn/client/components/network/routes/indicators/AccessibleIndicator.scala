@@ -11,7 +11,7 @@ object AccessibleIndicator {
 
   def apply(networkType: NetworkType, accessible: Boolean)(implicit context: Context): VdomElement = {
 
-    if (Seq(NetworkType.horse, NetworkType.inlineSkates).contains(networkType)) {
+    if (Seq(NetworkType.horseRiding, NetworkType.inlineSkates).contains(networkType)) {
       val description = nls(
         "Accessibility information is unknown for this type of route.",
         "Route toegankelijkheid gegevens zijn onbekend voor dit type route."

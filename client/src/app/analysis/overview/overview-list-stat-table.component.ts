@@ -1,6 +1,5 @@
 import {Component, Input} from "@angular/core";
 import {Countries} from "../../kpn/common/countries";
-import {NetworkTypes} from "../../kpn/common/network-types";
 import {NetworkType} from "../../kpn/shared/network-type";
 import {Stat} from "./stat";
 
@@ -62,27 +61,27 @@ export class OverviewListStatTableComponent {
   }
 
   cycling(): NetworkType {
-    return NetworkTypes.cycling;
+    return NetworkType.cycling;
   }
 
   hiking(): NetworkType {
-    return NetworkTypes.hiking;
+    return NetworkType.hiking;
   }
 
   horse(): NetworkType {
-    return NetworkTypes.horse;
+    return NetworkType.horseRiding;
   }
 
   motorboat(): NetworkType {
-    return NetworkTypes.motorboat;
+    return NetworkType.motorboat;
   }
 
   canoe(): NetworkType {
-    return NetworkTypes.canoe;
+    return NetworkType.canoe;
   }
 
   inlineSkating(): NetworkType {
-    return NetworkTypes.inlineSkating;
+    return NetworkType.inlineSkating;
   }
 
 }

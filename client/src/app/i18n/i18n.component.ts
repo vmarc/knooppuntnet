@@ -12,7 +12,7 @@ import {I18nService} from "./i18n.service";
 
       <span id="@@network-type.hiking" i18n="@@network-type.hiking">Hiking</span>
       <span id="@@network-type.cycling" i18n="@@network-type.cycling">Cycling</span>
-      <span id="@@network-type.horse" i18n="@@network-type.horse">Horse</span>
+      <span id="@@network-type.horse-riding" i18n="@@network-type.horse-riding">Horse riding</span>
       <span id="@@network-type.motorboat" i18n="@@network-type.motorboat">Motorboat</span>
       <span id="@@network-type.canoe" i18n="@@network-type.canoe">Canoe</span>
       <span id="@@network-type.inline-skating" i18n="@@network-type.inline-skating">Inline Skating</span>

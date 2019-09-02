@@ -73,7 +73,9 @@ object PageTitleBuilder {
         case Subset.deBicycle => nls("Cycling in Germany", "Fietsen in Duitsland")
         case Subset.nlHiking => nls("Hiking in The Netherlands", "Wandelen in Nederland")
         case Subset.beHiking => nls("Hiking in Belgium", "Wandelen in België")
-        case Subset.nlHorse => nls("Horse in The Netherlands", "Ruiter in Nederland")
+        case Subset.nlHorseRiding => nls("Horse riding in The Netherlands", "Ruiter in Nederland")
+        case Subset.beHorseRiding => nls("Horse riding in Belgium", "Ruiter in België")
+        case Subset.deHorseRiding => nls("Horse riding in Germany", "Ruiter in Duitsland")
         case Subset.nlCanoe => nls("Canoe in The Netherlands", "Kano in Nederland")
         case Subset.nlMotorboat => nls("Motorboat in The Netherlands", "Motorboot in Nederland")
         case _ => ""

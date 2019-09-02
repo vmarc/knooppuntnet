@@ -162,7 +162,7 @@ object UiNetworkMapPage {
         if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
           props.networkMap.rwnBitmapTileLayer.setVisible(NetworkType.hiking == networkSummary.networkType)
           props.networkMap.rcnBitmapTileLayer.setVisible(NetworkType.bicycle == networkSummary.networkType)
-          props.networkMap.rhnBitmapTileLayer.setVisible(NetworkType.horse == networkSummary.networkType)
+          props.networkMap.rhnBitmapTileLayer.setVisible(NetworkType.horseRiding == networkSummary.networkType)
           props.networkMap.rmnBitmapTileLayer.setVisible(NetworkType.motorboat == networkSummary.networkType)
           props.networkMap.rpnBitmapTileLayer.setVisible(NetworkType.canoe == networkSummary.networkType)
           props.networkMap.rinBitmapTileLayer.setVisible(NetworkType.inlineSkates == networkSummary.networkType)
@@ -183,7 +183,7 @@ object UiNetworkMapPage {
 
           props.networkMap.rwnVectorTileLayer.layer.setVisible(NetworkType.hiking == networkSummary.networkType)
           props.networkMap.rcnVectorTileLayer.layer.setVisible(NetworkType.bicycle == networkSummary.networkType)
-          props.networkMap.rhnVectorTileLayer.layer.setVisible(NetworkType.horse == networkSummary.networkType)
+          props.networkMap.rhnVectorTileLayer.layer.setVisible(NetworkType.horseRiding == networkSummary.networkType)
           props.networkMap.rmnVectorTileLayer.layer.setVisible(NetworkType.motorboat == networkSummary.networkType)
           props.networkMap.rpnVectorTileLayer.layer.setVisible(NetworkType.canoe == networkSummary.networkType)
           props.networkMap.rinVectorTileLayer.layer.setVisible(NetworkType.inlineSkates == networkSummary.networkType)

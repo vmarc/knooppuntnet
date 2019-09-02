@@ -26,10 +26,10 @@ import {MapService} from "../../../components/ol/map.service";
     </kpn-icon-button>
 
     <kpn-icon-button
-      routerLink="/map/horse"
-      icon="horse"
-      text="Horse"
-      i18n-text="@@network-type.horse">
+      routerLink="/map/horse-riding"
+      icon="horse-riding"
+      text="Horse riding"
+      i18n-text="@@network-type.horse-riding">
     </kpn-icon-button>
 
     <kpn-icon-button

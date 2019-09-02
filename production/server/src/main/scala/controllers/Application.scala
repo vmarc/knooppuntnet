@@ -70,7 +70,7 @@ class Application(
     val overview = """overview""".r
     val subsetNetworks = subsetPath("networks").r
     val subsetFacts = subsetPath("facts").r
-    val subsetFactDetails = """(be|de|nl)/(cycling|hiking|horse|motorboat|canoe|inline-skating)/RouteBroken""".r
+    val subsetFactDetails = """(be|de|nl)/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/RouteBroken""".r
     val subsetOrphanNodes = subsetPath("orphan-nodes").r
     val subsetOrphanRoutes = subsetPath("orphan-routes").r
     val subsetChanges = subsetPath("changes").r
@@ -88,11 +88,11 @@ class Application(
     val routeChanges = """route/(\d*)/changes""".r
     val changes = """changes""".r
     val changeSet = """changeset/(\d*)/(\d*)""".r
-    val mapDetailNode = """node-detail/(\d*)/(cycling|hiking|horse|motorboat|canoe|inline-skating)""".r
+    val mapDetailNode = """node-detail/(\d*)/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)""".r
     val mapDetailRoute = """route-detail/(\d*)""".r
     val poiConfiguration = """poi-configuration""".r
     val poi = """poi/(node|way|relation)/(\d*)""".r
-    val leg = """leg/(cycling|hiking|horse|motorboat|canoe|inline-skating)/(.*)/(.*)/(.*)""".r
+    val leg = """leg/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/(.*)/(.*)/(.*)""".r
 
     val userApiService = request.session.get("user") match {
       case Some(user) => new JsonApiService(analyzerFacade, Some(user))(system)
@@ -406,7 +406,7 @@ class Application(
   }
 
   private def subsetPath(target: String): String = {
-    """(be|de|nl)/(cycling|hiking|horse|motorboat|canoe|inline-skating)/""" + target
+    """(be|de|nl)/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/""" + target
   }
 
 }

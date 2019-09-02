@@ -38,8 +38,8 @@ class NodeMap(nodeInfo: NodeInfo)(implicit context: Context) extends MapDefiniti
   private val rhnVectorTileLayer = if (nodeInfo.rhnName.isEmpty) {
     None
   } else {
-    val layer = new MainMapLayer(NetworkType.horse)
-    layer.layer.set("name", nls("Horse", "Ruiter"))
+    val layer = new MainMapLayer(NetworkType.horseRiding)
+    layer.layer.set("name", nls("Horse riding", "Ruiter"))
     Some(layer)
   }
 

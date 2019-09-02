@@ -30,7 +30,7 @@ object UiAnalysisMenu {
       implicit val context: Context = props.pageProps.context
 
       val links = js.Array[ReactElement]()
-      Subset.used.foreach { subset =>
+      Subset.all.foreach { subset =>
         val page = GotoSubsetNetworks(context.lang, subset.country.domain, subset.networkType.name)
         val active = props.currentPage.exists(_.subset == subset)
         val title = new SubsetTitle().get(page.subset)

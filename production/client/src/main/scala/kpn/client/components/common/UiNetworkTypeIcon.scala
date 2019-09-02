@@ -22,7 +22,7 @@ object UiNetworkTypeIcon {
       props.networkType match {
         case NetworkType.hiking => UiIcon(MapsDirectionsWalk, grey800)
         case NetworkType.bicycle => UiIcon(MapsDirectionsBike, grey800)
-        case NetworkType.horse => // UiIcon(NotificationAirlineSeatFlatAngled, grey800, style1)
+        case NetworkType.horseRiding => // UiIcon(NotificationAirlineSeatFlatAngled, grey800, style1)
           <.img(
             ^.src := "/assets/images/horse.svg",
             ^.width := "24px",

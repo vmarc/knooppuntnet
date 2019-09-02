@@ -19,14 +19,14 @@ class NetworkMap(val networkMapState: NetworkMapState = new NetworkMapState())(i
 
   val rwnVectorTileLayer = new NetworkMapLayer(NetworkType.hiking)
   val rcnVectorTileLayer = new NetworkMapLayer(NetworkType.bicycle)
-  val rhnVectorTileLayer = new NetworkMapLayer(NetworkType.horse)
+  val rhnVectorTileLayer = new NetworkMapLayer(NetworkType.horseRiding)
   val rmnVectorTileLayer = new NetworkMapLayer(NetworkType.motorboat)
   val rpnVectorTileLayer = new NetworkMapLayer(NetworkType.canoe)
   val rinVectorTileLayer = new NetworkMapLayer(NetworkType.inlineSkates)
 
   val rwnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.hiking)
   val rcnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.bicycle)
-  val rhnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.horse)
+  val rhnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.horseRiding)
   val rmnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.motorboat)
   val rpnBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.canoe)
   val rinBitmapTileLayer: ol.layer.Tile = Layers.bitmapTileLayer(NetworkType.inlineSkates)

@@ -1,8 +1,7 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {RouteAccessibleData} from "./route-accessible-data";
-import {NetworkTypes} from "../../../../kpn/common/network-types";
 import {NetworkType} from "../../../../kpn/shared/network-type";
+import {RouteAccessibleData} from "./route-accessible-data";
 
 @Component({
   selector: "kpn-route-acccessible-indicator-dialog",
@@ -97,19 +96,19 @@ export class RouteAccessibleIndicatorDialogComponent {
   }
 
   isCycling(): boolean {
-    return this.isNetworkType(NetworkTypes.cycling);
+    return this.isNetworkType(NetworkType.cycling);
   }
 
   isHiking(): boolean {
-    return this.isNetworkType(NetworkTypes.hiking);
+    return this.isNetworkType(NetworkType.hiking);
   }
 
   isMotorboat(): boolean {
-    return this.isNetworkType(NetworkTypes.motorboat);
+    return this.isNetworkType(NetworkType.motorboat);
   }
 
   isCanoe(): boolean {
-    return this.isNetworkType(NetworkTypes.canoe);
+    return this.isNetworkType(NetworkType.canoe);
   }
 
   private isNetworkType(networkType: NetworkType): boolean {

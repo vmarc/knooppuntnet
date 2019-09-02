@@ -69,7 +69,7 @@ export class IconService {
     this.iconRegistry.addSvgIconLiteral("hiking", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/man-walking-to-right.svg")));
 
-    this.iconRegistry.addSvgIconLiteral("horse", this.domSanitizer.bypassSecurityTrustHtml(
+    this.iconRegistry.addSvgIconLiteral("horse-riding", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/horseshoe-black.svg")));
 
     this.iconRegistry.addSvgIconLiteral("motorboat", this.domSanitizer.bypassSecurityTrustHtml(
