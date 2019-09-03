@@ -4,6 +4,7 @@ import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
+import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.core.repository.NodeInfoBuilder.fromRawNode
@@ -42,24 +43,26 @@ class OrphanNodeDeleteProcessorImpl(
 
           if (subsets.nonEmpty) {
             Some(
-              NodeChange(
-                key = context.buildChangeKey(loadedNodeDelete.id),
-                changeType = ChangeType.Delete,
-                subsets = subsets,
-                name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
-                before = loadedNodeDelete.loadedNode.map(_.node.raw),
-                after = None,
-                connectionChanges = Seq.empty,
-                roleConnectionChanges = Seq.empty,
-                definedInNetworkChanges = Seq.empty,
-                tagDiffs = None,
-                nodeMoved = None,
-                addedToRoute = Seq.empty,
-                removedFromRoute = Seq.empty,
-                addedToNetwork = Seq.empty,
-                removedFromNetwork = Seq.empty,
-                factDiffs = FactDiffs(),
-                Seq(Fact.WasOrphan, Fact.Deleted)
+              analyzed(
+                NodeChange(
+                  key = context.buildChangeKey(loadedNodeDelete.id),
+                  changeType = ChangeType.Delete,
+                  subsets = subsets,
+                  name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
+                  before = loadedNodeDelete.loadedNode.map(_.node.raw),
+                  after = None,
+                  connectionChanges = Seq.empty,
+                  roleConnectionChanges = Seq.empty,
+                  definedInNetworkChanges = Seq.empty,
+                  tagDiffs = None,
+                  nodeMoved = None,
+                  addedToRoute = Seq.empty,
+                  removedFromRoute = Seq.empty,
+                  addedToNetwork = Seq.empty,
+                  removedFromNetwork = Seq.empty,
+                  factDiffs = FactDiffs(),
+                  Seq(Fact.WasOrphan, Fact.Deleted)
+                )
               )
             )
           }
@@ -94,4 +97,9 @@ class OrphanNodeDeleteProcessorImpl(
         }
     }
   }
+
+  private def analyzed(nodeChange: NodeChange): NodeChange = {
+    new NodeChangeAnalyzer(nodeChange).analyzed()
+  }
+
 }

@@ -113,7 +113,8 @@ class OrphanNodeTest05 extends AbstractTest {
                 )
               )
             ),
-            facts = Seq(Fact.WasOrphan, Fact.LostHikingNodeTag)
+            facts = Seq(Fact.WasOrphan, Fact.LostHikingNodeTag),
+            investigate = true
           )
         )
         true

@@ -130,7 +130,8 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
             removedFromNetwork = Seq(
               Ref(1, "network")
             ),
-            facts = Seq(Fact.LostHikingNodeTag)
+            facts = Seq(Fact.LostHikingNodeTag),
+            investigate = true
           )
         )
         true

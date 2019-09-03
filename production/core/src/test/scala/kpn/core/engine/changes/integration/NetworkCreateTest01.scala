@@ -201,7 +201,8 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
                 ),
                 addedToNetwork = Seq(
                   Ref(1, "name")
-                )
+                ),
+                happy = true
               )
             )
             true
@@ -221,7 +222,8 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
                 ),
                 addedToNetwork = Seq(
                   Ref(1, "name")
-                )
+                ),
+                happy = true
               )
             )
             true

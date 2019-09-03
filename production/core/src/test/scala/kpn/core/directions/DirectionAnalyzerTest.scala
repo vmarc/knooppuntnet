@@ -55,7 +55,7 @@ class DirectionAnalyzerTest extends FunSuite with Matchers {
 
   test("calculateHeading") {
     calculateHeading(center, north) should equal(0)
-    calculateHeading(center, northEast) should equal(45)
+    calculateHeading(center, northEast) should equal(45 +- 5)
     calculateHeading(center, east) should equal(90 +- 1)
     calculateHeading(center, southEast) should equal(135 +- 5)
     calculateHeading(center, south) should equal(180 +- 1)

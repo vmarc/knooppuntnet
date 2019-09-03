@@ -24,24 +24,26 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
     else {
       assertFixedFields(left, right)
 
-      NodeChange(
-        left.key,
-        mergedChangeType(),
-        mergedSubsets(),
-        left.name,
-        mergedBefore(),
-        mergedAfter(),
-        mergedConnectionChanges(),
-        mergedRoleConnectionChanges(),
-        mergedDefinedInNetworkChanges(),
-        mergedTagDiffs(),
-        mergedNodeMoved(),
-        mergedAddedToRoute(),
-        mergedRemovedFromRoute(),
-        mergedAddedToNetwork(),
-        mergedRemovedFromNetwork(),
-        mergedFactDiffs(),
-        mergedFacts()
+      analyzed(
+        NodeChange(
+          left.key,
+          mergedChangeType(),
+          mergedSubsets(),
+          left.name,
+          mergedBefore(),
+          mergedAfter(),
+          mergedConnectionChanges(),
+          mergedRoleConnectionChanges(),
+          mergedDefinedInNetworkChanges(),
+          mergedTagDiffs(),
+          mergedNodeMoved(),
+          mergedAddedToRoute(),
+          mergedRemovedFromRoute(),
+          mergedAddedToNetwork(),
+          mergedRemovedFromNetwork(),
+          mergedFactDiffs(),
+          mergedFacts()
+        )
       )
     }
   }
@@ -158,4 +160,9 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
   private def mergedFacts(): Seq[Fact] = {
     (left.facts ++ right.facts).distinct.sortBy(_.id)
   }
+
+  private def analyzed(nodeChange: NodeChange): NodeChange = {
+    new NodeChangeAnalyzer(nodeChange).analyzed()
+  }
+
 }

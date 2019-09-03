@@ -4,6 +4,7 @@ import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
+import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.history.NodeDataDiffAnalyzer
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
@@ -122,24 +123,26 @@ class OrphanNodeUpdateProcessorImpl(
       }
 
       Some(
-        NodeChange(
-          key = context.buildChangeKey(loadedNodeChange.after.node.id),
-          changeType = ChangeType.Update,
-          subsets = subsets,
-          name = name,
-          before = Some(loadedNodeChange.before.node.raw),
-          after = Some(loadedNodeChange.after.node.raw),
-          connectionChanges = Seq.empty,
-          roleConnectionChanges = Seq.empty,
-          definedInNetworkChanges = Seq.empty,
-          tagDiffs = nodeDataUpdate.flatMap(_.tagDiffs),
-          nodeMoved = nodeDataUpdate.flatMap(_.nodeMoved),
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
-          facts
+        analyzed(
+          NodeChange(
+            key = context.buildChangeKey(loadedNodeChange.after.node.id),
+            changeType = ChangeType.Update,
+            subsets = subsets,
+            name = name,
+            before = Some(loadedNodeChange.before.node.raw),
+            after = Some(loadedNodeChange.after.node.raw),
+            connectionChanges = Seq.empty,
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
+            tagDiffs = nodeDataUpdate.flatMap(_.tagDiffs),
+            nodeMoved = nodeDataUpdate.flatMap(_.nodeMoved),
+            addedToRoute = Seq.empty,
+            removedFromRoute = Seq.empty,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = Seq.empty,
+            factDiffs = FactDiffs(),
+            facts
+          )
         )
       )
     }
@@ -149,4 +152,9 @@ class OrphanNodeUpdateProcessorImpl(
       None
     }
   }
+
+  private def analyzed(nodeChange: NodeChange): NodeChange = {
+    new NodeChangeAnalyzer(nodeChange).analyzed()
+  }
+
 }

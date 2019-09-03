@@ -175,7 +175,8 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
               ),
               removedFromNetwork = Seq(
                 Ref(1, "network")
-              )
+              ),
+              investigate = true
             )
           )
         }
@@ -194,7 +195,8 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
               ),
               removedFromNetwork = Seq(
                 Ref(1, "network")
-              )
+              ),
+              investigate = true
             )
           )
         }

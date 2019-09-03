@@ -211,7 +211,8 @@ class NetworkCreateTest03 extends AbstractTest {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                facts = Seq(Fact.WasIgnored)
+                facts = Seq(Fact.WasIgnored),
+                happy = true
               )
             )
             true
@@ -232,7 +233,8 @@ class NetworkCreateTest03 extends AbstractTest {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                facts = Seq(Fact.WasIgnored)
+                facts = Seq(Fact.WasIgnored),
+                happy = true
               )
             )
             true

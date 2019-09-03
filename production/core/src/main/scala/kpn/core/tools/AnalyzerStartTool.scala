@@ -10,6 +10,8 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
 import kpn.core.engine.analysis.NetworkNodeBuilder
 import kpn.core.engine.changes.ChangeSetContext
+import kpn.core.engine.changes.node.NodeChangeAnalyzer
+import kpn.core.engine.changes.route.RouteChangeAnalyzer
 import kpn.core.load.data.LoadedNode
 import kpn.core.util.Log
 import kpn.shared.Fact
@@ -124,7 +126,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           config.networkLoader.load(Some(timestamp), networkId) match {
             case Some(loadedNetwork) =>
               val networkRelationAnalysis = config.networkRelationAnalyzer.analyze(loadedNetwork.relation)
-              log.info( s"""Analyze "${loadedNetwork.name}"""")
+              log.info(s"""Analyze "${loadedNetwork.name}"""")
               val network: Network = config.networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork.data, loadedNetwork.networkId)
 
               network.routes.foreach { route =>
@@ -150,28 +152,26 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
                 val networkTypes: Seq[NetworkType] = NodeNetworkTypeAnalyzer.networkTypes(node.networkNode.tags)
                 val subsets: Seq[Subset] = node.networkNode.country.toSeq.flatMap { c => networkTypes.flatMap(n => Subset.of(c, n)) }
-
-                config.changeSetRepository.saveNodeChange(
-                  NodeChange(
-                    key = context.buildChangeKey(node.id),
-                    changeType = ChangeType.InitialValue,
-                    subsets = subsets,
-                    name = node.networkNode.name,
-                    before = None,
-                    after = Some(node.networkNode.node.raw),
-                    connectionChanges = Seq.empty,
-                    roleConnectionChanges = Seq.empty,
-                    definedInNetworkChanges = Seq.empty,
-                    tagDiffs = None,
-                    nodeMoved = None,
-                    addedToRoute = Seq.empty,
-                    removedFromRoute = Seq.empty,
-                    addedToNetwork = Seq.empty,
-                    removedFromNetwork = Seq.empty,
-                    factDiffs = FactDiffs(),
-                    facts = Seq.empty
-                  )
+                val nodeChange = NodeChange(
+                  key = context.buildChangeKey(node.id),
+                  changeType = ChangeType.InitialValue,
+                  subsets = subsets,
+                  name = node.networkNode.name,
+                  before = None,
+                  after = Some(node.networkNode.node.raw),
+                  connectionChanges = Seq.empty,
+                  roleConnectionChanges = Seq.empty,
+                  definedInNetworkChanges = Seq.empty,
+                  tagDiffs = None,
+                  nodeMoved = None,
+                  addedToRoute = Seq.empty,
+                  removedFromRoute = Seq.empty,
+                  addedToNetwork = Seq.empty,
+                  removedFromNetwork = Seq.empty,
+                  factDiffs = FactDiffs(),
+                  facts = Seq.empty
                 )
+                config.changeSetRepository.saveNodeChange(analyzed(nodeChange))
               }
               loadedNetwork.name
 
@@ -229,27 +229,26 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     val loadedNodes: Seq[LoadedNode] = config.nodeLoader.loadNodes(timestamp, nodeIds)
 
     loadedNodes.foreach { loadedNode =>
-      config.changeSetRepository.saveNodeChange(
-        NodeChange(
-          key = context.buildChangeKey(loadedNode.id),
-          changeType = ChangeType.InitialValue,
-          subsets = loadedNode.subsets,
-          name = loadedNode.name,
-          before = None,
-          after = Some(loadedNode.node.raw),
-          connectionChanges = Seq.empty,
-          roleConnectionChanges = Seq.empty,
-          definedInNetworkChanges = Seq.empty,
-          tagDiffs = None,
-          nodeMoved = None,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
-          facts = Seq.empty
-        )
+      val nodeChange = NodeChange(
+        key = context.buildChangeKey(loadedNode.id),
+        changeType = ChangeType.InitialValue,
+        subsets = loadedNode.subsets,
+        name = loadedNode.name,
+        before = None,
+        after = Some(loadedNode.node.raw),
+        connectionChanges = Seq.empty,
+        roleConnectionChanges = Seq.empty,
+        definedInNetworkChanges = Seq.empty,
+        tagDiffs = None,
+        nodeMoved = None,
+        addedToRoute = Seq.empty,
+        removedFromRoute = Seq.empty,
+        addedToNetwork = Seq.empty,
+        removedFromNetwork = Seq.empty,
+        factDiffs = FactDiffs(),
+        facts = Seq.empty
       )
+      config.changeSetRepository.saveNodeChange(analyzed(nodeChange))
     }
   }
 

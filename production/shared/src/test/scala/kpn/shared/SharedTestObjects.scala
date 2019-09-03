@@ -592,7 +592,9 @@ trait SharedTestObjects {
     addedToNetwork: Seq[Ref] = Seq.empty,
     removedFromNetwork: Seq[Ref] = Seq.empty,
     factDiffs: FactDiffs = FactDiffs(),
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    happy: Boolean = false,
+    investigate: Boolean = false
   ): NodeChange = {
     NodeChange(
       key,
@@ -611,7 +613,9 @@ trait SharedTestObjects {
       addedToNetwork,
       removedFromNetwork,
       factDiffs,
-      facts
+      facts,
+      happy,
+      investigate
     )
   }
 

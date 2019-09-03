@@ -115,7 +115,8 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
             removedFromNetwork = Seq(
               Ref(1, "network1")
             ),
-            facts = Seq(Fact.Deleted)
+            facts = Seq(Fact.Deleted),
+            investigate = true
           )
         )
         true

@@ -95,24 +95,26 @@ class UnreferencedNodeProcessorImpl(
       analysisData.orphanNodes.ignored.delete(before.id)
 
       Some(
-        NodeChange(
-          key = context.buildChangeKey(nodeBefore.id),
-          changeType = ChangeType.Update,
-          subsets = subsets,
-          name = nodeBefore.networkNode.name,
-          before = Some(nodeBefore.networkNode.node.raw),
-          after = Some(nodeAfter.node.raw),
-          connectionChanges = Seq.empty,
-          roleConnectionChanges = Seq.empty,
-          definedInNetworkChanges = Seq.empty,
-          tagDiffs = tagDiffs,
-          nodeMoved = nodeMoved,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
-          facts = facts
+        analyzed(
+          NodeChange(
+            key = context.buildChangeKey(nodeBefore.id),
+            changeType = ChangeType.Update,
+            subsets = subsets,
+            name = nodeBefore.networkNode.name,
+            before = Some(nodeBefore.networkNode.node.raw),
+            after = Some(nodeAfter.node.raw),
+            connectionChanges = Seq.empty,
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
+            tagDiffs = tagDiffs,
+            nodeMoved = nodeMoved,
+            addedToRoute = Seq.empty,
+            removedFromRoute = Seq.empty,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = Seq.empty,
+            factDiffs = FactDiffs(),
+            facts = facts
+          )
         )
       )
     }
@@ -130,24 +132,26 @@ class UnreferencedNodeProcessorImpl(
     // TODO CHANGE remove from orphan/ignored node lists? + add in test
 
     Some(
-      NodeChange(
-        key = context.buildChangeKey(nodeBefore.id),
-        changeType = ChangeType.Delete,
-        subsets = subsets,
-        name = nodeBefore.networkNode.name,
-        before = Some(nodeBefore.networkNode.node.raw),
-        after = None,
-        connectionChanges = Seq.empty,
-        roleConnectionChanges = Seq.empty,
-        definedInNetworkChanges = Seq.empty,
-        tagDiffs = None,
-        nodeMoved = None,
-        addedToRoute = Seq.empty,
-        removedFromRoute = Seq.empty,
-        addedToNetwork = Seq.empty,
-        removedFromNetwork = Seq.empty,
-        factDiffs = FactDiffs(),
-        facts = Seq(Fact.Deleted)
+      analyzed(
+        NodeChange(
+          key = context.buildChangeKey(nodeBefore.id),
+          changeType = ChangeType.Delete,
+          subsets = subsets,
+          name = nodeBefore.networkNode.name,
+          before = Some(nodeBefore.networkNode.node.raw),
+          after = None,
+          connectionChanges = Seq.empty,
+          roleConnectionChanges = Seq.empty,
+          definedInNetworkChanges = Seq.empty,
+          tagDiffs = None,
+          nodeMoved = None,
+          addedToRoute = Seq.empty,
+          removedFromRoute = Seq.empty,
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = Seq.empty,
+          factDiffs = FactDiffs(),
+          facts = Seq(Fact.Deleted)
+        )
       )
     )
   }
@@ -170,24 +174,26 @@ class UnreferencedNodeProcessorImpl(
       val nodeMoved = new NodeMovedAnalyzer(rawNodeBefore, rawNodeAfter).analysis
 
       Some(
-        NodeChange(
-          key = context.buildChangeKey(nodeBefore.id),
-          changeType = ChangeType.Update,
-          subsets = nodeAfter.subsets,
-          name = nodeAfter.name,
-          before = Some(rawNodeBefore),
-          after = Some(rawNodeAfter),
-          connectionChanges = Seq.empty, // TODO CHANGE supply value here
-          roleConnectionChanges = Seq.empty, // TODO CHANGE supply value here
-          definedInNetworkChanges = Seq.empty, // TODO CHANGE supply value here
-          tagDiffs = tagDiffs,
-          nodeMoved = nodeMoved,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
-          facts = changeFacts :+ Fact.BecomeOrphan
+        analyzed(
+          NodeChange(
+            key = context.buildChangeKey(nodeBefore.id),
+            changeType = ChangeType.Update,
+            subsets = nodeAfter.subsets,
+            name = nodeAfter.name,
+            before = Some(rawNodeBefore),
+            after = Some(rawNodeAfter),
+            connectionChanges = Seq.empty, // TODO CHANGE supply value here
+            roleConnectionChanges = Seq.empty, // TODO CHANGE supply value here
+            definedInNetworkChanges = Seq.empty, // TODO CHANGE supply value here
+            tagDiffs = tagDiffs,
+            nodeMoved = nodeMoved,
+            addedToRoute = Seq.empty,
+            removedFromRoute = Seq.empty,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = Seq.empty,
+            factDiffs = FactDiffs(),
+            facts = changeFacts :+ Fact.BecomeOrphan
+          )
         )
       )
     }
@@ -204,24 +210,26 @@ class UnreferencedNodeProcessorImpl(
       val nodeMoved = new NodeMovedAnalyzer(rawNodeBefore, rawNodeAfter).analysis
 
       Some(
-        NodeChange(
-          key = context.buildChangeKey(nodeBefore.id),
-          changeType = ChangeType.Update,
-          subsets = nodeAfter.subsets,
-          name = nodeAfter.name,
-          before = Some(rawNodeBefore),
-          after = Some(rawNodeAfter),
-          connectionChanges = Seq.empty,
-          roleConnectionChanges = Seq.empty,
-          definedInNetworkChanges = Seq.empty,
-          tagDiffs = tagDiffs,
-          nodeMoved = nodeMoved,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(introduced = ignoreFacts.toSet),
-          facts = changeFacts :+ Fact.BecomeIgnored
+        analyzed(
+          NodeChange(
+            key = context.buildChangeKey(nodeBefore.id),
+            changeType = ChangeType.Update,
+            subsets = nodeAfter.subsets,
+            name = nodeAfter.name,
+            before = Some(rawNodeBefore),
+            after = Some(rawNodeAfter),
+            connectionChanges = Seq.empty,
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
+            tagDiffs = tagDiffs,
+            nodeMoved = nodeMoved,
+            addedToRoute = Seq.empty,
+            removedFromRoute = Seq.empty,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = Seq.empty,
+            factDiffs = FactDiffs(introduced = ignoreFacts.toSet),
+            facts = changeFacts :+ Fact.BecomeIgnored
+          )
         )
       )
     }
@@ -230,4 +238,9 @@ class UnreferencedNodeProcessorImpl(
   private def isReferencedNode(node: NetworkNodeInfo): Boolean = {
     analysisData.networks.isReferencingNode(node.id) || analysisData.orphanRoutes.watched.isReferencingNode(node.id)
   }
+
+  private def analyzed(nodeChange: NodeChange): NodeChange = {
+    new NodeChangeAnalyzer(nodeChange).analyzed()
+  }
+
 }

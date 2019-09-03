@@ -211,7 +211,8 @@ class NetworkCreateTest02 extends AbstractTest {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                facts = Seq(Fact.WasOrphan)
+                facts = Seq(Fact.WasOrphan),
+                happy = true
               )
             )
             true
@@ -232,7 +233,8 @@ class NetworkCreateTest02 extends AbstractTest {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                facts = Seq(Fact.WasOrphan)
+                facts = Seq(Fact.WasOrphan),
+                happy = true
               )
             )
             true

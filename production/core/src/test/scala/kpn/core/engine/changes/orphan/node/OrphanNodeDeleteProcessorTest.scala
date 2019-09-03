@@ -125,7 +125,8 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
           changeType = ChangeType.Delete,
           subsets = Seq(Subset.nlHiking),
           before = Some(rawNode),
-          facts = Seq(Fact.WasOrphan, Fact.Deleted)
+          facts = Seq(Fact.WasOrphan, Fact.Deleted),
+          investigate = true
         )
       )
     )

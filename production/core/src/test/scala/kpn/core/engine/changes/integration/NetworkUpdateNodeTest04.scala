@@ -167,7 +167,8 @@ class NetworkUpdateNodeTest04 extends AbstractTest {
             after = Some(
               newRawNodeWithName(1002, "02")
             ),
-            removedFromNetwork = Seq(Ref(1, "name"))
+            removedFromNetwork = Seq(Ref(1, "name")),
+            investigate = true
           )
         )
         true

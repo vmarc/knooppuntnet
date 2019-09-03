@@ -176,7 +176,8 @@ class NetworkCreateTest06 extends AbstractTest {
                 ),
                 addedToNetwork = Seq(
                   Ref(1, "name")
-                )
+                ),
+                happy = true
               )
             )
             true
@@ -210,7 +211,8 @@ class NetworkCreateTest06 extends AbstractTest {
                 ),
                 addedToNetwork = Seq(
                   Ref(1, "name")
-                )
+                ),
+                happy = true
               )
             )
             true

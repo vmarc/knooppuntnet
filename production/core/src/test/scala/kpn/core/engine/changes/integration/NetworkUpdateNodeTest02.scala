@@ -181,7 +181,8 @@ class NetworkUpdateNodeTest02 extends AbstractTest {
               newForeignRawNode(1002, "02")
             ),
             removedFromNetwork = Seq(Ref(1, "name")),
-            facts = Seq(Fact.BecomeIgnored)
+            facts = Seq(Fact.BecomeIgnored),
+            investigate = true
           )
         )
         true

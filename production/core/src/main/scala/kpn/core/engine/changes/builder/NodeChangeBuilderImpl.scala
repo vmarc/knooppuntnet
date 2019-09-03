@@ -4,6 +4,7 @@ import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
+import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.engine.changes.node.NodeChangeFactAnalyzer
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
@@ -88,24 +89,26 @@ class NodeChangeBuilderImpl(
               networkAfter.networkType))
           }.toSeq
 
-          NodeChange(
-            key = context.changeSetContext.buildChangeKey(nodeAfter.id),
-            changeType = ChangeType.Create,
-            subsets = subsets,
-            name = nodeAfter.networkNode.name,
-            before = None,
-            after = Some(nodeAfter.networkNode.node.raw),
-            connectionChanges = Seq.empty,
-            roleConnectionChanges = Seq.empty,
-            definedInNetworkChanges = Seq.empty,
-            tagDiffs = None,
-            nodeMoved = None,
-            addedToRoute = addedToRoute,
-            removedFromRoute = Seq.empty,
-            addedToNetwork = context.networkRef.toSeq,
-            removedFromNetwork = Seq.empty,
-            factDiffs = FactDiffs(),
-            facts = extraFacts
+          analyzed(
+            NodeChange(
+              key = context.changeSetContext.buildChangeKey(nodeAfter.id),
+              changeType = ChangeType.Create,
+              subsets = subsets,
+              name = nodeAfter.networkNode.name,
+              before = None,
+              after = Some(nodeAfter.networkNode.node.raw),
+              connectionChanges = Seq.empty,
+              roleConnectionChanges = Seq.empty,
+              definedInNetworkChanges = Seq.empty,
+              tagDiffs = None,
+              nodeMoved = None,
+              addedToRoute = addedToRoute,
+              removedFromRoute = Seq.empty,
+              addedToNetwork = context.networkRef.toSeq,
+              removedFromNetwork = Seq.empty,
+              factDiffs = FactDiffs(),
+              facts = extraFacts
+            )
           )
 
         case Some(nodeBefore) =>
@@ -121,24 +124,26 @@ class NodeChangeBuilderImpl(
             context.networkAfter.toSeq.flatMap(networkAfter => countries.flatMap(c => Subset.of(c, networkAfter.networkType))).distinct.sorted
           }
 
-          NodeChange(
-            key = context.changeSetContext.buildChangeKey(nodeAfter.id),
-            changeType = ChangeType.Update,
-            subsets = subsets,
-            name = nodeAfter.networkNode.name,
-            before = Some(nodeBefore.node.raw),
-            after = Some(nodeAfter.networkNode.node.raw),
-            connectionChanges = Seq.empty,
-            roleConnectionChanges = Seq.empty,
-            definedInNetworkChanges = Seq.empty,
-            tagDiffs = tagDiffs,
-            nodeMoved = nodeMoved,
-            addedToRoute = addedToRoute,
-            removedFromRoute = Seq.empty,
-            addedToNetwork = context.networkRef.toSeq,
-            removedFromNetwork = Seq.empty,
-            factDiffs = FactDiffs(),
-            facts = extraFacts ++ facts
+          analyzed(
+            NodeChange(
+              key = context.changeSetContext.buildChangeKey(nodeAfter.id),
+              changeType = ChangeType.Update,
+              subsets = subsets,
+              name = nodeAfter.networkNode.name,
+              before = Some(nodeBefore.node.raw),
+              after = Some(nodeAfter.networkNode.node.raw),
+              connectionChanges = Seq.empty,
+              roleConnectionChanges = Seq.empty,
+              definedInNetworkChanges = Seq.empty,
+              tagDiffs = tagDiffs,
+              nodeMoved = nodeMoved,
+              addedToRoute = addedToRoute,
+              removedFromRoute = Seq.empty,
+              addedToNetwork = context.networkRef.toSeq,
+              removedFromNetwork = Seq.empty,
+              factDiffs = FactDiffs(),
+              facts = extraFacts ++ facts
+            )
           )
       }
     }
@@ -182,24 +187,26 @@ class NodeChangeBuilderImpl(
               networkBefore.networkType))
           }.toSeq
 
-          NodeChange(
-            key = context.changeSetContext.buildChangeKey(nodeId),
-            changeType = ChangeType.Delete,
-            subsets = subsets,
-            name = nodeBefore.networkNode.name,
-            before = Some(nodeBefore.networkNode.node.raw),
-            after = None,
-            connectionChanges = Seq.empty,
-            roleConnectionChanges = Seq.empty,
-            definedInNetworkChanges = Seq.empty,
-            tagDiffs = None,
-            nodeMoved = None,
-            addedToRoute = Seq.empty,
-            removedFromRoute = removedFromRoute,
-            addedToNetwork = Seq.empty,
-            removedFromNetwork = context.networkRef.toSeq,
-            factDiffs = FactDiffs(),
-            facts = Seq(Fact.Deleted)
+          analyzed(
+            NodeChange(
+              key = context.changeSetContext.buildChangeKey(nodeId),
+              changeType = ChangeType.Delete,
+              subsets = subsets,
+              name = nodeBefore.networkNode.name,
+              before = Some(nodeBefore.networkNode.node.raw),
+              after = None,
+              connectionChanges = Seq.empty,
+              roleConnectionChanges = Seq.empty,
+              definedInNetworkChanges = Seq.empty,
+              tagDiffs = None,
+              nodeMoved = None,
+              addedToRoute = Seq.empty,
+              removedFromRoute = removedFromRoute,
+              addedToNetwork = Seq.empty,
+              removedFromNetwork = context.networkRef.toSeq,
+              factDiffs = FactDiffs(),
+              facts = Seq(Fact.Deleted)
+            )
           )
 
         case Some(nodeAfter) =>
@@ -237,24 +244,26 @@ class NodeChangeBuilderImpl(
             val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, active = active)
             analysisRepository.saveNode(nodeInfo)
 
-            NodeChange(
-              key = context.changeSetContext.buildChangeKey(nodeId),
-              changeType = ChangeType.Update,
-              subsets = subsets,
-              name = name,
-              before = Some(before),
-              after = Some(after),
-              connectionChanges = Seq.empty,
-              roleConnectionChanges = Seq.empty,
-              definedInNetworkChanges = Seq.empty,
-              tagDiffs = tagDiffs,
-              nodeMoved = nodeMoved,
-              addedToRoute = Seq.empty,
-              removedFromRoute = removedFromRoute,
-              addedToNetwork = Seq.empty,
-              removedFromNetwork = context.networkRef.toSeq,
-              factDiffs = FactDiffs(),
-              facts = nodeFacts
+            analyzed(
+              NodeChange(
+                key = context.changeSetContext.buildChangeKey(nodeId),
+                changeType = ChangeType.Update,
+                subsets = subsets,
+                name = name,
+                before = Some(before),
+                after = Some(after),
+                connectionChanges = Seq.empty,
+                roleConnectionChanges = Seq.empty,
+                definedInNetworkChanges = Seq.empty,
+                tagDiffs = tagDiffs,
+                nodeMoved = nodeMoved,
+                addedToRoute = Seq.empty,
+                removedFromRoute = removedFromRoute,
+                addedToNetwork = Seq.empty,
+                removedFromNetwork = context.networkRef.toSeq,
+                factDiffs = FactDiffs(),
+                facts = nodeFacts
+              )
             )
           }
           else {
@@ -280,24 +289,26 @@ class NodeChangeBuilderImpl(
               }
             }
 
-            NodeChange(
-              key = context.changeSetContext.buildChangeKey(nodeId),
-              changeType = ChangeType.Update,
-              subsets = subsets,
-              name = nodeBefore.networkNode.name,
-              before = Some(before),
-              after = Some(after),
-              connectionChanges = Seq.empty,
-              roleConnectionChanges = Seq.empty,
-              definedInNetworkChanges = Seq.empty,
-              tagDiffs = tagDiffs,
-              nodeMoved = nodeMoved,
-              addedToRoute = Seq.empty,
-              removedFromRoute = removedFromRoute,
-              addedToNetwork = Seq.empty,
-              removedFromNetwork = context.networkRef.toSeq,
-              factDiffs = FactDiffs(),
-              facts = extraFacts ++ nodeFacts
+            analyzed(
+              NodeChange(
+                key = context.changeSetContext.buildChangeKey(nodeId),
+                changeType = ChangeType.Update,
+                subsets = subsets,
+                name = nodeBefore.networkNode.name,
+                before = Some(before),
+                after = Some(after),
+                connectionChanges = Seq.empty,
+                roleConnectionChanges = Seq.empty,
+                definedInNetworkChanges = Seq.empty,
+                tagDiffs = tagDiffs,
+                nodeMoved = nodeMoved,
+                addedToRoute = Seq.empty,
+                removedFromRoute = removedFromRoute,
+                addedToNetwork = Seq.empty,
+                removedFromNetwork = context.networkRef.toSeq,
+                factDiffs = FactDiffs(),
+                facts = extraFacts ++ nodeFacts
+              )
             )
           }
       }
@@ -406,7 +417,7 @@ class NodeChangeBuilderImpl(
           None
         }
         else {
-          Some(nodeChange)
+          Some(analyzed(nodeChange))
         }
       }
     }
@@ -456,4 +467,9 @@ class NodeChangeBuilderImpl(
   private def networkNodeInfosIn(network: Option[Network], nodeIds: Set[Long]): Seq[NetworkNodeInfo] = {
     network.toSeq.flatMap(_.nodes.filter(n => nodeIds.contains(n.id)))
   }
+
+  private def analyzed(nodeChange: NodeChange): NodeChange = {
+    new NodeChangeAnalyzer(nodeChange).analyzed()
+  }
+
 }

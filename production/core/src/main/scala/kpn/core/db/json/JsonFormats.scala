@@ -343,7 +343,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val refBooleanChangeFormat: RootJsonFormat[RefBooleanChange] = jsonFormat2(RefBooleanChange)
   implicit val nodeIntegrityCheckChangeFormat: RootJsonFormat[NodeIntegrityCheckChange] = jsonFormat3(NodeIntegrityCheckChange)
-  implicit val nodeChangeFormat: RootJsonFormat[NodeChange] = jsonFormat17(NodeChange)
+  implicit val nodeChangeFormat: RootJsonFormat[NodeChange] = jsonFormat19(NodeChange)
 
   implicit val changeSetSummaryDocFormat: RootJsonFormat[ChangeSetSummaryDoc] = jsonFormat3(ChangeSetSummaryDoc)
 

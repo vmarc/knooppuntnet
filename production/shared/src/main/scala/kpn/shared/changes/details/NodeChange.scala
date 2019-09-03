@@ -29,7 +29,9 @@ case class NodeChange(
   addedToNetwork: Seq[Ref],
   removedFromNetwork: Seq[Ref],
   factDiffs: FactDiffs,
-  facts: Seq[Fact]
+  facts: Seq[Fact],
+  happy: Boolean = false,
+  investigate: Boolean = false
 ) {
 
   def id: Long = key.elementId
@@ -46,34 +48,6 @@ case class NodeChange(
       removedFromNetwork.isEmpty &&
       factDiffs.isEmpty &&
       facts.isEmpty
-  }
-
-  def happy: Boolean = {
-    changeType != ChangeType.InitialValue && (
-      changeType == ChangeType.Create ||
-        definedInNetworkChanges.exists(_.after) ||
-        addedToRoute.nonEmpty ||
-        addedToNetwork.nonEmpty ||
-        factDiffs.happy ||
-        facts.contains(Fact.Added) ||
-        (facts.contains(Fact.WasOrphan) && !(facts.contains(Fact.Deleted) || facts.contains(Fact.LostHikingNodeTag) || facts.contains(Fact.LostBicycleNodeTag))) ||
-        facts.contains(Fact.WasIgnored)
-      )
-  }
-
-  def investigate: Boolean = {
-    changeType != ChangeType.InitialValue && (
-      changeType == ChangeType.Delete ||
-        definedInNetworkChanges.exists(_.after == false) ||
-        removedFromRoute.nonEmpty ||
-        removedFromNetwork.nonEmpty ||
-        factDiffs.investigate ||
-        facts.contains(Fact.Deleted) ||
-        facts.contains(Fact.BecomeIgnored) ||
-        facts.contains(Fact.BecomeOrphan) ||
-        facts.contains(Fact.LostHikingNodeTag) ||
-        facts.contains(Fact.LostBicycleNodeTag)
-      )
   }
 
   def toRef: Ref = Ref(id, name)
