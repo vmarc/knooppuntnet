@@ -152,8 +152,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 "01-02",
                 RouteMap(
                   MapBounds("0.0", "0.0", "0.0", "0.0"),
-                  Some(TrackPath(1001, 1002, 0, Seq(TrackSegment("paved", TrackPoint("0", "0"), Seq(TrackSegmentFragment(TrackPoint("0", "0"), 0, 0, None)))))),
-                  Some(TrackPath(1002, 1001, 0, Seq(TrackSegment("paved", TrackPoint("0", "0"), Seq(TrackSegmentFragment(TrackPoint("0", "0"), 0, 0, None)))))),
+                  Some(TrackPath(1001, 1002, 0, Seq(TrackSegment("paved", TrackPoint("0", "0"), Seq(TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)))))),
+                  Some(TrackPath(1002, 1001, 0, Seq(TrackSegment("paved", TrackPoint("0", "0"), Seq(TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)))))),
                   Seq(),
                   Seq(),
                   Seq(),
@@ -320,7 +320,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
             removedFromNetwork = Seq(Ref(1, "name")),
             before = Some(routeData),
             after = Some(routeData),
-            facts = Seq(Fact.BecomeOrphan)
+            facts = Seq(Fact.BecomeOrphan),
+            investigate = true
           )
         )
         true

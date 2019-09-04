@@ -119,12 +119,11 @@ class ChangeSaverTest extends FunSuite with Matchers with MockFactory with Share
                 Subset.nlHiking,
                 ChangeSetElementRefs(
                   added = Seq(
-                    ChangeSetElementRef(10, "", happy = true, investigate = false)
+                    ChangeSetElementRef(10, "", happy = false, investigate = false)
                   )
                 )
               )
-            ),
-            happy = true
+            )
           )
         )
         true

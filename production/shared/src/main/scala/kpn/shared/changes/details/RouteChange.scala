@@ -25,7 +25,9 @@ case class RouteChange(
   addedWays: Seq[RawWay],
   updatedWays: Seq[WayUpdate],
   diffs: RouteDiff,
-  facts: Seq[Fact]
+  facts: Seq[Fact],
+  happy: Boolean = false,
+  investigate: Boolean = false
 ) {
 
   def id: Long = key.elementId
@@ -43,29 +45,6 @@ case class RouteChange(
     updatedWays.isEmpty &&
     diffs.isEmpty &&
     facts.isEmpty
-
-  def happy: Boolean = {
-    changeType != ChangeType.InitialValue && (
-      changeType == ChangeType.Create ||
-        addedToNetwork.nonEmpty ||
-        diffs.happy ||
-        facts.contains(Fact.Added) ||
-        (facts.contains(Fact.WasOrphan) && !(facts.contains(Fact.Deleted) || facts.contains(Fact.LostRouteTags))) ||
-        facts.contains(Fact.WasIgnored)
-      )
-  }
-
-  def investigate: Boolean = {
-    changeType != ChangeType.InitialValue && (
-      changeType == ChangeType.Delete ||
-        removedFromNetwork.nonEmpty ||
-        diffs.investigate ||
-        facts.contains(Fact.Deleted) ||
-        facts.contains(Fact.BecomeIgnored) ||
-        facts.contains(Fact.BecomeOrphan) ||
-        facts.contains(Fact.LostRouteTags)
-      )
-  }
 
   def referencedElements: ReferencedElements = {
     ReferencedElements(nodeIds = nodeIdsReferencedIn(before) ++ nodeIdsReferencedIn(after), Set(id))

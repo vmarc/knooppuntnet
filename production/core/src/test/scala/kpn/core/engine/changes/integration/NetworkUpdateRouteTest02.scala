@@ -227,7 +227,8 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
             "01-02",
             removedFromNetwork = Seq(Ref(1, "name")),
             before = Some(routeData),
-            after = Some(routeData)
+            after = Some(routeData),
+            investigate = true
           )
         )
         true

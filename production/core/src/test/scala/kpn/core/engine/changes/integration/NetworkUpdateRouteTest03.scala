@@ -242,7 +242,8 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 )
               )
             ),
-            facts = Seq(Fact.Deleted)
+            facts = Seq(Fact.Deleted),
+            investigate = true
           )
         )
         true

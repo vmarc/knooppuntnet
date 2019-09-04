@@ -6,6 +6,7 @@ import kpn.core.engine.analysis.route.MasterRouteAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.ChangeSetChanges
+import kpn.core.engine.changes.route.RouteChangeAnalyzer
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.load.RoutesLoader
 import kpn.core.repository.AnalysisRepository
@@ -52,19 +53,21 @@ class OrphanRouteChangeProcessorImpl(
     val creates = routeAnalyses.map(_.toRouteData)
 
     creates.map { routeData =>
-      RouteChange(
-        key = context.buildChangeKey(routeData.id),
-        changeType = ChangeType.Create,
-        name = routeData.name,
-        addedToNetwork = Seq.empty,
-        removedFromNetwork = Seq.empty,
-        before = None,
-        after = Some(routeData),
-        removedWays = Seq.empty,
-        addedWays = Seq.empty,
-        updatedWays = Seq.empty,
-        diffs = RouteDiff(),
-        facts = Seq(Fact.OrphanRoute)
+      analyzed(
+        RouteChange(
+          key = context.buildChangeKey(routeData.id),
+          changeType = ChangeType.Create,
+          name = routeData.name,
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = Seq.empty,
+          before = None,
+          after = Some(routeData),
+          removedWays = Seq.empty,
+          addedWays = Seq.empty,
+          updatedWays = Seq.empty,
+          diffs = RouteDiff(),
+          facts = Seq(Fact.OrphanRoute)
+        )
       )
     }
   }
@@ -110,19 +113,21 @@ class OrphanRouteChangeProcessorImpl(
           }
 
           Some(
-            RouteChange(
-              key = context.buildChangeKey(routeUpdate.after.id),
-              changeType = ChangeType.Update,
-              name = routeUpdate.after.name,
-              addedToNetwork = Seq.empty,
-              removedFromNetwork = Seq.empty,
-              before = Some(routeUpdate.before.toRouteData),
-              after = Some(routeUpdate.after.toRouteData),
-              removedWays = routeUpdate.removedWays,
-              addedWays = routeUpdate.addedWays,
-              updatedWays = routeUpdate.updatedWays,
-              diffs = routeUpdate.diffs,
-              facts = facts
+            analyzed(
+              RouteChange(
+                key = context.buildChangeKey(routeUpdate.after.id),
+                changeType = ChangeType.Update,
+                name = routeUpdate.after.name,
+                addedToNetwork = Seq.empty,
+                removedFromNetwork = Seq.empty,
+                before = Some(routeUpdate.before.toRouteData),
+                after = Some(routeUpdate.after.toRouteData),
+                removedWays = routeUpdate.removedWays,
+                addedWays = routeUpdate.addedWays,
+                updatedWays = routeUpdate.updatedWays,
+                diffs = routeUpdate.diffs,
+                facts = facts
+              )
             )
           )
       }
@@ -157,23 +162,30 @@ class OrphanRouteChangeProcessorImpl(
           }
           else {
             Some(
-              RouteChange(
-                key = context.buildChangeKey(route.id),
-                changeType = ChangeType.Delete,
-                name = route.summary.name,
-                addedToNetwork = Seq.empty,
-                removedFromNetwork = Seq.empty,
-                before = Some(routeAnalysis.toRouteData),
-                after = None,
-                removedWays = Seq.empty,
-                addedWays = Seq.empty,
-                updatedWays = Seq.empty,
-                diffs = RouteDiff(),
-                facts = Seq(Fact.WasOrphan, Fact.Deleted)
+              analyzed(
+                RouteChange(
+                  key = context.buildChangeKey(route.id),
+                  changeType = ChangeType.Delete,
+                  name = route.summary.name,
+                  addedToNetwork = Seq.empty,
+                  removedFromNetwork = Seq.empty,
+                  before = Some(routeAnalysis.toRouteData),
+                  after = None,
+                  removedWays = Seq.empty,
+                  addedWays = Seq.empty,
+                  updatedWays = Seq.empty,
+                  diffs = RouteDiff(),
+                  facts = Seq(Fact.WasOrphan, Fact.Deleted)
+                )
               )
             )
           }
       }
     }
   }
+
+  private def analyzed(routeChange: RouteChange): RouteChange = {
+    new RouteChangeAnalyzer(routeChange).analyzed()
+  }
+
 }

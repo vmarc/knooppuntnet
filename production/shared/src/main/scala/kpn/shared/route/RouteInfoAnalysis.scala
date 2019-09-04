@@ -1,5 +1,7 @@
 package kpn.shared.route
 
+import kpn.shared.common.ToStringBuilder
+
 case class RouteInfoAnalysis(
   startNodes: Seq[RouteNetworkNodeInfo],
   endNodes: Seq[RouteNetworkNodeInfo],
@@ -10,4 +12,17 @@ case class RouteInfoAnalysis(
   expectedName: String,
   map: RouteMap,
   structureStrings: Seq[String]
-)
+){
+
+  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("startNodes", startNodes).
+    field("endNodes", endNodes).
+    field("startTentacleNodes", startTentacleNodes).
+    field("endTentacleNodes", endTentacleNodes).
+    field("unexpectedNodeIds", unexpectedNodeIds).
+    field("members", members).
+    field("expectedName", expectedName).
+    field("map", map).
+    field("structureStrings", structureStrings).
+    build
+}

@@ -221,7 +221,8 @@ class NetworkUpdateRouteTest05 extends AbstractTest {
             ),
             before = Some(routeData),
             after = Some(routeData),
-            facts = Seq(Fact.WasOrphan)
+            facts = Seq(Fact.WasOrphan),
+            happy = true
           )
         )
         true

@@ -35,11 +35,11 @@ import kpn.shared.network.NetworkNodeInfo2
 import kpn.shared.network.NetworkRouteInfo
 import kpn.shared.node.NodeNameAnalyzer.name
 import kpn.shared.node.NodeNameAnalyzer.rcnName
-import kpn.shared.node.NodeNameAnalyzer.rwnName
 import kpn.shared.node.NodeNameAnalyzer.rhnName
+import kpn.shared.node.NodeNameAnalyzer.rinName
 import kpn.shared.node.NodeNameAnalyzer.rmnName
 import kpn.shared.node.NodeNameAnalyzer.rpnName
-import kpn.shared.node.NodeNameAnalyzer.rinName
+import kpn.shared.node.NodeNameAnalyzer.rwnName
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap
@@ -161,7 +161,9 @@ trait SharedTestObjects {
     addedWays: Seq[RawWay] = Seq.empty,
     updatedWays: Seq[WayUpdate] = Seq.empty,
     diffs: RouteDiff = RouteDiff(),
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    happy: Boolean = false,
+    investigate: Boolean = false
   ): RouteChange = {
     RouteChange(
       key,
@@ -175,7 +177,9 @@ trait SharedTestObjects {
       addedWays,
       updatedWays,
       diffs,
-      facts
+      facts,
+      happy,
+      investigate
     )
   }
 

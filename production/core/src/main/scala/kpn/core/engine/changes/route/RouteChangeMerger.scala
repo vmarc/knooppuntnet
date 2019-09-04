@@ -17,19 +17,21 @@ class RouteChangeMerger(left: RouteChange, right: RouteChange) {
     else {
 
       assertFixedFields(left, right)
-      RouteChange(
-        left.key,
-        mergedChangeType(),
-        left.name,
-        mergedRefs(left.addedToNetwork, right.addedToNetwork),
-        mergedRefs(left.removedFromNetwork, right.removedFromNetwork),
-        before = mergedRouteData(left.before, right.before),
-        after = mergedRouteData(left.after, right.after),
-        removedWays = left.removedWays, // TODO CHANGE
-        addedWays = left.addedWays, // TODO CHANGE
-        updatedWays = left.updatedWays, // TODO CHANGE
-        diffs = left.diffs,  // TODO CHANGE
-        facts = (left.facts ++ right.facts).distinct.sortBy(_.id)
+      analyzed(
+        RouteChange(
+          left.key,
+          mergedChangeType(),
+          left.name,
+          mergedRefs(left.addedToNetwork, right.addedToNetwork),
+          mergedRefs(left.removedFromNetwork, right.removedFromNetwork),
+          before = mergedRouteData(left.before, right.before),
+          after = mergedRouteData(left.after, right.after),
+          removedWays = left.removedWays, // TODO CHANGE
+          addedWays = left.addedWays, // TODO CHANGE
+          updatedWays = left.updatedWays, // TODO CHANGE
+          diffs = left.diffs, // TODO CHANGE
+          facts = (left.facts ++ right.facts).distinct.sortBy(_.id)
+        )
       )
     }
   }
@@ -100,4 +102,9 @@ class RouteChangeMerger(left: RouteChange, right: RouteChange) {
       (leftRefs ++ rightRefs).distinct.sortBy(_.id)
     }
   }
+
+  private def analyzed(routeChange: RouteChange): RouteChange = {
+    new RouteChangeAnalyzer(routeChange).analyzed()
+  }
+
 }

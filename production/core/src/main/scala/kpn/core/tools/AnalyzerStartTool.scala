@@ -131,19 +131,21 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
               network.routes.foreach { route =>
                 config.changeSetRepository.saveRouteChange(
-                  RouteChange(
-                    key = context.buildChangeKey(route.id),
-                    changeType = ChangeType.InitialValue,
-                    name = route.routeAnalysis.route.summary.name,
-                    addedToNetwork = Seq(Ref(network.id, network.name)),
-                    removedFromNetwork = Seq.empty,
-                    before = None,
-                    after = Some(route.routeAnalysis.toRouteData),
-                    removedWays = Seq.empty,
-                    addedWays = Seq.empty,
-                    updatedWays = Seq.empty,
-                    diffs = RouteDiff(),
-                    facts = route.routeAnalysis.route.facts
+                  analyzed(
+                    RouteChange(
+                      key = context.buildChangeKey(route.id),
+                      changeType = ChangeType.InitialValue,
+                      name = route.routeAnalysis.route.summary.name,
+                      addedToNetwork = Seq(Ref(network.id, network.name)),
+                      removedFromNetwork = Seq.empty,
+                      before = None,
+                      after = Some(route.routeAnalysis.toRouteData),
+                      removedWays = Seq.empty,
+                      addedWays = Seq.empty,
+                      updatedWays = Seq.empty,
+                      diffs = RouteDiff(),
+                      facts = route.routeAnalysis.route.facts
+                    )
                   )
                 )
               }
@@ -203,19 +205,21 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
             }
 
             config.changeSetRepository.saveRouteChange(
-              RouteChange(
-                key = context.buildChangeKey(analysis.route.id),
-                changeType = ChangeType.InitialValue,
-                name = analysis.route.summary.name,
-                addedToNetwork = Seq.empty,
-                removedFromNetwork = Seq.empty,
-                before = None,
-                after = Some(analysis.toRouteData),
-                removedWays = Seq.empty,
-                addedWays = Seq.empty,
-                updatedWays = Seq.empty,
-                diffs = RouteDiff(),
-                facts = facts
+              analyzed(
+                RouteChange(
+                  key = context.buildChangeKey(analysis.route.id),
+                  changeType = ChangeType.InitialValue,
+                  name = analysis.route.summary.name,
+                  addedToNetwork = Seq.empty,
+                  removedFromNetwork = Seq.empty,
+                  before = None,
+                  after = Some(analysis.toRouteData),
+                  removedWays = Seq.empty,
+                  addedWays = Seq.empty,
+                  updatedWays = Seq.empty,
+                  diffs = RouteDiff(),
+                  facts = facts
+                )
               )
             )
         }
@@ -250,6 +254,14 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
       )
       config.changeSetRepository.saveNodeChange(analyzed(nodeChange))
     }
+  }
+
+  private def analyzed(routeChange: RouteChange): RouteChange = {
+    new RouteChangeAnalyzer(routeChange).analyzed()
+  }
+
+  private def analyzed(nodeChange: NodeChange): NodeChange = {
+    new NodeChangeAnalyzer(nodeChange).analyzed()
   }
 
 }

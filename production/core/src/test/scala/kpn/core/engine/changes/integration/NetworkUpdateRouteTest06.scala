@@ -251,7 +251,8 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
                 )
               )
             ),
-            facts = Seq(Fact.WasIgnored)
+            facts = Seq(Fact.WasIgnored),
+            happy = true
           )
         )
         true
