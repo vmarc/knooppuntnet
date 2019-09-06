@@ -2,6 +2,7 @@ package kpn.core.engine.changes.integration
 
 import kpn.core.changes.RelationAnalyzer
 import kpn.core.test.TestData2
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.Fact
@@ -75,6 +76,9 @@ class NetworkDeleteNodeTest04 extends AbstractTest {
                   investigate = true
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
             ),
             investigate = true
           )

@@ -35,11 +35,14 @@ import kpn.shared.Bounds
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
 import kpn.shared.ChangeSetNetwork
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.ChangeSetSummaryDoc
 import kpn.shared.ChangeSetSummaryInfo
 import kpn.shared.ChangesPage
+import kpn.shared.Check
+import kpn.shared.Fact
 import kpn.shared.FactCount
 import kpn.shared.FactCountNew
 import kpn.shared.FactLevel
@@ -48,6 +51,7 @@ import kpn.shared.NetworkChanges
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
+import kpn.shared.NetworkFact
 import kpn.shared.NetworkFacts
 import kpn.shared.NetworkIntegrityCheck
 import kpn.shared.NetworkIntegrityCheckFailed
@@ -60,7 +64,9 @@ import kpn.shared.Poi
 import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
 import kpn.shared.RouteSummary
+import kpn.shared.Subset
 import kpn.shared.TimeInfo
+import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeSetData
 import kpn.shared.changes.ChangeSetInfo
 import kpn.shared.changes.ChangeSetPage
@@ -84,9 +90,9 @@ import kpn.shared.common.MapBounds
 import kpn.shared.common.NetworkRefs
 import kpn.shared.common.Ref
 import kpn.shared.common.Reference
+import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackPoint
 import kpn.shared.common.TrackSegment
-import kpn.shared.common.TrackPath
 import kpn.shared.common.TrackSegmentFragment
 import kpn.shared.data.MetaData
 import kpn.shared.data.Tag
@@ -123,10 +129,7 @@ import kpn.shared.network.Integrity
 import kpn.shared.network.NetworkAttributes
 import kpn.shared.network.NetworkChangesPage
 import kpn.shared.network.NetworkDetailsPage
-import kpn.shared.NetworkFact
-import kpn.shared.Check
 import kpn.shared.network.NetworkFactsPage
-import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.network.NetworkInfo
 import kpn.shared.network.NetworkInfoDetail
 import kpn.shared.network.NetworkMapInfo
@@ -140,16 +143,17 @@ import kpn.shared.network.NetworkRouteRow
 import kpn.shared.network.NetworkRoutesPage
 import kpn.shared.network.NetworkShape
 import kpn.shared.network.NetworkSummary
+import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangeInfo
 import kpn.shared.node.NodeChangeInfos
+import kpn.shared.node.NodeChangesPage
+import kpn.shared.node.NodeDetailsPage
+import kpn.shared.node.NodeMapPage
 import kpn.shared.node.NodeNetworkIntegrityCheck
 import kpn.shared.node.NodeNetworkReference
 import kpn.shared.node.NodeNetworkRouteReference
 import kpn.shared.node.NodeOrphanRouteReference
-import kpn.shared.node.NodeDetailsPage
-import kpn.shared.node.NodeMapPage
-import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeReferences
 import kpn.shared.planner.RouteLeg
 import kpn.shared.planner.RouteLegFragment
@@ -161,14 +165,14 @@ import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.PointSegment
 import kpn.shared.route.RouteChangeInfo
 import kpn.shared.route.RouteChangeInfos
+import kpn.shared.route.RouteChangesPage
+import kpn.shared.route.RouteDetailsPage
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap
+import kpn.shared.route.RouteMapPage
 import kpn.shared.route.RouteMemberInfo
 import kpn.shared.route.RouteNetworkNodeInfo
-import kpn.shared.route.RouteDetailsPage
-import kpn.shared.route.RouteMapPage
-import kpn.shared.route.RouteChangesPage
 import kpn.shared.route.RouteReferences
 import kpn.shared.route.WayGeometry
 import kpn.shared.statistics.CountryStatistic
@@ -314,7 +318,42 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val changeKeyFormat: RootJsonFormat[ChangeKey] = jsonFormat4(ChangeKey)
 
-  implicit val changeSetSummaryFormat: RootJsonFormat[ChangeSetSummary] = jsonFormat9(ChangeSetSummary.apply)
+  implicit val changeSetSubsetAnalysisFormat: RootJsonFormat[ChangeSetSubsetAnalysis] = jsonFormat3(ChangeSetSubsetAnalysis.apply)
+
+  // implicit val changeSetSummaryFormat: RootJsonFormat[ChangeSetSummary] = jsonFormat10(ChangeSetSummary.apply)
+  // temporary format that can be removed after all ChangeSetSummary instances in the database include 'happy', 'investigate'
+  implicit object ChangeSetSummaryFormat extends RootJsonFormat[ChangeSetSummary] {
+    override def write(obj: ChangeSetSummary): JsValue = JsObject(
+      "key" -> obj.key.toJson,
+      "subsets" -> obj.subsets.toJson,
+      "timestampFrom" -> obj.timestampFrom.toJson,
+      "timestampUntil" -> obj.timestampUntil.toJson,
+      "networkChanges" -> obj.networkChanges.toJson,
+      "orphanRouteChanges" -> obj.orphanRouteChanges.toJson,
+      "orphanNodeChanges" -> obj.orphanNodeChanges.toJson,
+      "subsetAnalyses" -> obj.subsetAnalyses.toJson,
+      "happy" -> obj.happy.toJson,
+      "investigate" -> obj.investigate.toJson
+    )
+
+    override def read(json: JsValue): ChangeSetSummary = {
+      val emptySubsetAnalysis: Seq[ChangeSetSubsetAnalysis] = Seq()
+      val fields = json.asJsObject("Invalid Json Object").fields
+      ChangeSetSummary(
+        fields("key").convertTo[ChangeKey],
+        fields("subsets").convertTo[Seq[Subset]],
+        fields("timestampFrom").convertTo[Timestamp],
+        fields("timestampUntil").convertTo[Timestamp],
+        fields("networkChanges").convertTo[NetworkChanges],
+        fields("orphanRouteChanges").convertTo[Seq[ChangeSetSubsetElementRefs]],
+        fields("orphanNodeChanges").convertTo[Seq[ChangeSetSubsetElementRefs]],
+        fields.get("subsetAnalyses").fold(emptySubsetAnalysis)(_.convertTo[Seq[ChangeSetSubsetAnalysis]]),
+        fields("happy").convertTo[Boolean],
+        fields("investigate").convertTo[Boolean]
+      )
+    }
+  }
+
   implicit val reviewFormat: RootJsonFormat[Review] = jsonFormat4(Review)
   implicit val reviewDocFormat: RootJsonFormat[ReviewDoc] = jsonFormat3(ReviewDoc)
   implicit val nodeDataFormat: RootJsonFormat[NodeData] = jsonFormat3(NodeData)

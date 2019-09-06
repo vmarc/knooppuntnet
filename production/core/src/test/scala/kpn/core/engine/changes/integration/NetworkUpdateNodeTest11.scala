@@ -2,6 +2,7 @@ package kpn.core.engine.changes.integration
 
 import kpn.core.test.TestData2
 import kpn.shared.ChangeSetElementRefs
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.NetworkChanges
@@ -68,6 +69,9 @@ class NetworkUpdateNodeTest11 extends AbstractTest {
                   )
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking)
             )
           )
         )

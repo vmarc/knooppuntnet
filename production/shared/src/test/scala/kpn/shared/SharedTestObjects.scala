@@ -683,6 +683,7 @@ trait SharedTestObjects {
     networkChanges: NetworkChanges = NetworkChanges(),
     orphanRouteChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     orphanNodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
+    subsetAnalyses: Seq[ChangeSetSubsetAnalysis] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetSummary = {
@@ -694,6 +695,7 @@ trait SharedTestObjects {
       networkChanges,
       orphanRouteChanges,
       orphanNodeChanges,
+      subsetAnalyses,
       happy,
       investigate
     )

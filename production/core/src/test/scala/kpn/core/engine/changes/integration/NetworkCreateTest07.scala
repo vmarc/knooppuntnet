@@ -5,6 +5,7 @@ import kpn.core.test.TestData
 import kpn.core.test.TestData2
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.NetworkChanges
@@ -87,6 +88,9 @@ class NetworkCreateTest07 extends AbstractTest {
                   happy = true
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
             ),
             happy = true
           )

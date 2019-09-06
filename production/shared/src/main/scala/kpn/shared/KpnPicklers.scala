@@ -231,6 +231,7 @@ object KpnPicklers {
   implicit val changeSetElementRefPickler: Pickler[ChangeSetElementRef] = PicklerGenerator.generatePickler[ChangeSetElementRef]
   implicit val changeSetElementRefsPickler: Pickler[ChangeSetElementRefs] = PicklerGenerator.generatePickler[ChangeSetElementRefs]
   implicit val changeSetSubsetElementRefsPickler: Pickler[ChangeSetSubsetElementRefs] = PicklerGenerator.generatePickler[ChangeSetSubsetElementRefs]
+  implicit val changeSetSubsetAnalysis: Pickler[ChangeSetSubsetAnalysis] = PicklerGenerator.generatePickler[ChangeSetSubsetAnalysis]
   implicit val changeSetSummaryPickler: Pickler[ChangeSetSummary] = PicklerGenerator.generatePickler[ChangeSetSummary]
 
   implicit val changeKeyPickler: Pickler[ChangeKey] = PicklerGenerator.generatePickler[ChangeKey]

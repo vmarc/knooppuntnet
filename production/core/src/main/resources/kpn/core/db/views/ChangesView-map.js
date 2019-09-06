@@ -21,6 +21,8 @@ if (doc._id.indexOf("change:") === 0) {
     }
 
     if (impacted > 0) {
+      // in the following line, 'impacted' is not specific enough
+      // currently 'impact' reflects entire changeset, but it should reflect the subset specific changes within the changeset
       emit(["impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
       for (var i = 0; i < doc.changeSetSummary.subsets.length; i++) {
         emit([doc.changeSetSummary.subsets[i] + ":impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, impacted]);

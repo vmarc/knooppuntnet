@@ -3,6 +3,7 @@ package kpn.core.engine.changes.integration
 import kpn.core.test.TestData2
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
@@ -87,6 +88,9 @@ class OrphanNodeTest02 extends AbstractTest {
                   )
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking)
             )
           )
         )

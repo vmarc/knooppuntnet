@@ -28,8 +28,8 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
 
   test("change set not found") {
     withChangeSetRepository { repository =>
-      repository.changeSet(0L, None, false) should equal(Seq())
-      repository.changeSet(0L, Some(ReplicationId(1, 2, 3)), false) should equal(Seq())
+      repository.changeSet(0L, None, stale = false) should equal(Seq())
+      repository.changeSet(0L, Some(ReplicationId(1, 2, 3)), stale = false) should equal(Seq())
     }
   }
 
@@ -61,7 +61,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
       repository.saveRouteChange(routeChange2)
       repository.saveNodeChange(nodeChange2)
 
-      repository.changeSet(changeSetId, Some(ReplicationId(replicationNumber1)), false) should equal(
+      repository.changeSet(changeSetId, Some(ReplicationId(replicationNumber1)), stale = false) should equal(
         Seq(
           ChangeSetData(
             changeSetSummary1,
@@ -72,7 +72,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
         )
       )
 
-      repository.changeSet(changeSetId, Some(ReplicationId(replicationNumber2)), false) should equal(
+      repository.changeSet(changeSetId, Some(ReplicationId(replicationNumber2)), stale = false) should equal(
         Seq(
           ChangeSetData(
             changeSetSummary2,
@@ -83,7 +83,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
         )
       )
 
-      repository.changeSet(changeSetId, None, false) should equal(
+      repository.changeSet(changeSetId, None, stale = false) should equal(
         Seq(
           ChangeSetData(
             changeSetSummary1,
@@ -106,8 +106,8 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
 
     withChangeSetRepository { repository =>
 
-      repository.saveChangeSetSummary(summary(1, 11, Timestamp(2015, 8, 11), subsets = Seq(Subset.nlHiking), happy = true))
-      repository.saveChangeSetSummary(summary(2, 12, Timestamp(2015, 8, 12), subsets = Seq(Subset.nlHiking), happy = true))
+      repository.saveChangeSetSummary(summary(1, 11, Timestamp(2015, 8, 11), subsets = Seq(Subset.nlHiking)))
+      repository.saveChangeSetSummary(summary(2, 12, Timestamp(2015, 8, 12), subsets = Seq(Subset.nlHiking)))
       repository.saveChangeSetSummary(summary(3, 13, Timestamp(2015, 8, 13), subsets = Seq(Subset.nlHiking), happy = false))
       repository.saveChangeSetSummary(summary(4, 14, Timestamp(2015, 9, 11), subsets = Seq(Subset.nlHiking), happy = false))
       repository.saveChangeSetSummary(summary(5, 15, Timestamp(2015, 9, 12), subsets = Seq(Subset.beHiking), happy = false))
@@ -207,10 +207,10 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
   test("networkChanges") {
     withChangeSetRepository { repository =>
 
-      repository.saveNetworkChange(networkChange(11L, 101, 1L, timestamp = Timestamp(2015, 1, 1), happy = true))
-      repository.saveNetworkChange(networkChange(12L, 102, 1L, timestamp = Timestamp(2015, 2, 1), happy = true))
-      repository.saveNetworkChange(networkChange(13L, 103, 1L, timestamp = Timestamp(2015, 3, 1), happy = true))
-      repository.saveNetworkChange(networkChange(14L, 104, 1L, timestamp = Timestamp(2015, 4, 1), happy = true))
+      repository.saveNetworkChange(networkChange(11L, 101, 1L, timestamp = Timestamp(2015, 1, 1)))
+      repository.saveNetworkChange(networkChange(12L, 102, 1L, timestamp = Timestamp(2015, 2, 1)))
+      repository.saveNetworkChange(networkChange(13L, 103, 1L, timestamp = Timestamp(2015, 3, 1)))
+      repository.saveNetworkChange(networkChange(14L, 104, 1L, timestamp = Timestamp(2015, 4, 1)))
 
       repository.networkChanges(ChangesParameters(networkId = Some(1L)), stale = false).map(_.key.changeSetId) should equal(Seq(14, 13, 12, 11))
     }
@@ -239,8 +239,8 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
       NetworkChanges(creates = networkChangesCreates),
       Seq(),
       Seq(),
-      happy,
-      investigate = false
+      Seq(),
+      happy
     )
   }
 

@@ -18,6 +18,23 @@ object ChangeSetSummary {
     val happy = networkChanges.happy || orphanRouteChanges.exists(_.happy) || orphanNodeChanges.exists(_.happy)
     val investigate = networkChanges.investigate || orphanRouteChanges.exists(_.investigate) || orphanNodeChanges.exists(_.investigate)
 
+    val subsetAnalyses = subsets.map { subset =>
+
+      val happy = networkChanges.creates.filter(_.subsets.contains(subset)).exists(_.happy) ||
+        networkChanges.updates.filter(_.subsets.contains(subset)).exists(_.happy) ||
+        networkChanges.deletes.filter(_.subsets.contains(subset)).exists(_.happy) ||
+        orphanRouteChanges.filter(_.subset == subset).exists(_.happy) ||
+        orphanNodeChanges.filter(_.subset == subset).exists(_.happy)
+
+      val investigate = networkChanges.creates.filter(_.subsets.contains(subset)).exists(_.investigate) ||
+        networkChanges.updates.filter(_.subsets.contains(subset)).exists(_.investigate) ||
+        networkChanges.deletes.filter(_.subsets.contains(subset)).exists(_.investigate) ||
+        orphanRouteChanges.filter(_.subset == subset).exists(_.investigate) ||
+        orphanNodeChanges.filter(_.subset == subset).exists(_.investigate)
+
+      ChangeSetSubsetAnalysis(subset, happy, investigate)
+    }
+
     ChangeSetSummary(
       key,
       subsets,
@@ -26,10 +43,12 @@ object ChangeSetSummary {
       networkChanges,
       orphanRouteChanges,
       orphanNodeChanges,
+      subsetAnalyses,
       happy,
       investigate
     )
   }
+
 }
 
 case class ChangeSetSummary(
@@ -40,8 +59,9 @@ case class ChangeSetSummary(
   networkChanges: NetworkChanges,
   orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
   orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
-  happy: Boolean,
-  investigate: Boolean
+  subsetAnalyses: Seq[ChangeSetSubsetAnalysis] = Seq(),
+  happy: Boolean = false,
+  investigate: Boolean = false
 ) {
 
   def noImpact: Boolean = !(happy || investigate)
@@ -54,6 +74,7 @@ case class ChangeSetSummary(
     field("networkChanges", networkChanges).
     field("orphanRouteChanges", orphanRouteChanges).
     field("orphanNodeChanges", orphanNodeChanges).
+    field("subsetAnalyses", subsetAnalyses).
     field("happy", happy).
     field("investigate", investigate).
     build

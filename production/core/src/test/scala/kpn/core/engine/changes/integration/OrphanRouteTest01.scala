@@ -3,6 +3,7 @@ package kpn.core.engine.changes.integration
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
 import kpn.shared.ChangeSetElementRefs
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
@@ -85,6 +86,9 @@ class OrphanRouteTest01 extends AbstractTest {
                   added = Seq(newChangeSetElementRef(11, "01-02", happy = true))
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
             ),
             happy = true
           )

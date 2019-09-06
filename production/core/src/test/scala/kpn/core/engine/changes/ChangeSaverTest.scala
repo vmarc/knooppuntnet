@@ -4,6 +4,7 @@ import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.repository.ChangeSetRepository
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
@@ -123,6 +124,9 @@ class ChangeSaverTest extends FunSuite with Matchers with MockFactory with Share
                   )
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking)
             )
           )
         )
@@ -172,6 +176,9 @@ class ChangeSaverTest extends FunSuite with Matchers with MockFactory with Share
                   )
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking)
             )
           )
         )

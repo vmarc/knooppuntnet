@@ -1,22 +1,19 @@
 package kpn.core.engine.changes.integration
 
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.Fact
-import kpn.shared.NetworkChanges
 import kpn.shared.NodeInfo
 import kpn.shared.Subset
 import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeKey
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.data.Tags
-import kpn.shared.diff.common.FactDiffs
 
 class OrphanNodeTest01 extends AbstractTest {
 
@@ -72,6 +69,9 @@ class OrphanNodeTest01 extends AbstractTest {
                   added = Seq(newChangeSetElementRef(1001, "01", happy = true))
                 )
               )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
             ),
             happy = true
           )
