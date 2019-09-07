@@ -378,11 +378,105 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val refDiffsFormat: RootJsonFormat[RefDiffs] = jsonFormat3(RefDiffs.apply)
   implicit val changeTypeFormat: RootJsonFormat[ChangeType] = jsonFormat1(ChangeType.apply)
   implicit val networkChangeFormat: RootJsonFormat[NetworkChange] = jsonFormat18(NetworkChange)
-  implicit val routeChangeFormat: RootJsonFormat[RouteChange] = jsonFormat14(RouteChange)
+
+  // implicit val routeChangeFormat: RootJsonFormat[RouteChange] = jsonFormat14(RouteChange)
+  // temporary format that can be removed after all RouteChange instances in the database include 'happy' and 'investigate'
+  implicit object RouteChangeFormat extends RootJsonFormat[RouteChange] {
+    override def write(obj: RouteChange): JsValue = JsObject(
+      "key" -> obj.key.toJson,
+      "changeType" -> obj.changeType.toJson,
+      "name" -> obj.name.toJson,
+      "addedToNetwork" -> obj.addedToNetwork.toJson,
+      "removedFromNetwork" -> obj.removedFromNetwork.toJson,
+      "before" -> obj.before.toJson,
+      "after" -> obj.after.toJson,
+      "removedWays" -> obj.removedWays.toJson,
+      "addedWays" -> obj.addedWays.toJson,
+      "updatedWays" -> obj.updatedWays.toJson,
+      "diffs" -> obj.diffs.toJson,
+      "facts" -> obj.facts.toJson,
+      "happy" -> obj.happy.toJson,
+      "investigate" -> obj.investigate.toJson
+    )
+
+    override def read(json: JsValue): RouteChange = {
+      val fields = json.asJsObject("Invalid Json Object").fields
+      val routeDataNone: Option[RouteData] = None
+      RouteChange(
+        fields("key").convertTo[ChangeKey],
+        fields("changeType").convertTo[ChangeType],
+        fields("name").convertTo[String],
+        fields("addedToNetwork").convertTo[Seq[Ref]],
+        fields("removedFromNetwork").convertTo[Seq[Ref]],
+        fields.get("before").fold(routeDataNone)(_.convertTo[Option[RouteData]]),
+        fields.get("after").fold(routeDataNone)(_.convertTo[Option[RouteData]]),
+        fields("removedWays").convertTo[Seq[RawWay]],
+        fields("addedWays").convertTo[Seq[RawWay]],
+        fields("updatedWays").convertTo[Seq[WayUpdate]],
+        fields("diffs").convertTo[RouteDiff],
+        fields("facts").convertTo[Seq[Fact]],
+        fields.get("happy").fold(false)(_.convertTo[Boolean]),
+        fields.get("investigate").fold(false)(_.convertTo[Boolean])
+      )
+    }
+  }
 
   implicit val refBooleanChangeFormat: RootJsonFormat[RefBooleanChange] = jsonFormat2(RefBooleanChange)
   implicit val nodeIntegrityCheckChangeFormat: RootJsonFormat[NodeIntegrityCheckChange] = jsonFormat3(NodeIntegrityCheckChange)
-  implicit val nodeChangeFormat: RootJsonFormat[NodeChange] = jsonFormat19(NodeChange)
+
+  // implicit val nodeChangeFormat: RootJsonFormat[NodeChange] = jsonFormat19(NodeChange)
+  // temporary format that can be removed after all NodeChange instances in the database include 'happy' and 'investigate'
+  implicit object NodeChangeFormat extends RootJsonFormat[NodeChange] {
+    override def write(obj: NodeChange): JsValue = JsObject(
+      "key" -> obj.key.toJson,
+      "changeType" -> obj.changeType.toJson,
+      "subsets" -> obj.subsets.toJson,
+      "name" -> obj.name.toJson,
+      "before" -> obj.before.toJson,
+      "after" -> obj.after.toJson,
+      "connectionChanges" -> obj.connectionChanges.toJson,
+      "roleConnectionChanges" -> obj.roleConnectionChanges.toJson,
+      "definedInNetworkChanges" -> obj.definedInNetworkChanges.toJson,
+      "tagDiffs" -> obj.tagDiffs.toJson,
+      "nodeMoved" -> obj.nodeMoved.toJson,
+      "addedToRoute" -> obj.addedToRoute.toJson,
+      "removedFromRoute" -> obj.removedFromRoute.toJson,
+      "addedToNetwork" -> obj.addedToNetwork.toJson,
+      "removedFromNetwork" -> obj.removedFromNetwork.toJson,
+      "factDiffs" -> obj.factDiffs.toJson,
+      "facts" -> obj.facts.toJson,
+      "happy" -> obj.happy.toJson,
+      "investigate" -> obj.investigate.toJson
+    )
+
+    override def read(json: JsValue): NodeChange = {
+      val fields = json.asJsObject("Invalid Json Object").fields
+      val rawNodeNone: Option[RawNode] = None
+      val tagDiffsNone: Option[TagDiffs] = None
+      val nodeMovedNone: Option[NodeMoved] = None
+      NodeChange(
+        fields("key").convertTo[ChangeKey],
+        fields("changeType").convertTo[ChangeType],
+        fields("subsets").convertTo[Seq[Subset]],
+        fields("name").convertTo[String],
+        fields.get("before").fold(rawNodeNone)(_.convertTo[Option[RawNode]]),
+        fields.get("after").fold(rawNodeNone)(_.convertTo[Option[RawNode]]),
+        fields("connectionChanges").convertTo[Seq[RefBooleanChange]],
+        fields("roleConnectionChanges").convertTo[Seq[RefBooleanChange]],
+        fields("definedInNetworkChanges").convertTo[Seq[RefBooleanChange]],
+        fields.get("tagDiffs").fold(tagDiffsNone)(_.convertTo[Option[TagDiffs]]),
+        fields.get("nodeMoved").fold(nodeMovedNone)(_.convertTo[Option[NodeMoved]]),
+        fields("addedToRoute").convertTo[Seq[Ref]],
+        fields("removedFromRoute").convertTo[Seq[Ref]],
+        fields("addedToNetwork").convertTo[Seq[Ref]],
+        fields("removedFromNetwork").convertTo[Seq[Ref]],
+        fields("factDiffs").convertTo[FactDiffs],
+        fields("facts").convertTo[Seq[Fact]],
+        fields.get("happy").fold(false)(_.convertTo[Boolean]),
+        fields.get("investigate").fold(false)(_.convertTo[Boolean])
+      )
+    }
+  }
 
   implicit val changeSetSummaryDocFormat: RootJsonFormat[ChangeSetSummaryDoc] = jsonFormat3(ChangeSetSummaryDoc)
 
