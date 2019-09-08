@@ -16,23 +16,24 @@ if (doc._id.indexOf("change:") === 0) {
     var replicationNumber = key.replicationNumber.toString();
 
     emit(["change-set", year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
-    for (var i = 0; i < doc.changeSetSummary.subsets.length; i++) {
-      emit([doc.changeSetSummary.subsets[i] + ":change-set", year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
+    if (impacted > 0) {
+      emit(["impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
     }
 
-    if (impacted > 0) {
-      // in the following line, 'impacted' is not specific enough
-      // currently 'impact' reflects entire changeset, but it should reflect the subset specific changes within the changeset
-      emit(["impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
-      for (var i = 0; i < doc.changeSetSummary.subsets.length; i++) {
-        emit([doc.changeSetSummary.subsets[i] + ":impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
+    if (doc.changeSetSummary.subsetAnalyses) {
+      for (var i = 0; i < doc.changeSetSummary.subsetAnalyses.length; i++) {
+        var subsetAnalysis = subsetAnalyses[i];
+        var subsetImpacted = 0;
+        if (subsetAnalysis.happy || subsetAnalysis.investigate) {
+          subsetImpacted = 1;
+        }
+        emit([subsetAnalysis.subset + ":change-set", year, month, day, time, changeSetId, replicationNumber], [1, subsetImpacted]);
+        if (subsetImpacted > 0) {
+          emit([subsetAnalysis.subset + ":impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, subsetImpacted]);
+        }
       }
     }
 
-    emit(["user", key.user, year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
-    if (impacted > 0) {
-      emit(["impacted:user", key.user, year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
-    }
   }
   else if (doc.networkChange) {
     var key = doc.networkChange.key;
