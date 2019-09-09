@@ -4,7 +4,7 @@ import {ChangeFilterOptions} from "./change-filter-options";
 @Component({
   selector: "kpn-change-filter",
   template: `
-    <div class="filter">
+    <div *ngIf="!filterOptions.options.isEmpty()" class="filter">
       <div class="title" i18n="@@change-filter.title">Filter</div>
       <div class="row">
         <div class="count-links" i18n="@@change-filter.legend">

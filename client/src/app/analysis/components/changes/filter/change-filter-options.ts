@@ -48,17 +48,18 @@ export class ChangeFilterOptions {
     });
 
     const flatOptions: Array<ChangeFilterOption> = [];
-    flatOptions.push(all);
-    options.forEach(year => {
-      flatOptions.push(year);
-      year.options.forEach(month => {
-        flatOptions.push(month);
-        month.options.forEach(day => {
-          flatOptions.push(day);
+    if (!options.isEmpty()) {
+      flatOptions.push(all);
+      options.forEach(year => {
+        flatOptions.push(year);
+        year.options.forEach(month => {
+          flatOptions.push(month);
+          month.options.forEach(day => {
+            flatOptions.push(day);
+          });
         });
       });
-    });
-
+    }
     return new ChangeFilterOptions(List(flatOptions));
   }
 
