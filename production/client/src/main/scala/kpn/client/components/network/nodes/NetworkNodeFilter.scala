@@ -14,6 +14,21 @@ import kpn.shared.network.NetworkNodeInfo2
 
 class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria, updateCriteria: (NetworkNodeFilterCriteria) => Unit) {
 
+  private val taggedFilter = new BooleanFilter[NetworkNodeInfo2](
+    "tagged",
+    criteria.tagged,
+    _.tagged,
+    CallbackTo {
+      updateCriteria(criteria.copy(tagged = None))
+    },
+    CallbackTo {
+      updateCriteria(criteria.copy(tagged = Some(true)))
+    },
+    CallbackTo {
+      updateCriteria(criteria.copy(tagged = Some(false)))
+    }
+  )
+
   private val definedInNetworkRelationFilter = new BooleanFilter[NetworkNodeInfo2](
     "definedInNetworkRelation",
     criteria.definedInNetworkRelation,
@@ -144,6 +159,7 @@ class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria,
   )
 
   private val allFilters = new Filters[NetworkNodeInfo2](
+    taggedFilter,
     definedInNetworkRelationFilter,
     definedInRouteRelationFilter,
     referencedInRouteFilter,
@@ -163,6 +179,7 @@ class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria,
     val totalCount = nodes.size
     val filteredCount = nodes.count(allFilters.passes)
 
+    val tagged = taggedFilter.filterOptions(allFilters, nodes)
     val definedInNetworkRelation = definedInNetworkRelationFilter.filterOptions(allFilters, nodes)
     val definedInRouteRelation = definedInRouteRelationFilter.filterOptions(allFilters, nodes)
     val referencedInRoute = referencedInRouteFilter.filterOptions(allFilters, nodes)
@@ -214,6 +231,7 @@ class NetworkNodeFilter(timeInfo: TimeInfo, criteria: NetworkNodeFilterCriteria,
     val lastUpdated = lastUpdatedFilter.filterOptions(allFilters, nodes)
 
     val groups = Seq(
+      tagged,
       definedInNetworkRelation,
       definedInRouteRelation,
       referencedInRoute,

@@ -23,7 +23,7 @@ object UiNetworkRoutes {
   val routeNumberWidth = 30
   val routeNameSmallWidth = 60
   val routeNameLargeWidth = 100
-  val analysisWidth = 150
+  val analysisWidth = 180
   val roleWidth = 100
   val lengthWidth = 70
   val lastEditWidth = 300

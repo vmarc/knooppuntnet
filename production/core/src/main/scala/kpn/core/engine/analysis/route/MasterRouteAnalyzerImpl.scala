@@ -28,6 +28,7 @@ import kpn.core.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
+import kpn.core.engine.analysis.route.analyzers.TaggedRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
@@ -77,6 +78,7 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         RouteStreetsAnalyzer,
         RouteMapAnalyzer,
         IncompleteOkRouteAnalyzer,
+        TaggedRouteAnalyzer,
         FactCombinationAnalyzer
       )
 

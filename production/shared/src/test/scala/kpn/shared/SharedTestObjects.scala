@@ -353,7 +353,8 @@ trait SharedTestObjects {
       connectionCount = 0,
       Timestamp(2015, 8, 11),
       Timestamp(2015, 8, 11),
-      center = None
+      center = None,
+      tagged = false
     )
 
     NetworkInfo(
@@ -409,7 +410,8 @@ trait SharedTestObjects {
       connectionCount,
       lastUpdated,
       relationLastUpdated,
-      None
+      None,
+      tagged = false
     )
   }
 

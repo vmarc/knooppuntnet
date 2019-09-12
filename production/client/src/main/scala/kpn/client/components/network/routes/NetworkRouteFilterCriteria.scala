@@ -5,6 +5,7 @@ import kpn.client.filter.TimeFilterKind
 
 case class NetworkRouteFilterCriteria(
   page: Int = 1,
+  tagged: Option[Boolean] = None,
   investigate: Option[Boolean] = None,
   accessible: Option[Boolean] = None,
   roleConnection: Option[Boolean] = None,

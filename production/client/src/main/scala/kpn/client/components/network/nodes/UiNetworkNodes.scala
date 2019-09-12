@@ -23,7 +23,7 @@ object UiNetworkNodes {
   val numberWidth = 30
   val titleSmallWidth = 60
   val titleLargeWidth = 120
-  val analysisWidth = 200
+  val analysisWidth = 240
   val routeCountWidth = 20
   val routesWidth = 200
   val lastEditWidth = 120

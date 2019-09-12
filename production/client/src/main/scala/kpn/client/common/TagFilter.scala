@@ -15,7 +15,8 @@ object NodeTagFilter {
     "expected_rhn_route_relations",
     "expected_rmn_route_relations",
     "expected_rpn_route_relations",
-    "expected_rin_route_relations"
+    "expected_rin_route_relations",
+    "network:type"
   )
 
   def apply(tagable: Tagable): TagFilter = {
@@ -33,7 +34,8 @@ object RouteTagFilter {
     "note",
     "network",
     "type",
-    "route"
+    "route",
+    "network:type"
   )
 
   def apply(tagable: Tagable): TagFilter = {
@@ -50,7 +52,8 @@ object NetworkTagFilter {
   val standardTagKeys = Seq(
     "network",
     "type",
-    "name"
+    "name",
+    "network:type"
   )
 
   def apply(tagable: Tagable): TagFilter = {

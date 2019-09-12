@@ -1,6 +1,7 @@
 package kpn.core.tools.db
 
 import kpn.core.analysis.Network
+import kpn.shared.Fact
 import kpn.shared.common.Ref
 import kpn.shared.network.Integrity
 import kpn.shared.network.NetworkAttributes
@@ -73,6 +74,13 @@ class NetworkInfoBuilder {
 
     val center = new NetworkCenterCalculator().calculate(network)
 
+    val facts: Seq[Fact] = if (!network.tagged) {
+      Seq(Fact.NetwerkTypeNotTagged)
+    }
+    else  {
+      Seq()
+    }
+
     val attributes = NetworkAttributes(
       id = network.id,
       country = network.country,
@@ -89,7 +97,8 @@ class NetworkInfoBuilder {
       connectionCount = network.connectionCount,
       lastUpdated = network.lastUpdated,
       relationLastUpdated = network.relationLastUpdated,
-      center = center
+      center = center,
+      tagged = network.tagged
     )
 
     val detail = NetworkInfoDetail(
@@ -106,7 +115,7 @@ class NetworkInfoBuilder {
       nodeRefs = nodes.map(_.id),
       routeRefs = routes.map(_.id),
       networkRefs = Seq.empty, // TODO include networks during network analysis!
-      facts = Seq.empty, // TODO can remain empty? only filled in for ignored networks?
+      facts = facts,
       tags = network.relation.tags,
       detail = Some(detail)
     )

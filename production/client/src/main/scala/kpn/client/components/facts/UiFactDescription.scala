@@ -518,6 +518,33 @@ object UiFactDescription {
             }
           )
 
+        case NodeNetwerkTypeNotTagged =>
+          UiMarked(
+            if (nlsNL) {
+              """Het knooppunt heeft geen _"network:type=node_network"_ tag."""
+            } else {
+              """The node is not tagged with _"network:type=node_network"_."""
+            }
+          )
+
+        case RouteNetwerkTypeNotTagged =>
+          UiMarked(
+            if (nlsNL) {
+              """De route heeft geen _"network:type=node_network"_ tag."""
+            } else {
+              """The route is not tagged with _"network:type=node_network"_."""
+            }
+          )
+
+        case NetwerkTypeNotTagged =>
+          UiMarked(
+            if (nlsNL) {
+              """Het netwerk heeft geen _"network:type=node_network"_ tag."""
+            } else {
+              """The network is not tagged with _"network:type=node_network"_."""
+            }
+          )
+
         case _ =>
           <.p(
             nls(

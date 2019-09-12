@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import kpn.core.db.couch.Database
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
+import kpn.core.db.views.ChangesView
 import kpn.core.db.views.Design
 import kpn.core.db.views.DocumentView
 import kpn.core.util.Log
@@ -24,7 +25,7 @@ class ViewIndexer(system: ActorSystem, analysisDatabase: Database, changesDataba
     val start = System.currentTimeMillis()
     index(analysisDatabase, AnalyzerDesign)
     indexPlannerDesign(analysisDatabase)
-    index(changesDatabase, ChangesDesign)
+    index2(changesDatabase, ChangesDesign)
     val end = System.currentTimeMillis()
     log.info(s"Indexing completed in ${end - start}ms")
   }
@@ -33,6 +34,16 @@ class ViewIndexer(system: ActorSystem, analysisDatabase: Database, changesDataba
     try {
       val documentCounts = database.groupQuery(1, design, DocumentView, 20.seconds, stale = false)().map(DocumentView.convert)
       val counts = documentCounts.map(dc => "    '" + dc.prefix + "'=" + dc.count).mkString("\n")
+    }
+    catch {
+      case e: Exception =>
+        log.info(s"Exception while indexing ${design.name}: ${e.getMessage}")
+    }
+  }
+
+  private def index2(database: Database, design: Design): Unit = {
+    try {
+      database.groupQuery(1, design, ChangesView, 20.seconds, stale = false)()
     }
     catch {
       case e: Exception =>

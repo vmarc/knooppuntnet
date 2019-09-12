@@ -22,4 +22,7 @@ case class NetworkNodeInfo2(
   integrityCheck: Option[NodeIntegrityCheck],
   facts: Seq[Fact],
   tags: Tags
-) extends LatLon
+) extends LatLon {
+
+  def tagged: Boolean = tags.has("network:type", "node_network")
+}

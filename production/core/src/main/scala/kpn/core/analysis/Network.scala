@@ -148,4 +148,8 @@ case class Network(
       case Some(xs) => xs.map(_.memberId).sorted
     }
   }
+
+  def tagged: Boolean = {
+    relation.tags.has("network:type", "node_network")
+  }
 }

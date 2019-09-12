@@ -12,6 +12,21 @@ import kpn.shared.network.NetworkRouteRow
 
 class NetworkRouteFilter(timeInfo: TimeInfo, criteria: NetworkRouteFilterCriteria, updateCriteria: NetworkRouteFilterCriteria => Unit) {
 
+  private val taggedFilter = new BooleanFilter[NetworkRouteRow](
+    "tagged",
+    criteria.tagged,
+    _.tagged,
+    CallbackTo {
+      updateCriteria(criteria.copy(tagged = None))
+    },
+    CallbackTo {
+      updateCriteria(criteria.copy(tagged = Some(true)))
+    },
+    CallbackTo {
+      updateCriteria(criteria.copy(tagged = Some(false)))
+    }
+  )
+
   private val investigateFilter = new BooleanFilter[NetworkRouteRow](
     "investigate",
     criteria.investigate,
@@ -79,6 +94,7 @@ class NetworkRouteFilter(timeInfo: TimeInfo, criteria: NetworkRouteFilterCriteri
   )
 
   private val allFilters = new Filters[NetworkRouteRow](
+    taggedFilter,
     investigateFilter,
     accessibleFilter,
     roleConnectionFilter,
@@ -94,12 +110,14 @@ class NetworkRouteFilter(timeInfo: TimeInfo, criteria: NetworkRouteFilterCriteri
     val totalCount = routes.size
     val filteredCount = routes.count(allFilters.passes)
 
+    val tagged = taggedFilter.filterOptions(allFilters, routes)
     val investigate = investigateFilter.filterOptions(allFilters, routes)
     val accessible = accessibleFilter.filterOptions(allFilters, routes)
     val roleConnection = roleConnectionFilter.filterOptions(allFilters, routes)
     val lastUpdated = lastUpdatedFilter.filterOptions(allFilters, routes)
 
     val groups = Seq(
+      tagged,
       investigate,
       accessible,
       roleConnection,

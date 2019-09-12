@@ -115,7 +115,8 @@ class NetworkDeleteProcessorWorkerImpl(
           connectionCount = 0,
           lastUpdated = context.timestampAfter,
           relationLastUpdated = context.timestampAfter,
-          None
+          None,
+          tagged = networkBefore.tagged
         ),
         active = false, // <--- !!!
         ignored = false,

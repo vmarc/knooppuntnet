@@ -27,7 +27,8 @@ object IgnoredNetworkInfoBuilder {
       connectionCount = 0,
       lastUpdated = networkRelationAnalysis.lastUpdated,
       relationLastUpdated = loadedNetwork.relation.timestamp,
-      None
+      None,
+      tagged = false
     )
 
     NetworkInfo(

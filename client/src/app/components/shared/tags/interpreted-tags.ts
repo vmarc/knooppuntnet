@@ -37,7 +37,8 @@ export class InterpretedTags {
       "expected_rhn_route_relations",
       "expected_rmn_route_relations",
       "expected_rpn_route_relations",
-      "expected_rin_route_relations"
+      "expected_rin_route_relations",
+      "network:type"
     ]);
     return new InterpretedTags(standardTagKeys, tags);
   }
@@ -47,7 +48,8 @@ export class InterpretedTags {
       "note",
       "network",
       "type",
-      "route"
+      "route",
+      "network:type"
     ]);
     return new InterpretedTags(standardTagKeys, tags);
   }
@@ -56,7 +58,8 @@ export class InterpretedTags {
     const standardTagKeys = List([
       "network",
       "type",
-      "name"
+      "name",
+      "network:type"
     ]);
     return new InterpretedTags(standardTagKeys, tags);
   }
