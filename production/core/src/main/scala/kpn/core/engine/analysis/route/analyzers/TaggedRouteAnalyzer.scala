@@ -1,7 +1,7 @@
 package kpn.core.engine.analysis.route.analyzers
 
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.shared.Fact.RouteNetwerkTypeNotTagged
+import kpn.shared.Fact.RouteNetworkTypeNotTagged
 
 object TaggedRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -13,7 +13,7 @@ class TaggedRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     if (!tagged) {
-      context.withFact(RouteNetwerkTypeNotTagged)
+      context.withFact(RouteNetworkTypeNotTagged)
     }
     else {
       context

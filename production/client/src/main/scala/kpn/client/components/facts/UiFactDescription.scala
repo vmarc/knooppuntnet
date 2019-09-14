@@ -518,7 +518,7 @@ object UiFactDescription {
             }
           )
 
-        case NodeNetwerkTypeNotTagged =>
+        case NodeNetworkTypeNotTagged =>
           UiMarked(
             if (nlsNL) {
               """Het knooppunt heeft geen _"network:type=node_network"_ tag."""
@@ -527,7 +527,7 @@ object UiFactDescription {
             }
           )
 
-        case RouteNetwerkTypeNotTagged =>
+        case RouteNetworkTypeNotTagged =>
           UiMarked(
             if (nlsNL) {
               """De route heeft geen _"network:type=node_network"_ tag."""
@@ -536,7 +536,7 @@ object UiFactDescription {
             }
           )
 
-        case NetwerkTypeNotTagged =>
+        case NetworkTypeNotTagged =>
           UiMarked(
             if (nlsNL) {
               """Het netwerk heeft geen _"network:type=node_network"_ tag."""

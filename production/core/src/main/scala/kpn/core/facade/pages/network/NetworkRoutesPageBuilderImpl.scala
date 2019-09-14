@@ -46,7 +46,7 @@ class NetworkRoutesPageBuilderImpl(
         investigate = route.facts.contains(Fact.RouteBroken),
         accessible = !route.facts.contains(Fact.RouteUnaccessible),
         roleConnection = route.role.contains("connection"),
-        tagged = !route.facts.contains(Fact.RouteNetwerkTypeNotTagged),
+        tagged = !route.facts.contains(Fact.RouteNetworkTypeNotTagged),
         relationLastUpdated = route.relationLastUpdated
       )
     }

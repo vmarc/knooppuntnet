@@ -53,6 +53,9 @@ import {Component, Input} from "@angular/core";
       <ng-container i18n="@@fact.name.route-without-ways" *ngSwitchCase="'RouteWithoutWays'">RouteWithoutWays</ng-container>
       <ng-container i18n="@@fact.name.was-ignored" *ngSwitchCase="'WasIgnored'">WasIgnored</ng-container>
       <ng-container i18n="@@fact.name.was-orphan" *ngSwitchCase="'WasOrphan'">WasOrphan</ng-container>
+      <ng-container i18n="@@fact.name.node-network-type-not-tagged" *ngSwitchCase="'NodeNetworkTypeNotTagged'">NodeNetworkTypeNotTagged</ng-container>
+      <ng-container i18n="@@fact.name.route-network-type-not-tagged" *ngSwitchCase="'RouteNetworkTypeNotTagged'">RouteNetworkTypeNotTagged</ng-container>
+      <ng-container i18n="@@fact.name.network-type-not-tagged" *ngSwitchCase="'NetworkTypeNotTagged'">NetworkTypeNotTagged</ng-container>
       <ng-container *ngSwitchDefault>?{{factName}}?</ng-container>
     </ng-container>
   `

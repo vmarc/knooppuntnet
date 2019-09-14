@@ -21,10 +21,10 @@ class SubsetFact {
   template: `
 
     <kpn-subset-page-header-block
-        [subset]="subset"
-        pageName="facts"
-        pageTitle="Facts"
-        i18n-pageTitle="@@subset-facts.title">
+      [subset]="subset"
+      pageName="facts"
+      pageTitle="Facts"
+      i18n-pageTitle="@@subset-facts.title">
     </kpn-subset-page-header-block>
 
     <h2>
@@ -42,7 +42,13 @@ class SubsetFact {
       </div>
       <div *ngIf="hasFacts()">
         <p>
-          {{routeCount()}} routes in {{response.result.networks.size}} networks.
+          {{refCount()}} 
+          <span *ngIf="hasNodeRefs()">nodes</span>
+          <span *ngIf="hasRouteRefs()">routes</span>
+          <span *ngIf="hasOsmNodeRefs()">nodes</span>
+          <span *ngIf="hasOsmWayRefs()">ways</span>
+          <span *ngIf="hasOsmRelationRefs()">relations</span>
+          in {{response.result.networks.size}} networks.
         </p>
 
         <kpn-items>
@@ -53,11 +59,15 @@ class SubsetFact {
             <br/>
             {{networkFactRefs.factRefs.size}} routes:
             <br/>
-            <span *ngFor="let ref of networkFactRefs.factRefs">
-              <a [routerLink]="'/analysis/route/' + ref.id">
-                {{ref.name}}
-              </a>
-            </span>
+            <div class="kpn-comma-list">
+              <span *ngFor="let ref of networkFactRefs.factRefs">
+                <a *ngIf="hasNodeRefs()" [routerLink]="'/analysis/node/' + ref.id">{{ref.name}}</a>
+                <a *ngIf="hasRouteRefs()" [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
+                <kpn-osm-link-node *ngIf="hasOsmNodeRefs()" id="ref.id" title="ref.id"></kpn-osm-link-node>
+                <kpn-osm-link-way *ngIf="hasOsmWayRefs()" id="ref.id" title="ref.id"></kpn-osm-link-way>
+                <kpn-osm-link-relation *ngIf="hasOsmRelationRefs()" id="ref.id" title="ref.id"></kpn-osm-link-relation>
+              </span>
+            </div>
           </kpn-item>
         </kpn-items>
       </div>
@@ -96,8 +106,33 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
     return this.response && this.response.result && this.response.result.networks.size > 0;
   }
 
-  routeCount(): number {
+  refCount(): number {
     return this.response.result.networks.map(n => n.factRefs.size).reduce((sum, current) => sum + current);
+  }
+
+  hasNodeRefs(): boolean {
+    return this.factName == "NodeNetworkTypeNotTagged"
+      || this.factName == "NodeMemberMissing"
+      || this.factName == "IntegrityCheckFailed";
+  }
+
+  hasOsmNodeRefs(): boolean {
+    return this.factName == "NetworkExtraMemberNode";
+  }
+
+  hasOsmWayRefs(): boolean {
+    return this.factName == "NetworkExtraMemberWay";
+  }
+
+  hasOsmRelationRefs(): boolean {
+    return this.factName == "NetworkExtraMemberRelation";
+  }
+
+  hasRouteRefs(): boolean {
+    return !(this.hasNodeRefs()
+      || this.hasOsmNodeRefs()
+      || this.hasOsmWayRefs()
+      || this.hasOsmRelationRefs());
   }
 
   private interpreteParams(params: Params): SubsetFact {

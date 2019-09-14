@@ -78,9 +78,9 @@ object Fact {
   val RouteNotOneWay: Fact = f.fact(207, "RouteNotOneWay", "RouteNietEnkeleRichting", FactLevel.INFO)
   val RouteIncompleteOk: Fact = f.fact(208, "RouteIncompleteOk", "OnvolledigeRouteOk", FactLevel.INFO)
 
-  val NodeNetwerkTypeNotTagged: Fact = f.fact(209, "NodeNetwerkTypeNotTagged", "GeenKnooppuntNetwerkTypeTag", FactLevel.INFO)
-  val RouteNetwerkTypeNotTagged: Fact = f.fact(210, "RouteNetwerkTypeNotTagged", "GeenRouteNetwerkTypeTag", FactLevel.INFO)
-  val NetwerkTypeNotTagged: Fact = f.fact(211, "NetworkTypeNotTagged", "GeenNetwerkTypeTag", FactLevel.INFO)
+  val NodeNetworkTypeNotTagged: Fact = f.fact(209, "NodeNetworkTypeNotTagged", "GeenKnooppuntNetwerkTypeTag", FactLevel.INFO)
+  val RouteNetworkTypeNotTagged: Fact = f.fact(210, "RouteNetworkTypeNotTagged", "GeenRouteNetwerkTypeTag", FactLevel.INFO)
+  val NetworkTypeNotTagged: Fact = f.fact(211, "NetworkTypeNotTagged", "GeenNetwerkTypeTag", FactLevel.INFO)
 
   // other
   val RouteBroken: Fact = f.fact(303, "RouteBroken", "RouteFout", FactLevel.OTHER)

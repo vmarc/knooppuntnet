@@ -57,7 +57,10 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-route-without-ways *ngSwitchCase="'RouteWithoutWays'"></kpn-fact-route-without-ways>
       <kpn-fact-was-ignored *ngSwitchCase="'WasIgnored'"></kpn-fact-was-ignored>
       <kpn-fact-was-orphan *ngSwitchCase="'WasOrphan'"></kpn-fact-was-orphan>
-      <p *ngSwitchDefault>{{factName}} description missing</p>
+      <kpn-fact-node-network-type-not-tagged *ngSwitchCase="'NodeNetworkTypeNotTagged'"></kpn-fact-node-network-type-not-tagged>
+      <kpn-fact-route-network-type-not-tagged *ngSwitchCase="'RouteNetworkTypeNotTagged'"></kpn-fact-route-network-type-not-tagged>
+      <kpn-fact-network-type-not-tagged *ngSwitchCase="'NetworkTypeNotTagged'"></kpn-fact-network-type-not-tagged>
+      <p *ngSwitchDefault>{{factName}} description missing!!</p>
     </ng-container>
   `
 })

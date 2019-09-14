@@ -111,6 +111,7 @@ object UiSubsetFactDetailsPage {
     def page: SubsetFactDetailsPage = state.pageState.response.get.result.get
 
     private def factType: String = page.fact match {
+      case Fact.NodeNetworkTypeNotTagged => nls("node", "knooppunt")
       case Fact.NodeMemberMissing => nls("node", "knooppunt")
       case Fact.IntegrityCheckFailed => nls("node", "knooppunt")
       case Fact.NetworkExtraMemberNode => nls("node", "knoop")
@@ -120,6 +121,7 @@ object UiSubsetFactDetailsPage {
     }
 
     private def factTypePlural: String = page.fact match {
+      case Fact.NodeNetworkTypeNotTagged => nls("nodes", "knooppunten")
       case Fact.NodeMemberMissing => nls("nodes", "knooppunten")
       case Fact.IntegrityCheckFailed => nls("nodes", "knooppunten")
       case Fact.NetworkExtraMemberNode => nls("nodes", "knopen")
@@ -179,6 +181,7 @@ object UiSubsetFactDetailsPage {
                     UiCommaList(
                       networkFacts.factRefs.map { ref =>
                         page.fact match {
+                          case Fact.NodeNetworkTypeNotTagged => context.gotoNode(ref.id, ref.name)
                           case Fact.NodeMemberMissing => context.gotoNode(ref.id, ref.name)
                           case Fact.IntegrityCheckFailed => context.gotoNode(ref.id, ref.name)
                           case Fact.NetworkExtraMemberNode => UiOsmLink.osmNode(ref.id)

@@ -610,6 +610,30 @@
           <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="fact.name.node-network-type-not-tagged" datatype="html">
+        <source>NodeNetworkTypeNotTagged</source>
+        <target state="new">[NodeNetworkTypeNotTagged]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-network-type-not-tagged" datatype="html">
+        <source>RouteNetworkTypeNotTagged</source>
+        <target state="new">[RouteNetworkTypeNotTagged]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.network-type-not-tagged" datatype="html">
+        <source>NetworkTypeNotTagged</source>
+        <target state="new">[NetworkTypeNotTagged]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
         <source>
       The route is broken: the begin- and end-networknodes cannot be connected through ways either
@@ -1319,6 +1343,42 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.node-network-type-not-tagged" datatype="html">
+        <source>
+      This node does not have a 'network:type=node_network' tag.
+    </source>
+        <target state="new">[
+      This node does not have a 'network:type=node_network' tag.
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-network-type-not-tagged.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-network-type-not-tagged" datatype="html">
+        <source>
+      This route does not have a 'network:type=node_network' tag.
+    </source>
+        <target state="new">[
+      This route does not have a 'network:type=node_network' tag.
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-network-type-not-tagged.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.network-type-not-tagged" datatype="html">
+        <source>
+      This network does not have a 'network:type=node_network' tag.
+    </source>
+        <target state="new">[
+      This network does not have a 'network:type=node_network' tag.
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-type-not-tagged.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
@@ -4196,7 +4256,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-not-continious.name" datatype="html">
@@ -4204,7 +4264,7 @@
         <target state="new">[RouteNotContinious]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-not-continious-percentage.comment" datatype="html">
@@ -4218,7 +4278,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-not-continious-percentage.name" datatype="html">
@@ -4226,7 +4286,7 @@
         <target state="new">[RouteNotContiniousPercentage]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-broken-network-count.comment" datatype="html">
@@ -4240,7 +4300,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-broken-network-count.name" datatype="html">
@@ -4248,7 +4308,7 @@
         <target state="new">[RouteBrokenNetworkCount]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-broken-count.comment" datatype="html">
@@ -4262,7 +4322,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-broken-count.name" datatype="html">
@@ -4270,7 +4330,7 @@
         <target state="new">[RouteBrokenCount]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-broken-percentage.comment" datatype="html">
@@ -4284,7 +4344,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-broken-percentage.name" datatype="html">
@@ -4292,7 +4352,7 @@
         <target state="new">[RouteBrokenPercentage]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-incomplete.comment" datatype="html">
@@ -4311,7 +4371,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-incomplete.name" datatype="html">
@@ -4319,7 +4379,7 @@
         <target state="new">[RouteIncomplete]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-incomplete-ok.comment" datatype="html">
@@ -4340,7 +4400,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-incomplete-ok.name" datatype="html">
@@ -4348,7 +4408,7 @@
         <target state="new">[RouteIncompleteOk]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-fixmetodo.comment" datatype="html">
@@ -4362,7 +4422,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-fixmetodo.name" datatype="html">
@@ -4370,7 +4430,7 @@
         <target state="new">[RouteFixmetodo]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.name" datatype="html">
@@ -4378,7 +4438,7 @@
         <target state="new">[Orphan nodes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-route-count.comment" datatype="html">
@@ -4396,7 +4456,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-route-count.name" datatype="html">
@@ -4404,7 +4464,7 @@
         <target state="new">[Orphan routes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-route-km.comment" datatype="html">
@@ -4418,7 +4478,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-route-km.name" datatype="html">
@@ -4426,7 +4486,7 @@
         <target state="new">[Orphan route length (km)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-network-count.comment" datatype="html">
@@ -4440,7 +4500,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-network-count.name" datatype="html">
@@ -4448,7 +4508,7 @@
         <target state="new">[IntegrityCheck]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check.comment" datatype="html">
@@ -4462,7 +4522,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">169</context>
+          <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check.name" datatype="html">
@@ -4470,7 +4530,7 @@
         <target state="new">[IntegrityCheck]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">167</context>
+          <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-failed.comment" datatype="html">
@@ -4484,7 +4544,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">178</context>
+          <context context-type="linenumber">183</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-failed.name" datatype="html">
@@ -4492,7 +4552,7 @@
         <target state="new">[IntegrityCheckFailed]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">175</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-pass-rate.comment" datatype="html">
@@ -4506,7 +4566,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">186</context>
+          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-pass-rate.name" datatype="html">
@@ -4514,7 +4574,7 @@
         <target state="new">[IntegrityCheckPassRate]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">189</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-coverage.comment" datatype="html">
@@ -4528,7 +4588,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">194</context>
+          <context context-type="linenumber">199</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.integrity-check-coverage.name" datatype="html">
@@ -4536,7 +4596,67 @@
         <target state="new">[IntegrityCheckCoverage]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">197</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.node-network-type-not-tagged.comment" datatype="html">
+        <source>
+        Number of nodes that are not tagged with 'network:type=node_network'.
+      </source>
+        <target state="new">[
+        Number of nodes that are not tagged with 'network:type=node_network'.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">209</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.node-network-type-not-tagged.name" datatype="html">
+        <source>NodeNetworkTypeNotTagged</source>
+        <target state="new">[NodeNetwerkTypeNotTagged]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-network-type-not-tagged.comment" datatype="html">
+        <source>
+        Number of routes that are not tagged with 'network:type=node_network'.
+      </source>
+        <target state="new">[
+        Number of routes that are not tagged with 'network:type=node_network'.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">219</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-network-type-not-tagged.name" datatype="html">
+        <source>RouteNetworkTypeNotTagged</source>
+        <target state="new">[RouteNetwerkTypeNotTagged]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">216</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-type-not-tagged.comment" datatype="html">
+        <source>
+        Number of network that are not tagged with 'network:type=node_network'.
+      </source>
+        <target state="new">[
+        Number of network that are not tagged with 'network:type=node_network'.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">229</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.network-type-not-tagged.name" datatype="html">
+        <source>NetworkTypeNotTagged</source>
+        <target state="new">[NetwerkTypeNotTagged]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="linenumber">226</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unused-segments.comment" datatype="html">
@@ -4553,7 +4673,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">203</context>
+          <context context-type="linenumber">239</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unused-segments.name" datatype="html">
@@ -4561,7 +4681,7 @@
         <target state="new">[RouteUnusedSegments]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">200</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-missing-in-ways.comment" datatype="html">
@@ -4575,7 +4695,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">213</context>
+          <context context-type="linenumber">250</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-missing-in-ways.name" datatype="html">
@@ -4583,7 +4703,7 @@
         <target state="new">[RouteNodeMissingInWays]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">210</context>
+          <context context-type="linenumber">247</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-redundant-nodes.comment" datatype="html">
@@ -4598,7 +4718,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">222</context>
+          <context context-type="linenumber">260</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-redundant-nodes.name" datatype="html">
@@ -4606,7 +4726,7 @@
         <target state="new">[RouteRedundantNodes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">219</context>
+          <context context-type="linenumber">257</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-without-ways.comment" datatype="html">
@@ -4620,7 +4740,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">232</context>
+          <context context-type="linenumber">271</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-without-ways.name" datatype="html">
@@ -4628,7 +4748,7 @@
         <target state="new">[RouteWithoutWays]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">228</context>
+          <context context-type="linenumber">267</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-name-missing.comment" datatype="html">
@@ -4642,7 +4762,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">242</context>
+          <context context-type="linenumber">282</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-name-missing.name" datatype="html">
@@ -4650,7 +4770,7 @@
         <target state="new">[RouteNameMissing]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">238</context>
+          <context context-type="linenumber">278</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-tag-missing.comment" datatype="html">
@@ -4664,7 +4784,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">252</context>
+          <context context-type="linenumber">293</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-tag-missing.name" datatype="html">
@@ -4672,7 +4792,7 @@
         <target state="new">[RouteTagMissing]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">248</context>
+          <context context-type="linenumber">289</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-tag-invalid.comment" datatype="html">
@@ -4686,7 +4806,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">262</context>
+          <context context-type="linenumber">304</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-tag-invalid.name" datatype="html">
@@ -4694,7 +4814,7 @@
         <target state="new">[RouteTagInvalid]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">258</context>
+          <context context-type="linenumber">300</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unexpected-node.comment" datatype="html">
@@ -4711,7 +4831,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">272</context>
+          <context context-type="linenumber">315</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unexpected-node.name" datatype="html">
@@ -4719,7 +4839,7 @@
         <target state="new">[RouteUnexpectedNode]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">268</context>
+          <context context-type="linenumber">311</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unexpected-relation.comment" datatype="html">
@@ -4738,7 +4858,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">283</context>
+          <context context-type="linenumber">327</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unexpected-relation.name" datatype="html">
@@ -4746,7 +4866,7 @@
         <target state="new">[RouteUnexpectedRelation]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">323</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
@@ -4764,7 +4884,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">295</context>
+          <context context-type="linenumber">340</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.name" datatype="html">
@@ -4772,7 +4892,7 @@
         <target state="new">[NetworkExtraMemberNode]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">291</context>
+          <context context-type="linenumber">336</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-way.comment" datatype="html">
@@ -4788,7 +4908,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">307</context>
+          <context context-type="linenumber">353</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-way.name" datatype="html">
@@ -4796,7 +4916,7 @@
         <target state="new">[NetworkExtraMemberWay]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">303</context>
+          <context context-type="linenumber">349</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-relation.comment" datatype="html">
@@ -4813,7 +4933,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">318</context>
+          <context context-type="linenumber">365</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-relation.name" datatype="html">
@@ -4821,7 +4941,7 @@
         <target state="new">[NetworkExtraMemberRelation]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">314</context>
+          <context context-type="linenumber">361</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.node-member-missing.comment" datatype="html">
@@ -4835,7 +4955,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">328</context>
+          <context context-type="linenumber">376</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.node-member-missing.name" datatype="html">
@@ -4843,7 +4963,7 @@
         <target state="new">[NodeMemberMissing]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">325</context>
+          <context context-type="linenumber">373</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.name-missing.comment" datatype="html">
@@ -4857,7 +4977,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">337</context>
+          <context context-type="linenumber">386</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.name-missing.name" datatype="html">
@@ -4865,7 +4985,7 @@
         <target state="new">[NameMissing]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">334</context>
+          <context context-type="linenumber">383</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unaccessible.comment" datatype="html">
@@ -4879,7 +4999,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">347</context>
+          <context context-type="linenumber">397</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unaccessible.name" datatype="html">
@@ -4887,7 +5007,7 @@
         <target state="new">[RouteUnaccessible]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">343</context>
+          <context context-type="linenumber">393</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-invalid-sorting-order.comment" datatype="html">
@@ -4901,7 +5021,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">356</context>
+          <context context-type="linenumber">407</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-invalid-sorting-order.name" datatype="html">
@@ -4909,7 +5029,7 @@
         <target state="new">[RouteInvalidSortingOrder]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">353</context>
+          <context context-type="linenumber">404</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-reversed.comment" datatype="html">
@@ -4923,7 +5043,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">365</context>
+          <context context-type="linenumber">417</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-reversed.name" datatype="html">
@@ -4931,7 +5051,7 @@
         <target state="new">[RouteReversed]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">362</context>
+          <context context-type="linenumber">414</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-name-mismatch.comment" datatype="html">
@@ -4949,7 +5069,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">374</context>
+          <context context-type="linenumber">427</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-name-mismatch.name" datatype="html">
@@ -4957,7 +5077,7 @@
         <target state="new">[RouteNodeNameMismatch]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">371</context>
+          <context context-type="linenumber">424</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
@@ -6193,7 +6313,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.summary" datatype="html">

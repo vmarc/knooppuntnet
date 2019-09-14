@@ -165,7 +165,7 @@ class NetworkAnalyzerImpl(
         }
 
         val facts2 = if (!networkNode.tags.has("network:type", "node_network")) {
-          Seq(Fact.NodeNetwerkTypeNotTagged)
+          Seq(Fact.NodeNetworkTypeNotTagged)
         }
         else {
           Seq()

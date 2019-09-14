@@ -75,7 +75,7 @@ class NetworkInfoBuilder {
     val center = new NetworkCenterCalculator().calculate(network)
 
     val facts: Seq[Fact] = if (!network.tagged) {
-      Seq(Fact.NetwerkTypeNotTagged)
+      Seq(Fact.NetworkTypeNotTagged)
     }
     else  {
       Seq()

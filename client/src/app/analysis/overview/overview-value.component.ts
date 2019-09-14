@@ -28,7 +28,7 @@ export class OverviewValueComponent {
   }
 
   link() {
-    return "/analysis/" + this.stat.configuration.linkFunction(this.stat.configuration.id, this.subset);
+    return "/analysis/" + this.stat.configuration.linkFunction(this.stat.configuration.fact, this.subset);
   }
 
 }

@@ -53,6 +53,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteNotContiniousCount"
+        fact="RouteNotContinious"
         name="RouteNotContinious"
         i18n-name="@@stats.route-not-continious.name"
         i18n="@@stats.route-not-continious.comment"
@@ -94,6 +95,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteIncompleteCount"
+        fact="RouteIncomplete"
         name="RouteIncomplete"
         i18n-name="@@stats.route-incomplete.name"
         i18n="@@stats.route-incomplete.comment"
@@ -106,6 +108,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteIncompleteOkCount"
+        fact="RouteIncompleteOk"
         name="RouteIncompleteOk"
         i18n-name="@@stats.route-incomplete-ok.name"
         i18n="@@stats.route-incomplete-ok.comment"
@@ -119,6 +122,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteFixmetodoCount"
+        fact="RouteFixmetodo"
         name="RouteFixmetodo"
         i18n-name="@@stats.route-fixmetodo.name"
         i18n="@@stats.route-fixmetodo.comment"
@@ -180,6 +184,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="IntegrityCheckFailedCount"
+        fact="IntegrityCheckFailed"
         name="IntegrityCheckFailed"
         i18n-name="@@stats.integrity-check-failed.name"
         i18n="@@stats.integrity-check-failed.comment"
@@ -204,7 +209,38 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
       </kpn-statistic-configuration>
 
       <kpn-statistic-configuration
+        id="NodeNetworkTypeNotTaggedCount"
+        fact="NodeNetworkTypeNotTagged"
+        name="NodeNetworkTypeNotTagged"
+        i18n-name="@@stats.node-network-type-not-tagged.name"
+        i18n="@@stats.node-network-type-not-tagged.comment"
+        [linkFunction]="factDetailCounts">
+        Number of nodes that are not tagged with 'network:type=node_network'.
+      </kpn-statistic-configuration>
+
+      <kpn-statistic-configuration
+        id="RouteNetworkTypeNotTaggedCount"
+        fact="RouteNetworkTypeNotTagged"
+        name="RouteNetworkTypeNotTagged"
+        i18n-name="@@stats.route-network-type-not-tagged.name"
+        i18n="@@stats.route-network-type-not-tagged.comment"
+        [linkFunction]="factDetailCounts">
+        Number of routes that are not tagged with 'network:type=node_network'.
+      </kpn-statistic-configuration>
+
+      <kpn-statistic-configuration
+        id="NetworkTypeNotTaggedCount"
+        fact="NetworkTypeNotTagged"
+        name="NetworkTypeNotTagged"
+        i18n-name="@@stats.network-type-not-tagged.name"
+        i18n="@@stats.network-type-not-tagged.comment"
+        [linkFunction]="factDetailCounts">
+        Number of network that are not tagged with 'network:type=node_network'.
+      </kpn-statistic-configuration>
+
+      <kpn-statistic-configuration
         id="RouteUnusedSegmentsCount"
+        fact="RouteUnusedSegments"
         name="RouteUnusedSegments"
         i18n-name="@@stats.route-unused-segments.name"
         i18n="@@stats.route-unused-segments.comment"
@@ -215,6 +251,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteNodeMissingInWaysCount"
+        fact="RouteNodeMissingInWays"
         name="RouteNodeMissingInWays"
         i18n-name="@@stats.route-node-missing-in-ways.name"
         i18n="@@stats.route-node-missing-in-ways.comment"
@@ -224,6 +261,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteRedundantNodesCount"
+        fact="RouteRedundantNodes"
         name="RouteRedundantNodes"
         i18n-name="@@stats.route-redundant-nodes.name"
         i18n="@@stats.route-redundant-nodes.comment"
@@ -233,6 +271,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteWithoutWaysCount"
+        fact="RouteWithoutWays"
         name="RouteWithoutWays"
         i18n-name="@@stats.route-without-ways.name"
         i18n="@@stats.route-without-ways.comment"
@@ -243,6 +282,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteNameMissingCount"
+        fact="RouteNameMissing"
         name="RouteNameMissing"
         i18n-name="@@stats.route-name-missing.name"
         i18n="@@stats.route-name-missing.comment"
@@ -253,6 +293,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteTagMissingCount"
+        fact="RouteTagMissing"
         name="RouteTagMissing"
         i18n-name="@@stats.route-tag-missing.name"
         i18n="@@stats.route-tag-missing.comment"
@@ -263,6 +304,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteTagInvalidCount"
+        fact="RouteTagInvalid"
         name="RouteTagInvalid"
         i18n-name="@@stats.route-tag-invalid.name"
         i18n="@@stats.route-tag-invalid.comment"
@@ -273,6 +315,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteUnexpectedNodeCount"
+        fact="RouteUnexpectedNode"
         name="RouteUnexpectedNode"
         i18n-name="@@stats.route-unexpected-node.name"
         i18n="@@stats.route-unexpected-node.comment"
@@ -284,6 +327,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteUnexpectedRelationCount"
+        fact="RouteUnexpectedRelation"
         name="RouteUnexpectedRelation"
         i18n-name="@@stats.route-unexpected-relation.name"
         i18n="@@stats.route-unexpected-relation.comment"
@@ -296,6 +340,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="NetworkExtraMemberNodeCount"
+        fact="NetworkExtraMemberNode"
         name="NetworkExtraMemberNode"
         i18n-name="@@stats.network-extra-member-node.name"
         i18n="@@stats.network-extra-member-node.comment"
@@ -308,6 +353,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="NetworkExtraMemberWayCount"
+        fact="NetworkExtraMemberWay"
         name="NetworkExtraMemberWay"
         i18n-name="@@stats.network-extra-member-way.name"
         i18n="@@stats.network-extra-member-way.comment"
@@ -319,6 +365,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="NetworkExtraMemberRelationCount"
+        fact="NetworkExtraMemberRelation"
         name="NetworkExtraMemberRelation"
         i18n-name="@@stats.network-extra-member-relation.name"
         i18n="@@stats.network-extra-member-relation.comment"
@@ -330,6 +377,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="NodeMemberMissingCount"
+        fact="NodeMemberMissing"
         name="NodeMemberMissing"
         i18n-name="@@stats.node-member-missing.name"
         i18n="@@stats.node-member-missing.comment"
@@ -339,6 +387,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="NameMissingCount"
+        fact="NameMissing"
         name="NameMissing"
         i18n-name="@@stats.name-missing.name"
         i18n="@@stats.name-missing.comment"
@@ -348,6 +397,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteUnaccessibleCount"
+        fact="RouteUnaccessible"
         name="RouteUnaccessible"
         i18n-name="@@stats.route-unaccessible.name"
         i18n="@@stats.route-unaccessible.comment"
@@ -358,6 +408,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteInvalidSortingOrderCount"
+        fact="RouteInvalidSortingOrder"
         name="RouteInvalidSortingOrder"
         i18n-name="@@stats.route-invalid-sorting-order.name"
         i18n="@@stats.route-invalid-sorting-order.comment"
@@ -367,6 +418,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteReversedCount"
+        fact="RouteReversed"
         name="RouteReversed"
         i18n-name="@@stats.route-reversed.name"
         i18n="@@stats.route-reversed.comment"
@@ -376,6 +428,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
       <kpn-statistic-configuration
         id="RouteNodeNameMismatchCount"
+        fact="RouteNodeNameMismatch"
         name="RouteNodeNameMismatch"
         i18n-name="@@stats.route-node-name-mismatch.name"
         i18n="@@stats.route-node-name-mismatch.comment"

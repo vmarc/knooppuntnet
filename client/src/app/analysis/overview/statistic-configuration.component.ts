@@ -11,6 +11,7 @@ import {StatisticConfiguration} from "./statistic-configuration";
 export class StatisticConfigurationComponent implements AfterViewInit {
 
   @Input() id: string;
+  @Input() fact: string;
   @Input() name: string;
   @Input() markdownEnabled: boolean = false;
   @Input() linkFunction: (id: string, subset: Subset) => string | null = null;
@@ -25,7 +26,7 @@ export class StatisticConfigurationComponent implements AfterViewInit {
   }
 
   toStatistic() {
-    return new StatisticConfiguration(this.id, this.name, this.markdownEnabled, this.comment, this.linkFunction);
+    return new StatisticConfiguration(this.id, this.fact, this.name, this.markdownEnabled, this.comment, this.linkFunction);
   }
 
 }
