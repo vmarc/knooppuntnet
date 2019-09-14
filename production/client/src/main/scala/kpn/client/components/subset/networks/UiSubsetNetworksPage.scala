@@ -218,6 +218,16 @@ object UiSubsetNetworksPage {
             TagMod.when(network.veryHappy) {
               UiHappy()
             },
+            TagMod.when(!network.tagged) {
+              <.div(
+                <.i(
+                  nls(
+                    "No 'network:type=node_network' tag",
+                    "Geen 'network:type=node_network' tag"
+                  )
+                )
+              )
+            },
             <.div(
               network.km + " km, " + network.nodeCount + " nodes, " + network.routeCount + " routes"
             ),
