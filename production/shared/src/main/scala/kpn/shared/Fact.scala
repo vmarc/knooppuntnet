@@ -126,7 +126,12 @@ object Fact {
   val routeDetailFacts: Seq[Fact] = all.filterNot(f => f == RouteBroken || f == RouteNotContinious)
 
   def withName(factName: String): Option[Fact] = {
-    all.find(fact => fact.name == factName)
+    val currentFactName = factName match {
+      case "NodeNetwerkTypeNotTagged" => "NodeNetworkTypeNotTagged"
+      case "RouteNetwerkTypeNotTagged" => "RouteNetworkTypeNotTagged"
+      case _ => factName
+    }
+    all.find(fact => fact.name == currentFactName)
   }
 
   val errorFacts: Seq[Fact] = all.filter(_.isError).
