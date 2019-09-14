@@ -10,6 +10,8 @@ import kpn.client.common.Nls.nlsEN
 import kpn.client.common.Nls.nlsNL
 import kpn.client.components.common.UiMarked
 import kpn.shared.Fact
+import kpn.shared.Fact.f
+import kpn.shared.FactLevel
 import kpn.shared.Subset
 import kpn.shared.statistics.Statistic
 import kpn.shared.statistics.Statistics
@@ -340,6 +342,33 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
       )
     )
   )
+
+  val nodeNetwerkTypeNotTaggedInfo: UiOverviewInfo = factDetailCounts(Fact.NodeNetwerkTypeNotTagged) {
+    <.div(
+      nls(
+        "Number of nodes that are not tagged with 'network:type=node_network'.",
+        "Aantal knooppunten zonder 'network:type=node_network' tag."
+      )
+    )
+  }
+
+  val routeNetwerkTypeNotTaggedInfo: UiOverviewInfo = factDetailCounts(Fact.RouteNetwerkTypeNotTagged) {
+    <.div(
+      nls(
+        "Number of routes that are not tagged with 'network:type=node_network'.",
+        "Aantal routes zonder 'network:type=node_network' tag."
+      )
+    )
+  }
+
+  val netwerkTypeNotTaggedInfo: UiOverviewInfo = factDetailCounts(Fact.NetwerkTypeNotTagged) {
+    <.div(
+      nls(
+        "Number of networks that are not tagged with 'network:type=node_network'.",
+        "Aantal netwerken zonder 'network:type=node_network' tag."
+      )
+    )
+  }
 
   val routeUnusedSegmentsInfo: UiOverviewInfo = factDetailCounts(Fact.RouteUnusedSegments) {
     <.div(
