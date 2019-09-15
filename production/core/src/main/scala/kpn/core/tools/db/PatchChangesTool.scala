@@ -31,8 +31,8 @@ object PatchChangesTool {
 class PatchChangesTool(database: Database) {
 
   def run(): Unit = {
-    // patchNodeChanges()
-    // patchRouteChanges()
+    patchNodeChanges()
+    patchRouteChanges()
     patchChangeSetSummaries()
   }
 

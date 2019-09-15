@@ -22,7 +22,7 @@ if (doc._id.indexOf("change:") === 0) {
 
     if (doc.changeSetSummary.subsetAnalyses) {
       for (var i = 0; i < doc.changeSetSummary.subsetAnalyses.length; i++) {
-        var subsetAnalysis = subsetAnalyses[i];
+        var subsetAnalysis = doc.changeSetSummary.subsetAnalyses[i];
         var subsetImpacted = 0;
         if (subsetAnalysis.happy || subsetAnalysis.investigate) {
           subsetImpacted = 1;
@@ -33,7 +33,6 @@ if (doc._id.indexOf("change:") === 0) {
         }
       }
     }
-
   }
   else if (doc.networkChange) {
     var key = doc.networkChange.key;
