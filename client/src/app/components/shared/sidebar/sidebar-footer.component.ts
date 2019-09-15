@@ -17,7 +17,7 @@ import {Router} from "@angular/router";
       </p>
 
       <p class="version">
-        v3.0.0-alpha-3
+        v3.0.0-alpha-4
       </p>
 
       <p *ngIf="isLoggedIn()">
