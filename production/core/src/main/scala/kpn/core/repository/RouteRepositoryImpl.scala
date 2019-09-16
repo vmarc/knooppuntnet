@@ -139,17 +139,18 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def filterKnown(routeIds: Set[Long]): Set[Long] = {
     log.debugElapsed {
-      val routeDocIds = routeIds.map(docId).toSeq
-      val existingRouteDocIds = database.keysWithIds(routeDocIds)
-      val existingRouteIds = existingRouteDocIds.flatMap { routeDocId =>
-        try {
-          Some(java.lang.Long.parseLong(routeDocId.substring(KeyPrefix.Route.length + 1)))
-        }
-        catch {
-          case e: NumberFormatException => None
+      val existingRouteIds = routeIds.sliding(50, 50).flatMap { routeIdsSubset =>
+        val routeDocIds = routeIdsSubset.map(docId).toSeq
+        val existingRouteDocIds = database.keysWithIds(routeDocIds)
+        existingRouteDocIds.flatMap { routeDocId =>
+          try {
+            Some(java.lang.Long.parseLong(routeDocId.substring(KeyPrefix.Route.length + 1)))
+          }
+          catch {
+            case e: NumberFormatException => None
+          }
         }
       }.toSet
-
       (s"${existingRouteIds.size}/${routeIds.size} existing routes", existingRouteIds)
     }
   }

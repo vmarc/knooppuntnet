@@ -86,14 +86,16 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {
     log.debugElapsed {
-      val nodeDocIds = nodeIds.map(docId).toSeq
-      val existingNodeDocIds = database.keysWithIds(nodeDocIds)
-      val existingNodeIds = existingNodeDocIds.flatMap { nodeDocId =>
-        try {
-          Some(java.lang.Long.parseLong(nodeDocId.substring(KeyPrefix.Node.length + 1)))
-        }
-        catch {
-          case e: NumberFormatException => None
+      val existingNodeIds = nodeIds.sliding(50, 50).flatMap { nodeIdsSubset =>
+        val nodeDocIds = nodeIdsSubset.map(docId).toSeq
+        val existingNodeDocIds = database.keysWithIds(nodeDocIds)
+        existingNodeDocIds.flatMap { nodeDocId =>
+          try {
+            Some(java.lang.Long.parseLong(nodeDocId.substring(KeyPrefix.Node.length + 1)))
+          }
+          catch {
+            case e: NumberFormatException => None
+          }
         }
       }.toSet
       (s"${existingNodeIds.size}/${nodeIds.size} existing nodes", existingNodeIds)
