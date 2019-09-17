@@ -1,6 +1,14 @@
 package kpn.core.tools.support
 
 // convert -background transparent -define 'icon:auto-resize=16,24,32,64' logo.svg favicon.ico
+// convert -background transparent -resize 72x72 logo.svg icon-72x72.png
+// convert -background transparent -resize 96x96 logo.svg icon-96x96.png
+// convert -background transparent -resize 128x128 logo.svg icon-128x128.png
+// convert -background transparent -resize 144x144 logo.svg icon-144x144.png
+// convert -background transparent -resize 152x152 logo.svg icon-152x152.png
+// convert -background transparent -resize 192x192 logo.svg icon-192x192.png
+// convert -background transparent -resize 384x384 logo.svg icon-384x384.png
+// convert -background transparent -resize 512x512 logo.svg icon-512x512.png
 
 object LogoTool {
   def main(args: Array[String]): Unit = {
