@@ -10,15 +10,15 @@ object LogoTool {
 
 class LogoTool() {
 
-  private val width = 100
-  private val height = 100
+  private val width = 1000
+  private val height = 1000
 
-  private val circleRadius = 10
-  private val circleCenterRadius = 40
+  private val circleRadius = 100
+  private val circleCenterRadius = 400
 
-  private val strokeWidth = 6
+  private val strokeWidth = 60
 
-  private val centerX = width / 2
+  private val centerX = width / 2 - 100
   private val centerY = height / 2
 
   private val lineRadius1 = (circleRadius / 2) + (strokeWidth / 2)
@@ -26,8 +26,8 @@ class LogoTool() {
 
   def create(): Unit = {
 
-    val angle1 = -30d
-    val angle2 = -125d
+    val angle1 = 0d
+    val angle2 = -120d
     val angle3 = -240d
 
     println(s"""<svg width="$width" height="$height">""")
