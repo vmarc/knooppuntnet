@@ -121,6 +121,7 @@ class RouteTool(database: Database) {
     println("nl hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.nlHiking).size)
     println("be hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.beHiking).size)
     println("de hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.deHiking).size)
+    println("fr hiking orphan route count = " + orphanRepository.orphanRoutes(Subset.frHiking).size)
 
     val exampleIgnoredRouteIds = ignoredRouteIds.take(30)
     println(exampleIgnoredRouteIds.mkString(","))

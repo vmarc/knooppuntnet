@@ -16,6 +16,7 @@ object LoadedNode {
 }
 
 case class LoadedNode(country: Option[Country], networkTypes: Seq[NetworkType], name: String, node: Node) {
+
   def id: Long = node.id
 
   def subsets: Seq[Subset] = {

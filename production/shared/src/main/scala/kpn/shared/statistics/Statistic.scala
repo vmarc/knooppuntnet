@@ -6,6 +6,7 @@ object Statistic {
     "-",
     CountryStatistic("-", "-", "-", "-", "-", "-"),
     CountryStatistic("-", "-", "-", "-", "-", "-"),
+    CountryStatistic("-", "-", "-", "-", "-", "-"),
     CountryStatistic("-", "-", "-", "-", "-", "-")
   )
 }
@@ -14,5 +15,6 @@ case class Statistic(
   total: String,
   nl: CountryStatistic,
   be: CountryStatistic,
-  de: CountryStatistic
+  de: CountryStatistic,
+  fr: CountryStatistic
 )
