@@ -9,6 +9,7 @@ import {I18nService} from "./i18n.service";
       <span id="@@country.nl" i18n="@@country.nl">The Netherlands</span>
       <span id="@@country.be" i18n="@@country.be">Belgium</span>
       <span id="@@country.de" i18n="@@country.de">Germany</span>
+      <span id="@@country.fr" i18n="@@country.fr">France</span>
 
       <span id="@@network-type.hiking" i18n="@@network-type.hiking">Hiking</span>
       <span id="@@network-type.cycling" i18n="@@network-type.cycling">Cycling</span>

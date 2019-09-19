@@ -48,6 +48,13 @@ import {Component} from "@angular/core";
         text="Germany"
         i18n-text="@@country.de">
       </kpn-icon-button>
+
+      <kpn-icon-button
+        routerLink="/analysis/fr"
+        icon="france"
+        text="France"
+        i18n-text="@@country.fr">
+      </kpn-icon-button>
     </div>
   `,
   styles: [`

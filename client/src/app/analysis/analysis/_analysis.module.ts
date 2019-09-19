@@ -4,6 +4,7 @@ import {SharedModule} from "../../components/shared/shared.module";
 import {AnalysisRoutingModule} from "./_analysis-routing.module";
 import {AnalysisBePageComponent} from "./analysis-be-page.component";
 import {AnalysisDePageComponent} from "./analysis-de-page.component";
+import {AnalysisFrPageComponent} from "./analysis-fr-page.component";
 import {AnalysisNlPageComponent} from "./analysis-nl-page.component";
 import {AnalysisPageComponent} from "./analysis-page.component";
 
@@ -17,6 +18,7 @@ import {AnalysisPageComponent} from "./analysis-page.component";
     AnalysisPageComponent,
     AnalysisBePageComponent,
     AnalysisDePageComponent,
+    AnalysisFrPageComponent,
     AnalysisNlPageComponent
   ]
 })

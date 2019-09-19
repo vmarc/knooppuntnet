@@ -9,7 +9,8 @@ import {Subset} from "../../kpn/shared/subset";
       <th rowspan="2" i18n="@@overview-table.total">Total</th>
       <th colspan="6" i18n="@@country.nl">The Netherlands</th>
       <th colspan="3" i18n="@@country.be">Belgium</th>
-      <th colspan="3" i18n="@@country.de">Germany</th>
+      <th colspan="2" i18n="@@country.de">Germany</th>
+      <th colspan="2" i18n="@@country.fr">France</th>
       <th rowspan="2" i18n="@@overview-table.comment">Comment</th>
     </tr>
     <tr>

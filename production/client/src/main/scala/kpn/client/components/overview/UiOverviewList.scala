@@ -100,7 +100,8 @@ object UiOverviewList {
           countryCounts(Country.nl, nls("The Netherlands", "Nederland"), info.counts.nlRcn, info.counts.nlRwn, info.counts.nlRhn, info.counts.nlRmn, info.counts.nlRpn,
             info.counts.nlRin),
           countryCounts(Country.be, nls("Belgium", "België"), info.counts.beRcn, info.counts.beRwn, info.counts.beRhn, null, null, null),
-          countryCounts(Country.de, nls("Germany", "Duitsland"), info.counts.deRcn, info.counts.deRwn, info.counts.deRhn, null, null, null),
+          countryCounts(Country.de, nls("Germany", "Duitsland"), info.counts.deRcn, info.counts.deRwn, null, null, null, null),
+          countryCounts(Country.fr, nls("France", "Frankrijk"), info.counts.frRcn, info.counts.frRwn, null, null, null, null),
           <.tr(
             <.td(
               ^.colSpan := 2,
@@ -120,7 +121,7 @@ object UiOverviewList {
       Seq(
         <.tr(
           <.td(
-            ^.rowSpan := (if (Country.nl == country) 6 else 3),
+            ^.rowSpan := (if (Country.nl == country) 6 else {if (Country.be == country) 3 else 2}),
             countryName
           ),
           <.td(
@@ -140,15 +141,17 @@ object UiOverviewList {
             rwn
           )
         ),
-        <.tr(
-          <.td(
-            UiNetworkTypeIcon(NetworkType.horseRiding)
-          ),
-          <.td(
-            UiOverviewPage.Styles.valueColumn,
-            rhn
+        TagMod.when(Country.nl == country || Country.be == country) {
+          <.tr(
+            <.td(
+              UiNetworkTypeIcon(NetworkType.horseRiding)
+            ),
+            <.td(
+              UiOverviewPage.Styles.valueColumn,
+              rhn
+            )
           )
-        ),
+        },
         TagMod.when(Country.nl == country) {
           <.tr(
             <.td(

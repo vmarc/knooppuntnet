@@ -30,7 +30,8 @@ object NetworkNameAnalyzer {
     "Sloepennetwerk ",
     "Kanonetwerk ",
     "Skateroute-netwerk ",
-    " (Walcheren)"
+    " (Walcheren)",
+    "Réseau Pédestre - "
   )
 }
 

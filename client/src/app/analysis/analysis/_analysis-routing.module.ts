@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {Util} from "../../components/shared/util";
 import {AnalysisBePageComponent} from "./analysis-be-page.component";
 import {AnalysisDePageComponent} from "./analysis-de-page.component";
+import {AnalysisFrPageComponent} from "./analysis-fr-page.component";
 import {AnalysisNlPageComponent} from "./analysis-nl-page.component";
 import {AnalysisPageComponent} from "./analysis-page.component";
 import {AnalysisSidebarComponent} from "../../components/shared/sidebar/analysis-sidebar.component";
@@ -12,6 +13,7 @@ const routes: Routes = [
   Util.routePath("nl", AnalysisNlPageComponent, AnalysisSidebarComponent),
   Util.routePath("be", AnalysisBePageComponent, AnalysisSidebarComponent),
   Util.routePath("de", AnalysisDePageComponent, AnalysisSidebarComponent),
+  Util.routePath("fr", AnalysisFrPageComponent, AnalysisSidebarComponent),
   {
     path: "node",
     loadChildren: "../node/_node.module#NodeModule"

@@ -70,7 +70,7 @@ class Application(
     val overview = """overview""".r
     val subsetNetworks = subsetPath("networks").r
     val subsetFacts = subsetPath("facts").r
-    val subsetFactDetails = """(be|de|nl)/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/RouteBroken""".r
+    val subsetFactDetails = """(be|de|fr|nl)/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/RouteBroken""".r
     val subsetOrphanNodes = subsetPath("orphan-nodes").r
     val subsetOrphanRoutes = subsetPath("orphan-routes").r
     val subsetChanges = subsetPath("changes").r
@@ -406,7 +406,7 @@ class Application(
   }
 
   private def subsetPath(target: String): String = {
-    """(be|de|nl)/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/""" + target
+    """(be|de|fr|nl)/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/""" + target
   }
 
 }

@@ -92,6 +92,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("germany", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/germany.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("france", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/france.svg")));
   }
 
   private registerAnalysisResultsIcons() {

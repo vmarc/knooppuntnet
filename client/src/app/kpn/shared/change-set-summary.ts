@@ -2,6 +2,7 @@
 
 import {List} from "immutable";
 import {ChangeKey} from "./changes/details/change-key";
+import {ChangeSetSubsetAnalysis} from "./change-set-subset-analysis";
 import {ChangeSetSubsetElementRefs} from "./change-set-subset-element-refs";
 import {NetworkChanges} from "./network-changes";
 import {Subset} from "./subset";
@@ -16,6 +17,7 @@ export class ChangeSetSummary {
               readonly networkChanges: NetworkChanges,
               readonly orphanRouteChanges: List<ChangeSetSubsetElementRefs>,
               readonly orphanNodeChanges: List<ChangeSetSubsetElementRefs>,
+              readonly subsetAnalyses: List<ChangeSetSubsetAnalysis>,
               readonly happy: boolean,
               readonly investigate: boolean) {
   }
@@ -32,6 +34,7 @@ export class ChangeSetSummary {
       NetworkChanges.fromJSON(jsonObject.networkChanges),
       jsonObject.orphanRouteChanges ? List(jsonObject.orphanRouteChanges.map(json => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
       jsonObject.orphanNodeChanges ? List(jsonObject.orphanNodeChanges.map(json => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
+      jsonObject.subsetAnalyses ? List(jsonObject.subsetAnalyses.map(json => ChangeSetSubsetAnalysis.fromJSON(json))) : List(),
       jsonObject.happy,
       jsonObject.investigate
     );

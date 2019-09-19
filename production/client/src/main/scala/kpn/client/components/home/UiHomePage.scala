@@ -231,11 +231,9 @@ object UiHomePage {
       <.div(Styles.country, Nls.country(Some(Country.de))),
       subsetCard(Subset.deBicycle),
       subsetCard(Subset.deHiking),
-      subsetCard(Subset.deHorseRiding),
       <.div(Styles.country, Nls.country(Some(Country.fr))),
       subsetCard(Subset.frBicycle),
-      subsetCard(Subset.frHiking),
-      subsetCard(Subset.frHorseRiding)
+      subsetCard(Subset.frHiking)
     )
 
     private def subsetCard(subset: Subset): VdomElement = {
