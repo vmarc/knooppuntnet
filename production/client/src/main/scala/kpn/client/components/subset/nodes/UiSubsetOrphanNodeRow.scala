@@ -48,6 +48,11 @@ object UiSubsetOrphanNodeRow {
         <.div(
           UiThick(context.gotoNode(node.id, node.name(networkType.name)))
         ),
+        TagMod.when(!node.tags.has("network:type")) {
+          <.div(
+            <.i(s"The node does not have a 'network:type' tag")
+          )
+        },
         UiThin(
           <.div(
             node.lastUpdated.yyyymmdd

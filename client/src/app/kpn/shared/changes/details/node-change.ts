@@ -30,7 +30,9 @@ export class NodeChange {
               readonly addedToNetwork: List<Ref>,
               readonly removedFromNetwork: List<Ref>,
               readonly factDiffs: FactDiffs,
-              readonly facts: List<Fact>) {
+              readonly facts: List<Fact>,
+              readonly happy: boolean,
+              readonly investigate: boolean) {
   }
 
   public static fromJSON(jsonObject): NodeChange {
@@ -54,7 +56,9 @@ export class NodeChange {
       jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map(json => Ref.fromJSON(json))) : List(),
       jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json))) : List(),
       FactDiffs.fromJSON(jsonObject.factDiffs),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.happy,
+      jsonObject.investigate
     );
   }
 }

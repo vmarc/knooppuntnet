@@ -3,6 +3,7 @@ package kpn.core.db.views
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
 import kpn.core.db.views.FactView.FactViewKey
+import kpn.core.db.views.FactsPerNetworkView.Row
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
@@ -12,7 +13,7 @@ import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class FactViewTest extends FunSuite with Matchers {
+class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
   test("rows") {
 
@@ -35,6 +36,7 @@ class FactViewTest extends FunSuite with Matchers {
             routes = Seq(
               networkRouteInfo(
                 10L,
+                name = "01-02",
                 facts = Seq(
                   Fact.RouteBroken,
                   Fact.RouteNameMissing
@@ -55,15 +57,15 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
+      val rows = database.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
 
       rows should equal(
         Seq(
-          FactViewKey("nl", "rwn", "IgnoreForeignCountry", "network-name", networkId),
-          FactViewKey("nl", "rwn", "NameMissing", "network-name", networkId),
-          FactViewKey("nl", "rwn", "NodeMemberMissing", "network-name", networkId),
-          FactViewKey("nl", "rwn", "RouteBroken", "network-name", networkId),
-          FactViewKey("nl", "rwn", "RouteNameMissing", "network-name", networkId)
+          Row("nl", "rwn", "IgnoreForeignCountry", "network-name", networkId, None, None),
+          Row("nl", "rwn", "NameMissing", "network-name", networkId, None, None),
+          Row("nl", "rwn", "NodeMemberMissing", "network-name", networkId, Some("01"), Some(1001)),
+          Row("nl", "rwn", "RouteBroken", "network-name", networkId, Some("01-02"), Some(10)),
+          Row("nl", "rwn", "RouteNameMissing", "network-name", networkId, Some("01-02"), Some(10))
         )
       )
     }
@@ -82,17 +84,17 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
+      val rows = database.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
 
       rows should equal(
         Seq(
-          FactViewKey("nl", "rwn", "RouteNetworkTypeNotTagged", "OrphanRoutes", 0)
+          Row("nl", "rwn", "RouteNetworkTypeNotTagged", "OrphanRoutes", 0, Some("01-02"), Some(11))
         )
       )
     }
   }
 
-  test("orphan node rcn") {
+  test("orphan node") {
     orphanNodeTest(NetworkType.bicycle)
     orphanNodeTest(NetworkType.hiking)
     orphanNodeTest(NetworkType.horseRiding)
@@ -107,7 +109,7 @@ class FactViewTest extends FunSuite with Matchers {
 
       new TestDocBuilder(database) {
         node(
-          11,
+          1001,
           Country.nl,
           tags = Tags.from(networkType.nodeTagKey -> "01"),
           orphan = true,
@@ -115,11 +117,11 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
+      val rows = database.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
 
       rows should equal(
         Seq(
-          FactViewKey("nl", networkType.name, "NodeNetworkTypeNotTagged", "OrphanNodes", 0)
+          Row("nl", networkType.name, "NodeNetworkTypeNotTagged", "OrphanNodes", 0, Some("01"), Some(1001))
         )
       )
     }

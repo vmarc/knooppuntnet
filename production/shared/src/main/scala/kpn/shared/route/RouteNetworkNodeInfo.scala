@@ -5,5 +5,6 @@ case class RouteNetworkNodeInfo(
   name: String,
   alternateName: String = "",
   lat: String = "",
-  lon: String = ""
+  lon: String = "",
+  networkTypeTagged: Boolean = false
 )

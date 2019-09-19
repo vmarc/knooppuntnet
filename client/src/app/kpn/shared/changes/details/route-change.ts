@@ -23,7 +23,9 @@ export class RouteChange {
               readonly addedWays: List<RawWay>,
               readonly updatedWays: List<WayUpdate>,
               readonly diffs: RouteDiff,
-              readonly facts: List<Fact>) {
+              readonly facts: List<Fact>,
+              readonly happy: boolean,
+              readonly investigate: boolean) {
   }
 
   public static fromJSON(jsonObject): RouteChange {
@@ -42,7 +44,9 @@ export class RouteChange {
       jsonObject.addedWays ? List(jsonObject.addedWays.map(json => RawWay.fromJSON(json))) : List(),
       jsonObject.updatedWays ? List(jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json))) : List(),
       RouteDiff.fromJSON(jsonObject.diffs),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.happy,
+      jsonObject.investigate
     );
   }
 }

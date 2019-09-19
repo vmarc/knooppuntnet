@@ -22,4 +22,7 @@ case class RouteNode(
     val details = new RouteNodeFormatter(this).shortString
     s"$clazz($details)"
   }
+
+  def networkTypeTagged: Boolean = node.tags.has("network:type")
+
 }

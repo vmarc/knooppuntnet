@@ -226,7 +226,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val timestampFormat = TimestampFormat
 
-  implicit val routeNetworkNodeInfoFormat: RootJsonFormat[RouteNetworkNodeInfo] = jsonFormat5(RouteNetworkNodeInfo)
+  implicit val routeNetworkNodeInfoFormat: RootJsonFormat[RouteNetworkNodeInfo] = jsonFormat6(RouteNetworkNodeInfo)
 
   implicit val tagsFormat = TagsFormat
   implicit val routeMemberInfoFormat: RootJsonFormat[RouteMemberInfo] = jsonFormat17(RouteMemberInfo)

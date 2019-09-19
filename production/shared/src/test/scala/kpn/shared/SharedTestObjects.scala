@@ -292,7 +292,8 @@ trait SharedTestObjects {
     lastUpdated: Timestamp = defaultTimestamp,
     lastUpdatedBy: String = "",
     relationLastUpdated: Timestamp = defaultTimestamp,
-    analysis: RouteInfoAnalysis = newRouteInfoAnalysis()
+    analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
+    facts: Seq[Fact] = Seq.empty
   ): RouteInfo = {
 
     val summary = RouteSummary(
@@ -318,7 +319,7 @@ trait SharedTestObjects {
       changeSetId = 0,
       lastUpdated,
       Tags.empty,
-      Seq(),
+      facts,
       Some(analysis)
     )
   }

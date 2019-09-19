@@ -16,7 +16,17 @@ class SubsetFactDetailsPageBuilderImpl(
     val figures = overviewRepository.figures(Couch.uiTimeout)
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
     val networks = factRepository.factsPerNetwork(subset, fact, Couch.uiTimeout)
-    SubsetFactDetailsPage(subsetInfo, fact, networks)
+
+    val postProcessedNetworks = networks.map { networkFactRefs =>
+      if (networkFactRefs.networkName == "NodesInOrphanRoutes" || networkFactRefs.networkName == "OrphanNodes") {
+        networkFactRefs.copy(factRefs = networkFactRefs.factRefs.distinct)
+      }
+      else {
+        networkFactRefs
+      }
+    }
+
+    SubsetFactDetailsPage(subsetInfo, fact, postProcessedNetworks)
   }
 
 }

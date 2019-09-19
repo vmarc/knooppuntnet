@@ -1,8 +1,58 @@
 {
   "_id": "black-list",
-  "_rev": "3-ca34500e5d9886d4677c784fafbd3074",
+  "_rev": "4-a44e88932f271d428d2834a51931e052",
   "blackList": {
     "networks": [
+      {
+        "id": 55615,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 1771415,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 4592125,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 2827679,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 2269719,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 1771415,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 55615,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 222562,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 2301773,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
+      {
+        "id": 2301774,
+        "name": "?",
+        "reason": "network=type mapping result: not a node network"
+      },
       {
         "id": 1726882,
         "name": "Fietsknooppuntennetwerken in België",
@@ -44,7 +94,6 @@
         "name": "R-Radwegenetz NRW",
         "reason": "de - network collection"
       },
-
       {
         "id": 22835,
         "name": "R27 [NRW]",
@@ -152,6 +201,11 @@
       }
     ],
     "routes": [
+      {
+        "id": 3101027,
+        "name": "xx",
+        "reason": "manueel toegevoegd"
+      },
       {
         "id": 3270944,
         "name": "Flamingoroute",
@@ -453,6 +507,47 @@
         "reason": "be/rwn - not a node network"
       }
     ],
-    "nodes": []
+    "nodes": [
+      {
+        "id": 1284532642,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 256134507,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 253977639,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 1881102227,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 243534693,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 1275864777,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 1565124541,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 1382214775,
+        "name": "?",
+        "reason": "France - not a node network node"
+      }
+    ]
   }
 }

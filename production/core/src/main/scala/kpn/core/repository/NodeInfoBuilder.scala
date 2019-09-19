@@ -10,11 +10,11 @@ import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawNode
 import kpn.shared.node.NodeNameAnalyzer.name
 import kpn.shared.node.NodeNameAnalyzer.rcnName
-import kpn.shared.node.NodeNameAnalyzer.rwnName
 import kpn.shared.node.NodeNameAnalyzer.rhnName
+import kpn.shared.node.NodeNameAnalyzer.rinName
 import kpn.shared.node.NodeNameAnalyzer.rmnName
 import kpn.shared.node.NodeNameAnalyzer.rpnName
-import kpn.shared.node.NodeNameAnalyzer.rinName
+import kpn.shared.node.NodeNameAnalyzer.rwnName
 
 object NodeInfoBuilder {
 
@@ -31,6 +31,18 @@ object NodeInfoBuilder {
     tags: Tags,
     facts: Seq[Fact]
   ): NodeInfo = {
+
+    val allFacts = if (!tags.has("network:type", "node_network")) {
+      if (!facts.contains(Fact.NodeNetworkTypeNotTagged)) {
+        facts ++ Seq(Fact.NodeNetworkTypeNotTagged)
+      }
+      else {
+        facts
+      }
+    }
+    else {
+      facts
+    }
 
     NodeInfo(
       id,
@@ -50,11 +62,12 @@ object NodeInfoBuilder {
       longitude,
       lastUpdated,
       tags,
-      facts
+      allFacts
     )
   }
 
-  def fromLoadedNode(loadedNode: LoadedNode, active: Boolean = true, display: Boolean = true, ignored: Boolean = false, orphan: Boolean = false, facts: Seq[Fact] = Seq.empty)
+  def fromLoadedNode(loadedNode: LoadedNode, active: Boolean = true, display: Boolean = true, ignored: Boolean = false, orphan: Boolean = false,
+    facts: Seq[Fact] = Seq.empty)
   : NodeInfo = {
     build(
       loadedNode.node.id,

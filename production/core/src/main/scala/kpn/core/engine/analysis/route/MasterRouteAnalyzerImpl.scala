@@ -114,11 +114,11 @@ object RouteAnalyzerFunctions {
           routeNode.name,
           routeNode.alternateName,
           routeNode.lat,
-          routeNode.lon
+          routeNode.lon,
+          routeNode.networkTypeTagged
         )
     }
   }
-
 
   def oneWay(member: RouteMember): WayDirection = {
     member match {

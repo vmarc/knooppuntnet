@@ -6,7 +6,8 @@ export class RouteNetworkNodeInfo {
               readonly name: string,
               readonly alternateName: string,
               readonly lat: string,
-              readonly lon: string) {
+              readonly lon: string,
+              readonly networkTypeTagged: boolean) {
   }
 
   public static fromJSON(jsonObject): RouteNetworkNodeInfo {
@@ -18,7 +19,8 @@ export class RouteNetworkNodeInfo {
       jsonObject.name,
       jsonObject.alternateName,
       jsonObject.lat,
-      jsonObject.lon
+      jsonObject.lon,
+      jsonObject.networkTypeTagged
     );
   }
 }

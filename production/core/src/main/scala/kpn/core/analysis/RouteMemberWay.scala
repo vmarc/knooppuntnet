@@ -35,7 +35,16 @@ case class RouteMemberWay(
   }
 
   def linkName: String = link.name
-  def nodes: Seq[RouteNetworkNodeInfo] = routeNodes.map(rn => RouteNetworkNodeInfo(rn.id, rn.name, rn.alternateName, rn.node.latitude.toString, rn.node.longitude.toString))
+  def nodes: Seq[RouteNetworkNodeInfo] = routeNodes.map { rn =>
+    RouteNetworkNodeInfo(
+      rn.id,
+      rn.name,
+      rn.alternateName,
+      rn.node.latitude.toString,
+      rn.node.longitude.toString,
+      rn.networkTypeTagged
+    )
+  }
   def id: Long = way.id
   def element: Element = way
   def linkDescription: String = link.description

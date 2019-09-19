@@ -23,7 +23,8 @@ export class NetworkAttributes {
               readonly connectionCount: number,
               readonly lastUpdated: Timestamp,
               readonly relationLastUpdated: Timestamp,
-              readonly center: LatLonImpl) {
+              readonly center: LatLonImpl,
+              readonly tagged: boolean) {
   }
 
   public static fromJSON(jsonObject): NetworkAttributes {
@@ -46,7 +47,8 @@ export class NetworkAttributes {
       jsonObject.connectionCount,
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Timestamp.fromJSON(jsonObject.relationLastUpdated),
-      LatLonImpl.fromJSON(jsonObject.center)
+      LatLonImpl.fromJSON(jsonObject.center),
+      jsonObject.tagged
     );
   }
 }

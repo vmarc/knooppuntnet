@@ -129,8 +129,7 @@ if (doc) {
               var count = factMap[fact];
               if (count) {
                 count = count + 1;
-              }
-              else {
+              } else {
                 count = 1;
               }
               factMap[fact] = count;
@@ -145,8 +144,7 @@ if (doc) {
               var count = factMap[fact];
               if (count) {
                 count = count + 1;
-              }
-              else {
+              } else {
                 count = 1;
               }
               factMap[fact] = count;
@@ -187,26 +185,91 @@ if (doc) {
         }
       }
     }
-  }
-  else if (doc.node && doc.node.active === true) {
+  } else if (doc.node && doc.node.active === true) {
     if (doc.node.orphan === true && doc.node.display === true && doc.node.active === true && doc.node.ignored === false) {
+      var networkType = "";
       if (doc.node.rcnName.length > 0) {
         var index = calculateSubsetIndex(doc.node.country, "rcn");
         emitCount("OrphanNodeCount", index, 1);
+        for (var j = 0; j < doc.node.facts.length; j++) {
+          var fact = doc.node.facts[j];
+          emitCount(fact + "Count", index, 1);
+        }
       }
       if (doc.node.rwnName.length > 0) {
         var index = calculateSubsetIndex(doc.node.country, "rwn");
         emitCount("OrphanNodeCount", index, 1);
+        for (var j = 0; j < doc.node.facts.length; j++) {
+          var fact = doc.node.facts[j];
+          emitCount(fact + "Count", index, 1);
+        }
+      }
+      if (doc.node.rhnName.length > 0) {
+        var index = calculateSubsetIndex(doc.node.country, "rhn");
+        emitCount("OrphanNodeCount", index, 1);
+        for (var j = 0; j < doc.node.facts.length; j++) {
+          var fact = doc.node.facts[j];
+          emitCount(fact + "Count", index, 1);
+        }
+      }
+      if (doc.node.rmnName.length > 0) {
+        var index = calculateSubsetIndex(doc.node.country, "rmn");
+        emitCount("OrphanNodeCount", index, 1);
+        for (var j = 0; j < doc.node.facts.length; j++) {
+          var fact = doc.node.facts[j];
+          emitCount(fact + "Count", index, 1);
+        }
+      }
+      if (doc.node.rpnName.length > 0) {
+        var index = calculateSubsetIndex(doc.node.country, "rpn");
+        emitCount("OrphanNodeCount", index, 1);
+        for (var j = 0; j < doc.node.facts.length; j++) {
+          var fact = doc.node.facts[j];
+          emitCount(fact + "Count", index, 1);
+        }
+      }
+      if (doc.node.rinName.length > 0) {
+        var index = calculateSubsetIndex(doc.node.country, "rin");
+        emitCount("OrphanNodeCount", index, 1);
+        for (var j = 0; j < doc.node.facts.length; j++) {
+          var fact = doc.node.facts[j];
+          emitCount(fact + "Count", index, 1);
+        }
       }
     }
-  }
-  else if (doc.route && doc.route.summary && doc.route.active === true) {
+  } else if (doc.route && doc.route.summary && doc.route.active === true) {
     if (doc.route.orphan === true && doc.route.display === true && doc.route.active === true && doc.route.ignored === false) {
       var index = subsetIndex(doc.route.summary);
       emitCount("OrphanRouteCount", index, 1);
       emitCount("RouteCount", index, 1);
       emitCount("NodeCount", index, doc.route.summary.nodeNames.length);
       emitCount("MeterCount", index, doc.route.summary.meters);
+
+      for (var j = 0; j < doc.route.facts.length; j++) {
+        var fact = doc.route.facts[j];
+        emitCount(fact + "Count", index, 1);
+      }
+
+      var a = doc.route.analysis;
+      if (a) {
+        var allNodes = [];
+        if (a.startNodes) {
+          allNodes = allNodes.concat(a.startNodes);
+        }
+        if (a.endNodes) {
+          allNodes = allNodes.concat(a.endNodes);
+        }
+        if (a.startTentacleNodes) {
+          allNodes = allNodes.concat(a.startTentacleNodes);
+        }
+        if (a.endTentacleNodes) {
+          allNodes = allNodes.concat(a.endTentacleNodes);
+        }
+        for (var i = 0; i < allNodes.length; i++) {
+          var node = allNodes[i];
+          emitCount("NodeNetworkTypeNotTaggedCount", index, 1);
+        }
+      }
     }
   }
 }

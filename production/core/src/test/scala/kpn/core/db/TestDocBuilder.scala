@@ -110,7 +110,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     tags: Tags = Tags.empty,
     active: Boolean = true,
     orphan: Boolean = false,
-    ignored: Boolean = false
+    ignored: Boolean = false,
+    facts: Seq[Fact] = Seq.empty
   ): Unit = {
     nodeRepository.save(
       newNodeInfo(
@@ -119,7 +120,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
         tags = tags,
         active = active,
         orphan = orphan,
-        ignored = ignored
+        ignored = ignored,
+        facts = facts
       )
     )
   }
@@ -130,7 +132,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     name: String = "01-02",
     active: Boolean = true,
     orphan: Boolean = false,
-    ignored: Boolean = false
+    ignored: Boolean = false,
+    facts: Seq[Fact] = Seq.empty
   ): Unit = {
     routeRepository.save(
       newRoute(
@@ -140,7 +143,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
         name = name,
         active = active,
         orphan = orphan,
-        ignored = ignored
+        ignored = ignored,
+        facts = facts
       )
     )
   }

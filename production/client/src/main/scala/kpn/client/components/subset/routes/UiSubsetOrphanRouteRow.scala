@@ -48,6 +48,11 @@ object UiSubsetOrphanRouteRow {
         <.div(
           UiThick(context.gotoRoute(route.id, route.name))
         ),
+        TagMod.when(!route.tags.has("network:type")) {
+          <.div(
+            <.i(s"The route relation does not have a 'network:type' tag")
+          )
+        },
         <.div(s"${route.meters} m"),
         TagMod.when(route.isBroken) {
           <.div(s"route is broken")
