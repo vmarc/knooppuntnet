@@ -77,7 +77,7 @@ class ChangeProcessorConfiguration(
 
   private val ignoredNodeAnalyzer = new IgnoredNodeAnalyzerImpl()
 
-  private val routeLoader = new RouteLoaderImpl(nonCachingExecutor, cachingExecutor, countryAnalyzer)
+  private val routeLoader = new RouteLoaderImpl(cachingExecutor, countryAnalyzer)
 
   val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
     analysisData,

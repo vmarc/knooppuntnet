@@ -108,7 +108,6 @@ class AnalyzerStartToolConfiguration(
   )
 
   val routeLoader: RouteLoader = new RouteLoaderImpl(
-    nonCachingExecutor,
     cachingExecutor,
     countryAnalyzer
   )

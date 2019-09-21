@@ -132,7 +132,6 @@ class Configuration(
   )
 
   private val routeLoader: RouteLoader = new RouteLoaderImpl(
-    nonCachingExecutor,
     cachingExecutor,
     countryAnalyzer
   )

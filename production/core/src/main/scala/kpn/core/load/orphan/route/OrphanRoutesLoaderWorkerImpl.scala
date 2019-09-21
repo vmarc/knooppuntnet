@@ -21,10 +21,12 @@ class OrphanRoutesLoaderWorkerImpl(
 
   val log = Log(classOf[OrphanRoutesLoaderWorkerImpl])
 
-  def process(timestamp: Timestamp, routeIds: Seq[Long]): Unit = {
+  override def process(timestamp: Timestamp, routeId: Long): Unit = {
     log.unitElapsed {
-      val loadedRoutes = routeLoader.loadRoutes(timestamp, routeIds)
-      loadedRoutes.foreach { loadedRoute =>
+      val loadedRouteOption = routeLoader.loadRoute(timestamp, routeId)
+      loadedRouteOption match {
+        case Some(loadedRoute) =>
+
           val allNodes = new NetworkNodeBuilder(loadedRoute.data, countryAnalyzer).networkNodes
           val analysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
@@ -50,8 +52,10 @@ class OrphanRoutesLoaderWorkerImpl(
 
           val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
           analysisData.orphanRoutes.watched.add(loadedRoute.id, elementIds)
+
+        case None => // error already logged in routeLoader
       }
-      s"""Loaded routes ${routeIds.mkString(",")}"""
+      s"""Loaded route $routeId"""
     }
   }
 }

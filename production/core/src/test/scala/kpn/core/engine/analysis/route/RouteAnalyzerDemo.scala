@@ -23,7 +23,7 @@ object RouteAnalyzerDemo {
 
       val countryAnalyzer = new CountryAnalyzerImpl()
       val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
-      val routeLoader = new RouteLoaderImpl(executor, executor, countryAnalyzer)
+      val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
 
       routeLoader.loadRoute(Timestamp(2018, 5, 24, 8, 59, 2), 101673) match {
         case Some(loadedRoute) =>

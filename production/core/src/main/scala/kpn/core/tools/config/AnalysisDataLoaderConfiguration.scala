@@ -59,7 +59,6 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val routeLoader: RouteLoader = new RouteLoaderImpl(
-    nonCachingExecutor,
     cachingExecutor,
     countryAnalyzer
   )

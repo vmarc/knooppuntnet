@@ -36,7 +36,7 @@ class RouteLoaderDemo(system: ActorSystem) {
 
   val countryAnalyzer = new CountryAnalyzerImpl()
   val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
-  val routeLoader = new RouteLoaderImpl(executor, executor, countryAnalyzer)
+  val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
 
   def run(): Unit = {
     log.unitElapsed {

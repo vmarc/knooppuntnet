@@ -7,6 +7,7 @@ import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
 import kpn.core.engine.changes.data.AnalysisData
+import kpn.core.load.orphan.route.OrphanRoutesLoaderImpl.LoadRoute
 import kpn.core.repository.BlackListRepository
 import kpn.core.repository.OrphanRepository
 import kpn.core.tools.analyzer.CouchIndexer
@@ -22,7 +23,7 @@ import scala.concurrent.duration._
 
 object OrphanRoutesLoaderImpl {
 
-  case class LoadRoutes(messages: Seq[String], timestamp: Timestamp, routeIds: Seq[Long])
+  case class LoadRoute(messages: Seq[String], timestamp: Timestamp, routeId: Long)
 
 }
 
@@ -41,13 +42,11 @@ class OrphanRoutesLoaderImpl(
   private implicit val askTimeout: Timeout = Timeout(32.hour)
   private implicit val executionContext: ExecutionContext = system.dispatcher
 
-  import OrphanRoutesLoaderImpl._
-
   class WorkerActor extends Actor {
     def receive: Actor.Receive = {
-      case LoadRoutes(messages, timestamp, routeIds) =>
+      case LoadRoute(messages, timestamp, routeId) =>
         Log.context(messages) {
-          sender() ! worker.process(timestamp, routeIds)
+          sender() ! worker.process(timestamp, routeId)
         }
     }
   }
@@ -68,12 +67,10 @@ class OrphanRoutesLoaderImpl(
 
         log.info(s"Found ${routeIds.size} routes, ${ignoredRouteIds.size} ignored routes, ${candidateOrphanRouteIds.size} candidate orphan routes (unreferenced)")
 
-        val batchSize = 1
-        val batches = candidateOrphanRouteIds.sliding(batchSize, batchSize).toSeq
-        val futures = batches.zipWithIndex.map { case (routeIds, index) =>
-          Log.context(s"${index + 1}/${batches.size}") {
+        val futures = candidateOrphanRouteIds.zipWithIndex.map { case (routeIds, index) =>
+          Log.context(s"${index + 1}/${candidateOrphanRouteIds.size}") {
             val messages = Log.contextMessages
-            workerPool ? LoadRoutes(messages, timestamp, routeIds)
+            workerPool ? LoadRoute(messages, timestamp, routeIds)
           }
         }
         Await.result(Future.sequence(futures), Duration.Inf)
