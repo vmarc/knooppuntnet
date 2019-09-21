@@ -1,6 +1,6 @@
 {
   "_id": "black-list",
-  "_rev": "4-a44e88932f271d428d2834a51931e052",
+  "_rev": "1-a19bfc5fb6002ff96e28114f31abe5b9",
   "blackList": {
     "networks": [
       {
@@ -505,6 +505,441 @@
         "id": 7329397,
         "name": "SGR asbl - Dans les vallées du Hoyoux et du ruisseau de Pailhe",
         "reason": "be/rwn - not a node network"
+      },
+      {
+        "id": 1473312,
+        "name": "NRR-V002",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473448,
+        "name": "NRR-V003",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473463,
+        "name": "NRR-V004",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473716,
+        "name": "NRR-V006",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473542,
+        "name": "NRR-V007",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473535,
+        "name": "NRR-V008",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473481,
+        "name": "NRR-V009",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1472530,
+        "name": "NRR-V010",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1472356,
+        "name": "NRR-V011",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1472312,
+        "name": "NRR-V013",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 12182,
+        "name": "NRR-V014",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 2073167,
+        "name": "NRR-V015",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1468037,
+        "name": "NRR-V016",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1773691,
+        "name": "NRR-V017",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 10979,
+        "name": "NRR-V018",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 14640,
+        "name": "NRR-V019",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1466754,
+        "name": "NRR-V020",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 280170,
+        "name": "NRR-V021",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1463513,
+        "name": "NRR-V022",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1466746,
+        "name": "NRR-V025",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1455287,
+        "name": "NRR-V026",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1468068,
+        "name": "NRR-V027",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473757,
+        "name": "NRR-V029",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473745,
+        "name": "NRR-V030",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473150,
+        "name": "NRR-V031",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473149,
+        "name": "NRR-V032",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473158,
+        "name": "NRR-V033",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1463465,
+        "name": "NRR-V035",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1443339,
+        "name": "NRR-V036",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1443307,
+        "name": "NRR-V037",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1466576,
+        "name": "NRR-V039",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1455313,
+        "name": "NRR-V041",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1380482,
+        "name": "NRR-V042",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1443435,
+        "name": "NRR-V043",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1470015,
+        "name": "NRR-V044",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1463539,
+        "name": "NRR-V045",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 12275,
+        "name": "NRR-V046",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1470549,
+        "name": "NRR-V047",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473289,
+        "name": "NRR-V048",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1462733,
+        "name": "NRR-V049",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1462872,
+        "name": "NRR-V050",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1101105,
+        "name": "NRR-V051",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1466433,
+        "name": "NRR-V054",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473910,
+        "name": "NRR-V055",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473816,
+        "name": "NRR-V056",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1470207,
+        "name": "NRR-V057",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1478075,
+        "name": "NRR-V058",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1473962,
+        "name": "NRR-V059",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1466542,
+        "name": "NRR-V061",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1651088,
+        "name": "NRR-V065",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1537165,
+        "name": "NRR-V066",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1740877,
+        "name": "NRR-V067",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1651026,
+        "name": "NRR-V068",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 2073168,
+        "name": "NRR-V069",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467401,
+        "name": "NRR-V070",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 6722294,
+        "name": "NRR-V071",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 2073169,
+        "name": "NRR-V072",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467416,
+        "name": "NRR-V073",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467431,
+        "name": "NRR-V074",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467433,
+        "name": "NRR-V075",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 6761023,
+        "name": "NRR-V076",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467435,
+        "name": "NRR-V077",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 6761068,
+        "name": "NRR-V078",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467439,
+        "name": "NRR-V079",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 2073171,
+        "name": "NRR-V080",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 6761569,
+        "name": "NRR-V081",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 2073173,
+        "name": "NRR-V082",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 2073174,
+        "name": "NRR-V083",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467469,
+        "name": "NRR-V084",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 2073175,
+        "name": "NRR-V085",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467485,
+        "name": "NRR-V086",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1467496,
+        "name": "NRR-V088",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 5306580,
+        "name": "NRR-V089",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 6720923,
+        "name": "NRR-V090",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 6720727,
+        "name": "NRR-V091",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 5350997,
+        "name": "NRR-V092",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1478107,
+        "name": "NRR-V093",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 5352722,
+        "name": "NRR-V095",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 5297809,
+        "name": "NRR-V096",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1465341,
+        "name": "NRR-V097",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1564707,
+        "name": "NRR-V098",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1465229,
+        "name": "NRR-V099",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1470246,
+        "name": "NRR-V100",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1465206,
+        "name": "NRR-V101",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 1470116,
+        "name": "NRR-V102",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 4134878,
+        "name": "NRR-V104",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
+      },
+      {
+        "id": 4134879,
+        "name": "NRR-V105",
+        "reason": "2019-09-20 dvdhoven forum - not a node network route"
       }
     ],
     "nodes": [
