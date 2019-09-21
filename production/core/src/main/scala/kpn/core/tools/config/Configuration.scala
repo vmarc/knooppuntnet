@@ -126,12 +126,13 @@ class Configuration(
   )
 
   private val nodeLoader = new NodeLoaderImpl(
-    cachingExecutor,
     nonCachingExecutor,
+    cachingExecutor,
     countryAnalyzer
   )
 
   private val routeLoader: RouteLoader = new RouteLoaderImpl(
+    nonCachingExecutor,
     cachingExecutor,
     countryAnalyzer
   )
@@ -141,6 +142,7 @@ class Configuration(
   val changeProcessor: ChangeProcessor = new ChangeProcessorConfiguration(
     system,
     analysisData,
+    nonCachingExecutor,
     cachingExecutor,
     networkRepository,
     analysisRepository,

@@ -57,6 +57,7 @@ import kpn.core.repository.TaskRepository
 class ChangeProcessorConfiguration(
   system: ActorSystem,
   analysisData: AnalysisData,
+  nonCachingExecutor: OverpassQueryExecutor,
   cachingExecutor: OverpassQueryExecutor,
   networkRepository: NetworkRepository,
   analysisRepository: AnalysisRepository,
@@ -76,7 +77,7 @@ class ChangeProcessorConfiguration(
 
   private val ignoredNodeAnalyzer = new IgnoredNodeAnalyzerImpl()
 
-  private val routeLoader = new RouteLoaderImpl(cachingExecutor, countryAnalyzer)
+  private val routeLoader = new RouteLoaderImpl(nonCachingExecutor, cachingExecutor, countryAnalyzer)
 
   val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
     analysisData,

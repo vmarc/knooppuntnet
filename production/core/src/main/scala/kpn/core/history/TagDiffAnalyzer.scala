@@ -20,7 +20,8 @@ object NodeTagDiffAnalyzer {
     "rin_ref",
     "expected_rin_route_relations",
     "fixme",
-    "fixmetodo"
+    "fixmetodo",
+    "network:type"
   )
 }
 
@@ -31,7 +32,8 @@ object RouteTagDiffAnalyzer {
     "network",
     "type",
     "route",
-    "note"
+    "note",
+    "network:type"
   )
 }
 

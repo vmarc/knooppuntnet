@@ -19,6 +19,7 @@ class OverpassQueryExecutorImpl() extends OverpassQueryExecutor {
   private val log = Log(classOf[OverpassQueryExecutorImpl])
 
   def execute(queryString: String): String = {
+    log.trace(s"$queryString")
     (1 to 3).foreach { attempt =>
       doExecute(attempt, queryString) match {
         case Some(result) => return result

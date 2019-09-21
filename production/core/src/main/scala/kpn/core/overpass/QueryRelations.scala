@@ -1,8 +1,6 @@
 package kpn.core.overpass
 
-import kpn.shared.NetworkType
-
-case class QueryRelations(name: String, networkType: NetworkType, relationIds: Seq[Long]) extends OverpassQuery {
+case class QueryRelations(name: String, relationIds: Seq[Long]) extends OverpassQuery {
 
   def string: String = {
     val relations = relationIds.map(id => s"relation($id);(>>;);").mkString

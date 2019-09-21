@@ -22,7 +22,7 @@ import scala.concurrent.duration._
 
 object OrphanRoutesLoaderImpl {
 
-  case class LoadRoute(messages: Seq[String], timestamp: Timestamp, routeId: Long)
+  case class LoadRoutes(messages: Seq[String], timestamp: Timestamp, routeIds: Seq[Long])
 
 }
 
@@ -45,9 +45,9 @@ class OrphanRoutesLoaderImpl(
 
   class WorkerActor extends Actor {
     def receive: Actor.Receive = {
-      case LoadRoute(messages, timestamp, routeId) =>
+      case LoadRoutes(messages, timestamp, routeIds) =>
         Log.context(messages) {
-          sender() ! worker.process(timestamp, routeId)
+          sender() ! worker.process(timestamp, routeIds)
         }
     }
   }
@@ -68,10 +68,12 @@ class OrphanRoutesLoaderImpl(
 
         log.info(s"Found ${routeIds.size} routes, ${ignoredRouteIds.size} ignored routes, ${candidateOrphanRouteIds.size} candidate orphan routes (unreferenced)")
 
-        val futures = candidateOrphanRouteIds.zipWithIndex.map { case (routeId, index) =>
-          Log.context(s"${index + 1}/${candidateOrphanRouteIds.size}") {
+        val batchSize = 1
+        val batches = candidateOrphanRouteIds.sliding(batchSize, batchSize).toSeq
+        val futures = batches.zipWithIndex.map { case (routeIds, index) =>
+          Log.context(s"${index + 1}/${batches.size}") {
             val messages = Log.contextMessages
-            workerPool ? LoadRoute(messages, timestamp, routeId)
+            workerPool ? LoadRoutes(messages, timestamp, routeIds)
           }
         }
         Await.result(Future.sequence(futures), Duration.Inf)

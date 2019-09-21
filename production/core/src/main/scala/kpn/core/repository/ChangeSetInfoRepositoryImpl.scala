@@ -1,8 +1,8 @@
 package kpn.core.repository
 
-import kpn.core.db.json.JsonFormats.changeSetInfoFormat
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
+import kpn.core.db.json.JsonFormats.changeSetInfoFormat
 import kpn.shared.changes.ChangeSetInfo
 
 class ChangeSetInfoRepositoryImpl(database: Database) extends ChangeSetInfoRepository {
@@ -18,8 +18,10 @@ class ChangeSetInfoRepositoryImpl(database: Database) extends ChangeSetInfoRepos
   }
 
   override def all(changeSetIds: Seq[Long], stale: Boolean): Seq[ChangeSetInfo] = {
-    val ids = changeSetIds.map(docId)
-    database.objectsWithIds(ids, Couch.defaultTimeout, stale).map(changeSetInfoFormat.read)
+    changeSetIds.sliding(40, 40).flatMap { changeSetIdsSubset =>
+      val ids = changeSetIdsSubset.map(docId)
+      database.objectsWithIds(ids, Couch.defaultTimeout, stale).map(changeSetInfoFormat.read)
+    }.toSeq
   }
 
   override def exists(changeSetId: Long): Boolean = {

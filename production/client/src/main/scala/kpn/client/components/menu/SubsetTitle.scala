@@ -33,7 +33,7 @@ class SubsetTitle(implicit val context: Context) {
       case Country.be => nls("Belgium", "België")
       case Country.nl => nls("The Netherlands", "Nederland")
       case Country.de => nls("Germany", "Duitsland")
-      case Country.fr => nls("France", "Germany")
+      case Country.fr => nls("France", "Frankrijk")
     }
   }
 }

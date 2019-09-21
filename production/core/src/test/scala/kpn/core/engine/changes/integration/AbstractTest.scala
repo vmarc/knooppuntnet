@@ -107,7 +107,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     (blackListRepository.get _).when().returns(BlackList())
 
     private val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
-    private val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
+    private val routeLoader = new RouteLoaderImpl(executor, executor, countryAnalyzer)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(executor)
     private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)

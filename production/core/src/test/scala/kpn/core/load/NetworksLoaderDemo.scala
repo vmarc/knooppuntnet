@@ -69,7 +69,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
   val taskRepository = new TaskRepositoryImpl(database)
   val changeSetInfoUpdater = new ChangeSetInfoUpdaterImpl(changeSetInfoRepository, taskRepository)
-  val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
+  val routeLoader = new RouteLoaderImpl(executor, executor, countryAnalyzer)
   val blackListRepository = new BlackListRepositoryImpl(database)
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(

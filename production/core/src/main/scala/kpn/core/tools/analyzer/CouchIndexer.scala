@@ -41,7 +41,12 @@ class CouchIndexer(database: Database, design: Design) {
           if (now > maxEnd) {
             throw new RuntimeException(s"Maximum wait time ($timeoutMinutes mins) expired")
           }
-          log.info("continue waiting (Exception) " + e.getMessage)
+          if (e.getMessage.contains("The request could not be processed in a reasonable amount of time")) {
+            log.info("Continue waiting for indexing to finish")
+          }
+          else {
+            log.info("Continue waiting for indexing to finish (Exception) " + e.getMessage)
+          }
       }
     }
   }

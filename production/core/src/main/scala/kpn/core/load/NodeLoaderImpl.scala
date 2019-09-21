@@ -17,8 +17,8 @@ import scala.xml.Elem
 import scala.xml.XML
 
 class NodeLoaderImpl(
-  cachingExecutor: OverpassQueryExecutor,
   nonCachingExecutor: OverpassQueryExecutor,
+  cachingExecutor: OverpassQueryExecutor,
   countryAnalyzer: CountryAnalyzer
 ) extends NodeLoader {
 

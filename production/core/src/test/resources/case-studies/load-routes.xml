@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2019-09-21T10:40:02Z"/>
+
+    <node id="42506527" lat="51.3804300" lon="4.3449700" version="2" timestamp="2009-12-23T16:50:12Z" changeset="3435855" uid="12946" user="AND"/>
+    <node id="42506710" lat="51.3805300" lon="4.3448400" version="2" timestamp="2009-12-23T16:50:12Z" changeset="3435855" uid="12946" user="AND"/>
+    <node id="587752628" lat="51.5290876" lon="4.2977414" version="6" timestamp="2019-09-12T11:19:38Z" changeset="74388638" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="4"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="01"/>
+    </node>
+    <node id="587752629" lat="51.5297912" lon="4.2976388" version="3" timestamp="2013-04-14T15:17:38Z" changeset="15725967" uid="709444" user="micheldejongh"/>
+    <node id="887183966" lat="51.3830915" lon="4.3517674" version="6" timestamp="2019-09-12T11:44:07Z" changeset="74389589" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="57"/>
+    </node>
+    <node id="887184129" lat="51.3812158" lon="4.3521777" version="2" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <node id="887184132" lat="51.3803096" lon="4.3524031" version="2" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <node id="887334825" lat="51.3789548" lon="4.3469914" version="2" timestamp="2016-12-31T12:02:53Z" changeset="44804740" uid="2831457" user="AdVerburg"/>
+    <node id="1446214042" lat="51.3778281" lon="4.3488575" version="6" timestamp="2019-09-12T11:44:07Z" changeset="74389589" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="01"/>
+    </node>
+    <node id="1446214089" lat="51.3778938" lon="4.3495507" version="2" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <node id="1449354009" lat="51.3781108" lon="4.3482682" version="2" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <node id="1449354115" lat="51.3796042" lon="4.3460456" version="2" timestamp="2016-12-31T12:02:53Z" changeset="44804740" uid="2831457" user="AdVerburg"/>
+    <node id="1543936210" lat="51.3821642" lon="4.3503888" version="1" timestamp="2011-12-13T08:32:14Z" changeset="10105752" uid="162879" user="Reinout"/>
+    <node id="1543936212" lat="51.3828163" lon="4.3501641" version="4" timestamp="2019-09-12T11:44:07Z" changeset="74389589" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="58"/>
+    </node>
+    <node id="2077837793" lat="51.3782266" lon="4.3527914" version="1" timestamp="2012-12-21T18:51:10Z" changeset="14358122" uid="551808" user="QuercE"/>
+    <node id="2077837794" lat="51.3783059" lon="4.3528645" version="1" timestamp="2012-12-21T18:51:10Z" changeset="14358122" uid="551808" user="QuercE"/>
+    <node id="2267098705" lat="51.5304211" lon="4.2976123" version="1" timestamp="2013-04-14T15:17:37Z" changeset="15725967" uid="709444" user="micheldejongh"/>
+    <node id="2267098707" lat="51.5305382" lon="4.2975864" version="6" timestamp="2019-09-12T11:19:38Z" changeset="74388638" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="10"/>
+        <tag k="rwn_ref" v="68"/>
+        <tag k="source" v="GPS"/>
+    </node>
+    <node id="2267098720" lat="51.5305189" lon="4.2975936" version="1" timestamp="2013-04-14T15:17:37Z" changeset="15725967" uid="709444" user="micheldejongh"/>
+    <node id="2267098774" lat="51.5297233" lon="4.2977339" version="2" timestamp="2016-12-26T21:17:18Z" changeset="44691518" uid="2831457" user="AdVerburg"/>
+    <node id="2267098784" lat="51.5303064" lon="4.2975901" version="2" timestamp="2018-05-17T15:22:01Z" changeset="59054491" uid="2831457" user="AdVerburg"/>
+    <node id="2335633473" lat="51.5292440" lon="4.2977876" version="2" timestamp="2016-12-26T21:17:18Z" changeset="44691518" uid="2831457" user="AdVerburg"/>
+    <node id="2421714487" lat="51.3805788" lon="4.3448359" version="1" timestamp="2013-08-17T11:37:08Z" changeset="17382791" uid="1605482" user="vmarc"/>
+    <node id="2421714492" lat="51.3807442" lon="4.3449794" version="1" timestamp="2013-08-17T11:37:08Z" changeset="17382791" uid="1605482" user="vmarc"/>
+    <node id="2421714494" lat="51.3813241" lon="4.3462795" version="1" timestamp="2013-08-17T11:37:08Z" changeset="17382791" uid="1605482" user="vmarc"/>
+    <node id="2421714496" lat="51.3814586" lon="4.3466484" version="1" timestamp="2013-08-17T11:37:08Z" changeset="17382791" uid="1605482" user="vmarc"/>
+    <node id="2421714502" lat="51.3814998" lon="4.3468930" version="1" timestamp="2013-08-17T11:37:08Z" changeset="17382791" uid="1605482" user="vmarc"/>
+    <node id="2421714504" lat="51.3819967" lon="4.3502833" version="1" timestamp="2013-08-17T11:37:08Z" changeset="17382791" uid="1605482" user="vmarc"/>
+    <node id="4573983768" lat="51.5294591" lon="4.2977892" version="1" timestamp="2016-12-26T21:17:16Z" changeset="44691518" uid="2831457" user="AdVerburg"/>
+    <node id="4616238889" lat="51.3806639" lon="4.3448804" version="1" timestamp="2017-01-18T13:45:51Z" changeset="45270622" uid="2831457" user="AdVerburg"/>
+    <node id="6088616956" lat="51.3829766" lon="4.3517662" version="1" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <node id="6088616957" lat="51.3805351" lon="4.3523222" version="1" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <node id="6088616958" lat="51.3799850" lon="4.3524443" version="1" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <node id="6088616959" lat="51.3781873" lon="4.3526875" version="1" timestamp="2018-11-24T18:57:15Z" changeset="64851379" uid="4355310" user="pointseven"/>
+    <way id="131397453" version="4" timestamp="2018-11-24T18:57:16Z" changeset="64851379" uid="4355310" user="pointseven">
+        <nd ref="887184129"/>
+        <nd ref="6088616957"/>
+        <nd ref="887184132"/>
+        <nd ref="6088616958"/>
+        <nd ref="2077837794"/>
+        <nd ref="2077837793"/>
+        <nd ref="6088616959"/>
+        <nd ref="1446214089"/>
+        <nd ref="1446214042"/>
+        <tag k="highway" v="path"/>
+        <tag k="name" v="De Pappot"/>
+    </way>
+    <way id="141037165" version="3" timestamp="2018-11-24T18:57:16Z" changeset="64851379" uid="4355310" user="pointseven">
+        <nd ref="887184129"/>
+        <nd ref="6088616956"/>
+        <nd ref="887183966"/>
+        <tag k="highway" v="path"/>
+        <tag k="name" v="De Pappot"/>
+    </way>
+    <way id="233504440" version="3" timestamp="2017-09-06T19:59:48Z" changeset="51792068" uid="99810" user="Martin Borsje">
+        <nd ref="587752628"/>
+        <nd ref="2335633473"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="source" v="AND"/>
+    </way>
+    <way id="233504855" version="4" timestamp="2018-05-17T15:22:02Z" changeset="59054491" uid="2831457" user="AdVerburg">
+        <nd ref="2335633473"/>
+        <nd ref="4573983768"/>
+        <nd ref="2267098774"/>
+        <nd ref="587752629"/>
+        <nd ref="2267098784"/>
+        <nd ref="2267098705"/>
+        <nd ref="2267098720"/>
+        <nd ref="2267098707"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="oneway" v="no"/>
+        <tag k="source" v="survey"/>
+        <tag k="traffic_sign" v="NL:G11"/>
+    </way>
+    <way id="233845159" version="3" timestamp="2017-01-18T13:46:00Z" changeset="45270622" uid="2831457" user="AdVerburg">
+        <nd ref="1543936212"/>
+        <nd ref="1543936210"/>
+        <nd ref="2421714504"/>
+        <nd ref="2421714502"/>
+        <nd ref="2421714496"/>
+        <nd ref="2421714494"/>
+        <nd ref="2421714492"/>
+        <nd ref="4616238889"/>
+        <nd ref="2421714487"/>
+        <nd ref="42506710"/>
+        <tag k="highway" v="track"/>
+    </way>
+    <way id="233849820" version="2" timestamp="2014-12-03T11:27:59Z" changeset="27197750" uid="2394881" user="It's so funny_mechanical">
+        <nd ref="42506710"/>
+        <nd ref="42506527"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Het Geleg"/>
+    </way>
+    <way id="233849821" version="1" timestamp="2013-08-17T11:37:08Z" changeset="17382791" uid="1605482" user="vmarc">
+        <nd ref="1446214042"/>
+        <nd ref="1449354009"/>
+        <nd ref="887334825"/>
+        <nd ref="1449354115"/>
+        <nd ref="42506527"/>
+        <tag k="highway" v="track"/>
+        <tag k="name" v="Het Geleg"/>
+    </way>
+    <relation id="3144115" version="3" timestamp="2019-09-12T11:19:38Z" changeset="74388638" uid="7103674" user="Peter Elderson">
+        <member type="node" ref="587752628" role=""/>
+        <member type="way" ref="233504440" role=""/>
+        <member type="way" ref="233504855" role=""/>
+        <member type="node" ref="2267098707" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="note" v="01-68"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+    <relation id="3148630" version="2" timestamp="2019-09-12T11:44:07Z" changeset="74389589" uid="7103674" user="Peter Elderson">
+        <member type="node" ref="1446214042" role=""/>
+        <member type="way" ref="233849821" role=""/>
+        <member type="way" ref="233849820" role=""/>
+        <member type="way" ref="233845159" role=""/>
+        <member type="node" ref="1543936212" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="note" v="01-58"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+    <relation id="3148634" version="2" timestamp="2019-09-12T11:44:07Z" changeset="74389589" uid="7103674" user="Peter Elderson">
+        <member type="node" ref="1446214042" role=""/>
+        <member type="way" ref="131397453" role=""/>
+        <member type="way" ref="141037165" role=""/>
+        <member type="node" ref="887183966" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="note" v="01-57"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>

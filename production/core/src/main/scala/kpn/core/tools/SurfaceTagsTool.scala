@@ -43,7 +43,7 @@ class SurfaceTagsTool(database: Database) {
   def analyze(): Unit = {
 
     val executor = new OverpassQueryExecutorImpl()
-    val routeLoader = new RouteLoaderImpl(executor, new CountryAnalyzerImpl())
+    val routeLoader = new RouteLoaderImpl(executor, executor, new CountryAnalyzerImpl())
 
     var counts = new scala.collection.mutable.HashMap[String, Int]
 
