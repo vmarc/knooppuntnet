@@ -8,7 +8,6 @@ import kpn.core.util.Unique
 import kpn.shared.Fact
 import kpn.shared.Fact.RouteNodeMissingInWays
 import kpn.shared.Fact.RouteRedundantNodes
-import kpn.shared.Fact.RouteReversed
 import kpn.shared.data.Node
 import kpn.shared.data.NodeMember
 import kpn.shared.data.WayMember
@@ -45,17 +44,12 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       if (routeNodeAnalysis.redundantNodes.nonEmpty) {
         facts += RouteRedundantNodes
       }
-
-      if (routeNodeAnalysis.reversed && context.loadedRoute.relation.wayMembers.size > 1) {
-        facts += RouteReversed
-      }
     }
 
     context.copy(routeNodeAnalysis = Some(routeNodeAnalysis)).withFacts(facts: _*)
   }
 
   private def doAnalyze(): RouteNodeAnalysis = {
-
 
     val nodes = findNodes()
 
@@ -87,7 +81,6 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     else {
       if (nodeNames.size < 2) None else Some(nodeNames.last)
     }
-
 
     val allEndNodes = endNodeName match {
       case None => Seq()

@@ -163,7 +163,6 @@ object Fact {
       case RouteNotBackward => reportIfNotIn(RouteWithoutWays)
       case RouteNodeMissingInWays => reportIfNotIn(RouteWithoutWays, RouteIncomplete)
       case RouteRedundantNodes => reportIfNotIn(RouteWithoutWays, RouteIncomplete)
-      case RouteReversed => reportIfNotIn(RouteWithoutWays, RouteIncomplete)
       case _ => true
     }
   }

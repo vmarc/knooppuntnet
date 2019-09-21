@@ -25,7 +25,6 @@ class FactCombinationAnalyzer(context: RouteAnalysisContext) {
     val excludedFacts = context.facts.filter {
       case RouteUnusedSegments => context.hasFact(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
       case RouteInvalidSortingOrder => context.hasFact(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
-      case RouteReversed => context.hasFact(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
       case RouteNotContinious => context.hasFact(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
       case RouteNotForward => context.hasFact(RouteWithoutWays)
       case RouteNotBackward => context.hasFact(RouteWithoutWays)

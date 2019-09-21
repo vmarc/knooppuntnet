@@ -169,7 +169,6 @@ object UiGlossaryPage {
           fact(RouteIncompleteOk),
           fact(RouteUnaccessible),
           fact(RouteInvalidSortingOrder),
-          fact(RouteReversed),
           fact(RouteNodeNameMismatch),
           fact(RouteBroken),
           fact(IntegrityCheck)

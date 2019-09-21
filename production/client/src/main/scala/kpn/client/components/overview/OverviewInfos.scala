@@ -576,15 +576,6 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   }
 
-  val routeReversedInfo: UiOverviewInfo = factDetailCounts(Fact.RouteReversed) {
-    <.div(
-      nls(
-        "Number of routes where the ways are in reverse order (from high node number to low node number).",
-        "Aantal routes met de wegen in omgekeerde volgorde (van hoog knooppunt nummer naar laag knooppunt nummer)."
-      )
-    )
-  }
-
   val routeNodeNameMismatchInfo: UiOverviewInfo = factDetailCounts(Fact.RouteNodeNameMismatch) {
     <.div(
       nls(
