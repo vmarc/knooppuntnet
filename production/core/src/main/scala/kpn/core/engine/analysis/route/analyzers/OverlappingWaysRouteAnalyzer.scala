@@ -57,7 +57,6 @@ class OverlappingWaysRouteAnalyzer(context: RouteAnalysisContext) {
     context.loadedRoute.relation.wayMembers.filter(_.way.nodes.size > 1).map(_.way)
   }
 
-
   private def toNodePair(nodeId1: Long, nodeId2: Long): Option[NodePair] = {
     if (nodeId1 < nodeId2) {
       Some(NodePair(nodeId1, nodeId2))

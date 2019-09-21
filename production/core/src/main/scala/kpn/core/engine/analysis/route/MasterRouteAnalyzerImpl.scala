@@ -71,7 +71,7 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         NetworkTaggedAsRouteAnalyzer,
         ExpectedNameRouteAnalyzer,
         SuspiciousWaysRouteAnalyzer,
-        OverlappingWaysRouteAnalyzer,
+        // OverlappingWaysRouteAnalyzer,
         RouteFragmentAnalyzer,
         RouteStructureAnalyzer,
         RouteMemberAnalyzer,

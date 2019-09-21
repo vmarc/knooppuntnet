@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2019-09-21T18:38:02Z"/>
+
+  <node id="516513244" lat="50.3764404" lon="3.8020571" version="2" timestamp="2017-12-09T20:59:25Z" changeset="54496411" uid="77947" user="Roman Guy"/>
+  <node id="528834956" lat="50.3633498" lon="3.7856408" version="5" timestamp="2019-09-18T10:05:33Z" changeset="74616573" uid="553736" user="A67-A67">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="40"/>
+  </node>
+  <node id="761832174" lat="50.3726066" lon="3.7951013" version="1" timestamp="2010-06-01T22:41:36Z" changeset="4879489" uid="38651" user="Drupol"/>
+  <node id="761832192" lat="50.3711710" lon="3.7938384" version="2" timestamp="2013-06-19T17:07:00Z" changeset="16619395" uid="77947" user="Roman Guy"/>
+  <node id="761832209" lat="50.3661346" lon="3.7896712" version="2" timestamp="2018-02-28T20:19:08Z" changeset="56767259" uid="77947" user="Roman Guy"/>
+  <node id="761832231" lat="50.3688067" lon="3.7932833" version="2" timestamp="2011-04-08T15:10:58Z" changeset="7804908" uid="42033" user="Tbj"/>
+  <node id="761832237" lat="50.3755581" lon="3.8016197" version="3" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="761832248" lat="50.3730982" lon="3.7971688" version="1" timestamp="2010-06-01T22:41:37Z" changeset="4879489" uid="38651" user="Drupol"/>
+  <node id="761832258" lat="50.3699616" lon="3.7938587" version="1" timestamp="2010-06-01T22:41:37Z" changeset="4879489" uid="38651" user="Drupol"/>
+  <node id="761832270" lat="50.3647458" lon="3.7887873" version="3" timestamp="2014-03-27T20:13:37Z" changeset="21351415" uid="1172381" user="TwoNavAventura"/>
+  <node id="761832282" lat="50.3642086" lon="3.7875090" version="2" timestamp="2011-04-08T15:10:59Z" changeset="7804908" uid="42033" user="Tbj"/>
+  <node id="761832298" lat="50.3748676" lon="3.8001322" version="1" timestamp="2010-06-01T22:41:37Z" changeset="4879489" uid="38651" user="Drupol"/>
+  <node id="1237301009" lat="50.3663990" lon="3.7899612" version="1" timestamp="2011-04-08T15:10:44Z" changeset="7804908" uid="42033" user="Tbj"/>
+  <node id="1237301052" lat="50.3651591" lon="3.7892089" version="1" timestamp="2011-04-08T15:10:46Z" changeset="7804908" uid="42033" user="Tbj"/>
+  <node id="1237301058" lat="50.3646716" lon="3.7886165" version="1" timestamp="2011-04-08T15:10:47Z" changeset="7804908" uid="42033" user="Tbj"/>
+  <node id="1237301244" lat="50.3693609" lon="3.7936652" version="2" timestamp="2013-06-19T17:06:59Z" changeset="16619395" uid="77947" user="Roman Guy"/>
+  <node id="2352484827" lat="50.3690355" lon="3.7934723" version="1" timestamp="2013-06-19T17:06:58Z" changeset="16619395" uid="77947" user="Roman Guy"/>
+  <node id="2352484832" lat="50.3696272" lon="3.7937826" version="1" timestamp="2013-06-19T17:06:59Z" changeset="16619395" uid="77947" user="Roman Guy"/>
+  <node id="2352484836" lat="50.3709487" lon="3.7938071" version="1" timestamp="2013-06-19T17:06:59Z" changeset="16619395" uid="77947" user="Roman Guy"/>
+  <node id="2352484854" lat="50.3713984" lon="3.7940047" version="1" timestamp="2013-06-19T17:06:59Z" changeset="16619395" uid="77947" user="Roman Guy"/>
+  <node id="2748212524" lat="50.3649629" lon="3.7890701" version="1" timestamp="2014-03-27T20:13:36Z" changeset="21351415" uid="1172381" user="TwoNavAventura"/>
+  <node id="2748212562" lat="50.3648405" lon="3.7889346" version="1" timestamp="2014-03-27T20:13:36Z" changeset="21351415" uid="1172381" user="TwoNavAventura"/>
+  <node id="4912850022" lat="50.3793154" lon="3.8004899" version="3" timestamp="2019-09-19T18:42:08Z" changeset="74690856" uid="77947" user="Roman Guy"/>
+  <node id="4912850023" lat="50.3790047" lon="3.8006756" version="1" timestamp="2017-06-13T13:20:09Z" changeset="49500140" uid="6157742" user="raphaelpatte"/>
+  <node id="4912850024" lat="50.3783700" lon="3.8011512" version="3" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="4912850025" lat="50.3778167" lon="3.8015284" version="3" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="4912850026" lat="50.3775177" lon="3.8016102" version="3" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="4912850027" lat="50.3774327" lon="3.8016248" version="3" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="4912850028" lat="50.3773382" lon="3.8016112" version="2" timestamp="2017-12-25T17:05:50Z" changeset="54911677" uid="77947" user="Roman Guy"/>
+  <node id="4912850029" lat="50.3772375" lon="3.8015921" version="2" timestamp="2017-12-25T17:05:50Z" changeset="54911677" uid="77947" user="Roman Guy"/>
+  <node id="4912850030" lat="50.3770819" lon="3.8016196" version="3" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="4912850031" lat="50.3770018" lon="3.8016707" version="3" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="4912850032" lat="50.3766030" lon="3.8019665" version="1" timestamp="2017-06-13T13:20:09Z" changeset="49500140" uid="6157742" user="raphaelpatte"/>
+  <node id="4912850034" lat="50.3761222" lon="3.8021799" version="1" timestamp="2017-06-13T13:20:09Z" changeset="49500140" uid="6157742" user="raphaelpatte"/>
+  <node id="5274196345" lat="50.3759596" lon="3.8022360" version="1" timestamp="2017-12-09T20:59:23Z" changeset="54496411" uid="77947" user="Roman Guy"/>
+  <node id="5274196346" lat="50.3754148" lon="3.8013557" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196347" lat="50.3756068" lon="3.8016895" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196349" lat="50.3754604" lon="3.8016292" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196350" lat="50.3754917" lon="3.8016094" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196351" lat="50.3755255" lon="3.8016061" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196352" lat="50.3754463" lon="3.8018959" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196353" lat="50.3755860" lon="3.8016485" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196354" lat="50.3756184" lon="3.8017384" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196355" lat="50.3756197" lon="3.8017904" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196356" lat="50.3756105" lon="3.8018406" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196357" lat="50.3755919" lon="3.8018837" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196358" lat="50.3755656" lon="3.8019156" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196359" lat="50.3754252" lon="3.8018569" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196360" lat="50.3754126" lon="3.8018097" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196361" lat="50.3754099" lon="3.8017588" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196362" lat="50.3754347" lon="3.8016635" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196363" lat="50.3754303" lon="3.8015431" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196369" lat="50.3756761" lon="3.8018464" version="1" timestamp="2017-12-09T20:59:23Z" changeset="54496411" uid="77947" user="Roman Guy"/>
+  <node id="5274196370" lat="50.3757720" lon="3.8019515" version="1" timestamp="2017-12-09T20:59:23Z" changeset="54496411" uid="77947" user="Roman Guy"/>
+  <node id="5274196371" lat="50.3756599" lon="3.8018189" version="1" timestamp="2017-12-09T20:59:23Z" changeset="54496411" uid="77947" user="Roman Guy"/>
+  <node id="5274196372" lat="50.3757438" lon="3.8019124" version="1" timestamp="2017-12-09T20:59:23Z" changeset="54496411" uid="77947" user="Roman Guy"/>
+  <node id="5274196373" lat="50.3757495" lon="3.8019955" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196393" lat="50.3758483" lon="3.8020754" version="1" timestamp="2017-12-09T20:59:23Z" changeset="54496411" uid="77947" user="Roman Guy"/>
+  <node id="5274196394" lat="50.3757779" lon="3.8020139" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196395" lat="50.3756749" lon="3.8019490" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196397" lat="50.3755342" lon="3.8019331" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5274196398" lat="50.3755057" lon="3.8019352" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="5278362795" lat="50.3796716" lon="3.8003202" version="5" timestamp="2019-09-19T18:42:08Z" changeset="74690856" uid="77947" user="Roman Guy">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="19"/>
+  </node>
+  <node id="5303419778" lat="50.3776847" lon="3.8015765" version="2" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="5443700438" lat="50.3659246" lon="3.7895099" version="1" timestamp="2018-02-28T20:19:07Z" changeset="56767259" uid="77947" user="Roman Guy"/>
+  <node id="5446390925" lat="50.3705941" lon="3.7938312" version="2" timestamp="2018-03-11T09:06:23Z" changeset="57075777" uid="2175149" user="hesdrib"/>
+  <node id="5446390926" lat="50.3697719" lon="3.7938318" version="1" timestamp="2018-03-01T19:52:49Z" changeset="56799357" uid="77947" user="Roman Guy"/>
+  <node id="6806427219" lat="50.3776012" lon="3.8015991" version="1" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="6806427220" lat="50.3777461" lon="3.8015582" version="1" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="6806427221" lat="50.3771569" lon="3.8015972" version="1" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy"/>
+  <node id="6812631277" lat="50.3754740" lon="3.8019228" version="1" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <node id="6812631278" lat="50.3754175" lon="3.8017080" version="1" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy"/>
+  <way id="60856714" version="5" timestamp="2017-12-09T20:59:28Z" changeset="54496411" uid="77947" user="Roman Guy">
+    <nd ref="761832237"/>
+    <nd ref="5274196346"/>
+    <tag k="highway" v="tertiary_link"/>
+    <tag k="name" v="Route Verte"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="60856717" version="4" timestamp="2017-12-09T20:59:28Z" changeset="54496411" uid="77947" user="Roman Guy">
+    <nd ref="5274196393"/>
+    <nd ref="5274196370"/>
+    <nd ref="5274196372"/>
+    <nd ref="5274196369"/>
+    <nd ref="5274196371"/>
+    <nd ref="5274196347"/>
+    <tag k="highway" v="tertiary_link"/>
+    <tag k="junction" v="roundabout"/>
+  </way>
+  <way id="500164666" version="8" timestamp="2019-09-18T19:11:00Z" changeset="74642676" uid="77947" user="Roman Guy">
+    <nd ref="5278362795"/>
+    <nd ref="4912850022"/>
+    <nd ref="4912850023"/>
+    <nd ref="4912850024"/>
+    <nd ref="4912850025"/>
+    <nd ref="6806427220"/>
+    <nd ref="5303419778"/>
+    <nd ref="6806427219"/>
+    <nd ref="4912850026"/>
+    <nd ref="4912850027"/>
+    <nd ref="4912850028"/>
+    <nd ref="4912850029"/>
+    <nd ref="6806427221"/>
+    <nd ref="4912850030"/>
+    <nd ref="4912850031"/>
+    <nd ref="4912850032"/>
+    <nd ref="516513244"/>
+    <nd ref="4912850034"/>
+    <nd ref="5274196345"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rue du Tombois"/>
+  </way>
+  <way id="545729942" version="5" timestamp="2019-08-26T09:25:26Z" changeset="73741881" uid="631473" user="remdug">
+    <nd ref="5274196346"/>
+    <nd ref="761832298"/>
+    <nd ref="761832248"/>
+    <nd ref="761832174"/>
+    <nd ref="2352484854"/>
+    <nd ref="761832192"/>
+    <nd ref="2352484836"/>
+    <nd ref="5446390925"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Route Verte"/>
+    <tag k="surface" v="concrete"/>
+  </way>
+  <way id="545729945" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy">
+    <nd ref="5274196397"/>
+    <nd ref="5274196395"/>
+    <nd ref="5274196373"/>
+    <nd ref="5274196394"/>
+    <nd ref="5274196393"/>
+    <tag k="highway" v="tertiary_link"/>
+    <tag k="junction" v="roundabout"/>
+  </way>
+  <way id="545729948" version="2" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy">
+    <nd ref="5274196346"/>
+    <nd ref="5274196363"/>
+    <nd ref="5274196362"/>
+    <tag k="highway" v="tertiary_link"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="545729949" version="4" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy">
+    <nd ref="5274196362"/>
+    <nd ref="6812631278"/>
+    <nd ref="5274196361"/>
+    <nd ref="5274196360"/>
+    <nd ref="5274196359"/>
+    <nd ref="5274196352"/>
+    <nd ref="6812631277"/>
+    <nd ref="5274196398"/>
+    <nd ref="5274196397"/>
+    <nd ref="5274196358"/>
+    <nd ref="5274196357"/>
+    <nd ref="5274196356"/>
+    <nd ref="5274196355"/>
+    <nd ref="5274196354"/>
+    <nd ref="5274196347"/>
+    <nd ref="5274196353"/>
+    <nd ref="761832237"/>
+    <nd ref="5274196351"/>
+    <nd ref="5274196350"/>
+    <nd ref="5274196349"/>
+    <nd ref="5274196362"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="junction" v="roundabout"/>
+  </way>
+  <way id="565534641" version="2" timestamp="2019-08-26T09:25:26Z" changeset="73741881" uid="631473" user="remdug">
+    <nd ref="5446390925"/>
+    <nd ref="761832258"/>
+    <nd ref="5446390926"/>
+    <nd ref="2352484832"/>
+    <nd ref="1237301244"/>
+    <nd ref="2352484827"/>
+    <nd ref="761832231"/>
+    <nd ref="1237301009"/>
+    <nd ref="761832209"/>
+    <nd ref="5443700438"/>
+    <nd ref="1237301052"/>
+    <nd ref="2748212524"/>
+    <nd ref="2748212562"/>
+    <nd ref="761832270"/>
+    <nd ref="1237301058"/>
+    <nd ref="761832282"/>
+    <nd ref="528834956"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="70"/>
+    <tag k="name" v="Avenue du Haut Pays"/>
+    <tag k="surface" v="concrete"/>
+  </way>
+  <way id="712563129" version="1" timestamp="2019-08-10T23:24:00Z" changeset="73230824" uid="15188" user="Polyglot">
+    <nd ref="5274196393"/>
+    <nd ref="5274196345"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Route Verte"/>
+  </way>
+  <way id="712563132" version="1" timestamp="2019-08-10T23:24:00Z" changeset="73230824" uid="15188" user="Polyglot">
+    <nd ref="5274196398"/>
+    <nd ref="5274196397"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="junction" v="roundabout"/>
+  </way>
+  <way id="726912960" version="1" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy">
+    <nd ref="5274196362"/>
+    <nd ref="6812631278"/>
+    <nd ref="5274196361"/>
+    <tag k="highway" v="tertiary_link"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <relation id="9905468" version="3" timestamp="2019-09-20T16:45:59Z" changeset="74727642" uid="77947" user="Roman Guy">
+    <member type="way" ref="500164666" role=""/>
+    <member type="way" ref="712563129" role=""/>
+    <member type="way" ref="60856717" role="forward"/>
+    <member type="way" ref="60856714" role="forward"/>
+    <member type="way" ref="545729948" role="forward"/>
+    <member type="way" ref="726912960" role="forward"/>
+    <member type="way" ref="712563132" role="forward"/>
+    <member type="way" ref="545729945" role="forward"/>
+    <member type="way" ref="545729949" role="forward"/>
+    <member type="way" ref="545729942" role=""/>
+    <member type="way" ref="565534641" role=""/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="19-40"/>
+    <tag k="operator" v="Vhello"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>

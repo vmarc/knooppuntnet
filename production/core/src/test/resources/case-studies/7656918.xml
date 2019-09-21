@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2019-09-21T18:40:02Z"/>
+
+  <node id="221174381" lat="50.6920275" lon="6.4847722" version="5" timestamp="2013-06-27T06:44:02Z" changeset="16722157" uid="161619" user="FvGordon"/>
+  <node id="221174382" lat="50.6923778" lon="6.4838678" version="3" timestamp="2018-08-07T15:56:09Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="221174386" lat="50.6924435" lon="6.4825770" version="2" timestamp="2009-10-07T21:18:14Z" changeset="2776291" uid="38735" user="GPS-Wolf"/>
+  <node id="221174387" lat="50.6925303" lon="6.4821745" version="2" timestamp="2009-10-07T21:18:13Z" changeset="2776291" uid="38735" user="GPS-Wolf"/>
+  <node id="221174389" lat="50.6929450" lon="6.4813252" version="4" timestamp="2012-11-22T20:00:06Z" changeset="13990264" uid="124188" user="Caronna"/>
+  <node id="221174390" lat="50.6931800" lon="6.4807179" version="4" timestamp="2011-06-29T19:46:10Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="226867894" lat="50.6909578" lon="6.4714736" version="7" timestamp="2016-03-28T17:32:47Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="251069831" lat="50.6930348" lon="6.4811182" version="3" timestamp="2012-11-22T20:00:06Z" changeset="13990264" uid="124188" user="Caronna"/>
+  <node id="251069839" lat="50.6935004" lon="6.4797356" version="4" timestamp="2011-06-29T19:46:10Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069840" lat="50.6935591" lon="6.4794145" version="4" timestamp="2011-06-29T19:46:10Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069841" lat="50.6930502" lon="6.4781026" version="4" timestamp="2015-09-18T20:10:36Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="251069842" lat="50.6928755" lon="6.4779694" version="4" timestamp="2015-09-18T20:10:36Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="251069843" lat="50.6924596" lon="6.4778877" version="4" timestamp="2015-09-18T20:10:36Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="251069844" lat="50.6921656" lon="6.4780198" version="5" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="251069845" lat="50.6919177" lon="6.4783714" version="5" timestamp="2015-09-18T20:10:36Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="251069846" lat="50.6915607" lon="6.4785044" version="6" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank"/>
+  <node id="251069847" lat="50.6914248" lon="6.4783192" version="6" timestamp="2015-09-18T20:10:36Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="251069848" lat="50.6910854" lon="6.4776698" version="4" timestamp="2011-06-29T19:46:11Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069849" lat="50.6904262" lon="6.4764481" version="4" timestamp="2011-06-29T19:46:11Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069850" lat="50.6903885" lon="6.4760890" version="4" timestamp="2011-06-29T19:46:11Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069851" lat="50.6906808" lon="6.4760566" version="5" timestamp="2011-06-29T19:46:11Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069852" lat="50.6908639" lon="6.4763220" version="4" timestamp="2011-06-29T19:46:11Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069853" lat="50.6910927" lon="6.4767114" version="2" timestamp="2008-03-14T15:28:32Z" changeset="322868" uid="16989" user="matra-manni"/>
+  <node id="251069854" lat="50.6914145" lon="6.4770721" version="3" timestamp="2009-10-07T21:18:12Z" changeset="2776291" uid="38735" user="GPS-Wolf"/>
+  <node id="251069855" lat="50.6916127" lon="6.4770639" version="2" timestamp="2009-10-07T21:18:13Z" changeset="2776291" uid="38735" user="GPS-Wolf"/>
+  <node id="251069856" lat="50.6918664" lon="6.4769330" version="4" timestamp="2011-09-21T15:56:15Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="251069857" lat="50.6921232" lon="6.4768294" version="5" timestamp="2011-09-21T15:56:15Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="251069858" lat="50.6922841" lon="6.4766147" version="4" timestamp="2011-06-29T19:46:11Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069859" lat="50.6922550" lon="6.4760349" version="5" timestamp="2011-09-21T15:56:15Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="251069860" lat="50.6919828" lon="6.4756182" version="3" timestamp="2009-10-07T21:18:12Z" changeset="2776291" uid="38735" user="GPS-Wolf"/>
+  <node id="251069861" lat="50.6917029" lon="6.4750037" version="1" timestamp="2008-03-07T23:49:37Z" changeset="283190" uid="29881" user="Georg4"/>
+  <node id="251069862" lat="50.6915817" lon="6.4740696" version="3" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="251069863" lat="50.6916015" lon="6.4735249" version="2" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="251069864" lat="50.6915318" lon="6.4732233" version="4" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="251069865" lat="50.6914223" lon="6.4738038" version="3" timestamp="2013-03-24T10:41:24Z" changeset="15476716" uid="124188" user="Caronna"/>
+  <node id="251069866" lat="50.6912135" lon="6.4739136" version="4" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="251069867" lat="50.6911724" lon="6.4730914" version="4" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="251069868" lat="50.6911354" lon="6.4723742" version="2" timestamp="2011-06-29T19:46:11Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="251069869" lat="50.6910860" lon="6.4719788" version="3" timestamp="2009-10-07T21:18:12Z" changeset="2776291" uid="38735" user="GPS-Wolf"/>
+  <node id="251070332" lat="50.6882930" lon="6.4852263" version="5" timestamp="2016-01-10T01:28:55Z" changeset="36473952" uid="82664" user="Lodda"/>
+  <node id="251542146" lat="50.6879828" lon="6.4872864" version="2" timestamp="2011-06-29T18:08:40Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="251542148" lat="50.6873656" lon="6.4893573" version="2" timestamp="2011-06-29T18:08:40Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="251542149" lat="50.6870452" lon="6.4921435" version="4" timestamp="2012-01-17T09:27:32Z" changeset="10415765" uid="82664" user="Lodda"/>
+  <node id="251542150" lat="50.6864801" lon="6.4956996" version="2" timestamp="2012-01-17T09:11:50Z" changeset="10415672" uid="82664" user="Lodda"/>
+  <node id="251542151" lat="50.6860745" lon="6.4984747" version="2" timestamp="2011-06-29T18:08:40Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="251542152" lat="50.6850888" lon="6.5020939" version="1" timestamp="2008-03-10T19:49:02Z" changeset="302101" uid="29881" user="Georg4"/>
+  <node id="251542153" lat="50.6843003" lon="6.5050551" version="1" timestamp="2008-03-10T19:49:02Z" changeset="302101" uid="29881" user="Georg4"/>
+  <node id="251542154" lat="50.6835118" lon="6.5079304" version="1" timestamp="2008-03-10T19:49:02Z" changeset="302101" uid="29881" user="Georg4"/>
+  <node id="251542155" lat="50.6824291" lon="6.5120280" version="2" timestamp="2014-02-05T17:12:21Z" changeset="20396766" uid="82664" user="Lodda"/>
+  <node id="252103771" lat="50.6903627" lon="6.4762305" version="3" timestamp="2011-06-29T19:46:12Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="252103772" lat="50.6904973" lon="6.4759707" version="4" timestamp="2016-03-28T17:32:47Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="252103773" lat="50.6923239" lon="6.4763315" version="3" timestamp="2011-06-29T19:46:12Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="252103774" lat="50.6916007" lon="6.4733407" version="2" timestamp="2016-03-28T17:32:47Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="252103775" lat="50.6915700" lon="6.4732577" version="2" timestamp="2016-03-28T17:32:47Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="252103776" lat="50.6914449" lon="6.4732471" version="2" timestamp="2016-03-28T17:32:47Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="252103777" lat="50.6914081" lon="6.4733116" version="2" timestamp="2016-03-28T17:32:47Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="252103778" lat="50.6913863" lon="6.4739526" version="3" timestamp="2016-03-28T17:32:47Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="252103779" lat="50.6913224" lon="6.4740001" version="2" timestamp="2013-03-24T10:41:24Z" changeset="15476716" uid="124188" user="Caronna"/>
+  <node id="252103780" lat="50.6912674" lon="6.4739733" version="2" timestamp="2013-03-24T10:41:24Z" changeset="15476716" uid="124188" user="Caronna"/>
+  <node id="259095358" lat="50.6917594" lon="6.4785440" version="4" timestamp="2015-09-18T20:10:36Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="259095359" lat="50.6908153" lon="6.4768392" version="4" timestamp="2011-09-21T15:56:15Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="265086651" lat="50.6906832" lon="6.4709306" version="9" timestamp="2019-09-19T05:55:21Z" changeset="74653521" uid="294028" user="dvdhoven">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="70"/>
+  </node>
+  <node id="281274053" lat="50.6882380" lon="6.4856495" version="3" timestamp="2016-03-28T17:32:48Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="352983973" lat="50.6898700" lon="6.4851149" version="6" timestamp="2016-08-30T08:14:15Z" changeset="41795560" uid="43972" user="chris66"/>
+  <node id="374165613" lat="50.6915087" lon="6.4771023" version="2" timestamp="2013-04-07T10:48:36Z" changeset="15638535" uid="73507" user="thom3"/>
+  <node id="374165704" lat="50.6926437" lon="6.4778704" version="4" timestamp="2015-09-18T20:10:40Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="440063293" lat="50.6812529" lon="6.5166348" version="8" timestamp="2019-09-19T05:55:21Z" changeset="74653521" uid="294028" user="dvdhoven">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="74"/>
+  </node>
+  <node id="472460704" lat="50.6845918" lon="6.5039605" version="1" timestamp="2009-08-23T22:16:35Z" changeset="2236677" uid="78730" user="tippeltappel"/>
+  <node id="485746135" lat="50.6917358" lon="6.4849834" version="4" timestamp="2018-01-27T19:56:25Z" changeset="55813231" uid="82664" user="Lodda"/>
+  <node id="485746141" lat="50.6911291" lon="6.4850324" version="5" timestamp="2013-06-27T06:44:03Z" changeset="16722157" uid="161619" user="FvGordon"/>
+  <node id="524684287" lat="50.6903787" lon="6.4763359" version="2" timestamp="2011-06-29T19:46:19Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="524684290" lat="50.6916185" lon="6.4746174" version="2" timestamp="2016-03-28T17:32:48Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="524684291" lat="50.6912373" lon="6.4769180" version="1" timestamp="2009-10-07T21:18:07Z" changeset="2776291" uid="38735" user="GPS-Wolf"/>
+  <node id="524684292" lat="50.6916657" lon="6.4785641" version="3" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank"/>
+  <node id="524684293" lat="50.6923157" lon="6.4765079" version="2" timestamp="2011-06-29T19:46:19Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="530712458" lat="50.6862919" lon="6.4975537" version="5" timestamp="2017-01-17T14:06:32Z" changeset="45243779" uid="179581" user="Geofreund1"/>
+  <node id="530712467" lat="50.6860427" lon="6.4985826" version="2" timestamp="2011-06-29T18:08:42Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="566647082" lat="50.6875039" lon="6.4887831" version="2" timestamp="2016-01-11T18:56:59Z" changeset="36510689" uid="82664" user="Lodda"/>
+  <node id="566652823" lat="50.6875119" lon="6.4887586" version="2" timestamp="2016-01-11T18:56:59Z" changeset="36510689" uid="82664" user="Lodda"/>
+  <node id="566835741" lat="50.6872541" lon="6.4903749" version="2" timestamp="2011-06-29T18:08:42Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="574721319" lat="50.6913243" lon="6.4770221" version="2" timestamp="2010-02-28T17:11:36Z" changeset="4000522" uid="182016" user="xcracer"/>
+  <node id="656432957" lat="50.6905704" lon="6.4759835" version="2" timestamp="2016-03-28T17:32:48Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="726810830" lat="50.6859821" lon="6.4987386" version="2" timestamp="2011-06-29T18:08:42Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="1343596210" lat="50.6855199" lon="6.5002220" version="1" timestamp="2011-06-29T18:08:31Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="1343596211" lat="50.6861708" lon="6.4980964" version="1" timestamp="2011-06-29T18:08:31Z" changeset="8583277" uid="48890" user="langerweher"/>
+  <node id="1343596213" lat="50.6867067" lon="6.4939432" version="2" timestamp="2012-01-17T09:11:50Z" changeset="10415672" uid="82664" user="Lodda"/>
+  <node id="1343596214" lat="50.6877836" lon="6.4880685" version="2" timestamp="2012-11-22T20:56:30Z" changeset="13991150" uid="124188" user="Caronna"/>
+  <node id="1343596215" lat="50.6918443" lon="6.4849388" version="3" timestamp="2018-01-27T19:56:25Z" changeset="55813231" uid="82664" user="Lodda"/>
+  <node id="1343596216" lat="50.6921139" lon="6.4846288" version="3" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="1343721799" lat="50.6909353" lon="6.4770045" version="2" timestamp="2011-09-21T15:56:14Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1343721802" lat="50.6909961" lon="6.4771994" version="2" timestamp="2011-09-21T15:56:14Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1343721804" lat="50.6912422" lon="6.4780218" version="1" timestamp="2011-06-29T19:45:36Z" changeset="8584270" uid="48890" user="langerweher"/>
+  <node id="1343721806" lat="50.6919897" lon="6.4782466" version="2" timestamp="2015-09-18T20:10:36Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="1343721809" lat="50.6934576" lon="6.4790050" version="2" timestamp="2017-01-12T10:12:50Z" changeset="45099821" uid="179581" user="Geofreund1"/>
+  <node id="1343721812" lat="50.6935608" lon="6.4793059" version="2" timestamp="2017-01-12T10:12:50Z" changeset="45099821" uid="179581" user="Geofreund1"/>
+  <node id="1432167970" lat="50.6919354" lon="6.4848707" version="2" timestamp="2013-06-27T06:44:02Z" changeset="16722157" uid="161619" user="FvGordon"/>
+  <node id="1439405296" lat="50.6903691" lon="6.4761592" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1439405297" lat="50.6904309" lon="6.4759990" version="2" timestamp="2016-03-28T17:32:48Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="1439405298" lat="50.6906250" lon="6.4760101" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1439405299" lat="50.6908589" lon="6.4768852" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1439405300" lat="50.6908892" lon="6.4769232" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1439405301" lat="50.6919606" lon="6.4768971" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1439405302" lat="50.6922052" lon="6.4767688" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1439405303" lat="50.6922516" lon="6.4766866" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1439405304" lat="50.6923077" lon="6.4761808" version="1" timestamp="2011-09-21T15:55:28Z" changeset="9361460" uid="82664" user="Lodda"/>
+  <node id="1594409748" lat="50.6865816" lon="6.4948327" version="1" timestamp="2012-01-17T09:11:42Z" changeset="10415672" uid="82664" user="Lodda"/>
+  <node id="1594409765" lat="50.6869665" lon="6.4926578" version="1" timestamp="2012-01-17T09:11:43Z" changeset="10415672" uid="82664" user="Lodda"/>
+  <node id="1594409769" lat="50.6871640" lon="6.4912496" version="1" timestamp="2012-01-17T09:11:43Z" changeset="10415672" uid="82664" user="Lodda"/>
+  <node id="1594440858" lat="50.6865644" lon="6.4949793" version="1" timestamp="2012-01-17T09:27:27Z" changeset="10415765" uid="82664" user="Lodda"/>
+  <node id="1753853152" lat="50.6922337" lon="6.4843882" version="6" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="1753853164" lat="50.6923056" lon="6.4841290" version="5" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="1753853189" lat="50.6923416" lon="6.4842443" version="6" timestamp="2018-08-07T16:45:16Z" changeset="61441019" uid="2385757" user="jeka p"/>
+  <node id="2362725060" lat="50.6924705" lon="6.4834021" version="6" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="2362725061" lat="50.6924724" lon="6.4823570" version="1" timestamp="2013-06-27T06:43:49Z" changeset="16722157" uid="161619" user="FvGordon"/>
+  <node id="2656255224" lat="50.6819141" lon="6.5139040" version="1" timestamp="2014-02-05T17:12:19Z" changeset="20396766" uid="82664" user="Lodda"/>
+  <node id="2656255226" lat="50.6819490" lon="6.5137583" version="1" timestamp="2014-02-05T17:12:19Z" changeset="20396766" uid="82664" user="Lodda"/>
+  <node id="3014110858" lat="50.6922170" lon="6.4841099" version="5" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110859" lat="50.6921905" lon="6.4841350" version="5" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110860" lat="50.6921707" lon="6.4841726" version="6" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110861" lat="50.6921600" lon="6.4842184" version="5" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110862" lat="50.6921633" lon="6.4842924" version="6" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110863" lat="50.6921739" lon="6.4843260" version="5" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110864" lat="50.6922033" lon="6.4843701" version="5" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110865" lat="50.6922780" lon="6.4841067" version="5" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110866" lat="50.6925420" lon="6.4835311" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110869" lat="50.6924421" lon="6.4834055" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110870" lat="50.6924163" lon="6.4834243" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110871" lat="50.6923963" lon="6.4834562" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110872" lat="50.6923847" lon="6.4834971" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110873" lat="50.6923828" lon="6.4835419" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110874" lat="50.6923911" lon="6.4835849" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110875" lat="50.6924083" lon="6.4836205" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110876" lat="50.6924324" lon="6.4836444" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110877" lat="50.6924509" lon="6.4836522" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110878" lat="50.6924701" lon="6.4836528" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110879" lat="50.6924888" lon="6.4836463" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110880" lat="50.6925059" lon="6.4836328" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110881" lat="50.6925206" lon="6.4836133" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110882" lat="50.6925318" lon="6.4835889" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3014110883" lat="50.6925391" lon="6.4835609" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864142" lat="50.6922474" lon="6.4841001" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864143" lat="50.6922655" lon="6.4843886" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864144" lat="50.6923203" lon="6.4843399" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864145" lat="50.6923261" lon="6.4841626" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864146" lat="50.6924989" lon="6.4834155" version="3" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864147" lat="50.6925373" lon="6.4834848" version="3" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864149" lat="50.6922956" lon="6.4843719" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864150" lat="50.6923388" lon="6.4842047" version="4" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3038864151" lat="50.6925222" lon="6.4834444" version="3" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="3575526712" lat="50.6924275" lon="6.4828234" version="1" timestamp="2015-06-05T22:08:39Z" changeset="31757178" uid="82664" user="Lodda"/>
+  <node id="3749682143" lat="50.6918386" lon="6.4784745" version="1" timestamp="2015-09-18T20:10:34Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="3749682144" lat="50.6922849" lon="6.4779416" version="1" timestamp="2015-09-18T20:10:34Z" changeset="34110679" uid="183483" user="jeroenrozema74"/>
+  <node id="3749682145" lat="50.6931642" lon="6.4782714" version="2" timestamp="2017-01-12T10:12:53Z" changeset="45099821" uid="179581" user="Geofreund1"/>
+  <node id="4083390807" lat="50.6911869" lon="6.4738117" version="1" timestamp="2016-03-28T17:32:45Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="4083390811" lat="50.6913923" lon="6.4734130" version="1" timestamp="2016-03-28T17:32:45Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="4083390815" lat="50.6916544" lon="6.4748431" version="1" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="4083390820" lat="50.6915966" lon="6.4743545" version="1" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="4083390823" lat="50.6920747" lon="6.4781039" version="1" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="4083390828" lat="50.6914904" lon="6.4732291" version="1" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="4083390832" lat="50.6914120" lon="6.4739011" version="1" timestamp="2016-03-28T17:32:46Z" changeset="38125326" uid="413017" user="reneman"/>
+  <node id="5366665606" lat="50.6915736" lon="6.4850120" version="1" timestamp="2018-01-27T19:56:23Z" changeset="55813231" uid="82664" user="Lodda"/>
+  <node id="5366665610" lat="50.6921586" lon="6.4842558" version="2" timestamp="2018-08-07T15:56:10Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="5675973206" lat="50.6906603" lon="6.4850631" version="1" timestamp="2018-06-08T16:57:35Z" changeset="59674122" uid="3298438" user="aixbrick">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Nideggen Abender Straße (Schule)"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="5675973207" lat="50.6887976" lon="6.4851907" version="1" timestamp="2018-06-08T16:57:35Z" changeset="59674122" uid="3298438" user="aixbrick">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Nideggen Abender Straße (Schule)"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="5815559728" lat="50.6924368" lon="6.4832573" version="1" timestamp="2018-08-07T15:56:08Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="5815559734" lat="50.6921777" lon="6.4845474" version="1" timestamp="2018-08-07T15:56:08Z" changeset="61439842" uid="2385757" user="jeka p"/>
+  <node id="5815723317" lat="50.6923349" lon="6.4842953" version="1" timestamp="2018-08-07T16:45:12Z" changeset="61441019" uid="2385757" user="jeka p"/>
+  <node id="5815778777" lat="50.6840338" lon="6.5059045" version="1" timestamp="2018-08-07T17:04:59Z" changeset="61441451" uid="2385757" user="jeka p"/>
+  <node id="5815778778" lat="50.6813302" lon="6.5163155" version="1" timestamp="2018-08-07T17:04:59Z" changeset="61441451" uid="2385757" user="jeka p"/>
+  <node id="5877062304" lat="50.6911739" lon="6.4731662" version="1" timestamp="2018-09-03T00:06:39Z" changeset="62231861" uid="8622136" user="Thomas-S"/>
+  <node id="6700786511" lat="50.6914488" lon="6.4850181" version="1" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank"/>
+  <node id="6700786512" lat="50.6910291" lon="6.4716849" version="1" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank"/>
+  <way id="23211072" version="15" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="221174390"/>
+    <nd ref="251069839"/>
+    <nd ref="251069840"/>
+    <nd ref="1343721812"/>
+    <nd ref="1343721809"/>
+    <nd ref="3749682145"/>
+    <nd ref="251069841"/>
+    <nd ref="251069842"/>
+    <nd ref="374165704"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="23247320" version="30" timestamp="2018-08-07T17:05:00Z" changeset="61441451" uid="2385757" user="jeka p">
+    <nd ref="251070332"/>
+    <nd ref="281274053"/>
+    <nd ref="251542146"/>
+    <nd ref="1343596214"/>
+    <nd ref="566652823"/>
+    <nd ref="566647082"/>
+    <nd ref="251542148"/>
+    <nd ref="566835741"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="L11"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="24416158" version="8" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="265086651"/>
+    <nd ref="226867894"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="25629842" version="19" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="6700786511"/>
+    <nd ref="5366665606"/>
+    <nd ref="485746135"/>
+    <nd ref="1343596215"/>
+    <nd ref="1432167970"/>
+    <nd ref="221174381"/>
+    <nd ref="1343596216"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Abendener Straße"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="37649515" version="11" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="5815559728"/>
+    <nd ref="3575526712"/>
+    <nd ref="221174386"/>
+    <nd ref="2362725061"/>
+    <nd ref="221174387"/>
+    <nd ref="221174389"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="L11"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="42442531" version="5" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="221174389"/>
+    <nd ref="251069831"/>
+    <nd ref="221174390"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="L11"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="44660813" version="8" timestamp="2018-08-07T17:05:02Z" changeset="61441451" uid="2385757" user="jeka p">
+    <nd ref="566835741"/>
+    <nd ref="1594409769"/>
+    <nd ref="251542149"/>
+    <nd ref="1594409765"/>
+    <nd ref="1343596213"/>
+    <nd ref="1594409748"/>
+    <nd ref="1594440858"/>
+    <nd ref="251542150"/>
+    <nd ref="530712458"/>
+    <nd ref="1343596211"/>
+    <nd ref="251542151"/>
+    <nd ref="530712467"/>
+    <nd ref="726810830"/>
+    <nd ref="1343596210"/>
+    <nd ref="251542152"/>
+    <nd ref="472460704"/>
+    <nd ref="251542153"/>
+    <nd ref="5815778777"/>
+    <nd ref="251542154"/>
+    <nd ref="251542155"/>
+    <nd ref="2656255226"/>
+    <nd ref="2656255224"/>
+    <nd ref="5815778778"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed" v="100"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="source:maxspeed" v="DE:rural"/>
+  </way>
+  <way id="51423986" version="7" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="574721319"/>
+    <nd ref="251069854"/>
+    <nd ref="374165613"/>
+    <nd ref="251069855"/>
+    <nd ref="251069856"/>
+    <nd ref="1439405301"/>
+    <nd ref="251069857"/>
+    <nd ref="1439405302"/>
+    <nd ref="1439405303"/>
+    <nd ref="251069858"/>
+    <nd ref="524684293"/>
+    <nd ref="252103773"/>
+    <nd ref="1439405304"/>
+    <nd ref="251069859"/>
+    <nd ref="251069860"/>
+    <nd ref="251069861"/>
+    <nd ref="4083390815"/>
+    <nd ref="524684290"/>
+    <nd ref="4083390820"/>
+    <nd ref="251069862"/>
+    <nd ref="251069863"/>
+    <nd ref="252103774"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="118428994" version="8" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="374165704"/>
+    <nd ref="251069843"/>
+    <nd ref="3749682144"/>
+    <nd ref="251069844"/>
+    <nd ref="4083390823"/>
+    <nd ref="1343721806"/>
+    <nd ref="251069845"/>
+    <nd ref="3749682143"/>
+    <nd ref="259095358"/>
+    <nd ref="524684292"/>
+    <nd ref="251069846"/>
+    <nd ref="251069847"/>
+    <nd ref="1343721804"/>
+    <nd ref="251069848"/>
+    <nd ref="1343721802"/>
+    <nd ref="1343721799"/>
+    <nd ref="1439405300"/>
+    <nd ref="1439405299"/>
+    <nd ref="259095359"/>
+    <nd ref="251069849"/>
+    <nd ref="524684287"/>
+    <nd ref="252103771"/>
+    <nd ref="1439405296"/>
+    <nd ref="251069850"/>
+    <nd ref="1439405297"/>
+    <nd ref="252103772"/>
+    <nd ref="656432957"/>
+    <nd ref="1439405298"/>
+    <nd ref="251069851"/>
+    <nd ref="251069852"/>
+    <nd ref="251069853"/>
+    <nd ref="524684291"/>
+    <nd ref="574721319"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="227617486" version="5" timestamp="2018-08-07T15:56:16Z" changeset="61439842" uid="2385757" user="jeka p">
+    <nd ref="1753853164"/>
+    <nd ref="221174382"/>
+    <nd ref="3014110877"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="L11"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="297518829" version="7" timestamp="2018-08-16T08:58:46Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="1753853164"/>
+    <nd ref="3014110865"/>
+    <nd ref="3038864142"/>
+    <nd ref="3014110858"/>
+    <nd ref="3014110859"/>
+    <nd ref="3014110860"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="297518831" version="7" timestamp="2018-06-05T09:46:54Z" changeset="59562980" uid="54676" user="Spezialist">
+    <nd ref="2362725060"/>
+    <nd ref="3014110869"/>
+    <nd ref="3014110870"/>
+    <nd ref="3014110871"/>
+    <nd ref="3014110872"/>
+    <nd ref="3014110873"/>
+    <nd ref="3014110874"/>
+    <nd ref="3014110875"/>
+    <nd ref="3014110876"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="466636469" version="4" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="252103774"/>
+    <nd ref="252103775"/>
+    <nd ref="251069864"/>
+    <nd ref="4083390828"/>
+    <nd ref="252103776"/>
+    <nd ref="252103777"/>
+    <nd ref="4083390811"/>
+    <nd ref="251069865"/>
+    <nd ref="4083390832"/>
+    <nd ref="252103778"/>
+    <nd ref="252103779"/>
+    <nd ref="252103780"/>
+    <nd ref="251069866"/>
+    <nd ref="4083390807"/>
+    <nd ref="5877062304"/>
+    <nd ref="251069867"/>
+    <nd ref="251069868"/>
+    <nd ref="251069869"/>
+    <nd ref="6700786512"/>
+    <nd ref="226867894"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Burgstraße"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <way id="514607540" version="4" timestamp="2019-09-15T13:44:45Z" changeset="74497046" uid="184969" user="EvanE">
+    <nd ref="3038864147"/>
+    <nd ref="3038864151"/>
+    <nd ref="3038864146"/>
+    <nd ref="2362725060"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="514607542" version="3" timestamp="2018-08-16T08:58:46Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="3014110877"/>
+    <nd ref="3014110878"/>
+    <nd ref="3014110879"/>
+    <nd ref="3014110880"/>
+    <nd ref="3014110881"/>
+    <nd ref="3014110882"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="514607547" version="3" timestamp="2018-08-07T16:45:23Z" changeset="61441019" uid="2385757" user="jeka p">
+    <nd ref="1753853189"/>
+    <nd ref="3038864150"/>
+    <nd ref="3038864145"/>
+    <nd ref="1753853164"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="514607548" version="4" timestamp="2018-08-16T08:58:46Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="1753853152"/>
+    <nd ref="3038864143"/>
+    <nd ref="3038864149"/>
+    <nd ref="3038864144"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="514607550" version="4" timestamp="2018-08-16T08:58:46Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="3014110863"/>
+    <nd ref="3014110864"/>
+    <nd ref="1753853152"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="614892715" version="1" timestamp="2018-08-07T15:56:08Z" changeset="61439842" uid="2385757" user="jeka p">
+    <nd ref="2362725060"/>
+    <nd ref="5815559728"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="L11"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="614892722" version="1" timestamp="2018-08-07T15:56:09Z" changeset="61439842" uid="2385757" user="jeka p">
+    <nd ref="1343596216"/>
+    <nd ref="5815559734"/>
+    <nd ref="1753853152"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Abendener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="614917751" version="1" timestamp="2018-08-07T17:04:59Z" changeset="61441451" uid="2385757" user="jeka p">
+    <nd ref="5815778778"/>
+    <nd ref="440063293"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="ref" v="L 11"/>
+  </way>
+  <way id="617362481" version="1" timestamp="2018-08-16T08:58:44Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="3014110862"/>
+    <nd ref="3014110863"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="617362482" version="1" timestamp="2018-08-16T08:58:44Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="3014110876"/>
+    <nd ref="3014110877"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="617362483" version="1" timestamp="2018-08-16T08:58:44Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="3014110882"/>
+    <nd ref="3014110883"/>
+    <nd ref="3014110866"/>
+    <nd ref="3038864147"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="617362484" version="1" timestamp="2018-08-16T08:58:45Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="3014110860"/>
+    <nd ref="3014110861"/>
+    <nd ref="5366665610"/>
+    <nd ref="3014110862"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="617362485" version="1" timestamp="2018-08-16T08:58:45Z" changeset="61708626" uid="3298438" user="aixbrick">
+    <nd ref="3038864144"/>
+    <nd ref="5815723317"/>
+    <nd ref="1753853189"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="712687420" version="1" timestamp="2019-08-11T19:00:43Z" changeset="73248535" uid="18052" user="sfrank">
+    <nd ref="251070332"/>
+    <nd ref="5675973207"/>
+    <nd ref="352983973"/>
+    <nd ref="5675973206"/>
+    <nd ref="485746141"/>
+    <nd ref="6700786511"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Abendener Straße"/>
+    <tag k="ref" v="L 11"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="width" v="5"/>
+  </way>
+  <relation id="7656918" version="6" timestamp="2019-09-17T22:10:06Z" changeset="74600304" uid="7103674" user="Peter Elderson">
+    <member type="node" ref="440063293" role=""/>
+    <member type="way" ref="44660813" role=""/>
+    <member type="way" ref="614917751" role=""/>
+    <member type="way" ref="23247320" role=""/>
+    <member type="way" ref="712687420" role=""/>
+    <member type="way" ref="25629842" role=""/>
+    <member type="way" ref="614892722" role=""/>
+    <member type="way" ref="514607547" role=""/>
+    <member type="way" ref="617362485" role=""/>
+    <member type="way" ref="514607548" role=""/>
+    <member type="way" ref="514607550" role=""/>
+    <member type="way" ref="617362481" role=""/>
+    <member type="way" ref="617362484" role=""/>
+    <member type="way" ref="297518829" role=""/>
+    <member type="way" ref="227617486" role=""/>
+    <member type="way" ref="617362483" role=""/>
+    <member type="way" ref="514607540" role=""/>
+    <member type="way" ref="617362482" role=""/>
+    <member type="way" ref="514607542" role=""/>
+    <member type="way" ref="617362483" role=""/>
+    <member type="way" ref="297518831" role=""/>
+    <member type="way" ref="614892715" role=""/>
+    <member type="way" ref="37649515" role=""/>
+    <member type="way" ref="42442531" role=""/>
+    <member type="way" ref="23211072" role=""/>
+    <member type="way" ref="118428994" role=""/>
+    <member type="way" ref="51423986" role=""/>
+    <member type="way" ref="466636469" role=""/>
+    <member type="way" ref="24416158" role=""/>
+    <member type="node" ref="265086651" role=""/>
+    <tag k="description" v="(DN-74) Nideggen Berg - (DN-70) Nideggen Brück"/>
+    <tag k="name" v="KPN Nideggen (74) - (70) Nideggen"/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="74-70"/>
+    <tag k="note:de" v="Knotenpunktnetz NRW - Kreis Düren"/>
+    <tag k="ref" v="KPN"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>
