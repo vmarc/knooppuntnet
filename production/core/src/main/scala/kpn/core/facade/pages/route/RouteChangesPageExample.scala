@@ -82,7 +82,7 @@ object RouteChangesPageExample {
     FactDiffs(
       resolved = Set(Fact.RouteRedundantNodes),
       introduced = Set(Fact.RouteIncomplete),
-      remaining = Set(Fact.RouteEndNodeMismatch)
+      remaining = Set(Fact.RouteUnaccessible)
     )
   }
 

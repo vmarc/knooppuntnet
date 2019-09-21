@@ -45,10 +45,13 @@ object Fact {
   val RouteFixmetodo: Fact = f.fact(106, "RouteFixmetodo", "Fixmetodo", FactLevel.ERROR)
 
   val RouteNameMissing: Fact = f.fact(109, "RouteNameMissing", "RouteZonderNaam", FactLevel.ERROR)
+
+  // TODO not used anymore - remove when no longer in changes database
   val RouteEndNodeMismatch: Fact = f.fact(110, "RouteEndNodeMismatch", "EindKnooppuntFout", FactLevel.ERROR)
-  // not used (yet/anymore)
+
+  // TODO not used anymore - remove when no longer in changes database
   val RouteStartNodeMismatch: Fact = f.fact(112, "RouteStartNodeMismatch", "StartKnooppuntFout", FactLevel.ERROR)
-  // not used (yet/anymore)
+
   val RouteTagMissing: Fact = f.fact(113, "RouteTagMissing", "OntbrekendeTag", FactLevel.ERROR)
   val RouteTagInvalid: Fact = f.fact(114, "RouteTagInvalid", "TagFout", FactLevel.ERROR)
 
@@ -72,12 +75,16 @@ object Fact {
   val RouteIncomplete: Fact = f.fact(201, "RouteIncomplete", "OnvolledigeRoute", FactLevel.INFO)
   val RouteUnaccessible: Fact = f.fact(202, "RouteUnaccessible", "Ontoegankelijk", FactLevel.INFO)
   val RouteInvalidSortingOrder: Fact = f.fact(203, "RouteInvalidSortingOrder", "SorteerFout", FactLevel.INFO)
+
+  // TODO not used anymore - remove when no longer in changes database
   val RouteReversed: Fact = f.fact(204, "RouteReversed", "OmgekeerdeVolgorde", FactLevel.INFO)
+
   val RouteNodeNameMismatch: Fact = f.fact(205, "RouteNodeNameMismatch", "OnverwachteNaam", FactLevel.INFO)
   val RouteOneWay: Fact = f.fact(206, "RouteOneWay", "RouteEnkeleRichting", FactLevel.INFO)
   val RouteNotOneWay: Fact = f.fact(207, "RouteNotOneWay", "RouteNietEnkeleRichting", FactLevel.INFO)
   val RouteIncompleteOk: Fact = f.fact(208, "RouteIncompleteOk", "OnvolledigeRouteOk", FactLevel.INFO)
 
+  // TODO remove after migration and when no longer in changes database
   val NodeNetworkTypeNotTagged: Fact = f.fact(209, "NodeNetworkTypeNotTagged", "GeenKnooppuntNetwerkTypeTag", FactLevel.INFO)
   val RouteNetworkTypeNotTagged: Fact = f.fact(210, "RouteNetworkTypeNotTagged", "GeenRouteNetwerkTypeTag", FactLevel.INFO)
   val NetworkTypeNotTagged: Fact = f.fact(211, "NetworkTypeNotTagged", "GeenNetwerkTypeTag", FactLevel.INFO)

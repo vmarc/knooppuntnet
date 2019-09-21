@@ -151,8 +151,6 @@ object UiGlossaryPage {
           fact(RouteWithoutWays),
           fact(RouteFixmetodo),
           fact(RouteNameMissing),
-          fact(RouteEndNodeMismatch),
-          fact(RouteStartNodeMismatch),
           fact(RouteTagMissing),
           fact(RouteTagInvalid),
           fact(RouteUnexpectedNode),

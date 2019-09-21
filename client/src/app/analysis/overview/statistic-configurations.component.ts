@@ -417,16 +417,6 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
       </kpn-statistic-configuration>
 
       <kpn-statistic-configuration
-        id="RouteReversedCount"
-        fact="RouteReversed"
-        name="RouteReversed"
-        i18n-name="@@stats.route-reversed.name"
-        i18n="@@stats.route-reversed.comment"
-        [linkFunction]="factDetailCounts">
-        Number of routes where the ways are in reverse order (from high node number to low node number).
-      </kpn-statistic-configuration>
-
-      <kpn-statistic-configuration
         id="RouteNodeNameMismatchCount"
         fact="RouteNodeNameMismatch"
         name="RouteNodeNameMismatch"
