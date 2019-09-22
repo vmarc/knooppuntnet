@@ -74,7 +74,6 @@ object UiOverviewList {
         infoRow(infos.nameMissingInfo),
         infoRow(infos.routeUnaccessibleInfo),
         infoRow(infos.routeInvalidSortingOrderInfo),
-        infoRow(infos.routeReversedInfo),
         infoRow(infos.routeNodeNameMismatchInfo)
       )
     }
