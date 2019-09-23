@@ -1,6 +1,6 @@
 {
   "_id": "black-list",
-  "_rev": "1-a19bfc5fb6002ff96e28114f31abe5b9",
+  "_rev": "2-5d5db0d6c0d5dc3c1182d57cdfa794d2",
   "blackList": {
     "networks": [
       {
@@ -980,6 +980,16 @@
       },
       {
         "id": 1382214775,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 1881102227,
+        "name": "?",
+        "reason": "France - not a node network node"
+      },
+      {
+        "id": 243534693,
         "name": "?",
         "reason": "France - not a node network node"
       }
