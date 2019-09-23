@@ -35,6 +35,7 @@ lazy val core: Project = (project in file("core"))
       "commons-io" % "commons-io" % "2.4",
       "commons-net" % "commons-net" % "3.6",
       "org.locationtech.jts" % "jts-core" % "1.16.1",
+      "org.locationtech.jts.io" % "jts-io-common" % "1.16.1",
       "com.github.scala-incubator.io" % "scala-io-file_2.11" % "0.4.3-1",
       "org.jgrapht" % "jgrapht-core" % "1.3.0",
       "org.scalatest" %% "scalatest" % Settings.versions.scalatest % "test",

@@ -14,10 +14,8 @@ import kpn.client.common.ChangesPageArgs
 import kpn.client.common.ComponentsPageArgs
 import kpn.client.common.Context
 import kpn.client.common.ContextImpl
-import kpn.client.common.EN
 import kpn.client.common.GlossaryPageArgs
 import kpn.client.common.MapPageArgs
-import kpn.client.common.NL
 import kpn.client.common.NetworkPageArgs
 import kpn.client.common.NodePageArgs
 import kpn.client.common.OverviewPageArgs
@@ -53,7 +51,9 @@ import kpn.client.components.tryout.UiTryout
 import kpn.client.modules.UiAboutPage
 import kpn.client.modules.UiGlossaryPage
 import kpn.client.modules.UiLinksPage
+import kpn.shared.EN
 import kpn.shared.Fact
+import kpn.shared.NL
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import org.scalajs.dom

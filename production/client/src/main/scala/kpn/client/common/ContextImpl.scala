@@ -37,6 +37,7 @@ import kpn.client.RouteConfiguration.GotoSubsetOrphanRoutes
 import kpn.client.common.Nls.nls
 import kpn.client.components.menu.SubsetTitle
 import kpn.shared.Fact
+import kpn.shared.Language
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import org.scalajs.dom.html

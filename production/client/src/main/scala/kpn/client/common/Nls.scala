@@ -2,6 +2,8 @@
 package kpn.client.common
 
 import kpn.shared.Country
+import kpn.shared.EN
+import kpn.shared.NL
 
 object Nls {
 

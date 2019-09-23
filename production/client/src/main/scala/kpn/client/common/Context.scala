@@ -8,6 +8,7 @@ import japgolly.scalajs.react.vdom.html_<^.VdomTagOf
 import japgolly.scalajs.react.vdom.html_<^.EmptyVdom
 import kpn.client.RouteConfiguration.Goto
 import kpn.shared.Fact
+import kpn.shared.Language
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import org.scalajs.dom.html
