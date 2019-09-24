@@ -5,6 +5,7 @@ import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry
 
 case class LocationDefinition(
+  level: Int,
   name: String,
   locationNames: Map[Language, String],
   boundingBox: Envelope,
@@ -19,5 +20,7 @@ case class LocationDefinition(
   def names: Seq[String] = {
     locationNames.keys.map(key => key.toString + "=" + locationNames(key)).toSeq
   }
+
+  def area: Double = geometry.getArea
 
 }

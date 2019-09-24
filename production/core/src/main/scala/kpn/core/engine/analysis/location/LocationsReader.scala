@@ -8,9 +8,15 @@ object LocationsReader {
   def main(args: Array[String]): Unit = {
 
     def printLocation(indent: Int, location: LocationDefinition): Unit = {
+      val area = (location.children.map(_.area).sum * 1000).toInt
       val spaces = (0 to indent).map(x => "  ").mkString
-      val children = if (location.children.isEmpty) "" else "  (" + location.children.size + ")"
-      println(spaces + location.name + " " + location.names.mkString(",") + children)
+      val children = if (location.children.isEmpty) {
+        " area=" + (location.area * 1000).toInt
+      }
+      else {
+        "  (" + location.children.size + ")" + " area=" + (location.area * 1000).toInt + "/" + area
+      }
+      println(spaces + location.level + " " + location.name + " " + location.names.mkString(",") + children)
       location.children.foreach { child =>
         printLocation(indent + 1, child)
       }
@@ -32,15 +38,20 @@ class LocationsReader {
   }
 
   def read(): Seq[LocationDefinition] = {
-    Seq(LocationConfiguration.be).flatMap { configuration =>
+    println("loading location definitions")
+
+    val locations = LocationConfiguration.countries.flatMap { configuration =>
+      println("loading location definitions " + configuration.country)
       val locationsPerLevel = configuration.levels.map { level =>
         readLocations(configuration.country, level)
       }
-      readLevelLocations(locationsPerLevel.head, locationsPerLevel.tail)
+      readLevelLocations(configuration.country, locationsPerLevel.head, locationsPerLevel.tail)
     }
+    println("loading location definitions done")
+    locations
   }
 
-  private def readLevelLocations(levelLocations: Seq[LocationDefinition], remainderLocations: Seq[Seq[LocationDefinition]]): Seq[LocationDefinition] = {
+  private def readLevelLocations(country: String, levelLocations: Seq[LocationDefinition], remainderLocations: Seq[Seq[LocationDefinition]]): Seq[LocationDefinition] = {
     if (remainderLocations.isEmpty) {
       levelLocations
     }
@@ -48,16 +59,28 @@ class LocationsReader {
       val nextLevelLocations = remainderLocations.head
       levelLocations.map { location =>
         val children = nextLevelLocations.filter(loc => location.geometry.contains(loc.geometry))
-        val populatedChildren = readLevelLocations(children, remainderLocations.tail)
-        location.copy(children = populatedChildren)
+        if (country == "be" && location.level == 4 && children.isEmpty) {
+          val nextLevelLocations2 = remainderLocations(2) // level 8 Brussels-Capital
+          val children2 = nextLevelLocations2.filter(loc => location.geometry.contains(loc.geometry))
+          location.copy(children = children2)
+        }
+        else if (country == "de" && location.level == 4 && children.isEmpty) {
+          val nextLevelLocations2 = remainderLocations.tail.head
+          val children2 = nextLevelLocations2.filter(loc => location.geometry.contains(loc.geometry))
+          location.copy(children = children2)
+        }
+        else {
+          val populatedChildren = readLevelLocations(country, children, remainderLocations.tail)
+          location.copy(children = populatedChildren)
+        }
       }
     }
   }
 
-  private def readLocations(country: String, level: String): Seq[LocationDefinition] = {
+  private def readLocations(country: String, level: Int): Seq[LocationDefinition] = {
     val root = new File("/kpn/conf/locations/" + country)
-    root.listFiles(new GeoJsonFileFilter(level)).map { file =>
-      new LocationDefinitionReader(file).read(Seq.empty)
+    root.listFiles(new GeoJsonFileFilter("AL" + level)).map { file =>
+      new LocationDefinitionReader(file).read(level, Seq.empty)
     }
   }
 

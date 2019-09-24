@@ -13,7 +13,7 @@ class LocationDefinitionReaderTest extends FunSuite with Matchers {
 
   test("Essen") {
     val file = new File("/kpn/conf/locations-2/Belgium_52411_AL2/Antwerp_53114_AL6/Antwerp_1902793_AL7/Essen_964003_AL8.GeoJson")
-    val locationDefinition = new LocationDefinitionReader(file).read(Seq.empty)
+    val locationDefinition = new LocationDefinitionReader(file).read(8, Seq.empty)
     locationDefinition.name should equal("Essen")
 
     val locator = LocationLocator.from(locationDefinition)
@@ -27,7 +27,7 @@ class LocationDefinitionReaderTest extends FunSuite with Matchers {
 
   test("Belgium") {
     val file = new File("/kpn/conf/locations-2/Belgium_52411_AL2.GeoJson")
-    val locationDefinition = new LocationDefinitionReader(file).read(Seq.empty)
+    val locationDefinition = new LocationDefinitionReader(file).read(2, Seq.empty)
     locationDefinition.name should equal("Belgium")
     locationDefinition.name(NL) should equal("België")
     locationDefinition.name(EN) should equal("Belgium")
