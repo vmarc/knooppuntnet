@@ -21,6 +21,10 @@ case class LocationDefinition(
     locationNames.keys.map(key => key.toString + "=" + locationNames(key)).toSeq
   }
 
+  def contains(other: LocationDefinition): Boolean = {
+    geometry.contains(other.geometry)
+  }
+
   def area: Double = geometry.getArea
 
 }

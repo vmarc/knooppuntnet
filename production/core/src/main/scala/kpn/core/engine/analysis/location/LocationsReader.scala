@@ -60,20 +60,20 @@ class LocationsReader {
     else {
       val nextLevelLocations = remainderLocations.head
       levelLocations.map { location =>
-        val children = nextLevelLocations.filter(loc => location.geometry.contains(loc.geometry))
+        val children = nextLevelLocations.filter(loc => location.contains(loc))
         if (country == Country.be && location.level == 4 && children.isEmpty) {
           val nextLevelLocations2 = remainderLocations(2) // level 8 Brussels-Capital
-          val children2 = nextLevelLocations2.filter(loc => location.geometry.contains(loc.geometry))
-          location.copy(children = children2)
+          val children2 = nextLevelLocations2.filter(loc => location.contains(loc))
+          location.copy(children = children2.sortBy(_.name))
         }
         else if (country == Country.de && location.level == 4 && children.isEmpty) {
           val nextLevelLocations2 = remainderLocations.tail.head
-          val children2 = nextLevelLocations2.filter(loc => location.geometry.contains(loc.geometry))
-          location.copy(children = children2)
+          val children2 = nextLevelLocations2.filter(loc => location.contains(loc))
+          location.copy(children = children2.sortBy(_.name))
         }
         else {
           val populatedChildren = readLevelLocations(country, children, remainderLocations.tail)
-          location.copy(children = populatedChildren)
+          location.copy(children = populatedChildren.sortBy(_.name))
         }
       }
     }
