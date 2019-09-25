@@ -3,7 +3,11 @@ package kpn.shared.common
 case class ToStringBuilder(className: String, strings: Seq[String] = Seq.empty) {
 
   def field(name: String, value: Any): ToStringBuilder = {
-    val fieldString = s"$name = $value"
+    val valueString = value match {
+      case string: String => s"""""$string"""""
+      case _ => value
+    }
+    val fieldString = s"$name = $valueString"
     val splittedString = fieldString.split("\n").toSeq
     val indentedStrings = splittedString.mkString("  ", "\n  ", "")
     copy(strings = strings :+ indentedStrings)

@@ -216,6 +216,7 @@ object KpnPicklers {
   implicit val subsetInfoPickler: Pickler[SubsetInfo] = PicklerGenerator.generatePickler[SubsetInfo]
   implicit val pageInfoPickler: Pickler[PageInfo] = PicklerGenerator.generatePickler[PageInfo]
   implicit val routeSummaryPickler: Pickler[RouteSummary] = PicklerGenerator.generatePickler[RouteSummary]
+  implicit val locationPickler: Pickler[Location] = PicklerGenerator.generatePickler[Location]
   implicit val nodeInfoPickler: Pickler[NodeInfo] = PicklerGenerator.generatePickler[NodeInfo]
   implicit val networkMapInfoPickler: Pickler[NetworkMapInfo] = PicklerGenerator.generatePickler[NetworkMapInfo]
   implicit val factCountPickler: Pickler[FactCount] = PicklerGenerator.generatePickler[FactCount]
@@ -280,6 +281,8 @@ object KpnPicklers {
   implicit val routeMapPickler: Pickler[RouteMap] = PicklerGenerator.generatePickler[RouteMap]
   implicit val routeMemberInfoPickler: Pickler[RouteMemberInfo] = PicklerGenerator.generatePickler[RouteMemberInfo]
   implicit val routeNetworkNodeInfoPickler: Pickler[RouteNetworkNodeInfo] = PicklerGenerator.generatePickler[RouteNetworkNodeInfo]
+  implicit val locationCandidatePickler: Pickler[LocationCandidate] = PicklerGenerator.generatePickler[LocationCandidate]
+  implicit val routeLocationAnalysisPickler: Pickler[RouteLocationAnalysis] = PicklerGenerator.generatePickler[RouteLocationAnalysis]
   implicit val routeInfoAnalysisPickler: Pickler[RouteInfoAnalysis] = PicklerGenerator.generatePickler[RouteInfoAnalysis]
   implicit val routePickler: Pickler[RouteInfo] = PicklerGenerator.generatePickler[RouteInfo]
 

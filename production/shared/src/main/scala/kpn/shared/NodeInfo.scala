@@ -22,7 +22,8 @@ case class NodeInfo(
   longitude: String,
   lastUpdated: Timestamp,
   tags: Tags,
-  facts: Seq[Fact]
+  facts: Seq[Fact],
+  location: Option[Location]
 ) extends Tagable with LatLon {
 
   def name(networkType: String): String = {

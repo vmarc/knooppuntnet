@@ -56,6 +56,9 @@ import kpn.shared.NetworkFacts
 import kpn.shared.NetworkIntegrityCheck
 import kpn.shared.NetworkIntegrityCheckFailed
 import kpn.shared.NetworkNameMissing
+import kpn.shared.Location
+import kpn.shared.LocationCandidate
+import kpn.shared.RouteLocationAnalysis
 import kpn.shared.NodeInfo
 import kpn.shared.NodeIntegrityCheck
 import kpn.shared.NodeIntegrityCheckChange
@@ -244,7 +247,10 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val latLonImplFormat: RootJsonFormat[LatLonImpl] = jsonFormat2(LatLonImpl.apply)
 
-  implicit val routeInfoAnalysisFormat: RootJsonFormat[RouteInfoAnalysis] = jsonFormat9(RouteInfoAnalysis)
+  implicit val locationFormat: RootJsonFormat[Location] = jsonFormat1(Location)
+  implicit val locationCandidateFormat: RootJsonFormat[LocationCandidate] = jsonFormat2(LocationCandidate)
+  implicit val routeLocationAnalysisFormat: RootJsonFormat[RouteLocationAnalysis] = jsonFormat2(RouteLocationAnalysis)
+  implicit val routeInfoAnalysisFormat: RootJsonFormat[RouteInfoAnalysis] = jsonFormat10(RouteInfoAnalysis)
 
   implicit val routeSummaryFormat: RootJsonFormat[RouteSummary] = jsonFormat10(RouteSummary)
   implicit val routeInfoFormat: RootJsonFormat[RouteInfo] = jsonFormat11(RouteInfo)
@@ -252,7 +258,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeDocFormat: RootJsonFormat[RouteDoc] = jsonFormat3(RouteDoc)
 
   implicit val nodeIntegrityCheckFormat: RootJsonFormat[NodeIntegrityCheck] = jsonFormat5(NodeIntegrityCheck)
-  implicit val nodeInfoFormat: RootJsonFormat[NodeInfo] = jsonFormat18(NodeInfo)
+  implicit val nodeInfoFormat: RootJsonFormat[NodeInfo] = jsonFormat19(NodeInfo)
   implicit val nodeDocFormat: RootJsonFormat[NodeDoc] = jsonFormat3(NodeDoc)
 
   implicit val integrityFormat: RootJsonFormat[Integrity] = jsonFormat8(Integrity)

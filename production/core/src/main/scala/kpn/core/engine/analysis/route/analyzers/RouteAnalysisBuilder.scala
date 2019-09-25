@@ -129,7 +129,8 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       members,
       expectedName,
       routeMap,
-      new RouteStructureFormatter(structure).strings
+      new RouteStructureFormatter(structure).strings,
+      None
     )
 
     val lastUpdatedElement: Element = {

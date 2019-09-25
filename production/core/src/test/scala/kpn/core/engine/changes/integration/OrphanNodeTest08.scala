@@ -50,7 +50,8 @@ class OrphanNodeTest08 extends AbstractTest {
             "99",
             Timestamp(2015, 8, 11, 0, 0, 0),
             Tags.from("rwn_ref" -> "01"),
-            Seq(Fact.Deleted, Fact.IgnoreForeignCountry)
+            Seq(Fact.Deleted, Fact.IgnoreForeignCountry),
+            None
           )
         )
         true

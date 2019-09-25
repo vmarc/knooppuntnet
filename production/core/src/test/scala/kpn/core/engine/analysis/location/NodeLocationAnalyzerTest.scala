@@ -1,5 +1,6 @@
 package kpn.core.engine.analysis.location
 
+import kpn.shared.Location
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

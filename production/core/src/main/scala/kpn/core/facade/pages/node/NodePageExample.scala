@@ -92,7 +92,8 @@ object NodePageExample {
         Fact.IntegrityCheckFailed,
         Fact.WasOrphan,
         Fact.Deleted
-      )
+      ),
+      location = None
     )
   }
 

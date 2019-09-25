@@ -50,7 +50,8 @@ class OrphanNodeTest01 extends AbstractTest {
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
             Tags.from("rwn_ref" -> "01"),
-            Seq()
+            Seq(),
+            None
           )
         )
         true

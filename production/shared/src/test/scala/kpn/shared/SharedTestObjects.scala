@@ -274,7 +274,8 @@ trait SharedTestObjects {
       longitude,
       lastUpdated,
       tags,
-      facts
+      facts,
+      None
     )
   }
 

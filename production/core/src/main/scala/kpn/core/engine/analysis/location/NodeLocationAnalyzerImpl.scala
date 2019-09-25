@@ -1,5 +1,7 @@
 package kpn.core.engine.analysis.location
 
+import kpn.shared.Location
+
 class NodeLocationAnalyzerImpl(locationDefinitions: Seq[LocationDefinition]) {
 
   println("initiating locators")

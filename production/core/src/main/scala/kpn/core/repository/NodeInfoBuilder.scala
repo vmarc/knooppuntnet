@@ -62,7 +62,8 @@ object NodeInfoBuilder {
       longitude,
       lastUpdated,
       tags,
-      allFacts
+      allFacts,
+      None
     )
   }
 

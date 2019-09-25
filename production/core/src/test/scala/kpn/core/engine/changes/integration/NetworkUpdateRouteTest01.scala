@@ -173,7 +173,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 Seq(
                   "forward=(01-02 via +<01-02 101>)",
                   "backward=(02-01 via -<01-02 101>)"
-                )
+                ),
+                None
               )
             )
           )

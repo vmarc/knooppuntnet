@@ -201,7 +201,8 @@ object RouteDetailsPageExample {
             "one",
             "two",
             "three"
-          )
+          ),
+          locationAnalysis = None
         )
       )
     )

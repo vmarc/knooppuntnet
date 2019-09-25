@@ -1,5 +1,6 @@
 package kpn.shared.route
 
+import kpn.shared.RouteLocationAnalysis
 import kpn.shared.common.ToStringBuilder
 
 case class RouteInfoAnalysis(
@@ -11,7 +12,8 @@ case class RouteInfoAnalysis(
   members: Seq[RouteMemberInfo],
   expectedName: String,
   map: RouteMap,
-  structureStrings: Seq[String]
+  structureStrings: Seq[String],
+  locationAnalysis: Option[RouteLocationAnalysis]
 ){
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

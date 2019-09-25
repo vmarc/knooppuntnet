@@ -126,7 +126,8 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
           members = Seq(),
           expectedName = "",
           map = routeMap,
-          structureStrings = Seq()
+          structureStrings = Seq(),
+          locationAnalysis = None
         )
       )
     )
