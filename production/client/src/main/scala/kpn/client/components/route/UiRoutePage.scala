@@ -14,6 +14,7 @@ import kpn.client.common.RouteTagFilter
 import kpn.client.common.map.UiEmbeddedMap
 import kpn.client.components.common.AbstractBackend
 import kpn.client.components.common.FactInfo
+import kpn.client.components.common.GlobalStyles
 import kpn.client.components.common.PageState
 import kpn.client.components.common.PageStatus
 import kpn.client.components.common.PageWidth
@@ -29,6 +30,7 @@ import kpn.client.components.menu.UiSidebarFooter
 import kpn.shared.ApiResponse
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RoutePage
+import scalacss.ScalaCssReact._
 
 object UiRoutePage {
 
@@ -131,6 +133,37 @@ object UiRoutePage {
           UiData("Situation on", "Situatie op")(
             <.div("" + state.pageState.response.flatMap(_.situationOn.map(_.yyyymmddhhmm)).getOrElse(""))
           ),
+          TagMod.when(page.route.analysis.isDefined && page.route.analysis.get.locationAnalysis.isDefined) {
+            val locationAnalysis = page.route.analysis.get.locationAnalysis.get
+            val names = locationAnalysis.location.names.reverse
+            UiData("Location", "Locatie")(
+              <.div(
+                <.p(names.head),
+                names.tail.toTagMod { name =>
+                  <.p(
+                    GlobalStyles.gray,
+                    name
+                  )
+                }
+              )
+            )
+          },
+          TagMod.when(page.route.analysis.isDefined && page.route.analysis.get.locationAnalysis.isDefined
+            && page.route.analysis.get.locationAnalysis.get.candidates.nonEmpty) {
+            val locationAnalysis = page.route.analysis.get.locationAnalysis.get
+            UiData("Location analysis", "Locatie analyse")(
+              <.div(
+                locationAnalysis.candidates.toTagMod { candidate =>
+                  <.p(
+                    candidate.location.names.last,
+                    " ",
+                    candidate.percentage,
+                    "%"
+                  )
+                }
+              )
+            )
+          },
           UiData("Last updated", "Laatst bewerkt")(
             <.div(page.route.lastUpdated.yyyymmddhhmm)
           ),

@@ -9,6 +9,12 @@ import kpn.core.repository.RouteRepositoryImpl
 import kpn.shared.route.RouteInfoAnalysis
 import spray.json.JsValue
 
+/*
+  Performs route location analysis for all routes in the database.
+
+  This is for testing purposes during development only.  This code can/should be
+  removed once all location analysis logic is fully in place.
+ */
 object RouteLocationTool {
 
   def main(args: Array[String]): Unit = {
@@ -69,7 +75,6 @@ class RouteLocationTool(database: Database) {
       val routeId = docId.drop("route:".length + 1).dropRight(1)
       routeId.toLong
     }
-
     val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="route"&endkey="route:a"&reduce=false&stale=ok"""
     database.getRows(request).map(toNodeId).distinct
   }

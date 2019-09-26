@@ -17,6 +17,7 @@ import kpn.client.common.map.UiEmbeddedMap
 import kpn.client.components.common.AbstractBackend
 import kpn.client.components.common.CssSettings.default._
 import kpn.client.components.common.FactInfo
+import kpn.client.components.common.GlobalStyles
 import kpn.client.components.common.PageState
 import kpn.client.components.common.PageStatus
 import kpn.client.components.common.PageWidth
@@ -153,6 +154,20 @@ object UiNodePage {
           UiData("Situation on", "Situatie op")(
             <.div("" + state.pageState.response.flatMap(_.situationOn.map(_.yyyymmddhhmm)).getOrElse(""))
           ),
+          TagMod.when(page.nodeInfo.location.isDefined) {
+            val names = page.nodeInfo.location.get.names.reverse
+            UiData("Location", "Locatie")(
+              <.div(
+                <.p(names.head),
+                names.tail.toTagMod { name =>
+                  <.p(
+                    GlobalStyles.gray,
+                    name
+                  )
+                }
+              )
+            )
+          },
           UiData("Last updated", "Laatst bewerkt")(
             <.div(page.nodeInfo.lastUpdated.yyyymmddhhmm)
           ),

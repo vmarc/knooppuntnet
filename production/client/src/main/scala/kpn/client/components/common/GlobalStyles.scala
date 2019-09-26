@@ -20,4 +20,8 @@ object GlobalStyles extends StyleSheet.Inline {
     color.red
   )
 
+  val gray: StyleA = style(
+    color.gray
+  )
+
 }

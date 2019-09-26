@@ -8,6 +8,12 @@ import kpn.core.engine.analysis.location.NodeLocationAnalyzerImpl
 import kpn.core.repository.NodeRepositoryImpl
 import spray.json.JsValue
 
+/*
+  Performs node location analysis for all nodes in the database.
+
+  This is for testing purposes during development only.  This code can/should be
+  removed once all location analysis logic is fully in place.
+ */
 object NodeLocationTool {
 
   def main(args: Array[String]): Unit = {
