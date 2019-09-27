@@ -13,6 +13,7 @@ import kpn.core.db.couch.Database
 import kpn.core.db.couch.DatabaseImpl
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
+import kpn.core.db.views.LocationDesign
 import kpn.core.db.views.PlannerDesign
 import kpn.core.repository.DesignRepositoryImpl
 import org.scalatest.Assertions
@@ -58,6 +59,7 @@ object TestSupport extends Assertions {
       new DesignRepositoryImpl(database).save(AnalyzerDesign)
       new DesignRepositoryImpl(database).save(ChangesDesign)
       new DesignRepositoryImpl(database).save(PlannerDesign)
+      new DesignRepositoryImpl(database).save(LocationDesign)
 
       try {
         f(database)

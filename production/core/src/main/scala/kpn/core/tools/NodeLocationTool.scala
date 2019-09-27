@@ -3,7 +3,7 @@ package kpn.core.tools
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
-import kpn.core.engine.analysis.location.LocationsReader
+import kpn.core.engine.analysis.location.LocationConfigurationReader
 import kpn.core.engine.analysis.location.NodeLocationAnalyzerImpl
 import kpn.core.repository.NodeRepositoryImpl
 import spray.json.JsValue
@@ -38,8 +38,10 @@ class NodeLocationTool(database: Database) {
 
     println("Start")
 
-    val locationDefinitions = new LocationsReader().read()
-    val analyzer = new NodeLocationAnalyzerImpl(locationDefinitions)
+    val analyzer = {
+      val configuration = new LocationConfigurationReader().read()
+      new NodeLocationAnalyzerImpl(configuration)
+    }
 
     val nodeIds = readNodeIds()
     println(s"Updating ${nodeIds.size} node definitions")

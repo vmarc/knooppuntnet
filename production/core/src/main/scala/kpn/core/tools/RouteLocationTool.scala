@@ -3,7 +3,7 @@ package kpn.core.tools
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
-import kpn.core.engine.analysis.location.LocationsReader
+import kpn.core.engine.analysis.location.LocationConfigurationReader
 import kpn.core.engine.analysis.location.RouteWayBasedLocatorImpl
 import kpn.core.repository.RouteRepositoryImpl
 import kpn.shared.route.RouteInfoAnalysis
@@ -37,8 +37,10 @@ object RouteLocationTool {
 
 class RouteLocationTool(database: Database) {
 
-  private val locationDefinitions = new LocationsReader().read()
-  private val locator = new RouteWayBasedLocatorImpl(locationDefinitions)
+  private val locator = {
+    val configuration = new LocationConfigurationReader().read()
+    new RouteWayBasedLocatorImpl(configuration)
+  }
 
   def run(): Unit = {
 

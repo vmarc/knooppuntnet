@@ -1,5 +1,8 @@
 package kpn.core.engine.analysis.location
 
-trait RouteNodeBasedLocator {
+import kpn.shared.Location
+import kpn.shared.route.RouteInfo
 
+trait RouteNodeBasedLocator {
+  def locate(route: RouteInfo): Option[Location]
 }

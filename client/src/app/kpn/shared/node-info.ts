@@ -3,6 +3,7 @@
 import {List} from "immutable";
 import {Country} from "./country";
 import {Fact} from "./fact";
+import {Location} from "./location";
 import {Tags} from "./data/tags";
 import {Timestamp} from "./timestamp";
 
@@ -25,7 +26,8 @@ export class NodeInfo {
               readonly longitude: string,
               readonly lastUpdated: Timestamp,
               readonly tags: Tags,
-              readonly facts: List<Fact>) {
+              readonly facts: List<Fact>,
+              readonly location: Location) {
   }
 
   public static fromJSON(jsonObject): NodeInfo {
@@ -50,7 +52,8 @@ export class NodeInfo {
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Tags.fromJSON(jsonObject.tags),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      Location.fromJSON(jsonObject.location)
     );
   }
 }

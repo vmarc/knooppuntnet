@@ -21,9 +21,11 @@ class RouteWayBasedLocatorTest extends FunSuite with Matchers with SharedTestObj
 
   test("way based locator") {
 
-    val locationDefinitions = readLocationDefinitions()
-//    val locationDefinitions = new LocationsReader().read()
-    val locator = new RouteWayBasedLocatorImpl(locationDefinitions)
+    val locator = {
+      val configuration = readLocationConfiguration()
+      // val locationConfiguration = new LocationConfigurationReader().read()
+      new RouteWayBasedLocatorImpl(configuration)
+    }
 
     // route 24-81
     locator.locate(route("28184")) should equal(
@@ -67,7 +69,7 @@ class RouteWayBasedLocatorTest extends FunSuite with Matchers with SharedTestObj
     )
   }
 
-  private def readLocationDefinitions(): Seq[LocationDefinition] = {
+  private def readLocationConfiguration(): LocationConfiguration = {
 
     val be = {
       val essen = location("be/Essen_964003_AL8.GeoJson")
@@ -88,7 +90,7 @@ class RouteWayBasedLocatorTest extends FunSuite with Matchers with SharedTestObj
 
     val de = location("de/Germany_51477_AL2.GeoJson")
 
-    Seq(nl, be, de)
+    LocationConfiguration(Seq(nl, be, de))
   }
 
   private def location(name: String, children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {

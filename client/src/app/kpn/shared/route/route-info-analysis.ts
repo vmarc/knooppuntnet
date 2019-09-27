@@ -1,6 +1,7 @@
 // this class is generated, please do not modify
 
 import {List} from "immutable";
+import {RouteLocationAnalysis} from "../route-location-analysis";
 import {RouteMap} from "./route-map";
 import {RouteMemberInfo} from "./route-member-info";
 import {RouteNetworkNodeInfo} from "./route-network-node-info";
@@ -15,7 +16,8 @@ export class RouteInfoAnalysis {
               readonly members: List<RouteMemberInfo>,
               readonly expectedName: string,
               readonly map: RouteMap,
-              readonly structureStrings: List<string>) {
+              readonly structureStrings: List<string>,
+              readonly locationAnalysis: RouteLocationAnalysis) {
   }
 
   public static fromJSON(jsonObject): RouteInfoAnalysis {
@@ -31,7 +33,8 @@ export class RouteInfoAnalysis {
       jsonObject.members ? List(jsonObject.members.map(json => RouteMemberInfo.fromJSON(json))) : List(),
       jsonObject.expectedName,
       RouteMap.fromJSON(jsonObject.map),
-      jsonObject.structureStrings ? List(jsonObject.structureStrings) : List()
+      jsonObject.structureStrings ? List(jsonObject.structureStrings) : List(),
+      RouteLocationAnalysis.fromJSON(jsonObject.locationAnalysis)
     );
   }
 }

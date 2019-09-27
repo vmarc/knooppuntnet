@@ -5,7 +5,7 @@ import java.io.FileFilter
 
 import kpn.shared.Country
 
-object LocationsReader {
+object LocationConfigurationReader {
 
   def main(args: Array[String]): Unit = {
 
@@ -24,14 +24,14 @@ object LocationsReader {
       }
     }
 
-    val locations = new LocationsReader().read()
-    locations.foreach { location =>
+    val locationConfiguration = new LocationConfigurationReader().read()
+    locationConfiguration.locations.foreach { location =>
       printLocation(0, location)
     }
   }
 }
 
-class LocationsReader {
+class LocationConfigurationReader {
 
   class GeoJsonFileFilter(level: String) extends FileFilter {
     def accept(pathname: File): Boolean = {
@@ -39,10 +39,9 @@ class LocationsReader {
     }
   }
 
-  def read(): Seq[LocationDefinition] = {
+  def read(): LocationConfiguration = {
     println("loading location definitions")
-
-    val locations = LocationConfiguration.countries.flatMap { configuration =>
+    val locations = LocationConfigurationDefinition.countries.flatMap { configuration =>
       println("loading location definitions " + configuration.country.domain)
       val locationsPerLevel = configuration.levels.map { level =>
         readLocations(configuration.country, level)
@@ -50,7 +49,7 @@ class LocationsReader {
       readLevelLocations(configuration.country, locationsPerLevel.head, locationsPerLevel.tail)
     }
     println("loading location definitions done")
-    locations
+    LocationConfiguration(locations)
   }
 
   private def readLevelLocations(country: Country, levelLocations: Seq[LocationDefinition], remainderLocations: Seq[Seq[LocationDefinition]]): Seq[LocationDefinition] = {

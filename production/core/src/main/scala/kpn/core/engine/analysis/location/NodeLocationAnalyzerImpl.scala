@@ -2,10 +2,10 @@ package kpn.core.engine.analysis.location
 
 import kpn.shared.Location
 
-class NodeLocationAnalyzerImpl(locationDefinitions: Seq[LocationDefinition]) {
+class NodeLocationAnalyzerImpl(configuration: LocationConfiguration) {
 
   println("initiating locators")
-  private val locators = locationDefinitions.map(LocationLocator.from)
+  private val locators = configuration.locations.map(LocationLocator.from)
   println("initiating locators done")
 
   def locate(latitude: String, longitude: String): Option[Location] = {

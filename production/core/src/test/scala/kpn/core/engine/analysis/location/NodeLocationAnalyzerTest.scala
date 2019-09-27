@@ -8,8 +8,10 @@ class NodeLocationAnalyzerTest extends FunSuite with Matchers {
 
   test("NodeLocationAnalyzer") {
 
-    val locationDefinitions = new LocationsReader().read()
-    val analyzer = new NodeLocationAnalyzerImpl(locationDefinitions)
+    val analyzer = {
+      val configuration = new LocationConfigurationReader().read()
+      new NodeLocationAnalyzerImpl(configuration)
+    }
 
     // Essen
     analyzer.locate("51.46774", "4.46839") should equal(Some(Location(Seq("Belgium", "Antwerp", "Antwerp", "Essen"))))

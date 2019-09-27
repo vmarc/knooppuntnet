@@ -254,7 +254,8 @@ trait SharedTestObjects {
     longitude: String = "0",
     lastUpdated: Timestamp = defaultTimestamp,
     tags: Tags = Tags.empty,
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    location: Option[Location] = None
   ): NodeInfo = {
     NodeInfo(
       id,
@@ -275,7 +276,7 @@ trait SharedTestObjects {
       lastUpdated,
       tags,
       facts,
-      None
+      location
     )
   }
 
@@ -506,7 +507,8 @@ trait SharedTestObjects {
     expectedName: String = "",
     facts: Seq[String] = Seq.empty,
     map: RouteMap = RouteMap(),
-    structureStrings: Seq[String] = Seq.empty
+    structureStrings: Seq[String] = Seq.empty,
+    locationAnalysis: Option[RouteLocationAnalysis] = None
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
       startNodes,
@@ -517,7 +519,8 @@ trait SharedTestObjects {
       members,
       expectedName,
       map,
-      structureStrings
+      structureStrings,
+      locationAnalysis
     )
   }
 

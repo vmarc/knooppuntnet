@@ -9,7 +9,7 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.MultiLineString
 
-class RouteWayBasedLocatorImpl(locations: Seq[LocationDefinition]) extends RouteWayBasedLocator {
+class RouteWayBasedLocatorImpl(configuration: LocationConfiguration) extends RouteWayBasedLocator {
 
   private val geomFactory = new GeometryFactory
 
@@ -17,7 +17,7 @@ class RouteWayBasedLocatorImpl(locations: Seq[LocationDefinition]) extends Route
 
     toGeometry(route).map { routeGeometry =>
       // TODO add bounding box checks?
-      val candidates: Seq[LocationSelector] = locations.flatMap { location =>
+      val candidates: Seq[LocationSelector] = configuration.locations.flatMap { location =>
         doLocate(routeGeometry, Seq(), location)
       }.toVector
 
