@@ -52,15 +52,6 @@ export class IconService {
       require("!svg-inline-loader!src/assets/images/remove.svg")));
   }
 
-  private register(iconName: string, iconFile: string): void {
-    this.iconRegistry.addSvgIconLiteral(
-      iconName,
-      this.domSanitizer.bypassSecurityTrustHtml(
-        require(`!svg-inline-loader!src/assets/${iconFile}`)
-      )
-    );
-  }
-
   private registerNetworkTypeIcons() {
 
     this.iconRegistry.addSvgIconLiteral("cycling", this.domSanitizer.bypassSecurityTrustHtml(
