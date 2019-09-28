@@ -25,7 +25,7 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
         )
       )
       val result = database.query(LocationDesign, LocationView, stale = false)()
-      result.toString should equal("""Vector({"id":"node:1001","key":["node","rcn","country","province","municipality"],"value":["01",1001]})""")
+      result.toString should equal("""Vector({"id":"node:1001","key":["node","cycling","country","province","municipality"],"value":["01",1001]})""")
     }
   }
 
@@ -47,7 +47,7 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
         )
       )
       val result = database.query(LocationDesign, LocationView, stale = false)()
-      result.toString should equal("""Vector({"id":"route:10","key":["route","rwn","country","province","municipality"],"value":["01-02",10]})""")
+      result.toString should equal("""Vector({"id":"route:10","key":["route","hiking","country","province","municipality"],"value":["01-02",10]})""")
     }
   }
 
