@@ -8,6 +8,7 @@ import kpn.core.db.json.JsonFormats.designDocFormat
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.Design
+import kpn.core.db.views.LocationDesign
 import kpn.core.db.views.PlannerDesign
 import kpn.core.db.views.PoiDesign
 import kpn.core.util.Util
@@ -30,6 +31,7 @@ object DatabaseViewTool {
     Couch.executeIn(host, masterDbName) { database =>
       updateView(database, AnalyzerDesign)
       updateView(database, PlannerDesign)
+      updateView(database, LocationDesign)
     }
 
     Couch.executeIn(host, changesDbName) { database =>
