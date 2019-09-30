@@ -56,10 +56,44 @@ import {Component} from "@angular/core";
         i18n-text="@@country.fr">
       </kpn-icon-button>
     </div>
+    <div>
+      <div class="options-title">
+        Routes without location:
+      </div>
+      <div class="options">
+        <div>
+          <a routerLink="/analysis/location/cycling">Cycling</a>
+        </div>
+        <div>
+          <a routerLink="/analysis/location/hiking">Hiking</a>
+        </div>
+        <div>
+          <a routerLink="/analysis/location/horse-riding">Horse riding</a>
+        </div>
+        <div>
+          <a routerLink="/analysis/location/motorboat">Motorboat</a>
+        </div>
+        <div>
+          <a routerLink="/analysis/location/canoe">Canoe</a>
+        </div>
+        <div>
+          <a routerLink="/analysis/location/inline-skating">Inline skating</a>
+        </div>
+      </div>
+    </div>
   `,
   styles: [`
     .buttons {
       display: flex;
+    }
+
+    .options-title {
+      padding-top: 30px;
+      padding-bottom: 10px;
+    }
+    
+    .options {
+      margin-left: 20px;
     }
   `]
 })

@@ -4,7 +4,6 @@ import kpn.shared.changes.ChangeSetPage
 import kpn.shared.changes.filter.ChangesParameters
 import kpn.shared.network.NetworkChangesPage
 import kpn.shared.network.NetworkDetailsPage
-import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
@@ -17,7 +16,6 @@ import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
-import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
@@ -61,5 +59,7 @@ trait Api {
   def mapDetailNode(networkType: NetworkType, nodeId: Long): ApiResponse[MapDetailNode]
 
   def mapDetailRoute(routeId: Long): ApiResponse[MapDetailRoute]
+
+  def location(networkType: NetworkType): ApiResponse[LocationPage]
 
 }

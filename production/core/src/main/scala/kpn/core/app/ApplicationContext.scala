@@ -3,11 +3,13 @@ package kpn.core.app
 import akka.actor.ActorSystem
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
+import kpn.core.engine.analysis.location.LocationRepositoryImpl
 import kpn.core.facade.AnalyzerFacade
 import kpn.core.facade.AnalyzerFacadeImpl
 import kpn.core.facade.pages.ChangeSetPageBuilderImpl
 import kpn.core.facade.pages.ChangesPageBuilderImpl
 import kpn.core.facade.pages.LegBuilderImpl
+import kpn.core.facade.pages.LocationPageBuilderImpl
 import kpn.core.facade.pages.PoiPageBuilderImpl
 import kpn.core.facade.pages.network.NetworkChangesPageBuilderImpl
 import kpn.core.facade.pages.network.NetworkDetailsPageBuilderImpl
@@ -72,6 +74,8 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
   )
 
   private val poiRepository = new PoiRepositoryImpl(poiDatabase)
+
+  private val locationRepository = new LocationRepositoryImpl(database)
 
   val analyzerFacade: AnalyzerFacade = {
 
@@ -145,6 +149,10 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       poiRepository
     )
 
+    val locationPageBuilder = new LocationPageBuilderImpl(
+      locationRepository
+    )
+
     val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
 
     new AnalyzerFacadeImpl(
@@ -172,7 +180,8 @@ class ApplicationContext(system: ActorSystem, config: ApplicationConfig) {
       changeSetPageBuilder,
       networkChangesPageBuilder,
       poiPageBuilder,
-      legBuilder
+      legBuilder,
+      locationPageBuilder
     )
   }
 

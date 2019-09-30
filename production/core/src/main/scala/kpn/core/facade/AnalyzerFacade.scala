@@ -5,6 +5,7 @@ import kpn.core.gpx.GpxFile
 import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
+import kpn.shared.LocationPage
 import kpn.shared.NetworkType
 import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
@@ -106,4 +107,7 @@ trait AnalyzerFacade {
   def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage]
 
   def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
+
+  def location(user: Option[String], networkType: NetworkType): ApiResponse[LocationPage]
+
 }

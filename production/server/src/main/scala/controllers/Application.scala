@@ -93,6 +93,7 @@ class Application(
     val poiConfiguration = """poi-configuration""".r
     val poi = """poi/(node|way|relation)/(\d*)""".r
     val leg = """leg/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)/(.*)/(.*)/(.*)""".r
+    val location = """location/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)""".r
 
     val userApiService = request.session.get("user") match {
       case Some(user) => new JsonApiService(analyzerFacade, Some(user))(system)
@@ -266,6 +267,12 @@ class Application(
         reply(
           userApiService.leg(NetworkType.withNewName(networkType).get, legId, sourceNodeId, sinkNodeId),
           JsonFormats.routeLegFormat
+        )
+
+      case location(networkType) =>
+        reply(
+          userApiService.location(NetworkType.withNewName(networkType).get),
+          JsonFormats.locationPageFormat
         )
 
       case _ =>

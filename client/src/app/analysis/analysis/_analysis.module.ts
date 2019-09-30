@@ -7,6 +7,7 @@ import {AnalysisDePageComponent} from "./analysis-de-page.component";
 import {AnalysisFrPageComponent} from "./analysis-fr-page.component";
 import {AnalysisNlPageComponent} from "./analysis-nl-page.component";
 import {AnalysisPageComponent} from "./analysis-page.component";
+import { LocationPageComponent } from './location-page.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {AnalysisPageComponent} from "./analysis-page.component";
     AnalysisBePageComponent,
     AnalysisDePageComponent,
     AnalysisFrPageComponent,
-    AnalysisNlPageComponent
+    AnalysisNlPageComponent,
+    LocationPageComponent
   ]
 })
 export class AnalysisModule {

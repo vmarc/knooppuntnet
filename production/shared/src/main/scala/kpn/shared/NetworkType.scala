@@ -19,7 +19,7 @@ object NetworkType {
   val horseRiding = NetworkType("rhn", "Horse riding", "horse-riding", Seq("horse"))
   val canoe = NetworkType("rpn", "Canoe", "canoe", Seq("canoe"))
   val motorboat = NetworkType("rmn", "Motorboat", "motorboat", Seq("motorboat"))
-  val inlineSkates = NetworkType("rin", "Inline skates", "inline-skates", Seq("inline_skates"))
+  val inlineSkates = NetworkType("rin", "Inline skating", "inline-skating", Seq("inline_skates"))
 
   val all = Seq(hiking, bicycle, horseRiding, canoe, motorboat, inlineSkates)
 }

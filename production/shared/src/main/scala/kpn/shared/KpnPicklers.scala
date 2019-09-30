@@ -142,6 +142,7 @@ object KpnPicklers {
   implicit val apiResponseChangesPage: Pickler[ApiResponse[ChangesPage]] = PicklerGenerator.generatePickler[ApiResponse[ChangesPage]]
   implicit val apiResponseMapDetailNode: Pickler[ApiResponse[MapDetailNode]] = PicklerGenerator.generatePickler[ApiResponse[MapDetailNode]]
   implicit val apiResponseMapDetailRoute: Pickler[ApiResponse[MapDetailRoute]] = PicklerGenerator.generatePickler[ApiResponse[MapDetailRoute]]
+  implicit val apiResponseLocationPage: Pickler[ApiResponse[LocationPage]] = PicklerGenerator.generatePickler[ApiResponse[LocationPage]]
 
   implicit val knownElementsPickler: Pickler[KnownElements] = PicklerGenerator.generatePickler[KnownElements]
   implicit val tagPickler: Pickler[Tag] = PicklerGenerator.generatePickler[Tag]
@@ -322,4 +323,5 @@ object KpnPicklers {
 
   implicit val mapDetailNodePickler: Pickler[MapDetailNode] = PicklerGenerator.generatePickler[MapDetailNode]
   implicit val mapDetailRoutePickler: Pickler[MapDetailRoute] = PicklerGenerator.generatePickler[MapDetailRoute]
+  implicit val locationPagePickler: Pickler[LocationPage] = PicklerGenerator.generatePickler[LocationPage]
 }

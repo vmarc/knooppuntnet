@@ -5,6 +5,7 @@ import kpn.core.facade.AnalyzerFacade
 import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
+import kpn.shared.LocationPage
 import kpn.shared.NetworkType
 import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
@@ -21,13 +22,11 @@ import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
 import kpn.shared.node.NodeMapPage
-import kpn.shared.node.NodePage
 import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RouteChangesPage
 import kpn.shared.route.RouteDetailsPage
 import kpn.shared.route.RouteMapPage
-import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
@@ -142,6 +141,10 @@ class JsonApiService(analyzerFacade: AnalyzerFacade, user: Option[String] = None
 
   def leg(networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {
     analyzerFacade.leg(user, networkType, legId, sourceNodeId, sinkNodeId)
+  }
+
+  def location(networkType: NetworkType): ApiResponse[LocationPage] = {
+    analyzerFacade.location(user, networkType)
   }
 
 }

@@ -1,12 +1,14 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {Util} from "../../components/shared/util";
+import {LocationPage} from "../../kpn/shared/location-page";
 import {AnalysisBePageComponent} from "./analysis-be-page.component";
 import {AnalysisDePageComponent} from "./analysis-de-page.component";
 import {AnalysisFrPageComponent} from "./analysis-fr-page.component";
 import {AnalysisNlPageComponent} from "./analysis-nl-page.component";
 import {AnalysisPageComponent} from "./analysis-page.component";
 import {AnalysisSidebarComponent} from "../../components/shared/sidebar/analysis-sidebar.component";
+import {LocationPageComponent} from "./location-page.component";
 
 const routes: Routes = [
   Util.routePath("", AnalysisPageComponent, AnalysisSidebarComponent),
@@ -14,6 +16,7 @@ const routes: Routes = [
   Util.routePath("be", AnalysisBePageComponent, AnalysisSidebarComponent),
   Util.routePath("de", AnalysisDePageComponent, AnalysisSidebarComponent),
   Util.routePath("fr", AnalysisFrPageComponent, AnalysisSidebarComponent),
+  Util.routePath("location/:networkType", LocationPageComponent, AnalysisSidebarComponent),
   {
     path: "node",
     loadChildren: "../node/_node.module#NodeModule"

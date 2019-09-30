@@ -7,6 +7,7 @@ import kpn.core.db.couch.Couch
 import kpn.core.facade.pages.ChangeSetPageBuilder
 import kpn.core.facade.pages.ChangesPageBuilder
 import kpn.core.facade.pages.LegBuilder
+import kpn.core.facade.pages.LocationPageBuilder
 import kpn.core.facade.pages.PoiPageBuilder
 import kpn.core.facade.pages.network.NetworkChangesPageBuilder
 import kpn.core.facade.pages.network.NetworkDetailsPageBuilder
@@ -34,6 +35,7 @@ import kpn.core.util.Log
 import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
+import kpn.shared.LocationPage
 import kpn.shared.NetworkType
 import kpn.shared.PoiPage
 import kpn.shared.ReplicationId
@@ -94,7 +96,8 @@ class AnalyzerFacadeImpl(
   changeSetPageBuilder: ChangeSetPageBuilder,
   networkChangesPageBuilder: NetworkChangesPageBuilder,
   poiPageBuilder: PoiPageBuilder,
-  legBuilder: LegBuilder
+  legBuilder: LegBuilder,
+  locationPageBuilder: LocationPageBuilder
 ) extends AnalyzerFacade {
 
   private val log = Log(classOf[AnalyzerFacadeImpl])
@@ -334,6 +337,13 @@ class AnalyzerFacadeImpl(
     log.infoElapsed(s"$user poi($elementType, $elementId)") {
       val poiPage = poiPageBuilder.build(elementType, elementId)
       ApiResponse(None, 1, poiPage) // analysis timestamp not needed here
+    }
+  }
+
+  override def location(user: Option[String], networkType: NetworkType): ApiResponse[LocationPage] = {
+    val label = s"$user location(${networkType.newName})"
+    log.infoElapsed(label) {
+      reply(label, locationPageBuilder.build(networkType))
     }
   }
 
