@@ -9,6 +9,7 @@ case class LocationDefinition(
   name: String,
   locationNames: Map[Language, String],
   boundingBox: Envelope,
+  area: Double,
   geometry: Geometry,
   children: Seq[LocationDefinition] = Seq.empty
 ) {
@@ -22,9 +23,11 @@ case class LocationDefinition(
   }
 
   def contains(other: LocationDefinition): Boolean = {
-    geometry.contains(other.geometry)
+    val intersection = geometry.intersection(other.geometry)
+    val a1 = intersection.getArea
+    val a2 = other.area
+    Math.abs(a1 / a2) > 0.95
+    // geometry.contains(other.geometry)
   }
-
-  def area: Double = geometry.getArea
 
 }

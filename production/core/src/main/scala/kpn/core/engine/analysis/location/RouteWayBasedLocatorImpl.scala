@@ -2,7 +2,9 @@ package kpn.core.engine.analysis.location
 
 import kpn.shared.LocationCandidate
 import kpn.shared.RouteLocationAnalysis
+import kpn.shared.common.TrackSegment
 import kpn.shared.route.RouteInfo
+import kpn.shared.route.RouteInfoAnalysis
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -15,17 +17,21 @@ class RouteWayBasedLocatorImpl(configuration: LocationConfiguration) extends Rou
 
   def locate(route: RouteInfo): Option[RouteLocationAnalysis] = {
 
-    toGeometry(route).map { routeGeometry =>
-      // TODO add bounding box checks?
-      val candidates: Seq[LocationSelector] = configuration.locations.flatMap { location =>
-        doLocate(routeGeometry, Seq(), location)
-      }.toVector
+    val routeGeometries: Seq[Geometry] = toGeometries(route)
 
-      val locationSelectorCandidates = candidates.map { candidate =>
-        val distance = lineLength(routeGeometry.intersection(candidate.leaf.geometry))
-        LocationSelectorCandidate(candidate, distance)
-      }
+    val candidates: Seq[LocationSelector] = configuration.locations.flatMap { location =>
+      doLocate(routeGeometries, Seq(), location)
+    }.toVector
 
+    val locationSelectorCandidates = candidates.map { candidate =>
+      val distance = calculateDistance(routeGeometries, candidate)
+      LocationSelectorCandidate(candidate, distance)
+    }
+
+    if (locationSelectorCandidates.isEmpty) {
+      None
+    }
+    else {
       val sorted = locationSelectorCandidates.sortBy(_.distance).reverse
 
       val totalDistance = locationSelectorCandidates.map(_.distance).sum
@@ -39,22 +45,19 @@ class RouteWayBasedLocatorImpl(configuration: LocationConfiguration) extends Rou
       else {
         Seq.empty
       }
-
-      RouteLocationAnalysis(sorted.head.selector.toLocation, ccc)
+      Some(RouteLocationAnalysis(sorted.head.selector.toLocation, ccc))
     }
   }
 
-  private def doLocate(routeGeometry: Geometry, foundLocations: Seq[LocationDefinition], location: LocationDefinition): Seq[LocationSelector] = {
-
-    if (location.geometry.intersects(routeGeometry)) {
+  private def doLocate(routeGeometries: Seq[Geometry], foundLocations: Seq[LocationDefinition], location: LocationDefinition): Seq[LocationSelector] = {
+    if (routeIntersectsLocation(routeGeometries, location)) {
       val newfoundLocations = foundLocations :+ location
-
       if (location.children.isEmpty) {
         Seq(LocationSelector(newfoundLocations))
       }
       else {
         location.children.flatMap { child =>
-          doLocate(routeGeometry, newfoundLocations, child)
+          doLocate(routeGeometries, newfoundLocations, child)
         }
       }
     }
@@ -63,21 +66,21 @@ class RouteWayBasedLocatorImpl(configuration: LocationConfiguration) extends Rou
     }
   }
 
-  private def toGeometry(route: RouteInfo): Option[Geometry] = {
+  private def routeIntersectsLocation(routeGeometries: Seq[Geometry], location: LocationDefinition): Boolean = {
+    routeGeometries.exists(location.geometry.intersects)
+  }
+
+  private def toGeometries(route: RouteInfo): Seq[Geometry] = {
     route.analysis match {
-      case None => None
+      case None => Seq()
       case Some(analysis) =>
-        analysis.map.forwardPath match {
-          case None => None
-          case Some(path) =>
-            val coordinates = path.segments.flatMap { segment =>
-              (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
-                val lat = trackPoint.lat.toDouble
-                val lon = trackPoint.lon.toDouble
-                new Coordinate(lon, lat)
-              }
-            }
-            Some(geomFactory.createLineString(coordinates.toArray))
+        toSegments(analysis).map { segment: TrackSegment =>
+          val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
+            val lat = trackPoint.lat.toDouble
+            val lon = trackPoint.lon.toDouble
+            new Coordinate(lon, lat)
+          }
+          geomFactory.createLineString(coordinates.toArray)
         }
     }
   }
@@ -88,6 +91,20 @@ class RouteWayBasedLocatorImpl(configuration: LocationConfiguration) extends Rou
       case multiLineString: MultiLineString => multiLineString.getLength
       case _ => 0d
     }
+  }
+
+  private def toSegments(analysis: RouteInfoAnalysis): Seq[TrackSegment] = {
+    Seq(
+      analysis.map.forwardPath.toSeq.flatMap(_.segments),
+      analysis.map.backwardPath.toSeq.flatMap(_.segments),
+      analysis.map.unusedSegments,
+      analysis.map.startTentaclePaths.flatMap(_.segments),
+      analysis.map.endTentaclePaths.flatMap(_.segments)
+    ).flatten
+  }
+
+  private def calculateDistance(routeGeometries: Seq[Geometry], location: LocationSelector): Double = {
+    routeGeometries.map(_.intersection(location.leaf.geometry)).map(lineLength).sum
   }
 
 }

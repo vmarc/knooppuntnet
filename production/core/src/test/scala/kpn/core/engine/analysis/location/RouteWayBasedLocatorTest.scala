@@ -33,8 +33,8 @@ class RouteWayBasedLocatorTest extends FunSuite with Matchers with SharedTestObj
         RouteLocationAnalysis(
           essen,
           Seq(
-            LocationCandidate(essen, 73),
-            LocationCandidate(roosendaal, 25),
+            LocationCandidate(essen, 68),
+            LocationCandidate(roosendaal, 30),
             LocationCandidate(woensdrecht, 2)
           )
         )

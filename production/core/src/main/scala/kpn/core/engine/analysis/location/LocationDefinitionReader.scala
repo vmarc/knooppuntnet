@@ -23,7 +23,7 @@ class LocationDefinitionReader(file: File) {
         val boundingBox = parseBoundingBox(rootObject)
         val geometry = parseGeometry(rootObject)
         val locationNames = parseLocationNames(name, rootObject)
-        LocationDefinition(level, name, locationNames, boundingBox, geometry, children)
+        LocationDefinition(level, name, locationNames, boundingBox, geometry.getArea, geometry, children)
       case _ => throw error("Could not find root object")
     }
   }

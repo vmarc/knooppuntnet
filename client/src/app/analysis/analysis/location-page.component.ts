@@ -9,6 +9,9 @@ import {Subscriptions} from "../../util/Subscriptions";
 @Component({
   selector: "kpn-location-page",
   template: `
+    <div *ngIf="!!refs">
+      No routes found
+    </div>
     <div *ngIf="refs">
       <div *ngFor="let ref of refs; let i=index">
         <div class="nr">{{i + 1}}</div>
