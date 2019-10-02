@@ -18,6 +18,7 @@ import kpn.core.db.TimestampDoc
 import kpn.core.db.TimestampsDoc
 import kpn.core.db.couch.DesignDoc
 import kpn.core.db.couch.ViewDoc
+import kpn.core.engine.analysis.location.LocationTree
 import kpn.core.engine.changes.ElementIdMap
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.AnalysisDataDetail
@@ -610,5 +611,6 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeLegSegmentFormat: RootJsonFormat[RouteLegSegment] = jsonFormat3(RouteLegSegment)
   implicit val routeLegRouteFormat: RootJsonFormat[RouteLegRoute] = jsonFormat5(RouteLegRoute)
   implicit val routeLegFormat: RootJsonFormat[RouteLeg] = jsonFormat2(RouteLeg)
+  implicit val locationTreeFormat: JsonFormat[LocationTree] = lazyFormat(jsonFormat(LocationTree, "name", "children"))
 
 }

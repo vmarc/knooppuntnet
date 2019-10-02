@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.location
 
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database

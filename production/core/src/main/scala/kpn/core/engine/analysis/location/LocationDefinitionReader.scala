@@ -15,7 +15,7 @@ import spray.json._
 
 class LocationDefinitionReader(file: File) {
 
-  def read(level: Int, children: Seq[LocationDefinition]): LocationDefinition = {
+  def read(children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {
     val json = FileUtils.readFileToString(file)
     json.parseJson match {
       case rootObject: JsObject =>
@@ -23,7 +23,7 @@ class LocationDefinitionReader(file: File) {
         val boundingBox = parseBoundingBox(rootObject)
         val geometry = parseGeometry(rootObject)
         val locationNames = parseLocationNames(name, rootObject)
-        LocationDefinition(level, name, locationNames, boundingBox, geometry.getArea, geometry, children)
+        LocationDefinition(name, locationNames, filename, boundingBox, geometry, children)
       case _ => throw error("Could not find root object")
     }
   }
@@ -97,4 +97,12 @@ class LocationDefinitionReader(file: File) {
   private def error(message: String): RuntimeException = {
     new RuntimeException(s"Error parsing file '${file.getAbsolutePath}': $message")
   }
+
+  private def filename: String = {
+    val path = file.getAbsolutePath
+    val a = LocationConfigurationDefinition.DIR.length
+    val b = LocationConfigurationDefinition.EXTENSION.length
+    path.drop(a).dropRight(b)
+  }
+
 }

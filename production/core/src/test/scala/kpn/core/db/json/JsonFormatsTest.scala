@@ -1,5 +1,6 @@
 package kpn.core.db.json
 
+import kpn.core.engine.analysis.location.LocationTree
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 import spray.json.DefaultJsonProtocol
@@ -118,6 +119,21 @@ class JsonFormatsTest extends FunSuite with Matchers with DefaultJsonProtocol {
     example2.optionalChild should equal(Some(Child("default2")))
     example2.optionalChild2 should equal(None)
     example2.boolean should equal(true)
+  }
+
+
+  test("can read/write recursive objects") {
+
+    val a = LocationTree("a")
+    val b = LocationTree("b")
+
+    val root = LocationTree("root", Seq(a, b))
+
+    val json = JsonFormats.locationTreeFormat.write(root).toString()
+    json should equal("""{"name":"root","children":[{"name":"a","children":[]},{"name":"b","children":[]}]}""")
+
+    val read = JsonFormats.locationTreeFormat.read(json.parseJson)
+    read should equal(root)
   }
 
 }

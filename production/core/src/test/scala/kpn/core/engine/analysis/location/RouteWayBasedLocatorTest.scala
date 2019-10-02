@@ -96,7 +96,7 @@ class RouteWayBasedLocatorTest extends FunSuite with Matchers with SharedTestObj
   private def location(name: String, children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {
     val filename = "/kpn/conf/locations/" + name
     val file = new File(filename)
-    new LocationDefinitionReader(file).read(0, children)
+    new LocationDefinitionReader(file).read(children)
   }
 
   private def route(routeId: String): RouteInfo = {
