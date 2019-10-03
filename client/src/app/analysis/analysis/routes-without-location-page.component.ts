@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {flatMap, map} from "rxjs/operators";
@@ -7,7 +7,7 @@ import {Ref} from "../../kpn/shared/common/ref";
 import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({
-  selector: "kpn-location-page",
+  selector: "kpn-routes-without-location-page",
   template: `
     <div *ngIf="!!refs">
       No routes found
@@ -26,7 +26,7 @@ import {Subscriptions} from "../../util/Subscriptions";
     }
   `]
 })
-export class LocationPageComponent implements OnInit {
+export class RoutesWithoutLocationPageComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
@@ -45,6 +45,10 @@ export class LocationPageComponent implements OnInit {
         flatMap(networkType => this.appService.location(networkType))
       ).subscribe(response => this.refs = response.result.routeRefs)
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

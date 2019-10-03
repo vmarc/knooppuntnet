@@ -14,13 +14,13 @@ import {SubsetOrphanRoutesPageComponent} from "./orphan-routes/_subset-orphan-ro
 import {SubsetOrphanRoutesSidebarComponent} from "./orphan-routes/subset-orphan-routes-sidebar.component";
 
 const routes: Routes = [
-  Util.routePath(":country/:networkType/networks", SubsetNetworksPageComponent, AnalysisSidebarComponent),
-  Util.routePath(":country/:networkType/facts", SubsetFactsPageComponent, AnalysisSidebarComponent),
-  Util.routePath(":country/:networkType/orphan-nodes", SubsetOrphanNodesPageComponent, SubsetOrphanNodesSidebarComponent),
-  Util.routePath(":country/:networkType/orphan-routes", SubsetOrphanRoutesPageComponent, SubsetOrphanRoutesSidebarComponent),
-  Util.routePath(":country/:networkType/map", SubsetMapPageComponent, AnalysisSidebarComponent),
-  Util.routePath(":country/:networkType/changes", SubsetChangesPageComponent, SubsetChangesSidebarComponent),
-  Util.routePath(":country/:networkType/:fact", SubsetFactDetailsPageComponent, AnalysisSidebarComponent)
+  Util.routePath(":networkType/:country/networks", SubsetNetworksPageComponent, AnalysisSidebarComponent),
+  Util.routePath(":networkType/:country/facts", SubsetFactsPageComponent, AnalysisSidebarComponent),
+  Util.routePath(":networkType/:country/orphan-nodes", SubsetOrphanNodesPageComponent, SubsetOrphanNodesSidebarComponent),
+  Util.routePath(":networkType/:country/orphan-routes", SubsetOrphanRoutesPageComponent, SubsetOrphanRoutesSidebarComponent),
+  Util.routePath(":networkType/:country/map", SubsetMapPageComponent, AnalysisSidebarComponent),
+  Util.routePath(":networkType/:country/changes", SubsetChangesPageComponent, SubsetChangesSidebarComponent),
+  Util.routePath(":networkType/:country/:fact", SubsetFactDetailsPageComponent, AnalysisSidebarComponent)
 ];
 
 @NgModule({

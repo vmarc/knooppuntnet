@@ -2,26 +2,22 @@ package kpn.core.tools
 
 import java.io.File
 
-import kpn.core.app.ActorSystemConfig
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.DatabaseImpl
 import kpn.core.engine.changes.data.BlackList
 import kpn.core.repository.BlackListRepositoryImpl
 
 object CacheFileCleanBlacklistedTool {
   def main(args: Array[String]): Unit = {
-    val blackList = {
-      val system = ActorSystemConfig.actorSystem()
-      val couchConfig = Couch.config
-      val couch = new Couch(system, couchConfig)
-      val database = new DatabaseImpl(couch, "master")
-      val blackListRepository = new BlackListRepositoryImpl(database)
-      val bl = blackListRepository.get
-      system.terminate()
-      bl
+    if (args.length < 2) {
+      println("Usage: CacheFileCleanBlacklistedTool host masterDbName")
+      System.exit(-1)
     }
-
-    new CacheFileCleanBlacklistedTool(blackList, "/kpn/cache/").processDirs()
+    val host = args(0)
+    val masterDbName = args(1)
+    Couch.executeIn(host, masterDbName) { database =>
+      val blackList = new BlackListRepositoryImpl(database).get
+      new CacheFileCleanBlacklistedTool(blackList, "/kpn/cache/").processDirs()
+    }
   }
 }
 

@@ -1,9 +1,9 @@
 import {Component, Input} from "@angular/core";
 import {Util} from "../../../components/shared/util";
+import {I18nService} from "../../../i18n/i18n.service";
 import {Subset} from "../../../kpn/shared/subset";
 import {SubsetInfo} from "../../../kpn/shared/subset/subset-info";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {I18nService} from "../../../i18n/i18n.service";
 
 @Component({
   selector: "kpn-subset-page-header-block",
@@ -12,10 +12,20 @@ import {I18nService} from "../../../i18n/i18n.service";
     <div>
       <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
       <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+      <a routerLink="{{networkTypeLink()}}">
+        <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
+      </a> >
       <a routerLink="{{countryLink()}}">
         <kpn-country-name [country]="subset.country"></kpn-country-name>
       </a> >
-      <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
+
+      <span *ngIf="pageName == 'networks'" i18n="@@subset-page.menu.networks">Networks</span>
+      <span *ngIf="pageName == 'facts'" i18n="@@subset-page.menu.facts">Facts</span>
+      <span *ngIf="pageName == 'orphan-nodes'" i18n="@@subset-page.menu.orphan-nodes">Orphan nodes</span>
+      <span *ngIf="pageName == 'orphan-routes'" i18n="@@subset-page.menu.orphan-routes">Orphan routes</span>
+      <span *ngIf="pageName == 'map'" i18n="@@subset-page.menu.map">Map</span>
+      <span *ngIf="pageName == 'changes'" i18n="@@subset-page.menu.changes">Changes</span>
+
     </div>
 
     <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName + '-page'">
@@ -42,7 +52,7 @@ import {I18nService} from "../../../i18n/i18n.service";
         [link]="link('orphan-nodes')"
         [elementCount]="orphanNodeCount()"
         i18n="@@subset-page.menu.orphan-nodes">
-        Orphan Nodes
+        Orphan nodes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
@@ -65,7 +75,6 @@ import {I18nService} from "../../../i18n/i18n.service";
       </kpn-page-menu-option>
 
     </kpn-page-menu>
-
   `
 })
 export class SubsetPageHeaderBlockComponent {
@@ -78,13 +87,22 @@ export class SubsetPageHeaderBlockComponent {
               private i18nService: I18nService) {
   }
 
+  networkTypeLink(): string {
+    const networkType = Util.safeGet(() => this.subset.networkType.name);
+    return `/analysis/${networkType}`;
+  }
+
   countryLink(): string {
-    return "/analysis/" + Util.safeGet(() => this.subset.country.domain);
+    const networkType = Util.safeGet(() => this.subset.networkType.name);
+    const country = Util.safeGet(() => this.subset.country.domain);
+    return `/analysis/${networkType}/${country}`;
   }
 
   link(targetPageName: string) {
     if (this.subset != null) {
-      return `/analysis/${this.subset.country.domain}/${this.subset.networkType.name}/${targetPageName}`;
+      const networkType = Util.safeGet(() => this.subset.networkType.name);
+      const country = Util.safeGet(() => this.subset.country.domain);
+      return `/analysis/${networkType}/${country}/${targetPageName}`;
     }
     return "/";
   }

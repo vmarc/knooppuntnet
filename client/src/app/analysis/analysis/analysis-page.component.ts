@@ -29,31 +29,45 @@ import {Component} from "@angular/core";
 
     <div class="buttons">
       <kpn-icon-button
-        routerLink="/analysis/nl"
-        icon="netherlands"
-        text="Netherlands"
-        i18n-text="@@country.nl">
+        routerLink="/analysis/cycling"
+        icon="cycling"
+        text="Cycling"
+        i18n-text="@@network-type.cycling">
       </kpn-icon-button>
 
       <kpn-icon-button
-        routerLink="/analysis/be"
-        icon="belgium"
-        text="Belgium"
-        i18n-text="@@country.be">
+        routerLink="/analysis/hiking"
+        icon="hiking"
+        text="Hiking"
+        i18n-text="@@network-type.hiking">
       </kpn-icon-button>
 
       <kpn-icon-button
-        routerLink="/analysis/de"
-        icon="germany"
-        text="Germany"
-        i18n-text="@@country.de">
+        routerLink="/analysis/horse-riding"
+        icon="horse-riding"
+        text="Horse riding"
+        i18n-text="@@network-type.horse-riding">
       </kpn-icon-button>
 
       <kpn-icon-button
-        routerLink="/analysis/fr"
-        icon="france"
-        text="France"
-        i18n-text="@@country.fr">
+        routerLink="/analysis/motorboat"
+        icon="motorboat"
+        text="Motorboat"
+        i18n-text="@@network-type.motorboat">
+      </kpn-icon-button>
+
+      <kpn-icon-button
+        routerLink="/analysis/canoe"
+        icon="canoe"
+        text="Canoe"
+        i18n-text="@@network-type.canoe">
+      </kpn-icon-button>
+
+      <kpn-icon-button
+        routerLink="/analysis/inline-skating"
+        icon="inline-skating"
+        text="Inline skating"
+        i18n-text="@@network-type.inline-skating">
       </kpn-icon-button>
     </div>
     <div>
@@ -62,22 +76,22 @@ import {Component} from "@angular/core";
       </div>
       <div class="options">
         <div>
-          <a routerLink="/analysis/location/cycling">Cycling</a>
+          <a routerLink="/analysis/routes-without-location/cycling">Cycling</a>
         </div>
         <div>
-          <a routerLink="/analysis/location/hiking">Hiking</a>
+          <a routerLink="/analysis/routes-without-location/hiking">Hiking</a>
         </div>
         <div>
-          <a routerLink="/analysis/location/horse-riding">Horse riding</a>
+          <a routerLink="/analysis/routes-without-location/horse-riding">Horse riding</a>
         </div>
         <div>
-          <a routerLink="/analysis/location/motorboat">Motorboat</a>
+          <a routerLink="/analysis/routes-without-location/motorboat">Motorboat</a>
         </div>
         <div>
-          <a routerLink="/analysis/location/canoe">Canoe</a>
+          <a routerLink="/analysis/routes-without-location/canoe">Canoe</a>
         </div>
         <div>
-          <a routerLink="/analysis/location/inline-skating">Inline skating</a>
+          <a routerLink="/analysis/routes-without-location/inline-skating">Inline skating</a>
         </div>
       </div>
     </div>
@@ -91,7 +105,7 @@ import {Component} from "@angular/core";
       padding-top: 30px;
       padding-bottom: 10px;
     }
-    
+
     .options {
       margin-left: 20px;
     }
