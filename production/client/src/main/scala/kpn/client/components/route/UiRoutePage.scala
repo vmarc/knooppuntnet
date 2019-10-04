@@ -170,11 +170,9 @@ object UiRoutePage {
           UiData("Relation last updated", "Relatie bewerkt")(
             <.div(page.route.summary.timestamp.yyyymmddhhmm)
           ),
-          TagMod.when(!route.ignored) {
-            UiData("Network", "Netwerk")(
-              UiNetworkReferences(page.references.networkReferences)
-            )
-          },
+          UiData("Network", "Netwerk")(
+            UiNetworkReferences(page.references.networkReferences)
+          ),
           TagMod.when(page.route.analysis.isDefined) {
             UiData("Start node", "Start knooppunt")(
               startNodes(page.route.analysis.get)
@@ -190,11 +188,9 @@ object UiRoutePage {
               redundantNodes(page.route.analysis.get)
             )
           },
-          TagMod.when(!route.ignored) {
-            UiData("Number of ways", "Aantal wegen")(
-              wayCount()
-            )
-          },
+          UiData("Number of ways", "Aantal wegen")(
+            wayCount()
+          ),
           UiData("Tags", "Labels")(
             <.p(
               UiTagsTable(RouteTagFilter(page.route))

@@ -5,13 +5,8 @@ import {Component, Input} from "@angular/core";
   template: `
     <ng-container [ngSwitch]="factName">
       <kpn-fact-added *ngSwitchCase="'Added'"></kpn-fact-added>
-      <kpn-fact-become-ignored *ngSwitchCase="'BecomeIgnored'"></kpn-fact-become-ignored>
       <kpn-fact-become-orphan *ngSwitchCase="'BecomeOrphan'"></kpn-fact-become-orphan>
       <kpn-fact-deleted *ngSwitchCase="'Deleted'"></kpn-fact-deleted>
-      <kpn-fact-ignore-foreign-country *ngSwitchCase="'IgnoreForeignCountry'"></kpn-fact-ignore-foreign-country>
-      <kpn-fact-ignore-network-collection *ngSwitchCase="'IgnoreNetworkCollection'"></kpn-fact-ignore-network-collection>
-      <kpn-fact-ignore-no-network-nodes *ngSwitchCase="'IgnoreNoNetworkNodes'"></kpn-fact-ignore-no-network-nodes>
-      <kpn-fact-ignore-unsupported-subset *ngSwitchCase="'IgnoreUnsupportedSubset'"></kpn-fact-ignore-unsupported-subset>
       <kpn-fact-integrity-check-failed *ngSwitchCase="'IntegrityCheckFailed'"></kpn-fact-integrity-check-failed>
       <kpn-fact-integrity-check *ngSwitchCase="'IntegrityCheck'"></kpn-fact-integrity-check>
       <kpn-fact-lost-bicycle-node-tag *ngSwitchCase="'LostBicycleNodeTag'"></kpn-fact-lost-bicycle-node-tag>
@@ -55,7 +50,6 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-route-unexpected-relation *ngSwitchCase="'RouteUnexpectedRelation'"></kpn-fact-route-unexpected-relation>
       <kpn-fact-route-unused-segments *ngSwitchCase="'RouteUnusedSegments'"></kpn-fact-route-unused-segments>
       <kpn-fact-route-without-ways *ngSwitchCase="'RouteWithoutWays'"></kpn-fact-route-without-ways>
-      <kpn-fact-was-ignored *ngSwitchCase="'WasIgnored'"></kpn-fact-was-ignored>
       <kpn-fact-was-orphan *ngSwitchCase="'WasOrphan'"></kpn-fact-was-orphan>
       <kpn-fact-node-network-type-not-tagged *ngSwitchCase="'NodeNetworkTypeNotTagged'"></kpn-fact-node-network-type-not-tagged>
       <kpn-fact-route-network-type-not-tagged *ngSwitchCase="'RouteNetworkTypeNotTagged'"></kpn-fact-route-network-type-not-tagged>

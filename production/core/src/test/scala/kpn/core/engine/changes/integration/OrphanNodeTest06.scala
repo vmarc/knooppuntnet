@@ -20,7 +20,6 @@ class OrphanNodeTest06 extends AbstractTest {
     tc.process(ChangeAction.Create, node(dataAfter, 1001))
 
     tc.analysisData.orphanNodes.watched.contains(1001) should equal(false)
-    tc.analysisData.orphanNodes.ignored.contains(1001) should equal(true)
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
@@ -28,8 +27,6 @@ class OrphanNodeTest06 extends AbstractTest {
           NodeInfo(
             1001,
             active = true,
-            display = true,
-            ignored = true,
             orphan = true,
             None,
             "01",

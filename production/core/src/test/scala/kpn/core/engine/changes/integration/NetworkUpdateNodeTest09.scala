@@ -51,7 +51,6 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
       .data
 
     val tc = new TestConfig()
-    tc.ignoreOrphanNode(1002)
     tc.relationBefore(dataBefore, 1)
     tc.watchNetwork(dataBefore, 1)
     tc.relationAfter(dataAfter, 1)
@@ -60,7 +59,6 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
     // before:
     tc.analysisData.networks.watched.isReferencingNode(1002) should equal(false)
     tc.analysisData.orphanNodes.watched.contains(1002) should equal(false)
-    tc.analysisData.orphanNodes.ignored.contains(1002) should equal(true)
 
     // act:
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
@@ -68,7 +66,6 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
     // after:
     tc.analysisData.networks.watched.isReferencingNode(1002) should equal(true)
     tc.analysisData.orphanNodes.watched.contains(1002) should equal(false)
-    tc.analysisData.orphanNodes.ignored.contains(1002) should equal(false)
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
 
@@ -111,9 +108,6 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
             NetworkType.hiking,
             1,
             "name",
-            ignoredNodes = RefChanges(
-              oldRefs = Seq(Ref(1002, "02"))
-            ),
             networkDataUpdate = Some(
               NetworkDataUpdate(
                 NetworkData(
@@ -164,7 +158,7 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
               newRawNodeWithName(1002, "02")
             ),
             addedToNetwork = Seq(Ref(1, "name")),
-            facts = Seq(Fact.WasIgnored),
+            facts = Seq(),
             happy = true
           )
         )

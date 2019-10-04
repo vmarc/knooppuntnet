@@ -11,8 +11,6 @@ export class NodeInfo {
 
   constructor(readonly id: number,
               readonly active: boolean,
-              readonly display: boolean,
-              readonly ignored: boolean,
               readonly orphan: boolean,
               readonly country: Country,
               readonly name: string,
@@ -37,8 +35,6 @@ export class NodeInfo {
     return new NodeInfo(
       jsonObject.id,
       jsonObject.active,
-      jsonObject.display,
-      jsonObject.ignored,
       jsonObject.orphan,
       Country.fromJSON(jsonObject.country),
       jsonObject.name,

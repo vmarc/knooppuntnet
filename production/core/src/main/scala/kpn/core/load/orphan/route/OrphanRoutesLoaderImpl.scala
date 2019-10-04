@@ -61,11 +61,10 @@ class OrphanRoutesLoaderImpl(
       Log.context(networkType.name) {
         analysisDatabaseIndexer.index()
         val routeIds = routeIdsLoader.load(timestamp, networkType)
-        val ignoredRouteIds = orphanRepository.ignoredRouteIds(networkType).toSet
         val blackListedRouteIds = blackListRepository.get.routes.map(_.id).toSet
-        val candidateOrphanRouteIds = (routeIds -- ignoredRouteIds -- blackListedRouteIds).filterNot(isReferenced).toSeq.sorted
+        val candidateOrphanRouteIds = (routeIds -- blackListedRouteIds).filterNot(isReferenced).toSeq.sorted
 
-        log.info(s"Found ${routeIds.size} routes, ${ignoredRouteIds.size} ignored routes, ${candidateOrphanRouteIds.size} candidate orphan routes (unreferenced)")
+        log.info(s"Found ${routeIds.size} routes, ${blackListedRouteIds.size} blacklisted routes, ${candidateOrphanRouteIds.size} candidate orphan routes (unreferenced)")
 
         val futures = candidateOrphanRouteIds.zipWithIndex.map { case (routeIds, index) =>
           Log.context(s"${index + 1}/${candidateOrphanRouteIds.size}") {

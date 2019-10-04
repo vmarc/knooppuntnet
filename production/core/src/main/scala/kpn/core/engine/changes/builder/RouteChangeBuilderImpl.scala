@@ -57,13 +57,6 @@ class RouteChangeBuilderImpl(
         }
         else {
           Seq()
-        },
-        if (analysisData.orphanRoutes.ignored.contains(routeId)) {
-          analysisData.orphanRoutes.ignored.delete(routeId)
-          Seq(Fact.WasIgnored)
-        }
-        else {
-          Seq()
         }
       ).flatten
 
@@ -200,67 +193,38 @@ class RouteChangeBuilderImpl(
     }
     else {
 
-      if (analysisAfter.route.ignored) {
+      val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
+      analysisData.orphanRoutes.watched.add(routeId, elementIds)
 
-        val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
-        analysisData.orphanRoutes.ignored.add(routeId, elementIds)
+      analysisRepository.saveRoute(analysisAfter.route.copy(orphan = true))
 
-        analysisRepository.saveRoute(analysisAfter.route.copy(orphan = true))
+      //        analysisAfter.routeNodes.routeNodes.foreach { routeNode =>
+      //          val country = countryAnalyzer.country(Seq(routeNode.node))
+      //          val loadedNode = LoadedNode.from(country, routeNode.node.raw)
+      //          val nodeInfo = NodeInfoBuilder.fromLoadedNode(loadedNode)
+      //          analysisRepository.saveNode(nodeInfo)
+      //        }
 
-        Some(
-          analyzed(
-            RouteChange(
-              key = context.changeSetContext.buildChangeKey(routeId),
-              changeType = ChangeType.Update,
-              name = analysisAfter.name,
-              addedToNetwork = Seq.empty,
-              removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
-              before = Some(analysisBefore.toRouteData),
-              after = Some(analysisAfter.toRouteData),
-              removedWays = routeUpdate.removedWays,
-              addedWays = routeUpdate.addedWays,
-              updatedWays = routeUpdate.updatedWays,
-              diffs = routeUpdate.diffs,
-              facts = facts :+ Fact.BecomeIgnored
-            )
+      val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
+
+      Some(
+        analyzed(
+          RouteChange(
+            key = context.changeSetContext.buildChangeKey(routeId),
+            changeType = ChangeType.Update,
+            name = analysisAfter.name,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
+            before = Some(analysisBefore.toRouteData),
+            after = Some(analysisAfter.toRouteData),
+            removedWays = routeUpdate.removedWays,
+            addedWays = routeUpdate.addedWays,
+            updatedWays = routeUpdate.updatedWays,
+            diffs = routeUpdate.diffs,
+            facts = facts :+ Fact.BecomeOrphan
           )
         )
-      }
-      else {
-
-        val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
-        analysisData.orphanRoutes.watched.add(routeId, elementIds)
-
-        analysisRepository.saveRoute(analysisAfter.route.copy(orphan = true))
-
-        //        analysisAfter.routeNodes.routeNodes.foreach { routeNode =>
-        //          val country = countryAnalyzer.country(Seq(routeNode.node))
-        //          val loadedNode = LoadedNode.from(country, routeNode.node.raw)
-        //          val nodeInfo = NodeInfoBuilder.fromLoadedNode(loadedNode)
-        //          analysisRepository.saveNode(nodeInfo)
-        //        }
-
-        val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
-
-        Some(
-          analyzed(
-            RouteChange(
-              key = context.changeSetContext.buildChangeKey(routeId),
-              changeType = ChangeType.Update,
-              name = analysisAfter.name,
-              addedToNetwork = Seq.empty,
-              removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
-              before = Some(analysisBefore.toRouteData),
-              after = Some(analysisAfter.toRouteData),
-              removedWays = routeUpdate.removedWays,
-              addedWays = routeUpdate.addedWays,
-              updatedWays = routeUpdate.updatedWays,
-              diffs = routeUpdate.diffs,
-              facts = facts :+ Fact.BecomeOrphan
-            )
-          )
-        )
-      }
+      )
     }
   }
 

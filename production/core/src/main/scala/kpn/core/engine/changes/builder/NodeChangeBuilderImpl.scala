@@ -3,7 +3,6 @@ package kpn.core.engine.changes.builder
 import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
 import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.engine.changes.node.NodeChangeFactAnalyzer
 import kpn.core.history.NodeMovedAnalyzer
@@ -25,8 +24,7 @@ import kpn.shared.diff.common.FactDiffs
 class NodeChangeBuilderImpl(
   analysisData: AnalysisData,
   analysisRepository: AnalysisRepository,
-  nodeLoader: NodeLoader,
-  ignoredNodeAnalyzer: IgnoredNodeAnalyzer
+  nodeLoader: NodeLoader
 ) extends NodeChangeBuilder {
 
   private val log = Log(classOf[NodeChangeBuilderImpl])
@@ -63,12 +61,6 @@ class NodeChangeBuilderImpl(
         if (analysisData.orphanNodes.watched.contains(nodeId)) {
           analysisData.orphanNodes.watched.delete(nodeId)
           Some(Fact.WasOrphan)
-        } else {
-          None
-        },
-        if (analysisData.orphanNodes.ignored.contains(nodeId)) {
-          analysisData.orphanNodes.ignored.delete(nodeId)
-          Some(Fact.WasIgnored)
         } else {
           None
         }
@@ -170,8 +162,6 @@ class NodeChangeBuilderImpl(
             NodeInfoBuilder.build(
               id = nodeBefore.id,
               active = false,
-              display = false,
-              ignored = false,
               orphan = false,
               country = nodeBefore.networkNode.country,
               latitude = nodeBefore.networkNode.node.latitude,
@@ -273,20 +263,10 @@ class NodeChangeBuilderImpl(
             }
             else {
               // the node is not referenced anymore by any network or route
-              val ignoreFacts = ignoredNodeAnalyzer.analyze(nodeAfter)
-              if (ignoreFacts.isEmpty) {
-                val display = ignoredNodeAnalyzer.displayAnalyze(nodeAfter, orphan = true)
-                val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, display = display, orphan = true)
+                val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
                 analysisRepository.saveNode(nodeInfo)
                 analysisData.orphanNodes.watched.add(after.id)
                 Seq(Fact.BecomeOrphan)
-              }
-              else {
-                val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, ignored = true)
-                analysisRepository.saveNode(nodeInfo)
-                analysisData.orphanNodes.ignored.add(after.id)
-                Seq(Fact.BecomeIgnored)
-              }
             }
 
             analyzed(
@@ -382,12 +362,6 @@ class NodeChangeBuilderImpl(
           if (analysisData.orphanNodes.watched.contains(nodeId)) {
             analysisData.orphanNodes.watched.delete(nodeId)
             Some(Fact.WasOrphan)
-          } else {
-            None
-          },
-          if (analysisData.orphanNodes.ignored.contains(nodeId)) {
-            analysisData.orphanNodes.ignored.delete(nodeId)
-            Some(Fact.WasIgnored)
           } else {
             None
           }

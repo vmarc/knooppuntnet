@@ -6,17 +6,12 @@ import kpn.core.analysis.RouteMemberWay
 import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.OneWayAnalyzer
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzer
-import kpn.core.engine.analysis.route.analyzers.BigGermanBicycleRouteWithoutNameRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.BigGermanBicycleRouteWithoutNetworkNodesAnalyzer
 import kpn.core.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.core.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.ForeignCountryRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.IngoredRouteAnalysisBuilder
 import kpn.core.engine.analysis.route.analyzers.NetworkTaggedAsRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.OverlappingWaysRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.core.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteFragmentAnalyzer
@@ -57,8 +52,6 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
       )
 
       val analyzers: List[RouteAnalyzer] = List(
-        ForeignCountryRouteAnalyzer,
-        BigGermanBicycleRouteWithoutNameRouteAnalyzer,
         RouteTagRouteAnalyzer,
         WithoutWaysRouteAnalyzer,
         IncompleteRouteAnalyzer,
@@ -67,7 +60,6 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         UnexpectedRelationRouteAnalyzer,
         RouteNameAnalyzer,
         RouteNodeAnalyzer,
-        BigGermanBicycleRouteWithoutNetworkNodesAnalyzer,
         NetworkTaggedAsRouteAnalyzer,
         ExpectedNameRouteAnalyzer,
         SuspiciousWaysRouteAnalyzer,
@@ -93,12 +85,7 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
     }
     else {
       val newContext = analyzers.head.analyze(context)
-      if (newContext.ignore) {
-        new IngoredRouteAnalysisBuilder().build(newContext)
-      }
-      else {
-        doAnalyze(analyzers.tail, newContext)
-      }
+      doAnalyze(analyzers.tail, newContext)
     }
   }
 

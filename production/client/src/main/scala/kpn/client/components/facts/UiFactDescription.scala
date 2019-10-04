@@ -428,15 +428,6 @@ object UiFactDescription {
             }
           )
 
-        case BecomeIgnored =>
-          <.p(
-            if (nlsNL) {
-              """Niet langer opgenomen in de analyse."""
-            } else {
-              """No longer included in the analysis."""
-            }
-          )
-
         case BecomeOrphan =>
           <.p(
             if (nlsNL) {
@@ -497,15 +488,6 @@ object UiFactDescription {
               """Deze relatie is niet langer een geldige netwerk route omdat een benodigde label verwijderd is."""
             } else {
               """This relation is no longer a valid network route because a required tag has been removed."""
-            }
-          )
-
-        case WasIgnored =>
-          <.p(
-            if (nlsNL) {
-              """Niet langer uitgesloten uit de analysis."""
-            } else {
-              """No longer excluded from the analysis."""
             }
           )
 

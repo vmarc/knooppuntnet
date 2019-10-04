@@ -113,7 +113,6 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
           newNodeInfo(
             1003,
             active = false,
-            display = false,
             country = Some(Country.nl),
             tags = newNodeTags("03"),
             facts = Seq(Fact.Deleted)

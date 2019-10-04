@@ -23,8 +23,7 @@ class RouteChangeAnalyzer(routeChange: RouteChange) {
     routeChange.addedToNetwork.nonEmpty ||
       routeChange.diffs.happy ||
       hasFact(Fact.Added) ||
-      (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasFact(Fact.LostRouteTags))) ||
-      hasFact(Fact.WasIgnored)
+      (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasFact(Fact.LostRouteTags)))
   }
 
   private def investigate(): Boolean = {
@@ -40,7 +39,6 @@ class RouteChangeAnalyzer(routeChange: RouteChange) {
     routeChange.removedFromNetwork.nonEmpty ||
       routeChange.diffs.investigate ||
       hasFact(Fact.Deleted) ||
-      hasFact(Fact.BecomeIgnored) ||
       hasFact(Fact.BecomeOrphan) ||
       hasFact(Fact.LostRouteTags)
   }

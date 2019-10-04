@@ -11,8 +11,6 @@ export class RouteInfo {
 
   constructor(readonly summary: RouteSummary,
               readonly active: boolean,
-              readonly display: boolean,
-              readonly ignored: boolean,
               readonly orphan: boolean,
               readonly version: number,
               readonly changeSetId: number,
@@ -29,8 +27,6 @@ export class RouteInfo {
     return new RouteInfo(
       RouteSummary.fromJSON(jsonObject.summary),
       jsonObject.active,
-      jsonObject.display,
-      jsonObject.ignored,
       jsonObject.orphan,
       jsonObject.version,
       jsonObject.changeSetId,

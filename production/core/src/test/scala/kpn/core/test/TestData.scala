@@ -90,7 +90,7 @@ case class TestData2(
 ) extends SharedTestObjects {
 
   def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty): TestData2 = {
-    val n = newRawNode(id, tags = Tags.from("rwn_ref" -> name) ++ extraTags)
+    val n = newRawNode(id, tags =  newNodeTags(name) ++ extraTags)
     copy(nodes = nodes :+ n)
   }
 
@@ -115,11 +115,11 @@ case class TestData2(
   }
 
   def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): TestData2 = {
-    relation(id, members, Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> name) ++ tags)
+    relation(id, members, newRouteTags(name) ++ tags)
   }
 
   def networkRelation(id: Long, name: String, members: Seq[RawMember] = Seq.empty): TestData2 = {
-    relation(id, members, Tags.from("network" -> "rwn", "type" -> "network", "name" -> name))
+    relation(id, members, newNetworkTags(name))
   }
 
   def rawData: RawData = {

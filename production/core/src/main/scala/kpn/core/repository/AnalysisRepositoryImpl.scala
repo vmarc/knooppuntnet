@@ -83,8 +83,6 @@ class AnalysisRepositoryImpl(
       NodeInfoBuilder.build(
         node.networkNode.node.id,
         active = true,
-        display = true,
-        ignored = false,
         orphan = false,
         node.networkNode.country,
         node.networkNode.node.latitude.toString,

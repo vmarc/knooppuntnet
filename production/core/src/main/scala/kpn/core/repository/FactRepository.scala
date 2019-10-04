@@ -11,5 +11,4 @@ trait FactRepository {
 
   def integrityCheckFacts(country: String, networkType: String, timeout: Timeout, stale: Boolean = true): IntegrityCheckPage
 
-  def networkCollections(): Seq[Long]
 }

@@ -11,8 +11,6 @@ import kpn.shared.data.Tags
 case class RouteInfo(
   summary: RouteSummary,
   active: Boolean,
-  display: Boolean,
-  ignored: Boolean,
   orphan: Boolean,
   version: Int,
   changeSetId: Long,
@@ -28,8 +26,6 @@ case class RouteInfo(
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("summary", summary).
     field("active", active).
-    field("display", display).
-    field("ignored", ignored).
     field("orphan", orphan).
     field("version", version).
     field("changeSetId", changeSetId).

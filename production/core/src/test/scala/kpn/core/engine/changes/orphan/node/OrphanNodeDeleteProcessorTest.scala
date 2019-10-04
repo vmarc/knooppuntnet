@@ -3,7 +3,6 @@ package kpn.core.engine.changes.orphan.node
 import kpn.core.TestObjects
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
 import kpn.core.load.data.LoadedNode
 import kpn.core.repository.AnalysisRepository
 import kpn.core.test.TestData
@@ -33,32 +32,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     t.processor.process(context, loadedNodeDelete)
 
     t.analysisData.orphanNodes.watched.contains(nodeId) should equal(false)
-
-    (t.analysisRepository.saveNode _).verify(
-      newNodeInfo(
-        nodeId,
-        country = Some(Country.nl),
-        active = false,
-        orphan = true,
-        facts = Seq(Fact.Deleted)
-      )
-    )
-  }
-
-  test("deleted node is removed from analysis data ignored orphan nodes, and set to non-active in the database") {
-
-    val t = new Setup()
-
-    val nodeId = 456L
-
-    t.analysisData.orphanNodes.ignored.add(nodeId)
-
-    val context = newChangeSetContext()
-    val loadedNodeDelete = LoadedNodeDelete(newRawNode(nodeId), None)
-
-    t.processor.process(context, loadedNodeDelete)
-
-    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(false)
 
     (t.analysisRepository.saveNode _).verify(
       newNodeInfo(
@@ -116,7 +89,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     val context = newChangeSetContext()
     val loadedNode = LoadedNode(Some(Country.nl), Seq(NetworkType.hiking), "", Node(rawNode))
     val loadedNodeDelete = LoadedNodeDelete(rawNode, Some(loadedNode))
-    (t.ignoredNodeAnalyzer.analyze _).when(loadedNode).returns(Seq())
 
     t.processor.process(context, loadedNodeDelete) should equal(
       Some(
@@ -151,7 +123,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     val context = newChangeSetContext()
     val loadedNode = LoadedNode(Some(Country.nl), Seq(NetworkType.hiking), "", Node(rawNode))
     val loadedNodeDelete = LoadedNodeDelete(rawNode, Some(loadedNode))
-    (t.ignoredNodeAnalyzer.analyze _).when(loadedNode).returns(Seq(Fact.IgnoreForeignCountry))
 
     t.processor.process(context, loadedNodeDelete) should equal(None)
 
@@ -160,7 +131,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
         nodeId,
         active = false,
         orphan = true,
-        ignored = true,
         country = Some(Country.nl),
         facts = Seq(Fact.Deleted, Fact.IgnoreForeignCountry)
       )
@@ -176,7 +146,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     val context = newChangeSetContext()
     val loadedNode = LoadedNode(None, Seq(NetworkType.hiking), "", Node(rawNode))
     val loadedNodeDelete = LoadedNodeDelete(rawNode, Some(loadedNode))
-    (t.ignoredNodeAnalyzer.analyze _).when(loadedNode).returns(Seq())
 
     t.processor.process(context, loadedNodeDelete) should equal(None)
 
@@ -206,7 +175,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
 
     val analysisData: AnalysisData = AnalysisData()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
-    val ignoredNodeAnalyzer: IgnoredNodeAnalyzer = stub[IgnoredNodeAnalyzer]
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
 
     (countryAnalyzer.country _).when(*).returns(country).anyNumberOfTimes()
@@ -214,7 +182,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     val processor: OrphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
       analysisData,
       analysisRepository,
-      ignoredNodeAnalyzer,
       countryAnalyzer
     )
   }

@@ -37,8 +37,6 @@ class OrphanRoutesLoaderWorkerImpl(
               NodeInfoBuilder.build(
                 id = networkNode.id,
                 active = true,
-                display = true,
-                ignored = false,
                 orphan = false,
                 country = networkNode.country,
                 latitude = networkNode.node.latitude,

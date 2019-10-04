@@ -1,8 +1,7 @@
 if (doc && doc.route && doc.route.active === true) {
   var r = doc.route;
-  if (r.active === true && (r.orphan === true || r.ignored === true)) {
+  if (r.active === true && r.orphan === true) {
     var key = [
-      r.ignored,
       r.orphan,
       r.display,
       r.summary.country,

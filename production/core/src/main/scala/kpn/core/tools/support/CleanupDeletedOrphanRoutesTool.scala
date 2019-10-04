@@ -48,7 +48,7 @@ class CleanupDeletedOrphanRoutesTool(database: Database) {
       val deletedRouteDocs = activeRouteDocs.filter(d => isRouteDeleted(d.route.id))
       println(s"${subset.string} orphanRouteCount=${subsetOrphanRouteIds.size} active=${activeRouteDocs.size} deleted=${deletedRouteDocs.size}")
       deletedRouteDocs.foreach { routeDoc =>
-        val newRouteDoc = routeDoc.copy(route = routeDoc.route.copy(active = false, display = false))
+        val newRouteDoc = routeDoc.copy(route = routeDoc.route.copy(active = false))
         database.save(routeDoc._id, routeDocFormat.write(newRouteDoc))
       }
     }

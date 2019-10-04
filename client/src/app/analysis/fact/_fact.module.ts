@@ -5,13 +5,8 @@ import {RouterModule} from "@angular/router";
 import {MarkdownModule} from "ngx-markdown";
 import {SharedModule} from "../../components/shared/shared.module";
 import {FactAddedComponent} from "./descriptions/fact-added.component";
-import {FactBecomeIgnoredComponent} from "./descriptions/fact-become-ignored.component";
 import {FactBecomeOrphanComponent} from "./descriptions/fact-become-orphan.component";
 import {FactDeletedComponent} from "./descriptions/fact-deleted.component";
-import {FactIgnoreForeignCountryComponent} from "./descriptions/fact-ignore-foreign-country.component";
-import {FactIgnoreNetworkCollectionComponent} from "./descriptions/fact-ignore-network-collection.component";
-import {FactIgnoreNoNetworkNodesComponent} from "./descriptions/fact-ignore-no-network-nodes.component";
-import {FactIgnoreUnsupportedSubsetComponent} from "./descriptions/fact-ignore-unsupported-subset.component";
 import {FactIntegrityCheckFailedComponent} from "./descriptions/fact-integrity-check-failed.component";
 import {FactIntegrityCheckComponent} from "./descriptions/fact-integrity-check.component";
 import {FactLostBicycleNodeTagComponent} from "./descriptions/fact-lost-bicycle-node-tag.component";
@@ -58,7 +53,6 @@ import {FactRouteUnexpectedNodeComponent} from "./descriptions/fact-route-unexpe
 import {FactRouteUnexpectedRelationComponent} from "./descriptions/fact-route-unexpected-relation.component";
 import {FactRouteUnusedSegmentsComponent} from "./descriptions/fact-route-unused-segments.component";
 import {FactRouteWithoutWaysComponent} from "./descriptions/fact-route-without-ways.component";
-import {FactWasIgnoredComponent} from "./descriptions/fact-was-ignored.component";
 import {FactWasOrphanComponent} from "./descriptions/fact-was-orphan.component";
 import {FactDescriptionComponent} from "./fact-description.component";
 import {FactLevelComponent} from "./fact-level.component";
@@ -120,14 +114,9 @@ import {FactsComponent} from "./facts.component";
     FactRouteOneWayComponent,
     FactRouteNotOneWayComponent,
     FactNameMissingComponent,
-    FactIgnoreForeignCountryComponent,
-    FactIgnoreNoNetworkNodesComponent,
-    FactIgnoreUnsupportedSubsetComponent,
     FactAddedComponent,
-    FactBecomeIgnoredComponent,
     FactBecomeOrphanComponent,
     FactDeletedComponent,
-    FactIgnoreNetworkCollectionComponent,
     FactIntegrityCheckComponent,
     FactLostBicycleNodeTagComponent,
     FactLostHikingNodeTagComponent,
@@ -136,7 +125,6 @@ import {FactsComponent} from "./facts.component";
     FactLostCanoeNodeTagComponent,
     FactLostRouteTagsComponent,
     FactLostInlineSkateNodeTagComponent,
-    FactWasIgnoredComponent,
     FactWasOrphanComponent,
     FactDescriptionComponent,
     FactNodeNetworkTypeNotTaggedComponent,

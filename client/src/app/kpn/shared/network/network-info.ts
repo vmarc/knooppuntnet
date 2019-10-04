@@ -10,7 +10,6 @@ export class NetworkInfo {
 
   constructor(readonly attributes: NetworkAttributes,
               readonly active: boolean,
-              readonly ignored: boolean,
               readonly nodeRefs: List<number>,
               readonly routeRefs: List<number>,
               readonly networkRefs: List<number>,
@@ -26,7 +25,6 @@ export class NetworkInfo {
     return new NetworkInfo(
       NetworkAttributes.fromJSON(jsonObject.attributes),
       jsonObject.active,
-      jsonObject.ignored,
       jsonObject.nodeRefs ? List(jsonObject.nodeRefs) : List(),
       jsonObject.routeRefs ? List(jsonObject.routeRefs) : List(),
       jsonObject.networkRefs ? List(jsonObject.networkRefs) : List(),

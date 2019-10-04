@@ -100,7 +100,7 @@ class DuplicateRoutesReport(database: Database) {
         val name = routeInfo.summary.name
         val wayIds = routeInfo.analysis.toSeq.flatMap(_.members.filter(_.isWay).map(_.id)).toSet
         val alternate = routeInfo.tags.has("state", "alternate")
-        if (routeInfo.active && routeInfo.display && !routeInfo.ignored && wayIds.nonEmpty && country.isDefined) {
+        if (routeInfo.active && wayIds.nonEmpty && country.isDefined) {
           Some(RouteWays(country.get, networkType, routeInfo.id, name, alternate, wayIds))
         }
         else {

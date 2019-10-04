@@ -54,18 +54,6 @@ class NodeChangeFactAnalyzerTest extends FunSuite with Matchers with SharedTestO
     )
   }
 
-  test("WasIgnored") {
-    val analysisData = AnalysisData()
-    analysisData.orphanNodes.ignored.add(1)
-    val before = newRawNode()
-    val after = newRawNode()
-
-    val analyzer = new NodeChangeFactAnalyzer(analysisData)
-    analyzer.facts(before, after) should equal(
-      Seq(Fact.WasIgnored)
-    )
-  }
-
   test("Orphan node that remains orphan") {
     val analysisData = AnalysisData()
     analysisData.orphanNodes.watched.add(1)
@@ -76,14 +64,4 @@ class NodeChangeFactAnalyzerTest extends FunSuite with Matchers with SharedTestO
     analyzer.facts(before, after) should equal(Seq())
   }
 
-  test("Ignored node that remains ignored") {
-    val analysisData = AnalysisData()
-    analysisData.orphanNodes.ignored.add(1)
-    val before = newRawNode(tags = Tags.from("rcn_ref" -> "01"))
-    val after = newRawNode(tags = Tags.from("rcn_ref" -> "01"))
-
-    val analyzer = new NodeChangeFactAnalyzer(analysisData)
-    analyzer.facts(before, after) should equal(Seq()
-    )
-  }
 }

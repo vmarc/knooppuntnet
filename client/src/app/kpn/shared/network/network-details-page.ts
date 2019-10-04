@@ -9,7 +9,6 @@ export class NetworkDetailsPage {
 
   constructor(readonly networkSummary: NetworkSummary,
               readonly active: boolean,
-              readonly ignored: boolean,
               readonly attributes: NetworkAttributes,
               readonly tags: Tags,
               readonly facts: NetworkFacts) {
@@ -22,7 +21,6 @@ export class NetworkDetailsPage {
     return new NetworkDetailsPage(
       NetworkSummary.fromJSON(jsonObject.networkSummary),
       jsonObject.active,
-      jsonObject.ignored,
       NetworkAttributes.fromJSON(jsonObject.attributes),
       Tags.fromJSON(jsonObject.tags),
       NetworkFacts.fromJSON(jsonObject.facts)

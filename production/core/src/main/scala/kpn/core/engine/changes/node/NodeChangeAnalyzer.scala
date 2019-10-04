@@ -25,8 +25,7 @@ class NodeChangeAnalyzer(nodeChange: NodeChange) {
       nodeChange.addedToNetwork.nonEmpty ||
       nodeChange.factDiffs.happy ||
       hasFact(Fact.Added) ||
-      (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasLostNodeTag)) ||
-      hasFact(Fact.WasIgnored)
+      (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasLostNodeTag))
   }
 
   private def investigate(): Boolean = {
@@ -44,7 +43,6 @@ class NodeChangeAnalyzer(nodeChange: NodeChange) {
       nodeChange.removedFromNetwork.nonEmpty ||
       nodeChange.factDiffs.investigate ||
       hasFact(Fact.Deleted) ||
-      hasFact(Fact.BecomeIgnored) ||
       hasFact(Fact.BecomeOrphan) ||
       hasLostNodeTag
   }

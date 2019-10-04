@@ -57,7 +57,7 @@ class OrphanRouteTest01 extends AbstractTest {
               newNodeInfo(
                 1001,
                 country = Some(Country.nl),
-                tags = Tags.from("rwn_ref" -> "01")
+                tags = newNodeTags("01")
               )
             )
 
@@ -66,7 +66,7 @@ class OrphanRouteTest01 extends AbstractTest {
               newNodeInfo(
                 1002,
                 country = Some(Country.nl),
-                tags = Tags.from("rwn_ref" -> "02")
+                tags = newNodeTags("02")
               )
             )
         }

@@ -30,7 +30,6 @@ class NetworkDetailsPageBuilderImpl(
     NetworkDetailsPage(
       NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       networkInfo.active,
-      networkInfo.ignored,
       networkInfo.attributes,
       networkInfo.tags,
       networkInfo.detail.map(_.networkFacts).getOrElse(NetworkFacts())

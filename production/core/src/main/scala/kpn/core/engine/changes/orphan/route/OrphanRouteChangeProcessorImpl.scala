@@ -97,19 +97,13 @@ class OrphanRouteChangeProcessorImpl(
 
           if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
             analysisData.orphanRoutes.watched.delete(routeUpdate.id)
-            analysisData.orphanRoutes.ignored.delete(routeUpdate.id)
           }
 
           val facts = if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
             Seq(Fact.WasOrphan) ++ routeUpdate.facts
           }
           else {
-            if (afterRouteAnalysis.route.display) {
-              Seq(Fact.OrphanRoute) ++ routeUpdate.facts
-            }
-            else {
-              routeUpdate.facts
-            }
+            Seq(Fact.OrphanRoute) ++ routeUpdate.facts
           }
 
           Some(
@@ -141,7 +135,6 @@ class OrphanRouteChangeProcessorImpl(
     routeIds.flatMap { routeId =>
 
       analysisData.orphanRoutes.watched.delete(routeId)
-      analysisData.orphanRoutes.ignored.delete(routeId)
 
       loadedRoutes.find(_.id == routeId) match {
         case None =>
@@ -157,29 +150,24 @@ class OrphanRouteChangeProcessorImpl(
           val route = routeAnalysis.route.copy(orphan = true, active = false)
           analysisRepository.saveRoute(route)
 
-          if (routeAnalysis.route.ignored) {
-            None
-          }
-          else {
-            Some(
-              analyzed(
-                RouteChange(
-                  key = context.buildChangeKey(route.id),
-                  changeType = ChangeType.Delete,
-                  name = route.summary.name,
-                  addedToNetwork = Seq.empty,
-                  removedFromNetwork = Seq.empty,
-                  before = Some(routeAnalysis.toRouteData),
-                  after = None,
-                  removedWays = Seq.empty,
-                  addedWays = Seq.empty,
-                  updatedWays = Seq.empty,
-                  diffs = RouteDiff(),
-                  facts = Seq(Fact.WasOrphan, Fact.Deleted)
-                )
+          Some(
+            analyzed(
+              RouteChange(
+                key = context.buildChangeKey(route.id),
+                changeType = ChangeType.Delete,
+                name = route.summary.name,
+                addedToNetwork = Seq.empty,
+                removedFromNetwork = Seq.empty,
+                before = Some(routeAnalysis.toRouteData),
+                after = None,
+                removedWays = Seq.empty,
+                addedWays = Seq.empty,
+                updatedWays = Seq.empty,
+                diffs = RouteDiff(),
+                facts = Seq(Fact.WasOrphan, Fact.Deleted)
               )
             )
-          }
+          )
       }
     }
   }

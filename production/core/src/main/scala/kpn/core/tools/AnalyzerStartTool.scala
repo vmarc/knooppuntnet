@@ -196,13 +196,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           case Some(loadedRoute) =>
             val allNodes = new NetworkNodeBuilder(loadedRoute.data, config.countryAnalyzer).networkNodes
             val analysis = config.routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
-
-            val facts = if (analysis.route.display) {
-              analysis.route.facts :+ Fact.OrphanRoute
-            }
-            else {
-              analysis.route.facts
-            }
+            val facts = analysis.route.facts :+ Fact.OrphanRoute
 
             config.changeSetRepository.saveRouteChange(
               analyzed(

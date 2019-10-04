@@ -35,8 +35,6 @@ class OrphanNodeTest01 extends AbstractTest {
           NodeInfo(
             1001,
             active = true,
-            display = true,
-            ignored = false,
             orphan = true,
             Some(Country.nl),
             "01",

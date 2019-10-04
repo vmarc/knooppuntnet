@@ -1,17 +1,13 @@
 package kpn.core.engine.changes.network.update
 
-import kpn.core.engine.analysis.NetworkRelationAnalysis
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.ChangeSetChanges
-import kpn.core.engine.changes.ignore.IgnoredNetworkAnalyzer
 import kpn.core.load.NetworkLoader
 import kpn.core.load.data.LoadedNetwork
 import kpn.core.repository.AnalysisRepository
-import kpn.core.tools.db.IgnoredNetworkInfoBuilder
 import kpn.core.util.Log
-import kpn.shared.Fact
 
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -23,9 +19,7 @@ class NetworkUpdateProcessorWorkerImpl(
   analysisRepository: AnalysisRepository,
   networkLoader: NetworkLoader,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
-  ignoredNetworkAnalyzer: IgnoredNetworkAnalyzer,
-  networkProcessor: NetworkUpdateNetworkProcessor,
-  collectionProcessor: NetworkUpdateCollectionProcessor
+  networkProcessor: NetworkUpdateNetworkProcessor
 ) extends NetworkUpdateProcessorWorker {
 
   private val log = Log(classOf[NetworkUpdateProcessorWorkerImpl])
@@ -48,32 +42,12 @@ class NetworkUpdateProcessorWorkerImpl(
         ChangeSetChanges()
 
       case Some(loadedNetworkAfter) =>
-
-        val networkRelationAnalysisAfter = networkRelationAnalyzer.analyze(loadedNetworkAfter.relation)
-
-        if (networkRelationAnalysisAfter.isNetworkCollection) {
-          collectionProcessor.process(networkId, networkRelationAnalysisAfter)
-          saveIgnoredNetwork(networkRelationAnalysisAfter, loadedNetworkAfter, Seq(Fact.IgnoreNetworkCollection))
-          log.warn(s"Ignoring network collection $networkId")
-          ChangeSetChanges()
-        }
-        else {
-          val ignoreReasons = ignoredNetworkAnalyzer.analyze(networkRelationAnalysisAfter, loadedNetworkAfter)
-          if (ignoreReasons.nonEmpty) {
-            log.error(s"Ignoring network $networkId")
-            saveIgnoredNetwork(networkRelationAnalysisAfter, loadedNetworkAfter, ignoreReasons)
-            // TODO CHANGE create NetworkChange with Fact.BecomeIgnored + add integration test
+        loadedNetworkBeforeOption match {
+          case None =>
+            log.error(s"Could not load 'before' network $networkId at ${context.timestampBefore.iso}")
             ChangeSetChanges()
-          }
-          else {
-            loadedNetworkBeforeOption match {
-              case None =>
-                log.error(s"Could not load 'before' network $networkId at ${context.timestampBefore.iso}")
-                ChangeSetChanges()
-              case Some(loadedNetworkBefore) =>
-                networkProcessor.process(context, loadedNetworkBefore, loadedNetworkAfter)
-            }
-          }
+          case Some(loadedNetworkBefore) =>
+            networkProcessor.process(context, loadedNetworkBefore, loadedNetworkAfter)
         }
     }
   }
@@ -98,8 +72,4 @@ class NetworkUpdateProcessorWorkerImpl(
     (before, after)
   }
 
-  private def saveIgnoredNetwork(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork, ignoreReasons: Seq[Fact]): Unit = {
-    val networkInfo = IgnoredNetworkInfoBuilder.build(networkRelationAnalysis, loadedNetwork, ignoreReasons)
-    analysisRepository.saveIgnoredNetwork(networkInfo)
-  }
 }

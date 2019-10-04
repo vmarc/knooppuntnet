@@ -61,7 +61,6 @@ class NetworkUpdateNodeTest01 extends AbstractTest {
     // before:
     tc.analysisData.networks.watched.isReferencingNode(1002) should equal(true)
     tc.analysisData.orphanNodes.watched.contains(1002) should equal(false)
-    tc.analysisData.orphanNodes.ignored.contains(1002) should equal(false)
 
     // act:
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
@@ -69,7 +68,6 @@ class NetworkUpdateNodeTest01 extends AbstractTest {
     // after:
     tc.analysisData.networks.watched.isReferencingNode(1002) should equal(false)
     tc.analysisData.orphanNodes.watched.contains(1002) should equal(true)
-    tc.analysisData.orphanNodes.ignored.contains(1002) should equal(false)
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
     (tc.analysisRepository.saveRoute _).verify(*).never()

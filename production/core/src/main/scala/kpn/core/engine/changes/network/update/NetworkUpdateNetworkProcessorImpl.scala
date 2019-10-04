@@ -1,7 +1,5 @@
 package kpn.core.engine.changes.network.update
 
-import kpn.core.analysis.NetworkMemberRoute
-import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.engine.analysis.NetworkAnalyzer
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
@@ -18,7 +16,6 @@ import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NetworkChange
 import kpn.shared.changes.details.RefChanges
-import kpn.shared.common.Ref
 import kpn.shared.diff.IdDiffs
 import kpn.shared.diff.RefDiffs
 
@@ -72,19 +69,9 @@ class NetworkUpdateNetworkProcessorImpl(
       nodeAndRouteChanges.routeChanges.filter(r => r.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
     )
 
-    val ignoredRoutes = RefChanges(
-      nodeAndRouteChanges.routeChanges.filter(r => r.facts.contains(Fact.WasIgnored)).map(_.toRef),
-      nodeAndRouteChanges.routeChanges.filter(r => r.facts.contains(Fact.BecomeIgnored)).map(_.toRef)
-    )
-
     val orphanNodes = RefChanges(
       nodeAndRouteChanges.nodeChanges.filter(r => r.facts.contains(Fact.WasOrphan)).map(_.toRef),
       nodeAndRouteChanges.nodeChanges.filter(r => r.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
-    )
-
-    val ignoredNodes = RefChanges(
-      nodeAndRouteChanges.nodeChanges.filter(r => r.facts.contains(Fact.WasIgnored)).map(_.toRef),
-      nodeAndRouteChanges.nodeChanges.filter(r => r.facts.contains(Fact.BecomeIgnored)).map(_.toRef)
     )
 
     val networkNodes: RefDiffs = RefDiffs(
@@ -113,9 +100,7 @@ class NetworkUpdateNetworkProcessorImpl(
       networkDiff.networkId,
       networkDiff.networkName,
       orphanRoutes,
-      ignoredRoutes,
       orphanNodes,
-      ignoredNodes,
       networkDiff.networkDataUpdate,
       networkNodes,
       routes,
@@ -127,26 +112,5 @@ class NetworkUpdateNetworkProcessorImpl(
     )
 
     merge(ChangeSetChanges(Seq(networkChange)), nodeAndRouteChanges)
-  }
-
-  // TODO CHANGE share with NetworkCreateWathedProcessorImpl
-  private def isOrphanRoute(route: NetworkMemberRoute): Boolean = {
-    analysisData.orphanRoutes.watched.contains(route.id)
-  }
-
-  private def toRef(route: NetworkMemberRoute): Ref = {
-    Ref(route.id, route.routeAnalysis.route.summary.name)
-  }
-
-  private def isOrphanNode(node: NetworkNodeInfo): Boolean = {
-    analysisData.orphanNodes.watched.contains(node.id)
-  }
-
-  private def isIgnoredNode(node: NetworkNodeInfo): Boolean = {
-    analysisData.orphanNodes.ignored.contains(node.id)
-  }
-
-  private def toRef(node: NetworkNodeInfo): Ref = {
-    Ref(node.id, node.networkNode.name)
   }
 }

@@ -1,9 +1,9 @@
 package kpn.core.engine.changes.orphan.route
 
-import kpn.core.repository.MockBlackListRepository
-import kpn.core.test.TestData
 import kpn.core.engine.changes.AnalysisTestData
 import kpn.core.engine.changes.ElementChanges
+import kpn.core.repository.MockBlackListRepository
+import kpn.core.test.TestData
 import kpn.shared.SharedTestObjects
 import kpn.shared.changes.Change
 import kpn.shared.changes.Change.modify
@@ -17,17 +17,14 @@ class OrphanRouteChangeAnalyzerTest extends FunSuite with Matchers with SharedTe
 
   test("no result for 'Create' of a route that is referenced in network") {
     createRelation(d.routeInWatchedNetwork) should equal(ElementChanges())
-    createRelation(d.routeInIgnoredNetwork) should equal(ElementChanges())
   }
 
   test("no result for 'Modify' of route that is referenced in network") {
     modifyRelation(d.routeInWatchedNetwork) should equal(ElementChanges())
-    modifyRelation(d.routeInIgnoredNetwork) should equal(ElementChanges())
   }
 
   test("no result for 'Delete' of route that is referenced in network") {
     deleteRelation(d.routeInWatchedNetwork) should equal(ElementChanges())
-    deleteRelation(d.routeInIgnoredNetwork) should equal(ElementChanges())
   }
 
   test("'Create' of new orphan route") {
@@ -40,27 +37,22 @@ class OrphanRouteChangeAnalyzerTest extends FunSuite with Matchers with SharedTe
 
   test("'Modify' of existing orphan route relation") {
     modifyRelation(d.watchedOrphanRoute) should equal(ElementChanges(updates = Seq(d.watchedOrphanRoute)))
-    modifyRelation(d.ignoredOrphanRoute) should equal(ElementChanges())
   }
 
   test("'Modify' of existing orphan route way") {
     modifyWay(d.wayInWatchedOrphanRoute) should equal(ElementChanges(updates = Seq(d.watchedOrphanRoute)))
-    modifyWay(d.wayInIgnoredOrphanRoute) should equal(ElementChanges())
   }
 
   test("'Modify' of existing orphan route node") {
     modifyNode(d.nodeInWatchedOrphanRoute) should equal(ElementChanges(updates = Seq(d.watchedOrphanRoute)))
-    modifyNode(d.nodeInIgnoredOrphanRoute) should equal(ElementChanges())
   }
 
   test("'Delete' existing orphan route") {
     deleteRelation(d.watchedOrphanRoute) should equal(ElementChanges(deletes = Seq(d.watchedOrphanRoute)))
-    deleteRelation(d.ignoredOrphanRoute) should equal(ElementChanges(deletes = Seq(d.ignoredOrphanRoute)))
   }
 
   test("'Delete' existing orphan route because relation does not have the route tags anymore") {
     elementChanges(modify(relationWithoutTags(d.watchedOrphanRoute))) should equal(ElementChanges(deletes = Seq(d.watchedOrphanRoute)))
-    elementChanges(modify(relationWithoutTags(d.ignoredOrphanRoute))) should equal(ElementChanges(deletes = Seq(d.ignoredOrphanRoute)))
   }
 
   test("'Delete' of unknown route does not have any effect") {

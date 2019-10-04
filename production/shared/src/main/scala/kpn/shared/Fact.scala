@@ -118,8 +118,6 @@ object Fact {
   val LostBicycleNodeTag: Fact = f.fact(404, "LostBicycleNodeTag", "GeenFietsKnooppuntMeer", FactLevel.OTHER)
   val BecomeOrphan: Fact = f.fact(405, "BecomeOrphan", "WeesGeworden", FactLevel.OTHER)
   val WasOrphan: Fact = f.fact(406, "WasOrphan", "WasWees", FactLevel.OTHER)
-  val BecomeIgnored: Fact = f.fact(407, "BecomeIgnored", "NietMeerInAnalyseOpgenomen", FactLevel.OTHER)
-  val WasIgnored: Fact = f.fact(408, "WasIgnored", "InAnalyseOpgenomen", FactLevel.OTHER)
   val LostRouteTags: Fact = f.fact(409, "LostRouteTags", "GeenRouteMeer", FactLevel.OTHER)
 
   val LostHorseNodeTag: Fact = f.fact(410, "LostHorseNodeTag", "GeenRuiterKnooppuntMeer", FactLevel.OTHER)

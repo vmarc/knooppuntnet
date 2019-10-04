@@ -18,51 +18,11 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
 
     withDatabase { database =>
 
-      val rows = route(database, orphan = true, ignored = false, display = true)
+      val rows = route(database, orphan = true)
 
       rows.map(_._1) should equal(
         Seq(
-          OrphanRouteKey(ignored = false, orphan = true, display = true, "nl", "rwn", 11)
-        )
-      )
-
-      rows.map(_._2.id) should equal(
-        Seq(
-          11
-        )
-      )
-    }
-  }
-
-  test("ignored orphan routes are included in the view") {
-
-    withDatabase { database =>
-
-      val rows = route(database, orphan = true, ignored = true, display = true)
-
-      rows.map(_._1) should equal(
-        Seq(
-          OrphanRouteKey(ignored = true, orphan = true, display = true, "nl", "rwn", 11)
-        )
-      )
-
-      rows.map(_._2.id) should equal(
-        Seq(
-          11
-        )
-      )
-    }
-  }
-
-  test("ignored routes are included in the view") {
-
-    withDatabase { database =>
-
-      val rows = route(database, orphan = false, ignored = true, display = true)
-
-      rows.map(_._1) should equal(
-        Seq(
-          OrphanRouteKey(ignored = true, orphan = false, display = true, "nl", "rwn", 11)
+          OrphanRouteKey(orphan = true, display = true, "nl", "rwn", 11)
         )
       )
 
@@ -76,23 +36,21 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("regular routes are not included in the view") {
     withDatabase { database =>
-      val rows = route(database, orphan = false, ignored = false, display = true)
+      val rows = route(database, orphan = false)
       rows should equal(Seq())
     }
   }
 
   test("inactive orphan routes are not included in the view") {
     withDatabase { database =>
-      val rows = route(database, orphan = true, ignored = false, display = true, active = false)
+      val rows = route(database, orphan = true, active = false)
       rows should equal(Seq())
     }
   }
 
-  private def route(database: Database, orphan: Boolean, ignored: Boolean, display: Boolean, active: Boolean = true): Seq[(OrphanRouteKey, RouteSummary)] = {
+  private def route(database: Database, orphan: Boolean, active: Boolean = true): Seq[(OrphanRouteKey, RouteSummary)] = {
     val routeInfo = newRoute(
       11,
-      display = display,
-      ignored = ignored,
       active = active,
       orphan = orphan,
       country = Some(Country.nl),

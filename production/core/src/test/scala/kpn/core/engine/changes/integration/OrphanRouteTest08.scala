@@ -31,19 +31,14 @@ class OrphanRouteTest08 extends AbstractTest {
 
     val tc = new TestConfig()
 
-    tc.analysisData.orphanRoutes.ignored.add(11, ElementIds())
-
     tc.relationBefore(dataBefore, 11)
     tc.process(ChangeAction.Delete, newRawRelation(11))
-
-    tc.analysisData.orphanRoutes.ignored.contains(11) should equal(false)
 
     (tc.analysisRepository.saveRoute _).verify(
       where { routeInfo: RouteInfo =>
         routeInfo.id should equal(11)
         routeInfo.active should equal(false)
         routeInfo.orphan should equal(true)
-        routeInfo.ignored should equal(true)
         routeInfo.facts should equal(Seq(Fact.IgnoreForeignCountry))
         true
       }

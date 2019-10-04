@@ -12,9 +12,6 @@ import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNetworkAnalyzer
-import kpn.core.engine.changes.ignore.IgnoredNetworkAnalyzerImpl
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzerImpl
 import kpn.core.engine.changes.orphan.node.OrphanNodeCreateProcessorImpl
 import kpn.core.engine.changes.orphan.route.OrphanRouteProcessorImpl
 import kpn.core.load.AnalysisDataLoader
@@ -95,11 +92,9 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val orphanNodeCreateProcessor = {
-    val ignoredNodeAnalyzer = new IgnoredNodeAnalyzerImpl()
     new OrphanNodeCreateProcessorImpl(
       analysisData,
-      analysisRepository,
-      ignoredNodeAnalyzer
+      analysisRepository
     )
   }
 
@@ -125,17 +120,12 @@ class AnalysisDataLoaderConfiguration(
     routeAnalyzer
   )
 
-  private val ignoredNetworkAnalyzer: IgnoredNetworkAnalyzer = new IgnoredNetworkAnalyzerImpl(
-    countryAnalyzer
-  )
-
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
     analysisRepository,
     analysisData,
     networkLoader,
     networkRelationAnalyzer,
     networkAnalyzer,
-    ignoredNetworkAnalyzer,
     blackListRepository
   )
 

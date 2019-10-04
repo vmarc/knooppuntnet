@@ -17,11 +17,11 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
 
     withDatabase { database =>
 
-      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = true, ignored = false)
+      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = true)
 
       rows.map(_._1) should equal(
         Seq(
-          OrphanNodeKey(ignored = false, orphan = true, display = true, "nl", "rwn", 10001)
+          OrphanNodeKey(orphan = true, display = true, "nl", "rwn", 10001)
         )
       )
 
@@ -37,12 +37,12 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
 
     withDatabase { database =>
 
-      val rows = node(database, Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02"), orphan = true, ignored = false)
+      val rows = node(database, Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02"), orphan = true)
 
       rows.map(_._1) should equal(
         Seq(
-          OrphanNodeKey(ignored = false, orphan = true, display = true, "nl", "rcn", 10001),
-          OrphanNodeKey(ignored = false, orphan = true, display = true, "nl", "rwn", 10001)
+          OrphanNodeKey(orphan = true, display = true, "nl", "rcn", 10001),
+          OrphanNodeKey(orphan = true, display = true, "nl", "rwn", 10001)
         )
       )
 
@@ -55,43 +55,23 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
     }
   }
 
-  test("ignored nodes are included in the view") {
-
-    withDatabase { database =>
-
-      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = true, ignored = true)
-
-      rows.map(_._1) should equal(
-        Seq(
-          OrphanNodeKey(ignored = true, orphan = true, display = true, "nl", "rwn", 10001)
-        )
-      )
-
-      rows.map(_._2.id) should equal(
-        Seq(
-          10001
-        )
-      )
-    }
-  }
-
   test("regular nodes are not included in the view") {
     withDatabase { database =>
-      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = false, ignored = false)
+      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = false)
       rows should equal(Seq())
     }
   }
 
   test("inactive orphan nodes are not included in the view") {
     withDatabase { database =>
-      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = true, ignored = false, active = false)
+      val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = true, active = false)
       rows should equal(Seq())
     }
   }
 
-  private def node(database: Database, tags: Tags, orphan: Boolean, ignored: Boolean, active: Boolean = true): Seq[(OrphanNodeKey, NodeInfo)] = {
+  private def node(database: Database, tags: Tags, orphan: Boolean, active: Boolean = true): Seq[(OrphanNodeKey, NodeInfo)] = {
     val b = new TestDocBuilder(database)
-    b.node(10001, Country.nl, tags, orphan = orphan, ignored = ignored, active = active)
+    b.node(10001, Country.nl, tags, orphan = orphan, active = active)
     database.query(AnalyzerDesign, OrphanNodeView, Couch.uiTimeout, stale = false)().map(OrphanNodeView.toKeyAndValue)
   }
 }

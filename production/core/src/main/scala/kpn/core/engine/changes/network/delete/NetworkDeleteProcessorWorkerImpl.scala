@@ -43,7 +43,6 @@ class NetworkDeleteProcessorWorkerImpl(
   private def doProcess(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
 
     analysisData.networks.watched.delete(networkId)
-    analysisData.networks.ignored.delete(networkId)
 
     networkLoader.load(Some(context.timestampBefore), networkId) match {
       case None =>
@@ -66,17 +65,13 @@ class NetworkDeleteProcessorWorkerImpl(
         val nodeAndRouteChanges = changeBuilder.build(context, Some(networkBefore), None)
 
         val newOrphanRoutes = nodeAndRouteChanges.routeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
-        val newIgnoredRoutes = nodeAndRouteChanges.routeChanges.filter(_.facts.contains(Fact.BecomeIgnored)).map(_.toRef)
         val newOrphanNodes = nodeAndRouteChanges.nodeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
-        val newIgnoredNodes = nodeAndRouteChanges.nodeChanges.filter(_.facts.contains(Fact.BecomeIgnored)).map(_.toRef)
 
         val networkChange = NetworkChange(
           key = context.buildChangeKey(networkId),
           changeType = ChangeType.Delete,
           orphanRoutes = RefChanges(newRefs = newOrphanRoutes),
-          ignoredRoutes = RefChanges(newRefs = newIgnoredRoutes),
           orphanNodes = RefChanges(newRefs = newOrphanNodes),
-          ignoredNodes = RefChanges(newRefs = newIgnoredNodes),
           country = networkBefore.country,
           networkType = networkBefore.networkType,
           networkId = networkId,
@@ -119,7 +114,6 @@ class NetworkDeleteProcessorWorkerImpl(
           tagged = networkBefore.tagged
         ),
         active = false, // <--- !!!
-        ignored = false,
         nodeRefs = Seq.empty,
         routeRefs = Seq.empty,
         networkRefs = Seq.empty,

@@ -24,7 +24,6 @@ object NetworkDetailsPageExample {
     NetworkDetailsPage(
       networkSummary(),
       active = false,
-      ignored = true,
       networkAttributes(),
       tags(),
       facts()

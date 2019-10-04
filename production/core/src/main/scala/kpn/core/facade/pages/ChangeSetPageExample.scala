@@ -3,7 +3,6 @@ package kpn.core.facade.pages
 import kpn.shared.Bounds
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetNetwork
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
@@ -439,27 +438,7 @@ object ChangeSetPageExample {
           Ref(routeId4, "02-03")
         )
       ),
-      ignoredRoutes = RefChanges(
-        oldRefs = Seq(
-          Ref(routeId1, "01-02"),
-          Ref(routeId3, "03-04")
-        ),
-        newRefs = Seq(
-          Ref(routeId3, "01-02"),
-          Ref(routeId4, "02-03")
-        )
-      ),
       orphanNodes = RefChanges(
-        oldRefs = Seq(
-          Ref(nodeId1, "01"),
-          Ref(nodeId3, "03")
-        ),
-        newRefs = Seq(
-          Ref(nodeId2, "02"),
-          Ref(nodeId4, "04")
-        )
-      ),
-      ignoredNodes = RefChanges(
         oldRefs = Seq(
           Ref(nodeId1, "01"),
           Ref(nodeId3, "03")
@@ -547,9 +526,7 @@ object ChangeSetPageExample {
         )
       ),
       orphanRoutes = RefChanges(),
-      ignoredRoutes = RefChanges(),
       orphanNodes = RefChanges(),
-      ignoredNodes = RefChanges(),
       networkDataUpdated = true,
       networkNodes = RefDiffs(),
       routes = RefDiffs(),
@@ -584,9 +561,7 @@ object ChangeSetPageExample {
       ),
       after = None,
       orphanRoutes = RefChanges(),
-      ignoredRoutes = RefChanges(),
       orphanNodes = RefChanges(),
-      ignoredNodes = RefChanges(),
       networkDataUpdated = true,
       networkNodes = RefDiffs(),
       routes = RefDiffs(),

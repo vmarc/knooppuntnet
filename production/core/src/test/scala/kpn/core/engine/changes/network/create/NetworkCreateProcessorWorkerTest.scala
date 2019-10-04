@@ -3,12 +3,10 @@ package kpn.core.engine.changes.network.create
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.ChangeSetChanges
-import kpn.core.engine.changes.ignore.IgnoredNetworkAnalyzer
 import kpn.core.load.NetworkLoader
 import kpn.core.load.data.LoadedNetwork
 import kpn.core.test.TestData
 import kpn.core.util.MockLog
-import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.ReplicationId
 import kpn.shared.SharedTestObjects
@@ -26,9 +24,7 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
 
     t.networkCreateProcessor.process(t.context, t.networkId)
 
-    (t.ignoredNetworkAnalyzer.analyze _).verify(*, *).never()
     (t.watchedProcessor.process _).verify(*, *).never()
-    (t.ignoredProcessor.process _).verify(*, *, *).never()
 
     t.log.messages should equal(
       Seq(
@@ -57,15 +53,11 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
       )
     }
 
-    (t.ignoredNetworkAnalyzer.analyze _).when(*, *).returns(Seq())
-
     (t.networkLoader.load _).when(Some(timestampAfterValue), t.networkId).returns(Some(loadedNetwork))
 
     (t.watchedProcessor.process _).when(t.context, loadedNetwork).returns(ChangeSetChanges(networkChanges = Seq(newNetworkChange())))
 
     t.networkCreateProcessor.process(t.context, t.networkId)
-
-    (t.ignoredProcessor.process _).verify(*, *, *).never()
 
     t.log.messages should equal(Seq("DEBUG 1 change(s)"))
   }
@@ -87,12 +79,10 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
       )
     }
 
-    (t.ignoredNetworkAnalyzer.analyze _).when(*, *).returns(Seq(Fact.IgnoreForeignCountry))
     (t.networkLoader.load _).when(*, *).returns(Some(loadedNetwork))
 
     t.networkCreateProcessor.process(t.context, t.networkId)
 
-    (t.ignoredProcessor.process _).verify(t.context, loadedNetwork, Seq(Fact.IgnoreForeignCountry)).once()
     (t.watchedProcessor.process _).verify(*, *).never()
 
     t.log.messages should equal(Seq("DEBUG 0 change(s)"))
@@ -130,9 +120,7 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
     )
 
     val networkLoader: NetworkLoader = stub[NetworkLoader]
-    val ignoredNetworkAnalyzer: IgnoredNetworkAnalyzer = stub[IgnoredNetworkAnalyzer]
     val watchedProcessor: NetworkCreateWatchedProcessor = stub[NetworkCreateWatchedProcessor]
-    val ignoredProcessor: NetworkCreateIgnoredProcessor = stub[NetworkCreateIgnoredProcessor]
     val networkRelationAnalyzer: NetworkRelationAnalyzer = stub[NetworkRelationAnalyzer]
 
     val log = new MockLog()
@@ -140,9 +128,7 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
     val networkCreateProcessor = new NetworkCreateProcessorWorkerImpl(
       networkLoader,
       networkRelationAnalyzer,
-      ignoredNetworkAnalyzer,
       watchedProcessor,
-      ignoredProcessor,
       log
     )
   }

@@ -21,8 +21,6 @@ object NodeInfoBuilder {
   def build(
     id: Long,
     active: Boolean,
-    display: Boolean,
-    ignored: Boolean,
     orphan: Boolean,
     country: Option[Country],
     latitude: String,
@@ -47,8 +45,6 @@ object NodeInfoBuilder {
     NodeInfo(
       id,
       active,
-      display,
-      ignored,
       orphan,
       country,
       name(tags),
@@ -70,16 +66,12 @@ object NodeInfoBuilder {
   def fromLoadedNode(
     loadedNode: LoadedNode,
     active: Boolean = true,
-    display: Boolean = true,
-    ignored: Boolean = false,
     orphan: Boolean = false,
     facts: Seq[Fact] = Seq.empty
   ): NodeInfo = {
     build(
       loadedNode.node.id,
       active,
-      display,
-      ignored,
       orphan,
       loadedNode.country,
       loadedNode.node.latitude,
@@ -99,8 +91,6 @@ object NodeInfoBuilder {
     build(
       node.id,
       active,
-      display = true,
-      ignored = false,
       orphan = false,
       networkNodeInfo.networkNode.country,
       node.latitude,
@@ -115,16 +105,12 @@ object NodeInfoBuilder {
     rawNode: RawNode,
     country: Option[Country],
     active: Boolean = true,
-    display: Boolean = true,
-    ignored: Boolean = false,
     orphan: Boolean = false,
     facts: Seq[Fact] = Seq.empty
   ): NodeInfo = {
     build(
       rawNode.id,
       active,
-      display,
-      ignored,
       orphan,
       country,
       rawNode.latitude,

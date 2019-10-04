@@ -108,8 +108,6 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
     RouteInfo(
       summary = summary,
       active = true,
-      display = true,
-      ignored = false,
       orphan = false,
       version = 1,
       changeSetId = 1,

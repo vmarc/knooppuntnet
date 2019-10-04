@@ -180,8 +180,8 @@ class OverviewTest extends FunSuite with Matchers {
       val b = new TestDocBuilder(database)
 
       b.node(1001, Country.nl, Tags.from("rwn_ref" -> "01"), orphan = true)
-      b.node(1002, Country.nl, Tags.from("rwn_ref" -> "02"), orphan = true, ignored = true)
-      b.node(1003, Country.nl, Tags.from("rwn_ref" -> "03"), orphan = true, ignored = true)
+      b.node(1002, Country.nl, Tags.from("rwn_ref" -> "02"), orphan = true)
+      b.node(1003, Country.nl, Tags.from("rwn_ref" -> "03"), orphan = true)
 
       queryRows(database) should equal(
         Seq(

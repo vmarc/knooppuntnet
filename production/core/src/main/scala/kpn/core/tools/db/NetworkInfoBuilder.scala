@@ -111,7 +111,6 @@ class NetworkInfoBuilder {
     NetworkInfo(
       attributes,
       active = true,
-      ignored = false,
       nodeRefs = nodes.map(_.id),
       routeRefs = routes.map(_.id),
       networkRefs = Seq.empty, // TODO include networks during network analysis!

@@ -46,15 +46,4 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
     IntegrityCheckPage(country, networkType, facts)
   }
 
-  override def networkCollections(): Seq[Long] = {
-    val rows = database.query(AnalyzerDesign, FactView, Couch.batchTimeout)().map(FactView.convert)
-    rows.flatMap { row =>
-      if (row.fact == Fact.IgnoreNetworkCollection.name) {
-        Some(row.networkId)
-      }
-      else {
-        None
-      }
-    }
-  }
 }

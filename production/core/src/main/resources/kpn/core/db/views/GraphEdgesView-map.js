@@ -23,7 +23,7 @@ var emitPaths = function (networkType, routeId, pathType, paths) {
   }
 };
 
-if (doc && doc.route && doc.route.analysis && doc.route.active === true && doc.route.ignored === false) {
+if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
 
   var networkType = doc.route.summary.networkType;
   var routeId = doc.route.summary.id;

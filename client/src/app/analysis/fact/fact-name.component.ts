@@ -5,13 +5,8 @@ import {Component, Input} from "@angular/core";
   template: `
     <ng-container [ngSwitch]="factName">
       <ng-container i18n="@@fact.name.added" *ngSwitchCase="'Added'">Added</ng-container>
-      <ng-container i18n="@@fact.name.become-ignored" *ngSwitchCase="'BecomeIgnored'">BecomeIgnored</ng-container>
       <ng-container i18n="@@fact.name.become-orphan" *ngSwitchCase="'BecomeOrphan'">BecomeOrphan</ng-container>
       <ng-container i18n="@@fact.name.deleted" *ngSwitchCase="'Deleted'">Deleted</ng-container>
-      <ng-container i18n="@@fact.name.ignore-foreign-country" *ngSwitchCase="'IgnoreForeignCountry'">IgnoreForeignCountry</ng-container>
-      <ng-container i18n="@@fact.name.ignore-network-collection" *ngSwitchCase="'IgnoreNetworkCollection'">IgnoreNetworkCollection</ng-container>
-      <ng-container i18n="@@fact.name.ignore-no-network-nodes" *ngSwitchCase="'IgnoreNoNetworkNodes'">IgnoreNoNetworkNodes</ng-container>
-      <ng-container i18n="@@fact.name.ignore-unsupported-subset" *ngSwitchCase="'IgnoreUnsupportedSubset'">IgnoreUnsupportedSubset</ng-container>
       <ng-container i18n="@@fact.name.integrity-check" *ngSwitchCase="'IntegrityCheck'">IntegrityCheck</ng-container>
       <ng-container i18n="@@fact.name.integrity-check-failed" *ngSwitchCase="'IntegrityCheckFailed'">IntegrityCheckFailed</ng-container>
       <ng-container i18n="@@fact.name.lost-bicycle-node-tag" *ngSwitchCase="'LostBicycleNodeTag'">LostBicycleNodeTag</ng-container>
@@ -51,7 +46,6 @@ import {Component, Input} from "@angular/core";
       <ng-container i18n="@@fact.name.route-unexpected-relation" *ngSwitchCase="'RouteUnexpectedRelation'">RouteUnexpectedRelation</ng-container>
       <ng-container i18n="@@fact.name.route-unused-segments" *ngSwitchCase="'RouteUnusedSegments'">RouteUnusedSegments</ng-container>
       <ng-container i18n="@@fact.name.route-without-ways" *ngSwitchCase="'RouteWithoutWays'">RouteWithoutWays</ng-container>
-      <ng-container i18n="@@fact.name.was-ignored" *ngSwitchCase="'WasIgnored'">WasIgnored</ng-container>
       <ng-container i18n="@@fact.name.was-orphan" *ngSwitchCase="'WasOrphan'">WasOrphan</ng-container>
       <ng-container i18n="@@fact.name.node-network-type-not-tagged" *ngSwitchCase="'NodeNetworkTypeNotTagged'">NodeNetworkTypeNotTagged</ng-container>
       <ng-container i18n="@@fact.name.route-network-type-not-tagged" *ngSwitchCase="'RouteNetworkTypeNotTagged'">RouteNetworkTypeNotTagged</ng-container>

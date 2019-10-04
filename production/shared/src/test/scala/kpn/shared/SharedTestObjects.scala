@@ -124,15 +124,15 @@ trait SharedTestObjects {
   }
 
   def newNetworkTags(name: String = "name"): Tags = {
-    Tags.from("network" -> "rwn", "type" -> "network", "name" -> name)
+    Tags.from("network" -> "rwn", "type" -> "network", "name" -> name, "network:type" -> "node_network")
   }
 
   def newRouteTags(name: String = ""): Tags = {
-    Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> name)
+    Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> name, "network:type" -> "node_network")
   }
 
   def newNodeTags(name: String = ""): Tags = {
-    Tags.from("rwn_ref" -> name)
+    Tags.from("rwn_ref" -> name, "network:type" -> "node_network")
   }
 
   def newChangeKey(
@@ -246,8 +246,6 @@ trait SharedTestObjects {
   def newNodeInfo(
     id: Long,
     active: Boolean = true,
-    display: Boolean = true,
-    ignored: Boolean = false,
     orphan: Boolean = false,
     country: Option[Country] = None,
     latitude: String = "0",
@@ -260,8 +258,6 @@ trait SharedTestObjects {
     NodeInfo(
       id,
       active,
-      display,
-      ignored,
       orphan,
       country,
       name(tags),
@@ -283,8 +279,6 @@ trait SharedTestObjects {
   def newRoute(
     id: Long = 0,
     active: Boolean = true,
-    display: Boolean = true,
-    ignored: Boolean = false,
     orphan: Boolean = false,
     country: Option[Country] = None,
     networkType: NetworkType = NetworkType.hiking,
@@ -314,8 +308,6 @@ trait SharedTestObjects {
     RouteInfo(
       summary,
       active,
-      display,
-      ignored,
       orphan,
       version = 0,
       changeSetId = 0,
@@ -363,7 +355,6 @@ trait SharedTestObjects {
     NetworkInfo(
       attributes,
       active = active,
-      ignored = false,
       Seq(),
       Seq(),
       Seq(),
@@ -638,9 +629,7 @@ trait SharedTestObjects {
     networkId: Long = 0,
     networkName: String = "",
     orphanRoutes: RefChanges = RefChanges.empty,
-    ignoredRoutes: RefChanges = RefChanges.empty,
     orphanNodes: RefChanges = RefChanges.empty,
-    ignoredNodes: RefChanges = RefChanges.empty,
     networkDataUpdate: Option[NetworkDataUpdate] = None,
     networkNodes: RefDiffs = RefDiffs.empty,
     routes: RefDiffs = RefDiffs.empty,
@@ -658,9 +647,7 @@ trait SharedTestObjects {
       networkId,
       networkName,
       orphanRoutes,
-      ignoredRoutes,
       orphanNodes,
-      ignoredNodes,
       networkDataUpdate,
       networkNodes,
       routes,
@@ -747,7 +734,6 @@ trait SharedTestObjects {
   def newNetworkInfo(
     attributes: NetworkAttributes,
     active: Boolean = true,
-    ignored: Boolean = false,
     nodeRefs: Seq[Long] = Seq.empty,
     routeRefs: Seq[Long] = Seq.empty,
     networkRefs: Seq[Long] = Seq.empty,
@@ -758,7 +744,6 @@ trait SharedTestObjects {
     NetworkInfo(
       attributes,
       active,
-      ignored,
       nodeRefs,
       routeRefs,
       networkRefs,
@@ -771,8 +756,6 @@ trait SharedTestObjects {
   def newRouteInfo(
     summary: RouteSummary,
     active: Boolean = true,
-    display: Boolean = true,
-    ignored: Boolean = false,
     orphan: Boolean = false,
     version: Int = 1,
     changeSetId: Long = 1,
@@ -784,8 +767,6 @@ trait SharedTestObjects {
     RouteInfo(
       summary,
       active,
-      display,
-      ignored,
       orphan,
       version,
       changeSetId,

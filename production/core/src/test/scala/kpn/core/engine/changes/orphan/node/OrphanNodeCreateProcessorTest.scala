@@ -1,7 +1,6 @@
 package kpn.core.engine.changes.orphan.node
 
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
 import kpn.core.load.data.LoadedNode
 import kpn.core.repository.AnalysisRepository
 import kpn.core.test.TestData
@@ -19,15 +18,12 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
 
     val d = new NewOrphanNodeSetup
 
-    (d.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
-
     d.processor.process(None, d.loadedNode)
 
     (d.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
         nodeInfo.id should equal(d.loadedNode.id)
         nodeInfo.orphan should equal(true)
-        nodeInfo.ignored should equal(false)
         nodeInfo.name should equal(d.loadedNode.name)
         nodeInfo.facts should equal(Seq())
         true
@@ -39,51 +35,12 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
 
     val d = new NewOrphanNodeSetup
 
-    (d.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
-
     d.processor.process(None, d.loadedNode)
 
     d.analysisData.orphanNodes.watched.contains(d.loadedNode.id) should equal(true)
-    d.analysisData.orphanNodes.ignored.contains(d.loadedNode.id) should equal(false)
-  }
-
-  test("new ignored orphan node is saved to database") {
-
-    val d = new NewIgnoredNodeSetup
-
-    (d.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq(Fact.IgnoreForeignCountry))
-
-    d.processor.process(None, d.loadedNode)
-
-    (d.analysisRepository.saveNode _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo.id should equal(d.loadedNode.id)
-        nodeInfo.orphan should equal(true)
-        nodeInfo.ignored should equal(true)
-        nodeInfo.name should equal(d.loadedNode.name)
-        nodeInfo.facts should equal(Seq(Fact.IgnoreForeignCountry))
-        true
-      }
-    )
-  }
-
-  test("new ignored orphan node is added to 'ignored' and removed from 'watched'") {
-
-    val d = new NewIgnoredNodeSetup
-
-    (d.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq(Fact.IgnoreForeignCountry))
-
-    d.processor.process(None, d.loadedNode)
-
-    d.analysisData.orphanNodes.ignored.contains(d.loadedNode.id) should equal(true)
-    d.analysisData.orphanNodes.watched.contains(d.loadedNode.id) should equal(false)
   }
 
   private class NewOrphanNodeSetup extends Setup {
-    analysisData.orphanNodes.ignored.add(loadedNode.id)
-  }
-
-  private class NewIgnoredNodeSetup extends Setup {
     analysisData.orphanNodes.watched.add(loadedNode.id)
   }
 
@@ -102,12 +59,10 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
 
     val analysisData: AnalysisData = AnalysisData()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
-    val ignoredNodeAnalyzer: IgnoredNodeAnalyzer = stub[IgnoredNodeAnalyzer]
 
     val processor: OrphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
       analysisData,
-      analysisRepository,
-      ignoredNodeAnalyzer
+      analysisRepository
     )
   }
 

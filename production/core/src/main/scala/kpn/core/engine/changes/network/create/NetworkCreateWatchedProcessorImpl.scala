@@ -55,10 +55,7 @@ class NetworkCreateWatchedProcessorImpl(
     val nodeAndRouteChanges = changeBuilder.build(context, None, Some(networkAfter))
 
     val oldOrphanRoutes = routesWithFact(nodeAndRouteChanges.routeChanges, Fact.WasOrphan)
-    val oldIgnoredRoutes = routesWithFact(nodeAndRouteChanges.routeChanges, Fact.WasIgnored)
-
     val oldOrphanNodes = nodesWithFact(nodeAndRouteChanges.nodeChanges, Fact.WasOrphan)
-    val oldIgnoredNodes = nodesWithFact(nodeAndRouteChanges.nodeChanges, Fact.WasIgnored)
 
     val networkChange = NetworkChange(
       key = context.buildChangeKey(networkAfter.id),
@@ -68,9 +65,7 @@ class NetworkCreateWatchedProcessorImpl(
       networkAfter.id,
       networkAfter.name,
       RefChanges(oldRefs = oldOrphanRoutes),
-      RefChanges(oldRefs = oldIgnoredRoutes),
       RefChanges(oldRefs = oldOrphanNodes),
-      RefChanges(oldRefs = oldIgnoredNodes),
       networkDataUpdate = None,
       RefDiffs(added = addedNetworkNodes.map(_.toRef)),
       RefDiffs(added = addedRoutes.map(_.toRef)),

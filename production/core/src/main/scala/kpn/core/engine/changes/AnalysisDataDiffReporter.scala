@@ -1,7 +1,6 @@
 package kpn.core.engine.changes
 
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.data.AnalysisDataNetworkCollections
 import kpn.core.engine.changes.data.AnalysisDataDetail
 import kpn.core.engine.changes.data.AnalysisDataOrphanNodes
 import kpn.core.engine.changes.data.OrphanNodesData
@@ -11,8 +10,7 @@ class AnalysisDataDiffReporter {
   def report(left: AnalysisData, right: AnalysisData): Seq[String] = {
     val differences = diff("Network", left.networks, right.networks) ++
       diff("Route", left.orphanRoutes, right.orphanRoutes) ++
-      orphanNodeDiff(left.orphanNodes, right.orphanNodes) ++
-      networkCollectionsDiff(left.networkCollections, right.networkCollections)
+      orphanNodeDiff(left.orphanNodes, right.orphanNodes)
 
     if (differences.isEmpty) {
       Seq("No differences")
@@ -23,10 +21,7 @@ class AnalysisDataDiffReporter {
   }
 
   private def diff(title: String, left: AnalysisDataDetail, right: AnalysisDataDetail): Seq[String] = {
-
-    val differences = dataDiff("watched", left.watched, right.watched) ++
-      dataDiff("ignored", left.ignored, right.ignored)
-
+    val differences = dataDiff("watched", left.watched, right.watched)
     if (differences.nonEmpty) {
       Seq(s"$title differences:") ++ differences
     } else {
@@ -95,9 +90,7 @@ class AnalysisDataDiffReporter {
   }
 
   private def orphanNodeDiff(left: AnalysisDataOrphanNodes, right: AnalysisDataOrphanNodes): Seq[String] = {
-
-    val differences = orphanNodeDiff("watched", left.watched, right.watched) ++ orphanNodeDiff("ignored", left.ignored, right.ignored)
-
+    val differences = orphanNodeDiff("watched", left.watched, right.watched)
     if (differences.nonEmpty) {
       Seq("Orphan node differences:") ++ differences
     }
@@ -107,12 +100,10 @@ class AnalysisDataDiffReporter {
   }
 
   private def orphanNodeDiff(title: String, left: OrphanNodesData, right: OrphanNodesData): Seq[String] = {
-
     if (left.ids.isEmpty && right.ids.isEmpty) {
       Seq()
     }
     else {
-
       val leftIds = left.ids.toSet
       val rightIds = right.ids.toSet
       val leftOnlyKeys = leftIds -- rightIds
@@ -126,25 +117,6 @@ class AnalysisDataDiffReporter {
         Seq("  " + title + ":"),
         leftOnly,
         rightOnly
-      ).flatten
-    }
-  }
-
-  private def networkCollectionsDiff(left: AnalysisDataNetworkCollections, right: AnalysisDataNetworkCollections): Seq[String] = {
-
-    val leftIds = left.ids.toSet
-    val rightIds = right.ids.toSet
-    val leftOnly = leftIds -- rightIds
-    val rightOnly = rightIds -- leftIds
-
-    if (leftOnly.isEmpty && rightOnly.isEmpty) {
-      Seq()
-    }
-    else {
-      Seq(
-        Seq("Network collection differences:"),
-        idList("  leftOnly", leftOnly),
-        idList("  rightOnly", rightOnly)
       ).flatten
     }
   }

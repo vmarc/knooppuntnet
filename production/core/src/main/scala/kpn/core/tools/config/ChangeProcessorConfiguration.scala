@@ -17,18 +17,14 @@ import kpn.core.engine.changes.builder.NodeChangeBuilderImpl
 import kpn.core.engine.changes.builder.RouteChangeBuilder
 import kpn.core.engine.changes.builder.RouteChangeBuilderImpl
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNetworkAnalyzerImpl
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzerImpl
 import kpn.core.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.core.engine.changes.network.NetworkChangeProcessorImpl
-import kpn.core.engine.changes.network.create.NetworkCreateIgnoredProcessorImpl
 import kpn.core.engine.changes.network.create.NetworkCreateProcessor
 import kpn.core.engine.changes.network.create.NetworkCreateProcessorImpl
 import kpn.core.engine.changes.network.create.NetworkCreateProcessorWorkerImpl
 import kpn.core.engine.changes.network.create.NetworkCreateWatchedProcessorImpl
 import kpn.core.engine.changes.network.delete.NetworkDeleteProcessorImpl
 import kpn.core.engine.changes.network.delete.NetworkDeleteProcessorWorkerImpl
-import kpn.core.engine.changes.network.update.NetworkUpdateCollectionProcessorImpl
 import kpn.core.engine.changes.network.update.NetworkUpdateNetworkProcessorImpl
 import kpn.core.engine.changes.network.update.NetworkUpdateProcessor
 import kpn.core.engine.changes.network.update.NetworkUpdateProcessorImpl
@@ -73,17 +69,13 @@ class ChangeProcessorConfiguration(
   private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
   private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
   private val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
-  private val ignoredNetworkAnalyzer = new IgnoredNetworkAnalyzerImpl(countryAnalyzer)
-
-  private val ignoredNodeAnalyzer = new IgnoredNodeAnalyzerImpl()
 
   private val routeLoader = new RouteLoaderImpl(cachingExecutor, countryAnalyzer)
 
   val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
     analysisData,
     analysisRepository,
-    nodeLoader,
-    ignoredNodeAnalyzer
+    nodeLoader
   )
 
   val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
@@ -125,18 +117,10 @@ class ChangeProcessorConfiguration(
         changeBuilder
       )
 
-      val ignoredProcessor = new NetworkCreateIgnoredProcessorImpl(
-        analysisData,
-        analysisRepository,
-        networkRelationAnalyzer
-      )
-
       val worker = new NetworkCreateProcessorWorkerImpl(
         networkLoader,
         networkRelationAnalyzer,
-        ignoredNetworkAnalyzer,
-        watchedProcessor,
-        ignoredProcessor
+        watchedProcessor
       )
 
       new NetworkCreateProcessorImpl(
@@ -155,18 +139,12 @@ class ChangeProcessorConfiguration(
         changeBuilder
       )
 
-      val networkUpdateCollectionProcessor = new NetworkUpdateCollectionProcessorImpl(
-        analysisData
-      )
-
       val worker = new NetworkUpdateProcessorWorkerImpl(
         analysisData,
         analysisRepository,
         networkLoader,
         networkRelationAnalyzer,
-        ignoredNetworkAnalyzer,
-        networkUpdateNetworkProcessor,
-        networkUpdateCollectionProcessor
+        networkUpdateNetworkProcessor
       )
 
       new NetworkUpdateProcessorImpl(
@@ -237,20 +215,17 @@ class ChangeProcessorConfiguration(
     val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
       analysisData,
       analysisRepository,
-      ignoredNodeAnalyzer,
       countryAnalyzer
     )
 
     val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
       analysisData,
-      analysisRepository,
-      ignoredNodeAnalyzer
+      analysisRepository
     )
 
     val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
       analysisData,
-      analysisRepository,
-      ignoredNodeAnalyzer
+      analysisRepository
     )
 
     new OrphanNodeChangeProcessorImpl(

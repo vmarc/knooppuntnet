@@ -19,9 +19,7 @@ case class NetworkChange(
   networkId: Long,
   networkName: String,
   orphanRoutes: RefChanges,
-  ignoredRoutes: RefChanges,
   orphanNodes: RefChanges,
-  ignoredNodes: RefChanges,
   networkDataUpdate: Option[NetworkDataUpdate],
   networkNodes: RefDiffs,
   routes: RefDiffs,
@@ -36,17 +34,13 @@ case class NetworkChange(
 
     val nodeIds: Set[Long] = (
       orphanNodes.oldRefs.map(_.id) ++
-        ignoredNodes.oldRefs.map(_.id) ++
         orphanNodes.newRefs.map(_.id) ++
-        ignoredNodes.newRefs.map(_.id) ++
         networkNodes.ids
       ).toSet
 
     val routeIds: Set[Long] = (
       orphanRoutes.oldRefs.map(_.id) ++
-        ignoredRoutes.oldRefs.map(_.id) ++
         orphanRoutes.newRefs.map(_.id) ++
-        ignoredRoutes.newRefs.map(_.id) ++
         routes.ids
       ).toSet
 
@@ -57,9 +51,7 @@ case class NetworkChange(
     field("key", key).
     field("changeType", changeType).
     field("orphanRoutes", orphanRoutes).
-    field("ignoredRoutes", ignoredRoutes).
     field("orphanNodes", orphanNodes).
-    field("ignoredNodes", ignoredNodes).
     field("country", country).
     field("networkType", networkType).
     field("networkId", networkId).

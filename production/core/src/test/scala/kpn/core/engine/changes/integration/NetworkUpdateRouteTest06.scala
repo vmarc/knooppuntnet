@@ -71,7 +71,6 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
       .data
 
     val tc = new TestConfig()
-    tc.ignoreOrphanRoute(dataBefore, 11)
     tc.relationBefore(dataBefore, 11)
     tc.watchNetwork(dataBefore, 1)
     tc.relationBefore(dataBefore, 1)
@@ -80,7 +79,6 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
     // before:
     tc.analysisData.networks.watched.isReferencingRelation(11) should equal(false)
     tc.analysisData.orphanRoutes.watched.contains(11) should equal(false)
-    tc.analysisData.orphanRoutes.ignored.contains(11) should equal(true)
 
     // act:
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
@@ -88,7 +86,6 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
     // after:
     tc.analysisData.networks.watched.isReferencingRelation(11) should equal(true)
     tc.analysisData.orphanRoutes.watched.contains(11) should equal(false)
-    tc.analysisData.orphanRoutes.ignored.contains(11) should equal(false)
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
     (tc.analysisRepository.saveRoute _).verify(*).never() // route saved via saveNetwork
@@ -139,9 +136,6 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
             NetworkType.hiking,
             1,
             "name",
-            ignoredRoutes = RefChanges(
-              oldRefs = Seq(Ref(11, "01-02"))
-            ),
             networkDataUpdate = Some(
               NetworkDataUpdate(
                 NetworkData(
@@ -255,7 +249,7 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
                 )
               )
             ),
-            facts = Seq(Fact.WasIgnored),
+            facts = Seq(),
             happy = true
           )
         )

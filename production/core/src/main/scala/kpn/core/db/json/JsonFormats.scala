@@ -22,7 +22,6 @@ import kpn.core.engine.analysis.location.LocationTree
 import kpn.core.engine.changes.ElementIdMap
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.AnalysisDataDetail
-import kpn.core.engine.changes.data.AnalysisDataNetworkCollections
 import kpn.core.engine.changes.data.AnalysisDataOrphanNodes
 import kpn.core.engine.changes.data.BlackList
 import kpn.core.engine.changes.data.BlackListEntry
@@ -255,12 +254,12 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeInfoAnalysisFormat: RootJsonFormat[RouteInfoAnalysis] = jsonFormat10(RouteInfoAnalysis)
 
   implicit val routeSummaryFormat: RootJsonFormat[RouteSummary] = jsonFormat10(RouteSummary)
-  implicit val routeInfoFormat: RootJsonFormat[RouteInfo] = jsonFormat11(RouteInfo)
+  implicit val routeInfoFormat: RootJsonFormat[RouteInfo] = jsonFormat9(RouteInfo)
 
   implicit val routeDocFormat: RootJsonFormat[RouteDoc] = jsonFormat3(RouteDoc)
 
   implicit val nodeIntegrityCheckFormat: RootJsonFormat[NodeIntegrityCheck] = jsonFormat5(NodeIntegrityCheck)
-  implicit val nodeInfoFormat: RootJsonFormat[NodeInfo] = jsonFormat19(NodeInfo)
+  implicit val nodeInfoFormat: RootJsonFormat[NodeInfo] = jsonFormat17(NodeInfo)
   implicit val nodeDocFormat: RootJsonFormat[NodeDoc] = jsonFormat3(NodeDoc)
 
   implicit val integrityFormat: RootJsonFormat[Integrity] = jsonFormat8(Integrity)
@@ -282,7 +281,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val networkShapeFormat: RootJsonFormat[NetworkShape] = jsonFormat2(NetworkShape)
 
   implicit val networkInfoDetailFormat: RootJsonFormat[NetworkInfoDetail] = jsonFormat4(NetworkInfoDetail)
-  implicit val networkInfoFormat: RootJsonFormat[NetworkInfo] = jsonFormat9(NetworkInfo)
+  implicit val networkInfoFormat: RootJsonFormat[NetworkInfo] = jsonFormat8(NetworkInfo)
 
   implicit val networkDocFormat: RootJsonFormat[NetworkDoc] = jsonFormat3(NetworkDoc)
 
@@ -385,7 +384,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val refDiffsFormat: RootJsonFormat[RefDiffs] = jsonFormat3(RefDiffs.apply)
   implicit val changeTypeFormat: RootJsonFormat[ChangeType] = jsonFormat1(ChangeType.apply)
-  implicit val networkChangeFormat: RootJsonFormat[NetworkChange] = jsonFormat18(NetworkChange)
+  implicit val networkChangeFormat: RootJsonFormat[NetworkChange] = jsonFormat16(NetworkChange)
 
   // implicit val routeChangeFormat: RootJsonFormat[RouteChange] = jsonFormat14(RouteChange)
   // temporary format that can be removed after all RouteChange instances in the database include 'happy' and 'investigate'
@@ -499,11 +498,10 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val elementIdsFormat: RootJsonFormat[ElementIds] = jsonFormat3(ElementIds)
   implicit val elementIdMapFormat = ElementIdMap.ElementIdMapFormat
-  implicit val analysisDataDetailFormat: RootJsonFormat[AnalysisDataDetail] = jsonFormat2(AnalysisDataDetail)
+  implicit val analysisDataDetailFormat: RootJsonFormat[AnalysisDataDetail] = jsonFormat1(AnalysisDataDetail)
   implicit val orphanNodesDataFormat = OrphanNodesData.OrphanNodesDataFormat
-  implicit val analysisDataOrphanNodesFormat: RootJsonFormat[AnalysisDataOrphanNodes] = jsonFormat2(AnalysisDataOrphanNodes)
-  implicit val analysisDataNetworkCollectionsFormat = AnalysisDataNetworkCollections.AnalysisDataNetworkCollectionsFormat
-  implicit val analysisDataFormat: RootJsonFormat[AnalysisData] = jsonFormat4(AnalysisData.apply)
+  implicit val analysisDataOrphanNodesFormat: RootJsonFormat[AnalysisDataOrphanNodes] = jsonFormat1(AnalysisDataOrphanNodes)
+  implicit val analysisDataFormat: RootJsonFormat[AnalysisData] = jsonFormat3(AnalysisData.apply)
 
   implicit val blackListEntryFormat: RootJsonFormat[BlackListEntry] = jsonFormat3(BlackListEntry)
   implicit val blackListFormat: RootJsonFormat[BlackList] = jsonFormat3(BlackList)
@@ -530,7 +528,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val wayInfoFormat: RootJsonFormat[WayInfo] = jsonFormat5(WayInfo)
   implicit val networkNodeDataFormat: RootJsonFormat[NetworkNodeData] = jsonFormat3(NetworkNodeData)
   implicit val networkNodeUpdateFormat: RootJsonFormat[NetworkNodeUpdate] = jsonFormat3(NetworkNodeUpdate)
-  implicit val networkChangeInfoFormat: RootJsonFormat[NetworkChangeInfo] = jsonFormat21(NetworkChangeInfo)
+  implicit val networkChangeInfoFormat: RootJsonFormat[NetworkChangeInfo] = jsonFormat19(NetworkChangeInfo)
 
   implicit val factLevelFormat: RootJsonFormat[FactLevel] = jsonFormat1(FactLevel.apply)
 
@@ -568,7 +566,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val networkRouteRowFormat: RootJsonFormat[NetworkRouteRow] = jsonFormat9(NetworkRouteRow)
   implicit val networkRoutesPageFormat: RootJsonFormat[NetworkRoutesPage] = jsonFormat4(NetworkRoutesPage)
   implicit val networkNodesPageFormat: RootJsonFormat[NetworkNodesPage] = jsonFormat5(NetworkNodesPage)
-  implicit val networkDetailsPageFormat: RootJsonFormat[NetworkDetailsPage] = jsonFormat6(NetworkDetailsPage)
+  implicit val networkDetailsPageFormat: RootJsonFormat[NetworkDetailsPage] = jsonFormat5(NetworkDetailsPage)
   implicit val networkMapPageFormat: RootJsonFormat[NetworkMapPage] = jsonFormat4(NetworkMapPage)
   implicit val checkFormat: RootJsonFormat[Check] = jsonFormat4(Check)
   implicit val networkFactFormat: RootJsonFormat[NetworkFact] = jsonFormat5(NetworkFact)

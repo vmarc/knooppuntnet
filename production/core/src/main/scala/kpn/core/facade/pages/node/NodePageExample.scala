@@ -68,8 +68,6 @@ object NodePageExample {
     NodeInfo(
       id = 1,
       active = false,
-      ignored = true,
-      display = true,
       orphan = true,
       country = Some(Country.nl),
       name = "01 / 02",
@@ -290,8 +288,7 @@ object NodePageExample {
           remaining = Set(Fact.IntegrityCheck)
         ),
         facts = Seq(
-          Fact.WasOrphan,
-          Fact.WasIgnored
+          Fact.WasOrphan
         ),
         happy = true,
         investigate = true

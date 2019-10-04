@@ -7,8 +7,6 @@ import kpn.shared.data.Tags
 case class NodeInfo(
   id: Long,
   active: Boolean,
-  display: Boolean,
-  ignored: Boolean,
   orphan: Boolean,
   country: Option[Country],
   name: String,
@@ -39,8 +37,6 @@ case class NodeInfo(
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("id", id).
     field("active", active).
-    field("display", display).
-    field("ignored", ignored).
     field("orphan", orphan).
     field("country", country).
     field("name", name).

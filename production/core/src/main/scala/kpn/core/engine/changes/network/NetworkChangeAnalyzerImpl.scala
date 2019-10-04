@@ -56,9 +56,7 @@ class NetworkChangeAnalyzerImpl(
   private def findNetworkRelationChanges(changeSet: ChangeSet, action: Int): Set[Long] = {
     changeSet.relations(action).
       filter(isNetworkRelation).
-      filterNot(isNetworkCollection).
       filterNot(isBlackListed).
-      filterNot(isIgnoredNetwork).
       map(_.id).
       toSet
   }
@@ -76,15 +74,8 @@ class NetworkChangeAnalyzerImpl(
       new Interpreter(NetworkType.inlineSkates).isNetworkRelation(relation)
   }
 
-  private def isNetworkCollection(relation: RawRelation): Boolean = {
-    analysisData.networkCollections.contains(relation.id)
-  }
-
   private def isBlackListed(relation: RawRelation): Boolean = {
     blackListRepository.get.containsNetwork(relation.id)
   }
 
-  private def isIgnoredNetwork(relation: RawRelation): Boolean = {
-    analysisData.networks.ignored.contains(relation.id)
-  }
 }

@@ -265,8 +265,6 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
       "network" + networkId,
       RefChanges(),
       RefChanges(),
-      RefChanges(),
-      RefChanges(),
       None,
       RefDiffs.empty,
       RefDiffs.empty,

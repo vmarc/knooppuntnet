@@ -13,12 +13,10 @@ class NetworkDelete_Test02 extends AbstractTest {
     tc.relationBefore(data, 1)
 
     tc.analysisData.networks.watched.add(1, ElementIds())
-    tc.analysisData.networks.ignored.add(1, ElementIds())
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
     tc.analysisData.networks.watched.contains(1) should equal(false)
-    tc.analysisData.networks.ignored.contains(1) should equal(false)
 
     (tc.networkRepository.save _).verify(*).never()
     (tc.changeSetRepository.saveChangeSetSummary _).verify(*).never()

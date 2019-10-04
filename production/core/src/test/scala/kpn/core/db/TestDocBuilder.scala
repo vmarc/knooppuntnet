@@ -92,7 +92,6 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     val networkInfo = NetworkInfo(
       attributes,
       active,
-      ignored,
       Seq(),
       Seq(),
       Seq(),
@@ -110,7 +109,6 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     tags: Tags = Tags.empty,
     active: Boolean = true,
     orphan: Boolean = false,
-    ignored: Boolean = false,
     facts: Seq[Fact] = Seq.empty
   ): Unit = {
     nodeRepository.save(
@@ -120,7 +118,6 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
         tags = tags,
         active = active,
         orphan = orphan,
-        ignored = ignored,
         facts = facts
       )
     )
@@ -143,7 +140,6 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
         name = name,
         active = active,
         orphan = orphan,
-        ignored = ignored,
         facts = facts
       )
     )

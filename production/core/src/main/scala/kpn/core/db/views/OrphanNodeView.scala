@@ -15,13 +15,13 @@ object OrphanNodeView extends View {
     println(OrphanNodeView.map)
   }
 
-  case class OrphanNodeKey(ignored: Boolean, orphan: Boolean, display: Boolean, country: String, networkType: String, id: Long)
+  case class OrphanNodeKey(orphan: Boolean, display: Boolean, country: String, networkType: String, id: Long)
 
   def toKeyAndValue(rowValue: JsValue): (OrphanNodeKey, NodeInfo) = {
     val row = toRow(rowValue)
     val key = row.key match {
-      case JsArray(Vector(JsBoolean(ignored), JsBoolean(orphan), JsBoolean(display), JsString(country), JsString(networkType), JsNumber(id))) =>
-        OrphanNodeKey(ignored, orphan, display, country, networkType, id.toLong)
+      case JsArray(Vector(JsBoolean(orphan), JsBoolean(display), JsString(country), JsString(networkType), JsNumber(id))) =>
+        OrphanNodeKey(orphan, display, country, networkType, id.toLong)
       case _ =>
         throw DeserializationException("key structure expected")
     }

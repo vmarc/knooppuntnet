@@ -3,7 +3,6 @@ package kpn.core.engine.changes.orphan.node
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
 import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
@@ -18,7 +17,6 @@ import kpn.shared.diff.common.FactDiffs
 class OrphanNodeDeleteProcessorImpl(
   analysisData: AnalysisData,
   analysisRepository: AnalysisRepository,
-  ignoredNodeAnalyzer: IgnoredNodeAnalyzer,
   countryAnalyzer: CountryAnalyzer
 ) extends OrphanNodeDeleteProcessor {
 
@@ -27,48 +25,39 @@ class OrphanNodeDeleteProcessorImpl(
   override def process(context: ChangeSetContext, loadedNodeDelete: LoadedNodeDelete): Option[NodeChange] = {
 
     analysisData.orphanNodes.watched.delete(loadedNodeDelete.id)
-    analysisData.orphanNodes.ignored.delete(loadedNodeDelete.id)
 
     loadedNodeDelete.loadedNode match {
       case Some(loadedNode) =>
 
-        val ignoreFacts = ignoredNodeAnalyzer.analyze(loadedNode)
-
-        val nodeInfo = fromLoadedNode(loadedNode, active = false, ignored = ignoreFacts.nonEmpty, orphan = true, facts = Seq(Fact.Deleted) ++ ignoreFacts)
+        val nodeInfo = fromLoadedNode(loadedNode, active = false, orphan = true, facts = Seq(Fact.Deleted))
         analysisRepository.saveNode(nodeInfo)
 
-        if (ignoreFacts.isEmpty) {
+        val subsets = loadedNode.subsets
 
-          val subsets = loadedNode.subsets
-
-          if (subsets.nonEmpty) {
-            Some(
-              analyzed(
-                NodeChange(
-                  key = context.buildChangeKey(loadedNodeDelete.id),
-                  changeType = ChangeType.Delete,
-                  subsets = subsets,
-                  name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
-                  before = loadedNodeDelete.loadedNode.map(_.node.raw),
-                  after = None,
-                  connectionChanges = Seq.empty,
-                  roleConnectionChanges = Seq.empty,
-                  definedInNetworkChanges = Seq.empty,
-                  tagDiffs = None,
-                  nodeMoved = None,
-                  addedToRoute = Seq.empty,
-                  removedFromRoute = Seq.empty,
-                  addedToNetwork = Seq.empty,
-                  removedFromNetwork = Seq.empty,
-                  factDiffs = FactDiffs(),
-                  Seq(Fact.WasOrphan, Fact.Deleted)
-                )
+        if (subsets.nonEmpty) {
+          Some(
+            analyzed(
+              NodeChange(
+                key = context.buildChangeKey(loadedNodeDelete.id),
+                changeType = ChangeType.Delete,
+                subsets = subsets,
+                name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
+                before = loadedNodeDelete.loadedNode.map(_.node.raw),
+                after = None,
+                connectionChanges = Seq.empty,
+                roleConnectionChanges = Seq.empty,
+                definedInNetworkChanges = Seq.empty,
+                tagDiffs = None,
+                nodeMoved = None,
+                addedToRoute = Seq.empty,
+                removedFromRoute = Seq.empty,
+                addedToNetwork = Seq.empty,
+                removedFromNetwork = Seq.empty,
+                factDiffs = FactDiffs(),
+                Seq(Fact.WasOrphan, Fact.Deleted)
               )
             )
-          }
-          else {
-            None
-          }
+          )
         }
         else {
           None

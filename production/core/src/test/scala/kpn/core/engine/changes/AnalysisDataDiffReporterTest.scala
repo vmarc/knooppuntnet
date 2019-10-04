@@ -40,15 +40,6 @@ class AnalysisDataDiffReporterTest extends FunSuite with Matchers {
     right.networks.watched.add(11, ElementIds())
     right.networks.watched.add(13, ElementIds())
 
-    left.networks.ignored.add(21, ElementIds())
-    left.networks.ignored.add(22, ElementIds())
-    left.networks.ignored.add(23, ElementIds())
-    left.networks.ignored.add(24, ElementIds())
-    right.networks.ignored.add(21, ElementIds())
-    right.networks.ignored.add(22, ElementIds())
-    right.networks.ignored.add(25, ElementIds())
-    right.networks.ignored.add(26, ElementIds())
-
     val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
 
     val expected =
@@ -62,10 +53,7 @@ class AnalysisDataDiffReporterTest extends FunSuite with Matchers {
          |      wayIdsLeftOnly = 1022
          |      wayIdsRightOnly = 1023
          |      relationIdsLeftOnly = 1032
-         |      relationIdsRightOnly = 1033
-         |  ignored:
-         |    leftOnlyNetworks = 23, 24
-         |    rightOnlyNetworks = 25, 26""".stripMargin
+         |      relationIdsRightOnly = 1033""".stripMargin
 
     report should equal(expected)
   }
@@ -100,16 +88,6 @@ class AnalysisDataDiffReporterTest extends FunSuite with Matchers {
     right.orphanRoutes.watched.add(14, ElementIds())
     right.orphanRoutes.watched.add(15, ElementIds())
 
-    left.orphanRoutes.ignored.add(20, ElementIds())
-    left.orphanRoutes.ignored.add(21, ElementIds())
-    left.orphanRoutes.ignored.add(22, ElementIds())
-    left.orphanRoutes.ignored.add(23, ElementIds())
-
-    right.orphanRoutes.ignored.add(20, ElementIds())
-    right.orphanRoutes.ignored.add(21, ElementIds())
-    right.orphanRoutes.ignored.add(24, ElementIds())
-    right.orphanRoutes.ignored.add(25, ElementIds())
-
     val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
 
     val expected =
@@ -125,13 +103,7 @@ class AnalysisDataDiffReporterTest extends FunSuite with Matchers {
          |      wayIdsLeftOnly = 1022
          |      wayIdsRightOnly = 1023
          |      relationIdsLeftOnly = 1032
-         |      relationIdsRightOnly = 1033
-         |  ignored:
-         |    leftOnly = 22, 23
-         |    rightOnly = 24, 25
-         |    route 20
-         |      left = RouteSummary(20,Some(Country(nl,The Netherlands)),rwn,A,0,false,0,Timestamp(2016,8,11,0,0,0),user,List(),,false)
-         |      right = RouteSummary(20,Some(Country(nl,The Netherlands)),rwn,B,0,false,0,Timestamp(2016,8,11,0,0,0),user,List(),,false)""".stripMargin
+         |      relationIdsRightOnly = 1033""".stripMargin
 
     report should equal(expected)
   }
@@ -167,28 +139,4 @@ class AnalysisDataDiffReporterTest extends FunSuite with Matchers {
     report should equal(expected)
   }
 
-  test("Network collection differences") {
-
-    val left = AnalysisData()
-    val right = AnalysisData()
-
-    left.networkCollections.add(10)
-    left.networkCollections.add(11)
-    left.networkCollections.add(12)
-    left.networkCollections.add(13)
-
-    right.networkCollections.add(10)
-    right.networkCollections.add(11)
-    right.networkCollections.add(14)
-    right.networkCollections.add(15)
-
-    val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
-
-    val expected =
-      """|Network collection differences:
-         |  leftOnly = 12, 13
-         |  rightOnly = 14, 15""".stripMargin
-
-    report should equal(expected)
-  }
 }

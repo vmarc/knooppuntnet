@@ -6,7 +6,7 @@ import {RouteInfo} from "../../../kpn/shared/route/route-info";
   template: `
     <div>
 
-      <p *ngIf="!route.ignored">
+      <p>
         {{route.summary.meters}} m
       </p>
 
@@ -23,23 +23,19 @@ import {RouteInfo} from "../../../kpn/shared/route/route-info";
         <kpn-country-name [country]="route.summary.country"></kpn-country-name>
       </p>
 
-      <p *ngIf="!route.ignored && isRouteBroken()" class="kpn-line">
+      <p *ngIf="isRouteBroken()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
         <span i18n="@@route.broken">This route seems broken.</span>
       </p>
 
-      <p *ngIf="!route.ignored && isRouteIncomplete()" class="kpn-line">
+      <p *ngIf="isRouteIncomplete()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
         <markdown i18n="@@route.incomplete">
           Route definition is incomplete (has tag _"fixme=incomplete"_).
         </markdown>        
       </p>
 
-      <p *ngIf="route.ignored" i18n="@@route.ignored">
-        This route is not included in the analysis.
-      </p>
-
-      <p *ngIf="!route.ignored && !route.active" class="warning" i18n="@@route.not-active">
+      <p *ngIf="!route.active" class="warning" i18n="@@route.not-active">
         This route is not active anymore.
       </p>
 

@@ -1,9 +1,9 @@
 package kpn.core.engine.changes.orphan.node
 
 import kpn.core.engine.analysis.Interpreter
-import kpn.core.repository.BlackListRepository
 import kpn.core.engine.changes.ElementChanges
 import kpn.core.engine.changes.data.AnalysisData
+import kpn.core.repository.BlackListRepository
 import kpn.core.util.Log
 import kpn.shared.NetworkType
 import kpn.shared.changes.ChangeAction.Create
@@ -98,8 +98,7 @@ class OrphanNodeChangeAnalyzerImpl(
   }
 
   private def isKnownOrphanNode(nodeId: Long): Boolean = {
-    analysisData.orphanNodes.watched.contains(nodeId) ||
-      analysisData.orphanNodes.ignored.contains(nodeId)
+    analysisData.orphanNodes.watched.contains(nodeId)
   }
 
   private def isBlackListed(node: RawNode): Boolean = {

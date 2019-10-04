@@ -4,15 +4,12 @@ import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.load.NetworkLoader
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.ChangeSetChanges
-import kpn.core.engine.changes.ignore.IgnoredNetworkAnalyzer
 import kpn.core.util.Log
 
 class NetworkCreateProcessorWorkerImpl(
   networkLoader: NetworkLoader,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
-  ignoredNetworkAnalyzer: IgnoredNetworkAnalyzer,
   watchedProcessor: NetworkCreateWatchedProcessor,
-  ignoredProcessor: NetworkCreateIgnoredProcessor,
   log: Log = Log(classOf[NetworkCreateProcessorWorkerImpl])
 ) extends NetworkCreateProcessorWorker {
 
@@ -38,16 +35,7 @@ class NetworkCreateProcessorWorkerImpl(
           ChangeSetChanges()
 
         case Some(loadedNetwork) =>
-
-          val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
-          val ignoreReasons = ignoredNetworkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
-          if (ignoreReasons.isEmpty) {
-            watchedProcessor.process(context, loadedNetwork)
-          }
-          else {
-            ignoredProcessor.process(context, loadedNetwork, ignoreReasons)
-            ChangeSetChanges()
-          }
+          watchedProcessor.process(context, loadedNetwork)
       }
     }
     catch {

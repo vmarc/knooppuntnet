@@ -31,10 +31,6 @@ import {NodeInfo} from "../../../kpn/shared/node-info";
         This network node does not belong to a known node network (orphan).
       </p>
 
-      <p *ngIf="nodeInfo.ignored" i18n="@@node.ignored">
-        This network node is not included in the analysis.
-      </p>
-
     </div>
   `
 })

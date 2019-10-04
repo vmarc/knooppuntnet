@@ -3,19 +3,18 @@ package kpn.core.engine.changes.data
 import kpn.core.engine.changes.ElementIdMap
 
 case class AnalysisDataDetail(
-  watched: ElementIdMap = ElementIdMap(),
-  ignored: ElementIdMap = ElementIdMap()
+  watched: ElementIdMap = ElementIdMap()
 ) {
 
-  def contains(id: Long): Boolean = watched.contains(id) || ignored.contains(id)
+  def contains(id: Long): Boolean = watched.contains(id)
 
   def isReferencingNode(nodeId: Long): Boolean = {
-    watched.isReferencingNode(nodeId) || ignored.isReferencingNode(nodeId)
+    watched.isReferencingNode(nodeId)
   }
 
   def isReferencingRelation(relationId: Long): Boolean = {
-    watched.isReferencingRelation(relationId) || ignored.isReferencingRelation(relationId)
+    watched.isReferencingRelation(relationId)
   }
 
-  def isEmpty: Boolean = watched.isEmpty && ignored.isEmpty
+  def isEmpty: Boolean = watched.isEmpty
 }

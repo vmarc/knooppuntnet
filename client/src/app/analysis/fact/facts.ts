@@ -10,14 +10,8 @@ export class Facts {
 
   static readonly facts = List<FactDefinition>([
     new FactDefinition("Added", FactLevel.other),
-    new FactDefinition("BecomeIgnored", FactLevel.other),
     new FactDefinition("BecomeOrphan", FactLevel.other),
     new FactDefinition("Deleted", FactLevel.other),
-    new FactDefinition("IgnoreForeignCountry", FactLevel.other),
-    new FactDefinition("IgnoreNetworkCollection", FactLevel.other),
-    new FactDefinition("IgnoreNetworkTaggedAsRoute", FactLevel.other),
-    new FactDefinition("IgnoreNoNetworkNodes", FactLevel.error),
-    new FactDefinition("IgnoreUnsupportedSubset", FactLevel.other),
     new FactDefinition("IntegrityCheck", FactLevel.other),
     new FactDefinition("IntegrityCheckFailed", FactLevel.error), // OnverwachtRouteAantal
     new FactDefinition("LostBicycleNodeTag", FactLevel.other),
@@ -61,7 +55,6 @@ export class Facts {
     new FactDefinition("RouteUnexpectedRelation", FactLevel.error),
     new FactDefinition("RouteUnusedSegments", FactLevel.error),
     new FactDefinition("RouteWithoutWays", FactLevel.error),
-    new FactDefinition("WasIgnored", FactLevel.error),
     new FactDefinition("WasOrphan", FactLevel.other)
   ]);
 

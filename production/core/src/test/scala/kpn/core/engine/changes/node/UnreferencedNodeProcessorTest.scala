@@ -7,7 +7,6 @@ import kpn.core.changes.ElementIds
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.ignore.IgnoredNodeAnalyzer
 import kpn.core.load.NodeLoader
 import kpn.core.repository.AnalysisRepository
 import kpn.shared.Country
@@ -152,8 +151,6 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
     //
-    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
-    //
     //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
     //      Some(
     //        Node(t.rawNode(nodeId, Tags.from("rwn_ref" -> "01"), latLonAfter))
@@ -245,111 +242,6 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     //    ).once()
   }
 
-  test("node becomes ignored") {
-    val t = new TestSetup()
-
-    val nodeId: Long = 1001L
-
-    val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId, "01", Tags.from("rwn_ref" -> "01")))
-
-    pending
-
-    //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
-    //
-    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq(Fact.IgnoreForeignCountry))
-    //
-    //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
-    //      Some(
-    //        Node(t.rawNode(nodeId, Tags.from("rwn_ref" -> "01"), latLonAfter))
-    //      )
-    //    ).once()
-    //
-    //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
-    //
-    //    unreferencedNodes.newOrphanNodes should equal(Seq())
-    //    unreferencedNodes.newIgnoredNodes should equal(Seq(Ref(nodeId, "01")))
-    //
-    //    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(true)
-    //
-    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
-    //      Some(
-    //        NodeChange(
-    //          key = t.context.buildChangeKey(nodeId),
-    //          ChangeType.Update,
-    //          subsets = Seq(Subset.nlHiking),
-    //          name = "01",
-    //          before = Some(
-    //            RawNode(
-    //              id = nodeId,
-    //              latitude = latLonBefore.latitude,
-    //              longitude = latLonBefore.longitude,
-    //              version = 1,
-    //              timestamp = Timestamp(2016, 8, 11),
-    //              changeSetId = t.context.changeSet.id,
-    //              tags = Tags.from(
-    //                "rwn_ref" -> "01"
-    //              )
-    //            )
-    //          ),
-    //          after = Some(
-    //            RawNode(
-    //              id = nodeId,
-    //              latitude = latLonAfter.latitude,
-    //              longitude = latLonAfter.longitude,
-    //              version = 1,
-    //              timestamp = Timestamp(2016, 8, 11),
-    //              changeSetId = t.context.changeSet.id,
-    //              tags = Tags.from(
-    //                "rwn_ref" -> "01"
-    //              )
-    //            )
-    //          ),
-    //          tagDiffs = None,
-    //          nodeMoved = Some(
-    //            NodeMoved(
-    //              latLonBefore,
-    //              latLonAfter,
-    //              movedDistance
-    //            )
-    //          ),
-    //          addedToNetwork = Seq.empty,
-    //          removedFromNetwork = Seq.empty,
-    //          factDiffs = FactDiffs(introduced = Set(Fact.IgnoreForeignCountry)),
-    //          facts = Seq(Fact.BecomeIgnored),
-    //          happy = false,
-    //          investigate = true
-    //        )
-    //      )
-    //    )
-    //
-    //    (t.analysisRepository.saveNode _).verify(
-    //      where { nodeInfo: NodeInfo =>
-    //        nodeInfo should equal(
-    //          NodeInfo(
-    //            id = nodeId,
-    //            active = true,
-    //            ignored = true,
-    //            orphan = true,
-    //            country = Some(Country.nl),
-    //            name = "01",
-    //            rcnName = "",
-    //            rwnName = "01",
-    //            latitude = latLonAfter.latitude,
-    //            longitude = latLonAfter.longitude,
-    //            lastUpdated = Timestamp(2016, 8, 11),
-    //            lastUpdatedBy = "user",
-    //            tags = Tags.from(
-    //              "rwn_ref" -> "01"
-    //            ),
-    //            facts = Seq(Fact.IgnoreForeignCountry)
-    //          )
-    //        )
-    //        true
-    //      }
-    //    ).once()
-    //
-  }
-
   test("lost bicycle node tag") {
     testNodeTagLost(NetworkType.bicycle.nodeTagKey, Subset.nlBicycle, Fact.LostBicycleNodeTag)
   }
@@ -369,8 +261,6 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     pending
 
     //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
-    //
-    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
     //
     //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
     //      Some(
@@ -474,8 +364,6 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     pending
 
     //    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl)).once()
-    //
-    //    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
     //
     //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
     //      Some(
@@ -586,8 +474,6 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl))
 
-    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
-
     pending
 
     //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
@@ -692,13 +578,9 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     val nodeId: Long = 1001L
 
-    t.analysisData.orphanNodes.ignored.add(nodeId)
-
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId, "01", Tags.from("rwn_ref" -> "01")))
 
     (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl))
-
-    (t.ignoredNodeAnalyzer.analyze _).when(*).returns(Seq())
 
     pending
 
@@ -806,14 +688,12 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val nodeLoader: NodeLoader = stub[NodeLoader]
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
-    val ignoredNodeAnalyzer: IgnoredNodeAnalyzer = stub[IgnoredNodeAnalyzer]
 
     val processor = new UnreferencedNodeProcessorImpl(
       analysisData,
       analysisRepository,
       nodeLoader,
-      countryAnalyzer,
-      ignoredNodeAnalyzer
+      countryAnalyzer
     )
 
     val context: ChangeSetContext = newChangeSetContext()

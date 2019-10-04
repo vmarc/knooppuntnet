@@ -48,8 +48,6 @@ class RouteUpdateTest extends FunSuite with Matchers {
           tags = Tags.empty
         ),
         active = true,
-        display = true,
-        ignored = false,
         orphan = false,
         version = 1,
         changeSetId = 1,

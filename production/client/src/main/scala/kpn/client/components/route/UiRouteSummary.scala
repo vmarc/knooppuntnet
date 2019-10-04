@@ -35,27 +35,6 @@ object UiRouteSummary {
     private val summary = routeInfo.summary
 
     def render(): VdomElement = {
-      if (routeInfo.ignored) {
-        renderIgnored()
-      }
-      else {
-        renderSummary()
-      }
-    }
-
-    private def renderIgnored(): VdomElement = {
-      <.div(
-        relation(),
-        networkType(),
-        country(),
-        nls(
-          "This route is not included in the analysis.",
-          "Deze route is niet opgenomen in de analyse."
-        )
-      )
-    }
-
-    private def renderSummary(): VdomElement = {
       <.div(
         meters(),
         relation(),

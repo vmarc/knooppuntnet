@@ -37,8 +37,6 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       case _ => "no-name"
     }
 
-    val display: Boolean = analyzeDisplay(title, context.routeNodeAnalysis.get)
-
     val route = buildRoute(
       title,
       context.routeMembers.get,
@@ -47,8 +45,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.unexpectedNodeIds.get,
       context.expectedName.get,
       context.structure.get,
-      context.routeNodeAnalysis.get,
-      display
+      context.routeNodeAnalysis.get
     )
 
     RouteAnalysis(
@@ -75,8 +72,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     unexpectedNodeIds: Seq[Long],
     expectedName: String,
     structure: RouteStructure,
-    routeNodeAnalysis: RouteNodeAnalysis,
-    display: Boolean
+    routeNodeAnalysis: RouteNodeAnalysis
   ): RouteInfo = {
 
     val members: Seq[RouteMemberInfo] = routeMembers.map { member =>
@@ -120,7 +116,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
 
     val accessible: Boolean = ways.size == routeMemberWays.count(_.accessible)
 
-    val routeAnalysis = RouteInfoAnalysis(// TODO ROUTE include this information in Route
+    val routeAnalysis = RouteInfoAnalysis( // TODO ROUTE include this information in Route
       routeMap.startNodes, // TODO ROUTE duplication in routeMap member
       routeMap.endNodes, // TODO ROUTE duplication in routeMap member
       routeMap.startTentacleNodes, // TODO ROUTE duplication in routeMap member
@@ -158,8 +154,6 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     RouteInfo(
       summary,
       active = true,
-      display = display,
-      ignored = false,
       orphan = context.orphan,
       context.loadedRoute.relation.version,
       context.loadedRoute.relation.changeSetId,
@@ -169,27 +163,4 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       Some(routeAnalysis)
     )
   }
-
-  /*
-    The property 'display' indicates whether the route is to be included in the
-    analysis reports on screen.
-
-    Display is false for orphan routes that we want to keep watching, but not show in screens:
-    - do not display orphan routes when "no-name"
-    - do not display orphan routes when no network nodes at all
-   */
-  private def analyzeDisplay(title: String, routeNodeAnalysis: RouteNodeAnalysis): Boolean = {
-    if (context.orphan) {
-      if (title == "no-name") {
-        false
-      }
-      else {
-        routeNodeAnalysis.routeNodes.nonEmpty
-      }
-    }
-    else {
-      true
-    }
-  }
-
 }

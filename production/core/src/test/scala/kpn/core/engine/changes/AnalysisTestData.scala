@@ -18,28 +18,15 @@ class AnalysisTestData extends SharedTestObjects {
   val nodeInRouteInWatchedNetwork = 1002L
   val nodeInWatchedNetwork = 1003L
 
-  val ignoredNetwork = 2L
-  val routeInIgnoredNetwork = 21L
-  val wayInRouteInIgnoredNetwork = 201L
-  val nodeInWayInIgnoredNetwork = 2001L
-  val nodeInRouteInIgnoredNetwork = 2002L
-  val nodeInIgnoredNetwork = 2003L
-
   val watchedOrphanRoute = 31L
   val wayInWatchedOrphanRoute = 301L
   val nodeInWayInWatchedOrphanRoute = 3001L
   val nodeInWatchedOrphanRoute = 3002L
 
-  val ignoredOrphanRoute = 41L
-  val wayInIgnoredOrphanRoute = 401L
-  val nodeInWayInIgnoredOrphanRoute = 4001L
-  val nodeInIgnoredOrphanRoute = 4002L
-
   val newOrphanRoute = 51L
 
   val newOrphanNode = 6001L
   val watchedOrphanNode = 6002L
-  val ignoredOrphanNode = 6003L
 
   val newNetworkId = 7L
 
@@ -77,30 +64,6 @@ class AnalysisTestData extends SharedTestObjects {
       )
     )
 
-    // ignored network
-
-    networkNode(nodeInWayInIgnoredNetwork)
-    networkNode(nodeInRouteInIgnoredNetwork)
-    networkNode(nodeInIgnoredNetwork)
-
-    way(wayInRouteInIgnoredNetwork, nodeInWayInIgnoredNetwork)
-
-    route(routeInIgnoredNetwork, "",
-      Seq(
-        newMember("way", wayInRouteInIgnoredNetwork),
-        newMember("node", nodeInRouteInIgnoredNetwork)
-      )
-    )
-
-    networkRelation(
-      ignoredNetwork,
-      "",
-      Seq(
-        newMember("relation", routeInIgnoredNetwork),
-        newMember("node", nodeInIgnoredNetwork)
-      )
-    )
-
     // watched orphan route
 
     networkNode(nodeInWayInWatchedOrphanRoute)
@@ -115,20 +78,6 @@ class AnalysisTestData extends SharedTestObjects {
       )
     )
 
-    // ignored orphan route
-
-    networkNode(nodeInWayInIgnoredOrphanRoute)
-    networkNode(nodeInIgnoredOrphanRoute)
-
-    way(wayInIgnoredOrphanRoute, nodeInWayInIgnoredOrphanRoute)
-
-    route(ignoredOrphanRoute, "",
-      Seq(
-        newMember("way", wayInIgnoredOrphanRoute),
-        newMember("node", nodeInIgnoredOrphanRoute)
-      )
-    )
-
     // new orphan route
 
     route(newOrphanRoute, "",
@@ -140,7 +89,6 @@ class AnalysisTestData extends SharedTestObjects {
 
     networkNode(newOrphanNode)
     networkNode(watchedOrphanNode)
-    networkNode(ignoredOrphanNode)
 
   }.data
 
@@ -149,14 +97,10 @@ class AnalysisTestData extends SharedTestObjects {
 
   val analysisData = AnalysisData()
   analysisData.networks.watched.add(watchedNetwork, toElementIds(d.relations(watchedNetwork)))
-  analysisData.networks.ignored.add(ignoredNetwork, toElementIds(d.relations(ignoredNetwork)))
 
   analysisData.orphanRoutes.watched.add(watchedOrphanRoute, toElementIds(d.relations(watchedOrphanRoute)))
 
-  analysisData.orphanRoutes.ignored.add(ignoredOrphanRoute, toElementIds(d.relations(ignoredOrphanRoute)))
-
   analysisData.orphanNodes.watched.add(watchedOrphanNode)
-  analysisData.orphanNodes.ignored.add(ignoredOrphanNode)
 
   def createNode(nodeId: Long): Change = create(d.nodes(nodeId).raw)
 

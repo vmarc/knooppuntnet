@@ -7,7 +7,6 @@ import kpn.shared.data.Tags
 case class NetworkInfo(
   attributes: NetworkAttributes,
   active: Boolean,
-  ignored: Boolean,
   nodeRefs: Seq[Long],
   routeRefs: Seq[Long],
   networkRefs: Seq[Long],
@@ -57,7 +56,6 @@ case class NetworkInfo(
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("attributes", attributes).
     field("active", active).
-    field("ignored", ignored).
     field("nodeRefs", nodeRefs).
     field("routeRefs", routeRefs).
     field("networkRefs", networkRefs).

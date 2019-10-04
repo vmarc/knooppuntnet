@@ -22,11 +22,8 @@ object NetworkFactsPageExample {
     NetworkDetailsPageExample.networkSummary(),
     Seq(
       NetworkFact(Fact.IgnoreForeignCountry.name),
-      NetworkFact(Fact.IgnoreNotNodeNetwork.name),
       NetworkFact(Fact.IgnoreNetworkTaggedAsRoute.name),
       NetworkFact(Fact.IgnoreNoNetworkNodes.name),
-      NetworkFact(Fact.IgnoreNetworkCollection.name),
-      NetworkFact(Fact.IgnoreUnsupportedSubset.name),
       NetworkFact(
         Fact.NetworkExtraMemberNode.name,
         elementType = Some("node"),
@@ -172,12 +169,8 @@ object NetworkFactsPageExample {
       )
     ),
     facts = Seq(
-      Fact.IgnoreForeignCountry,
-      Fact.IgnoreNotNodeNetwork,
       Fact.IgnoreNetworkTaggedAsRoute,
-      Fact.IgnoreNoNetworkNodes,
-      Fact.IgnoreNetworkCollection,
-      Fact.IgnoreUnsupportedSubset
+      Fact.IgnoreNoNetworkNodes
     )
   )
 

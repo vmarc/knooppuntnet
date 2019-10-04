@@ -28,7 +28,6 @@ object RouteAnalyzerDemo {
       routeLoader.loadRoute(Timestamp(2018, 5, 24, 8, 59, 2), 101673) match {
         case Some(loadedRoute) =>
           val routeAnalysis = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl()).analyze(Map(), loadedRoute, orphan = true)
-          println("ignored=" + routeAnalysis.route.ignored)
           println("facts=" + routeAnalysis.route.facts)
         case None => println("could not load route")
       }

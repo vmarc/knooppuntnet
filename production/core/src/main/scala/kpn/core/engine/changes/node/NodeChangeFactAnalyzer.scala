@@ -12,8 +12,7 @@ class NodeChangeFactAnalyzer(
     Seq(
       test(Fact.LostHikingNodeTag, hasLostHikingNodeTag(before, after)),
       test(Fact.LostBicycleNodeTag, hasLostBicycleNodeTag(before, after)),
-      test(Fact.WasOrphan, wasOrphan(before, after)),
-      test(Fact.WasIgnored, wasIgnored(before, after))
+      test(Fact.WasOrphan, wasOrphan(before, after))
     ).flatten
   }
 
@@ -27,10 +26,6 @@ class NodeChangeFactAnalyzer(
 
   private def wasOrphan(before: RawNode, after: RawNode) = {
     !after.tags.hasNodeTag && analysisData.orphanNodes.watched.contains(before.id)
-  }
-
-  private def wasIgnored(before: RawNode, after: RawNode) = {
-    !after.tags.hasNodeTag && analysisData.orphanNodes.ignored.contains(before.id)
   }
 
   private def test(fact: Fact, exists: Boolean): Seq[Fact] = {

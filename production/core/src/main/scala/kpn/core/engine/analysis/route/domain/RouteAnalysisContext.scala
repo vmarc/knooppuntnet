@@ -37,11 +37,6 @@ case class RouteAnalysisContext(
 
 ) {
 
-  def ignore: Boolean = {
-    val result = facts.exists(Fact.ignoreFacts.contains)
-    result
-  }
-
   def withFact(fact: Fact): RouteAnalysisContext = {
     copy(facts = facts :+ fact)
   }
