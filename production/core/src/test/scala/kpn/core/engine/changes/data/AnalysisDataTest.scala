@@ -15,6 +15,7 @@ class AnalysisDataTest extends FunSuite with Matchers with SharedTestObjects {
 
     val analysisData = AnalysisData()
     analysisData.networks.watched.add(1, RelationAnalyzer.toElementIds(data.relations(1)))
+    analysisData.networks.watched.add(2, RelationAnalyzer.toElementIds(data.relations(2)))
 
     analysisData.networks.isReferencingRelation(11) should equal(true)
     analysisData.networks.isReferencingRelation(12) should equal(true)

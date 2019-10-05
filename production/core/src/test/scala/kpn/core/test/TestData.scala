@@ -35,7 +35,7 @@ class TestData() extends SharedTestObjects {
   private val relations = ListBuffer[RawRelation]()
 
   def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty): RawNode = {
-    val n = newRawNode(id, tags = Tags.from("rwn_ref" -> name) ++ extraTags)
+    val n = newRawNodeWithName(id, name, extraTags)
     nodes += n
     n
   }
@@ -95,7 +95,7 @@ case class TestData2(
   }
 
   def foreignNetworkNode(id: Long, name: String, extraTags: Tags = Tags.empty): TestData2 = {
-    val n = newRawNode(id, latitude = "99", longitude = "99", tags = Tags.from("rwn_ref" -> name) ++ extraTags)
+    val n = newRawNode(id, latitude = "99", longitude = "99", tags = Tags.from("rwn_ref" -> name, "network:type" -> "node_network") ++ extraTags)
     copy(nodes = nodes :+ n)
   }
 

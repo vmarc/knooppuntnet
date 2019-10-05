@@ -80,7 +80,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
           11,
           Subset.nlHiking,
           orphan = true,
-          facts = Seq(Fact.RouteNetworkTypeNotTagged)
+          facts = Seq(Fact.RouteBroken)
         )
       }
 
@@ -88,7 +88,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
       rows should equal(
         Seq(
-          Row("nl", "rwn", "RouteNetworkTypeNotTagged", "OrphanRoutes", 0, Some("01-02"), Some(11))
+          Row("nl", "rwn", "RouteBroken", "OrphanRoutes", 0, Some("01-02"), Some(11))
         )
       )
     }
@@ -111,9 +111,9 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
         node(
           1001,
           Country.nl,
-          tags = Tags.from(networkType.nodeTagKey -> "01"),
+          tags = Tags.from(networkType.nodeTagKey -> "01", "network:type" -> "node_network"),
           orphan = true,
-          facts = Seq(Fact.NodeNetworkTypeNotTagged)
+          facts = Seq(Fact.IntegrityCheck)
         )
       }
 
@@ -121,7 +121,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
       rows should equal(
         Seq(
-          Row("nl", networkType.name, "NodeNetworkTypeNotTagged", "OrphanNodes", 0, Some("01"), Some(1001))
+          Row("nl", networkType.name, "IntegrityCheck", "OrphanNodes", 0, Some("01"), Some(1001))
         )
       )
     }

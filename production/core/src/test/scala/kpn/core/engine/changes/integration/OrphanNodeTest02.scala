@@ -1,26 +1,22 @@
 package kpn.core.engine.changes.integration
 
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
 import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.Fact
-import kpn.shared.NetworkChanges
 import kpn.shared.NodeInfo
 import kpn.shared.Subset
 import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeKey
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.data.Tags
 import kpn.shared.diff.TagDetail
 import kpn.shared.diff.TagDetailType
 import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.common.FactDiffs
 
 class OrphanNodeTest02 extends AbstractTest {
 
@@ -63,7 +59,7 @@ class OrphanNodeTest02 extends AbstractTest {
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
-            Tags.from("rwn_ref" -> "01", "tag" -> "after"),
+            Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "tag" -> "after"),
             Seq(),
             None
           )
@@ -107,19 +103,20 @@ class OrphanNodeTest02 extends AbstractTest {
             before = Some(
               newRawNode(
                 1001,
-                tags = Tags.from("rwn_ref" -> "01", "tag" -> "before")
+                tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "tag" -> "before")
               )
             ),
             after = Some(
               newRawNode(
                 1001,
-                tags = Tags.from("rwn_ref" -> "01", "tag" -> "after")
+                tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "tag" -> "after")
               )
             ),
             tagDiffs = Some(
               TagDiffs(
                 mainTags = Seq(
-                  TagDetail(TagDetailType.Same, "rwn_ref", Some("01"), Some("01"))
+                  TagDetail(TagDetailType.Same, "rwn_ref", Some("01"), Some("01")),
+                  TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
                 ),
                 extraTags = Seq(
                   TagDetail(TagDetailType.Update, "tag", Some("before"), Some("after"))

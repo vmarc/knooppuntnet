@@ -86,7 +86,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
       Timestamp(2015, 8, 11),
       Timestamp(2015, 8, 11),
       None,
-      tagged = false
+      tagged = true
     )
 
     val networkInfo = NetworkInfo(

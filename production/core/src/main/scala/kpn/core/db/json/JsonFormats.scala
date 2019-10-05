@@ -230,7 +230,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val timestampFormat = TimestampFormat
 
-  implicit val routeNetworkNodeInfoFormat: RootJsonFormat[RouteNetworkNodeInfo] = jsonFormat6(RouteNetworkNodeInfo)
+  implicit val routeNetworkNodeInfoFormat: RootJsonFormat[RouteNetworkNodeInfo] = jsonFormat5(RouteNetworkNodeInfo)
 
   implicit val tagsFormat = TagsFormat
   implicit val routeMemberInfoFormat: RootJsonFormat[RouteMemberInfo] = jsonFormat17(RouteMemberInfo)
@@ -563,7 +563,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val subsetFactsPageFormat: RootJsonFormat[SubsetFactsPage] = jsonFormat2(SubsetFactsPage)
   implicit val subsetFactsPageNewFormat: RootJsonFormat[SubsetFactsPageNew] = jsonFormat2(SubsetFactsPageNew)
   implicit val subsetChangesPageFormat: RootJsonFormat[SubsetChangesPage] = jsonFormat4(SubsetChangesPage)
-  implicit val networkRouteRowFormat: RootJsonFormat[NetworkRouteRow] = jsonFormat9(NetworkRouteRow)
+  implicit val networkRouteRowFormat: RootJsonFormat[NetworkRouteRow] = jsonFormat8(NetworkRouteRow)
   implicit val networkRoutesPageFormat: RootJsonFormat[NetworkRoutesPage] = jsonFormat4(NetworkRoutesPage)
   implicit val networkNodesPageFormat: RootJsonFormat[NetworkNodesPage] = jsonFormat5(NetworkNodesPage)
   implicit val networkDetailsPageFormat: RootJsonFormat[NetworkDetailsPage] = jsonFormat5(NetworkDetailsPage)

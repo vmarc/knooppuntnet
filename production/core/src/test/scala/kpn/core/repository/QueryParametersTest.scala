@@ -76,12 +76,12 @@ class QueryParametersTest extends FunSuite with Matchers {
 
   test("default items per page - page 2") {
     val parameters = ChangesParameters(pageIndex = 1)
-    QueryParameters.from(parameters)("skip") should equal("25")
+    QueryParameters.from(parameters)("skip") should equal("5")
   }
 
   test("default items per page - page 3") {
     val parameters = ChangesParameters(pageIndex = 2)
-    QueryParameters.from(parameters)("skip") should equal("50")
+    QueryParameters.from(parameters)("skip") should equal("10")
   }
 
   test("10 items per page - page 1") {

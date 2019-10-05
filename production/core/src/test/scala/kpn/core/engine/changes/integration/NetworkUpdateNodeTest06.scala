@@ -30,7 +30,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
 
     val dataBefore = TestData2()
       .networkNode(1001, "01")
-      .node(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03"))
+      .node(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))
       .networkRelation(
         1,
         "name",
@@ -43,7 +43,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
 
     val dataAfter = TestData2()
       .networkNode(1001, "01")
-      .node(1002, tags = Tags.from("rcn_ref" -> "03"))
+      .node(1002, tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network"))
       .networkRelation(
         1,
         "name",
@@ -82,7 +82,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
           newNodeInfo(
             1002,
             country = Some(Country.nl),
-            tags = Tags.from("rcn_ref" -> "03")
+            tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network")
           )
         )
         true
@@ -172,16 +172,17 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
             Seq(Subset.nlHiking),
             "03",
             before = Some(
-              newRawNode(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03"))
+              newRawNode(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))
             ),
             after = Some(
-              newRawNode(1002, tags = Tags.from("rcn_ref" -> "03"))
+              newRawNode(1002, tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network"))
             ),
             tagDiffs = Some(
               TagDiffs(
                 Seq(
                   TagDetail(TagDetailType.Same, "rcn_ref", Some("03"), Some("03")),
-                  TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None)
+                  TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None),
+                  TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
                 ),
                 Seq()
               )

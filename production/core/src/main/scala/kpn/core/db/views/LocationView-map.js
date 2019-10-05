@@ -1,5 +1,5 @@
 if (doc) {
-  if (doc.node && doc.node.active === true && doc.node.ignored === false) {
+  if (doc.node && doc.node.active === true) {
     if (doc.node.location) {
       var name = "";
       var networkType = "";
@@ -26,7 +26,7 @@ if (doc) {
         emit(["node", networkType].concat(doc.node.location.names), [name, doc.node.id]);
       }
     }
-  } else if (doc.route && doc.route.active === true && doc.route.ignored === false) {
+  } else if (doc.route && doc.route.active === true) {
     var routeAnalysis = doc.route.analysis;
     if (routeAnalysis) {
       var s = doc.route.summary;

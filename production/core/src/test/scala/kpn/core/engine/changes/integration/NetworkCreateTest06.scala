@@ -204,10 +204,11 @@ class NetworkCreateTest06 extends AbstractTest {
                 tagDiffs = Some(
                   TagDiffs(
                     mainTags = Seq(
-                      TagDetail(TagDetailType.Same,"rwn_ref",Some("02"),Some("02"))
+                      TagDetail(TagDetailType.Same, "rwn_ref", Some("02"), Some("02")),
+                      TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
                     ),
                     extraTags = Seq(
-                      TagDetail(TagDetailType.Add,"tag",None,Some("after"))
+                      TagDetail(TagDetailType.Add, "tag", None, Some("after"))
                     )
                   )
                 ),

@@ -129,12 +129,12 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
           ),
           "01-02",
           networkNodes = Seq(
-            newRawNode(1001, tags = newNodeTags("01")),
-            newRawNode(1002, tags = newNodeTags("02"))
+            newRawNodeWithName(1001, "01"),
+            newRawNodeWithName(1002, "02")
           ),
           nodes = Seq(
-            newRawNode(1001, tags = newNodeTags("01")),
-            newRawNode(1002, tags = newNodeTags("02"))
+            newRawNodeWithName(1001, "01"),
+            newRawNodeWithName(1002, "02")
           ),
           ways = Seq(
             newRawWay(

@@ -110,6 +110,7 @@ class OrphanRouteTest02 extends AbstractTest {
                     "type" -> "route",
                     "route" -> "foot",
                     "note" -> "01-02",
+                    "network:type" -> "node_network",
                     "key" -> "value1" // <--
                   )
                 ),
@@ -145,6 +146,7 @@ class OrphanRouteTest02 extends AbstractTest {
                     "type" -> "route",
                     "route" -> "foot",
                     "note" -> "01-02",
+                    "network:type" -> "node_network",
                     "key" -> "value2" // <--
                   )
                 ),
@@ -173,7 +175,8 @@ class OrphanRouteTest02 extends AbstractTest {
                     TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
                     TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
                     TagDetail(TagDetailType.Same, "route", Some("foot"), Some("foot")),
-                    TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02"))
+                    TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02")),
+                    TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
                   ),
                   extraTags = Seq(
                     TagDetail(TagDetailType.Update, "key", Some("value1"), Some("value2"))

@@ -62,32 +62,6 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
     t.log.messages should equal(Seq("DEBUG 1 change(s)"))
   }
 
-  test("an ignored network is processed by NetworkCreateIgnoredProcessor") {
-
-    val t = new TestSetup()
-
-    val loadedNetwork = {
-      val d = new TestData() {
-        networkRelation(t.networkId, "name", Seq())
-      }
-      LoadedNetwork(
-        t.networkId,
-        networkType = NetworkType.hiking,
-        name = "",
-        data = d.data,
-        relation = d.data.relations(t.networkId)
-      )
-    }
-
-    (t.networkLoader.load _).when(*, *).returns(Some(loadedNetwork))
-
-    t.networkCreateProcessor.process(t.context, t.networkId)
-
-    (t.watchedProcessor.process _).verify(*, *).never()
-
-    t.log.messages should equal(Seq("DEBUG 0 change(s)"))
-  }
-
   test("fatal error") {
 
     val t = new TestSetup()

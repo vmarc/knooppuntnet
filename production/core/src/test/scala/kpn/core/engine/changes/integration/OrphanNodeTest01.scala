@@ -13,7 +13,6 @@ import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeAction
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NodeChange
-import kpn.shared.data.Tags
 
 class OrphanNodeTest01 extends AbstractTest {
 
@@ -47,7 +46,7 @@ class OrphanNodeTest01 extends AbstractTest {
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
-            Tags.from("rwn_ref" -> "01"),
+            newNodeTags("01"),
             Seq(),
             None
           )

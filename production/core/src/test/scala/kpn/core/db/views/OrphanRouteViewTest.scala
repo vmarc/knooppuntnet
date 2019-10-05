@@ -22,7 +22,7 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
 
       rows.map(_._1) should equal(
         Seq(
-          OrphanRouteKey(orphan = true, display = true, "nl", "rwn", 11)
+          OrphanRouteKey(orphan = true, "nl", "rwn", 11)
         )
       )
 

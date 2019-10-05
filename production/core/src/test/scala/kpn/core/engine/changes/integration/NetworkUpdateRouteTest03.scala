@@ -229,12 +229,12 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 ),
                 "02-03",
                 networkNodes = Seq(
-                  newRawNode(1002, tags = newNodeTags("02")),
-                  newRawNode(1003, tags = newNodeTags("03"))
+                  newRawNodeWithName(1002, "02"),
+                  newRawNodeWithName(1003, "03")
                 ),
                 nodes = Seq(
-                  newRawNode(1002, tags = newNodeTags("02")),
-                  newRawNode(1003, tags = newNodeTags("03"))
+                  newRawNodeWithName(1002, "02"),
+                  newRawNodeWithName(1003, "03")
                 ),
                 ways = Seq(
                   newRawWay(
@@ -267,10 +267,10 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 Seq(Subset.nlHiking),
                 "02",
                 before = Some(
-                  newRawNode(1002, tags = newNodeTags("02"))
+                  newRawNodeWithName(1002, "02")
                 ),
                 after = Some(
-                  newRawNode(1002, tags = newNodeTags("02"))
+                  newRawNodeWithName(1002, "02")
                 ),
                 removedFromRoute = Seq(Ref(12, "02-03")),
                 investigate = true
@@ -287,7 +287,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 Seq(Subset.nlHiking),
                 "03",
                 before = Some(
-                  newRawNode(1003, tags = newNodeTags("03"))
+                  newRawNodeWithName(1003, "03")
                 ),
                 after = None,
                 removedFromRoute = Seq(Ref(12, "02-03")),

@@ -37,17 +37,17 @@ import org.scalatest.Matchers
 
 class TData extends SharedTestObjects {
 
-  val node1: RawNode = newRawNode(1, tags = Tags.from("rwn_ref" -> "01"))
+  val node1: RawNode = newRawNodeWithName(1,  "01")
   val node2: RawNode = newRawNode(2)
   val node3: RawNode = newRawNode(3)
-  val node4: RawNode = newRawNode(4, tags = Tags.from("rwn_ref" -> "04"))
+  val node4: RawNode = newRawNodeWithName(4, "04")
 
   val node5: RawNode = newRawNode(5)
   val node6: RawNode = newRawNode(6)
   val node7: RawNode = newRawNode(7)
 
-  val node1b: RawNode = newRawNode(8, tags = Tags.from("rwn_ref" -> "01"))
-  val node4b: RawNode = newRawNode(9, tags = Tags.from("rwn_ref" -> "04"))
+  val node1b: RawNode = newRawNodeWithName(8, "01")
+  val node4b: RawNode = newRawNodeWithName(9, "04")
 
   val nodes: Seq[RawNode] = Seq(node1, node2, node3, node4, node5, node6, node7, node1b, node4b)
 

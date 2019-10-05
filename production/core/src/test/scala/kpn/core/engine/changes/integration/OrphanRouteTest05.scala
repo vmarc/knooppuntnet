@@ -46,7 +46,7 @@ class OrphanRouteTest05 extends AbstractTest {
         Seq(
           newMember("way", 101)
         ),
-        Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02")
+        Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02", "network:type" -> "node_network")
       )
       .data
 
@@ -111,7 +111,8 @@ class OrphanRouteTest05 extends AbstractTest {
                     "network" -> "rwn",
                     "type" -> "route",
                     "route" -> "foot", // this is removed in 'after' situation
-                    "note" -> "01-02"
+                    "note" -> "01-02",
+                    "network:type" -> "node_network"
                   )
                 ),
                 "01-02",
@@ -144,7 +145,8 @@ class OrphanRouteTest05 extends AbstractTest {
                   tags = Tags.from(
                     "network" -> "rwn",
                     "type" -> "route", // route=foot is missing
-                    "note" -> "01-02"
+                    "note" -> "01-02",
+                    "network:type" -> "node_network"
                   )
                 ),
                 "01-02",
@@ -184,7 +186,8 @@ class OrphanRouteTest05 extends AbstractTest {
                     TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
                     TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
                     TagDetail(TagDetailType.Delete, "route", Some("foot"), None), // <--
-                    TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02"))
+                    TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02")),
+                    TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
                   )
                 )
               )

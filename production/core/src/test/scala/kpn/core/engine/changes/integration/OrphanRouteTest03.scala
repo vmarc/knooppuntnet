@@ -90,12 +90,7 @@ class OrphanRouteTest03 extends AbstractTest {
                   members = Seq(
                     RawMember("way", 101, None)
                   ),
-                  tags = Tags.from(
-                    "network" -> "rwn",
-                    "type" -> "route",
-                    "route" -> "foot",
-                    "note" -> "01-02"
-                  )
+                  tags = newRouteTags("01-02")
                 ),
                 "01-02",
                 networkNodes = Seq(

@@ -47,7 +47,7 @@ if (doc) {
       }
     }
   } else if (doc.node && doc.node.active === true) {
-    if (doc.node.orphan === true && doc.node.display === true && doc.node.ignored === false) {
+    if (doc.node.orphan === true) {
       for (var j = 0; j < doc.node.facts.length; j++) {
         var fact = doc.node.facts[j];
         var networkType = "";
@@ -82,7 +82,7 @@ if (doc) {
       }
     }
   } else if (doc.route && doc.route.summary && doc.route.active === true) {
-    if (doc.route.orphan === true && doc.route.display === true && doc.route.ignored === false) {
+    if (doc.route.orphan === true) {
       for (var j = 0; j < doc.route.facts.length; j++) {
         var fact = doc.route.facts[j];
         var key = [

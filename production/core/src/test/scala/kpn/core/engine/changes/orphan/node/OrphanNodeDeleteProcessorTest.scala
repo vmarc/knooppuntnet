@@ -114,29 +114,6 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     ).once()
   }
 
-  test("no nodeChange is generated if node is to be ignored") {
-
-    val t = new Setup()
-
-    val nodeId = 456L
-    val rawNode = newRawNode(nodeId)
-    val context = newChangeSetContext()
-    val loadedNode = LoadedNode(Some(Country.nl), Seq(NetworkType.hiking), "", Node(rawNode))
-    val loadedNodeDelete = LoadedNodeDelete(rawNode, Some(loadedNode))
-
-    t.processor.process(context, loadedNodeDelete) should equal(None)
-
-    (t.analysisRepository.saveNode _).verify(
-      newNodeInfo(
-        nodeId,
-        active = false,
-        orphan = true,
-        country = Some(Country.nl),
-        facts = Seq(Fact.Deleted, Fact.IgnoreForeignCountry)
-      )
-    ).once()
-  }
-
   test("no nodeChange is generated if node does not belong to any known subset") {
 
     val t = new Setup()

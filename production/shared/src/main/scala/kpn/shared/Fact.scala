@@ -125,7 +125,6 @@ object Fact {
   val LostCanoeNodeTag: Fact = f.fact(412, "LostCanoeNodeTag", "GeenKanoKnooppuntMeer", FactLevel.OTHER)
   val LostInlineSkateNodeTag: Fact = f.fact(413, "LostInlineSkateNodeTag", "GeenInlineSkateKnooppuntMeer", FactLevel.OTHER)
 
-
   val all: Seq[Fact] = f.all
 
   val routeDetailFacts: Seq[Fact] = all.filterNot(f => f == RouteBroken || f == RouteNotContinious)

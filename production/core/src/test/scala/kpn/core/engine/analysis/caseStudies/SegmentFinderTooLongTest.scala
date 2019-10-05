@@ -8,6 +8,6 @@ class SegmentFinderTooLongTest extends FunSuite with Matchers {
 
   test("SegmentFinder timeout") {
     val route = CaseStudy.routeAnalysis("2655355").route
-    route.facts should equal(Seq(Fact.RouteOverlappingWays, Fact.RouteBroken))
+    route.facts should equal(Seq(Fact.RouteAnalysisFailed, Fact.RouteBroken))
   }
 }

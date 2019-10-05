@@ -23,7 +23,6 @@ import kpn.core.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.TaggedRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
@@ -70,7 +69,6 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         RouteStreetsAnalyzer,
         RouteMapAnalyzer,
         IncompleteOkRouteAnalyzer,
-        TaggedRouteAnalyzer,
         FactCombinationAnalyzer
       )
 
@@ -94,16 +92,14 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
 object RouteAnalyzerFunctions {
 
   def toInfos(nodes: Seq[RouteNode]): Seq[RouteNetworkNodeInfo] = {
-    nodes.map {
-      routeNode =>
-        RouteNetworkNodeInfo(
-          routeNode.id,
-          routeNode.name,
-          routeNode.alternateName,
-          routeNode.lat,
-          routeNode.lon,
-          routeNode.networkTypeTagged
-        )
+    nodes.map { routeNode =>
+      RouteNetworkNodeInfo(
+        routeNode.id,
+        routeNode.name,
+        routeNode.alternateName,
+        routeNode.lat,
+        routeNode.lon
+      )
     }
   }
 

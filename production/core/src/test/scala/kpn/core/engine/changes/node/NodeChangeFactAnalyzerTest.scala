@@ -22,7 +22,7 @@ class NodeChangeFactAnalyzerTest extends FunSuite with Matchers with SharedTestO
 
   test("LostHikingNodeTag") {
     val analysisData = AnalysisData()
-    val before = newRawNode(tags = Tags.from("rwn_ref" -> "01"))
+    val before = newRawNode(tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network"))
     val after = newRawNode()
 
     val analyzer = new NodeChangeFactAnalyzer(analysisData)
@@ -33,7 +33,7 @@ class NodeChangeFactAnalyzerTest extends FunSuite with Matchers with SharedTestO
 
   test("LostBicycleNodeTag") {
     val analysisData = AnalysisData()
-    val before = newRawNode(tags = Tags.from("rcn_ref" -> "01"))
+    val before = newRawNode(tags = Tags.from("rcn_ref" -> "01", "network:type" -> "node_network"))
     val after = newRawNode()
 
     val analyzer = new NodeChangeFactAnalyzer(analysisData)
@@ -56,9 +56,9 @@ class NodeChangeFactAnalyzerTest extends FunSuite with Matchers with SharedTestO
 
   test("Orphan node that remains orphan") {
     val analysisData = AnalysisData()
-    analysisData.orphanNodes.watched.add(1)
-    val before = newRawNode(tags = Tags.from("rwn_ref" -> "01"))
-    val after = newRawNode(tags = Tags.from("rwn_ref" -> "01"))
+    analysisData.orphanNodes.watched.add(1001)
+    val before = newRawNodeWithName(1001, "01")
+    val after = newRawNodeWithName(1001, "01")
 
     val analyzer = new NodeChangeFactAnalyzer(analysisData)
     analyzer.facts(before, after) should equal(Seq())

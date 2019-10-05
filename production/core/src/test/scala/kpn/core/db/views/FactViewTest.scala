@@ -78,7 +78,7 @@ class FactViewTest extends FunSuite with Matchers {
           11,
           Subset.nlHiking,
           orphan = true,
-          facts = Seq(Fact.RouteNetworkTypeNotTagged)
+          facts = Seq(Fact.RouteBroken)
         )
       }
 
@@ -86,7 +86,7 @@ class FactViewTest extends FunSuite with Matchers {
 
       rows should equal(
         Seq(
-          FactViewKey("nl", "rwn", "RouteNetworkTypeNotTagged", "OrphanRoutes", 0)
+          FactViewKey("nl", "rwn", "RouteBroken", "OrphanRoutes", 0)
         )
       )
     }
@@ -111,7 +111,7 @@ class FactViewTest extends FunSuite with Matchers {
           Country.nl,
           tags = Tags.from(networkType.nodeTagKey -> "01"),
           orphan = true,
-          facts = Seq(Fact.NodeNetworkTypeNotTagged)
+          facts = Seq(Fact.IntegrityCheck)
         )
       }
 
@@ -119,7 +119,7 @@ class FactViewTest extends FunSuite with Matchers {
 
       rows should equal(
         Seq(
-          FactViewKey("nl", networkType.name, "NodeNetworkTypeNotTagged", "OrphanNodes", 0)
+          FactViewKey("nl", networkType.name, "IntegrityCheck", "OrphanNodes", 0)
         )
       )
     }

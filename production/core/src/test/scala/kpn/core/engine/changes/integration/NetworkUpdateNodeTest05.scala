@@ -179,7 +179,8 @@ class NetworkUpdateNodeTest05 extends AbstractTest {
             tagDiffs = Some(
               TagDiffs(
                 Seq(
-                  TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None)
+                  TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None),
+                  TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None)
                 ),
                 Seq()
               )

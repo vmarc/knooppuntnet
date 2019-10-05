@@ -38,7 +38,7 @@ class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObje
     analysis.networkNodes.removed should equal(
       Seq(
         NetworkNodeData(
-          newNode(1002, tags = Tags.from("rwn_ref" -> "02")).raw,
+          newRawNodeWithName(1002, "02"),
           "02",
           None
         )
@@ -65,7 +65,7 @@ class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObje
     analysis.networkNodes.added should equal(
       Seq(
         NetworkNodeData(
-          newNode(1002, tags = Tags.from("rwn_ref" -> "02")).raw,
+          newRawNodeWithName(1002, "02"),
           "02",
           None
         )
@@ -91,12 +91,12 @@ class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObje
       Seq(
         NetworkNodeUpdate(
           before = NetworkNodeData(
-            newNode(1001, tags = Tags.from("rwn_ref" -> "01", "key" -> "value1")).raw,
+            newNode(1001, tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "key" -> "value1")).raw,
             "01",
             None
           ),
           after = NetworkNodeData(
-            newNode(1001, tags = Tags.from("rwn_ref" -> "01", "key" -> "value2")).raw,
+            newNode(1001, tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "key" -> "value2")).raw,
             "01",
             None
           ),
@@ -104,7 +104,8 @@ class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObje
             tagDiffs = Some(
               TagDiffs(
                 mainTags = Seq(
-                  TagDetail(TagDetailType.Same, "rwn_ref", Some("01"), Some("01"))
+                  TagDetail(TagDetailType.Same, "rwn_ref", Some("01"), Some("01")),
+                  TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
                 ),
                 extraTags = Seq(
                   TagDetail(TagDetailType.Update, "key", Some("value1"), Some("value2"))

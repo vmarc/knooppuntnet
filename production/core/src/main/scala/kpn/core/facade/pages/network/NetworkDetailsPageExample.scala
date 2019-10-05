@@ -72,7 +72,7 @@ object NetworkDetailsPageExample {
       lastUpdated = Timestamp(2020, 1, 1),
       relationLastUpdated = Timestamp(2019, 1, 1),
       center = Some(essen),
-      tagged = false
+      tagged = true
     )
   }
 

@@ -154,16 +154,16 @@ class NetworkUpdate_Test01 extends AbstractTest {
                 newRawRelation(
                   11,
                   members = Seq(RawMember("way", 101, None)),
-                  tags = Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> "01-02")
+                  tags = newRouteTags("01-02")
                 ),
                 "01-02",
                 networkNodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02")
                 ),
                 nodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02")
                 ),
                 ways = Seq(
                   newRawWay(
@@ -183,16 +183,16 @@ class NetworkUpdate_Test01 extends AbstractTest {
                   members = Seq(
                     RawMember("way", 101, None)
                   ),
-                  tags = Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> "01-02")
+                  tags = newRouteTags("01-02")
                 ),
                 "01-02",
                 networkNodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02-changed"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02-changed")
                 ),
                 nodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02-changed"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02-changed")
                 ),
                 ways = Seq(
                   newRawWay(
@@ -215,8 +215,8 @@ class NetworkUpdate_Test01 extends AbstractTest {
                 Seq(),
                 Seq(
                   NodeUpdate(
-                    newRawNode(1002, tags = Tags.from("rwn_ref" -> "02")),
-                    newRawNode(1002, tags = Tags.from("rwn_ref" -> "02-changed")),
+                    newRawNodeWithName(1002, "02"),
+                    newRawNodeWithName(1002, "02-changed"),
                     None,
                     None
                   )
@@ -243,10 +243,10 @@ class NetworkUpdate_Test01 extends AbstractTest {
             Seq(Subset.nlHiking),
             "02-changed",
             before = Some(
-              newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+              newRawNodeWithName(1002, "02")
             ),
             after = Some(
-              newRawNode(1002, tags = Tags.from("rwn_ref" -> "02-changed"))
+              newRawNodeWithName(1002, "02-changed")
             ),
             tagDiffs = Some(
               TagDiffs(
@@ -256,6 +256,12 @@ class NetworkUpdate_Test01 extends AbstractTest {
                     "rwn_ref",
                     Some("02"),
                     Some("02-changed")
+                  ),
+                  TagDetail(
+                    TagDetailType.Same,
+                    "network:type",
+                    Some("node_network"),
+                    Some("node_network")
                   )
                 )
               )

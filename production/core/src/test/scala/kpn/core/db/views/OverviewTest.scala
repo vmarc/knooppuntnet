@@ -113,26 +113,6 @@ class OverviewTest extends FunSuite with Matchers {
     }
   }
 
-  test("ignored networks are not counted") {
-
-    withDatabase { database =>
-
-      val b = new TestDocBuilder(database)
-
-      b.network(1, Subset.nlHiking, meters = 11, nodeCount = 12, routeCount = 13, ignored = true)
-      b.network(2, Subset.nlHiking, meters = 21, nodeCount = 22, routeCount = 23)
-
-      queryRows(database) should equal(
-        Seq(
-          Figure("MeterCount", nlRwn = 21),
-          Figure("NetworkCount", nlRwn = 1),
-          Figure("NodeCount", nlRwn = 22),
-          Figure("RouteCount", nlRwn = 23)
-        )
-      )
-    }
-  }
-
   test("inactive networks are not counted") {
 
     withDatabase { database =>
@@ -173,24 +153,6 @@ class OverviewTest extends FunSuite with Matchers {
     }
   }
 
-  test("ignored orphan nodes are not included in the counts") {
-
-    withDatabase { database =>
-
-      val b = new TestDocBuilder(database)
-
-      b.node(1001, Country.nl, Tags.from("rwn_ref" -> "01"), orphan = true)
-      b.node(1002, Country.nl, Tags.from("rwn_ref" -> "02"), orphan = true)
-      b.node(1003, Country.nl, Tags.from("rwn_ref" -> "03"), orphan = true)
-
-      queryRows(database) should equal(
-        Seq(
-          Figure("OrphanNodeCount", nlRwn = 1)
-        )
-      )
-    }
-  }
-
   test("inactive orphan nodes are not included in the counts") {
 
     withDatabase { database =>
@@ -223,24 +185,6 @@ class OverviewTest extends FunSuite with Matchers {
         Seq(
           Figure("OrphanRouteCount", nlRcn = 1),
           Figure("OrphanRouteCount", nlRwn = 1),
-          Figure("OrphanRouteCount", nlRwn = 1)
-        )
-      )
-    }
-  }
-
-  test("ignored orphan routes are not included in the counts") {
-
-    withDatabase { database =>
-
-      val b = new TestDocBuilder(database)
-
-      b.route(11, Subset.nlHiking, orphan = true)
-      b.route(12, Subset.nlHiking, orphan = true, ignored = true)
-      b.route(13, Subset.nlHiking, orphan = true, ignored = true)
-
-      queryRows(database) should equal(
-        Seq(
           Figure("OrphanRouteCount", nlRwn = 1)
         )
       )

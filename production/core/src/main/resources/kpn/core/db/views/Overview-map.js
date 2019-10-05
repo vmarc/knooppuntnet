@@ -106,7 +106,7 @@ if (doc) {
 
     if (index >= 0) {
 
-      if (doc.network.active === true && doc.network.ignored === false) {
+      if (doc.network.active === true) {
 
         emitCount("NetworkCount", index, 1);
         emitCount("RouteCount", index, doc.network.attributes.routeCount);
@@ -186,7 +186,7 @@ if (doc) {
       }
     }
   } else if (doc.node && doc.node.active === true) {
-    if (doc.node.orphan === true && doc.node.display === true && doc.node.active === true && doc.node.ignored === false) {
+    if (doc.node.orphan === true && doc.node.active === true) {
       var networkType = "";
       if (doc.node.rcnName.length > 0) {
         var index = calculateSubsetIndex(doc.node.country, "rcn");
@@ -238,7 +238,7 @@ if (doc) {
       }
     }
   } else if (doc.route && doc.route.summary && doc.route.active === true) {
-    if (doc.route.orphan === true && doc.route.display === true && doc.route.active === true && doc.route.ignored === false) {
+    if (doc.route.orphan === true && doc.route.active === true) {
       var index = subsetIndex(doc.route.summary);
       emitCount("OrphanRouteCount", index, 1);
       emitCount("RouteCount", index, 1);

@@ -144,16 +144,16 @@ class NetworkCreateTest02 extends AbstractTest {
                 newRawRelation(
                   11,
                   members = Seq(RawMember("way", 101, None)),
-                  tags = Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> "01-02")
+                  tags = newRouteTags("01-02")
                 ),
                 "01-02",
                 networkNodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02")
                 ),
                 nodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02")
                 ),
                 ways = Seq(
                   newRawWay(
@@ -172,16 +172,16 @@ class NetworkCreateTest02 extends AbstractTest {
                   members = Seq(
                     RawMember("way", 101, None)
                   ),
-                  tags = Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> "01-02")
+                  tags = newRouteTags("01-02")
                 ),
                 "01-02",
                 networkNodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02")
                 ),
                 nodes = Seq(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01")),
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1001, "01"),
+                  newRawNodeWithName(1002, "02")
                 ),
                 ways = Seq(
                   RawWay(101, 0, Timestamp(2015, 8, 11, 0, 0, 0), 0, Seq(1001, 1002), Tags.from("highway" -> "unclassified"))
@@ -208,10 +208,10 @@ class NetworkCreateTest02 extends AbstractTest {
                 Seq(Subset.nlHiking),
                 "01",
                 before = Some(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01"))
+                  newRawNodeWithName(1001, "01")
                 ),
                 after = Some(
-                  newRawNode(1001, tags = Tags.from("rwn_ref" -> "01"))
+                  newRawNodeWithName(1001, "01")
                 ),
                 addedToNetwork = Seq(
                   Ref(1, "name")
@@ -230,10 +230,10 @@ class NetworkCreateTest02 extends AbstractTest {
                 Seq(Subset.nlHiking),
                 "02",
                 before = Some(
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1002, "02")
                 ),
                 after = Some(
-                  newRawNode(1002, tags = Tags.from("rwn_ref" -> "02"))
+                  newRawNodeWithName(1002, "02")
                 ),
                 addedToNetwork = Seq(
                   Ref(1, "name")

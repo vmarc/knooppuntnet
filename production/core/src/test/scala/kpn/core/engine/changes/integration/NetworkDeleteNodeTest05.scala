@@ -26,12 +26,12 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
   test("network delete - lost hiking node tag, but still retain bicyle node tag and become orphan") {
 
     val dataBefore = TestData2()
-      .node(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02"))
+      .node(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
       .networkRelation(1, "network", Seq(newMember("node", 1001)))
       .data
 
     val dataAfter = TestData2()
-      .node(1001, tags = Tags.from("rcn_ref" -> "02"))
+      .node(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
       .data
 
     val tc = new TestConfig()
@@ -118,16 +118,17 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
             Seq(Subset.nlHiking),
             "02",
             before = Some(
-              newRawNode(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02"))
+              newRawNode(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
             ),
             after = Some(
-              newRawNode(1001, tags = Tags.from("rcn_ref" -> "02"))
+              newRawNode(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
             ),
             tagDiffs = Some(
               TagDiffs(
                 mainTags = Seq(
                   TagDetail(Same, "rcn_ref", Some("02"), Some("02")),
-                  TagDetail(Delete, "rwn_ref", Some("01"), None)
+                  TagDetail(Delete, "rwn_ref", Some("01"), None),
+                  TagDetail(Same, "network:type", Some("node_network"), Some("node_network"))
                 )
               )
             ),

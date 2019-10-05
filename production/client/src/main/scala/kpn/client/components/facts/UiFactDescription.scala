@@ -509,24 +509,6 @@ object UiFactDescription {
             }
           )
 
-        case RouteNetworkTypeNotTagged =>
-          UiMarked(
-            if (nlsNL) {
-              """De route heeft geen _"network:type=node_network"_ tag."""
-            } else {
-              """The route is not tagged with _"network:type=node_network"_."""
-            }
-          )
-
-        case NetworkTypeNotTagged =>
-          UiMarked(
-            if (nlsNL) {
-              """Het netwerk heeft geen _"network:type=node_network"_ tag."""
-            } else {
-              """The network is not tagged with _"network:type=node_network"_."""
-            }
-          )
-
         case _ =>
           <.p(
             nls(
