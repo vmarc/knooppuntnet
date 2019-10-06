@@ -21,9 +21,6 @@ object NetworkFactsPageExample {
   val page = NetworkFactsPage(
     NetworkDetailsPageExample.networkSummary(),
     Seq(
-      NetworkFact(Fact.IgnoreForeignCountry.name),
-      NetworkFact(Fact.IgnoreNetworkTaggedAsRoute.name),
-      NetworkFact(Fact.IgnoreNoNetworkNodes.name),
       NetworkFact(
         Fact.NetworkExtraMemberNode.name,
         elementType = Some("node"),
@@ -169,8 +166,6 @@ object NetworkFactsPageExample {
       )
     ),
     facts = Seq(
-      Fact.IgnoreNetworkTaggedAsRoute,
-      Fact.IgnoreNoNetworkNodes
     )
   )
 

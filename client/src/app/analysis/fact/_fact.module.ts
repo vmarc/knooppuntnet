@@ -42,7 +42,6 @@ import {FactRouteNotOneWayComponent} from "./descriptions/fact-route-not-one-way
 import {FactRouteOneWayComponent} from "./descriptions/fact-route-one-way.component";
 import {FactRouteOverlappingWaysComponent} from "./descriptions/fact-route-overlapping-ways.component";
 import {FactRouteRedundantNodesComponent} from "./descriptions/fact-route-redundant-nodes.component";
-import {FactRouteReversedComponent} from "./descriptions/fact-route-reversed.component";
 import {FactRouteSuspiciousWaysComponent} from "./descriptions/fact-route-suspicious-ways.component";
 import {FactRouteTagInvalidComponent} from "./descriptions/fact-route-tag-invalid.component";
 import {FactRouteTagMissingComponent} from "./descriptions/fact-route-tag-missing.component";
@@ -99,7 +98,6 @@ import {FactsComponent} from "./facts.component";
     FactRouteIncompleteOkComponent,
     FactRouteUnaccessibleComponent,
     FactRouteInvalidSortingOrderComponent,
-    FactRouteReversedComponent,
     FactRouteNodeNameMismatchComponent,
     FactRouteNotForwardComponent,
     FactRouteNotBackwardComponent,

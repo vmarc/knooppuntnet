@@ -11,7 +11,6 @@ import kpn.core.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.core.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
-import kpn.core.engine.analysis.route.analyzers.NetworkTaggedAsRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.core.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteFragmentAnalyzer
@@ -59,7 +58,6 @@ class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) exte
         UnexpectedRelationRouteAnalyzer,
         RouteNameAnalyzer,
         RouteNodeAnalyzer,
-        NetworkTaggedAsRouteAnalyzer,
         ExpectedNameRouteAnalyzer,
         SuspiciousWaysRouteAnalyzer,
         // OverlappingWaysRouteAnalyzer,

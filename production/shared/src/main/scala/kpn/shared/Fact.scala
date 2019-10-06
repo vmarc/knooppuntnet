@@ -70,9 +70,6 @@ object Fact {
   val RouteUnaccessible: Fact = f.fact(202, "RouteUnaccessible", "Ontoegankelijk", FactLevel.INFO)
   val RouteInvalidSortingOrder: Fact = f.fact(203, "RouteInvalidSortingOrder", "SorteerFout", FactLevel.INFO)
 
-  // TODO not used anymore - remove when no longer in changes database
-  val RouteReversed: Fact = f.fact(204, "RouteReversed", "OmgekeerdeVolgorde", FactLevel.INFO)
-
   val RouteNodeNameMismatch: Fact = f.fact(205, "RouteNodeNameMismatch", "OnverwachteNaam", FactLevel.INFO)
   val RouteOneWay: Fact = f.fact(206, "RouteOneWay", "RouteEnkeleRichting", FactLevel.INFO)
   val RouteNotOneWay: Fact = f.fact(207, "RouteNotOneWay", "RouteNietEnkeleRichting", FactLevel.INFO)
@@ -87,24 +84,6 @@ object Fact {
   val RouteBroken: Fact = f.fact(303, "RouteBroken", "RouteFout", FactLevel.OTHER)
 
   val IntegrityCheck: Fact = f.fact(304, "IntegrityCheck", "RouteAantal", FactLevel.OTHER)
-
-  val IgnoreForeignCountry: Fact = f.fact(305, "IgnoreForeignCountry", "Buitenland", FactLevel.OTHER)
-  val IgnoreNotNodeNetwork: Fact = f.fact(306, "IgnoreNotNodeNetwork", "GeenKnooppuntNetwerk", FactLevel.OTHER)
-  val IgnoreNetworkTaggedAsRoute: Fact = f.fact(307, "IgnoreNetworkTaggedAsRoute", "GeenRoute", FactLevel.OTHER)
-  val IgnoreNoNetworkNodes: Fact = f.fact(308, "IgnoreNoNetworkNodes", "ZonderKnooppunten", FactLevel.OTHER)
-  val IgnoreNetworkCollection: Fact = f.fact(309, "IgnoreNetworkCollection", "NetwerkVerzameling", FactLevel.OTHER)
-  val IgnoreTagBased: Fact = f.fact(310, "IgnoreTagBased", "UitgeslotenOpBasisVanLabels", FactLevel.OTHER)
-  val IgnoreUnsupportedSubset: Fact = f.fact(311, "IgnoreUnsupportedSubset", "UitgeslotenSubset", FactLevel.OTHER)
-
-  val ignoreFacts: Seq[Fact] = Seq(
-    IgnoreForeignCountry,
-    IgnoreNotNodeNetwork,
-    IgnoreNetworkTaggedAsRoute,
-    IgnoreNoNetworkNodes,
-    IgnoreNetworkCollection,
-    IgnoreTagBased,
-    IgnoreUnsupportedSubset
-  )
 
   val Added: Fact = f.fact(401, "Added", "Toegevoegd", FactLevel.OTHER)
   val Deleted: Fact = f.fact(402, "Deleted", "Verwijderd", FactLevel.OTHER)
@@ -124,12 +103,7 @@ object Fact {
   val routeDetailFacts: Seq[Fact] = all.filterNot(f => f == RouteBroken || f == RouteNotContinious)
 
   def withName(factName: String): Option[Fact] = {
-    val currentFactName = factName match {
-      case "NodeNetwerkTypeNotTagged" => "NodeNetworkTypeNotTagged"
-      case "RouteNetwerkTypeNotTagged" => "RouteNetworkTypeNotTagged"
-      case _ => factName
-    }
-    all.find(fact => fact.name == currentFactName)
+    all.find(fact => fact.name == factName)
   }
 
   val errorFacts: Seq[Fact] = all.filter(_.isError).

@@ -888,18 +888,6 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fact.description.route-reversed" datatype="html">
-        <source>
-      The ways in this route are in reverse order (from high node number to low node number).
-    </source>
-        <target>
-          De wegen in deze route zijn in omgekeerde volgorde (van hoog knooppunt nummer naar laag knooppunt nummer).
-        </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-reversed.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="fact.description.route-node-name-mismatch" datatype="html">
         <source>
       The route name in the _note_ tag in the route relation does not match the expected name as

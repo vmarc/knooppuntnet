@@ -94,11 +94,6 @@ case class TestData2(
     copy(nodes = nodes :+ n)
   }
 
-  def foreignNetworkNode(id: Long, name: String, extraTags: Tags = Tags.empty): TestData2 = {
-    val n = newRawNode(id, latitude = "99", longitude = "99", tags = Tags.from("rwn_ref" -> name, "network:type" -> "node_network") ++ extraTags)
-    copy(nodes = nodes :+ n)
-  }
-
   def node(id: Long, tags: Tags = Tags.empty, latitude: String = "0", longitude: String = "0"): TestData2 = {
     val n = newRawNode(id, latitude = latitude, longitude = longitude, tags = tags)
     copy(nodes = nodes :+ n)

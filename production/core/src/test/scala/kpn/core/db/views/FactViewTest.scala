@@ -49,7 +49,7 @@ class FactViewTest extends FunSuite with Matchers {
           "network-name",
           facts = Seq(
             Fact.NameMissing,
-            Fact.IgnoreForeignCountry
+            Fact.NetworkExtraMemberNode
           ),
           detail = detail
         )
@@ -59,8 +59,8 @@ class FactViewTest extends FunSuite with Matchers {
 
       rows should equal(
         Seq(
-          FactViewKey("nl", "rwn", "IgnoreForeignCountry", "network-name", networkId),
           FactViewKey("nl", "rwn", "NameMissing", "network-name", networkId),
+          FactViewKey("nl", "rwn", "NetworkExtraMemberNode", "network-name", networkId),
           FactViewKey("nl", "rwn", "NodeMemberMissing", "network-name", networkId),
           FactViewKey("nl", "rwn", "RouteBroken", "network-name", networkId),
           FactViewKey("nl", "rwn", "RouteNameMissing", "network-name", networkId)

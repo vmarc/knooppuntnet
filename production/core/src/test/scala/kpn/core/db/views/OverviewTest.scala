@@ -66,7 +66,7 @@ class OverviewTest extends FunSuite with Matchers {
         "nl-rcn-2",
         facts = Seq(
           Fact.NameMissing,
-          Fact.IgnoreForeignCountry
+          Fact.NetworkExtraMemberNode
         )
       )
 
@@ -75,8 +75,8 @@ class OverviewTest extends FunSuite with Matchers {
       rows should contain(Figure("NameMissingCount", nlRcn = 1))
       rows should contain(Figure("NameMissingNetworkCount", nlRcn = 1))
 
-      rows should contain(Figure("IgnoreForeignCountryCount", nlRcn = 1))
-      rows should contain(Figure("IgnoreForeignCountryNetworkCount", nlRcn = 1))
+      rows should contain(Figure("NetworkExtraMemberNodeCount", nlRcn = 1))
+      rows should contain(Figure("NetworkExtraMemberNodeNetworkCount", nlRcn = 1))
     }
   }
 

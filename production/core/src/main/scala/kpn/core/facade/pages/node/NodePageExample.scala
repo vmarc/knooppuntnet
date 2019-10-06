@@ -283,7 +283,7 @@ object NodePageExample {
           Ref(1, "network four")
         ),
         factDiffs = FactDiffs(
-          resolved = Set(Fact.IgnoreForeignCountry),
+          resolved = Set(Fact.NetworkExtraMemberNode),
           introduced = Set(Fact.IntegrityCheckFailed),
           remaining = Set(Fact.IntegrityCheck)
         ),

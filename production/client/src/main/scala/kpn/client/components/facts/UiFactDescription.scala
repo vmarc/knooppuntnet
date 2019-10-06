@@ -274,15 +274,6 @@ object UiFactDescription {
             }
           )
 
-        case RouteReversed =>
-          <.p(
-            if (nlsNL) {
-              "De wegen in deze route zijn in omgekeerde volgorde (van hoog knooppunt nummer naar laag knooppunt nummer)."
-            } else {
-              "The ways in this route are in reverse order (from high node number to low node number)."
-            }
-          )
-
         case RouteNodeNameMismatch =>
           UiMarked(
             if (nlsNL) {
@@ -375,33 +366,6 @@ object UiFactDescription {
             }
           )
 
-        case IgnoreForeignCountry =>
-          <.p(
-            if (nlsNL) {
-              """Niet opgenomen in analyse: bevind zich in ander land dan Nederland, België of Duitsland."""
-            } else {
-              """Not included in analysis: located in a country different from The Netherlands, Belgium or Germany."""
-            }
-          )
-
-        case IgnoreNoNetworkNodes =>
-          <.p(
-            if (nlsNL) {
-              """Niet opgenomen in analyse: route bevat geen knooppunten."""
-            } else {
-              """Not included in analysis: route does not contain network nodes."""
-            }
-          )
-
-        case IgnoreUnsupportedSubset =>
-          <.p(
-            if (nlsNL) {
-              """Niet opgenomen in analyse: geen wandelnetwerken in Duitsland."""
-            } else {
-              """Not included in analysis: no node networks in Germany."""
-            }
-          )
-
         case Added =>
           <.p(
             if (nlsNL) {
@@ -426,24 +390,6 @@ object UiFactDescription {
               """Verwijderd uit de OpenStreetMap database."""
             } else {
               """Deleted from the OpenStreetMap database."""
-            }
-          )
-
-        case IgnoreNetworkCollection =>
-          <.p(
-            if (nlsNL) {
-              """Niet opgenomen in de analyse omdat deze relatie een verzameling van netwerken is."""
-            } else {
-              """Not included in the analysis because this relation is a collection of networks."""
-            }
-          )
-
-        case IntegrityCheck =>
-          <.p(
-            if (nlsNL) {
-              """Dit knooppunt heeft een label dat het aantal verwachte routes dat aankomt/vertrekt op dit knooppunt weergeeft."""
-            } else {
-              """This network node has a tag that indicates the expected number of routes that arrive/depart in this node."""
             }
           )
 

@@ -39,7 +39,6 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-route-one-way *ngSwitchCase="'RouteOneWay'"></kpn-fact-route-one-way>
       <kpn-fact-route-overlapping-ways *ngSwitchCase="'RouteOverlappingWays'"></kpn-fact-route-overlapping-ways>
       <kpn-fact-route-redundant-nodes *ngSwitchCase="'RouteRedundantNodes'"></kpn-fact-route-redundant-nodes>
-      <kpn-fact-route-reversed *ngSwitchCase="'RouteReversed'"></kpn-fact-route-reversed>
       <kpn-fact-route-suspicious-ways *ngSwitchCase="'RouteSuspiciousWays'"></kpn-fact-route-suspicious-ways>
       <kpn-fact-route-tag-invalid *ngSwitchCase="'RouteTagInvalid'"></kpn-fact-route-tag-invalid>
       <kpn-fact-route-tag-missing *ngSwitchCase="'RouteTagMissing'"></kpn-fact-route-tag-missing>
