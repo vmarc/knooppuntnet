@@ -2,7 +2,6 @@ package kpn.core.data
 
 import kpn.core.util.Haversine
 import kpn.core.util.Log
-import kpn.shared.NetworkType
 import kpn.shared.data.Member
 import kpn.shared.data.Node
 import kpn.shared.data.NodeMember
@@ -19,7 +18,7 @@ object DataBuilder {
   private val log = Log(classOf[DataBuilder])
 }
 
-class DataBuilder(networkType: NetworkType, rawData: RawData, log: Log = DataBuilder.log) {
+class DataBuilder(rawData: RawData, log: Log = DataBuilder.log) {
 
   private val relationsMap: scala.collection.mutable.Map[Long, Relation] = scala.collection.mutable.Map()
 
@@ -30,7 +29,6 @@ class DataBuilder(networkType: NetworkType, rawData: RawData, log: Log = DataBui
   private val relations: Map[Long, Relation] = buildRelations
 
   val data: Data = Data(
-    networkType,
     rawData,
     nodes,
     ways,

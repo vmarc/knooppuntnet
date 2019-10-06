@@ -75,7 +75,7 @@ class NetworkLoaderImpl(executor: OverpassQueryExecutor) extends NetworkLoader {
 
         case Some(networkType) =>
 
-          val data = new DataBuilder(networkType, improvedRawData).data
+          val data = new DataBuilder(improvedRawData).data
           val relation = data.relations(networkId)
           val networkName = new NetworkNameAnalyzer(relation).name
           Some(LoadedNetwork(networkId, networkType, networkName, data, relation))

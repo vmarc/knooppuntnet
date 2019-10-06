@@ -332,24 +332,24 @@ class NetworkRouteBuilderTest extends FunSuite with Matchers with MockFactory wi
 
     val data = {
       val rawData = RawData(None, d.nodes, d.ways, Seq(rawRouteRelation))
-      new DataBuilder(NetworkType.hiking, rawData).data
+      new DataBuilder(rawData).data
     }
     val routeRelation = data.relations(rawRouteRelation.id)
 
     val networkNodes: Map[Long, NetworkNode] = data.nodes.values
       .filter { node =>
-        node.tags.has(data.networkType.nodeTagKey)
+        node.tags.has(NetworkType.hiking.nodeTagKey)
       }
       .map(
         node =>
           NetworkNode(node,
-            node.tags(data.networkType.nodeTagKey).getOrElse(""),
+            node.tags(NetworkType.hiking.nodeTagKey).getOrElse(""),
             None))
       .map(n => n.id -> n)
       .toMap
 
     val analysisContext = new AnalysisContext()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
-    routeAnalyzer.analyze(networkNodes, LoadedRoute(None, data.networkType, "", data, routeRelation), orphan = false)
+    routeAnalyzer.analyze(networkNodes, LoadedRoute(None, NetworkType.hiking, "", data, routeRelation), orphan = false)
   }
 }

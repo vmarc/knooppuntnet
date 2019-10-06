@@ -1,6 +1,5 @@
 package kpn.core.data
 
-import kpn.shared.NetworkType
 import kpn.shared.Timestamp
 import kpn.shared.data.Node
 import kpn.shared.data.Relation
@@ -8,7 +7,6 @@ import kpn.shared.data.Way
 import kpn.shared.data.raw.RawData
 
 case class Data(
-  networkType: NetworkType,
   raw: RawData,
   nodes: Map[Long, Node],
   ways: Map[Long, Way],

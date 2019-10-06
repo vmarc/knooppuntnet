@@ -1,7 +1,6 @@
 package kpn.core.data
 
 import kpn.core.util.Log
-import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawData
@@ -48,15 +47,13 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
 
     val log = Log.mock
 
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     println(">>>>")
     println(log.messages)
     println("<<<<")
 
     log.messages.size should equal(0)
-
-    data.networkType should equal(NetworkType.hiking)
 
     data.nodes(101).tags("name") should equal(Some("01"))
     data.nodes(102).tags("name") should equal(Some("02"))
@@ -94,7 +91,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
 
     val log = Log.mock
 
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     val parsedRelation1 = data.relations(1)
     val parsedRelation2 = data.relations(2)
@@ -120,7 +117,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
 
     val log = Log.mock
 
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
     log.messages.head should equal("WARN data inconsistancy: node 102 (referenced from way 10) not found in data")
@@ -138,7 +135,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val log = Log.mock
 
     val rawData = RawData(None, Seq(), Seq(), Seq(relation))
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
     log.messages.head should equal("WARN data inconsistancy: node 101 (referenced from relation 1) not found in data")
@@ -155,7 +152,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val log = Log.mock
 
     val rawData = RawData(None, Seq(), Seq(), Seq(relation))
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
     log.messages.head should equal("WARN data inconsistancy: way 10 (referenced from relation 1) not found in data")
@@ -172,7 +169,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val log = Log.mock
 
     val rawData = RawData(None, Seq(), Seq(), Seq(relation))
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
     log.messages.head should equal("WARN data inconsistancy: relation 2 not found")
@@ -189,7 +186,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
     val log = Log.mock
 
     val rawData = RawData(None, Seq(), Seq(), Seq(relation))
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
     log.messages.head should equal("""WARN data inconsistancy: unknown member type "bla" in relation 1""")
@@ -214,7 +211,7 @@ class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
 
     val log = Log.mock
 
-    val data = new DataBuilder(NetworkType.hiking, rawData, log).data
+    val data = new DataBuilder(rawData, log).data
 
     //log.messages.size should equal(0)
 

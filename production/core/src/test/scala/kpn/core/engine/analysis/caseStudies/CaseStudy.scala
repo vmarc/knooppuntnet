@@ -27,7 +27,7 @@ object CaseStudy {
     val analysisContext = new AnalysisContext(oldTagging = true)
     val networkNodes = new NetworkNodeBuilder(analysisContext, data, networkType, countryAnalyzer).networkNodes
     val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
-    routeAnalyzer.analyze(networkNodes, LoadedRoute(Some(Country.nl), data.networkType, "", data, routeRelation), orphan = false)
+    routeAnalyzer.analyze(networkNodes, LoadedRoute(Some(Country.nl), networkType, "", data, routeRelation), orphan = false)
   }
 
   private def load(filename: String): (Data, NetworkType, Relation) = {
@@ -58,7 +58,7 @@ object CaseStudy {
       case _ => throw new IllegalArgumentException("Network type not found in file " + filename)
     }
 
-    val data = new DataBuilder(networkType, rawData).data
+    val data = new DataBuilder(rawData).data
     val routeRelation = data.relations(rawRouteRelation.id)
     (data, networkType, routeRelation)
   }

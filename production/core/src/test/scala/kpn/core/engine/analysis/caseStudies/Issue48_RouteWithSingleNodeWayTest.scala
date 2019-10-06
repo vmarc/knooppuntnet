@@ -41,6 +41,6 @@ class Issue48_RouteWithSingleNodeWayTest extends FunSuite with Matchers {
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
     val rawData = new Parser().parse(xml)
-    new DataBuilder(NetworkType.hiking, rawData).data
+    new DataBuilder(rawData).data
   }
 }

@@ -2,7 +2,6 @@ package kpn.core.test
 
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
-import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.Timestamp
 import kpn.shared.data.Tags
@@ -77,7 +76,7 @@ class TestData() extends SharedTestObjects {
   }
 
   def data: Data = {
-    new DataBuilder(NetworkType.hiking, rawData).data
+    new DataBuilder(rawData).data
   }
 
 }
@@ -90,7 +89,7 @@ case class TestData2(
 ) extends SharedTestObjects {
 
   def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty): TestData2 = {
-    val n = newRawNode(id, tags =  newNodeTags(name) ++ extraTags)
+    val n = newRawNode(id, tags = newNodeTags(name) ++ extraTags)
     copy(nodes = nodes :+ n)
   }
 
@@ -122,7 +121,7 @@ case class TestData2(
   }
 
   def data: Data = {
-    new DataBuilder(NetworkType.hiking, rawData).data
+    new DataBuilder(rawData).data
   }
 
 }

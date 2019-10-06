@@ -49,7 +49,7 @@ class NodeLoaderImpl(
         doLoad(timestamp, networkType, nodeIdSubset)
       }
       val rawData = RawData.merge(datas: _*)
-      val data = new DataBuilder(networkType, rawData).data
+      val data = new DataBuilder(rawData).data
       val nodeOptions = nodeIds.map(id => id -> data.nodes.get(id))
       loadedNodes(nodeOptions)
     }
@@ -72,7 +72,7 @@ class NodeLoaderImpl(
     }
 
     val rawData = new Parser().parse(xml.head)
-    val data = new DataBuilder(networkType, rawData).data
+    val data = new DataBuilder(rawData).data
     val nodeOptions = nodeIds.map(id => id -> data.nodes.get(id))
     logMissingNodes(timestamp, xml, nodeOptions)
     rawData

@@ -80,6 +80,6 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
     val routeTags = Tags(tags.tags ++ standardRouteTags.tags)
     val relation = newRawRelation(routeRelationId, members = memberBuffer, tags = routeTags)
     val rawData = RawData(None, nodeBuffer, wayBuffer, Seq(relation))
-    new DataBuilder(networkType, rawData).data
+    new DataBuilder(rawData).data
   }
 }

@@ -60,7 +60,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     ) ++ d.tags
     val rr: RawRelation = newRawRelation(10, members = d.members, tags = tags)
     val rawData = RawData(None, d.nodes, d.ways, Seq(rr))
-    val data = new DataBuilder(d.networkType, rawData).data
+    val data = new DataBuilder(rawData).data
     val relation = data.relations(rr.id)
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerNoop()
