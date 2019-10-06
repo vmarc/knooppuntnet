@@ -50,7 +50,7 @@ object NetworkDiffAnalyzerDemo {
       val loadedNetwork = networkLoader.load(Some(timestampAfter), networkId).get
       val t1 = System.currentTimeMillis()
       val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
-      val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork.data, loadedNetwork.networkType, networkId)
+      val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
       val t2 = System.currentTimeMillis()
       println(s"after analysis in ${t2 - t1}ms")
       NetworkSnapshot(timestampAfter, loadedNetwork.data, network)

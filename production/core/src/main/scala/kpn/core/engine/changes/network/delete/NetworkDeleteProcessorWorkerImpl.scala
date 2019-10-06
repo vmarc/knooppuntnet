@@ -57,7 +57,7 @@ class NetworkDeleteProcessorWorkerImpl(
 
         val networkBefore = {
           val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
-          networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork.data, loadedNetwork.networkType, networkId)
+          networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
         }
 
         saveDeletedNetworkInfo(context, networkBefore)

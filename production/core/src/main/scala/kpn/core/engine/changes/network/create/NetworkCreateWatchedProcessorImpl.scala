@@ -32,7 +32,7 @@ class NetworkCreateWatchedProcessorImpl(
   def process(context: ChangeSetContext, loadedNetworkAfter: LoadedNetwork): ChangeSetChanges = {
 
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetworkAfter.relation)
-    val networkAfter = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetworkAfter.data, loadedNetworkAfter.networkType, loadedNetworkAfter.relation.id)
+    val networkAfter = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetworkAfter)
 
     analysisRepository.saveNetwork(networkAfter)
 

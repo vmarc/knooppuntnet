@@ -5,9 +5,9 @@ import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.changes.RelationAnalyzer
-import kpn.core.data.Data
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzer
+import kpn.core.load.data.LoadedNetwork
 import kpn.core.load.data.LoadedRoute
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
@@ -18,7 +18,6 @@ import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
 import kpn.shared.NetworkFacts
 import kpn.shared.NetworkNameMissing
-import kpn.shared.NetworkType
 import kpn.shared.common.Ref
 import kpn.shared.data.Relation
 import kpn.shared.route.RouteInfo
@@ -32,19 +31,17 @@ class NetworkAnalyzerImpl(
 
   private val log = Log(classOf[NetworkAnalyzerImpl])
 
-  def analyze(networkRelationAnalysis: NetworkRelationAnalysis, data: Data, networkType: NetworkType, networkId: Long): Network = {
-
-    val networkRelation: Relation = data.relations(networkId)
-
-    // TODO name already available in LoadedNetwork
-    val name = new NetworkNameAnalyzer(networkRelation).name
+  def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Network = {
 
     // TODO nodes already available in NetworkRelationAnalysis
-    val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, data, countryAnalyzer).networkNodes
+    val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, loadedNetwork.data, countryAnalyzer).networkNodes
 
     val allRouteAnalyses: Map[Long, kpn.core.engine.analysis.route.RouteAnalysis] = {
 
-      val routeRelations = data.relations.values.filter(rel => analysisContext.isRouteRelation(networkType, rel.raw))
+      val routeRelations = loadedNetwork.data.relations.values.filter { rel =>
+        analysisContext.isRouteRelation(loadedNetwork.networkType, rel.raw)
+      }
+
       val routeAnalyses = routeRelations.flatMap { routeRelation =>
 
         val country = countryAnalyzer.relationCountry(routeRelation) match {
@@ -54,14 +51,14 @@ class NetworkAnalyzerImpl(
 
         relationAnalyzer.networkType(routeRelation) match {
           case Some(routeNetworkType) =>
-            if (networkType == routeNetworkType) {
+            if (loadedNetwork.networkType == routeNetworkType) {
               val name = relationAnalyzer.routeName(routeRelation)
-              val loadedRoute = LoadedRoute(country, routeNetworkType, name, data, routeRelation)
+              val loadedRoute = LoadedRoute(country, routeNetworkType, name, loadedNetwork.data, routeRelation)
               val routeAnalysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = false)
               Some(routeAnalysis)
             }
             else {
-              val msg = s"Route networkType (${routeNetworkType.name}) does not match the network relation networkType ${networkType.name}."
+              val msg = s"Route networkType (${routeNetworkType.name}) does not match the network relation networkType ${loadedNetwork.name}."
               val programmingError = "This is an unexpected programming error."
               //noinspection SideEffectsInMonadicTransformation
               log.error(s"$msg $programmingError")
@@ -79,9 +76,9 @@ class NetworkAnalyzerImpl(
       routeAnalyses.map(a => (a.route.id, a)).toMap
     }
 
-    val extraWayMembers = networkRelation.wayMembers
-    val (nodeMembers, extraNodeMembers) = networkRelation.nodeMembers.partition(member => allNodes.contains(member.node.id))
-    val (routeMembers, extraRelationMembers) = networkRelation.relationMembers.partition(member => allRouteAnalyses.contains(member.relation.id))
+    val extraWayMembers = loadedNetwork.relation.wayMembers
+    val (nodeMembers, extraNodeMembers) = loadedNetwork.relation.nodeMembers.partition(member => allNodes.contains(member.node.id))
+    val (routeMembers, extraRelationMembers) = loadedNetwork.relation.relationMembers.partition(member => allRouteAnalyses.contains(member.relation.id))
 
     val filteredExtraNodeMembers = extraNodeMembers.filterNot { nodeMember =>
       nodeMember.node.tags.has("tourism", "information") && nodeMember.node.tags.has("information", "map", "guidepost")
@@ -111,7 +108,7 @@ class NetworkAnalyzerImpl(
 
     val allNodesInNetwork: Set[NetworkNode] = networkNodesInRelation ++ networkNodesInRouteWays ++ networkNodesInRouteRelations
 
-    val shape = new NetworkShapeAnalyzer(relationAnalyzer, networkRelation).shape
+    val shape = new NetworkShapeAnalyzer(relationAnalyzer, loadedNetwork.relation).shape
 
     val analysis = NetworkAnalysis(
       allNodes = allNodes,
@@ -140,7 +137,7 @@ class NetworkAnalyzerImpl(
           None
         }
         else {
-          new NodeIntegrityAnalyzer(data.networkType, analysis, networkNode).analysis
+          new NodeIntegrityAnalyzer(loadedNetwork.networkType, analysis, networkNode).analysis
         }
 
         val connection: Boolean = {
@@ -191,14 +188,14 @@ class NetworkAnalyzerImpl(
       if (analysis.networkExtraMemberRelation.nonEmpty) Some(analysis.networkExtraMemberRelation) else None,
       integrity.check,
       integrity.checkFailed,
-      networkNameMissing(networkRelation)
+      networkNameMissing(loadedNetwork.relation)
     )
 
     Network(
       networkRelationAnalysis.country,
-      data.networkType,
-      networkRelation,
-      name,
+      loadedNetwork.networkType,
+      loadedNetwork.relation,
+      loadedNetwork.name,
       networkNodes,
       analysis.routes,
       analysis.shape,

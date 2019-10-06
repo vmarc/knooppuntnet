@@ -127,7 +127,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
             case Some(loadedNetwork) =>
               val networkRelationAnalysis = config.networkRelationAnalyzer.analyze(loadedNetwork.relation)
               log.info(s"""Analyze "${loadedNetwork.name}"""")
-              val network: Network = config.networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork.data,  loadedNetwork.networkType, loadedNetwork.networkId)
+              val network: Network = config.networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
 
               network.routes.foreach { route =>
                 config.changeSetRepository.saveRouteChange(
