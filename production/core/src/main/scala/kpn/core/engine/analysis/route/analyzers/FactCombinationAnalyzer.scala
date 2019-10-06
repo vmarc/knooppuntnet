@@ -8,7 +8,6 @@ import kpn.shared.Fact.RouteNotBackward
 import kpn.shared.Fact.RouteNotContinious
 import kpn.shared.Fact.RouteNotForward
 import kpn.shared.Fact.RouteRedundantNodes
-import kpn.shared.Fact.RouteReversed
 import kpn.shared.Fact.RouteUnusedSegments
 import kpn.shared.Fact.RouteWithoutWays
 

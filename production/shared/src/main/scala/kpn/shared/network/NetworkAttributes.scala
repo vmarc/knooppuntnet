@@ -22,8 +22,7 @@ case class NetworkAttributes(
   connectionCount: Int,
   lastUpdated: Timestamp,
   relationLastUpdated: Timestamp,
-  center: Option[LatLonImpl],
-  tagged: Boolean
+  center: Option[LatLonImpl]
 ) {
 
   def completeness: String = {
@@ -70,6 +69,5 @@ case class NetworkAttributes(
     field("lastUpdated", lastUpdated).
     field("relationLastUpdated", relationLastUpdated).
     field("center", center).
-    field("tagged", tagged).
     build
 }

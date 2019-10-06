@@ -352,24 +352,6 @@ class OverviewInfos(statistics: Statistics)(implicit context: Context) {
     )
   )
 
-  val nodeNetworkTypeNotTaggedInfo: UiOverviewInfo = factDetailCounts(Fact.NodeNetworkTypeNotTagged) {
-    <.div(
-      nls(
-        "Number of nodes that are not tagged with 'network:type=node_network'.",
-        "Aantal knooppunten zonder 'network:type=node_network' tag."
-      )
-    )
-  }
-
-  val networkTypeNotTaggedInfo: UiOverviewInfo = factDetailCounts(Fact.NetworkTypeNotTagged) {
-    <.div(
-      nls(
-        "Number of networks that are not tagged with 'network:type=node_network'.",
-        "Aantal netwerken zonder 'network:type=node_network' tag."
-      )
-    )
-  }
-
   val routeUnusedSegmentsInfo: UiOverviewInfo = factDetailCounts(Fact.RouteUnusedSegments) {
     <.div(
       nls(

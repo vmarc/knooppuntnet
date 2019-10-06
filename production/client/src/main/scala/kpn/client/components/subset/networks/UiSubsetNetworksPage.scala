@@ -46,10 +46,6 @@ object UiSubsetNetworksPage {
       minWidth(40.px)
     )
 
-    val taggedColumn: StyleA = style(
-      minWidth(20.px)
-    )
-
     val lengthColumn: StyleA = style(
       minWidth(4.em)
     )
@@ -218,16 +214,6 @@ object UiSubsetNetworksPage {
             TagMod.when(network.veryHappy) {
               UiHappy()
             },
-            TagMod.when(!network.tagged) {
-              <.div(
-                <.i(
-                  nls(
-                    "No 'network:type=node_network' tag",
-                    "Geen 'network:type=node_network' tag"
-                  )
-                )
-              )
-            },
             <.div(
               network.km + " km, " + network.nodeCount + " nodes, " + network.routeCount + " routes"
             ),
@@ -255,7 +241,7 @@ object UiSubsetNetworksPage {
         ^.title := "node integrity check differences",
         <.thead(
           <.tr(
-            <.th(^.rowSpan := 2, ^.colSpan := 3, nls("Network", "Netwerk")),
+            <.th(^.rowSpan := 2, ^.colSpan := 2, nls("Network", "Netwerk")),
             <.th(^.rowSpan := 2, nls("Length", "Lengte")),
             <.th(^.rowSpan := 2, nls("Nodes", "Knooppunten")),
             <.th(^.colSpan := 3, nls("Routes", "Routes")),
@@ -281,12 +267,6 @@ object UiSubsetNetworksPage {
                   UiHappy()
                 },
                 TagMod.when(network.veryHappy) {
-                  UiHappy()
-                }
-              ),
-              <.td(
-                Styles.taggedColumn,
-                TagMod.when(network.tagged) {
                   UiHappy()
                 }
               ),

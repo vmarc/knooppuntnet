@@ -429,15 +429,6 @@ object UiFactDescription {
             }
           )
 
-        case NodeNetworkTypeNotTagged =>
-          UiMarked(
-            if (nlsNL) {
-              """Het knooppunt heeft geen _"network:type=node_network"_ tag."""
-            } else {
-              """The node is not tagged with _"network:type=node_network"_."""
-            }
-          )
-
         case _ =>
           <.p(
             nls(

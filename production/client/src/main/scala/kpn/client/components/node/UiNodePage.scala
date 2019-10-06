@@ -245,14 +245,6 @@ object UiNodePage {
               "Dit knooppunt behoort niet tot een knooppuntnetwerk (wees)."
             )
           )
-        },
-        TagMod.when(page.nodeInfo.ignored) {
-          <.p(
-            nls(
-              "This network node is not included in the analysis.",
-              "Dit knooppunt is niet in de analyse opgenomen."
-            )
-          )
         }
       )
     }

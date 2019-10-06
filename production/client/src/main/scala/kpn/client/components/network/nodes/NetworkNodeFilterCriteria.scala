@@ -4,7 +4,6 @@ package kpn.client.components.network.nodes
 import kpn.client.filter.TimeFilterKind
 
 case class NetworkNodeFilterCriteria(
-  tagged: Option[Boolean] = None,
   definedInNetworkRelation: Option[Boolean] = None,
   definedInRouteRelation: Option[Boolean] = None,
   referencedInRoute: Option[Boolean] = None,

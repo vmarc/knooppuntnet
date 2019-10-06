@@ -266,7 +266,7 @@ object JsonFormats extends DefaultJsonProtocol {
 
   implicit val refFormat: RootJsonFormat[Ref] = jsonFormat2(Ref)
   implicit val networkNodeInfo2Format: RootJsonFormat[NetworkNodeInfo2] = jsonFormat14(NetworkNodeInfo2)
-  implicit val networkAttributesFormat: RootJsonFormat[NetworkAttributes] = jsonFormat17(NetworkAttributes)
+  implicit val networkAttributesFormat: RootJsonFormat[NetworkAttributes] = jsonFormat16(NetworkAttributes)
 
   implicit val networkNameMissingFormat: RootJsonFormat[NetworkNameMissing] = jsonFormat0(NetworkNameMissing)
   implicit val networkExtraMemberWayFormat: RootJsonFormat[NetworkExtraMemberWay] = jsonFormat1(NetworkExtraMemberWay)

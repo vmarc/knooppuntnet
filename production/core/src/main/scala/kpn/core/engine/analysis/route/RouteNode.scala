@@ -23,6 +23,4 @@ case class RouteNode(
     s"$clazz($details)"
   }
 
-  def networkTypeTagged: Boolean = node.tags.has("network:type")
-
 }

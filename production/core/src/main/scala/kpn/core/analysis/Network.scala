@@ -149,7 +149,4 @@ case class Network(
     }
   }
 
-  def tagged: Boolean = {
-    relation.tags.has("network:type", "node_network")
-  }
 }
