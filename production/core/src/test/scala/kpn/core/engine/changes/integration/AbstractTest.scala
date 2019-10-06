@@ -4,6 +4,7 @@ import java.io.PrintWriter
 import java.io.StringWriter
 
 import kpn.core.changes.RelationAnalyzer
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.data.Data
 import kpn.core.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.core.engine.analysis.NetworkAnalyzerImpl
@@ -63,6 +64,7 @@ import kpn.core.repository.ChangeSetRepository
 import kpn.core.repository.NetworkRepository
 import kpn.core.repository.NodeRepository
 import kpn.core.repository.TaskRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.ReplicationId
 import kpn.shared.SharedTestObjects
 import kpn.shared.Timestamp
@@ -88,8 +90,11 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
   protected class TestConfig() {
 
     val analysisData = AnalysisData()
+    val analysisContext = new AnalysisContext()
 
-    val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock()
+    val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+
+    val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock(relationAnalyzer)
     val executor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
 
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
@@ -105,9 +110,9 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
     private val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(executor)
-    private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
-    private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-    private val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
+    private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+    private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
       analysisData,
@@ -118,6 +123,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
       analysisData,
       analysisRepository,
+      relationAnalyzer,
       countryAnalyzer,
       routeAnalyzer,
       routeLoader
@@ -128,6 +134,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     )
 
     val changeBuilder: ChangeBuilder = new ChangeBuilderImpl(
+      analysisContext,
       analysisData,
       routesLoader,
       countryAnalyzer,
@@ -139,6 +146,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val networkChangeProcessor = {
 
       val networkChangeAnalyzer = new NetworkChangeAnalyzerImpl(
+        analysisContext,
         analysisData,
         blackListRepository
       )
@@ -218,16 +226,20 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
 
     private val orphanRouteChangeProcessor = {
       val orphanRouteProcessor: OrphanRouteProcessor = new OrphanRouteProcessorImpl(
+        analysisContext,
         analysisData,
         analysisRepository,
+        relationAnalyzer,
         countryAnalyzer,
         routeAnalyzer
       )
       val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
+        analysisContext,
         analysisData,
         blackListRepository
       )
       new OrphanRouteChangeProcessorImpl(
+        analysisContext,
         analysisData,
         analysisRepository,
         orphanRouteChangeAnalyzer,
@@ -241,6 +253,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val orphanNodeChangeProcessor = {
 
       val orphanNodeChangeAnalyzer = new OrphanNodeChangeAnalyzerImpl(
+        analysisContext,
         analysisData,
         blackListRepository
       )
@@ -257,6 +270,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
       )
 
       val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
+        analysisContext,
         analysisData,
         analysisRepository
       )
@@ -321,11 +335,11 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     }
 
     def watchNetwork(data: Data, networkId: Long): Unit = {
-      analysisData.networks.watched.add(networkId, RelationAnalyzer.toElementIds(data.relations(networkId)))
+      analysisData.networks.watched.add(networkId, relationAnalyzer.toElementIds(data.relations(networkId)))
     }
 
     def watchOrphanRoute(data: Data, routeId: Long): Unit = {
-      val elementIds = RelationAnalyzer.toElementIds(data.relations(routeId))
+      val elementIds = relationAnalyzer.toElementIds(data.relations(routeId))
       analysisData.orphanRoutes.watched.add(routeId, elementIds)
     }
 

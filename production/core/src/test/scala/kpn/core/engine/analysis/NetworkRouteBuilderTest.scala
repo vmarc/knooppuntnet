@@ -2,10 +2,11 @@ package kpn.core.engine.analysis
 
 import kpn.core.analysis.NetworkNode
 import kpn.core.data.DataBuilder
-import kpn.core.engine.analysis.route.RouteAnalysis
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.core.engine.analysis.route.RouteAnalysis
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact._
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
@@ -37,7 +38,7 @@ import org.scalatest.Matchers
 
 class TData extends SharedTestObjects {
 
-  val node1: RawNode = newRawNodeWithName(1,  "01")
+  val node1: RawNode = newRawNodeWithName(1, "01")
   val node2: RawNode = newRawNode(2)
   val node3: RawNode = newRawNode(3)
   val node4: RawNode = newRawNodeWithName(4, "04")
@@ -347,7 +348,8 @@ class NetworkRouteBuilderTest extends FunSuite with Matchers with MockFactory wi
       .map(n => n.id -> n)
       .toMap
 
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
+    val analysisContext = new AnalysisContext()
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
     routeAnalyzer.analyze(networkNodes, LoadedRoute(None, data.networkType, "", data, routeRelation), orphan = false)
   }
 }

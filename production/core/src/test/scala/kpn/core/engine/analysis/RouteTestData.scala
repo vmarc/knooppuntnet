@@ -21,7 +21,7 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
   def routeRelationId = 1L
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    val tags = if (name == "") Tags.empty else Tags.from(networkType.nodeTagKey -> name)
+    val tags = if (name == "") Tags.empty else Tags.from(networkType.nodeTagKey -> name, "network:type" -> "node_network")
     val n = newRawNode(id, lattitude.toString, longitude.toString, tags = tags)
     nodeBuffer += n
     n
@@ -74,7 +74,8 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
       "note" -> routeName,
       "network" -> "rwn",
       "type" -> "route",
-      "route" -> "foot"
+      "route" -> "foot",
+      "network:type" -> "node_network"
     )
     val routeTags = Tags(tags.tags ++ standardRouteTags.tags)
     val relation = newRawRelation(routeRelationId, members = memberBuffer, tags = routeTags)

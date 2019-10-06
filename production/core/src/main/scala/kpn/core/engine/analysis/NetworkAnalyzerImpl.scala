@@ -9,6 +9,7 @@ import kpn.core.data.Data
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzer
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.shared.Fact
@@ -22,6 +23,8 @@ import kpn.shared.data.Relation
 import kpn.shared.route.RouteInfo
 
 class NetworkAnalyzerImpl(
+  analysisContext: AnalysisContext,
+  relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   routeAnalyzer: MasterRouteAnalyzer
 ) extends NetworkAnalyzer {
@@ -36,14 +39,12 @@ class NetworkAnalyzerImpl(
     // TODO name already available in LoadedNetwork
     val name = new NetworkNameAnalyzer(networkRelation).name
 
-
     // TODO nodes already available in NetworkRelationAnalysis
-    val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(data, countryAnalyzer).networkNodes
-
-    val interpreter = new Interpreter(data.networkType)
+    val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, data, countryAnalyzer).networkNodes
 
     val allRouteAnalyses: Map[Long, kpn.core.engine.analysis.route.RouteAnalysis] = {
-      val routeRelations = data.relations.values.filter(data.isRouteRelation)
+
+      val routeRelations = data.relations.values.filter(rel => analysisContext.isRouteRelation(networkType, rel.raw))
       val routeAnalyses = routeRelations.flatMap { routeRelation =>
 
         val country = countryAnalyzer.relationCountry(routeRelation) match {
@@ -51,10 +52,10 @@ class NetworkAnalyzerImpl(
           case Some(e) => Some(e)
         }
 
-        RelationAnalyzer.networkType(routeRelation) match {
+        relationAnalyzer.networkType(routeRelation) match {
           case Some(routeNetworkType) =>
             if (networkType == routeNetworkType) {
-              val name = RelationAnalyzer.routeName(routeRelation)
+              val name = relationAnalyzer.routeName(routeRelation)
               val loadedRoute = LoadedRoute(country, routeNetworkType, name, data, routeRelation)
               val routeAnalysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = false)
               Some(routeAnalysis)
@@ -110,7 +111,7 @@ class NetworkAnalyzerImpl(
 
     val allNodesInNetwork: Set[NetworkNode] = networkNodesInRelation ++ networkNodesInRouteWays ++ networkNodesInRouteRelations
 
-    val shape = new NetworkShapeAnalyzer(networkRelation).shape
+    val shape = new NetworkShapeAnalyzer(relationAnalyzer, networkRelation).shape
 
     val analysis = NetworkAnalysis(
       allNodes = allNodes,

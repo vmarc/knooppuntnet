@@ -1,12 +1,14 @@
 package kpn.core.poi
 
 import kpn.core.app.ActorSystemConfig
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.poi.tags.TagExpressionFormatter
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Poi
 
@@ -20,7 +22,9 @@ object PoiProcessorImpl {
     val poiRepository = new PoiRepositoryImpl(poiDatabase)
     val nonCachingExecutor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
     val poiLoader = new PoiLoaderImpl(nonCachingExecutor)
-    val countryAnalyzer = new CountryAnalyzerImpl()
+    val analysisContext = new AnalysisContext()
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
     val poiLocationFilter = new PoiLocationFilterImpl(countryAnalyzer)
     val processor = new PoiProcessorImpl(
       poiLoader,

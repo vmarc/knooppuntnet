@@ -79,7 +79,7 @@ class OrphanRouteChangeAnalyzerTest extends FunSuite with Matchers with SharedTe
 
   private def elementChanges(change: Change): ElementChanges = {
     val cs = newChangeSet(changes = Seq(change))
-    new OrphanRouteChangeAnalyzer(d.analysisData, new MockBlackListRepository()).analyze(cs)
+    new OrphanRouteChangeAnalyzer(d.analysisContext, d.analysisData, new MockBlackListRepository()).analyze(cs)
   }
 
   private def relationWithoutTags(relationId: Long): RawRelation = {

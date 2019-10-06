@@ -1,10 +1,10 @@
 package kpn.core.engine.analysis.route.analyzers
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
 import kpn.core.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.NetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -281,11 +281,13 @@ class RouteNodeAnalyzerTest extends FunSuite with Matchers {
       data.relations(1L)
     )
 
+    val analysisContext = new AnalysisContext()
+
     val context = RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map.empty,
       loadedRoute,
-      orphan = false,
-      interpreter = new Interpreter(loadedRoute.networkType)
+      orphan = false
     )
 
     val newContext = RouteNodeAnalyzer.analyze(RouteNameAnalyzer.analyze(context))

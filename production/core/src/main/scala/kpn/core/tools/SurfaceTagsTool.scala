@@ -1,10 +1,12 @@
 package kpn.core.tools
 
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.load.RouteLoaderImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Timestamp
 import kpn.shared.data.Tag
 import spray.json.JsString
@@ -43,7 +45,9 @@ class SurfaceTagsTool(database: Database) {
   def analyze(): Unit = {
 
     val executor = new OverpassQueryExecutorImpl()
-    val routeLoader = new RouteLoaderImpl(executor, new CountryAnalyzerImpl())
+    val analysisContext = new AnalysisContext()
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    val routeLoader = new RouteLoaderImpl(executor, new CountryAnalyzerImpl(relationAnalyzer))
 
     var counts = new scala.collection.mutable.HashMap[String, Int]
 

@@ -7,11 +7,10 @@ import kpn.core.analysis.RouteMemberWay
 import kpn.core.engine.analysis.route.RouteNodeAnalysis
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.obsolete.OldLinkBuilder
-import kpn.shared.NetworkType
+import kpn.shared.Fact.RouteUnaccessible
 import kpn.shared.data.Member
 import kpn.shared.data.NodeMember
 import kpn.shared.data.WayMember
-import kpn.shared.Fact.RouteUnaccessible
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -35,7 +34,9 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
     // map with key Node.id and value node number
     val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map()
     val nodeNumberIterator = (1 to 10000).iterator
-    val validRouteMembers: Seq[Member] = context.loadedRoute.relation.members.filter(context.interpreter.isValidNetworkMember)
+    val validRouteMembers: Seq[Member] = context.loadedRoute.relation.members.filter { member =>
+      context.analysisContext.isValidNetworkMember(context.loadedRoute.networkType, member)
+    }
 
     val wayRelationMembers = validRouteMembers.flatMap {
       case member: WayMember => Some(kpn.core.josm.RelationMember(member.role.getOrElse(""), member.way))
@@ -81,7 +82,8 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
         // relationMember.isWay)
         val link = linkIterator.next()
         val way = wayMember.way
-        val wayNetworkNodes = way.nodes.filter(n => context.interpreter.isNetworkNode(n.raw)).flatMap(n => routeNodeAnalysis.routeNodes.find(_.id == n.id))
+        val wayNetworkNodes = way.nodes.filter(n => context.analysisContext.isNetworkNode(context.networkType, n.raw)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
+          .id == n.id))
         val name = way.tags("name").getOrElse("")
 
         val fromNode = if (link.linkType == LinkType.FORWARD) way.nodes.head else way.nodes.last
@@ -105,7 +107,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
           n
         }
 
-        val accessible = new AccessibilityAnalyzerImpl().accessible(context.interpreter.networkType, way)
+        val accessible = new AccessibilityAnalyzerImpl().accessible(context.networkType, way)
 
         // way.tags.has("route", "ferry") TODO draw boat icon?
 

@@ -2,6 +2,8 @@ package kpn.core.tools
 
 import akka.actor.ActorSystem
 import kpn.core.changes.ChangeSetInfoApiImpl
+import kpn.core.changes.RelationAnalyzer
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Database
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.engine.analysis.ChangeSetInfoUpdater
@@ -32,6 +34,7 @@ import kpn.core.repository.NetworkRepositoryImpl
 import kpn.core.repository.NodeRepositoryImpl
 import kpn.core.repository.OrphanRepositoryImpl
 import kpn.core.repository.RouteRepositoryImpl
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 import kpn.core.tools.config.AnalysisDataLoaderConfiguration
 import kpn.core.tools.config.Dirs
@@ -75,7 +78,11 @@ class AnalyzerStartToolConfiguration(
 
   val analysisData: AnalysisData = AnalysisData()
 
-  val countryAnalyzer = new CountryAnalyzerImpl()
+  val analysisContext = new AnalysisContext()
+
+  val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+
+  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
 
   val changeSetRepository = new ChangeSetRepositoryImpl(
     changeDatabase
@@ -112,7 +119,7 @@ class AnalyzerStartToolConfiguration(
     countryAnalyzer
   )
 
-  val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
+  val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
 
   val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
     system,
@@ -125,13 +132,14 @@ class AnalyzerStartToolConfiguration(
     factRepository,
     blackListRepository,
     changeSetInfoUpdater,
+    relationAnalyzer,
     countryAnalyzer,
     nodeLoader,
     analysisDatabaseIndexer
   ).analysisDataLoader
 
   val networkLoader = new NetworkLoaderImpl(cachingExecutor)
-  val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-  val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
+  val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+  val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
 
 }

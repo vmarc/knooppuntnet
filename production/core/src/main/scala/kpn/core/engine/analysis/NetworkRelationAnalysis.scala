@@ -16,8 +16,4 @@ case class NetworkRelationAnalysis(
   networkRefs: Seq[Long],
   lastUpdated: Timestamp,
   elementIds: ElementIds
-) {
-
-  def isNetworkCollection: Boolean = networkRelations.nonEmpty
-
-}
+)

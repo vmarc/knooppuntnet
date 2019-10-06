@@ -1,10 +1,10 @@
 package kpn.core.engine.analysis.route.analyzers
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
 import kpn.core.engine.analysis.route.RouteNameAnalysis
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.NetworkType
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -122,11 +122,13 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
       data.relations(1L)
     )
 
+    val analysisContext = new AnalysisContext()
+
     val context = RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map.empty,
       loadedRoute,
-      orphan = false,
-      interpreter = new Interpreter(loadedRoute.networkType)
+      orphan = false
     )
 
     val newContext = RouteNameAnalyzer.analyze(context)
@@ -147,11 +149,13 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
       data.relations(1L)
     )
 
+    val analysisContext = new AnalysisContext()
+
     val context = RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map.empty,
       loadedRoute,
-      orphan = false,
-      interpreter = new Interpreter(loadedRoute.networkType)
+      orphan = false
     )
 
     val newContext = RouteNameAnalyzer.analyze(context)
@@ -159,6 +163,4 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
     newContext.routeNameAnalysis.get
 
   }
-
-
 }

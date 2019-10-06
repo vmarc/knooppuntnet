@@ -4,9 +4,11 @@ import akka.actor.ActorSystem
 import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Timestamp
 import spray.can.Http
@@ -34,7 +36,9 @@ class RouteLoaderDemo(system: ActorSystem) {
 
   val log = Log(classOf[RouteLoaderDemo])
 
-  val countryAnalyzer = new CountryAnalyzerImpl()
+  val analysisContext = new AnalysisContext()
+  val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
   val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
   val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
 

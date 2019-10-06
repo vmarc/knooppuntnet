@@ -1,9 +1,9 @@
 package kpn.core.changes
 
+import kpn.core.test.TestData
+import kpn.core.tools.analyzer.AnalysisContext
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-
-import kpn.core.test.TestData
 
 class RelationAnalyzerTest extends FunSuite with Matchers {
 
@@ -23,9 +23,9 @@ class RelationAnalyzerTest extends FunSuite with Matchers {
       networkRelation(1, "name", Seq(newMember("relation", 11)))
     }.data.relations(1)
 
-    RelationAnalyzer.referencedNodes(network).map(_.id) should equal(Set(1001L, 1002L, 1003L))
-    RelationAnalyzer.referencedWays(network).map(_.id) should equal(Set(101L))
-    RelationAnalyzer.referencedRelations(network).map(_.id) should equal(Set(11L))
+    relationAnalyzer().referencedNodes(network).map(_.id) should equal(Set(1001L, 1002L, 1003L))
+    relationAnalyzer().referencedWays(network).map(_.id) should equal(Set(101L))
+    relationAnalyzer().referencedRelations(network).map(_.id) should equal(Set(11L))
   }
 
   test("node reference in route way") {
@@ -40,7 +40,12 @@ class RelationAnalyzerTest extends FunSuite with Matchers {
       )
     }.data.relations(11)
 
-    RelationAnalyzer.referencedNodes(network).map(_.id) should equal(Set(1001L))
+    relationAnalyzer().referencedNodes(network).map(_.id) should equal(Set(1001L))
+  }
+
+  private def relationAnalyzer(): RelationAnalyzer = {
+    val analysisContext = new AnalysisContext()
+    new RelationAnalyzerImpl(analysisContext)
   }
 
 }

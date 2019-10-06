@@ -1,6 +1,5 @@
 package kpn.core.engine.analysis.route.segment
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
 import kpn.core.engine.analysis.route.RouteNode
 import kpn.core.engine.analysis.route.RouteNodeFormatter
@@ -10,6 +9,7 @@ import kpn.core.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.NetworkType
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -507,18 +507,18 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
   private def assertSegments(d: RouteTestData, expected: String): Unit = {
     val data = d.data
     val routeRelation = data.relations(1)
-    val interpreter = new Interpreter(d.networkType)
+    val analysisContext = new AnalysisContext()
     val context1 = RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map.empty,
       loadedRoute = LoadedRoute(
         country = None,
-        networkType = NetworkType.hiking,
+        networkType = d.networkType,
         "",
         data = data,
         relation = routeRelation
       ),
-      orphan = false,
-      interpreter = interpreter
+      orphan = false
     )
     val context2 = new RouteNameAnalyzer(context1).analyze
     val context3 = new RouteNodeAnalyzer(context2).analyze

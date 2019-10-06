@@ -1,6 +1,7 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
+import kpn.core.changes.RelationAnalyzer
 import kpn.core.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
@@ -49,6 +50,7 @@ import kpn.core.repository.ChangeSetInfoRepository
 import kpn.core.repository.ChangeSetRepository
 import kpn.core.repository.NetworkRepository
 import kpn.core.repository.TaskRepository
+import kpn.core.tools.analyzer.AnalysisContext
 
 class ChangeProcessorConfiguration(
   system: ActorSystem,
@@ -57,6 +59,7 @@ class ChangeProcessorConfiguration(
   cachingExecutor: OverpassQueryExecutor,
   networkRepository: NetworkRepository,
   analysisRepository: AnalysisRepository,
+  relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository,
@@ -65,10 +68,11 @@ class ChangeProcessorConfiguration(
   nodeLoader: NodeLoader
 ) {
 
+  private val analysisContext = new AnalysisContext()
   private val networkLoader = new NetworkLoaderImpl(cachingExecutor)
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
-  private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-  private val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+  private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+  private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
 
   private val routeLoader = new RouteLoaderImpl(cachingExecutor, countryAnalyzer)
 
@@ -81,6 +85,7 @@ class ChangeProcessorConfiguration(
   val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
     analysisData,
     analysisRepository,
+    relationAnalyzer,
     countryAnalyzer,
     routeAnalyzer,
     routeLoader
@@ -92,6 +97,7 @@ class ChangeProcessorConfiguration(
   )
 
   val changeBuilder: ChangeBuilder = new ChangeBuilderImpl(
+    analysisContext,
     analysisData,
     routesLoader,
     countryAnalyzer,
@@ -103,6 +109,7 @@ class ChangeProcessorConfiguration(
   private val networkChangeProcessor = {
 
     val networkChangeAnalyzer = new NetworkChangeAnalyzerImpl(
+      analysisContext,
       analysisData,
       blackListRepository
     )
@@ -185,16 +192,20 @@ class ChangeProcessorConfiguration(
 
   private val orphanRouteChangeProcessor = {
     val orphanRouteProcessor: OrphanRouteProcessor = new OrphanRouteProcessorImpl(
+      analysisContext,
       analysisData,
       analysisRepository,
+      relationAnalyzer,
       countryAnalyzer,
       routeAnalyzer
     )
     val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
+      analysisContext,
       analysisData,
       blackListRepository
     )
     new OrphanRouteChangeProcessorImpl(
+      analysisContext,
       analysisData,
       analysisRepository,
       orphanRouteChangeAnalyzer,
@@ -208,6 +219,7 @@ class ChangeProcessorConfiguration(
   private val orphanNodeChangeProcessor = {
 
     val orphanNodeChangeAnalyzer = new OrphanNodeChangeAnalyzerImpl(
+      analysisContext,
       analysisData,
       blackListRepository
     )
@@ -224,6 +236,7 @@ class ChangeProcessorConfiguration(
     )
 
     val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
+      analysisContext,
       analysisData,
       analysisRepository
     )

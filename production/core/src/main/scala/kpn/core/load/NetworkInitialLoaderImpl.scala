@@ -14,8 +14,6 @@ class NetworkInitialLoaderImpl(
   worker: NetworkInitialLoaderWorker
 ) extends NetworkInitialLoader {
 
-  private val log = Log(classOf[NetworksLoaderImpl])
-
   val pool = new Pool[NetworkInitialLoad, Unit](system, "network-initial-loader")(worker.load)
 
   def load(timestamp: Timestamp, networkIds: Seq[Long]): Unit = {

@@ -5,15 +5,15 @@ import kpn.shared.Country
 import kpn.shared.LatLon
 import kpn.shared.data.Relation
 
-abstract class CountryAnalyzerAbstract() extends CountryAnalyzer {
+abstract class CountryAnalyzerAbstract(relationAnalyzer: RelationAnalyzer) extends CountryAnalyzer {
 
   override def relationCountry(relation: Relation): Option[Country] = {
-    val nodes = RelationAnalyzer.referencedNetworkNodes(relation)
+    val nodes = relationAnalyzer.referencedNetworkNodes(relation)
     if (nodes.nonEmpty) {
       country(nodes)
     }
     else {
-      val ways = RelationAnalyzer.referencedWays(relation)
+      val ways = relationAnalyzer.referencedWays(relation)
       val nodes = ways.flatMap { w =>
         if (w.nodes.nonEmpty) {
           Seq(w.nodes.head, w.nodes.last)

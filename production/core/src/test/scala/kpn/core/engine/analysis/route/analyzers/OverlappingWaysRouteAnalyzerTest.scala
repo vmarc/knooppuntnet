@@ -1,9 +1,9 @@
 package kpn.core.engine.analysis.route.analyzers
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
@@ -103,11 +103,13 @@ class OverlappingWaysRouteAnalyzerTest extends FunSuite with Matchers with Share
       data.relations(1L)
     )
 
+    val analysisContext = new AnalysisContext(oldTagging = false)
+
     val context = RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map.empty,
       loadedRoute,
-      orphan = false,
-      interpreter = new Interpreter(loadedRoute.networkType)
+      orphan = false
     )
 
     OverlappingWaysRouteAnalyzer.analyze(context)

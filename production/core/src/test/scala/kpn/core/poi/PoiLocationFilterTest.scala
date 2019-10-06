@@ -1,13 +1,20 @@
 package kpn.core.poi
 
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerImpl
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.LatLonImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
 class PoiLocationFilterTest extends FunSuite with Matchers {
 
-  val locationFilter = new PoiLocationFilterImpl(new CountryAnalyzerImpl())
+  val locationFilter: PoiLocationFilter = {
+    val analysisContext = new AnalysisContext()
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+    new PoiLocationFilterImpl(countryAnalyzer)
+  }
 
   test("Antwerp") {
     locationFilter.filter(LatLonImpl("51.23", "4.41")) should equal(true)

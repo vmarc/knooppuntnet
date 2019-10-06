@@ -1,5 +1,7 @@
 package kpn.core.engine.analysis.country
 
+import kpn.core.changes.RelationAnalyzerImpl
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.LatLon
 import kpn.shared.SharedTestObjects
@@ -8,7 +10,11 @@ import org.scalatest.Matchers
 
 class CountryAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 
-  private val analyzer = new CountryAnalyzerImpl()
+  private val analyzer = {
+    val analysisContext = new AnalysisContext()
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    new CountryAnalyzerImpl(relationAnalyzer)
+  }
 
   private val be1 = node("51.47464736069959", "4.478302001953125")
   private val be2 = node("51.43563788497879", "4.941433668136596")

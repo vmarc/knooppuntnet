@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
 import kpn.core.db.couch.DatabaseImpl
@@ -20,6 +21,7 @@ import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.BlackListRepositoryImpl
 import kpn.core.repository.ChangeSetInfoRepositoryImpl
 import kpn.core.repository.TaskRepositoryImpl
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.config.AnalysisRepositoryConfiguration
 import kpn.core.util.Log
 import kpn.shared.Timestamp
@@ -57,12 +59,14 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryConfiguration(database).analysisRepository
   val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
   val analysisData = AnalysisData()
+  val analysisContext = new AnalysisContext()
   val networkIdsLoader = new NetworkIdsLoaderImpl(executor)
   val networkLoader = new NetworkLoaderImpl(executor)
-  val countryAnalyzer = new CountryAnalyzerImpl()
-  val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-  val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
-  val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
+  val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+  val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+  val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+  val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
   val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
   val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
   val taskRepository = new TaskRepositoryImpl(database)

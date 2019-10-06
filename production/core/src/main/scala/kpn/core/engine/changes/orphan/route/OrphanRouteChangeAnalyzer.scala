@@ -1,11 +1,10 @@
 package kpn.core.engine.changes.orphan.route
 
 import kpn.core.changes.ChangeSetBuilder
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.changes.ElementChanges
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.repository.BlackListRepository
-import kpn.shared.NetworkType
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.changes.ChangeAction.Create
 import kpn.shared.changes.ChangeAction.Delete
 import kpn.shared.changes.ChangeAction.Modify
@@ -13,6 +12,7 @@ import kpn.shared.changes.ChangeSet
 import kpn.shared.data.raw.RawRelation
 
 class OrphanRouteChangeAnalyzer(
+  analysisContext: AnalysisContext,
   analysisData: AnalysisData,
   blackListRepository: BlackListRepository
 ) {
@@ -54,23 +54,14 @@ class OrphanRouteChangeAnalyzer(
 
   private def routeRelationIds(relationsById: Map[Long, RawRelation]): Set[Long] = {
     relationsById.values.
-      filter(isRouteRelation).
+      filter(analysisContext.isRouteRelation).
       filterNot(isBlackListed).
       map(_.id).
       toSet
   }
 
-  private def isRouteRelation(relation: RawRelation): Boolean = {
-    new Interpreter(NetworkType.hiking).isRouteRelation(relation) ||
-      new Interpreter(NetworkType.bicycle).isRouteRelation(relation) ||
-      new Interpreter(NetworkType.horseRiding).isRouteRelation(relation) ||
-      new Interpreter(NetworkType.motorboat).isRouteRelation(relation) ||
-      new Interpreter(NetworkType.canoe).isRouteRelation(relation) ||
-      new Interpreter(NetworkType.inlineSkates).isRouteRelation(relation)
-  }
-
   private def isKnownOrphanRouteWithRequiredTagsMissing(relation: RawRelation): Boolean = {
-    isKnownOrphanRoute(relation.id) && !isRouteRelation(relation)
+    isKnownOrphanRoute(relation.id) && !analysisContext.isRouteRelation(relation)
   }
 
   private def isKnownRoute(routeId: Long): Boolean = {

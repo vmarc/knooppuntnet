@@ -1,6 +1,5 @@
 package kpn.core.engine.analysis.route.analyzers
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
 import kpn.core.engine.analysis.route.RouteNameAnalysis
 import kpn.core.engine.analysis.route.RouteNode
@@ -8,6 +7,7 @@ import kpn.core.engine.analysis.route.RouteNodeAnalysis
 import kpn.core.engine.analysis.route.RouteNodeType
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
@@ -106,11 +106,13 @@ class ExpectedNameRouteAnalyzerTest extends FunSuite with Matchers with SharedTe
       data.relations(1L)
     )
 
+    val analysisContext = new AnalysisContext(oldTagging = false)
+
     RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map.empty,
       loadedRoute,
-      orphan = false,
-      interpreter = new Interpreter(loadedRoute.networkType)
+      orphan = false
     )
   }
 

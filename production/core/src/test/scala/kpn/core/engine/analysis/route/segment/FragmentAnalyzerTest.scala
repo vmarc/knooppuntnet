@@ -1,11 +1,11 @@
 package kpn.core.engine.analysis.route.segment
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.RouteTestData
 import kpn.core.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.core.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.NetworkType
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -143,9 +143,9 @@ class FragmentAnalyzerTest extends FunSuite with Matchers {
   private def fragments(d: RouteTestData): String = {
     val data = d.data
     val relation = data.relations(d.routeRelationId)
-    val interpreter = new Interpreter(NetworkType.hiking)
-
+    val analysisContext = new AnalysisContext()
     val context1 = RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map.empty,
       loadedRoute = LoadedRoute(
         country = None,
@@ -154,8 +154,7 @@ class FragmentAnalyzerTest extends FunSuite with Matchers {
         data = data,
         relation = relation
       ),
-      orphan = false,
-      interpreter = interpreter
+      orphan = false
     )
     val context2 = new RouteNameAnalyzer(context1).analyze
     val context3 = new RouteNodeAnalyzer(context2).analyze

@@ -1,12 +1,11 @@
 package kpn.core.engine.changes.network
 
 import kpn.core.changes.ChangeSetBuilder
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.changes.ElementChanges
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.repository.BlackListRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
-import kpn.shared.NetworkType
 import kpn.shared.changes.ChangeAction.Create
 import kpn.shared.changes.ChangeAction.Delete
 import kpn.shared.changes.ChangeAction.Modify
@@ -14,6 +13,7 @@ import kpn.shared.changes.ChangeSet
 import kpn.shared.data.raw.RawRelation
 
 class NetworkChangeAnalyzerImpl(
+  analysisContext: AnalysisContext,
   analysisData: AnalysisData,
   blackListRepository: BlackListRepository
 ) extends NetworkChangeAnalyzer {
@@ -55,7 +55,7 @@ class NetworkChangeAnalyzerImpl(
 
   private def findNetworkRelationChanges(changeSet: ChangeSet, action: Int): Set[Long] = {
     changeSet.relations(action).
-      filter(isNetworkRelation).
+      filter(analysisContext.isNetworkRelation).
       filterNot(isBlackListed).
       map(_.id).
       toSet
@@ -63,15 +63,6 @@ class NetworkChangeAnalyzerImpl(
 
   private def findKnownNetworkDeletes(changeSet: ChangeSet): Set[Long] = {
     changeSet.relations(Delete).map(_.id).filter(analysisData.networks.contains).toSet
-  }
-
-  private def isNetworkRelation(relation: RawRelation): Boolean = {
-    new Interpreter(NetworkType.hiking).isNetworkRelation(relation) ||
-      new Interpreter(NetworkType.bicycle).isNetworkRelation(relation) ||
-      new Interpreter(NetworkType.horseRiding).isNetworkRelation(relation) ||
-      new Interpreter(NetworkType.motorboat).isNetworkRelation(relation) ||
-      new Interpreter(NetworkType.canoe).isNetworkRelation(relation) ||
-      new Interpreter(NetworkType.inlineSkates).isNetworkRelation(relation)
   }
 
   private def isBlackListed(relation: RawRelation): Boolean = {

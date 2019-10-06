@@ -1,12 +1,12 @@
 package kpn.core.engine.changes.orphan.node
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.history.NodeDataDiffAnalyzer
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.changes.details.ChangeType
@@ -15,6 +15,7 @@ import kpn.shared.diff.NodeData
 import kpn.shared.diff.common.FactDiffs
 
 class OrphanNodeUpdateProcessorImpl(
+  analysisContext: AnalysisContext,
   analysisData: AnalysisData,
   analysisRepository: AnalysisRepository
 ) extends OrphanNodeUpdateProcessor {
@@ -22,69 +23,24 @@ class OrphanNodeUpdateProcessorImpl(
   override def process(context: ChangeSetContext, loadedNodeChange: LoadedNodeChange): Option[NodeChange] = {
 
     val facts = {
-      val ff = Seq(
-        if (new Interpreter(NetworkType.hiking).isNetworkNode(loadedNodeChange.before.node.raw) &&
-          !new Interpreter(NetworkType.hiking).isNetworkNode(loadedNodeChange.after.node.raw)) {
-          Some(Fact.LostHikingNodeTag)
-        }
-        else {
-          None
-        },
-        if (new Interpreter(NetworkType.bicycle).isNetworkNode(loadedNodeChange.before.node.raw) &&
-          !new Interpreter(NetworkType.bicycle).isNetworkNode(loadedNodeChange.after.node.raw)) {
-          Some(Fact.LostBicycleNodeTag)
-        }
-        else {
-          None
-        },
-        if (new Interpreter(NetworkType.horseRiding).isNetworkNode(loadedNodeChange.before.node.raw) &&
-          !new Interpreter(NetworkType.horseRiding).isNetworkNode(loadedNodeChange.after.node.raw)) {
-          Some(Fact.LostHorseNodeTag)
-        }
-        else {
-          None
-        },
-        if (new Interpreter(NetworkType.motorboat).isNetworkNode(loadedNodeChange.before.node.raw) &&
-          !new Interpreter(NetworkType.motorboat).isNetworkNode(loadedNodeChange.after.node.raw)) {
-          Some(Fact.LostMotorboatNodeTag)
-        }
-        else {
-          None
-        },
-        if (new Interpreter(NetworkType.canoe).isNetworkNode(loadedNodeChange.before.node.raw) &&
-          !new Interpreter(NetworkType.canoe).isNetworkNode(loadedNodeChange.after.node.raw)) {
-          Some(Fact.LostCanoeNodeTag)
-        }
-        else {
-          None
-        },
-        if (new Interpreter(NetworkType.inlineSkates).isNetworkNode(loadedNodeChange.before.node.raw) &&
-          !new Interpreter(NetworkType.inlineSkates).isNetworkNode(loadedNodeChange.after.node.raw)) {
-          Some(Fact.LostInlineSkateNodeTag)
-        }
-        else {
-          None
-        }
+      val lostNodeTagFacts = Seq(
+        lostNodeTag(NetworkType.hiking, loadedNodeChange, Fact.LostHikingNodeTag),
+        lostNodeTag(NetworkType.bicycle, loadedNodeChange, Fact.LostBicycleNodeTag),
+        lostNodeTag(NetworkType.horseRiding, loadedNodeChange, Fact.LostHorseNodeTag),
+        lostNodeTag(NetworkType.motorboat, loadedNodeChange, Fact.LostMotorboatNodeTag),
+        lostNodeTag(NetworkType.canoe, loadedNodeChange, Fact.LostCanoeNodeTag),
+        lostNodeTag(NetworkType.inlineSkates, loadedNodeChange, Fact.LostInlineSkateNodeTag)
       ).flatten
 
-      if (ff.contains(Fact.LostHikingNodeTag) ||
-        ff.contains(Fact.LostBicycleNodeTag) ||
-        ff.contains(Fact.LostHorseNodeTag) ||
-        ff.contains(Fact.LostMotorboatNodeTag) ||
-        ff.contains(Fact.LostCanoeNodeTag)) {
-        Seq(Fact.WasOrphan) ++ ff
+      if (lostNodeTagFacts.nonEmpty) {
+        Seq(Fact.WasOrphan) ++ lostNodeTagFacts
       }
       else {
-        Seq(Fact.OrphanNode) ++ ff
+        Seq(Fact.OrphanNode)
       }
     }
 
-    val isNetworkNodeX = new Interpreter(NetworkType.hiking).isNetworkNode(loadedNodeChange.after.node.raw) ||
-      new Interpreter(NetworkType.bicycle).isNetworkNode(loadedNodeChange.after.node.raw) ||
-      new Interpreter(NetworkType.horseRiding).isNetworkNode(loadedNodeChange.after.node.raw) ||
-      new Interpreter(NetworkType.motorboat).isNetworkNode(loadedNodeChange.after.node.raw) ||
-      new Interpreter(NetworkType.canoe).isNetworkNode(loadedNodeChange.after.node.raw) ||
-      new Interpreter(NetworkType.inlineSkates).isNetworkNode(loadedNodeChange.after.node.raw)
+    val isNetworkNodeX = analysisContext.isNetworkNode(loadedNodeChange.after.node.raw)
 
     if (!isNetworkNodeX) {
       analysisData.orphanNodes.watched.delete(loadedNodeChange.id)
@@ -142,6 +98,16 @@ class OrphanNodeUpdateProcessorImpl(
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {
     new NodeChangeAnalyzer(nodeChange).analyzed()
+  }
+
+  private def lostNodeTag(networkType: NetworkType, loadedNodeChange: LoadedNodeChange, fact: Fact): Option[Fact] = {
+    if (analysisContext.isNetworkNode(networkType, loadedNodeChange.before.node.raw) &&
+      !analysisContext.isNetworkNode(networkType, loadedNodeChange.after.node.raw)) {
+      Some(fact)
+    }
+    else {
+      None
+    }
   }
 
 }

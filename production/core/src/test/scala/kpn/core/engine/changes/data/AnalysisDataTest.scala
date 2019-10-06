@@ -1,8 +1,9 @@
 package kpn.core.engine.changes.data
 
-import kpn.core.changes.RelationAnalyzer
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.data.Data
 import kpn.core.test.TestData2
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -13,9 +14,14 @@ class AnalysisDataTest extends FunSuite with Matchers with SharedTestObjects {
 
     val data = buildData()
 
+    val relationAnalyzer = {
+      val analysisContext = new AnalysisContext()
+      new RelationAnalyzerImpl(analysisContext)
+    }
+
     val analysisData = AnalysisData()
-    analysisData.networks.watched.add(1, RelationAnalyzer.toElementIds(data.relations(1)))
-    analysisData.networks.watched.add(2, RelationAnalyzer.toElementIds(data.relations(2)))
+    analysisData.networks.watched.add(1, relationAnalyzer.toElementIds(data.relations(1)))
+    analysisData.networks.watched.add(2, relationAnalyzer.toElementIds(data.relations(2)))
 
     analysisData.networks.isReferencingRelation(11) should equal(true)
     analysisData.networks.isReferencingRelation(12) should equal(true)

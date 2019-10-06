@@ -11,11 +11,14 @@ import kpn.core.load.data.LoadedNode
 import kpn.core.load.data.LoadedRoute
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 
 class OrphanRouteProcessorImpl(
+  analysisContext: AnalysisContext,
   analysisData: AnalysisData,
   analysisRepository: AnalysisRepository,
+  relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   routeAnalyzer: MasterRouteAnalyzer
 ) extends OrphanRouteProcessor {
@@ -27,7 +30,7 @@ class OrphanRouteProcessorImpl(
     Log.context(s"route=${loadedRoute.id}") {
       log.elapsed {
         try {
-          val allNodes = new NetworkNodeBuilder(loadedRoute.data, countryAnalyzer).networkNodes
+          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, countryAnalyzer).networkNodes
           val analysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
@@ -39,7 +42,7 @@ class OrphanRouteProcessorImpl(
             analysisRepository.saveNode(nodeInfo)
           }
 
-          val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
+          val elementIds = relationAnalyzer.toElementIds(loadedRoute.relation)
           analysisData.orphanRoutes.watched.add(loadedRoute.id, elementIds)
           ("orphan route analysis", Some(analysis))
         }

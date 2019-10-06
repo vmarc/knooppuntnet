@@ -60,7 +60,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
     else {
       try {
         new SegmentAnalyzer(
-          context.interpreter.networkType,
+          context.networkType,
           context.loadedRoute.relation.id,
           fragments,
           routeNodeAnalysis

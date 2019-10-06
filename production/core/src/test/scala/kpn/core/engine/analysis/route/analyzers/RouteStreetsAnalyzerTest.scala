@@ -2,6 +2,7 @@ package kpn.core.engine.analysis.route.analyzers
 
 import kpn.core.engine.analysis.RouteTestData
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.data.Tags
 import kpn.shared.data.Way
 import org.scalatest.FunSuite
@@ -22,11 +23,13 @@ class RouteStreetsAnalyzerTest extends FunSuite with Matchers {
 
     val ways: Seq[Way] = d.data.ways.values.toSeq
 
+    val analysisContext = new AnalysisContext()
+
     val context = RouteAnalysisContext(
+      analysisContext,
       networkNodes = Map(),
       loadedRoute = null,
       orphan = false,
-      interpreter = null,
       ways = Some(ways)
     )
 

@@ -21,6 +21,7 @@ import kpn.shared.diff.route.RouteDiff
 class RouteChangeBuilderImpl(
   analysisData: AnalysisData,
   analysisRepository: AnalysisRepository,
+  relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   routeAnalyzer: MasterRouteAnalyzer,
   routeLoader: RouteLoader
@@ -193,7 +194,7 @@ class RouteChangeBuilderImpl(
     }
     else {
 
-      val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
+      val elementIds = relationAnalyzer.toElementIds(analysisAfter.relation)
       analysisData.orphanRoutes.watched.add(routeId, elementIds)
 
       analysisRepository.saveRoute(analysisAfter.route.copy(orphan = true))

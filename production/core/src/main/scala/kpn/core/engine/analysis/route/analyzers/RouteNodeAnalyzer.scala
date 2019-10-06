@@ -27,7 +27,7 @@ object RouteNodeAnalyzer extends RouteAnalyzer {
 
 class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
-  private val nodeUtil = new NodeUtil(context.interpreter.networkType)
+  private val nodeUtil = new NodeUtil(context.networkType)
 
   def analyze: RouteAnalysisContext = {
 
@@ -169,7 +169,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       case wayMember: WayMember => wayMember.way.nodes
       case _ => Seq()
     }
-    Unique.filter(nodes).filter(n => context.interpreter.isNetworkNode(n.raw))
+    Unique.filter(nodes).filter(n => context.analysisContext.isNetworkNode(context.networkType, n.raw))
   }
 
   private def isEquivalent(nodeName1: String, nodeName2: String): Boolean = {

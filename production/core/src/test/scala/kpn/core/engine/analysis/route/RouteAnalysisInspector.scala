@@ -7,6 +7,7 @@ import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.country.CountryAnalyzerNoop
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
@@ -64,8 +65,9 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerNoop()
 
-    val networkNodes = new NetworkNodeBuilder(data, countryAnalyzer).networkNodes
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
+    val analysisContext = new AnalysisContext()
+    val networkNodes = new NetworkNodeBuilder(analysisContext, data, countryAnalyzer).networkNodes
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
     val analysis = routeAnalyzer.analyze(networkNodes, LoadedRoute(None, d.networkType, "", data, relation), orphan = false)
 
     val report = new RouteAnalysisReport(analysis).report

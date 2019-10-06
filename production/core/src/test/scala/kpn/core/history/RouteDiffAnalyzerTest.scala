@@ -1,11 +1,13 @@
 package kpn.core.history
 
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.engine.analysis.NetworkAnalyzerImpl
 import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzerNoop
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.test.TestData
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.Timestamp
 import kpn.shared.data.Tags
@@ -201,7 +203,8 @@ class RouteDiffAnalyzerTest extends FunSuite with Matchers {
           TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
           TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
           TagDetail(TagDetailType.Same, "route", Some("foot"), Some("foot")),
-          TagDetail(TagDetailType.Update, "note", Some("01-02"), Some("02-01"))
+          TagDetail(TagDetailType.Update, "note", Some("01-02"), Some("02-01")),
+          TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
         ),
         Seq()
       )
@@ -412,7 +415,8 @@ class RouteDiffAnalyzerTest extends FunSuite with Matchers {
         TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
         TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
         TagDetail(TagDetailType.Same, "route", Some("foot"), Some("foot")),
-        TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02"))
+        TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02")),
+        TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
       ),
       Seq(
         TagDetail(TagDetailType.Update, "a", Some("1"), Some("2"))
@@ -426,9 +430,11 @@ class RouteDiffAnalyzerTest extends FunSuite with Matchers {
     // TODO share with NetworkDiffAnalyzerTest
     val data = d.data
     val countryAnalyzer = new CountryAnalyzerNoop()
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
-    val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-    val networkAnalyzer = new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer)
+    val analysisContext = new AnalysisContext(oldTagging = true)
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+    val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))
     val network = networkAnalyzer.analyze(networkRelationAnalysis, data, 1)
     NetworkSnapshot(Timestamp(2015, 1, 1), data, network)

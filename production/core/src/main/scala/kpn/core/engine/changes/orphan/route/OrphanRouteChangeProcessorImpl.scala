@@ -10,6 +10,7 @@ import kpn.core.engine.changes.route.RouteChangeAnalyzer
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.load.RoutesLoader
 import kpn.core.repository.AnalysisRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
@@ -17,6 +18,7 @@ import kpn.shared.changes.details.RouteChange
 import kpn.shared.diff.route.RouteDiff
 
 class OrphanRouteChangeProcessorImpl(
+  analysisContext: AnalysisContext,
   analysisData: AnalysisData,
   analysisRepository: AnalysisRepository,
   orphanRouteChangeAnalyzer: OrphanRouteChangeAnalyzer,
@@ -80,7 +82,7 @@ class OrphanRouteChangeProcessorImpl(
     val updatedRouteIds = afterRouteAnalyses.map(_.route.id) // note: this excludes ignored routes
     val beforeLoadedRoutes = routesLoader.load(context.changeSet.timestampBefore, updatedRouteIds).flatten
     val beforeRouteAnalyses = beforeLoadedRoutes.map { loadedRoute =>
-      val allNodes = new NetworkNodeBuilder(loadedRoute.data, countryAnalyzer).networkNodes
+      val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, countryAnalyzer).networkNodes
       routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
     }
 
@@ -144,7 +146,7 @@ class OrphanRouteChangeProcessorImpl(
 
         case Some(loadedRoute) =>
 
-          val allNodes = new NetworkNodeBuilder(loadedRoute.data, countryAnalyzer).networkNodes
+          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, countryAnalyzer).networkNodes
           val routeAnalysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
 
           val route = routeAnalysis.route.copy(orphan = true, active = false)

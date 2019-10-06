@@ -3,6 +3,7 @@ package kpn.core.tools.config
 import java.io.File
 
 import akka.actor.ActorSystem
+import kpn.core.changes.RelationAnalyzer
 import kpn.core.engine.analysis.ChangeSetInfoUpdater
 import kpn.core.engine.analysis.NetworkAnalyzer
 import kpn.core.engine.analysis.NetworkAnalyzerImpl
@@ -29,6 +30,7 @@ import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.BlackListRepository
 import kpn.core.repository.FactRepository
 import kpn.core.repository.OrphanRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 
 class AnalysisDataLoaderConfiguration(
@@ -42,6 +44,7 @@ class AnalysisDataLoaderConfiguration(
   factRepository: FactRepository,
   blackListRepository: BlackListRepository,
   changeSetInfoUpdater: ChangeSetInfoUpdater,
+  relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   nodeLoader: NodeLoader,
   analysisDatabaseIndexer: CouchIndexer
@@ -64,18 +67,24 @@ class AnalysisDataLoaderConfiguration(
     cachingExecutor
   )
 
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
+  private val analysisContext = new AnalysisContext()
+
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
 
   private val orphanRouteProcessor = new OrphanRouteProcessorImpl(
+    analysisContext,
     analysisData,
     analysisRepository,
+    relationAnalyzer,
     countryAnalyzer,
     routeAnalyzer
   )
 
   val orphanRoutesLoaderWorker = new OrphanRoutesLoaderWorkerImpl(
+    analysisContext,
     routeLoader,
     routeAnalyzer,
+    relationAnalyzer,
     countryAnalyzer,
     analysisData,
     analysisRepository
@@ -112,10 +121,13 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val networkRelationAnalyzer: NetworkRelationAnalyzer = new NetworkRelationAnalyzerImpl(
+    relationAnalyzer,
     countryAnalyzer
   )
 
   private val networkAnalyzer: NetworkAnalyzer = new NetworkAnalyzerImpl(
+    analysisContext,
+    relationAnalyzer,
     countryAnalyzer,
     routeAnalyzer
   )

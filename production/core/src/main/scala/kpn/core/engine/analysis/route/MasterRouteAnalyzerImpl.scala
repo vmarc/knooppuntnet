@@ -3,7 +3,6 @@ package kpn.core.engine.analysis.route
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.analysis.OneWayAnalyzer
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.core.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
@@ -27,6 +26,7 @@ import kpn.core.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.core.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.core.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.load.data.LoadedRoute
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.data.Tags
 import kpn.shared.route.Both
@@ -35,18 +35,16 @@ import kpn.shared.route.WayDirection
 
 import scala.annotation.tailrec
 
-class MasterRouteAnalyzerImpl(accessibilityAnalyzer: AccessibilityAnalyzer) extends MasterRouteAnalyzer {
-
-  private val log = Log(classOf[MasterRouteAnalyzerImpl])
+class MasterRouteAnalyzerImpl(analysisContext: AnalysisContext, accessibilityAnalyzer: AccessibilityAnalyzer) extends MasterRouteAnalyzer {
 
   override def analyze(networkNodes: Map[Long, NetworkNode], loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis = {
     Log.context("route=%07d".format(loadedRoute.id)) {
 
       val context = RouteAnalysisContext(
+        analysisContext,
         networkNodes,
         loadedRoute,
-        orphan,
-        interpreter = new Interpreter(loadedRoute.networkType)
+        orphan
       )
 
       val analyzers: List[RouteAnalyzer] = List(

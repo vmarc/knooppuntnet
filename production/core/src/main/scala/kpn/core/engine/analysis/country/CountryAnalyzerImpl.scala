@@ -1,10 +1,11 @@
 package kpn.core.engine.analysis.country
 
+import kpn.core.changes.RelationAnalyzer
 import kpn.core.util.Log
 import kpn.shared.Country
 import kpn.shared.LatLon
 
-class CountryAnalyzerImpl() extends CountryAnalyzerAbstract {
+class CountryAnalyzerImpl(relationAnalyzer: RelationAnalyzer) extends CountryAnalyzerAbstract(relationAnalyzer) {
 
   private val log = Log(classOf[CountryAnalyzerImpl])
 

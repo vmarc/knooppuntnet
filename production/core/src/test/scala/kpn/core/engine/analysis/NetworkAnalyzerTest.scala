@@ -1,10 +1,12 @@
 package kpn.core.engine.analysis
 
 import kpn.core.analysis.Network
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.test.TestData
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
@@ -50,9 +52,15 @@ class NetworkAnalyzerTest extends FunSuite with Matchers with MockFactory {
   test("networkExtraMemberRelation") {
 
     val d = new TestData() {
-      relation(10, Seq(), Tags.from("network" -> "rwn", "type" -> "route"))
-      relation(20, Seq(), Tags.empty)
-      relation(1, Seq(newMember("relation", 10), newMember("relation", 20)))
+      relation(10, Seq(), newRouteTags("01-02")) // valid route relation
+      relation(20, Seq(), Tags.empty) // not a route relation
+      relation(
+        1,
+        Seq(
+          newMember("relation", 10),
+          newMember("relation", 20)
+        )
+      )
     }
 
     val network = analyze(d)
@@ -62,9 +70,9 @@ class NetworkAnalyzerTest extends FunSuite with Matchers with MockFactory {
   test("routes") {
 
     val d = new TestData() {
-      relation(10, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-03"))
-      relation(20, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02"))
-      relation(30, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "02-03"))
+      relation(10, Seq(), newRouteTags("01-03"))
+      relation(20, Seq(), newRouteTags("01-02"))
+      relation(30, Seq(), newRouteTags("02-03"))
       relation(1, Seq(
         newMember("relation", 10, "forward"),
         newMember("relation", 20, "backward"),
@@ -80,14 +88,38 @@ class NetworkAnalyzerTest extends FunSuite with Matchers with MockFactory {
     routes(1).role should equal(Some("forward"))
   }
 
-  private def analyze(d: TestData): Network = {
+  test("routes - old tagging") {
+
+    val d = new TestData() {
+      relation(10, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-03"))
+      relation(20, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02"))
+      relation(30, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "02-03"))
+      relation(1, Seq(
+        newMember("relation", 10, "forward"),
+        newMember("relation", 20, "backward"),
+        newMember("relation", 30)
+      )
+      )
+    }
+
+    val routes = analyze(d, oldTagging = true).routes
+    routes(0).routeAnalysis.route.summary.name should equal("01-02")
+    routes(1).routeAnalysis.route.summary.name should equal("01-03")
+    routes(0).role should equal(Some("backward"))
+    routes(1).role should equal(Some("forward"))
+  }
+
+  private def analyze(d: TestData, oldTagging: Boolean = false): Network = {
     val data = d.data
     val networkRelation = data.relations(1)
     val countryAnalyzer = stub[CountryAnalyzer]
     (countryAnalyzer.country _).when(*).returns(None)
     (countryAnalyzer.relationCountry _).when(*).returns(None)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
-    val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(countryAnalyzer).analyze(networkRelation)
-    new NetworkAnalyzerImpl(countryAnalyzer, routeAnalyzer).analyze(networkRelationAnalysis, data, 1)
+
+    val analysisContext = new AnalysisContext(oldTagging)
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer).analyze(networkRelation)
+    new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer).analyze(networkRelationAnalysis, data, 1)
   }
 }

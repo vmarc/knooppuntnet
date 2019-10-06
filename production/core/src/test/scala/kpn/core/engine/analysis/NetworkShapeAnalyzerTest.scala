@@ -1,8 +1,12 @@
 package kpn.core.engine.analysis
 
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.test.TestData
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Bounds
+import kpn.shared.data.Relation
 import kpn.shared.data.raw.RawMember
+import kpn.shared.network.NetworkShape
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -28,7 +32,7 @@ class NetworkShapeAnalyzerTest extends FunSuite with Matchers {
       )
     }.data.relations(1)
 
-    val shape = new NetworkShapeAnalyzer(networkRelation).shape
+    val shape = analyze(networkRelation)
 
     shape.get.bounds should equal(Bounds(10.0, 0.0, 20.0, 1.0))
     shape.get.coordinates should equal("[10.0,0.0],[20.0,0.0],[20.0,1.0],[10.0,1.0],[10.0,0.0]")
@@ -54,9 +58,16 @@ class NetworkShapeAnalyzerTest extends FunSuite with Matchers {
       )
     }.data.relations(1)
 
-    val shape = new NetworkShapeAnalyzer(networkRelation).shape
+    val shape = analyze(networkRelation)
 
     shape.get.bounds should equal(Bounds(10.0, 0.0, 20.0, 1.0))
     shape.get.coordinates should equal("[10.0,1.0],[20.0,0.0],[20.0,1.0],[10.0,1.0]")
   }
+
+  private def analyze(networkRelation: Relation): Option[NetworkShape] = {
+    val analysisContext = new AnalysisContext()
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    new NetworkShapeAnalyzer(relationAnalyzer, networkRelation).shape
+  }
+
 }

@@ -1,11 +1,10 @@
 package kpn.core.engine.changes.orphan.node
 
-import kpn.core.engine.analysis.Interpreter
 import kpn.core.engine.changes.ElementChanges
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.repository.BlackListRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
-import kpn.shared.NetworkType
 import kpn.shared.changes.ChangeAction.Create
 import kpn.shared.changes.ChangeAction.Delete
 import kpn.shared.changes.ChangeAction.Modify
@@ -13,6 +12,7 @@ import kpn.shared.changes.ChangeSet
 import kpn.shared.data.raw.RawNode
 
 class OrphanNodeChangeAnalyzerImpl(
+  analysisContext: AnalysisContext,
   analysisData: AnalysisData,
   blackListRepository: BlackListRepository
 ) extends OrphanNodeChangeAnalyzer {
@@ -71,19 +71,10 @@ class OrphanNodeChangeAnalyzerImpl(
 
   private def networkNodeIds(nodesById: Map[Long, RawNode]): Set[Long] = {
     nodesById.values.
-      filter(isNetworkNode).
+      filter(analysisContext.isNetworkNode).
       filterNot(isBlackListed).
       map(_.id).
       toSet
-  }
-
-  private def isNetworkNode(node: RawNode): Boolean = {
-    new Interpreter(NetworkType.hiking).isNetworkNode(node) ||
-      new Interpreter(NetworkType.bicycle).isNetworkNode(node) ||
-      new Interpreter(NetworkType.horseRiding).isNetworkNode(node) ||
-      new Interpreter(NetworkType.motorboat).isNetworkNode(node) ||
-      new Interpreter(NetworkType.canoe).isNetworkNode(node) ||
-      new Interpreter(NetworkType.inlineSkates).isNetworkNode(node)
   }
 
   private def withoutKnownNodes(nodeIds: Set[Long]): Set[Long] = {

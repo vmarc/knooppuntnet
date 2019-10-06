@@ -2,6 +2,7 @@ package kpn.core.tools.config
 
 import akka.actor.ActorSystem
 import kpn.core.changes.ChangeSetInfoApiImpl
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Database
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.engine.analysis.ChangeSetInfoUpdaterImpl
@@ -28,6 +29,7 @@ import kpn.core.repository.FactRepositoryImpl
 import kpn.core.repository.NetworkRepositoryImpl
 import kpn.core.repository.OrphanRepositoryImpl
 import kpn.core.repository.TaskRepositoryImpl
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
@@ -96,7 +98,11 @@ class Configuration(
 
   val analysisData: AnalysisData = AnalysisData()
 
-  private val countryAnalyzer = new CountryAnalyzerImpl()
+  private val analysisContext = new AnalysisContext()
+
+  private val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+
+  private val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
 
   private val changeSetRepository = new ChangeSetRepositoryImpl(
     changeDatabase
@@ -136,7 +142,7 @@ class Configuration(
     countryAnalyzer
   )
 
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl(new AccessibilityAnalyzerImpl())
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
 
   val changeProcessor: ChangeProcessor = new ChangeProcessorConfiguration(
     system,
@@ -145,6 +151,7 @@ class Configuration(
     cachingExecutor,
     networkRepository,
     analysisRepository,
+    relationAnalyzer,
     countryAnalyzer,
     changeSetRepository,
     changeSetInfoRepository,
@@ -164,6 +171,7 @@ class Configuration(
     factRepository,
     blackListRepository,
     changeSetInfoUpdater,
+    relationAnalyzer,
     countryAnalyzer,
     nodeLoader,
     analysisDatabaseIndexer

@@ -61,7 +61,7 @@ class NetworkChangeAnalyzerTest extends FunSuite with Matchers with SharedTestOb
 
   private def elementChanges(change: Change): ElementChanges = {
     val cs = newChangeSet(id = 1L, changes = Seq(change))
-    new NetworkChangeAnalyzerImpl(d.analysisData, new MockBlackListRepository()).analyze(cs)
+    new NetworkChangeAnalyzerImpl(d.analysisContext, d.analysisData, new MockBlackListRepository()).analyze(cs)
   }
 
   private def relationWithoutTags(relationId: Long): RawRelation = {

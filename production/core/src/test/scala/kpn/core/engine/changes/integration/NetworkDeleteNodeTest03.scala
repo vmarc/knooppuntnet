@@ -1,6 +1,5 @@
 package kpn.core.engine.changes.integration
 
-import kpn.core.changes.RelationAnalyzer
 import kpn.core.test.TestData2
 import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSummary
@@ -34,8 +33,8 @@ class NetworkDeleteNodeTest03 extends AbstractTest {
     tc.relationBefore(dataBefore, 1)
     tc.nodesAfter(dataAfter, 1001)
 
-    tc.analysisData.networks.watched.add(1, RelationAnalyzer.toElementIds(dataBefore.relations(1)))
-    tc.analysisData.orphanRoutes.watched.add(11, RelationAnalyzer.toElementIds(dataBefore.relations(11)))
+    tc.analysisData.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
+    tc.analysisData.orphanRoutes.watched.add(11, tc.relationAnalyzer.toElementIds(dataBefore.relations(11)))
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 

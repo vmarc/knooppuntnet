@@ -1,8 +1,10 @@
 package kpn.core.engine.analysis.caseStudies
 
+import kpn.core.changes.RelationAnalyzerImpl
 import kpn.core.data.DataBuilder
 import kpn.core.engine.analysis.NetworkShapeAnalyzer
 import kpn.core.loadOld.Parser
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.NetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -23,8 +25,9 @@ class ConcaveHullTest extends FunSuite with Matchers {
     val data = new DataBuilder(NetworkType.bicycle, rawData).data
     val networkRelation = data.relations(4257206)
 
-    new NetworkShapeAnalyzer(networkRelation).shape
-
+    val analysisContext = new AnalysisContext()
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    new NetworkShapeAnalyzer(relationAnalyzer, networkRelation).shape
   }
 
 }

@@ -88,7 +88,7 @@ class OrphanNodeChangeAnalyzerTest extends FunSuite with Matchers with SharedTes
 
   private def elementChanges(change: Change): ElementChanges = {
     val cs = newChangeSet(changes = Seq(change))
-    val analysis = new OrphanNodeChangeAnalyzerImpl(d.analysisData, new MockBlackListRepository()).analyze(cs)
+    val analysis = new OrphanNodeChangeAnalyzerImpl(d.analysisContext, d.analysisData, new MockBlackListRepository()).analyze(cs)
     analysis.creates.map(_.id) should equal(analysis.changes.creates)
     analysis.updates.map(_.id) should equal(analysis.changes.updates)
     analysis.deletes.map(_.id) should equal(analysis.changes.deletes)

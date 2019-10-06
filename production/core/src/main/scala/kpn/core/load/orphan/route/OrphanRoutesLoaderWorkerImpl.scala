@@ -8,12 +8,15 @@ import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.RouteLoader
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Timestamp
 
 class OrphanRoutesLoaderWorkerImpl(
+  analysisContext: AnalysisContext,
   routeLoader: RouteLoader,
   routeAnalyzer: MasterRouteAnalyzer,
+  relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   analysisData: AnalysisData,
   analysisRepository: AnalysisRepository
@@ -27,7 +30,7 @@ class OrphanRoutesLoaderWorkerImpl(
       loadedRouteOption match {
         case Some(loadedRoute) =>
 
-          val allNodes = new NetworkNodeBuilder(loadedRoute.data, countryAnalyzer).networkNodes
+          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, countryAnalyzer).networkNodes
           val analysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
@@ -48,7 +51,7 @@ class OrphanRoutesLoaderWorkerImpl(
             )
           }
 
-          val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
+          val elementIds = relationAnalyzer.toElementIds(loadedRoute.relation)
           analysisData.orphanRoutes.watched.add(loadedRoute.id, elementIds)
 
         case None => // error already logged in routeLoader

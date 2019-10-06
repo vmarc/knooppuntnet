@@ -10,7 +10,7 @@ import kpn.shared.data.Node
 import kpn.shared.data.Relation
 import kpn.shared.network.NetworkShape
 
-class NetworkShapeAnalyzer(networkRelation: Relation) {
+class NetworkShapeAnalyzer(relationAnalyzer: RelationAnalyzer, networkRelation: Relation) {
 
   val log = Log(classOf[NetworkShapeAnalyzer])
 
@@ -22,7 +22,7 @@ class NetworkShapeAnalyzer(networkRelation: Relation) {
   }
 
   private def calculatedShape: Option[NetworkShape] = {
-    val nodes = RelationAnalyzer.referencedNonConnectionNodes(networkRelation)
+    val nodes = relationAnalyzer.referencedNonConnectionNodes(networkRelation)
     val points = toGeometryCollection(nodes)
 //    val coordinates = new ConcaveHull(points, 0.03d).getConcaveHull.getCoordinates.toList
 //    if (coordinates.nonEmpty) {
