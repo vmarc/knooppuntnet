@@ -8,6 +8,7 @@ import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.test.TestData
 import kpn.core.tools.analyzer.AnalysisContext
+import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.Timestamp
 import kpn.shared.data.Tags
@@ -406,7 +407,7 @@ class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObje
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
     val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))
-    val network = networkAnalyzer.analyze(networkRelationAnalysis, data, 1)
+    val network = networkAnalyzer.analyze(networkRelationAnalysis, data, NetworkType.hiking, 1)
     NetworkSnapshot(Timestamp(2015, 1, 1, 0, 0, 0), data, network)
   }
 }

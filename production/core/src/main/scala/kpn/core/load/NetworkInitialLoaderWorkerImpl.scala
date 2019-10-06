@@ -46,7 +46,7 @@ class NetworkInitialLoaderWorkerImpl(
   private def processNetwork(loadedNetwork: LoadedNetwork): Unit = {
     log.info(s"""Analyze "${loadedNetwork.name}"""")
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
-    val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork.data, loadedNetwork.networkId)
+    val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork.data, loadedNetwork.networkType, loadedNetwork.networkId)
     analysisRepository.saveNetwork(network)
     analysisData.networks.watched.add(loadedNetwork.networkId, networkRelationAnalysis.elementIds)
   }

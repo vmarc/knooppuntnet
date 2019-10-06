@@ -49,12 +49,12 @@ class NetworkUpdateNetworkProcessorImpl(
 
     val snapshotBefore = {
       val networkRelationAnalysisBefore = networkRelationAnalyzer.analyze(loadedNetworkBefore.relation)
-      val networkBefore = networkAnalyzer.analyze(networkRelationAnalysisBefore, loadedNetworkBefore.data, networkId)
+      val networkBefore = networkAnalyzer.analyze(networkRelationAnalysisBefore, loadedNetworkBefore.data, loadedNetworkBefore.networkType, networkId)
       NetworkSnapshot(context.timestampBefore, loadedNetworkBefore.data, networkBefore)
     }
 
     val networkRelationAnalysisAfter = networkRelationAnalyzer.analyze(loadedNetworkAfter.relation)
-    val networkAfter = networkAnalyzer.analyze(networkRelationAnalysisAfter, loadedNetworkAfter.data, networkId)
+    val networkAfter = networkAnalyzer.analyze(networkRelationAnalysisAfter, loadedNetworkAfter.data, loadedNetworkAfter.networkType, networkId)
     val snapshotAfter = NetworkSnapshot(context.timestampAfter, loadedNetworkAfter.data, networkAfter)
 
     analysisData.networks.watched.add(networkId, networkRelationAnalysisAfter.elementIds)

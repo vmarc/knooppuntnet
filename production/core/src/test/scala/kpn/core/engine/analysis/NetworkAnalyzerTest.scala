@@ -10,6 +10,7 @@ import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
+import kpn.shared.NetworkType
 import kpn.shared.data.Tags
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
@@ -120,6 +121,7 @@ class NetworkAnalyzerTest extends FunSuite with Matchers with MockFactory {
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
     val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer).analyze(networkRelation)
-    new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer).analyze(networkRelationAnalysis, data, 1)
+    val analyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
+    analyzer.analyze(networkRelationAnalysis, data, NetworkType.hiking, 1)
   }
 }

@@ -18,6 +18,7 @@ import kpn.shared.NetworkExtraMemberRelation
 import kpn.shared.NetworkExtraMemberWay
 import kpn.shared.NetworkFacts
 import kpn.shared.NetworkNameMissing
+import kpn.shared.NetworkType
 import kpn.shared.common.Ref
 import kpn.shared.data.Relation
 import kpn.shared.route.RouteInfo
@@ -31,9 +32,8 @@ class NetworkAnalyzerImpl(
 
   private val log = Log(classOf[NetworkAnalyzerImpl])
 
-  def analyze(networkRelationAnalysis: NetworkRelationAnalysis, data: Data, networkId: Long): Network = {
+  def analyze(networkRelationAnalysis: NetworkRelationAnalysis, data: Data, networkType: NetworkType, networkId: Long): Network = {
 
-    val networkType = data.networkType
     val networkRelation: Relation = data.relations(networkId)
 
     // TODO name already available in LoadedNetwork
