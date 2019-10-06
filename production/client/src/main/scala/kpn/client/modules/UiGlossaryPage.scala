@@ -34,7 +34,6 @@ import kpn.shared.Fact.NodeMemberMissing
 import kpn.shared.Fact.OrphanNode
 import kpn.shared.Fact.OrphanRoute
 import kpn.shared.Fact.RouteBroken
-import kpn.shared.Fact.RouteEndNodeMismatch
 import kpn.shared.Fact.RouteFixmetodo
 import kpn.shared.Fact.RouteIncomplete
 import kpn.shared.Fact.RouteIncompleteOk
@@ -46,8 +45,6 @@ import kpn.shared.Fact.RouteNotBackward
 import kpn.shared.Fact.RouteNotContinious
 import kpn.shared.Fact.RouteNotForward
 import kpn.shared.Fact.RouteRedundantNodes
-import kpn.shared.Fact.RouteReversed
-import kpn.shared.Fact.RouteStartNodeMismatch
 import kpn.shared.Fact.RouteTagInvalid
 import kpn.shared.Fact.RouteTagMissing
 import kpn.shared.Fact.RouteUnaccessible

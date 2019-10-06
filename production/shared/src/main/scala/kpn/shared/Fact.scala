@@ -46,12 +46,6 @@ object Fact {
 
   val RouteNameMissing: Fact = f.fact(109, "RouteNameMissing", "RouteZonderNaam", FactLevel.ERROR)
 
-  // TODO not used anymore - remove when no longer in changes database
-  val RouteEndNodeMismatch: Fact = f.fact(110, "RouteEndNodeMismatch", "EindKnooppuntFout", FactLevel.ERROR)
-
-  // TODO not used anymore - remove when no longer in changes database
-  val RouteStartNodeMismatch: Fact = f.fact(112, "RouteStartNodeMismatch", "StartKnooppuntFout", FactLevel.ERROR)
-
   val RouteTagMissing: Fact = f.fact(113, "RouteTagMissing", "OntbrekendeTag", FactLevel.ERROR)
   val RouteTagInvalid: Fact = f.fact(114, "RouteTagInvalid", "TagFout", FactLevel.ERROR)
 

@@ -86,23 +86,6 @@ object UiFactDescription {
             }
           )
 
-        case RouteEndNodeMismatch =>
-          <.p(
-            if (nlsNL) {
-              "Het eind knooppunt stemt niet overeen met het laatste knooppunt in de laatste weg."
-            } else {
-              "The end node does not match the last node in the last way."
-            }
-          )
-
-        case RouteStartNodeMismatch =>
-          <.p(
-            if (nlsNL) {
-              "Het start knooppunt stemt niet overeen met het eerste knooppunt in de eerste weg."
-            } else {
-              "The start node does not match the first node in the first way."
-            }
-          )
         case RouteTagMissing =>
           UiMarked(
             if (nlsNL) {

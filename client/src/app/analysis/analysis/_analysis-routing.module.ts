@@ -10,7 +10,6 @@ import {AnalysisInlineSkatingPageComponent} from "./analysis-inline-skating-page
 import {AnalysisMotorboatPageComponent} from "./analysis-motorboat-page.component";
 import {AnalysisPageComponent} from "./analysis-page.component";
 import {LocationNodesPageComponent} from "./location-nodes-page.component";
-import {LocationPageComponent} from "./location-page.component";
 import {LocationSelectionPageComponent} from "./location-selection-page.component";
 import {RoutesWithoutLocationPageComponent} from "./routes-without-location-page.component";
 

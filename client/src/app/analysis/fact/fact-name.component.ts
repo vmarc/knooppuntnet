@@ -21,7 +21,6 @@ import {Component, Input} from "@angular/core";
       <ng-container i18n="@@fact.name.orphan-route" *ngSwitchCase="'OrphanRoute'">OrphanRoute</ng-container>
       <ng-container i18n="@@fact.name.route-analysis-failed" *ngSwitchCase="'RouteAnalysisFailed'">RouteAnalysisFailed</ng-container>
       <ng-container i18n="@@fact.name.route-broken" *ngSwitchCase="'RouteBroken'">RouteBroken</ng-container>
-      <ng-container i18n="@@fact.name.route-end-node-mismatch" *ngSwitchCase="'RouteEndNodeMismatch'">RouteEndNodeMismatch</ng-container>
       <ng-container i18n="@@fact.name.route-fixmetodo" *ngSwitchCase="'RouteFixmetodo'">RouteFixmetodo</ng-container>
       <ng-container i18n="@@fact.name.route-incomplete" *ngSwitchCase="'RouteIncomplete'">RouteIncomplete</ng-container>
       <ng-container i18n="@@fact.name.route-incomplete-ok" *ngSwitchCase="'RouteIncompleteOk'">RouteIncompleteOk</ng-container>
@@ -37,7 +36,6 @@ import {Component, Input} from "@angular/core";
       <ng-container i18n="@@fact.name.route-overlapping-ways" *ngSwitchCase="'RouteOverlappingWays'">RouteOverlappingWays</ng-container>
       <ng-container i18n="@@fact.name.route-redundant-nodes" *ngSwitchCase="'RouteRedundantNodes'">RouteRedundantNodes</ng-container>
       <ng-container i18n="@@fact.name.route-reversed" *ngSwitchCase="'RouteReversed'">RouteReversed</ng-container>
-      <ng-container i18n="@@fact.name.route-start-node-mismatch" *ngSwitchCase="'RouteStartNodeMismatch'">RouteStartNodeMismatch</ng-container>
       <ng-container i18n="@@fact.name.route-suspicious-ways" *ngSwitchCase="'RouteSuspiciousWays'">RouteSuspiciousWays</ng-container>
       <ng-container i18n="@@fact.name.route-tag-invalid" *ngSwitchCase="'RouteTagInvalid'">RouteTagInvalid</ng-container>
       <ng-container i18n="@@fact.name.route-tag-missing" *ngSwitchCase="'RouteTagMissing'">RouteTagMissing</ng-container>

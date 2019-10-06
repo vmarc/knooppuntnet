@@ -25,7 +25,6 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-orphan-route *ngSwitchCase="'OrphanRoute'"></kpn-fact-orphan-route>
       <kpn-fact-route-analysis-failed *ngSwitchCase="'RouteAnalysisFailed'"></kpn-fact-route-analysis-failed>
       <kpn-fact-route-broken *ngSwitchCase="'RouteBroken'"></kpn-fact-route-broken>
-      <kpn-fact-route-end-node-mismatch *ngSwitchCase="'RouteEndNodeMismatch'"></kpn-fact-route-end-node-mismatch>
       <kpn-fact-route-fixmetodo *ngSwitchCase="'RouteFixmetodo'"></kpn-fact-route-fixmetodo>
       <kpn-fact-route-incomplete *ngSwitchCase="'RouteIncomplete'"></kpn-fact-route-incomplete>
       <kpn-fact-route-incomplete-ok *ngSwitchCase="'RouteIncompleteOk'"></kpn-fact-route-incomplete-ok>
@@ -41,7 +40,6 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-route-overlapping-ways *ngSwitchCase="'RouteOverlappingWays'"></kpn-fact-route-overlapping-ways>
       <kpn-fact-route-redundant-nodes *ngSwitchCase="'RouteRedundantNodes'"></kpn-fact-route-redundant-nodes>
       <kpn-fact-route-reversed *ngSwitchCase="'RouteReversed'"></kpn-fact-route-reversed>
-      <kpn-fact-route-start-node-mismatch *ngSwitchCase="'RouteStartNodeMismatch'"></kpn-fact-route-start-node-mismatch>
       <kpn-fact-route-suspicious-ways *ngSwitchCase="'RouteSuspiciousWays'"></kpn-fact-route-suspicious-ways>
       <kpn-fact-route-tag-invalid *ngSwitchCase="'RouteTagInvalid'"></kpn-fact-route-tag-invalid>
       <kpn-fact-route-tag-missing *ngSwitchCase="'RouteTagMissing'"></kpn-fact-route-tag-missing>

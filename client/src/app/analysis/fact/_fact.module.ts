@@ -27,7 +27,6 @@ import {FactOrphanNodeComponent} from "./descriptions/fact-orphan-node.component
 import {FactOrphanRouteComponent} from "./descriptions/fact-orphan-route.component";
 import {FactRouteAnalysisFailedComponent} from "./descriptions/fact-route-analysis-failed.component";
 import {FactRouteBrokenComponent} from "./descriptions/fact-route-broken.component";
-import {FactRouteEndNodeMismatchComponent} from "./descriptions/fact-route-end-node-mismatch.component";
 import {FactRouteFixmetodoComponent} from "./descriptions/fact-route-fixmetodo.component";
 import {FactRouteIncompleteOkComponent} from "./descriptions/fact-route-incomplete-ok.component";
 import {FactRouteIncompleteComponent} from "./descriptions/fact-route-incomplete.component";
@@ -44,7 +43,6 @@ import {FactRouteOneWayComponent} from "./descriptions/fact-route-one-way.compon
 import {FactRouteOverlappingWaysComponent} from "./descriptions/fact-route-overlapping-ways.component";
 import {FactRouteRedundantNodesComponent} from "./descriptions/fact-route-redundant-nodes.component";
 import {FactRouteReversedComponent} from "./descriptions/fact-route-reversed.component";
-import {FactRouteStartNodeMismatchComponent} from "./descriptions/fact-route-start-node-mismatch.component";
 import {FactRouteSuspiciousWaysComponent} from "./descriptions/fact-route-suspicious-ways.component";
 import {FactRouteTagInvalidComponent} from "./descriptions/fact-route-tag-invalid.component";
 import {FactRouteTagMissingComponent} from "./descriptions/fact-route-tag-missing.component";
@@ -86,8 +84,6 @@ import {FactsComponent} from "./facts.component";
     FactRouteWithoutWaysComponent,
     FactRouteFixmetodoComponent,
     FactRouteNameMissingComponent,
-    FactRouteEndNodeMismatchComponent,
-    FactRouteStartNodeMismatchComponent,
     FactRouteTagMissingComponent,
     FactRouteTagInvalidComponent,
     FactRouteUnexpectedNodeComponent,
