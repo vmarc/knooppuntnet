@@ -209,36 +209,6 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
       </kpn-statistic-configuration>
 
       <kpn-statistic-configuration
-        id="NodeNetworkTypeNotTaggedCount"
-        fact="NodeNetworkTypeNotTagged"
-        name="NodeNetworkTypeNotTagged"
-        i18n-name="@@stats.node-network-type-not-tagged.name"
-        i18n="@@stats.node-network-type-not-tagged.comment"
-        [linkFunction]="factDetailCounts">
-        Number of nodes that are not tagged with 'network:type=node_network'.
-      </kpn-statistic-configuration>
-
-      <kpn-statistic-configuration
-        id="RouteNetworkTypeNotTaggedCount"
-        fact="RouteNetworkTypeNotTagged"
-        name="RouteNetworkTypeNotTagged"
-        i18n-name="@@stats.route-network-type-not-tagged.name"
-        i18n="@@stats.route-network-type-not-tagged.comment"
-        [linkFunction]="factDetailCounts">
-        Number of routes that are not tagged with 'network:type=node_network'.
-      </kpn-statistic-configuration>
-
-      <kpn-statistic-configuration
-        id="NetworkTypeNotTaggedCount"
-        fact="NetworkTypeNotTagged"
-        name="NetworkTypeNotTagged"
-        i18n-name="@@stats.network-type-not-tagged.name"
-        i18n="@@stats.network-type-not-tagged.comment"
-        [linkFunction]="factDetailCounts">
-        Number of network that are not tagged with 'network:type=node_network'.
-      </kpn-statistic-configuration>
-
-      <kpn-statistic-configuration
         id="RouteUnusedSegmentsCount"
         fact="RouteUnusedSegments"
         name="RouteUnusedSegments"

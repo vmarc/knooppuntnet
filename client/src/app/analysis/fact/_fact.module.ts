@@ -20,9 +20,7 @@ import {FactNameMissingComponent} from "./descriptions/fact-name-missing.compone
 import {FactNetworkExtraMemberNodeComponent} from "./descriptions/fact-network-extra-member-node.component";
 import {FactNetworkExtraMemberRelationComponent} from "./descriptions/fact-network-extra-member-relation.component";
 import {FactNetworkExtraMemberWayComponent} from "./descriptions/fact-network-extra-member-way.component";
-import {FactNetworkTypeNotTaggedComponent} from "./descriptions/fact-network-type-not-tagged.component";
 import {FactNodeMemberMissingComponent} from "./descriptions/fact-node-member-missing.component";
-import {FactNodeNetworkTypeNotTaggedComponent} from "./descriptions/fact-node-network-type-not-tagged.component";
 import {FactOrphanNodeComponent} from "./descriptions/fact-orphan-node.component";
 import {FactOrphanRouteComponent} from "./descriptions/fact-orphan-route.component";
 import {FactRouteAnalysisFailedComponent} from "./descriptions/fact-route-analysis-failed.component";
@@ -32,7 +30,6 @@ import {FactRouteIncompleteOkComponent} from "./descriptions/fact-route-incomple
 import {FactRouteIncompleteComponent} from "./descriptions/fact-route-incomplete.component";
 import {FactRouteInvalidSortingOrderComponent} from "./descriptions/fact-route-invalid-sorting-order.component";
 import {FactRouteNameMissingComponent} from "./descriptions/fact-route-name-missing.component";
-import {FactRouteNetworkTypeNotTaggedComponent} from "./descriptions/fact-route-network-type-not-tagged.component";
 import {FactRouteNodeMissingInWaysComponent} from "./descriptions/fact-route-node-missing-in-ways.component";
 import {FactRouteNodeNameMismatchComponent} from "./descriptions/fact-route-node-name-mismatch.component";
 import {FactRouteNotBackwardComponent} from "./descriptions/fact-route-not-backward.component";
@@ -120,10 +117,7 @@ import {FactsComponent} from "./facts.component";
     FactLostRouteTagsComponent,
     FactLostInlineSkateNodeTagComponent,
     FactWasOrphanComponent,
-    FactDescriptionComponent,
-    FactNodeNetworkTypeNotTaggedComponent,
-    FactRouteNetworkTypeNotTaggedComponent,
-    FactNetworkTypeNotTaggedComponent
+    FactDescriptionComponent
   ],
   exports: [
     FactNameComponent,

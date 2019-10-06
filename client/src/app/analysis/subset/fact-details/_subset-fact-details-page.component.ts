@@ -111,8 +111,7 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   hasNodeRefs(): boolean {
-    return this.factName == "NodeNetworkTypeNotTagged"
-      || this.factName == "NodeMemberMissing"
+    return this.factName == "NodeMemberMissing"
       || this.factName == "IntegrityCheckFailed";
   }
 
