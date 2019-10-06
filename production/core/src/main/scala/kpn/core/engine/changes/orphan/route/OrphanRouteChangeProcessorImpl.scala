@@ -82,7 +82,7 @@ class OrphanRouteChangeProcessorImpl(
     val updatedRouteIds = afterRouteAnalyses.map(_.route.id) // note: this excludes ignored routes
     val beforeLoadedRoutes = routesLoader.load(context.changeSet.timestampBefore, updatedRouteIds).flatten
     val beforeRouteAnalyses = beforeLoadedRoutes.map { loadedRoute =>
-      val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, countryAnalyzer).networkNodes
+      val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
       routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
     }
 
@@ -146,7 +146,7 @@ class OrphanRouteChangeProcessorImpl(
 
         case Some(loadedRoute) =>
 
-          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, countryAnalyzer).networkNodes
+          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
           val routeAnalysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
 
           val route = routeAnalysis.route.copy(orphan = true, active = false)

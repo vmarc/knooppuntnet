@@ -194,7 +194,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         config.routeLoader.loadRoute(timestamp, routeId) match {
           case None => log.warn("Could not load route")
           case Some(loadedRoute) =>
-            val allNodes = new NetworkNodeBuilder(config.analysisContext, loadedRoute.data, config.countryAnalyzer).networkNodes
+            val allNodes = new NetworkNodeBuilder(config.analysisContext, loadedRoute.data, loadedRoute.networkType, config.countryAnalyzer).networkNodes
             val analysis = config.routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
             val facts = analysis.route.facts :+ Fact.OrphanRoute
 

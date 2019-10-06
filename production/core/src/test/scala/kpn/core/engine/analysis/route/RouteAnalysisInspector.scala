@@ -66,7 +66,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerNoop()
 
     val analysisContext = new AnalysisContext()
-    val networkNodes = new NetworkNodeBuilder(analysisContext, data, countryAnalyzer).networkNodes
+    val networkNodes = new NetworkNodeBuilder(analysisContext, data, d.networkType, countryAnalyzer).networkNodes
     val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
     val analysis = routeAnalyzer.analyze(networkNodes, LoadedRoute(None, d.networkType, "", data, relation), orphan = false)
 

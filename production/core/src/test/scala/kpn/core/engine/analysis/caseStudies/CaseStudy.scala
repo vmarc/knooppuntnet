@@ -23,14 +23,14 @@ object CaseStudy {
 
   def routeAnalysis(name: String): RouteAnalysis = {
     val filename = s"/case-studies/$name.xml"
-    val (data, routeRelation) = load(filename)
+    val (data, networkType, routeRelation) = load(filename)
     val analysisContext = new AnalysisContext(oldTagging = true)
-    val networkNodes = new NetworkNodeBuilder(analysisContext, data, countryAnalyzer).networkNodes
+    val networkNodes = new NetworkNodeBuilder(analysisContext, data, networkType, countryAnalyzer).networkNodes
     val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
     routeAnalyzer.analyze(networkNodes, LoadedRoute(Some(Country.nl), data.networkType, "", data, routeRelation), orphan = false)
   }
 
-  private def load(filename: String): (Data, Relation) = {
+  private def load(filename: String): (Data, NetworkType, Relation) = {
 
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
@@ -60,6 +60,6 @@ object CaseStudy {
 
     val data = new DataBuilder(networkType, rawData).data
     val routeRelation = data.relations(rawRouteRelation.id)
-    (data, routeRelation)
+    (data, networkType, routeRelation)
   }
 }

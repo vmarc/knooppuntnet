@@ -30,7 +30,7 @@ class OrphanRoutesLoaderWorkerImpl(
       loadedRouteOption match {
         case Some(loadedRoute) =>
 
-          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, countryAnalyzer).networkNodes
+          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
           val analysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)

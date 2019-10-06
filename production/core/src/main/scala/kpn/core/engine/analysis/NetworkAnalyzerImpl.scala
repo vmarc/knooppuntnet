@@ -33,8 +33,7 @@ class NetworkAnalyzerImpl(
 
   def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Network = {
 
-    // TODO nodes already available in NetworkRelationAnalysis
-    val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, loadedNetwork.data, countryAnalyzer).networkNodes
+    val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, loadedNetwork.data, loadedNetwork.networkType, countryAnalyzer).networkNodes
 
     val allRouteAnalyses: Map[Long, kpn.core.engine.analysis.route.RouteAnalysis] = {
 
