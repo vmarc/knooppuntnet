@@ -98,7 +98,7 @@ import {Component} from "@angular/core";
   `,
   styles: [`
     .buttons {
-      display: flex;
+      /*display: flex;*/
     }
 
     .options-title {
