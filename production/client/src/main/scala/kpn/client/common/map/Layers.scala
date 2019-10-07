@@ -1,11 +1,9 @@
 // TODO migrate to Angular
 package kpn.client.common.map
 
-import ol.Ol.TileUrlFunctionType
 import kpn.shared.NetworkType
 import kpn.shared.tiles.ZoomLevel.bitmapTileMaxZoom
 import kpn.shared.tiles.ZoomLevel.bitmapTileMinZoom
-import kpn.shared.tiles.ZoomLevel.vectorTileMaxOverZoom
 import kpn.shared.tiles.ZoomLevel.vectorTileMaxZoom
 import kpn.shared.tiles.ZoomLevel.vectorTileMinZoom
 
@@ -14,7 +12,11 @@ object Layers {
   def osm: ol.layer.Base = {
     val tileLayer = new ol.layer.Tile(
       olx.layer.TileOptions(
-        source = new ol.source.OSM()
+        source = new ol.source.XYZ(
+          olx.source.XYZOptions(
+            url = "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          )
+        )
       )
     )
     tileLayer.set("name", "OpenStreetMap")

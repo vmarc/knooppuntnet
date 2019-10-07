@@ -5,8 +5,8 @@ import scala.scalajs.js.UndefOr
 
 object XYZOptions {
   def apply(
-    minZoom: Double,
-    maxZoom: Double,
+    minZoom: UndefOr[Double] = js.undefined,
+    maxZoom: UndefOr[Double] = js.undefined,
     url: UndefOr[String] = js.undefined
   ): XYZOptions = {
     js.Dynamic.literal(
