@@ -238,7 +238,7 @@ if (doc) {
       }
     }
   } else if (doc.route && doc.route.summary && doc.route.active === true) {
-    if (doc.route.orphan === true && doc.route.display === true && doc.route.active === true && doc.route.ignored === false) {
+    if (doc.route.orphan === true && doc.route.display === true && doc.route.ignored === false) {
       var index = subsetIndex(doc.route.summary);
       emitCount("OrphanRouteCount", index, 1);
       emitCount("RouteCount", index, 1);
@@ -267,7 +267,9 @@ if (doc) {
         }
         for (var i = 0; i < allNodes.length; i++) {
           var node = allNodes[i];
-          emitCount("NodeNetworkTypeNotTaggedCount", index, 1);
+          if (node.networkTypeTagged === false) {
+            emitCount("NodeNetworkTypeNotTaggedCount", index, 1);
+          }
         }
       }
     }

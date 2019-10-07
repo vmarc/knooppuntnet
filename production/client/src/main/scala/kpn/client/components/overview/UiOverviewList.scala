@@ -34,6 +34,9 @@ object UiOverviewList {
     def render(): VdomElement = {
       <.div(
         UiOverviewPage.Styles.items,
+        infoRow(infos.networkTypeNotTaggedInfo),
+        infoRow(infos.routeNetworkTypeNotTaggedInfo),
+        infoRow(infos.nodeNetworkTypeNotTaggedInfo),
         infoRow(infos.lengthInfo),
         infoRow(infos.networkCountInfo),
         infoRow(infos.nodeCountInfo),
@@ -55,9 +58,6 @@ object UiOverviewList {
         infoRow(infos.integrityCheckFailedCount),
         infoRow(infos.integrityCheckPassRateInfo),
         infoRow(infos.integrityCheckCoverageInfo),
-        infoRow(infos.networkTypeNotTaggedInfo),
-        infoRow(infos.routeNetworkTypeNotTaggedInfo),
-        infoRow(infos.nodeNetworkTypeNotTaggedInfo),
         infoRow(infos.routeUnusedSegmentsInfo),
         infoRow(infos.routeNodeMissingInWaysInfo),
         infoRow(infos.routeRedundantNodesInfo),
@@ -120,7 +120,9 @@ object UiOverviewList {
       Seq(
         <.tr(
           <.td(
-            ^.rowSpan := (if (Country.nl == country) 6 else {if (Country.be == country) 3 else 2}),
+            ^.rowSpan := (if (Country.nl == country) 6 else {
+              if (Country.be == country) 3 else 2
+            }),
             countryName
           ),
           <.td(

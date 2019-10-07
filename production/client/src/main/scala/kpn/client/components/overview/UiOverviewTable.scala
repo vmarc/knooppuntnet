@@ -13,8 +13,8 @@ import kpn.client.components.common.UiNetworkTypeIcon
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.statistics.Statistics
-
 import scalacss.ScalaCssReact._
+import scalacss.internal.StyleA
 
 object UiOverviewTable {
 
@@ -38,6 +38,9 @@ object UiOverviewTable {
         header(),
         <.tbody(
           TagMod(
+            infoRow(infos.networkTypeNotTaggedInfo, UiOverviewPage.Styles.importantTitle),
+            infoRow(infos.routeNetworkTypeNotTaggedInfo, UiOverviewPage.Styles.importantTitle),
+            infoRow(infos.nodeNetworkTypeNotTaggedInfo, UiOverviewPage.Styles.importantTitle),
             infoRow(infos.lengthInfo),
             infoRow(infos.networkCountInfo),
             infoRow(infos.nodeCountInfo),
@@ -50,9 +53,6 @@ object UiOverviewTable {
             infoRow(infos.orphanNodeCountInfo),
             orphanRoutes().toTagMod,
             integrityCheck().toTagMod,
-            infoRow(infos.networkTypeNotTaggedInfo),
-            infoRow(infos.routeNetworkTypeNotTaggedInfo),
-            infoRow(infos.nodeNetworkTypeNotTaggedInfo),
             infoRow(infos.routeUnusedSegmentsInfo),
             infoRow(infos.routeNodeMissingInWaysInfo),
             infoRow(infos.routeRedundantNodesInfo),
@@ -192,9 +192,12 @@ object UiOverviewTable {
       )
     }
 
-    private def infoRow(info: UiOverviewInfo): VdomElement = {
+    private def infoRow(info: UiOverviewInfo, titleStyle: StyleA = UiOverviewPage.Styles.regularTitle): VdomElement = {
       <.tr(
-        <.td(info.title),
+        <.td(
+          titleStyle,
+          info.title
+        ),
         counts(info),
         <.td(
           UiOverviewPage.Styles.commentCell,

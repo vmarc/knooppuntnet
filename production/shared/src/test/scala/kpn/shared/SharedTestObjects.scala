@@ -517,7 +517,8 @@ trait SharedTestObjects {
       members,
       expectedName,
       map,
-      structureStrings
+      structureStrings,
+      None
     )
   }
 

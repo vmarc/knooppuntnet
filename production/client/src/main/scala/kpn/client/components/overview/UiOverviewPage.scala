@@ -51,6 +51,13 @@ object UiOverviewPage {
       borderBottomWidth(1.px)
     )
 
+    val importantItem: StyleA = style(
+      padding(10.px),
+      borderBottomColor.lightgray,
+      borderBottomStyle.solid,
+      borderBottomWidth(1.px)
+    )
+
     val title: StyleA = style(
       fontWeight.bold
     )
@@ -72,6 +79,13 @@ object UiOverviewPage {
           marginBottom(0.px)
         )
       )
+    )
+
+    val regularTitle: StyleA = style(
+    )
+
+    val importantTitle: StyleA = style(
+      color.red
     )
 
     val commentCell: StyleA = style(

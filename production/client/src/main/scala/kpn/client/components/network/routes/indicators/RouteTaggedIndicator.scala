@@ -28,7 +28,7 @@ object RouteTaggedIndicator {
     else {
       UiIndicator(
         "T",
-        UiIndicator.Color.GRAY,
+        UiIndicator.Color.RED,
         nls(
           "Tagging not updated",
           "Tags niet aangepast"
