@@ -75,8 +75,8 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val blackListRepository = new BlackListRepositoryImpl(database)
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
+    analysisContext,
     analysisRepository,
-    analysisData,
     networkLoader,
     networkRelationAnalyzer,
     networkAnalyzer,

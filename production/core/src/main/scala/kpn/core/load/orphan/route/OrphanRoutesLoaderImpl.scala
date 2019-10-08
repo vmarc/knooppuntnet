@@ -6,10 +6,10 @@ import akka.actor.Props
 import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.orphan.route.OrphanRoutesLoaderImpl.LoadRoute
 import kpn.core.repository.BlackListRepository
 import kpn.core.repository.OrphanRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 import kpn.core.util.Log
 import kpn.shared.NetworkType
@@ -29,7 +29,7 @@ object OrphanRoutesLoaderImpl {
 
 class OrphanRoutesLoaderImpl(
   system: ActorSystem,
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   routeIdsLoader: RouteIdsLoader,
   orphanRepository: OrphanRepository,
   blackListRepository: BlackListRepository,
@@ -78,6 +78,6 @@ class OrphanRoutesLoaderImpl(
   }
 
   private def isReferenced(routeId: Long): Boolean = {
-    analysisData.networks.isReferencingRelation(routeId)
+    analysisContext.data.networks.isReferencingRelation(routeId)
   }
 }

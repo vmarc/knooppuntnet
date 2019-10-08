@@ -12,11 +12,11 @@ class NetworkDelete_Test02 extends AbstractTest {
     val tc = new TestConfig()
     tc.relationBefore(data, 1)
 
-    tc.analysisData.networks.watched.add(1, ElementIds())
+    tc.analysisContext.data.networks.watched.add(1, ElementIds())
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
-    tc.analysisData.networks.watched.contains(1) should equal(false)
+    tc.analysisContext.data.networks.watched.contains(1) should equal(false)
 
     (tc.networkRepository.save _).verify(*).never()
     (tc.changeSetRepository.saveChangeSetSummary _).verify(*).never()

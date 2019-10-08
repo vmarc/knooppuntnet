@@ -17,7 +17,6 @@ import kpn.core.engine.changes.builder.NodeChangeBuilder
 import kpn.core.engine.changes.builder.NodeChangeBuilderImpl
 import kpn.core.engine.changes.builder.RouteChangeBuilder
 import kpn.core.engine.changes.builder.RouteChangeBuilderImpl
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.core.engine.changes.network.NetworkChangeProcessorImpl
 import kpn.core.engine.changes.network.create.NetworkCreateProcessor
@@ -54,7 +53,7 @@ import kpn.core.tools.analyzer.AnalysisContext
 
 class ChangeProcessorConfiguration(
   system: ActorSystem,
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   nonCachingExecutor: OverpassQueryExecutor,
   cachingExecutor: OverpassQueryExecutor,
   networkRepository: NetworkRepository,
@@ -68,7 +67,6 @@ class ChangeProcessorConfiguration(
   nodeLoader: NodeLoader
 ) {
 
-  private val analysisContext = new AnalysisContext()
   private val networkLoader = new NetworkLoaderImpl(cachingExecutor)
   private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
   private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
@@ -77,13 +75,13 @@ class ChangeProcessorConfiguration(
   private val routeLoader = new RouteLoaderImpl(cachingExecutor, countryAnalyzer)
 
   val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
-    analysisData,
+    analysisContext,
     analysisRepository,
     nodeLoader
   )
 
   val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
-    analysisData,
+    analysisContext,
     analysisRepository,
     relationAnalyzer,
     countryAnalyzer,
@@ -98,7 +96,6 @@ class ChangeProcessorConfiguration(
 
   val changeBuilder: ChangeBuilder = new ChangeBuilderImpl(
     analysisContext,
-    analysisData,
     routesLoader,
     countryAnalyzer,
     routeAnalyzer,
@@ -110,14 +107,13 @@ class ChangeProcessorConfiguration(
 
     val networkChangeAnalyzer = new NetworkChangeAnalyzerImpl(
       analysisContext,
-      analysisData,
       blackListRepository
     )
 
     val networkCreateProcessor: NetworkCreateProcessor = {
 
       val watchedProcessor = new NetworkCreateWatchedProcessorImpl(
-        analysisData,
+        analysisContext,
         analysisRepository,
         networkRelationAnalyzer,
         networkAnalyzer,
@@ -139,7 +135,7 @@ class ChangeProcessorConfiguration(
     val networkUpdateProcessor: NetworkUpdateProcessor = {
 
       val networkUpdateNetworkProcessor = new NetworkUpdateNetworkProcessorImpl(
-        analysisData,
+        analysisContext,
         analysisRepository,
         networkRelationAnalyzer,
         networkAnalyzer,
@@ -147,7 +143,6 @@ class ChangeProcessorConfiguration(
       )
 
       val worker = new NetworkUpdateProcessorWorkerImpl(
-        analysisData,
         analysisRepository,
         networkLoader,
         networkRelationAnalyzer,
@@ -163,7 +158,7 @@ class ChangeProcessorConfiguration(
     val networkDeleteProcessor = {
 
       val worker = new NetworkDeleteProcessorWorkerImpl(
-        analysisData,
+        analysisContext,
         networkRepository,
         networkLoader,
         networkRelationAnalyzer,
@@ -193,7 +188,6 @@ class ChangeProcessorConfiguration(
   private val orphanRouteChangeProcessor = {
     val orphanRouteProcessor: OrphanRouteProcessor = new OrphanRouteProcessorImpl(
       analysisContext,
-      analysisData,
       analysisRepository,
       relationAnalyzer,
       countryAnalyzer,
@@ -201,12 +195,10 @@ class ChangeProcessorConfiguration(
     )
     val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
       analysisContext,
-      analysisData,
       blackListRepository
     )
     new OrphanRouteChangeProcessorImpl(
       analysisContext,
-      analysisData,
       analysisRepository,
       orphanRouteChangeAnalyzer,
       orphanRouteProcessor,
@@ -220,24 +212,22 @@ class ChangeProcessorConfiguration(
 
     val orphanNodeChangeAnalyzer = new OrphanNodeChangeAnalyzerImpl(
       analysisContext,
-      analysisData,
       blackListRepository
     )
 
     val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
-      analysisData,
+      analysisContext,
       analysisRepository,
       countryAnalyzer
     )
 
     val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
-      analysisData,
+      analysisContext,
       analysisRepository
     )
 
     val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
       analysisContext,
-      analysisData,
       analysisRepository
     )
 

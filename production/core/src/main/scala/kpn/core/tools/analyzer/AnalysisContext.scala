@@ -1,5 +1,6 @@
 package kpn.core.tools.analyzer
 
+import kpn.core.engine.changes.data.AnalysisData
 import kpn.shared.NetworkType
 import kpn.shared.data.Element
 import kpn.shared.data.Member
@@ -10,6 +11,8 @@ import kpn.shared.data.raw.RawNode
 import kpn.shared.data.raw.RawRelation
 
 class AnalysisContext(oldTagging: Boolean = false) {
+
+  val data: AnalysisData = AnalysisData()
 
   def isNetworkRelation(relation: RawRelation): Boolean = {
     NetworkType.all.exists(networkType => isNetworkRelation(networkType, relation))

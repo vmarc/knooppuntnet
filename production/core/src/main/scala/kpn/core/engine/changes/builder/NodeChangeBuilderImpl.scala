@@ -2,7 +2,6 @@ package kpn.core.engine.changes.builder
 
 import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.engine.changes.node.NodeChangeFactAnalyzer
 import kpn.core.history.NodeMovedAnalyzer
@@ -10,6 +9,7 @@ import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.load.NodeLoader
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Country
 import kpn.shared.Fact
@@ -22,7 +22,7 @@ import kpn.shared.data.raw.RawNode
 import kpn.shared.diff.common.FactDiffs
 
 class NodeChangeBuilderImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
   nodeLoader: NodeLoader
 ) extends NodeChangeBuilder {
@@ -58,8 +58,8 @@ class NodeChangeBuilderImpl(
       val nodeId = nodeAfter.id
 
       val extraFacts = Seq(
-        if (analysisData.orphanNodes.watched.contains(nodeId)) {
-          analysisData.orphanNodes.watched.delete(nodeId)
+        if (analysisContext.data.orphanNodes.watched.contains(nodeId)) {
+          analysisContext.data.orphanNodes.watched.delete(nodeId)
           Some(Fact.WasOrphan)
         } else {
           None
@@ -107,7 +107,7 @@ class NodeChangeBuilderImpl(
 
           val before = nodeBefore.node.raw
           val after = nodeAfter.networkNode.node.raw
-          val facts = new NodeChangeFactAnalyzer(analysisData).facts(before, after)
+          val facts = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
           val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
           val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
@@ -216,7 +216,7 @@ class NodeChangeBuilderImpl(
 
           val before = nodeBefore.networkNode.node.raw
           val after = nodeAfter.node.raw
-          val nodeFacts = new NodeChangeFactAnalyzer(analysisData).facts(before, after)
+          val nodeFacts = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
           val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
           val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
@@ -263,10 +263,10 @@ class NodeChangeBuilderImpl(
             }
             else {
               // the node is not referenced anymore by any network or route
-                val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
-                analysisRepository.saveNode(nodeInfo)
-                analysisData.orphanNodes.watched.add(after.id)
-                Seq(Fact.BecomeOrphan)
+              val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
+              analysisRepository.saveNode(nodeInfo)
+              analysisContext.data.orphanNodes.watched.add(after.id)
+              Seq(Fact.BecomeOrphan)
             }
 
             analyzed(
@@ -315,7 +315,7 @@ class NodeChangeBuilderImpl(
         val removedFromRoute = determineRemovedFromRoutes(context, nodeId)
         val before = nodeBefore.networkNode.node.raw
         val after = nodeAfter.networkNode.node.raw
-        val facts = new NodeChangeFactAnalyzer(analysisData).facts(before, after)
+        val facts = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
         val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
         val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
@@ -359,8 +359,8 @@ class NodeChangeBuilderImpl(
         }
 
         val extraFacts = Seq(
-          if (analysisData.orphanNodes.watched.contains(nodeId)) {
-            analysisData.orphanNodes.watched.delete(nodeId)
+          if (analysisContext.data.orphanNodes.watched.contains(nodeId)) {
+            analysisContext.data.orphanNodes.watched.delete(nodeId)
             Some(Fact.WasOrphan)
           } else {
             None
@@ -431,7 +431,7 @@ class NodeChangeBuilderImpl(
   }
 
   private def isReferencedNode(nodeId: Long): Boolean = {
-    analysisData.networks.isReferencingNode(nodeId) || analysisData.orphanRoutes.watched.isReferencingNode(nodeId)
+    analysisContext.data.networks.isReferencingNode(nodeId) || analysisContext.data.orphanRoutes.watched.isReferencingNode(nodeId)
   }
 
   private def nodeIdsIn(network: Option[Network]): Set[Long] = {

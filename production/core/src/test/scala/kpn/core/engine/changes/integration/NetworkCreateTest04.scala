@@ -48,7 +48,7 @@ class NetworkCreateTest04 extends AbstractTest {
 
     tc.process(ChangeAction.Create, TestData.relation(dataAfter, 1))
 
-    tc.analysisData.networks.watched.contains(1) should equal(true)
+    tc.analysisContext.data.networks.watched.contains(1) should equal(true)
 
     (tc.analysisRepository.saveNetwork _).verify(
       where { network: Network =>

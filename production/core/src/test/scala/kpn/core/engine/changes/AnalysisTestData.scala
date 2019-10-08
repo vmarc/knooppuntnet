@@ -2,7 +2,6 @@ package kpn.core.engine.changes
 
 import kpn.core.changes.RelationAnalyzer
 import kpn.core.changes.RelationAnalyzerImpl
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.test.TestData
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.SharedTestObjects
@@ -99,10 +98,9 @@ class AnalysisTestData extends SharedTestObjects {
   val analysisContext = new AnalysisContext()
   private val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 
-  val analysisData = AnalysisData()
-  analysisData.networks.watched.add(watchedNetwork, relationAnalyzer.toElementIds(d.relations(watchedNetwork)))
-  analysisData.orphanRoutes.watched.add(watchedOrphanRoute, relationAnalyzer.toElementIds(d.relations(watchedOrphanRoute)))
-  analysisData.orphanNodes.watched.add(watchedOrphanNode)
+  analysisContext.data.networks.watched.add(watchedNetwork, relationAnalyzer.toElementIds(d.relations(watchedNetwork)))
+  analysisContext.data.orphanRoutes.watched.add(watchedOrphanRoute, relationAnalyzer.toElementIds(d.relations(watchedOrphanRoute)))
+  analysisContext.data.orphanNodes.watched.add(watchedOrphanNode)
 
   def createNode(nodeId: Long): Change = create(d.nodes(nodeId).raw)
 

@@ -4,7 +4,6 @@ import kpn.core.changes.RelationAnalyzer
 import kpn.core.engine.analysis.NetworkNodeBuilder
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzer
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.RouteLoader
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder
@@ -18,7 +17,6 @@ class OrphanRoutesLoaderWorkerImpl(
   routeAnalyzer: MasterRouteAnalyzer,
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
-  analysisData: AnalysisData,
   analysisRepository: AnalysisRepository
 ) extends OrphanRoutesLoaderWorker {
 
@@ -52,7 +50,7 @@ class OrphanRoutesLoaderWorkerImpl(
           }
 
           val elementIds = relationAnalyzer.toElementIds(loadedRoute.relation)
-          analysisData.orphanRoutes.watched.add(loadedRoute.id, elementIds)
+          analysisContext.data.orphanRoutes.watched.add(loadedRoute.id, elementIds)
 
         case None => // error already logged in routeLoader
       }

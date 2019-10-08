@@ -89,7 +89,6 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
 
   protected class TestConfig() {
 
-    val analysisData = AnalysisData()
     val analysisContext = new AnalysisContext()
 
     val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
@@ -115,13 +114,13 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
-      analysisData,
+      analysisContext,
       analysisRepository,
       nodeLoader
     )
 
     private val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
-      analysisData,
+      analysisContext,
       analysisRepository,
       relationAnalyzer,
       countryAnalyzer,
@@ -135,7 +134,6 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
 
     val changeBuilder: ChangeBuilder = new ChangeBuilderImpl(
       analysisContext,
-      analysisData,
       routesLoader,
       countryAnalyzer,
       routeAnalyzer,
@@ -147,14 +145,13 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
 
       val networkChangeAnalyzer = new NetworkChangeAnalyzerImpl(
         analysisContext,
-        analysisData,
         blackListRepository
       )
 
       val networkCreateProcessor: NetworkCreateProcessor = {
 
         val watchedProcessor = new NetworkCreateWatchedProcessorImpl(
-          analysisData,
+          analysisContext,
           analysisRepository,
           networkRelationAnalyzer,
           networkAnalyzer,
@@ -175,7 +172,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
       val networkUpdateProcessor: NetworkUpdateProcessor = {
 
         val networkUpdateNetworkProcessor = new NetworkUpdateNetworkProcessorImpl(
-          analysisData,
+          analysisContext,
           analysisRepository,
           networkRelationAnalyzer,
           networkAnalyzer,
@@ -183,7 +180,6 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
         )
 
         val worker = new NetworkUpdateProcessorWorkerImpl(
-          analysisData,
           analysisRepository,
           networkLoader,
           networkRelationAnalyzer,
@@ -198,7 +194,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
       val networkDeleteProcessor = {
 
         val worker = new NetworkDeleteProcessorWorkerImpl(
-          analysisData,
+          analysisContext,
           networkRepository,
           networkLoader,
           networkRelationAnalyzer,
@@ -227,7 +223,6 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val orphanRouteChangeProcessor = {
       val orphanRouteProcessor: OrphanRouteProcessor = new OrphanRouteProcessorImpl(
         analysisContext,
-        analysisData,
         analysisRepository,
         relationAnalyzer,
         countryAnalyzer,
@@ -235,12 +230,10 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
       )
       val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
         analysisContext,
-        analysisData,
         blackListRepository
       )
       new OrphanRouteChangeProcessorImpl(
         analysisContext,
-        analysisData,
         analysisRepository,
         orphanRouteChangeAnalyzer,
         orphanRouteProcessor,
@@ -254,24 +247,22 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
 
       val orphanNodeChangeAnalyzer = new OrphanNodeChangeAnalyzerImpl(
         analysisContext,
-        analysisData,
         blackListRepository
       )
 
       val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
-        analysisData,
+        analysisContext,
         analysisRepository,
         countryAnalyzer
       )
 
       val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
-        analysisData,
+        analysisContext,
         analysisRepository
       )
 
       val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
         analysisContext,
-        analysisData,
         analysisRepository
       )
 
@@ -335,16 +326,16 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     }
 
     def watchNetwork(data: Data, networkId: Long): Unit = {
-      analysisData.networks.watched.add(networkId, relationAnalyzer.toElementIds(data.relations(networkId)))
+      analysisContext.data.networks.watched.add(networkId, relationAnalyzer.toElementIds(data.relations(networkId)))
     }
 
     def watchOrphanRoute(data: Data, routeId: Long): Unit = {
       val elementIds = relationAnalyzer.toElementIds(data.relations(routeId))
-      analysisData.orphanRoutes.watched.add(routeId, elementIds)
+      analysisContext.data.orphanRoutes.watched.add(routeId, elementIds)
     }
 
     def watchOrphanNode(nodeId: Long): Unit = {
-      analysisData.orphanNodes.watched.add(nodeId)
+      analysisContext.data.orphanNodes.watched.add(nodeId)
     }
 
     private def overpassQueryRelation(data: Data, timestamp: Timestamp, relationId: Long): Unit = {

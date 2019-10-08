@@ -11,6 +11,7 @@ import kpn.core.load.data.LoadedNode
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.core.repository.NodeInfoBuilder.fromNetworkNodeInfo
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.Subset
 import kpn.shared.changes.details.ChangeType
@@ -23,7 +24,7 @@ import kpn.shared.node.NodeNetworkTypeAnalyzer
   the network relation is deleted, or a nodes that are no longer part of a network after a network update.
  */
 class UnreferencedNodeProcessorImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
   nodeLoader: NodeLoader,
   countryAnalyzer: CountryAnalyzer
@@ -66,7 +67,7 @@ class UnreferencedNodeProcessorImpl(
     val after = nodeAfter.node.raw
 
     val facts = {
-      val ff = new NodeChangeFactAnalyzer(analysisData).facts(before, after)
+      val ff = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
       if (ff.contains(Fact.LostHikingNodeTag) || ff.contains(Fact.LostHikingNodeTag)) {
         ff
       }
@@ -89,7 +90,7 @@ class UnreferencedNodeProcessorImpl(
       val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
       val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
-      analysisData.orphanNodes.watched.delete(before.id)
+      analysisContext.data.orphanNodes.watched.delete(before.id)
 
       Some(
         analyzed(
@@ -155,7 +156,7 @@ class UnreferencedNodeProcessorImpl(
 
   private def furtherProcess(context: ChangeSetContext, nodeBefore: NetworkNodeInfo, nodeAfter: LoadedNode, changeFacts: Seq[Fact]): Option[NodeChange] = {
 
-    analysisData.orphanNodes.watched.add(nodeBefore.id)
+    analysisContext.data.orphanNodes.watched.add(nodeBefore.id)
     val nodeInfo = fromLoadedNode(nodeAfter, orphan = true)
     analysisRepository.saveNode(nodeInfo)
 
@@ -191,7 +192,8 @@ class UnreferencedNodeProcessorImpl(
   }
 
   private def isReferencedNode(node: NetworkNodeInfo): Boolean = {
-    analysisData.networks.isReferencingNode(node.id) || analysisData.orphanRoutes.watched.isReferencingNode(node.id)
+    analysisContext.data.networks.isReferencingNode(node.id) ||
+      analysisContext.data.orphanRoutes.watched.isReferencingNode(node.id)
   }
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {

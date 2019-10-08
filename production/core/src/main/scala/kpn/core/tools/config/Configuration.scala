@@ -146,7 +146,7 @@ class Configuration(
 
   val changeProcessor: ChangeProcessor = new ChangeProcessorConfiguration(
     system,
-    analysisData,
+    analysisContext,
     nonCachingExecutor,
     cachingExecutor,
     networkRepository,
@@ -162,10 +162,10 @@ class Configuration(
 
   val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
     system,
+    analysisContext,
     dirs.cache,
     nonCachingExecutor,
     cachingExecutor,
-    analysisData,
     orphanRepository,
     initialLoadAnalysisRepository,
     factRepository,

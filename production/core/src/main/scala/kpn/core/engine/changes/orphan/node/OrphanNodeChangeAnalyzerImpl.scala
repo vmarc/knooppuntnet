@@ -1,7 +1,6 @@
 package kpn.core.engine.changes.orphan.node
 
 import kpn.core.engine.changes.ElementChanges
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.repository.BlackListRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
@@ -13,7 +12,6 @@ import kpn.shared.data.raw.RawNode
 
 class OrphanNodeChangeAnalyzerImpl(
   analysisContext: AnalysisContext,
-  analysisData: AnalysisData,
   blackListRepository: BlackListRepository
 ) extends OrphanNodeChangeAnalyzer {
 
@@ -84,12 +82,12 @@ class OrphanNodeChangeAnalyzerImpl(
   }
 
   private def isReferencedNode(nodeId: Long): Boolean = {
-    analysisData.networks.isReferencingNode(nodeId) ||
-      analysisData.orphanRoutes.isReferencingNode(nodeId)
+    analysisContext.data.networks.isReferencingNode(nodeId) ||
+      analysisContext.data.orphanRoutes.isReferencingNode(nodeId)
   }
 
   private def isKnownOrphanNode(nodeId: Long): Boolean = {
-    analysisData.orphanNodes.watched.contains(nodeId)
+    analysisContext.data.orphanNodes.watched.contains(nodeId)
   }
 
   private def isBlackListed(node: RawNode): Boolean = {

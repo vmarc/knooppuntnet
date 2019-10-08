@@ -1,11 +1,10 @@
 package kpn.core.engine.changes.orphan.node
 
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.data.LoadedNode
 import kpn.core.repository.AnalysisRepository
 import kpn.core.test.TestData
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Country
-import kpn.shared.Fact
 import kpn.shared.NodeInfo
 import kpn.shared.data.Node
 import org.scalamock.scalatest.MockFactory
@@ -37,11 +36,11 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
 
     d.processor.process(None, d.loadedNode)
 
-    d.analysisData.orphanNodes.watched.contains(d.loadedNode.id) should equal(true)
+    d.analysisContext.data.orphanNodes.watched.contains(d.loadedNode.id) should equal(true)
   }
 
   private class NewOrphanNodeSetup extends Setup {
-    analysisData.orphanNodes.watched.add(loadedNode.id)
+    analysisContext.data.orphanNodes.watched.add(loadedNode.id)
   }
 
   private class Setup {
@@ -57,11 +56,11 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
       node = node
     )
 
-    val analysisData: AnalysisData = AnalysisData()
+    val analysisContext: AnalysisContext = new AnalysisContext()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
 
     val processor: OrphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
-      analysisData,
+      analysisContext,
       analysisRepository
     )
   }

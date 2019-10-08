@@ -43,12 +43,12 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
     tc.relationAfter(dataAfter, 11)
     tc.nodesAfter(dataAfter, 1001, 1002)
 
-    tc.analysisData.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
+    tc.analysisContext.data.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
-    tc.analysisData.networks.watched.contains(1) should equal(false)
-    tc.analysisData.orphanRoutes.watched.contains(11) should equal(true)
+    tc.analysisContext.data.networks.watched.contains(1) should equal(false)
+    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true)
 
     (tc.networkRepository.save _).verify(
       where { networkInfo: NetworkInfo =>

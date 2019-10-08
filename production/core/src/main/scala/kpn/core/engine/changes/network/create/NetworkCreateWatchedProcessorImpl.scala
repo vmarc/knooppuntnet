@@ -4,12 +4,11 @@ import kpn.core.engine.analysis.NetworkAnalyzer
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.builder.ChangeBuilder
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.core.load.data.LoadedNetwork
 import kpn.core.repository.AnalysisRepository
-import kpn.core.util.Log
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NetworkChange
@@ -22,7 +21,7 @@ import kpn.shared.diff.NetworkNodeData
 import kpn.shared.diff.RefDiffs
 
 class NetworkCreateWatchedProcessorImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
@@ -36,7 +35,7 @@ class NetworkCreateWatchedProcessorImpl(
 
     analysisRepository.saveNetwork(networkAfter)
 
-    analysisData.networks.watched.add(loadedNetworkAfter.networkId, networkRelationAnalysis.elementIds)
+    analysisContext.data.networks.watched.add(loadedNetworkAfter.networkId, networkRelationAnalysis.elementIds)
 
     val addedNetworkNodes: Seq[NetworkNodeData] = {
       networkAfter.nodes.map { networkNodeInfo =>

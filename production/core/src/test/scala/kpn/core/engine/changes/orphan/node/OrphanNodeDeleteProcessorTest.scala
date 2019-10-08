@@ -2,10 +2,10 @@ package kpn.core.engine.changes.orphan.node
 
 import kpn.core.TestObjects
 import kpn.core.engine.analysis.country.CountryAnalyzer
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.data.LoadedNode
 import kpn.core.repository.AnalysisRepository
 import kpn.core.test.TestData
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkType
@@ -24,14 +24,14 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
 
     val nodeId = 456L
 
-    t.analysisData.orphanNodes.watched.add(nodeId)
+    t.analysisContext.data.orphanNodes.watched.add(nodeId)
 
     val context = newChangeSetContext()
     val loadedNodeDelete = LoadedNodeDelete(newRawNode(nodeId), None)
 
     t.processor.process(context, loadedNodeDelete)
 
-    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(false)
+    t.analysisContext.data.orphanNodes.watched.contains(nodeId) should equal(false)
 
     (t.analysisRepository.saveNode _).verify(
       newNodeInfo(
@@ -150,14 +150,14 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
       node = node
     )
 
-    val analysisData: AnalysisData = AnalysisData()
+    val analysisContext: AnalysisContext = new AnalysisContext()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
 
     (countryAnalyzer.country _).when(*).returns(country).anyNumberOfTimes()
 
     val processor: OrphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
-      analysisData,
+      analysisContext,
       analysisRepository,
       countryAnalyzer
     )

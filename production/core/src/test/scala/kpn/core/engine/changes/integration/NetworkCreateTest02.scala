@@ -49,19 +49,19 @@ class NetworkCreateTest02 extends AbstractTest {
     tc.nodesBefore(dataBefore, 1001, 1002)
     tc.relationAfter(dataAfter, 1)
 
-    tc.analysisData.orphanRoutes.watched.add(11, ElementIds())
-    tc.analysisData.orphanNodes.watched.add(1001L)
-    tc.analysisData.orphanNodes.watched.add(1002L)
+    tc.analysisContext.data.orphanRoutes.watched.add(11, ElementIds())
+    tc.analysisContext.data.orphanNodes.watched.add(1001L)
+    tc.analysisContext.data.orphanNodes.watched.add(1002L)
 
-    tc.analysisData.orphanRoutes.watched.contains(11) should equal(true)
-    tc.analysisData.orphanNodes.watched.contains(1001) should equal(true)
-    tc.analysisData.orphanNodes.watched.contains(1002) should equal(true)
+    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true)
+    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(true)
+    tc.analysisContext.data.orphanNodes.watched.contains(1002) should equal(true)
 
     tc.process(ChangeAction.Create, relation(dataAfter, 1))
 
-    tc.analysisData.orphanRoutes.watched.contains(11) should equal(false)
-    tc.analysisData.orphanNodes.watched.contains(1001) should equal(false)
-    tc.analysisData.orphanNodes.watched.contains(1002) should equal(false)
+    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(false)
+    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(false)
+    tc.analysisContext.data.orphanNodes.watched.contains(1002) should equal(false)
 
     (tc.analysisRepository.saveNetwork _).verify(
       where { network: Network =>

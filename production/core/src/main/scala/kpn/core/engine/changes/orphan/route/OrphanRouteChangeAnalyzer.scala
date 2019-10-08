@@ -2,7 +2,6 @@ package kpn.core.engine.changes.orphan.route
 
 import kpn.core.changes.ChangeSetBuilder
 import kpn.core.engine.changes.ElementChanges
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.repository.BlackListRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.changes.ChangeAction.Create
@@ -13,7 +12,6 @@ import kpn.shared.data.raw.RawRelation
 
 class OrphanRouteChangeAnalyzer(
   analysisContext: AnalysisContext,
-  analysisData: AnalysisData,
   blackListRepository: BlackListRepository
 ) {
 
@@ -29,7 +27,7 @@ class OrphanRouteChangeAnalyzer(
     val routeCreateIds1 = createdRouteIds.filterNot(isKnownRoute)
     val routeCreateIds2 = updatedRouteIds.filterNot(isKnownRoute)
 
-    val routeUpdateIds1 = analysisData.orphanRoutes.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
+    val routeUpdateIds1 = analysisContext.data.orphanRoutes.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
     val routeUpdateIds2 = updatedRouteIds.filter(isKnownOrphanRoute)
 
     val deletes = {
@@ -66,11 +64,11 @@ class OrphanRouteChangeAnalyzer(
 
   private def isKnownRoute(routeId: Long): Boolean = {
     isKnownOrphanRoute(routeId) ||
-      analysisData.networks.watched.isReferencingRelation(routeId)
+      analysisContext.data.networks.watched.isReferencingRelation(routeId)
   }
 
   private def isKnownOrphanRoute(routeId: Long): Boolean = {
-    analysisData.orphanRoutes.watched.contains(routeId)
+    analysisContext.data.orphanRoutes.watched.contains(routeId)
   }
 
   private def isBlackListed(relation: RawRelation): Boolean = {

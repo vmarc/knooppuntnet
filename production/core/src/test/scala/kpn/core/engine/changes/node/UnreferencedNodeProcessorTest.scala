@@ -9,6 +9,7 @@ import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.NodeLoader
 import kpn.core.repository.AnalysisRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.LatLon
@@ -37,7 +38,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     val nodeId = 1001L
     val networkId = 11L
 
-    t.analysisData.networks.watched.add(networkId, ElementIds(nodeIds = Set(nodeId)))
+    t.analysisContext.data.networks.watched.add(networkId, ElementIds(nodeIds = Set(nodeId)))
 
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId))
 
@@ -52,7 +53,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     val nodeId = 1001L
     val routeId = 101L
 
-    t.analysisData.orphanRoutes.watched.add(routeId, ElementIds(nodeIds = Set(nodeId)))
+    t.analysisContext.data.orphanRoutes.watched.add(routeId, ElementIds(nodeIds = Set(nodeId)))
 
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId))
 
@@ -468,7 +469,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
     val nodeId: Long = 1001L
 
-    t.analysisData.orphanNodes.watched.add(nodeId)
+    t.analysisContext.data.orphanNodes.watched.add(nodeId)
 
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId, "01", Tags.from("rwn_ref" -> "01")))
 
@@ -684,13 +685,13 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
 
   class TestSetup() {
 
-    val analysisData = AnalysisData()
+    val analysisContext = new AnalysisContext()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val nodeLoader: NodeLoader = stub[NodeLoader]
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
 
     val processor = new UnreferencedNodeProcessorImpl(
-      analysisData,
+      analysisContext,
       analysisRepository,
       nodeLoader,
       countryAnalyzer

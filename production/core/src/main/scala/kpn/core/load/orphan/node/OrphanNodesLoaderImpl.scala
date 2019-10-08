@@ -1,9 +1,9 @@
 package kpn.core.load.orphan.node
 
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.orphan.node.OrphanNodeCreateProcessor
 import kpn.core.load.NodeLoader
 import kpn.core.repository.OrphanRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 import kpn.core.util.Log
 import kpn.shared.NetworkType
@@ -13,7 +13,7 @@ import kpn.shared.Timestamp
   Loads the details of orphan nodes.
  */
 class OrphanNodesLoaderImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   nodeIdsLoader: NodeIdsLoader,
   nodesLoader: NodeLoader,
   orphanRepository: OrphanRepository,
@@ -40,6 +40,7 @@ class OrphanNodesLoaderImpl(
   }
 
   private def isReferenced(nodeId: Long): Boolean = {
-    analysisData.networks.isReferencingNode(nodeId) || analysisData.orphanRoutes.isReferencingNode(nodeId)
+    analysisContext.data.networks.isReferencingNode(nodeId) ||
+      analysisContext.data.orphanRoutes.isReferencingNode(nodeId)
   }
 }

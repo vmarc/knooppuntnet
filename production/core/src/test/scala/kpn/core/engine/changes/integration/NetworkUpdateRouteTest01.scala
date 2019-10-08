@@ -88,15 +88,15 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
     tc.relationAfter(dataAfter, 11)
 
     // before:
-    tc.analysisData.networks.watched.isReferencingRelation(11) should equal(true)
-    tc.analysisData.orphanRoutes.watched.contains(11) should equal(false)
+    tc.analysisContext.data.networks.watched.isReferencingRelation(11) should equal(true)
+    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(false)
 
     // act:
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
 
     // after:
-    tc.analysisData.networks.watched.isReferencingRelation(11) should equal(false)
-    tc.analysisData.orphanRoutes.watched.contains(11) should equal(true)
+    tc.analysisContext.data.networks.watched.isReferencingRelation(11) should equal(false)
+    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true)
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
     (tc.analysisRepository.saveNode _).verify(*).never()

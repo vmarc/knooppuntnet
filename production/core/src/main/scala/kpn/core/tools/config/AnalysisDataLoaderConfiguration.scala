@@ -12,7 +12,6 @@ import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.orphan.node.OrphanNodeCreateProcessorImpl
 import kpn.core.engine.changes.orphan.route.OrphanRouteProcessorImpl
 import kpn.core.load.AnalysisDataLoader
@@ -35,10 +34,10 @@ import kpn.core.tools.analyzer.CouchIndexer
 
 class AnalysisDataLoaderConfiguration(
   system: ActorSystem,
+  analysisContext: AnalysisContext,
   cacheRootDir: File,
   nonCachingExecutor: OverpassQueryExecutor,
   cachingExecutor: OverpassQueryExecutor,
-  analysisData: AnalysisData,
   orphanRepository: OrphanRepository,
   analysisRepository: AnalysisRepository,
   factRepository: FactRepository,
@@ -67,13 +66,10 @@ class AnalysisDataLoaderConfiguration(
     cachingExecutor
   )
 
-  private val analysisContext = new AnalysisContext()
-
   private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
 
   private val orphanRouteProcessor = new OrphanRouteProcessorImpl(
     analysisContext,
-    analysisData,
     analysisRepository,
     relationAnalyzer,
     countryAnalyzer,
@@ -86,13 +82,12 @@ class AnalysisDataLoaderConfiguration(
     routeAnalyzer,
     relationAnalyzer,
     countryAnalyzer,
-    analysisData,
     analysisRepository
   )
 
   private val orphanRoutesLoader = new OrphanRoutesLoaderImpl(
     system,
-    analysisData,
+    analysisContext,
     routeIdsLoader,
     orphanRepository,
     blackListRepository,
@@ -102,13 +97,13 @@ class AnalysisDataLoaderConfiguration(
 
   private val orphanNodeCreateProcessor = {
     new OrphanNodeCreateProcessorImpl(
-      analysisData,
+      analysisContext,
       analysisRepository
     )
   }
 
   private val orphanNodesLoader = new OrphanNodesLoaderImpl(
-    analysisData,
+    analysisContext,
     nodeIdsLoader,
     nodeLoader,
     orphanRepository,
@@ -133,8 +128,8 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
+    analysisContext,
     analysisRepository,
-    analysisData,
     networkLoader,
     networkRelationAnalyzer,
     networkAnalyzer,
@@ -152,11 +147,9 @@ class AnalysisDataLoaderConfiguration(
   )
 
   val analysisDataLoader = new AnalysisDataLoader(
-    analysisData,
+    analysisContext,
     networksLoader,
     orphanRoutesLoader,
-    orphanNodesLoader,
-    orphanRepository,
-    factRepository
+    orphanNodesLoader
   )
 }

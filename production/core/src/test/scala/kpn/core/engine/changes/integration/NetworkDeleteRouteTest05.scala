@@ -53,20 +53,20 @@ class NetworkDeleteRouteTest05 extends AbstractTest {
     tc.relationAfter(dataAfter, 12)
     tc.nodesAfter(dataAfter, 1001, 1002, 1003)
 
-    tc.analysisData.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
-    tc.analysisData.networks.watched.add(2, tc.relationAnalyzer.toElementIds(dataBefore.relations(2)))
+    tc.analysisContext.data.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
+    tc.analysisContext.data.networks.watched.add(2, tc.relationAnalyzer.toElementIds(dataBefore.relations(2)))
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
     // network 1 is no longer in memory
-    tc.analysisData.networks.watched.contains(1) should equal(false)
+    tc.analysisContext.data.networks.watched.contains(1) should equal(false)
 
-    tc.analysisData.orphanRoutes.watched.contains(11) should equal(true) // network 1 was removed, route no longer referenced
-    tc.analysisData.orphanRoutes.watched.contains(12) should equal(false) // network 1 was removed, but route still referenced in network 2
+    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true) // network 1 was removed, route no longer referenced
+    tc.analysisContext.data.orphanRoutes.watched.contains(12) should equal(false) // network 1 was removed, but route still referenced in network 2
 
-    tc.analysisData.orphanNodes.watched.contains(1001) should equal(false)
-    tc.analysisData.orphanNodes.watched.contains(1002) should equal(false) // still referenced in orphan route
-    tc.analysisData.orphanNodes.watched.contains(1003) should equal(false)
+    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(false)
+    tc.analysisContext.data.orphanNodes.watched.contains(1002) should equal(false) // still referenced in orphan route
+    tc.analysisContext.data.orphanNodes.watched.contains(1003) should equal(false)
 
     (tc.networkRepository.save _).verify(
       where { networkInfo: NetworkInfo =>

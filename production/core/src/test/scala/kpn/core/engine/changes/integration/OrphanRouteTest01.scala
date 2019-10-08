@@ -40,7 +40,7 @@ class OrphanRouteTest01 extends AbstractTest {
     tc.relationAfter(dataAfter, 11)
     tc.process(ChangeAction.Create, TestData.relation(dataAfter, 11))
 
-    tc.analysisData.orphanRoutes.watched.contains(11) should equal(true)
+    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true)
 
     (tc.analysisRepository.saveRoute _).verify(
       where { routeInfo: RouteInfo =>

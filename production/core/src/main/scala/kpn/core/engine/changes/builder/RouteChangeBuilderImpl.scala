@@ -5,13 +5,13 @@ import kpn.core.changes.RelationAnalyzer
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzer
 import kpn.core.engine.analysis.route.RouteAnalysis
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.route.RouteChangeAnalyzer
 import kpn.core.engine.changes.route.RouteFactAnalyzer
 import kpn.core.engine.changes.route.RouteUtil
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.load.RouteLoader
 import kpn.core.repository.AnalysisRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
@@ -19,7 +19,7 @@ import kpn.shared.changes.details.RouteChange
 import kpn.shared.diff.route.RouteDiff
 
 class RouteChangeBuilderImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
@@ -52,8 +52,8 @@ class RouteChangeBuilderImpl(
       val routeId = analysisAfter.id
 
       val extraFacts = Seq(
-        if (analysisData.orphanRoutes.watched.contains(routeId)) {
-          analysisData.orphanRoutes.watched.delete(routeId)
+        if (analysisContext.data.orphanRoutes.watched.contains(routeId)) {
+          analysisContext.data.orphanRoutes.watched.delete(routeId)
           Seq(Fact.WasOrphan)
         }
         else {
@@ -170,9 +170,9 @@ class RouteChangeBuilderImpl(
     val routeId = analysisBefore.id
     val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
 
-    val facts = new RouteFactAnalyzer(analysisData).facts(Some(analysisBefore), analysisAfter).filter(f => f == Fact.LostRouteTags)
+    val facts = new RouteFactAnalyzer(analysisContext.data).facts(Some(analysisBefore), analysisAfter).filter(f => f == Fact.LostRouteTags)
 
-    if (analysisData.networks.isReferencingRelation(routeId)) {
+    if (analysisContext.data.networks.isReferencingRelation(routeId)) {
       Some(
         analyzed(
           RouteChange(
@@ -195,7 +195,7 @@ class RouteChangeBuilderImpl(
     else {
 
       val elementIds = relationAnalyzer.toElementIds(analysisAfter.relation)
-      analysisData.orphanRoutes.watched.add(routeId, elementIds)
+      analysisContext.data.orphanRoutes.watched.add(routeId, elementIds)
 
       analysisRepository.saveRoute(analysisAfter.route.copy(orphan = true))
 

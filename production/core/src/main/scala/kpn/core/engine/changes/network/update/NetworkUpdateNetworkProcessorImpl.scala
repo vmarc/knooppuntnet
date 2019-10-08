@@ -4,13 +4,13 @@ import kpn.core.engine.analysis.NetworkAnalyzer
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.builder.ChangeBuilder
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.core.history.NetworkDiffAnalyzer
 import kpn.core.history.NetworkSnapshot
 import kpn.core.load.data.LoadedNetwork
 import kpn.core.repository.AnalysisRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
@@ -20,7 +20,7 @@ import kpn.shared.diff.IdDiffs
 import kpn.shared.diff.RefDiffs
 
 class NetworkUpdateNetworkProcessorImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
@@ -57,7 +57,7 @@ class NetworkUpdateNetworkProcessorImpl(
     val networkAfter = networkAnalyzer.analyze(networkRelationAnalysisAfter, loadedNetworkAfter)
     val snapshotAfter = NetworkSnapshot(context.timestampAfter, loadedNetworkAfter.data, networkAfter)
 
-    analysisData.networks.watched.add(networkId, networkRelationAnalysisAfter.elementIds)
+    analysisContext.data.networks.watched.add(networkId, networkRelationAnalysisAfter.elementIds)
     analysisRepository.saveNetwork(snapshotAfter.network)
 
     val networkDiff = new NetworkDiffAnalyzer(snapshotBefore, snapshotAfter).diff

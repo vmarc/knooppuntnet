@@ -123,10 +123,10 @@ class AnalyzerStartToolConfiguration(
 
   val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
     system,
+    analysisContext,
     dirs.cache,
     nonCachingExecutor,
     cachingExecutor,
-    analysisData,
     orphanRepository,
     analysisRepository,
     factRepository,

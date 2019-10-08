@@ -1,23 +1,23 @@
 package kpn.core.engine.changes.orphan.node
 
 import kpn.core.engine.changes.ChangeSetContext
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.load.data.LoadedNode
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.diff.common.FactDiffs
 
 class OrphanNodeCreateProcessorImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository
 ) extends OrphanNodeCreateProcessor {
 
   override def process(optionalContext: Option[ChangeSetContext], loadedNode: LoadedNode): Option[NodeChange] = {
-    analysisData.orphanNodes.watched.add(loadedNode.id)
+    analysisContext.data.orphanNodes.watched.add(loadedNode.id)
     val nodeInfo = fromLoadedNode(loadedNode, orphan = true)
     analysisRepository.saveNode(nodeInfo)
 

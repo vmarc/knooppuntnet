@@ -2,17 +2,17 @@ package kpn.core.load
 
 import kpn.core.engine.analysis.NetworkAnalyzer
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.data.LoadedNetwork
 import kpn.core.repository.AnalysisRepository
 import kpn.core.repository.BlackListRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 
 import scala.concurrent.Future
 
 class NetworkInitialLoaderWorkerImpl(
+  analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
-  analysisData: AnalysisData,
   networkLoader: NetworkLoader,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
@@ -48,6 +48,6 @@ class NetworkInitialLoaderWorkerImpl(
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
     val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
     analysisRepository.saveNetwork(network)
-    analysisData.networks.watched.add(loadedNetwork.networkId, networkRelationAnalysis.elementIds)
+    analysisContext.data.networks.watched.add(loadedNetwork.networkId, networkRelationAnalysis.elementIds)
   }
 }

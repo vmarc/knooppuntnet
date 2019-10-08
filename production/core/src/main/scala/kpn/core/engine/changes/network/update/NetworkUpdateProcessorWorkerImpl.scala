@@ -2,7 +2,6 @@ package kpn.core.engine.changes.network.update
 
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.load.NetworkLoader
 import kpn.core.load.data.LoadedNetwork
@@ -15,7 +14,6 @@ import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 
 class NetworkUpdateProcessorWorkerImpl(
-  analysisData: AnalysisData,
   analysisRepository: AnalysisRepository,
   networkLoader: NetworkLoader,
   networkRelationAnalyzer: NetworkRelationAnalyzer,

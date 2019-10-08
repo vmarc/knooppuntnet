@@ -57,7 +57,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
 
     tc.process(ChangeAction.Modify, node(dataAfter, 1002))
 
-    tc.analysisData.networks.watched.contains(1) should equal(true)
+    tc.analysisContext.data.networks.watched.contains(1) should equal(true)
     (tc.analysisRepository.saveNetwork _).verify(*).once()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(

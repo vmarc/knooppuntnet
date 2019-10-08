@@ -4,7 +4,6 @@ import kpn.core.engine.analysis.NetworkNodeBuilder
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.analysis.route.MasterRouteAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.engine.changes.route.RouteChangeAnalyzer
 import kpn.core.history.RouteDiffAnalyzer
@@ -19,7 +18,6 @@ import kpn.shared.diff.route.RouteDiff
 
 class OrphanRouteChangeProcessorImpl(
   analysisContext: AnalysisContext,
-  analysisData: AnalysisData,
   analysisRepository: AnalysisRepository,
   orphanRouteChangeAnalyzer: OrphanRouteChangeAnalyzer,
   orphanRouteProcessor: OrphanRouteProcessor,
@@ -98,7 +96,7 @@ class OrphanRouteChangeProcessorImpl(
           val routeUpdate = new RouteDiffAnalyzer(beforeRouteAnalysis, afterRouteAnalysis).analysis
 
           if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-            analysisData.orphanRoutes.watched.delete(routeUpdate.id)
+            analysisContext.data.orphanRoutes.watched.delete(routeUpdate.id)
           }
 
           val facts = if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
@@ -136,7 +134,7 @@ class OrphanRouteChangeProcessorImpl(
 
     routeIds.flatMap { routeId =>
 
-      analysisData.orphanRoutes.watched.delete(routeId)
+      analysisContext.data.orphanRoutes.watched.delete(routeId)
 
       loadedRoutes.find(_.id == routeId) match {
         case None =>

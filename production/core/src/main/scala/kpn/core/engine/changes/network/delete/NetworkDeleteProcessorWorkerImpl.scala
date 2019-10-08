@@ -5,11 +5,11 @@ import kpn.core.engine.analysis.NetworkAnalyzer
 import kpn.core.engine.analysis.NetworkRelationAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.builder.ChangeBuilder
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.core.load.NetworkLoader
 import kpn.core.repository.NetworkRepository
+import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
@@ -23,7 +23,7 @@ import kpn.shared.network.NetworkAttributes
 import kpn.shared.network.NetworkInfo
 
 class NetworkDeleteProcessorWorkerImpl(
-  analysisData: AnalysisData,
+  analysisContext: AnalysisContext,
   networkRepository: NetworkRepository,
   networkLoader: NetworkLoader,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
@@ -42,7 +42,7 @@ class NetworkDeleteProcessorWorkerImpl(
 
   private def doProcess(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
 
-    analysisData.networks.watched.delete(networkId)
+    analysisContext.data.networks.watched.delete(networkId)
 
     networkLoader.load(Some(context.timestampBefore), networkId) match {
       case None =>

@@ -1,7 +1,6 @@
 package kpn.core.engine.changes.orphan.node
 
 import kpn.core.engine.changes.ChangeSetContext
-import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.history.NodeDataDiffAnalyzer
 import kpn.core.repository.AnalysisRepository
@@ -16,7 +15,6 @@ import kpn.shared.diff.common.FactDiffs
 
 class OrphanNodeUpdateProcessorImpl(
   analysisContext: AnalysisContext,
-  analysisData: AnalysisData,
   analysisRepository: AnalysisRepository
 ) extends OrphanNodeUpdateProcessor {
 
@@ -43,7 +41,7 @@ class OrphanNodeUpdateProcessorImpl(
     val isNetworkNodeX = analysisContext.isNetworkNode(loadedNodeChange.after.node.raw)
 
     if (!isNetworkNodeX) {
-      analysisData.orphanNodes.watched.delete(loadedNodeChange.id)
+      analysisContext.data.orphanNodes.watched.delete(loadedNodeChange.id)
     }
 
     val before = NodeData(

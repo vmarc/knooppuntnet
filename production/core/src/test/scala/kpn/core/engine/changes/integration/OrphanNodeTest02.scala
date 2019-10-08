@@ -32,14 +32,14 @@ class OrphanNodeTest02 extends AbstractTest {
 
     val tc = new TestConfig()
 
-    tc.analysisData.orphanNodes.watched.add(1001)
+    tc.analysisContext.data.orphanNodes.watched.add(1001)
 
     tc.nodesBefore(dataBefore, 1001)
     tc.nodeAfter(dataAfter, 1001)
 
     tc.process(ChangeAction.Modify, node(dataAfter, 1001))
 
-    tc.analysisData.orphanNodes.watched.contains(1001) should equal(true)
+    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(true)
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>

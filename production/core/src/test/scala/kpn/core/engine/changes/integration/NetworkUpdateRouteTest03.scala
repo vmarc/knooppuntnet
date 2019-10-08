@@ -69,7 +69,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     tc.process(ChangeAction.Delete, newRawRelation(12))
 
-    tc.analysisData.networks.watched.get(1) match {
+    tc.analysisContext.data.networks.watched.get(1) match {
       case None => fail()
       case Some(elementIds) =>
 
