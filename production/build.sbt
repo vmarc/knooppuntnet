@@ -48,6 +48,7 @@ lazy val core: Project = (project in file("core"))
       "com.github.scopt" %% "scopt" % "3.3.0",
       "org.apache.logging.log4j" % "log4j-api" % "2.11.0",
       "org.apache.logging.log4j" % "log4j-core" % "2.11.0",
+      "com.sun.mail" % "jakarta.mail" % "1.6.4",
       "jline" % "jline" % "2.12",
       "com.wdtinc" % "mapbox-vector-tile" % "1.1.1", // TODO dit gaat weg mogen ....
       "com.google.protobuf.nano" % "protobuf-javanano" % "3.0.0-alpha-2",

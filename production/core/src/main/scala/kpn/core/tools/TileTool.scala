@@ -1,6 +1,9 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
+import kpn.core.mail.Mail
+import kpn.core.mail.MailConfigReader
+import kpn.core.mail.MailImpl
 import kpn.core.repository.NetworkRepositoryImpl
 import kpn.core.repository.OrphanRepositoryImpl
 import kpn.core.repository.RouteRepositoryImpl
@@ -27,41 +30,57 @@ object TileTool {
 
   def main(args: Array[String]): Unit = {
 
-    val exit = TileToolOptions.parse(args) match {
-      case Some(options) =>
+    val mail: Mail = {
+      val config = new MailConfigReader().read()
+      new MailImpl(config)
+    }
 
-        def createTilesBuilder(tileBuilder: TileBuilder, extension: String): TilesBuilder = {
-          val tileRepository = new TileRepositoryImpl(options.tileDir, extension)
-          new TilesBuilder(tileBuilder, tileRepository)
-        }
+    val exit: Int = try {
+      TileToolOptions.parse(args) match {
+        case Some(options) =>
 
-        Couch.executeIn(options.analysisDatabaseName) { database =>
-
-          val tileAnalyzer = {
-            val networkRepository = new NetworkRepositoryImpl(database)
-            val orphanRepository = new OrphanRepositoryImpl(database)
-            val routeRepository = new RouteRepositoryImpl(database)
-            new TileAnalyzerImpl(
-              networkRepository,
-              orphanRepository,
-              routeRepository
-            )
+          def createTilesBuilder(tileBuilder: TileBuilder, extension: String): TilesBuilder = {
+            val tileRepository = new TileRepositoryImpl(options.tileDir, extension)
+            new TilesBuilder(tileBuilder, tileRepository)
           }
 
-          val tileTool = new TileTool(
-            tileAnalyzer,
-            createTilesBuilder(new VectorTileBuilder(), "mvt"),
-            createTilesBuilder(new RasterTileBuilder(), "png")
-          )
+          Couch.executeIn(options.analysisDatabaseName) { database =>
 
-          NetworkType.all.foreach(tileTool.make)
-        }
+            val tileAnalyzer = {
+              val networkRepository = new NetworkRepositoryImpl(database)
+              val orphanRepository = new OrphanRepositoryImpl(database)
+              val routeRepository = new RouteRepositoryImpl(database)
+              new TileAnalyzerImpl(
+                networkRepository,
+                orphanRepository,
+                routeRepository
+              )
+            }
 
-        log.info("Done")
-        0
+            val tileTool = new TileTool(
+              tileAnalyzer,
+              createTilesBuilder(new VectorTileBuilder(), "mvt"),
+              createTilesBuilder(new RasterTileBuilder(), "png")
+            )
 
-      case None =>
-        // arguments are bad, error message will have been displayed
+            NetworkType.all.foreach(tileTool.make)
+          }
+
+          log.info("Done")
+          mail.send("TileTool done", "all ok")
+
+          0
+
+        case None =>
+          // arguments are bad, error message will have been displayed
+          mail.send("TileTool alarm!", "Did not start")
+          -1
+      }
+    }
+    catch {
+      case e: Throwable =>
+        mail.send("TileTool failed!", e.getMessage)
+        log.error(e.getMessage)
         -1
     }
 
@@ -90,4 +109,3 @@ class TileTool(
   }
 
 }
-
