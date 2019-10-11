@@ -5,7 +5,7 @@ import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.engine.changes.network.NetworkChangeProcessor
 import kpn.core.engine.changes.orphan.node.OrphanNodeChangeProcessor
 import kpn.core.engine.changes.orphan.route.OrphanRouteChangeProcessor
-import kpn.core.repository.ChangeSetRepository
+import kpn.server.repository.ChangeSetRepository
 import kpn.shared.ReplicationId
 import kpn.shared.SharedTestObjects
 import org.scalamock.scalatest.MockFactory

@@ -1,9 +1,9 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.repository.NetworkRepositoryImpl
-import kpn.core.repository.NodeRepositoryImpl
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags

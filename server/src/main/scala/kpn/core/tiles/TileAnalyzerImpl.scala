@@ -1,9 +1,9 @@
 package kpn.core.tiles
 
 import kpn.core.db.couch.Couch
-import kpn.core.repository.NetworkRepository
-import kpn.core.repository.OrphanRepository
-import kpn.core.repository.RouteRepository
+import kpn.server.repository.NetworkRepository
+import kpn.server.repository.OrphanRepository
+import kpn.server.repository.RouteRepository
 import kpn.core.util.Log
 import kpn.shared.NetworkType
 import kpn.shared.Subset

@@ -3,9 +3,9 @@ package kpn.core.engine.changes.orphan.node
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.node.NodeChangeAnalyzer
-import kpn.core.repository.AnalysisRepository
-import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
-import kpn.core.repository.NodeInfoBuilder.fromRawNode
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
+import kpn.server.repository.NodeInfoBuilder.fromRawNode
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Fact

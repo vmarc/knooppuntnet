@@ -3,7 +3,7 @@ package kpn.core.engine.changes.orphan.node
 import kpn.core.TestObjects
 import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.load.data.LoadedNode
-import kpn.core.repository.AnalysisRepository
+import kpn.server.repository.AnalysisRepository
 import kpn.core.test.TestData
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Country

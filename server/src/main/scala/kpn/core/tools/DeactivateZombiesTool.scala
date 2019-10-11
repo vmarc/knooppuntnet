@@ -9,7 +9,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodeIds
-import kpn.core.repository.NodeRepositoryImpl
+import kpn.server.repository.NodeRepositoryImpl
 import kpn.shared.NetworkType
 import spray.json.JsValue
 

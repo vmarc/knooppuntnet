@@ -10,6 +10,8 @@ import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
+import kpn.server.repository.PoiRepository
+import kpn.server.repository.PoiRepositoryImpl
 import kpn.shared.Poi
 
 object PoiProcessorImpl {

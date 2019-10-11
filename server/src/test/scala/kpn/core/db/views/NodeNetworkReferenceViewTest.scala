@@ -2,7 +2,7 @@ package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
-import kpn.core.repository.NetworkRepositoryImpl
+import kpn.server.repository.NetworkRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.NetworkType
 import kpn.shared.NodeIntegrityCheck

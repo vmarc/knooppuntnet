@@ -1,6 +1,6 @@
 package kpn.core.engine.changes
 
-import kpn.core.repository.ChangeSetRepository
+import kpn.server.repository.ChangeSetRepository
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.shared.ReplicationId
 import kpn.shared.changes.ChangeSet

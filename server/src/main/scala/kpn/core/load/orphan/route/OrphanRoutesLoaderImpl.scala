@@ -7,8 +7,8 @@ import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
 import kpn.core.load.orphan.route.OrphanRoutesLoaderImpl.LoadRoute
-import kpn.core.repository.BlackListRepository
-import kpn.core.repository.OrphanRepository
+import kpn.server.repository.BlackListRepository
+import kpn.server.repository.OrphanRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 import kpn.core.util.Log

@@ -8,9 +8,9 @@ import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.load.NodeLoader
 import kpn.core.load.data.LoadedNode
-import kpn.core.repository.AnalysisRepository
-import kpn.core.repository.NodeInfoBuilder.fromLoadedNode
-import kpn.core.repository.NodeInfoBuilder.fromNetworkNodeInfo
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
+import kpn.server.repository.NodeInfoBuilder.fromNetworkNodeInfo
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.Subset

@@ -4,9 +4,9 @@ import kpn.core.db.couch.Couch
 import kpn.core.mail.Mail
 import kpn.core.mail.MailConfigReader
 import kpn.core.mail.MailImpl
-import kpn.core.repository.NetworkRepositoryImpl
-import kpn.core.repository.OrphanRepositoryImpl
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.OrphanRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.tiles.TileAnalyzer
 import kpn.core.tiles.TileAnalyzerImpl
 import kpn.core.tiles.TileBuilder

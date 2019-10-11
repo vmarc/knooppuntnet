@@ -1,7 +1,7 @@
 package kpn.core.engine.changes.orphan.node
 
 import kpn.core.engine.changes.ElementChanges
-import kpn.core.repository.BlackListRepository
+import kpn.server.repository.BlackListRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.changes.ChangeAction.Create

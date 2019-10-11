@@ -1,7 +1,7 @@
 package kpn.core.engine.changes
 
 import kpn.core.engine.analysis.ChangeSetInfoUpdater
-import kpn.core.repository.ChangeSetRepository
+import kpn.server.repository.ChangeSetRepository
 import kpn.core.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.core.engine.changes.network.NetworkChangeProcessor
 import kpn.core.engine.changes.orphan.node.OrphanNodeChangeProcessor

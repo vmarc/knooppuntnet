@@ -8,7 +8,7 @@ import kpn.core.engine.changes.builder.ChangeBuilder
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.core.load.NetworkLoader
-import kpn.core.repository.NetworkRepository
+import kpn.server.repository.NetworkRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Fact

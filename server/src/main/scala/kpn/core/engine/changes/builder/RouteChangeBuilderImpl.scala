@@ -10,7 +10,7 @@ import kpn.core.engine.changes.route.RouteFactAnalyzer
 import kpn.core.engine.changes.route.RouteUtil
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.load.RouteLoader
-import kpn.core.repository.AnalysisRepository
+import kpn.server.repository.AnalysisRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Fact

@@ -2,7 +2,7 @@ package kpn.core.load.orphan.node
 
 import kpn.core.engine.changes.orphan.node.OrphanNodeCreateProcessor
 import kpn.core.load.NodeLoader
-import kpn.core.repository.OrphanRepository
+import kpn.server.repository.OrphanRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 import kpn.core.util.Log

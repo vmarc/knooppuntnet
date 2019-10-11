@@ -2,7 +2,7 @@ package kpn.core.engine.changes.orphan.route
 
 import kpn.core.changes.ChangeSetBuilder
 import kpn.core.engine.changes.ElementChanges
-import kpn.core.repository.BlackListRepository
+import kpn.server.repository.BlackListRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.changes.ChangeAction.Create
 import kpn.shared.changes.ChangeAction.Delete

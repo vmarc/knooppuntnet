@@ -1,12 +1,12 @@
 package kpn.core.db
 
 import kpn.core.db.couch.Database
-import kpn.core.repository.NetworkRepository
-import kpn.core.repository.NetworkRepositoryImpl
-import kpn.core.repository.NodeRepository
-import kpn.core.repository.NodeRepositoryImpl
-import kpn.core.repository.RouteRepository
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.NetworkRepository
+import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.NodeRepository
+import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkFacts

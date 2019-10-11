@@ -32,8 +32,8 @@
 
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanRouteProcessorImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanNodeProcessorImpl" level="debug"/>
-        <Logger name="kpn.core.repository.RouteRepositoryImpl" level="debug"/>
-        <Logger name="kpn.core.repository.NodeRepositoryImpl" level="debug"/>
+        <Logger name="kpn.server.repository.RouteRepositoryImpl" level="debug"/>
+        <Logger name="kpn.server.repository.NodeRepositoryImpl" level="debug"/>
 
         <Logger name="kpn.core.engine.RouteAnalysisUpdater" level="error"/>
 
@@ -44,7 +44,7 @@
         <Logger name="kpn.core.tools.changes.orphan.node.OrphanNodeChangeProcessorImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.orphan.node.OrphanNodeChangeAnalyzerImpl" level="debug"/>
 
-        <Logger name="kpn.core.repository.RouteRepository" level="debug"/>
+        <Logger name="kpn.server.repository.RouteRepository" level="debug"/>
 
     </Loggers>
 </Configuration>

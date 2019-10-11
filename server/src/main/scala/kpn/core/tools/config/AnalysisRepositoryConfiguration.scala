@@ -1,11 +1,11 @@
 package kpn.core.tools.config
 
 import kpn.core.db.couch.Database
-import kpn.core.repository.AnalysisRepository
-import kpn.core.repository.AnalysisRepositoryImpl
-import kpn.core.repository.NetworkRepositoryImpl
-import kpn.core.repository.NodeRepositoryImpl
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.AnalysisRepositoryImpl
+import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 class AnalysisRepositoryConfiguration(analysisDatabase: Database) {
 

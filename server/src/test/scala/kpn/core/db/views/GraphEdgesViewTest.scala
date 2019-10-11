@@ -3,7 +3,7 @@ package kpn.core.db.views
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.planner.graph.GraphEdge
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.NetworkType
 import kpn.shared.RouteSummary

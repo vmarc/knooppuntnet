@@ -25,10 +25,10 @@ import kpn.core.load.orphan.route.OrphanRoutesLoaderWorkerImpl
 import kpn.core.load.orphan.route.RouteIdsLoader
 import kpn.core.load.orphan.route.RouteIdsLoaderImpl
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.repository.AnalysisRepository
-import kpn.core.repository.BlackListRepository
-import kpn.core.repository.FactRepository
-import kpn.core.repository.OrphanRepository
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.BlackListRepository
+import kpn.server.repository.FactRepository
+import kpn.server.repository.OrphanRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.analyzer.CouchIndexer
 

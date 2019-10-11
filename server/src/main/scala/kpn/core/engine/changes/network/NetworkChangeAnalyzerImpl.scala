@@ -2,7 +2,7 @@ package kpn.core.engine.changes.network
 
 import kpn.core.changes.ChangeSetBuilder
 import kpn.core.engine.changes.ElementChanges
-import kpn.core.repository.BlackListRepository
+import kpn.server.repository.BlackListRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.changes.ChangeAction.Create

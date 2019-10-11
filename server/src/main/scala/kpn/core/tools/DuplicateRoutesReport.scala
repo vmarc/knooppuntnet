@@ -3,7 +3,7 @@ package kpn.core.tools
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import spray.json.JsValue

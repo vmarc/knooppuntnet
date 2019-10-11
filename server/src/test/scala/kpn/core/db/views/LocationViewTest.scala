@@ -1,7 +1,7 @@
 package kpn.core.db.views
 
-import kpn.core.repository.NodeRepositoryImpl
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Location
 import kpn.shared.RouteLocationAnalysis

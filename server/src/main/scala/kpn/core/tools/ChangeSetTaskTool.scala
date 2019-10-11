@@ -1,9 +1,9 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.repository.ChangeSetRepositoryImpl
-import kpn.core.repository.TaskRepository
-import kpn.core.repository.TaskRepositoryImpl
+import kpn.server.repository.ChangeSetRepositoryImpl
+import kpn.server.repository.TaskRepository
+import kpn.server.repository.TaskRepositoryImpl
 
 /*
   Creates tasks to retrieve changeset info's for all changesets in the database.

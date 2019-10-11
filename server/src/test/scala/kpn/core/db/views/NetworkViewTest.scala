@@ -1,7 +1,7 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.repository.NetworkRepositoryImpl
+import kpn.server.repository.NetworkRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType.bicycle

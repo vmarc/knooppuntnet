@@ -2,10 +2,10 @@ package kpn.core.tools.support
 
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
-import kpn.core.repository.BlackListRepositoryImpl
-import kpn.core.repository.NetworkRepositoryImpl
-import kpn.core.repository.OrphanRepositoryImpl
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.BlackListRepositoryImpl
+import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.OrphanRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.Subset
 
 object RouteTool {

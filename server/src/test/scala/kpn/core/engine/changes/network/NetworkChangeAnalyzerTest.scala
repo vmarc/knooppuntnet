@@ -1,6 +1,6 @@
 package kpn.core.engine.changes.network
 
-import kpn.core.repository.MockBlackListRepository
+import kpn.server.repository.MockBlackListRepository
 import kpn.core.test.TestData
 import kpn.core.engine.changes.AnalysisTestData
 import kpn.core.engine.changes.ElementChanges

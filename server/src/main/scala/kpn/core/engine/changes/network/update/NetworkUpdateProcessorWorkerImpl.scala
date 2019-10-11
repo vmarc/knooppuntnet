@@ -5,7 +5,7 @@ import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.ChangeSetChanges
 import kpn.core.load.NetworkLoader
 import kpn.core.load.data.LoadedNetwork
-import kpn.core.repository.AnalysisRepository
+import kpn.server.repository.AnalysisRepository
 import kpn.core.util.Log
 
 import scala.concurrent.Await

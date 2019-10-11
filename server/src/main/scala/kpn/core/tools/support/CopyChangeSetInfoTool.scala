@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.model.Uri.Query
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
-import kpn.core.repository.ChangeSetInfoRepositoryImpl
+import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import spray.json.JsArray
 import spray.json.JsObject
 import spray.json.JsString

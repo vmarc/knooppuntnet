@@ -2,8 +2,8 @@ package kpn.core.tiles
 
 import kpn.core.db.couch.Couch
 import kpn.core.poi.PoiInfo
-import kpn.core.poi.PoiRepository
 import kpn.core.util.Log
+import kpn.server.repository.PoiRepository
 
 class PoiTileAnalyzerImpl(poiRepository: PoiRepository) {
 

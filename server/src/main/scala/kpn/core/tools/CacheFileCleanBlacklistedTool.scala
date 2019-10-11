@@ -4,7 +4,7 @@ import java.io.File
 
 import kpn.core.db.couch.Couch
 import kpn.core.engine.changes.data.BlackList
-import kpn.core.repository.BlackListRepositoryImpl
+import kpn.server.repository.BlackListRepositoryImpl
 
 object CacheFileCleanBlacklistedTool {
   def main(args: Array[String]): Unit = {

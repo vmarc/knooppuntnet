@@ -2,7 +2,7 @@ package kpn.core.engine.changes.orphan.route
 
 import kpn.core.engine.changes.AnalysisTestData
 import kpn.core.engine.changes.ElementChanges
-import kpn.core.repository.MockBlackListRepository
+import kpn.server.repository.MockBlackListRepository
 import kpn.core.test.TestData
 import kpn.shared.SharedTestObjects
 import kpn.shared.changes.Change

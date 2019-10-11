@@ -17,10 +17,10 @@ import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
-import kpn.core.repository.AnalysisRepository
-import kpn.core.repository.BlackListRepositoryImpl
-import kpn.core.repository.ChangeSetInfoRepositoryImpl
-import kpn.core.repository.TaskRepositoryImpl
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.BlackListRepositoryImpl
+import kpn.server.repository.ChangeSetInfoRepositoryImpl
+import kpn.server.repository.TaskRepositoryImpl
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.tools.config.AnalysisRepositoryConfiguration
 import kpn.core.util.Log

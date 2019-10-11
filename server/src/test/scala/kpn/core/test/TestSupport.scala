@@ -15,7 +15,7 @@ import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.LocationDesign
 import kpn.core.db.views.PlannerDesign
-import kpn.core.repository.DesignRepositoryImpl
+import kpn.server.repository.DesignRepositoryImpl
 import org.scalatest.Assertions
 
 import scala.concurrent.Await

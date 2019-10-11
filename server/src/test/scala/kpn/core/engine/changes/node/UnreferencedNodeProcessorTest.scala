@@ -8,7 +8,7 @@ import kpn.core.engine.analysis.country.CountryAnalyzer
 import kpn.core.engine.changes.ChangeSetContext
 import kpn.core.engine.changes.data.AnalysisData
 import kpn.core.load.NodeLoader
-import kpn.core.repository.AnalysisRepository
+import kpn.server.repository.AnalysisRepository
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.Fact

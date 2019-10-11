@@ -1,7 +1,7 @@
 package kpn.core.engine.analysis
 
-import kpn.core.repository.ChangeSetInfoRepository
-import kpn.core.repository.TaskRepository
+import kpn.server.repository.ChangeSetInfoRepository
+import kpn.server.repository.TaskRepository
 import kpn.core.util.IdCache
 
 class ChangeSetInfoUpdaterImpl(

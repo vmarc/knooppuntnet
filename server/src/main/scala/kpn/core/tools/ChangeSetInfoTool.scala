@@ -7,10 +7,10 @@ import kpn.core.changes.ChangeSetInfoApi
 import kpn.core.changes.ChangeSetInfoApiImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
-import kpn.core.repository.ChangeSetInfoRepository
-import kpn.core.repository.ChangeSetInfoRepositoryImpl
-import kpn.core.repository.TaskRepository
-import kpn.core.repository.TaskRepositoryImpl
+import kpn.server.repository.ChangeSetInfoRepository
+import kpn.server.repository.ChangeSetInfoRepositoryImpl
+import kpn.server.repository.TaskRepository
+import kpn.server.repository.TaskRepositoryImpl
 import kpn.core.tools.config._
 import kpn.core.util.Log
 import spray.can.Http

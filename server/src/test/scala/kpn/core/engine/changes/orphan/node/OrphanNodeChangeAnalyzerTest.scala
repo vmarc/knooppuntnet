@@ -2,7 +2,7 @@ package kpn.core.engine.changes.orphan.node
 
 import kpn.core.engine.changes.AnalysisTestData
 import kpn.core.engine.changes.ElementChanges
-import kpn.core.repository.MockBlackListRepository
+import kpn.server.repository.MockBlackListRepository
 import kpn.shared.SharedTestObjects
 import kpn.shared.changes.Change
 import org.scalatest.FunSuite

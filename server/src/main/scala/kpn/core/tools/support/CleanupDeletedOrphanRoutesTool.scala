@@ -8,7 +8,7 @@ import kpn.core.db.RouteDoc
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.routeDocFormat
-import kpn.core.repository.OrphanRepositoryImpl
+import kpn.server.repository.OrphanRepositoryImpl
 import kpn.shared.Subset
 import spray.can.Http
 import spray.http.HttpMethods.GET

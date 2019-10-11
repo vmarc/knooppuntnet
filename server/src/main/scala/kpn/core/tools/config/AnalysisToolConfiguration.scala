@@ -2,7 +2,7 @@ package kpn.core.tools.config
 
 import akka.actor.ActorSystem
 import kpn.core.db.couch.Database
-import kpn.core.repository.AnalysisRepositoryNoop
+import kpn.server.repository.AnalysisRepositoryNoop
 
 class AnalysisToolConfiguration(
   id: Int,

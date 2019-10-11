@@ -1,7 +1,7 @@
 package kpn.core.engine.changes
 
 import kpn.core.engine.changes.data.ChangeSetChanges
-import kpn.core.repository.ChangeSetRepository
+import kpn.server.repository.ChangeSetRepository
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
 import kpn.shared.ChangeSetSubsetAnalysis

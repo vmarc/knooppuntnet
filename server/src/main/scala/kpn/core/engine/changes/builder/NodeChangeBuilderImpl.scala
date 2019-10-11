@@ -7,8 +7,8 @@ import kpn.core.engine.changes.node.NodeChangeFactAnalyzer
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.load.NodeLoader
-import kpn.core.repository.AnalysisRepository
-import kpn.core.repository.NodeInfoBuilder
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.NodeInfoBuilder
 import kpn.core.tools.analyzer.AnalysisContext
 import kpn.core.util.Log
 import kpn.shared.Country

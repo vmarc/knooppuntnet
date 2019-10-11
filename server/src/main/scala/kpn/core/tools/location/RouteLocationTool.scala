@@ -5,7 +5,7 @@ import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
 import kpn.core.engine.analysis.location.LocationConfigurationReader
 import kpn.core.engine.analysis.location.RouteWayBasedLocatorImpl
-import kpn.core.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.route.RouteInfoAnalysis
 import spray.json.JsValue
 
