@@ -2,6 +2,7 @@ package kpn.server
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.scheduling.annotation.EnableScheduling
 
 object ServerApplication {
   def main(args: Array[String]): Unit = {
@@ -11,5 +12,6 @@ object ServerApplication {
 }
 
 @SpringBootApplication
+@EnableScheduling
 class ServerApplication {
 }

@@ -73,7 +73,7 @@ import kpn.shared.tiles.ClientPoiConfiguration
 import org.springframework.stereotype.Component
 
 @Component
-class AnalyisFacadeImpl(
+class AnalysisFacadeImpl(
   nodeRepository: NodeRepository,
   routeRepository: RouteRepository,
   networkRepository: NetworkRepository,
@@ -102,7 +102,7 @@ class AnalyisFacadeImpl(
   locationPageBuilder: LocationPageBuilder
 ) extends AnalysisFacade {
 
-  private val log = Log(classOf[AnalyisFacadeImpl])
+  private val log = Log(classOf[AnalysisFacadeImpl])
 
   override def node(user: Option[String], nodeId: Long): ApiResponse[NodePage] = {
     val label = s"$user node($nodeId)"
