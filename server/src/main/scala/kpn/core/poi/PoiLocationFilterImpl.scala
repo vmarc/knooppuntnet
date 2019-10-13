@@ -1,6 +1,6 @@
 package kpn.core.poi
 
-import kpn.core.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.shared.Country
 import kpn.shared.LatLon
 

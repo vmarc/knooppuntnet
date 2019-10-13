@@ -2,7 +2,7 @@ package kpn.core.db.json
 
 import java.util.NoSuchElementException
 
-import kpn.core.changes.ElementIds
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.core.db.BlackListDoc
 import kpn.core.db.Change
 import kpn.core.db.ChangeRevision
@@ -18,14 +18,14 @@ import kpn.core.db.TimestampDoc
 import kpn.core.db.TimestampsDoc
 import kpn.core.db.couch.DesignDoc
 import kpn.core.db.couch.ViewDoc
-import kpn.core.engine.analysis.location.LocationTree
-import kpn.core.engine.changes.ElementIdMap
-import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.engine.changes.data.AnalysisDataDetail
-import kpn.core.engine.changes.data.AnalysisDataOrphanNodes
-import kpn.core.engine.changes.data.BlackList
-import kpn.core.engine.changes.data.BlackListEntry
-import kpn.core.engine.changes.data.OrphanNodesData
+import kpn.server.analyzer.engine.analysis.location.LocationTree
+import kpn.server.analyzer.engine.changes.ElementIdMap
+import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.changes.data.AnalysisDataDetail
+import kpn.server.analyzer.engine.changes.data.AnalysisDataOrphanNodes
+import kpn.server.analyzer.engine.changes.data.BlackList
+import kpn.server.analyzer.engine.changes.data.BlackListEntry
+import kpn.server.analyzer.engine.changes.data.OrphanNodesData
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxSegment
 import kpn.core.gpx.WayPoint

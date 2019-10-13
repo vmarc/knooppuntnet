@@ -1,14 +1,14 @@
 package kpn.core.history
 
-import kpn.core.changes.RelationAnalyzerImpl
-import kpn.core.engine.analysis.NetworkAnalyzerImpl
-import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
-import kpn.core.engine.analysis.country.CountryAnalyzerNoop
-import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.core.load.data.LoadedNetwork
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.core.test.TestData
-import kpn.core.tools.analyzer.AnalysisContext
+import kpn.server.analyzer.engine.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.Timestamp

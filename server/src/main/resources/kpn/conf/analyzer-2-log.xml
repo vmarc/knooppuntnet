@@ -20,22 +20,22 @@
 
         <Logger name="kpn.core.tools.AnalyzerTool" level="debug"/>
 
-        <Logger name="kpn.core.engine.snapshots.node.NodeAnalysisUpdateWorkerImpl" level="debug"/>
-        <Logger name="kpn.core.engine.snapshots.route.RouteAnalysisUpdateWorkerImpl" level="debug"/>
+        <Logger name="kpn.server.analyzer.engine.snapshots.node.NodeAnalysisUpdateWorkerImpl" level="debug"/>
+        <Logger name="kpn.server.analyzer.engine.snapshots.route.RouteAnalysisUpdateWorkerImpl" level="debug"/>
 
         <Logger name="kpn.core.tools.changes.network.create.NetworkCreateProcessorWorkerImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateProcessorWorkerImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.delete.NetworkDeleteProcessorWorkerImpl" level="debug"/>
         <Logger name="kpn.shared.changes.details.NetworkUpdate.NetworkUpdateNetworkProcessorImpl" level="debug"/>
 
-        <Logger name="kpn.core.engine.NetworkShapeAnalyzer" level="debug"/>
+        <Logger name="kpn.server.analyzer.engine.NetworkShapeAnalyzer" level="debug"/>
 
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanRouteProcessorImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanNodeProcessorImpl" level="debug"/>
         <Logger name="kpn.server.repository.RouteRepositoryImpl" level="debug"/>
         <Logger name="kpn.server.repository.NodeRepositoryImpl" level="debug"/>
 
-        <Logger name="kpn.core.engine.RouteAnalysisUpdater" level="error"/>
+        <Logger name="kpn.server.analyzer.engine.RouteAnalysisUpdater" level="error"/>
 
         <Logger name="kpn.core.tools.changes.network.NetworkChangeAnalyzerImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.NetworkChangeProcessorImpl" level="debug"/>

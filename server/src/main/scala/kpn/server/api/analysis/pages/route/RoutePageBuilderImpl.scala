@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.route
 
 import kpn.core.db.couch.Couch
-import kpn.core.engine.analysis.RouteHistoryAnalyzer
+import kpn.server.analyzer.engine.analysis.RouteHistoryAnalyzer
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository

@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.core.test.TestSupport.withDatabase
-import kpn.core.engine.changes.data.BlackList
-import kpn.core.engine.changes.data.BlackListEntry
+import kpn.server.analyzer.engine.changes.data.BlackList
+import kpn.server.analyzer.engine.changes.data.BlackListEntry
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

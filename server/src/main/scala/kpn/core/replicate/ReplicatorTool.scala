@@ -3,7 +3,7 @@ package kpn.core.replicate
 import java.io.File
 
 import kpn.core.app.ActorSystemConfig
-import kpn.core.engine.changes.OsmChangeReader
+import kpn.server.analyzer.engine.changes.OsmChangeReader
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile

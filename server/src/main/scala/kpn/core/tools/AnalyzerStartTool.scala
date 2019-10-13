@@ -8,11 +8,11 @@ import kpn.core.app.ActorSystemConfig
 import kpn.core.common.TimestampUtil
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
-import kpn.core.engine.analysis.NetworkNodeBuilder
-import kpn.core.engine.changes.ChangeSetContext
-import kpn.core.engine.changes.node.NodeChangeAnalyzer
-import kpn.core.engine.changes.route.RouteChangeAnalyzer
-import kpn.core.load.data.LoadedNode
+import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
+import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.load.data.LoadedNode
 import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.NetworkType

@@ -7,8 +7,8 @@ import kpn.core.db.json.JsonFormats.nodeChangeDocFormat
 import kpn.core.db.json.JsonFormats.routeChangeDocFormat
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.ChangesView
-import kpn.core.engine.changes.node.NodeChangeAnalyzer
-import kpn.core.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.shared.ChangeSetSummary
 import spray.json.JsString
 

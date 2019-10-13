@@ -1,8 +1,8 @@
 package kpn.core.poi
 
-import kpn.core.changes.RelationAnalyzerImpl
-import kpn.core.engine.analysis.country.CountryAnalyzerImpl
-import kpn.core.tools.analyzer.AnalysisContext
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.shared.LatLonImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

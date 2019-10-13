@@ -2,7 +2,7 @@ package kpn.core.replicate
 
 import java.io.File
 
-import kpn.core.engine.changes.MinuteDiffReader
+import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.shared.ReplicationId
 
 object VerifyZipFiles {

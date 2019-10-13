@@ -4,11 +4,11 @@ import java.io.File
 import java.io.FileFilter
 
 import kpn.core.db.json.JsonFormats
-import kpn.core.engine.analysis.location.LocationConfiguration
-import kpn.core.engine.analysis.location.LocationConfigurationDefinition
-import kpn.core.engine.analysis.location.LocationDefinition
-import kpn.core.engine.analysis.location.LocationDefinitionReader
-import kpn.core.engine.analysis.location.LocationTree
+import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationDefinition
+import kpn.server.analyzer.engine.analysis.location.LocationDefinition
+import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader
+import kpn.server.analyzer.engine.analysis.location.LocationTree
 import kpn.core.util.Log
 import kpn.shared.Country
 import org.apache.commons.io.FileUtils

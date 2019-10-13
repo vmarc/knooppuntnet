@@ -2,8 +2,8 @@ package kpn.core.replicate
 
 import java.io.File
 
-import kpn.core.engine.changes.MinuteDiffReader
-import kpn.core.engine.changes.ReplicationStateReader
+import kpn.server.analyzer.engine.changes.MinuteDiffReader
+import kpn.server.analyzer.engine.changes.ReplicationStateReader
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl

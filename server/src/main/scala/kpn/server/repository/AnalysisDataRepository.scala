@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.changes.data.AnalysisData
 
 trait AnalysisDataRepository {
 

@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.node
 
 import kpn.core.db.couch.Couch
-import kpn.core.engine.changes.builder.NodeChangeInfoBuilder
+import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository

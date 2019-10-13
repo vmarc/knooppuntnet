@@ -1,6 +1,6 @@
 package kpn.core.analysis
 
-import kpn.core.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.shared.common.Ref
 
 case class NetworkMemberRoute(routeAnalysis: RouteAnalysis, role: Option[String]) {

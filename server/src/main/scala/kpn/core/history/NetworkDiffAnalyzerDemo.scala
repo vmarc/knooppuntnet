@@ -2,16 +2,16 @@ package kpn.core.history
 
 import java.io.File
 
-import kpn.core.changes.RelationAnalyzerImpl
-import kpn.core.engine.analysis.NetworkAnalyzerImpl
-import kpn.core.engine.analysis.NetworkRelationAnalyzerImpl
-import kpn.core.engine.analysis.country.CountryAnalyzerImpl
-import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.core.load.NetworkLoaderImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.tools.analyzer.AnalysisContext
+import kpn.server.analyzer.engine.AnalysisContext
 import kpn.shared.Timestamp
 
 object NetworkDiffAnalyzerDemo {

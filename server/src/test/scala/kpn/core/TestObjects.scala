@@ -1,6 +1,6 @@
 package kpn.core
 
-import kpn.core.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.shared.ReplicationId
 import kpn.shared.SharedTestObjects
 

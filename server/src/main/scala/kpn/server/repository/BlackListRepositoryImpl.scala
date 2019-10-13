@@ -3,7 +3,7 @@ package kpn.server.repository
 import kpn.core.db.BlackListDoc
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.blackListDocFormat
-import kpn.core.engine.changes.data.BlackList
+import kpn.server.analyzer.engine.changes.data.BlackList
 import org.springframework.stereotype.Component
 
 @Component

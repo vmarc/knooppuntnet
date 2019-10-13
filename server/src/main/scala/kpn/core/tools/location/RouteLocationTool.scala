@@ -3,8 +3,8 @@ package kpn.core.tools.location
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
-import kpn.core.engine.analysis.location.LocationConfigurationReader
-import kpn.core.engine.analysis.location.RouteWayBasedLocatorImpl
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
+import kpn.server.analyzer.engine.analysis.location.RouteWayBasedLocatorImpl
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.route.RouteInfoAnalysis
 import spray.json.JsValue

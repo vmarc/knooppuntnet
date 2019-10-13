@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.core.load.data.LoadedNode
+import kpn.server.analyzer.load.data.LoadedNode
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NodeInfo

@@ -1,0 +1,35 @@
+package kpn.server.analyzer.load
+
+import kpn.server.analyzer.load.orphan.node.OrphanNodesLoader
+import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoader
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.AnalysisContext
+import kpn.shared.Timestamp
+import org.springframework.stereotype.Component
+
+/**
+  * Loads the state of all networks at a given timestamp. Loads the current state if no timestamp is given.
+  */
+@Component
+class AnalysisDataLoader(
+  analysisContext: AnalysisContext,
+  networksLoader: NetworksLoader,
+  orphanRoutesLoader: OrphanRoutesLoader,
+  orphanNodesLoader: OrphanNodesLoader
+) {
+
+  private val log = Log(classOf[AnalysisDataLoader])
+
+  def load(timestamp: Timestamp): Unit = {
+    Log.context(timestamp.yyyymmddhhmmss) {
+      log.info("Start loading complete analysis state")
+      log.elapsed {
+        networksLoader.load(timestamp)
+        orphanRoutesLoader.load(timestamp)
+        orphanNodesLoader.load(timestamp)
+        (s"Loaded current state (${analysisContext.data.summary})", ())
+      }
+    }
+  }
+
+}

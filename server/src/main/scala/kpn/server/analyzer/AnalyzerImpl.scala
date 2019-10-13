@@ -1,31 +1,65 @@
 package kpn.server.analyzer
 
-import java.text.SimpleDateFormat
-import java.util.Date
-
+import kpn.core.tools.config.Dirs
+import kpn.core.tools.status.StatusRepository
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.AnalyzerEngine
+import kpn.server.analyzer.engine.CouchIndexer
+import kpn.shared.ReplicationId
 import org.springframework.stereotype.Component
 
+import scala.annotation.tailrec
+
 @Component
-class AnalyzerImpl extends Analyzer {
+class AnalyzerImpl(
+  statusRepository: StatusRepository,
+  analysisDatabaseIndexer: CouchIndexer,
+  engine: AnalyzerEngine,
+  dirs: Dirs
+) extends Analyzer {
 
   private val log = Log(classOf[AnalyzerImpl])
 
   def load(): Unit = {
-    log.info(s"Load $now")
-    Thread.sleep(10000)
-    log.info(s"End Load $now")
+    statusRepository.analysisStatus1 match {
+      case None => log.error("Could not start: failed to read analysis status " + dirs.analysisStatus1)
+      case Some(replicationId) =>
+        analysisDatabaseIndexer.index()
+        engine.load(replicationId)
+    }
   }
 
   def process(): Unit = {
-    log.info(s"Process $now")
-    Thread.sleep(10000)
-    log.info(s"Process $now")
-
+    statusRepository.analysisStatus1 match {
+      case None => log.error("Could not start: failed to read analysis status")
+      case Some(replicationId) => processLoop(replicationId)
+    }
   }
 
-  private def now: String = {
-    new SimpleDateFormat("HH:mm:ss").format(new Date)
+  @tailrec
+  private def processLoop(previousReplicationId: ReplicationId): Unit = {
+
+    val replicationId = previousReplicationId.next
+    val updaterReplicationId = readUpdaterReplicationId()
+
+    if (replicationId.number <= updaterReplicationId.number) {
+      //      if (oper.isActive) {
+      engine.process(replicationId)
+      statusRepository.writeAnalysisStatus1(replicationId)
+      //if (oper.isActive) {
+      processLoop(replicationId)
+      //}
+      //      }
+    }
   }
 
+  private def readUpdaterReplicationId(): ReplicationId = {
+    statusRepository.updaterStatus match {
+      case Some(updaterReplicationId) => updaterReplicationId
+      case None =>
+        val message = "Could not read " + dirs.updateStatus.getAbsolutePath
+        log.error(message)
+        throw new RuntimeException(message)
+    }
+  }
 }

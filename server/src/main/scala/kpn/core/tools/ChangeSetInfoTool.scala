@@ -3,8 +3,8 @@ package kpn.core.tools
 import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
-import kpn.core.changes.ChangeSetInfoApi
-import kpn.core.changes.ChangeSetInfoApiImpl
+import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
+import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.DatabaseImpl
 import kpn.server.repository.ChangeSetInfoRepository

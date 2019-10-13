@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.engine.changes.data.BlackList
+import kpn.server.analyzer.engine.changes.data.BlackList
 
 trait BlackListRepository {
 

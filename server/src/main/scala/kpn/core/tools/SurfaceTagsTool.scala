@@ -1,12 +1,12 @@
 package kpn.core.tools
 
-import kpn.core.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
-import kpn.core.engine.analysis.country.CountryAnalyzerImpl
-import kpn.core.load.RouteLoaderImpl
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.tools.analyzer.AnalysisContext
+import kpn.server.analyzer.engine.AnalysisContext
 import kpn.shared.Timestamp
 import kpn.shared.data.Tag
 import spray.json.JsString

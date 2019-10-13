@@ -1,6 +1,6 @@
 package kpn.core.db.json
 
-import kpn.core.engine.analysis.location.LocationTree
+import kpn.server.analyzer.engine.analysis.location.LocationTree
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 import spray.json.DefaultJsonProtocol

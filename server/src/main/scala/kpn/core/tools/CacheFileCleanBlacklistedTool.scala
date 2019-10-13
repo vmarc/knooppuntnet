@@ -3,7 +3,7 @@ package kpn.core.tools
 import java.io.File
 
 import kpn.core.db.couch.Couch
-import kpn.core.engine.changes.data.BlackList
+import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.repository.BlackListRepositoryImpl
 
 object CacheFileCleanBlacklistedTool {

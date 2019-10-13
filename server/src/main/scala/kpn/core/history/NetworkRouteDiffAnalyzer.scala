@@ -1,7 +1,7 @@
 package kpn.core.history
 
 import kpn.core.analysis.NetworkMemberRoute
-import kpn.core.engine.changes.diff.RouteUpdate
+import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.common.Ref

@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages
 
-import kpn.core.engine.changes.builder.NetworkChangeInfoBuilder
-import kpn.core.engine.changes.builder.NodeChangeInfoBuilder
-import kpn.core.engine.changes.builder.RouteChangeInfoBuilder
+import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
+import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
+import kpn.server.analyzer.engine.changes.builder.RouteChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository

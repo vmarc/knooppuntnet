@@ -1,24 +1,28 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
-import kpn.core.changes.ChangeSetInfoApiImpl
-import kpn.core.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Database
 import kpn.core.db.views.AnalyzerDesign
-import kpn.core.engine.analysis.ChangeSetInfoUpdaterImpl
-import kpn.core.engine.analysis.country.CountryAnalyzerImpl
-import kpn.core.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.core.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.core.engine.changes.ChangeProcessor
-import kpn.core.engine.changes.OsmChangeRepository
-import kpn.core.engine.changes.data.AnalysisData
-import kpn.core.load.AnalysisDataLoader
-import kpn.core.load.NodeLoaderImpl
-import kpn.core.load.RouteLoader
-import kpn.core.load.RouteLoaderImpl
+import kpn.server.analyzer.load.AnalysisDataLoader
+import kpn.server.analyzer.load.NodeLoaderImpl
+import kpn.server.analyzer.load.RouteLoader
+import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
+import kpn.core.tools.status.StatusRepository
+import kpn.core.tools.status.StatusRepositoryImpl
+import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.CouchIndexer
+import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.changes.ChangeProcessor
+import kpn.server.analyzer.engine.changes.OsmChangeRepository
+import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.repository.AnalysisDataRepository
 import kpn.server.repository.AnalysisDataRepositoryImpl
 import kpn.server.repository.AnalysisRepository
@@ -29,10 +33,6 @@ import kpn.server.repository.FactRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.TaskRepositoryImpl
-import kpn.core.tools.analyzer.AnalysisContext
-import kpn.core.tools.analyzer.CouchIndexer
-import kpn.core.tools.status.StatusRepository
-import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.shared.ReplicationId
 
 object Configuration {

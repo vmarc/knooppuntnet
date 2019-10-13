@@ -2,11 +2,11 @@ package kpn.core.history
 
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.core.engine.analysis.route.RouteAnalysis
-import kpn.core.engine.changes.diff.NetworkDiff
-import kpn.core.engine.changes.diff.NetworkNodeDiffs
-import kpn.core.engine.changes.diff.RouteDiffs
-import kpn.core.engine.changes.diff.RouteUpdate
+import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.changes.diff.NetworkDiff
+import kpn.server.analyzer.engine.changes.diff.NetworkNodeDiffs
+import kpn.server.analyzer.engine.changes.diff.RouteDiffs
+import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 import kpn.shared.diff.IdDiffs
 import kpn.shared.diff.NetworkData
 import kpn.shared.diff.NetworkDataUpdate

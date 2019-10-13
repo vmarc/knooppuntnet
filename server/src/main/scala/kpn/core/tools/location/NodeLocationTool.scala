@@ -3,8 +3,8 @@ package kpn.core.tools.location
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
-import kpn.core.engine.analysis.location.LocationConfigurationReader
-import kpn.core.engine.analysis.location.NodeLocationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
 import kpn.server.repository.NodeRepositoryImpl
 import spray.json.JsValue
 
