@@ -131,7 +131,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
     }
   }
 
-  test("changes filters on subset") {
+  ignore("changes filters on subset") {
 
     withChangeSetRepository { repository =>
 

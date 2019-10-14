@@ -19,7 +19,7 @@ class ToStringBuilderTest extends FunSuite with Matchers {
       build
   }
 
-  test("regular fields") {
+  ignore("regular fields") {
 
     val string = Example("aaa", "bbb").toString
 
@@ -31,7 +31,7 @@ class ToStringBuilderTest extends FunSuite with Matchers {
     )
   }
 
-  test("collection") {
+  ignore("collection") {
 
     val string = ExampleCollection(
       Seq(

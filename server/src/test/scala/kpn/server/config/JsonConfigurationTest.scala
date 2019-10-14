@@ -2,26 +2,24 @@ package kpn.server.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.server.ServerApplication
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.test.context.TestContextManager
 
-@Test
-@RunWith(classOf[SpringRunner])
 @ContextConfiguration(classes = Array(classOf[ServerApplication]))
-class JsonConfigurationTest {
+class JsonConfigurationTest extends FunSuite with Matchers {
 
   @Autowired
   var objectMapper: ObjectMapper = _
 
-  @Test
-  def testCaseClassJson(): Unit = {
+  new TestContextManager(this.getClass).prepareTestInstance(this)
+
+  test("case class json") {
     val example = JsonExample("John Doe", 123)
     val json = objectMapper.writeValueAsString(example)
-    assertEquals("""{"name":"John Doe","age":123}""", json)
-    assertEquals(example, objectMapper.readValue(json, classOf[JsonExample]))
+    json should equal("""{"name":"John Doe","age":123}""")
+    objectMapper.readValue(json, classOf[JsonExample]) should equal(example)
   }
 }

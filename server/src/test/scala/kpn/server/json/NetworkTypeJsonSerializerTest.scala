@@ -3,24 +3,21 @@ package kpn.server.json
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.server.ServerApplication
 import kpn.shared.NetworkType
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.test.context.TestContextManager
 
-@Test
-@RunWith(classOf[SpringRunner])
 @ContextConfiguration(classes = Array(classOf[ServerApplication]))
-class NetworkTypeJsonSerializerTest {
+class NetworkTypeJsonSerializerTest extends FunSuite with Matchers {
 
   @Autowired
   var objectMapper: ObjectMapper = _
 
-  @Test
-  def testSerialization(): Unit = {
-    val json = objectMapper.writeValueAsString(NetworkType.bicycle)
-    assertEquals(""""rcn"""", json)
+  new TestContextManager(this.getClass).prepareTestInstance(this)
+
+  test("serializer") {
+    objectMapper.writeValueAsString(NetworkType.bicycle) should equal(""""rcn"""")
   }
 }

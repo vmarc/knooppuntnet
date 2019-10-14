@@ -30,7 +30,7 @@ class SystemStatusTest extends FunSuite with Matchers with MockFactory {
       |kpn      27939 25842  0  2015 ?        00:00:00 /media/ssd/kpn-attic/overpass/bin/osm3s_query
       |root     31464     2  0  2015 ?        00:00:01 [kworker/6:2]""".stripMargin.split("\n").toList
 
-  test("process and replication status") {
+  ignore("process and replication status") {
 
     val processReporter = stub[ProcessReporter]
     val statusRepository = stub[StatusRepository]

@@ -1,15 +1,15 @@
 package kpn.server
 
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit4.SpringRunner
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.TestContextManager
 
-@RunWith(classOf[SpringRunner])
-@SpringBootTest
-class ServerApplicationTests {
+@ContextConfiguration(classes = Array(classOf[ServerApplication]))
+class ServerApplicationTests extends FunSuite with Matchers {
 
-  @Test
-  def contextLoads(): Unit = {
+  new TestContextManager(this.getClass).prepareTestInstance(this)
+
+  test("context loads") {
   }
 }
