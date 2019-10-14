@@ -5,17 +5,17 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.shared.NetworkType
+import kpn.shared.Fact
 import org.springframework.boot.jackson.JsonComponent
 
 @JsonComponent
-class NetworkTypeJsonDeserializer extends JsonDeserializer[NetworkType] {
-  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NetworkType = {
+class FactJsonDeserializer extends JsonDeserializer[Fact] {
+  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Fact = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    NetworkType.withName(node.asText).getOrElse(
+    Fact.withName(node.asText).getOrElse(
       throw JsonMappingException.from(
         jsonParser,
-        "Could not deserialize network type"
+        "Could not deserialize fact"
       )
     )
   }

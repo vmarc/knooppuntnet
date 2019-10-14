@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.TreeNode
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
+import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.node.ArrayNode
 import kpn.shared.data.Tags
 import org.springframework.boot.jackson.JsonComponent
@@ -21,11 +22,17 @@ class TagsJsonDeserializer extends JsonDeserializer[Tags] {
             val value = pairArrayNode.get(1).textValue
             key -> value
           case _ =>
-            throw new RuntimeException("Cannot deserialize tags")
+            throw JsonMappingException.from(
+              jsonParser,
+              "Cannot deserialize tags"
+            )
         }.toSeq
 
       case _ =>
-        throw new RuntimeException("Cannot deserialize tags")
+        throw JsonMappingException.from(
+          jsonParser,
+          "Cannot deserialize tags"
+        )
     }
     Tags.from(pairs: _*)
   }

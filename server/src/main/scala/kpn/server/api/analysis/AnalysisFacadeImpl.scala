@@ -230,13 +230,6 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def subsetFactsNew(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPageNew] = {
-    val label = s"$user subsetFacts(${subset.string})"
-    log.infoElapsed(label) {
-      reply(label, Some(subsetFactsPageBuilder.buildNew(subset)))
-    }
-  }
-
   override def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage] = {
     val label = s"$user facts(${subset.string})"
     log.infoElapsed(label) {

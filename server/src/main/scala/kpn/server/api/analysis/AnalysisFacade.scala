@@ -62,8 +62,6 @@ trait AnalysisFacade {
 
   def subsetFacts(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPage]
 
-  def subsetFactsNew(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPageNew]
-
   def subsetOrphanNodes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage]
 
   def subsetOrphanRoutes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanRoutesPage]

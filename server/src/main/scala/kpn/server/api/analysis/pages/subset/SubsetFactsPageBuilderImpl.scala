@@ -5,10 +5,8 @@ import kpn.core.db.couch.Couch
 import kpn.server.repository.OverviewRepository
 import kpn.shared.Fact
 import kpn.shared.FactCount
-import kpn.shared.FactCountNew
 import kpn.shared.Subset
 import kpn.shared.subset.SubsetFactsPage
-import kpn.shared.subset.SubsetFactsPageNew
 import org.springframework.stereotype.Component
 
 @Component
@@ -25,12 +23,4 @@ class SubsetFactsPageBuilderImpl(
     SubsetFactsPage(subsetInfo, factCounts)
   }
 
-  override def buildNew(subset: Subset): SubsetFactsPageNew = {
-    val figures = overviewRepository.figures(Couch.uiTimeout)
-    val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val factCounts = Fact.reportedFacts.flatMap { fact =>
-      figures.get(fact.name + "Count").map { figure: Figure => FactCountNew(fact.name, figure.value(subset)) }
-    }.filter(_.count > 0)
-    SubsetFactsPageNew(subsetInfo, factCounts)
-  }
 }
