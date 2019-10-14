@@ -44,7 +44,6 @@ import kpn.shared.ChangesPage
 import kpn.shared.Check
 import kpn.shared.Fact
 import kpn.shared.FactCount
-import kpn.shared.FactCountNew
 import kpn.shared.FactLevel
 import kpn.shared.LatLonImpl
 import kpn.shared.NetworkChanges
@@ -186,7 +185,6 @@ import kpn.shared.subset.NetworkFactRefs
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
-import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetInfo
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
@@ -545,7 +543,6 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val pageInfoFormat: RootJsonFormat[PageInfo] = jsonFormat2(PageInfo)
   implicit val networkMapInfoFormat: RootJsonFormat[NetworkMapInfo] = jsonFormat3(NetworkMapInfo)
   implicit val factCountFormat: RootJsonFormat[FactCount] = jsonFormat2(FactCount)
-  implicit val factCountNewFormat: RootJsonFormat[FactCountNew] = jsonFormat2(FactCountNew)
 
   implicit val changeSetDataFormat: RootJsonFormat[ChangeSetData] = jsonFormat4(ChangeSetData)
 
@@ -561,7 +558,6 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val subsetOrphanNodesPageFormat: RootJsonFormat[SubsetOrphanNodesPage] = jsonFormat3(SubsetOrphanNodesPage)
   implicit val subsetNetworksPageFormat: RootJsonFormat[SubsetNetworksPage] = jsonFormat12(SubsetNetworksPage)
   implicit val subsetFactsPageFormat: RootJsonFormat[SubsetFactsPage] = jsonFormat2(SubsetFactsPage)
-  implicit val subsetFactsPageNewFormat: RootJsonFormat[SubsetFactsPageNew] = jsonFormat2(SubsetFactsPageNew)
   implicit val subsetChangesPageFormat: RootJsonFormat[SubsetChangesPage] = jsonFormat4(SubsetChangesPage)
   implicit val networkRouteRowFormat: RootJsonFormat[NetworkRouteRow] = jsonFormat8(NetworkRouteRow)
   implicit val networkRoutesPageFormat: RootJsonFormat[NetworkRoutesPage] = jsonFormat4(NetworkRoutesPage)

@@ -6,12 +6,6 @@ import kpn.core.common.TimestampLocal
 import kpn.core.db.couch.Couch
 import kpn.core.gpx.GpxFile
 import kpn.core.poi.PoiConfiguration
-import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.FactRepository
-import kpn.server.repository.NetworkRepository
-import kpn.server.repository.NodeRepository
-import kpn.server.repository.OverviewRepository
-import kpn.server.repository.RouteRepository
 import kpn.core.util.Log
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
@@ -32,6 +26,12 @@ import kpn.server.api.analysis.pages.subset.SubsetFactsPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetNetworksPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.FactRepository
+import kpn.server.repository.NetworkRepository
+import kpn.server.repository.NodeRepository
+import kpn.server.repository.OverviewRepository
+import kpn.server.repository.RouteRepository
 import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
 import kpn.shared.Fact
@@ -65,7 +65,6 @@ import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
 import kpn.shared.subset.SubsetFactsPage
-import kpn.shared.subset.SubsetFactsPageNew
 import kpn.shared.subset.SubsetNetworksPage
 import kpn.shared.subset.SubsetOrphanNodesPage
 import kpn.shared.subset.SubsetOrphanRoutesPage
