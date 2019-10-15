@@ -1,7 +1,7 @@
 package kpn.server.json
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kpn.shared.Timestamp
+import kpn.shared.Fact
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,15 +9,15 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest
 import org.springframework.test.context.TestContextManager
 
 @JsonTest
-class TimestampJsonSerializerTest extends FunSuite with Matchers {
+class FactJsonDeserializerTest extends FunSuite with Matchers {
 
   @Autowired
   var objectMapper: ObjectMapper = _
 
   new TestContextManager(this.getClass).prepareTestInstance(this)
 
-  test("serializer") {
-    val timestamp = Timestamp(2018, 8, 11, 12, 34, 56)
-    objectMapper.writeValueAsString(timestamp) should equal(""""2018-08-11T12:34:56Z"""")
+  test("deserializer") {
+    val added = objectMapper.readValue(""""Added"""", classOf[Fact])
+    added should equal(Fact.Added)
   }
 }
