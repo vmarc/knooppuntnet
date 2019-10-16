@@ -12,17 +12,17 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class CouchConfiguration(
   system: ActorSystem,
-  @Value("${couch.host}") host: String,
-  @Value("${couch.port}") port: String,
-  @Value("${couch.user}") user: String,
-  @Value("${couch.password}") password: String,
-  @Value("${couch.database.main}") dbname: String,
-  @Value("${couch.database.changes}") changeDbname: String,
-  @Value("${couch.database.changesets}") changesetDbname: String,
-  @Value("${couch.database.pois}") poiDbname: String,
-  @Value("${couch.database.users}") userDbname: String,
-  @Value("${couch.database.reviews}") reviewDbname: String,
-  @Value("${couch.database.tasks}") taskDbname: String
+  @Value("${couch.host:localhost}") host: String,
+  @Value("${couch.port:5984}") port: String,
+  @Value("${couch.user:user}") user: String,
+  @Value("${couch.password:password}") password: String,
+  @Value("${couch.database.main:master}") dbname: String,
+  @Value("${couch.database.changes:changes}") changeDbname: String,
+  @Value("${couch.database.changesets:changesets}") changesetDbname: String,
+  @Value("${couch.database.pois:pois}") poiDbname: String,
+  @Value("${couch.database.users:users}") userDbname: String,
+  @Value("${couch.database.reviews:reviews}") reviewDbname: String,
+  @Value("${couch.database.tasks:tasks}") taskDbname: String
 ) {
 
   @Bean
