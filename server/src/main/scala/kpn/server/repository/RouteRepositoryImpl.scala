@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component
 import spray.json.JsValue
 
 @Component
-class RouteRepositoryImpl(mainDatabase: Database) extends RouteRepository {
+class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
 
   private val groupSize = 25
   private val log = Log(classOf[RouteRepository])
@@ -44,7 +44,7 @@ class RouteRepositoryImpl(mainDatabase: Database) extends RouteRepository {
       val docs = addedRouteDocs ++ updatedRouteDocs
 
       if (docs.nonEmpty) {
-        mainDatabase.bulkSave(docs)
+        analysisDatabase.bulkSave(docs)
       }
 
       val message = s"Saved (${routes.size}) routes: " +
@@ -61,7 +61,7 @@ class RouteRepositoryImpl(mainDatabase: Database) extends RouteRepository {
   private def readExistingRouteDocs(routes: Seq[RouteInfo]): Seq[RouteDoc] = {
     val routeIds = routes.map(_.id)
     val routeDocIds = routeIds.map(docId)
-    mainDatabase.objectsWithIds(routeDocIds, Couch.batchTimeout, stale = false).map(jsValue => routeDocFormat.read(jsValue))
+    analysisDatabase.objectsWithIds(routeDocIds, Couch.batchTimeout, stale = false).map(jsValue => routeDocFormat.read(jsValue))
   }
 
   private def partitionRoutes(routes: Seq[RouteInfo], existingRouteDocs: Seq[RouteDoc]): (Seq[RouteInfo], Seq[RouteInfo]) = {
@@ -112,20 +112,20 @@ class RouteRepositoryImpl(mainDatabase: Database) extends RouteRepository {
 
   override def delete(routeIds: Seq[Long]): Unit = {
     val routeDocIds = routeIds.map(docId)
-    mainDatabase.deleteDocs(routeDocIds)
+    analysisDatabase.deleteDocs(routeDocIds)
   }
 
   override def routeWithId(routeId: Long, timeout: Timeout = Couch.defaultTimeout): Option[RouteInfo] = {
-    mainDatabase.optionGet(docId(routeId), timeout).map(routeDocFormat.read).map(_.route)
+    analysisDatabase.optionGet(docId(routeId), timeout).map(routeDocFormat.read).map(_.route)
   }
 
   override def routesWithIds(routeIds: Seq[Long], timeout: Timeout): Seq[RouteInfo] = {
     val ids = routeIds.map(id => docId(id))
-    mainDatabase.objectsWithIds(ids, timeout, stale = false).map(doc => routeDocFormat.read(doc)).map(_.route)
+    analysisDatabase.objectsWithIds(ids, timeout, stale = false).map(doc => routeDocFormat.read(doc)).map(_.route)
   }
 
   override def routeReferences(routeId: Long, timeout: Timeout, stale: Boolean): RouteReferences = {
-    val references = mainDatabase.query(AnalyzerDesign, ReferenceView, timeout, stale)("route", routeId).map(ReferenceView.convert).flatMap { row =>
+    val references = analysisDatabase.query(AnalyzerDesign, ReferenceView, timeout, stale)("route", routeId).map(ReferenceView.convert).flatMap { row =>
       NetworkType.withName(row.referrerNetworkType).map { networkType =>
         row.referrerType -> Reference(
           row.referrerId,
@@ -143,7 +143,7 @@ class RouteRepositoryImpl(mainDatabase: Database) extends RouteRepository {
     log.debugElapsed {
       val existingRouteIds = routeIds.sliding(50, 50).flatMap { routeIdsSubset =>
         val routeDocIds = routeIdsSubset.map(docId).toSeq
-        val existingRouteDocIds = mainDatabase.keysWithIds(routeDocIds)
+        val existingRouteDocIds = analysisDatabase.keysWithIds(routeDocIds)
         existingRouteDocIds.flatMap { routeDocId =>
           try {
             Some(java.lang.Long.parseLong(routeDocId.substring(KeyPrefix.Route.length + 1)))

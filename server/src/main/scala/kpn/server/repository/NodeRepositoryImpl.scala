@@ -16,7 +16,7 @@ import kpn.shared.node.NodeOrphanRouteReference
 import org.springframework.stereotype.Component
 
 @Component
-class NodeRepositoryImpl(mainDatabase: Database) extends NodeRepository {
+class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
 
   private val log = Log(classOf[NodeRepository])
 
@@ -24,7 +24,7 @@ class NodeRepositoryImpl(mainDatabase: Database) extends NodeRepository {
 
     log.debugElapsed {
       val nodeIds = nodes.map(node => docId(node.id))
-      val nodeDocs = mainDatabase.objectsWithIds(nodeIds, Couch.batchTimeout, stale = false).map(jsValue => nodeDocFormat.read(jsValue))
+      val nodeDocs = analysisDatabase.objectsWithIds(nodeIds, Couch.batchTimeout, stale = false).map(jsValue => nodeDocFormat.read(jsValue))
       val nodeDocIds = nodeDocs.map(_.node.id)
       val (existingNodes, newNodes) = nodes.partition(node => nodeDocIds.contains(node.id))
 
@@ -58,7 +58,7 @@ class NodeRepositoryImpl(mainDatabase: Database) extends NodeRepository {
       }
 
       if (docs.nonEmpty) {
-        mainDatabase.bulkSave(docs)
+        analysisDatabase.bulkSave(docs)
       }
 
       (s"save ${nodes.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", docs.nonEmpty)
@@ -66,31 +66,31 @@ class NodeRepositoryImpl(mainDatabase: Database) extends NodeRepository {
   }
 
   override def delete(nodeId: Long): Unit = {
-    mainDatabase.delete(docId(nodeId))
+    analysisDatabase.delete(docId(nodeId))
   }
 
   override def nodeWithId(nodeId: Long, timeout: Timeout): Option[NodeInfo] = {
-    mainDatabase.optionGet(docId(nodeId), timeout).map(nodeDocFormat.read).map(_.node)
+    analysisDatabase.optionGet(docId(nodeId), timeout).map(nodeDocFormat.read).map(_.node)
   }
 
   override def nodesWithIds(nodeIds: Seq[Long], timeout: Timeout, stale: Boolean): Seq[NodeInfo] = {
     val ids = nodeIds.map(id => docId(id))
-    mainDatabase.objectsWithIds(ids, timeout, stale).map(doc => nodeDocFormat.read(doc)).map(_.node)
+    analysisDatabase.objectsWithIds(ids, timeout, stale).map(doc => nodeDocFormat.read(doc)).map(_.node)
   }
 
   override def nodeNetworkReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeNetworkReference] = {
-    mainDatabase.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale)(nodeId).map(NodeNetworkReferenceView.convert)
+    analysisDatabase.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale)(nodeId).map(NodeNetworkReferenceView.convert)
   }
 
   override def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
-    mainDatabase.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale)(nodeId).map(NodeOrphanRouteReferenceView.convert)
+    analysisDatabase.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale)(nodeId).map(NodeOrphanRouteReferenceView.convert)
   }
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {
     log.debugElapsed {
       val existingNodeIds = nodeIds.sliding(50, 50).flatMap { nodeIdsSubset =>
         val nodeDocIds = nodeIdsSubset.map(docId).toSeq
-        val existingNodeDocIds = mainDatabase.keysWithIds(nodeDocIds)
+        val existingNodeDocIds = analysisDatabase.keysWithIds(nodeDocIds)
         existingNodeDocIds.flatMap { nodeDocId =>
           try {
             Some(java.lang.Long.parseLong(nodeDocId.substring(KeyPrefix.Node.length + 1)))

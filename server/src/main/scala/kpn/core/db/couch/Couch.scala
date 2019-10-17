@@ -39,17 +39,17 @@ object Couch {
   }
 
   def executeIn(dbname: String)(action: Database => Unit): Unit = {
-    val couchConfig = config.copy(dbname = dbname)
+    val couchConfig = config.copy(analysisDatabaseName = dbname)
     executeIn(ActorSystemConfig.actorSystem(), couchConfig)(action)
   }
 
   def executeIn(system: ActorSystem, host: String, dbname: String)(action: Database => Unit): Unit = {
-    val couchConfig = config.copy(host = host, dbname = dbname)
+    val couchConfig = config.copy(host = host, analysisDatabaseName = dbname)
     executeIn(system, couchConfig)(action)
   }
 
   def executeIn(host: String, dbname: String)(action: Database => Unit): Unit = {
-    val couchConfig = config.copy(host = host, dbname = dbname)
+    val couchConfig = config.copy(host = host, analysisDatabaseName = dbname)
     executeIn(ActorSystemConfig.actorSystem(), couchConfig)(action)
   }
 
@@ -79,13 +79,11 @@ object Couch {
         config.getInt("couchdb.port"),
         config.getString("couchdb.user"),
         config.getString("couchdb.password"),
-        config.getString("couchdb.dbname.main"),
-        config.getString("couchdb.dbname.changes"),
-        config.getString("couchdb.dbname.changesets"),
-        config.getString("couchdb.dbname.pois"),
-        config.getString("couchdb.dbname.users"),
-        config.getString("couchdb.dbname.reviews"),
-        config.getString("couchdb.dbname.tasks")
+        config.getString("couchdb.database.analysis"),
+        config.getString("couchdb.database.changes"),
+        config.getString("couchdb.database.changesets"),
+        config.getString("couchdb.database.pois"),
+        config.getString("couchdb.database.tasks")
       )
     }
     catch {
@@ -99,7 +97,7 @@ object Couch {
     try {
       val couch = new Couch(system, couchConfig)
       try {
-        val database = new DatabaseImpl(couch, couchConfig.dbname)
+        val database = new DatabaseImpl(couch, couchConfig.analysisDatabaseName)
         action(database)
       } finally {
         couch.shutdown()

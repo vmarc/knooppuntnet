@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class AnalysisRepositoryImpl(
-  mainDatabase: Database,
+  analysisDatabase: Database,
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
   nodeRepository: NodeRepository
@@ -49,12 +49,12 @@ class AnalysisRepositoryImpl(
   }
 
   override def lastUpdated(): Option[Timestamp] = {
-    mainDatabase.optionGet(lastUpdatedDocumentKey).map(timestampDocFormat.read).map(_.value)
+    analysisDatabase.optionGet(lastUpdatedDocumentKey).map(timestampDocFormat.read).map(_.value)
   }
 
   override def saveLastUpdated(timestamp: Timestamp): Unit = {
-    val rev = mainDatabase.optionGet(lastUpdatedDocumentKey, Couch.batchTimeout).map(timestampDocFormat.read).flatMap(_._rev)
-    mainDatabase.save(lastUpdatedDocumentKey, timestampDocFormat.write(TimestampDoc(lastUpdatedDocumentKey, timestamp, rev)))
+    val rev = analysisDatabase.optionGet(lastUpdatedDocumentKey, Couch.batchTimeout).map(timestampDocFormat.read).flatMap(_._rev)
+    analysisDatabase.save(lastUpdatedDocumentKey, timestampDocFormat.write(TimestampDoc(lastUpdatedDocumentKey, timestamp, rev)))
   }
 
   private def buildNetworkDoc(network: Network): Unit = {

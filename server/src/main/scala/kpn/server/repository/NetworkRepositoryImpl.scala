@@ -18,19 +18,19 @@ import kpn.shared.network.NetworkMapInfo
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkRepositoryImpl(mainDatabase: Database) extends NetworkRepository {
+class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepository {
 
   private val log = Log(classOf[NetworkRepository])
 
   override def network(networkId: Long, timeout: Timeout): Option[NetworkInfo] = {
-    mainDatabase.optionGet(networkKey(networkId), timeout).map(networkDocFormat.read).map(_.network)
+    analysisDatabase.optionGet(networkKey(networkId), timeout).map(networkDocFormat.read).map(_.network)
   }
 
   override def save(network: NetworkInfo): Boolean = {
 
     val key = networkKey(network.id)
 
-    mainDatabase.optionGet(key, Couch.batchTimeout) match {
+    analysisDatabase.optionGet(key, Couch.batchTimeout) match {
       case Some(jsDoc) =>
         val doc = networkDocFormat.read(jsDoc)
         if (network == doc.network) {
@@ -39,27 +39,27 @@ class NetworkRepositoryImpl(mainDatabase: Database) extends NetworkRepository {
         }
         else {
           log.infoElapsed(s"""Network "${network.id}" update""") {
-            mainDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network, doc._rev)))
+            analysisDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network, doc._rev)))
             true
           }
         }
 
       case None =>
         log.infoElapsed(s"""Network "${network.id}" saved""") {
-          mainDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network)))
+          analysisDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network)))
           true
         }
     }
   }
 
   override def delete(networkId: Long): Unit = {
-    mainDatabase.delete(networkKey(networkId))
+    analysisDatabase.delete(networkKey(networkId))
   }
 
   private def networkKey(networkId: Long): String = s"${KeyPrefix.Network}:$networkId"
 
   override def gpx(networkId: Long, timeout: Timeout): Option[GpxFile] = {
-    mainDatabase.optionGet(gpxKey(networkId), timeout).map(gpxDocFormat.read).map(_.file)
+    analysisDatabase.optionGet(gpxKey(networkId), timeout).map(gpxDocFormat.read).map(_.file)
   }
 
   override def saveGpxFile(gpxFile: GpxFile): Boolean = {
@@ -67,10 +67,10 @@ class NetworkRepositoryImpl(mainDatabase: Database) extends NetworkRepository {
 
     def doSave(): Unit = {
       log.info(s"""Save gpx file "${gpxFile.networkId}"""")
-      mainDatabase.save(key, gpxDocFormat.write(GpxDoc(key, gpxFile)))
+      analysisDatabase.save(key, gpxDocFormat.write(GpxDoc(key, gpxFile)))
     }
 
-    mainDatabase.optionGet(key, Couch.batchTimeout) match {
+    analysisDatabase.optionGet(key, Couch.batchTimeout) match {
       case Some(jsDoc) =>
         val doc = gpxDocFormat.read(jsDoc)
         if (gpxFile == doc.file) {
@@ -79,7 +79,7 @@ class NetworkRepositoryImpl(mainDatabase: Database) extends NetworkRepository {
         }
         else {
           log.infoElapsed(s"""Network "${gpxFile.networkId}" gpx update""") {
-            mainDatabase.delete(key)
+            analysisDatabase.delete(key)
             doSave()
             true
           }
@@ -96,10 +96,10 @@ class NetworkRepositoryImpl(mainDatabase: Database) extends NetworkRepository {
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
 
   override def networks(subset: Subset, timeout: Timeout, stale: Boolean): Seq[NetworkAttributes] = {
-    mainDatabase.query(AnalyzerDesign, NetworkView, timeout, stale)(subset.country.domain, subset.networkType.name).map(NetworkView.convert)
+    analysisDatabase.query(AnalyzerDesign, NetworkView, timeout, stale)(subset.country.domain, subset.networkType.name).map(NetworkView.convert)
   }
 
   override def networksMap(country: String, networkType: String, timeout: Timeout, stale: Boolean): Seq[NetworkMapInfo] = {
-    mainDatabase.query(AnalyzerDesign, NetworkMapView, timeout, stale)(country, networkType).map(NetworkMapView.convert)
+    analysisDatabase.query(AnalyzerDesign, NetworkMapView, timeout, stale)(country, networkType).map(NetworkMapView.convert)
   }
 }

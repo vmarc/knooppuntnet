@@ -10,7 +10,7 @@ import spray.http.Uri
 import spray.http.Uri.Query
 
 @Component
-class GraphRepositoryImpl(mainDatabase: Database) extends GraphRepository {
+class GraphRepositoryImpl(analysisDatabase: Database) extends GraphRepository {
 
   override def edges(networkType: NetworkType): Seq[GraphEdge] = {
 
@@ -24,6 +24,6 @@ class GraphRepositoryImpl(mainDatabase: Database) extends GraphRepository {
     )
 
     val request = uri.withQuery(Query(parameters))
-    mainDatabase.getRows(request.toString(), Couch.batchTimeout).map(GraphEdgesView.convert)
+    analysisDatabase.getRows(request.toString(), Couch.batchTimeout).map(GraphEdgesView.convert)
   }
 }

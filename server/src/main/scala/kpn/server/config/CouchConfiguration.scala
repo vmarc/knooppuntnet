@@ -16,13 +16,11 @@ class CouchConfiguration(
   @Value("${couch.port:5984}") port: String,
   @Value("${couch.user:user}") user: String,
   @Value("${couch.password:password}") password: String,
-  @Value("${couch.database.main:master}") dbname: String,
-  @Value("${couch.database.changes:changes}") changeDbname: String,
-  @Value("${couch.database.changesets:changesets}") changesetDbname: String,
-  @Value("${couch.database.pois:pois}") poiDbname: String,
-  @Value("${couch.database.users:users}") userDbname: String,
-  @Value("${couch.database.reviews:reviews}") reviewDbname: String,
-  @Value("${couch.database.tasks:tasks}") taskDbname: String
+  @Value("${couch.database.analysis:analysis}") analysisDatabaseName: String,
+  @Value("${couch.database.changes:changes}") changeDatabaseName: String,
+  @Value("${couch.database.changesets:changesets}") changesetDatabaseName: String,
+  @Value("${couch.database.pois:pois}") poiDatabaseName: String,
+  @Value("${couch.database.tasks:tasks}") taskDatabaseName: String
 ) {
 
   @Bean
@@ -32,13 +30,11 @@ class CouchConfiguration(
       port.toInt,
       user,
       password,
-      dbname,
-      changeDbname,
-      changesetDbname,
-      poiDbname,
-      userDbname,
-      reviewDbname,
-      taskDbname
+      analysisDatabaseName,
+      changeDatabaseName,
+      changesetDatabaseName,
+      poiDatabaseName,
+      taskDatabaseName
     )
   }
 
@@ -48,28 +44,28 @@ class CouchConfiguration(
   }
 
   @Bean
-  def mainDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, dbname)
+  def analysisDatabase(couch: Couch): Database = {
+    new DatabaseImpl(couch, analysisDatabaseName)
   }
 
   @Bean
-  def changesDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, changeDbname)
+  def changeDatabase(couch: Couch): Database = {
+    new DatabaseImpl(couch, changeDatabaseName)
   }
 
   @Bean
   def changesetDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, changesetDbname)
+    new DatabaseImpl(couch, changesetDatabaseName)
   }
 
   @Bean
   def poiDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, poiDbname)
+    new DatabaseImpl(couch, poiDatabaseName)
   }
 
   @Bean
   def taskDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, taskDbname)
+    new DatabaseImpl(couch, taskDatabaseName)
   }
 
   //  def shutDown(): Unit = {

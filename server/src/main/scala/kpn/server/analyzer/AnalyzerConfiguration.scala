@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration
 class AnalyzerConfiguration {
 
   @Autowired
-  var mainDatabase: Database = _
+  var analysisDatabase: Database = _
 
   @Autowired
   var system: ActorSystem = _
@@ -37,7 +37,7 @@ class AnalyzerConfiguration {
 
   @Bean
   def analysisDatabaseIndexer: CouchIndexer = new CouchIndexer(
-    mainDatabase, AnalyzerDesign
+    analysisDatabase, AnalyzerDesign
   )
 
   @Bean

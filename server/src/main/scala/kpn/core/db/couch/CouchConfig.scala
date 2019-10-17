@@ -5,11 +5,9 @@ case class CouchConfig(
   port: Int,
   user: String,
   password: String,
-  dbname: String,
-  changeDbname: String,
-  changesetDbname: String,
-  poiDbname: String,
-  userDbname: String,
-  reviewDbname: String,
-  taskDbname: String
+  analysisDatabaseName: String,
+  changeDatabaseName: String,
+  changesetDatabaseName: String,
+  poiDatabaseName: String,
+  taskDatabaseName: String
 )

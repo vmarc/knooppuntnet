@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component
 import scala.annotation.tailrec
 
 @Component
-class FactRepositoryImpl(mainDatabase: Database) extends FactRepository {
+class FactRepositoryImpl(analysisDatabase: Database) extends FactRepository {
 
   override def factsPerNetwork(subset: Subset, fact: Fact, timeout: Timeout, stale: Boolean): Seq[NetworkFactRefs] = {
 
-    val rows = mainDatabase.query(AnalyzerDesign, FactsPerNetworkView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(FactsPerNetworkView.convert)
+    val rows = analysisDatabase.query(AnalyzerDesign, FactsPerNetworkView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(FactsPerNetworkView.convert)
 
     @tailrec
     def process(rows: Seq[FactsPerNetworkView.Row], all: Seq[NetworkFactRefs] = Seq.empty): Seq[NetworkFactRefs] = {
@@ -44,7 +44,7 @@ class FactRepositoryImpl(mainDatabase: Database) extends FactRepository {
   }
 
   override def integrityCheckFacts(country: String, networkType: String, timeout: Timeout, stale: Boolean): IntegrityCheckPage = {
-    val facts = mainDatabase.query(AnalyzerDesign, FactView, timeout, stale)(country, networkType, "integrityCheckFailed").map(FactView.integrityCheckConvert)
+    val facts = analysisDatabase.query(AnalyzerDesign, FactView, timeout, stale)(country, networkType, "integrityCheckFailed").map(FactView.integrityCheckConvert)
     IntegrityCheckPage(country, networkType, facts)
   }
 

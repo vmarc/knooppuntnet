@@ -12,17 +12,17 @@ import kpn.shared.Subset
 import org.springframework.stereotype.Component
 
 @Component
-class OrphanRepositoryImpl(mainDatabase: Database) extends OrphanRepository {
+class OrphanRepositoryImpl(analysisDatabase: Database) extends OrphanRepository {
 
   override def orphanRoutes(subset: Subset, timeout: Timeout = Couch.defaultTimeout): Seq[RouteSummary] = {
     val country = subset.country.domain
     val networkType = subset.networkType.name
-    mainDatabase.query(AnalyzerDesign, OrphanRouteView, timeout)(false, true, true, country, networkType).map(OrphanRouteView.convert)
+    analysisDatabase.query(AnalyzerDesign, OrphanRouteView, timeout)(false, true, true, country, networkType).map(OrphanRouteView.convert)
   }
 
   override def orphanNodes(subset: Subset, timeout: Timeout = Couch.defaultTimeout): Seq[NodeInfo] = {
     val country = subset.country.domain
     val networkType = subset.networkType.name
-    mainDatabase.query(AnalyzerDesign, OrphanNodeView, timeout)(false, true, true, country, networkType).map(OrphanNodeView.convert)
+    analysisDatabase.query(AnalyzerDesign, OrphanNodeView, timeout)(false, true, true, country, networkType).map(OrphanNodeView.convert)
   }
 }
