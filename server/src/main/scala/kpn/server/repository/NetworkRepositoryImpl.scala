@@ -3,7 +3,7 @@ package kpn.server.repository
 import akka.util.Timeout
 import kpn.core.db._
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.json.JsonFormats.gpxDocFormat
 import kpn.core.db.json.JsonFormats.networkDocFormat
 import kpn.core.db.views.AnalyzerDesign
@@ -18,19 +18,19 @@ import kpn.shared.network.NetworkMapInfo
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepository {
+class NetworkRepositoryImpl(oldAnalysisDatabase: OldDatabase) extends NetworkRepository {
 
   private val log = Log(classOf[NetworkRepository])
 
   override def network(networkId: Long, timeout: Timeout): Option[NetworkInfo] = {
-    analysisDatabase.optionGet(networkKey(networkId), timeout).map(networkDocFormat.read).map(_.network)
+    oldAnalysisDatabase.optionGet(networkKey(networkId), timeout).map(networkDocFormat.read).map(_.network)
   }
 
   override def save(network: NetworkInfo): Boolean = {
 
     val key = networkKey(network.id)
 
-    analysisDatabase.optionGet(key, Couch.batchTimeout) match {
+    oldAnalysisDatabase.optionGet(key, Couch.batchTimeout) match {
       case Some(jsDoc) =>
         val doc = networkDocFormat.read(jsDoc)
         if (network == doc.network) {
@@ -39,27 +39,27 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
         }
         else {
           log.infoElapsed(s"""Network "${network.id}" update""") {
-            analysisDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network, doc._rev)))
+            oldAnalysisDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network, doc._rev)))
             true
           }
         }
 
       case None =>
         log.infoElapsed(s"""Network "${network.id}" saved""") {
-          analysisDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network)))
+          oldAnalysisDatabase.save(key, networkDocFormat.write(NetworkDoc(key, network)))
           true
         }
     }
   }
 
   override def delete(networkId: Long): Unit = {
-    analysisDatabase.delete(networkKey(networkId))
+    oldAnalysisDatabase.delete(networkKey(networkId))
   }
 
   private def networkKey(networkId: Long): String = s"${KeyPrefix.Network}:$networkId"
 
   override def gpx(networkId: Long, timeout: Timeout): Option[GpxFile] = {
-    analysisDatabase.optionGet(gpxKey(networkId), timeout).map(gpxDocFormat.read).map(_.file)
+    oldAnalysisDatabase.optionGet(gpxKey(networkId), timeout).map(gpxDocFormat.read).map(_.file)
   }
 
   override def saveGpxFile(gpxFile: GpxFile): Boolean = {
@@ -67,10 +67,10 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
 
     def doSave(): Unit = {
       log.info(s"""Save gpx file "${gpxFile.networkId}"""")
-      analysisDatabase.save(key, gpxDocFormat.write(GpxDoc(key, gpxFile)))
+      oldAnalysisDatabase.save(key, gpxDocFormat.write(GpxDoc(key, gpxFile)))
     }
 
-    analysisDatabase.optionGet(key, Couch.batchTimeout) match {
+    oldAnalysisDatabase.optionGet(key, Couch.batchTimeout) match {
       case Some(jsDoc) =>
         val doc = gpxDocFormat.read(jsDoc)
         if (gpxFile == doc.file) {
@@ -79,7 +79,7 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
         }
         else {
           log.infoElapsed(s"""Network "${gpxFile.networkId}" gpx update""") {
-            analysisDatabase.delete(key)
+            oldAnalysisDatabase.delete(key)
             doSave()
             true
           }
@@ -96,10 +96,10 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
 
   override def networks(subset: Subset, timeout: Timeout, stale: Boolean): Seq[NetworkAttributes] = {
-    analysisDatabase.query(AnalyzerDesign, NetworkView, timeout, stale)(subset.country.domain, subset.networkType.name).map(NetworkView.convert)
+    oldAnalysisDatabase.query(AnalyzerDesign, NetworkView, timeout, stale)(subset.country.domain, subset.networkType.name).map(NetworkView.convert)
   }
 
   override def networksMap(country: String, networkType: String, timeout: Timeout, stale: Boolean): Seq[NetworkMapInfo] = {
-    analysisDatabase.query(AnalyzerDesign, NetworkMapView, timeout, stale)(country, networkType).map(NetworkMapView.convert)
+    oldAnalysisDatabase.query(AnalyzerDesign, NetworkMapView, timeout, stale)(country, networkType).map(NetworkMapView.convert)
   }
 }

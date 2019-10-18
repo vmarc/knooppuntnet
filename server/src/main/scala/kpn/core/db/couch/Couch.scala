@@ -38,17 +38,17 @@ object Couch {
     }
   }
 
-  def executeIn(dbname: String)(action: Database => Unit): Unit = {
+  def executeIn(dbname: String)(action: OldDatabase => Unit): Unit = {
     val couchConfig = config.copy(analysisDatabaseName = dbname)
     executeIn(ActorSystemConfig.actorSystem(), couchConfig)(action)
   }
 
-  def executeIn(system: ActorSystem, host: String, dbname: String)(action: Database => Unit): Unit = {
+  def executeIn(system: ActorSystem, host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
     val couchConfig = config.copy(host = host, analysisDatabaseName = dbname)
     executeIn(system, couchConfig)(action)
   }
 
-  def executeIn(host: String, dbname: String)(action: Database => Unit): Unit = {
+  def executeIn(host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
     val couchConfig = config.copy(host = host, analysisDatabaseName = dbname)
     executeIn(ActorSystemConfig.actorSystem(), couchConfig)(action)
   }
@@ -93,11 +93,11 @@ object Couch {
     }
   }
 
-  private def executeIn(system: ActorSystem, couchConfig: CouchConfig)(action: Database => Unit): Unit = {
+  private def executeIn(system: ActorSystem, couchConfig: CouchConfig)(action: OldDatabase => Unit): Unit = {
     try {
       val couch = new Couch(system, couchConfig)
       try {
-        val database = new DatabaseImpl(couch, couchConfig.analysisDatabaseName)
+        val database = new OldDatabaseImpl(couch, couchConfig.analysisDatabaseName)
         action(database)
       } finally {
         couch.shutdown()

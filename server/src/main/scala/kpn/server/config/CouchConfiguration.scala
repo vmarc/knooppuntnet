@@ -5,6 +5,8 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
 import kpn.core.db.couch.Database
 import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.OldDatabaseImpl
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -68,9 +70,29 @@ class CouchConfiguration(
     new DatabaseImpl(couch, taskDatabaseName)
   }
 
-  //  def shutDown(): Unit = {
-  //    couch.shutdown()
-  //    Await.result(system.terminate(), Duration.Inf)
-  //    ()
-  //  }
+  @Bean
+  def oldAnalysisDatabase(couch: Couch): OldDatabase = {
+    new OldDatabaseImpl(couch, analysisDatabaseName)
+  }
+
+  @Bean
+  def oldChangeDatabase(couch: Couch): OldDatabase = {
+    new OldDatabaseImpl(couch, changeDatabaseName)
+  }
+
+  @Bean
+  def oldChangesetDatabase(couch: Couch): OldDatabase = {
+    new OldDatabaseImpl(couch, changesetDatabaseName)
+  }
+
+  @Bean
+  def oldPoiDatabase(couch: Couch): OldDatabase = {
+    new OldDatabaseImpl(couch, poiDatabaseName)
+  }
+
+  @Bean
+  def oldTaskDatabase(couch: Couch): OldDatabase = {
+    new OldDatabaseImpl(couch, taskDatabaseName)
+  }
+
 }

@@ -7,7 +7,7 @@ import kpn.core.analysis.Network
 import kpn.core.app.ActorSystemConfig
 import kpn.core.common.TimestampUtil
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.OldDatabaseImpl
 import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
@@ -76,12 +76,12 @@ object AnalyzerStartTool {
   private def buildConfiguration(system: ActorSystem, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
     val couchConfig = Couch.config
     val couch = new Couch(system, couchConfig)
-    val analysisDatabase = new DatabaseImpl(couch, options.analysisDatabaseName)
-    val changeDatabase = new DatabaseImpl(couch, options.changeDatabaseName)
+    val oldAnalysisDatabase = new OldDatabaseImpl(couch, options.analysisDatabaseName)
+    val oldChangeDatabase = new OldDatabaseImpl(couch, options.changeDatabaseName)
     new AnalyzerStartToolConfiguration(
       system,
-      analysisDatabase,
-      changeDatabase
+      oldAnalysisDatabase,
+      oldChangeDatabase
     )
   }
 }

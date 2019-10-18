@@ -2,7 +2,7 @@ package kpn.core.db.views
 
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.OrphanNodeView.OrphanNodeKey
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
@@ -75,7 +75,7 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
     }
   }
 
-  private def node(database: Database, tags: Tags, orphan: Boolean, active: Boolean = true): Seq[(OrphanNodeKey, NodeInfo)] = {
+  private def node(database: OldDatabase, tags: Tags, orphan: Boolean, active: Boolean = true): Seq[(OrphanNodeKey, NodeInfo)] = {
     val b = new TestDocBuilder(database)
     b.node(10001, Country.nl, tags, orphan = orphan, active = active)
     database.query(AnalyzerDesign, OrphanNodeView, Couch.uiTimeout, stale = false)().map(OrphanNodeView.toKeyAndValue)

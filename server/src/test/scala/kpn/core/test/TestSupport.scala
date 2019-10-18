@@ -9,8 +9,8 @@ import com.typesafe.config.ConfigValueFactory
 import kpn.core.app.ActorSystemConfig
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
-import kpn.core.db.couch.Database
-import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.OldDatabaseImpl
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.LocationDesign
@@ -37,19 +37,19 @@ object TestSupport extends Assertions {
     * Perform given function with a freshly created database. The database is deleted
     * afterwards.
     */
-  def withDatabase(f: Database => Unit): Unit = {
-    withDatabase(keepDatabaseAfterTest = false)(f: Database => Unit)
+  def withDatabase(f: OldDatabase => Unit): Unit = {
+    withDatabase(keepDatabaseAfterTest = false)(f: OldDatabase => Unit)
   }
 
   /**
     * Perform given function with a freshly created database.
     */
-  def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
+  def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: OldDatabase => Unit): Unit = {
 
     withCouch { c =>
       val dbname = "unit-testdb-" + count.incrementAndGet()
 
-      val database = new DatabaseImpl(c, dbname)
+      val database = new OldDatabaseImpl(c, dbname)
 
       if (database.exists) {
         database.delete()

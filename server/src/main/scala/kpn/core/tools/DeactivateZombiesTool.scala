@@ -2,8 +2,8 @@ package kpn.core.tools
 
 import kpn.core.app.ActorSystemConfig
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
-import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.OldDatabaseImpl
 import kpn.core.db.views.ViewRow
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -30,13 +30,13 @@ object DeactivateZombiesTool {
     val system = ActorSystemConfig.actorSystem()
     val couchConfig = Couch.config
     val couch = new Couch(system, couchConfig)
-    val database = new DatabaseImpl(couch, "master1")
+    val database = new OldDatabaseImpl(couch, "master1")
     new DeactivateZombiesTool(database, executor).run()
   }
 
 }
 
-class DeactivateZombiesTool(database: Database, executor: OverpassQueryExecutor) {
+class DeactivateZombiesTool(database: OldDatabase, executor: OverpassQueryExecutor) {
 
   def run(): Unit = {
 

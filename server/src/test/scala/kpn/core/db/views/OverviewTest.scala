@@ -3,7 +3,7 @@ package kpn.core.db.views
 import kpn.core.app.stats.Figure
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
@@ -209,7 +209,7 @@ class OverviewTest extends FunSuite with Matchers {
     }
   }
 
-  private def queryRows(database: Database): Seq[Figure] = {
+  private def queryRows(database: OldDatabase): Seq[Figure] = {
     database.query(AnalyzerDesign, Overview, Couch.uiTimeout, stale = false)().map(Overview.convert)
   }
 }

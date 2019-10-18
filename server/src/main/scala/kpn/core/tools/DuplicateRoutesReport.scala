@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.ViewRow
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.Country
@@ -17,7 +17,7 @@ object DuplicateRoutesReport {
   }
 }
 
-class DuplicateRoutesReport(database: Database) {
+class DuplicateRoutesReport(database: OldDatabase) {
 
   case class RouteWays(country: Country, networkType: NetworkType, id: Long, name: String, alternate: Boolean, wayIds: Set[Long])
 

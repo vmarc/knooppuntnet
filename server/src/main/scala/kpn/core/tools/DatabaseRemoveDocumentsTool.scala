@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import spray.json.JsString
 
 object DatabaseRemoveDocumentsTool {
@@ -37,7 +37,7 @@ class DatabaseRemoveDocumentsTool {
     }
   }
 
-  def remove(database: Database, documentType: String): Unit = {
+  def remove(database: OldDatabase, documentType: String): Unit = {
     val startKey = documentType + ":"
     val endKey = documentType + ":999999999999"
     val keys = database.keys(startKey, endKey, Couch.defaultTimeout).flatMap {

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine
 
 import akka.util.Timeout.durationToTimeout
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.Design
 import kpn.core.db.views.DocumentView
 import kpn.core.util.Log
@@ -13,7 +13,7 @@ import scala.concurrent.duration.DurationInt
   * until the view result is received as an indication that indexing is complete. We issue
   * the query again if no result is received within the timeout period.
   */
-class CouchIndexer(database: Database, design: Design) {
+class CouchIndexer(database: OldDatabase, design: Design) {
 
   private val log = Log(classOf[CouchIndexer])
 

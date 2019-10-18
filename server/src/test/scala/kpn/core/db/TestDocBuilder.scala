@@ -1,6 +1,6 @@
 package kpn.core.db
 
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepository
@@ -23,7 +23,7 @@ import kpn.shared.network.NetworkRouteInfo
 import kpn.shared.network.NetworkShape
 import kpn.shared.route.RouteNetworkNodeInfo
 
-class TestDocBuilder(database: Database) extends SharedTestObjects {
+class TestDocBuilder(database: OldDatabase) extends SharedTestObjects {
 
   private val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   private val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)

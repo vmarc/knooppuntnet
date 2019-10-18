@@ -3,7 +3,7 @@ package kpn.core.tools.config
 import akka.actor.ActorSystem
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.AnalyzerDesign
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.analyzer.load.NodeLoaderImpl
@@ -42,9 +42,9 @@ object Configuration {
 class Configuration(
   id: Int,
   system: ActorSystem,
-  analysisDatabase: Database,
-  changeDatabase: Database,
-  taskDatabase: Database,
+  oldAnalysisDatabase: OldDatabase,
+  oldChangeDatabase: OldDatabase,
+  oldTaskDatabase: OldDatabase,
   val analysisRepository: AnalysisRepository,
   initialLoadAnalysisRepository: AnalysisRepository
 ) {
@@ -88,12 +88,12 @@ class Configuration(
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
+  val networkRepository = new NetworkRepositoryImpl(oldAnalysisDatabase)
 
-  val analysisDataRepository: AnalysisDataRepository = new AnalysisDataRepositoryImpl(analysisDatabase)
+  val analysisDataRepository: AnalysisDataRepository = new AnalysisDataRepositoryImpl(oldAnalysisDatabase)
 
   val analysisDatabaseIndexer: CouchIndexer = new CouchIndexer(
-    analysisDatabase, AnalyzerDesign
+    oldAnalysisDatabase, AnalyzerDesign
   )
 
   val analysisData: AnalysisData = AnalysisData()
@@ -105,17 +105,17 @@ class Configuration(
   private val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
 
   private val changeSetRepository = new ChangeSetRepositoryImpl(
-    changeDatabase
+    oldChangeDatabase
   )
 
-  val taskRepository = new TaskRepositoryImpl(taskDatabase)
+  val taskRepository = new TaskRepositoryImpl(oldTaskDatabase)
 
   val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(
-    changeDatabase
+    oldChangeDatabase
   )
 
   private val blackListRepository = new BlackListRepositoryImpl(
-    analysisDatabase
+    oldAnalysisDatabase
   )
 
   val changeSetInfoUpdater = new ChangeSetInfoUpdaterImpl(
@@ -124,11 +124,11 @@ class Configuration(
   )
 
   val orphanRepository = new OrphanRepositoryImpl(
-    analysisDatabase
+    oldAnalysisDatabase
   )
 
   val factRepository = new FactRepositoryImpl(
-    analysisDatabase
+    oldAnalysisDatabase
   )
 
   private val nodeLoader = new NodeLoaderImpl(

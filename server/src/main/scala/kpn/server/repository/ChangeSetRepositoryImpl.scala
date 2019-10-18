@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.json.JsonFormats
 import kpn.core.db.json.JsonFormats._
 import kpn.core.db.views.ChangesDesign
@@ -29,74 +29,74 @@ import spray.json.JsString
 import spray.json.JsValue
 
 @Component
-class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetRepository {
+class ChangeSetRepositoryImpl(oldChangeDatabase: OldDatabase) extends ChangeSetRepository {
 
   private val log = Log(classOf[ChangeSetRepositoryImpl])
 
   override def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit = {
     val id = docId("summary", changeSetSummary.key)
-    val existingDoc = changeDatabase.optionGet(id).map(JsonFormats.changeSetSummaryDocFormat.read)
+    val existingDoc = oldChangeDatabase.optionGet(id).map(JsonFormats.changeSetSummaryDocFormat.read)
     existingDoc match {
       case None =>
         val doc = ChangeSetSummaryDoc(id, changeSetSummary)
         val value = JsonFormats.changeSetSummaryDocFormat.write(doc)
-        changeDatabase.save(id, value)
+        oldChangeDatabase.save(id, value)
       case Some(doc) =>
         if (doc.changeSetSummary != changeSetSummary) {
           val newDoc = ChangeSetSummaryDoc(id, changeSetSummary, doc._rev)
           val value = JsonFormats.changeSetSummaryDocFormat.write(newDoc)
-          changeDatabase.save(id, value)
+          oldChangeDatabase.save(id, value)
         }
     }
   }
 
   override def saveNetworkChange(networkChange: NetworkChange): Unit = {
     val id = docId("network", networkChange.key)
-    val existingDoc = changeDatabase.optionGet(id).map(JsonFormats.networkChangeDocFormat.read)
+    val existingDoc = oldChangeDatabase.optionGet(id).map(JsonFormats.networkChangeDocFormat.read)
     existingDoc match {
       case None =>
         val doc = NetworkChangeDoc(id, networkChange)
         val value = JsonFormats.networkChangeDocFormat.write(doc)
-        changeDatabase.save(id, value)
+        oldChangeDatabase.save(id, value)
       case Some(doc) =>
         if (doc.networkChange != networkChange) {
           val newDoc = NetworkChangeDoc(id, networkChange, doc._rev)
           val value = JsonFormats.networkChangeDocFormat.write(newDoc)
-          changeDatabase.save(id, value)
+          oldChangeDatabase.save(id, value)
         }
     }
   }
 
   override def saveRouteChange(routeChange: RouteChange): Unit = {
     val id = docId("route", routeChange.key)
-    val existingDoc = changeDatabase.optionGet(id).map(JsonFormats.routeChangeDocFormat.read)
+    val existingDoc = oldChangeDatabase.optionGet(id).map(JsonFormats.routeChangeDocFormat.read)
     existingDoc match {
       case None =>
         val doc = RouteChangeDoc(id, routeChange)
         val value = JsonFormats.routeChangeDocFormat.write(doc)
-        changeDatabase.save(id, value)
+        oldChangeDatabase.save(id, value)
       case Some(doc) =>
         if (doc.routeChange != routeChange) {
           val newDoc = RouteChangeDoc(id, routeChange, doc._rev)
           val value = JsonFormats.routeChangeDocFormat.write(newDoc)
-          changeDatabase.save(id, value)
+          oldChangeDatabase.save(id, value)
         }
     }
   }
 
   override def saveNodeChange(nodeChange: NodeChange): Unit = {
     val id = docId("node", nodeChange.key)
-    val existingDoc = changeDatabase.optionGet(id).map(JsonFormats.nodeChangeDocFormat.read)
+    val existingDoc = oldChangeDatabase.optionGet(id).map(JsonFormats.nodeChangeDocFormat.read)
     existingDoc match {
       case None =>
         val doc = NodeChangeDoc(id, nodeChange)
         val value = JsonFormats.nodeChangeDocFormat.write(doc)
-        changeDatabase.save(id, value)
+        oldChangeDatabase.save(id, value)
       case Some(doc) =>
         if (doc.nodeChange != nodeChange) {
           val newDoc = NodeChangeDoc(id, nodeChange, doc._rev)
           val value = JsonFormats.nodeChangeDocFormat.write(newDoc)
-          changeDatabase.save(id, value)
+          oldChangeDatabase.save(id, value)
         }
     }
   }
@@ -125,7 +125,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
 
     val uri = uriHead.withQuery(withStale(parameters, stale))
 
-    val rows = changeDatabase.getRows(uri.toString(), Couch.defaultTimeout)
+    val rows = oldChangeDatabase.getRows(uri.toString(), Couch.defaultTimeout)
 
     val rowObjects = rows.map(_.asJsObject)
 
@@ -263,7 +263,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   }
 
   private def changesCount(elementType: String, id: String, stale: Boolean): Int = {
-    val rows = changeDatabase.groupQuery(2, ChangesDesign, ChangesView, stale = stale)(elementType, id)
+    val rows = oldChangeDatabase.groupQuery(2, ChangesDesign, ChangesView, stale = stale)(elementType, id)
     val totals = rows.map(ChangesView.extractTotal)
     if (totals.size == 1) {
       totals.head
@@ -306,7 +306,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
 
     val uri = uriHead.withQuery(parameters)
 
-    val rows = changeDatabase.getRows(uri.toString(), Couch.defaultTimeout)
+    val rows = oldChangeDatabase.getRows(uri.toString(), Couch.defaultTimeout)
 
     val rowObjects = rows.map(_.asJsObject)
 
@@ -335,7 +335,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
     val queryParameters = withStale(parameters, stale)
     val uri = uriHead.withQuery(queryParameters)
     log.debugElapsed {
-      val rows = changeDatabase.getRows(uri.toString(), Couch.defaultTimeout)
+      val rows = oldChangeDatabase.getRows(uri.toString(), Couch.defaultTimeout)
       (s"[$title] $uri -> ${rows.size} rows", rows)
     }
   }

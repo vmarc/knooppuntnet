@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.ViewRow
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -25,7 +25,7 @@ object TagUsageTool {
   }
 }
 
-class TagUsageTool(database: Database) {
+class TagUsageTool(database: OldDatabase) {
 
   def run(): Unit = {
     println("Start")

@@ -3,7 +3,7 @@ package kpn.core.tools.support
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.model.Uri.Query
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import spray.json.JsArray
 import spray.json.JsObject
@@ -20,7 +20,7 @@ object CopyChangeSetInfoTool {
   }
 }
 
-class CopyChangeSetInfoTool(sourceDatabase: Database, targetDatabase: Database) {
+class CopyChangeSetInfoTool(sourceDatabase: OldDatabase, targetDatabase: OldDatabase) {
 
   private val sourceRepo = new ChangeSetInfoRepositoryImpl(sourceDatabase)
   private val targetRepo = new ChangeSetInfoRepositoryImpl(targetDatabase)

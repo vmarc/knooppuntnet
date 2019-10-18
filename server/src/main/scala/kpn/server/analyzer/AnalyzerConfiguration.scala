@@ -3,7 +3,7 @@ package kpn.server.analyzer
 import java.io.File
 
 import akka.actor.ActorSystem
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration
 class AnalyzerConfiguration {
 
   @Autowired
-  var analysisDatabase: Database = _
+  var oldAnalysisDatabase: OldDatabase = _
 
   @Autowired
   var system: ActorSystem = _
@@ -37,7 +37,7 @@ class AnalyzerConfiguration {
 
   @Bean
   def analysisDatabaseIndexer: CouchIndexer = new CouchIndexer(
-    analysisDatabase, AnalyzerDesign
+    oldAnalysisDatabase, AnalyzerDesign
   )
 
   @Bean

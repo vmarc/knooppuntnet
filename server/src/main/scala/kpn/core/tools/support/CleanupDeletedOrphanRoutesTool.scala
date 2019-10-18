@@ -6,7 +6,7 @@ import akka.util.Timeout
 import kpn.core.app.ActorSystemConfig
 import kpn.core.db.RouteDoc
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.json.JsonFormats.routeDocFormat
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.shared.Subset
@@ -30,7 +30,7 @@ object CleanupDeletedOrphanRoutesTool {
   }
 }
 
-class CleanupDeletedOrphanRoutesTool(database: Database) {
+class CleanupDeletedOrphanRoutesTool(database: OldDatabase) {
 
   private val system = ActorSystemConfig.actorSystem()
   private val orphanRepository = new OrphanRepositoryImpl(database)

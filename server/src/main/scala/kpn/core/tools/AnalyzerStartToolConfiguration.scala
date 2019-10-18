@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.AnalyzerDesign
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.analyzer.load.NetworkLoaderImpl
@@ -43,18 +43,18 @@ import kpn.server.repository.RouteRepositoryImpl
 
 class AnalyzerStartToolConfiguration(
   system: ActorSystem,
-  analysisDatabase: Database,
-  changeDatabase: Database
+  oldAnalysisDatabase: OldDatabase,
+  oldChangeDatabase: OldDatabase
 ) {
 
   val dirs = Dirs()
 
-  private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
-  private val routeRepository = new RouteRepositoryImpl(analysisDatabase)
-  private val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
+  private val networkRepository = new NetworkRepositoryImpl(oldAnalysisDatabase)
+  private val routeRepository = new RouteRepositoryImpl(oldAnalysisDatabase)
+  private val nodeRepository = new NodeRepositoryImpl(oldAnalysisDatabase)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
-    analysisDatabase,
+    oldAnalysisDatabase,
     networkRepository,
     routeRepository,
     nodeRepository
@@ -70,10 +70,10 @@ class AnalyzerStartToolConfiguration(
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val analysisDataRepository: AnalysisDataRepository = new AnalysisDataRepositoryImpl(analysisDatabase)
+  val analysisDataRepository: AnalysisDataRepository = new AnalysisDataRepositoryImpl(oldAnalysisDatabase)
 
   val analysisDatabaseIndexer: CouchIndexer = new CouchIndexer(
-    analysisDatabase, AnalyzerDesign
+    oldAnalysisDatabase, AnalyzerDesign
   )
 
   val analysisData: AnalysisData = AnalysisData()
@@ -85,15 +85,15 @@ class AnalyzerStartToolConfiguration(
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
 
   val changeSetRepository = new ChangeSetRepositoryImpl(
-    changeDatabase
+    oldChangeDatabase
   )
 
   val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(
-    changeDatabase
+    oldChangeDatabase
   )
 
   private val blackListRepository = new BlackListRepositoryImpl(
-    analysisDatabase
+    oldAnalysisDatabase
   )
 
   val changeSetInfoUpdater = new ChangeSetInfoUpdater {
@@ -101,11 +101,11 @@ class AnalyzerStartToolConfiguration(
   }
 
   val orphanRepository = new OrphanRepositoryImpl(
-    analysisDatabase
+    oldAnalysisDatabase
   )
 
   val factRepository = new FactRepositoryImpl(
-    analysisDatabase
+    oldAnalysisDatabase
   )
 
   val nodeLoader = new NodeLoaderImpl(

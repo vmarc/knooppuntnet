@@ -1,7 +1,7 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.NetworkType
@@ -98,7 +98,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
     }
   }
 
-  def queryNode(database: Database, nodeId: Long): Seq[NodeNetworkReference] = {
+  def queryNode(database: OldDatabase, nodeId: Long): Seq[NodeNetworkReference] = {
     database.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale = false)(nodeId).map(NodeNetworkReferenceView.convert)
   }
 

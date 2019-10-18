@@ -7,7 +7,7 @@ import kpn.core.app.ActorSystemConfig
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
-import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.OldDatabaseImpl
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
@@ -55,7 +55,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
 
   val couchConfig: CouchConfig = Couch.config
   val couch = new Couch(system, couchConfig)
-  val database = new DatabaseImpl(couch, "test")
+  val database = new OldDatabaseImpl(couch, "test")
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryConfiguration(database).analysisRepository
   val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
   val analysisData = AnalysisData()

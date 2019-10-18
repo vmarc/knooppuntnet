@@ -3,7 +3,7 @@ package kpn.core.poi
 import kpn.core.app.ActorSystemConfig
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.OldDatabaseImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
@@ -20,8 +20,8 @@ object PoiProcessorImpl {
     val system = ActorSystemConfig.actorSystem()
     val couchConfig = Couch.config
     val couch = new Couch(system, couchConfig)
-    val poiDatabase = new DatabaseImpl(couch, "pois3")
-    val poiRepository = new PoiRepositoryImpl(poiDatabase)
+    val oldPoiDatabase = new OldDatabaseImpl(couch, "pois3")
+    val poiRepository = new PoiRepositoryImpl(oldPoiDatabase)
     val nonCachingExecutor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
     val poiLoader = new PoiLoaderImpl(nonCachingExecutor)
     val analysisContext = new AnalysisContext()

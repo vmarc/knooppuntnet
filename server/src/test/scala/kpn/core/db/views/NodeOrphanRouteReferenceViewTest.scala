@@ -1,7 +1,7 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.NetworkType
@@ -119,7 +119,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
     }
   }
 
-  def queryNode(database: Database, nodeId: Long): Seq[NodeOrphanRouteReference] = {
+  def queryNode(database: OldDatabase, nodeId: Long): Seq[NodeOrphanRouteReference] = {
     database.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale = false)(nodeId).map(NodeOrphanRouteReferenceView.convert)
   }
 

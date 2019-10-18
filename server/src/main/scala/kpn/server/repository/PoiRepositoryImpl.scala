@@ -3,7 +3,7 @@ package kpn.server.repository
 import akka.util.Timeout
 import kpn.core.db.KeyPrefix
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.json.JsonFormats.poiDocFormat
 import kpn.core.db.views.PoiDesign
 import kpn.core.db.views.PoiView
@@ -14,7 +14,7 @@ import kpn.shared.Poi
 import org.springframework.stereotype.Component
 
 @Component
-class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
+class PoiRepositoryImpl(oldPoiDatabase: OldDatabase) extends PoiRepository {
 
   private val log = Log(classOf[PoiRepositoryImpl])
 
@@ -22,7 +22,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
 
     val key = poiDocId(poi)
 
-    poiDatabase.optionGet(key, Couch.batchTimeout) match {
+    oldPoiDatabase.optionGet(key, Couch.batchTimeout) match {
       case Some(jsDoc) =>
         val doc = poiDocFormat.read(jsDoc)
         if (poi == doc.poi) {
@@ -31,14 +31,14 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
         }
         else {
           log.infoElapsed(s"""Poi ${poi.layers} "$key" update""") {
-            poiDatabase.save(key, poiDocFormat.write(PoiDoc(key, poi, doc._rev)))
+            oldPoiDatabase.save(key, poiDocFormat.write(PoiDoc(key, poi, doc._rev)))
             true
           }
         }
 
       case None =>
         log.infoElapsed(s"""Poi ${poi.layers} "$key" saved""") {
-          poiDatabase.save(key, poiDocFormat.write(PoiDoc(key, poi)))
+          oldPoiDatabase.save(key, poiDocFormat.write(PoiDoc(key, poi)))
           true
         }
     }
@@ -50,7 +50,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
 
     log.info(s"Loading pois")
 
-    val pagingQueryResult = poiDatabase.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, 0)
+    val pagingQueryResult = oldPoiDatabase.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, 0)
 
     val initialPois = pagingQueryResult.rows.map(PoiView.convert)
 
@@ -71,7 +71,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
       log.info(s"Loading ${pagingQueryResult.totalRows} pois: page ${pageIndex + 1} of $pageCount ($progress%)")
 
       val offset = pageIndex * pageSize
-      val rows = poiDatabase.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, offset).rows
+      val rows = oldPoiDatabase.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, offset).rows
       rows.map(PoiView.convert)
     }
 
@@ -80,7 +80,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
 
   def poi(elementType: String, elementId: Long): Option[Poi] = {
     val key = docId(elementType, elementId)
-    poiDatabase.optionGet(key, Couch.batchTimeout).map { jsDoc =>
+    oldPoiDatabase.optionGet(key, Couch.batchTimeout).map { jsDoc =>
       val doc = poiDocFormat.read(jsDoc)
       doc.poi
     }

@@ -1,7 +1,7 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
@@ -80,7 +80,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
     }
   }
 
-  private def doTest(database: Database, routeMap: RouteMap): Seq[GraphEdge] = {
+  private def doTest(database: OldDatabase, routeMap: RouteMap): Seq[GraphEdge] = {
 
     val routeRepository = new RouteRepositoryImpl(database)
     val routeInfo = buildRoute(routeMap)

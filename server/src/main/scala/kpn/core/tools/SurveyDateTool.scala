@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.RouteRepositoryImpl
 import spray.json.JsString
 
@@ -13,7 +13,7 @@ object SurveyDateTool {
   }
 }
 
-class SurveyDateTool(database: Database) {
+class SurveyDateTool(database: OldDatabase) {
 
   def analyze(): Unit = {
 

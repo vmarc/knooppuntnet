@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.couch.DesignDoc
 import kpn.core.db.couch.ViewDoc
 import kpn.core.db.json.JsonFormats.designDocFormat
@@ -44,7 +44,7 @@ object DatabaseViewTool {
     println("Ready")
   }
 
-  private def updateView(database: Database, design: Design): Unit = {
+  private def updateView(database: OldDatabase, design: Design): Unit = {
     val views = design.views.map(v => v.name -> ViewDoc(v.map, v.reduce)).toMap
     val id = "_design/" + Util.classNameOf(design)
     val rev = database.currentRevision(id, Couch.batchTimeout)

@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
@@ -16,7 +16,7 @@ object RouteTool {
   }
 }
 
-class RouteTool(database: Database) {
+class RouteTool(database: OldDatabase) {
 
   def blackListedRoutesThatAreInTheDatabase(): Unit = {
     val routeRepository = new RouteRepositoryImpl(database)

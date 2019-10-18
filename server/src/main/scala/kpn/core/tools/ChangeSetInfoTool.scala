@@ -6,7 +6,7 @@ import kpn.core.app.ActorSystemConfig
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.OldDatabaseImpl
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.TaskRepository
@@ -36,15 +36,15 @@ object ChangeSetInfoTool {
           val couch = new Couch(system, Couch.config)
 
           val taskRepository = {
-            val taskDatabase = new DatabaseImpl(couch, options.tasksDatabaseName)
-            new TaskRepositoryImpl(taskDatabase)
+            val oldTaskDatabase = new OldDatabaseImpl(couch, options.tasksDatabaseName)
+            new TaskRepositoryImpl(oldTaskDatabase)
           }
 
           val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets, system)
 
           val changeSetInfoRepository = {
-            val changeDatabase = new DatabaseImpl(couch, options.changeSetsDatabaseName)
-            new ChangeSetInfoRepositoryImpl(changeDatabase)
+            val oldChangeDatabase = new OldDatabaseImpl(couch, options.changeSetsDatabaseName)
+            new ChangeSetInfoRepositoryImpl(oldChangeDatabase)
           }
 
           new ChangeSetInfoTool(

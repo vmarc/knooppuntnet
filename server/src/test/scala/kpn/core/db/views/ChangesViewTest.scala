@@ -1,7 +1,7 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.ChangeSetSubsetAnalysis
@@ -116,7 +116,7 @@ class ChangesViewTest extends FunSuite with Matchers {
     )
   }
 
-  private def viewResult(database: Database, changeSetSummary: ChangeSetSummary): Seq[String] = {
+  private def viewResult(database: OldDatabase, changeSetSummary: ChangeSetSummary): Seq[String] = {
     val repo = new ChangeSetRepositoryImpl(database)
     repo.saveChangeSetSummary(changeSetSummary)
     val rows = database.query(ChangesDesign, ChangesView, Couch.uiTimeout, stale = false)()

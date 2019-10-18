@@ -1,7 +1,7 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.OrphanRouteView.OrphanRouteKey
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.test.TestSupport.withDatabase
@@ -48,7 +48,7 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
     }
   }
 
-  private def route(database: Database, orphan: Boolean, active: Boolean = true): Seq[(OrphanRouteKey, RouteSummary)] = {
+  private def route(database: OldDatabase, orphan: Boolean, active: Boolean = true): Seq[(OrphanRouteKey, RouteSummary)] = {
     val routeInfo = newRoute(
       11,
       active = active,

@@ -1,7 +1,7 @@
 package kpn.core.tools.db
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.json.JsonFormats.changeSetSummaryDocFormat
 import kpn.core.db.json.JsonFormats.nodeChangeDocFormat
 import kpn.core.db.json.JsonFormats.routeChangeDocFormat
@@ -28,7 +28,7 @@ object PatchChangesTool {
   }
 }
 
-class PatchChangesTool(database: Database) {
+class PatchChangesTool(database: OldDatabase) {
 
   def run(): Unit = {
     patchNodeChanges()

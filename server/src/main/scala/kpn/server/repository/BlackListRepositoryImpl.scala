@@ -1,13 +1,13 @@
 package kpn.server.repository
 
 import kpn.core.db.BlackListDoc
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.db.json.JsonFormats.blackListDocFormat
 import kpn.server.analyzer.engine.changes.data.BlackList
 import org.springframework.stereotype.Component
 
 @Component
-class BlackListRepositoryImpl(analysisDatabase: Database) extends BlackListRepository {
+class BlackListRepositoryImpl(oldAnalysisDatabase: OldDatabase) extends BlackListRepository {
 
   private val docId = "black-list"
   private val CACHE_TIMEOUT_MILLIS = 30000
@@ -18,7 +18,7 @@ class BlackListRepositoryImpl(analysisDatabase: Database) extends BlackListRepos
   def get: BlackList = {
     val now = System.currentTimeMillis()
     if (cachedTimestamp.isEmpty || cachedTimestamp.get < (now - CACHE_TIMEOUT_MILLIS)) {
-      val blackListDoc = blackListDocFormat.read(analysisDatabase.getJsValue(docId))
+      val blackListDoc = blackListDocFormat.read(oldAnalysisDatabase.getJsValue(docId))
       cachedBlackList = Some(blackListDoc.blackList)
       cachedTimestamp = Some(now)
       blackListDoc.blackList
@@ -29,7 +29,7 @@ class BlackListRepositoryImpl(analysisDatabase: Database) extends BlackListRepos
   }
 
   def save(blackList: BlackList): Unit = {
-    val rev = analysisDatabase.currentRevision(docId)
-    analysisDatabase.save(docId, blackListDocFormat.write(BlackListDoc(docId, blackList, rev)))
+    val rev = oldAnalysisDatabase.currentRevision(docId)
+    oldAnalysisDatabase.save(docId, blackListDocFormat.write(BlackListDoc(docId, blackList, rev)))
   }
 }

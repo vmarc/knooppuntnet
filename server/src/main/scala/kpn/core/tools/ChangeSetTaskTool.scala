@@ -20,9 +20,9 @@ object ChangeSetTaskTool {
     val tasksDbName = args(1)
     val changesDbName = args(2)
 
-    Couch.executeIn(host, changesDbName) { changeDatabase =>
+    Couch.executeIn(host, changesDbName) { oldChangeDatabase =>
       Couch.executeIn(host, tasksDbName) { tasksDatabase =>
-        val changeSetRepository = new ChangeSetRepositoryImpl(changeDatabase)
+        val changeSetRepository = new ChangeSetRepositoryImpl(oldChangeDatabase)
         val tasksRepository = new TaskRepositoryImpl(tasksDatabase)
         changeSetRepository.allChangeSetIds().foreach { changeSetId =>
           tasksRepository.add(TaskRepository.changeSetInfoTask + changeSetId)

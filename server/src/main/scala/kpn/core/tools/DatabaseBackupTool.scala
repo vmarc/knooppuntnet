@@ -3,7 +3,7 @@ package kpn.core.tools
 import java.io.File
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
+import kpn.core.db.couch.OldDatabase
 import kpn.core.util.GZipFile
 import spray.json.JsString
 
@@ -65,7 +65,7 @@ class DatabaseBackupTool {
     }
   }
 
-  private def collectKeys(database: Database, documentType: String): Seq[String] = {
+  private def collectKeys(database: OldDatabase, documentType: String): Seq[String] = {
     val startKey = documentType + ":"
     val endKey = documentType + ":999999999999"
     val keys = database.keys(startKey, endKey, Couch.defaultTimeout).flatMap {
