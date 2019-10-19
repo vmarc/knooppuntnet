@@ -39,18 +39,27 @@ object Couch {
   }
 
   def executeIn(dbname: String)(action: OldDatabase => Unit): Unit = {
-    val couchConfig = config.copy(analysisDatabaseName = dbname)
-    executeIn(ActorSystemConfig.actorSystem(), couchConfig)(action)
-  }
-
-  def executeIn(system: ActorSystem, host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
-    val couchConfig = config.copy(host = host, analysisDatabaseName = dbname)
-    executeIn(system, couchConfig)(action)
+    executeIn("localhost", dbname)(action)
   }
 
   def executeIn(host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
-    val couchConfig = config.copy(host = host, analysisDatabaseName = dbname)
-    executeIn(ActorSystemConfig.actorSystem(), couchConfig)(action)
+    executeIn(ActorSystemConfig.actorSystem(), host, dbname)(action)
+  }
+
+  def executeIn(system: ActorSystem, host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
+    val couchConfig = config.copy(host = host)
+    try {
+      val couch = new Couch(system, couchConfig)
+      try {
+        val database = new OldDatabaseImpl(couch, dbname)
+        action(database)
+      } finally {
+        couch.shutdown()
+      }
+    } finally {
+      Await.result(system.terminate(), Duration.Inf)
+      ()
+    }
   }
 
   def config: CouchConfig = {
@@ -78,12 +87,7 @@ object Couch {
         config.getString("couchdb.host"),
         config.getInt("couchdb.port"),
         config.getString("couchdb.user"),
-        config.getString("couchdb.password"),
-        config.getString("couchdb.database.analysis"),
-        config.getString("couchdb.database.changes"),
-        config.getString("couchdb.database.changesets"),
-        config.getString("couchdb.database.pois"),
-        config.getString("couchdb.database.tasks")
+        config.getString("couchdb.password")
       )
     }
     catch {
@@ -93,20 +97,6 @@ object Couch {
     }
   }
 
-  private def executeIn(system: ActorSystem, couchConfig: CouchConfig)(action: OldDatabase => Unit): Unit = {
-    try {
-      val couch = new Couch(system, couchConfig)
-      try {
-        val database = new OldDatabaseImpl(couch, couchConfig.analysisDatabaseName)
-        action(database)
-      } finally {
-        couch.shutdown()
-      }
-    } finally {
-      Await.result(system.terminate(), Duration.Inf)
-      ()
-    }
-  }
 }
 
 class Couch(val sys: ActorSystem, val config: CouchConfig) {

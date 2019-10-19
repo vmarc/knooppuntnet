@@ -4,7 +4,7 @@ case class ToStringBuilder(className: String, strings: Seq[String] = Seq.empty) 
 
   def field(name: String, value: Any): ToStringBuilder = {
     val valueString = value match {
-      case string: String => s"""""$string"""""
+      case string: String => s""""$string""""
       case _ => value
     }
     val fieldString = s"$name = $valueString"

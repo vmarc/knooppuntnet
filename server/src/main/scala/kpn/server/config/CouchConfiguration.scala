@@ -1,6 +1,7 @@
 package kpn.server.config
 
 import akka.actor.ActorSystem
+import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
 import kpn.core.db.couch.Database
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class CouchConfiguration(
   system: ActorSystem,
+  objectMapper: ObjectMapper,
   @Value("${couch.host:localhost}") host: String,
   @Value("${couch.port:5984}") port: String,
   @Value("${couch.user:user}") user: String,
@@ -31,12 +33,7 @@ class CouchConfiguration(
       host,
       port.toInt,
       user,
-      password,
-      analysisDatabaseName,
-      changeDatabaseName,
-      changesetDatabaseName,
-      poiDatabaseName,
-      taskDatabaseName
+      password
     )
   }
 
@@ -46,28 +43,28 @@ class CouchConfiguration(
   }
 
   @Bean
-  def analysisDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, analysisDatabaseName)
+  def analysisDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(couchConfig, objectMapper, analysisDatabaseName)
   }
 
   @Bean
-  def changeDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, changeDatabaseName)
+  def changeDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(couchConfig, objectMapper, changeDatabaseName)
   }
 
   @Bean
-  def changesetDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, changesetDatabaseName)
+  def changesetDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(couchConfig, objectMapper, changesetDatabaseName)
   }
 
   @Bean
-  def poiDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, poiDatabaseName)
+  def poiDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(couchConfig, objectMapper, poiDatabaseName)
   }
 
   @Bean
-  def taskDatabase(couch: Couch): Database = {
-    new DatabaseImpl(couch, taskDatabaseName)
+  def taskDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(couchConfig, objectMapper, taskDatabaseName)
   }
 
   @Bean

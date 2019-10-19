@@ -83,7 +83,7 @@ object TestSupport extends Assertions {
       val host = config.getString("couchdb.host")
       val port = config.getInt("couchdb.port")
 
-      val couchConfig = CouchConfig(host, port, user, password, "", "", "", "", "")
+      val couchConfig = CouchConfig(host, port, user, password)
       couch = Some(new Couch(system, couchConfig))
     }
 
