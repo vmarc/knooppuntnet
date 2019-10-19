@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.core.db.couch.Couch
 import kpn.core.gpx.GpxFile
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
@@ -13,7 +13,7 @@ import org.scalatest.Matchers
 class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("network - get network by id") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
       repository.network(1, Couch.uiTimeout) should equal(None)
 
@@ -24,7 +24,7 @@ class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObject
   }
 
   test("save network - returns false if saving same network without change") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
       repository.save(newNetwork(1, Some(Country.nl), NetworkType.bicycle, "name")) should equal(true)
       repository.save(newNetwork(1, Some(Country.nl), NetworkType.bicycle, "name")) should equal(false)
@@ -33,7 +33,7 @@ class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObject
   }
 
   test("gpx - get gpx file by network id") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
       repository.gpx(1, Couch.uiTimeout) should equal(None)
 
@@ -44,7 +44,7 @@ class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObject
   }
 
   test("save gpxFile - returns false if saving same gpxFile without change") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
       repository.saveGpxFile(GpxFile(1, "filename1", Seq(), Seq())) should equal(true)
       repository.saveGpxFile(GpxFile(1, "filename1", Seq(), Seq())) should equal(false)
@@ -54,7 +54,7 @@ class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObject
 
   test("networks - find attributes of networks for given country and network type") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeSetInfo
 import kpn.shared.data.Tags
@@ -37,7 +37,7 @@ class ChangeSetInfoRepositoryTest extends FunSuite with Matchers {
   }
 
   private def withRepository(f: ChangeSetInfoRepository => Unit): Unit = {
-    withDatabase { database =>
+    withOldDatabase { database =>
       f(new ChangeSetInfoRepositoryImpl(database))
     }
   }

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.ChangeSetNetwork
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
@@ -340,7 +340,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
   }
 
   private def withChangeSetRepository(f: ChangeSetRepository => Unit): Unit = {
-    withDatabase() { database =>
+    withOldDatabase() { database =>
       val repository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
       f(repository)
     }

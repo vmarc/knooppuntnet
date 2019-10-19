@@ -4,7 +4,7 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.OrphanRouteView.OrphanRouteKey
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.RouteSummary
@@ -16,7 +16,7 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("orphan routes are included in the view") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val rows = route(database, orphan = true)
 
@@ -35,14 +35,14 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
   }
 
   test("regular routes are not included in the view") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val rows = route(database, orphan = false)
       rows should equal(Seq())
     }
   }
 
   test("inactive orphan routes are not included in the view") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val rows = route(database, orphan = true, active = false)
       rows should equal(Seq())
     }

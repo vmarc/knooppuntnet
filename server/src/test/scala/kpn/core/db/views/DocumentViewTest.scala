@@ -4,7 +4,7 @@ import kpn.core.db.StringValueDoc
 import kpn.core.db.couch.Couch
 import kpn.core.db.json.JsonFormats
 import kpn.core.db.views.DocumentView.DocumentCount
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -12,7 +12,7 @@ class DocumentViewTest extends FunSuite with Matchers {
 
   test("document view") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       def createDoc(key: String): Unit = {
         database.save(key, JsonFormats.stringValueDocFormat.write(StringValueDoc(key, "bla")))

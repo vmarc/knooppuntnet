@@ -2,7 +2,7 @@ package kpn.core.db.couch
 
 import kpn.core.db.StringValueDoc
 import kpn.core.db.json.JsonFormats.stringValueDocFormat
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -11,7 +11,7 @@ class OldDatabaseTest extends FunSuite with Matchers {
   private val timeout = Couch.uiTimeout
 
   test("currentRevision") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       database.currentRevision("bla", timeout) should equal(None)
       val value = StringValueDoc("id", "value")
       database.save("id", stringValueDocFormat.write(value))
@@ -20,7 +20,7 @@ class OldDatabaseTest extends FunSuite with Matchers {
   }
 
   test("save same document multiple times") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       database.save("id1", stringValueDocFormat.write(StringValueDoc("id1", "value1")))
       database.save("id2", stringValueDocFormat.write(StringValueDoc("id2", "value2")))
 
@@ -35,13 +35,13 @@ class OldDatabaseTest extends FunSuite with Matchers {
   }
 
   test("deleteDocs of objects that do not exist") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       database.deleteDocs(Seq("id1", "id2"))
     }
   }
 
   test("deleteDocs") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       database.save("id1", stringValueDocFormat.write(StringValueDoc("id1", "value1")))
       database.save("id2", stringValueDocFormat.write(StringValueDoc("id2", "value2")))
 
@@ -56,7 +56,7 @@ class OldDatabaseTest extends FunSuite with Matchers {
   }
 
   test("delete") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       database.delete("bla")
 
       val value = StringValueDoc("id", "value")
@@ -70,7 +70,7 @@ class OldDatabaseTest extends FunSuite with Matchers {
   }
 
   test("getJsonString") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val value = StringValueDoc("id", "value")
       database.save("id", stringValueDocFormat.write(value))
       val jsonString = database.getJsonString("id")
@@ -80,7 +80,7 @@ class OldDatabaseTest extends FunSuite with Matchers {
   }
 
   test("bulk save") {
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val docs = Seq(
         stringValueDocFormat.write(StringValueDoc("id1", "value1")),

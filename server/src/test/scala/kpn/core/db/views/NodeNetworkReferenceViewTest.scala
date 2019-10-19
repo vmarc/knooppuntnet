@@ -3,7 +3,7 @@ package kpn.core.db.views
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.NetworkType
 import kpn.shared.NodeIntegrityCheck
 import kpn.shared.SharedTestObjects
@@ -21,7 +21,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
 
   test("node network reference") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
       val networkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(buildNetworkWithNode1001and1002())
       networkRepository.save(buildNetworkWithNode1001())
@@ -91,7 +91,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
 
   test("no node network references when network not active") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
       val networkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(buildInactiveNetwork())
       queryNode(database, 1001) should equal(Seq())

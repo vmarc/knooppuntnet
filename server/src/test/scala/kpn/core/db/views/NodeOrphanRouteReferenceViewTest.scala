@@ -3,7 +3,7 @@ package kpn.core.db.views
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.node.NodeOrphanRouteReference
@@ -16,7 +16,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
 
   test("node references in orphan route") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -69,13 +69,13 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
   }
 
   test("no node references in orphan routes") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       queryNode(database, 1001) should equal(Seq())
     }
   }
 
   test("node references in non-orphan routes are ignored") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute( // not an orphan route
@@ -95,7 +95,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
   }
 
   test("node references in non-active orphan routes are ignored") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(

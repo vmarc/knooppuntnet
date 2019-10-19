@@ -3,7 +3,7 @@ package kpn.core.db.views
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.ChangeSetRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSummary
 import kpn.shared.NetworkChanges
@@ -18,14 +18,14 @@ class ChangesViewTest extends FunSuite with Matchers {
   private val timestamp = Timestamp(2015, 8, 11, 0, 0, 0)
 
   test("no data") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val rows = database.query(ChangesDesign, ChangesView, Couch.uiTimeout, stale = false)()
       rows.size should equal(0)
     }
   }
 
   test("changeset without impact") {
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary()
 
@@ -38,7 +38,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset impact happy") {
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(happy = true)
 
@@ -52,7 +52,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset impact investigate") {
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(happy = true)
 
@@ -66,7 +66,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset subset no impact") {
-    withDatabase() { database =>
+    withOldDatabase() { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(subsets = Seq(Subset.nlHiking), subsetAnalyses = Seq(ChangeSetSubsetAnalysis(Subset.nlHiking)))
 
@@ -80,7 +80,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset subset happy") {
-    withDatabase() { database =>
+    withOldDatabase() { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(
         happy = true,

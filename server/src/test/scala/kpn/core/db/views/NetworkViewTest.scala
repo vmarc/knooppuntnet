@@ -2,7 +2,7 @@ package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType.bicycle
 import kpn.shared.NetworkType.hiking
@@ -15,7 +15,7 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("view row values") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 
@@ -40,7 +40,7 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("non-active networks are not included") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 

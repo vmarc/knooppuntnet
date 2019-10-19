@@ -4,7 +4,7 @@ import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
 import kpn.core.db.views.FactView.FactViewKey
 import kpn.core.db.views.FactsPerNetworkView.Row
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkType
@@ -17,7 +17,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
   test("rows") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val networkId = 5L
 
@@ -73,7 +73,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
   test("orphan route") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       new TestDocBuilder(database) {
         route(
@@ -105,7 +105,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
   private def orphanNodeTest(networkType: NetworkType): Unit = {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       new TestDocBuilder(database) {
         node(

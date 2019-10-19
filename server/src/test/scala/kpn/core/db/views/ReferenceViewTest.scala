@@ -4,7 +4,7 @@ import kpn.core.db.couch.Couch
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import kpn.shared.route.RouteNetworkNodeInfo
@@ -18,7 +18,7 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("view keys and  values") {
 
-    withDatabase { database => {
+    withOldDatabase { database => {
       val nodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.save(newNodeInfo(1001, tags = Tags.from("rwn_ref" -> "01")))
       nodeRepository.save(newNodeInfo(1002, tags = Tags.from("rwn_ref" -> "02")))

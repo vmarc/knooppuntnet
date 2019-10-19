@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
 import org.scalatest.FunSuite
@@ -9,7 +9,7 @@ import org.scalatest.Matchers
 class BlackListRepositoryTest extends FunSuite with Matchers {
 
   test("blacklist") {
-    withDatabase(true) { database =>
+    withOldDatabase(true) { database =>
 
       val blackList = BlackList(
         Seq(

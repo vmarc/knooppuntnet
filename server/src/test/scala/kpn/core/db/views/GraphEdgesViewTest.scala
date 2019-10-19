@@ -4,7 +4,7 @@ import kpn.core.db.couch.Couch
 import kpn.core.db.couch.OldDatabase
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.NetworkType
 import kpn.shared.RouteSummary
 import kpn.shared.Timestamp
@@ -39,7 +39,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   private val path2 = TrackPath(nodeId3, nodeId4, 200, Seq(TrackSegment("", trackPoint3, Seq(TrackSegmentFragment(trackPoint4, 0, 0, None)))))
 
   test("graph edge forward path") {
-    withDatabase() { database =>
+    withOldDatabase() { database =>
       doTest(database, RouteMap(forwardPath = Some(path1))) should equal(
         Seq(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "forward", 1))
@@ -49,7 +49,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   }
 
   test("graph edge backward path") {
-    withDatabase() { database =>
+    withOldDatabase() { database =>
       doTest(database, RouteMap(backwardPath = Some(path1))) should equal(
         Seq(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "backward", 1))
@@ -59,7 +59,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   }
 
   test("graph edge start tentacle path") {
-    withDatabase() { database =>
+    withOldDatabase() { database =>
       doTest(database, RouteMap(startTentaclePaths = Seq(path1, path2))) should equal(
         Seq(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "start", 1)),
@@ -70,7 +70,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   }
 
   test("graph edge forward tentacle path") {
-    withDatabase() { database =>
+    withOldDatabase() { database =>
       doTest(database, RouteMap(endTentaclePaths = Seq(path1, path2))) should equal(
         Seq(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, "end", 1)),

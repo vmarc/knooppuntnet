@@ -2,7 +2,7 @@ package kpn.core.db.views
 
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Location
 import kpn.shared.RouteLocationAnalysis
 import kpn.shared.SharedTestObjects
@@ -13,7 +13,7 @@ import org.scalatest.Matchers
 class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("node location") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(
         newNodeInfo(
@@ -30,7 +30,7 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
   }
 
   test("route location") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(

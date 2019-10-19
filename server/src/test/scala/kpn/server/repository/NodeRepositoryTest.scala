@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.core.db.couch.Couch
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -11,7 +11,7 @@ class NodeRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("nodeWithId") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -28,7 +28,7 @@ class NodeRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("nodesWithIds") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -41,7 +41,7 @@ class NodeRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("save") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -82,7 +82,7 @@ class NodeRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("save same network multiple times (delete before save)") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -95,7 +95,7 @@ class NodeRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
   }
 
   test("filterKnown") {
-    withDatabase { database =>
+    withOldDatabase { database =>
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
       nodeRepository.save(newNodeInfo(101))

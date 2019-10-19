@@ -4,7 +4,7 @@ import kpn.core.app.stats.Figure
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.OldDatabase
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.Subset
@@ -16,7 +16,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("network level counts") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -56,7 +56,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("network fact counts") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -82,7 +82,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("route fact counts") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -115,7 +115,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("inactive networks are not counted") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -135,7 +135,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("orphan nodes") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -155,7 +155,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("inactive orphan nodes are not included in the counts") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -173,7 +173,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   ignore("orphan routes") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -193,7 +193,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   ignore("inactive orphan routes are not included in the counts") {
 
-    withDatabase { database =>
+    withOldDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
