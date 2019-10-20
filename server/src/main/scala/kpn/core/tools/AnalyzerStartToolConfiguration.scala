@@ -1,6 +1,7 @@
 package kpn.core.tools
 
 import akka.actor.ActorSystem
+import kpn.core.db.couch.Database
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
@@ -47,6 +48,9 @@ class AnalyzerStartToolConfiguration(
   oldChangeDatabase: OldDatabase
 ) {
 
+  // TODO Spring boot migration
+  val analysisDatabase: Database = null
+
   val dirs = Dirs()
 
   private val networkRepository = new NetworkRepositoryImpl(oldAnalysisDatabase)
@@ -54,7 +58,7 @@ class AnalyzerStartToolConfiguration(
   private val nodeRepository = new NodeRepositoryImpl(oldAnalysisDatabase)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
-    oldAnalysisDatabase,
+    analysisDatabase,
     networkRepository,
     routeRepository,
     nodeRepository

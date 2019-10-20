@@ -1,5 +1,7 @@
 package kpn.core.db.couch
 
+import kpn.core.db.Doc
+
 trait Database {
 
   def name: String
@@ -10,6 +12,9 @@ trait Database {
 
   def delete(): Unit
 
-  def docWithId[T](id: String, docType: Class[T]): Option[T]
+  def save[T](doc: Doc): Unit
 
+  def docWithId[T](docId: String, docType: Class[T]): Option[T]
+
+  def revision(docId: String): Option[String]
 }

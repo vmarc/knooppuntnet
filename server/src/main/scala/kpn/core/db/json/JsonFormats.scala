@@ -10,7 +10,6 @@ import kpn.core.db.Changes
 import kpn.core.db.GpxDoc
 import kpn.core.db.NetworkDoc
 import kpn.core.db.NodeDoc
-import kpn.core.db.ReviewDoc
 import kpn.core.db.RouteDoc
 import kpn.core.db.StringValueDoc
 import kpn.core.db.TileDoc
@@ -73,7 +72,6 @@ import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeSetData
 import kpn.shared.changes.ChangeSetInfo
 import kpn.shared.changes.ChangeSetPage
-import kpn.shared.changes.Review
 import kpn.shared.changes.details.ChangeKey
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NetworkChange
@@ -359,8 +357,6 @@ object JsonFormats extends DefaultJsonProtocol {
     }
   }
 
-  implicit val reviewFormat: RootJsonFormat[Review] = jsonFormat4(Review)
-  implicit val reviewDocFormat: RootJsonFormat[ReviewDoc] = jsonFormat3(ReviewDoc)
   implicit val nodeDataFormat: RootJsonFormat[NodeData] = jsonFormat3(NodeData)
   implicit val nodeUpdateFormat: RootJsonFormat[NodeUpdate] = jsonFormat4(NodeUpdate)
   implicit val wayDataFormat: RootJsonFormat[WayData] = jsonFormat2(WayData)
@@ -551,7 +547,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val routeChangeInfoFormat: RootJsonFormat[RouteChangeInfo] = jsonFormat16(RouteChangeInfo)
   implicit val routeChangeInfosFormat: RootJsonFormat[RouteChangeInfos] = jsonFormat2(RouteChangeInfos)
 
-  implicit val changeSetPageFormat: RootJsonFormat[ChangeSetPage] = jsonFormat7(ChangeSetPage)
+  implicit val changeSetPageFormat: RootJsonFormat[ChangeSetPage] = jsonFormat6(ChangeSetPage)
 
   implicit val timeInfoFormat: RootJsonFormat[TimeInfo] = jsonFormat4(TimeInfo)
   implicit val subsetOrphanRoutesPageFormat: RootJsonFormat[SubsetOrphanRoutesPage] = jsonFormat3(SubsetOrphanRoutesPage)

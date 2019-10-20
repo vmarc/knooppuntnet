@@ -55,8 +55,7 @@ object ChangeSetPageExample {
       knownElements = KnownElements(
         nodeIds = Set(nodeId1, nodeId2), // no link in page for any other node
         routeIds = Set(routeId1, routeId2) // no link in page for any other route
-      ),
-      reviews = Seq()
+      )
     )
   }
 

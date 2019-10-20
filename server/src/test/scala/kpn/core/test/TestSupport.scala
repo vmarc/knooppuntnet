@@ -4,7 +4,10 @@ import java.io.File
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicInteger
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.typesafe.config.ConfigFactory
 import kpn.core.app.ActorSystemConfig
 import kpn.core.db.couch.Couch
@@ -17,8 +20,12 @@ import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.LocationDesign
 import kpn.core.db.views.PlannerDesign
+import kpn.server.json.TimestampJsonDeserializer
+import kpn.server.json.TimestampJsonSerializer
 import kpn.server.repository.DesignRepositoryImpl
+import kpn.shared.Timestamp
 import org.scalatest.Assertions
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
 import scala.concurrent.Await
 import scala.concurrent.Awaitable
@@ -96,19 +103,8 @@ object TestSupport extends Assertions {
   // =====================
 
   def withEnvironment(action: (CouchConfig, ObjectMapper) => Unit): Unit = {
-
-    val properties: Properties = new Properties()
-    val source = Source.fromFile("/kpn/conf/test.properties")
-    properties.load(source.bufferedReader())
-
-    val user = properties.getProperty("couch.user")
-    val password = properties.getProperty("couch.password")
-    val host = properties.getProperty("couch.host")
-    val port = properties.getProperty("couch.port").toInt
-
-    val couchConfig = CouchConfig(host, port, user, password)
-
-    val objectMapper = new ObjectMapper
+    val couchConfig = readCouchConfig()
+    val objectMapper = buildObjectMapper()
     action(couchConfig, objectMapper)
   }
 
@@ -145,6 +141,32 @@ object TestSupport extends Assertions {
         }
       }
     }
+  }
+
+  private def readCouchConfig(): CouchConfig = {
+
+    val properties: Properties = new Properties()
+    val source = Source.fromFile("/kpn/conf/test.properties")
+    properties.load(source.bufferedReader())
+
+    val user = properties.getProperty("couch.user")
+    val password = properties.getProperty("couch.password")
+    val host = properties.getProperty("couch.host")
+    val port = properties.getProperty("couch.port").toInt
+
+    CouchConfig(host, port, user, password)
+  }
+
+  private def buildObjectMapper(): ObjectMapper = {
+    val b = Jackson2ObjectMapperBuilder.json()
+    b.serializationInclusion(NON_ABSENT)
+    b.annotationIntrospector(new JacksonAnnotationIntrospector)
+    b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer())
+    b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
+
+    val objectMapper: ObjectMapper = b.build()
+    objectMapper.registerModule(DefaultScalaModule)
+    objectMapper
   }
 
 }

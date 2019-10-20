@@ -9,7 +9,6 @@ import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 import kpn.shared.ReplicationId
 import kpn.shared.changes.ChangeSetPage
-import kpn.shared.changes.Review
 import kpn.shared.changes.details.NetworkChange
 import kpn.shared.changes.details.NetworkChangeInfo
 import kpn.shared.changes.details.NodeChange
@@ -39,7 +38,6 @@ class ChangeSetPageBuilderImpl(
           case Seq(changeSetData) =>
 
             val changeSetInfo = changeSetInfoRepository.get(changeSetId)
-            val reviews = Seq[Review]() // TODO reviewFacade.get(changeSetId, replicationId)
 
             val knownElements = findKnownElements(changeSetData.referencedElements)
 
@@ -49,8 +47,7 @@ class ChangeSetPageBuilderImpl(
               changeSetData.networkChanges.map(toNetworkChangeInfo),
               changeSetData.routeChanges.map(toRouteChangeInfo),
               changeSetData.nodeChanges.map(toNodeChangeInfo),
-              knownElements,
-              reviews
+              knownElements
             )
             Some(page)
 

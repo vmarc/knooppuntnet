@@ -2,9 +2,7 @@ package kpn.server.repository
 
 import kpn.core.analysis._
 import kpn.core.db.TimestampDoc
-import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
-import kpn.core.db.json.JsonFormats.timestampDocFormat
+import kpn.core.db.couch.Database
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
@@ -19,7 +17,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class AnalysisRepositoryImpl(
-  oldAnalysisDatabase: OldDatabase,
+  analysisDatabase: Database,
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
   nodeRepository: NodeRepository
@@ -49,12 +47,12 @@ class AnalysisRepositoryImpl(
   }
 
   override def lastUpdated(): Option[Timestamp] = {
-    oldAnalysisDatabase.optionGet(lastUpdatedDocumentKey).map(timestampDocFormat.read).map(_.value)
+    analysisDatabase.docWithId(lastUpdatedDocumentKey, classOf[TimestampDoc]).map(_.value)
   }
 
   override def saveLastUpdated(timestamp: Timestamp): Unit = {
-    val rev = oldAnalysisDatabase.optionGet(lastUpdatedDocumentKey, Couch.batchTimeout).map(timestampDocFormat.read).flatMap(_._rev)
-    oldAnalysisDatabase.save(lastUpdatedDocumentKey, timestampDocFormat.write(TimestampDoc(lastUpdatedDocumentKey, timestamp, rev)))
+    val rev = analysisDatabase.revision(lastUpdatedDocumentKey)
+    analysisDatabase.save(TimestampDoc(lastUpdatedDocumentKey, timestamp, rev))
   }
 
   private def buildNetworkDoc(network: Network): Unit = {

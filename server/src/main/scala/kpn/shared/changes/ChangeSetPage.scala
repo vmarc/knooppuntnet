@@ -12,6 +12,5 @@ case class ChangeSetPage(
   networkChanges: Seq[NetworkChangeInfo],
   routeChanges: Seq[RouteChangeInfo],
   nodeChanges: Seq[NodeChangeInfo],
-  knownElements: KnownElements,
-  reviews: Seq[Review]
+  knownElements: KnownElements
 )
