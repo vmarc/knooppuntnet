@@ -9,6 +9,8 @@ import com.typesafe.config.ConfigFactory
 import kpn.core.app.ActorSystemConfig
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
+import kpn.core.db.couch.Database
+import kpn.core.db.couch.DatabaseImpl
 import kpn.core.db.couch.OldDatabase
 import kpn.core.db.couch.OldDatabaseImpl
 import kpn.core.db.views.AnalyzerDesign
@@ -108,6 +110,41 @@ object TestSupport extends Assertions {
 
     val objectMapper = new ObjectMapper
     action(couchConfig, objectMapper)
+  }
+
+  /**
+   * Perform given function with a freshly created database. The database is deleted
+   * afterwards.
+   */
+  def withDatabase(f: Database => Unit): Unit = {
+    withDatabase(keepDatabaseAfterTest = false)(f: Database => Unit)
+  }
+
+  /**
+   * Perform given function with a freshly created database.
+   */
+  def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
+
+    withEnvironment { (couchConfig, objectMapper) =>
+
+      val databaseName = "unit-testdb-" + count.incrementAndGet()
+
+      val database = new DatabaseImpl(couchConfig, objectMapper, databaseName)
+
+      if (database.exists) {
+        database.delete()
+      }
+
+      database.create()
+
+      try {
+        f(database)
+      } finally {
+        if (!keepDatabaseAfterTest) {
+          database.delete()
+        }
+      }
+    }
   }
 
 }
