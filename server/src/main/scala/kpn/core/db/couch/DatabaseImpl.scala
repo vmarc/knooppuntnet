@@ -2,6 +2,8 @@ package kpn.core.db.couch
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.db.Doc
+import kpn.core.db.views.Design
+import kpn.core.db.views.View
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -14,7 +16,7 @@ import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 
-class DatabaseImpl(couchConfig: CouchConfig, objectMapper: ObjectMapper, val name: String) extends Database {
+class DatabaseImpl(couchConfig: CouchConfig, objectMapper: ObjectMapper, name: String) extends Database {
 
   override def exists: Boolean = {
     val restTemplate = new RestTemplate
@@ -108,10 +110,12 @@ class DatabaseImpl(couchConfig: CouchConfig, objectMapper: ObjectMapper, val nam
       new BasicAuthenticationInterceptor(couchConfig.user, couchConfig.password)
     )
 
-    val url = UriComponentsBuilder.fromHttpUrl(s"$databaseUrl/_all_docs")
-      .queryParam("include_docs", "true")
-      .queryParam("stale", if (stale) "ok" else "update_after")
-      .toUriString
+    val b = UriComponentsBuilder.fromHttpUrl(s"$databaseUrl/_all_docs")
+    b.queryParam("include_docs", "true")
+    if (stale) {
+      b.queryParam("stale", "ok")
+    }
+    val url = b.toUriString
 
     val headers = new HttpHeaders()
     headers.setContentType(MediaType.APPLICATION_JSON)
@@ -178,6 +182,51 @@ class DatabaseImpl(couchConfig: CouchConfig, objectMapper: ObjectMapper, val nam
           throw e
         }
     }
+  }
+
+  def query[T](design: Design, view: View, docType: Class[T], stale: Boolean = true)(args: Any*): T = {
+
+    val restTemplate = new RestTemplate
+    restTemplate.getInterceptors.add(
+      new BasicAuthenticationInterceptor(couchConfig.user, couchConfig.password)
+    )
+
+    val b = new StringBuilder
+    b.append(s"$databaseUrl/_design/${design.name}/_view/${view.name}")
+    b.append("?")
+    b.append("reduce=false")
+
+    if (args.nonEmpty) {
+      val formattedArgs = args.map {
+        case string: String => s""""$string""""
+        case other => other.toString
+      }
+      val startKey = formattedArgs.mkString("[", ",", "]")
+      val endKey = (formattedArgs :+ "{}").mkString("[", ",", "]")
+
+      b.append(s"&startkey=$startKey")
+      b.append(s"&endkey=$endKey")
+    }
+
+    if (stale) {
+      b.append("&stale=ok")
+    }
+
+    val url = b.toString()
+
+    val headers = new HttpHeaders()
+    headers.setContentType(MediaType.APPLICATION_JSON)
+    headers.set("Accept", MediaType.APPLICATION_JSON_VALUE)
+    val entity = new HttpEntity[String]("", headers)
+    try {
+      val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
+      objectMapper.readValue(response.getBody, docType)
+    }
+    catch {
+      case e: HttpClientErrorException.BadRequest =>
+        throw new IllegalStateException(s"Could not execute query $url\n${e.getStatusText}\n${e.getResponseBodyAsString}", e)
+    }
+
   }
 
   private def databaseUrl: String = {
