@@ -59,23 +59,24 @@ object TestSupport extends Assertions {
     withOldCouch { c =>
       val dbname = "unit-testdb-" + count.incrementAndGet()
 
-      val database = new OldDatabaseImpl(c, dbname)
-
-      if (database.exists) {
-        database.delete()
+      val oldDatabase = new OldDatabaseImpl(c, dbname)
+      if (oldDatabase.exists) {
+        oldDatabase.delete()
       }
+      oldDatabase.create()
 
-      database.create()
+      val database = new DatabaseImpl(c.config, Couch.objectMapper, dbname)
+
       new DesignRepositoryImpl(database).save(AnalyzerDesign)
       new DesignRepositoryImpl(database).save(ChangesDesign)
       new DesignRepositoryImpl(database).save(PlannerDesign)
       new DesignRepositoryImpl(database).save(LocationDesign)
 
       try {
-        f(database)
+        f(oldDatabase)
       } finally {
         if (!keepDatabaseAfterTest) {
-          database.delete()
+          oldDatabase.delete()
         }
       }
     }
@@ -104,8 +105,7 @@ object TestSupport extends Assertions {
 
   def withEnvironment(action: (CouchConfig, ObjectMapper) => Unit): Unit = {
     val couchConfig = readCouchConfig()
-    val objectMapper = buildObjectMapper()
-    action(couchConfig, objectMapper)
+    action(couchConfig, Couch.objectMapper)
   }
 
   /**
@@ -155,18 +155,6 @@ object TestSupport extends Assertions {
     val port = properties.getProperty("couch.port").toInt
 
     CouchConfig(host, port, user, password)
-  }
-
-  private def buildObjectMapper(): ObjectMapper = {
-    val b = Jackson2ObjectMapperBuilder.json()
-    b.serializationInclusion(NON_ABSENT)
-    b.annotationIntrospector(new JacksonAnnotationIntrospector)
-    b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer())
-    b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
-
-    val objectMapper: ObjectMapper = b.build()
-    objectMapper.registerModule(DefaultScalaModule)
-    objectMapper
   }
 
 }

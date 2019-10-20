@@ -16,5 +16,7 @@ trait Database {
 
   def docWithId[T](docId: String, docType: Class[T]): Option[T]
 
+  def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T
+
   def revision(docId: String): Option[String]
 }

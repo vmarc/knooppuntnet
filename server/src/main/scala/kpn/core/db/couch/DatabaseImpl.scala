@@ -3,13 +3,16 @@ package kpn.core.db.couch
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.db.Doc
 import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.client.support.BasicAuthenticationInterceptor
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.util.UriComponentsBuilder
 
 class DatabaseImpl(couchConfig: CouchConfig, objectMapper: ObjectMapper, val name: String) extends Database {
 
@@ -94,6 +97,27 @@ class DatabaseImpl(couchConfig: CouchConfig, objectMapper: ObjectMapper, val nam
           throw e
         }
     }
+  }
+
+  override def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T = {
+
+    val body = objectMapper.writeValueAsString(Keys(docIds))
+
+    val restTemplate = new RestTemplate
+    restTemplate.getInterceptors.add(
+      new BasicAuthenticationInterceptor(couchConfig.user, couchConfig.password)
+    )
+
+    val url = UriComponentsBuilder.fromHttpUrl(s"$databaseUrl/_all_docs")
+      .queryParam("include_docs", "true")
+      .queryParam("stale", if (stale) "ok" else "update_after")
+      .toUriString
+
+    val headers = new HttpHeaders()
+    headers.setContentType(MediaType.APPLICATION_JSON)
+    val entity = new HttpEntity[String](body, headers)
+    val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
+    objectMapper.readValue(response.getBody, docType)
   }
 
   override def save[T](doc: Doc): Unit = {

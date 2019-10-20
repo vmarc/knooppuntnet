@@ -32,7 +32,7 @@ trait OldDatabase {
     timeout: Timeout = Couch.defaultTimeout
   ): Seq[JsValue]
 
-  def objectsWithIds(
+  def objectsWithIds( // migrated to docsWithIds
     ids: Seq[String],
     timeout: Timeout = Couch.defaultTimeout,
     stale: Boolean = true
