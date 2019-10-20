@@ -7,6 +7,7 @@ import kpn.core.app.ActorSystemConfig
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
+import kpn.core.db.couch.Database
 import kpn.core.db.couch.OldDatabaseImpl
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
@@ -51,6 +52,9 @@ object NetworksLoaderDemo {
   */
 class NetworksLoaderDemo(system: ActorSystem) {
 
+  // TODO Spring boot migration
+  val analysisDatabase: Database = null
+
   val log = Log(classOf[NetworksLoaderDemo])
 
   val couchConfig: CouchConfig = Couch.config
@@ -72,7 +76,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val taskRepository = new TaskRepositoryImpl(database)
   val changeSetInfoUpdater = new ChangeSetInfoUpdaterImpl(changeSetInfoRepository, taskRepository)
   val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
-  val blackListRepository = new BlackListRepositoryImpl(database)
+  val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
     analysisContext,

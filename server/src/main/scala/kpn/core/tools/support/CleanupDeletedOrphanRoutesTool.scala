@@ -24,7 +24,7 @@ import scala.xml.XML
 
 object CleanupDeletedOrphanRoutesTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("kpn-server", "master3") { database =>
+    Couch.oldExecuteIn("kpn-server", "master3") { database =>
       new CleanupDeletedOrphanRoutesTool(database).cleanup()
     }
   }

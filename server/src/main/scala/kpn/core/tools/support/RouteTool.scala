@@ -1,6 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.core.db.couch.Couch
+import kpn.core.db.couch.Database
 import kpn.core.db.couch.OldDatabase
 import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
@@ -10,16 +11,18 @@ import kpn.shared.Subset
 
 object RouteTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("server", "master2b") { database =>
-      new RouteTool(database).blackListedRoutesThatAreInTheDatabase()
+    Couch.oldExecuteIn("server", "master2b") { database =>
+    new RouteTool(database).blackListedRoutesThatAreInTheDatabase()
     }
   }
 }
 
-class RouteTool(database: OldDatabase) {
+class RouteTool(oldDatabase: OldDatabase) {
+  // TODO Spring boot migration
+  private val database: Database = null
 
   def blackListedRoutesThatAreInTheDatabase(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(oldDatabase)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
     blackListedRouteIds.foreach { routeId =>
@@ -32,14 +35,14 @@ class RouteTool(database: OldDatabase) {
   }
 
   def printOrphanRoutes(): Unit = {
-    val orphanRepository = new OrphanRepositoryImpl(database)
+    val orphanRepository = new OrphanRepositoryImpl(oldDatabase)
     println("nl orphan route count = " + orphanRepository.orphanRoutes(Subset.nlBicycle).size)
     println("be orphan route count = " + orphanRepository.orphanRoutes(Subset.beBicycle).size)
     println("de orphan route count = " + orphanRepository.orphanRoutes(Subset.deBicycle).size)
   }
 
   def blackListedRoutesThatWouldBeExcludedByTheNewRules(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(oldDatabase)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
 
@@ -60,8 +63,8 @@ class RouteTool(database: OldDatabase) {
   }
 
   def printLongestGermanBicycleRoutes(): Unit = {
-    val orphanRepository = new OrphanRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
+    val orphanRepository = new OrphanRepositoryImpl(oldDatabase)
+    val routeRepository = new RouteRepositoryImpl(oldDatabase)
 
     val routes = orphanRepository.orphanRoutes(Subset.deBicycle)
 
@@ -93,8 +96,8 @@ class RouteTool(database: OldDatabase) {
 
   def removeBlacklistedNetworksAndRoutes(): Unit = {
     val blackListRepository = new BlackListRepositoryImpl(database)
-    val networkRepository = new NetworkRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
+    val networkRepository = new NetworkRepositoryImpl(oldDatabase)
+    val routeRepository = new RouteRepositoryImpl(oldDatabase)
 
     val blackList = blackListRepository.get
 
@@ -110,7 +113,7 @@ class RouteTool(database: OldDatabase) {
   }
 
   def keyBasedAllRouteCount(): Unit = {
-    val keys = database.keys("route:", "route:999999999999999999", Couch.batchTimeout)
+    val keys = oldDatabase.keys("route:", "route:999999999999999999", Couch.batchTimeout)
     println(s"key based all route count=${keys.size}")
   }
 }

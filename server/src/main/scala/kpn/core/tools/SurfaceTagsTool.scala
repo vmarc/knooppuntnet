@@ -13,7 +13,7 @@ import spray.json.JsString
 
 object SurfaceTagsTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("server", "master2b") { database =>
+    Couch.oldExecuteIn("server", "master2b") { database =>
       new SurfaceTagsTool(database).analyze()
     }
   }

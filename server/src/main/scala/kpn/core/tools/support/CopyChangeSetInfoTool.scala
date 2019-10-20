@@ -12,8 +12,8 @@ import spray.json.deserializationError
 
 object CopyChangeSetInfoTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("changes1") { sourceDatabase =>
-      Couch.executeIn("changesets") { targetDatabase =>
+    Couch.oldExecuteIn("changes1") { sourceDatabase =>
+      Couch.oldExecuteIn("changesets") { targetDatabase =>
         new CopyChangeSetInfoTool(sourceDatabase, targetDatabase).copy()
       }
     }

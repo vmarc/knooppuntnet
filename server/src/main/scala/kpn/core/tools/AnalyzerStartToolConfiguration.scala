@@ -97,7 +97,7 @@ class AnalyzerStartToolConfiguration(
   )
 
   private val blackListRepository = new BlackListRepositoryImpl(
-    oldAnalysisDatabase
+    analysisDatabase
   )
 
   val changeSetInfoUpdater = new ChangeSetInfoUpdater {

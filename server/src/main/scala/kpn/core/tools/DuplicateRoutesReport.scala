@@ -10,7 +10,7 @@ import spray.json.JsValue
 
 object DuplicateRoutesReport {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("master1") { database =>
+    Couch.oldExecuteIn("master1") { database =>
       new DuplicateRoutesReport(database).run()
     }
     println("Done")

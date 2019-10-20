@@ -26,7 +26,7 @@ object RouteLocationTool {
     val host = args(0)
     val masterDbName = args(1)
 
-    Couch.executeIn(host, masterDbName) { database =>
+    Couch.oldExecuteIn(host, masterDbName) { database =>
       println("Start")
       new RouteLocationTool(database).run()
       println("Done")

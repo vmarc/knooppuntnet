@@ -1,6 +1,7 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
+import kpn.core.db.couch.Database
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.OldDatabase
@@ -48,6 +49,9 @@ class Configuration(
   val analysisRepository: AnalysisRepository,
   initialLoadAnalysisRepository: AnalysisRepository
 ) {
+
+  // TODO Spring boot migration
+  private val analysisDatabase: Database = null
 
   val dirs = Dirs()
 
@@ -115,7 +119,7 @@ class Configuration(
   )
 
   private val blackListRepository = new BlackListRepositoryImpl(
-    oldAnalysisDatabase
+    analysisDatabase
   )
 
   val changeSetInfoUpdater = new ChangeSetInfoUpdaterImpl(

@@ -28,17 +28,17 @@ object DatabaseViewTool {
     val changesDbName = args(2)
     val poisDbName = args(3)
 
-    Couch.executeIn(host, masterDbName) { database =>
+    Couch.oldExecuteIn(host, masterDbName) { database =>
       updateView(database, AnalyzerDesign)
       updateView(database, PlannerDesign)
       updateView(database, LocationDesign)
     }
 
-    Couch.executeIn(host, changesDbName) { database =>
+    Couch.oldExecuteIn(host, changesDbName) { database =>
       updateView(database, ChangesDesign)
     }
 
-    Couch.executeIn(host, poisDbName) { database =>
+    Couch.oldExecuteIn(host, poisDbName) { database =>
       updateView(database, PoiDesign)
     }
     println("Ready")

@@ -22,7 +22,7 @@ object PatchChangesTool {
     val host = args(0)
     val changesDbName = args(1)
 
-    Couch.executeIn(host, changesDbName) { database =>
+    Couch.oldExecuteIn(host, changesDbName) { database =>
       new PatchChangesTool(database).run()
     }
   }

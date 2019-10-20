@@ -6,7 +6,7 @@ import kpn.core.db.views.NodeNetworkReferenceView
 
 object NetworksWithNodesWithRoleConnection extends App {
 
-  Couch.executeIn("localhost", "master") { database =>
+  Couch.oldExecuteIn("localhost", "master") { database =>
     val nodeNetworkReferences = database.query(AnalyzerDesign, NodeNetworkReferenceView, Couch.batchTimeout, stale = false)().map(NodeNetworkReferenceView.convert)
     val networks = nodeNetworkReferences.filter(_.nodeRoleConnection).map(n => (n.networkId, n.networkName)).distinct
     networks.foreach { network =>

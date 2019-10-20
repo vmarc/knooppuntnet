@@ -7,7 +7,7 @@ import spray.json.JsString
 
 object SurveyDateTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("localhost", "master2b") { database =>
+    Couch.oldExecuteIn("localhost", "master2b") { database =>
       new SurveyDateTool(database).analyze()
     }
   }

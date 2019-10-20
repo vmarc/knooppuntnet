@@ -14,7 +14,7 @@ object DatabaseRemoveDocumentsTool {
 class DatabaseRemoveDocumentsTool {
 
   def removeInChanges(): Unit = {
-    Couch.executeIn("changes") { database =>
+    Couch.oldExecuteIn("changes") { database =>
       Seq(
         "change-set"
       ).foreach { documentType =>
@@ -24,7 +24,7 @@ class DatabaseRemoveDocumentsTool {
   }
 
   def removeInMaster(): Unit = {
-    Couch.executeIn("master") { database =>
+    Couch.oldExecuteIn("master") { database =>
       Seq(
         "network",
         "network-gpx",

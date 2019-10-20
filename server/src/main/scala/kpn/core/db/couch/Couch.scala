@@ -6,8 +6,16 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.typesafe.config.ConfigFactory
 import kpn.core.app.ActorSystemConfig
+import kpn.server.json.TimestampJsonDeserializer
+import kpn.server.json.TimestampJsonSerializer
+import kpn.shared.Timestamp
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext
@@ -38,15 +46,15 @@ object Couch {
     }
   }
 
-  def executeIn(dbname: String)(action: OldDatabase => Unit): Unit = {
-    executeIn("localhost", dbname)(action)
+  def oldExecuteIn(dbname: String)(action: OldDatabase => Unit): Unit = {
+    oldExecuteIn("localhost", dbname)(action)
   }
 
-  def executeIn(host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
-    executeIn(ActorSystemConfig.actorSystem(), host, dbname)(action)
+  def oldExecuteIn(host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
+    oldExecuteIn(ActorSystemConfig.actorSystem(), host, dbname)(action)
   }
 
-  def executeIn(system: ActorSystem, host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
+  def oldExecuteIn(system: ActorSystem, host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
     val couchConfig = config.copy(host = host)
     try {
       val couch = new Couch(system, couchConfig)
@@ -60,6 +68,16 @@ object Couch {
       Await.result(system.terminate(), Duration.Inf)
       ()
     }
+  }
+
+  def executeIn(databaseName: String)(action: Database => Unit): Unit = {
+    executeIn("localhost", databaseName: String)(action: Database => Unit)
+  }
+
+  def executeIn(host: String, databaseName: String)(action: Database => Unit): Unit = {
+    val couchConfig = config.copy(host = host)
+    val database = new DatabaseImpl(couchConfig, objectMapper, databaseName)
+    action(database)
   }
 
   def config: CouchConfig = {
@@ -95,6 +113,18 @@ object Couch {
         val message = s"Error parsing '${properties.getAbsolutePath}': " + e.getMessage
         throw new RuntimeException(message, e)
     }
+  }
+
+  val objectMapper: ObjectMapper = {
+    val b = Jackson2ObjectMapperBuilder.json()
+    b.serializationInclusion(NON_ABSENT)
+    b.annotationIntrospector(new JacksonAnnotationIntrospector)
+    b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer())
+    b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
+
+    val om: ObjectMapper = b.build()
+    om.registerModule(DefaultScalaModule)
+    om
   }
 
 }

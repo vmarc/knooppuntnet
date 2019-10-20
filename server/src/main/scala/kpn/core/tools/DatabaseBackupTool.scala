@@ -23,7 +23,7 @@ class DatabaseBackupTool {
     val filenames = dirs.sorted.flatMap { dir =>
       dir.listFiles().map(_.getAbsolutePath).sorted
     }
-    Couch.executeIn("testdb") { database =>
+    Couch.oldExecuteIn("testdb") { database =>
       println("count=" + filenames.length)
       filenames.zipWithIndex.foreach { case (filename, index) =>
         val id = filename.drop(root.length + 7).takeWhile(_ != '.')
@@ -37,7 +37,7 @@ class DatabaseBackupTool {
 
 
   def backupMaster(): Unit = {
-    Couch.executeIn("master") { database =>
+    Couch.oldExecuteIn("master") { database =>
       val keys = Seq(
         "network",
         "network-gpx",

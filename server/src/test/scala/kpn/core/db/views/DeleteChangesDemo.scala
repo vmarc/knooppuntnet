@@ -8,7 +8,7 @@ object DeleteChangesDemo {
 
   def main(args: Array[String]): Unit = {
 
-    Couch.executeIn("changes3") { database =>
+    Couch.oldExecuteIn("changes3") { database =>
 
       val keys = database.keys("change-set:", "change-set:9999999999999999", Couch.batchTimeout)
 

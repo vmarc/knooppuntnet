@@ -44,7 +44,7 @@ object TileTool {
             new TilesBuilder(tileBuilder, tileRepository)
           }
 
-          Couch.executeIn(options.analysisDatabaseName) { database =>
+          Couch.oldExecuteIn(options.analysisDatabaseName) { database =>
 
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(database)
