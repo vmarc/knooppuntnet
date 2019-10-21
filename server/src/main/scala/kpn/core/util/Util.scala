@@ -4,6 +4,15 @@ import scala.annotation.tailrec
 
 object Util {
 
+  def withoutQuotes(string: String): String = {
+    if (string.startsWith("\"") && string.endsWith("\"")) {
+      string.substring(1, string.length - 1)
+    }
+    else {
+      string
+    }
+  }
+
   def withoutSuccessiveDuplicates[A](objects: Seq[A]): Seq[A] = {
     recursiveWithoutSuccessiveDuplicates(List(), objects).reverse
   }

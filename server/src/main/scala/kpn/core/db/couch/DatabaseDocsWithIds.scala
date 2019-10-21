@@ -1,0 +1,33 @@
+package kpn.core.db.couch
+
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.web.client.RestTemplate
+import org.springframework.web.util.UriComponentsBuilder
+
+class DatabaseDocsWithIds(context: DatabaseContext) {
+
+  def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T = {
+
+    val body = context.objectMapper.writeValueAsString(Keys(docIds))
+
+    val restTemplate = new RestTemplate
+
+    val b = UriComponentsBuilder.fromHttpUrl(s"${context.databaseUrl}/_all_docs")
+    b.queryParam("include_docs", "true")
+    if (stale) {
+      b.queryParam("stale", "ok")
+    }
+    val url = b.toUriString
+
+    val headers = new HttpHeaders()
+    headers.setContentType(MediaType.APPLICATION_JSON)
+    val entity = new HttpEntity[String](body, headers)
+    val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
+    context.objectMapper.readValue(response.getBody, docType)
+  }
+
+}

@@ -4,15 +4,13 @@ import java.io.File
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicInteger
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.typesafe.config.ConfigFactory
 import kpn.core.app.ActorSystemConfig
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
 import kpn.core.db.couch.Database
+import kpn.core.db.couch.DatabaseContext
 import kpn.core.db.couch.DatabaseImpl
 import kpn.core.db.couch.OldDatabase
 import kpn.core.db.couch.OldDatabaseImpl
@@ -20,12 +18,8 @@ import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.LocationDesign
 import kpn.core.db.views.PlannerDesign
-import kpn.server.json.TimestampJsonDeserializer
-import kpn.server.json.TimestampJsonSerializer
 import kpn.server.repository.DesignRepositoryImpl
-import kpn.shared.Timestamp
 import org.scalatest.Assertions
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
 import scala.concurrent.Await
 import scala.concurrent.Awaitable
@@ -65,7 +59,7 @@ object TestSupport extends Assertions {
       }
       oldDatabase.create()
 
-      val database = new DatabaseImpl(c.config, Couch.objectMapper, dbname)
+      val database = new DatabaseImpl(DatabaseContext(c.config, Couch.objectMapper, dbname))
 
       new DesignRepositoryImpl(database).save(AnalyzerDesign)
       new DesignRepositoryImpl(database).save(ChangesDesign)
@@ -125,7 +119,7 @@ object TestSupport extends Assertions {
 
       val databaseName = "unit-testdb-" + count.incrementAndGet()
 
-      val database = new DatabaseImpl(couchConfig, objectMapper, databaseName)
+      val database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
 
       if (database.exists) {
         database.delete()

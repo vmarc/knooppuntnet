@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
 import kpn.core.db.couch.Database
+import kpn.core.db.couch.DatabaseContext
 import kpn.core.db.couch.DatabaseImpl
 import kpn.core.db.couch.OldDatabase
 import kpn.core.db.couch.OldDatabaseImpl
@@ -44,27 +45,27 @@ class CouchConfiguration(
 
   @Bean
   def analysisDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(couchConfig, objectMapper, analysisDatabaseName)
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, analysisDatabaseName))
   }
 
   @Bean
   def changeDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(couchConfig, objectMapper, changeDatabaseName)
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changeDatabaseName))
   }
 
   @Bean
   def changesetDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(couchConfig, objectMapper, changesetDatabaseName)
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changesetDatabaseName))
   }
 
   @Bean
   def poiDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(couchConfig, objectMapper, poiDatabaseName)
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, poiDatabaseName))
   }
 
   @Bean
   def taskDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(couchConfig, objectMapper, taskDatabaseName)
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, taskDatabaseName))
   }
 
   @Bean

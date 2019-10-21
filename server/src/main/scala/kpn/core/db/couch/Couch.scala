@@ -76,7 +76,7 @@ object Couch {
 
   def executeIn(host: String, databaseName: String)(action: Database => Unit): Unit = {
     val couchConfig = config.copy(host = host)
-    val database = new DatabaseImpl(couchConfig, objectMapper, databaseName)
+    val database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
     action(database)
   }
 
