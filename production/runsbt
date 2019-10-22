@@ -1,3 +1,0 @@
-. /kpn/conf/kpn-env.sh
-SBT_OPTS="-Xms512M -Xmx6G -Xss1M -XX:+CMSClassUnloadingEnabled -Dhttp.port=9002"
-java $SBT_OPTS -jar /home/marcv/wrk/soft/sbt-0.13.17/bin/sbt-launch.jar -Dconfig.file=/kpn/conf/development.conf -Dlog4j.configurationFile=/kpn/conf/runsbt-log.xml
