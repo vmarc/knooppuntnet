@@ -34,8 +34,11 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
     new DatabaseRevision(context).revision(docId)
   }
 
-  def query[T](design: Design, view: View, docType: Class[T], stale: Boolean = true)(args: Any*): T = {
-    new DatabaseQuery(context).query(design, view, docType, stale)(args)
+  override def query[T](design: Design, view: View, docType: Class[T], stale: Boolean = true)(args: Any*): T = {
+    new DatabaseQuery(context).query(design, view, docType, stale)(args: _*)
   }
 
+  override def keysWithIds(docIds: Seq[String], stale: Boolean): Seq[String] = {
+    new DatabaseKeysWithIds(context).keysWithIds(docIds, stale)
+  }
 }
