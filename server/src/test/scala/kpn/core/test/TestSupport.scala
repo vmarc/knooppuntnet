@@ -23,75 +23,15 @@ object TestSupport extends Assertions {
 
   private val count = new AtomicInteger(0)
 
-  def sync[T](awaitable: Awaitable[T]): T = {
-    Await.result(awaitable, Duration(3, SECONDS))
-  }
+  private var tempCouch: Option[Couch] = None
 
-  private var couch: Option[Couch] = None
-
-  /**
-   * Perform given function with a freshly created database. The database is deleted
-   * afterwards.
-   */
-  def withOldDatabase(f: OldDatabase => Unit): Unit = {
-    withOldDatabase(keepDatabaseAfterTest = false)(f: OldDatabase => Unit)
-  }
-
-  /**
-   * Perform given function with a freshly created database.
-   */
-  def withOldDatabase(keepDatabaseAfterTest: Boolean = false)(f: OldDatabase => Unit): Unit = {
-
-    withOldCouch { c =>
-      val dbname = "unit-testdb-" + count.incrementAndGet()
-
-      val oldDatabase = new OldDatabaseImpl(c, dbname)
-      if (oldDatabase.exists) {
-        oldDatabase.delete()
-      }
-      oldDatabase.create()
-
-      val database = new DatabaseImpl(DatabaseContext(c.config, Couch.objectMapper, dbname))
-
-      new DesignRepositoryImpl(database).save(AnalyzerDesign)
-      new DesignRepositoryImpl(database).save(ChangesDesign)
-      new DesignRepositoryImpl(database).save(PlannerDesign)
-      new DesignRepositoryImpl(database).save(LocationDesign)
-
-      try {
-        f(oldDatabase)
-      } finally {
-        if (!keepDatabaseAfterTest) {
-          oldDatabase.delete()
-        }
-      }
-    }
-  }
-
-  def withOldCouch(action: Couch => Unit): Unit = {
-
-    if (couch.isEmpty) {
-      val system = ActorSystemConfig.actorSystem()
-
-      val properties = new File(System.getProperty("user.home") + "/.osm/osm.properties")
-      val config = ConfigFactory.parseFile(properties)
-      val user = config.getString("couchdb.user")
-      val password = config.getString("couchdb.password")
-      val host = config.getString("couchdb.host")
-      val port = config.getInt("couchdb.port")
-
-      val couchConfig = CouchConfig(host, port, user, password)
-      couch = Some(new Couch(system, couchConfig))
-    }
-
-    action(couch.get)
-  }
-
-  // =====================
-
-  def withEnvironment(action: (CouchConfig, ObjectMapper) => Unit): Unit = {
+  def withEnvironment(action: (Couch, CouchConfig, ObjectMapper) => Unit): Unit = {
     val couchConfig = readCouchConfig()
-    action(couchConfig, Couch.objectMapper)
+    if (tempCouch.isEmpty) {
+      val system = ActorSystemConfig.actorSystem()
+      tempCouch = Some(new Couch(system, couchConfig))
+    }
+    action(tempCouch.get, couchConfig, Couch.objectMapper)
   }
 
   /**
@@ -107,17 +47,22 @@ object TestSupport extends Assertions {
    */
   def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
 
-    withEnvironment { (couchConfig, objectMapper) =>
+    withEnvironment { (tempCouch, couchConfig, objectMapper) =>
 
       val databaseName = "unit-testdb-" + count.incrementAndGet()
 
-      val database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+      val database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
 
       if (database.exists) {
         database.delete()
       }
 
       database.create()
+
+      new DesignRepositoryImpl(database).save(AnalyzerDesign)
+      new DesignRepositoryImpl(database).save(ChangesDesign)
+      new DesignRepositoryImpl(database).save(PlannerDesign)
+      new DesignRepositoryImpl(database).save(LocationDesign)
 
       try {
         f(database)

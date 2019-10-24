@@ -1,19 +1,19 @@
 package kpn.core.tools
 
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.load.RouteLoaderImpl
+import kpn.core.db.couch.Database
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.shared.Timestamp
 import kpn.shared.data.Tag
 import spray.json.JsString
 
 object SurfaceTagsTool {
   def main(args: Array[String]): Unit = {
-    Couch.oldExecuteIn("server", "master2b") { database =>
+    Couch.executeIn("server", "master2b") { database =>
       new SurfaceTagsTool(database).analyze()
     }
   }
@@ -21,7 +21,7 @@ object SurfaceTagsTool {
 
 // https://wiki.openstreetmap.org/wiki/Key:surface
 
-class SurfaceTagsTool(database: OldDatabase) {
+class SurfaceTagsTool(database: Database) {
 
   val tagKeys = Seq(
     "highway",
@@ -81,7 +81,7 @@ class SurfaceTagsTool(database: OldDatabase) {
   }
 
   private def allRouteIds(): Seq[Long] = {
-    val keys = database.keys("route:", "route:999999999999999999", Couch.batchTimeout)
+    val keys = database.old.keys("route:", "route:999999999999999999", Couch.batchTimeout)
     keys.flatMap {
       case JsString(value) =>
         val id = value.split(":")(1)

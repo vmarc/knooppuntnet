@@ -65,37 +65,14 @@ object Couch {
     }
   }
 
-  def oldExecuteIn(dbname: String)(action: OldDatabase => Unit): Unit = {
-    oldExecuteIn("localhost", dbname)(action)
-  }
-
-  def oldExecuteIn(host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
-    oldExecuteIn(ActorSystemConfig.actorSystem(), host, dbname)(action)
-  }
-
-  def oldExecuteIn(system: ActorSystem, host: String, dbname: String)(action: OldDatabase => Unit): Unit = {
-    val couchConfig = config.copy(host = host)
-    try {
-      val couch = new Couch(system, couchConfig)
-      try {
-        val database = new OldDatabaseImpl(couch, dbname)
-        action(database)
-      } finally {
-        couch.shutdown()
-      }
-    } finally {
-      Await.result(system.terminate(), Duration.Inf)
-      ()
-    }
-  }
-
   def executeIn(databaseName: String)(action: Database => Unit): Unit = {
     executeIn("localhost", databaseName: String)(action: Database => Unit)
   }
 
   def executeIn(host: String, databaseName: String)(action: Database => Unit): Unit = {
     val couchConfig = config.copy(host = host)
-    val database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+    val tempCouch = new Couch(ActorSystemConfig.actorSystem(), couchConfig)
+    val database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
     action(database)
   }
 
@@ -135,11 +112,31 @@ object Couch {
   }
 
   val objectMapper: ObjectMapper = {
+
     val b = Jackson2ObjectMapperBuilder.json()
     b.serializationInclusion(NON_ABSENT)
     b.annotationIntrospector(new JacksonAnnotationIntrospector)
+
+    b.deserializerByType(classOf[Country], new CountryJsonDeserializer())
+    b.serializerByType(classOf[Country], new CountryJsonSerializer())
+
+    b.deserializerByType(classOf[Fact], new FactJsonDeserializer())
+    b.serializerByType(classOf[Fact], new FactJsonSerializer())
+
+    b.deserializerByType(classOf[NetworkType], new NetworkTypeJsonDeserializer())
+    b.serializerByType(classOf[NetworkType], new NetworkTypeJsonSerializer())
+
+    b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
+    b.serializerByType(classOf[Subset], new SubsetJsonSerializer())
+
+    b.deserializerByType(classOf[Tags], new TagsJsonDeserializer())
+    b.serializerByType(classOf[Tags], new TagsJsonSerializer())
+
     b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer())
     b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
+
+    b.deserializerByType(classOf[WayDirection], new WayDirectionJsonDeserializer())
+    b.serializerByType(classOf[WayDirection], new WayDirectionJsonSerializer())
 
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)

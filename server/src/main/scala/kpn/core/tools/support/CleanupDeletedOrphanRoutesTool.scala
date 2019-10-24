@@ -6,8 +6,7 @@ import akka.util.Timeout
 import kpn.core.app.ActorSystemConfig
 import kpn.core.db.RouteDoc
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
-import kpn.core.db.json.JsonFormats.routeDocFormat
+import kpn.core.db.couch.Database
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.shared.Subset
 import spray.can.Http
@@ -24,13 +23,13 @@ import scala.xml.XML
 
 object CleanupDeletedOrphanRoutesTool {
   def main(args: Array[String]): Unit = {
-    Couch.oldExecuteIn("kpn-server", "master3") { database =>
+    Couch.executeIn("kpn-server", "master3") { database =>
       new CleanupDeletedOrphanRoutesTool(database).cleanup()
     }
   }
 }
 
-class CleanupDeletedOrphanRoutesTool(database: OldDatabase) {
+class CleanupDeletedOrphanRoutesTool(database: Database) {
 
   private val system = ActorSystemConfig.actorSystem()
   private val orphanRepository = new OrphanRepositoryImpl(database)
@@ -49,13 +48,13 @@ class CleanupDeletedOrphanRoutesTool(database: OldDatabase) {
       println(s"${subset.string} orphanRouteCount=${subsetOrphanRouteIds.size} active=${activeRouteDocs.size} deleted=${deletedRouteDocs.size}")
       deletedRouteDocs.foreach { routeDoc =>
         val newRouteDoc = routeDoc.copy(route = routeDoc.route.copy(active = false))
-        database.save(routeDoc._id, routeDocFormat.write(newRouteDoc))
+        database.save(newRouteDoc)
       }
     }
   }
 
   private def readRoute(routeId: Long): Option[RouteDoc] = {
-    database.optionGet(s"route:$routeId", timeout).map(routeDocFormat.read)
+    database.docWithId(s"route:$routeId", classOf[RouteDoc])
   }
 
   private def isRouteDeleted(routeId: Long): Boolean = {

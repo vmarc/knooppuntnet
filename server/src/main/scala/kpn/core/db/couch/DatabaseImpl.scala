@@ -19,6 +19,10 @@ import kpn.core.db.views.View
 
 class DatabaseImpl(context: DatabaseContext) extends Database {
 
+  override val old: OldDatabase = {
+    new OldDatabaseImpl(context.tempCouch, context.databaseName)
+  }
+
   override def exists: Boolean = {
     new DatabaseExists(context).exists
   }

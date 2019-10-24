@@ -7,16 +7,6 @@ import spray.json.JsValue
 
 trait OldDatabase {
 
-  def exists: Boolean
-
-  def create(): Unit
-
-  def delete(): Unit
-
-  def delete(id: String): Unit
-
-  def deleteDocs(ids: Seq[String]): Unit
-
   def getJsValue(
     request: String,
     timeout: Timeout = Couch.defaultTimeout
@@ -43,11 +33,6 @@ trait OldDatabase {
     timeout: Timeout = Couch.defaultTimeout,
     stale: Boolean = true
   ): Seq[String]
-
-  def optionGet(
-    request: String,
-    timeout: Timeout = Couch.defaultTimeout
-  ): Option[JsValue]
 
   def optionGets(
     request: String,
@@ -90,21 +75,6 @@ trait OldDatabase {
     timeout: Timeout = Couch.defaultTimeout,
     stale: Boolean = true
   )(args: Any*): Seq[JsValue]
-
-  def save(
-    id: String,
-    value: JsValue
-  ): Unit
-
-  def authorizedSsave(
-    id: String,
-    value: JsValue
-  ): Unit
-
-  def currentRevision(
-    id: String,
-    timeout: Timeout = Couch.defaultTimeout
-  ): Option[String]
 
   def bulkSave(
     docs: Seq[JsValue]

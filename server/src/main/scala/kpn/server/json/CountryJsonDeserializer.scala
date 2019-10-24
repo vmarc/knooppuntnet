@@ -12,11 +12,17 @@ import org.springframework.boot.jackson.JsonComponent
 class CountryJsonDeserializer extends JsonDeserializer[Country] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Country = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    Country.withDomain(node.asText).getOrElse(
-      throw JsonMappingException.from(
-        jsonParser,
-        "Could not deserialize network type"
+    val domain = node.asText
+    if (domain == null || domain.isEmpty) {
+      null
+    }
+    else {
+      Country.withDomain(domain).getOrElse(
+        throw JsonMappingException.from(
+          jsonParser,
+          "Could not deserialize country"
+        )
       )
-    )
+    }
   }
 }

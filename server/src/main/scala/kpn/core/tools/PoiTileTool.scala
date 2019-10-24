@@ -24,7 +24,7 @@ object PoiTileTool {
     val exit = PoiTileToolOptions.parse(args) match {
       case Some(options) =>
 
-        Couch.oldExecuteIn(options.poiDatabaseName) { database =>
+        Couch.executeIn(options.poiDatabaseName) { database =>
 
           val poiRepository = new PoiRepositoryImpl(database)
           val tileRepository = new TileRepositoryImpl(options.tileDir, "mvt")

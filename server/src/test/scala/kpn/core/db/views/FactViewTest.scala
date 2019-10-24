@@ -3,7 +3,7 @@ package kpn.core.db.views
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
 import kpn.core.db.views.FactView.FactViewKey
-import kpn.core.test.TestSupport.withOldDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkType
@@ -16,7 +16,7 @@ class FactViewTest extends FunSuite with Matchers {
 
   test("rows") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val networkId = 5L
 
@@ -55,7 +55,7 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
+      val rows = database.old.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
 
       rows should equal(
         Seq(
@@ -71,7 +71,7 @@ class FactViewTest extends FunSuite with Matchers {
 
   test("orphan route") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       new TestDocBuilder(database) {
         route(
@@ -82,7 +82,7 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
+      val rows = database.old.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
 
       rows should equal(
         Seq(
@@ -103,7 +103,7 @@ class FactViewTest extends FunSuite with Matchers {
 
   private def orphanNodeTest(networkType: NetworkType): Unit = {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       new TestDocBuilder(database) {
         node(
@@ -115,7 +115,7 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
+      val rows = database.old.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
 
       rows should equal(
         Seq(

@@ -6,6 +6,8 @@ import kpn.core.db.views.View
 
 trait Database {
 
+  def old: OldDatabase
+
   def exists: Boolean
 
   def create(): Unit
@@ -24,7 +26,7 @@ trait Database {
 
   def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T
 
-  def keysWithIds(docIds: Seq[String], stale: Boolean): Seq[String]
+  def keysWithIds(docIds: Seq[String], stale: Boolean = true): Seq[String]
 
   def revision(docId: String): Option[String]
 

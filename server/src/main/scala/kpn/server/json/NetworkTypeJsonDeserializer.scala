@@ -12,11 +12,17 @@ import org.springframework.boot.jackson.JsonComponent
 class NetworkTypeJsonDeserializer extends JsonDeserializer[NetworkType] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NetworkType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    NetworkType.withName(node.asText).getOrElse(
-      throw JsonMappingException.from(
-        jsonParser,
-        "Could not deserialize network type"
+    val name = node.asText
+    if (name == null || name.isEmpty) {
+      null
+    }
+    else {
+      NetworkType.withName(name).getOrElse(
+        throw JsonMappingException.from(
+          jsonParser,
+          "Could not deserialize network type"
+        )
       )
-    )
+    }
   }
 }

@@ -1,10 +1,10 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import kpn.shared.route.RouteNetworkNodeInfo
@@ -18,7 +18,8 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("view keys and  values") {
 
-    withOldDatabase { database => {
+    withDatabase { database => {
+
       val nodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.save(newNodeInfo(1001, tags = Tags.from("rwn_ref" -> "01")))
       nodeRepository.save(newNodeInfo(1002, tags = Tags.from("rwn_ref" -> "02")))
@@ -39,6 +40,7 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
           )
         )
       )
+
       routeRepository.save(
         newRoute(
           id = 11,
@@ -62,7 +64,7 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
       )
     }
 
-      database.query(AnalyzerDesign, ReferenceView, timeout, stale = false)().map(ReferenceView.convert) should equal(
+      database.old.query(AnalyzerDesign, ReferenceView, timeout, stale = false)().map(ReferenceView.convert) should equal(
         Seq(
           ReferenceView.Row("node", 1001, "network", 1, "rwn", "network-name", -1, connection = false),
           ReferenceView.Row("node", 1001, "node", 1001, "", "01", 1, connection = false),
@@ -83,7 +85,7 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
         "group_level" -> "2"
       )
 
-      database.getRows(uri.toString(), timeout).map(ReferenceView.convertLevel2) should equal(
+      database.old.getRows(uri.toString(), timeout).map(ReferenceView.convertLevel2) should equal(
         Seq(
           ReferenceView.Level2Row("node", 1001, -1), // referenced twice: once from route, once from network
           ReferenceView.Level2Row("node", 1002, -1), // referenced twice: once from route, once from network

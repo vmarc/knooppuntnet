@@ -1,8 +1,8 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType.bicycle
 import kpn.shared.NetworkType.hiking
@@ -15,7 +15,7 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("view row values") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 
@@ -27,7 +27,7 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
 
       val uri = Uri("_design/AnalyzerDesign/_view/NetworkView")
 
-      database.getRows(uri.toString(), Couch.uiTimeout).map(NetworkView.convert) should equal(
+      database.old.getRows(uri.toString(), Couch.uiTimeout).map(NetworkView.convert) should equal(
         Seq(
           newNetworkAttributes(3, Some(Country.be), hiking, "be-rwn-1"),
           newNetworkAttributes(2, Some(Country.be), hiking, "be-rwn-2"),
@@ -40,7 +40,7 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("non-active networks are not included") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 
@@ -50,7 +50,7 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
 
       val uri = Uri("_design/AnalyzerDesign/_view/NetworkView")
 
-      database.getRows(uri.toString(), Couch.uiTimeout).map(NetworkView.convert) should equal(
+      database.old.getRows(uri.toString(), Couch.uiTimeout).map(NetworkView.convert) should equal(
         Seq(
           newNetworkAttributes(1, Some(Country.nl), bicycle, "nl-rcn-2")
         )

@@ -17,15 +17,15 @@ object ChangeSetTaskTool {
       System.exit(-1)
     }
     val host = args(0)
-    val tasksDbName = args(1)
-    val changesDbName = args(2)
+    val taskDatabaseName = args(1)
+    val changeDatabaseName = args(2)
 
-    Couch.oldExecuteIn(host, changesDbName) { oldChangeDatabase =>
-      Couch.oldExecuteIn(host, tasksDbName) { tasksDatabase =>
-        val changeSetRepository = new ChangeSetRepositoryImpl(oldChangeDatabase)
-        val tasksRepository = new TaskRepositoryImpl(tasksDatabase)
+    Couch.executeIn(host, taskDatabaseName) { taskDatabase =>
+      Couch.executeIn(host, changeDatabaseName) { changeDatabase =>
+        val changeSetRepository = new ChangeSetRepositoryImpl(changeDatabase)
+        val taskRepository = new TaskRepositoryImpl(taskDatabase)
         changeSetRepository.allChangeSetIds().foreach { changeSetId =>
-          tasksRepository.add(TaskRepository.changeSetInfoTask + changeSetId)
+          taskRepository.add(TaskRepository.changeSetInfoTask + changeSetId)
         }
       }
       println("Ready")

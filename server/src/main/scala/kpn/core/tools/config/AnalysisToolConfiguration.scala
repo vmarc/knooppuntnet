@@ -1,28 +1,28 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.server.repository.AnalysisRepositoryNoop
 
 class AnalysisToolConfiguration(
   id: Int,
   system: ActorSystem,
-  oldAnalysisDatabase: OldDatabase,
-  oldChangeDatabase: OldDatabase,
-  oldTaskDatabase: OldDatabase,
+  analysisDatabase: Database,
+  changeDatabase: Database,
+  taskDatabase: Database,
   initialLoad: Boolean
 ) {
 
-  private val analysisRepository = new AnalysisRepositoryConfiguration(oldAnalysisDatabase).analysisRepository
+  private val analysisRepository = new AnalysisRepositoryConfiguration(analysisDatabase).analysisRepository
 
   private val initialLoadAnalysisRepository = if (initialLoad) analysisRepository else new AnalysisRepositoryNoop()
 
   val config = new Configuration(
     id,
     system,
-    oldAnalysisDatabase,
-    oldChangeDatabase,
-    oldTaskDatabase,
+    analysisDatabase,
+    changeDatabase,
+    taskDatabase,
     analysisRepository,
     initialLoadAnalysisRepository
   )

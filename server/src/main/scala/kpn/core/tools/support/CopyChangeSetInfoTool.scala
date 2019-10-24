@@ -3,7 +3,7 @@ package kpn.core.tools.support
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.model.Uri.Query
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import spray.json.JsArray
 import spray.json.JsObject
@@ -12,15 +12,15 @@ import spray.json.deserializationError
 
 object CopyChangeSetInfoTool {
   def main(args: Array[String]): Unit = {
-    Couch.oldExecuteIn("changes1") { sourceDatabase =>
-      Couch.oldExecuteIn("changesets") { targetDatabase =>
+    Couch.executeIn("changes1") { sourceDatabase =>
+      Couch.executeIn("changesets") { targetDatabase =>
         new CopyChangeSetInfoTool(sourceDatabase, targetDatabase).copy()
       }
     }
   }
 }
 
-class CopyChangeSetInfoTool(sourceDatabase: OldDatabase, targetDatabase: OldDatabase) {
+class CopyChangeSetInfoTool(sourceDatabase: Database, targetDatabase: Database) {
 
   private val sourceRepo = new ChangeSetInfoRepositoryImpl(sourceDatabase)
   private val targetRepo = new ChangeSetInfoRepositoryImpl(targetDatabase)
@@ -51,7 +51,7 @@ class CopyChangeSetInfoTool(sourceDatabase: OldDatabase, targetDatabase: OldData
     )
     val uri = uriHead.withQuery(Query(parameters.seq))
 
-    sourceDatabase.getJsValue(uri.toString()) match {
+    sourceDatabase.old.getJsValue(uri.toString()) match {
       case result: JsObject =>
         result.getFields("rows") match {
           case Seq(rows: JsArray) =>

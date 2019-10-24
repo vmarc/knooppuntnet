@@ -1,10 +1,9 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.db.couch.DesignDoc
 import kpn.core.db.couch.ViewDoc
-import kpn.core.db.json.JsonFormats.designDocFormat
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.ChangesDesign
 import kpn.core.db.views.Design
@@ -28,27 +27,27 @@ object DatabaseViewTool {
     val changesDbName = args(2)
     val poisDbName = args(3)
 
-    Couch.oldExecuteIn(host, masterDbName) { database =>
+    Couch.executeIn(host, masterDbName) { database =>
       updateView(database, AnalyzerDesign)
       updateView(database, PlannerDesign)
       updateView(database, LocationDesign)
     }
 
-    Couch.oldExecuteIn(host, changesDbName) { database =>
+    Couch.executeIn(host, changesDbName) { database =>
       updateView(database, ChangesDesign)
     }
 
-    Couch.oldExecuteIn(host, poisDbName) { database =>
+    Couch.executeIn(host, poisDbName) { database =>
       updateView(database, PoiDesign)
     }
     println("Ready")
   }
 
-  private def updateView(database: OldDatabase, design: Design): Unit = {
+  private def updateView(database: Database, design: Design): Unit = {
     val views = design.views.map(v => v.name -> ViewDoc(v.map, v.reduce)).toMap
     val id = "_design/" + Util.classNameOf(design)
-    val rev = database.currentRevision(id, Couch.batchTimeout)
+    val rev = database.revision(id)
     val designDoc = DesignDoc(id, rev, "javascript", views)
-    database.authorizedSsave(id, designDocFormat.write(designDoc))
+    database.save(designDoc)
   }
 }

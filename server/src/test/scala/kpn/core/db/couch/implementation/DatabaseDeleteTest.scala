@@ -13,8 +13,8 @@ class DatabaseDeleteTest extends FunSuite with Matchers with TestObjects {
 
   test("delete") {
     val databaseName = s"test-db-${UUID.randomUUID().toString}"
-    withEnvironment((couchConfig, objectMapper) => {
-      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+    withEnvironment((tempCouch, couchConfig, objectMapper) => {
+      val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
       database.create()
       database.exists should equal(true)
       database.delete()
@@ -23,8 +23,8 @@ class DatabaseDeleteTest extends FunSuite with Matchers with TestObjects {
   }
 
   test("delete - database does not exist") {
-    withEnvironment((couchConfig, objectMapper) => {
-      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, "bla"))
+    withEnvironment((tempCouch, couchConfig, objectMapper) => {
+      val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, "bla"))
       database.exists should equal(false)
       try {
         database.delete()
@@ -39,13 +39,13 @@ class DatabaseDeleteTest extends FunSuite with Matchers with TestObjects {
   }
 
   test("delete - wrong password") {
-    withEnvironment((couchConfig, objectMapper) => {
+    withEnvironment((tempCouch, couchConfig, objectMapper) => {
       val databaseName = s"test-db-${UUID.randomUUID().toString}"
-      val originalDatabase: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+      val originalDatabase: Database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
       originalDatabase.create()
       try {
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-        val database: Database = new DatabaseImpl(DatabaseContext(invalidCouchConfig, objectMapper, databaseName))
+        val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, invalidCouchConfig, objectMapper, databaseName))
         database.exists should equal(true)
         try {
           database.delete()

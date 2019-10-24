@@ -2,9 +2,8 @@ package kpn.core.db.views
 
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
-import kpn.core.db.views.FactView.FactViewKey
 import kpn.core.db.views.FactsPerNetworkView.Row
-import kpn.core.test.TestSupport.withOldDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkType
@@ -17,7 +16,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
   test("rows") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val networkId = 5L
 
@@ -57,7 +56,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
+      val rows = database.old.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
 
       rows should equal(
         Seq(
@@ -73,7 +72,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
   test("orphan route") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       new TestDocBuilder(database) {
         route(
@@ -84,7 +83,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
+      val rows = database.old.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
 
       rows should equal(
         Seq(
@@ -105,7 +104,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
   private def orphanNodeTest(networkType: NetworkType): Unit = {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       new TestDocBuilder(database) {
         node(
@@ -117,7 +116,7 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
+      val rows = database.old.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
 
       rows should equal(
         Seq(

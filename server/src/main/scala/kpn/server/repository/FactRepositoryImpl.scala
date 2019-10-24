@@ -2,13 +2,11 @@ package kpn.server.repository
 
 import akka.util.Timeout
 import kpn.core.app.IntegrityCheckPage
-import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.db.views.AnalyzerDesign
 import kpn.core.db.views.FactView
 import kpn.core.db.views.FactsPerNetworkView
 import kpn.shared.Fact
-import kpn.shared.RoutesFact
 import kpn.shared.Subset
 import kpn.shared.common.Ref
 import kpn.shared.subset.NetworkFactRefs
@@ -17,11 +15,11 @@ import org.springframework.stereotype.Component
 import scala.annotation.tailrec
 
 @Component
-class FactRepositoryImpl(oldAnalysisDatabase: OldDatabase) extends FactRepository {
+class FactRepositoryImpl(analysisDatabase: Database) extends FactRepository {
 
   override def factsPerNetwork(subset: Subset, fact: Fact, timeout: Timeout, stale: Boolean): Seq[NetworkFactRefs] = {
 
-    val rows = oldAnalysisDatabase.query(AnalyzerDesign, FactsPerNetworkView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(FactsPerNetworkView.convert)
+    val rows = analysisDatabase.old.query(AnalyzerDesign, FactsPerNetworkView, timeout, stale)(subset.country.domain, subset.networkType.name, fact.name).map(FactsPerNetworkView.convert)
 
     @tailrec
     def process(rows: Seq[FactsPerNetworkView.Row], all: Seq[NetworkFactRefs] = Seq.empty): Seq[NetworkFactRefs] = {
@@ -44,7 +42,7 @@ class FactRepositoryImpl(oldAnalysisDatabase: OldDatabase) extends FactRepositor
   }
 
   override def integrityCheckFacts(country: String, networkType: String, timeout: Timeout, stale: Boolean): IntegrityCheckPage = {
-    val facts = oldAnalysisDatabase.query(AnalyzerDesign, FactView, timeout, stale)(country, networkType, "integrityCheckFailed").map(FactView.integrityCheckConvert)
+    val facts = analysisDatabase.old.query(AnalyzerDesign, FactView, timeout, stale)(country, networkType, "integrityCheckFailed").map(FactView.integrityCheckConvert)
     IntegrityCheckPage(country, networkType, facts)
   }
 

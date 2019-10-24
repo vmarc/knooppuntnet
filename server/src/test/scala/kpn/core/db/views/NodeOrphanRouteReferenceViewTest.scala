@@ -1,9 +1,9 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.node.NodeOrphanRouteReference
@@ -16,7 +16,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
 
   test("node references in orphan route") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -69,13 +69,13 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
   }
 
   test("no node references in orphan routes") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       queryNode(database, 1001) should equal(Seq())
     }
   }
 
   test("node references in non-orphan routes are ignored") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute( // not an orphan route
@@ -95,7 +95,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
   }
 
   test("node references in non-active orphan routes are ignored") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -119,8 +119,8 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
     }
   }
 
-  def queryNode(database: OldDatabase, nodeId: Long): Seq[NodeOrphanRouteReference] = {
-    database.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale = false)(nodeId).map(NodeOrphanRouteReferenceView.convert)
+  def queryNode(database: Database, nodeId: Long): Seq[NodeOrphanRouteReference] = {
+    database.old.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale = false)(nodeId).map(NodeOrphanRouteReferenceView.convert)
   }
 
 }

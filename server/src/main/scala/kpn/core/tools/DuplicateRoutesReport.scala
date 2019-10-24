@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.Country
@@ -10,14 +10,14 @@ import spray.json.JsValue
 
 object DuplicateRoutesReport {
   def main(args: Array[String]): Unit = {
-    Couch.oldExecuteIn("master1") { database =>
+    Couch.executeIn("master1") { database =>
       new DuplicateRoutesReport(database).run()
     }
     println("Done")
   }
 }
 
-class DuplicateRoutesReport(database: OldDatabase) {
+class DuplicateRoutesReport(database: Database) {
 
   case class RouteWays(country: Country, networkType: NetworkType, id: Long, name: String, alternate: Boolean, wayIds: Set[Long])
 
@@ -32,6 +32,7 @@ class DuplicateRoutesReport(database: OldDatabase) {
     alternate1: Boolean,
     alternate2: Boolean
   )
+
   implicit def overlapOrdering: Ordering[Overlap] = Ordering.by(o => (o.name, o.routeId1, o.routeId2))
 
   def run(): Unit = {
@@ -54,14 +55,16 @@ class DuplicateRoutesReport(database: OldDatabase) {
     }
   }
 
-  private def printTableHeader(): Unit ={
+  private def printTableHeader(): Unit = {
     println("|name|route 1|route 2|overlap|# ways 1|# ways 2|# shared|alt 1|alt 2|")
     println("|----|-------|-------|-------|--------|--------|--------|-----|-----|")
   }
 
   private def printOverlap(overlap: Overlap): Unit = {
-    println(s"|${overlap.name}|${link(overlap.routeId1)}|${link(overlap.routeId2)}|${overlap.percentage}%|${overlap.wayCount1}|${overlap.wayCount2}|${overlap
-      .commonWayCount}|${if(overlap.alternate1) "ALTERNATE" else ""}|${if(overlap.alternate2) "ALTERNATE" else ""}|")
+    println(s"|${overlap.name}|${link(overlap.routeId1)}|${link(overlap.routeId2)}|${overlap.percentage}%|${overlap.wayCount1}|${overlap.wayCount2}|${
+      overlap
+        .commonWayCount
+    }|${if (overlap.alternate1) "ALTERNATE" else ""}|${if (overlap.alternate2) "ALTERNATE" else ""}|")
   }
 
   private def link(routeId: Long): String = {
@@ -85,7 +88,7 @@ class DuplicateRoutesReport(database: OldDatabase) {
     }
 
     val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="route"&endkey="route:a"&reduce=false&stale=ok"""
-    database.getRows(request).map(toRouteId)
+    database.old.getRows(request).map(toRouteId)
   }
 
   private def loadRoutes(routeIds: Seq[Long]): Seq[RouteWays] = {
@@ -117,7 +120,7 @@ class DuplicateRoutesReport(database: OldDatabase) {
       None
     }
     else {
-      val percentageCommon = Math.round((100d * commonWayCount* 2) / totalWayCount).toString
+      val percentageCommon = Math.round((100d * commonWayCount * 2) / totalWayCount).toString
       Some(
         Overlap(
           name,

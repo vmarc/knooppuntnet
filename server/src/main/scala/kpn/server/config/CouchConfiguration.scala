@@ -37,58 +37,33 @@ class CouchConfiguration(
   }
 
   @Bean
-  def couch: Couch = {
+  def tempCouch: Couch = {
     new Couch(system, couchConfig)
   }
 
   @Bean
   def analysisDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, analysisDatabaseName))
+    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, analysisDatabaseName))
   }
 
   @Bean
   def changeDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changeDatabaseName))
+    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, changeDatabaseName))
   }
 
   @Bean
   def changesetDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changesetDatabaseName))
+    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, changesetDatabaseName))
   }
 
   @Bean
   def poiDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, poiDatabaseName))
+    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, poiDatabaseName))
   }
 
   @Bean
   def taskDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, taskDatabaseName))
-  }
-
-  @Bean
-  def oldAnalysisDatabase(couch: Couch): OldDatabase = {
-    new OldDatabaseImpl(couch, analysisDatabaseName)
-  }
-
-  @Bean
-  def oldChangeDatabase(couch: Couch): OldDatabase = {
-    new OldDatabaseImpl(couch, changeDatabaseName)
-  }
-
-  @Bean
-  def oldChangesetDatabase(couch: Couch): OldDatabase = {
-    new OldDatabaseImpl(couch, changesetDatabaseName)
-  }
-
-  @Bean
-  def oldPoiDatabase(couch: Couch): OldDatabase = {
-    new OldDatabaseImpl(couch, poiDatabaseName)
-  }
-
-  @Bean
-  def oldTaskDatabase(couch: Couch): OldDatabase = {
-    new OldDatabaseImpl(couch, taskDatabaseName)
+    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, taskDatabaseName))
   }
 
 }

@@ -32,13 +32,13 @@ class DatabaseSaveTest extends FunSuite with Matchers with TestObjects {
   }
 
   test("save - wrong password") {
-    withEnvironment((couchConfig, objectMapper) => {
+    withEnvironment((tempCouch, couchConfig, objectMapper) => {
       val databaseName = s"test-db-${UUID.randomUUID().toString}"
-      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+      val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
       database.create()
       try {
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-        val database: Database = new DatabaseImpl(DatabaseContext(invalidCouchConfig, objectMapper, databaseName))
+        val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, invalidCouchConfig, objectMapper, databaseName))
 
         try {
           val nodeInfo = newNodeInfo(123)
@@ -78,6 +78,22 @@ class DatabaseSaveTest extends FunSuite with Matchers with TestObjects {
           e.getMessage should include("(_rev mismatch)")
       }
     })
+  }
+
+  test("save same document multiple times") {
+    withDatabase { database =>
+
+      database.save(StringValueDoc("id1", "value1"))
+
+      val doc1 = database.docWithId("id1", classOf[StringValueDoc])
+      doc1.map(_.value) should equal(Some("value1"))
+
+      database.save(StringValueDoc("id1", "value2", doc1.get._rev))
+      val doc2 = database.docWithId("id1", classOf[StringValueDoc])
+      doc2.map(_.value) should equal(Some("value2"))
+
+      doc1.get._rev should not equal (doc2.get._rev)
+    }
   }
 
 }

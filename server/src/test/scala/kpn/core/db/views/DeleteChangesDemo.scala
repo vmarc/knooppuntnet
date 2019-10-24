@@ -8,9 +8,9 @@ object DeleteChangesDemo {
 
   def main(args: Array[String]): Unit = {
 
-    Couch.oldExecuteIn("changes3") { database =>
+    Couch.executeIn("changes3") { database =>
 
-      val keys = database.keys("change-set:", "change-set:9999999999999999", Couch.batchTimeout)
+      val keys = database.old.keys("change-set:", "change-set:9999999999999999", Couch.batchTimeout)
 
       println(s"keys=${keys.size}")
 
@@ -21,7 +21,7 @@ object DeleteChangesDemo {
 
       keyStrings.foreach { key =>
         println(key)
-        database.delete(key)
+        database.deleteDocWithId(key)
       }
     }
   }

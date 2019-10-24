@@ -22,8 +22,8 @@ class DatabaseCreateTest extends FunSuite with Matchers with TestObjects {
 
     val databaseName = s"test-db-${UUID.randomUUID().toString}"
 
-    withEnvironment((couchConfig, objectMapper) => {
-      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+    withEnvironment((tempCouch, couchConfig, objectMapper) => {
+      val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
       database.exists should equal(false)
       database.create()
       database.exists should equal(true)
@@ -46,9 +46,9 @@ class DatabaseCreateTest extends FunSuite with Matchers with TestObjects {
 
     val databaseName = s"test-db-${UUID.randomUUID().toString}"
 
-    withEnvironment((couchConfig, objectMapper) => {
+    withEnvironment((tempCouch, couchConfig, objectMapper) => {
       val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-      val database: Database = new DatabaseImpl(DatabaseContext(invalidCouchConfig, objectMapper, "databaseName"))
+      val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, invalidCouchConfig, objectMapper, databaseName))
       database.exists should equal(false)
       try {
         database.create()

@@ -1,15 +1,12 @@
 package kpn.core.tools
 
-import kpn.core.app.ActorSystemConfig
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
-import kpn.core.db.couch.OldDatabaseImpl
+import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodeIds
-import kpn.server.repository.NodeRepositoryImpl
 import kpn.shared.NetworkType
 import spray.json.JsValue
 
@@ -26,17 +23,13 @@ object DeactivateZombiesTool {
     val host = args(0)
     val masterDbName = args(1)
     val executor = new OverpassQueryExecutorImpl()
-
-    val system = ActorSystemConfig.actorSystem()
-    val couchConfig = Couch.config
-    val couch = new Couch(system, couchConfig)
-    val database = new OldDatabaseImpl(couch, "master1")
-    new DeactivateZombiesTool(database, executor).run()
+    Couch.executeIn(host, masterDbName) { database =>
+      new DeactivateZombiesTool(database, executor).run()
+    }
   }
-
 }
 
-class DeactivateZombiesTool(database: OldDatabase, executor: OverpassQueryExecutor) {
+class DeactivateZombiesTool(database: Database, executor: OverpassQueryExecutor) {
 
   def run(): Unit = {
 
@@ -45,21 +38,21 @@ class DeactivateZombiesTool(database: OldDatabase, executor: OverpassQueryExecut
     val couchdbNodeIds = readCouchdbNodeIds()
     println("couchdbNodeIds.size=" + couchdbNodeIds.size)
 
-//    val overpassNodeIds = readOverpassNodeIds()
-//    println("overpassNodeIds.size=" + overpassNodeIds.size)
-//
-//    val nonActiveNodeIds = couchdbNodeIds -- overpassNodeIds
-//    println("nonActiveNodeIds.size=" + nonActiveNodeIds.size)
-//
-//    val repo = new NodeRepositoryImpl(database)
-//    nonActiveNodeIds.foreach { nodeId =>
-//      repo.nodeWithId(nodeId, Couch.uiTimeout).foreach { nodeInfo =>
-//        if (nodeInfo.active) {
-//          println("zombie " + nodeInfo)
-//          readOverpassNode(nodeInfo.id)
-//        }
-//      }
-//    }
+    //    val overpassNodeIds = readOverpassNodeIds()
+    //    println("overpassNodeIds.size=" + overpassNodeIds.size)
+    //
+    //    val nonActiveNodeIds = couchdbNodeIds -- overpassNodeIds
+    //    println("nonActiveNodeIds.size=" + nonActiveNodeIds.size)
+    //
+    //    val repo = new NodeRepositoryImpl(database)
+    //    nonActiveNodeIds.foreach { nodeId =>
+    //      repo.nodeWithId(nodeId, Couch.uiTimeout).foreach { nodeInfo =>
+    //        if (nodeInfo.active) {
+    //          println("zombie " + nodeInfo)
+    //          readOverpassNode(nodeInfo.id)
+    //        }
+    //      }
+    //    }
   }
 
   private def readCouchdbNodeIds(): Set[Long] = {
@@ -70,7 +63,7 @@ class DeactivateZombiesTool(database: OldDatabase, executor: OverpassQueryExecut
     }
 
     val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="node"&endkey="node:a"&reduce=false&stale=ok"""
-    database.getRows(request).map(toNodeId).toSet
+    database.old.getRows(request).map(toNodeId).toSet
   }
 
 

@@ -2,9 +2,9 @@ package kpn.core.db.views
 
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.db.views.OrphanNodeView.OrphanNodeKey
-import kpn.core.test.TestSupport.withOldDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
@@ -24,7 +24,7 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
   }
 
   private def doOrphanNodeTest(networkType: NetworkType): Unit = {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val rows = node(database, Tags.from(networkType.nodeTagKey -> "01"), orphan = true)
       rows.map(_._1) should equal(
         Seq(
@@ -41,7 +41,7 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
 
   test("nodes have both network types hiking and bicycle") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val rows = node(database, Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02"), orphan = true)
 
@@ -62,22 +62,22 @@ class OrphanNodeViewTest extends FunSuite with Matchers {
   }
 
   test("regular nodes are not included in the view") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = false)
       rows should equal(Seq())
     }
   }
 
   test("inactive orphan nodes are not included in the view") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val rows = node(database, Tags.from("rwn_ref" -> "01"), orphan = true, active = false)
       rows should equal(Seq())
     }
   }
 
-  private def node(database: OldDatabase, tags: Tags, orphan: Boolean, active: Boolean = true): Seq[(OrphanNodeKey, NodeInfo)] = {
+  private def node(database: Database, tags: Tags, orphan: Boolean, active: Boolean = true): Seq[(OrphanNodeKey, NodeInfo)] = {
     val b = new TestDocBuilder(database)
     b.node(10001, Country.nl, tags, orphan = orphan, active = active)
-    database.query(AnalyzerDesign, OrphanNodeView, Couch.uiTimeout, stale = false)().map(OrphanNodeView.toKeyAndValue)
+    database.old.query(AnalyzerDesign, OrphanNodeView, Couch.uiTimeout, stale = false)().map(OrphanNodeView.toKeyAndValue)
   }
 }

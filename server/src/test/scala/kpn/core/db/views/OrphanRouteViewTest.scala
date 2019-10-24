@@ -1,10 +1,10 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.db.views.OrphanRouteView.OrphanRouteKey
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.RouteSummary
@@ -16,7 +16,7 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("orphan routes are included in the view") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val rows = route(database, orphan = true)
 
@@ -35,20 +35,20 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
   }
 
   test("regular routes are not included in the view") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val rows = route(database, orphan = false)
       rows should equal(Seq())
     }
   }
 
   test("inactive orphan routes are not included in the view") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val rows = route(database, orphan = true, active = false)
       rows should equal(Seq())
     }
   }
 
-  private def route(database: OldDatabase, orphan: Boolean, active: Boolean = true): Seq[(OrphanRouteKey, RouteSummary)] = {
+  private def route(database: Database, orphan: Boolean, active: Boolean = true): Seq[(OrphanRouteKey, RouteSummary)] = {
     val routeInfo = newRoute(
       11,
       active = active,
@@ -60,6 +60,6 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
     val routeRepository = new RouteRepositoryImpl(database)
     routeRepository.save(routeInfo)
 
-    database.query(AnalyzerDesign, OrphanRouteView, Couch.uiTimeout, stale = false)().map(OrphanRouteView.toKeyAndValue)
+    database.old.query(AnalyzerDesign, OrphanRouteView, Couch.uiTimeout, stale = false)().map(OrphanRouteView.toKeyAndValue)
   }
 }

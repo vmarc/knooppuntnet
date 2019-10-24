@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.core.app.stats.Figure
 import kpn.core.db.couch.Couch
-import kpn.core.test.TestSupport.withOldDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
@@ -13,7 +13,7 @@ class OverviewRepositoryTest extends FunSuite with Matchers with SharedTestObjec
 
   ignore("figures") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(

@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -19,13 +19,13 @@ object TagUsageTool {
     }
     val host = args(0)
     val masterDbName = args(1)
-    Couch.oldExecuteIn(host, masterDbName) { database =>
+    Couch.executeIn(host, masterDbName) { database =>
       new TagUsageTool(database).run()
     }
   }
 }
 
-class TagUsageTool(database: OldDatabase) {
+class TagUsageTool(database: Database) {
 
   def run(): Unit = {
     println("Start")
@@ -92,7 +92,7 @@ class TagUsageTool(database: OldDatabase) {
     }
 
     val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="node"&endkey="node:a"&reduce=false&stale=ok"""
-    database.getRows(request).map(toNodeId).distinct
+    database.old.getRows(request).map(toNodeId).distinct
   }
 
   private def readRouteIds(): Seq[Long] = {
@@ -103,7 +103,7 @@ class TagUsageTool(database: OldDatabase) {
     }
 
     val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="route"&endkey="route:a"&reduce=false&stale=ok"""
-    database.getRows(request).map(toNodeId).distinct
+    database.old.getRows(request).map(toNodeId).distinct
   }
 
 }

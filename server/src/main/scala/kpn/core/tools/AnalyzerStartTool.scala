@@ -7,13 +7,14 @@ import kpn.core.analysis.Network
 import kpn.core.app.ActorSystemConfig
 import kpn.core.common.TimestampUtil
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabaseImpl
+import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.implementation.DatabaseContext
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.core.util.Log
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.ReplicationId
@@ -76,12 +77,12 @@ object AnalyzerStartTool {
   private def buildConfiguration(system: ActorSystem, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
     val couchConfig = Couch.config
     val couch = new Couch(system, couchConfig)
-    val oldAnalysisDatabase = new OldDatabaseImpl(couch, options.analysisDatabaseName)
-    val oldChangeDatabase = new OldDatabaseImpl(couch, options.changeDatabaseName)
+    val analysisDatabase = new DatabaseImpl(DatabaseContext(couch, couchConfig, Couch.objectMapper, options.analysisDatabaseName))
+    val changeDatabase = new DatabaseImpl(DatabaseContext(couch, couchConfig, Couch.objectMapper, options.changeDatabaseName))
     new AnalyzerStartToolConfiguration(
       system,
-      oldAnalysisDatabase,
-      oldChangeDatabase
+      analysisDatabase,
+      changeDatabase
     )
   }
 }

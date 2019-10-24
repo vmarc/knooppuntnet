@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.core.db.couch.Couch
-import kpn.core.test.TestSupport.withOldDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.common.Reference
@@ -12,7 +12,7 @@ import org.scalatest.Matchers
 class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("routeWithId") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
 
       routeRepository.save(newRoute(10))
@@ -25,7 +25,7 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
   }
 
   test("routesWithIds") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -35,7 +35,7 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("routeReferences") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       new NetworkRepositoryImpl(database).save(
         newNetwork(
@@ -57,7 +57,7 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
   }
 
   test("save") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
 
       // first save
@@ -102,7 +102,7 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
   }
 
   test("filterKnown") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
 
       routeRepository.save(newRoute(10))

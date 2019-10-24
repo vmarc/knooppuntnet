@@ -1,15 +1,14 @@
 package kpn.core.poi
 
 import kpn.core.app.ActorSystemConfig
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabaseImpl
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 import kpn.shared.Poi
@@ -18,22 +17,21 @@ object PoiProcessorImpl {
 
   def main(args: Array[String]): Unit = {
     val system = ActorSystemConfig.actorSystem()
-    val couchConfig = Couch.config
-    val couch = new Couch(system, couchConfig)
-    val oldPoiDatabase = new OldDatabaseImpl(couch, "pois3")
-    val poiRepository = new PoiRepositoryImpl(oldPoiDatabase)
-    val nonCachingExecutor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
-    val poiLoader = new PoiLoaderImpl(nonCachingExecutor)
-    val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-    val poiLocationFilter = new PoiLocationFilterImpl(countryAnalyzer)
-    val processor = new PoiProcessorImpl(
-      poiLoader,
-      poiRepository,
-      poiLocationFilter
-    )
-    processor.process()
+    Couch.executeIn("pois3") { poiDatabase =>
+      val poiRepository = new PoiRepositoryImpl(poiDatabase)
+      val nonCachingExecutor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
+      val poiLoader = new PoiLoaderImpl(nonCachingExecutor)
+      val analysisContext = new AnalysisContext()
+      val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+      val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+      val poiLocationFilter = new PoiLocationFilterImpl(countryAnalyzer)
+      val processor = new PoiProcessorImpl(
+        poiLoader,
+        poiRepository,
+        poiLocationFilter
+      )
+      processor.process()
+    }
   }
 }
 

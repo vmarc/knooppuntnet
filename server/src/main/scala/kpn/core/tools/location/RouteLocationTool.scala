@@ -1,7 +1,7 @@
 package kpn.core.tools.location
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.db.views.ViewRow
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.RouteWayBasedLocatorImpl
@@ -26,7 +26,7 @@ object RouteLocationTool {
     val host = args(0)
     val masterDbName = args(1)
 
-    Couch.oldExecuteIn(host, masterDbName) { database =>
+    Couch.executeIn(host, masterDbName) { database =>
       println("Start")
       new RouteLocationTool(database).run()
       println("Done")
@@ -35,7 +35,7 @@ object RouteLocationTool {
 
 }
 
-class RouteLocationTool(database: OldDatabase) {
+class RouteLocationTool(database: Database) {
 
   private val locator = {
     val configuration = new LocationConfigurationReader().read()
@@ -77,7 +77,8 @@ class RouteLocationTool(database: OldDatabase) {
       val routeId = docId.drop("route:".length + 1).dropRight(1)
       routeId.toLong
     }
+
     val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="route"&endkey="route:a"&reduce=false&stale=ok"""
-    database.getRows(request).map(toNodeId).distinct
+    database.old.getRows(request).map(toNodeId).distinct
   }
 }

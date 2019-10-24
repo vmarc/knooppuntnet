@@ -1,9 +1,9 @@
 package kpn.core.db.views
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.ChangeSetRepositoryImpl
-import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSummary
 import kpn.shared.NetworkChanges
@@ -18,14 +18,14 @@ class ChangesViewTest extends FunSuite with Matchers {
   private val timestamp = Timestamp(2015, 8, 11, 0, 0, 0)
 
   test("no data") {
-    withOldDatabase { database =>
-      val rows = database.query(ChangesDesign, ChangesView, Couch.uiTimeout, stale = false)()
+    withDatabase { database =>
+      val rows = database.old.query(ChangesDesign, ChangesView, Couch.uiTimeout, stale = false)()
       rows.size should equal(0)
     }
   }
 
   test("changeset without impact") {
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary()
 
@@ -38,7 +38,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset impact happy") {
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(happy = true)
 
@@ -52,7 +52,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset impact investigate") {
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(happy = true)
 
@@ -66,7 +66,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset subset no impact") {
-    withOldDatabase() { database =>
+    withDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(subsets = Seq(Subset.nlHiking), subsetAnalyses = Seq(ChangeSetSubsetAnalysis(Subset.nlHiking)))
 
@@ -80,7 +80,7 @@ class ChangesViewTest extends FunSuite with Matchers {
   }
 
   test("changeset subset happy") {
-    withOldDatabase() { database =>
+    withDatabase { database =>
 
       val changeSetSummary = newChangeSetSummary().copy(
         happy = true,
@@ -116,10 +116,10 @@ class ChangesViewTest extends FunSuite with Matchers {
     )
   }
 
-  private def viewResult(database: OldDatabase, changeSetSummary: ChangeSetSummary): Seq[String] = {
+  private def viewResult(database: Database, changeSetSummary: ChangeSetSummary): Seq[String] = {
     val repo = new ChangeSetRepositoryImpl(database)
     repo.saveChangeSetSummary(changeSetSummary)
-    val rows = database.query(ChangesDesign, ChangesView, Couch.uiTimeout, stale = false)()
+    val rows = database.old.query(ChangesDesign, ChangesView, Couch.uiTimeout, stale = false)()
     // rows.foreach { row => println("\"\"\"" + row.toString + "\"\"\",") }
     rows.map(_.toString)
   }

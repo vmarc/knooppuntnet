@@ -3,16 +3,17 @@ package kpn.core.tools
 import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
+import kpn.core.db.couch.Couch
+import kpn.core.db.couch.DatabaseImpl
+import kpn.core.db.couch.implementation.DatabaseContext
+import kpn.core.tools.config._
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
-import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabaseImpl
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.TaskRepository
 import kpn.server.repository.TaskRepositoryImpl
-import kpn.core.tools.config._
-import kpn.core.util.Log
 import spray.can.Http
 import spray.util.pimpFuture
 
@@ -36,15 +37,15 @@ object ChangeSetInfoTool {
           val couch = new Couch(system, Couch.config)
 
           val taskRepository = {
-            val oldTaskDatabase = new OldDatabaseImpl(couch, options.tasksDatabaseName)
-            new TaskRepositoryImpl(oldTaskDatabase)
+            val taskDatabase = new DatabaseImpl(DatabaseContext(couch, couch.config, Couch.objectMapper, options.tasksDatabaseName))
+            new TaskRepositoryImpl(taskDatabase)
           }
 
           val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets, system)
 
           val changeSetInfoRepository = {
-            val oldChangeDatabase = new OldDatabaseImpl(couch, options.changeSetsDatabaseName)
-            new ChangeSetInfoRepositoryImpl(oldChangeDatabase)
+            val changeDatabase = new DatabaseImpl(DatabaseContext(couch, couch.config, Couch.objectMapper, options.changeSetsDatabaseName))
+            new ChangeSetInfoRepositoryImpl(changeDatabase)
           }
 
           new ChangeSetInfoTool(

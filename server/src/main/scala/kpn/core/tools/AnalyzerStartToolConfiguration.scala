@@ -2,16 +2,7 @@ package kpn.core.tools
 
 import akka.actor.ActorSystem
 import kpn.core.db.couch.Database
-import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.core.db.couch.OldDatabase
 import kpn.core.db.views.AnalyzerDesign
-import kpn.server.analyzer.load.AnalysisDataLoader
-import kpn.server.analyzer.load.NetworkLoaderImpl
-import kpn.server.analyzer.load.NodeLoaderImpl
-import kpn.server.analyzer.load.RouteLoader
-import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
@@ -28,9 +19,15 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
+import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
-import kpn.server.repository.AnalysisDataRepository
-import kpn.server.repository.AnalysisDataRepositoryImpl
+import kpn.server.analyzer.load.AnalysisDataLoader
+import kpn.server.analyzer.load.NetworkLoaderImpl
+import kpn.server.analyzer.load.NodeLoaderImpl
+import kpn.server.analyzer.load.RouteLoader
+import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.BlackListRepositoryImpl
@@ -44,18 +41,15 @@ import kpn.server.repository.RouteRepositoryImpl
 
 class AnalyzerStartToolConfiguration(
   system: ActorSystem,
-  oldAnalysisDatabase: OldDatabase,
-  oldChangeDatabase: OldDatabase
+  analysisDatabase: Database,
+  changeDatabase: Database
 ) {
-
-  // TODO Spring boot migration
-  val analysisDatabase: Database = null
 
   val dirs = Dirs()
 
-  private val networkRepository = new NetworkRepositoryImpl(oldAnalysisDatabase)
-  private val routeRepository = new RouteRepositoryImpl(oldAnalysisDatabase)
-  private val nodeRepository = new NodeRepositoryImpl(oldAnalysisDatabase)
+  private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
+  private val routeRepository = new RouteRepositoryImpl(analysisDatabase)
+  private val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
     analysisDatabase,
@@ -74,11 +68,7 @@ class AnalyzerStartToolConfiguration(
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val analysisDataRepository: AnalysisDataRepository = new AnalysisDataRepositoryImpl(oldAnalysisDatabase)
-
-  val analysisDatabaseIndexer: CouchIndexer = new CouchIndexer(
-    oldAnalysisDatabase, AnalyzerDesign
-  )
+  val analysisDatabaseIndexer: CouchIndexer = new CouchIndexer(analysisDatabase, AnalyzerDesign)
 
   val analysisData: AnalysisData = AnalysisData()
 
@@ -88,29 +78,19 @@ class AnalyzerStartToolConfiguration(
 
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
 
-  val changeSetRepository = new ChangeSetRepositoryImpl(
-    oldChangeDatabase
-  )
+  val changeSetRepository = new ChangeSetRepositoryImpl(analysisDatabase)
 
-  val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(
-    oldChangeDatabase
-  )
+  val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(analysisDatabase)
 
-  private val blackListRepository = new BlackListRepositoryImpl(
-    analysisDatabase
-  )
+  private val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
 
   val changeSetInfoUpdater = new ChangeSetInfoUpdater {
     override def changeSetInfo(changeSetId: Long): Unit = {}
   }
 
-  val orphanRepository = new OrphanRepositoryImpl(
-    oldAnalysisDatabase
-  )
+  val orphanRepository = new OrphanRepositoryImpl(analysisDatabase)
 
-  val factRepository = new FactRepositoryImpl(
-    oldAnalysisDatabase
-  )
+  val factRepository = new FactRepositoryImpl(analysisDatabase)
 
   val nodeLoader = new NodeLoaderImpl(
     nonCachingExecutor,

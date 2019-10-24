@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.test.TestSupport.withOldDatabase
+import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -32,7 +32,7 @@ class TaskRepositoryTest extends FunSuite with Matchers {
   }
 
   private def withRepository(f: TaskRepository => Unit): Unit = {
-    withOldDatabase { database =>
+    withDatabase { database =>
       f(new TaskRepositoryImpl(database))
     }
   }

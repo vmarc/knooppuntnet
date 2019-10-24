@@ -1,7 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import spray.json.JsString
 
 object DatabaseRemoveDocumentsTool {
@@ -14,7 +14,7 @@ object DatabaseRemoveDocumentsTool {
 class DatabaseRemoveDocumentsTool {
 
   def removeInChanges(): Unit = {
-    Couch.oldExecuteIn("changes") { database =>
+    Couch.executeIn("changes") { database =>
       Seq(
         "change-set"
       ).foreach { documentType =>
@@ -24,7 +24,7 @@ class DatabaseRemoveDocumentsTool {
   }
 
   def removeInMaster(): Unit = {
-    Couch.oldExecuteIn("master") { database =>
+    Couch.executeIn("master") { database =>
       Seq(
         "network",
         "network-gpx",
@@ -37,10 +37,10 @@ class DatabaseRemoveDocumentsTool {
     }
   }
 
-  def remove(database: OldDatabase, documentType: String): Unit = {
+  def remove(database: Database, documentType: String): Unit = {
     val startKey = documentType + ":"
     val endKey = documentType + ":999999999999"
-    val keys = database.keys(startKey, endKey, Couch.defaultTimeout).flatMap {
+    val keys = database.old.keys(startKey, endKey, Couch.defaultTimeout).flatMap {
       case JsString(key) => Some(key)
       case _ => None
     }
@@ -48,7 +48,7 @@ class DatabaseRemoveDocumentsTool {
     val slided = keys.sliding(250, 250).toArray
     slided.zipWithIndex.foreach { case (keyss, index) =>
       println(s"${index + 1}/${slided.length} keyss.size=${keyss.size}")
-      database.deleteDocs(keyss)
+      database.deleteDocsWithIds(keyss)
     }
   }
 }

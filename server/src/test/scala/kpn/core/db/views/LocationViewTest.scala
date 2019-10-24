@@ -1,8 +1,8 @@
 package kpn.core.db.views
 
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.core.test.TestSupport.withOldDatabase
 import kpn.shared.Location
 import kpn.shared.RouteLocationAnalysis
 import kpn.shared.SharedTestObjects
@@ -13,7 +13,7 @@ import org.scalatest.Matchers
 class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("node location") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(
         newNodeInfo(
@@ -24,13 +24,13 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
           )
         )
       )
-      val result = database.query(LocationDesign, LocationView, stale = false)()
+      val result = database.old.query(LocationDesign, LocationView, stale = false)()
       result.toString should equal("""Vector({"id":"node:1001","key":["node","cycling","country","province","municipality"],"value":["01",1001]})""")
     }
   }
 
   test("route location") {
-    withOldDatabase { database =>
+    withDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -46,7 +46,7 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
           )
         )
       )
-      val result = database.query(LocationDesign, LocationView, stale = false)()
+      val result = database.old.query(LocationDesign, LocationView, stale = false)()
       result.toString should equal("""Vector({"id":"route:10","key":["route","hiking","country","province","municipality"],"value":["01-02",10]})""")
     }
   }

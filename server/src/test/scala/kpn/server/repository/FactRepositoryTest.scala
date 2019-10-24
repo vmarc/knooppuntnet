@@ -3,7 +3,7 @@ package kpn.server.repository
 import kpn.core.app.IntegrityCheckPage
 import kpn.core.app.NetworkIntegrityInfo
 import kpn.core.db.couch.Couch
-import kpn.core.test.TestSupport.withOldDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.Fact.RouteNodeMissingInWays
@@ -24,7 +24,7 @@ class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("routeFacts") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(
@@ -97,7 +97,7 @@ class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("nodeFacts") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(
@@ -150,7 +150,7 @@ class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   ignore("integrityCheckFacts") {
 
-    withOldDatabase { database =>
+    withDatabase { database =>
 
       new NetworkRepositoryImpl(database).save(
         newNetwork(

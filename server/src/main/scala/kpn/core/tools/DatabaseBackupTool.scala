@@ -3,7 +3,7 @@ package kpn.core.tools
 import java.io.File
 
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.OldDatabase
+import kpn.core.db.couch.Database
 import kpn.core.util.GZipFile
 import spray.json.JsString
 
@@ -23,7 +23,7 @@ class DatabaseBackupTool {
     val filenames = dirs.sorted.flatMap { dir =>
       dir.listFiles().map(_.getAbsolutePath).sorted
     }
-    Couch.oldExecuteIn("testdb") { database =>
+    Couch.executeIn("testdb") { database =>
       println("count=" + filenames.length)
       filenames.zipWithIndex.foreach { case (filename, index) =>
         val id = filename.drop(root.length + 7).takeWhile(_ != '.')
@@ -35,9 +35,8 @@ class DatabaseBackupTool {
     }
   }
 
-
   def backupMaster(): Unit = {
-    Couch.oldExecuteIn("master") { database =>
+    Couch.executeIn("master") { database =>
       val keys = Seq(
         "network",
         "network-gpx",
@@ -58,17 +57,17 @@ class DatabaseBackupTool {
         subset.foreach { case (key, index) =>
           val filename = dir + key + ".gz"
           println(s"${index + 1}/${keys.size} $filename")
-          val json = database.getJsonString(key)
+          val json = database.old.getJsonString(key)
           GZipFile.write(filename, json)
         }
       }
     }
   }
 
-  private def collectKeys(database: OldDatabase, documentType: String): Seq[String] = {
+  private def collectKeys(database: Database, documentType: String): Seq[String] = {
     val startKey = documentType + ":"
     val endKey = documentType + ":999999999999"
-    val keys = database.keys(startKey, endKey, Couch.defaultTimeout).flatMap {
+    val keys = database.old.keys(startKey, endKey, Couch.defaultTimeout).flatMap {
       case JsString(key) => Some(key)
       case _ => None
     }
