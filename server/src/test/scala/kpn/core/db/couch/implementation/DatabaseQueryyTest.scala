@@ -1,7 +1,9 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
 import kpn.core.TestObjects
 import kpn.core.db.NodeDoc
+import kpn.core.db.couch.ViewResult
+import kpn.core.db.couch.ViewResultRow
 import kpn.core.db.views.LocationDesign
 import kpn.core.db.views.LocationView
 import kpn.core.test.TestSupport.withDatabase

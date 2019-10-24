@@ -1,21 +1,15 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
 import org.springframework.http.HttpStatus
-import org.springframework.http.client.support.BasicAuthenticationInterceptor
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.ResourceAccessException
-import org.springframework.web.client.RestTemplate
 
 class DatabaseDelete(context: DatabaseContext) {
 
   def delete(): Unit = {
-    val restTemplate = new RestTemplate
-    restTemplate.getInterceptors.add(
-      new BasicAuthenticationInterceptor(context.couchConfig.user, context.couchConfig.password)
-    )
 
     try {
-      restTemplate.delete(context.databaseUrl)
+      context.authenticatedRestTemplate.delete(context.databaseUrl)
     }
     catch {
       case e: ResourceAccessException =>

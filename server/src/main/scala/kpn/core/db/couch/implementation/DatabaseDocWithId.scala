@@ -1,4 +1,4 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.HttpClientErrorException

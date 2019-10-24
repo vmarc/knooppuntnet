@@ -1,8 +1,10 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
 import java.util.UUID
 
 import kpn.core.TestObjects
+import kpn.core.db.couch.Database
+import kpn.core.db.couch.DatabaseImpl
 import kpn.core.test.TestSupport.withEnvironment
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -30,8 +32,8 @@ class DatabaseDeleteTest extends FunSuite with Matchers with TestObjects {
       }
       catch {
         case e: IllegalStateException =>
-          e.getMessage.contains("Could not delete database") should equal(true)
-          e.getMessage.contains("(database does not exist?)") should equal(true)
+          e.getMessage should include("Could not delete database")
+          e.getMessage should include("(database does not exist?)")
       }
     })
   }
@@ -51,8 +53,8 @@ class DatabaseDeleteTest extends FunSuite with Matchers with TestObjects {
         }
         catch {
           case e: IllegalStateException =>
-            e.getMessage.contains("Could not delete database") should equal(true)
-            e.getMessage.contains("(invalid user/password?)") should equal(true)
+            e.getMessage should include("Could not delete database")
+            e.getMessage should include("(invalid user/password?)")
         }
       }
       finally {

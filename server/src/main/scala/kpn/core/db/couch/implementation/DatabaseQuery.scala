@@ -1,4 +1,4 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
 import kpn.core.db.views.Design
 import kpn.core.db.views.View

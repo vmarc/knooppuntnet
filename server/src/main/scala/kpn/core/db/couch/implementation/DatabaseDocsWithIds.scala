@@ -1,5 +1,6 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
+import kpn.core.db.couch.Keys
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod

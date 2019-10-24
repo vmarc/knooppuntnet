@@ -1,8 +1,10 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
 import java.util.UUID
 
 import kpn.core.TestObjects
+import kpn.core.db.couch.Database
+import kpn.core.db.couch.DatabaseImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import org.scalatest.FunSuite
@@ -31,8 +33,8 @@ class DatabaseCreateTest extends FunSuite with Matchers with TestObjects {
       }
       catch {
         case e: IllegalStateException =>
-          e.getMessage.contains("Could not create database") should equal(true)
-          e.getMessage.contains("(already exists?)") should equal(true)
+          e.getMessage should include("Could not create database")
+          e.getMessage should include("(already exists?)")
       }
       finally {
         database.delete()
@@ -54,8 +56,8 @@ class DatabaseCreateTest extends FunSuite with Matchers with TestObjects {
       }
       catch {
         case e: IllegalStateException =>
-          e.getMessage.contains("Could not create database") should equal(true)
-          e.getMessage.contains("(invalid user/password?)") should equal(true)
+          e.getMessage should include("Could not create database")
+          e.getMessage should include("(invalid user/password?)")
       }
     })
   }

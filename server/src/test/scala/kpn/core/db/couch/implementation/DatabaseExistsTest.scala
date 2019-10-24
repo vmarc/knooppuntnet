@@ -1,5 +1,7 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
+import kpn.core.db.couch.Database
+import kpn.core.db.couch.DatabaseImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import org.scalatest.FunSuite

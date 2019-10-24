@@ -1,4 +1,4 @@
-package kpn.core.db.couch
+package kpn.core.db.couch.implementation
 
 import kpn.core.util.Util
 import org.springframework.http.HttpEntity
