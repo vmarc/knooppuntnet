@@ -10,15 +10,6 @@ class OldDatabaseTest extends FunSuite with Matchers {
 
   private val timeout = Couch.uiTimeout
 
-  test("getJsonString") {
-    withDatabase { database =>
-      database.save(StringValueDoc("id", "value"))
-      val jsonString = database.old.getJsonString("id")
-      jsonString should include(""""_id":"id"""")
-      jsonString should include(""""value":"value"""")
-    }
-  }
-
   test("bulk save") {
     withDatabase { database =>
 

@@ -7,16 +7,6 @@ import spray.json.JsValue
 
 trait OldDatabase {
 
-  def getJsValue(
-    request: String,
-    timeout: Timeout = Couch.defaultTimeout
-  ): JsValue
-
-  def getJsonString(
-    request: String,
-    timeout: Timeout = Couch.defaultTimeout
-  ): String
-
   def getRows(
     request: String,
     timeout: Timeout = Couch.defaultTimeout

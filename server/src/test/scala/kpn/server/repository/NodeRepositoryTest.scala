@@ -1,9 +1,11 @@
 package kpn.server.repository
 
+import kpn.core.db.NetworkDoc
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.SharedTestObjects
+import kpn.shared.{Fact, NetworkType, SharedTestObjects}
 import kpn.shared.data.Tags
+import kpn.shared.node.{NodeNetworkIntegrityCheck, NodeNetworkReference, NodeNetworkRouteReference}
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -107,24 +109,38 @@ class NodeRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("nodeNetworkReferences") {
 
-    pending
-
     withDatabase { database =>
 
+      new NetworkRepositoryImpl(database).save(
+        newNetwork(
+          2,
+          name = "network-2",
+          nodes = Seq(
+            newNetworkNodeInfo2(
+              1001,
+              "01",
+              definedInRelation = true
+            )
+          )
+        )
+      )
+
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-
-      nodeRepository.save(
-        newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")),
-        newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02")),
-        newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))
-      ) should equal(true)
-
-
-
-      nodeRepository.nodeWithId(101, Couch.uiTimeout) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
-      nodeRepository.nodeWithId(102, Couch.uiTimeout) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
-      nodeRepository.nodeWithId(103, Couch.uiTimeout) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "33")))) // updated
-      nodeRepository.nodeWithId(104, Couch.uiTimeout) should equal(None)
+      nodeRepository.nodeNetworkReferences(1001, Couch.uiTimeout, stale = false) should equal(
+        Seq(
+          NodeNetworkReference(
+            NetworkType.hiking,
+            2,
+            "network-2",
+            nodeDefinedInRelation = true,
+            nodeConnection = false,
+            nodeRoleConnection = false,
+            None,
+            Seq(),
+            Seq()
+          )
+        )
+      )
     }
   }
 

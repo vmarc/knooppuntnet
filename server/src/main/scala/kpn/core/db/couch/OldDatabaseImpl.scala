@@ -52,7 +52,7 @@ class OldDatabaseImpl(couch: Couch, val name: String) extends OldDatabase {
     }
   }
 
-  def getJsonString(request: String, timeout: Timeout): String = {
+  private def getJsonString(request: String, timeout: Timeout): String = {
     val httpRequest = HttpRequest(uri = docUrl(request))
     performRequest2(httpRequest, timeout) { (response: HttpResponse, entityString: String) =>
       response.status match {
@@ -62,7 +62,7 @@ class OldDatabaseImpl(couch: Couch, val name: String) extends OldDatabase {
     }
   }
 
-  def getJsValue(request: String, timeout: Timeout): JsValue = {
+  private def getJsValue(request: String, timeout: Timeout): JsValue = {
     getJsonString(request, timeout).parseJson
   }
 

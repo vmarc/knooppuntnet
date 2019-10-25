@@ -3,6 +3,7 @@ package kpn.server.repository
 import akka.util.Timeout
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDoc
+import kpn.core.db.RouteDocViewResult
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.routeDocFormat
@@ -61,7 +62,7 @@ class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
   private def readExistingRouteDocs(routes: Seq[RouteInfo]): Seq[RouteDoc] = {
     val routeIds = routes.map(_.id)
     val routeDocIds = routeIds.map(docId)
-    analysisDatabase.old.objectsWithIds(routeDocIds, Couch.batchTimeout, stale = false).map(jsValue => routeDocFormat.read(jsValue))
+    analysisDatabase.docsWithIds(routeDocIds, classOf[RouteDocViewResult], stale = false).rows.flatMap(_.doc)
   }
 
   private def partitionRoutes(routes: Seq[RouteInfo], existingRouteDocs: Seq[RouteDoc]): (Seq[RouteInfo], Seq[RouteInfo]) = {
@@ -121,7 +122,7 @@ class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
 
   override def routesWithIds(routeIds: Seq[Long], timeout: Timeout): Seq[RouteInfo] = {
     val ids = routeIds.map(id => docId(id))
-    analysisDatabase.old.objectsWithIds(ids, timeout, stale = false).map(doc => routeDocFormat.read(doc)).map(_.route)
+    analysisDatabase.docsWithIds(ids, classOf[RouteDocViewResult], stale = false).rows.flatMap(_.doc.map(_.route))
   }
 
   override def routeReferences(routeId: Long, timeout: Timeout, stale: Boolean): RouteReferences = {
