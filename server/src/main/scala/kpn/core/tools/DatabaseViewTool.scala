@@ -1,15 +1,14 @@
 package kpn.core.tools
 
+import kpn.core.database.Database
+import kpn.core.database.doc.{DesignDoc, ViewDoc}
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
-import kpn.core.db.couch.DesignDoc
-import kpn.core.db.couch.ViewDoc
-import kpn.core.db.views.AnalyzerDesign
-import kpn.core.db.views.ChangesDesign
-import kpn.core.db.views.Design
-import kpn.core.db.views.LocationDesign
-import kpn.core.db.views.PlannerDesign
-import kpn.core.db.views.PoiDesign
+import kpn.core.database.views.analyzer.AnalyzerDesign
+import kpn.core.database.views.changes.ChangesDesign
+import kpn.core.database.views.common.Design
+import kpn.core.database.views.location.LocationDesign
+import kpn.core.database.views.planner.PlannerDesign
+import kpn.core.database.views.poi.PoiDesign
 import kpn.core.util.Util
 
 /*

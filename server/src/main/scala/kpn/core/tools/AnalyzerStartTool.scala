@@ -6,9 +6,9 @@ import akka.pattern.ask
 import kpn.core.analysis.Network
 import kpn.core.app.ActorSystemConfig
 import kpn.core.common.TimestampUtil
+import kpn.core.database.DatabaseImpl
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.DatabaseImpl
-import kpn.core.db.couch.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContext
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.changes.ChangeSetContext

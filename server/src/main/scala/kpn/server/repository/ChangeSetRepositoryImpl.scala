@@ -1,10 +1,9 @@
 package kpn.server.repository
 
+import kpn.core.database.Database
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats._
-import kpn.core.db.views.ChangesDesign
-import kpn.core.db.views.ChangesView
+import kpn.core.database.views.changes.{ChangesDesign, ChangesView}
 import kpn.core.util.Log
 import kpn.shared.ChangeSetSummary
 import kpn.shared.ChangeSetSummaryDoc

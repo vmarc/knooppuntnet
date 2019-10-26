@@ -1,6 +1,6 @@
 package kpn.core.tools.config
 
-import kpn.core.db.couch.Database
+import kpn.core.database.Database
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl

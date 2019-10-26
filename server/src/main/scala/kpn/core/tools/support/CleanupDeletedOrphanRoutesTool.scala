@@ -4,9 +4,9 @@ import akka.io.IO
 import akka.pattern.ask
 import akka.util.Timeout
 import kpn.core.app.ActorSystemConfig
-import kpn.core.db.RouteDoc
+import kpn.core.database.Database
+import kpn.core.database.doc.RouteDoc
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.shared.Subset
 import spray.can.Http

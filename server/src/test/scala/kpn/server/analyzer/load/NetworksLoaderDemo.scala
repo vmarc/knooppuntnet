@@ -4,10 +4,10 @@ import akka.actor.ActorSystem
 import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
+import kpn.core.database.DatabaseImpl
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
-import kpn.core.db.couch.DatabaseImpl
-import kpn.core.db.couch.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContext
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.tools.config.AnalysisRepositoryConfiguration

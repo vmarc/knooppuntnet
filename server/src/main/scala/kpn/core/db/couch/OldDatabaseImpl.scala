@@ -14,9 +14,7 @@ import akka.http.scaladsl.model.Uri.Query
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
-import kpn.core.db.views.Design
-import kpn.core.db.views.View
-import kpn.core.db.views.ViewRow
+import kpn.core.database.views.common.{Design, View, ViewRow}
 import spray.json.JsArray
 import spray.json.JsFalse
 import spray.json.JsNumber

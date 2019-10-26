@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.core.analysis._
-import kpn.core.db.TimestampDoc
-import kpn.core.db.couch.Database
+import kpn.core.database.Database
+import kpn.core.database.doc.TimestampDoc
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint

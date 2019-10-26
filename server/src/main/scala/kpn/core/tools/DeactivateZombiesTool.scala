@@ -1,8 +1,8 @@
 package kpn.core.tools
 
+import kpn.core.database.Database
+import kpn.core.database.views.common.ViewRow
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
-import kpn.core.db.views.ViewRow
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNode

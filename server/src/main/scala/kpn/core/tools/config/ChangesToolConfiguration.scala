@@ -1,7 +1,7 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
-import kpn.core.db.couch.Database
+import kpn.core.database.Database
 import kpn.server.repository.AnalysisRepositoryNoop
 
 class ChangesToolConfiguration(system: ActorSystem, analysisDatabase: Database, changeDatabase: Database, taskDatabase: Database) {

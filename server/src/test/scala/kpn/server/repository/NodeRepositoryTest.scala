@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.db.NetworkDoc
+import kpn.core.database.doc.NetworkDoc
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.{Fact, NetworkType, SharedTestObjects}

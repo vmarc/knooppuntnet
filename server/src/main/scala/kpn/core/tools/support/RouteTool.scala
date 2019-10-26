@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
+import kpn.core.database.Database
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
 import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl

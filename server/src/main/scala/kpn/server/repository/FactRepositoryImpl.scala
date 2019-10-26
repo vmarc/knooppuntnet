@@ -2,10 +2,8 @@ package kpn.server.repository
 
 import akka.util.Timeout
 import kpn.core.app.IntegrityCheckPage
-import kpn.core.db.couch.Database
-import kpn.core.db.views.AnalyzerDesign
-import kpn.core.db.views.FactView
-import kpn.core.db.views.FactsPerNetworkView
+import kpn.core.database.Database
+import kpn.core.database.views.analyzer.{AnalyzerDesign, FactView, FactsPerNetworkView}
 import kpn.shared.Fact
 import kpn.shared.Subset
 import kpn.shared.common.Ref

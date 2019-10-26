@@ -1,7 +1,7 @@
 package kpn.server.api.tryout
 
-import kpn.core.db.NodeDoc
-import kpn.core.db.couch.Database
+import kpn.core.database.Database
+import kpn.core.database.doc.NodeDoc
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 

@@ -1,6 +1,6 @@
 package kpn.core.db.couch
 
-import kpn.core.db.StringValueDoc
+import kpn.core.database.doc.StringValueDoc
 import kpn.core.db.json.JsonFormats.stringValueDocFormat
 import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.FunSuite

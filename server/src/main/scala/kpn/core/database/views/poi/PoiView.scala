@@ -1,0 +1,39 @@
+package kpn.core.database.views.poi
+
+import kpn.core.database.views.common.View
+import kpn.core.poi.PoiInfo
+import spray.json.{DeserializationException, JsArray, JsNumber, JsString, JsValue}
+
+object PoiView extends View {
+
+  def convert(rowValue: JsValue): PoiInfo = {
+    val row = toRow(rowValue)
+    row.key match {
+      case JsArray(Vector(JsString(elementType), JsNumber(elementId), JsString(latitude), JsString(longitude), JsString(layer))) =>
+        PoiInfo(elementType, elementId.toLong, latitude, longitude, layer)
+      case _ => throw DeserializationException("expected array")
+    }
+  }
+
+  override val map: String =
+    """
+      |function(doc) {
+      |  var poi = doc.poi;
+      |  if(poi) {
+      |    if (!!poi.layers && poi.layers.length > 0) {
+      |      var key = [
+      |        poi.elementType,
+      |        poi.elementId,
+      |        poi.latitude,
+      |        poi.longitude,
+      |        poi.layers[0]
+      |      ];
+      |      emit(key, 1);
+      |    }
+      |  }
+      |}
+    """.stripMargin
+
+  override val reduce: Option[String] = Some("_sum")
+
+}

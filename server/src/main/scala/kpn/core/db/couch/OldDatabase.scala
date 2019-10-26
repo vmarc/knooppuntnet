@@ -1,8 +1,7 @@
 package kpn.core.db.couch
 
 import akka.util.Timeout
-import kpn.core.db.views.Design
-import kpn.core.db.views.View
+import kpn.core.database.views.common.{Design, View}
 import spray.json.JsValue
 
 trait OldDatabase {

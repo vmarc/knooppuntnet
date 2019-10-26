@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine
 
 import akka.util.Timeout.durationToTimeout
-import kpn.core.db.couch.Database
-import kpn.core.db.views.Design
-import kpn.core.db.views.DocumentView
+import kpn.core.database.Database
+import kpn.core.database.views.analyzer.DocumentView
+import kpn.core.database.views.common.Design
 import kpn.core.util.Log
 
 import scala.concurrent.duration.DurationInt

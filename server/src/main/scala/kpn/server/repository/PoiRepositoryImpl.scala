@@ -1,10 +1,9 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.core.database.Database
 import kpn.core.db.KeyPrefix
-import kpn.core.db.couch.Database
-import kpn.core.db.views.PoiDesign
-import kpn.core.db.views.PoiView
+import kpn.core.database.views.poi.{PoiDesign, PoiView}
 import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log

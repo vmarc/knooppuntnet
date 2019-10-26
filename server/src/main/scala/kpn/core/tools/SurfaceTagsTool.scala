@@ -1,7 +1,7 @@
 package kpn.core.tools
 
+import kpn.core.database.Database
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl

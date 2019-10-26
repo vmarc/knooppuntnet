@@ -1,11 +1,9 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.core.database.Database
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
-import kpn.core.db.views.AnalyzerDesign
-import kpn.core.db.views.OrphanNodeView
-import kpn.core.db.views.OrphanRouteView
+import kpn.core.database.views.analyzer.{AnalyzerDesign, OrphanNodeView, OrphanRouteView}
 import kpn.shared.NodeInfo
 import kpn.shared.RouteSummary
 import kpn.shared.Subset

@@ -5,15 +5,14 @@ import java.util.concurrent.atomic.AtomicInteger
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.app.ActorSystemConfig
+import kpn.core.database.{Database, DatabaseImpl}
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
-import kpn.core.db.couch.Database
-import kpn.core.db.couch.DatabaseImpl
-import kpn.core.db.couch.implementation.DatabaseContext
-import kpn.core.db.views.AnalyzerDesign
-import kpn.core.db.views.ChangesDesign
-import kpn.core.db.views.LocationDesign
-import kpn.core.db.views.PlannerDesign
+import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.views.analyzer.AnalyzerDesign
+import kpn.core.database.views.changes.ChangesDesign
+import kpn.core.database.views.location.LocationDesign
+import kpn.core.database.views.planner.PlannerDesign
 import kpn.server.repository.DesignRepositoryImpl
 import org.scalatest.Assertions
 

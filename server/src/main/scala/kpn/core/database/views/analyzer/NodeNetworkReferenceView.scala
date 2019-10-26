@@ -1,0 +1,17 @@
+package kpn.core.database.views.analyzer
+
+import kpn.core.database.views.common.View
+import kpn.core.db.json.JsonFormats.nodeNetworkReferenceFormat
+import kpn.shared.node.NodeNetworkReference
+import spray.json.JsValue
+
+object NodeNetworkReferenceView extends View {
+
+  def convert(rowValue: JsValue): NodeNetworkReference = {
+    val row = toRow(rowValue)
+    nodeNetworkReferenceFormat.read(row.value)
+  }
+
+  override def reduce: Option[String] = None
+
+}

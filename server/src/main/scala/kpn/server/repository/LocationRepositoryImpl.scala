@@ -1,8 +1,7 @@
 package kpn.server.repository
 
-import kpn.core.db.couch.Database
-import kpn.core.db.views.LocationDesign
-import kpn.core.db.views.LocationView
+import kpn.core.database.Database
+import kpn.core.database.views.location.{LocationDesign, LocationView}
 import kpn.shared.NetworkType
 import kpn.shared.common.Ref
 import org.springframework.stereotype.Component

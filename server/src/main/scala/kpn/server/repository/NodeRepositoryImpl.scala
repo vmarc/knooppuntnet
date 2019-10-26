@@ -1,14 +1,12 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.core.database.Database
+import kpn.core.database.doc.NodeDoc
 import kpn.core.db.KeyPrefix
-import kpn.core.db.NodeDoc
-import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
-import kpn.core.db.json.JsonFormats.nodeDocFormat
-import kpn.core.db.views.AnalyzerDesign
-import kpn.core.db.views.NodeNetworkReferenceView
-import kpn.core.db.views.NodeOrphanRouteReferenceView
+import kpn.core.db.NodeDocViewResult
+import kpn.core.db.couch.ViewResult
+import kpn.core.database.views.analyzer.{AnalyzerDesign, NodeNetworkReferenceView, NodeOrphanRouteReferenceView}
 import kpn.core.util.Log
 import kpn.shared.NodeInfo
 import kpn.shared.node.NodeNetworkReference
@@ -25,16 +23,10 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
     log.debugElapsed {
 
       val nodeIds = nodes.map(node => docId(node.id))
-      val nodeDocs = analysisDatabase.old.objectsWithIds(nodeIds, Couch.batchTimeout, stale = false).map(jsValue => nodeDocFormat.read(jsValue))
+      val nodeDocViewResult = analysisDatabase.docsWithIds(nodeIds, classOf[NodeDocViewResult], stale = false)
+      val nodeDocs = nodeDocViewResult.rows.flatMap(_.doc)
       val nodeDocIds = nodeDocs.map(_.node.id)
       val (existingNodes, newNodes) = nodes.partition(node => nodeDocIds.contains(node.id))
-
-      //      val nodeIds = nodes.map(node => docId(node.id))
-      //      // TODO getting keys only is more efficient?
-      //      val nodeDocViewResult = analysisDatabase.docsWithIds(nodeIds, classOf[NodeDocViewResult], stale = false)
-      //      val nodeDocIds = nodeDocViewResult.rows.flatMap(_.doc.map(_.node.id))
-      //      val nodeDocs = nodeDocViewResult.rows.flatMap(_.doc)
-      //      val (existingNodes, newNodes) = nodes.partition(node => nodeDocIds.contains(node.id))
 
       val updatedNodes = existingNodes.filter { node =>
         val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
@@ -48,14 +40,12 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
         }
       }
 
-      val newDocs = newNodes.map(node => nodeDocFormat.write(NodeDoc(docId(node.id), node, None)))
-      //      val newDocs = newNodes.map(node => NodeDoc(docId(node.id), node, None))
+      val newDocs = newNodes.map(node => NodeDoc(docId(node.id), node, None))
 
       val updateDocs = updatedNodes.map { node =>
         val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
         val rev = fromDb.get._rev
-        nodeDocFormat.write(NodeDoc(docId(node.id), node, rev))
-        //        NodeDoc(docId(node.id), node, rev)
+        NodeDoc(docId(node.id), node, rev)
       }
 
       val docs = newDocs ++ updateDocs
@@ -68,7 +58,7 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
       }
 
       if (docs.nonEmpty) {
-        analysisDatabase.old.bulkSave(docs)
+        analysisDatabase.bulkSave(docs)
       }
 
       (s"save ${nodes.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", docs.nonEmpty)
@@ -80,20 +70,21 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
   }
 
   override def nodeWithId(nodeId: Long, timeout: Timeout): Option[NodeInfo] = {
-//    analysisDatabase.old.optionGet(docId(nodeId), timeout).map(nodeDocFormat.read).map(_.node)
-        analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
+    analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
   }
 
   override def nodesWithIds(nodeIds: Seq[Long], timeout: Timeout, stale: Boolean): Seq[NodeInfo] = {
     val ids = nodeIds.map(id => docId(id))
-    analysisDatabase.old.objectsWithIds(ids, timeout, stale).map(doc => nodeDocFormat.read(doc)).map(_.node)
-    //    val ids = nodeIds.map(id => docId(id))
-    //    val nodeDocViewResult = analysisDatabase.docsWithIds(ids, classOf[NodeDocViewResult], stale)
-    //    nodeDocViewResult.rows.flatMap(r => r.doc.map(_.node))
+    val nodeDocViewResult = analysisDatabase.docsWithIds(ids, classOf[NodeDocViewResult], stale)
+    nodeDocViewResult.rows.flatMap(r => r.doc.map(_.node))
   }
 
   override def nodeNetworkReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeNetworkReference] = {
     analysisDatabase.old.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale)(nodeId).map(NodeNetworkReferenceView.convert)
+    val xx = analysisDatabase.query(AnalyzerDesign, NodeNetworkReferenceView, classOf[ViewResult], stale)(nodeId)
+      //.map(NodeNetworkReferenceView.convert)
+    println(xx)
+    Seq()
   }
 
   override def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {

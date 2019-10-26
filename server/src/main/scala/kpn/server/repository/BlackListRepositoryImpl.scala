@@ -1,7 +1,7 @@
 package kpn.server.repository
 
-import kpn.core.db.BlackListDoc
-import kpn.core.db.couch.Database
+import kpn.core.database.Database
+import kpn.core.database.doc.BlackListDoc
 import kpn.server.analyzer.engine.changes.data.BlackList
 import org.springframework.stereotype.Component
 

@@ -2,21 +2,11 @@ package kpn.core.db.json
 
 import java.util.NoSuchElementException
 
+import kpn.core.database.doc.{BlackListDoc, DesignDoc, GpxDoc, NetworkDoc, NodeDoc, RouteDoc, StringValueDoc, TileDoc, TimestampDoc, TimestampsDoc, ViewDoc}
 import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.core.db.BlackListDoc
 import kpn.core.db.Change
 import kpn.core.db.ChangeRevision
 import kpn.core.db.Changes
-import kpn.core.db.GpxDoc
-import kpn.core.db.NetworkDoc
-import kpn.core.db.NodeDoc
-import kpn.core.db.RouteDoc
-import kpn.core.db.StringValueDoc
-import kpn.core.db.TileDoc
-import kpn.core.db.TimestampDoc
-import kpn.core.db.TimestampsDoc
-import kpn.core.db.couch.DesignDoc
-import kpn.core.db.couch.ViewDoc
 import kpn.server.analyzer.engine.analysis.location.LocationTree
 import kpn.server.analyzer.engine.changes.ElementIdMap
 import kpn.server.analyzer.engine.changes.data.AnalysisData

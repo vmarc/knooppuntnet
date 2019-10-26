@@ -2,11 +2,10 @@ package kpn.server.config
 
 import akka.actor.ActorSystem
 import com.fasterxml.jackson.databind.ObjectMapper
+import kpn.core.database.{Database, DatabaseImpl}
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
-import kpn.core.db.couch.Database
-import kpn.core.db.couch.DatabaseImpl
-import kpn.core.db.couch.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContext
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

@@ -1,9 +1,9 @@
 package kpn.server.repository
 
-import kpn.core.db.StringValueDoc
+import kpn.core.database.Database
+import kpn.core.database.doc.StringValueDoc
+import kpn.core.database.views.common.ViewRow
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
-import kpn.core.db.views.ViewRow
 import org.springframework.stereotype.Component
 import spray.http.Uri
 import spray.json.JsString

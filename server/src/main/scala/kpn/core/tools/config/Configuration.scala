@@ -1,8 +1,8 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
-import kpn.core.db.couch.Database
-import kpn.core.db.views.AnalyzerDesign
+import kpn.core.database.Database
+import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorWithThrotteling

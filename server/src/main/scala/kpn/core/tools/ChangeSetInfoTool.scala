@@ -3,9 +3,9 @@ package kpn.core.tools
 import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
+import kpn.core.database.DatabaseImpl
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.DatabaseImpl
-import kpn.core.db.couch.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContext
 import kpn.core.tools.config._
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi

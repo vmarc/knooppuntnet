@@ -1,6 +1,6 @@
 package kpn.core.db
 
-import kpn.core.db.couch.Database
+import kpn.core.database.Database
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepository

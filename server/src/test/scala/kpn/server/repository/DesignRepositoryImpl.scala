@@ -1,9 +1,8 @@
 package kpn.server.repository
 
-import kpn.core.db.couch.Database
-import kpn.core.db.couch.DesignDoc
-import kpn.core.db.couch.ViewDoc
-import kpn.core.db.views.Design
+import kpn.core.database.Database
+import kpn.core.database.doc.{DesignDoc, ViewDoc}
+import kpn.core.database.views.common.Design
 import kpn.core.util.Util
 
 class DesignRepositoryImpl(database: Database) extends DesignRepository {

@@ -1,8 +1,8 @@
 package kpn.server.analyzer
 
 import akka.actor.ActorSystem
-import kpn.core.db.couch.Database
-import kpn.core.db.views.AnalyzerDesign
+import kpn.core.database.Database
+import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs

@@ -1,14 +1,13 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.core.database.Database
+import kpn.core.database.doc.RouteDoc
 import kpn.core.db.KeyPrefix
-import kpn.core.db.RouteDoc
 import kpn.core.db.RouteDocViewResult
 import kpn.core.db.couch.Couch
-import kpn.core.db.couch.Database
 import kpn.core.db.json.JsonFormats.routeDocFormat
-import kpn.core.db.views.AnalyzerDesign
-import kpn.core.db.views.ReferenceView
+import kpn.core.database.views.analyzer.{AnalyzerDesign, ReferenceView}
 import kpn.core.util.Log
 import kpn.shared.NetworkType
 import kpn.shared.common.Reference
