@@ -1,5 +1,6 @@
 package kpn.core.database.implementation
 
+import com.fasterxml.jackson.core.JsonProcessingException
 import kpn.core.database.views.common.{Design, View}
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -48,7 +49,14 @@ class DatabaseQuery(context: DatabaseContext) {
     val entity = new HttpEntity[String]("", headers)
     try {
       val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
-      context.objectMapper.readValue(response.getBody, docType)
+
+      try {
+        context.objectMapper.readValue(response.getBody, docType)
+      }
+      catch {
+        case e: JsonProcessingException =>
+          throw new IllegalStateException(s"Could process response for query $url\n response=${response.getBody}", e)
+      }
     }
     catch {
       case e: HttpClientErrorException.BadRequest =>

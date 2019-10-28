@@ -5,8 +5,10 @@ import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.node.NodeOrphanRouteReference
-import kpn.shared.{NetworkType, SharedTestObjects}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.NetworkType
+import kpn.shared.SharedTestObjects
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
@@ -118,7 +120,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
   }
 
   def queryNode(database: Database, nodeId: Long): Seq[NodeOrphanRouteReference] = {
-    database.old.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale = false)(nodeId).map(NodeOrphanRouteReferenceView.convert)
+    NodeOrphanRouteReferenceView.query(database, nodeId, stale = false)
   }
 
 }

@@ -4,11 +4,16 @@ import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
+import kpn.shared.NetworkType
+import kpn.shared.NodeIntegrityCheck
+import kpn.shared.SharedTestObjects
 import kpn.shared.common.Ref
 import kpn.shared.network.NetworkInfo
-import kpn.shared.node.{NodeNetworkIntegrityCheck, NodeNetworkReference, NodeNetworkRouteReference}
-import kpn.shared.{NetworkType, NodeIntegrityCheck, SharedTestObjects}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.node.NodeNetworkIntegrityCheck
+import kpn.shared.node.NodeNetworkReference
+import kpn.shared.node.NodeNetworkRouteReference
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
@@ -94,7 +99,7 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
   }
 
   def queryNode(database: Database, nodeId: Long): Seq[NodeNetworkReference] = {
-    database.old.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale = false)(nodeId).map(NodeNetworkReferenceView.convert)
+    NodeNetworkReferenceView.query(database, nodeId, stale = false)
   }
 
   private def buildNetworkWithNode1001and1002(): NetworkInfo = {

@@ -3,10 +3,10 @@ package kpn.server.repository
 import akka.util.Timeout
 import kpn.core.database.Database
 import kpn.core.database.doc.NodeDoc
+import kpn.core.database.views.analyzer.NodeNetworkReferenceView
+import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
-import kpn.core.db.couch.ViewResult
-import kpn.core.database.views.analyzer.{AnalyzerDesign, NodeNetworkReferenceView, NodeOrphanRouteReferenceView}
 import kpn.core.util.Log
 import kpn.shared.NodeInfo
 import kpn.shared.node.NodeNetworkReference
@@ -80,15 +80,11 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
   }
 
   override def nodeNetworkReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeNetworkReference] = {
-    analysisDatabase.old.query(AnalyzerDesign, NodeNetworkReferenceView, timeout, stale)(nodeId).map(NodeNetworkReferenceView.convert)
-    val xx = analysisDatabase.query(AnalyzerDesign, NodeNetworkReferenceView, classOf[ViewResult], stale)(nodeId)
-      //.map(NodeNetworkReferenceView.convert)
-    println(xx)
-    Seq()
+    NodeNetworkReferenceView.query(analysisDatabase, nodeId, stale = false)
   }
 
   override def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
-    analysisDatabase.old.query(AnalyzerDesign, NodeOrphanRouteReferenceView, timeout, stale)(nodeId).map(NodeOrphanRouteReferenceView.convert)
+    NodeOrphanRouteReferenceView.query(analysisDatabase, nodeId, stale = stale)
   }
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {

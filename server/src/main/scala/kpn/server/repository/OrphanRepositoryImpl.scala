@@ -2,8 +2,10 @@ package kpn.server.repository
 
 import akka.util.Timeout
 import kpn.core.database.Database
+import kpn.core.database.views.analyzer.AnalyzerDesign
+import kpn.core.database.views.analyzer.OrphanNodeView
+import kpn.core.database.views.analyzer.OrphanRouteView
 import kpn.core.db.couch.Couch
-import kpn.core.database.views.analyzer.{AnalyzerDesign, OrphanNodeView, OrphanRouteView}
 import kpn.shared.NodeInfo
 import kpn.shared.RouteSummary
 import kpn.shared.Subset
@@ -19,8 +21,6 @@ class OrphanRepositoryImpl(analysisDatabase: Database) extends OrphanRepository 
   }
 
   override def orphanNodes(subset: Subset, timeout: Timeout = Couch.defaultTimeout): Seq[NodeInfo] = {
-    val country = subset.country.domain
-    val networkType = subset.networkType.name
-    analysisDatabase.old.query(AnalyzerDesign, OrphanNodeView, timeout)(false, true, true, country, networkType).map(OrphanNodeView.convert)
+    OrphanNodeView.query(analysisDatabase, subset)
   }
 }

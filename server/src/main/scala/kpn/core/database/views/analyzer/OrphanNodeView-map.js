@@ -1,9 +1,8 @@
-if (doc && doc.node && doc.node.active === true) {
+if (doc && doc.node) {
   var n = doc.node;
   if (n.active === true && n.orphan === true) {
     if (n.rwnName.length > 0) {
       var key = [
-        n.orphan,
         n.country,
         "rwn",
         n.id
@@ -12,7 +11,6 @@ if (doc && doc.node && doc.node.active === true) {
     }
     if (n.rcnName.length > 0) {
       var key = [
-        n.orphan,
         n.country,
         "rcn",
         n.id
@@ -21,7 +19,6 @@ if (doc && doc.node && doc.node.active === true) {
     }
     if (n.rhnName.length > 0) {
       var key = [
-        n.orphan,
         n.country,
         "rhn",
         n.id
@@ -30,7 +27,6 @@ if (doc && doc.node && doc.node.active === true) {
     }
     if (n.rmnName.length > 0) {
       var key = [
-        n.orphan,
         n.country,
         "rmn",
         n.id
@@ -39,7 +35,6 @@ if (doc && doc.node && doc.node.active === true) {
     }
     if (n.rpnName.length > 0) {
       var key = [
-        n.orphan,
         n.country,
         "rpn",
         n.id
@@ -48,7 +43,6 @@ if (doc && doc.node && doc.node.active === true) {
     }
     if (n.rinName.length > 0) {
       var key = [
-        n.orphan,
         n.country,
         "rin",
         n.id
