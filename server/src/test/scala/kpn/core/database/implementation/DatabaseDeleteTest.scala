@@ -3,9 +3,11 @@ package kpn.core.database.implementation
 import java.util.UUID
 
 import kpn.core.TestObjects
-import kpn.core.database.{Database, DatabaseImpl}
+import kpn.core.database.Database
+import kpn.core.database.DatabaseImpl
 import kpn.core.test.TestSupport.withEnvironment
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class DatabaseDeleteTest extends FunSuite with Matchers with TestObjects {
 

@@ -4,7 +4,8 @@ import kpn.core.database.doc.StringValueDoc
 import kpn.core.database.views.analyzer.DocumentView.DocumentCount
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class DocumentViewTest extends FunSuite with Matchers {
 

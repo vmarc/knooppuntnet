@@ -1,11 +1,9 @@
 package kpn.server.repository
 
 import akka.util.Timeout
-import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
 import kpn.shared.node.NodeNetworkReference
 import kpn.shared.node.NodeOrphanRouteReference
-import kpn.shared.node.NodeReferences
 
 trait NodeRepository {
 

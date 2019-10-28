@@ -6,7 +6,8 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.shared._
 import kpn.shared.changes.details.ChangeKey
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class ChangesViewTest extends FunSuite with Matchers {
 

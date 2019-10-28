@@ -2,11 +2,14 @@ package kpn.core.database.views.analyzer
 
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.{NetworkRepositoryImpl, NodeRepositoryImpl, RouteRepositoryImpl}
+import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import kpn.shared.route.RouteNetworkNodeInfo
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 import spray.http.Uri
 
 class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {

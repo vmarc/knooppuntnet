@@ -1,7 +1,10 @@
 package kpn.core.database.views.analyzer
 
 import kpn.core.database.views.common.View
-import spray.json.{JsArray, JsNumber, JsString, JsValue}
+import spray.json.JsArray
+import spray.json.JsNumber
+import spray.json.JsString
+import spray.json.JsValue
 
 /*
  * Facts per network

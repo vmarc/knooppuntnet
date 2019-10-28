@@ -3,9 +3,12 @@ package kpn.core.database.views.analyzer
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.shared.NetworkType.{bicycle, hiking}
-import kpn.shared.{Country, SharedTestObjects}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.NetworkType.bicycle
+import kpn.shared.NetworkType.hiking
+import kpn.shared.Country
+import kpn.shared.SharedTestObjects
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 import spray.http.Uri
 
 class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {

@@ -3,7 +3,8 @@ package kpn.server.repository
 import akka.util.Timeout
 import kpn.core.app.stats.Figure
 import kpn.core.database.Database
-import kpn.core.database.views.analyzer.{AnalyzerDesign, Overview}
+import kpn.core.database.views.analyzer.AnalyzerDesign
+import kpn.core.database.views.analyzer.Overview
 import org.springframework.stereotype.Component
 
 @Component

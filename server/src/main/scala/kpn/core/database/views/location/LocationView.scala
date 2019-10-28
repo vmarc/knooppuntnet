@@ -1,8 +1,13 @@
 package kpn.core.database.views.location
 
-import kpn.core.database.views.common.{View, ViewRow}
+import kpn.core.database.views.common.View
+import kpn.core.database.views.common.ViewRow
 import kpn.shared.common.Ref
-import spray.json.{DeserializationException, JsArray, JsNumber, JsString, JsValue}
+import spray.json.DeserializationException
+import spray.json.JsArray
+import spray.json.JsNumber
+import spray.json.JsString
+import spray.json.JsValue
 
 object LocationView extends View {
 

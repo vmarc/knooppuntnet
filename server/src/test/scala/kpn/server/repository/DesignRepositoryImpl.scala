@@ -1,7 +1,8 @@
 package kpn.server.repository
 
 import kpn.core.database.Database
-import kpn.core.database.doc.{DesignDoc, ViewDoc}
+import kpn.core.database.doc.DesignDoc
+import kpn.core.database.doc.ViewDoc
 import kpn.core.database.views.common.Design
 import kpn.core.util.Util
 

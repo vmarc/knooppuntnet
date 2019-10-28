@@ -1,7 +1,8 @@
 package kpn.core.database.implementation
 
 import com.fasterxml.jackson.core.JsonProcessingException
-import kpn.core.database.views.common.{Design, View}
+import kpn.core.database.views.common.Design
+import kpn.core.database.views.common.View
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod

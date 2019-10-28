@@ -12,8 +12,9 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.typesafe.config.ConfigFactory
 import kpn.core.app.ActorSystemConfig
-import kpn.core.database.{Database, DatabaseImpl}
 import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.Database
+import kpn.core.database.DatabaseImpl
 import kpn.server.json.CountryJsonDeserializer
 import kpn.server.json.CountryJsonSerializer
 import kpn.server.json.FactJsonDeserializer

@@ -2,7 +2,11 @@ package kpn.core.database.views.poi
 
 import kpn.core.database.views.common.View
 import kpn.core.poi.PoiInfo
-import spray.json.{DeserializationException, JsArray, JsNumber, JsString, JsValue}
+import spray.json.DeserializationException
+import spray.json.JsArray
+import spray.json.JsNumber
+import spray.json.JsString
+import spray.json.JsValue
 
 object PoiView extends View {
 

@@ -6,8 +6,11 @@ import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.data.Tags
-import kpn.shared.{Country, Fact, Subset}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.Country
+import kpn.shared.Fact
+import kpn.shared.Subset
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class OverviewTest extends FunSuite with Matchers {
 

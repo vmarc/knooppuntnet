@@ -1,6 +1,7 @@
 package kpn.core.database.views.poi
 
-import kpn.core.database.views.common.{Design, View}
+import kpn.core.database.views.common.Design
+import kpn.core.database.views.common.View
 
 object PoiDesign extends Design {
 

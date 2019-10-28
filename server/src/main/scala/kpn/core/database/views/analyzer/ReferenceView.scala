@@ -1,7 +1,11 @@
 package kpn.core.database.views.analyzer
 
 import kpn.core.database.views.common.View
-import spray.json.{DeserializationException, JsArray, JsNumber, JsString, JsValue}
+import spray.json.DeserializationException
+import spray.json.JsArray
+import spray.json.JsNumber
+import spray.json.JsString
+import spray.json.JsValue
 
 object ReferenceView extends View {
 

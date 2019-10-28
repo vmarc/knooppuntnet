@@ -4,7 +4,8 @@ import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
 import kpn.core.db.NodeDocViewResult
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class DatabaseDocsWithIdsTest extends FunSuite with Matchers with TestObjects {
 

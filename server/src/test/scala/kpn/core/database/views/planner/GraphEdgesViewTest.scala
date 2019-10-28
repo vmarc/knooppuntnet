@@ -7,9 +7,14 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.common._
 import kpn.shared.data.Tags
-import kpn.shared.route.{RouteInfo, RouteInfoAnalysis, RouteMap}
-import kpn.shared.{NetworkType, RouteSummary, Timestamp}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.route.RouteInfo
+import kpn.shared.route.RouteInfoAnalysis
+import kpn.shared.route.RouteMap
+import kpn.shared.NetworkType
+import kpn.shared.RouteSummary
+import kpn.shared.Timestamp
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 import spray.http.Uri
 
 class GraphEdgesViewTest extends FunSuite with Matchers {

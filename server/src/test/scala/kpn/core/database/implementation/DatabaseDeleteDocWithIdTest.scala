@@ -4,9 +4,12 @@ import java.util.UUID
 
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
-import kpn.core.database.{Database, DatabaseImpl}
-import kpn.core.test.TestSupport.{withDatabase, withEnvironment}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.core.database.Database
+import kpn.core.database.DatabaseImpl
+import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withEnvironment
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class DatabaseDeleteDocWithIdTest extends FunSuite with Matchers with TestObjects {
 

@@ -2,9 +2,12 @@ package kpn.server.repository
 
 import akka.util.Timeout
 import kpn.core.database.Database
-import kpn.core.database.doc.{GpxDoc, NetworkDoc}
+import kpn.core.database.doc.GpxDoc
+import kpn.core.database.doc.NetworkDoc
+import kpn.core.database.views.analyzer.AnalyzerDesign
+import kpn.core.database.views.analyzer.NetworkMapView
+import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
-import kpn.core.database.views.analyzer.{AnalyzerDesign, NetworkMapView, NetworkView}
 import kpn.core.gpx.GpxFile
 import kpn.core.util.Log
 import kpn.shared.Subset

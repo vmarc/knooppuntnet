@@ -3,7 +3,10 @@ package kpn.core.database.views.analyzer
 import kpn.core.database.views.common.View
 import kpn.core.db.json.JsonFormats.networkShapeFormat
 import kpn.shared.network.NetworkMapInfo
-import spray.json.{JsArray, JsNumber, JsString, JsValue}
+import spray.json.JsArray
+import spray.json.JsNumber
+import spray.json.JsString
+import spray.json.JsValue
 
 object NetworkMapView extends View {
 

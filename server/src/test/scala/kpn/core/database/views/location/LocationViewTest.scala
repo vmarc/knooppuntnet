@@ -1,10 +1,14 @@
 package kpn.core.database.views.location
 
 import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.{NodeRepositoryImpl, RouteRepositoryImpl}
+import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.data.Tags
-import kpn.shared.{Location, RouteLocationAnalysis, SharedTestObjects}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.Location
+import kpn.shared.RouteLocationAnalysis
+import kpn.shared.SharedTestObjects
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
 

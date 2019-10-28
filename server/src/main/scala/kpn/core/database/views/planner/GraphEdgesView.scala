@@ -3,7 +3,10 @@ package kpn.core.database.views.planner
 import kpn.core.database.views.common.View
 import kpn.core.planner.graph.GraphEdge
 import kpn.shared.common.TrackPathKey
-import spray.json.{JsArray, JsNumber, JsString, JsValue}
+import spray.json.JsArray
+import spray.json.JsNumber
+import spray.json.JsString
+import spray.json.JsValue
 
 /**
   * View to derive graph edges from routes (to be used for routing).

@@ -2,8 +2,14 @@ package kpn.core.database.views.analyzer
 
 import kpn.core.app.NetworkIntegrityInfo
 import kpn.core.database.views.common.View
-import kpn.shared.{NetworkIntegrityCheckFailed, NodeIntegrityCheck}
-import spray.json.{DeserializationException, JsArray, JsBoolean, JsNumber, JsString, JsValue}
+import kpn.shared.NetworkIntegrityCheckFailed
+import kpn.shared.NodeIntegrityCheck
+import spray.json.DeserializationException
+import spray.json.JsArray
+import spray.json.JsBoolean
+import spray.json.JsNumber
+import spray.json.JsString
+import spray.json.JsValue
 
 object FactView extends View {
 

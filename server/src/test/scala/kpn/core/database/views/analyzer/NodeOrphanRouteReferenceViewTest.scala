@@ -4,9 +4,9 @@ import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.node.NodeOrphanRouteReference
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
+import kpn.shared.node.NodeOrphanRouteReference
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

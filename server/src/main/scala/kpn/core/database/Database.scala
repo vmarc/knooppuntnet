@@ -1,8 +1,9 @@
 package kpn.core.database
 
 import kpn.core.database.doc.Doc
+import kpn.core.database.views.common.Design
+import kpn.core.database.views.common.View
 import kpn.core.db.couch.OldDatabase
-import kpn.core.database.views.common.{Design, View}
 
 trait Database {
 

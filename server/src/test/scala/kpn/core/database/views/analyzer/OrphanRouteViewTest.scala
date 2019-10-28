@@ -5,8 +5,12 @@ import kpn.core.database.views.analyzer.OrphanRouteView.OrphanRouteKey
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.{Country, NetworkType, RouteSummary, SharedTestObjects}
-import org.scalatest.{FunSuite, Matchers}
+import kpn.shared.Country
+import kpn.shared.NetworkType
+import kpn.shared.RouteSummary
+import kpn.shared.SharedTestObjects
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects {
 

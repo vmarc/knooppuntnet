@@ -4,9 +4,13 @@ import kpn.core.database.views.analyzer.FactView.FactViewKey
 import kpn.core.db.TestDocBuilder
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
+import kpn.shared.Country
+import kpn.shared.Fact
+import kpn.shared.NetworkType
+import kpn.shared.Subset
 import kpn.shared.data.Tags
-import kpn.shared.{Country, Fact, NetworkType, Subset}
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class FactViewTest extends FunSuite with Matchers {
 

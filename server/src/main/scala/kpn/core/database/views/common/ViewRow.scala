@@ -1,6 +1,7 @@
 package kpn.core.database.views.common
 
-import spray.json.{JsNull, JsValue}
+import spray.json.JsNull
+import spray.json.JsValue
 
 class ViewRow(row: JsValue) {
   private val rowObject = row.asJsObject

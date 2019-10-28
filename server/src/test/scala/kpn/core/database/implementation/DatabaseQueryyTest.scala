@@ -2,13 +2,16 @@ package kpn.core.database.implementation
 
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
-import kpn.core.database.views.location.{LocationDesign, LocationView}
-import kpn.core.db.couch.{ViewResult, ViewResultRow}
+import kpn.core.database.views.location.LocationDesign
+import kpn.core.database.views.location.LocationView
+import kpn.core.db.couch.ViewResult
+import kpn.core.db.couch.ViewResultRow
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.DesignRepositoryImpl
 import kpn.shared.Location
 import kpn.shared.data.Tags
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.FunSuite
+import org.scalatest.Matchers
 
 class DatabaseQueryyTest extends FunSuite with Matchers with TestObjects {
 
