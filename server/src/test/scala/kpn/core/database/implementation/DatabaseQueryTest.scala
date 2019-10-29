@@ -2,6 +2,7 @@ package kpn.core.database.implementation
 
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
+import kpn.core.database.query.Query
 import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.location.LocationView
 import kpn.core.db.couch.ViewResult
@@ -13,7 +14,7 @@ import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class DatabaseQueryyTest extends FunSuite with Matchers with TestObjects {
+class DatabaseQueryTest extends FunSuite with Matchers with TestObjects {
 
   test("query") {
     withDatabase(database => {
@@ -47,7 +48,8 @@ class DatabaseQueryyTest extends FunSuite with Matchers with TestObjects {
         )
       )
 
-      val result = database.query(LocationDesign, LocationView, classOf[ViewResult], stale = false)("node")
+      val query = Query(LocationDesign, LocationView, classOf[ViewResult]).stale(false).reduce(false).keyStartsWith("node")
+      val result = database.execute(query)
 
       result should equal(
         ViewResult(

@@ -3,15 +3,12 @@ package kpn.server.repository
 import akka.util.Timeout
 import kpn.core.database.Database
 import kpn.core.database.doc.RouteDoc
-import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
 import kpn.core.db.couch.Couch
 import kpn.core.db.json.JsonFormats.routeDocFormat
 import kpn.core.util.Log
-import kpn.shared.NetworkType
-import kpn.shared.common.Reference
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteReferences
 import org.springframework.stereotype.Component
@@ -126,17 +123,8 @@ class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
   }
 
   override def routeReferences(routeId: Long, timeout: Timeout, stale: Boolean): RouteReferences = {
-    val references = analysisDatabase.old.query(AnalyzerDesign, ReferenceView, timeout, stale)("route", routeId).map(ReferenceView.convert).flatMap { row =>
-      NetworkType.withName(row.referrerNetworkType).map { networkType =>
-        row.referrerType -> Reference(
-          row.referrerId,
-          row.referrerName,
-          networkType,
-          row.connection
-        )
-      }
-    }
-    val networkReferences = references.filter(_._1 == "network").map(_._2).sorted
+    val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale = stale)
+    val networkReferences = rows.filter(_.referrerType == "network").map(_.toReference).sorted
     RouteReferences(networkReferences)
   }
 

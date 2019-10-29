@@ -45,13 +45,6 @@ trait OldDatabase {
     skip: Int = 0
   ): PagingQueryResult
 
-  def docs(
-    startKey: String,
-    endKey: String,
-    timeout: Timeout = Couch.defaultTimeout,
-    limit: Int = 9999
-  ): Seq[JsValue]
-
   def keys(
     startKey: String,
     endKey: String,

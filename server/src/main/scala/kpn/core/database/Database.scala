@@ -1,8 +1,7 @@
 package kpn.core.database
 
 import kpn.core.database.doc.Doc
-import kpn.core.database.views.common.Design
-import kpn.core.database.views.common.View
+import kpn.core.database.query.Query
 import kpn.core.db.couch.OldDatabase
 
 trait Database {
@@ -31,6 +30,6 @@ trait Database {
 
   def revision(docId: String): Option[String]
 
-  def query[T](design: Design, view: View, docType: Class[T], stale: Boolean = true)(args: Any*): T
+  def execute[T](query: Query[T]): T
 
 }

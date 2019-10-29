@@ -53,10 +53,13 @@ class OldDatabaseImpl(couch: Couch, val name: String) extends OldDatabase {
   }
 
   private def getJsonString(request: String, timeout: Timeout): String = {
+    println("REQUEST " + request)
     val httpRequest = HttpRequest(uri = docUrl(request))
     performRequest2(httpRequest, timeout) { (response: HttpResponse, entityString: String) =>
       response.status match {
-        case StatusCodes.Success(_) => entityString
+        case StatusCodes.Success(_) =>
+          println("RESPONSE " + entityString)
+          entityString
         case status: StatusCode => throw new RuntimeException(s"""Request failed: "${httpRequest.uri}": $status - ${response.entity}""")
       }
     }
@@ -238,20 +241,6 @@ class OldDatabaseImpl(couch: Couch, val name: String) extends OldDatabase {
     }
 
     getRows(uri.toString(), timeout)
-  }
-
-  override def docs(startKey: String, endKey: String, timeout: Timeout, limit: Int): Seq[JsValue] = {
-    val uri = Uri("_all_docs")
-    val xx = uri.withQuery(
-      Query(
-        "startkey" -> s""""$startKey"""",
-        "endkey" -> s""""$endKey"""",
-        "limit" -> limit.toString,
-        "include_docs" -> "true",
-        "reduce" -> "false"
-      )
-    )
-    getRows(xx.toString(), timeout)
   }
 
   override def keys(startKey: String, endKey: String, timeout: Timeout): Seq[JsValue] = {

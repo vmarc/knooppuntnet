@@ -1,6 +1,7 @@
 package kpn.core.database.views.analyzer
 
 import kpn.core.database.Database
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
 import kpn.shared.node.NodeOrphanRouteReference
 
@@ -15,7 +16,8 @@ object NodeOrphanRouteReferenceView extends View {
   )
 
   def query(database: Database, nodeId: Long, stale: Boolean): Seq[NodeOrphanRouteReference] = {
-    val result = database.query(AnalyzerDesign, NodeOrphanRouteReferenceView, classOf[ViewResult], stale = stale)(nodeId)
+    val query = Query(AnalyzerDesign, NodeOrphanRouteReferenceView, classOf[ViewResult]).stale(stale).keyStartsWith(nodeId)
+    val result = database.execute(query)
     result.rows.flatMap(_.value)
   }
 

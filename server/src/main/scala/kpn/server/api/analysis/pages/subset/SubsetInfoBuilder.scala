@@ -10,22 +10,22 @@ object SubsetInfoBuilder {
   def newSubsetInfo(subset: Subset, figures: Map[String, Figure]): SubsetInfo = {
 
     val networkCount = figures.get("NetworkCount") match {
-      case Some(figure: Figure) => figure.value(subset)
+      case Some(figure: Figure) => figure.counts(subset)
       case _ => 0
     }
     val factCount = Fact.reportedFacts.map { f =>
       figures.get(f.name + "Count") match {
-        case Some(figure: Figure) => figure.value(subset)
+        case Some(figure: Figure) => figure.counts(subset)
         case _ => 0
       }
     }.sum
 
     val orphanNodeCount = figures.get(Fact.OrphanNode.name + "Count") match {
-      case Some(figure: Figure) => figure.value(subset)
+      case Some(figure: Figure) => figure.counts(subset)
       case _ => 0
     }
     val orphanRouteCount = figures.get(Fact.OrphanRoute.name + "Count") match {
-      case Some(figure: Figure) => figure.value(subset)
+      case Some(figure: Figure) => figure.counts(subset)
       case _ => 0
     }
 

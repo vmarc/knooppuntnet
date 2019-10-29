@@ -1,11 +1,10 @@
 package kpn.core.database.views.analyzer
 
+import kpn.core.database.Database
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import spray.json.DeserializationException
-import spray.json.JsArray
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
+import kpn.shared.NetworkType
+import kpn.shared.common.Reference
 
 object ReferenceView extends View {
 
@@ -14,43 +13,47 @@ object ReferenceView extends View {
     referencedId: Long,
     referrerType: String,
     referrerId: Long,
-    referrerNetworkType: String,
+    referrerNetworkType: NetworkType,
     referrerName: String,
-    referenceCount: Int,
     connection: Boolean
-  )
-
-  case class Level2Row(
-    referencedType: String,
-    referencedId: Long,
-    referenceCount: Int
-  )
-
-  def convert(rowValue: JsValue): Row = {
-    val row = toRow(rowValue)
-    row.key match {
-      case JsArray(Vector(JsString(referencedType), JsNumber(referencedId), JsString(referrerType), JsNumber(referrerId))) =>
-        row.value match {
-          case JsArray(Vector(JsNumber(referenceCount), JsString(referrerNetworkType), JsString(referrerName), JsString(connection))) =>
-            Row(referencedType, referencedId.toLong, referrerType, referrerId.toLong, referrerNetworkType, referrerName, referenceCount.toInt, connection == "true")
-          case _ =>
-            throw DeserializationException("value structure expected")
-        }
-      case _ =>
-        throw DeserializationException("key structure expected")
+  ) {
+    def toReference: Reference = {
+      Reference(
+        referrerId,
+        referrerName,
+        referrerNetworkType,
+        connection
+      )
     }
   }
 
-  def convertLevel2(rowValue: JsValue): Level2Row = {
-    val row = toRow(rowValue)
-    row.key match {
-      case JsArray(Vector(JsString(referencedType), JsNumber(referencedId))) =>
-        row.value match {
-          case JsNumber(referenceCount) =>
-            Level2Row(referencedType, referencedId.toLong, referenceCount.toInt)
-          case _ => throw DeserializationException("int value expected")
-        }
-      case _ => throw DeserializationException("key structure expected")
+  private case class ViewResultRow(
+    id: String,
+    key: Seq[String],
+    value: Seq[String]
+  )
+
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  def query(database: Database, referencedType: String, referencedId: Long, stale: Boolean = true): Seq[Row] = {
+    val query = Query(AnalyzerDesign, ReferenceView, classOf[ViewResult]).reduce(false).keyStartsWith(referencedType, referencedId)
+    val result = database.execute(query)
+    result.rows.map { row =>
+      NetworkType.withName(row.value.head) match {
+        case None =>
+          throw new IllegalStateException("Invalid networkType")
+        case Some(networkType) =>
+          Row(
+            referencedType = row.key.head,
+            referencedId = row.key(1).toLong,
+            referrerType = row.key(2),
+            referrerId = row.key(3).toLong,
+            referrerNetworkType = networkType,
+            referrerName = row.value(1),
+            connection = row.value(2).toBoolean
+          )
+      }
     }
   }
+
 }

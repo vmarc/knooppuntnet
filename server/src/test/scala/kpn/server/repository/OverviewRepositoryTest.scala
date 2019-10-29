@@ -6,12 +6,13 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
+import kpn.shared.Subset
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
 class OverviewRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
-  ignore("figures") {
+  test("figures") {
 
     withDatabase { database =>
 
@@ -31,8 +32,8 @@ class OverviewRepositoryTest extends FunSuite with Matchers with SharedTestObjec
       val repository: OverviewRepository = new OverviewRepositoryImpl(database)
 
       val figures = repository.figures(Couch.uiTimeout)
-      figures("NetworkCount") should equal(Figure("NetworkCount", beRwn = 1))
-      figures("NodeCount") should equal(Figure("NodeCount", beRwn = 2))
+      figures("NetworkCount") should equal(Figure("NetworkCount", 1, Map(Subset.beHiking -> 1)))
+      figures("NodeCount") should equal(Figure("NodeCount", 2, Map(Subset.beHiking -> 2)))
     }
   }
 }

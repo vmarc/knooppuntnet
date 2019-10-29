@@ -7,5 +7,4 @@ trait OverviewRepository {
 
   def figures(timeout: Timeout, stale: Boolean = true): Map[String, Figure]
 
-  def figure(timeout: Timeout, factName: String, stale: Boolean = true): Option[Figure]
 }

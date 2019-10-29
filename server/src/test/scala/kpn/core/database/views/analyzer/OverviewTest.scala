@@ -3,12 +3,11 @@ package kpn.core.database.views.analyzer
 import kpn.core.app.stats.Figure
 import kpn.core.database.Database
 import kpn.core.db.TestDocBuilder
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.data.Tags
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.Subset
+import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -26,29 +25,10 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("MeterCount", nlRwn = 11),
-          Figure("MeterCount", nlRwn = 21),
-          Figure("MeterCount", deRcn = 31),
-          Figure("NetworkCount", nlRwn = 1),
-          Figure("NetworkCount", nlRwn = 1),
-          Figure("NetworkCount", deRcn = 1),
-          Figure("NodeCount", nlRwn = 12),
-          Figure("NodeCount", nlRwn = 22),
-          Figure("NodeCount", deRcn = 32),
-          Figure("RouteCount", nlRwn = 13),
-          Figure("RouteCount", nlRwn = 23),
-          Figure("RouteCount", deRcn = 33)
-        )
-      )
-
-      val sums = database.old.groupQuery(1, AnalyzerDesign, Overview, Couch.uiTimeout)().map(Overview.convert)
-
-      sums should equal(
-        Seq(
-          Figure("MeterCount", nlRwn = 32, deRcn = 31),
-          Figure("NetworkCount", nlRwn = 2, deRcn = 1),
-          Figure("NodeCount", nlRwn = 34, deRcn = 32),
-          Figure("RouteCount", nlRwn = 36, deRcn = 33)
+          Figure("MeterCount", 63, Map(Subset.deBicycle -> 31, Subset.nlHiking -> 32)),
+          Figure("NetworkCount", 3, Map(Subset.deBicycle -> 1, Subset.nlHiking -> 2)),
+          Figure("NodeCount", 66, Map(Subset.deBicycle -> 32, Subset.nlHiking -> 34)),
+          Figure("RouteCount", 69, Map(Subset.deBicycle -> 33, Subset.nlHiking -> 36))
         )
       )
     }
@@ -72,11 +52,11 @@ class OverviewTest extends FunSuite with Matchers {
 
       val rows = queryRows(database)
 
-      rows should contain(Figure("NameMissingCount", nlRcn = 1))
-      rows should contain(Figure("NameMissingNetworkCount", nlRcn = 1))
+      rows should contain(Figure("NameMissingCount", 1, Map(Subset.nlBicycle -> 1)))
+      rows should contain(Figure("NameMissingNetworkCount", 1, Map(Subset.nlBicycle -> 1)))
 
-      rows should contain(Figure("NetworkExtraMemberNodeCount", nlRcn = 1))
-      rows should contain(Figure("NetworkExtraMemberNodeNetworkCount", nlRcn = 1))
+      rows should contain(Figure("NetworkExtraMemberNodeCount", 1, Map(Subset.nlBicycle -> 1)))
+      rows should contain(Figure("NetworkExtraMemberNodeNetworkCount", 1, Map(Subset.nlBicycle -> 1)))
     }
   }
 
@@ -106,10 +86,10 @@ class OverviewTest extends FunSuite with Matchers {
       )
 
       val rows = queryRows(database)
-      rows should contain(Figure("RouteBrokenCount", nlRcn = 1))
-      rows should contain(Figure("RouteBrokenNetworkCount", nlRcn = 1))
-      rows should contain(Figure("RouteNameMissingCount", nlRcn = 1))
-      rows should contain(Figure("RouteNameMissingNetworkCount", nlRcn = 1))
+      rows should contain(Figure("RouteBrokenCount", 1, Map(Subset.nlBicycle -> 1)))
+      rows should contain(Figure("RouteBrokenNetworkCount", 1, Map(Subset.nlBicycle -> 1)))
+      rows should contain(Figure("RouteNameMissingCount", 1, Map(Subset.nlBicycle -> 1)))
+      rows should contain(Figure("RouteNameMissingNetworkCount", 1, Map(Subset.nlBicycle -> 1)))
     }
   }
 
@@ -124,10 +104,10 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("MeterCount", nlRwn = 21),
-          Figure("NetworkCount", nlRwn = 1),
-          Figure("NodeCount", nlRwn = 22),
-          Figure("RouteCount", nlRwn = 23)
+          Figure("MeterCount", 21, Map(Subset.nlHiking -> 21)),
+          Figure("NetworkCount", 1, Map(Subset.nlHiking -> 1)),
+          Figure("NodeCount", 22, Map(Subset.nlHiking -> 22)),
+          Figure("RouteCount", 23, Map(Subset.nlHiking -> 23))
         )
       )
     }
@@ -135,7 +115,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("orphan nodes") {
 
-    withDatabase { database =>
+    withDatabase(true) { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -145,9 +125,7 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanNodeCount", nlRcn = 1),
-          Figure("OrphanNodeCount", nlRwn = 1),
-          Figure("OrphanNodeCount", nlRwn = 1)
+          Figure("OrphanNodeCount", 3, Map(Subset.nlBicycle -> 1, Subset.nlHiking -> 2))
         )
       )
     }
@@ -165,13 +143,13 @@ class OverviewTest extends FunSuite with Matchers {
 
       queryRows(database) should equal(
         Seq(
-          Figure("OrphanNodeCount", nlRwn = 1)
+          Figure("OrphanNodeCount", 1, Map(Subset.nlHiking -> 1))
         )
       )
     }
   }
 
-  ignore("orphan routes") {
+  test("orphan routes") {
 
     withDatabase { database =>
 
@@ -181,17 +159,13 @@ class OverviewTest extends FunSuite with Matchers {
       b.route(12, Subset.nlHiking, orphan = true)
       b.route(13, Subset.nlHiking, orphan = true)
 
-      queryRows(database) should equal(
-        Seq(
-          Figure("OrphanRouteCount", nlRcn = 1),
-          Figure("OrphanRouteCount", nlRwn = 1),
-          Figure("OrphanRouteCount", nlRwn = 1)
-        )
+      queryRows(database) should contain(
+        Figure("OrphanRouteCount", 3, Map(Subset.nlBicycle -> 1, Subset.nlHiking -> 2))
       )
     }
   }
 
-  ignore("inactive orphan routes are not included in the counts") {
+  test("inactive orphan routes are not included in the counts") {
 
     withDatabase { database =>
 
@@ -201,15 +175,13 @@ class OverviewTest extends FunSuite with Matchers {
       b.route(12, Subset.nlHiking, orphan = true, active = false)
       b.route(13, Subset.nlHiking, orphan = true, active = false)
 
-      queryRows(database) should equal(
-        Seq(
-          Figure("OrphanRouteCount", nlRwn = 1)
-        )
+      queryRows(database) should contain(
+        Figure("OrphanRouteCount", 1, Map(Subset.nlHiking -> 1))
       )
     }
   }
 
   private def queryRows(database: Database): Seq[Figure] = {
-    database.old.query(AnalyzerDesign, Overview, Couch.uiTimeout, stale = false)().map(Overview.convert)
+    Overview.query(database, stale = false)
   }
 }

@@ -1,9 +1,20 @@
 package kpn.core.database
 
 import kpn.core.database.doc.Doc
-import kpn.core.database.implementation._
-import kpn.core.database.views.common.Design
-import kpn.core.database.views.common.View
+import kpn.core.database.implementation.DatabaseBulkSave
+import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseCreate
+import kpn.core.database.implementation.DatabaseDelete
+import kpn.core.database.implementation.DatabaseDeleteDocWithId
+import kpn.core.database.implementation.DatabaseDeleteDocsWithIds
+import kpn.core.database.implementation.DatabaseDocWithId
+import kpn.core.database.implementation.DatabaseDocsWithIds
+import kpn.core.database.implementation.DatabaseExists
+import kpn.core.database.implementation.DatabaseKeysWithIds
+import kpn.core.database.implementation.DatabaseQuery
+import kpn.core.database.implementation.DatabaseRevision
+import kpn.core.database.implementation.DatabaseSave
+import kpn.core.database.query.Query
 import kpn.core.db.couch.OldDatabase
 import kpn.core.db.couch.OldDatabaseImpl
 
@@ -56,8 +67,8 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
     new DatabaseRevision(context).revision(docId)
   }
 
-  override def query[T](design: Design, view: View, docType: Class[T], stale: Boolean = true)(args: Any*): T = {
-    new DatabaseQuery(context).query(design, view, docType, stale)(args: _*)
+  override def execute[T](query: Query[T]): T = {
+    new DatabaseQuery(context).execute(query)
   }
 
   override def keysWithIds(docIds: Seq[String], stale: Boolean): Seq[String] = {

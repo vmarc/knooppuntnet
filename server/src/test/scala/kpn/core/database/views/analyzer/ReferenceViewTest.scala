@@ -5,12 +5,12 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
+import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import kpn.shared.route.RouteNetworkNodeInfo
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-import spray.http.Uri
 
 class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
@@ -18,7 +18,7 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("view keys and  values") {
 
-    withDatabase { database => {
+    withDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.save(newNodeInfo(1001, tags = Tags.from("rwn_ref" -> "01")))
@@ -62,38 +62,30 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
           )
         )
       )
-    }
 
-      database.old.query(AnalyzerDesign, ReferenceView, timeout, stale = false)().map(ReferenceView.convert) should equal(
+      ReferenceView.query(database, "node", 1001, stale = false) should equal(
         Seq(
-          ReferenceView.Row("node", 1001, "network", 1, "rwn", "network-name", -1, connection = false),
-          ReferenceView.Row("node", 1001, "node", 1001, "", "01", 1, connection = false),
-          ReferenceView.Row("node", 1001, "route", 10, "rwn", "route-name", -1, connection = false),
-          ReferenceView.Row("node", 1002, "network", 1, "rwn", "network-name", -1, connection = false),
-          ReferenceView.Row("node", 1002, "node", 1002, "", "02", 1, connection = false),
-          ReferenceView.Row("node", 1002, "route", 10, "rwn", "route-name", -1, connection = false),
-          ReferenceView.Row("node", 1003, "node", 1003, "", "03", 1, connection = false),
-          ReferenceView.Row("route", 10, "network", 1, "rwn", "network-name", -1, connection = false),
-          ReferenceView.Row("route", 10, "route", 10, "rwn", "route-name", 1, connection = false),
-          ReferenceView.Row("route", 11, "route", 11, "rwn", "orphan-route-name", 1, connection = false)
+          ReferenceView.Row("node", 1001, "network", 1, NetworkType.hiking, "network-name", connection = false),
+          ReferenceView.Row("node", 1001, "route", 10, NetworkType.hiking, "route-name", connection = false)
         )
       )
 
-      val uriHead = Uri("_design/%s/_view/%s".format(AnalyzerDesign.name, ReferenceView.name))
-      val uri = uriHead.withQuery(
-        "group" -> "true",
-        "group_level" -> "2"
-      )
-
-      database.old.getRows(uri.toString(), timeout).map(ReferenceView.convertLevel2) should equal(
+      ReferenceView.query(database, "node", 1002, stale = false) should equal(
         Seq(
-          ReferenceView.Level2Row("node", 1001, -1), // referenced twice: once from route, once from network
-          ReferenceView.Level2Row("node", 1002, -1), // referenced twice: once from route, once from network
-          ReferenceView.Level2Row("node", 1003, 1), // not referenced: orphan node
-          ReferenceView.Level2Row("route", 10, 0), // referenced once: from network
-          ReferenceView.Level2Row("route", 11, 1) // not referenced: orphan route
+          ReferenceView.Row("node", 1002, "network", 1, NetworkType.hiking, "network-name", connection = false),
+          ReferenceView.Row("node", 1002, "route", 10, NetworkType.hiking, "route-name", connection = false)
         )
       )
+
+      ReferenceView.query(database, "node", 1003, stale = false) should equal(Seq())
+
+      ReferenceView.query(database, "route", 10, stale = false) should equal(
+        Seq(
+          ReferenceView.Row("route", 10, "network", 1, NetworkType.hiking, "network-name", connection = false)
+        )
+      )
+
+      ReferenceView.query(database, "route", 11, stale = false) should equal(Seq())
     }
   }
 }

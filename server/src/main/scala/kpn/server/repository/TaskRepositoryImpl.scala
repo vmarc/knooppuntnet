@@ -2,11 +2,9 @@ package kpn.server.repository
 
 import kpn.core.database.Database
 import kpn.core.database.doc.StringValueDoc
-import kpn.core.database.views.common.ViewRow
-import kpn.core.db.couch.Couch
+import kpn.core.database.query.Query
+import kpn.core.db.couch.ViewResult2
 import org.springframework.stereotype.Component
-import spray.http.Uri
-import spray.json.JsString
 
 @Component
 class TaskRepositoryImpl(taskDatabase: Database) extends TaskRepository {
@@ -27,29 +25,10 @@ class TaskRepositoryImpl(taskDatabase: Database) extends TaskRepository {
   }
 
   override def all(prefix: String): Seq[String] = {
-
-    val startKey = {
-      s""""$prefix""""
-    }
-    val endKey = {
-      s""""${prefix}999999999999999""""
-    }
-
-    val uriHead = Uri("_all_docs")
-    val uri = uriHead.withQuery(
-      "startkey" -> startKey,
-      "endkey" -> endKey,
-      "include_docs" -> "false",
-      "limit" -> "50",
-      "reduce" -> "false"
-    )
-
-    val rows = taskDatabase.old.getRows(uri.toString(), Couch.defaultTimeout)
-    rows.flatMap { row =>
-      new ViewRow(row).key match {
-        case JsString(key) => Some(key)
-        case _ => None
-      }
-    }
+    val startKey = s""""$prefix""""
+    val endKey = s""""${prefix}999999999999999""""
+    val query = Query("_all_docs", classOf[ViewResult2]).startKey(startKey).endKey(endKey).reduce(false).limit(50)
+    val result = taskDatabase.execute(query)
+    result.rows.map(_.key)
   }
 }
