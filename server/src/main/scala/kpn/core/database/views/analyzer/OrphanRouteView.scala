@@ -1,46 +1,27 @@
 package kpn.core.database.views.analyzer
 
+import kpn.core.database.Database
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.core.db.json.JsonFormats.routeSummaryFormat
 import kpn.shared.RouteSummary
-import spray.json.DeserializationException
-import spray.json.JsArray
-import spray.json.JsBoolean
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
+import kpn.shared.Subset
 
 object OrphanRouteView extends View {
 
-  case class OrphanRouteKey(orphan: Boolean, country: String, networkType: String, id: Long)
+  private case class ViewResultRow(
+    value: RouteSummary
+  )
 
-  def toKeyAndValue(rowValue: JsValue): (OrphanRouteKey, RouteSummary) = {
-    val row = toRow(rowValue)
-    val key = row.key match {
-      case JsArray(Vector(JsBoolean(orphan), JsString(country), JsString(networkType), JsNumber(id))) =>
-        OrphanRouteKey(orphan, country, networkType, id.toLong)
-      case _ =>
-        throw DeserializationException("key structure expected")
-    }
-    val value = routeSummaryFormat.read(row.value)
-    (key, value)
-  }
+  private case class ViewResult(
+    rows: Seq[ViewResultRow]
+  )
 
-  def convert(rowValue: JsValue): RouteSummary = {
-    val row = toRow(rowValue)
-    routeSummaryFormat.read(row.value)
-  }
-
-  def toObjectId(rowValue: JsValue): Long = {
-    val rowObject = rowValue.asJsObject
-    rowObject.getFields("key").head match {
-      case JsArray(values) =>
-        values(5) match {
-          case JsNumber(id) => id.toLong
-          case _ => throw DeserializationException("expected number")
-        }
-      case _ => throw DeserializationException("expected key array")
-    }
+  def query(database: Database, subset: Subset, stale: Boolean = true): Seq[RouteSummary] = {
+    val country = subset.country.domain
+    val networkType = subset.networkType.name
+    val query = Query(AnalyzerDesign, OrphanRouteView, classOf[ViewResult]).stale(stale).reduce(false).keyStartsWith(country, networkType)
+    val result = database.execute(query)
+    result.rows.map(_.value)
   }
 
   override val reduce: Option[String] = Some("_count")

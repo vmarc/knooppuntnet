@@ -1,20 +1,20 @@
 package kpn.core.database.views.analyzer
 
-import kpn.core.database.views.analyzer.FactsPerNetworkView.Row
 import kpn.core.db.TestDocBuilder
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.Subset
+import kpn.shared.common.Ref
 import kpn.shared.data.Tags
+import kpn.shared.subset.NetworkFactRefs
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
 class FactsPerNetworkViewTest extends FunSuite with Matchers {
 
-  test("rows") {
+  test("query") {
 
     withDatabase { database =>
 
@@ -56,17 +56,20 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.old.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
+      val nameMissingRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.NameMissing, stale = false)
+      nameMissingRefs should equal(Seq(NetworkFactRefs(networkId, "network-name")))
 
-      rows should equal(
-        Seq(
-          Row("nl", "rwn", "NameMissing", "network-name", networkId, None, None),
-          Row("nl", "rwn", "NetworkExtraMemberNode", "network-name", networkId, None, None),
-          Row("nl", "rwn", "NodeMemberMissing", "network-name", networkId, Some("01"), Some(1001)),
-          Row("nl", "rwn", "RouteBroken", "network-name", networkId, Some("01-02"), Some(10)),
-          Row("nl", "rwn", "RouteNameMissing", "network-name", networkId, Some("01-02"), Some(10))
-        )
-      )
+      val networkExtraMemberNodeRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.NameMissing, stale = false)
+      networkExtraMemberNodeRefs should equal(Seq(NetworkFactRefs(networkId, "network-name")))
+
+      val nodeMemberMissingRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.NodeMemberMissing, stale = false)
+      nodeMemberMissingRefs should equal(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(1001, "01")))))
+
+      val routeBrokenRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.RouteBroken, stale = false)
+      routeBrokenRefs should equal(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(10, "01-02")))))
+
+      val routeNameMissingRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.RouteNameMissing, stale = false)
+      routeNameMissingRefs should equal(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(10, "01-02")))))
     }
   }
 
@@ -83,13 +86,8 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.old.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
-
-      rows should equal(
-        Seq(
-          Row("nl", "rwn", "RouteBroken", "OrphanRoutes", 0, Some("01-02"), Some(11))
-        )
-      )
+      val refs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.RouteBroken, stale = false)
+      refs should equal(Seq(NetworkFactRefs(0, "OrphanRoutes", Seq(Ref(11, "01-02")))))
     }
   }
 
@@ -116,13 +114,8 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.old.query(AnalyzerDesign, FactsPerNetworkView, Couch.uiTimeout, stale = false)().map(FactsPerNetworkView.convert)
-
-      rows should equal(
-        Seq(
-          Row("nl", networkType.name, "IntegrityCheck", "OrphanNodes", 0, Some("01"), Some(1001))
-        )
-      )
+      val refs = FactsPerNetworkView.query(database, Subset.of(Country.nl, networkType).get, Fact.IntegrityCheck, stale = false)
+      refs should equal(Seq(NetworkFactRefs(0, "OrphanNodes", Seq(Ref(1001, "01")))))
     }
   }
 }

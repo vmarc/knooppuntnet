@@ -1,7 +1,5 @@
 package kpn.server.repository
 
-import kpn.core.app.IntegrityCheckPage
-import kpn.core.app.NetworkIntegrityInfo
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
@@ -148,49 +146,4 @@ class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
     }
   }
 
-  ignore("integrityCheckFacts") {
-
-    withDatabase { database =>
-
-      new NetworkRepositoryImpl(database).save(
-        newNetwork(
-          1,
-          Some(Country.be),
-          NetworkType.hiking,
-          "network-1",
-          networkFacts = NetworkFacts(
-            integrityCheckFailed = Some(
-              NetworkIntegrityCheckFailed(
-                2,
-                Seq(
-                  NodeIntegrityCheck("01", 101, 3, 2, failed = false),
-                  NodeIntegrityCheck("02", 102, 3, 3, failed = true)
-                )
-              )
-            )
-          )
-        )
-      )
-
-      new FactRepositoryImpl(database).integrityCheckFacts("be", "rwn", Couch.uiTimeout, stale = false) should equal(
-        IntegrityCheckPage(
-          "be",
-          "rwn",
-          Seq(
-            NetworkIntegrityInfo(
-              1,
-              "network-1",
-              NetworkIntegrityCheckFailed(
-                2,
-                Seq(
-                  NodeIntegrityCheck("01", 101, 3, 2, failed = false),
-                  NodeIntegrityCheck("02", 102, 3, 3, failed = true)
-                )
-              )
-            )
-          )
-        )
-      )
-    }
-  }
 }

@@ -23,7 +23,7 @@ object SurfaceTagsTool {
 
 class SurfaceTagsTool(database: Database) {
 
-  val tagKeys = Seq(
+  private val tagKeys = Seq(
     "highway",
     "bridge",
     "surface",

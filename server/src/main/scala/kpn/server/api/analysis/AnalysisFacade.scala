@@ -1,6 +1,5 @@
 package kpn.server.api.analysis
 
-import kpn.core.app.IntegrityCheckPage
 import kpn.core.gpx.GpxFile
 import kpn.shared.ApiResponse
 import kpn.shared.ChangesPage
@@ -18,18 +17,15 @@ import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
-import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
 import kpn.shared.node.NodeMapPage
-import kpn.shared.node.NodePage
 import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RouteChangesPage
 import kpn.shared.route.RouteDetailsPage
 import kpn.shared.route.RouteMapPage
-import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
@@ -41,15 +37,11 @@ import kpn.shared.tiles.ClientPoiConfiguration
 
 trait AnalysisFacade {
 
-  def node(user: Option[String], nodeId: Long): ApiResponse[NodePage]
-
   def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage]
 
   def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage]
 
   def nodeChanges(user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage]
-
-  def route(user: Option[String], routeId: Long): ApiResponse[RoutePage]
 
   def routeDetails(user: Option[String], routeId: Long): ApiResponse[RouteDetailsPage]
 
@@ -73,8 +65,6 @@ trait AnalysisFacade {
 
   def networkFacts(user: Option[String], id: Long): ApiResponse[NetworkFactsPage]
 
-  def oldNetworkFacts(user: Option[String], id: Long): ApiResponse[OldNetworkFactsPage]
-
   def networkNodes(user: Option[String], id: Long): ApiResponse[NetworkNodesPage]
 
   def networkRoutes(user: Option[String], id: Long): ApiResponse[NetworkRoutesPage]
@@ -85,9 +75,6 @@ trait AnalysisFacade {
   def gpx(user: Option[String], networkId: Long): Option[GpxFile]
 
   def overview(user: Option[String]): ApiResponse[Statistics]
-
-  // TODO no longer used? cleanup?
-  def integrityCheckFacts(user: Option[String], country: String, networkType: String): IntegrityCheckPage
 
   def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
 

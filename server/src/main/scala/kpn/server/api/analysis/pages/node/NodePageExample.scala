@@ -17,7 +17,6 @@ import kpn.shared.diff.TagDiffs
 import kpn.shared.diff.common.FactDiffs
 import kpn.shared.diff.node.NodeMoved
 import kpn.shared.node.NodeChangeInfo
-import kpn.shared.node.NodeChangeInfos
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
 import kpn.shared.node.NodeMapPage
@@ -25,7 +24,6 @@ import kpn.shared.node.NodeNetworkIntegrityCheck
 import kpn.shared.node.NodeNetworkReference
 import kpn.shared.node.NodeNetworkRouteReference
 import kpn.shared.node.NodeOrphanRouteReference
-import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 
 object NodePageExample {
@@ -50,17 +48,6 @@ object NodePageExample {
       incompleteWarning = true,
       10,
       10
-    )
-  }
-
-  val page: NodePage = {
-    NodePage(
-      nodeInfo(),
-      nodeReferences(),
-      NodeChangeInfos(
-        changes(),
-        incompleteWarning = true
-      )
     )
   }
 

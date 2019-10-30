@@ -1,6 +1,5 @@
 package kpn.server.api.analysis
 
-import kpn.core.app._
 import kpn.core.app.stats.StatisticsBuilder
 import kpn.core.common.TimestampLocal
 import kpn.core.db.couch.Couch
@@ -48,19 +47,16 @@ import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkMapPage
 import kpn.shared.network.NetworkNodesPage
 import kpn.shared.network.NetworkRoutesPage
-import kpn.shared.network.OldNetworkFactsPage
 import kpn.shared.node.MapDetailNode
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
 import kpn.shared.node.NodeMapPage
-import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 import kpn.shared.planner.RouteLeg
 import kpn.shared.route.MapDetailRoute
 import kpn.shared.route.RouteChangesPage
 import kpn.shared.route.RouteDetailsPage
 import kpn.shared.route.RouteMapPage
-import kpn.shared.route.RoutePage
 import kpn.shared.statistics.Statistics
 import kpn.shared.subset.SubsetChangesPage
 import kpn.shared.subset.SubsetFactDetailsPage
@@ -103,13 +99,6 @@ class AnalysisFacadeImpl(
 
   private val log = Log(classOf[AnalysisFacadeImpl])
 
-  override def node(user: Option[String], nodeId: Long): ApiResponse[NodePage] = {
-    val label = s"$user node($nodeId)"
-    log.infoElapsed(label) {
-      reply(label, nodePageBuilder.build(user, nodeId))
-    }
-  }
-
   override def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage] = {
     val label = s"$user node($nodeId)"
     log.infoElapsed(label) {
@@ -128,13 +117,6 @@ class AnalysisFacadeImpl(
     val label = s"$user node($nodeId)"
     log.infoElapsed(label) {
       reply(label, nodePageBuilder.buildChangesPage(user, nodeId, parameters))
-    }
-  }
-
-  override def route(user: Option[String], routeId: Long): ApiResponse[RoutePage] = {
-    val label = s"$user route($routeId)"
-    log.infoElapsed(label) {
-      reply(label, routePageBuilder.build(user, routeId))
     }
   }
 
@@ -177,13 +159,6 @@ class AnalysisFacadeImpl(
     val label = s"$user networkFacts($networkId)"
     log.infoElapsed(label) {
       reply(label, networkFactsPageBuilder.build(networkId))
-    }
-  }
-
-  override def oldNetworkFacts(user: Option[String], networkId: Long): ApiResponse[OldNetworkFactsPage] = {
-    val label = s"$user networkFacts($networkId)"
-    log.infoElapsed(label) {
-      reply(label, networkFactsPageBuilder.oldBuild(networkId))
     }
   }
 
@@ -264,13 +239,6 @@ class AnalysisFacadeImpl(
       val figures = overviewRepository.figures(Couch.uiTimeout)
       val page = StatisticsBuilder.build(figures)
       reply(label, Some(page))
-    }
-  }
-
-  override def integrityCheckFacts(user: Option[String], country: String, networkType: String): IntegrityCheckPage = {
-    val label = s"$user integrityCheckFacts($country/$networkType)"
-    log.infoElapsed(label) {
-      factRepository.integrityCheckFacts(country, networkType, Couch.uiTimeout)
     }
   }
 

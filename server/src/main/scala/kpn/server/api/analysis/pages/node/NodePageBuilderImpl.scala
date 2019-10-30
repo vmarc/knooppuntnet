@@ -9,11 +9,9 @@ import kpn.shared.NodeInfo
 import kpn.shared.Timestamp
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.node.NodeChangeInfos
 import kpn.shared.node.NodeChangesPage
 import kpn.shared.node.NodeDetailsPage
 import kpn.shared.node.NodeMapPage
-import kpn.shared.node.NodePage
 import kpn.shared.node.NodeReferences
 import org.springframework.stereotype.Component
 
@@ -23,17 +21,6 @@ class NodePageBuilderImpl(
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends NodePageBuilder {
-
-  def build(user: Option[String], nodeId: Long): Option[NodePage] = {
-    if (nodeId == 1) {
-      Some(NodePageExample.page)
-    }
-    else {
-      nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
-        buildNodePage(user, nodeInfo)
-      }
-    }
-  }
 
   def buildDetailsPage(user: Option[String], nodeId: Long): Option[NodeDetailsPage] = {
     if (nodeId == 1) {
@@ -66,13 +53,6 @@ class NodePageBuilderImpl(
         buildNodeChangesPage(user, nodeInfo, parameters)
       }
     }
-  }
-
-  private def buildNodePage(user: Option[String], nodeInfo: NodeInfo): NodePage = {
-    val parameters = ChangesParameters().copy(nodeId = Some(nodeInfo.id))
-    val nodeChangesPage = buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters)
-    val nodeChanges = NodeChangeInfos(nodeChangesPage.changes, nodeChangesPage.incompleteWarning)
-    NodePage(nodeInfo, buildNodeReferences(nodeInfo), nodeChanges)
   }
 
   private def buildNodeDetailsPage(user: Option[String], nodeInfo: NodeInfo): NodeDetailsPage = {

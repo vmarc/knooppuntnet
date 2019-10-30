@@ -4,8 +4,6 @@ import akka.util.Timeout
 import kpn.core.database.Database
 import kpn.core.database.doc.GpxDoc
 import kpn.core.database.doc.NetworkDoc
-import kpn.core.database.views.analyzer.AnalyzerDesign
-import kpn.core.database.views.analyzer.NetworkMapView
 import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
 import kpn.core.gpx.GpxFile
@@ -13,7 +11,6 @@ import kpn.core.util.Log
 import kpn.shared.Subset
 import kpn.shared.network.NetworkAttributes
 import kpn.shared.network.NetworkInfo
-import kpn.shared.network.NetworkMapInfo
 import org.springframework.stereotype.Component
 
 @Component
@@ -93,10 +90,7 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
 
   override def networks(subset: Subset, timeout: Timeout, stale: Boolean): Seq[NetworkAttributes] = {
-    analysisDatabase.old.query(AnalyzerDesign, NetworkView, timeout, stale)(subset.country.domain, subset.networkType.name).map(NetworkView.convert)
+    NetworkView.query(analysisDatabase, subset, stale = stale)
   }
 
-  override def networksMap(country: String, networkType: String, timeout: Timeout, stale: Boolean): Seq[NetworkMapInfo] = {
-    analysisDatabase.old.query(AnalyzerDesign, NetworkMapView, timeout, stale)(country, networkType).map(NetworkMapView.convert)
-  }
 }

@@ -8,7 +8,6 @@ import {ChangesPage} from "./kpn/shared/changes-page";
 import {ChangeSetPage} from "./kpn/shared/changes/change-set-page";
 import {ChangesParameters} from "./kpn/shared/changes/filter/changes-parameters";
 import {LocationPage} from "./kpn/shared/location-page";
-import {NetworkType} from "./kpn/shared/network-type";
 import {NetworkChangesPage} from "./kpn/shared/network/network-changes-page";
 import {NetworkDetailsPage} from "./kpn/shared/network/network-details-page";
 import {NetworkFactsPage} from "./kpn/shared/network/network-facts-page";

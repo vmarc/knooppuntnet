@@ -1,26 +1,33 @@
 package kpn.core.database.views.location
 
+import kpn.core.database.Database
+import kpn.core.database.query.Fields
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.core.database.views.common.ViewRow
+import kpn.shared.NetworkType
 import kpn.shared.common.Ref
-import spray.json.DeserializationException
-import spray.json.JsArray
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
 
 object LocationView extends View {
 
-  def convert(rowValue: JsValue): ViewRow = {
-    toRow(rowValue)
-  }
+  private case class ViewResultRow(value: Seq[String])
 
-  def toRef(rowValue: JsValue): Ref = {
-    val row = toRow(rowValue)
-    row.value match {
-      case JsArray(Vector(JsString(routeName), JsNumber(routeId))) => Ref(routeId.toLong, routeName)
-      case _ =>
-        throw DeserializationException("Expected route ref, but found: " + row.value.prettyPrint)
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  def query(database: Database, elementType: String, networkType: NetworkType, locationNames: Seq[String] = Seq(), stale: Boolean = true): Seq[Ref] = {
+
+    val args = Seq(elementType, networkType.newName) ++ locationNames
+
+    val query = Query(LocationDesign, LocationView, classOf[ViewResult])
+      .keyStartsWith(args: _*)
+      .reduce(false)
+
+    val result = database.execute(query)
+    result.rows.map { row =>
+      val fields = Fields(row.value)
+      Ref(
+        id = fields.long(1),
+        name = fields.string(0)
+      )
     }
   }
 

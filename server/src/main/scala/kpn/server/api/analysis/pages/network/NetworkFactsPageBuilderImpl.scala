@@ -6,13 +6,9 @@ import kpn.server.repository.NetworkRepository
 import kpn.shared.Check
 import kpn.shared.Fact
 import kpn.shared.NetworkFact
-import kpn.shared.NetworkFacts
 import kpn.shared.common.Ref
 import kpn.shared.network.NetworkFactsPage
 import kpn.shared.network.NetworkInfo
-import kpn.shared.network.NetworkNodeFact
-import kpn.shared.network.NetworkRouteFact
-import kpn.shared.network.OldNetworkFactsPage
 import org.springframework.stereotype.Component
 
 @Component
@@ -30,21 +26,8 @@ class NetworkFactsPageBuilderImpl(
     }
   }
 
-  override def oldBuild(networkId: Long): Option[OldNetworkFactsPage] = {
-    if (networkId == 1) {
-      Some(NetworkFactsPageExample.oldPage)
-    }
-    else {
-      oldBuildPage(networkId)
-    }
-  }
-
   private def buildPage(networkId: Long): Option[NetworkFactsPage] = {
     networkRepository.network(networkId, Couch.uiTimeout).map(buildPageContents)
-  }
-
-  private def oldBuildPage(networkId: Long): Option[OldNetworkFactsPage] = {
-    networkRepository.network(networkId, Couch.uiTimeout).map(oldBuildPageContents)
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkFactsPage = {
@@ -111,7 +94,7 @@ class NetworkFactsPageBuilderImpl(
 
     val networkInfoFacts = networkInfo.facts.map(f => NetworkFact(f.name))
 
-    val facts = if(networkInfo.active) {
+    val facts = if (networkInfo.active) {
       networkInfoFacts ++ networkFacts ++ nodeFacts ++ routeFacts
     }
     else {
@@ -125,35 +108,4 @@ class NetworkFactsPageBuilderImpl(
     )
   }
 
-  private def oldBuildPageContents(networkInfo: NetworkInfo): OldNetworkFactsPage = {
-
-    val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
-
-    val networkFacts = networkInfo.detail match {
-      case Some(detail) => detail.networkFacts
-      case None => NetworkFacts()
-    }
-
-    val nodeFacts: Seq[NetworkNodeFact] = Fact.reportedFacts.filter { fact =>
-      networkInfo.hasNodesWithFact(fact)
-    }.map { fact =>
-      val nodes = networkInfo.nodesWithFact(fact).map(r => Ref(r.id, r.name))
-      NetworkNodeFact(fact, nodes)
-    }
-
-    val routeFacts: Seq[NetworkRouteFact] = Fact.reportedFacts.filter { fact =>
-      networkInfo.hasRoutesWithFact(fact)
-    }.map { fact =>
-      val routes = networkInfo.routesWithFact(fact).map(r => Ref(r.id, r.name))
-      NetworkRouteFact(fact, routes)
-    }
-
-    OldNetworkFactsPage(
-      NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
-      networkFacts,
-      nodeFacts,
-      routeFacts,
-      networkInfo.facts
-    )
-  }
 }

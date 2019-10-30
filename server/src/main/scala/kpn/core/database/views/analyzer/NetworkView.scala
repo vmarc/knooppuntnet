@@ -1,20 +1,23 @@
 package kpn.core.database.views.analyzer
 
+import kpn.core.database.Database
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.core.db.json.JsonFormats.networkAttributesFormat
+import kpn.shared.Subset
 import kpn.shared.network.NetworkAttributes
-import spray.json.JsValue
 
-/**
-  * Database view to pick up network attributes by country and network type.
-  *
-  * See also: NetworkRepositoryImpl and NetworkRepositoryTest.
-  */
 object NetworkView extends View {
 
-  def convert(rowValue: JsValue): NetworkAttributes = {
-    val row = toRow(rowValue)
-    networkAttributesFormat.read(row.value)
+  private case class ViewResultRow(value: NetworkAttributes)
+
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  def query(database: Database, subset: Subset, stale: Boolean = true): Seq[NetworkAttributes] = {
+    val query = Query(AnalyzerDesign, NetworkView, classOf[ViewResult])
+      .keyStartsWith(subset.country.domain, subset.networkType.name)
+      .reduce(false)
+    val result = database.execute(query)
+    result.rows.map(_.value)
   }
 
   override val reduce: Option[String] = None

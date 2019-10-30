@@ -1,12 +1,8 @@
-if (doc && doc.route && doc.route.active === true) {
-  var r = doc.route;
-  if (r.active === true && r.orphan === true) {
+if (doc && doc.route && doc.route.active === true && doc.route.orphan === true) {
     var key = [
-      r.orphan,
-      r.summary.country,
-      r.summary.networkType,
-      r.summary.id
+        doc.route.summary.country,
+        doc.route.summary.networkType,
+        doc.route.summary.id
     ];
-    emit(key, r.summary);
-  }
+    emit(key, doc.route.summary);
 }

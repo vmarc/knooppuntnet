@@ -1,22 +1,23 @@
 package kpn.core.database.views.analyzer
 
+import kpn.core.database.Database
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.core.db.json.JsonFormats.networkShapeFormat
+import kpn.shared.Subset
 import kpn.shared.network.NetworkMapInfo
-import spray.json.JsArray
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
 
 object NetworkMapView extends View {
 
-  def convert(rowValue: JsValue): NetworkMapInfo = {
-    val row = toRow(rowValue)
-    row.key match {
-      case JsArray(Vector(JsString(networkCountry), JsString(networkType), JsString(networkName), JsNumber(networkId))) =>
-        val shape = networkShapeFormat.read(row.value)
-        NetworkMapInfo(networkId.toLong, networkName, shape)
-    }
+  private case class ViewResultRow(value: NetworkMapInfo)
+
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  def query(database: Database, subset: Subset, stale: Boolean = true): Seq[NetworkMapInfo] = {
+    val query = Query(AnalyzerDesign, NetworkView, classOf[ViewResult])
+      .keyStartsWith(subset.country.domain, subset.networkType.name)
+      .reduce(false)
+    val result = database.execute(query)
+    result.rows.map(_.value)
   }
 
   override val reduce: Option[String] = None

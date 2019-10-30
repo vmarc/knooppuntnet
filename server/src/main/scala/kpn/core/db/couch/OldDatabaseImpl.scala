@@ -66,6 +66,7 @@ class OldDatabaseImpl(couch: Couch, val name: String) extends OldDatabase {
   }
 
   private def getJsValue(request: String, timeout: Timeout): JsValue = {
+    import spray.json._
     getJsonString(request, timeout).parseJson
   }
 
@@ -254,73 +255,6 @@ class OldDatabaseImpl(couch: Couch, val name: String) extends OldDatabase {
       )
     )
     getRows(request.toString, timeout).map(r => new ViewRow(r).key)
-  }
-
-  /**
-   * Retrieves the revisions for the documents with given id's.
-   *
-   * @param ids The id's of documents for which to find the revisions.
-   * @return revision map: key = document-id, value = document-revision (no entry for id's for which there is
-   *         no document in the database).
-   */
-  private def revMap(ids: Seq[String], timeout: Timeout): Map[String, String] = {
-
-    val keys = JsObject(
-      Map("keys" -> JsArray(ids.map(s => JsString(s)): _*))
-    )
-    val uri = Uri(docUrl("_all_docs"))
-    val entity = HttpEntity(keys.toString())
-    val request = HttpRequest(HttpMethods.POST, uri, entity = entity)
-
-    val data = performRequest2(request) { (response: HttpResponse, entityString: String) =>
-      if (response.status != StatusCodes.OK) {
-        throw new RuntimeException(s"""Bulk document revision request failed: "${uri.toString()}": ${response.status}""")
-      }
-      entityString.parseJson
-    }
-
-    val rows = data match {
-      case obj: JsObject =>
-        obj.getFields("rows") match {
-          case Seq(array: JsArray) =>
-
-            val yy = array.elements
-            yy.flatMap { row =>
-              row match {
-                case rowObject: JsObject =>
-
-                  if (rowObject.getFields("error").nonEmpty) {
-                    None
-                  }
-                  else {
-                    rowObject.getFields("id") match {
-                      case Seq(jsId) =>
-
-                        val id = jsId.toString().tail.dropRight(1)
-                        val jsValue = rowObject.getFields("value")
-
-                        jsValue match {
-                          case Seq(valueObj: JsObject) =>
-                            val rev = valueObj.getFields("rev").head.toString().tail.dropRight(1)
-                            Some(id -> rev)
-                          case _ =>
-                            deserializationError(s"JsObject 'value' field expected\nresponse=${data.prettyPrint}\nrow=${rowObject.prettyPrint}")
-                        }
-                      case _ =>
-                        deserializationError(s"row 'id' field expected\nresponse=${data.prettyPrint}\nrow=${rowObject.prettyPrint}")
-                    }
-                  }
-
-                case _ =>
-                  deserializationError(s"JsObject 'row' field expected\nresponse=${data.prettyPrint}\nrow=${row.prettyPrint}")
-              }
-            }
-          case _ => Seq()
-        }
-      case _ => deserializationError(s"'rows' field expected\nresponse=${data.prettyPrint}")
-    }
-
-    rows.toMap
   }
 
   def bulkSave(docs: Seq[JsValue]): Unit = {

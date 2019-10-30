@@ -1,15 +1,9 @@
 package kpn.core.database.views.analyzer
 
-import kpn.core.app.NetworkIntegrityInfo
+import kpn.core.database.Database
+import kpn.core.database.query.Fields
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.NetworkIntegrityCheckFailed
-import kpn.shared.NodeIntegrityCheck
-import spray.json.DeserializationException
-import spray.json.JsArray
-import spray.json.JsBoolean
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
 
 object FactView extends View {
 
@@ -21,38 +15,23 @@ object FactView extends View {
     networkId: Long
   )
 
-  def convert(rowValue: JsValue): FactViewKey = {
-    val row = toRow(rowValue)
-    row.key match {
-      case JsArray(Vector(JsString(country), JsString(networkType), JsString(fact), JsString(networkName), JsNumber(networkId))) =>
-        FactViewKey(country, networkType, fact, networkName, networkId.toLong)
-      case _ => throw DeserializationException("expected array")
+  private case class ViewResultRow(key: Seq[String])
+
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  def query(database: Database, stale: Boolean = true): Seq[FactViewKey] = {
+    val query = Query(AnalyzerDesign, FactView, classOf[ViewResult]).stale(stale).reduce(false)
+    val result = database.execute(query)
+    result.rows.map { row =>
+      val fields = Fields(row.key)
+      FactViewKey(
+        country = fields.string(0),
+        networkType = fields.string(1),
+        fact = fields.string(2),
+        networkName = fields.string(3),
+        networkId = fields.long(4)
+      )
     }
   }
 
-  def integrityCheckConvert(rowValue: JsValue): NetworkIntegrityInfo = {
-
-    val row = toRow(rowValue)
-
-    row.key match {
-      case JsArray(Vector(JsString(country), JsString(networkType), JsString(fact), JsString(networkName), JsNumber(networkId))) =>
-        row.value.asJsObject.getFields("count", "checks") match {
-          case Seq(JsNumber(count), JsArray(checkValues)) =>
-            val checks = checkValues.map { check =>
-              check.asJsObject.getFields("expected", "failed", "nodeName", "actual", "nodeId") match {
-                case Seq(JsNumber(expected), JsBoolean(failed), JsString(nodeName), JsNumber(actual), JsNumber(nodeId)) =>
-                  NodeIntegrityCheck(nodeName, nodeId.toLong, actual.toInt, expected.toInt, failed)
-                case _ => throw DeserializationException("NodeIntegrityCheck fields expected")
-              }
-            }
-
-            val detail = NetworkIntegrityCheckFailed(count.toInt, checks)
-            NetworkIntegrityInfo(networkId.toLong, networkName, detail)
-
-          case _ => throw DeserializationException("row value expected")
-        }
-
-      case _ => throw DeserializationException("row key expected")
-    }
-  }
 }

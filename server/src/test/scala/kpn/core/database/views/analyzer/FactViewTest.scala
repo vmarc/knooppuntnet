@@ -2,7 +2,6 @@ package kpn.core.database.views.analyzer
 
 import kpn.core.database.views.analyzer.FactView.FactViewKey
 import kpn.core.db.TestDocBuilder
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
@@ -55,9 +54,7 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.old.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
-
-      rows should equal(
+      FactView.query(database, stale = false) should equal(
         Seq(
           FactViewKey("nl", "rwn", "NameMissing", "network-name", networkId),
           FactViewKey("nl", "rwn", "NetworkExtraMemberNode", "network-name", networkId),
@@ -82,9 +79,7 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.old.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
-
-      rows should equal(
+      FactView.query(database, stale = false) should equal(
         Seq(
           FactViewKey("nl", "rwn", "RouteBroken", "OrphanRoutes", 0)
         )
@@ -115,9 +110,7 @@ class FactViewTest extends FunSuite with Matchers {
         )
       }
 
-      val rows = database.old.query(AnalyzerDesign, FactView, Couch.uiTimeout, stale = false)().map(FactView.convert)
-
-      rows should equal(
+      FactView.query(database, stale = false) should equal(
         Seq(
           FactViewKey("nl", networkType.name, "IntegrityCheck", "OrphanNodes", 0)
         )

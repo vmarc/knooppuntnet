@@ -5,8 +5,10 @@ import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.data.Tags
 import kpn.shared.Location
+import kpn.shared.NetworkType
 import kpn.shared.RouteLocationAnalysis
 import kpn.shared.SharedTestObjects
+import kpn.shared.common.Ref
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -24,8 +26,18 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
           )
         )
       )
-      val result = database.old.query(LocationDesign, LocationView, stale = false)()
-      result.toString should equal("""Vector({"id":"node:1001","key":["node","cycling","country","province","municipality"],"value":["01",1001]})""")
+
+      LocationView.query(database, "node", NetworkType.bicycle) should equal(
+        Seq(
+          Ref(1001, "01")
+        )
+      )
+
+      LocationView.query(database, "node", NetworkType.bicycle, Seq("country", "province")) should equal(
+        Seq(
+          Ref(1001, "01")
+        )
+      )
     }
   }
 
@@ -46,8 +58,12 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
           )
         )
       )
-      val result = database.old.query(LocationDesign, LocationView, stale = false)()
-      result.toString should equal("""Vector({"id":"route:10","key":["route","hiking","country","province","municipality"],"value":["01-02",10]})""")
+
+      LocationView.query(database, "route", NetworkType.hiking) should equal(
+        Seq(
+          Ref(10, "01-02")
+        )
+      )
     }
   }
 

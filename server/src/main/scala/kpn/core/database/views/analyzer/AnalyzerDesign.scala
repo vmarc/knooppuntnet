@@ -8,10 +8,9 @@ object AnalyzerDesign extends Design {
   val views: Seq[View] = Seq(
     DocumentView,
     FactsPerNetworkView,
-    FactView,
-    //GraphEdges,
+    FactView, // not in use
     NetworkView,
-    NetworkMapView,
+    NetworkMapView, // not in use
     NodeNetworkReferenceView,
     NodeOrphanRouteReferenceView,
     OrphanRouteView,
