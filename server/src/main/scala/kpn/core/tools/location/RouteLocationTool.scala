@@ -1,13 +1,12 @@
 package kpn.core.tools.location
 
 import kpn.core.database.Database
-import kpn.core.database.views.common.ViewRow
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.RouteWayBasedLocatorImpl
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.route.RouteInfoAnalysis
-import spray.json.JsValue
 
 /*
   Performs route location analysis for all routes in the database.
@@ -44,7 +43,7 @@ class RouteLocationTool(database: Database) {
 
   def run(): Unit = {
 
-    val routeIds = readRouteIds()
+    val routeIds = DocumentView.allRouteIds(database)
     println(s"Updating ${routeIds.size} route definitions")
     val repo = new RouteRepositoryImpl(database)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
@@ -69,16 +68,5 @@ class RouteLocationTool(database: Database) {
         }
       }
     }
-  }
-
-  private def readRouteIds(): Seq[Long] = {
-    def toNodeId(row: JsValue): Long = {
-      val docId = new ViewRow(row).id.toString
-      val routeId = docId.drop("route:".length + 1).dropRight(1)
-      routeId.toLong
-    }
-
-    val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="route"&endkey="route:a"&reduce=false&stale=ok"""
-    database.old.getRows(request).map(toNodeId).distinct
   }
 }

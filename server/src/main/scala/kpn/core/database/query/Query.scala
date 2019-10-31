@@ -27,6 +27,8 @@ case class Query[T](
   endKey: Option[String] = None,
   stale: Option[String] = None,
   reduce: Option[String] = None,
+  descending: Option[String] = None,
+  includeDocs: Option[String] = None,
   groupLevel: Option[Int] = None,
   limit: Option[Int] = None,
   skip: Option[Int] = None
@@ -34,6 +36,14 @@ case class Query[T](
 
   def reduce(value: Boolean): Query[T] = {
     copy(reduce = Some(value.toString))
+  }
+
+  def descending(value: Boolean): Query[T] = {
+    copy(descending = Some(value.toString))
+  }
+
+  def includeDocs(value: Boolean): Query[T] = {
+    copy(includeDocs = Some(value.toString))
   }
 
   def stale(ok: Boolean): Query[T] = {
@@ -69,6 +79,8 @@ case class Query[T](
     val parameters = ArrayBuffer[String]()
 
     reduce.foreach(value => parameters.append(s"reduce=$value"))
+    descending.foreach(value => parameters.append(s"descending=$value"))
+    includeDocs.foreach(value => parameters.append(s"include_docs=$value"))
 
     args.foreach(argsSeq => {
       if (argsSeq.nonEmpty) {

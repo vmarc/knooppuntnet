@@ -1,11 +1,10 @@
 package kpn.core.tools
 
 import kpn.core.database.Database
-import kpn.core.database.views.common.ViewRow
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import spray.json.JsValue
 
 /*
   Collects counts for each of the tags that are used in node and route definitions.
@@ -38,7 +37,7 @@ class TagUsageTool(database: Database) {
 
     val counts = scala.collection.mutable.Map[String, Int]()
 
-    val nodeIds = readNodeIds()
+    val nodeIds = DocumentView.allNodeIds(database)
     println(s"Collecting tag information from ${nodeIds.size} node definitions")
     val repo = new NodeRepositoryImpl(database)
     nodeIds.zipWithIndex.foreach { case (nodeId, index) =>
@@ -62,7 +61,7 @@ class TagUsageTool(database: Database) {
   private def analyzeRouteTags(): Unit = {
     val counts = scala.collection.mutable.Map[String, Int]()
 
-    val routeIds = readRouteIds()
+    val routeIds = DocumentView.allRouteIds(database)
     println(s"Collecting tag information from ${routeIds.size} route definitions")
 
     val repo = new RouteRepositoryImpl(database)
@@ -83,27 +82,4 @@ class TagUsageTool(database: Database) {
       println(s"$key\t${counts(key)}")
     }
   }
-
-  private def readNodeIds(): Seq[Long] = {
-    def toNodeId(row: JsValue): Long = {
-      val docId = new ViewRow(row).id.toString
-      val nodeId = docId.drop("node:".length + 1).dropRight(1)
-      nodeId.toLong
-    }
-
-    val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="node"&endkey="node:a"&reduce=false&stale=ok"""
-    database.old.getRows(request).map(toNodeId).distinct
-  }
-
-  private def readRouteIds(): Seq[Long] = {
-    def toNodeId(row: JsValue): Long = {
-      val docId = new ViewRow(row).id.toString
-      val routeId = docId.drop("route:".length + 1).dropRight(1)
-      routeId.toLong
-    }
-
-    val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="route"&endkey="route:a"&reduce=false&stale=ok"""
-    database.old.getRows(request).map(toNodeId).distinct
-  }
-
 }

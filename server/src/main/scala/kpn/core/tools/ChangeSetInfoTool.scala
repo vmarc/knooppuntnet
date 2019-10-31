@@ -4,8 +4,8 @@ import akka.io.IO
 import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
 import kpn.core.database.DatabaseImpl
-import kpn.core.db.couch.Couch
 import kpn.core.database.implementation.DatabaseContext
+import kpn.core.db.couch.Couch
 import kpn.core.tools.config._
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
@@ -34,17 +34,15 @@ object ChangeSetInfoTool {
 
         try {
 
-          val couch = new Couch(system, Couch.config)
-
           val taskRepository = {
-            val taskDatabase = new DatabaseImpl(DatabaseContext(couch, couch.config, Couch.objectMapper, options.tasksDatabaseName))
+            val taskDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Couch.objectMapper, options.tasksDatabaseName))
             new TaskRepositoryImpl(taskDatabase)
           }
 
           val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets, system)
 
           val changeSetInfoRepository = {
-            val changeDatabase = new DatabaseImpl(DatabaseContext(couch, couch.config, Couch.objectMapper, options.changeSetsDatabaseName))
+            val changeDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Couch.objectMapper, options.changeSetsDatabaseName))
             new ChangeSetInfoRepositoryImpl(changeDatabase)
           }
 

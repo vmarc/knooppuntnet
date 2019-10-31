@@ -1,15 +1,12 @@
 package kpn.server.analyzer.load
 
 import akka.actor.ActorSystem
-import akka.io.IO
-import akka.pattern.ask
 import kpn.core.app.ActorSystemConfig
 import kpn.core.database.DatabaseImpl
+import kpn.core.database.implementation.DatabaseContext
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
-import kpn.core.database.implementation.DatabaseContext
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.tools.config.AnalysisRepositoryConfiguration
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalysisContext
@@ -26,12 +23,9 @@ import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.TaskRepositoryImpl
 import kpn.shared.Timestamp
-import spray.can.Http
-import spray.util.pimpFuture
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.concurrent.duration.DurationInt
 
 object NetworksLoaderDemo {
 
@@ -41,7 +35,6 @@ object NetworksLoaderDemo {
       new NetworksLoaderDemo(system).run()
     }
     finally {
-      IO(Http)(system).ask(Http.CloseAll)(15.second).await
       Await.result(system.terminate(), Duration.Inf)
     }
   }
@@ -55,8 +48,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val log = Log(classOf[NetworksLoaderDemo])
 
   val couchConfig: CouchConfig = Couch.config
-  val couch = new Couch(system, couchConfig)
-  val database = new DatabaseImpl(DatabaseContext(couch, couchConfig, Couch.objectMapper, "test"))
+  val database = new DatabaseImpl(DatabaseContext(couchConfig, Couch.objectMapper, "test"))
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryConfiguration(database).analysisRepository
   val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
   val analysisData = AnalysisData()

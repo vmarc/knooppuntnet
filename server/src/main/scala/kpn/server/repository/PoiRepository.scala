@@ -9,7 +9,7 @@ trait PoiRepository {
 
   def save(poi: Poi): Boolean
 
-  def allPois(timeout: Timeout = Couch.batchTimeout, stale: Boolean = false): Seq[PoiInfo]
+  def allPois(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[PoiInfo]
 
   def poi(elementType: String, elementId: Long): Option[Poi]
 

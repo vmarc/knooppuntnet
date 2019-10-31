@@ -1,22 +1,43 @@
 package kpn.core.database.views.poi
 
+import kpn.core.database.Database
+import kpn.core.database.query.Fields
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
 import kpn.core.poi.PoiInfo
-import spray.json.DeserializationException
-import spray.json.JsArray
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
 
 object PoiView extends View {
 
-  def convert(rowValue: JsValue): PoiInfo = {
-    val row = toRow(rowValue)
-    row.key match {
-      case JsArray(Vector(JsString(elementType), JsNumber(elementId), JsString(latitude), JsString(longitude), JsString(layer))) =>
-        PoiInfo(elementType, elementId.toLong, latitude, longitude, layer)
-      case _ => throw DeserializationException("expected array")
+  case class PoiViewResult(totalRows: Int, pois: Seq[PoiInfo])
+
+  private case class ViewResultRow(
+    id: String,
+    key: Seq[String],
+    value: Int
+  )
+
+  private case class ViewResult(total_rows: Int, offset: Int, rows: Seq[ViewResultRow])
+
+  def query(database: Database, limit: Int, skip: Int, stale: Boolean = true): PoiViewResult = {
+
+    val query = Query(PoiDesign, PoiView, classOf[ViewResult])
+      .reduce(false)
+      .limit(limit)
+      .skip(skip)
+
+    val result = database.execute(query)
+
+    val pois = result.rows.map { row =>
+      val key = Fields(row.key)
+      PoiInfo(
+        elementType = key.string(0),
+        elementId = key.long(1),
+        latitude = key.string(2),
+        longitude = key.string(3),
+        layer = key.string(4)
+      )
     }
+    PoiViewResult(result.total_rows, pois)
   }
 
   override val map: String =

@@ -21,18 +21,11 @@ import scala.concurrent.duration.DurationInt
 object RouteLoaderDemo {
 
   def main(args: Array[String]): Unit = {
-    val system = ActorSystemConfig.actorSystem()
-    try {
-      new RouteLoaderDemo(system).run()
-    }
-    finally {
-      IO(Http)(system).ask(Http.CloseAll)(15.second).await
-      Await.result(system.terminate(), Duration.Inf)
-    }
+    new RouteLoaderDemo().run()
   }
 }
 
-class RouteLoaderDemo(system: ActorSystem) {
+class RouteLoaderDemo() {
 
   val log = Log(classOf[RouteLoaderDemo])
 

@@ -1,21 +1,19 @@
 package kpn.core.database.views.planner
 
 import kpn.core.database.Database
-import kpn.core.db.couch.Couch
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
+import kpn.shared.NetworkType
+import kpn.shared.RouteSummary
+import kpn.shared.Timestamp
 import kpn.shared.common._
 import kpn.shared.data.Tags
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap
-import kpn.shared.NetworkType
-import kpn.shared.RouteSummary
-import kpn.shared.Timestamp
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-import spray.http.Uri
 
 class GraphEdgesViewTest extends FunSuite with Matchers {
 
@@ -77,14 +75,10 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   }
 
   private def doTest(database: Database, routeMap: RouteMap): Seq[GraphEdge] = {
-
     val routeRepository = new RouteRepositoryImpl(database)
     val routeInfo = buildRoute(routeMap)
     routeRepository.save(routeInfo)
-
-    val uri = Uri("_design/PlannerDesign/_view/GraphEdgesView?reduce=false")
-
-    database.old.getRows(uri.toString(), Couch.uiTimeout).map(GraphEdgesView.convert)
+    GraphEdgesView.query(database, NetworkType.hiking, stale = false)
   }
 
   private def buildRoute(routeMap: RouteMap): RouteInfo = {

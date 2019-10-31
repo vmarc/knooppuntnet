@@ -1,27 +1,49 @@
 package kpn.core.database.views.analyzer
 
+import kpn.core.database.Database
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
 
 object DocumentView extends View {
 
+  case class ViewResultRow(id: String)
+
+  case class ViewResult(rows: Seq[ViewResultRow])
+
+  case class ViewResultCountRow(key: String, value: Int)
+
+  case class ViewResultCount(rows: Seq[ViewResultCountRow])
+
   case class DocumentCount(prefix: String, count: Int)
 
-  def convert(rowValue: JsValue): DocumentCount = {
+  def allNodeIds(database: Database): Seq[Long] = {
+    allIds(database: Database, "node")
+  }
 
-    val row = toRow(rowValue)
-    val key = row.key match {
-      case JsString(string) => string
-      case _ => "?"
-    }
-    val count = row.value match {
-      case JsNumber(number) => number.toInt
-      case _ => 0
-    }
+  def allRouteIds(database: Database): Seq[Long] = {
+    allIds(database: Database, "route")
+  }
 
-    DocumentCount(key, count)
+  private def allIds(database: Database, elementType: String): Seq[Long] = {
+    val query = Query(AnalyzerDesign, DocumentView, classOf[ViewResult])
+      .startKey(s""""$elementType"""")
+      .endKey(s""""$elementType:a"""")
+      .reduce(false)
+      .stale(false)
+    val result = database.execute(query)
+    result.rows.map { row =>
+      row.id.drop(s"$elementType:".length).toLong
+    }
+  }
+
+  def counts(database: Database): Seq[DocumentCount] = {
+    val query = Query(AnalyzerDesign, DocumentView, classOf[ViewResultCount])
+      .groupLevel(1)
+      .stale(false)
+    val result = database.execute(query)
+    result.rows.map { row =>
+      DocumentCount(row.key, row.value)
+    }
   }
 
   override val map: String =

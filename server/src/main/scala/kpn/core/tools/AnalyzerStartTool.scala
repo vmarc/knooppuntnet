@@ -1,14 +1,12 @@
 package kpn.core.tools
 
 import akka.actor.ActorSystem
-import akka.io.IO
-import akka.pattern.ask
 import kpn.core.analysis.Network
 import kpn.core.app.ActorSystemConfig
 import kpn.core.common.TimestampUtil
 import kpn.core.database.DatabaseImpl
-import kpn.core.db.couch.Couch
 import kpn.core.database.implementation.DatabaseContext
+import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -28,12 +26,9 @@ import kpn.shared.common.Ref
 import kpn.shared.diff.common.FactDiffs
 import kpn.shared.diff.route.RouteDiff
 import kpn.shared.node.NodeNetworkTypeAnalyzer
-import spray.can.Http
-import spray.util.pimpFuture
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.concurrent.duration.DurationInt
 
 /*
   Loads the initial state of the analysis and changes database with the oldest information that is
@@ -58,7 +53,6 @@ object AnalyzerStartTool {
           new AnalyzerStartTool(configuration).analyze()
         }
         finally {
-          IO(Http)(system).ask(Http.CloseAll)(15.second).await
           Await.result(system.terminate(), Duration.Inf)
           log.info(s"Done")
           ()
@@ -76,9 +70,8 @@ object AnalyzerStartTool {
 
   private def buildConfiguration(system: ActorSystem, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
     val couchConfig = Couch.config
-    val couch = new Couch(system, couchConfig)
-    val analysisDatabase = new DatabaseImpl(DatabaseContext(couch, couchConfig, Couch.objectMapper, options.analysisDatabaseName))
-    val changeDatabase = new DatabaseImpl(DatabaseContext(couch, couchConfig, Couch.objectMapper, options.changeDatabaseName))
+    val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Couch.objectMapper, options.analysisDatabaseName))
+    val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Couch.objectMapper, options.changeDatabaseName))
     new AnalyzerStartToolConfiguration(
       system,
       analysisDatabase,

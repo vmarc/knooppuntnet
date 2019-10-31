@@ -2,7 +2,6 @@ package kpn.server.repository
 
 import akka.util.Timeout
 import kpn.core.database.Database
-import kpn.core.database.views.poi.PoiDesign
 import kpn.core.database.views.poi.PoiView
 import kpn.core.db.KeyPrefix
 import kpn.core.poi.PoiDoc
@@ -41,19 +40,18 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     }
   }
 
-  override def allPois(timeout: Timeout, stale: Boolean): Seq[PoiInfo] = {
+  override def allPois(timeout: Timeout, stale: Boolean = true): Seq[PoiInfo] = {
 
-    val pageSize = 100000
+    val pageSize = 10000
 
     log.info(s"Loading pois")
 
-    val pagingQueryResult = poiDatabase.old.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, 0)
-
-    val initialPois = pagingQueryResult.rows.map(PoiView.convert)
+    val initialResult = PoiView.query(poiDatabase, pageSize, 0, stale)
+    val initialPois = initialResult.pois
 
     val pageCount = {
-      val count = (pagingQueryResult.totalRows / pageSize).toInt
-      val rest = pagingQueryResult.totalRows % pageSize
+      val count = (initialResult.totalRows / pageSize).toInt
+      val rest = initialResult.totalRows % pageSize
       if (rest > 0) {
         count + 1
       }
@@ -63,13 +61,11 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     }
 
     val remainingPois = (1 until pageCount).flatMap { pageIndex: Int =>
-
       val progress = (pageIndex * 100) / pageCount
-      log.info(s"Loading ${pagingQueryResult.totalRows} pois: page ${pageIndex + 1} of $pageCount ($progress%)")
-
-      val offset = pageIndex * pageSize
-      val rows = poiDatabase.old.pagingQuery(PoiDesign, PoiView, timeout, stale, pageSize, offset).rows
-      rows.map(PoiView.convert)
+      log.info(s"Loading ${initialResult.totalRows} pois: page ${pageIndex + 1} of $pageCount ($progress%)")
+      val skip = pageIndex * pageSize
+      val remainderResult = PoiView.query(poiDatabase, pageSize, skip, stale)
+      remainderResult.pois
     }
 
     initialPois ++ remainingPois

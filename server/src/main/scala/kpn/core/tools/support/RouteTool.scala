@@ -1,6 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.core.database.Database
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
@@ -110,7 +111,7 @@ class RouteTool(database: Database) {
   }
 
   def keyBasedAllRouteCount(): Unit = {
-    val keys = database.old.keys("route:", "route:999999999999999999", Couch.batchTimeout)
-    println(s"key based all route count=${keys.size}")
+    val routeIds = DocumentView.allRouteIds(database)
+    println(s"key based all route count=${routeIds.size}")
   }
 }

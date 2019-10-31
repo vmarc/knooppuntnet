@@ -3,9 +3,9 @@ package kpn.core.database.implementation
 import java.util.UUID
 
 import kpn.core.TestObjects
-import kpn.core.database.doc.NodeDoc
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
+import kpn.core.database.doc.NodeDoc
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import org.scalatest.FunSuite
@@ -15,7 +15,7 @@ class DatabaseDeleteDocWithIdTest extends FunSuite with Matchers with TestObject
 
   test("delete document") {
 
-    withDatabase(database => {
+    withDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
       val doc = NodeDoc("123", nodeInfo, None)
@@ -26,13 +26,13 @@ class DatabaseDeleteDocWithIdTest extends FunSuite with Matchers with TestObject
       database.deleteDocWithId(doc._id)
 
       database.docWithId(doc._id, classOf[NodeDoc]) should equal(None)
-    });
+    }
   }
 
   test("delete - wrong password") {
-    withEnvironment((tempCouch, couchConfig, objectMapper) => {
+    withEnvironment { (couchConfig, objectMapper) =>
       val databaseName = s"test-db-${UUID.randomUUID().toString}"
-      val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
+      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
       database.create()
       try {
         val nodeInfo = newNodeInfo(123)
@@ -40,7 +40,7 @@ class DatabaseDeleteDocWithIdTest extends FunSuite with Matchers with TestObject
         database.save(nodeDoc)
 
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-        val otherDatabase: Database = new DatabaseImpl(DatabaseContext(tempCouch, invalidCouchConfig, objectMapper, databaseName))
+        val otherDatabase: Database = new DatabaseImpl(DatabaseContext(invalidCouchConfig, objectMapper, databaseName))
 
         try {
           otherDatabase.deleteDocWithId(nodeDoc._id)
@@ -55,13 +55,13 @@ class DatabaseDeleteDocWithIdTest extends FunSuite with Matchers with TestObject
       finally {
         database.delete()
       }
-    })
+    }
   }
 
   test("delete - no exception when document does not exist") {
-    withDatabase(database => {
+    withDatabase { database =>
       database.deleteDocWithId("bla")
-    });
+    }
   }
 
 }

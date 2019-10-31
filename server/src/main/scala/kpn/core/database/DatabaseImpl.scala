@@ -15,14 +15,8 @@ import kpn.core.database.implementation.DatabaseQuery
 import kpn.core.database.implementation.DatabaseRevision
 import kpn.core.database.implementation.DatabaseSave
 import kpn.core.database.query.Query
-import kpn.core.db.couch.OldDatabase
-import kpn.core.db.couch.OldDatabaseImpl
 
 class DatabaseImpl(context: DatabaseContext) extends Database {
-
-  override val old: OldDatabase = {
-    new OldDatabaseImpl(context.tempCouch, context.databaseName)
-  }
 
   override def exists: Boolean = {
     new DatabaseExists(context).exists

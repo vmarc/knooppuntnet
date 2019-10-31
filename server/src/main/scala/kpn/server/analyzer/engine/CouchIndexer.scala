@@ -1,12 +1,9 @@
 package kpn.server.analyzer.engine
 
-import akka.util.Timeout.durationToTimeout
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.common.Design
 import kpn.core.util.Log
-
-import scala.concurrent.duration.DurationInt
 
 /**
  * Forces indexing of Couchdb views. Couchdb indexes are updated upon querying a view. We wait
@@ -29,7 +26,7 @@ class CouchIndexer(database: Database, design: Design) {
 
     while (retry) {
       try {
-        val documentCounts = database.old.groupQuery(1, design, DocumentView, 3.minutes, stale = false)().map(DocumentView.convert)
+        val documentCounts = DocumentView.counts(database)
         val counts = documentCounts.map(dc => "    '" + dc.prefix + "'=" + dc.count).mkString("\n")
         val end = System.currentTimeMillis()
         log.info(s"Indexing completed in ${end - start}ms\n$counts")

@@ -36,6 +36,27 @@ class ChangeSetInfoRepositoryTest extends FunSuite with Matchers {
     }
   }
 
+  test("all") {
+
+    withRepository { repository =>
+
+      val changeSetId = 11L
+
+      val changeSetInfo = ChangeSetInfo(
+        changeSetId,
+        Timestamp(2015, 8, 11, 0, 0, 0),
+        Some(Timestamp(2015, 8, 11, 0, 1, 0)),
+        open = false,
+        1,
+        Tags.from("comment" -> "bla")
+      )
+
+      repository.save(changeSetInfo)
+
+      repository.all(Seq(changeSetId)) should equal(Seq(changeSetInfo))
+    }
+  }
+
   private def withRepository(f: ChangeSetInfoRepository => Unit): Unit = {
     withDatabase { database =>
       f(new ChangeSetInfoRepositoryImpl(database))

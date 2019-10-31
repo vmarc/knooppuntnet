@@ -1,11 +1,9 @@
 package kpn.server.config
 
-import akka.actor.ActorSystem
 import com.fasterxml.jackson.databind.ObjectMapper
-import kpn.core.database.implementation.DatabaseContext
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
-import kpn.core.db.couch.Couch
+import kpn.core.database.implementation.DatabaseContext
 import kpn.core.db.couch.CouchConfig
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -13,7 +11,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class CouchConfiguration(
-  system: ActorSystem,
   objectMapper: ObjectMapper,
   @Value("${couch.host:localhost}") host: String,
   @Value("${couch.port:5984}") port: String,
@@ -37,33 +34,28 @@ class CouchConfiguration(
   }
 
   @Bean
-  def tempCouch: Couch = {
-    new Couch(system, couchConfig)
-  }
-
-  @Bean
   def analysisDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, analysisDatabaseName))
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, analysisDatabaseName))
   }
 
   @Bean
   def changeDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, changeDatabaseName))
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changeDatabaseName))
   }
 
   @Bean
   def changesetDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, changesetDatabaseName))
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changesetDatabaseName))
   }
 
   @Bean
   def poiDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, poiDatabaseName))
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, poiDatabaseName))
   }
 
   @Bean
   def taskDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, taskDatabaseName))
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, taskDatabaseName))
   }
 
 }

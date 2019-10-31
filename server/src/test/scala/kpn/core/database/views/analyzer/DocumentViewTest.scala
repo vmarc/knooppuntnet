@@ -1,30 +1,54 @@
 package kpn.core.database.views.analyzer
 
-import kpn.core.database.doc.StringValueDoc
+import kpn.core.TestObjects
 import kpn.core.database.views.analyzer.DocumentView.DocumentCount
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
+import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class DocumentViewTest extends FunSuite with Matchers {
+class DocumentViewTest extends FunSuite with Matchers with TestObjects {
 
-  test("document view") {
+  test("allNodeIds") {
+
+    withDatabase { database =>
+      val repo = new NodeRepositoryImpl(database)
+      repo.save(newNodeInfo(1001))
+      repo.save(newNodeInfo(1002))
+      repo.save(newNodeInfo(1003))
+
+      DocumentView.allNodeIds(database) should equal(Seq(1001, 1002, 1003))
+    }
+  }
+
+  test("allRouteIds") {
+
+    withDatabase { database =>
+      val repo = new RouteRepositoryImpl(database)
+      repo.save(newRouteInfo(newRouteSummary(10)))
+      repo.save(newRouteInfo(newRouteSummary(20)))
+      repo.save(newRouteInfo(newRouteSummary(30)))
+
+      DocumentView.allRouteIds(database) should equal(Seq(10, 20, 30))
+    }
+  }
+
+  test("counts") {
 
     withDatabase { database =>
 
-      database.save(StringValueDoc("prefix1:suffix1", "bla"))
-      database.save(StringValueDoc("prefix1:suffix2", "bla"))
-      database.save(StringValueDoc("prefix2:suffix1", "bla"))
+      val nodeRepository = new NodeRepositoryImpl(database)
+      nodeRepository.save(newNodeInfo(1001))
+      nodeRepository.save(newNodeInfo(1002))
 
-      val rows = database.old.groupQuery(1, AnalyzerDesign, DocumentView, Couch.uiTimeout, stale = false)().map(DocumentView.convert)
+      val repo = new RouteRepositoryImpl(database)
+      repo.save(newRouteInfo(newRouteSummary(10)))
+      repo.save(newRouteInfo(newRouteSummary(20)))
+      repo.save(newRouteInfo(newRouteSummary(30)))
 
-      rows should equal(
-        Seq(
-          DocumentCount("prefix1", 2),
-          DocumentCount("prefix2", 1)
-        )
-      )
+      DocumentView.counts(database) should equal(Seq(DocumentCount("node", 2), DocumentCount("route", 3)))
     }
   }
+
 }

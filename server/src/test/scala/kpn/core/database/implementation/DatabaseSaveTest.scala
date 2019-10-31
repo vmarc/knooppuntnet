@@ -3,10 +3,10 @@ package kpn.core.database.implementation
 import java.util.UUID
 
 import kpn.core.TestObjects
-import kpn.core.database.doc.NodeDoc
-import kpn.core.database.doc.StringValueDoc
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
+import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.StringValueDoc
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import org.scalatest.FunSuite
@@ -32,13 +32,13 @@ class DatabaseSaveTest extends FunSuite with Matchers with TestObjects {
   }
 
   test("save - wrong password") {
-    withEnvironment((tempCouch, couchConfig, objectMapper) => {
+    withEnvironment { (couchConfig, objectMapper) =>
       val databaseName = s"test-db-${UUID.randomUUID().toString}"
-      val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
+      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
       database.create()
       try {
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-        val database: Database = new DatabaseImpl(DatabaseContext(tempCouch, invalidCouchConfig, objectMapper, databaseName))
+        val database: Database = new DatabaseImpl(DatabaseContext(invalidCouchConfig, objectMapper, databaseName))
 
         try {
           val nodeInfo = newNodeInfo(123)
@@ -55,12 +55,12 @@ class DatabaseSaveTest extends FunSuite with Matchers with TestObjects {
       finally {
         database.delete()
       }
-    })
+    }
   }
 
   test("save - document already exists") {
 
-    withDatabase(database => {
+    withDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
       val doc = NodeDoc("123", nodeInfo, None)
@@ -77,7 +77,7 @@ class DatabaseSaveTest extends FunSuite with Matchers with TestObjects {
           e.getMessage should include("Could not save")
           e.getMessage should include("(_rev mismatch)")
       }
-    })
+    }
   }
 
   test("save same document multiple times") {

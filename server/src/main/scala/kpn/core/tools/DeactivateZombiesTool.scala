@@ -1,14 +1,13 @@
 package kpn.core.tools
 
 import kpn.core.database.Database
-import kpn.core.database.views.common.ViewRow
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodeIds
 import kpn.shared.NetworkType
-import spray.json.JsValue
 
 import scala.xml.XML
 
@@ -56,16 +55,8 @@ class DeactivateZombiesTool(database: Database, executor: OverpassQueryExecutor)
   }
 
   private def readCouchdbNodeIds(): Set[Long] = {
-    def toNodeId(row: JsValue): Long = {
-      val docId = new ViewRow(row).id.toString
-      val routeId = docId.drop("node:".length + 1).dropRight(1)
-      routeId.toLong
-    }
-
-    val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="node"&endkey="node:a"&reduce=false&stale=ok"""
-    database.old.getRows(request).map(toNodeId).toSet
+    DocumentView.allNodeIds(database).toSet
   }
-
 
   private def readOverpassNodeIds(): Set[Long] = {
     NetworkType.all.flatMap(readOverpassNodeIdsWithNetworkType).toSet

@@ -2,7 +2,6 @@ package kpn.core.database.views.common
 
 import kpn.core.util.Util.classNameOf
 import org.apache.commons.io.IOUtils
-import spray.json.JsValue
 
 trait View {
   def name: String = classNameOf(this)
@@ -21,8 +20,6 @@ trait View {
         "}"
     )
   }
-
-  def toRow(row: JsValue): ViewRow = new ViewRow(row)
 
   private def load(fileType: String): String = {
     val filename = "/" + getClass.getCanonicalName.replaceAll("\\.", "/").replaceAll("\\$", "") + "-" + fileType + ".js"

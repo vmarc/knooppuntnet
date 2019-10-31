@@ -1,12 +1,11 @@
 package kpn.core.tools.location
 
 import kpn.core.database.Database
-import kpn.core.database.views.common.ViewRow
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
 import kpn.server.repository.NodeRepositoryImpl
-import spray.json.JsValue
 
 /*
   Performs node location analysis for all nodes in the database.
@@ -43,7 +42,7 @@ class NodeLocationTool(database: Database) {
       new NodeLocationAnalyzerImpl(configuration)
     }
 
-    val nodeIds = readNodeIds()
+    val nodeIds = DocumentView.allNodeIds(database)
     println(s"Updating ${nodeIds.size} node definitions")
     val repo = new NodeRepositoryImpl(database)
     nodeIds.zipWithIndex.foreach { case (nodeId, index) =>
@@ -63,17 +62,6 @@ class NodeLocationTool(database: Database) {
         }
       }
     }
-  }
-
-  private def readNodeIds(): Seq[Long] = {
-    def toNodeId(row: JsValue): Long = {
-      val docId = new ViewRow(row).id.toString
-      val nodeId = docId.drop("node:".length + 1).dropRight(1)
-      nodeId.toLong
-    }
-
-    val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="node"&endkey="node:a"&reduce=false&stale=ok"""
-    database.old.getRows(request).map(toNodeId).distinct.sorted
   }
 
 }

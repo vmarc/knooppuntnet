@@ -84,14 +84,14 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
   }
 
   override def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
-    NodeOrphanRouteReferenceView.query(analysisDatabase, nodeId, stale = stale)
+    NodeOrphanRouteReferenceView.query(analysisDatabase, nodeId, stale)
   }
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {
     log.debugElapsed {
       val existingNodeIds = nodeIds.sliding(50, 50).flatMap { nodeIdsSubset =>
         val nodeDocIds = nodeIdsSubset.map(docId).toSeq
-        val existingNodeDocIds = analysisDatabase.old.keysWithIds(nodeDocIds)
+        val existingNodeDocIds = analysisDatabase.keysWithIds(nodeDocIds)
         existingNodeDocIds.flatMap { nodeDocId =>
           try {
             Some(java.lang.Long.parseLong(nodeDocId.substring(KeyPrefix.Node.length + 1)))

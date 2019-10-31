@@ -90,7 +90,7 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
 
   override def networks(subset: Subset, timeout: Timeout, stale: Boolean): Seq[NetworkAttributes] = {
-    NetworkView.query(analysisDatabase, subset, stale = stale)
+    NetworkView.query(analysisDatabase, subset, stale)
   }
 
 }

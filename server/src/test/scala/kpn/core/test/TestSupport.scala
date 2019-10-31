@@ -4,14 +4,14 @@ import java.util.Properties
 import java.util.concurrent.atomic.AtomicInteger
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kpn.core.app.ActorSystemConfig
+import kpn.core.database.Database
+import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
 import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.changes.ChangesDesign
 import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.planner.PlannerDesign
-import kpn.core.database.Database
-import kpn.core.database.DatabaseImpl
+import kpn.core.database.views.poi.PoiDesign
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
 import kpn.server.repository.DesignRepositoryImpl
@@ -23,15 +23,9 @@ object TestSupport extends Assertions {
 
   private val count = new AtomicInteger(0)
 
-  private var tempCouch: Option[Couch] = None
-
-  def withEnvironment(action: (Couch, CouchConfig, ObjectMapper) => Unit): Unit = {
+  def withEnvironment(action: (CouchConfig, ObjectMapper) => Unit): Unit = {
     val couchConfig = readCouchConfig()
-    if (tempCouch.isEmpty) {
-      val system = ActorSystemConfig.actorSystem()
-      tempCouch = Some(new Couch(system, couchConfig))
-    }
-    action(tempCouch.get, couchConfig, Couch.objectMapper)
+    action(couchConfig, Couch.objectMapper)
   }
 
   /**
@@ -47,11 +41,11 @@ object TestSupport extends Assertions {
    */
   def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
 
-    withEnvironment { (tempCouch, couchConfig, objectMapper) =>
+    withEnvironment { (couchConfig, objectMapper) =>
 
       val databaseName = "unit-testdb-" + count.incrementAndGet()
 
-      val database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
+      val database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
 
       if (database.exists) {
         database.delete()
@@ -63,6 +57,7 @@ object TestSupport extends Assertions {
       new DesignRepositoryImpl(database).save(ChangesDesign)
       new DesignRepositoryImpl(database).save(PlannerDesign)
       new DesignRepositoryImpl(database).save(LocationDesign)
+      new DesignRepositoryImpl(database).save(PoiDesign)
 
       try {
         f(database)

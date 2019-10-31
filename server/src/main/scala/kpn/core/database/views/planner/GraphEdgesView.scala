@@ -1,27 +1,43 @@
 package kpn.core.database.views.planner
 
+import kpn.core.database.Database
+import kpn.core.database.query.Fields
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
 import kpn.core.planner.graph.GraphEdge
+import kpn.shared.NetworkType
 import kpn.shared.common.TrackPathKey
-import spray.json.JsArray
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
 
 /**
-  * View to derive graph edges from routes (to be used for routing).
-  */
+ * View to derive graph edges from routes (to be used for routing).
+ */
 object GraphEdgesView extends View {
 
-  def convert(row: JsValue): GraphEdge = {
-    val key = row.asJsObject.getFields("key").head
-    val value = row.asJsObject.getFields("value").head
-    key match {
-      case JsArray(Vector(JsString(networkType), JsNumber(routeId), JsString(pathType), JsNumber(pathIndex))) =>
-        value match {
-          case JsArray(Vector(JsNumber(startNodeId), JsNumber(endNodeId), JsNumber(meters))) =>
-            GraphEdge(startNodeId.longValue(), endNodeId.longValue(), meters.intValue(), TrackPathKey(routeId.longValue(), pathType, pathIndex.intValue()))
-        }
+  private case class ViewResultRow(key: Seq[String], value: Seq[Int])
+
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  def query(database: Database, networkType: NetworkType, stale: Boolean = true): Seq[GraphEdge] = {
+
+    val query = Query(PlannerDesign, GraphEdgesView, classOf[ViewResult])
+      .keyStartsWith(networkType.name)
+      .reduce(false)
+      .stale(stale)
+
+    val result = database.execute(query)
+
+    result.rows.map { row =>
+      val key = Fields(row.key)
+      GraphEdge(
+        sourceNodeId = row.value.head,
+        sinkNodeId = row.value(1),
+        meters = row.value(2),
+        pathKey = TrackPathKey(
+          routeId = key.long(1),
+          pathType = key.string(2),
+          pathIndex = key.int(3)
+        )
+      )
     }
   }
 

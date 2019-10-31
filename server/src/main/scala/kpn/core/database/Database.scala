@@ -2,11 +2,8 @@ package kpn.core.database
 
 import kpn.core.database.doc.Doc
 import kpn.core.database.query.Query
-import kpn.core.db.couch.OldDatabase
 
 trait Database {
-
-  def old: OldDatabase
 
   def exists: Boolean
 

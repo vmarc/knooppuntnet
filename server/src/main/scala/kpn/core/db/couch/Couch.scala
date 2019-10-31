@@ -2,19 +2,17 @@ package kpn.core.db.couch
 
 import java.io.File
 
-import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
-import akka.stream.ActorMaterializer
 import akka.util.Timeout
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.typesafe.config.ConfigFactory
-import kpn.core.app.ActorSystemConfig
-import kpn.core.database.implementation.DatabaseContext
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
+import kpn.core.database.doc.ChangeSetDatas
+import kpn.core.database.implementation.DatabaseContext
+import kpn.server.json.ChangeSetDatasJsonDeserializer
 import kpn.server.json.CountryJsonDeserializer
 import kpn.server.json.CountryJsonSerializer
 import kpn.server.json.FactJsonDeserializer
@@ -38,9 +36,6 @@ import kpn.shared.data.Tags
 import kpn.shared.route.WayDirection
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext
-import scala.concurrent.duration.Duration
 import scala.concurrent.duration.DurationInt
 
 object Couch {
@@ -49,32 +44,13 @@ object Couch {
   val defaultTimeout: Timeout = Timeout(60.seconds)
   val batchTimeout: Timeout = Timeout(5.minutes)
 
-  def run(f: (ActorSystem, Couch) => Unit): Unit = {
-
-    val system = ActorSystemConfig.actorSystem()
-    val couchConfig = config
-
-    try {
-      val couch = new Couch(system, couchConfig)
-      try {
-        f(system, couch)
-      } finally {
-        couch.shutdown()
-      }
-    } finally {
-      Await.result(system.terminate(), Duration.Inf)
-      ()
-    }
-  }
-
   def executeIn(databaseName: String)(action: Database => Unit): Unit = {
     executeIn("localhost", databaseName: String)(action: Database => Unit)
   }
 
   def executeIn(host: String, databaseName: String)(action: Database => Unit): Unit = {
     val couchConfig = config.copy(host = host)
-    val tempCouch = new Couch(ActorSystemConfig.actorSystem(), couchConfig)
-    val database = new DatabaseImpl(DatabaseContext(tempCouch, couchConfig, objectMapper, databaseName))
+    val database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
     action(database)
   }
 
@@ -140,25 +116,11 @@ object Couch {
     b.deserializerByType(classOf[WayDirection], new WayDirectionJsonDeserializer())
     b.serializerByType(classOf[WayDirection], new WayDirectionJsonSerializer())
 
+    b.deserializerByType(classOf[ChangeSetDatas], new ChangeSetDatasJsonDeserializer())
+
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)
     om
-  }
-
-}
-
-class Couch(val sys: ActorSystem, val config: CouchConfig) {
-  implicit val system: ActorSystem = sys
-  implicit val executionContext: ExecutionContext = system.dispatcher
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
-
-  def shutdown(): Unit = {
-    Http(system).shutdownAllConnectionPools().andThen { case _ => system.terminate() }
-
-    // TODO AKKA-HTTP shutdown correct ???
-    //Http().(system).ask(Http.CloseAll)(15.second).await
-    //    Await.result(system.terminate(), Duration.Inf)
-    ()
   }
 
 }

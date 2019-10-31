@@ -1,10 +1,10 @@
 package kpn.server.repository
 
 import kpn.core.database.Database
-import kpn.core.database.views.changes.ChangesDesign
+import kpn.core.database.doc.ChangeSetDatas
+import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangesView
-import kpn.core.db.couch.Couch
-import kpn.core.db.json.JsonFormats._
+import kpn.core.db.couch.ViewResult2
 import kpn.core.util.Log
 import kpn.shared.ChangeSetSummary
 import kpn.shared.ChangeSetSummaryDoc
@@ -22,10 +22,6 @@ import kpn.shared.changes.filter.ChangesFilter
 import kpn.shared.changes.filter.ChangesFilterPeriod
 import kpn.shared.changes.filter.ChangesParameters
 import org.springframework.stereotype.Component
-import spray.http.Uri
-import spray.json.JsObject
-import spray.json.JsString
-import spray.json.JsValue
 
 @Component
 class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetRepository {
@@ -98,7 +94,6 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
 
   override def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean): Seq[ChangeSetData] = {
 
-    val uriHead = Uri("_all_docs")
     val repl = if (replicationId.isDefined) ":" + replicationId.get.number else ""
     val startKey = {
       s""""change:$changeSetId$repl:""""
@@ -107,64 +102,19 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
       s""""change:$changeSetId$repl:zzz""""
     }
 
-    val parameters = Map(
-      "startkey" -> startKey,
-      "endkey" -> endKey,
-      "include_docs" -> "true",
-      "reduce" -> "false"
-    )
+    val query = Query("_all_docs", classOf[ChangeSetDatas])
+      .startKey(startKey)
+      .endKey(endKey)
+      .includeDocs(true)
+      .reduce(false)
+      .stale(stale)
 
-    val uri = uriHead.withQuery(withStale(parameters, stale))
-
-    val rows = changeDatabase.old.getRows(uri.toString(), Couch.defaultTimeout)
-
-    val rowObjects = rows.map(_.asJsObject)
-
-    if (rowObjects.isEmpty) {
-      Seq()
-    }
-    else {
-
-      val groups = rowObjects.groupBy { rowObject =>
-        rowObject.getFields("key").head match {
-          case JsString(string) =>
-
-            val splitted = string.split(":").toSeq
-            splitted match {
-              case Seq("change", changeSetId1, replicationId1, elementType, elementId1) => replicationId1
-              case _ => ""
-            }
-
-          case o => ""
-        }
-      }
-
-      val replicationNumbers = groups.keys.toSeq.sorted
-
-      replicationNumbers.map { replicationNumber =>
-
-        val groupObjects = groups(replicationNumber)
-
-        val objects = groupObjects.map(go => go.getFields("doc").head.asJsObject)
-
-        def filterByType(typeString: String): Seq[JsObject] = {
-          objects.filter(_.getFields(typeString).nonEmpty).flatMap(_.getFields(typeString)).map(_.asJsObject)
-        }
-
-        val changeSetSummaries = filterByType("changeSetSummary").map(_.convertTo[ChangeSetSummary])
-        val networkChanges = filterByType("networkChange").map(_.convertTo[NetworkChange])
-        val routeChanges = filterByType("routeChange").map(_.convertTo[RouteChange])
-        val nodeChanges = filterByType("nodeChange").map(_.convertTo[NodeChange])
-
-        assert(changeSetSummaries.size == 1, "Expecting single change set summary object, but found " + changeSetSummaries.size)
-
-        ChangeSetData(changeSetSummaries.head, networkChanges, routeChanges, nodeChanges)
-      }
-    }
+    val result = changeDatabase.execute(query)
+    result.datas
   }
 
   override def changes(parameters: ChangesParameters, stale: Boolean): Seq[ChangeSetSummary] = {
-    readChanges("changeSetSummary", parameters, stale).map(_.convertTo[ChangeSetSummary])
+    ChangesView.changes(changeDatabase, parameters, stale)
   }
 
   override def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
@@ -172,7 +122,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   }
 
   override def nodeChangesCount(nodeId: Long, stale: Boolean = true): Int = {
-    changesCount("node", nodeId.toString, stale)
+    ChangesView.queryChangeCount(changeDatabase, "node", nodeId, stale)
   }
 
   override def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
@@ -180,7 +130,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   }
 
   override def routeChangesCount(routeId: Long, stale: Boolean = true): Int = {
-    changesCount("route", routeId.toString, stale)
+    ChangesView.queryChangeCount(changeDatabase, "route", routeId, stale)
   }
 
   override def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
@@ -188,7 +138,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   }
 
   override def networkChangesCount(networkId: Long, stale: Boolean = true): Int = {
-    changesCount("network", networkId.toString, stale)
+    ChangesView.queryChangeCount(changeDatabase, "network", networkId, stale)
   }
 
   override def changesFilter(subsetOption: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
@@ -237,111 +187,30 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   }
 
   private def changesFilterPeriod(suffixLength: Int, keys: Seq[String], stale: Boolean): Seq[ChangesFilterPeriod] = {
-
-    val startKey = keyString2(keys :+ suffix(suffixLength, "9"))
-    val endKey = keyString2(keys :+ suffix(suffixLength, "0"))
-
-    val queryParameters = Map(
-      "startkey" -> startKey,
-      "endkey" -> endKey,
-      "reduce" -> "true",
-      "descending" -> "true",
-      "group_level" -> (keys.size + 1).toString
-    )
-
-    val rows = query("changesFilterPeriod", queryParameters, stale)
-    rows.map(ChangesView.convertToPeriod)
+    ChangesView.queryPeriod(changeDatabase, suffixLength, keys, stale)
   }
-
-  private def changesCount(elementType: String, id: String, stale: Boolean): Int = {
-    val rows = changeDatabase.old.groupQuery(2, ChangesDesign, ChangesView, stale = stale)(elementType, id)
-    val totals = rows.map(ChangesView.extractTotal)
-    if (totals.size == 1) {
-      totals.head
-    }
-    else {
-      0
-    }
-  }
-
-  private def suffix(size: Int, character: String): String = Seq.fill(size)(character).mkString
 
   override def networkChanges(parameters: ChangesParameters, stale: Boolean): Seq[NetworkChange] = {
-    readChanges("networkChange", parameters, stale).map(_.convertTo[NetworkChange])
+    ChangesView.networkChanges(changeDatabase, parameters, stale)
   }
 
   override def routeChanges(parameters: ChangesParameters, stale: Boolean): Seq[RouteChange] = {
-    readChanges("routeChange", parameters, stale).map(_.convertTo[RouteChange])
+    ChangesView.routeChanges(changeDatabase, parameters, stale)
   }
 
   def nodeChanges(parameters: ChangesParameters, stale: Boolean): Seq[NodeChange] = {
-    readChanges("nodeChange", parameters, stale).map(_.convertTo[NodeChange])
+    ChangesView.nodeChanges(changeDatabase, parameters, stale)
   }
 
   override def allChangeSetIds(): Seq[String] = {
 
-    val uriHead = Uri("_all_docs")
-    val startKey = {
-      """"change:""""
-    }
-    val endKey = {
-      """"change:zzz""""
-    }
+    val query = Query("_all_docs", classOf[ViewResult2])
+      .startKey(""""change:"""")
+      .endKey(""""change:zzz"""")
+      .reduce(false)
 
-    val parameters = Map(
-      "startkey" -> startKey,
-      "endkey" -> endKey,
-      "include_docs" -> "false",
-      "reduce" -> "false"
-    )
-
-    val uri = uriHead.withQuery(parameters)
-
-    val rows = changeDatabase.old.getRows(uri.toString(), Couch.defaultTimeout)
-
-    val rowObjects = rows.map(_.asJsObject)
-
-    if (rowObjects.isEmpty) {
-      Seq()
-    }
-    else {
-      rows.map { row =>
-        val id = row.asJsObject.getFields("id").head.toString
-        id.split(":")(1)
-      }
-      }.distinct.sorted
+    val result = changeDatabase.execute(query)
+    result.rows.flatMap(_.id).map(id => id.split(":")(1)).distinct.sorted
   }
-
-  private def readChanges(elementType: String, parameters: ChangesParameters, stale: Boolean): Seq[JsObject] = {
-    val queryParameters = QueryParameters.from(parameters)
-    val rows = query(elementType, queryParameters, stale)
-    rows.map { row =>
-      val doc = row.asJsObject.getFields("doc").head
-      doc.asJsObject.getFields(elementType).head.asJsObject
-    }
-  }
-
-  private def query(title: String, parameters: Map[String, String], stale: Boolean): Seq[JsValue] = {
-    val uriHead = Uri("_design/ChangesDesign/_view/ChangesView")
-    val queryParameters = withStale(parameters, stale)
-    val uri = uriHead.withQuery(queryParameters)
-    log.debugElapsed {
-      val rows = changeDatabase.old.getRows(uri.toString(), Couch.defaultTimeout)
-      (s"[$title] $uri -> ${rows.size} rows", rows)
-    }
-  }
-
-  private def withStale(parameters: Map[String, String], stale: Boolean): Map[String, String] = {
-    if (stale) {
-      parameters + ("stale" -> "ok")
-    }
-    else {
-      parameters
-    }
-  }
-
-  private def keyString(values: String*): String = values.mkString("[\"", "\", \"", "\"]")
-
-  private def keyString2(values: Seq[String]): String = values.mkString("[\"", "\", \"", "\"]")
 
 }

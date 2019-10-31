@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.ChangeSetNetwork
+import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.NetworkChanges
@@ -16,6 +17,8 @@ import kpn.shared.changes.details.NetworkChange
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.changes.details.RefChanges
 import kpn.shared.changes.details.RouteChange
+import kpn.shared.changes.filter.ChangesFilter
+import kpn.shared.changes.filter.ChangesFilterPeriod
 import kpn.shared.changes.filter.ChangesParameters
 import kpn.shared.diff.IdDiffs
 import kpn.shared.diff.RefDiffs
@@ -102,34 +105,6 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
     }
   }
 
-  test("changes") {
-
-    withChangeSetRepository { repository =>
-
-      repository.saveChangeSetSummary(summary(1, 11, Timestamp(2015, 8, 11), subsets = Seq(Subset.nlHiking)))
-      repository.saveChangeSetSummary(summary(2, 12, Timestamp(2015, 8, 12), subsets = Seq(Subset.nlHiking)))
-      repository.saveChangeSetSummary(summary(3, 13, Timestamp(2015, 8, 13), subsets = Seq(Subset.nlHiking), happy = false))
-      repository.saveChangeSetSummary(summary(4, 14, Timestamp(2015, 9, 11), subsets = Seq(Subset.nlHiking), happy = false))
-      repository.saveChangeSetSummary(summary(5, 15, Timestamp(2015, 9, 12), subsets = Seq(Subset.beHiking), happy = false))
-
-      def changes(parameters: ChangesParameters): Seq[Long] = {
-        repository.changes(parameters, stale = false).map(_.key.changeSetId)
-      }
-
-      changes(ChangesParameters(impact = false)) should equal(Seq(5, 4, 3, 2, 1))
-      changes(ChangesParameters(impact = true)) should equal(Seq(2, 1))
-
-      //      changes(subset = Some(Subset.nlHiking)) should equal(Seq(4, 3, 2, 1))
-
-      //      changes(month = Some(ChangesMonthParameter("2015", "08"))) should equal(Seq(3, 2, 1))
-      //
-      //      // FROM NO LONGER RELEVANT changes(from = Some(from(2015, 8, 13, 3, 13, 0))) should equal(Seq(5, 4, 3))
-      //
-      //      // FROM NO LONGER RELEVANT changes(from = Some(from(2015, 9, 11, 4, 14, 0))) should equal(Seq(5, 4))
-      //
-      //      changes(impact = true) should equal(Seq(2, 1))
-    }
-  }
 
   ignore("changes filters on subset") {
 
@@ -148,71 +123,293 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
     }
   }
 
-  //  test("changesPerMonth") {
-  //
-  //    withChangeSetRepository { repository =>
-  //
-  //      repository.saveChangeSetSummary(summary(1, ReplicationId(11), Timestamp(2014, 8, 1), subset = Subset.nlHiking, happy = true))
-  //      repository.saveChangeSetSummary(summary(2, ReplicationId(12), Timestamp(2014, 8, 1), subset = Subset.nlHiking, happy = false))
-  //      repository.saveChangeSetSummary(summary(3, ReplicationId(13), Timestamp(2014, 9, 1), subset = Subset.nlHiking, happy = true))
-  //      repository.saveChangeSetSummary(summary(4, ReplicationId(14), Timestamp(2014, 9, 1), subset = Subset.nlHiking, happy = false))
-  //      repository.saveChangeSetSummary(summary(5, ReplicationId(15), Timestamp(2014, 9, 1), subset = Subset.nlHiking, happy = false))
-  //      repository.saveChangeSetSummary(summary(6, ReplicationId(16), Timestamp(2015, 1, 1), subset = Subset.nlHiking, happy = true))
-  //      repository.saveChangeSetSummary(summary(7, ReplicationId(17), Timestamp(2015, 1, 1), subset = Subset.beHiking, happy = true))
-  //
-  //      repository.changesPerMonth(None, stale = false) should equal(
-  //        ???
-  ////        ChangesFilter(
-  ////          Seq(
-  ////            ChangesFilterYear(
-  ////              "2015",
-  ////              Seq(
-  ////                ChangesFilterMonth("2015", "01", 2, 2)
-  ////              )
-  ////            ),
-  ////            ChangesFilterYear(
-  ////              "2014",
-  ////              Seq(
-  ////                ChangesFilterMonth("2014", "09", 3, 1),
-  ////                ChangesFilterMonth("2014", "08", 2, 1)
-  ////              )
-  ////            )
-  ////          )
-  ////        )
-  //      )
-  //
-  //      repository.changesPerMonth(Some(Subset.nlHiking), stale = false) should equal(
-  //        ???
-  ////        ChangesFilter(
-  ////          Seq(
-  ////            ChangesFilterYear(
-  ////              "2015",
-  ////              Seq(
-  ////                ChangesFilterMonth("2015", "01", 1, 1)
-  ////              )
-  ////            ),
-  ////            ChangesFilterYear(
-  ////              "2014",
-  ////              Seq(
-  ////                ChangesFilterMonth("2014", "09", 3, 1),
-  ////                ChangesFilterMonth("2014", "08", 2, 1)
-  ////              )
-  ////            )
-  ////          )
-  ////        )
-  //      )
-  //    }
-  //  }
+  test("changes") {
 
-  test("networkChanges") {
     withChangeSetRepository { repository =>
 
-      repository.saveNetworkChange(networkChange(11L, 101, 1L, timestamp = Timestamp(2015, 1, 1)))
-      repository.saveNetworkChange(networkChange(12L, 102, 1L, timestamp = Timestamp(2015, 2, 1)))
-      repository.saveNetworkChange(networkChange(13L, 103, 1L, timestamp = Timestamp(2015, 3, 1)))
-      repository.saveNetworkChange(networkChange(14L, 104, 1L, timestamp = Timestamp(2015, 4, 1)))
+      repository.saveChangeSetSummary(summary(1, 1, subsets = Seq(Subset.nlHiking)))
+      repository.saveChangeSetSummary(summary(2, 1, subsets = Seq(Subset.nlHiking)))
+      repository.saveChangeSetSummary(summary(3, 1, subsets = Seq(Subset.nlHiking), happy = false))
+      repository.saveChangeSetSummary(summary(4, 1, subsets = Seq(Subset.nlHiking), happy = false))
+      repository.saveChangeSetSummary(summary(5, 1, subsets = Seq(Subset.beHiking), happy = false))
 
-      repository.networkChanges(ChangesParameters(networkId = Some(1L)), stale = false).map(_.key.changeSetId) should equal(Seq(14, 13, 12, 11))
+      def changes(parameters: ChangesParameters): Seq[Long] = {
+        repository.changes(parameters, stale = false).map(_.key.changeSetId)
+      }
+
+      changes(ChangesParameters(impact = false)) should equal(Seq(5, 4, 3, 2, 1))
+      changes(ChangesParameters(impact = true)) should equal(Seq(2, 1))
+      changes(ChangesParameters(subset = Some(Subset.nlHiking))) should equal(Seq(4, 3, 2, 1))
+    }
+  }
+
+  test("networkChanges") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveNetworkChange(networkChange(11, 1, 1))
+      repository.saveNetworkChange(networkChange(12, 1, 1))
+      repository.saveNetworkChange(networkChange(13, 1, 1))
+
+      repository.networkChanges(ChangesParameters(networkId = Some(1)), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
+    }
+  }
+
+  test("routeChanges") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveRouteChange(routeChange(11, 1, 10))
+      repository.saveRouteChange(routeChange(12, 1, 10))
+      repository.saveRouteChange(routeChange(13, 1, 10))
+      repository.saveRouteChange(routeChange(14, 1, 20))
+
+      repository.routeChanges(ChangesParameters(routeId = Some(10)), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
+    }
+  }
+
+  test("nodeChanges") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveNodeChange(nodeChange(11, 1, 1001))
+      repository.saveNodeChange(nodeChange(12, 1, 1001))
+      repository.saveNodeChange(nodeChange(13, 1, 1001))
+      repository.saveNodeChange(nodeChange(14, 1, 1002))
+
+      repository.nodeChanges(ChangesParameters(nodeId = Some(1001)), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
+    }
+  }
+
+  test("changesFilter") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveChangeSetSummary(summary(1, 1, subsets = Seq(Subset.nlHiking), timestamp = Timestamp(2015, 1, 1)))
+      repository.saveChangeSetSummary(summary(2, 2, subsets = Seq(Subset.nlHiking), timestamp = Timestamp(2015, 2, 1)))
+      repository.saveChangeSetSummary(summary(3, 3, subsets = Seq(Subset.beHiking), timestamp = Timestamp(2015, 3, 1)))
+
+      repository.saveChangeSetSummary(summary(4, 4, subsets = Seq(Subset.beHiking), timestamp = Timestamp(2016, 1, 1)))
+      repository.saveChangeSetSummary(summary(5, 5, subsets = Seq(Subset.beHiking), timestamp = Timestamp(2016, 2, 1)))
+
+      repository.changesFilter(None, None, None, None, stale = false) should equal(
+        ChangesFilter(
+          Seq(
+            ChangesFilterPeriod(
+              name = "2016",
+              totalCount = 2,
+              impactedCount = 2,
+              current = false,
+              selected = true,
+              Seq(
+                ChangesFilterPeriod(
+                  name = "02",
+                  totalCount = 1,
+                  impactedCount = 1
+                ),
+                ChangesFilterPeriod(
+                  name = "01",
+                  totalCount = 1,
+                  impactedCount = 1
+                )
+              )
+            ),
+            ChangesFilterPeriod(
+              name = "2015",
+              totalCount = 3,
+              impactedCount = 3
+            )
+          )
+        )
+      )
+
+      repository.changesFilter(Some(Subset.nlHiking), None, None, None, stale = false) should equal(
+        ChangesFilter(
+          Seq(
+            ChangesFilterPeriod(
+              name = "2015",
+              totalCount = 2,
+              impactedCount = 2,
+              current = false,
+              selected = true,
+              Seq(
+                ChangesFilterPeriod(
+                  name = "02",
+                  totalCount = 1,
+                  impactedCount = 1
+                ),
+                ChangesFilterPeriod(
+                  name = "01",
+                  totalCount = 1,
+                  impactedCount = 1
+                )
+              )
+            )
+          )
+        )
+      )
+
+      repository.changesFilter(Some(Subset.beHiking), Some("2016"), None, None, stale = false) should equal(
+        ChangesFilter(
+          Seq(
+            ChangesFilterPeriod(
+              name = "2016",
+              totalCount = 2,
+              impactedCount = 2,
+              current = true,
+              selected = true,
+              Seq(
+                ChangesFilterPeriod(
+                  name = "02",
+                  totalCount = 1,
+                  impactedCount = 1
+                ),
+                ChangesFilterPeriod(
+                  name = "01",
+                  totalCount = 1,
+                  impactedCount = 1
+                )
+              )
+            ),
+            ChangesFilterPeriod(
+              name = "2015",
+              totalCount = 1,
+              impactedCount = 1
+            )
+          )
+        )
+      )
+
+      repository.changesFilter(Some(Subset.beHiking), Some("2016"), Some("01"), None, stale = false) should equal(
+        ChangesFilter(
+          Seq(
+            ChangesFilterPeriod(
+              name = "2016",
+              totalCount = 2,
+              impactedCount = 2,
+              current = false,
+              selected = true,
+              Seq(
+                ChangesFilterPeriod(
+                  name = "02",
+                  totalCount = 1,
+                  impactedCount = 1
+                ),
+                ChangesFilterPeriod(
+                  name = "01",
+                  totalCount = 1,
+                  impactedCount = 1,
+                  current = true,
+                  selected = true,
+                  Seq(
+                    ChangesFilterPeriod(
+                      name = "01",
+                      totalCount = 1,
+                      impactedCount = 1
+                    )
+                  )
+                )
+              )
+            ),
+            ChangesFilterPeriod(
+              name = "2015",
+              totalCount = 1,
+              impactedCount = 1
+            )
+          )
+        )
+      )
+
+      repository.changesFilter(Some(Subset.beHiking), Some("2016"), Some("01"), Some("01"), stale = false) should equal(
+        ChangesFilter(
+          Seq(
+            ChangesFilterPeriod(
+              name = "2016",
+              totalCount = 2,
+              impactedCount = 2,
+              current = false,
+              selected = true,
+              Seq(
+                ChangesFilterPeriod(
+                  name = "02",
+                  totalCount = 1,
+                  impactedCount = 1
+                ),
+                ChangesFilterPeriod(
+                  name = "01",
+                  totalCount = 1,
+                  impactedCount = 1,
+                  current = false,
+                  selected = true,
+                  Seq(
+                    ChangesFilterPeriod(
+                      name = "01",
+                      totalCount = 1,
+                      impactedCount = 1,
+                      current = true,
+                      selected = true
+                    )
+                  )
+                )
+              )
+            ),
+            ChangesFilterPeriod(
+              name = "2015",
+              totalCount = 1,
+              impactedCount = 1
+            )
+          )
+        )
+      )
+
+    }
+  }
+
+  test("nodeChangesCount") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveNodeChange(nodeChange(1, 1, 1001L))
+      repository.saveNodeChange(nodeChange(2, 2, 1001L))
+
+      repository.nodeChangesCount(1001L, stale = false) should equal(2)
+      repository.nodeChangesCount(1002L, stale = false) should equal(0)
+    }
+  }
+
+  test("routeChangesCount") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveRouteChange(routeChange(1, 1, 10L))
+      repository.saveRouteChange(routeChange(2, 2, 10L))
+
+      repository.routeChangesCount(10L, stale = false) should equal(2)
+      repository.routeChangesCount(20L, stale = false) should equal(0)
+    }
+  }
+
+  test("networkChangesCount") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveNetworkChange(networkChange(1, 1, 1L))
+      repository.saveNetworkChange(networkChange(2, 2, 1L))
+
+      repository.networkChangesCount(1L, stale = false) should equal(2)
+      repository.networkChangesCount(2L, stale = false) should equal(0)
+    }
+  }
+
+  test("allChangeSetIds") {
+
+    withChangeSetRepository { repository =>
+
+      repository.saveChangeSetSummary(summary(1, 1))
+      repository.saveChangeSetSummary(summary(2, 2))
+      repository.saveChangeSetSummary(summary(3, 3))
+
+      repository.allChangeSetIds() should equal(Seq("1", "2", "3"))
     }
   }
 
@@ -239,7 +436,7 @@ class ChangeSetRepositoryTest extends FunSuite with Matchers {
       NetworkChanges(creates = networkChangesCreates),
       Seq(),
       Seq(),
-      Seq(),
+      subsets.map(subset => ChangeSetSubsetAnalysis(subset, happy)),
       happy
     )
   }

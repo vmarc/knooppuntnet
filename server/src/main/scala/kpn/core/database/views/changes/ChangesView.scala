@@ -1,37 +1,71 @@
 package kpn.core.database.views.changes
 
+import kpn.core.database.Database
+import kpn.core.database.query.Fields
+import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
+import kpn.shared.ChangeSetSummary
+import kpn.shared.changes.details.NetworkChange
+import kpn.shared.changes.details.NodeChange
+import kpn.shared.changes.details.RouteChange
 import kpn.shared.changes.filter.ChangesFilterPeriod
-import spray.json.DeserializationException
-import spray.json.JsArray
-import spray.json.JsNumber
-import spray.json.JsString
-import spray.json.JsValue
+import kpn.shared.changes.filter.ChangesParameters
 
 object ChangesView extends View {
 
-  def convertToPeriod(rowValue: JsValue): ChangesFilterPeriod = {
-    val row = toRow(rowValue)
-    val periodName = row.key match {
-      case JsArray(values) =>
-        values.last match {
-          case JsString(name) => name
-          case _ => throw DeserializationException("Expected string")
-        }
-      case _ => throw DeserializationException("Array expected")
-    }
-    row.value match {
-      case JsArray(Vector(JsNumber(total), JsNumber(impacted))) => ChangesFilterPeriod(periodName, total.toInt, impacted.toInt)
-      case _ => throw DeserializationException("Total and impacted counts expected")
+  private case class ViewResultRow(key: Seq[String], value: Seq[Int])
+
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  def queryPeriod(database: Database, suffixLength: Int, keys: Seq[String], stale: Boolean = true): Seq[ChangesFilterPeriod] = {
+
+    def keyString(values: Seq[String]): String = values.mkString("[\"", "\", \"", "\"]")
+
+    def suffix(size: Int, character: String): String = Seq.fill(size)(character).mkString
+
+    val startKey = keyString(keys :+ suffix(suffixLength, "9"))
+    val endKey = keyString(keys :+ suffix(suffixLength, "0"))
+
+    val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
+      .startKey(startKey)
+      .endKey(endKey)
+      .reduce(true)
+      .descending(true)
+      .groupLevel(keys.size + 1)
+
+    val result = database.execute(query)
+    result.rows.map { row =>
+      val keyFields = Fields(row.key)
+      ChangesFilterPeriod(
+        name = keyFields.string(keys.size),
+        totalCount = row.value.head,
+        impactedCount = row.value(1)
+      )
     }
   }
 
-  def extractTotal(rowValue: JsValue): Int = {
-    val row = toRow(rowValue)
-    row.value match {
-      case JsArray(Vector(JsNumber(total), JsNumber(impacted))) => total.toInt
-      case _ => throw DeserializationException("Total and impacted counts expected")
-    }
+  def queryChangeCount(database: Database, elementType: String, elementId: Long, stale: Boolean = true): Int = {
+    val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
+      .keyStartsWith(elementType, elementId.toString)
+      .groupLevel(2)
+    val result = database.execute(query)
+    result.rows.map(_.value.head).sum
+  }
+
+  def changes(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary] = {
+    ChangesViewChangesQuery.changes(database, parameters, stale)
+  }
+
+  def networkChanges(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange] = {
+    ChangesViewNetworkChangesQuery.networkChanges(database, parameters, stale)
+  }
+
+  def routeChanges(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange] = {
+    ChangesViewRouteChangesQuery.routeChanges(database, parameters, stale)
+  }
+
+  def nodeChanges(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange] = {
+    ChangesViewNodeChangesQuery.nodeChanges(database, parameters, stale)
   }
 
   override val reduce: Option[String] = Some("_sum")

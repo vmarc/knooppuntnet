@@ -1,12 +1,11 @@
 package kpn.core.tools
 
 import kpn.core.database.Database
-import kpn.core.database.views.common.ViewRow
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.shared.Country
 import kpn.shared.NetworkType
-import spray.json.JsValue
 
 object DuplicateRoutesReport {
   def main(args: Array[String]): Unit = {
@@ -37,7 +36,7 @@ class DuplicateRoutesReport(database: Database) {
 
   def run(): Unit = {
 
-    val routeIds = allRouteIds()
+    val routeIds = DocumentView.allRouteIds(database)
     val routes = loadRoutes(routeIds)
 
     Country.all.foreach { country =>
@@ -77,18 +76,6 @@ class DuplicateRoutesReport(database: Database) {
         overlap(name, route1, route2)
       }
     }.toSeq
-  }
-
-  private def allRouteIds(): Seq[Long] = {
-
-    def toRouteId(row: JsValue): Long = {
-      val docId = new ViewRow(row).id.toString
-      val routeId = docId.drop("route:".length + 1).dropRight(1)
-      routeId.toLong
-    }
-
-    val request = """_design/AnalyzerDesign/_view/DocumentView?startkey="route"&endkey="route:a"&reduce=false&stale=ok"""
-    database.old.getRows(request).map(toRouteId)
   }
 
   private def loadRoutes(routeIds: Seq[Long]): Seq[RouteWays] = {

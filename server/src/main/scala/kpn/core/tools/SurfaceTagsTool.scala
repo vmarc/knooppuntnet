@@ -1,6 +1,7 @@
 package kpn.core.tools
 
 import kpn.core.database.Database
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.AnalysisContext
@@ -9,7 +10,6 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.shared.Timestamp
 import kpn.shared.data.Tag
-import spray.json.JsString
 
 object SurfaceTagsTool {
   def main(args: Array[String]): Unit = {
@@ -51,7 +51,7 @@ class SurfaceTagsTool(database: Database) {
 
     var counts = new scala.collection.mutable.HashMap[String, Int]
 
-    val routeIds = allRouteIds() //.take(500)
+    val routeIds = DocumentView.allRouteIds(database) //.take(500)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
 
       println(s"$index/${routeIds.size}")
@@ -78,16 +78,6 @@ class SurfaceTagsTool(database: Database) {
       println(key + "\t" + counts(key))
     }
 
-  }
-
-  private def allRouteIds(): Seq[Long] = {
-    val keys = database.old.keys("route:", "route:999999999999999999", Couch.batchTimeout)
-    keys.flatMap {
-      case JsString(value) =>
-        val id = value.split(":")(1)
-        Some(id.toLong)
-      case _ => None
-    }
   }
 
 }

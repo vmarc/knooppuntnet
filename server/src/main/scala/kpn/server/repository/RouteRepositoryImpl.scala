@@ -7,12 +7,10 @@ import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
 import kpn.core.db.couch.Couch
-import kpn.core.db.json.JsonFormats.routeDocFormat
 import kpn.core.util.Log
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteReferences
 import org.springframework.stereotype.Component
-import spray.json.JsValue
 
 @Component
 class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
@@ -37,12 +35,12 @@ class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
       val (existingRoutes, addedRoutes) = partitionRoutes(routes, existingRouteDocs)
       val updatedRoutes = filterUpdatedRoutes(routes, existingRoutes)
       val unchangedRoutes = filterUnchangedRoutes(existingRoutes, updatedRoutes)
-      val addedRouteDocs = createAddedRouteDocs(addedRoutes)
+      val addedRouteDocs = addedRoutes.map(route => RouteDoc(docId(route.id), route))
       val updatedRouteDocs = createUpdatedRouteDocs(existingRouteDocs, updatedRoutes)
       val docs = addedRouteDocs ++ updatedRouteDocs
 
       if (docs.nonEmpty) {
-        analysisDatabase.old.bulkSave(docs)
+        analysisDatabase.bulkSave(docs)
       }
 
       val message = s"Saved (${routes.size}) routes: " +
@@ -84,16 +82,12 @@ class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
     }
   }
 
-  private def createAddedRouteDocs(addedRoutes: Seq[RouteInfo]): Seq[JsValue] = {
-    addedRoutes.map(route => routeDocFormat.write(RouteDoc(docId(route.id), route, None)))
-  }
-
-  private def createUpdatedRouteDocs(existingRouteDocs: Seq[RouteDoc], updatedRoutes: Seq[RouteInfo]): Seq[JsValue] = {
+  private def createUpdatedRouteDocs(existingRouteDocs: Seq[RouteDoc], updatedRoutes: Seq[RouteInfo]): Seq[RouteDoc] = {
     updatedRoutes.flatMap { route =>
       existingRouteDocs.find(doc => doc.route.id == route.id) match {
         case Some(doc) =>
           val rev = doc._rev
-          Some(routeDocFormat.write(RouteDoc(docId(route.id), route, rev)))
+          Some(RouteDoc(docId(route.id), route, rev))
         case None => None
       }
     }
@@ -123,7 +117,7 @@ class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
   }
 
   override def routeReferences(routeId: Long, timeout: Timeout, stale: Boolean): RouteReferences = {
-    val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale = stale)
+    val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale)
     val networkReferences = rows.filter(_.referrerType == "network").map(_.toReference).sorted
     RouteReferences(networkReferences)
   }
@@ -132,7 +126,7 @@ class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
     log.debugElapsed {
       val existingRouteIds = routeIds.sliding(50, 50).flatMap { routeIdsSubset =>
         val routeDocIds = routeIdsSubset.map(docId).toSeq
-        val existingRouteDocIds = analysisDatabase.old.keysWithIds(routeDocIds)
+        val existingRouteDocIds = analysisDatabase.keysWithIds(routeDocIds)
         existingRouteDocIds.flatMap { routeDocId =>
           try {
             Some(java.lang.Long.parseLong(routeDocId.substring(KeyPrefix.Route.length + 1)))

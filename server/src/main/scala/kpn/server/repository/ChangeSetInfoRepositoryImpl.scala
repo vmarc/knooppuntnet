@@ -2,10 +2,16 @@ package kpn.server.repository
 
 import kpn.core.database.Database
 import kpn.core.database.doc.ChangeSetInfoDoc
-import kpn.core.db.couch.Couch
-import kpn.core.db.json.JsonFormats.changeSetInfoFormat
 import kpn.shared.changes.ChangeSetInfo
 import org.springframework.stereotype.Component
+
+object ChangeSetInfoRepositoryImpl {
+
+  private case class ViewResult(rows: Seq[ViewResultRow])
+
+  private case class ViewResultRow(doc: ChangeSetInfoDoc)
+
+}
 
 @Component
 class ChangeSetInfoRepositoryImpl(changesetDatabase: Database) extends ChangeSetInfoRepository {
@@ -21,9 +27,10 @@ class ChangeSetInfoRepositoryImpl(changesetDatabase: Database) extends ChangeSet
   }
 
   override def all(changeSetIds: Seq[Long], stale: Boolean): Seq[ChangeSetInfo] = {
+    import ChangeSetInfoRepositoryImpl._
     changeSetIds.sliding(40, 40).flatMap { changeSetIdsSubset =>
       val ids = changeSetIdsSubset.map(docId)
-      changesetDatabase.old.objectsWithIds(ids, Couch.defaultTimeout, stale).map(changeSetInfoFormat.read)
+      changesetDatabase.docsWithIds(ids, classOf[ViewResult], stale).rows.map(_.doc.changeSetInfo)
     }.toSeq
   }
 

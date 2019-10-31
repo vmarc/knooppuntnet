@@ -1,9 +1,9 @@
 package kpn.core.tools
 
 import kpn.core.database.Database
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.repository.RouteRepositoryImpl
-import spray.json.JsString
 
 object SurveyDateTool {
   def main(args: Array[String]): Unit = {
@@ -21,7 +21,7 @@ class SurveyDateTool(database: Database) {
 
     val counts = new scala.collection.mutable.HashMap[String, Seq[Long]]
 
-    val routeIds = allRouteIds() //.take(5)
+    val routeIds = DocumentView.allRouteIds(database) //.take(5)
     routeIds.foreach { routeId =>
 
       routeRepository.routeWithId(routeId) match {
@@ -48,16 +48,6 @@ class SurveyDateTool(database: Database) {
     counts.keys.toSeq.sorted.foreach { key =>
       val routeIds = counts(key)
       println(key + "\t" + routeIds.size + "\t" + routeIds)
-    }
-  }
-
-  private def allRouteIds(): Seq[Long] = {
-    val keys = database.old.keys("route:", "route:999999999999999999", Couch.batchTimeout)
-    keys.flatMap {
-      case JsString(value) =>
-        val id = value.split(":")(1)
-        Some(id.toLong)
-      case _ => None
     }
   }
 

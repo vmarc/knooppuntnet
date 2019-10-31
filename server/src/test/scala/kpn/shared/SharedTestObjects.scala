@@ -786,4 +786,23 @@ trait SharedTestObjects {
       remaining
     )
   }
+
+  def newPoi(
+    elementType: String,
+    elementId: Long,
+    latitude: String = "",
+    longitude: String = "",
+    layers: Seq[String] = Seq.empty,
+    tags: Tags = Tags.empty
+  ): Poi = {
+    Poi(
+      elementType,
+      elementId,
+      latitude,
+      longitude,
+      layers,
+      tags
+    )
+  }
+
 }
