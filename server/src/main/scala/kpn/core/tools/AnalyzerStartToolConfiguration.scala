@@ -5,7 +5,6 @@ import kpn.core.database.Database
 import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.tools.config.AnalysisDataLoaderConfiguration
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
@@ -62,7 +61,7 @@ class AnalyzerStartToolConfiguration(
 
   val changeSetInfoApi = new ChangeSetInfoApiImpl(dirs.changeSets, system)
 
-  val nonCachingExecutor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
+  val nonCachingExecutor = new OverpassQueryExecutorImpl()
 
   val cachingExecutor = new CachingOverpassQueryExecutor(dirs.cache, nonCachingExecutor)
 

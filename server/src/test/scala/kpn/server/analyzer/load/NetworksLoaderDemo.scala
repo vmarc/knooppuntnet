@@ -50,7 +50,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val couchConfig: CouchConfig = Couch.config
   val database = new DatabaseImpl(DatabaseContext(couchConfig, Couch.objectMapper, "test"))
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryConfiguration(database).analysisRepository
-  val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
+  val executor = new OverpassQueryExecutorImpl()
   val analysisData = AnalysisData()
   val analysisContext = new AnalysisContext()
   val networkIdsLoader = new NetworkIdsLoaderImpl(executor)

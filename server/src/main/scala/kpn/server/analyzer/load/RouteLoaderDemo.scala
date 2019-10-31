@@ -1,22 +1,11 @@
 package kpn.server.analyzer.load
 
-import akka.actor.ActorSystem
-import akka.io.IO
-import akka.pattern.ask
-import kpn.core.app.ActorSystemConfig
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.shared.Timestamp
-import spray.can.Http
-import spray.util.pimpFuture
-
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-import scala.concurrent.duration.DurationInt
 
 object RouteLoaderDemo {
 
@@ -32,7 +21,7 @@ class RouteLoaderDemo() {
   val analysisContext = new AnalysisContext()
   val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-  val executor = new OverpassQueryExecutorWithThrotteling(system, new OverpassQueryExecutorImpl())
+  val executor = new OverpassQueryExecutorImpl()
   val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
 
   def run(): Unit = {

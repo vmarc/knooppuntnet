@@ -1,22 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import akka.io.IO
-import akka.pattern.ask
-import kpn.core.app.ActorSystemConfig
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.load.RouteLoaderImpl
-import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.overpass.OverpassQueryExecutorWithThrotteling
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.shared.Timestamp
-import spray.can.Http
-import spray.util.pimpFuture
-
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-import scala.concurrent.duration.DurationInt
 
 object RouteAnalyzerDemo {
   def main(args: Array[String]): Unit = {
