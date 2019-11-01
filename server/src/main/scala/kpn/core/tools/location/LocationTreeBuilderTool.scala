@@ -26,7 +26,7 @@ class LocationTreeBuilderTool {
 
   private val log = Log(classOf[LocationTreeBuilderTool])
 
-  private var areaCache = collection.mutable.Map[String, Double]()
+  private val areaCache = collection.mutable.Map[String, Double]()
 
   private class GeoJsonFileFilter(level: String) extends FileFilter {
     def accept(pathname: File): Boolean = {

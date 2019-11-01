@@ -49,7 +49,7 @@ class SurfaceTagsTool(database: Database) {
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val routeLoader = new RouteLoaderImpl(executor, new CountryAnalyzerImpl(relationAnalyzer))
 
-    var counts = new scala.collection.mutable.HashMap[String, Int]
+    val counts = new scala.collection.mutable.HashMap[String, Int]
 
     val routeIds = DocumentView.allRouteIds(database) //.take(500)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>

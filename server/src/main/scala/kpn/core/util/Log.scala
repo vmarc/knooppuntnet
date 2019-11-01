@@ -178,7 +178,7 @@ class MockLog() extends Log {
 
   private val messageBuffer = ListBuffer[String]()
 
-  def messages: Seq[String] = messageBuffer.toSeq
+  def messages: Seq[String] = Seq(messageBuffer:_*)
 
   def isDebugEnabled = true
 

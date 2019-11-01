@@ -45,7 +45,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
   private var lastForwardWay = UNCONNECTED
   private var lastBackwardWay = UNCONNECTED
   private var onewayBeginning = false
-  private var lastWct: WayConnectionType = null
+  private var lastWct: WayConnectionType = _
 
   members.zipWithIndex.foreach { case (m, i) =>
 

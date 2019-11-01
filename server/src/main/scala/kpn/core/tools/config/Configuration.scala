@@ -120,13 +120,6 @@ class Configuration(
     countryAnalyzer
   )
 
-  private val routeLoader: RouteLoader = new RouteLoaderImpl(
-    cachingExecutor,
-    countryAnalyzer
-  )
-
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
-
   val changeProcessor: ChangeProcessor = new ChangeProcessorConfiguration(
     system,
     analysisContext,

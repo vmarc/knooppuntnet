@@ -52,7 +52,7 @@ class NetworkUpdateProcessorWorkerImpl(
     }
   }
 
-  private def loadNetworkBeforeAndAfter(context: ChangeSetContext, networkId: Long): Tuple2[Option[LoadedNetwork], Option[LoadedNetwork]] = {
+  private def loadNetworkBeforeAndAfter(context: ChangeSetContext, networkId: Long): (Option[LoadedNetwork], Option[LoadedNetwork]) = {
 
     val messages = Log.contextMessages
 

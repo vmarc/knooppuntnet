@@ -46,7 +46,7 @@ class GpxRoute() {
   private def toTrackPoint(node: Node) = TrackPoint(node.latitude.toString, node.longitude.toString)
 
   private def startNodes(ways: Seq[Way]) = {
-    val nodes1 = ways(0).nodes
+    val nodes1 = ways.head.nodes
     val nodes2 = ways(1).nodes
     // reverse the nodes in the first way if that makes them connect with nodes in the second way
     if (nodes1.head.id == nodes2.head.id || nodes1.head.id == nodes2.last.id) nodes1.reverse else nodes1

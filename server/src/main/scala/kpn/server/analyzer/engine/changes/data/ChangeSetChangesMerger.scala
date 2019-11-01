@@ -16,7 +16,7 @@ object ChangeSetChangesMerger {
   }
 
   private def mergeRouteChanges(routeChanges: Seq[RouteChange]): Seq[RouteChange] = {
-    val routeChangeMap = routeChanges.groupBy(_.id).toMap
+    val routeChangeMap = routeChanges.groupBy(_.id)
     routeChangeMap.keys.toSeq.map { routeId =>
       val changes = routeChangeMap(routeId)
       if (changes.size == 1) {
@@ -31,7 +31,7 @@ object ChangeSetChangesMerger {
   }
 
   private def mergeNodeChanges(nodeChanges: Seq[NodeChange]): Seq[NodeChange] = {
-    val nodeChangeMap = nodeChanges.groupBy(_.id).toMap
+    val nodeChangeMap = nodeChanges.groupBy(_.id)
     nodeChangeMap.keys.toSeq.map { nodeId =>
       val changes = nodeChangeMap(nodeId)
       if (changes.size == 1) {

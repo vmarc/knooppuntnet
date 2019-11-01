@@ -19,7 +19,7 @@ class DatabaseCreate(context: DatabaseContext) {
           throw new IllegalStateException(s"Could not create database '${context.databaseUrl}' (already exists?)", e)
         }
         else {
-          throw e;
+          throw e
         }
     }
   }

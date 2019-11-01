@@ -1,6 +1,5 @@
 package kpn.core.tiles
 
-import org.locationtech.jts.geom.GeometryFactory
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiInfo
 import kpn.core.tiles.domain.TileCache
@@ -14,8 +13,6 @@ class PoiTilesBuilder(
 ) {
 
   private val log = Log(classOf[PoiTilesBuilder])
-
-  private val geomFactory = new GeometryFactory
 
   private val tileCache = new TileCache()
 

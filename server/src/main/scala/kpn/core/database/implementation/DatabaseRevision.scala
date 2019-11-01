@@ -13,7 +13,7 @@ class DatabaseRevision(context: DatabaseContext) {
 
   def revision(docId: String): Option[String] = {
 
-    val url = s"${context.databaseUrl}/${docId}"
+    val url = s"${context.databaseUrl}/$docId"
 
     val restTemplate = new RestTemplate
 

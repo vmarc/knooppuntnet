@@ -68,14 +68,6 @@ class AnalysisDataLoaderConfiguration(
 
   private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
 
-  private val orphanRouteProcessor = new OrphanRouteProcessorImpl(
-    analysisContext,
-    analysisRepository,
-    relationAnalyzer,
-    countryAnalyzer,
-    routeAnalyzer
-  )
-
   val orphanRoutesLoaderWorker = new OrphanRoutesLoaderWorkerImpl(
     analysisContext,
     routeLoader,
