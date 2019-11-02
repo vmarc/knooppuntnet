@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.data
 
-import kpn.core.db.json.JsonFormats.orphanNodesDataFormat
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -25,14 +24,4 @@ class OrphanNodesDataTest extends FunSuite with Matchers {
     data.size should equal(0)
   }
 
-  test("convert to json and back") {
-
-    val data = new OrphanNodesData()
-    data.add(1002)
-    data.add(1003)
-
-    val json = orphanNodesDataFormat.write(data)
-
-    orphanNodesDataFormat.read(json).ids.toSet should equal(data.ids.toSet)
-  }
 }

@@ -22,14 +22,9 @@ import kpn.core.gpx.WayPoint
 import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
 import kpn.server.analyzer.engine.analysis.location.LocationTree
-import kpn.server.analyzer.engine.changes.ElementIdMap
 import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.server.analyzer.engine.changes.data.AnalysisData
-import kpn.server.analyzer.engine.changes.data.AnalysisDataDetail
-import kpn.server.analyzer.engine.changes.data.AnalysisDataOrphanNodes
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
-import kpn.server.analyzer.engine.changes.data.OrphanNodesData
 import kpn.shared.Bounds
 import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
@@ -490,11 +485,6 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val changeSetInfoFormat: RootJsonFormat[ChangeSetInfo] = jsonFormat6(ChangeSetInfo)
 
   implicit val elementIdsFormat: RootJsonFormat[ElementIds] = jsonFormat3(ElementIds)
-  implicit val elementIdMapFormat = ElementIdMap.ElementIdMapFormat
-  implicit val analysisDataDetailFormat: RootJsonFormat[AnalysisDataDetail] = jsonFormat1(AnalysisDataDetail)
-  implicit val orphanNodesDataFormat = OrphanNodesData.OrphanNodesDataFormat
-  implicit val analysisDataOrphanNodesFormat: RootJsonFormat[AnalysisDataOrphanNodes] = jsonFormat1(AnalysisDataOrphanNodes)
-  implicit val analysisDataFormat: RootJsonFormat[AnalysisData] = jsonFormat3(AnalysisData.apply)
 
   implicit val blackListEntryFormat: RootJsonFormat[BlackListEntry] = jsonFormat3(BlackListEntry)
   implicit val blackListFormat: RootJsonFormat[BlackList] = jsonFormat3(BlackList)

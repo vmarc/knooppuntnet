@@ -1,33 +1,12 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.core.db.json.JsonFormats
-import spray.json.JsObject
-import spray.json.JsValue
-import spray.json.RootJsonFormat
 
 import scala.collection.concurrent.TrieMap
 
 object ElementIdMap {
 
   def apply(): ElementIdMap = new ElementIdMap()
-
-  object ElementIdMapFormat extends RootJsonFormat[ElementIdMap] {
-    def write(c: ElementIdMap): JsValue = {
-      val fields = c.elementMap.map { case (id, elementIds) =>
-        id.toString -> JsonFormats.elementIdsFormat.write(elementIds)
-      }.toMap
-      JsObject(fields)
-    }
-
-    def read(value: JsValue): ElementIdMap = {
-      val elementIdMap = ElementIdMap()
-      value.asJsObject.fields.foreach { case (id, elementIds) =>
-        elementIdMap.add(id.toLong, JsonFormats.elementIdsFormat.read(elementIds))
-      }
-      elementIdMap
-    }
-  }
 
 }
 
