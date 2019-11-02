@@ -2,16 +2,12 @@ package kpn.core.replicate
 
 import java.io.File
 
-import kpn.core.app.ActorSystemConfig
-import kpn.server.analyzer.engine.changes.OsmChangeReader
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.OsmChangeReader
 import kpn.shared.ReplicationId
-
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 
 object ReplicatorTool {
 
@@ -35,12 +31,10 @@ object ReplicatorTool {
 
     val dirs = Dirs()
 
-    val system = ActorSystemConfig.actorSystem()
     try {
       val statusRepository = new StatusRepositoryImpl(dirs)
-      val replicationStateRepository= new ReplicationStateRepositoryImpl(dirs.replicate)
-      val replicationRequestExecutor = new ReplicationRequestExecutorImpl(system)
-
+      val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
+      val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
       new ReplicatorTool(
         dirs.replicate,
         statusRepository,
@@ -49,7 +43,6 @@ object ReplicatorTool {
       ).launch()
     }
     finally {
-      Await.result(system.terminate(), Duration.Inf)
       log.info("Ended")
     }
   }
