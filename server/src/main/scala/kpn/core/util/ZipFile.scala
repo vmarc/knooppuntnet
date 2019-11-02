@@ -9,7 +9,6 @@ import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
 import scala.collection.mutable.ListBuffer
-import scalax.file.Path
 
 case class ZipFileEntry(name: String, contents: String)
 
@@ -20,7 +19,7 @@ object ZipFile {
     try {
       var entry = in.getNextEntry
       var entries = ListBuffer[ZipFileEntry]()
-      while(entry != null) {
+      while (entry != null) {
         val out = new ByteArrayOutputStream()
         val buffer = new Array[Byte](2048)
         var size = in.read(buffer, 0, buffer.length)

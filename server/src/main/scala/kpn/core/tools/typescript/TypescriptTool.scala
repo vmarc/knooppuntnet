@@ -4,7 +4,7 @@ import java.io.File
 import java.io.PrintStream
 
 import kpn.shared.data.raw.RawNode
-import scalax.file.Path
+import org.apache.commons.io.FileUtils
 
 import scala.reflect.runtime.universe._
 
@@ -16,9 +16,9 @@ object TypescriptTool {
 
 class TypescriptTool() {
 
-  val root = "/home/marcv/wrk/projects2/knooppuntnet/production/shared/src/main/scala"
+  val root = "/home/marcv/wrk/projects/knooppuntnet/server/src/main/scala/kpn/shared"
 
-  val targetDir = "/home/marcv/wrk/projects2/knooppuntnet/client/src/app"
+  val targetDir = "/home/marcv/wrk/projects/knooppuntnet/client/src/app"
 
   val ignoredClasses: Seq[String] = Seq(
     "ApiResponse",
@@ -55,18 +55,15 @@ class TypescriptTool() {
   }
 
   private def scalaClassNames(): Seq[String] = {
-    Path.fromString(root).descendants().toSeq.flatMap { path =>
-      if (path.isFile && path.name.endsWith(".scala")) {
-        if (ignoredClasses.exists(n => path.path.endsWith("/" + n + ".scala"))) {
-          None
-        }
-        else {
-          val className = path.path.drop(root.length + 1).dropRight(".scala".length).replace('/', '.')
-          Some(className)
-        }
+    import collection.JavaConverters._
+    val files = FileUtils.listFiles(new File(root), Array("scala"), true).asScala.toSeq
+    files.flatMap { file =>
+      if (ignoredClasses.exists(n => file.getName.endsWith(n + ".scala"))) {
+        None
       }
       else {
-        None
+        val className = file.getAbsolutePath.drop(root.length - "kpn/shared".length).dropRight(".scala".length).replace('/', '.')
+        Some(className)
       }
     }
   }

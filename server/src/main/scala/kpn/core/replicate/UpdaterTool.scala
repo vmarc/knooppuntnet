@@ -2,19 +2,18 @@ package kpn.core.replicate
 
 import java.io.File
 
-import kpn.server.analyzer.engine.changes.MinuteDiffReader
-import kpn.server.analyzer.engine.changes.ReplicationStateReader
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.MinuteDiffReader
+import kpn.server.analyzer.engine.changes.ReplicationStateReader
 import kpn.shared.ReplicationId
 import kpn.shared.Timestamp
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
 
 import scala.annotation.tailrec
-import scalax.file.Path
 
 /*
   Updates the Overpass API database from the minute diff files.
@@ -93,9 +92,7 @@ class UpdaterTool(options: UpdaterToolOptions, statusRepository: StatusRepositor
 
   @tailrec
   private def processBatchLoop(previousReplicationId: ReplicationId): Unit = {
-
-    Path.fromString(options.tmpDir.getAbsolutePath).descendants().foreach(_.delete())
-
+    FileUtils.cleanDirectory(options.tmpDir)
     val (lastReplicationId, timestampOption) = readBatchAndWriteTempFiles(previousReplicationId, 0, None)
     if (previousReplicationId == lastReplicationId) {
       // all files processed, sleep for a while
@@ -126,7 +123,7 @@ class UpdaterTool(options: UpdaterToolOptions, statusRepository: StatusRepositor
       ThreadContext.push(replicationId.name)
       minuteDiff(replicationId) match {
         case Some(diff) =>
-          FileUtils.writeStringToFile(new File(options.tmpDir, s"${diff.replicationId.number}.xml"), diff.xml)
+          FileUtils.writeStringToFile(new File(options.tmpDir, s"${diff.replicationId.number}.xml"), diff.xml, "UTF-8")
           ThreadContext.pop()
           readBatchAndWriteTempFiles(replicationId, filesInBatchCount + 1, Some(diff.timestamp))
         case None =>

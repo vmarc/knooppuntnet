@@ -1,9 +1,10 @@
 package kpn.server.analyzer.analyzer
 
+import java.io.File
+
 import kpn.server.analyzer.engine.AnalysisTimeRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-import scalax.file.Path
 
 class AnalysisTimeRepositoryTest extends FunSuite with Matchers {
 
@@ -22,7 +23,7 @@ class AnalysisTimeRepositoryTest extends FunSuite with Matchers {
 
   private def withRepository(fn: (AnalysisTimeRepositoryImpl) => Unit): Unit = {
     val repositoryFile = "/tmp/repository"
-    Path.fromString(repositoryFile).delete()
+    new File(repositoryFile).delete()
     val repo = new AnalysisTimeRepositoryImpl(repositoryFile)
     fn(repo)
   }

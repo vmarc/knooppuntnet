@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine
 
-import scalax.file.Path
+import java.io.File
+
+import org.apache.commons.io.FileUtils
 
 /**
  * Stores the timestamp when the most recent full analysis was performed.
@@ -14,11 +16,10 @@ trait AnalysisTimeRepository {
 
 class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepository {
 
-  private val file = Path.fromString(filename)
-
   def get: Option[String] = {
+    val file = new File(filename, "UTF-8")
     if (file.exists) {
-      Some(file.string)
+      Some(FileUtils.readFileToString(file, "UTF-8"))
     }
     else {
       None
@@ -26,6 +27,7 @@ class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepositor
   }
 
   def put(time: String): Unit = {
-    file.write(time)
+    val file = new File(filename, "UTF-8")
+    FileUtils.writeStringToFile(file, time, "UTF-8")
   }
 }

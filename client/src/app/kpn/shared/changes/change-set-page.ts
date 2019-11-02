@@ -6,7 +6,6 @@ import {ChangeSetSummary} from "../change-set-summary";
 import {KnownElements} from "../common/known-elements";
 import {NetworkChangeInfo} from "./details/network-change-info";
 import {NodeChangeInfo} from "../node/node-change-info";
-import {Review} from "./review";
 import {RouteChangeInfo} from "../route/route-change-info";
 
 export class ChangeSetPage {
@@ -16,8 +15,7 @@ export class ChangeSetPage {
               readonly networkChanges: List<NetworkChangeInfo>,
               readonly routeChanges: List<RouteChangeInfo>,
               readonly nodeChanges: List<NodeChangeInfo>,
-              readonly knownElements: KnownElements,
-              readonly reviews: List<Review>) {
+              readonly knownElements: KnownElements) {
   }
 
   public static fromJSON(jsonObject): ChangeSetPage {
@@ -30,8 +28,7 @@ export class ChangeSetPage {
       jsonObject.networkChanges ? List(jsonObject.networkChanges.map(json => NetworkChangeInfo.fromJSON(json))) : List(),
       jsonObject.routeChanges ? List(jsonObject.routeChanges.map(json => RouteChangeInfo.fromJSON(json))) : List(),
       jsonObject.nodeChanges ? List(jsonObject.nodeChanges.map(json => NodeChangeInfo.fromJSON(json))) : List(),
-      KnownElements.fromJSON(jsonObject.knownElements),
-      jsonObject.reviews ? List(jsonObject.reviews.map(json => Review.fromJSON(json))) : List()
+      KnownElements.fromJSON(jsonObject.knownElements)
     );
   }
 }
