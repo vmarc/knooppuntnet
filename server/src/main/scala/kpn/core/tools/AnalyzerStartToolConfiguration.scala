@@ -59,7 +59,7 @@ class AnalyzerStartToolConfiguration(
 
   val statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
 
-  val changeSetInfoApi = new ChangeSetInfoApiImpl(dirs.changeSets, system)
+  val changeSetInfoApi = new ChangeSetInfoApiImpl(dirs.changeSets)
 
   val nonCachingExecutor = new OverpassQueryExecutorImpl()
 

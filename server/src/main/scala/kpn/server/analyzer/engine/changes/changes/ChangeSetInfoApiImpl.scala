@@ -3,8 +3,6 @@ package kpn.server.analyzer.engine.changes.changes
 import java.io.File
 import java.nio.charset.Charset
 
-import akka.actor.ActorSystem
-import akka.util.Timeout
 import kpn.core.util.Log
 import kpn.shared.changes.ChangeSetInfo
 import org.apache.commons.io.FileUtils
@@ -17,12 +15,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 import org.xml.sax.SAXParseException
 
-import scala.concurrent.duration.DurationInt
 import scala.xml.XML
 
-class ChangeSetInfoApiImpl(directory: File, system: ActorSystem) extends ChangeSetInfoApi {
+class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
 
-  private val timeout: Timeout = Timeout(900.seconds)
   private val log = Log(classOf[ChangeSetInfoApiImpl])
 
   override def get(changeSetId: Long): Option[ChangeSetInfo] = {

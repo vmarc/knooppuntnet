@@ -1,8 +1,5 @@
 package kpn.core.tools
 
-import akka.io.IO
-import akka.pattern.ask
-import kpn.core.app.ActorSystemConfig
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
 import kpn.core.db.couch.Couch
@@ -14,12 +11,6 @@ import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.TaskRepository
 import kpn.server.repository.TaskRepositoryImpl
-import spray.can.Http
-import spray.util.pimpFuture
-
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-import scala.concurrent.duration.DurationInt
 
 object ChangeSetInfoTool {
 
@@ -30,8 +21,6 @@ object ChangeSetInfoTool {
     val exit = ChangeSetInfoToolOptions.parse(args) match {
       case Some(options) =>
 
-        val system = ActorSystemConfig.actorSystem()
-
         try {
 
           val taskRepository = {
@@ -39,7 +28,7 @@ object ChangeSetInfoTool {
             new TaskRepositoryImpl(taskDatabase)
           }
 
-          val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets, system)
+          val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets)
 
           val changeSetInfoRepository = {
             val changeDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Couch.objectMapper, options.changeSetsDatabaseName))
@@ -56,8 +45,6 @@ object ChangeSetInfoTool {
           case e: Throwable => log.fatal("Exception thrown during analysis", e)
         }
         finally {
-          IO(Http)(system).ask(Http.CloseAll)(15.second).await
-          Await.result(system.terminate(), Duration.Inf)
           log.info(s"Stopped")
           ()
         }

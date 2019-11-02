@@ -3,15 +3,14 @@ package kpn.core.tools.location
 import java.io.File
 import java.io.FileFilter
 
-import kpn.core.db.json.JsonFormats
+import kpn.core.db.couch.Couch
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationDefinition
 import kpn.server.analyzer.engine.analysis.location.LocationDefinition
 import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader
 import kpn.server.analyzer.engine.analysis.location.LocationTree
-import kpn.core.util.Log
 import kpn.shared.Country
-import org.apache.commons.io.FileUtils
 
 /*
   Generates the location tree configuration file.
@@ -55,7 +54,7 @@ class LocationTreeBuilderTool {
   }
 
   private def calculateTree(depth: Int, country: Country, levelLocations: Seq[LocationDefinition],
-    remainderLocations: Seq[Seq[LocationDefinition]]): Seq[LocationDefinition] = {
+                            remainderLocations: Seq[Seq[LocationDefinition]]): Seq[LocationDefinition] = {
 
     if (remainderLocations.isEmpty) {
       levelLocations
@@ -102,15 +101,14 @@ class LocationTreeBuilderTool {
 
   private def writeTree(configuration: LocationConfiguration): Unit = {
     log.info("Write tree")
-    val tree = LocationTree("root", configuration.locations.map(toTree))
-    val json = JsonFormats.locationTreeFormat.write(tree).prettyPrint
+    val tree = LocationTree("root", Some(configuration.locations.map(toTree)))
     val file = LocationConfigurationDefinition.treeFile
-    FileUtils.writeStringToFile(file, json)
+    Couch.objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, tree)
   }
 
   private def toTree(location: LocationDefinition): LocationTree = {
     if (location.children.nonEmpty) {
-      LocationTree(location.filename, location.children.map(toTree))
+      LocationTree(location.filename, Some(location.children.map(toTree)))
     }
     else {
       LocationTree(location.filename)

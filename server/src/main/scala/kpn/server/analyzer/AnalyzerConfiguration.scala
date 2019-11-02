@@ -1,6 +1,5 @@
 package kpn.server.analyzer
 
-import akka.actor.ActorSystem
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.overpass.OverpassQueryExecutor
@@ -22,9 +21,6 @@ class AnalyzerConfiguration {
 
   @Autowired
   var analysisDatabase: Database = _
-
-  @Autowired
-  var system: ActorSystem = _
 
   @Bean
   def dirs = Dirs()
@@ -49,7 +45,7 @@ class AnalyzerConfiguration {
 
   @Bean
   def ChangeSetInfoApi: ChangeSetInfoApi = {
-    new ChangeSetInfoApiImpl(dirs.changeSets, system)
+    new ChangeSetInfoApiImpl(dirs.changeSets)
   }
 
   @Bean

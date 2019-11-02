@@ -34,11 +34,11 @@ class LocationConfigurationReader {
   def read(): LocationConfiguration = {
     val string = FileUtils.readFileToString(LocationConfigurationDefinition.treeFile)
     val root = Couch.objectMapper.readValue(string, classOf[LocationTree])
-    LocationConfiguration(root.children.map(toLocationConfiguration))
+    LocationConfiguration(root.children.toSeq.flatten.map(toLocationConfiguration))
   }
 
   private def toLocationConfiguration(tree: LocationTree): LocationDefinition = {
-    val children = tree.children.map(toLocationConfiguration)
+    val children = tree.children.toSeq.flatten.map(toLocationConfiguration)
     val file = LocationConfigurationDefinition.file(tree.name)
     new LocationDefinitionReader(file).read(children)
   }

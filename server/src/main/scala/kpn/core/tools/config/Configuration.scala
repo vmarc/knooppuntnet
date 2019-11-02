@@ -11,8 +11,6 @@ import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
@@ -20,8 +18,6 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.analyzer.load.NodeLoaderImpl
-import kpn.server.analyzer.load.RouteLoader
-import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
@@ -77,7 +73,7 @@ class Configuration(
     }
   }
 
-  val changeSetInfoApi = new ChangeSetInfoApiImpl(dirs.changeSets, system)
+  val changeSetInfoApi = new ChangeSetInfoApiImpl(dirs.changeSets)
 
   val nonCachingExecutor = new OverpassQueryExecutorImpl()
 
