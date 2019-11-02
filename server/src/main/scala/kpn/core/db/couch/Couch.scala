@@ -17,6 +17,7 @@ import kpn.server.json.CountryJsonDeserializer
 import kpn.server.json.CountryJsonSerializer
 import kpn.server.json.FactJsonDeserializer
 import kpn.server.json.FactJsonSerializer
+import kpn.server.json.GeometryJsonDeserializer
 import kpn.server.json.NetworkTypeJsonDeserializer
 import kpn.server.json.NetworkTypeJsonSerializer
 import kpn.server.json.SubsetJsonDeserializer
@@ -34,6 +35,7 @@ import kpn.shared.Subset
 import kpn.shared.Timestamp
 import kpn.shared.data.Tags
 import kpn.shared.route.WayDirection
+import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
 import scala.concurrent.duration.DurationInt
@@ -117,6 +119,7 @@ object Couch {
     b.serializerByType(classOf[WayDirection], new WayDirectionJsonSerializer())
 
     b.deserializerByType(classOf[ChangeSetDatas], new ChangeSetDatasJsonDeserializer())
+    b.deserializerByType(classOf[Geometry], new GeometryJsonDeserializer())
 
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)

@@ -21,6 +21,10 @@ class Fields(fields: Seq[String]) {
     fields(index).toInt
   }
 
+  def double(index: Int): Double = {
+    fields(index).toDouble
+  }
+
   def networkType(index: Int): NetworkType = {
     NetworkType.withName(fields(index)).get
   }
