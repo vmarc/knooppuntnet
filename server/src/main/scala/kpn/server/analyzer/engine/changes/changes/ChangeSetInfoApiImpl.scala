@@ -1,25 +1,22 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import java.io.File
+import java.nio.charset.Charset
 
 import akka.actor.ActorSystem
-import akka.io.IO
-import akka.pattern.ask
 import akka.util.Timeout
 import kpn.core.util.Log
 import kpn.shared.changes.ChangeSetInfo
 import org.apache.commons.io.FileUtils
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.web.client.RestTemplate
 import org.xml.sax.SAXParseException
-import spray.can.Http
-import spray.http.HttpMethods.GET
-import spray.http.HttpRequest
-import spray.http.HttpResponse
-import spray.http.StatusCodes
-import spray.http.Uri
 
-import scala.concurrent.Await
-import scala.concurrent.Future
-import scala.concurrent.duration.Duration
 import scala.concurrent.duration.DurationInt
 import scala.xml.XML
 
@@ -47,18 +44,23 @@ class ChangeSetInfoApiImpl(directory: File, system: ActorSystem) extends ChangeS
       Some(new ChangeSetInfoParser().parse(xml))
     }
     else {
-      val uri = Uri("https://www.openstreetmap.org/api/0.6/changeset/" + changeSetId)
-      //val headers = List(`Accept-Encoding`(gzip))
-      val request = HttpRequest(GET, uri /*, headers*/)
+
+      val restTemplate = new RestTemplate
+      val url = s"https://www.openstreetmap.org/api/0.6/changeset/$changeSetId"
+
+      val headers = new HttpHeaders()
+      headers.setAccept(java.util.Arrays.asList(MediaType.TEXT_XML))
+      headers.setAcceptCharset(java.util.Arrays.asList(Charset.forName("UTF-8")))
+      headers.set(HttpHeaders.REFERER, "knooppuntnet.nl")
+      val entity = new HttpEntity[String]("", headers)
 
       try {
-        val responseFuture: Future[HttpResponse] = (IO(Http)(system).ask(request)(timeout)).mapTo[HttpResponse]
-        val response = Await.result(responseFuture, Duration.Inf)
-        response.status match {
-          case StatusCodes.OK =>
+        val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
+        response.getStatusCode match {
+          case HttpStatus.OK =>
             log.debug(s"Retrieved changeset $changeSetId info from OSM API")
             Thread.sleep(5000)
-            val xmlString = response.entity.data.asString
+            val xmlString = response.getBody
             if (xmlString.contains("<error>Connection to database failed</error>")) {
               log.error("""Exception while fetching changeset, xml contains: "Connection to database failed". Going to sleep for 5 minutes""")
               Thread.sleep(5L * 60 * 1000)
