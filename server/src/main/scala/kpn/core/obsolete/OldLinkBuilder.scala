@@ -177,16 +177,16 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
 
     if (onewayBeginning) {
       if (lastBackwardWay < 0) {
-        dirBW = determineDirection(firstGroupIdx, reverse(con(firstGroupIdx).direction), i, true)
+        dirBW = determineDirection(firstGroupIdx, reverse(con(firstGroupIdx).direction), i, reversed = true)
       } else {
-        dirBW = determineDirection(lastBackwardWay, con(lastBackwardWay).direction, i, true)
+        dirBW = determineDirection(lastBackwardWay, con(lastBackwardWay).direction, i, reversed = true)
       }
 
       if (dirBW != Direction.NONE) {
         onewayBeginning = false
       }
     } else {
-      dirBW = determineDirection(lastBackwardWay, con(lastBackwardWay).direction, i, true)
+      dirBW = determineDirection(lastBackwardWay, con(lastBackwardWay).direction, i, reversed = true)
     }
 
     if (m.isOneWay) {
@@ -248,7 +248,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
   }
 
   private def determineDirection(ref_i: Int, ref_direction: Direction.Value, k: Int): Direction.Value = {
-    determineDirection(ref_i, ref_direction, k, false)
+    determineDirection(ref_i, ref_direction, k, reversed = false)
   }
 
   /**

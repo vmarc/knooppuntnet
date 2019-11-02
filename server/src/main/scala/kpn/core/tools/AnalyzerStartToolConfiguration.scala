@@ -83,7 +83,7 @@ class AnalyzerStartToolConfiguration(
 
   private val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
 
-  val changeSetInfoUpdater = new ChangeSetInfoUpdater {
+  private val changeSetInfoUpdater = new ChangeSetInfoUpdater {
     override def changeSetInfo(changeSetId: Long): Unit = {}
   }
 

@@ -17,7 +17,7 @@ class TagsJsonDeserializer extends JsonDeserializer[Tags] {
       case arrayNode: ArrayNode =>
         import scala.collection.JavaConverters._
         arrayNode.elements().asScala.map {
-          case pairArrayNode: ArrayNode if (pairArrayNode.size() == 2) =>
+          case pairArrayNode: ArrayNode if pairArrayNode.size() == 2 =>
             val key = pairArrayNode.get(0).textValue
             val value = pairArrayNode.get(1).textValue
             key -> value

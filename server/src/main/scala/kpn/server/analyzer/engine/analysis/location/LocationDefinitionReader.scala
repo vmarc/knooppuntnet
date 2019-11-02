@@ -23,7 +23,7 @@ class LocationDefinitionReader(file: File) {
   import LocationDefinitionReader._
 
   def read(children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {
-    val json = FileUtils.readFileToString(file)
+    val json = FileUtils.readFileToString(file, "UTF-8")
 
     val locationJson = Couch.objectMapper.readValue(json, classOf[LocationJson])
 

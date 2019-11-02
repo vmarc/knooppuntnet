@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis
 import kpn.shared.data.Relation
 
 object NetworkNameAnalyzer {
-  val ignoredSubstrings = Seq(
+  private val ignoredSubstrings = Seq(
     "(Wandelnetwerk Goes-Kapelle)",
     "Fietsnetwerk ",
     "Fietsroutenetwerk B ",

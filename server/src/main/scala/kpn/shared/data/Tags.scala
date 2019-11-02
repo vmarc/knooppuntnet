@@ -10,7 +10,7 @@ object Tags {
     Tags(tags.map(a => Tag(a._1, a._2)))
   }
 
-  def toString(tags: Seq[Tag]): String = tags.map { case (Tag(key, value)) => s"$key=$value" }.mkString(", ")
+  def toString(tags: Seq[Tag]): String = tags.map { case Tag(key, value) => s"$key=$value" }.mkString(", ")
 }
 
 case class Tags(tags: Seq[Tag]) {

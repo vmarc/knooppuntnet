@@ -32,7 +32,7 @@ class ImageGenerationTool {
                 Seq(false, true) flatMap { hasPrev =>
                   Seq(false, true) map { hasNext =>
                     Link(linkType, hasPrev, hasNext, isLoop, isOnewayLoopForwardPart,
-                      isOnewayLoopBackwardPart, isOnewayHead, isOnewayTail, false
+                      isOnewayLoopBackwardPart, isOnewayHead, isOnewayTail, invalid = false
                     )
                   }
                 }
@@ -42,7 +42,17 @@ class ImageGenerationTool {
         }
       }
     }
-    val allLinks = links :+ Link(LinkType.NONE, false, false, false, false, false, false, false, true)
+    val allLinks = links :+ Link(
+      LinkType.NONE,
+      hasPrev = false,
+      hasNext = false,
+      isLoop = false,
+      isOnewayLoopForwardPart = false,
+      isOnewayLoopBackwardPart = false,
+      isOnewayHead = false,
+      isOnewayTail = false,
+      invalid = true
+    )
 
     val dir = "/tmp/node-network-analysis"
     new File(dir).mkdirs

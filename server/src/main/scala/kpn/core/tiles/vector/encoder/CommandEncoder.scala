@@ -5,7 +5,6 @@ import java.util
 import org.locationtech.jts.algorithm.CGAlgorithms
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
-import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.LinearRing
 import org.locationtech.jts.geom.MultiLineString
@@ -28,21 +27,21 @@ class CommandEncoder {
   }
 
   /**
-    * // // // Ex.: MoveTo(3, 6), LineTo(8, 12), LineTo(20, 34), ClosePath //
-    * Encoded as: [ 9 3 6 18 5 6 12 22 15 ] // == command type 7 (ClosePath),
-    * length 1 // ===== relative LineTo(+12, +22) == LineTo(20, 34) // ===
-    * relative LineTo(+5, +6) == LineTo(8, 12) // == [00010 010] = command type
-    * 2 (LineTo), length 2 // === relative MoveTo(+3, +6) // == [00001 001] =
-    * command type 1 (MoveTo), length 1 // Commands are encoded as uint32
-    * varints, vertex parameters are // encoded as sint32 varints (zigzag).
-    * Vertex parameters are // also encoded as deltas to the previous position.
-    * The original // position is (0,0)
-    *
-    * @param cs
-    * @return
-    */
+   * // // // Ex.: MoveTo(3, 6), LineTo(8, 12), LineTo(20, 34), ClosePath //
+   * Encoded as: [ 9 3 6 18 5 6 12 22 15 ] // == command type 7 (ClosePath),
+   * length 1 // ===== relative LineTo(+12, +22) == LineTo(20, 34) // ===
+   * relative LineTo(+5, +6) == LineTo(8, 12) // == [00010 010] = command type
+   * 2 (LineTo), length 2 // === relative MoveTo(+3, +6) // == [00001 001] =
+   * command type 1 (MoveTo), length 1 // Commands are encoded as uint32
+   * varints, vertex parameters are // encoded as sint32 varints (zigzag).
+   * Vertex parameters are // also encoded as deltas to the previous position.
+   * The original // position is (0,0)
+   *
+   * @param cs
+   * @return
+   */
   def makeCommands2(cs: Seq[Coordinate], closePathAtEnd: Boolean): Seq[Int] = {
-    makeCommands3(cs, closePathAtEnd, false)
+    makeCommands3(cs, closePathAtEnd, multiPoint = false)
   }
 
   def makeCommands3(cs: Seq[Coordinate], closePathAtEnd: Boolean, multiPoint: Boolean): Seq[Int] = {
@@ -75,7 +74,7 @@ class CommandEncoder {
       else {
 
         // prevent double closing
-        if (closePathAtEnd && cs.length > 1 && i == (cs.length - 1) && cs(0) == c) {
+        if (closePathAtEnd && cs.length > 1 && i == (cs.length - 1) && cs.head == c) {
           lineToLength -= 1
         }
         else {
@@ -151,7 +150,7 @@ class CommandEncoder {
         i - 1
       }
     }
-    Seq(commands:_*)
+    Seq(commands: _*)
   }
 
 }

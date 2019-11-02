@@ -6,7 +6,7 @@ import kpn.shared.diff.TagDetailType
 import kpn.shared.diff.TagDiffs
 
 object NodeTagDiffAnalyzer {
-  val mainTagKeys = Seq(
+  val mainTagKeys: Seq[String] = Seq(
     "rcn_ref",
     "expected_rcn_route_relations",
     "rwn_ref",
@@ -28,7 +28,7 @@ object NodeTagDiffAnalyzer {
 class NodeTagDiffAnalyzer(before: Tagable, after: Tagable) extends TagDiffAnalyzer(before, after, NodeTagDiffAnalyzer.mainTagKeys)
 
 object RouteTagDiffAnalyzer {
-  val mainTagKeys = Seq(
+  val mainTagKeys: Seq[String] = Seq(
     "network",
     "type",
     "route",

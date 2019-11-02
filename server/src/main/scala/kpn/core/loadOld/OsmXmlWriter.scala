@@ -13,8 +13,8 @@ import kpn.shared.data.raw.RawWay
 class OsmXmlWriter(out: PrintWriter) {
 
   def printHeader(): Unit = {
-    out.println( """<?xml version="1.0" encoding="UTF-8"?>""")
-    out.println( """<osm version="0.6">""")
+    out.println("""<?xml version="1.0" encoding="UTF-8"?>""")
+    out.println("""<osm version="0.6">""")
   }
 
   def printFooter(): Unit = {
@@ -79,7 +79,7 @@ class OsmXmlWriter(out: PrintWriter) {
   }
 
   private def printTags(tags: Tags): Unit = {
-    tags.tags.foreach { case (Tag(key, value)) =>
+    tags.tags.foreach { case Tag(key, value) =>
       out.println(s"""    <tag k="$key" v="${Xml.escape(value)}"/>""")
     }
   }

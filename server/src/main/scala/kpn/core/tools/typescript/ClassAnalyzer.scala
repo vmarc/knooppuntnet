@@ -91,6 +91,7 @@ class ClassAnalyzer {
     )
   }
 
+  @scala.annotation.tailrec
   private def buildClassType(fieldTypeString: String): ClassType = {
 
     fieldTypeString match {
@@ -125,6 +126,7 @@ class ClassAnalyzer {
     }
   }
 
+  @scala.annotation.tailrec
   private def typescriptTypeDependencies(fieldTypeString: String): Seq[String] = {
     fieldTypeString match {
       case mapSignature(type1, type2) =>

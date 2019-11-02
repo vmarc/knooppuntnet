@@ -3,7 +3,7 @@ package kpn.core.util
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.ThreadContext
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import scala.collection.mutable.ListBuffer
 
 trait Log {
@@ -61,7 +61,7 @@ object Log {
   }
 
   def context[T](messages: Seq[String])(f: => T): T = {
-    messages.foreach  { message =>
+    messages.foreach { message =>
       ThreadContext.push(message)
     }
     try {
@@ -75,7 +75,7 @@ object Log {
   }
 
   def contextMessages: Seq[String] = {
-    ThreadContext.getImmutableStack.asList
+    ThreadContext.getImmutableStack.asList.asScala
   }
 
   private class Log4j(name: String) extends Log {
@@ -178,7 +178,7 @@ class MockLog() extends Log {
 
   private val messageBuffer = ListBuffer[String]()
 
-  def messages: Seq[String] = Seq(messageBuffer:_*)
+  def messages: Seq[String] = Seq(messageBuffer: _*)
 
   def isDebugEnabled = true
 
@@ -194,7 +194,7 @@ class MockLog() extends Log {
 
   def debug(message: String): Unit = {
 
-    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList()
+    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala
     val stack = if (stackMessages.isEmpty) {
       ""
     }
@@ -207,7 +207,7 @@ class MockLog() extends Log {
 
   def debug(message: String, throwable: Throwable): Unit = {
 
-    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList()
+    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala
     val stack = if (stackMessages.isEmpty) {
       ""
     }
@@ -226,7 +226,7 @@ class MockLog() extends Log {
 
   def trace(message: String): Unit = {
 
-    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList()
+    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala
     val stack = if (stackMessages.isEmpty) {
       ""
     }

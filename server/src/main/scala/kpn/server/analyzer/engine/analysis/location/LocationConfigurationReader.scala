@@ -32,7 +32,7 @@ object LocationConfigurationReader {
 class LocationConfigurationReader {
 
   def read(): LocationConfiguration = {
-    val string = FileUtils.readFileToString(LocationConfigurationDefinition.treeFile)
+    val string = FileUtils.readFileToString(LocationConfigurationDefinition.treeFile, "UTF-8")
     val root = Couch.objectMapper.readValue(string, classOf[LocationTree])
     LocationConfiguration(root.children.toSeq.flatten.map(toLocationConfiguration))
   }

@@ -25,16 +25,6 @@ case class NetworkAttributes(
   center: Option[LatLonImpl]
 ) {
 
-  def completeness: String = {
-    NetworkSizeEstimates.size.get(name) match {
-      case Some(estimate) =>
-        val estimatedRouteCount = (estimate.nodeCount - 2) * 2 + 1
-        val completePercentage = 100 * (nodeCount + routeCount) / (estimate.nodeCount + estimatedRouteCount)
-        s"$completePercentage%"
-      case None => ""
-    }
-  }
-
   def percentageOkString: String = {
     s"${percentageOk.toInt}%"
   }

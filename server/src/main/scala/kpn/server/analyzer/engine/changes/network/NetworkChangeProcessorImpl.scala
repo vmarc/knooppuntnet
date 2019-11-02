@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.network
 
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
-import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 import scala.concurrent.Await
@@ -37,8 +37,9 @@ class NetworkChangeProcessorImpl(
       val creates = awaitResult(createFutures)
       val updates = awaitResult(updateFutures)
       val deletes = awaitResult(deleteFutures)
+      val sources = creates ++ updates ++ deletes
 
-      val changes = merge((creates ++ updates ++ deletes): _*)
+      val changes = merge(sources: _*)
 
       val message = s"actions=${networkChanges.actionCount}, creates=${creates.size}, updates=${updates.size}, deletes=${deletes.size}"
       (message, changes)

@@ -11,11 +11,11 @@ class ReplicationStateRepositoryImpl(replicateDir: File) extends ReplicationStat
 
   def write(replicationId: ReplicationId, state: String): Unit = {
     stateDir(replicationId).mkdirs()
-    FileUtils.writeStringToFile(stateFile(replicationId), state)
+    FileUtils.writeStringToFile(stateFile(replicationId), state, "UTF-8")
   }
 
   def read(replicationId: ReplicationId): Timestamp = {
-    val state = FileUtils.readFileToString(stateFile(replicationId))
+    val state = FileUtils.readFileToString(stateFile(replicationId), "UTF-8")
     val lines = state.split("\n")
     lines.find(_.startsWith("timestamp=")) match {
       case Some(line) =>

@@ -50,7 +50,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     val initialPois = initialResult.pois
 
     val pageCount = {
-      val count = (initialResult.totalRows / pageSize).toInt
+      val count = initialResult.totalRows / pageSize
       val rest = initialResult.totalRows % pageSize
       if (rest > 0) {
         count + 1

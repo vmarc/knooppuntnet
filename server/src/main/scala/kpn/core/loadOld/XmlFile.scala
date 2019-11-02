@@ -2,9 +2,9 @@ package kpn.core.loadOld
 
 import java.io.File
 
-import scala.xml.XML
-
 import org.xml.sax.SAXParseException
+
+import scala.xml.XML
 
 object XmlFile {
 
@@ -15,8 +15,8 @@ object XmlFile {
       }
       else if (fileName.endsWith(".zip")) {
         val rootzip = new java.util.zip.ZipFile(fileName)
-        import scala.collection.JavaConversions._
-        rootzip.entries.filter(_.getName.endsWith(".xml")).toSeq.map { e =>
+        import scala.collection.JavaConverters._
+        rootzip.entries.asScala.filter(_.getName.endsWith(".xml")).toSeq.map { e =>
           XML.load(rootzip.getInputStream(e))
         }
       }

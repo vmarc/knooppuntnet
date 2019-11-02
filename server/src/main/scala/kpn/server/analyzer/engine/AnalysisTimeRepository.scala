@@ -17,7 +17,7 @@ trait AnalysisTimeRepository {
 class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepository {
 
   def get: Option[String] = {
-    val file = new File(filename, "UTF-8")
+    val file = new File(filename)
     if (file.exists) {
       Some(FileUtils.readFileToString(file, "UTF-8"))
     }
@@ -27,7 +27,7 @@ class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepositor
   }
 
   def put(time: String): Unit = {
-    val file = new File(filename, "UTF-8")
+    val file = new File(filename)
     FileUtils.writeStringToFile(file, time, "UTF-8")
   }
 }

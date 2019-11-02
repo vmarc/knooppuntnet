@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class AnalyzerConfiguration {
 
+  //noinspection VarCouldBeVal
   @Autowired
   var analysisDatabase: Database = _
 

@@ -30,7 +30,7 @@ class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
 
     if (cachedChangeSetInfoFile.exists) {
       log.debug(s"Changeset $changeSetId resolved from cache")
-      val xmlString = FileUtils.readFileToString(cachedChangeSetInfoFile)
+      val xmlString = FileUtils.readFileToString(cachedChangeSetInfoFile, "UTF-8")
       val xml = try {
         XML.loadString(xmlString)
       }
@@ -63,7 +63,7 @@ class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
               None
             }
             else {
-              FileUtils.writeStringToFile(cachedChangeSetInfoFile, xmlString)
+              FileUtils.writeStringToFile(cachedChangeSetInfoFile, xmlString, "UTF-8")
               val xml = XML.loadString(xmlString)
               Some(new ChangeSetInfoParser().parse(xml))
             }

@@ -35,7 +35,7 @@ class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
   private def read(file: File): Option[ReplicationId] = {
     if (file.exists()) {
       try {
-        Some(ReplicationId(FileUtils.readFileToString(file).replaceAll("\n", "").toInt))
+        Some(ReplicationId(FileUtils.readFileToString(file, "UTF-8").replaceAll("\n", "").toInt))
       }
       catch {
         case e: NumberFormatException => None
@@ -49,7 +49,7 @@ class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
 
   private def write(file: File, replicationId: ReplicationId): Unit = {
     val tempFile = new File(file.getAbsolutePath + ".tmp")
-    FileUtils.writeStringToFile(tempFile, s"${replicationId.number}\n")
+    FileUtils.writeStringToFile(tempFile, s"${replicationId.number}\n", "UTF-8")
     tempFile.renameTo(file)
   }
 }
