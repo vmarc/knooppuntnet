@@ -13,7 +13,6 @@ import kpn.client.components.network.routes.UiNetworkRoutes.Styles
 import kpn.client.components.network.routes.indicators.AccessibleIndicator
 import kpn.client.components.network.routes.indicators.ConnectionIndicator
 import kpn.client.components.network.routes.indicators.InvestigateIndicator
-import kpn.client.components.network.routes.indicators.RouteTaggedIndicator
 import kpn.shared.NetworkType
 import kpn.shared.network.NetworkRouteRow
 import scalacss.ScalaCssReact._
@@ -68,8 +67,7 @@ object UiNetworkRouteRow {
         Styles.analysisValue,
         InvestigateIndicator(route.investigate),
         AccessibleIndicator(networkType, route.accessible),
-        ConnectionIndicator(route.roleConnection),
-        RouteTaggedIndicator(route.tagged)
+        ConnectionIndicator(route.roleConnection)
       )
     }
 

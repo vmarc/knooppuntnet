@@ -17,7 +17,6 @@ import kpn.client.components.network.nodes.indicators.IntegrityIndicator
 import kpn.client.components.network.nodes.indicators.NetworkIndicator
 import kpn.client.components.network.nodes.indicators.RoleConnectionIndicator
 import kpn.client.components.network.nodes.indicators.RouteIndicator
-import kpn.client.components.network.nodes.indicators.TaggedIndicator
 import kpn.shared.NetworkType
 import kpn.shared.network.NetworkNodeInfo2
 import scalacss.ScalaCssReact._
@@ -66,8 +65,7 @@ object UiNetworkNodeRow {
         RouteIndicator(nodeInfo.definedInRoute),
         ConnectionIndicator(nodeInfo.connection),
         RoleConnectionIndicator(nodeInfo.roleConnection),
-        IntegrityIndicator(networkType, nodeInfo.integrityCheck),
-        TaggedIndicator(nodeInfo.tagged)
+        IntegrityIndicator(networkType, nodeInfo.integrityCheck)
       )
     }
 

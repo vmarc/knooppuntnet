@@ -23,6 +23,4 @@ case class NetworkNodeInfo2(
   facts: Seq[Fact],
   tags: Tags
 ) extends LatLon {
-
-  def tagged: Boolean = tags.has("network:type", "node_network")
 }

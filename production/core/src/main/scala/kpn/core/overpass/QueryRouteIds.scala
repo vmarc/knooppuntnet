@@ -7,6 +7,6 @@ case class QueryRouteIds(networkType: NetworkType) extends OverpassQuery {
   def name: String = s"route-ids-${networkType.name}"
 
   def string: String = {
-    s"relation['type'='route']['network'='${networkType.name}'];out ids;"
+    s"relation['type'='route']['network:type'='node_network']['network'='${networkType.name}'];out ids;"
   }
 }

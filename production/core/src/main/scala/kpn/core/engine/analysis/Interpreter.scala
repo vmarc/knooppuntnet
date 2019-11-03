@@ -23,7 +23,9 @@ class Interpreter(val networkType: NetworkType) {
   }
 
   private def isElementNetworkRelation(element: Element): Boolean = {
-    element.tags.has("type", "network") && element.tags.has("network", networkType.networkTagValue)
+    element.tags.has("type", "network") &&
+      element.tags.has("network", networkType.networkTagValue) &&
+      element.tags.has("network:type", "node_network")
   }
 
   def isNetworkNode(member: Member): Boolean = {
@@ -34,7 +36,8 @@ class Interpreter(val networkType: NetworkType) {
   }
 
   def isNetworkNode(node: RawNode): Boolean = {
-    node.tags.has(networkType.nodeTagKey)
+    node.tags.has(networkType.nodeTagKey) &&
+      node.tags.has("network:type", "node_network")
   }
 
   def isRouteRelation(member: Member): Boolean = {
@@ -45,7 +48,9 @@ class Interpreter(val networkType: NetworkType) {
   }
 
   def isRouteRelation(relation: RawRelation): Boolean = {
-    relation.tags.has("network", networkType.name) && relation.tags.has("type", "route")
+    relation.tags.has("network", networkType.name) &&
+      relation.tags.has("type", "route") &&
+      relation.tags.has("network:type", "node_network")
   }
 
   def isValidNetworkMember(member: Member): Boolean = {
@@ -64,7 +69,8 @@ class Interpreter(val networkType: NetworkType) {
   }
 
   private def isMap(node: Node): Boolean = {
-    node.tags.has("tourism", "information") && (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))
+    node.tags.has("tourism", "information") &&
+      (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))
   }
 
 }

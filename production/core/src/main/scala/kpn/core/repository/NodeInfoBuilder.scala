@@ -32,18 +32,6 @@ object NodeInfoBuilder {
     facts: Seq[Fact]
   ): NodeInfo = {
 
-    val allFacts = if (!tags.has("network:type", "node_network")) {
-      if (!facts.contains(Fact.NodeNetworkTypeNotTagged)) {
-        facts ++ Seq(Fact.NodeNetworkTypeNotTagged)
-      }
-      else {
-        facts
-      }
-    }
-    else {
-      facts
-    }
-
     NodeInfo(
       id,
       active,
@@ -62,7 +50,7 @@ object NodeInfoBuilder {
       longitude,
       lastUpdated,
       tags,
-      allFacts,
+      facts,
       None
     )
   }

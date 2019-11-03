@@ -3,11 +3,8 @@ package kpn.core.data
 import kpn.core.engine.analysis.Interpreter
 import kpn.shared.NetworkType
 import kpn.shared.Timestamp
-import kpn.shared.data.Member
 import kpn.shared.data.Node
-import kpn.shared.data.NodeMember
 import kpn.shared.data.Relation
-import kpn.shared.data.RelationMember
 import kpn.shared.data.Way
 import kpn.shared.data.raw.RawData
 
@@ -28,10 +25,13 @@ case class Data(
   }
 
   private def isNetworkNode(node: Node): Boolean = {
-    node.tags.has(networkType.nodeTagKey)
+    node.tags.has(networkType.nodeTagKey) &&
+      node.tags.has("network:type", "node_network")
   }
 
   def isRouteRelation(relation: Relation): Boolean = {
-    relation.tags.has("network", networkType.name) /*&& relation.tags.has("route")*/ && relation.tags.has("type", "route")
+    relation.tags.has("network", networkType.name) &&
+      relation.tags.has("network:type", "node_network") &&
+      relation.tags.has("type", "route")
   }
 }

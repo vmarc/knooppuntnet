@@ -38,9 +38,6 @@ object UiOverviewTable {
         header(),
         <.tbody(
           TagMod(
-            infoRow(infos.networkTypeNotTaggedInfo, UiOverviewPage.Styles.importantTitle),
-            infoRow(infos.routeNetworkTypeNotTaggedInfo, UiOverviewPage.Styles.importantTitle),
-            infoRow(infos.nodeNetworkTypeNotTaggedInfo, UiOverviewPage.Styles.importantTitle),
             infoRow(infos.lengthInfo),
             infoRow(infos.networkCountInfo),
             infoRow(infos.nodeCountInfo),

@@ -34,9 +34,6 @@ object UiOverviewList {
     def render(): VdomElement = {
       <.div(
         UiOverviewPage.Styles.items,
-        infoRow(infos.networkTypeNotTaggedInfo),
-        infoRow(infos.routeNetworkTypeNotTaggedInfo),
-        infoRow(infos.nodeNetworkTypeNotTaggedInfo),
         infoRow(infos.lengthInfo),
         infoRow(infos.networkCountInfo),
         infoRow(infos.nodeCountInfo),

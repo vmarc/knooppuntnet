@@ -157,21 +157,12 @@ class NetworkAnalyzerImpl(
           }
         }
 
-        val facts1 = if (!definedInRelation && !connection) {
+        val facts = if (!definedInRelation && !connection) {
           Seq(Fact.NodeMemberMissing)
         }
         else {
           Seq()
         }
-
-        val facts2 = if (!networkNode.tags.has("network:type", "node_network")) {
-          Seq(Fact.NodeNetworkTypeNotTagged)
-        }
-        else {
-          Seq()
-        }
-
-        val facts = facts1 ++ facts2
 
         NetworkNodeInfo(
           networkNode,

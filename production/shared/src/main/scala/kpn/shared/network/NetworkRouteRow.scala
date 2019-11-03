@@ -10,6 +10,5 @@ case class NetworkRouteRow(
   investigate: Boolean,
   accessible: Boolean,
   roleConnection: Boolean,
-  tagged: Boolean,
   relationLastUpdated: Timestamp
 )
