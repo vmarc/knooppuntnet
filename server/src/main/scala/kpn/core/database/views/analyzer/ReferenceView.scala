@@ -36,7 +36,10 @@ object ReferenceView extends View {
   private case class ViewResult(rows: Seq[ViewResultRow])
 
   def query(database: Database, referencedType: String, referencedId: Long, stale: Boolean = true): Seq[Row] = {
-    val query = Query(AnalyzerDesign, ReferenceView, classOf[ViewResult]).reduce(false).keyStartsWith(referencedType, referencedId)
+    val query = Query(AnalyzerDesign, ReferenceView, classOf[ViewResult])
+      .keyStartsWith(referencedType, referencedId)
+      .reduce(false)
+      .stale(stale)
     val result = database.execute(query)
     result.rows.map { row =>
       NetworkType.withName(row.value.head) match {

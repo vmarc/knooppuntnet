@@ -16,6 +16,7 @@ object NetworkView extends View {
     val query = Query(AnalyzerDesign, NetworkView, classOf[ViewResult])
       .keyStartsWith(subset.country.domain, subset.networkType.name)
       .reduce(false)
+      .stale(stale)
     val result = database.execute(query)
     result.rows.map(_.value)
   }

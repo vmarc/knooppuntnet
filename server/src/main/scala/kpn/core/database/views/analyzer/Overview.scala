@@ -16,7 +16,10 @@ object Overview extends View {
   private case class ViewResult(rows: Seq[ViewResultRow])
 
   def query(database: Database, stale: Boolean = true): Seq[Figure] = {
-    val query = Query(AnalyzerDesign, Overview, classOf[ViewResult]).reduce(true).groupLevel(3)
+    val query = Query(AnalyzerDesign, Overview, classOf[ViewResult])
+      .groupLevel(3)
+      .reduce(true)
+      .stale(stale)
     val result = database.execute(query)
     val factNames = result.rows.map(_.key.head).sorted.distinct
     factNames.map { factName =>

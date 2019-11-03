@@ -20,6 +20,7 @@ object LocationView extends View {
     val query = Query(LocationDesign, LocationView, classOf[ViewResult])
       .keyStartsWith(args: _*)
       .reduce(false)
+      .stale(stale)
 
     val result = database.execute(query)
     result.rows.map { row =>

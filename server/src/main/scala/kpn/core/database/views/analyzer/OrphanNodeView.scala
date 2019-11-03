@@ -19,7 +19,10 @@ object OrphanNodeView extends View {
   def query(database: Database, subset: Subset, stale: Boolean = true): Seq[NodeInfo] = {
     val country = subset.country.domain
     val networkType = subset.networkType.name
-    val query = Query(AnalyzerDesign, OrphanNodeView, classOf[ViewResult]).stale(stale).reduce(false).keyStartsWith(country, networkType)
+    val query = Query(AnalyzerDesign, OrphanNodeView, classOf[ViewResult])
+      .keyStartsWith(country, networkType)
+      .reduce(false)
+      .stale(stale)
     val result = database.execute(query)
     result.rows.map(_.value)
   }

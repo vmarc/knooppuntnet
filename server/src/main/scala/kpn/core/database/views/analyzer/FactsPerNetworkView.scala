@@ -28,7 +28,10 @@ object FactsPerNetworkView extends View {
   )
 
   def query(database: Database, subset: Subset, fact: Fact, stale: Boolean): Seq[NetworkFactRefs] = {
-    val query = Query(AnalyzerDesign, FactsPerNetworkView, classOf[ViewResult]).reduce(false).keyStartsWith(subset.country.domain, subset.networkType.name, fact.name)
+    val query = Query(AnalyzerDesign, FactsPerNetworkView, classOf[ViewResult])
+      .keyStartsWith(subset.country.domain, subset.networkType.name, fact.name)
+      .reduce(false)
+      .stale(stale)
     val result = database.execute(query)
     val rows = result.rows.map { row =>
       val fields = Fields(row.key)

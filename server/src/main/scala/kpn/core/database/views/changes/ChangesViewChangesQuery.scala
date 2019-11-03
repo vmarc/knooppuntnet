@@ -26,6 +26,7 @@ object ChangesViewChangesQuery {
       .includeDocs(true)
       .descending(true)
       .reduce(false)
+      .stale(stale)
 
     val result = database.execute(query)
     result.rows.map(_.doc.changeSetSummary)

@@ -32,6 +32,7 @@ object ChangesView extends View {
       .reduce(true)
       .descending(true)
       .groupLevel(keys.size + 1)
+      .stale(stale)
 
     val result = database.execute(query)
     result.rows.map { row =>
@@ -48,6 +49,7 @@ object ChangesView extends View {
     val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
       .keyStartsWith(elementType, elementId.toString)
       .groupLevel(2)
+      .stale(stale)
     val result = database.execute(query)
     result.rows.map(_.value.head).sum
   }

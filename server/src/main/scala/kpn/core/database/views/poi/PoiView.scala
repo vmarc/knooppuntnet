@@ -22,6 +22,7 @@ object PoiView extends View {
 
     val query = Query(PoiDesign, PoiView, classOf[ViewResult])
       .reduce(false)
+      .stale(stale)
       .limit(limit)
       .skip(skip)
 

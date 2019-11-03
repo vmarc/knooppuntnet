@@ -16,7 +16,9 @@ object NodeNetworkReferenceView extends View {
   )
 
   def query(database: Database, nodeId: Long, stale: Boolean): Seq[NodeNetworkReference] = {
-    val query = Query(AnalyzerDesign, NodeNetworkReferenceView, classOf[ViewResult]).stale(stale).keyStartsWith(nodeId)
+    val query = Query(AnalyzerDesign, NodeNetworkReferenceView, classOf[ViewResult])
+      .keyStartsWith(nodeId)
+      .stale(stale)
     val result = database.execute(query)
     result.rows.flatMap(_.value)
   }
