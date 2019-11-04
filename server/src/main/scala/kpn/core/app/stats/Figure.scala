@@ -14,33 +14,33 @@ case class Figure(
     Statistic(
       number(total),
       CountryStatistic(
-        number(counts(Subset.nlHiking)),
-        number(counts(Subset.nlBicycle)),
-        number(counts(Subset.nlHorseRiding)),
-        number(counts(Subset.nlMotorboat)),
-        number(counts(Subset.nlCanoe)),
-        number(counts(Subset.nlInlineSkates))
+        number(counts.getOrElse(Subset.nlHiking, 0)),
+        number(counts.getOrElse(Subset.nlBicycle, 0)),
+        number(counts.getOrElse(Subset.nlHorseRiding, 0)),
+        number(counts.getOrElse(Subset.nlMotorboat, 0)),
+        number(counts.getOrElse(Subset.nlCanoe, 0)),
+        number(counts.getOrElse(Subset.nlInlineSkates, 0))
       ),
       CountryStatistic(
-        number(counts(Subset.beHiking)),
-        number(counts(Subset.beBicycle)),
-        number(counts(Subset.beHorseRiding)),
+        number(counts.getOrElse(Subset.beHiking, 0)),
+        number(counts.getOrElse(Subset.beBicycle, 0)),
+        number(counts.getOrElse(Subset.beHorseRiding, 0)),
         "-",
         "-",
         "-"
       ),
       CountryStatistic(
-        number(counts(Subset.deHiking)),
-        number(counts(Subset.deBicycle)),
-        number(counts(Subset.deHorseRiding)),
+        number(counts.getOrElse(Subset.deHiking, 0)),
+        number(counts.getOrElse(Subset.deBicycle, 0)),
+        number(counts.getOrElse(Subset.deHorseRiding, 0)),
         "-",
         "-",
         "-"
       ),
       CountryStatistic(
-        number(counts(Subset.frHiking)),
-        number(counts(Subset.frBicycle)),
-        number(counts(Subset.frHorseRiding)),
+        number(counts.getOrElse(Subset.frHiking, 0)),
+        number(counts.getOrElse(Subset.frBicycle, 0)),
+        number(counts.getOrElse(Subset.frHorseRiding, 0)),
         "-",
         "-",
         "-"

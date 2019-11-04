@@ -18,7 +18,7 @@ class SubsetFactsPageBuilderImpl(
     val figures = overviewRepository.figures(Couch.uiTimeout)
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
     val factCounts = Fact.reportedFacts.flatMap { fact =>
-      figures.get(fact.name + "Count").map { figure: Figure => FactCount(fact, figure.counts(subset)) }
+      figures.get(fact.name + "Count").map { figure: Figure => FactCount(fact, figure.counts.getOrElse(subset, 0)) }
     }.filter(_.count > 0)
     SubsetFactsPage(subsetInfo, factCounts)
   }
