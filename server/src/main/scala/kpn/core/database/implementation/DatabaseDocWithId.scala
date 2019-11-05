@@ -3,14 +3,13 @@ package kpn.core.database.implementation
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.ResourceAccessException
-import org.springframework.web.client.RestTemplate
 
 class DatabaseDocWithId(context: DatabaseContext) {
 
   def docWithId[T](id: String, docType: Class[T]): Option[T] = {
-    val restTemplate = new RestTemplate
+    val url = s"${context.databaseUrl}/$id"
     try {
-      val response = restTemplate.getForObject(s"${context.databaseUrl}/$id", classOf[String])
+      val response = context.restTemplate.getForObject(url, classOf[String])
       Some(context.objectMapper.readValue(response, docType))
     }
     catch {

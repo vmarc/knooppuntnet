@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.HttpClientErrorException
-import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 
 object DatabaseDeleteDocsWithIds {
@@ -44,8 +43,6 @@ class DatabaseDeleteDocsWithIds(context: DatabaseContext) {
     val docs = readDocRevisions(docIds)
     val body = context.objectMapper.writeValueAsString(DeleteRequest(docs = docs))
 
-    val restTemplate = new RestTemplate
-
     val b = UriComponentsBuilder.fromHttpUrl(s"${context.databaseUrl}/_bulk_docs")
     val url = b.toUriString
 
@@ -53,7 +50,7 @@ class DatabaseDeleteDocsWithIds(context: DatabaseContext) {
     headers.setContentType(MediaType.APPLICATION_JSON)
     val entity = new HttpEntity[String](body, headers)
     try {
-      val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
+      val response: ResponseEntity[String] = context.restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
       val deleteResponse = context.objectMapper.readValue(s"""{"results": ${response.getBody}}""", classOf[DeleteResponse])
       if (deleteResponse.results.exists(!_.ok.contains(true))) {
         log.error(s"Could not delete documents\nrequest=$body\nresponse=${response.getBody}")
@@ -69,8 +66,6 @@ class DatabaseDeleteDocsWithIds(context: DatabaseContext) {
 
     val body = context.objectMapper.writeValueAsString(Keys(docIds))
 
-    val restTemplate = new RestTemplate
-
     val b = UriComponentsBuilder.fromHttpUrl(s"${context.databaseUrl}/_all_docs")
     b.queryParam("include_docs", "false")
     val url = b.toUriString
@@ -78,7 +73,7 @@ class DatabaseDeleteDocsWithIds(context: DatabaseContext) {
     val headers = new HttpHeaders()
     headers.setContentType(MediaType.APPLICATION_JSON)
     val entity = new HttpEntity[String](body, headers)
-    val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
+    val response: ResponseEntity[String] = context.restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
     val result = context.objectMapper.readValue(response.getBody, classOf[ViewResult2])
     result.rows.flatMap { row =>
       row.id.flatMap { id =>

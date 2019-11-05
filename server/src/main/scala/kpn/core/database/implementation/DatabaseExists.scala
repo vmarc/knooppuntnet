@@ -2,14 +2,12 @@ package kpn.core.database.implementation
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.HttpClientErrorException
-import org.springframework.web.client.RestTemplate
 
 class DatabaseExists(context: DatabaseContext) {
 
   def exists: Boolean = {
-    val restTemplate = new RestTemplate
     try {
-      restTemplate.headForHeaders(context.databaseUrl)
+      context.restTemplate.headForHeaders(context.databaseUrl)
       true
     }
     catch {
