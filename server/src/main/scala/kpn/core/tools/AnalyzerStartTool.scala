@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
+import kpn.server.json.Json
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.ReplicationId
@@ -70,8 +71,8 @@ object AnalyzerStartTool {
 
   private def buildConfiguration(system: ActorSystem, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
     val couchConfig = Couch.config
-    val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Couch.objectMapper, options.analysisDatabaseName))
-    val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Couch.objectMapper, options.changeDatabaseName))
+    val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.analysisDatabaseName))
+    val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.changeDatabaseName))
     new AnalyzerStartToolConfiguration(
       system,
       analysisDatabase,

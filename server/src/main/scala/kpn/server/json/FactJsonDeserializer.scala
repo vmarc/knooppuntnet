@@ -6,9 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
 import kpn.shared.Fact
-import org.springframework.boot.jackson.JsonComponent
 
-@JsonComponent
 class FactJsonDeserializer extends JsonDeserializer[Fact] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Fact = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)

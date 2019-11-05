@@ -3,13 +3,13 @@ package kpn.core.tools.location
 import java.io.File
 import java.io.FileFilter
 
-import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationDefinition
 import kpn.server.analyzer.engine.analysis.location.LocationDefinition
 import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader
 import kpn.server.analyzer.engine.analysis.location.LocationTree
+import kpn.server.json.Json
 import kpn.shared.Country
 
 /*
@@ -103,7 +103,7 @@ class LocationTreeBuilderTool {
     log.info("Write tree")
     val tree = LocationTree("root", Some(configuration.locations.map(toTree)))
     val file = LocationConfigurationDefinition.treeFile
-    Couch.objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, tree)
+    Json.objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, tree)
   }
 
   private def toTree(location: LocationDefinition): LocationTree = {

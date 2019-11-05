@@ -9,9 +9,7 @@ import kpn.shared.route.Backward
 import kpn.shared.route.Both
 import kpn.shared.route.Forward
 import kpn.shared.route.WayDirection
-import org.springframework.boot.jackson.JsonComponent
 
-@JsonComponent
 class WayDirectionJsonDeserializer extends JsonDeserializer[WayDirection] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): WayDirection = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)

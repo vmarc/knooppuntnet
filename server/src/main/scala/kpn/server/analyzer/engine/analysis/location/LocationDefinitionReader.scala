@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.location
 import java.io.File
 
 import kpn.core.database.query.Fields
-import kpn.core.db.couch.Couch
+import kpn.server.json.Json
 import kpn.shared.Language
 import kpn.shared.Languages
 import org.apache.commons.io.FileUtils
@@ -25,7 +25,7 @@ class LocationDefinitionReader(file: File) {
   def read(children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {
     val json = FileUtils.readFileToString(file, "UTF-8")
 
-    val locationJson = Couch.objectMapper.readValue(json, classOf[LocationJson])
+    val locationJson = Json.objectMapper.readValue(json, classOf[LocationJson])
 
     val locationNames = parseLocationNames(locationJson)
     val boundingBox = parseBoundingBox(locationJson)

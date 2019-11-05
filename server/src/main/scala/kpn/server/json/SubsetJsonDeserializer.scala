@@ -6,9 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
 import kpn.shared.Subset
-import org.springframework.boot.jackson.JsonComponent
 
-@JsonComponent
 class SubsetJsonDeserializer extends JsonDeserializer[Subset] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Subset = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)

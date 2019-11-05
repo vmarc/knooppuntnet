@@ -12,8 +12,8 @@ import kpn.core.database.views.changes.ChangesDesign
 import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.planner.PlannerDesign
 import kpn.core.database.views.poi.PoiDesign
-import kpn.core.db.couch.Couch
 import kpn.core.db.couch.CouchConfig
+import kpn.server.json.Json
 import kpn.server.repository.DesignRepositoryImpl
 import org.scalatest.Assertions
 
@@ -25,7 +25,7 @@ object TestSupport extends Assertions {
 
   def withEnvironment(action: (CouchConfig, ObjectMapper) => Unit): Unit = {
     val couchConfig = readCouchConfig()
-    action(couchConfig, Couch.objectMapper)
+    action(couchConfig, Json.objectMapper)
   }
 
   /**

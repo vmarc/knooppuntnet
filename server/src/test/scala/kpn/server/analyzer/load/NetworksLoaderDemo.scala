@@ -18,6 +18,7 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
@@ -48,7 +49,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val log = Log(classOf[NetworksLoaderDemo])
 
   val couchConfig: CouchConfig = Couch.config
-  val database = new DatabaseImpl(DatabaseContext(couchConfig, Couch.objectMapper, "test"))
+  val database = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, "test"))
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryConfiguration(database).analysisRepository
   val executor = new OverpassQueryExecutorImpl()
   val analysisData = AnalysisData()

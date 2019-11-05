@@ -7,9 +7,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.node.ArrayNode
 import kpn.shared.data.Tags
-import org.springframework.boot.jackson.JsonComponent
 
-@JsonComponent
 class TagsJsonDeserializer extends JsonDeserializer[Tags] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Tags = {
     val treeNode: TreeNode = jsonParser.getCodec.readTree(jsonParser)

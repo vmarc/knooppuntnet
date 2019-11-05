@@ -10,11 +10,9 @@ import kpn.shared.changes.ChangeSetData
 import kpn.shared.changes.details.NetworkChange
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.changes.details.RouteChange
-import org.springframework.boot.jackson.JsonComponent
 
 import scala.collection.mutable.ArrayBuffer
 
-@JsonComponent
 class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
 
   private class ChangeSetElements {

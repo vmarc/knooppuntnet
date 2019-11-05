@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.core.db.couch.Couch
+import kpn.server.json.Json
 import org.apache.commons.io.FileUtils
 
 object LocationConfigurationReader {
@@ -33,7 +33,7 @@ class LocationConfigurationReader {
 
   def read(): LocationConfiguration = {
     val string = FileUtils.readFileToString(LocationConfigurationDefinition.treeFile, "UTF-8")
-    val root = Couch.objectMapper.readValue(string, classOf[LocationTree])
+    val root = Json.objectMapper.readValue(string, classOf[LocationTree])
     LocationConfiguration(root.children.toSeq.flatten.map(toLocationConfiguration))
   }
 

@@ -7,6 +7,7 @@ import kpn.core.tools.config._
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
+import kpn.server.json.Json
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.TaskRepository
@@ -24,14 +25,14 @@ object ChangeSetInfoTool {
         try {
 
           val taskRepository = {
-            val taskDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Couch.objectMapper, options.tasksDatabaseName))
+            val taskDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Json.objectMapper, options.tasksDatabaseName))
             new TaskRepositoryImpl(taskDatabase)
           }
 
           val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets)
 
           val changeSetInfoRepository = {
-            val changeDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Couch.objectMapper, options.changeSetsDatabaseName))
+            val changeDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Json.objectMapper, options.changeSetsDatabaseName))
             new ChangeSetInfoRepositoryImpl(changeDatabase)
           }
 

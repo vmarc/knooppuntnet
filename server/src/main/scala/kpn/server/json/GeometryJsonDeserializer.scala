@@ -6,9 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.io.geojson.GeoJsonReader
-import org.springframework.boot.jackson.JsonComponent
 
-@JsonComponent
 class GeometryJsonDeserializer extends JsonDeserializer[Geometry] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Geometry = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
