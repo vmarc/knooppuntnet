@@ -3,7 +3,7 @@ package kpn.server.analyzer.load.orphan.route
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRouteIds
-import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
@@ -13,8 +13,8 @@ import scala.xml.XML
 @Component
 class RouteIdsLoaderImpl(executor: OverpassQueryExecutor) extends RouteIdsLoader {
 
-  override def load(timestamp: Timestamp, networkType: NetworkType): Set[Long] = {
-    val overpassQuery = QueryRouteIds(networkType)
+  override def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType): Set[Long] = {
+    val overpassQuery = QueryRouteIds(scopedNetworkType)
     ids(timestamp, "relation", overpassQuery)
   }
 

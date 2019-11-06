@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis
 
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.test.TestData
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Bounds
 import kpn.shared.data.Relation
 import kpn.shared.data.raw.RawMember

@@ -6,6 +6,7 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.core.test.TestData
+import kpn.core.util.Log
 import kpn.core.util.MockLog
 import kpn.shared.NetworkType
 import kpn.shared.ReplicationId
@@ -26,7 +27,7 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
 
     (t.watchedProcessor.process _).verify(*, *).never()
 
-    t.log.messages should equal(
+    t.mockLog.messages should equal(
       Seq(
         """|ERROR Processing network create from changeset 000/000/001
            |Could not load network with id 123 at 2015-08-11 00:00:04.
@@ -59,7 +60,7 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
 
     t.networkCreateProcessor.process(t.context, t.networkId)
 
-    t.log.messages should equal(Seq("DEBUG 1 change(s)"))
+    t.mockLog.messages should equal(Seq("DEBUG 1 change(s)"))
   }
 
   test("fatal error") {
@@ -75,7 +76,7 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
       case e: IllegalStateException =>
     }
 
-    t.log.messages should equal(
+    t.mockLog.messages should equal(
       Seq(
         "ERROR Exception while processing network create (networkId=123) at 2015-08-11 00:00:04 in changeset 000/000/001."
       )
@@ -97,13 +98,15 @@ class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockF
     val watchedProcessor: NetworkCreateWatchedProcessor = stub[NetworkCreateWatchedProcessor]
     val networkRelationAnalyzer: NetworkRelationAnalyzer = stub[NetworkRelationAnalyzer]
 
-    val log = new MockLog()
+    val mockLog = new MockLog()
 
-    val networkCreateProcessor = new NetworkCreateProcessorWorkerImpl(
+    val networkCreateProcessor: NetworkCreateProcessorWorkerImpl = new NetworkCreateProcessorWorkerImpl(
       networkLoader,
       networkRelationAnalyzer,
       watchedProcessor
-    )
+    ) {
+      override val log: Log = mockLog
+    }
   }
 
 }

@@ -5,7 +5,7 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.core.test.TestData
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkType

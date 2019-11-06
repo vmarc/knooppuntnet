@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.data
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.data.Data
 import kpn.core.test.TestData2
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

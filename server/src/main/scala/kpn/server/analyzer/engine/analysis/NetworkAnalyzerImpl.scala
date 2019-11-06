@@ -11,7 +11,7 @@ import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.NetworkExtraMemberNode
 import kpn.shared.NetworkExtraMemberRelation

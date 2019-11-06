@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.orphan.node
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.core.history.NodeDataDiffAnalyzer
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.shared.Fact

@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.test.TestData
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.SharedTestObjects
 import kpn.shared.changes.Change
 import kpn.shared.changes.Change.create

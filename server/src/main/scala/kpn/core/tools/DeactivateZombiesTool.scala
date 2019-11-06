@@ -7,7 +7,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodeIds
-import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 
 import scala.xml.XML
 
@@ -59,13 +59,13 @@ class DeactivateZombiesTool(database: Database, executor: OverpassQueryExecutor)
   }
 
   private def readOverpassNodeIds(): Set[Long] = {
-    NetworkType.all.flatMap(readOverpassNodeIdsWithNetworkType).toSet
+    ScopedNetworkType.all.flatMap(readOverpassNodeIdsWithTagKey).toSet
   }
 
-  private def readOverpassNodeIdsWithNetworkType(networkType: NetworkType): Set[Long] = {
-    println(s"read overpass nodes ${networkType.name}")
+  private def readOverpassNodeIdsWithTagKey(scopedNetworkType: ScopedNetworkType): Set[Long] = {
+    println(s"read overpass nodes ${scopedNetworkType.key}")
     //    val xmlString = FileUtils.readFileToString(new File(s"/kpn/tmp/${networkType.name}.xml"))
-    val query = QueryNodeIds(networkType)
+    val query = QueryNodeIds(scopedNetworkType)
     val xmlString = executor.executeQuery(None, query)
     val xml = XML.loadString(xmlString)
     (xml \ "node").map { n => (n \ "@id").text.toLong }.toSet

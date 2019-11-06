@@ -6,7 +6,7 @@ import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.stereotype.Component
 
 import scala.concurrent.Future

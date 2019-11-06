@@ -7,8 +7,8 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.analyzers.Overlap
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.NetworkType
 import kpn.shared.data.Node

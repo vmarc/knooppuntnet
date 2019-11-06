@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import kpn.core.test.TestData
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

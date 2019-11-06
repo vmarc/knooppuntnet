@@ -7,9 +7,9 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RoutesLoader
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.server.analyzer.engine.AnalysisContext
 import org.springframework.stereotype.Component
 
 @Component

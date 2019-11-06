@@ -1,13 +1,13 @@
 package kpn.server.analyzer.load
 
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.load.data.LoadedNode
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNodes
 import kpn.core.util.Log
-import kpn.shared.NetworkType
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.load.data.LoadedNode
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Timestamp
 import kpn.shared.data.Node
 import kpn.shared.data.raw.RawData
@@ -42,13 +42,13 @@ class NodeLoaderImpl(
     }
   }
 
-  override def load(timestamp: Timestamp, networkType: NetworkType, nodeIds: Seq[Long]): Seq[LoadedNode] = {
+  override def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[LoadedNode] = {
     if (nodeIds.isEmpty) {
       Seq()
     }
     else {
       val datas = nodeIds.sliding(50, 50).toSeq.map { nodeIdSubset =>
-        doLoad(timestamp, networkType, nodeIdSubset)
+        doLoad(timestamp, scopedNetworkType, nodeIdSubset)
       }
       val rawData = RawData.merge(datas: _*)
       val data = new DataBuilder(rawData).data
@@ -57,11 +57,11 @@ class NodeLoaderImpl(
     }
   }
 
-  private def doLoad(timestamp: Timestamp, networkType: NetworkType, nodeIds: Seq[Long]): RawData = {
+  private def doLoad(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): RawData = {
 
     val xmlString: String = log.elapsed {
       val xml = nonCachingExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
-      (s"${timestamp.iso} Load ${networkType.name} ${nodeIds.size}", xml)
+      (s"${timestamp.iso} Load ${scopedNetworkType.key} ${nodeIds.size}", xml)
     }
 
     val xml = try {
@@ -69,7 +69,7 @@ class NodeLoaderImpl(
     }
     catch {
       case e: SAXParseException =>
-        val msg = s"Could not load node ids for networkType ${networkType.name} at ${timestamp.yyyymmddhhmmss} [ids=$nodeIds]\n$xmlString"
+        val msg = s"Could not load nodes for networkType ${scopedNetworkType.key} at ${timestamp.yyyymmddhhmmss} [ids=$nodeIds]\n$xmlString"
         throw new RuntimeException(msg, e)
     }
 

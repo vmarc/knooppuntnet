@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.shared.Timestamp
 

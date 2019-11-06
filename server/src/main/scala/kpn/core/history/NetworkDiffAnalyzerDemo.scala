@@ -11,7 +11,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Timestamp
 
 object NetworkDiffAnalyzerDemo {

@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.orphan.node
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.repository.BlackListRepository
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.changes.ChangeAction.Create
 import kpn.shared.changes.ChangeAction.Delete
 import kpn.shared.changes.ChangeAction.Modify

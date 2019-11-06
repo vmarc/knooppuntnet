@@ -5,8 +5,8 @@ import kpn.core.data.DataBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.shared.Fact._
 import kpn.shared.NetworkType
 import kpn.shared.SharedTestObjects

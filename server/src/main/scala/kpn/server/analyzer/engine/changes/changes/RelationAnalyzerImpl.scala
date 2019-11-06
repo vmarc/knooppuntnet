@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.NetworkType
 import kpn.shared.Timestamp
 import kpn.shared.data.Node

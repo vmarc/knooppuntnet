@@ -113,7 +113,8 @@ class NodeIntegrityAnalyzerTest extends FunSuite with Matchers with SharedTestOb
   }
 
   test("integrity check - use expected = 0 when tag value is not numeric") {
-    val node = newNetworkNodeWithTags(Tags.from(NetworkType.hiking.expectedRouteRelationsTag -> "bla"))
+
+    val node = newNetworkNodeWithTags(Tags.from("expected_rwn_route_relations" -> "bla"))
 
     val networkAnalysis = NetworkAnalysis(
       networkNodesInRelation = Set(node),
@@ -155,7 +156,7 @@ class NodeIntegrityAnalyzerTest extends FunSuite with Matchers with SharedTestOb
   }
 
   private def newNetworkNode(): NetworkNode = {
-    newNetworkNodeWithTags(Tags.from(NetworkType.hiking.expectedRouteRelationsTag -> "3"))
+    newNetworkNodeWithTags(Tags.from("expected_rwn_route_relations" -> "3"))
   }
 
   private def newNetworkNodeWithTags(tags: Tags): NetworkNode = {

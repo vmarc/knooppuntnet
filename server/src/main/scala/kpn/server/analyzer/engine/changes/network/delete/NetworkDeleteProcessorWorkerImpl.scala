@@ -10,7 +10,7 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.repository.NetworkRepository
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NetworkChange

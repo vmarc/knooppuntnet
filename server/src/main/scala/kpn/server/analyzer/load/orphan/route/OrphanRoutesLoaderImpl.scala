@@ -6,13 +6,13 @@ import akka.actor.Props
 import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
-import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoaderImpl.LoadRoute
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.CouchIndexer
+import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoaderImpl.LoadRoute
 import kpn.server.repository.BlackListRepository
 import kpn.server.repository.OrphanRepository
-import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
@@ -59,10 +59,10 @@ class OrphanRoutesLoaderImpl(
   }
 
   def load(timestamp: Timestamp): Unit = {
-    NetworkType.all.foreach { networkType =>
-      Log.context(networkType.name) {
+    ScopedNetworkType.all.foreach { scopedNetworkType =>
+      Log.context(scopedNetworkType.key) {
         analysisDatabaseIndexer.index()
-        val routeIds = routeIdsLoader.load(timestamp, networkType)
+        val routeIds = routeIdsLoader.load(timestamp, scopedNetworkType)
         val blackListedRouteIds = blackListRepository.get.routes.map(_.id).toSet
         val candidateOrphanRouteIds = (routeIds -- blackListedRouteIds).filterNot(isReferenced).toSeq.sorted
 

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.load
 
 import kpn.core.util.Log
-import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
@@ -12,15 +12,15 @@ class NetworksLoaderImpl(
 ) extends NetworksLoader {
 
   override def load(timestamp: Timestamp): Unit = {
-    NetworkType.all.foreach { networkType =>
-      Log.context(networkType.name) {
-        load(timestamp, networkType)
+    ScopedNetworkType.all.foreach { scopedNetworkType =>
+      Log.context(scopedNetworkType.key) {
+        load(timestamp, scopedNetworkType)
       }
     }
   }
 
-  private def load(timestamp: Timestamp, networkType: NetworkType): Unit = {
-    val networkIds = networkIdsLoader.load(timestamp, networkType)
+  private def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType): Unit = {
+    val networkIds = networkIdsLoader.load(timestamp, scopedNetworkType)
     networkInitialLoader.load(timestamp, networkIds)
   }
 }

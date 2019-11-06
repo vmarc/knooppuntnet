@@ -11,7 +11,7 @@ import kpn.core.history.NetworkSnapshot
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.repository.AnalysisRepository
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NetworkChange

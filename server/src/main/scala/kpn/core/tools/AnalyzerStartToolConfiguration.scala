@@ -9,7 +9,6 @@ import kpn.core.tools.config.AnalysisDataLoaderConfiguration
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
@@ -22,6 +21,7 @@ import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl

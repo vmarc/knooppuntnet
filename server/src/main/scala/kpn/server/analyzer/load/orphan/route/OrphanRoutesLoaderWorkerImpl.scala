@@ -8,7 +8,7 @@ import kpn.server.analyzer.load.RouteLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 

@@ -9,7 +9,6 @@ import kpn.core.db.couch.CouchConfig
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.AnalysisRepositoryConfiguration
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
@@ -18,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepositoryImpl

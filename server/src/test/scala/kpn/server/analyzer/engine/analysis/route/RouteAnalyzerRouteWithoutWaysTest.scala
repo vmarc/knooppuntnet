@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.server.analyzer.engine.analysis.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.shared.Fact.RouteBroken
 import kpn.shared.Fact.RouteWithoutWays
 import kpn.shared.NetworkType

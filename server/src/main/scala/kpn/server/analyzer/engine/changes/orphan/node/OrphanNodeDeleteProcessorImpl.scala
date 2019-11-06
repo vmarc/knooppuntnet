@@ -7,7 +7,7 @@ import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.server.repository.NodeInfoBuilder.fromRawNode
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.LatLonImpl
 import kpn.shared.changes.details.ChangeType

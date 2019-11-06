@@ -1,12 +1,12 @@
 package kpn.server.analyzer.load.orphan.node
 
-import kpn.server.analyzer.load.NodeLoader
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessor
+import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.OrphanRepository
-import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
@@ -27,11 +27,11 @@ class OrphanNodesLoaderImpl(
 
   override def load(timestamp: Timestamp): Unit = {
 
-    NetworkType.all.foreach { networkType =>
+    ScopedNetworkType.all.foreach { scopedNetworkType =>
       analysisDatabaseIndexer.index()
-      val nodeIds = nodeIdsLoader.load(timestamp, networkType)
+      val nodeIds = nodeIdsLoader.load(timestamp, scopedNetworkType)
       val orphanNodeIds = nodeIds.filterNot(isReferenced).toSeq.sorted
-      val loadedNodes = nodesLoader.load(timestamp, networkType, orphanNodeIds)
+      val loadedNodes = nodesLoader.load(timestamp, scopedNetworkType, orphanNodeIds)
       loadedNodes.zipWithIndex.foreach { case (loadedNode, index) =>
         log.unitElapsed {
           createProcessor.process(None, loadedNode)

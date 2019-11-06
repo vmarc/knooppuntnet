@@ -1,12 +1,12 @@
 package kpn.core.overpass
 
-import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 
-case class QueryRouteIds(networkType: NetworkType) extends OverpassQuery {
+case class QueryRouteIds(scopedNetworkType: ScopedNetworkType) extends OverpassQuery {
 
-  def name: String = s"route-ids-${networkType.name}"
+  def name: String = s"route-ids-${scopedNetworkType.key}"
 
   def string: String = {
-    s"relation['type'='route']['network:type'='node_network']['network'='${networkType.networkTagValue}'];out ids;"
+    s"relation['type'='route']['network:type'='node_network']['network'='${scopedNetworkType.key}'];out ids;"
   }
 }

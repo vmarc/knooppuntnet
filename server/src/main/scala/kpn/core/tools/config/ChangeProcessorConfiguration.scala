@@ -43,7 +43,7 @@ import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.server.analyzer.load.RoutesLoaderImpl
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
 import kpn.server.repository.ChangeSetInfoRepository

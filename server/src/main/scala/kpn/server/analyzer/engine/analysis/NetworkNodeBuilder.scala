@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.analysis
 
 import kpn.core.analysis.NetworkNode
 import kpn.core.data.Data
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.NetworkType
 import kpn.shared.data.Node
 

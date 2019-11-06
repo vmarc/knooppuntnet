@@ -1,12 +1,12 @@
 package kpn.core.overpass
 
-import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 
-case class QueryNodeIds(networkType: NetworkType) extends OverpassQuery {
+case class QueryNodeIds(scopedNetworkType: ScopedNetworkType) extends OverpassQuery {
 
-  def name: String = s"node-ids-${networkType.name}"
+  def name: String = s"node-ids-${scopedNetworkType.key}"
 
   def string: String = {
-    s"node['network:type'='node_network']['${networkType.nodeTagKey}'];out ids;"
+    s"node['network:type'='node_network']['${scopedNetworkType.key}'];out ids;"
   }
 }

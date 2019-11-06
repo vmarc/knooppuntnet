@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.loadOld.Parser
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.NetworkType

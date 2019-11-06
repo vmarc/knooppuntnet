@@ -57,7 +57,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodes
 import kpn.core.overpass.QueryRelation
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
 import kpn.server.repository.ChangeSetInfoRepository

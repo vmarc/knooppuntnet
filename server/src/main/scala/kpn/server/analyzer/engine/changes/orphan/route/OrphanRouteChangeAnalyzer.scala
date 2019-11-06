@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.analyzer.engine.changes.ElementChanges
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.BlackListRepository
 import kpn.shared.changes.ChangeAction.Create
 import kpn.shared.changes.ChangeAction.Delete

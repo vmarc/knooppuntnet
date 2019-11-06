@@ -14,7 +14,7 @@ class NetworkCreateProcessorWorkerImpl(
   watchedProcessor: NetworkCreateWatchedProcessor
 ) extends NetworkCreateProcessorWorker {
 
-  val log: Log = Log(classOf[NetworkCreateProcessorWorkerImpl])
+  def log: Log = Log(classOf[NetworkCreateProcessorWorkerImpl])
 
   override def process(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
     Log.context(s"network=$networkId") {

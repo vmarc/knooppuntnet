@@ -6,9 +6,9 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.analyzer.engine.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.server.repository.NodeInfoBuilder.fromNetworkNodeInfo

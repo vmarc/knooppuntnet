@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.country
 
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.LatLon
 import kpn.shared.SharedTestObjects

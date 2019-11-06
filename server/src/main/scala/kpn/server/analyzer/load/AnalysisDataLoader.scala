@@ -3,7 +3,7 @@ package kpn.server.analyzer.load
 import kpn.server.analyzer.load.orphan.node.OrphanNodesLoader
 import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoader
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 

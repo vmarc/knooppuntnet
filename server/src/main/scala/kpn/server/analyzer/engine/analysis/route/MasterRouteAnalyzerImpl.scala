@@ -27,7 +27,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnaly
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.data.Tags
 import kpn.shared.route.Both
 import kpn.shared.route.RouteNetworkNodeInfo

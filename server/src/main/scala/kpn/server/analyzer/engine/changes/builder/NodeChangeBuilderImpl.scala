@@ -10,7 +10,7 @@ import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.AnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.Subset
