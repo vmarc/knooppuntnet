@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.server.analyzer.engine.analysis.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute

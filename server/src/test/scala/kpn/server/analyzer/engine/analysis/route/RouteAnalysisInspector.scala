@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
-import kpn.server.analyzer.engine.analysis.RouteTestData
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute

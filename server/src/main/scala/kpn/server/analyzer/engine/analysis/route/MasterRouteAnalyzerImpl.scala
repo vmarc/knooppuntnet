@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
-import kpn.server.analyzer.engine.analysis.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer

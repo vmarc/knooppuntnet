@@ -2,12 +2,12 @@ package kpn.server.analyzer.load
 
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.NetworkNameAnalyzer
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.network.NetworkNameAnalyzer
 import kpn.shared.NetworkType
 import kpn.shared.Timestamp
 import kpn.shared.data.raw.RawData

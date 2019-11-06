@@ -8,7 +8,7 @@ import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
 import kpn.core.db.couch.Couch
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
+import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer

@@ -1,13 +1,13 @@
 package kpn.server.analyzer.load.orphan.route
 
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.load.RouteLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component

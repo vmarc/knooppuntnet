@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.server.analyzer.engine.analysis.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
+import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext

@@ -1,8 +1,6 @@
 package kpn.server.analyzer.engine.changes.network.delete
 
 import kpn.core.analysis.Network
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzer
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
@@ -10,6 +8,8 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.repository.NetworkRepository
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType

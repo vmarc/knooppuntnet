@@ -33,8 +33,8 @@ import kpn.shared.network.NetworkInfo
 import kpn.shared.network.NetworkInfoDetail
 import kpn.shared.network.NetworkNodeInfo2
 import kpn.shared.network.NetworkRouteInfo
-import kpn.shared.node.NodeNameAnalyzer.name
-import kpn.shared.node.NodeNameAnalyzer.names
+import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.name
+import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.names
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap

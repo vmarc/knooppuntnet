@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.core.common.Timer
-import kpn.server.analyzer.engine.analysis.NodeFragmentConnectionAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.core.util.Log
 import kpn.shared.NetworkType

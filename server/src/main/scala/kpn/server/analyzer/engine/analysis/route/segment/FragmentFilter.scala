@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.server.analyzer.engine.analysis.WayAnalyzer
+import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 
 import scala.annotation.tailrec
 

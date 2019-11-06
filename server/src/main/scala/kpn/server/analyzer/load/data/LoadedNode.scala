@@ -1,11 +1,11 @@
 package kpn.server.analyzer.load.data
 
+import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import kpn.shared.data.Node
 import kpn.shared.data.raw.RawNode
-import kpn.shared.node.NodeNameAnalyzer
 
 object LoadedNode {
   def from(country: Option[Country], node: RawNode): LoadedNode = {

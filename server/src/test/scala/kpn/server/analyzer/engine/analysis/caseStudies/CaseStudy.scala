@@ -2,13 +2,13 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.loadOld.Parser
+import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Country
 import kpn.shared.NetworkType

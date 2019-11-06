@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.server.analyzer.engine.analysis.NodeUtil
+import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.shared.Fact.RouteNameMissing

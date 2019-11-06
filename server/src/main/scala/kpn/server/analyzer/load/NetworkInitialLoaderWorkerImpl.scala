@@ -1,11 +1,11 @@
 package kpn.server.analyzer.load
 
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzer
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzer
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.stereotype.Component
 

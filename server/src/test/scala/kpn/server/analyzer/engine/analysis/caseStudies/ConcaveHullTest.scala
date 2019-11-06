@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.NetworkShapeAnalyzer
 import kpn.core.loadOld.Parser
+import kpn.server.analyzer.engine.analysis.network.NetworkShapeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

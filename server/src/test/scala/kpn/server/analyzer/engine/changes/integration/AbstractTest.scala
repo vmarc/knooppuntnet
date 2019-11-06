@@ -7,8 +7,6 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
@@ -57,6 +55,8 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodes
 import kpn.core.overpass.QueryRelation
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository

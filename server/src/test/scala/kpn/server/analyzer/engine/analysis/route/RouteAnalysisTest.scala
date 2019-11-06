@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.server.analyzer.engine.analysis.RouteTestData
 import kpn.shared.Fact.RouteBroken
 import kpn.shared.Fact.RouteNotBackward
 import kpn.shared.Fact.RouteOneWay

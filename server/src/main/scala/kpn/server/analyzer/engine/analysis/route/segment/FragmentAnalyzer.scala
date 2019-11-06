@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.server.analyzer.engine.analysis.WayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 import kpn.shared.data.Node
 import kpn.shared.data.Way
 import kpn.shared.data.WayMember

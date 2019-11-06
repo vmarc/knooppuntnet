@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.server.analyzer.engine.analysis.WayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder

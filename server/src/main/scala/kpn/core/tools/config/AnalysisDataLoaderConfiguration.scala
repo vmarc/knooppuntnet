@@ -6,11 +6,11 @@ import akka.actor.ActorSystem
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzer
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzer
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer

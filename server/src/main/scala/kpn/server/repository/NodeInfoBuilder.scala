@@ -8,8 +8,8 @@ import kpn.shared.NodeInfo
 import kpn.shared.Timestamp
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawNode
-import kpn.shared.node.NodeNameAnalyzer.name
-import kpn.shared.node.NodeNameAnalyzer.names
+import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.name
+import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.names
 
 object NodeInfoBuilder {
 

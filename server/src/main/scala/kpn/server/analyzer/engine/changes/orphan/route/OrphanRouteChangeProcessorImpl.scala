@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
-import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -10,6 +9,7 @@ import kpn.core.history.RouteDiffAnalyzer
 import kpn.server.analyzer.load.RoutesLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.shared.Fact
 import kpn.shared.changes.details.ChangeType

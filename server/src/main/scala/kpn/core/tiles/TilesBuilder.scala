@@ -9,7 +9,7 @@ import kpn.core.util.Log
 import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
 import kpn.shared.network.NetworkNodeInfo2
-import kpn.shared.node.NodeNameAnalyzer.name
+import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.name
 import kpn.shared.route.RouteInfo
 
 class TilesBuilder(

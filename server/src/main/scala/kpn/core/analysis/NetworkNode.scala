@@ -1,6 +1,6 @@
 package kpn.core.analysis
 
-import kpn.server.analyzer.engine.analysis.NodeUtil
+import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.shared.data.Node
 import kpn.shared.data.Tagable
 import kpn.shared.Country

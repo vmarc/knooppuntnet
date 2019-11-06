@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.builder
 
 import kpn.core.analysis.Network
-import kpn.server.analyzer.engine.analysis.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext

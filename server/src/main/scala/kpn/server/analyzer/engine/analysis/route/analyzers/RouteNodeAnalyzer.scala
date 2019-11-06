@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.server.analyzer.engine.analysis.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.core.util.Unique
+import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.shared.Fact
 import kpn.shared.Fact.RouteNodeMissingInWays
 import kpn.shared.Fact.RouteRedundantNodes

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.network.create
 
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzer
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges

@@ -3,8 +3,6 @@ package kpn.core.tools.config
 import akka.actor.ActorSystem
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
@@ -43,6 +41,8 @@ import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.server.analyzer.load.RoutesLoaderImpl
 import kpn.core.overpass.OverpassQueryExecutor
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository

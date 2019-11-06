@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.network.create
 
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.load.NetworkLoader
@@ -8,6 +7,7 @@ import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.core.test.TestData
 import kpn.core.util.Log
 import kpn.core.util.MockLog
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.shared.NetworkType
 import kpn.shared.ReplicationId
 import kpn.shared.SharedTestObjects

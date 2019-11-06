@@ -10,9 +10,9 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.AnalysisRepositoryConfiguration
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
-import kpn.server.analyzer.engine.analysis.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
