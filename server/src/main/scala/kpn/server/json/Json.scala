@@ -52,4 +52,12 @@ object Json {
     om
   }
 
+  def string(o: Object): String = {
+    objectMapper.writeValueAsString(o)
+  }
+
+  def value[T](string: String, valueType: Class[T]): T = {
+    objectMapper.readValue(string, valueType)
+
+  }
 }
