@@ -30,7 +30,7 @@ class TilesBuilder(
     analysis: TileAnalysis
   ): Unit = {
 
-    val existingTileNames = tileRepository.existingTileNames(analysis.networkType.name, z)
+    val existingTileNames = tileRepository.existingTileNames(analysis.networkType.newName, z)
 
     log.info(s"Processing zoomlevel $z")
     log.info(s"Number of tiles before: " + existingTileNames.size)
@@ -83,11 +83,11 @@ class TilesBuilder(
 
       val tileBytes = tileBuilder.build(tileData)
       if (tileBytes.length > 0) {
-        tileRepository.saveOrUpdate(analysis.networkType.name, tile, tileBytes)
+        tileRepository.saveOrUpdate(analysis.networkType.newName, tile, tileBytes)
       }
     }
 
-    val afterTileNames = tileNames.map(tileName => analysis.networkType.name + "-" + tileName)
+    val afterTileNames = tileNames.map(tileName => analysis.networkType.newName + "-" + tileName)
 
     val obsoleteTileNames = (existingTileNames.toSet -- afterTileNames.toSet).toSeq.sorted
     log.info(s"Obsolete: " + obsoleteTileNames)

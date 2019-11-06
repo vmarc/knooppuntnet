@@ -7,7 +7,11 @@ import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.Fact
+import kpn.shared.NetworkScope
+import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
+import kpn.shared.NodeName
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Subset
 import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeAction
@@ -37,12 +41,7 @@ class OrphanNodeTest01 extends AbstractTest {
             orphan = true,
             Some(Country.nl),
             "01",
-            "",
-            "01",
-            "",
-            "",
-            "",
-            "",
+            Seq(NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "01")),
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),

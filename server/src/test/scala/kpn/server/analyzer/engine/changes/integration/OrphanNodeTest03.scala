@@ -2,23 +2,22 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRef
 import kpn.shared.ChangeSetElementRefs
 import kpn.shared.ChangeSetSubsetAnalysis
 import kpn.shared.ChangeSetSubsetElementRefs
 import kpn.shared.ChangeSetSummary
 import kpn.shared.Country
 import kpn.shared.Fact
-import kpn.shared.NetworkChanges
+import kpn.shared.NetworkScope
+import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
+import kpn.shared.NodeName
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Subset
 import kpn.shared.Timestamp
 import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeKey
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NodeChange
-import kpn.shared.data.Tags
-import kpn.shared.diff.common.FactDiffs
 
 class OrphanNodeTest03 extends AbstractTest {
 
@@ -50,12 +49,7 @@ class OrphanNodeTest03 extends AbstractTest {
             orphan = true,
             Some(Country.nl),
             "01",
-            "",
-            "01",
-            "",
-            "",
-            "",
-            "",
+            Seq(NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "01")),
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),

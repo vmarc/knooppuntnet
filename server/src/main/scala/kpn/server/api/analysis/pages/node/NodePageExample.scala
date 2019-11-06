@@ -3,8 +3,11 @@ package kpn.server.api.analysis.pages.node
 import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.LatLonImpl
+import kpn.shared.NetworkScope
 import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
+import kpn.shared.NodeName
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Timestamp
 import kpn.shared.changes.details.ChangeKey
 import kpn.shared.changes.details.RefBooleanChange
@@ -58,12 +61,10 @@ object NodePageExample {
       orphan = true,
       country = Some(Country.nl),
       name = "01 / 02",
-      rcnName = "01",
-      rwnName = "02",
-      rhnName = "",
-      rmnName = "",
-      rpnName = "",
-      rinName = "",
+      names = Seq(
+        NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.bicycle), "01"),
+        NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "02")
+      ),
       latitude = "51.5291600",
       longitude = "4.297800",
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),

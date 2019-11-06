@@ -30,28 +30,11 @@ if (doc) {
     var routeAnalysis = doc.route.analysis;
     if (routeAnalysis) {
       var s = doc.route.summary;
-      var routeNetworkType = "";
-      if (s.networkType === "rcn") {
-        routeNetworkType = "cycling";
-      } else if (s.networkType === "rwn") {
-        routeNetworkType = "hiking";
-      } else if (s.networkType === "rhn") {
-        routeNetworkType = "horse-riding";
-      } else if (s.networkType === "rmn") {
-        routeNetworkType = "motorboat";
-      } else if (s.networkType === "rpn") {
-        routeNetworkType = "canoe";
-      } else if (s.networkType === "rin") {
-        routeNetworkType = "inline-skating";
-      }
-      if (routeNetworkType.length > 0) {
-        var locationAnalysis = routeAnalysis.locationAnalysis;
-        if (locationAnalysis) {
-          emit(["route", routeNetworkType].concat(locationAnalysis.location.names), [s.name, s.id]);
-        }
-        else {
-          emit(["route-without-location", routeNetworkType], [s.name, s.id]);
-        }
+      var locationAnalysis = routeAnalysis.locationAnalysis;
+      if (locationAnalysis) {
+        emit(["route", s.networkType].concat(locationAnalysis.location.names), [s.name, s.id]);
+      } else {
+        emit(["route-without-location", s.networkType], [s.name, s.id]);
       }
     }
   }

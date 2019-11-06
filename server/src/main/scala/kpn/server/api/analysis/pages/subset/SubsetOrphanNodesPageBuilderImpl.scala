@@ -19,7 +19,7 @@ class SubsetOrphanNodesPageBuilderImpl(
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
     val nodes = orphanRepository.orphanNodes(subset, Couch.uiTimeout)
     val sortedNodeInfos = nodes.sortWith { (a, b) =>
-      a.name(subset.networkType.name) < b.name(subset.networkType.name)
+      a.name(subset.networkType.newName) < b.name(subset.networkType.newName)
     }
     SubsetOrphanNodesPage(TimeInfoBuilder.timeInfo, subsetInfo, sortedNodeInfos.toVector)
   }

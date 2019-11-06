@@ -42,7 +42,7 @@ object ReferenceView extends View {
       .stale(stale)
     val result = database.execute(query)
     result.rows.map { row =>
-      NetworkType.withName(row.value.head) match {
+      NetworkType.withNewName(row.value.head) match {
         case None =>
           throw new IllegalStateException("Invalid networkType")
         case Some(networkType) =>

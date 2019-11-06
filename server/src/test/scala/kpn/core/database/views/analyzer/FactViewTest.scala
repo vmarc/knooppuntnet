@@ -56,11 +56,11 @@ class FactViewTest extends FunSuite with Matchers {
 
       FactView.query(database, stale = false) should equal(
         Seq(
-          FactViewKey("nl", "rwn", "NameMissing", "network-name", networkId),
-          FactViewKey("nl", "rwn", "NetworkExtraMemberNode", "network-name", networkId),
-          FactViewKey("nl", "rwn", "NodeMemberMissing", "network-name", networkId),
-          FactViewKey("nl", "rwn", "RouteBroken", "network-name", networkId),
-          FactViewKey("nl", "rwn", "RouteNameMissing", "network-name", networkId)
+          FactViewKey("nl", "hiking", "NameMissing", "network-name", networkId),
+          FactViewKey("nl", "hiking", "NetworkExtraMemberNode", "network-name", networkId),
+          FactViewKey("nl", "hiking", "NodeMemberMissing", "network-name", networkId),
+          FactViewKey("nl", "hiking", "RouteBroken", "network-name", networkId),
+          FactViewKey("nl", "hiking", "RouteNameMissing", "network-name", networkId)
         )
       )
     }
@@ -81,7 +81,7 @@ class FactViewTest extends FunSuite with Matchers {
 
       FactView.query(database, stale = false) should equal(
         Seq(
-          FactViewKey("nl", "rwn", "RouteBroken", "OrphanRoutes", 0)
+          FactViewKey("nl", "hiking", "RouteBroken", "OrphanRoutes", 0)
         )
       )
     }
@@ -112,7 +112,7 @@ class FactViewTest extends FunSuite with Matchers {
 
       FactView.query(database, stale = false) should equal(
         Seq(
-          FactViewKey("nl", networkType.name, "IntegrityCheck", "OrphanNodes", 0)
+          FactViewKey("nl", networkType.newName, "IntegrityCheck", "OrphanNodes", 0)
         )
       )
     }

@@ -7,6 +7,6 @@ import kpn.shared.NetworkType
 
 class NetworkTypeJsonSerializer extends JsonSerializer[NetworkType] {
   override def serialize(networkType: NetworkType, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(networkType.name)
+    jsonGenerator.writeString(networkType.newName)
   }
 }

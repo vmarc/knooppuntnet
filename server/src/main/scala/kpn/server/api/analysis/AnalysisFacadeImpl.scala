@@ -257,8 +257,8 @@ class AnalysisFacadeImpl(
   }
 
   override def mapDetailNode(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapDetailNode] = {
-    val label = s"$user mapDetailNode(${networkType.name}, $nodeId)"
-    log.infoElapsed(s"$user mapDetailNode(${networkType.name}, $nodeId)") {
+    val label = s"$user mapDetailNode(${networkType.newName}, $nodeId)"
+    log.infoElapsed(s"$user mapDetailNode(${networkType.newName}, $nodeId)") {
       val page = nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
         val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
         val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)

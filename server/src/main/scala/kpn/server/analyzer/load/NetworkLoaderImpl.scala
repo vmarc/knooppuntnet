@@ -97,7 +97,7 @@ class NetworkLoaderImpl(executor: OverpassQueryExecutor) extends NetworkLoader {
     }
 
     private def networkTypeIn(relation: RawRelation): Option[NetworkType] = {
-      relation.tags("network").flatMap(NetworkType.withName)
+      relation.tags("network").flatMap(NetworkType.withNewName)
     }
   }
 

@@ -10,12 +10,7 @@ case class NodeInfo(
   orphan: Boolean,
   country: Option[Country],
   name: String,
-  rcnName: String,
-  rwnName: String,
-  rhnName: String,
-  rmnName: String,
-  rpnName: String,
-  rinName: String,
+  names: Seq[NodeName],
   latitude: String,
   longitude: String,
   lastUpdated: Timestamp,
@@ -32,20 +27,13 @@ case class NodeInfo(
     tags(networkType.nodeTagKey).getOrElse("no-name")
   }
 
-  def allNames: String = Seq(rcnName, rwnName, rhnName, rmnName, rpnName, rinName).filter(_.nonEmpty).mkString(" / ")
-
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("id", id).
     field("active", active).
     field("orphan", orphan).
     field("country", country).
     field("name", name).
-    field("rcnName", rcnName).
-    field("rwnName", rwnName).
-    field("rhnName", rhnName).
-    field("rmnName", rmnName).
-    field("rpnName", rpnName).
-    field("rinName", rinName).
+    field("names", names).
     field("latitude", latitude).
     field("longitude", longitude).
     field("lastUpdated", lastUpdated).

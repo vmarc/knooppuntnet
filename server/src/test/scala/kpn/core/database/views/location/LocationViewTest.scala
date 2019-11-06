@@ -3,12 +3,12 @@ package kpn.core.database.views.location
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.data.Tags
 import kpn.shared.Location
 import kpn.shared.NetworkType
 import kpn.shared.RouteLocationAnalysis
 import kpn.shared.SharedTestObjects
 import kpn.shared.common.Ref
+import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

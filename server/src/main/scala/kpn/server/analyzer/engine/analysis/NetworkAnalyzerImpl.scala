@@ -59,7 +59,7 @@ class NetworkAnalyzerImpl(
               Some(routeAnalysis)
             }
             else {
-              val msg = s"Route networkType (${routeNetworkType.name}) does not match the network relation networkType ${loadedNetwork.name}."
+              val msg = s"Route networkType (${routeNetworkType.newName}) does not match the network relation networkType ${loadedNetwork.name}."
               val programmingError = "This is an unexpected programming error."
               //noinspection SideEffectsInMonadicTransformation
               log.error(s"$msg $programmingError")

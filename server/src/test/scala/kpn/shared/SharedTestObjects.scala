@@ -34,12 +34,7 @@ import kpn.shared.network.NetworkInfoDetail
 import kpn.shared.network.NetworkNodeInfo2
 import kpn.shared.network.NetworkRouteInfo
 import kpn.shared.node.NodeNameAnalyzer.name
-import kpn.shared.node.NodeNameAnalyzer.rcnName
-import kpn.shared.node.NodeNameAnalyzer.rhnName
-import kpn.shared.node.NodeNameAnalyzer.rinName
-import kpn.shared.node.NodeNameAnalyzer.rmnName
-import kpn.shared.node.NodeNameAnalyzer.rpnName
-import kpn.shared.node.NodeNameAnalyzer.rwnName
+import kpn.shared.node.NodeNameAnalyzer.names
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap
@@ -255,18 +250,14 @@ trait SharedTestObjects {
     facts: Seq[Fact] = Seq.empty,
     location: Option[Location] = None
   ): NodeInfo = {
+
     NodeInfo(
       id,
       active,
       orphan,
       country,
       name(tags),
-      rcnName(tags),
-      rwnName(tags),
-      rhnName(tags),
-      rmnName(tags),
-      rpnName(tags),
-      rinName(tags),
+      names(tags),
       latitude,
       longitude,
       lastUpdated,

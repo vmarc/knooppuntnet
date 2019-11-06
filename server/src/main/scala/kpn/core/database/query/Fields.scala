@@ -26,7 +26,7 @@ class Fields(fields: Seq[String]) {
   }
 
   def networkType(index: Int): NetworkType = {
-    NetworkType.withName(fields(index)).get
+    NetworkType.withNewName(fields(index)).get
   }
 
   def country(index: Int): Country = {

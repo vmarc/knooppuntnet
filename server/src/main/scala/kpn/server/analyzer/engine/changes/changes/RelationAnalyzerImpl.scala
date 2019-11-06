@@ -17,7 +17,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
   override def routeName(relation: Relation): String = relation.tags("note").getOrElse("no-name")
 
   override def networkType(relation: Relation): Option[NetworkType] = {
-    relation.tags("network").flatMap(NetworkType.withName)
+    relation.tags("network").flatMap(NetworkType.withNewName)
   }
 
   override def toElementIds(relation: Relation): ElementIds = {

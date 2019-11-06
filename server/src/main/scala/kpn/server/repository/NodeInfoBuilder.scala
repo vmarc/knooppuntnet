@@ -9,12 +9,7 @@ import kpn.shared.Timestamp
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawNode
 import kpn.shared.node.NodeNameAnalyzer.name
-import kpn.shared.node.NodeNameAnalyzer.rcnName
-import kpn.shared.node.NodeNameAnalyzer.rhnName
-import kpn.shared.node.NodeNameAnalyzer.rinName
-import kpn.shared.node.NodeNameAnalyzer.rmnName
-import kpn.shared.node.NodeNameAnalyzer.rpnName
-import kpn.shared.node.NodeNameAnalyzer.rwnName
+import kpn.shared.node.NodeNameAnalyzer.names
 
 object NodeInfoBuilder {
 
@@ -29,19 +24,13 @@ object NodeInfoBuilder {
     tags: Tags,
     facts: Seq[Fact]
   ): NodeInfo = {
-
     NodeInfo(
       id,
       active,
       orphan,
       country,
       name(tags),
-      rcnName(tags),
-      rwnName(tags),
-      rhnName(tags),
-      rmnName(tags),
-      rpnName(tags),
-      rinName(tags),
+      names(tags),
       latitude,
       longitude,
       lastUpdated,

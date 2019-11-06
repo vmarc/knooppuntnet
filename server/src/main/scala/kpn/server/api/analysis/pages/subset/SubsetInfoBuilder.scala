@@ -31,7 +31,7 @@ object SubsetInfoBuilder {
 
     SubsetInfo(
       subset.country.domain,
-      subset.networkType.name,
+      subset.networkType.newName,
       networkCount,
       factCount,
       0,

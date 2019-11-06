@@ -54,17 +54,13 @@ object Subset {
 
 case class Subset(country: Country, networkType: NetworkType) extends Ordered[Subset] {
 
-  def key: String = country.domain + ":" + networkType.name
+  def key: String = country.domain + ":" + networkType.newName
 
-  def name: String = country.domain + "-" + networkType.name
+  def name: String = country.domain + "-" + networkType.newName
 
-  def string: String = country.domain + "/" + networkType.name
-
-  def matches(countryDomain: String, networkTypeName: String): Boolean = {
-    country.domain == countryDomain && networkType.name == networkTypeName
-  }
+  def string: String = country.domain + "/" + networkType.newName
 
   import scala.math.Ordered.orderingToOrdered
 
-  def compare(that: Subset): Int = (this.country.domain, this.networkType.name).compare((that.country.domain, that.networkType.name))
+  def compare(that: Subset): Int = (this.country.domain, this.networkType.newName).compare((that.country.domain, that.networkType.newName))
 }

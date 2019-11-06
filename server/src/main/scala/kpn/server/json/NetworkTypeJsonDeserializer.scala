@@ -15,7 +15,7 @@ class NetworkTypeJsonDeserializer extends JsonDeserializer[NetworkType] {
       null
     }
     else {
-      NetworkType.withName(name).getOrElse(
+      NetworkType.withNewName(name).getOrElse(
         throw JsonMappingException.from(
           jsonParser,
           "Could not deserialize network type"

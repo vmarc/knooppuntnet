@@ -20,7 +20,7 @@ object GraphEdgesView extends View {
   def query(database: Database, networkType: NetworkType, stale: Boolean = true): Seq[GraphEdge] = {
 
     val query = Query(PlannerDesign, GraphEdgesView, classOf[ViewResult])
-      .keyStartsWith(networkType.name)
+      .keyStartsWith(networkType.newName)
       .reduce(false)
       .stale(stale)
 

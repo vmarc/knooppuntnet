@@ -48,7 +48,7 @@ class RouteLoaderImpl(
           None
 
         case Some(rawRelation) =>
-          rawRelation.tags("network").flatMap(NetworkType.withName) match {
+          rawRelation.tags("network").flatMap(NetworkType.withNewName) match {
             case Some(networkType) =>
               val data = new DataBuilder(rawData).data
               val relation = data.relations(routeId)

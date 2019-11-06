@@ -7,6 +7,6 @@ import kpn.shared.Subset
 
 class SubsetJsonSerializer extends JsonSerializer[Subset] {
   override def serialize(subset: Subset, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(s"${subset.country.domain}:${subset.networkType.name}")
+    jsonGenerator.writeString(s"${subset.country.domain}:${subset.networkType.newName}")
   }
 }

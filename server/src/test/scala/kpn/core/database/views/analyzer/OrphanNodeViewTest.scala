@@ -4,6 +4,8 @@ import kpn.core.TestObjects
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
+import kpn.shared.NetworkScope
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Subset
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -23,7 +25,8 @@ class OrphanNodeViewTest extends FunSuite with Matchers with TestObjects {
   private def doOrphanNodeTest(subset: Subset): Unit = {
     withDatabase { database =>
       val b = new TestDocBuilder(database)
-      b.node(1001, Country.nl, tags = Tags.from(subset.networkType.nodeTagKey -> "01"), orphan = true)
+      val nodeTagKey = ScopedNetworkType(NetworkScope.regional, subset.networkType).nodeTagKey
+      b.node(1001, Country.nl, tags = Tags.from(nodeTagKey -> "01"), orphan = true)
 
       val nodeInfos = OrphanNodeView.query(database, subset, stale = false)
       nodeInfos.map(_.id) should equal(Seq(1001))
