@@ -39,12 +39,8 @@ object Subset {
     nlInlineSkates
   )
 
-  def of(domain: String, networkType: String): Option[Subset] = {
-    all.find(s => s.country.domain == domain && s.networkType.name == networkType)
-  }
-
   def ofNewName(domain: String, networkTypeNewName: String): Option[Subset] = {
-    all.find(s => s.country.domain == domain && s.networkType.newName == networkTypeNewName)
+    all.find(s => s.country.domain == domain && s.networkType.name == networkTypeNewName)
   }
 
   def of(country: Country, networkType: NetworkType): Option[Subset] = {
@@ -54,13 +50,13 @@ object Subset {
 
 case class Subset(country: Country, networkType: NetworkType) extends Ordered[Subset] {
 
-  def key: String = country.domain + ":" + networkType.newName
+  def key: String = country.domain + ":" + networkType.name
 
-  def name: String = country.domain + "-" + networkType.newName
+  def name: String = country.domain + "-" + networkType.name
 
-  def string: String = country.domain + "/" + networkType.newName
+  def string: String = country.domain + "/" + networkType.name
 
   import scala.math.Ordered.orderingToOrdered
 
-  def compare(that: Subset): Int = (this.country.domain, this.networkType.newName).compare((that.country.domain, that.networkType.newName))
+  def compare(that: Subset): Int = (this.country.domain, this.networkType.name).compare((that.country.domain, that.networkType.name))
 }

@@ -8,6 +8,11 @@ object NetworkScope {
   val international: NetworkScope = NetworkScope("international", "i")
 
   val all: Seq[NetworkScope] = Seq(local, regional, national, international)
+
+  def withName(name: String): Option[NetworkScope] = {
+    all.find(_.name == name)
+  }
+
 }
 
 case class NetworkScope(name: String, letter: String)

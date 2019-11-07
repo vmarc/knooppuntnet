@@ -1,13 +1,13 @@
 package kpn.server.analyzer.load
 
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
-import kpn.shared.NetworkType
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
@@ -48,7 +48,7 @@ class RouteLoaderImpl(
           None
 
         case Some(rawRelation) =>
-          rawRelation.tags("network").flatMap(NetworkType.withNewName) match {
+          RelationAnalyzer.networkType(rawRelation) match {
             case Some(networkType) =>
               val data = new DataBuilder(rawData).data
               val relation = data.relations(routeId)

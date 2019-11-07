@@ -25,11 +25,11 @@ class LegBuilderImpl(
 
   val graphMap: Map[String, NodeNetworkGraph] = NetworkType.all.map { networkType =>
     val graph = buildGraph(networkType)
-    (networkType.newName, graph)
+    (networkType.name, graph)
   }.toMap
 
   override def build(networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): Option[RouteLeg] = {
-    graphMap.get(networkType.newName) match {
+    graphMap.get(networkType.name) match {
       case Some(graph) =>
         graph.findPath(sourceNodeId.toLong, sinkNodeId.toLong) match {
           case Some(path) =>

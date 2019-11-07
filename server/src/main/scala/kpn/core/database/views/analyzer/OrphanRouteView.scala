@@ -18,7 +18,7 @@ object OrphanRouteView extends View {
 
   def query(database: Database, subset: Subset, stale: Boolean = true): Seq[RouteSummary] = {
     val country = subset.country.domain
-    val networkType = subset.networkType.newName
+    val networkType = subset.networkType.name
     val query = Query(AnalyzerDesign, OrphanRouteView, classOf[ViewResult])
       .keyStartsWith(country, networkType)
       .reduce(false)

@@ -1,7 +1,5 @@
 package kpn.shared.data
 
-import kpn.shared.NetworkType
-
 object Tags {
 
   val empty: Tags = Tags(Seq())
@@ -54,11 +52,5 @@ case class Tags(tags: Seq[Tag]) {
   override def toString: String = {
     s"${getClass.getSimpleName}($tagString)"
   }
-
-  def hasNodeTag: Boolean = hasHikingNodeTag || hasBicyleNodeTag
-
-  def hasBicyleNodeTag: Boolean = has(NetworkType.bicycle.nodeTagKey)
-
-  def hasHikingNodeTag: Boolean = has(NetworkType.hiking.nodeTagKey)
 
 }

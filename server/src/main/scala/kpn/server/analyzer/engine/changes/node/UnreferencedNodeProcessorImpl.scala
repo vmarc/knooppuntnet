@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.changes.node
 
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.data.LoadedNode
@@ -17,7 +17,6 @@ import kpn.shared.Subset
 import kpn.shared.changes.details.ChangeType
 import kpn.shared.changes.details.NodeChange
 import kpn.shared.diff.common.FactDiffs
-import kpn.shared.node.NodeNetworkTypeAnalyzer
 import org.springframework.stereotype.Component
 
 /*
@@ -78,14 +77,14 @@ class UnreferencedNodeProcessorImpl(
       }
     }
 
-    if (facts.isEmpty || after.tags.hasNodeTag) {
+    if (facts.isEmpty || NodeAnalyzer.hasNodeTag(after.tags)) {
       furtherProcess(context, nodeBefore, nodeAfter, facts)
     }
     else {
       val nodeInfo = fromLoadedNode(nodeAfter, active = false)
       analysisRepository.saveNode(nodeInfo)
 
-      val subsets = NodeNetworkTypeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
+      val subsets = NodeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
         nodeBefore.networkNode.country.flatMap(country => Subset.of(country, networkType))
       }
 
@@ -125,7 +124,7 @@ class UnreferencedNodeProcessorImpl(
     val nodeInfo = fromNetworkNodeInfo(nodeBefore, active = false, facts = Seq(Fact.Deleted))
     analysisRepository.saveNode(nodeInfo)
 
-    val subsets = NodeNetworkTypeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
+    val subsets = NodeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
       nodeBefore.networkNode.country.flatMap(country => Subset.of(country, networkType))
     }
 

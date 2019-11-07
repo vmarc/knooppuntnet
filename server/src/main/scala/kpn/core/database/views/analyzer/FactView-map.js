@@ -50,29 +50,12 @@ if (doc) {
     if (doc.node.orphan === true) {
       for (var j = 0; j < doc.node.facts.length; j++) {
         var fact = doc.node.facts[j];
-        var networkType = "";
-        if (doc.node.rcnName.length > 0) {
-          networkType = "rcn";
-        }
-        else if (doc.node.rwnName.length > 0) {
-          networkType = "rwn";
-        }
-        else if (doc.node.rhnName.length > 0) {
-          networkType = "rhn";
-        }
-        else if (doc.node.rmnName.length > 0) {
-          networkType = "rmn";
-        }
-        else if (doc.node.rpnName.length > 0) {
-          networkType = "rpn";
-        }
-        else if (doc.node.rinName.length > 0) {
-          networkType = "rin";
-        }
-        if (networkType.length > 0) {
+        var nodeNames = doc.node.names;
+        for (var k = 0; k < nodeNames.length; k++) {
+          var nodeName = doc.node.names[k];
           var key = [
             doc.node.country,
-            networkType,
+            nodeName.scopedNetworkType.networkType,
             fact,
             "OrphanNodes",
             0

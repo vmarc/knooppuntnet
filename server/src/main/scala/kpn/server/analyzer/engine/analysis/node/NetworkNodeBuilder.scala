@@ -15,7 +15,7 @@ class NetworkNodeBuilder(analysisContext: AnalysisContext, data: Data, networkTy
   }
 
   private def buildNode(node: Node): NetworkNode = {
-    val name = node.tags(networkType.nodeTagKey).getOrElse("no-name")
+    val name = NodeAnalyzer.name(networkType, node.tags)
     val country = countryAnalyzer.country(Seq(node))
     NetworkNode(node, name, country)
   }

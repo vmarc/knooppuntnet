@@ -1,10 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.core.util.Unique
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.core.util.Unique
-import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.shared.Fact
 import kpn.shared.Fact.RouteNodeMissingInWays
 import kpn.shared.Fact.RouteRedundantNodes
@@ -15,10 +16,10 @@ import kpn.shared.data.WayMember
 import scala.collection.mutable.ListBuffer
 
 /**
-  * Performs analysis of the network nodes in a given route relation: determines which nodes
-  * are starting nodes and which nodes are end nodes. Nodes that are not start or end nodes
-  * are considered nodes of type redundant.
-  */
+ * Performs analysis of the network nodes in a given route relation: determines which nodes
+ * are starting nodes and which nodes are end nodes. Nodes that are not start or end nodes
+ * are considered nodes of type redundant.
+ */
 object RouteNodeAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     new RouteNodeAnalyzer(context).analyze
@@ -53,12 +54,12 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     val nodes = findNodes()
 
-    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter(nodeUtil.isNetworkNode)
+    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter(node => context.analysisContext.isNetworkNode(node.raw))
 
     val nodesInWays = findNodesInWays()
 
     val nodeNames = {
-      val normalizedNodeNames = nodes.map(node => normalize(nodeUtil.name(node))).distinct
+      val normalizedNodeNames = nodes.map(node => normalize(nameOf(node))).distinct
       val unsorted = if (normalizedNodeNames.size > 2) {
         context.routeNameAnalysis.get.name match {
           case None => normalizedNodeNames
@@ -85,7 +86,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     val allEndNodes = endNodeName match {
       case None => Seq()
       case Some(name) =>
-        val nodesX = Unique.filter(nodes.filter(n => isEquivalent(nodeUtil.name(n), name)))
+        val nodesX = Unique.filter(nodes.filter(n => isEquivalent(nameOf(n), name)))
         if (context.routeNameAnalysis.get.isStartNodeNameSameAsEndNodeName) {
           if (nodesX.size > 1) {
             Seq(nodesX.last)
@@ -100,7 +101,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     val allStartNodes = startNodeName match {
-      case Some(name) => Unique.filter(nodes.filterNot(allEndNodes.contains).filter(n => isEquivalent(nodeUtil.name(n), name)))
+      case Some(name) => Unique.filter(nodes.filterNot(allEndNodes.contains).filter(n => isEquivalent(nameOf(n), name)))
       case None => Seq()
     }
 
@@ -142,7 +143,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     def toRouteNode(node: Node): RouteNode = {
-      val name = nodeUtil.name(node)
+      val name = nameOf(node)
       val alternateName = alternateNameMap.getOrElse(node.id, name)
       val definedInRelation = nodesInRelation.contains(node)
       val definedInWay = nodesInWays.contains(node)
@@ -160,7 +161,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private def findNodesInWays(): Seq[Node] = {
     val ways = context.loadedRoute.relation.wayMembers.map(member => member.way)
     val nodes = ways.flatMap(_.nodes)
-    nodes.filter(nodeUtil.isNetworkNode)
+    nodes.filter(node => context.analysisContext.isNetworkNode(node.raw))
   }
 
   private def findNodes(): Seq[Node] = {
@@ -178,6 +179,10 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def normalize(nodeName: String): String = {
     if (nodeName.length == 1 && nodeName(0).isDigit) "0" + nodeName else nodeName
+  }
+
+  private def nameOf(node: Node): String = {
+    NodeAnalyzer.name(context.networkType, node.tags)
   }
 
 }

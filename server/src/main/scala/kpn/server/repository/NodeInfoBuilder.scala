@@ -1,6 +1,7 @@
 package kpn.server.repository
 
 import kpn.core.analysis.NetworkNodeInfo
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.shared.Country
 import kpn.shared.Fact
@@ -8,8 +9,6 @@ import kpn.shared.NodeInfo
 import kpn.shared.Timestamp
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawNode
-import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.name
-import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.names
 
 object NodeInfoBuilder {
 
@@ -29,8 +28,8 @@ object NodeInfoBuilder {
       active,
       orphan,
       country,
-      name(tags),
-      names(tags),
+      NodeAnalyzer.name(tags),
+      NodeAnalyzer.names(tags),
       latitude,
       longitude,
       lastUpdated,

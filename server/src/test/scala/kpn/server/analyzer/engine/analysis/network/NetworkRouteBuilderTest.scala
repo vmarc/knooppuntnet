@@ -312,8 +312,8 @@ class NetworkRouteBuilderTest extends FunSuite with Matchers with MockFactory wi
   private def member(node: RawNode): RawMember = RawMember("node", node.id, None)
 
   private def analyzeRoute(d: TData,
-    name: String,
-    members: Seq[RawMember]): RouteAnalysis = {
+                           name: String,
+                           members: Seq[RawMember]): RouteAnalysis = {
     val relation = routeRelation(100, name, members)
     analyzeRoute(d, relation)
   }
@@ -338,13 +338,15 @@ class NetworkRouteBuilderTest extends FunSuite with Matchers with MockFactory wi
 
     val networkNodes: Map[Long, NetworkNode] = data.nodes.values
       .filter { node =>
-        node.tags.has(NetworkType.hiking.nodeTagKey)
+        node.tags.has("rwn_ref")
       }
-      .map(
-        node =>
-          NetworkNode(node,
-            node.tags(NetworkType.hiking.nodeTagKey).getOrElse(""),
-            None))
+      .map { node =>
+        NetworkNode(
+          node,
+          node.tags("rwn_ref").getOrElse(""),
+          None
+        )
+      }
       .map(n => n.id -> n)
       .toMap
 

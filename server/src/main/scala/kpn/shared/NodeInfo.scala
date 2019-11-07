@@ -19,12 +19,8 @@ case class NodeInfo(
   location: Option[Location]
 ) extends Tagable with LatLon {
 
-  def name(networkType: String): String = {
-    tags(networkType + "_ref").getOrElse("no-name")
-  }
-
   def name(networkType: NetworkType): String = {
-    tags(networkType.nodeTagKey).getOrElse("no-name")
+    names.filter(_.scopedNetworkType.networkType == networkType).mkString(" / ")
   }
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

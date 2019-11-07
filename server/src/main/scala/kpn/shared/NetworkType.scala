@@ -2,25 +2,24 @@ package kpn.shared
 
 object NetworkType {
 
-  def withNewName(newName: String): Option[NetworkType] = {
-    all.find(_.newName == newName)
+  def withName(name: String): Option[NetworkType] = {
+    all.find(_.name == name)
   }
 
-  val hiking = NetworkType("rwn", "hiking", "w", Seq("hiking", "walking", "foot"))
-  val bicycle = NetworkType("rcn", "cycling", "c", Seq("bicycle"))
-  val horseRiding = NetworkType("rhn", "horse-riding", "h", Seq("horse"))
-  val canoe = NetworkType("rpn", "canoe", "p", Seq("canoe"))
-  val motorboat = NetworkType("rmn", "motorboat", "m", Seq("motorboat"))
-  val inlineSkates = NetworkType("rin", "inline-skating", "i", Seq("inline_skates"))
+  val hiking = NetworkType("hiking", "w", Seq("hiking", "walking", "foot"))
+  val bicycle = NetworkType("cycling", "c", Seq("bicycle"))
+  val horseRiding = NetworkType("horse-riding", "h", Seq("horse"))
+  val canoe = NetworkType("canoe", "p", Seq("canoe"))
+  val motorboat = NetworkType("motorboat", "m", Seq("motorboat"))
+  val inlineSkates = NetworkType("inline-skating", "i", Seq("inline_skates"))
 
   val all: Seq[NetworkType] = Seq(hiking, bicycle, horseRiding, canoe, motorboat, inlineSkates)
 }
 
-case class NetworkType(name: String, newName: String, letter: String, routeTagValues: Seq[String]) {
+case class NetworkType(name: String, letter: String, routeTagValues: Seq[String]) {
 
-  def nodeTagKey: String = name + "_ref"
+  override def toString: String = name
 
-  def expectedRouteRelationsTag: String = "expected_" + name + "_route_relations"
+  def scopedNetworkTypes: Seq[ScopedNetworkType] = ScopedNetworkType.all.filter(_.networkType == this)
 
-  override def toString: String = newName
 }

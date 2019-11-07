@@ -143,7 +143,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
 
   override def changesFilter(subsetOption: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
     val prefix = subsetOption match {
-      case Some(subset) => subset.country.domain + ":" + subset.networkType.newName + ":change-set"
+      case Some(subset) => subset.country.domain + ":" + subset.networkType.name + ":change-set"
       case None => "change-set"
     }
     changesFilter(Seq(prefix), year, month, day, stale)

@@ -239,7 +239,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable nodeId: Long,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[MapDetailNode] = {
-    val networkTypeValue = NetworkType.withNewName(networkType).get
+    val networkTypeValue = NetworkType.withName(networkType).get
     analysisFacade.mapDetailNode(Option.apply(user), networkTypeValue, nodeId)
   }
 
@@ -275,7 +275,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable sinkNodeId: String,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[RouteLeg] = {
-    analysisFacade.leg(Option.apply(user), NetworkType.withNewName(networkType).get, legId, sourceNodeId, sinkNodeId)
+    analysisFacade.leg(Option.apply(user), NetworkType.withName(networkType).get, legId, sourceNodeId, sinkNodeId)
   }
 
   @GetMapping(value = Array("/json-api/location/{networkType}"))
@@ -283,7 +283,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[LocationPage] = {
-    analysisFacade.location(Option.apply(user), NetworkType.withNewName(networkType).get)
+    analysisFacade.location(Option.apply(user), NetworkType.withName(networkType).get)
   }
 
 }

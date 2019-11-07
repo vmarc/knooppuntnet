@@ -1,6 +1,6 @@
 package kpn.server.analyzer.load.data
 
-import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.shared.Country
 import kpn.shared.NetworkType
 import kpn.shared.Subset
@@ -9,8 +9,8 @@ import kpn.shared.data.raw.RawNode
 
 object LoadedNode {
   def from(country: Option[Country], node: RawNode): LoadedNode = {
-    val networkTypes = NetworkType.all.filter(networkType => node.tags.has(networkType.nodeTagKey))
-    val name = NodeNameAnalyzer.name(node.tags)
+    val networkTypes = NodeAnalyzer.networkTypes(node.tags)
+    val name = NodeAnalyzer.name(node.tags)
     LoadedNode(country, networkTypes, name, Node(node))
   }
 }

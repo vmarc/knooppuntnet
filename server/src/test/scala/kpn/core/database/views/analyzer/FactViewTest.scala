@@ -5,7 +5,9 @@ import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
+import kpn.shared.NetworkScope
 import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Subset
 import kpn.shared.data.Tags
 import org.scalatest.FunSuite
@@ -101,10 +103,11 @@ class FactViewTest extends FunSuite with Matchers {
     withDatabase { database =>
 
       new TestDocBuilder(database) {
+        val scopedNetworkType = ScopedNetworkType(NetworkScope.regional, networkType)
         node(
           11,
           Country.nl,
-          tags = Tags.from(networkType.nodeTagKey -> "01"),
+          tags = Tags.from(scopedNetworkType.nodeTagKey -> "01"),
           orphan = true,
           facts = Seq(Fact.IntegrityCheck)
         )
@@ -112,7 +115,7 @@ class FactViewTest extends FunSuite with Matchers {
 
       FactView.query(database, stale = false) should equal(
         Seq(
-          FactViewKey("nl", networkType.newName, "IntegrityCheck", "OrphanNodes", 0)
+          FactViewKey("nl", networkType.name, "IntegrityCheck", "OrphanNodes", 0)
         )
       )
     }

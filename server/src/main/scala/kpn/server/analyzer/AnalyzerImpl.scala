@@ -21,8 +21,8 @@ class AnalyzerImpl(
   private val log = Log(classOf[AnalyzerImpl])
 
   def load(): Unit = {
-    statusRepository.analysisStatus1 match {
-      case None => log.error("Could not start: failed to read analysis status " + dirs.analysisStatus1)
+    statusRepository.analysisStatus2 match {
+      case None => log.error("Could not start: failed to read analysis status " + dirs.analysisStatus2)
       case Some(replicationId) =>
         analysisDatabaseIndexer.index()
         engine.load(replicationId)
@@ -30,7 +30,7 @@ class AnalyzerImpl(
   }
 
   def process(): Unit = {
-    statusRepository.analysisStatus1 match {
+    statusRepository.analysisStatus2 match {
       case None => log.error("Could not start: failed to read analysis status")
       case Some(replicationId) => processLoop(replicationId)
     }
@@ -45,7 +45,7 @@ class AnalyzerImpl(
     if (replicationId.number <= updaterReplicationId.number) {
       //      if (oper.isActive) {
       engine.process(replicationId)
-      statusRepository.writeAnalysisStatus1(replicationId)
+      statusRepository.writeAnalysisStatus2(replicationId)
       //if (oper.isActive) {
       processLoop(replicationId)
       //}

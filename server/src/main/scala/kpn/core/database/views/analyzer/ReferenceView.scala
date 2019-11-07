@@ -1,6 +1,7 @@
 package kpn.core.database.views.analyzer
 
 import kpn.core.database.Database
+import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
 import kpn.shared.NetworkType
@@ -42,20 +43,17 @@ object ReferenceView extends View {
       .stale(stale)
     val result = database.execute(query)
     result.rows.map { row =>
-      NetworkType.withNewName(row.value.head) match {
-        case None =>
-          throw new IllegalStateException("Invalid networkType")
-        case Some(networkType) =>
-          Row(
-            referencedType = row.key.head,
-            referencedId = row.key(1).toLong,
-            referrerType = row.key(2),
-            referrerId = row.key(3).toLong,
-            referrerNetworkType = networkType,
-            referrerName = row.value(1),
-            connection = row.value(2).toBoolean
-          )
-      }
+      val key = Fields(row.key)
+      val value = Fields(row.value)
+      Row(
+        referencedType = key.string(0),
+        referencedId = key.long(1),
+        referrerType = key.string(2),
+        referrerId = key.long(3),
+        referrerNetworkType = value.networkType(0),
+        referrerName = value.string(1),
+        connection = value.boolean(2)
+      )
     }
   }
 

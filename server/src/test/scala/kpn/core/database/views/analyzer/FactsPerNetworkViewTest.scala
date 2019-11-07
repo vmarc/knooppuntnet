@@ -4,7 +4,9 @@ import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
 import kpn.shared.Country
 import kpn.shared.Fact
+import kpn.shared.NetworkScope
 import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Subset
 import kpn.shared.common.Ref
 import kpn.shared.data.Tags
@@ -105,10 +107,11 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
     withDatabase { database =>
 
       new TestDocBuilder(database) {
+        val scopedNetworkType = ScopedNetworkType(NetworkScope.regional, networkType)
         node(
           1001,
           Country.nl,
-          tags = Tags.from(networkType.nodeTagKey -> "01", "network:type" -> "node_network"),
+          tags = Tags.from(scopedNetworkType.nodeTagKey -> "01", "network:type" -> "node_network"),
           orphan = true,
           facts = Seq(Fact.IntegrityCheck)
         )

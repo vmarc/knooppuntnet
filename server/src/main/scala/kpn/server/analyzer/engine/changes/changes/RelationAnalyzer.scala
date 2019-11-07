@@ -1,15 +1,23 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.Timestamp
 import kpn.shared.data.Way
 import kpn.shared.data._
+import kpn.shared.data.raw.RawRelation
+
+object RelationAnalyzer {
+  def networkType(relation: RawRelation): Option[NetworkType] = {
+    relation.tags("network").flatMap { tagValue =>
+      ScopedNetworkType.all.find(_.key == tagValue).map(_.networkType)
+    }
+  }
+}
 
 trait RelationAnalyzer {
 
   def routeName(relation: Relation): String
-
-  def networkType(relation: Relation): Option[NetworkType]
 
   def toElementIds(relation: Relation): ElementIds
 

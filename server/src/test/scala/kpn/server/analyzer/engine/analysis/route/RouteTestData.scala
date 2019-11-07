@@ -2,7 +2,9 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
+import kpn.shared.NetworkScope
 import kpn.shared.NetworkType
+import kpn.shared.ScopedNetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawData
@@ -21,7 +23,7 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
   def routeRelationId = 1L
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    val tags = if (name == "") Tags.empty else Tags.from(networkType.nodeTagKey -> name, "network:type" -> "node_network")
+    val tags = if (name == "") Tags.empty else Tags.from(ScopedNetworkType(NetworkScope.regional, networkType).nodeTagKey -> name, "network:type" -> "node_network")
     val n = newRawNode(id, lattitude.toString, longitude.toString, tags = tags)
     nodeBuffer += n
     n

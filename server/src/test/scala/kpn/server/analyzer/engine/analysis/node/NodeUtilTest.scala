@@ -11,19 +11,6 @@ class NodeUtilTest extends FunSuite with Matchers with SharedTestObjects {
 
   private val util = new NodeUtil(NetworkType.hiking)
 
-  test("name") {
-    util.name(node("01")) should equal("01")
-    util.name(node("1")) should equal("1")
-    util.name(node("A01")) should equal("A01")
-    util.name(node("")) should equal("")
-    util.name(newNode(1)) should equal("")
-  }
-
-  test("isNetworkNode") {
-    util.isNetworkNode(newNode(1)) should equal(false)
-    util.isNetworkNode(node("01")) should equal(true)
-  }
-
   test("sortNames") {
     // string sort when not all numeric
     util.sortNames(Seq("B", "C", "A")) should equal(Seq("A", "B", "C"))

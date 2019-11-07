@@ -14,7 +14,7 @@ object NetworkView extends View {
 
   def query(database: Database, subset: Subset, stale: Boolean = true): Seq[NetworkAttributes] = {
     val query = Query(AnalyzerDesign, NetworkView, classOf[ViewResult])
-      .keyStartsWith(subset.country.domain, subset.networkType.newName)
+      .keyStartsWith(subset.country.domain, subset.networkType.name)
       .reduce(false)
       .stale(stale)
     val result = database.execute(query)

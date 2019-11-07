@@ -5,20 +5,20 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.shared.NetworkType
+import kpn.shared.NetworkScope
 
-class NetworkTypeJsonDeserializer extends JsonDeserializer[NetworkType] {
-  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NetworkType = {
+class NetworkScopeJsonDeserializer extends JsonDeserializer[NetworkScope] {
+  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NetworkScope = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
     val name = node.asText
     if (name == null || name.isEmpty) {
       null
     }
     else {
-      NetworkType.withName(name).getOrElse(
+      NetworkScope.withName(name).getOrElse(
         throw JsonMappingException.from(
           jsonParser,
-          "Could not deserialize network type"
+          "Could not deserialize network scope"
         )
       )
     }

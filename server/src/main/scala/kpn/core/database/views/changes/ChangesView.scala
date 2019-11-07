@@ -36,9 +36,9 @@ object ChangesView extends View {
 
     val result = database.execute(query)
     result.rows.map { row =>
-      val keyFields = Fields(row.key)
+      val key = Fields(row.key)
       ChangesFilterPeriod(
-        name = keyFields.string(keys.size),
+        name = key.string(keys.size),
         totalCount = row.value.head,
         impactedCount = row.value(1)
       )

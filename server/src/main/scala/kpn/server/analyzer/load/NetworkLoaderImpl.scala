@@ -2,13 +2,13 @@ package kpn.server.analyzer.load
 
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.NetworkNameAnalyzer
-import kpn.shared.NetworkType
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.shared.Timestamp
 import kpn.shared.data.raw.RawData
 import kpn.shared.data.raw.RawRelation
@@ -70,7 +70,7 @@ class NetworkLoaderImpl(executor: OverpassQueryExecutor) extends NetworkLoader {
         )
       }
 
-      networkTypeIn(rawRelation) match {
+      RelationAnalyzer.networkType(rawRelation) match {
         case None =>
           log.error(s"Network type not found for network with id $networkId\n$xmlString")
           None
@@ -96,9 +96,6 @@ class NetworkLoaderImpl(executor: OverpassQueryExecutor) extends NetworkLoader {
       xmlOption
     }
 
-    private def networkTypeIn(relation: RawRelation): Option[NetworkType] = {
-      relation.tags("network").flatMap(NetworkType.withNewName)
-    }
   }
 
 }

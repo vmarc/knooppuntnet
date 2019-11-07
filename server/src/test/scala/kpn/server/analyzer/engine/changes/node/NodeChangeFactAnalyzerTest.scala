@@ -20,26 +20,27 @@ class NodeChangeFactAnalyzerTest extends FunSuite with Matchers with SharedTestO
     )
   }
 
-  test("LostHikingNodeTag") {
-    val analysisData = AnalysisData()
-    val before = newRawNode(tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network"))
-    val after = newRawNode()
+  test("lost node tag") {
 
-    val analyzer = new NodeChangeFactAnalyzer(analysisData)
-    analyzer.facts(before, after) should equal(
-      Seq(Fact.LostHikingNodeTag)
-    )
-  }
+    def doTestLostNodeTag(tagKey: String, expectedFact: Fact): Unit = {
+      val analysisData = AnalysisData()
+      val before = newRawNode(tags = Tags.from(tagKey -> "01", "network:type" -> "node_network"))
+      val after = newRawNode()
 
-  test("LostBicycleNodeTag") {
-    val analysisData = AnalysisData()
-    val before = newRawNode(tags = Tags.from("rcn_ref" -> "01", "network:type" -> "node_network"))
-    val after = newRawNode()
+      val analyzer = new NodeChangeFactAnalyzer(analysisData)
+      analyzer.facts(before, after) should equal(
+        Seq(expectedFact)
+      )
+    }
 
-    val analyzer = new NodeChangeFactAnalyzer(analysisData)
-    analyzer.facts(before, after) should equal(
-      Seq(Fact.LostBicycleNodeTag)
-    )
+    doTestLostNodeTag("rwn_ref", Fact.LostHikingNodeTag)
+    doTestLostNodeTag("lwn_ref", Fact.LostHikingNodeTag)
+    doTestLostNodeTag("iwn_ref", Fact.LostHikingNodeTag)
+    doTestLostNodeTag("rcn_ref", Fact.LostBicycleNodeTag)
+    doTestLostNodeTag("rhn_ref", Fact.LostHorseNodeTag)
+    doTestLostNodeTag("rmn_ref", Fact.LostMotorboatNodeTag)
+    doTestLostNodeTag("rpn_ref", Fact.LostCanoeNodeTag)
+    doTestLostNodeTag("rin_ref", Fact.LostInlineSkateNodeTag)
   }
 
   test("WasOrphan") {

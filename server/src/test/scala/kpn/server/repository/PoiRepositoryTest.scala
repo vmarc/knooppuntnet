@@ -30,8 +30,8 @@ class PoiRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
     }
   }
 
-  private def withRepository(f: (PoiRepository) => Unit): Unit = {
-    withDatabase(true) { database =>
+  private def withRepository(f: PoiRepository => Unit): Unit = {
+    withDatabase { database =>
       f(new PoiRepositoryImpl(database))
     }
   }

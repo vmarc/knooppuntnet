@@ -1,5 +1,6 @@
 package kpn.shared
 
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.shared.changes.Change
 import kpn.shared.changes.ChangeSet
 import kpn.shared.changes.details.ChangeKey
@@ -33,8 +34,6 @@ import kpn.shared.network.NetworkInfo
 import kpn.shared.network.NetworkInfoDetail
 import kpn.shared.network.NetworkNodeInfo2
 import kpn.shared.network.NetworkRouteInfo
-import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.name
-import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.names
 import kpn.shared.route.RouteInfo
 import kpn.shared.route.RouteInfoAnalysis
 import kpn.shared.route.RouteMap
@@ -256,8 +255,8 @@ trait SharedTestObjects {
       active,
       orphan,
       country,
-      name(tags),
-      names(tags),
+      NodeAnalyzer.name(tags),
+      NodeAnalyzer.names(tags),
       latitude,
       longitude,
       lastUpdated,

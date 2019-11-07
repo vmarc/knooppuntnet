@@ -115,7 +115,7 @@ class OverviewTest extends FunSuite with Matchers {
 
   test("orphan nodes") {
 
-    withDatabase(true) { database =>
+    withDatabase { database =>
 
       val b = new TestDocBuilder(database)
 

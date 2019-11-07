@@ -7,6 +7,7 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.core.database.doc.ChangeSetDatas
 import kpn.shared.Country
 import kpn.shared.Fact
+import kpn.shared.NetworkScope
 import kpn.shared.NetworkType
 import kpn.shared.Subset
 import kpn.shared.Timestamp
@@ -31,6 +32,9 @@ object Json {
 
     b.deserializerByType(classOf[NetworkType], new NetworkTypeJsonDeserializer())
     b.serializerByType(classOf[NetworkType], new NetworkTypeJsonSerializer())
+
+    b.deserializerByType(classOf[NetworkScope], new NetworkScopeJsonDeserializer())
+    b.serializerByType(classOf[NetworkScope], new NetworkScopeJsonSerializer())
 
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
     b.serializerByType(classOf[Subset], new SubsetJsonSerializer())

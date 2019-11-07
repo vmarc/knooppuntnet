@@ -25,8 +25,12 @@ class Fields(fields: Seq[String]) {
     fields(index).toDouble
   }
 
+  def boolean(index: Int): Boolean = {
+    fields(index).toBoolean
+  }
+
   def networkType(index: Int): NetworkType = {
-    NetworkType.withNewName(fields(index)).get
+    NetworkType.withName(fields(index)).get
   }
 
   def country(index: Int): Country = {

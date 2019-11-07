@@ -18,11 +18,12 @@ class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAn
   }
 
   private def hasIntegrityCheck: Boolean = {
-    networkNode.node.tags.has(networkType.expectedRouteRelationsTag)
+    networkType.scopedNetworkTypes.exists(n => networkNode.node.tags.has(n.expectedRouteRelationsTag))
   }
 
   private def expectedRouteRelationCount: Int = {
-    networkNode.node.tags(networkType.expectedRouteRelationsTag) match {
+    // picks the first scoped networkType when there is more than one --> this is not entirely correct
+    networkType.scopedNetworkTypes.flatMap(n => networkNode.node.tags(n.expectedRouteRelationsTag)).headOption match {
       case None => 0
       case Some(value) =>
         if (!value.forall(_.isDigit)) {

@@ -16,14 +16,6 @@ object NodeUtil {
 
 class NodeUtil(networkType: NetworkType) {
 
-  def name(node: Node): String = {
-    node.tags(networkType.nodeTagKey).getOrElse("")
-  }
-
-  def isNetworkNode(node: Node): Boolean = {
-    node.tags.has(networkType.nodeTagKey)
-  }
-
   def sortNames(nodeNames: Iterable[String]): Seq[String] = {
     if (nodeNames.exists(nodeName => !isDigits(nodeName))) {
       // string sort
@@ -45,7 +37,7 @@ class NodeUtil(networkType: NetworkType) {
     }
   }
 
-  def alternateNames(nodes: Seq[Node]): Map[Long /*nodeId*/, String /*alternateName*/] = {
+  def alternateNames(nodes: Seq[Node]): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
     if (nodes.size < 2) {
       Map()
     }
@@ -54,11 +46,16 @@ class NodeUtil(networkType: NetworkType) {
       if (nodes.size > suffixes.length) {
         throw new IllegalArgumentException(s"Number of nodes (${nodes.size}) exceeds the expected maximum number of nodes (${suffixes.length})")
       }
-      nodes.zip(suffixes).map { case(node, letter) =>
+      nodes.zip(suffixes).map { case (node, letter) =>
         node.id -> (name(node) + "." + letter)
       }.toMap
     }
   }
 
   private def isDigits(string: String): Boolean = string.nonEmpty && string.filterNot(_.isDigit).isEmpty
+
+  private def name(node: Node): String = {
+    NodeAnalyzer.name(networkType, node.tags)
+  }
+
 }

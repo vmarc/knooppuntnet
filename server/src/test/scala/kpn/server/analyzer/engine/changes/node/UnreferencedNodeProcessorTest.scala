@@ -3,10 +3,9 @@ package kpn.server.analyzer.engine.changes.node
 import kpn.core.TestObjects
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
@@ -14,7 +13,6 @@ import kpn.shared.Country
 import kpn.shared.Fact
 import kpn.shared.LatLon
 import kpn.shared.LatLonImpl
-import kpn.shared.NetworkType
 import kpn.shared.Subset
 import kpn.shared.Timestamp
 import kpn.shared.data.Node
@@ -244,11 +242,11 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
   }
 
   test("lost bicycle node tag") {
-    testNodeTagLost(NetworkType.bicycle.nodeTagKey, Subset.nlBicycle, Fact.LostBicycleNodeTag)
+    testNodeTagLost("rcn_ref", Subset.nlBicycle, Fact.LostBicycleNodeTag)
   }
 
   test("lost hiking node tag") {
-    testNodeTagLost(NetworkType.hiking.nodeTagKey, Subset.nlHiking, Fact.LostHikingNodeTag)
+    testNodeTagLost("rwn_ref", Subset.nlHiking, Fact.LostHikingNodeTag)
   }
 
   private def testNodeTagLost(nodeTagKey: String, subset: Subset, expectedFact: Fact): Unit = {

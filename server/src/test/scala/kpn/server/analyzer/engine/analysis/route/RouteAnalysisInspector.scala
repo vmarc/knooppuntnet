@@ -8,6 +8,8 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.shared.Fact
+import kpn.shared.NetworkScope
+import kpn.shared.ScopedNetworkType
 import kpn.shared.SharedTestObjects
 import kpn.shared.data.Tags
 import kpn.shared.data.raw.RawData
@@ -53,7 +55,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
   def analyze(d: RouteTestData): Unit = {
     val tags = Tags.from(
       "type" -> "route",
-      "network" -> d.networkType.name,
+      "network" -> ScopedNetworkType(NetworkScope.regional, d.networkType).key,
       "route" -> d.networkType.routeTagValues.head,
       "note" -> d.routeName
     ) ++ d.tags

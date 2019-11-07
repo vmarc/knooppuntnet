@@ -9,6 +9,7 @@ import kpn.core.database.implementation.DatabaseContext
 import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
@@ -26,7 +27,6 @@ import kpn.shared.changes.details.RouteChange
 import kpn.shared.common.Ref
 import kpn.shared.diff.common.FactDiffs
 import kpn.shared.diff.route.RouteDiff
-import kpn.shared.node.NodeNetworkTypeAnalyzer
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
@@ -147,7 +147,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
               network.nodes.foreach { node =>
 
-                val networkTypes: Seq[NetworkType] = NodeNetworkTypeAnalyzer.networkTypes(node.networkNode.tags)
+                val networkTypes: Seq[NetworkType] = NodeAnalyzer.networkTypes(node.networkNode.tags)
                 val subsets: Seq[Subset] = node.networkNode.country.toSeq.flatMap { c => networkTypes.flatMap(n => Subset.of(c, n)) }
                 val nodeChange = NodeChange(
                   key = context.buildChangeKey(node.id),

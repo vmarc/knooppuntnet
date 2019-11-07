@@ -1,16 +1,16 @@
 package kpn.core.tiles
 
-import org.locationtech.jts.geom.GeometryFactory
 import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TileNodes
 import kpn.core.tiles.domain.TileRoute
 import kpn.core.tiles.domain.TileRoutes
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.shared.NetworkType
 import kpn.shared.NodeInfo
 import kpn.shared.network.NetworkNodeInfo2
-import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer.name
 import kpn.shared.route.RouteInfo
+import org.locationtech.jts.geom.GeometryFactory
 
 class TilesBuilder(
   tileBuilder: TileBuilder,
@@ -30,7 +30,7 @@ class TilesBuilder(
     analysis: TileAnalysis
   ): Unit = {
 
-    val existingTileNames = tileRepository.existingTileNames(analysis.networkType.newName, z)
+    val existingTileNames = tileRepository.existingTileNames(analysis.networkType.name, z)
 
     log.info(s"Processing zoomlevel $z")
     log.info(s"Number of tiles before: " + existingTileNames.size)
@@ -83,11 +83,11 @@ class TilesBuilder(
 
       val tileBytes = tileBuilder.build(tileData)
       if (tileBytes.length > 0) {
-        tileRepository.saveOrUpdate(analysis.networkType.newName, tile, tileBytes)
+        tileRepository.saveOrUpdate(analysis.networkType.name, tile, tileBytes)
       }
     }
 
-    val afterTileNames = tileNames.map(tileName => analysis.networkType.newName + "-" + tileName)
+    val afterTileNames = tileNames.map(tileName => analysis.networkType.name + "-" + tileName)
 
     val obsoleteTileNames = (existingTileNames.toSet -- afterTileNames.toSet).toSeq.sorted
     log.info(s"Obsolete: " + obsoleteTileNames)
@@ -105,7 +105,7 @@ class TilesBuilder(
       val allNodes = nodes ++ orphanNodes.map { node =>
         NetworkNodeInfo2(
           node.id,
-          name = name(networkType, node.tags),
+          name = NodeAnalyzer.name(networkType, node.tags),
           number = "",
           latitude = node.latitude,
           longitude = node.longitude,

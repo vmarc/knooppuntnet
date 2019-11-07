@@ -2,6 +2,7 @@ package kpn.core.database.views.analyzer
 
 import kpn.core.app.stats.Figure
 import kpn.core.database.Database
+import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
 import kpn.shared.Subset
@@ -24,9 +25,10 @@ object Overview extends View {
     val factNames = result.rows.map(_.key.head).sorted.distinct
     factNames.map { factName =>
       val counts = result.rows.filter(_.key.head == factName).map { row =>
-        val countryDomain = row.key(1)
-        val networkTypeName = row.key(2)
-        val subset = Subset.of(countryDomain, networkTypeName).get
+        val key = Fields(row.key)
+        val countryDomain = key.string(1)
+        val networkTypeName = key.string(2)
+        val subset = Subset.ofNewName(countryDomain, networkTypeName).get
         val count = row.value
         subset -> count
       }.toMap

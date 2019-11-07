@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.NetworkType
 import kpn.shared.Timestamp
 import kpn.shared.data.Node
 import kpn.shared.data.NodeMember
@@ -16,10 +15,6 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
 
   override def routeName(relation: Relation): String = relation.tags("note").getOrElse("no-name")
 
-  override def networkType(relation: Relation): Option[NetworkType] = {
-    relation.tags("network").flatMap(NetworkType.withNewName)
-  }
-
   override def toElementIds(relation: Relation): ElementIds = {
     ElementIds(
       referencedNodes(relation).map(_.id),
@@ -29,7 +24,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
   }
 
   override def referencedNetworkNodes(relation: Relation): Set[Node] = {
-    networkType(relation) match {
+    RelationAnalyzer.networkType(relation.raw) match {
       case Some(networkType) =>
         referencedNodes(relation).filter(n => analysisContext.isNetworkNode(networkType, n.raw))
       case None => Set()
@@ -37,7 +32,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
   }
 
   override def referencedRoutes(relation: Relation): Set[Relation] = {
-    networkType(relation) match {
+    RelationAnalyzer.networkType(relation.raw) match {
       case None => Set()
       case Some(networkType) =>
         referencedRelations(relation).filter(r => analysisContext.isRouteRelation(networkType, r.raw))
@@ -45,7 +40,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
   }
 
   override def referencedNetworks(relation: Relation): Set[Relation] = {
-    networkType(relation) match {
+    RelationAnalyzer.networkType(relation.raw) match {
       case None => Set()
       case Some(networkType) =>
         referencedRelations(relation).filter(r => r.id != relation.id && analysisContext.isNetworkRelation(networkType, r.raw))
