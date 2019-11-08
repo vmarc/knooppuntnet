@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.node.ArrayNode
 import kpn.shared.data.Tags
+import org.apache.commons.text.StringEscapeUtils
 
 class TagsJsonDeserializer extends JsonDeserializer[Tags] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Tags = {
@@ -16,8 +17,8 @@ class TagsJsonDeserializer extends JsonDeserializer[Tags] {
         import scala.collection.JavaConverters._
         arrayNode.elements().asScala.map {
           case pairArrayNode: ArrayNode if pairArrayNode.size() == 2 =>
-            val key = pairArrayNode.get(0).textValue
-            val value = pairArrayNode.get(1).textValue
+            val key = StringEscapeUtils.unescapeJson(pairArrayNode.get(0).textValue)
+            val value = StringEscapeUtils.unescapeJson(pairArrayNode.get(1).textValue)
             key -> value
           case _ =>
             throw JsonMappingException.from(

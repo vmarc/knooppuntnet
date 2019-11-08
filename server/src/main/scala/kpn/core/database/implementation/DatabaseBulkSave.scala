@@ -51,12 +51,12 @@ class DatabaseBulkSave(context: DatabaseContext) {
       val saveResponse = context.objectMapper.readValue(s"""{"results": ${response.getBody}}""", classOf[SaveResponse])
 
       if (saveResponse.results.exists(!_.ok.contains(true))) {
-        log.error(s"Could not save documents\nrequest=$body\nresponse=${response.getBody}")
+        log.error(s"Could not save documents\nrequest=$url\nbody=$body\nresponse=${response.getBody}")
       }
     }
     catch {
       case e: HttpClientErrorException =>
-        throw new IllegalStateException(s"Could not save documents\nrequest=$body\nresponse=${e.getResponseBodyAsString}", e)
+        throw new IllegalStateException(s"Could not save documents\nrequest=$url\nbody=$body\nresponse=${e.getResponseBodyAsString}", e)
     }
   }
 }

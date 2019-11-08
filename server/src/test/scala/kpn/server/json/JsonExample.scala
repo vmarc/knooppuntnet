@@ -1,3 +1,3 @@
-package kpn.server.config
+package kpn.server.json
 
 case class JsonExample(name: String, age: Int)

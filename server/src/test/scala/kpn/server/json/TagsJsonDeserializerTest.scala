@@ -10,4 +10,10 @@ class TagsJsonDeserializerTest extends FunSuite with Matchers {
     val tags = Json.value("""[["key1","value1"],["key2","value2"],["key3","value3"]]""", classOf[Tags])
     tags should equal(Tags.from("key1" -> "value1", "key2" -> "value2", "key3" -> "value3"))
   }
+
+  test("keys and values are unescaped") {
+    val tags = Json.value("""[["a \"b\" c","d \"e\" f"]]""", classOf[Tags])
+    tags should equal(Tags.from("""a "b" c""" -> """d "e" f"""))
+  }
+
 }
