@@ -4,6 +4,7 @@ import {List} from "immutable";
 import {Country} from "./country";
 import {Fact} from "./fact";
 import {Location} from "./location";
+import {NodeName} from "./node-name";
 import {Tags} from "./data/tags";
 import {Timestamp} from "./timestamp";
 
@@ -14,12 +15,7 @@ export class NodeInfo {
               readonly orphan: boolean,
               readonly country: Country,
               readonly name: string,
-              readonly rcnName: string,
-              readonly rwnName: string,
-              readonly rhnName: string,
-              readonly rmnName: string,
-              readonly rpnName: string,
-              readonly rinName: string,
+              readonly names: List<NodeName>,
               readonly latitude: string,
               readonly longitude: string,
               readonly lastUpdated: Timestamp,
@@ -38,12 +34,7 @@ export class NodeInfo {
       jsonObject.orphan,
       Country.fromJSON(jsonObject.country),
       jsonObject.name,
-      jsonObject.rcnName,
-      jsonObject.rwnName,
-      jsonObject.rhnName,
-      jsonObject.rmnName,
-      jsonObject.rpnName,
-      jsonObject.rinName,
+      jsonObject.names ? List(jsonObject.names.map(json => NodeName.fromJSON(json))) : List(),
       jsonObject.latitude,
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),
