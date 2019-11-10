@@ -2,6 +2,7 @@ package kpn.api.common.route
 
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.ToStringBuilder
+import kpn.api.custom.RouteMemberInfo
 
 case class RouteInfoAnalysis(
   startNodes: Seq[RouteNetworkNodeInfo],
@@ -14,7 +15,7 @@ case class RouteInfoAnalysis(
   map: RouteMap,
   structureStrings: Seq[String],
   locationAnalysis: Option[RouteLocationAnalysis]
-){
+) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("startNodes", startNodes).

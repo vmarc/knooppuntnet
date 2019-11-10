@@ -1,13 +1,5 @@
 package kpn.api.common
 
-import kpn.api.custom.Change
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.ChangeType
@@ -42,8 +34,16 @@ import kpn.api.common.network.NetworkRouteInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
-import kpn.api.common.route.RouteMemberInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.Change
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.RouteMemberInfo
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 
 trait SharedTestObjects {
 

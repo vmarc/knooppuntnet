@@ -6,9 +6,9 @@ import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
-import kpn.api.common.route.RouteMemberInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
@@ -77,7 +77,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
 
     val members: Seq[RouteMemberInfo] = routeMembers.map { member =>
 
-      RouteMemberInfo(
+      kpn.api.custom.RouteMemberInfo(
         member.id,
         member.memberType,
         member.memberType == "way",

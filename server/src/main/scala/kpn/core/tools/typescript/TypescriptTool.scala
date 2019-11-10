@@ -16,25 +16,11 @@ object TypescriptTool {
 
 class TypescriptTool() {
 
-  val root = "/home/marcv/wrk/projects/knooppuntnet/server/src/main/scala/kpn/shared"
+  val root = "/home/marcv/wrk/projects/knooppuntnet/server/src/main/scala/kpn/api/common"
 
   val targetDir = "/home/marcv/wrk/projects/knooppuntnet/client/src/app"
 
   val ignoredClasses: Seq[String] = Seq(
-//    "ApiResponse",
-//    "Subset",
-//    "Country",
-//    "NetworkType",
-//    "NetworkScope",
-//    "Timestamp",
-//    "Fact",
-//    "FactLevel",
-//    "Tags",
-//    "Tag",
-//    "RouteMemberInfo", // Ignored because of reference to WayDirection
-//    "Statistics", // temporarily ignored because Map fromJSON does not work yet
-//    "Change", // problem with RawElement
-//    "Relation" // problem with Member
   )
 
   def generate(): Unit = {
@@ -63,7 +49,7 @@ class TypescriptTool() {
         None
       }
       else {
-        val className = file.getAbsolutePath.drop(root.length - "kpn/shared".length).dropRight(".scala".length).replace('/', '.')
+        val className = file.getAbsolutePath.drop(root.length - "kpn/api/common".length).dropRight(".scala".length).replace('/', '.')
         Some(className)
       }
     }

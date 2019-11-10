@@ -7,7 +7,6 @@ import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
-import kpn.api.common.route.RouteMemberInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteReferences
 import kpn.api.custom.Country
@@ -140,7 +139,7 @@ object RouteDetailsPageExample {
           ),
           members = Seq(
 
-            RouteMemberInfo(
+            kpn.api.custom.RouteMemberInfo(
               id = 1L,
               memberType = "node",
               isWay = false,
@@ -159,7 +158,7 @@ object RouteDetailsPageExample {
               oneWay = Both,
               oneWayTags = Tags.empty
             ),
-            RouteMemberInfo(
+            kpn.api.custom.RouteMemberInfo(
               id = 1L,
               memberType = "way",
               isWay = true,

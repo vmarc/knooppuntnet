@@ -1,12 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
@@ -30,8 +23,14 @@ import kpn.api.common.route.Both
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
-import kpn.api.common.route.RouteMemberInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestData2
 
 class NetworkUpdateRouteTest01 extends AbstractTest {
 
@@ -127,7 +126,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 Seq(),
                 Seq(),
                 Seq(
-                  RouteMemberInfo(
+                  kpn.api.custom.RouteMemberInfo(
                     101,
                     "way",
                     isWay = true,

@@ -22,7 +22,6 @@ import kpn.api.common.route.MapDetailRoute
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
-import kpn.api.common.statistics.Statistics
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactsPage
@@ -33,6 +32,7 @@ import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.core.app.stats.StatisticsBuilder
 import kpn.core.common.TimestampLocal

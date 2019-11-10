@@ -1,7 +1,7 @@
-package kpn.api.common.route
+package kpn.api.custom
 
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.WayDirection
 
 case class RouteMemberInfo(
   id: Long,
