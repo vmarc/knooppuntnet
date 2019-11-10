@@ -11,7 +11,7 @@ class SubsetJsonDeserializer extends JsonDeserializer[Subset] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Subset = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
     val names = node.asText.split(":")
-    Subset.ofNewName(names.head, names(1)).getOrElse(
+    Subset.ofName(names.head, names(1)).getOrElse(
       throw JsonMappingException.from(
         jsonParser,
         "Subset expected"

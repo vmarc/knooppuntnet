@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.api.common.ScopedNetworkType
 import kpn.api.common.data.Way
 import kpn.api.common.data._
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 
 object RelationAnalyzer {

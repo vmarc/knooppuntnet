@@ -28,7 +28,7 @@ object Overview extends View {
         val key = Fields(row.key)
         val countryDomain = key.string(1)
         val networkTypeName = key.string(2)
-        val subset = Subset.ofNewName(countryDomain, networkTypeName).get
+        val subset = Subset.ofName(countryDomain, networkTypeName).get
         val count = row.value
         subset -> count
       }.toMap

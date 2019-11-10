@@ -2,7 +2,7 @@ package kpn.core.tools.support
 
 import java.io.PrintWriter
 
-import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext

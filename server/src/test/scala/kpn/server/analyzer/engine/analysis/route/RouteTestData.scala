@@ -5,12 +5,12 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
-import kpn.api.common.ScopedNetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.ScopedNetworkType
 
 import scala.collection.mutable.ListBuffer
 

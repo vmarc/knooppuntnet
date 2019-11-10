@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {ScopedNetworkType} from "./scoped-network-type";
+import {ScopedNetworkType} from "../custom/scoped-network-type";
 
 export class NodeName {
 

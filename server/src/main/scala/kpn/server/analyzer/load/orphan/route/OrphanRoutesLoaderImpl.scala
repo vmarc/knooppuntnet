@@ -6,7 +6,7 @@ import akka.actor.Props
 import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
-import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.CouchIndexer

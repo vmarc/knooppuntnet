@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.node
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.common.NodeName
-import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.ScopedNetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

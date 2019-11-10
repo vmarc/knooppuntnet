@@ -14,13 +14,13 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
-import kpn.api.common.ScopedNetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
+import kpn.api.custom.ScopedNetworkType
 
 class OrphanNodeTest02 extends AbstractTest {
 

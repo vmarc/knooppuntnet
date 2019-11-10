@@ -1,7 +1,5 @@
-package kpn.api.common
+package kpn.api.custom
 
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

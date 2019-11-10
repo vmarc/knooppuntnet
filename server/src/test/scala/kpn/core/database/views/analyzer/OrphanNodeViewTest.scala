@@ -2,12 +2,12 @@ package kpn.core.database.views.analyzer
 
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
-import kpn.api.common.ScopedNetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

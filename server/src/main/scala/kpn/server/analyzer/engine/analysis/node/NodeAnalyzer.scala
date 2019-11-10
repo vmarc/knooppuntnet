@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeName
-import kpn.api.common.ScopedNetworkType
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 
 object NodeAnalyzer {

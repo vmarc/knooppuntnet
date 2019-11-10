@@ -1,8 +1,8 @@
 package kpn.server.analyzer.load
 
-import kpn.api.common.ScopedNetworkType
 import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawData
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser

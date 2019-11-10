@@ -1,6 +1,6 @@
 package kpn.server.analyzer.load
 
-import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNetworkIds

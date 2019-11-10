@@ -1,7 +1,4 @@
-package kpn.api.common
-
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
+package kpn.api.custom
 
 object ScopedNetworkType {
 

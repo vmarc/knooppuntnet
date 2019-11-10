@@ -56,7 +56,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[SubsetNetworksPage] = {
-    val subset = Subset.ofNewName(country, networkType)
+    val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetNetworks(Option.apply(user), subset.get)
   }
 
@@ -66,7 +66,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[SubsetFactsPage] = {
-    val subset = Subset.ofNewName(country, networkType)
+    val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetFacts(Option.apply(user), subset.get)
   }
 
@@ -77,7 +77,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable fact: String,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[SubsetFactDetailsPage] = {
-    val subset = Subset.ofNewName(country, networkType).get // TODO improve
+    val subset = Subset.ofName(country, networkType).get // TODO improve
     val f = Fact.withName(fact).get // TODO improve
     analysisFacade.subsetFactDetails(Option.apply(user), subset, f)
   }
@@ -88,7 +88,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[SubsetOrphanNodesPage] = {
-    val subset = Subset.ofNewName(country, networkType)
+    val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetOrphanNodes(Option.apply(user), subset.get)
   }
 
@@ -98,7 +98,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String,
     @CookieValue(name = "knooppuntnet-user") user: String
   ): ApiResponse[SubsetOrphanRoutesPage] = {
-    val subset = Subset.ofNewName(country, networkType)
+    val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetOrphanRoutes(Option.apply(user), subset.get)
   }
 
@@ -109,7 +109,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @CookieValue(name = "knooppuntnet-user") user: String,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[SubsetChangesPage] = {
-    val p = parameters.copy(subset = Subset.ofNewName(country, networkType))
+    val p = parameters.copy(subset = Subset.ofName(country, networkType))
     analysisFacade.subsetChanges(Option.apply(user), p)
   }
 

@@ -2,12 +2,12 @@ import {List} from "immutable";
 
 export class NetworkType {
 
-  static cycling = new NetworkType("rcn", "cycling");
-  static hiking = new NetworkType("rwn", "hiking");
-  static horseRiding = new NetworkType("rhn", "horse-riding");
-  static motorboat = new NetworkType("rmn", "motorboat");
-  static canoe = new NetworkType("rpn", "canoe");
-  static inlineSkating = new NetworkType("rin", "inline-skating");
+  static cycling = new NetworkType("rcn", "cycling", "c");
+  static hiking = new NetworkType("rwn", "hiking", "w");
+  static horseRiding = new NetworkType("rhn", "horse-riding", "h");
+  static motorboat = new NetworkType("rmn", "motorboat", "m");
+  static canoe = new NetworkType("rpn", "canoe", "p");
+  static inlineSkating = new NetworkType("rin", "inline-skating", "i");
 
   static all: List<NetworkType> = List([
     NetworkType.cycling,
@@ -19,7 +19,8 @@ export class NetworkType {
   ]);
 
   private constructor(readonly id: string,
-                      readonly name: string) {
+                      readonly name: string,
+                      readonly letter: string) {
   }
 
   public static fromJSON(jsonObject): NetworkType {

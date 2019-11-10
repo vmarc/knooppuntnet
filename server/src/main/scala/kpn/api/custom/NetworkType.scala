@@ -1,7 +1,5 @@
 package kpn.api.custom
 
-import kpn.api.common.ScopedNetworkType
-
 object NetworkType {
 
   def withName(name: String): Option[NetworkType] = {

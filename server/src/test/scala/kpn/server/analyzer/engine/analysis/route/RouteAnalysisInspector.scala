@@ -10,10 +10,10 @@ import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.api.common.ScopedNetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawRelation
+import kpn.api.custom.ScopedNetworkType
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.Assertions
 

@@ -3,7 +3,6 @@ package kpn.server.api.analysis.pages.node
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
-import kpn.api.common.ScopedNetworkType
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.filter.ChangesFilter
@@ -26,6 +25,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 

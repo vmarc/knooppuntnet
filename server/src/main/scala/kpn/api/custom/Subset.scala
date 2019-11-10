@@ -39,8 +39,8 @@ object Subset {
     nlInlineSkates
   )
 
-  def ofNewName(domain: String, networkTypeNewName: String): Option[Subset] = {
-    all.find(s => s.country.domain == domain && s.networkType.name == networkTypeNewName)
+  def ofName(domain: String, networkTypeName: String): Option[Subset] = {
+    all.find(s => s.country.domain == domain && s.networkType.name == networkTypeName)
   }
 
   def of(country: Country, networkType: NetworkType): Option[Subset] = {

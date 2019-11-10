@@ -1,6 +1,6 @@
 package kpn.core.tools
 
-import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch

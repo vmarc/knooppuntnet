@@ -1,6 +1,6 @@
 package kpn.server.analyzer.load.orphan.node
 
-import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.CouchIndexer

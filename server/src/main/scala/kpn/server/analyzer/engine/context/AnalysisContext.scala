@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.context
 
-import kpn.api.common.ScopedNetworkType
 import kpn.api.common.data.Element
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
@@ -10,6 +9,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 
