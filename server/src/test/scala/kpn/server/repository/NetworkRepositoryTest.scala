@@ -17,7 +17,7 @@ class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObject
       val repository = new NetworkRepositoryImpl(database)
       repository.network(1, Couch.uiTimeout) should equal(None)
 
-      val testNetwork = newNetwork(1, Some(Country.nl), NetworkType.bicycle, "name")
+      val testNetwork = newNetwork(1, Some(Country.nl), NetworkType.cycling, "name")
       repository.save(testNetwork)
       repository.network(1, Couch.uiTimeout) should equal(Some(testNetwork))
     }
@@ -26,9 +26,9 @@ class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObject
   test("save network - returns false if saving same network without change") {
     withDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
-      repository.save(newNetwork(1, Some(Country.nl), NetworkType.bicycle, "name")) should equal(true)
-      repository.save(newNetwork(1, Some(Country.nl), NetworkType.bicycle, "name")) should equal(false)
-      repository.save(newNetwork(1, Some(Country.nl), NetworkType.bicycle, "changed-name")) should equal(true)
+      repository.save(newNetwork(1, Some(Country.nl), NetworkType.cycling, "name")) should equal(true)
+      repository.save(newNetwork(1, Some(Country.nl), NetworkType.cycling, "name")) should equal(false)
+      repository.save(newNetwork(1, Some(Country.nl), NetworkType.cycling, "changed-name")) should equal(true)
     }
   }
 
@@ -59,15 +59,15 @@ class NetworkRepositoryTest extends FunSuite with Matchers with SharedTestObject
       val repository = new NetworkRepositoryImpl(database)
 
       // sorting order different from 'by network name'
-      repository.save(newNetwork(1, Some(Country.nl), NetworkType.bicycle, "nl-rcn-2"))
+      repository.save(newNetwork(1, Some(Country.nl), NetworkType.cycling, "nl-rcn-2"))
       repository.save(newNetwork(2, Some(Country.be), NetworkType.hiking, "be-rwn-2"))
       repository.save(newNetwork(3, Some(Country.be), NetworkType.hiking, "be-rwn-1"))
-      repository.save(newNetwork(4, Some(Country.nl), NetworkType.bicycle, "nl-rcn-1"))
+      repository.save(newNetwork(4, Some(Country.nl), NetworkType.cycling, "nl-rcn-1"))
 
       repository.networks(Subset.nlBicycle, Couch.uiTimeout, stale = false) should equal(
         Seq(
-          newNetworkAttributes(4, Some(Country.nl), NetworkType.bicycle, "nl-rcn-1"),
-          newNetworkAttributes(1, Some(Country.nl), NetworkType.bicycle, "nl-rcn-2")
+          newNetworkAttributes(4, Some(Country.nl), NetworkType.cycling, "nl-rcn-1"),
+          newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, "nl-rcn-2")
         )
       )
 

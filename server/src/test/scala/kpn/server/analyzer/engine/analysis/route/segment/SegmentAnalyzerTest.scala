@@ -234,7 +234,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
 
   test("start at roundabout - bicycle") {
 
-    val d = new RouteTestData("01-02", NetworkType.bicycle) {
+    val d = new RouteTestData("01-02", NetworkType.cycling) {
       node(2, "01")
       node(6, "02")
       memberWay(10, Tags.from("junction" -> "roundabout"), "", 1, 2, 3, 4, 1)
@@ -264,7 +264,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
 
   test("start at roundabout with forward and backward roles - this is an error situation") {
 
-    val d = new RouteTestData("01-02", NetworkType.bicycle) {
+    val d = new RouteTestData("01-02", NetworkType.cycling) {
       node(2, "01")
       node(13, "02")
       memberWay(10, Tags.from("junction" -> "roundabout"), "backward", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1)
@@ -474,7 +474,7 @@ class SegmentAnalyzerTest extends FunSuite with Matchers {
         "backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
     )
 
-    assertSegments(testData(NetworkType.bicycle),
+    assertSegments(testData(NetworkType.cycling),
       "forward=(01-02 via +<01- 10(2-3-4-5-6-7-8)>+<-02 11>)," + // follows roundabout direction
         "backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
     )

@@ -7,6 +7,6 @@ import org.scalatest.Matchers
 class NetworkTypeJsonSerializerTest extends FunSuite with Matchers {
 
   test("serializer") {
-    Json.string(NetworkType.bicycle) should equal(""""cycling"""")
+    Json.string(NetworkType.cycling) should equal(""""cycling"""")
   }
 }

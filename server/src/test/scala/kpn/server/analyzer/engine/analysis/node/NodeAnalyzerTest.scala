@@ -50,7 +50,7 @@ class NodeAnalyzerTest extends FunSuite with Matchers {
   test("name - for specific networkType") {
     val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
     NodeAnalyzer.name(NetworkType.hiking, tags) should equal("01")
-    NodeAnalyzer.name(NetworkType.bicycle, tags) should equal("02")
+    NodeAnalyzer.name(NetworkType.cycling, tags) should equal("02")
   }
 
   test("name - when there are multiple names for same NetworkType") {

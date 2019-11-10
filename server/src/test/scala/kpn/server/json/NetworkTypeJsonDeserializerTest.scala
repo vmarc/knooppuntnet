@@ -8,6 +8,6 @@ class NetworkTypeJsonDeserializerTest extends FunSuite with Matchers {
 
   test("deserializer") {
     val networkType = Json.value(""""cycling"""", classOf[NetworkType])
-    networkType should equal(NetworkType.bicycle)
+    networkType should equal(NetworkType.cycling)
   }
 }

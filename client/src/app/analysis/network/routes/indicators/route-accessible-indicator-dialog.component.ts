@@ -112,7 +112,7 @@ export class RouteAccessibleIndicatorDialogComponent {
   }
 
   private isNetworkType(networkType: NetworkType): boolean {
-    return networkType.id === this.data.networkType.id;
+    return networkType.name === this.data.networkType.name;
   }
 
 }

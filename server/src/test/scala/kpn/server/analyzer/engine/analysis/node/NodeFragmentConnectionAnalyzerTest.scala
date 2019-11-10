@@ -58,14 +58,14 @@ class NodeFragmentConnectionAnalyzerTest extends FunSuite with Matchers with Sha
   private def assertOneWay(way: Way): Unit = {
 
     // bicycle
-    assert(canConnect(way, NetworkType.bicycle, SegmentDirection.Both, node1, None))
-    assert(!canConnect(way, NetworkType.bicycle, SegmentDirection.Both, node3, None))
+    assert(canConnect(way, NetworkType.cycling, SegmentDirection.Both, node1, None))
+    assert(!canConnect(way, NetworkType.cycling, SegmentDirection.Both, node3, None))
 
-    assert(canConnect(way, NetworkType.bicycle, SegmentDirection.Forward, node1, None))
-    assert(!canConnect(way, NetworkType.bicycle, SegmentDirection.Forward, node3, None))
+    assert(canConnect(way, NetworkType.cycling, SegmentDirection.Forward, node1, None))
+    assert(!canConnect(way, NetworkType.cycling, SegmentDirection.Forward, node3, None))
 
-    assert(canConnect(way, NetworkType.bicycle, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
-    assert(!canConnect(way, NetworkType.bicycle, SegmentDirection.Backward, node3, None))
+    assert(canConnect(way, NetworkType.cycling, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
+    assert(!canConnect(way, NetworkType.cycling, SegmentDirection.Backward, node3, None))
 
     // oneWay does not have to be respected in hiking networks
     assert(canConnect(way, NetworkType.hiking, SegmentDirection.Both, node1, None))
@@ -83,14 +83,14 @@ class NodeFragmentConnectionAnalyzerTest extends FunSuite with Matchers with Sha
     val w = newWay(10, tags = Tags.from("oneway" -> "reverse"))
 
     // bicycle
-    assert(!canConnect(w, NetworkType.bicycle, SegmentDirection.Both, node1, None))
-    assert(canConnect(w, NetworkType.bicycle, SegmentDirection.Both, node3, None))
+    assert(!canConnect(w, NetworkType.cycling, SegmentDirection.Both, node1, None))
+    assert(canConnect(w, NetworkType.cycling, SegmentDirection.Both, node3, None))
 
-    assert(!canConnect(w, NetworkType.bicycle, SegmentDirection.Forward, node1, None))
-    assert(canConnect(w, NetworkType.bicycle, SegmentDirection.Forward, node3, None))
+    assert(!canConnect(w, NetworkType.cycling, SegmentDirection.Forward, node1, None))
+    assert(canConnect(w, NetworkType.cycling, SegmentDirection.Forward, node3, None))
 
-    assert(!canConnect(w, NetworkType.bicycle, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
-    assert(canConnect(w, NetworkType.bicycle, SegmentDirection.Backward, node3, None))
+    assert(!canConnect(w, NetworkType.cycling, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
+    assert(canConnect(w, NetworkType.cycling, SegmentDirection.Backward, node3, None))
 
     // oneWay reverse does not have to be respected in hiking networks
     assert(canConnect(w, NetworkType.hiking, SegmentDirection.Both, node1, None))

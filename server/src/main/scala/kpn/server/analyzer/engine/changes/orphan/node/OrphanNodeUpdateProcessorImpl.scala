@@ -25,11 +25,11 @@ class OrphanNodeUpdateProcessorImpl(
     val facts = {
       val lostNodeTagFacts = Seq(
         lostNodeTag(NetworkType.hiking, loadedNodeChange, Fact.LostHikingNodeTag),
-        lostNodeTag(NetworkType.bicycle, loadedNodeChange, Fact.LostBicycleNodeTag),
+        lostNodeTag(NetworkType.cycling, loadedNodeChange, Fact.LostBicycleNodeTag),
         lostNodeTag(NetworkType.horseRiding, loadedNodeChange, Fact.LostHorseNodeTag),
         lostNodeTag(NetworkType.motorboat, loadedNodeChange, Fact.LostMotorboatNodeTag),
         lostNodeTag(NetworkType.canoe, loadedNodeChange, Fact.LostCanoeNodeTag),
-        lostNodeTag(NetworkType.inlineSkates, loadedNodeChange, Fact.LostInlineSkateNodeTag)
+        lostNodeTag(NetworkType.inlineSkating, loadedNodeChange, Fact.LostInlineSkateNodeTag)
       ).flatten
 
       if (lostNodeTagFacts.nonEmpty) {

@@ -27,13 +27,13 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
         )
       )
 
-      LocationView.query(database, "node", NetworkType.bicycle, stale = false) should equal(
+      LocationView.query(database, "node", NetworkType.cycling, stale = false) should equal(
         Seq(
           Ref(1001, "01")
         )
       )
 
-      LocationView.query(database, "node", NetworkType.bicycle, Seq("country", "province"), stale = false) should equal(
+      LocationView.query(database, "node", NetworkType.cycling, Seq("country", "province"), stale = false) should equal(
         Seq(
           Ref(1001, "01")
         )

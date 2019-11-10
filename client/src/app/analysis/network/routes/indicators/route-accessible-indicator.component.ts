@@ -32,12 +32,12 @@ export class RouteAccessibleIndicatorComponent {
 
   get color() {
     let color = "gray";
-    if (NetworkType.horseRiding.id === this.networkType.id || NetworkType.inlineSkating.id === this.networkType.id) {
+    if (NetworkType.horseRiding.name === this.networkType.name || NetworkType.inlineSkating.name === this.networkType.name) {
       color = "gray";
-    } else if (NetworkType.cycling.id === this.networkType.id ||
-      NetworkType.hiking.id === this.networkType.id ||
-      NetworkType.motorboat.id === this.networkType.id ||
-      NetworkType.canoe.id === this.networkType.id) {
+    } else if (NetworkType.cycling.name === this.networkType.name ||
+      NetworkType.hiking.name === this.networkType.name ||
+      NetworkType.motorboat.name === this.networkType.name ||
+      NetworkType.canoe.name === this.networkType.name) {
       color = this.route.accessible ? "green" : "red";
     }
     return color;

@@ -11,11 +11,11 @@ class NodeChangeFactAnalyzer(analysisData: AnalysisData) {
   def facts(before: RawNode, after: RawNode): Seq[Fact] = {
     Seq(
       test(Fact.LostHikingNodeTag, hasLostNodeTag(NetworkType.hiking, before, after)),
-      test(Fact.LostBicycleNodeTag, hasLostNodeTag(NetworkType.bicycle, before, after)),
+      test(Fact.LostBicycleNodeTag, hasLostNodeTag(NetworkType.cycling, before, after)),
       test(Fact.LostHorseNodeTag, hasLostNodeTag(NetworkType.horseRiding, before, after)),
       test(Fact.LostMotorboatNodeTag, hasLostNodeTag(NetworkType.motorboat, before, after)),
       test(Fact.LostCanoeNodeTag, hasLostNodeTag(NetworkType.canoe, before, after)),
-      test(Fact.LostInlineSkateNodeTag, hasLostNodeTag(NetworkType.inlineSkates, before, after)),
+      test(Fact.LostInlineSkateNodeTag, hasLostNodeTag(NetworkType.inlineSkating, before, after)),
       test(Fact.WasOrphan, wasOrphan(before, after))
     ).flatten
   }

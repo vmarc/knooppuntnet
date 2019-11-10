@@ -7,7 +7,7 @@ object ScopedNetworkType {
 
   val rwn: ScopedNetworkType = ScopedNetworkType(NetworkScope.regional, NetworkType.hiking)
 
-  val rcn: ScopedNetworkType = ScopedNetworkType(NetworkScope.regional, NetworkType.bicycle)
+  val rcn: ScopedNetworkType = ScopedNetworkType(NetworkScope.regional, NetworkType.cycling)
 
   def apply(networkScope: NetworkScope, networkType: NetworkType): ScopedNetworkType = {
     val key = networkScope.letter + networkType.letter + "n"

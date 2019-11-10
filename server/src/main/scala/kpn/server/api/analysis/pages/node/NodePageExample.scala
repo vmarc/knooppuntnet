@@ -62,7 +62,7 @@ object NodePageExample {
       country = Some(Country.nl),
       name = "01 / 02",
       names = Seq(
-        NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.bicycle), "01"),
+        NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.cycling), "01"),
         NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "02")
       ),
       latitude = "51.5291600",
@@ -181,7 +181,7 @@ object NodePageExample {
         )
       ),
       routeReferences = Seq(
-        NodeOrphanRouteReference(NetworkType.bicycle, 1, "01-02"),
+        NodeOrphanRouteReference(NetworkType.cycling, 1, "01-02"),
         NodeOrphanRouteReference(NetworkType.hiking, 2, "01-03")
       )
     )

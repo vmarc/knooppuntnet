@@ -208,7 +208,7 @@ object RouteDetailsPageExample {
   private def routeReferences(): RouteReferences = {
     RouteReferences(
       networkReferences = Seq(
-        Reference(1, "network one", NetworkType.bicycle),
+        Reference(1, "network one", NetworkType.cycling),
         Reference(2, "network two", NetworkType.hiking, connection = true)
       )
     )

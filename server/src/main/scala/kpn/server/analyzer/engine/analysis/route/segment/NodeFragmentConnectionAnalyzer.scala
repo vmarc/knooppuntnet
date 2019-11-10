@@ -42,7 +42,7 @@ class NodeFragmentConnectionAnalyzer(networkType: NetworkType, direction: Segmen
     }
   }
 
-  private def isBicycle: Boolean = networkType == NetworkType.bicycle
+  private def isBicycle: Boolean = networkType == NetworkType.cycling
 
   private def isOneWay: Boolean = new OneWayAnalyzer(fragment.way).direction == Forward
 

@@ -94,12 +94,12 @@ class FactsPerNetworkViewTest extends FunSuite with Matchers {
   }
 
   test("orphan node") {
-    orphanNodeTest(NetworkType.bicycle)
+    orphanNodeTest(NetworkType.cycling)
     orphanNodeTest(NetworkType.hiking)
     orphanNodeTest(NetworkType.horseRiding)
     orphanNodeTest(NetworkType.motorboat)
     orphanNodeTest(NetworkType.canoe)
-    orphanNodeTest(NetworkType.inlineSkates)
+    orphanNodeTest(NetworkType.inlineSkating)
   }
 
   private def orphanNodeTest(networkType: NetworkType): Unit = {

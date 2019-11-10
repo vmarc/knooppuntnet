@@ -104,7 +104,7 @@ class TentacleAnalyzerTest extends FunSuite with Matchers with SharedTestObjects
     val allNodes: Set[Node] = Set(n1, n3, n5)
 
     val nodes: Seq[Node] = Seq(n1, n3, n5)
-    val segmentFinder: SegmentFinder = new SegmentFinder(NetworkType.bicycle, allRouteNodes, allNodes)
+    val segmentFinder: SegmentFinder = new SegmentFinder(NetworkType.cycling, allRouteNodes, allNodes)
 
     val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, b.fragments, nodes).findTentacles
 

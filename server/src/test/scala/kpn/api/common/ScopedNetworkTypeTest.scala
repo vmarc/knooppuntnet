@@ -14,10 +14,10 @@ class ScopedNetworkTypeTest extends FunSuite with Matchers {
         ScopedNetworkType(NetworkScope.regional, NetworkType.hiking, "rwn"),
         ScopedNetworkType(NetworkScope.national, NetworkType.hiking, "nwn"),
         ScopedNetworkType(NetworkScope.international, NetworkType.hiking, "iwn"),
-        ScopedNetworkType(NetworkScope.local, NetworkType.bicycle, "lcn"),
-        ScopedNetworkType(NetworkScope.regional, NetworkType.bicycle, "rcn"),
-        ScopedNetworkType(NetworkScope.national, NetworkType.bicycle, "ncn"),
-        ScopedNetworkType(NetworkScope.international, NetworkType.bicycle, "icn"),
+        ScopedNetworkType(NetworkScope.local, NetworkType.cycling, "lcn"),
+        ScopedNetworkType(NetworkScope.regional, NetworkType.cycling, "rcn"),
+        ScopedNetworkType(NetworkScope.national, NetworkType.cycling, "ncn"),
+        ScopedNetworkType(NetworkScope.international, NetworkType.cycling, "icn"),
         ScopedNetworkType(NetworkScope.local, NetworkType.horseRiding, "lhn"),
         ScopedNetworkType(NetworkScope.regional, NetworkType.horseRiding, "rhn"),
         ScopedNetworkType(NetworkScope.national, NetworkType.horseRiding, "nhn"),
@@ -30,10 +30,10 @@ class ScopedNetworkTypeTest extends FunSuite with Matchers {
         ScopedNetworkType(NetworkScope.regional, NetworkType.motorboat, "rmn"),
         ScopedNetworkType(NetworkScope.national, NetworkType.motorboat, "nmn"),
         ScopedNetworkType(NetworkScope.international, NetworkType.motorboat, "imn"),
-        ScopedNetworkType(NetworkScope.local, NetworkType.inlineSkates, "lin"),
-        ScopedNetworkType(NetworkScope.regional, NetworkType.inlineSkates, "rin"),
-        ScopedNetworkType(NetworkScope.national, NetworkType.inlineSkates, "nin"),
-        ScopedNetworkType(NetworkScope.international, NetworkType.inlineSkates, "iin")
+        ScopedNetworkType(NetworkScope.local, NetworkType.inlineSkating, "lin"),
+        ScopedNetworkType(NetworkScope.regional, NetworkType.inlineSkating, "rin"),
+        ScopedNetworkType(NetworkScope.national, NetworkType.inlineSkating, "nin"),
+        ScopedNetworkType(NetworkScope.international, NetworkType.inlineSkating, "iin")
       )
     )
   }
