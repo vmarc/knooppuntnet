@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.shared.data.Node
+import kpn.api.common.data.Node
 
 /**
   * A route fragment with an indication of the direction that the route travels through the fragment way.

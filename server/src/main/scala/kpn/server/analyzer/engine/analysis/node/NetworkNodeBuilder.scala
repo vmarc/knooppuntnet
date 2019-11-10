@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.common.data.Node
+import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNode
 import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.NetworkType
-import kpn.shared.data.Node
 
 class NetworkNodeBuilder(analysisContext: AnalysisContext, data: Data, networkType: NetworkType, countryAnalyzer: CountryAnalyzer) {
 

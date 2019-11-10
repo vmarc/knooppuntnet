@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.builder
 
+import kpn.api.common.common.Ref
 import kpn.core.analysis.Network
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.shared.common.Ref
 
 case class ChangeBuilderContext(
   changeSetContext: ChangeSetContext,

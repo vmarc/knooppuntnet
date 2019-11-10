@@ -1,8 +1,8 @@
 package kpn.core.analysis
 
-import kpn.shared.Fact
-import kpn.shared.NodeIntegrityCheck
-import kpn.shared.route.RouteInfo
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Fact
 
 case class NetworkNodeInfo(
   networkNode: NetworkNode,

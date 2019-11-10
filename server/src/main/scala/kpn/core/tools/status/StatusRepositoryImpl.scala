@@ -2,8 +2,8 @@ package kpn.core.tools.status
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
 import kpn.core.tools.config.Dirs
-import kpn.shared.ReplicationId
 import org.apache.commons.io.FileUtils
 
 class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {

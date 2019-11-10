@@ -1,6 +1,6 @@
 package kpn.core.app
 
-import kpn.shared.route.RouteInfo
+import kpn.api.common.route.RouteInfo
 
 class RouteRenderer(route: RouteInfo, language: String) {
 

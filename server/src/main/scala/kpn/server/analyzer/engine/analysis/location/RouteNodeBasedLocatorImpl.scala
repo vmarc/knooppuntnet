@@ -1,8 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.Location
-import kpn.shared.route.RouteInfo
-import org.springframework.stereotype.Component
+import kpn.api.common.Location
+import kpn.api.common.route.RouteInfo
 
 //@Component
 class RouteNodeBasedLocatorImpl extends RouteNodeBasedLocator {

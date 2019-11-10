@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages
 
-import kpn.shared.LocationPage
-import kpn.shared.NetworkType
+import kpn.api.common.LocationPage
+import kpn.api.custom.NetworkType
 
 trait LocationPageBuilder {
   def build(networkType: NetworkType): Option[LocationPage]

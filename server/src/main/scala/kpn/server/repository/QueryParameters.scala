@@ -2,8 +2,8 @@ package kpn.server.repository
 
 import java.time.LocalDate
 
-import kpn.shared.Subset
-import kpn.shared.changes.filter.ChangesParameters
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.custom.Subset
 
 object QueryParameters {
 

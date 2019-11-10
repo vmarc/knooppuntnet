@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages.route
 
-import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.route.RouteChangesPage
-import kpn.shared.route.RouteDetailsPage
-import kpn.shared.route.RouteMapPage
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.route.RouteChangesPage
+import kpn.api.common.route.RouteDetailsPage
+import kpn.api.common.route.RouteMapPage
 
 trait RoutePageBuilder {
 

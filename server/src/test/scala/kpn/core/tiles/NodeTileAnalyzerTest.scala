@@ -1,7 +1,7 @@
 package kpn.core.tiles
 
-import kpn.shared.LatLon
-import kpn.shared.LatLonImpl
+import kpn.api.common.LatLon
+import kpn.api.common.LatLonImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

@@ -1,8 +1,8 @@
 package kpn.server.repository
 
+import kpn.api.common.changes.ChangeSetInfo
 import kpn.core.database.Database
 import kpn.core.database.doc.ChangeSetInfoDoc
-import kpn.shared.changes.ChangeSetInfo
 import org.springframework.stereotype.Component
 
 object ChangeSetInfoRepositoryImpl {

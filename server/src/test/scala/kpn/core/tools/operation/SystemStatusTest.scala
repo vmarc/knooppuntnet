@@ -1,9 +1,9 @@
 package kpn.core.tools.operation
 
+import kpn.api.custom.Timestamp
 import kpn.core.replicate.ReplicationStateRepository
 import kpn.core.tools.status.StatusRepository
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
+import kpn.api.common.ReplicationId
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

@@ -1,11 +1,11 @@
 package kpn.core.analysis
 
-import kpn.shared.data.Element
-import kpn.shared.data.Node
-import kpn.shared.data.Way
+import kpn.api.common.data.Element
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
+import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
-import kpn.shared.route.RouteNetworkNodeInfo
 
 case class RouteMemberWay(
   name: String,

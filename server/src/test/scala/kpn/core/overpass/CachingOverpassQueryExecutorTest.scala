@@ -2,8 +2,8 @@ package kpn.core.overpass
 
 import java.io.File
 
+import kpn.api.custom.Timestamp
 import kpn.core.util.GZipFile
-import kpn.shared.Timestamp
 import org.apache.commons.io.FileUtils
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite

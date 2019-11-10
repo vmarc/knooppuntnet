@@ -1,13 +1,13 @@
 package kpn.core.history
 
+import kpn.api.common.common.Ref
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.network.NetworkNodeDiff
+import kpn.api.common.diff.network.NodeIntegrityCheckDiff
+import kpn.api.common.diff.network.NodeRouteReferenceDiffs
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.shared.NetworkType
-import kpn.shared.common.Ref
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.network.NetworkNodeDiff
-import kpn.shared.diff.network.NodeIntegrityCheckDiff
-import kpn.shared.diff.network.NodeRouteReferenceDiffs
-import kpn.shared.route.RouteInfo
 
 class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo, after: NetworkNodeInfo) {
 

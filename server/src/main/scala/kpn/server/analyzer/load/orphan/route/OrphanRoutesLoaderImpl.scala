@@ -6,14 +6,14 @@ import akka.actor.Props
 import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
+import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoaderImpl.LoadRoute
 import kpn.server.repository.BlackListRepository
 import kpn.server.repository.OrphanRepository
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
 import scala.concurrent.Await

@@ -1,12 +1,12 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.custom.Country
+import kpn.api.custom.Subset
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.shared.Country
-import kpn.shared.NetworkType.bicycle
-import kpn.shared.NetworkType.hiking
-import kpn.shared.SharedTestObjects
-import kpn.shared.Subset
+import kpn.api.custom.NetworkType.bicycle
+import kpn.api.custom.NetworkType.hiking
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

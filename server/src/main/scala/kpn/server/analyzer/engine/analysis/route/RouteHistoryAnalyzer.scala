@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.changes.ChangeSetInfo
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.route.RouteChangeInfo
+import kpn.api.common.route.RouteChangeInfos
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.builder.RouteChangeInfoBuilder
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeSetInfo
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.route.RouteChangeInfo
-import kpn.shared.route.RouteChangeInfos
 
 class RouteHistoryAnalyzer(routeChanges: Seq[RouteChange], changeSetInfos: Seq[ChangeSetInfo]) {
 

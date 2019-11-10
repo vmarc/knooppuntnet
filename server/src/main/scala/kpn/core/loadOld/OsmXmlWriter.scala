@@ -2,13 +2,13 @@ package kpn.core.loadOld
 
 import java.io.PrintWriter
 
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.Tag
+import kpn.api.custom.Tags
 import kpn.core.util.Xml
-import kpn.shared.data.Tag
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawMember
-import kpn.shared.data.raw.RawNode
-import kpn.shared.data.raw.RawRelation
-import kpn.shared.data.raw.RawWay
 
 class OsmXmlWriter(out: PrintWriter) {
 

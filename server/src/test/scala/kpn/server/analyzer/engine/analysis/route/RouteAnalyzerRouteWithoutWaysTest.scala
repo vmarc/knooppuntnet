@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.shared.Fact.RouteBroken
-import kpn.shared.Fact.RouteWithoutWays
-import kpn.shared.NetworkType
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteWithoutWays
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

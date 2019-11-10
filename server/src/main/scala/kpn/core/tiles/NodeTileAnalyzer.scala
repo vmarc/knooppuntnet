@@ -1,8 +1,8 @@
 package kpn.core.tiles
 
+import kpn.api.common.LatLon
 import kpn.core.tiles.domain.Tile
 import kpn.core.tiles.domain.TileCache
-import kpn.shared.LatLon
 
 class NodeTileAnalyzer(tileCache: TileCache) {
 

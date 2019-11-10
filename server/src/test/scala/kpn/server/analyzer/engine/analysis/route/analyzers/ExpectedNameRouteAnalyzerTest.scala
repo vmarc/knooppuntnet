@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -8,9 +10,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

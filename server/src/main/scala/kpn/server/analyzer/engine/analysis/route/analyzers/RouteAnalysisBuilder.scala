@@ -1,5 +1,15 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.RouteSummary
+import kpn.api.common.data.Element
+import kpn.api.common.data.Way
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteInfoAnalysis
+import kpn.api.common.route.RouteMap
+import kpn.api.common.route.RouteMemberInfo
+import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
@@ -8,16 +18,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.shared.Fact
-import kpn.shared.Fact.RouteBroken
-import kpn.shared.RouteSummary
-import kpn.shared.Timestamp
-import kpn.shared.data.Element
-import kpn.shared.data.Way
-import kpn.shared.route.RouteInfo
-import kpn.shared.route.RouteInfoAnalysis
-import kpn.shared.route.RouteMap
-import kpn.shared.route.RouteMemberInfo
 
 import scala.collection.mutable.ListBuffer
 

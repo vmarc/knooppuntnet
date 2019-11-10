@@ -1,7 +1,7 @@
 package kpn.core.history
 
+import kpn.api.common.data.Node
 import kpn.core.data.Data
-import kpn.shared.data.Node
 import kpn.core.util.Haversine
 
 class OsmDataDiffAnalyzer(before: Data, after: Data) {

@@ -1,5 +1,8 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
@@ -8,9 +11,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

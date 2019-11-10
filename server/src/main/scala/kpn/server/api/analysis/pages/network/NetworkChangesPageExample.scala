@@ -1,15 +1,15 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.shared.NetworkFacts
-import kpn.shared.changes.details.NetworkChangeInfo
-import kpn.shared.changes.filter.ChangesFilter
-import kpn.shared.data.Tags
-import kpn.shared.network.NetworkChangesPage
-import kpn.shared.network.NetworkInfo
-import kpn.shared.network.NetworkInfoDetail
-import kpn.shared.network.NetworkNodeInfo2
-import kpn.shared.network.NetworkRouteInfo
-import kpn.shared.network.NetworkShape
+import kpn.api.common.NetworkFacts
+import kpn.api.common.changes.details.NetworkChangeInfo
+import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.network.NetworkChangesPage
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.network.NetworkInfoDetail
+import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.network.NetworkRouteInfo
+import kpn.api.common.network.NetworkShape
+import kpn.api.custom.Tags
 
 object NetworkChangesPageExample {
 

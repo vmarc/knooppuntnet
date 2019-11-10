@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.data.Way
+import kpn.api.custom.Fact.RouteOverlappingWays
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.shared.Fact.RouteOverlappingWays
-import kpn.shared.data.Way
 
 case class NodePair(
   nodeId1: Long, // smallest node id

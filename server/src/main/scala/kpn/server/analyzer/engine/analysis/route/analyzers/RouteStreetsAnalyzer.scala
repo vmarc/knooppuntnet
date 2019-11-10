@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.data.Way
 import kpn.core.analysis.RouteMemberWay
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.shared.data.Way
 
 object RouteStreetsAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {

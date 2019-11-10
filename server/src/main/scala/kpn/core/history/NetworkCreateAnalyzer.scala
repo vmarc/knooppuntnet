@@ -1,11 +1,11 @@
 package kpn.core.history
 
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkNodeData
 import kpn.core.analysis.Network
 import kpn.server.analyzer.engine.changes.diff.NetworkDiff
 import kpn.server.analyzer.engine.changes.diff.NetworkNodeDiffs
 import kpn.server.analyzer.engine.changes.diff.RouteDiffs
-import kpn.shared.diff.IdDiffs
-import kpn.shared.diff.NetworkNodeData
 
 class NetworkCreateAnalyzer(network: Network) {
 

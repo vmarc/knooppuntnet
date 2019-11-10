@@ -1,15 +1,15 @@
 package kpn.core.database.views.changes
 
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.changes.filter.ChangesFilterPeriod
+import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.ChangeSetSummary
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.changes.filter.ChangesFilterPeriod
-import kpn.shared.changes.filter.ChangesParameters
 
 object ChangesView extends View {
 

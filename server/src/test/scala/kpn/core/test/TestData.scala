@@ -1,15 +1,15 @@
 package kpn.core.test
 
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
-import kpn.shared.SharedTestObjects
-import kpn.shared.Timestamp
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawData
-import kpn.shared.data.raw.RawMember
-import kpn.shared.data.raw.RawNode
-import kpn.shared.data.raw.RawRelation
-import kpn.shared.data.raw.RawWay
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.raw.RawWay
 
 import scala.collection.mutable.ListBuffer
 

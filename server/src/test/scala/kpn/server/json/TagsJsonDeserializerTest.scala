@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.shared.data.Tags
+import kpn.api.custom.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

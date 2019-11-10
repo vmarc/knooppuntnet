@@ -1,8 +1,8 @@
 package kpn.core.gpx
 
-import kpn.shared.common.TrackPoint
-import kpn.shared.data.Node
-import kpn.shared.data.Way
+import kpn.api.common.common.TrackPoint
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
 
 import scala.collection.mutable.ListBuffer
 

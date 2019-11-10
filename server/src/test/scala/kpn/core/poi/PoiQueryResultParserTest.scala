@@ -1,7 +1,7 @@
 package kpn.core.poi
 
-import kpn.shared.Poi
-import kpn.shared.data.Tags
+import kpn.api.custom.Tags
+import kpn.api.common.Poi
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

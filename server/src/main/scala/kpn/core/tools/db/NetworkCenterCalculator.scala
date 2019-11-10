@@ -1,8 +1,8 @@
 package kpn.core.tools.db
 
+import kpn.api.common.LatLon
+import kpn.api.common.LatLonImpl
 import kpn.core.analysis.Network
-import kpn.shared.LatLon
-import kpn.shared.LatLonImpl
 
 class NetworkCenterCalculator {
 

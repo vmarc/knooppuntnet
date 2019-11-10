@@ -1,5 +1,5 @@
 package kpn.server.analyzer.load
 
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
 
 case class NetworkInitialLoad(timestamp: Timestamp, networkId: Long)

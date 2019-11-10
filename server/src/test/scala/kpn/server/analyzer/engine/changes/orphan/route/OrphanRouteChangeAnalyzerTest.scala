@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
+import kpn.api.custom.Change
 import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.repository.MockBlackListRepository
 import kpn.core.test.TestData
-import kpn.shared.SharedTestObjects
-import kpn.shared.changes.Change
-import kpn.shared.changes.Change.modify
-import kpn.shared.data.raw.RawRelation
+import kpn.api.common.SharedTestObjects
+import kpn.api.custom.Change.modify
+import kpn.api.common.data.raw.RawRelation
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

@@ -1,8 +1,8 @@
 package kpn.core.josm
 
-import kpn.shared.data.Element
-import kpn.shared.data.Node
-import kpn.shared.data.Way
+import kpn.api.common.data.Element
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
 
 case class RelationMember(role: String, element: Element) {
 

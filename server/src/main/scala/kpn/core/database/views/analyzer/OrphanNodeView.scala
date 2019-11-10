@@ -1,10 +1,10 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.NodeInfo
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.NodeInfo
-import kpn.shared.Subset
 
 object OrphanNodeView extends View {
 

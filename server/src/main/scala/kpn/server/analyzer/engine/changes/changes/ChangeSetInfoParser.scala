@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.common.changes.ChangeSetInfo
+import kpn.api.custom.Tag
+import kpn.api.custom.Tags
 import kpn.core.common.TimestampUtil
-import kpn.shared.changes.ChangeSetInfo
-import kpn.shared.data.Tag
-import kpn.shared.data.Tags
 
 class ChangeSetInfoParser {
 

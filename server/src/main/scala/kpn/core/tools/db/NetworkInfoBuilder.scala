@@ -1,13 +1,13 @@
 package kpn.core.tools.db
 
+import kpn.api.common.common.Ref
+import kpn.api.common.network.Integrity
+import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.network.NetworkInfoDetail
+import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.network.NetworkRouteInfo
 import kpn.core.analysis.Network
-import kpn.shared.common.Ref
-import kpn.shared.network.Integrity
-import kpn.shared.network.NetworkAttributes
-import kpn.shared.network.NetworkInfo
-import kpn.shared.network.NetworkInfoDetail
-import kpn.shared.network.NetworkNodeInfo2
-import kpn.shared.network.NetworkRouteInfo
 
 class NetworkInfoBuilder {
 

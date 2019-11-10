@@ -2,10 +2,10 @@ package kpn.core.overpass
 
 import java.io.File
 
+import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
-import kpn.shared.Timestamp
 
 class CachingOverpassQueryExecutor(cacheRootDir: File, val executor: OverpassQueryExecutor) extends OverpassQueryExecutor {
 

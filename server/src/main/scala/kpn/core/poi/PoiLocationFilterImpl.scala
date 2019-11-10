@@ -1,8 +1,8 @@
 package kpn.core.poi
 
+import kpn.api.common.LatLon
+import kpn.api.custom.Country
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.shared.Country
-import kpn.shared.LatLon
 
 class PoiLocationFilterImpl(countryAnalyzer: CountryAnalyzer) extends PoiLocationFilter {
 

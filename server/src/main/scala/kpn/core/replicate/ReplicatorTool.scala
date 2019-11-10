@@ -2,12 +2,12 @@ package kpn.core.replicate
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.OsmChangeReader
-import kpn.shared.ReplicationId
 
 object ReplicatorTool {
 

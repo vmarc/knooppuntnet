@@ -1,5 +1,7 @@
 package kpn.core.tools
 
+import kpn.api.custom.Tag
+import kpn.api.custom.Timestamp
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
@@ -8,8 +10,6 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RouteLoaderImpl
-import kpn.shared.Timestamp
-import kpn.shared.data.Tag
 
 object SurfaceTagsTool {
   def main(args: Array[String]): Unit = {

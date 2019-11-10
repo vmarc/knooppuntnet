@@ -1,9 +1,9 @@
 package kpn.server.repository
 
+import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.planner.GraphEdgesView
 import kpn.core.planner.graph.GraphEdge
-import kpn.shared.NetworkType
 import org.springframework.stereotype.Component
 
 @Component

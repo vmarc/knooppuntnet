@@ -4,7 +4,6 @@ import javax.management.JMX
 import javax.management.ObjectName
 import javax.management.remote.JMXConnectorFactory
 import javax.management.remote.JMXServiceURL
-
 import kpn.core.replicate.OperMBean
 
 case class StopOptions(port: String = "")

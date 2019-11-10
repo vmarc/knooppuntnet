@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.network
 
+import kpn.api.custom.Change
 import kpn.server.repository.MockBlackListRepository
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.shared.SharedTestObjects
-import kpn.shared.changes.Change
-import kpn.shared.data.raw.RawRelation
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.raw.RawRelation
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

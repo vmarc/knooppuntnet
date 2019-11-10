@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.shared.data.Node
+import kpn.api.common.data.Node
 
 object Segment {
   def toNodeIds(segments: Seq[Segment]): Set[Seq[Long]] = segments.map(t => t.nodes.map(_.id)).toSet

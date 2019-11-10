@@ -1,12 +1,12 @@
 package kpn.server.analyzer.load
 
+import kpn.api.custom.Country
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.shared.Country
-import kpn.shared.Timestamp
-import kpn.shared.data.Member
-import kpn.shared.data.NodeMember
+import kpn.api.common.data.Member
+import kpn.api.common.data.NodeMember
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

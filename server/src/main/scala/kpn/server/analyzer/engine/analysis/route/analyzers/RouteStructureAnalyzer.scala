@@ -1,5 +1,17 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteAnalysisFailed
+import kpn.api.custom.Fact.RouteInvalidSortingOrder
+import kpn.api.custom.Fact.RouteNodeMissingInWays
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteNotContinious
+import kpn.api.custom.Fact.RouteNotForward
+import kpn.api.custom.Fact.RouteNotOneWay
+import kpn.api.custom.Fact.RouteOneWay
+import kpn.api.custom.Fact.RouteOverlappingWays
+import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSortingOrderAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
@@ -8,18 +20,6 @@ import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinderAbort
-import kpn.shared.Fact
-import kpn.shared.Fact.RouteAnalysisFailed
-import kpn.shared.Fact.RouteInvalidSortingOrder
-import kpn.shared.Fact.RouteNodeMissingInWays
-import kpn.shared.Fact.RouteNotBackward
-import kpn.shared.Fact.RouteNotContinious
-import kpn.shared.Fact.RouteNotForward
-import kpn.shared.Fact.RouteNotOneWay
-import kpn.shared.Fact.RouteOneWay
-import kpn.shared.Fact.RouteOverlappingWays
-import kpn.shared.Fact.RouteUnusedSegments
-import kpn.shared.Fact.RouteWithoutWays
 
 import scala.collection.mutable.ListBuffer
 

@@ -1,5 +1,8 @@
 package kpn.server.analyzer.load
 
+import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -9,9 +12,6 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.shared.Timestamp
-import kpn.shared.data.raw.RawData
-import kpn.shared.data.raw.RawRelation
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
 

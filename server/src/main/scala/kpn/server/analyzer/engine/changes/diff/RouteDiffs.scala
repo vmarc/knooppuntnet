@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.diff
 
+import kpn.api.common.common.ReferencedElements
+import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.shared.Subset
-import kpn.shared.common.ReferencedElements
-import kpn.shared.diff.RefDiffs
 
 object RouteDiffs {
   def empty: RouteDiffs = RouteDiffs()

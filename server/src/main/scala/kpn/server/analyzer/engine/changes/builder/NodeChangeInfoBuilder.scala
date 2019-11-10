@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.builder
 
-import kpn.shared.changes.ChangeSetInfo
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.data.Tags
-import kpn.shared.node.NodeChangeInfo
+import kpn.api.common.changes.ChangeSetInfo
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.node.NodeChangeInfo
+import kpn.api.custom.Tags
 
 class NodeChangeInfoBuilder {
 

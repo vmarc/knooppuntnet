@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.DE
-import kpn.shared.EN
-import kpn.shared.FR
-import kpn.shared.NL
+import kpn.api.common.DE
+import kpn.api.common.EN
+import kpn.api.common.FR
+import kpn.api.common.NL
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

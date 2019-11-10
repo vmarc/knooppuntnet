@@ -1,7 +1,7 @@
 package kpn.core.app
 
+import kpn.api.common.NetworkIntegrityCheckFailed
 import kpn.core.util.Formatter.percentage
-import kpn.shared.NetworkIntegrityCheckFailed
 
 case class NetworkIntegrityInfo(networkId: Long, networkName: String, detail: NetworkIntegrityCheckFailed) {
   def checkCount: Int = detail.checks.size

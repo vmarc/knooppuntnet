@@ -1,18 +1,18 @@
 package kpn.core.history
 
+import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawWay
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayUpdate
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.diff.route.RouteNameDiff
+import kpn.api.common.diff.route.RouteNodeDiff
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.Fact
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.diff.RouteUpdate
-import kpn.core.util.Log
-import kpn.shared.Fact
-import kpn.shared.common.Ref
-import kpn.shared.data.raw.RawWay
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.WayUpdate
-import kpn.shared.diff.common.FactDiffs
-import kpn.shared.diff.route.RouteDiff
-import kpn.shared.diff.route.RouteNameDiff
-import kpn.shared.diff.route.RouteNodeDiff
-import kpn.shared.route.RouteNetworkNodeInfo
 
 /*
   Determines the route differences outside of the context of a network definition.

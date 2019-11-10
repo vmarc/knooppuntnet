@@ -3,7 +3,7 @@ package kpn.core.replicate
 import java.io.ByteArrayInputStream
 import java.util.zip.GZIPInputStream
 
-import kpn.shared.ReplicationId
+import kpn.api.common.ReplicationId
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod

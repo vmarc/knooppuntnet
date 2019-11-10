@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.shared.Subset
+import kpn.api.custom.Subset
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

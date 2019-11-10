@@ -1,6 +1,6 @@
 package kpn.core.poi.tags
 
-import kpn.shared.data.Tags
+import kpn.api.custom.Tags
 
 case class TagContains(tagKey: String, tagValues: String*) extends TagExpression {
 

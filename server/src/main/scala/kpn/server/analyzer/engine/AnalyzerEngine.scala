@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine
 
-import kpn.shared.ReplicationId
+import kpn.api.common.ReplicationId
 
 trait AnalyzerEngine {
 

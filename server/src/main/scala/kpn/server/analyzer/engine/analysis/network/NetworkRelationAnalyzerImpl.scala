@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.shared.Timestamp
-import kpn.shared.data.Relation
 import org.springframework.stereotype.Component
 
 @Component

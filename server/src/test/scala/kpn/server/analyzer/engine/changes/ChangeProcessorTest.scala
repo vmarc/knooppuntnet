@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.changes
 
+import kpn.api.common.ReplicationId
+import kpn.api.common.SharedTestObjects
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
-import kpn.shared.ReplicationId
-import kpn.shared.SharedTestObjects
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

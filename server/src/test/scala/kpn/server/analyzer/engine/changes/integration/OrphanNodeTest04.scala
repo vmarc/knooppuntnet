@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.test.TestData2
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NodeInfo
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeAction
-import kpn.shared.data.Tags
+import kpn.api.common.NodeInfo
+import kpn.api.common.changes.ChangeAction
 
 class OrphanNodeTest04 extends AbstractTest {
 

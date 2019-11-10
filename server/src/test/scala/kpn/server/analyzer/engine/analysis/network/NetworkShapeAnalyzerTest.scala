@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.custom.Relation
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Bounds
-import kpn.shared.data.Relation
-import kpn.shared.data.raw.RawMember
-import kpn.shared.network.NetworkShape
+import kpn.api.common.Bounds
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.network.NetworkShape
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

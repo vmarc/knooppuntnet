@@ -1,6 +1,18 @@
 package kpn.core.tools
 
 import akka.actor.ActorSystem
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSet
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.Ref
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
 import kpn.core.analysis.Network
 import kpn.core.app.ActorSystemConfig
 import kpn.core.common.TimestampUtil
@@ -15,18 +27,6 @@ import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.json.Json
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.ReplicationId
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeSet
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.common.Ref
-import kpn.shared.diff.common.FactDiffs
-import kpn.shared.diff.route.RouteDiff
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration

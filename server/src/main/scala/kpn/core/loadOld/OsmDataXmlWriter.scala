@@ -2,9 +2,7 @@ package kpn.core.loadOld
 
 import java.io.PrintWriter
 
-import kpn.core.data.Data
-import kpn.shared.data.Node
-import kpn.shared.data.raw.RawData
+import kpn.api.common.data.raw.RawData
 
 object OsmDataXmlWriter {
   def write(data: RawData, fileName: String): Unit = {

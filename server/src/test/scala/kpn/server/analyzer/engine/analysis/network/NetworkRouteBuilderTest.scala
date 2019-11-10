@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNode
 import kpn.core.data.DataBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
@@ -7,15 +8,14 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.shared.Fact._
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawData
-import kpn.shared.data.raw.RawMember
-import kpn.shared.data.raw.RawNode
-import kpn.shared.data.raw.RawRelation
-import kpn.shared.data.raw.RawWay
+import kpn.api.custom.Fact._
+import kpn.api.custom.Tags
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.raw.RawWay
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

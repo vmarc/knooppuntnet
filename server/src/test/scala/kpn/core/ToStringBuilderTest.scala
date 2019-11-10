@@ -1,6 +1,6 @@
 package kpn.core
 
-import kpn.shared.common.ToStringBuilder
+import kpn.api.common.common.ToStringBuilder
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

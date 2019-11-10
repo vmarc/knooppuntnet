@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.RouteLocationAnalysis
-import kpn.shared.route.RouteInfo
+import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.route.RouteInfo
 
 trait RouteLocator {
   def locate(route: RouteInfo): Option[RouteLocationAnalysis]

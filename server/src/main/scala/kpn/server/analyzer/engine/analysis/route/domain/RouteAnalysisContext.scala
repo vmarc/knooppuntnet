@@ -1,5 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
+import kpn.api.common.route.RouteMap
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.RouteMember
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
@@ -9,11 +14,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.Overlap
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.data.Node
-import kpn.shared.data.Way
-import kpn.shared.route.RouteMap
 
 case class RouteAnalysisContext(
   analysisContext: AnalysisContext,

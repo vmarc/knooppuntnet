@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.shared.NetworkType
+import kpn.api.custom.NetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

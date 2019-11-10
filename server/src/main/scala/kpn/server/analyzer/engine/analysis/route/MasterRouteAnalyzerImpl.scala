@@ -1,8 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.route.Both
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.WayDirection
+import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
@@ -24,13 +29,8 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedNodeRouteAn
 import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.data.Tags
-import kpn.shared.route.Both
-import kpn.shared.route.RouteNetworkNodeInfo
-import kpn.shared.route.WayDirection
+import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec

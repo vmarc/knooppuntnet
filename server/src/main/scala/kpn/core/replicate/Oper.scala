@@ -2,8 +2,8 @@ package kpn.core.replicate
 
 import java.lang.management.ManagementFactory
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.management.ObjectName
 
+import javax.management.ObjectName
 import kpn.core.util.Log
 
 class Oper() extends OperMBean {

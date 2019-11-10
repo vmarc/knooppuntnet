@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.shared.Timestamp
-import kpn.shared.changes.Change
+import kpn.api.custom.Change
+import kpn.api.custom.Timestamp
 
 /**
  * Corresponds to the contents of a minute diff file.

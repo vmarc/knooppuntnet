@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.location
 
 import java.io.File
 
-import kpn.shared.Country
+import kpn.api.custom.Country
 
 object LocationConfigurationDefinition {
 

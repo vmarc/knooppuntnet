@@ -1,5 +1,15 @@
 package kpn.server.analyzer.engine.changes.network.create
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RefChanges
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.Ref
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkNodeData
+import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Fact
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -9,16 +19,6 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.repository.AnalysisRepository
-import kpn.shared.Fact
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RefChanges
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.common.Ref
-import kpn.shared.diff.IdDiffs
-import kpn.shared.diff.NetworkNodeData
-import kpn.shared.diff.RefDiffs
 import org.springframework.stereotype.Component
 
 @Component

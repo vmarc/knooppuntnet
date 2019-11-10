@@ -1,22 +1,22 @@
 package kpn.server.analyzer.engine.changes.builder
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.Fact
 import kpn.core.analysis.Network
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.core.history.RouteDiffAnalyzer
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
-import kpn.core.history.RouteDiffAnalyzer
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RouteLoader
 import kpn.server.repository.AnalysisRepository
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Fact
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.diff.route.RouteDiff
 import org.springframework.stereotype.Component
 
 @Component

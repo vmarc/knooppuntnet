@@ -1,6 +1,6 @@
 package kpn.core.tools.country
 
-import kpn.shared.data.raw.RawMember
+import kpn.api.common.data.raw.RawMember
 
 class SkeletonParser {
 

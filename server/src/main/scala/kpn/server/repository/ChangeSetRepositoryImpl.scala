@@ -1,26 +1,26 @@
 package kpn.server.repository
 
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.ChangeSetSummaryDoc
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSetData
+import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkChangeDoc
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.NodeChangeDoc
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.changes.details.RouteChangeDoc
+import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.changes.filter.ChangesFilterPeriod
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.doc.ChangeSetDatas
 import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.db.couch.ViewResult2
 import kpn.core.util.Log
-import kpn.shared.ChangeSetSummary
-import kpn.shared.ChangeSetSummaryDoc
-import kpn.shared.ReplicationId
-import kpn.shared.Subset
-import kpn.shared.changes.ChangeSetData
-import kpn.shared.changes.details.ChangeKey
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NetworkChangeDoc
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.NodeChangeDoc
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.changes.details.RouteChangeDoc
-import kpn.shared.changes.filter.ChangesFilter
-import kpn.shared.changes.filter.ChangesFilterPeriod
-import kpn.shared.changes.filter.ChangesParameters
 import org.springframework.stereotype.Component
 
 @Component

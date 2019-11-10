@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network
 
-import kpn.shared.data.Relation
+import kpn.api.custom.Relation
 
 object NetworkNameAnalyzer {
   private val ignoredSubstrings = Seq(

@@ -1,6 +1,6 @@
 package kpn.core.overpass
 
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
 
 trait OverpassQueryExecutor {
 

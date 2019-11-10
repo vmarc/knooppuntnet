@@ -1,15 +1,15 @@
 package kpn.server.api.analysis.pages.route
 
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.route.RouteChangesPage
+import kpn.api.common.route.RouteDetailsPage
+import kpn.api.common.route.RouteMapPage
 import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.analysis.route.RouteHistoryAnalyzer
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.route.RouteChangesPage
-import kpn.shared.route.RouteDetailsPage
-import kpn.shared.route.RouteMapPage
 import org.springframework.stereotype.Component
 
 @Component

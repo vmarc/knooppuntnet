@@ -1,10 +1,10 @@
 package kpn.core.poi
 
+import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.core.poi.tags.HasTag
 import kpn.core.poi.tags.NotHasTag
 import kpn.core.poi.tags.NotTagContains
 import kpn.core.poi.tags.TagContains
-import kpn.shared.tiles.ClientPoiConfiguration
 
 object PoiConfiguration {
 

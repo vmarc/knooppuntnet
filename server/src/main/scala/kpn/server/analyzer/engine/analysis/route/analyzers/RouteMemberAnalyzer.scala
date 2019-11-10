@@ -1,16 +1,16 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.data.Member
+import kpn.api.common.data.NodeMember
+import kpn.api.common.data.WayMember
+import kpn.api.custom.Fact.RouteUnaccessible
 import kpn.core.analysis.LinkType
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
+import kpn.core.obsolete.OldLinkBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.core.obsolete.OldLinkBuilder
-import kpn.shared.Fact.RouteUnaccessible
-import kpn.shared.data.Member
-import kpn.shared.data.NodeMember
-import kpn.shared.data.WayMember
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {

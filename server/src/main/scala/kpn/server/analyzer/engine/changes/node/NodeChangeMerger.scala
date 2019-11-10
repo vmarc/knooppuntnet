@@ -1,16 +1,16 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RefBooleanChange
+import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.node.NodeMoved
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.core.util.Log
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RefBooleanChange
-import kpn.shared.common.Ref
-import kpn.shared.data.raw.RawNode
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.common.FactDiffs
-import kpn.shared.diff.node.NodeMoved
 
 class NodeChangeMerger(left: NodeChange, right: NodeChange) {
 

@@ -1,6 +1,7 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
+import kpn.api.common.ReplicationId
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.overpass.CachingOverpassQueryExecutor
@@ -26,7 +27,6 @@ import kpn.server.repository.FactRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.TaskRepositoryImpl
-import kpn.shared.ReplicationId
 
 object Configuration {
   def tempAnalysisSpeedUp: Boolean = true

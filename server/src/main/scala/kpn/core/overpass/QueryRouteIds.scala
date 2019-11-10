@@ -1,6 +1,6 @@
 package kpn.core.overpass
 
-import kpn.shared.ScopedNetworkType
+import kpn.api.common.ScopedNetworkType
 
 case class QueryRouteIds(scopedNetworkType: ScopedNetworkType) extends OverpassQuery {
 

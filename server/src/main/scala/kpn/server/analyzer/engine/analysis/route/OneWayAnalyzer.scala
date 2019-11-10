@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.shared.data.Tag
-import kpn.shared.data.Tags
-import kpn.shared.data.Way
-import kpn.shared.route.Backward
-import kpn.shared.route.Both
-import kpn.shared.route.Forward
-import kpn.shared.route.WayDirection
+import kpn.api.common.data.Way
+import kpn.api.common.route.Backward
+import kpn.api.common.route.Both
+import kpn.api.common.route.Forward
+import kpn.api.common.route.WayDirection
+import kpn.api.custom.Tag
+import kpn.api.custom.Tags
 
 object OneWayAnalyzer {
   def oneWayTags(way: Way): Tags = {

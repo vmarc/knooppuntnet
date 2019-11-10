@@ -1,14 +1,14 @@
 package kpn.server.repository
 
-import kpn.shared.ChangeSetSummary
-import kpn.shared.ReplicationId
-import kpn.shared.Subset
-import kpn.shared.changes.ChangeSetData
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.changes.filter.ChangesFilter
-import kpn.shared.changes.filter.ChangesParameters
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSetData
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.custom.Subset
 
 
 trait ChangeSetRepository {

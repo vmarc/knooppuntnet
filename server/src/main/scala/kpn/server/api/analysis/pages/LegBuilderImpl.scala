@@ -1,20 +1,20 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.common.TrackPath
+import kpn.api.common.common.TrackPathKey
+import kpn.api.common.planner.RouteLeg
+import kpn.api.common.planner.RouteLegFragment
+import kpn.api.common.planner.RouteLegNode
+import kpn.api.common.planner.RouteLegRoute
+import kpn.api.common.planner.RouteLegSegment
+import kpn.api.common.route.RouteMap
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
-import kpn.shared.NetworkType
-import kpn.shared.common.TrackPath
-import kpn.shared.common.TrackPathKey
-import kpn.shared.planner.RouteLeg
-import kpn.shared.planner.RouteLegFragment
-import kpn.shared.planner.RouteLegNode
-import kpn.shared.planner.RouteLegRoute
-import kpn.shared.planner.RouteLegSegment
-import kpn.shared.route.RouteMap
-import kpn.shared.route.RouteNetworkNodeInfo
 import org.springframework.stereotype.Component
 
 @Component

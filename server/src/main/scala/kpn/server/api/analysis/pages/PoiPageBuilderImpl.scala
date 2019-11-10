@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.PoiPage
+import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
 import kpn.server.repository.PoiRepository
-import kpn.shared.PoiPage
-import kpn.shared.data.Tags
 import org.springframework.stereotype.Component
 
 @Component

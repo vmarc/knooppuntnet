@@ -1,11 +1,11 @@
 package kpn.server.repository
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
-import kpn.shared.node.NodeNetworkReference
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.node.NodeNetworkReference
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

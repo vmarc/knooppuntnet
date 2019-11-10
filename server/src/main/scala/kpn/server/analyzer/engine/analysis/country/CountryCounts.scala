@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.country
 
-import kpn.shared.Country
+import kpn.api.custom.Country
 
 object CountryCounts {
   def apply(countries: Seq[Option[Country]]): CountryCounts = {

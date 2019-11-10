@@ -1,8 +1,8 @@
 package kpn.core.history
 
-import kpn.shared.data.Way
-import kpn.shared.diff.NodeUpdate
-import kpn.shared.diff.WayUpdate
+import kpn.api.common.data.Way
+import kpn.api.common.diff.NodeUpdate
+import kpn.api.common.diff.WayUpdate
 
 class WayDiffAnalyzer(wayBefore: Way, wayAfter: Way) {
 

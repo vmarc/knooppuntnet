@@ -1,25 +1,25 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetSubsetAnalysis
-import kpn.shared.ChangeSetSubsetElementRefs
-import kpn.shared.ChangeSetSummary
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.Subset
-import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawMember
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.route.RouteDiff
-import kpn.shared.route.RouteInfo
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.route.RouteInfo
 
 class OrphanRouteTest02 extends AbstractTest {
 

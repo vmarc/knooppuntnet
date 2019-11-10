@@ -1,17 +1,17 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.shared.NetworkType
-import kpn.shared.NodeIntegrityCheck
-import kpn.shared.SharedTestObjects
-import kpn.shared.common.Ref
-import kpn.shared.network.NetworkInfo
-import kpn.shared.node.NodeNetworkIntegrityCheck
-import kpn.shared.node.NodeNetworkReference
-import kpn.shared.node.NodeNetworkRouteReference
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.common.Ref
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.node.NodeNetworkIntegrityCheck
+import kpn.api.common.node.NodeNetworkReference
+import kpn.api.common.node.NodeNetworkRouteReference
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

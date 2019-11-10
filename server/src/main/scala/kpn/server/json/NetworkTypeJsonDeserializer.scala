@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.shared.NetworkType
+import kpn.api.custom.NetworkType
 
 class NetworkTypeJsonDeserializer extends JsonDeserializer[NetworkType] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NetworkType = {

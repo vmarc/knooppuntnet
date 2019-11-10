@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.country
 
-import kpn.shared.Bounds
-import kpn.shared.Country
+import kpn.api.common.Bounds
+import kpn.api.custom.Country
 
 object GlobalBoundsCalculator {
 

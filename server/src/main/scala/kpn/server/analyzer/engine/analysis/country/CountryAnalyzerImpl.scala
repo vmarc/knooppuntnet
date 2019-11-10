@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.country
 
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.api.common.LatLon
+import kpn.api.custom.Country
 import kpn.core.util.Log
-import kpn.shared.Country
-import kpn.shared.LatLon
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import org.springframework.stereotype.Component
 
 @Component

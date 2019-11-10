@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import akka.util.Timeout
-import kpn.shared.route.RouteInfo
-import kpn.shared.route.RouteReferences
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteReferences
 
 trait RouteRepository {
 

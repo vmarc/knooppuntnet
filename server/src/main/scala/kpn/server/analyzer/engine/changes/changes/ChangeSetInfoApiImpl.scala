@@ -3,8 +3,8 @@ package kpn.server.analyzer.engine.changes.changes
 import java.io.File
 import java.nio.charset.Charset
 
+import kpn.api.common.changes.ChangeSetInfo
 import kpn.core.util.Log
-import kpn.shared.changes.ChangeSetInfo
 import org.apache.commons.io.FileUtils
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders

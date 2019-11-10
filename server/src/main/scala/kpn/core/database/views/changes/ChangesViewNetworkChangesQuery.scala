@@ -1,10 +1,10 @@
 package kpn.core.database.views.changes
 
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.Database
 import kpn.core.database.query.Query
 import kpn.server.repository.QueryParameters
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.filter.ChangesParameters
 
 object ChangesViewNetworkChangesQuery {
 

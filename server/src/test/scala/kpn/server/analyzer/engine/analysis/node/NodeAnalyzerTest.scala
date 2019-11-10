@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.node
 
-import kpn.shared.NetworkType
-import kpn.shared.NodeName
-import kpn.shared.ScopedNetworkType
-import kpn.shared.data.Tags
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.common.NodeName
+import kpn.api.common.ScopedNetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

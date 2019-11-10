@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.shared.Fact
-import kpn.shared.SharedTestObjects
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.RouteChange
+import kpn.api.custom.Fact
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.RouteChange
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

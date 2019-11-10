@@ -1,18 +1,18 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
+import kpn.api.common.LatLonImpl
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.custom.Fact
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.server.repository.NodeInfoBuilder.fromRawNode
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Fact
-import kpn.shared.LatLonImpl
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.diff.common.FactDiffs
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,8 +1,8 @@
 package kpn.server.analyzer.load
 
+import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
 @Component

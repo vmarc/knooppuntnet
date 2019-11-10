@@ -1,5 +1,6 @@
 package kpn.core.tools.support
 
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
@@ -7,7 +8,6 @@ import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.Subset
 
 object RouteTool {
   def main(args: Array[String]): Unit = {

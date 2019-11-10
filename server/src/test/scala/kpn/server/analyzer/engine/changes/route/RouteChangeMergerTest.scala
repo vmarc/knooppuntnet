@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.shared.Country
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.Timestamp
-import kpn.shared.common.Ref
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawRelation
-import kpn.shared.diff.RouteData
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.diff.RouteData
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

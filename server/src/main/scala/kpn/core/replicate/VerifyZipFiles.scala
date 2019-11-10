@@ -2,8 +2,8 @@ package kpn.core.replicate
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
-import kpn.shared.ReplicationId
 
 object VerifyZipFiles {
   def main(args: Array[String]): Unit = {

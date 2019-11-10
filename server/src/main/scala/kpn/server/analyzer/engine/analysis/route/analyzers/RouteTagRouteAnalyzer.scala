@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.Fact.RouteTagInvalid
+import kpn.api.custom.Fact.RouteTagMissing
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.shared.Fact.RouteTagInvalid
-import kpn.shared.Fact.RouteTagMissing
 
 object RouteTagRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {

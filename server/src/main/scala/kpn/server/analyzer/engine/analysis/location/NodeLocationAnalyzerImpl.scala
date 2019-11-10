@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.Location
-import org.springframework.stereotype.Component
+import kpn.api.common.Location
 
 class NodeLocationAnalyzerImpl(configuration: LocationConfiguration) {
 

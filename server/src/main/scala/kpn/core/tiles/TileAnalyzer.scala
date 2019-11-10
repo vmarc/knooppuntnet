@@ -1,6 +1,6 @@
 package kpn.core.tiles
 
-import kpn.shared.NetworkType
+import kpn.api.custom.NetworkType
 
 trait TileAnalyzer {
 

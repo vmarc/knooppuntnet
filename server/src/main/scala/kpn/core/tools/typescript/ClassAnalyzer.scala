@@ -1,6 +1,6 @@
 package kpn.core.tools.typescript
 
-import kpn.shared.data.raw.RawNode
+import kpn.api.common.data.raw.RawNode
 
 import scala.reflect.runtime.universe._
 import scala.util.matching.Regex
@@ -9,7 +9,7 @@ object ClassAnalyzer {
 
   def main(args: Array[String]): Unit = {
     val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
-    val caseClass: Type = mirror.staticClass("kpn.shared.statistics.Statistics").typeSignature
+    val caseClass: Type = mirror.staticClass("kpn.api.shared.statistics.Statistics").typeSignature
     val classInfo = new ClassAnalyzer().analyze(caseClass)
     println(classInfo)
   }

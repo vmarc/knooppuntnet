@@ -1,9 +1,9 @@
 package kpn.server.repository
 
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeSetInfo
-import kpn.shared.data.Tags
+import kpn.api.common.changes.ChangeSetInfo
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

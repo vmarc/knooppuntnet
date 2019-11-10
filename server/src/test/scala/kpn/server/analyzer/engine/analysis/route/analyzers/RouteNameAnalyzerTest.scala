@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.shared.NetworkType
-import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

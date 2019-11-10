@@ -1,9 +1,9 @@
 package kpn.core.history
 
-import kpn.shared.data.Tagable
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
+import kpn.api.common.data.Tagable
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
 
 object NodeTagDiffAnalyzer {
   val mainTagKeys: Seq[String] = Seq(

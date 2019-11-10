@@ -1,5 +1,9 @@
 package kpn.core.history
 
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
@@ -9,17 +13,13 @@ import kpn.core.test.TestData
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.Timestamp
-import kpn.shared.data.Tags
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.common.FactDiffs
-import kpn.shared.diff.route.RouteDiff
-import kpn.shared.diff.route.RouteNameDiff
-import kpn.shared.diff.route.RouteRoleDiff
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.diff.route.RouteNameDiff
+import kpn.api.common.diff.route.RouteRoleDiff
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

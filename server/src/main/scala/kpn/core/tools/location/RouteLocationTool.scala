@@ -1,12 +1,12 @@
 package kpn.core.tools.location
 
+import kpn.api.common.route.RouteInfoAnalysis
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.RouteWayBasedLocatorImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.route.RouteInfoAnalysis
 
 /*
   Performs route location analysis for all routes in the database.

@@ -1,9 +1,9 @@
 package kpn.core.history
 
+import kpn.api.common.LatLonImpl
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.diff.node.NodeMoved
 import kpn.core.util.Haversine
-import kpn.shared.LatLonImpl
-import kpn.shared.data.raw.RawNode
-import kpn.shared.diff.node.NodeMoved
 
 class NodeMovedAnalyzer(before: RawNode, after: RawNode) {
   def analysis: Option[NodeMoved] = {

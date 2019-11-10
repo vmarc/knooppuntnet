@@ -1,16 +1,16 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkScope
-import kpn.shared.NetworkType
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Subset
-import kpn.shared.common.Ref
-import kpn.shared.data.Tags
-import kpn.shared.subset.NetworkFactRefs
+import kpn.api.common.ScopedNetworkType
+import kpn.api.common.common.Ref
+import kpn.api.common.subset.NetworkFactRefs
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

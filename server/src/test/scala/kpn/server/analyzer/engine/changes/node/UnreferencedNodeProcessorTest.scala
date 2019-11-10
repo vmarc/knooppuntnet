@@ -1,5 +1,10 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.TestObjects
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
@@ -9,15 +14,10 @@ import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.LatLon
-import kpn.shared.LatLonImpl
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.data.Node
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawNode
+import kpn.api.common.LatLon
+import kpn.api.common.LatLonImpl
+import kpn.api.common.data.Node
+import kpn.api.common.data.raw.RawNode
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

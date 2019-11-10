@@ -1,14 +1,14 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.network.NetworkChangesPage
+import kpn.api.common.network.NetworkInfo
 import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.network.NetworkChangesPage
-import kpn.shared.network.NetworkInfo
 import org.springframework.stereotype.Component
 
 @Component

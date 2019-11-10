@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
+import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
 
 import scala.io.Source
 

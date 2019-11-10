@@ -3,7 +3,7 @@ package kpn.core.common
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
 
 import scala.reflect.runtime.universe._
 

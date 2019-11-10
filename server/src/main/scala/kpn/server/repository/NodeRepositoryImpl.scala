@@ -1,6 +1,9 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.NodeInfo
+import kpn.api.common.node.NodeNetworkReference
+import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.core.database.Database
 import kpn.core.database.doc.NodeDoc
 import kpn.core.database.views.analyzer.NodeNetworkReferenceView
@@ -8,9 +11,6 @@ import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
 import kpn.core.util.Log
-import kpn.shared.NodeInfo
-import kpn.shared.node.NodeNetworkReference
-import kpn.shared.node.NodeOrphanRouteReference
 import org.springframework.stereotype.Component
 
 @Component

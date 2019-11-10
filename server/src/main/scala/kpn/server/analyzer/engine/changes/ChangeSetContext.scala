@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeSet
-import kpn.shared.changes.details.ChangeKey
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSet
+import kpn.api.common.changes.details.ChangeKey
+import kpn.api.custom.Timestamp
 
 case class ChangeSetContext(
   replicationId: ReplicationId,

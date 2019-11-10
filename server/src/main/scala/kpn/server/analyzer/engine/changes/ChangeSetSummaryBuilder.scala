@@ -1,23 +1,23 @@
 package kpn.server.analyzer.engine.changes
 
+import kpn.api.common.ChangeSetElementRef
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetNetwork
+import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NetworkChanges
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSet
+import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.Ref
+import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChange
 import kpn.server.analyzer.engine.changes.route.OrphanRouteChange
-import kpn.shared.ChangeSetElementRef
-import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetNetwork
-import kpn.shared.ChangeSetSubsetElementRefs
-import kpn.shared.ChangeSetSummary
-import kpn.shared.NetworkChanges
-import kpn.shared.ReplicationId
-import kpn.shared.Subset
-import kpn.shared.changes.ChangeSet
-import kpn.shared.changes.details.ChangeKey
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.common.Ref
 
 class ChangeSetSummaryBuilder() {
 

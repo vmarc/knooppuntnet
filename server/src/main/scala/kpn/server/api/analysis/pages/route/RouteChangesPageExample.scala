@@ -1,27 +1,27 @@
 package kpn.server.api.analysis.pages.route
 
-import kpn.shared.Bounds
-import kpn.shared.Fact
-import kpn.shared.Timestamp
-import kpn.shared.changes.details.ChangeKey
-import kpn.shared.changes.filter.ChangesFilter
-import kpn.shared.common.Ref
-import kpn.shared.data.MetaData
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawNode
-import kpn.shared.diff.NodeUpdate
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.WayInfo
-import kpn.shared.diff.WayUpdate
-import kpn.shared.diff.common.FactDiffs
-import kpn.shared.diff.route.RouteDiff
-import kpn.shared.diff.route.RouteNameDiff
-import kpn.shared.diff.route.RouteNodeDiff
-import kpn.shared.diff.route.RouteRoleDiff
-import kpn.shared.route.RouteChangeInfo
-import kpn.shared.route.RouteChangesPage
+import kpn.api.common.Bounds
+import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.common.Ref
+import kpn.api.common.data.MetaData
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.diff.NodeUpdate
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayInfo
+import kpn.api.common.diff.WayUpdate
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.diff.route.RouteNameDiff
+import kpn.api.common.diff.route.RouteNodeDiff
+import kpn.api.common.diff.route.RouteRoleDiff
+import kpn.api.common.route.RouteChangeInfo
+import kpn.api.common.route.RouteChangesPage
+import kpn.api.custom.Fact
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 
 object RouteChangesPageExample {
 

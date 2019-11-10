@@ -1,13 +1,13 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.common.Ref
+import kpn.api.common.subset.NetworkFactRefs
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.common.Ref
-import kpn.shared.subset.NetworkFactRefs
 
 import scala.annotation.tailrec
 

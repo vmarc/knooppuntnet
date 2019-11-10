@@ -1,23 +1,23 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRef
-import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetSubsetAnalysis
-import kpn.shared.ChangeSetSubsetElementRefs
-import kpn.shared.ChangeSetSummary
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NodeInfo
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.data.Tags
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
+import kpn.api.common.ChangeSetElementRef
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NodeInfo
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
 
 class OrphanNodeTest05 extends AbstractTest {
 

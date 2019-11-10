@@ -1,14 +1,14 @@
 package kpn.core.tiles
 
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.tiles.ZoomLevel
+import kpn.api.custom.Fact
 import kpn.core.tiles.domain.Line
 import kpn.core.tiles.domain.Point
 import kpn.core.tiles.domain.Tile
 import kpn.core.tiles.domain.TileRoute
 import kpn.core.tiles.domain.TileRouteSegment
 import kpn.core.util.Log
-import kpn.shared.Fact
-import kpn.shared.route.RouteInfo
-import kpn.shared.tiles.ZoomLevel
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString

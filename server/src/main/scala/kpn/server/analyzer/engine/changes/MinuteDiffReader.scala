@@ -2,9 +2,9 @@ package kpn.server.analyzer.engine.changes
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
-import kpn.shared.ReplicationId
 
 class MinuteDiffReader(replicationDir: File) {
 

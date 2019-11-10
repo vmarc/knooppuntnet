@@ -1,11 +1,12 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.shared.NetworkType
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
-import kpn.shared.data.Way
-import kpn.shared.data._
-import kpn.shared.data.raw.RawRelation
+import kpn.api.common.ScopedNetworkType
+import kpn.api.common.data.Way
+import kpn.api.common.data._
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 
 object RelationAnalyzer {
   def networkType(relation: RawRelation): Option[NetworkType] = {

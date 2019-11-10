@@ -6,10 +6,10 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
-import kpn.shared.ReplicationId
-import kpn.shared.SharedTestObjects
-import kpn.shared.changes.ChangeSet
-import kpn.shared.changes.details.ChangeType
+import kpn.api.common.ReplicationId
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeSet
+import kpn.api.common.changes.details.ChangeType
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

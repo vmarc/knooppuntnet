@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.common.changes.ChangeSet
+import kpn.api.custom.Change
+import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
-import kpn.shared.Timestamp
-import kpn.shared.changes.Change
-import kpn.shared.changes.ChangeSet
 
 object ChangeSetBuilder {
 

@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" monitorInterval="30">
-    <Appenders>
-        <RollingFile name="RollingFile" fileName="/kpn/logs/analyzer-1.log"
-                     filePattern="/kpn/logs/analyzer-1-%i.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %20.20t %x %logger{1} - %msg%n"/>
-            <Policies>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
-            </Policies>
-        </RollingFile>
-    </Appenders>
-    <Loggers>
-        <Root level="trace">
-            <AppenderRef ref="RollingFile"/>
-        </Root>
-        <Logger name="akka" level="info"/>
-        <Logger name="kpn" level="info"/>
+	<Appenders>
+		<RollingFile name="RollingFile" fileName="/kpn/logs/analyzer-1.log"
+					 filePattern="/kpn/logs/analyzer-1-%i.log.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %20.20t %x %logger{1} - %msg%n"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100 MB"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="RollingFile"/>
+		</Root>
+		<Logger name="akka" level="info"/>
+		<Logger name="kpn" level="info"/>
 
-        <Logger name="kpn.core.overpass.OverpassQueryExecutorImpl" level="debug"/>
+		<Logger name="kpn.core.overpass.OverpassQueryExecutorImpl" level="debug"/>
 
-        <Logger name="kpn.core.tools.AnalyzerTool" level="debug"/>
+		<Logger name="kpn.core.tools.AnalyzerTool" level="debug"/>
 
-        <Logger name="kpn.server.analyzer.engine.snapshots.node.NodeAnalysisUpdateWorkerImpl" level="debug"/>
-        <Logger name="kpn.server.analyzer.engine.snapshots.route.RouteAnalysisUpdateWorkerImpl" level="debug"/>
+		<Logger name="kpn.server.analyzer.engine.snapshots.node.NodeAnalysisUpdateWorkerImpl" level="debug"/>
+		<Logger name="kpn.server.analyzer.engine.snapshots.route.RouteAnalysisUpdateWorkerImpl" level="debug"/>
 
-        <Logger name="kpn.core.tools.changes.network.create.NetworkCreateProcessorWorkerImpl" level="debug"/>
-        <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateProcessorWorkerImpl" level="debug"/>
-        <Logger name="kpn.core.tools.changes.network.delete.NetworkDeleteProcessorWorkerImpl" level="debug"/>
-        <Logger name="kpn.shared.changes.details.NetworkUpdate.NetworkUpdateNetworkProcessorImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.network.create.NetworkCreateProcessorWorkerImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.network.update.NetworkUpdateProcessorWorkerImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.network.delete.NetworkDeleteProcessorWorkerImpl" level="debug"/>
+		<Logger name="kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessorImpl" level="debug"/>
 
-        <Logger name="kpn.server.analyzer.engine.NetworkShapeAnalyzer" level="debug"/>
+		<Logger name="kpn.server.analyzer.engine.NetworkShapeAnalyzer" level="debug"/>
 
-        <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanRouteProcessorImpl" level="debug"/>
-        <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanNodeProcessorImpl" level="debug"/>
-        <Logger name="kpn.server.repository.RouteRepositoryImpl" level="debug"/>
-        <Logger name="kpn.server.repository.NodeRepositoryImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanRouteProcessorImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanNodeProcessorImpl" level="debug"/>
+		<Logger name="kpn.server.repository.RouteRepositoryImpl" level="debug"/>
+		<Logger name="kpn.server.repository.NodeRepositoryImpl" level="debug"/>
 
-        <Logger name="kpn.server.analyzer.engine.RouteAnalysisUpdater" level="error"/>
+		<Logger name="kpn.server.analyzer.engine.RouteAnalysisUpdater" level="error"/>
 
-        <Logger name="kpn.core.tools.changes.network.NetworkChangeAnalyzerImpl" level="debug"/>
-        <Logger name="kpn.core.tools.changes.network.NetworkChangeProcessorImpl" level="debug"/>
-        <Logger name="kpn.core.tools.changes.orphan.route.OrphanRouteChangeProcessorImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.network.NetworkChangeAnalyzerImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.network.NetworkChangeProcessorImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.orphan.route.OrphanRouteChangeProcessorImpl" level="debug"/>
 
-        <Logger name="kpn.core.tools.changes.orphan.node.OrphanNodeChangeProcessorImpl" level="debug"/>
-        <Logger name="kpn.core.tools.changes.orphan.node.OrphanNodeChangeAnalyzerImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.orphan.node.OrphanNodeChangeProcessorImpl" level="debug"/>
+		<Logger name="kpn.core.tools.changes.orphan.node.OrphanNodeChangeAnalyzerImpl" level="debug"/>
 
-        <Logger name="kpn.server.repository.RouteRepository" level="debug"/>
+		<Logger name="kpn.server.repository.RouteRepository" level="debug"/>
 
-    </Loggers>
+	</Loggers>
 </Configuration>

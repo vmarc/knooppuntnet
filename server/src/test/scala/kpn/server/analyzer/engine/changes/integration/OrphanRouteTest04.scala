@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.core.test.TestData2
-import kpn.shared.SharedTestObjects
-import kpn.shared.changes.ChangeAction
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeAction
 
 class OrphanRouteTest04 extends AbstractTest with SharedTestObjects {
 

@@ -3,11 +3,11 @@ package kpn.server.analyzer.engine.analysis.location
 import java.io.File
 
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
-import kpn.shared.Location
-import kpn.shared.LocationCandidate
-import kpn.shared.RouteLocationAnalysis
-import kpn.shared.SharedTestObjects
-import kpn.shared.route.RouteInfo
+import kpn.api.common.Location
+import kpn.api.common.LocationCandidate
+import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.route.RouteInfo
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

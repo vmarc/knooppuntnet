@@ -6,9 +6,9 @@ import akka.actor.Props
 import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
-import kpn.server.analyzer.load.data.LoadedRoute
+import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.shared.Timestamp
+import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
 import scala.concurrent.Await

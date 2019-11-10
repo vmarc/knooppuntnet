@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
+import kpn.api.custom.Change
 import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.repository.MockBlackListRepository
-import kpn.shared.SharedTestObjects
-import kpn.shared.changes.Change
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

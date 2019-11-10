@@ -1,5 +1,6 @@
 package kpn.core.poi
 
+import kpn.api.common.Poi
 import kpn.core.db.couch.Couch
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.poi.tags.TagExpressionFormatter
@@ -9,7 +10,6 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
-import kpn.shared.Poi
 
 object PoiProcessorImpl {
 

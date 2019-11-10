@@ -1,10 +1,10 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkInfo
+import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
-import kpn.shared.Subset
-import kpn.shared.network.NetworkAttributes
-import kpn.shared.network.NetworkInfo
 
 trait NetworkRepository {
 

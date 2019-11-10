@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.network.NetworkRouteRow
+import kpn.api.common.network.NetworkRoutesPage
+import kpn.api.custom.NetworkType
 import kpn.server.api.analysis.pages.TimeInfoBuilder
-import kpn.shared.NetworkType
-import kpn.shared.network.NetworkRouteRow
-import kpn.shared.network.NetworkRoutesPage
 
 object NetworkRoutesPageExample {
 

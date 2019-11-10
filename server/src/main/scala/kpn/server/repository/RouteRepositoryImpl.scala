@@ -1,6 +1,8 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteReferences
 import kpn.core.database.Database
 import kpn.core.database.doc.RouteDoc
 import kpn.core.database.views.analyzer.ReferenceView
@@ -8,8 +10,6 @@ import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
 import kpn.core.db.couch.Couch
 import kpn.core.util.Log
-import kpn.shared.route.RouteInfo
-import kpn.shared.route.RouteReferences
 import org.springframework.stereotype.Component
 
 @Component

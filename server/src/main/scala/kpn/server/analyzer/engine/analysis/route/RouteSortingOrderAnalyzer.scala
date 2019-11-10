@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.data.Way
+import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
-import kpn.core.util.Util
-import kpn.shared.data.Way
 
 class RouteSortingOrderAnalyzer(fragments: Seq[Fragment], structure: RouteStructure) {
 

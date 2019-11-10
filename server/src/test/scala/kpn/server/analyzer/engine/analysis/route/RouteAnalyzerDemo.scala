@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RouteLoaderImpl
-import kpn.shared.Timestamp
 
 object RouteAnalyzerDemo {
   def main(args: Array[String]): Unit = {

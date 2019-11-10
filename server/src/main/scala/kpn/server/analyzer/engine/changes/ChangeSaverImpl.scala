@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.server.repository.ChangeSetRepository
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSet
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.shared.ReplicationId
-import kpn.shared.changes.ChangeSet
+import kpn.server.repository.ChangeSetRepository
 import org.springframework.stereotype.Component
 
 @Component

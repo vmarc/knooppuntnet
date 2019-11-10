@@ -2,8 +2,8 @@ package kpn.core.replicate
 
 import java.io.File
 
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
+import kpn.api.common.ReplicationId
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

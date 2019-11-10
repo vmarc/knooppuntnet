@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.Language
+import kpn.api.common.Language
 import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry
 

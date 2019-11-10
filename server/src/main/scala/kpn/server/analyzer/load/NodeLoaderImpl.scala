@@ -1,5 +1,9 @@
 package kpn.server.analyzer.load
 
+import kpn.api.common.ScopedNetworkType
+import kpn.api.common.data.Node
+import kpn.api.common.data.raw.RawData
+import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
@@ -7,10 +11,6 @@ import kpn.core.overpass.QueryNodes
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
-import kpn.shared.data.Node
-import kpn.shared.data.raw.RawData
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
 

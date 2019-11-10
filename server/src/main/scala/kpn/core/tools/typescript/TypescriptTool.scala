@@ -3,7 +3,7 @@ package kpn.core.tools.typescript
 import java.io.File
 import java.io.PrintStream
 
-import kpn.shared.data.raw.RawNode
+import kpn.api.common.data.raw.RawNode
 import org.apache.commons.io.FileUtils
 
 import scala.reflect.runtime.universe._
@@ -21,19 +21,20 @@ class TypescriptTool() {
   val targetDir = "/home/marcv/wrk/projects/knooppuntnet/client/src/app"
 
   val ignoredClasses: Seq[String] = Seq(
-    "ApiResponse",
-    "Subset",
-    "Country",
-    "NetworkType",
-    "Timestamp",
-    "Fact",
-    "FactLevel",
-    "Tags",
-    "Tag",
-    "RouteMemberInfo", // Ignored because of reference to WayDirection
-    "Statistics", // temporarily ignored because Map fromJSON does not work yet
-    "Change", // problem with RawElement
-    "Relation" // problem with Member
+//    "ApiResponse",
+//    "Subset",
+//    "Country",
+//    "NetworkType",
+//    "NetworkScope",
+//    "Timestamp",
+//    "Fact",
+//    "FactLevel",
+//    "Tags",
+//    "Tag",
+//    "RouteMemberInfo", // Ignored because of reference to WayDirection
+//    "Statistics", // temporarily ignored because Map fromJSON does not work yet
+//    "Change", // problem with RawElement
+//    "Relation" // problem with Member
   )
 
   def generate(): Unit = {

@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.analysis.country
 
 import java.io._
 
+import kpn.api.custom.Country
 import org.locationtech.jts.io.WKTReader
-import kpn.shared.Country
 
 object CountryBoundaryReader {
 

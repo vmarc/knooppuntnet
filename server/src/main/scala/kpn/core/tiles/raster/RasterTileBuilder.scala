@@ -7,13 +7,13 @@ import java.awt.Graphics2D
 import java.awt.RenderingHints
 import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
-import javax.imageio.ImageIO
 
+import javax.imageio.ImageIO
+import kpn.api.common.network.NetworkNodeInfo2
 import kpn.core.tiles.TileBuilder
 import kpn.core.tiles.TileData
 import kpn.core.tiles.domain.Tile
 import kpn.core.tiles.domain.TileRoute
-import kpn.shared.network.NetworkNodeInfo2
 
 class RasterTileBuilder extends TileBuilder {
 

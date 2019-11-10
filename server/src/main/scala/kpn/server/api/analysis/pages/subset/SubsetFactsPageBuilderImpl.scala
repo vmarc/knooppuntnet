@@ -1,12 +1,12 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.FactCount
+import kpn.api.common.subset.SubsetFactsPage
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.core.app.stats.Figure
 import kpn.core.db.couch.Couch
 import kpn.server.repository.OverviewRepository
-import kpn.shared.Fact
-import kpn.shared.FactCount
-import kpn.shared.Subset
-import kpn.shared.subset.SubsetFactsPage
 import org.springframework.stereotype.Component
 
 @Component

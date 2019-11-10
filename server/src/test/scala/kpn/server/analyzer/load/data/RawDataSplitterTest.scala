@@ -2,9 +2,9 @@ package kpn.server.analyzer.load.data
 
 import kpn.core.test.TestData
 import kpn.core.util.MockLog
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.raw.RawData
-import kpn.shared.data.raw.RawMember
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawMember
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

@@ -1,22 +1,22 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetSubsetAnalysis
-import kpn.shared.ChangeSetSubsetElementRefs
-import kpn.shared.ChangeSetSummary
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkScope
-import kpn.shared.NetworkType
-import kpn.shared.NodeInfo
-import kpn.shared.NodeName
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NodeInfo
+import kpn.api.common.NodeName
+import kpn.api.common.ScopedNetworkType
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
 
 class OrphanNodeTest01 extends AbstractTest {
 

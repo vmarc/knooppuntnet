@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
 import kpn.core.analysis.BreakPoint
 import kpn.core.util.Log
 import kpn.core.util.Triplet
-import kpn.shared.data.Node
-import kpn.shared.data.Way
 
 import scala.annotation.tailrec
 
@@ -49,7 +49,7 @@ class BreakPointAnalysis {
   @tailrec
   private def breakPoint(triplets: Seq[WayTriplet], candidateCommonNodes: Nodes): Option[BreakPoint] = {
 
-    if(triplets.isEmpty) {
+    if (triplets.isEmpty) {
       None
     }
     else {

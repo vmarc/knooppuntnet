@@ -1,17 +1,17 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
 import kpn.core.TestObjects
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.Subset
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.data.Node
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.data.Node
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

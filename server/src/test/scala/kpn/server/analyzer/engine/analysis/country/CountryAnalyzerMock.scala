@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.country
 
+import kpn.api.custom.Country
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.shared.Country
-import kpn.shared.LatLon
+import kpn.api.common.LatLon
 
 class CountryAnalyzerMock(relationAnalyzer: RelationAnalyzer) extends CountryAnalyzerAbstract(relationAnalyzer) {
 

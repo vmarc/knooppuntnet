@@ -1,6 +1,6 @@
 package kpn.core.poi.tags
 
-import kpn.shared.data.Tags
+import kpn.api.custom.Tags
 
 case class And(left: TagExpression, right: TagExpression) extends TagExpression {
 

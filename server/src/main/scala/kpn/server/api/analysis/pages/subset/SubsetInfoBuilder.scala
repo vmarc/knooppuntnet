@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.subset.SubsetInfo
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.core.app.stats.Figure
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.subset.SubsetInfo
 
 object SubsetInfoBuilder {
 

@@ -1,10 +1,10 @@
 package kpn.core.analysis
 
+import kpn.api.common.data.Node
+import kpn.api.common.data.Tagable
+import kpn.api.custom.Country
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
-import kpn.shared.data.Node
-import kpn.shared.data.Tagable
-import kpn.shared.Country
-import kpn.shared.data.Tags
 
 case class NetworkNode(node: Node, name: String, country: Option[Country]) extends Tagable {
 

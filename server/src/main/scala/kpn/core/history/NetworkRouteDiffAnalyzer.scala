@@ -1,19 +1,19 @@
 package kpn.core.history
 
+import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawWay
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayUpdate
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.diff.route.RouteNameDiff
+import kpn.api.common.diff.route.RouteNodeDiff
+import kpn.api.common.diff.route.RouteRoleDiff
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.Fact
 import kpn.core.analysis.NetworkMemberRoute
-import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 import kpn.core.util.Log
-import kpn.shared.Fact
-import kpn.shared.common.Ref
-import kpn.shared.data.raw.RawWay
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.WayUpdate
-import kpn.shared.diff.common.FactDiffs
-import kpn.shared.diff.route.RouteDiff
-import kpn.shared.diff.route.RouteNameDiff
-import kpn.shared.diff.route.RouteNodeDiff
-import kpn.shared.diff.route.RouteRoleDiff
-import kpn.shared.route.RouteNetworkNodeInfo
+import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 
 class NetworkRouteDiffAnalyzer(beforeSnapshot: NetworkSnapshot, afterSnapshot: NetworkSnapshot, routeId: Long) {
 

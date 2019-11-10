@@ -1,13 +1,13 @@
 package kpn.core.data
 
+import kpn.api.custom.Tags
 import kpn.core.util.Log
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawData
-import kpn.shared.data.raw.RawMember
-import kpn.shared.data.raw.RawNode
-import kpn.shared.data.raw.RawRelation
-import kpn.shared.data.raw.RawWay
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.raw.RawWay
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

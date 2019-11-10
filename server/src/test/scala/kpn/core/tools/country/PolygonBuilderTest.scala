@@ -1,11 +1,10 @@
 package kpn.core.tools.country
 
+import kpn.api.custom.Country
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-
-import kpn.shared.data.raw.RawMember
+import kpn.api.common.data.raw.RawMember
 import org.locationtech.jts.geom.Coordinate
-import kpn.shared.Country
 
 class PolygonBuilderTest extends FunSuite with Matchers {
 

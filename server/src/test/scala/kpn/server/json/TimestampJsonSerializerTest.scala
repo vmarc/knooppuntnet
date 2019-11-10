@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

@@ -1,20 +1,20 @@
 package kpn.server.repository
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.Fact.RouteNodeMissingInWays
-import kpn.shared.Fact.RouteRedundantNodes
-import kpn.shared.Fact.RouteUnusedSegments
-import kpn.shared.NetworkFacts
-import kpn.shared.NetworkIntegrityCheckFailed
-import kpn.shared.NetworkType
-import kpn.shared.NodeIntegrityCheck
-import kpn.shared.SharedTestObjects
-import kpn.shared.Subset
-import kpn.shared.common.Ref
-import kpn.shared.subset.NetworkFactRefs
+import kpn.api.custom.Fact.RouteNodeMissingInWays
+import kpn.api.custom.Fact.RouteRedundantNodes
+import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.common.NetworkFacts
+import kpn.api.common.NetworkIntegrityCheckFailed
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.common.Ref
+import kpn.api.common.subset.NetworkFactRefs
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

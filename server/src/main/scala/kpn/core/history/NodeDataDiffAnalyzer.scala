@@ -1,9 +1,9 @@
 package kpn.core.history
 
-import kpn.shared.diff.NodeData
-import kpn.shared.diff.NodeDataUpdate
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.node.NodeMoved
+import kpn.api.common.diff.NodeData
+import kpn.api.common.diff.NodeDataUpdate
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.node.NodeMoved
 
 class NodeDataDiffAnalyzer(before: NodeData, after: NodeData) {
 

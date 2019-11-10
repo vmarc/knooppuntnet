@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis
 
+import kpn.core.util.IdCache
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.TaskRepository
-import kpn.core.util.IdCache
 import org.springframework.stereotype.Component
 
 @Component

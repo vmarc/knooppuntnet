@@ -1,5 +1,6 @@
 package kpn.core.tools
 
+import kpn.api.common.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
@@ -7,7 +8,6 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodeIds
-import kpn.shared.ScopedNetworkType
 
 import scala.xml.XML
 

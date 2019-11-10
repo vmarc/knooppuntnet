@@ -1,13 +1,13 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.common.Ref
+import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.network.NetworkNodesPage
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.server.api.analysis.pages.TimeInfoBuilder
-import kpn.shared.NetworkType
-import kpn.shared.NodeIntegrityCheck
-import kpn.shared.Timestamp
-import kpn.shared.common.Ref
-import kpn.shared.data.Tags
-import kpn.shared.network.NetworkNodeInfo2
-import kpn.shared.network.NetworkNodesPage
 
 object NetworkNodesPageExample {
 

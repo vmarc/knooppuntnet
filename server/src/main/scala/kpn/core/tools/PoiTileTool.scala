@@ -1,5 +1,6 @@
 package kpn.core.tools
 
+import kpn.api.common.tiles.ZoomLevel
 import kpn.core.db.couch.Couch
 import kpn.core.tiles.PoiTilesBuilder
 import kpn.core.tiles.TileRepositoryImpl
@@ -7,7 +8,6 @@ import kpn.core.tiles.vector.PoiVectorTileBuilder
 import kpn.core.util.Log
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
-import kpn.shared.tiles.ZoomLevel
 
 /*
   Generates tiles for all points of interest in the database.

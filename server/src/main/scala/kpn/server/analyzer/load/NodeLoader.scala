@@ -1,8 +1,8 @@
 package kpn.server.analyzer.load
 
+import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
 
 trait NodeLoader {
 

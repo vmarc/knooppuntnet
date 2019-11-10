@@ -1,9 +1,9 @@
 package kpn.core.tiles
 
-import kpn.shared.NetworkType
-import kpn.shared.NodeInfo
-import kpn.shared.network.NetworkNodeInfo2
-import kpn.shared.route.RouteInfo
+import kpn.api.common.NodeInfo
+import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.NetworkType
 
 case class TileAnalysis(
   networkType: NetworkType,

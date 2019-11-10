@@ -1,6 +1,6 @@
 package kpn.core.replicate
 
-import kpn.shared.ReplicationId
+import kpn.api.common.ReplicationId
 
 trait ReplicationRequestExecutor {
 

@@ -2,9 +2,9 @@ package kpn.core.replicate
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
+import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
 import org.apache.commons.io.FileUtils
 
 class ReplicationStateRepositoryImpl(replicateDir: File) extends ReplicationStateRepository {

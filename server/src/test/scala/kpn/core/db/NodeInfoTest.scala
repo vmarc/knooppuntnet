@@ -1,7 +1,7 @@
 package kpn.core.db
 
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
+import kpn.api.custom.Tags
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

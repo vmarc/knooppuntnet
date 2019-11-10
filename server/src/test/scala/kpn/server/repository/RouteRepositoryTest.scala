@@ -1,11 +1,11 @@
 package kpn.server.repository
 
+import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.common.Reference
-import kpn.shared.route.RouteReferences
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.common.Reference
+import kpn.api.common.route.RouteReferences
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

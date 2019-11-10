@@ -3,8 +3,8 @@ package kpn.server.api.analysis.pages
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-import kpn.shared.TimeInfo
-import kpn.shared.Timestamp
+import kpn.api.common.TimeInfo
+import kpn.api.custom.Timestamp
 
 object TimeInfoBuilder {
 

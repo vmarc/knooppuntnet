@@ -2,14 +2,14 @@ package kpn.core.replicate
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
+import kpn.api.custom.Timestamp
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.server.analyzer.engine.changes.ReplicationStateReader
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
 

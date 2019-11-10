@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.data.Node
+import kpn.api.common.route.Backward
+import kpn.api.common.route.Forward
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
-import kpn.shared.NetworkType
-import kpn.shared.data.Node
-import kpn.shared.route.Backward
-import kpn.shared.route.Forward
 
 /**
   * Determines whether given node can be connected to given fragment when traveling in given direction.

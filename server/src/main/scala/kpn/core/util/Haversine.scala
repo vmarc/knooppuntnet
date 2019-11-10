@@ -1,6 +1,6 @@
 package kpn.core.util
 
-import kpn.shared.data.raw.RawNode
+import kpn.api.common.data.raw.RawNode
 
 import scala.math.asin
 import scala.math.cos

@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-import kpn.shared.Fact.RouteNodeNameMismatch
+import kpn.api.custom.Fact.RouteNodeNameMismatch
 
 class RouteNodeNameMismatchTest extends FunSuite with Matchers {
 

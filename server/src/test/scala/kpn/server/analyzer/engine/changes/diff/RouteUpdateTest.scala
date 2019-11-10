@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.changes.diff
 
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Relation
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.shared.Country
-import kpn.shared.NetworkType
-import kpn.shared.RouteSummary
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.data.Relation
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawRelation
-import kpn.shared.route.RouteInfo
+import kpn.api.common.RouteSummary
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.route.RouteInfo
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

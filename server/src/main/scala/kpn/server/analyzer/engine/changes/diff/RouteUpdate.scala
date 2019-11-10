@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.changes.diff
 
+import kpn.api.common.common.Ref
+import kpn.api.common.common.ReferencedElements
+import kpn.api.common.data.raw.RawWay
+import kpn.api.common.diff.WayUpdate
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.common.Ref
-import kpn.shared.common.ReferencedElements
-import kpn.shared.data.raw.RawWay
-import kpn.shared.diff.WayUpdate
-import kpn.shared.diff.route.RouteDiff
 
 case class RouteUpdate(
   before: RouteAnalysis,

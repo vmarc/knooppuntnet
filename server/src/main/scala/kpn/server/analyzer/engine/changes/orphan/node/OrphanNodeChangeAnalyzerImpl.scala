@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
-import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.server.repository.BlackListRepository
+import kpn.api.common.changes.ChangeAction.Create
+import kpn.api.common.changes.ChangeAction.Delete
+import kpn.api.common.changes.ChangeAction.Modify
+import kpn.api.common.changes.ChangeSet
+import kpn.api.common.data.raw.RawNode
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.changes.ChangeAction.Create
-import kpn.shared.changes.ChangeAction.Delete
-import kpn.shared.changes.ChangeAction.Modify
-import kpn.shared.changes.ChangeSet
-import kpn.shared.data.raw.RawNode
+import kpn.server.repository.BlackListRepository
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,12 +1,12 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.subset.SubsetNetworksPage
+import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
-import kpn.server.repository.NetworkRepository
-import kpn.server.repository.OverviewRepository
 import kpn.core.util.Formatter.number
 import kpn.core.util.Formatter.percentage
-import kpn.shared.Subset
-import kpn.shared.subset.SubsetNetworksPage
+import kpn.server.repository.NetworkRepository
+import kpn.server.repository.OverviewRepository
 import org.springframework.stereotype.Component
 
 @Component

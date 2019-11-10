@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.changes.builder
 
-import kpn.shared.Bounds
-import kpn.shared.LatLon
-import kpn.shared.changes.ChangeSetInfo
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.diff.WayInfo
-import kpn.shared.route.GeometryDiffAnalyzer
-import kpn.shared.route.RouteChangeInfo
-import kpn.shared.route.WayGeometry
+import kpn.api.common.Bounds
+import kpn.api.common.LatLon
+import kpn.api.common.changes.ChangeSetInfo
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.diff.WayInfo
+import kpn.api.common.route.GeometryDiffAnalyzer
+import kpn.api.common.route.RouteChangeInfo
+import kpn.api.common.route.WayGeometry
 
 class RouteChangeInfoBuilder {
 

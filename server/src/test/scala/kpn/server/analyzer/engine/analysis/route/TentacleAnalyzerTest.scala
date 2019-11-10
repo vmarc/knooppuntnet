@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinder
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Node
-import kpn.shared.data.Tags
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.Node
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.shared.Fact.RouteBroken
-import kpn.shared.Fact.RouteNotBackward
-import kpn.shared.Fact.RouteOneWay
-import kpn.shared.Fact.RouteNotOneWay
-import kpn.shared.Fact.RouteNotContinious
-import kpn.shared.Fact.RouteNotForward
-import kpn.shared.Fact.RouteUnusedSegments
-import kpn.shared.NetworkType
-import kpn.shared.data.Tags
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteOneWay
+import kpn.api.custom.Fact.RouteNotOneWay
+import kpn.api.custom.Fact.RouteNotContinious
+import kpn.api.custom.Fact.RouteNotForward
+import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.custom.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

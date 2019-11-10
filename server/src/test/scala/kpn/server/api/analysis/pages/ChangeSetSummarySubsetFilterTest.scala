@@ -1,13 +1,13 @@
 package kpn.server.api.analysis.pages
 
-import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetNetwork
-import kpn.shared.ChangeSetSubsetElementRefs
-import kpn.shared.ChangeSetSummary
-import kpn.shared.NetworkChanges
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.changes.details.ChangeKey
+import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetNetwork
+import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NetworkChanges
+import kpn.api.common.changes.details.ChangeKey
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

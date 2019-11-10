@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.shared.data.raw.RawNode
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.api.common.data.raw.RawNode
 import org.scalatest.Matchers
 import org.scalatest.FunSuite
-
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeAction._
-import kpn.shared.data.Tags
+import kpn.api.common.changes.ChangeAction._
 
 import scala.xml.XML
 

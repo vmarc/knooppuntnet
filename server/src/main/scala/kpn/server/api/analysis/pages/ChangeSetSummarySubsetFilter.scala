@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages
 
-import kpn.shared.ChangeSetSummary
-import kpn.shared.NetworkChanges
-import kpn.shared.Subset
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NetworkChanges
+import kpn.api.custom.Subset
 
 object ChangeSetSummarySubsetFilter {
 

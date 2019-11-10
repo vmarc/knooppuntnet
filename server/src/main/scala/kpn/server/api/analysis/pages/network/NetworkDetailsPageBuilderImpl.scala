@@ -1,11 +1,11 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.NetworkFacts
+import kpn.api.common.network.NetworkDetailsPage
+import kpn.api.common.network.NetworkInfo
 import kpn.core.db.couch.Couch
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
-import kpn.shared.NetworkFacts
-import kpn.shared.network.NetworkDetailsPage
-import kpn.shared.network.NetworkInfo
 import org.springframework.stereotype.Component
 
 @Component

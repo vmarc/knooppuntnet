@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine
 
-import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
+import kpn.api.common.ReplicationId
 import kpn.core.common.TimestampUtil
-import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
+import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.repository.AnalysisRepository
-import kpn.shared.ReplicationId
 import org.springframework.stereotype.Component
 
 @Component

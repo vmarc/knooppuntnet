@@ -1,18 +1,18 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.core.loadOld.Parser
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Country
-import kpn.shared.NetworkType
-import kpn.shared.data.Relation
+import kpn.server.analyzer.load.data.LoadedRoute
 
 import scala.xml.InputSource
 import scala.xml.XML

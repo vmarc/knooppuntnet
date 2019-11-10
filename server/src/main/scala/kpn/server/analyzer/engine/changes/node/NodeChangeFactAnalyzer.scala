@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.data.raw.RawNode
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.changes.data.AnalysisData
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.data.raw.RawNode
 
 class NodeChangeFactAnalyzer(analysisData: AnalysisData) {
 

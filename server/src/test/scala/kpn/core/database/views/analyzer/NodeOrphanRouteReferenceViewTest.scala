@@ -1,12 +1,12 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.node.NodeOrphanRouteReference
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.node.NodeOrphanRouteReference
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

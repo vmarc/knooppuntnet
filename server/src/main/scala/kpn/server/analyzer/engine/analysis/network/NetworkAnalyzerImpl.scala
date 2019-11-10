@@ -1,5 +1,14 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.common.NetworkExtraMemberNode
+import kpn.api.common.NetworkExtraMemberRelation
+import kpn.api.common.NetworkExtraMemberWay
+import kpn.api.common.NetworkFacts
+import kpn.api.common.NetworkNameMissing
+import kpn.api.common.common.Ref
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Fact
+import kpn.api.custom.Relation
 import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
@@ -14,15 +23,6 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.shared.Fact
-import kpn.shared.NetworkExtraMemberNode
-import kpn.shared.NetworkExtraMemberRelation
-import kpn.shared.NetworkExtraMemberWay
-import kpn.shared.NetworkFacts
-import kpn.shared.NetworkNameMissing
-import kpn.shared.common.Ref
-import kpn.shared.data.Relation
-import kpn.shared.route.RouteInfo
 import org.springframework.stereotype.Component
 
 @Component

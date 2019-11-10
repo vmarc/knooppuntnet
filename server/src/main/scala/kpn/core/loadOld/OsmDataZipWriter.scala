@@ -6,7 +6,7 @@ import java.io.PrintWriter
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-import kpn.shared.data.raw.RawData
+import kpn.api.common.data.raw.RawData
 
 class OsmDataZipWriter {
 

@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.country
 
-import kpn.shared.data.Relation
-import kpn.shared.Country
-import kpn.shared.LatLon
+import kpn.api.common.LatLon
+import kpn.api.custom.Country
+import kpn.api.custom.Relation
 
 trait CountryAnalyzer {
   def countries(latLon: LatLon): Seq[Country]

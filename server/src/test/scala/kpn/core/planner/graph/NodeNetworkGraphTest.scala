@@ -1,7 +1,7 @@
 package kpn.core.planner.graph
 
-import kpn.shared.SharedTestObjects
-import kpn.shared.common.TrackPathKey
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.common.TrackPathKey
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

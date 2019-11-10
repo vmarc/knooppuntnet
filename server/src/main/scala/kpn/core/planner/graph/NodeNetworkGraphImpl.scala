@@ -1,7 +1,7 @@
 package kpn.core.planner.graph
 
+import kpn.api.common.common.TrackPathKey
 import kpn.core.util.Log
-import kpn.shared.common.TrackPathKey
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath
 import org.jgrapht.graph.DefaultDirectedWeightedGraph
 

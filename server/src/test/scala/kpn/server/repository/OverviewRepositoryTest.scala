@@ -1,12 +1,12 @@
 package kpn.server.repository
 
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
 import kpn.core.app.stats.Figure
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.Country
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.Subset
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

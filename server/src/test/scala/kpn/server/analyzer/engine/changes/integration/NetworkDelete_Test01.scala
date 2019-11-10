@@ -1,18 +1,18 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetNetwork
-import kpn.shared.ChangeSetSummary
-import kpn.shared.NetworkChanges
-import kpn.shared.NetworkType
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeKey
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.network.NetworkInfo
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetNetwork
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NetworkChanges
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.network.NetworkInfo
 
 class NetworkDelete_Test01 extends AbstractTest {
 

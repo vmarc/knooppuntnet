@@ -1,22 +1,22 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.shared.Country
-import kpn.shared.LatLonImpl
-import kpn.shared.NetworkExtraMemberNode
-import kpn.shared.NetworkExtraMemberRelation
-import kpn.shared.NetworkExtraMemberWay
-import kpn.shared.NetworkFacts
-import kpn.shared.NetworkIntegrityCheck
-import kpn.shared.NetworkIntegrityCheckFailed
-import kpn.shared.NetworkNameMissing
-import kpn.shared.NetworkType
-import kpn.shared.NodeIntegrityCheck
-import kpn.shared.Timestamp
-import kpn.shared.data.Tags
-import kpn.shared.network.Integrity
-import kpn.shared.network.NetworkAttributes
-import kpn.shared.network.NetworkDetailsPage
-import kpn.shared.network.NetworkSummary
+import kpn.api.common.LatLonImpl
+import kpn.api.common.NetworkExtraMemberNode
+import kpn.api.common.NetworkExtraMemberRelation
+import kpn.api.common.NetworkExtraMemberWay
+import kpn.api.common.NetworkFacts
+import kpn.api.common.NetworkIntegrityCheck
+import kpn.api.common.NetworkIntegrityCheckFailed
+import kpn.api.common.NetworkNameMissing
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.network.Integrity
+import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkDetailsPage
+import kpn.api.common.network.NetworkSummary
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 
 object NetworkDetailsPageExample {
 

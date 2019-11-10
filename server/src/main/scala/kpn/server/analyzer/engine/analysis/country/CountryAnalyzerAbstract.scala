@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.country
 
+import kpn.api.common.LatLon
+import kpn.api.custom.Country
+import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.shared.Country
-import kpn.shared.LatLon
-import kpn.shared.data.Relation
 
 abstract class CountryAnalyzerAbstract(relationAnalyzer: RelationAnalyzer) extends CountryAnalyzer {
 

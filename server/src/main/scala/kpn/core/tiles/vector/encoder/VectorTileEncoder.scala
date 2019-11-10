@@ -1,5 +1,7 @@
 package kpn.core.tiles.vector.encoder
 
+import kpn.core.tiles.domain
+import kpn.core.tiles.domain.Tile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -10,8 +12,6 @@ import org.locationtech.jts.geom.Polygon
 import org.locationtech.jts.geom.TopologyException
 import org.locationtech.jts.io.ParseException
 import org.locationtech.jts.io.WKTReader
-import kpn.core.tiles.domain
-import kpn.core.tiles.domain.Tile
 
 import scala.collection.immutable.ListMap
 

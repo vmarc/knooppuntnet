@@ -1,11 +1,11 @@
 package kpn.core.app.stats
 
+import kpn.api.common.statistics.CountryStatistic
+import kpn.api.common.statistics.Statistic
+import kpn.api.common.statistics.Statistics
+import kpn.api.custom.Subset
 import kpn.core.util.Formatter.number
 import kpn.core.util.Formatter.percentage
-import kpn.shared.Subset
-import kpn.shared.statistics.CountryStatistic
-import kpn.shared.statistics.Statistic
-import kpn.shared.statistics.Statistics
 
 object StatisticsBuilder {
 

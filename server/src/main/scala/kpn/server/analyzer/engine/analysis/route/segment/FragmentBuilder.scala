@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.shared.data.Node
-import kpn.shared.data.Way
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
 
 import scala.collection.mutable.ListBuffer
 

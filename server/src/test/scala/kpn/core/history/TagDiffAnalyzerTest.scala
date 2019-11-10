@@ -1,10 +1,10 @@
 package kpn.core.history
 
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
+import kpn.api.custom.Tags
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

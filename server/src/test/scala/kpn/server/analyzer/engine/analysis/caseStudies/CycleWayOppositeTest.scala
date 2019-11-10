@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-import kpn.shared.Fact.RouteNotBackward
-import kpn.shared.Fact.RouteNotForward
-import kpn.shared.Fact.RouteNotContinious
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteNotForward
+import kpn.api.custom.Fact.RouteNotContinious
 
 class CycleWayOppositeTest extends FunSuite with Matchers {
 

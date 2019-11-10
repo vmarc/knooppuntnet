@@ -2,9 +2,9 @@ package kpn.server.analyzer.engine.changes
 
 import java.io.File
 
+import kpn.api.common.ReplicationId
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.changes.OsmChange
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
 
 class OsmChangeRepository(replicateDir: File) {
 

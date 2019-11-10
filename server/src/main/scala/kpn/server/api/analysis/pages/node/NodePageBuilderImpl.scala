@@ -1,18 +1,18 @@
 package kpn.server.api.analysis.pages.node
 
+import kpn.api.common.NodeInfo
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.node.NodeChangesPage
+import kpn.api.common.node.NodeDetailsPage
+import kpn.api.common.node.NodeMapPage
+import kpn.api.common.node.NodeReferences
+import kpn.api.custom.Timestamp
 import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
-import kpn.shared.NodeInfo
-import kpn.shared.Timestamp
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.node.NodeChangesPage
-import kpn.shared.node.NodeDetailsPage
-import kpn.shared.node.NodeMapPage
-import kpn.shared.node.NodeReferences
 import org.springframework.stereotype.Component
 
 @Component

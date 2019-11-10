@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.country
 
+import kpn.api.common.Bounds
 import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.Location
-import kpn.shared.Bounds
 
 class CountryBoundary(polygons: Seq[Geometry]) {
 

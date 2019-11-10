@@ -1,11 +1,11 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.subset.SubsetOrphanRoutesPage
+import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.OrphanRepository
 import kpn.server.repository.OverviewRepository
-import kpn.shared.Subset
-import kpn.shared.subset.SubsetOrphanRoutesPage
 import org.springframework.stereotype.Component
 
 @Component

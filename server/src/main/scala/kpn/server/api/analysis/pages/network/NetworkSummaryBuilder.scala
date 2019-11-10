@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.shared.network.NetworkInfo
-import kpn.shared.network.NetworkSummary
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.network.NetworkSummary
 
 object NetworkSummaryBuilder {
 

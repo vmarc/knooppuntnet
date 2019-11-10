@@ -1,10 +1,10 @@
 package kpn.core.data
 
-import kpn.shared.Timestamp
-import kpn.shared.data.Node
-import kpn.shared.data.Relation
-import kpn.shared.data.Way
-import kpn.shared.data.raw.RawData
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
+import kpn.api.common.data.raw.RawData
+import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 
 case class Data(
   raw: RawData,

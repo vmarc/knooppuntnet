@@ -1,17 +1,17 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.data.Node
+import kpn.api.common.data.NodeMember
+import kpn.api.common.data.WayMember
+import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteNodeMissingInWays
+import kpn.api.custom.Fact.RouteRedundantNodes
 import kpn.core.util.Unique
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.shared.Fact
-import kpn.shared.Fact.RouteNodeMissingInWays
-import kpn.shared.Fact.RouteRedundantNodes
-import kpn.shared.data.Node
-import kpn.shared.data.NodeMember
-import kpn.shared.data.WayMember
 
 import scala.collection.mutable.ListBuffer
 

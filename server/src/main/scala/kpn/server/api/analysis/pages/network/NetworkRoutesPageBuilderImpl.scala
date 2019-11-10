@@ -1,14 +1,14 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.network.NetworkRouteRow
+import kpn.api.common.network.NetworkRoutesPage
+import kpn.api.custom.Fact
 import kpn.core.db.couch.Couch
+import kpn.core.util.NaturalSorting
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
-import kpn.core.util.NaturalSorting
-import kpn.shared.Fact
-import kpn.shared.network.NetworkInfo
-import kpn.shared.network.NetworkRouteRow
-import kpn.shared.network.NetworkRoutesPage
 import org.springframework.stereotype.Component
 
 @Component

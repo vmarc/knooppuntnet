@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages.node
 
-import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.node.NodeChangesPage
-import kpn.shared.node.NodeDetailsPage
-import kpn.shared.node.NodeMapPage
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.node.NodeChangesPage
+import kpn.api.common.node.NodeDetailsPage
+import kpn.api.common.node.NodeMapPage
 
 trait NodePageBuilder {
 

@@ -1,10 +1,10 @@
 package kpn.core.database.views.changes
 
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.Database
 import kpn.core.database.query.Query
 import kpn.server.repository.QueryParameters
-import kpn.shared.ChangeSetSummary
-import kpn.shared.changes.filter.ChangesParameters
 
 object ChangesViewChangesQuery {
 

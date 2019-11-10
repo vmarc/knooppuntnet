@@ -4,8 +4,8 @@ import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFragment
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Node
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.Node
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

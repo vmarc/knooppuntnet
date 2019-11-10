@@ -1,25 +1,25 @@
 package kpn.server.analyzer.engine.changes.builder
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RefBooleanChange
+import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.node.NodeChangeFactAnalyzer
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.node.NodeChangeFactAnalyzer
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RefBooleanChange
-import kpn.shared.common.Ref
-import kpn.shared.data.raw.RawNode
-import kpn.shared.diff.common.FactDiffs
 import org.springframework.stereotype.Component
 
 @Component

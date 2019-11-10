@@ -1,6 +1,6 @@
 package kpn.core.poi
 
-import kpn.shared.tiles.ClientPoiGroupDefinition
+import kpn.api.common.tiles.ClientPoiGroupDefinition
 
 case class PoiGroupDefinition(name: String, defaultEnabled: Boolean, definitions: PoiDefinition*) {
 

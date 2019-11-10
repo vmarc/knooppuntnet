@@ -1,14 +1,14 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.subset.SubsetChangesPage
 import kpn.core.db.couch.Couch
 import kpn.server.api.analysis.pages.ChangeSetSummaryInfosBuilder
 import kpn.server.api.analysis.pages.ChangeSetSummarySubsetFilter
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.OverviewRepository
-import kpn.shared.ChangeSetSummary
-import kpn.shared.changes.filter.ChangesParameters
-import kpn.shared.subset.SubsetChangesPage
 import org.springframework.stereotype.Component
 
 @Component

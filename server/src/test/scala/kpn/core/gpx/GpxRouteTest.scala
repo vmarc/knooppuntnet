@@ -1,7 +1,7 @@
 package kpn.core.gpx
 
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Node
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.Node
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

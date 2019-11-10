@@ -1,7 +1,7 @@
 package kpn.core.database.query
 
-import kpn.shared.Country
-import kpn.shared.NetworkType
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
 
 object Fields {
   def apply(fields: Seq[String]): Fields = new Fields(fields)

@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.data
 
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RouteChange
 import kpn.server.analyzer.engine.changes.node.NodeChangeMerger
 import kpn.server.analyzer.engine.changes.route.RouteChangeMerger
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RouteChange
 
 object ChangeSetChangesMerger {
 

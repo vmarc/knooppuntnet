@@ -1,8 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.RouteLocationAnalysis
-import kpn.shared.route.RouteInfo
-import org.springframework.stereotype.Component
+import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.route.RouteInfo
 
 /*
   Determines the location of a given route.

@@ -1,18 +1,18 @@
 package kpn.core.analysis
 
+import kpn.api.common.Bounds
+import kpn.api.common.NetworkFacts
+import kpn.api.common.common.Ref
+import kpn.api.common.data.Node
+import kpn.api.common.network.NetworkShape
+import kpn.api.custom.Country
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteUnaccessible
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Relation
+import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
 import kpn.core.util.Formatter.percentage
-import kpn.shared.Bounds
-import kpn.shared.Country
-import kpn.shared.Fact.RouteBroken
-import kpn.shared.Fact.RouteUnaccessible
-import kpn.shared.NetworkFacts
-import kpn.shared.NetworkType
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.common.Ref
-import kpn.shared.data.Node
-import kpn.shared.data.Relation
-import kpn.shared.network.NetworkShape
 
 case class Network(
   country: Option[Country],

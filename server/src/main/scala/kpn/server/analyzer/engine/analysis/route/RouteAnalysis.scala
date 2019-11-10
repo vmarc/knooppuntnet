@@ -1,16 +1,16 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.common.MapBounds
+import kpn.api.common.common.Ref
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.diff.RouteData
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.Relation
+import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
-import kpn.shared.Subset
-import kpn.shared.common.MapBounds
-import kpn.shared.common.Ref
-import kpn.shared.data.Node
-import kpn.shared.data.Relation
-import kpn.shared.data.Way
-import kpn.shared.data.raw.RawRelation
-import kpn.shared.diff.RouteData
-import kpn.shared.route.RouteInfo
-import kpn.shared.route.RouteNetworkNodeInfo
 
 case class RouteAnalysis(
   relation: Relation,

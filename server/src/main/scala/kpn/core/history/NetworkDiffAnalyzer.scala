@@ -1,5 +1,10 @@
 package kpn.core.history
 
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
+import kpn.api.common.diff.NetworkNodeData
+import kpn.api.common.diff.NetworkNodeUpdate
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
@@ -7,11 +12,6 @@ import kpn.server.analyzer.engine.changes.diff.NetworkDiff
 import kpn.server.analyzer.engine.changes.diff.NetworkNodeDiffs
 import kpn.server.analyzer.engine.changes.diff.RouteDiffs
 import kpn.server.analyzer.engine.changes.diff.RouteUpdate
-import kpn.shared.diff.IdDiffs
-import kpn.shared.diff.NetworkData
-import kpn.shared.diff.NetworkDataUpdate
-import kpn.shared.diff.NetworkNodeData
-import kpn.shared.diff.NetworkNodeUpdate
 
 class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
 

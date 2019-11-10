@@ -5,7 +5,7 @@ import org.scalatest.Matchers
 import java.io.File
 
 import kpn.core.tools.config.Dirs
-import kpn.shared.ReplicationId
+import kpn.api.common.ReplicationId
 
 class StatusRepositoryTest extends FunSuite with Matchers {
 

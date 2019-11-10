@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.shared.network.NetworkMapPage
-import kpn.shared.network.NetworkNodeInfo2
+import kpn.api.common.network.NetworkMapPage
+import kpn.api.common.network.NetworkNodeInfo2
 
 object NetworkMapPageExample {
 

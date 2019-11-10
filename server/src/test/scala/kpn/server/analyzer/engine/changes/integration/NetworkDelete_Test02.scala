@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.core.test.TestData2
-import kpn.shared.changes.ChangeAction
+import kpn.api.common.changes.ChangeAction
 
 class NetworkDelete_Test02 extends AbstractTest {
 

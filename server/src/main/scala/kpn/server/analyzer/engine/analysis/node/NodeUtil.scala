@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node
 
-import kpn.shared.NetworkType
-import kpn.shared.data.Node
+import kpn.api.common.data.Node
+import kpn.api.custom.NetworkType
 
 object NodeUtil {
   private val allDigits = """(\d*)""".r

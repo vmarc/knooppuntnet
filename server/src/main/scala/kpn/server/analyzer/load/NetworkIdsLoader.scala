@@ -1,7 +1,7 @@
 package kpn.server.analyzer.load
 
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
+import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.Timestamp
 
 trait NetworkIdsLoader {
   def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType): Seq[Long]

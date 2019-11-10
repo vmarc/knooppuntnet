@@ -1,12 +1,12 @@
 package kpn.core.database.views.planner
 
+import kpn.api.common.common.TrackPathKey
+import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
 import kpn.core.planner.graph.GraphEdge
-import kpn.shared.NetworkType
-import kpn.shared.common.TrackPathKey
 
 /**
  * View to derive graph edges from routes (to be used for routing).

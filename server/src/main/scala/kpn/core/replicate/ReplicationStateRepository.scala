@@ -1,7 +1,7 @@
 package kpn.core.replicate
 
-import kpn.shared.ReplicationId
-import kpn.shared.Timestamp
+import kpn.api.common.ReplicationId
+import kpn.api.custom.Timestamp
 
 trait ReplicationStateRepository {
   def write(replicationId: ReplicationId, state: String): Unit

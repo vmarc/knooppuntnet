@@ -1,6 +1,6 @@
 package kpn.core.tools.status
 
-import kpn.shared.ReplicationId
+import kpn.api.common.ReplicationId
 
 trait StatusRepository {
 

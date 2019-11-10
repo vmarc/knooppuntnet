@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.data.Node
+import kpn.api.custom.NetworkType
 import kpn.core.common.Timer
-import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.core.util.Log
-import kpn.shared.NetworkType
-import kpn.shared.data.Node
+import kpn.server.analyzer.engine.analysis.route.RouteNode
 
 class SegmentFinderAbort() extends RuntimeException
 

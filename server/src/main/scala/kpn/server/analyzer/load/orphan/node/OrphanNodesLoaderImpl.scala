@@ -1,13 +1,13 @@
 package kpn.server.analyzer.load.orphan.node
 
+import kpn.api.common.ScopedNetworkType
+import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.OrphanRepository
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
 /*

@@ -1,8 +1,8 @@
 package kpn.server.analyzer.load
 
 import akka.actor.ActorSystem
+import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.shared.Timestamp
 import org.springframework.stereotype.Component
 
 import scala.concurrent.Await

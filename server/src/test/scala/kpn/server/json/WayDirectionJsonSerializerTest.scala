@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.shared.route.Both
+import kpn.api.common.route.Both
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

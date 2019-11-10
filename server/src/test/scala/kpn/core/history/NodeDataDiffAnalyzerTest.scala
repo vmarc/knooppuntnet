@@ -1,15 +1,15 @@
 package kpn.core.history
 
-import kpn.shared.LatLonImpl
-import kpn.shared.SharedTestObjects
-import kpn.shared.Timestamp
-import kpn.shared.data.Tags
-import kpn.shared.diff.NodeData
-import kpn.shared.diff.NodeDataUpdate
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType
-import kpn.shared.diff.TagDiffs
-import kpn.shared.diff.node.NodeMoved
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.api.common.LatLonImpl
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.diff.NodeData
+import kpn.api.common.diff.NodeDataUpdate
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.node.NodeMoved
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

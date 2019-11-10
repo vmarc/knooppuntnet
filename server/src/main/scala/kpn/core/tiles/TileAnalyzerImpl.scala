@@ -1,13 +1,13 @@
 package kpn.core.tiles
 
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
+import kpn.core.util.Log
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.OrphanRepository
 import kpn.server.repository.RouteRepository
-import kpn.core.util.Log
-import kpn.shared.NetworkType
-import kpn.shared.Subset
-import kpn.shared.route.RouteInfo
 
 class TileAnalyzerImpl(
   networkRepository: NetworkRepository,

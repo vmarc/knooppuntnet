@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.builder
 
-import kpn.shared.changes.ChangeSetInfo
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NetworkChangeInfo
+import kpn.api.common.changes.ChangeSetInfo
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkChangeInfo
 
 class NetworkChangeInfoBuilder {
 

@@ -26,7 +26,7 @@
         <Logger name="kpn.core.tools.changes.network.create.NetworkCreateProcessorWorkerImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateProcessorWorkerImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.delete.NetworkDeleteProcessorWorkerImpl" level="debug"/>
-        <Logger name="kpn.shared.changes.details.NetworkUpdate.NetworkUpdateNetworkProcessorImpl" level="debug"/>
+        <Logger name="kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessorImpl" level="debug"/>
 
         <Logger name="kpn.server.analyzer.engine.NetworkShapeAnalyzer" level="debug"/>
 

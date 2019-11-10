@@ -1,6 +1,9 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkInfo
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.doc.GpxDoc
 import kpn.core.database.doc.NetworkDoc
@@ -8,9 +11,6 @@ import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
 import kpn.core.gpx.GpxFile
 import kpn.core.util.Log
-import kpn.shared.Subset
-import kpn.shared.network.NetworkAttributes
-import kpn.shared.network.NetworkInfo
 import org.springframework.stereotype.Component
 
 @Component

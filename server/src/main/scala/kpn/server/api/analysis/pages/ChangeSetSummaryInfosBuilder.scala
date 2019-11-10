@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.ChangeSetSummaryInfo
 import kpn.server.repository.ChangeSetInfoRepository
-import kpn.shared.ChangeSetSummary
-import kpn.shared.ChangeSetSummaryInfo
 
 class ChangeSetSummaryInfosBuilder(changeSetInfoRepository: ChangeSetInfoRepository) {
 

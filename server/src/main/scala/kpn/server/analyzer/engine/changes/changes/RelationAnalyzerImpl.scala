@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.common.data.Node
+import kpn.api.common.data.NodeMember
+import kpn.api.common.data.RelationMember
+import kpn.api.common.data.Way
+import kpn.api.common.data.WayMember
+import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Timestamp
-import kpn.shared.data.Node
-import kpn.shared.data.NodeMember
-import kpn.shared.data.Relation
-import kpn.shared.data.RelationMember
-import kpn.shared.data.Way
-import kpn.shared.data.WayMember
 import org.springframework.stereotype.Component
 
 @Component

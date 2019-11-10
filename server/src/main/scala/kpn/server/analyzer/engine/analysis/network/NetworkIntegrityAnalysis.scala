@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.common.NetworkIntegrityCheck
+import kpn.api.common.NetworkIntegrityCheckFailed
+import kpn.api.common.NodeIntegrityCheck
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.shared.NetworkIntegrityCheck
-import kpn.shared.NetworkIntegrityCheckFailed
-import kpn.shared.NodeIntegrityCheck
 
 class NetworkIntegrityAnalysis(nodes: Seq[NetworkNodeInfo]) {
 

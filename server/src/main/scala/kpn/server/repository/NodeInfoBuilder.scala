@@ -1,14 +1,14 @@
 package kpn.server.repository
 
+import kpn.api.common.NodeInfo
+import kpn.api.common.data.raw.RawNode
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NodeInfo
-import kpn.shared.Timestamp
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawNode
 
 object NodeInfoBuilder {
 

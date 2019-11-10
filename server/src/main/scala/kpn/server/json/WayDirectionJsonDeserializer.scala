@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.shared.route.Backward
-import kpn.shared.route.Both
-import kpn.shared.route.Forward
-import kpn.shared.route.WayDirection
+import kpn.api.common.route.Backward
+import kpn.api.common.route.Both
+import kpn.api.common.route.Forward
+import kpn.api.common.route.WayDirection
 
 class WayDirectionJsonDeserializer extends JsonDeserializer[WayDirection] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): WayDirection = {

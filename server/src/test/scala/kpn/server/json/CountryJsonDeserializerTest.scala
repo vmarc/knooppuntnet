@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.shared.Country
+import kpn.api.custom.Country
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

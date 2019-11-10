@@ -1,6 +1,6 @@
 package kpn.server.api.analysis.pages
 
-import kpn.shared.PoiPage
+import kpn.api.common.PoiPage
 
 trait PoiPageBuilder {
 

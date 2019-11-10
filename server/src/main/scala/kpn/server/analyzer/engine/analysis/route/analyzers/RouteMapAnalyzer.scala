@@ -1,23 +1,23 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.common.MapBounds
+import kpn.api.common.common.TrackPath
+import kpn.api.common.common.TrackPoint
+import kpn.api.common.common.TrackSegment
+import kpn.api.common.common.TrackSegmentFragment
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
+import kpn.api.common.route.RouteMap
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.directions.DirectionAnalyzer
 import kpn.core.directions.Latlon
+import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
-import kpn.core.util.Haversine
-import kpn.shared.common.MapBounds
-import kpn.shared.common.TrackPath
-import kpn.shared.common.TrackPoint
-import kpn.shared.common.TrackSegment
-import kpn.shared.common.TrackSegmentFragment
-import kpn.shared.data.Node
-import kpn.shared.data.Way
-import kpn.shared.route.RouteMap
 
 object RouteMapAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {

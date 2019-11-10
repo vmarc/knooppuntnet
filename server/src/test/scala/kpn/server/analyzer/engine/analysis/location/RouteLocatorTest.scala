@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.Location
-import kpn.shared.RouteLocationAnalysis
-import kpn.shared.SharedTestObjects
+import kpn.api.common.Location
+import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.SharedTestObjects
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

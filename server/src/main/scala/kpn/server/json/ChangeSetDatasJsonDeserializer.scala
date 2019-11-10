@@ -4,12 +4,12 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.changes.ChangeSetData
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RouteChange
 import kpn.core.database.doc.ChangeSetDatas
-import kpn.shared.ChangeSetSummary
-import kpn.shared.changes.ChangeSetData
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RouteChange
 
 import scala.collection.mutable.ArrayBuffer
 

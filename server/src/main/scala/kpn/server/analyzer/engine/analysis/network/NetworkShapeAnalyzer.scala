@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.common.Bounds
+import kpn.api.common.data.Node
+import kpn.api.common.network.NetworkShape
+import kpn.api.custom.Relation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.shared.Bounds
-import kpn.shared.data.Node
-import kpn.shared.data.Relation
-import kpn.shared.network.NetworkShape
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory

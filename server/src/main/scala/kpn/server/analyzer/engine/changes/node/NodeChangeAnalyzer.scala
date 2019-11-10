@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.node
 
-import kpn.shared.Fact
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.custom.Fact
 
 class NodeChangeAnalyzer(nodeChange: NodeChange) {
 

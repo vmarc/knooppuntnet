@@ -1,11 +1,11 @@
 package kpn.core.database.views.location
 
+import kpn.api.common.common.Ref
+import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.NetworkType
-import kpn.shared.common.Ref
 
 object LocationView extends View {
 

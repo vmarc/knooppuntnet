@@ -2,6 +2,7 @@ package kpn.core.tools.support
 
 import java.io.PrintWriter
 
+import kpn.api.common.ScopedNetworkType
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -13,7 +14,6 @@ import kpn.server.analyzer.load.orphan.node.NodeIdsLoaderImpl
 import kpn.server.analyzer.load.orphan.route.RouteIdsLoader
 import kpn.server.analyzer.load.orphan.route.RouteIdsLoaderImpl
 import kpn.server.json.Json
-import kpn.shared.ScopedNetworkType
 
 /*
   Produces a snapshot with the id's of all nodes, routes and networks that

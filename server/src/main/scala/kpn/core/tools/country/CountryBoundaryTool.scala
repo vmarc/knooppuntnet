@@ -2,9 +2,9 @@ package kpn.core.tools.country
 
 import java.io.FileWriter
 
+import kpn.api.custom.Country
 import org.locationtech.jts.geom.Polygon
 import org.locationtech.jts.io.WKTWriter
-import kpn.shared.Country
 
 object CountryBoundaryTool {
   def main(args: Array[String]): Unit = {

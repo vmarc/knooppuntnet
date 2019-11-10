@@ -1,17 +1,17 @@
 package kpn.core.database.views.planner
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.database.Database
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.NetworkType
-import kpn.shared.RouteSummary
-import kpn.shared.Timestamp
-import kpn.shared.common._
-import kpn.shared.data.Tags
-import kpn.shared.route.RouteInfo
-import kpn.shared.route.RouteInfoAnalysis
-import kpn.shared.route.RouteMap
+import kpn.api.common.RouteSummary
+import kpn.api.common.common._
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteInfoAnalysis
+import kpn.api.common.route.RouteMap
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

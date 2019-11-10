@@ -2,7 +2,7 @@ package kpn.core.tools
 
 import java.io.File
 
-import kpn.shared.ReplicationId
+import kpn.api.common.ReplicationId
 
 object VerifyMinuteDiffs {
   def main(args: Array[String]): Unit = {

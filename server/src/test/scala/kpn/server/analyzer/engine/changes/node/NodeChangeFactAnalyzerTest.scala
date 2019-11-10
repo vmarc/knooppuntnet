@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.custom.Fact
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.changes.data.AnalysisData
-import kpn.shared.Fact
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

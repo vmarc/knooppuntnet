@@ -1,16 +1,15 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.LocationCandidate
-import kpn.shared.RouteLocationAnalysis
-import kpn.shared.common.TrackSegment
-import kpn.shared.route.RouteInfo
-import kpn.shared.route.RouteInfoAnalysis
+import kpn.api.common.LocationCandidate
+import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.common.TrackSegment
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteInfoAnalysis
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.MultiLineString
-import org.springframework.stereotype.Component
 
 //@Component
 class RouteWayBasedLocatorImpl(configuration: LocationConfiguration) extends RouteWayBasedLocator {

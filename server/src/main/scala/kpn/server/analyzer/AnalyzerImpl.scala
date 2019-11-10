@@ -1,11 +1,11 @@
 package kpn.server.analyzer
 
+import kpn.api.common.ReplicationId
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalyzerEngine
 import kpn.server.analyzer.engine.CouchIndexer
-import kpn.shared.ReplicationId
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec

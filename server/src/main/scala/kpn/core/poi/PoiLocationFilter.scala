@@ -1,6 +1,6 @@
 package kpn.core.poi
 
-import kpn.shared.LatLon
+import kpn.api.common.LatLon
 
 trait PoiLocationFilter {
 

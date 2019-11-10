@@ -1,8 +1,8 @@
 package kpn.core.poi
 
-import kpn.shared.Poi
-import kpn.shared.data.Tag
-import kpn.shared.data.Tags
+import kpn.api.common.Poi
+import kpn.api.custom.Tag
+import kpn.api.custom.Tags
 
 class PoiQueryResultParser {
 

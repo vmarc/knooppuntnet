@@ -1,10 +1,10 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.shared.Check
-import kpn.shared.Fact
-import kpn.shared.NetworkFact
-import kpn.shared.common.Ref
-import kpn.shared.network.NetworkFactsPage
+import kpn.api.common.Check
+import kpn.api.common.NetworkFact
+import kpn.api.common.common.Ref
+import kpn.api.common.network.NetworkFactsPage
+import kpn.api.custom.Fact
 
 object NetworkFactsPageExample {
 

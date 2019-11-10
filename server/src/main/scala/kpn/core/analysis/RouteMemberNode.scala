@@ -1,8 +1,8 @@
 package kpn.core.analysis
 
-import kpn.shared.data.Element
-import kpn.shared.data.Node
-import kpn.shared.route.RouteNetworkNodeInfo
+import kpn.api.common.data.Element
+import kpn.api.common.data.Node
+import kpn.api.common.route.RouteNetworkNodeInfo
 
 case class RouteMemberNode(name: String, alternateName: String, number: String, role: Option[String], node: Node) extends RouteMember {
   val endNodes: Seq[Node] = Seq(node)

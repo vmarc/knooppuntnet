@@ -1,11 +1,11 @@
 package kpn.core.tools
 
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.Country
-import kpn.shared.NetworkType
 
 object DuplicateRoutesReport {
   def main(args: Array[String]): Unit = {

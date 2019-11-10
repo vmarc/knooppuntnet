@@ -1,13 +1,13 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.NodeInfo
+import kpn.api.common.RouteSummary
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.OrphanNodeView
 import kpn.core.database.views.analyzer.OrphanRouteView
 import kpn.core.db.couch.Couch
-import kpn.shared.NodeInfo
-import kpn.shared.RouteSummary
-import kpn.shared.Subset
 import org.springframework.stereotype.Component
 
 @Component

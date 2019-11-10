@@ -1,5 +1,10 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
@@ -12,11 +17,6 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
 import kpn.server.repository.NodeInfoBuilder.fromNetworkNodeInfo
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.diff.common.FactDiffs
 import org.springframework.stereotype.Component
 
 /*

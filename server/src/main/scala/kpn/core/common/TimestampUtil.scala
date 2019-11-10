@@ -6,7 +6,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
 
 /**
   * Reflects a point in time in the UTC timezone.

@@ -1,14 +1,14 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.NetworkType
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
-import kpn.shared.route.RouteNetworkNodeInfo
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.route.RouteNetworkNodeInfo
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

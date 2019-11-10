@@ -2,8 +2,8 @@ package kpn.core.tools.country
 
 import java.io.File
 
+import kpn.api.custom.Country
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.shared.Country
 import org.apache.commons.io.FileUtils
 import org.xml.sax.SAXParseException
 

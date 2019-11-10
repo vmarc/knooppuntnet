@@ -1,7 +1,7 @@
 package kpn.core.tools.typescript
 
-import kpn.shared.Timestamp
-import kpn.shared.data.raw.RawNode
+import kpn.api.custom.Timestamp
+import kpn.api.common.data.raw.RawNode
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -91,7 +91,7 @@ class ClassAnalyzerTest extends FunSuite with Matchers {
         Seq(
           ClassDependency(
             "Timestamp",
-            "../../../shared/timestamp"
+            "../../../api/custom/timestamp"
           )
         )
       ).displayString

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.node.ArrayNode
-import kpn.shared.data.Tags
+import kpn.api.custom.Tags
 import org.apache.commons.text.StringEscapeUtils
 
 class TagsJsonDeserializer extends JsonDeserializer[Tags] {

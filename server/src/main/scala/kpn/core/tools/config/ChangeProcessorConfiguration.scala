@@ -1,9 +1,11 @@
 package kpn.core.tools.config
 
 import akka.actor.ActorSystem
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.core.overpass.OverpassQueryExecutor
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.ChangeProcessor
@@ -15,6 +17,7 @@ import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilderImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
@@ -36,14 +39,11 @@ import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessorImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.server.analyzer.load.RoutesLoaderImpl
-import kpn.core.overpass.OverpassQueryExecutor
-import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
 import kpn.server.repository.ChangeSetInfoRepository

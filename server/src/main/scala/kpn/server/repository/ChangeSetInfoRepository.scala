@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.shared.changes.ChangeSetInfo
+import kpn.api.common.changes.ChangeSetInfo
 
 class ChangeSetInfoRepository {
 

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.shared.changes.filter.ChangesParameters
+import kpn.api.common.changes.filter.ChangesParameters
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

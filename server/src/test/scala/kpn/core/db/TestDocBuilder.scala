@@ -1,5 +1,10 @@
 package kpn.core.db
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.database.Database
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NetworkRepositoryImpl
@@ -7,21 +12,16 @@ import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkFacts
-import kpn.shared.SharedTestObjects
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.data.Tags
-import kpn.shared.network.Integrity
-import kpn.shared.network.NetworkAttributes
-import kpn.shared.network.NetworkInfo
-import kpn.shared.network.NetworkInfoDetail
-import kpn.shared.network.NetworkNodeInfo2
-import kpn.shared.network.NetworkRouteInfo
-import kpn.shared.network.NetworkShape
-import kpn.shared.route.RouteNetworkNodeInfo
+import kpn.api.common.NetworkFacts
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.network.Integrity
+import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.network.NetworkInfoDetail
+import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.network.NetworkRouteInfo
+import kpn.api.common.network.NetworkShape
+import kpn.api.common.route.RouteNetworkNodeInfo
 
 class TestDocBuilder(database: Database) extends SharedTestObjects {
 

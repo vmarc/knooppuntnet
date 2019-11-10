@@ -1,6 +1,6 @@
 package kpn.server.api.analysis.pages.route
 
-import kpn.shared.route.RouteMapPage
+import kpn.api.common.route.RouteMapPage
 
 object RouteMapPageExample {
   val page: RouteMapPage = {

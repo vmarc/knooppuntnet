@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.Fact.RouteIncomplete
+import kpn.api.custom.Fact.RouteIncompleteOk
+import kpn.api.custom.FactLevel
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.shared.Fact.RouteIncomplete
-import kpn.shared.Fact.RouteIncompleteOk
-import kpn.shared.FactLevel
 
 object IncompleteOkRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {

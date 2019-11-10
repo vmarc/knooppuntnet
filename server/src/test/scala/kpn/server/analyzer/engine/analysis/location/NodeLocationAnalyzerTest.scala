@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.shared.Location
+import kpn.api.common.Location
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

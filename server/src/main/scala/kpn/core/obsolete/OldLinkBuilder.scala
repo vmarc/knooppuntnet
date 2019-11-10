@@ -1,9 +1,9 @@
 package kpn.core.obsolete
 
+import kpn.api.common.data.Node
+import kpn.api.common.data.Way
 import kpn.core.analysis.Link
 import kpn.core.analysis.LinkType
-import kpn.shared.data.Node
-import kpn.shared.data.Way
 import kpn.core.josm.Direction
 import kpn.core.josm.RelationMember
 import kpn.core.josm.WayConnectionType

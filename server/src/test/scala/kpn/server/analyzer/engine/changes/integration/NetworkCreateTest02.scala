@@ -1,29 +1,29 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.analysis.Network
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetElementRef
-import kpn.shared.ChangeSetElementRefs
-import kpn.shared.ChangeSetSubsetAnalysis
-import kpn.shared.ChangeSetSummary
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkChanges
-import kpn.shared.NetworkType
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RefChanges
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.common.Ref
-import kpn.shared.data.Tags
-import kpn.shared.data.raw.RawMember
-import kpn.shared.data.raw.RawWay
-import kpn.shared.diff.RefDiffs
+import kpn.api.common.ChangeSetElementRef
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NetworkChanges
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RefChanges
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.data.raw.RawWay
+import kpn.api.common.diff.RefDiffs
 
 class NetworkCreateTest02 extends AbstractTest {
 

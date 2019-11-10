@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.node
 
-import kpn.shared.SharedTestObjects
-import kpn.shared.Subset
-import kpn.shared.common.Ref
-import kpn.shared.data.raw.RawNode
+import kpn.api.custom.Subset
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawNode
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

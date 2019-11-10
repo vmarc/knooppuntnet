@@ -1,9 +1,9 @@
 package kpn.core.history
 
+import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 import kpn.core.analysis.Network
 import kpn.core.data.Data
-import kpn.shared.Timestamp
-import kpn.shared.data.Relation
 
 case class NetworkSnapshot(timestamp: Timestamp, data: Data, network: Network) {
 

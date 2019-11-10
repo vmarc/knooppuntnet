@@ -2,8 +2,8 @@ package kpn.core.replicate
 
 import java.io.File
 
+import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.shared.Timestamp
 
 import scala.collection.mutable.ListBuffer
 import scala.sys.process.Process

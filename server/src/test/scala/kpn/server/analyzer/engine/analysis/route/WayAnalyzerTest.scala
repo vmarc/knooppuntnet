@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.shared.SharedTestObjects
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

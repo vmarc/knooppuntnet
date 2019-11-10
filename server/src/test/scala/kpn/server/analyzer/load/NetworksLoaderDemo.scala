@@ -1,6 +1,7 @@
 package kpn.server.analyzer.load
 
 import akka.actor.ActorSystem
+import kpn.api.custom.Timestamp
 import kpn.core.app.ActorSystemConfig
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
@@ -23,7 +24,6 @@ import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.TaskRepositoryImpl
-import kpn.shared.Timestamp
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration

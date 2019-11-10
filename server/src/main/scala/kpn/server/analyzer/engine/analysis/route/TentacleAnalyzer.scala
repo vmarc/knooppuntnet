@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.data.Node
+import kpn.core.util.Unique
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinder
-import kpn.core.util.Unique
-import kpn.shared.data.Node
 
 class TentacleAnalyzer(segmentFinder: SegmentFinder, fragments: Seq[Fragment], nodes: Seq[Node]) {
 

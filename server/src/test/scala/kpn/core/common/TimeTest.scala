@@ -3,7 +3,7 @@ package kpn.core.common
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

@@ -1,10 +1,10 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.network.NetworkMapInfo
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.Subset
-import kpn.shared.network.NetworkMapInfo
 
 object NetworkMapView extends View {
 

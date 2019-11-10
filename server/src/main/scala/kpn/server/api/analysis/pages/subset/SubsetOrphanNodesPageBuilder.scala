@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.subset
 
-import kpn.shared.Subset
-import kpn.shared.subset.SubsetOrphanNodesPage
+import kpn.api.common.subset.SubsetOrphanNodesPage
+import kpn.api.custom.Subset
 
 trait SubsetOrphanNodesPageBuilder {
   def build(subset: Subset): SubsetOrphanNodesPage

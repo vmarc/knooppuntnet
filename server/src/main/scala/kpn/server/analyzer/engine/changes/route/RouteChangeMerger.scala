@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes.route
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.Ref
+import kpn.api.common.diff.RouteData
 import kpn.core.util.Log
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.common.Ref
-import kpn.shared.diff.RouteData
 
 class RouteChangeMerger(left: RouteChange, right: RouteChange) {
 

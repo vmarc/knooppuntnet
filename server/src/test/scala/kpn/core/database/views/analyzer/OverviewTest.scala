@@ -1,13 +1,13 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.app.stats.Figure
 import kpn.core.database.Database
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

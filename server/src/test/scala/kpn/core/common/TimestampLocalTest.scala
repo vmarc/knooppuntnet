@@ -1,7 +1,7 @@
 package kpn.core.common
 
-import kpn.shared.SharedTestObjects
-import kpn.shared.Timestamp
+import kpn.api.custom.Timestamp
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

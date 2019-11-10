@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
+import kpn.api.custom.Country
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Country
-import kpn.shared.NodeInfo
-import kpn.shared.data.Node
+import kpn.api.common.NodeInfo
+import kpn.api.common.data.Node
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

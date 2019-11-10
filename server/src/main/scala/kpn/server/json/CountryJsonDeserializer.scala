@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.shared.Country
+import kpn.api.custom.Country
 
 class CountryJsonDeserializer extends JsonDeserializer[Country] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Country = {

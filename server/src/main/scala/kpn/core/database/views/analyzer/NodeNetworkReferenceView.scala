@@ -1,9 +1,9 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.node.NodeNetworkReference
 import kpn.core.database.Database
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.node.NodeNetworkReference
 
 object NodeNetworkReferenceView extends View {
 

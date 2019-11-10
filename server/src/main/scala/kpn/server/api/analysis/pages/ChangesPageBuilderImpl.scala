@@ -1,10 +1,10 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.ChangesPage
+import kpn.api.common.changes.filter.ChangesParameters
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
-import kpn.shared.ChangeSetSummary
-import kpn.shared.ChangesPage
-import kpn.shared.changes.filter.ChangesParameters
 import org.springframework.stereotype.Component
 
 @Component

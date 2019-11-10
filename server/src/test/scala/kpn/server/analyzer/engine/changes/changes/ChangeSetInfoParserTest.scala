@@ -1,10 +1,8 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.custom.Timestamp
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-
-
-import kpn.shared.Timestamp
 
 import scala.xml.XML
 

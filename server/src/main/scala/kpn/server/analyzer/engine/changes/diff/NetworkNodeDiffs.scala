@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.diff
 
-import kpn.shared.common.ReferencedElements
-import kpn.shared.diff.NetworkNodeData
-import kpn.shared.diff.NetworkNodeUpdate
-import kpn.shared.diff.RefDiffs
+import kpn.api.common.common.ReferencedElements
+import kpn.api.common.diff.NetworkNodeData
+import kpn.api.common.diff.NetworkNodeUpdate
+import kpn.api.common.diff.RefDiffs
 
 object NetworkNodeDiffs {
   def empty = NetworkNodeDiffs()

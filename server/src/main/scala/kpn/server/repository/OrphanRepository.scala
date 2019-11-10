@@ -1,10 +1,10 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.NodeInfo
+import kpn.api.common.RouteSummary
+import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
-import kpn.shared.NodeInfo
-import kpn.shared.RouteSummary
-import kpn.shared.Subset
 
 trait OrphanRepository {
 

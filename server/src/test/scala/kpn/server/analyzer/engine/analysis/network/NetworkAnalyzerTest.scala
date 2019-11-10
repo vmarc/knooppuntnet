@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.core.analysis.Network
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
@@ -8,11 +10,9 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.shared.NetworkExtraMemberNode
-import kpn.shared.NetworkExtraMemberRelation
-import kpn.shared.NetworkExtraMemberWay
-import kpn.shared.NetworkType
-import kpn.shared.data.Tags
+import kpn.api.common.NetworkExtraMemberNode
+import kpn.api.common.NetworkExtraMemberRelation
+import kpn.api.common.NetworkExtraMemberWay
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

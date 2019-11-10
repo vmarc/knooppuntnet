@@ -1,26 +1,26 @@
 package kpn.server.analyzer.engine.changes.network.delete
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.RefChanges
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
+import kpn.api.common.network.Integrity
+import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkInfo
+import kpn.api.custom.Fact
+import kpn.api.custom.Tags
 import kpn.core.analysis.Network
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.repository.NetworkRepository
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Fact
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.RefChanges
-import kpn.shared.data.Tags
-import kpn.shared.diff.IdDiffs
-import kpn.shared.diff.RefDiffs
-import kpn.shared.network.Integrity
-import kpn.shared.network.NetworkAttributes
-import kpn.shared.network.NetworkInfo
 import org.springframework.stereotype.Component
 
 @Component

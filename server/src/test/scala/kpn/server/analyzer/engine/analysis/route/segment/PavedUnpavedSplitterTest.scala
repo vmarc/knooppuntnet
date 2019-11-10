@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.custom.Tags
 import kpn.core.test.TestData
-import kpn.shared.data.Tags
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

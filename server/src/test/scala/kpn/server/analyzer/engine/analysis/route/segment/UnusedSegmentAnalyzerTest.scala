@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.UnusedSegmentAnalyzer
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

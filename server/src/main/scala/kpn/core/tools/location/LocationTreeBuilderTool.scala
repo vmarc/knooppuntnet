@@ -3,6 +3,7 @@ package kpn.core.tools.location
 import java.io.File
 import java.io.FileFilter
 
+import kpn.api.custom.Country
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationDefinition
@@ -10,7 +11,6 @@ import kpn.server.analyzer.engine.analysis.location.LocationDefinition
 import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader
 import kpn.server.analyzer.engine.analysis.location.LocationTree
 import kpn.server.json.Json
-import kpn.shared.Country
 
 /*
   Generates the location tree configuration file.

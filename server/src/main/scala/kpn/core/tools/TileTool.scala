@@ -1,12 +1,11 @@
 package kpn.core.tools
 
+import kpn.api.common.tiles.ZoomLevel
+import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
 import kpn.core.mail.Mail
 import kpn.core.mail.MailConfigReader
 import kpn.core.mail.MailImpl
-import kpn.server.repository.NetworkRepositoryImpl
-import kpn.server.repository.OrphanRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
 import kpn.core.tiles.TileAnalyzer
 import kpn.core.tiles.TileAnalyzerImpl
 import kpn.core.tiles.TileBuilder
@@ -15,8 +14,9 @@ import kpn.core.tiles.TilesBuilder
 import kpn.core.tiles.raster.RasterTileBuilder
 import kpn.core.tiles.vector.VectorTileBuilder
 import kpn.core.util.Log
-import kpn.shared.NetworkType
-import kpn.shared.tiles.ZoomLevel
+import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.OrphanRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 /*
   Generates tiles for all nodes and routes in the database.

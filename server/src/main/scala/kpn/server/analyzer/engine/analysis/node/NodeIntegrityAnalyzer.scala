@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
-import kpn.shared.NetworkType
-import kpn.shared.NodeIntegrityCheck
 
 class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAnalysis, networkNode: NetworkNode) {
 

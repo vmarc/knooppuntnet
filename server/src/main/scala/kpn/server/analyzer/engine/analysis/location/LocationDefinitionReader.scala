@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.analysis.location
 
 import java.io.File
 
+import kpn.api.common.Language
+import kpn.api.common.Languages
 import kpn.core.database.query.Fields
 import kpn.server.json.Json
-import kpn.shared.Language
-import kpn.shared.Languages
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry

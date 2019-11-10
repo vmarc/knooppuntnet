@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.data.WayMember
 import kpn.server.analyzer.engine.analysis.route.analyzers.NodePair
 import kpn.server.analyzer.engine.analysis.route.analyzers.Overlap
 import kpn.server.analyzer.engine.analysis.route.analyzers.WayNodePair
-import kpn.shared.data.WayMember
 
 class _OldOverlapAnalyzer(wayMembers: Seq[WayMember]) {
 

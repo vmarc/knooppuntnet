@@ -1,11 +1,11 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.custom.Subset
 import kpn.core.app.stats.Figure
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
-import kpn.shared.Subset
 
 object Overview extends View {
 

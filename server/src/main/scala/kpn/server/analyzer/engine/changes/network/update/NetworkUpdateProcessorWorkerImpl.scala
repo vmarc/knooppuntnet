@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.network.update
 
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.repository.AnalysisRepository
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import org.springframework.stereotype.Component
 
 import scala.concurrent.Await

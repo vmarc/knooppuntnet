@@ -1,8 +1,8 @@
 package kpn.core.analysis
 
-import kpn.shared.data.Element
-import kpn.shared.data.Node
-import kpn.shared.route.RouteNetworkNodeInfo
+import kpn.api.common.data.Element
+import kpn.api.common.data.Node
+import kpn.api.common.route.RouteNetworkNodeInfo
 
 trait RouteMember {
   def endNodes: Seq[Node]

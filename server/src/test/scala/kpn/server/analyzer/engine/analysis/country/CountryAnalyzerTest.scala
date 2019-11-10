@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.country
 
+import kpn.api.custom.Country
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.Country
-import kpn.shared.LatLon
-import kpn.shared.SharedTestObjects
+import kpn.api.common.LatLon
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.data.Way
 import kpn.core.util.Triplet
-import kpn.shared.data.Way
 
 case class WayTriplet(delegate: Triplet[Way]) {
 

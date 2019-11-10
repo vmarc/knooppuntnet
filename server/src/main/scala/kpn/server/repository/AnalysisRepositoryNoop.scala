@@ -1,10 +1,10 @@
 package kpn.server.repository
 
+import kpn.api.common.NodeInfo
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Timestamp
 import kpn.core.analysis.Network
-import kpn.shared.NodeInfo
-import kpn.shared.Timestamp
-import kpn.shared.network.NetworkInfo
-import kpn.shared.route.RouteInfo
 
 class AnalysisRepositoryNoop extends AnalysisRepository {
 

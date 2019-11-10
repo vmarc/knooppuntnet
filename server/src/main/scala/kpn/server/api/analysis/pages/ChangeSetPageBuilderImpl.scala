@@ -1,5 +1,15 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSetPage
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkChangeInfo
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.KnownElements
+import kpn.api.common.common.ReferencedElements
+import kpn.api.common.node.NodeChangeInfo
+import kpn.api.common.route.RouteChangeInfo
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.analyzer.engine.changes.builder.RouteChangeInfoBuilder
@@ -7,16 +17,6 @@ import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
-import kpn.shared.ReplicationId
-import kpn.shared.changes.ChangeSetPage
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NetworkChangeInfo
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.changes.details.RouteChange
-import kpn.shared.common.KnownElements
-import kpn.shared.common.ReferencedElements
-import kpn.shared.node.NodeChangeInfo
-import kpn.shared.route.RouteChangeInfo
 import org.springframework.stereotype.Component
 
 @Component

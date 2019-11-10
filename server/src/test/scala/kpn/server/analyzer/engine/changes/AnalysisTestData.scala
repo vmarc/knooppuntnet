@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.changes
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.custom.Change
+import kpn.api.custom.Change.create
+import kpn.api.custom.Change.delete
+import kpn.api.custom.Change.modify
+import kpn.core.test.TestData
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.core.test.TestData
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.shared.SharedTestObjects
-import kpn.shared.changes.Change
-import kpn.shared.changes.Change.create
-import kpn.shared.changes.Change.delete
-import kpn.shared.changes.Change.modify
 
 class AnalysisTestData extends SharedTestObjects {
 

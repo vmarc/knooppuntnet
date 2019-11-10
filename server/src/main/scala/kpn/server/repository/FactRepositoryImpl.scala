@@ -1,11 +1,11 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.subset.NetworkFactRefs
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.FactsPerNetworkView
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.subset.NetworkFactRefs
 import org.springframework.stereotype.Component
 
 @Component

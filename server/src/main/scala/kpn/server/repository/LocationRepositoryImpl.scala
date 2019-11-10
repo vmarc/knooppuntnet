@@ -1,9 +1,9 @@
 package kpn.server.repository
 
+import kpn.api.common.common.Ref
+import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.location.LocationView
-import kpn.shared.NetworkType
-import kpn.shared.common.Ref
 import org.springframework.stereotype.Component
 
 @Component

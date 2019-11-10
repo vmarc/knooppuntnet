@@ -1,11 +1,11 @@
 package kpn.core.tiles.vector
 
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.Point
 import kpn.core.tiles.PoiTileData
 import kpn.core.tiles.domain.Tile
 import kpn.core.tiles.vector.encoder.VectorTileEncoder
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.Point
 
 import scala.collection.immutable.ListMap
 

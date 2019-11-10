@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
-import kpn.shared.route.Backward
-import kpn.shared.route.Both
-import kpn.shared.route.Forward
-import kpn.shared.route.WayDirection
+import kpn.api.custom.Tags
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.route.Backward
+import kpn.api.common.route.Both
+import kpn.api.common.route.Forward
+import kpn.api.common.route.WayDirection
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

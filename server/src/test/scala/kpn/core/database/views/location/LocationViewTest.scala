@@ -1,14 +1,14 @@
 package kpn.core.database.views.location
 
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.shared.Location
-import kpn.shared.NetworkType
-import kpn.shared.RouteLocationAnalysis
-import kpn.shared.SharedTestObjects
-import kpn.shared.common.Ref
-import kpn.shared.data.Tags
+import kpn.api.common.Location
+import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.common.Ref
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

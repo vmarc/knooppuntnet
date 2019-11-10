@@ -1,5 +1,10 @@
 package kpn.server.repository
 
+import kpn.api.common.NodeInfo
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Fact
+import kpn.api.custom.Timestamp
 import kpn.core.analysis._
 import kpn.core.database.Database
 import kpn.core.database.doc.TimestampDoc
@@ -8,11 +13,6 @@ import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
 import kpn.core.tools.db.NetworkInfoBuilder
 import kpn.core.util.Log
-import kpn.shared.Fact
-import kpn.shared.NodeInfo
-import kpn.shared.Timestamp
-import kpn.shared.network.NetworkInfo
-import kpn.shared.route.RouteInfo
 import org.springframework.stereotype.Component
 
 @Component

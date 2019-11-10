@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 
 object RouteUtil {
 

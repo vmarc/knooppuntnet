@@ -8,8 +8,8 @@ import java.awt.geom.Line2D
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.FileOutputStream
-import javax.imageio.ImageIO
 
+import javax.imageio.ImageIO
 import kpn.core.analysis.Link
 import kpn.core.analysis.LinkType
 

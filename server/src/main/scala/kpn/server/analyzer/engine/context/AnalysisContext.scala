@@ -1,17 +1,17 @@
 package kpn.server.analyzer.engine.context
 
+import kpn.api.common.ScopedNetworkType
+import kpn.api.common.data.Element
+import kpn.api.common.data.Member
+import kpn.api.common.data.Node
+import kpn.api.common.data.NodeMember
+import kpn.api.common.data.RelationMember
+import kpn.api.common.data.Tagable
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.data.AnalysisData
-import kpn.shared.NetworkType
-import kpn.shared.ScopedNetworkType
-import kpn.shared.Timestamp
-import kpn.shared.data.Element
-import kpn.shared.data.Member
-import kpn.shared.data.Node
-import kpn.shared.data.NodeMember
-import kpn.shared.data.RelationMember
-import kpn.shared.data.Tagable
-import kpn.shared.data.raw.RawNode
-import kpn.shared.data.raw.RawRelation
 
 object AnalysisContext {
   val networkTypeTaggingStart: Timestamp = Timestamp(2019, 11, 1)

@@ -5,7 +5,7 @@ import java.io.PrintWriter
 
 import kpn.core.loadOld.OsmDataXmlReader
 import kpn.core.loadOld.OsmDataXmlWriter
-import kpn.shared.data.raw.RawData
+import kpn.api.common.data.raw.RawData
 
 object RouteAnalysisCaseStudyExtractMaker {
   def main(args: Array[String]): Unit = {

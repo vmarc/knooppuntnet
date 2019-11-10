@@ -1,20 +1,20 @@
 package kpn.server.api.analysis.pages.route
 
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkType
-import kpn.shared.RouteSummary
-import kpn.shared.Timestamp
-import kpn.shared.common.Reference
-import kpn.shared.data.Tags
-import kpn.shared.route.Both
-import kpn.shared.route.RouteDetailsPage
-import kpn.shared.route.RouteInfo
-import kpn.shared.route.RouteInfoAnalysis
-import kpn.shared.route.RouteMap
-import kpn.shared.route.RouteMemberInfo
-import kpn.shared.route.RouteNetworkNodeInfo
-import kpn.shared.route.RouteReferences
+import kpn.api.common.RouteSummary
+import kpn.api.common.common.Reference
+import kpn.api.common.route.Both
+import kpn.api.common.route.RouteDetailsPage
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteInfoAnalysis
+import kpn.api.common.route.RouteMap
+import kpn.api.common.route.RouteMemberInfo
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.RouteReferences
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 
 object RouteDetailsPageExample {
 

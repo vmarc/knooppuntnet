@@ -1,15 +1,15 @@
 package kpn.core.tiles
 
+import kpn.api.common.NodeInfo
+import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.route.RouteInfo
+import kpn.api.custom.NetworkType
 import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TileNodes
 import kpn.core.tiles.domain.TileRoute
 import kpn.core.tiles.domain.TileRoutes
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.shared.NetworkType
-import kpn.shared.NodeInfo
-import kpn.shared.network.NetworkNodeInfo2
-import kpn.shared.route.RouteInfo
 import org.locationtech.jts.geom.GeometryFactory
 
 class TilesBuilder(

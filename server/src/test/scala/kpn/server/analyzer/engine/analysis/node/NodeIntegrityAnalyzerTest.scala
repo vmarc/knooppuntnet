@@ -1,5 +1,8 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
@@ -7,11 +10,8 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
-import kpn.shared.Country
-import kpn.shared.NetworkType
-import kpn.shared.NodeIntegrityCheck
-import kpn.shared.SharedTestObjects
-import kpn.shared.data.Tags
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

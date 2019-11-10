@@ -1,9 +1,9 @@
 package kpn.server.repository
 
 import akka.util.Timeout
+import kpn.api.common.Poi
 import kpn.core.db.couch.Couch
 import kpn.core.poi.PoiInfo
-import kpn.shared.Poi
 
 trait PoiRepository {
 

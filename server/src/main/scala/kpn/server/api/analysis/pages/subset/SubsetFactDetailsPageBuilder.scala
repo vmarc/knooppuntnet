@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.subset
 
-import kpn.shared.Fact
-import kpn.shared.Subset
-import kpn.shared.subset.SubsetFactDetailsPage
+import kpn.api.common.subset.SubsetFactDetailsPage
+import kpn.api.custom.Fact
+import kpn.api.custom.Subset
 
 trait SubsetFactDetailsPageBuilder {
   def build(subset: Subset, fact: Fact): SubsetFactDetailsPage

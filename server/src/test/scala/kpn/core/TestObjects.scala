@@ -1,8 +1,8 @@
 package kpn.core
 
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.shared.ReplicationId
-import kpn.shared.SharedTestObjects
+import kpn.api.common.ReplicationId
+import kpn.api.common.SharedTestObjects
 
 trait TestObjects extends SharedTestObjects {
 

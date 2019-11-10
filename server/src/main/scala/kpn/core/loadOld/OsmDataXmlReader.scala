@@ -1,6 +1,6 @@
 package kpn.core.loadOld
 
-import kpn.shared.data.raw.RawData
+import kpn.api.common.data.raw.RawData
 
 object OsmDataXmlReader {
   def read(fileName: String): RawData = {

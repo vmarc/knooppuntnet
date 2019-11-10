@@ -6,9 +6,9 @@ import akka.actor.Props
 import akka.pattern.ask
 import akka.routing.BalancingPool
 import akka.util.Timeout
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 import scala.concurrent.ExecutionContext

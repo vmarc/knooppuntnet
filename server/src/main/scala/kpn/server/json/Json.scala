@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import kpn.api.common.route.WayDirection
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.database.doc.ChangeSetDatas
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkScope
-import kpn.shared.NetworkType
-import kpn.shared.Subset
-import kpn.shared.Timestamp
-import kpn.shared.data.Tags
-import kpn.shared.route.WayDirection
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 

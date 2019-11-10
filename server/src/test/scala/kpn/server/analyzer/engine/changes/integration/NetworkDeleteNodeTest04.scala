@@ -1,22 +1,22 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
 import kpn.core.test.TestData2
-import kpn.shared.ChangeSetSubsetAnalysis
-import kpn.shared.ChangeSetSummary
-import kpn.shared.Country
-import kpn.shared.Fact
-import kpn.shared.NetworkChanges
-import kpn.shared.NetworkType
-import kpn.shared.Subset
-import kpn.shared.changes.ChangeAction
-import kpn.shared.changes.details.ChangeType
-import kpn.shared.changes.details.NetworkChange
-import kpn.shared.changes.details.NodeChange
-import kpn.shared.common.Ref
-import kpn.shared.diff.TagDetail
-import kpn.shared.diff.TagDetailType.Delete
-import kpn.shared.diff.TagDiffs
-import kpn.shared.network.NetworkInfo
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.NetworkChanges
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.common.Ref
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType.Delete
+import kpn.api.common.diff.TagDiffs
+import kpn.api.common.network.NetworkInfo
 
 class NetworkDeleteNodeTest04 extends AbstractTest {
 

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.shared.data.Way
+import kpn.api.common.data.Way
 
 
 class SurfaceAnalyzer(way: Way) {
