@@ -1,4 +1,4 @@
-import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes";
+import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 
 export class InterpretedNetworkAttributes {
 

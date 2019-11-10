@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
-import {RouteChangesPage} from "../../../kpn/shared/route/route-changes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
+import {RouteChangesPage} from "../../../kpn/api/common/route/route-changes-page";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
@@ -53,7 +53,6 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   routeId: string;
   response: ApiResponse<RouteChangesPage>;
   private readonly subscriptions = new Subscriptions();
-  private _parameters: ChangesParameters;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -62,19 +61,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
               private userService: UserService) {
   }
 
-  ngOnInit(): void {
-    this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.activatedRoute.params.subscribe(params => {
-        this.routeId = params["routeId"];
-        this.parameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 5, 0, false);
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
+  private _parameters: ChangesParameters;
 
   get parameters() {
     return this._parameters;
@@ -91,6 +78,20 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   get route() {
     return this.response.result.route;
+  }
+
+  ngOnInit(): void {
+    this.pageService.defaultMenu();
+    this.subscriptions.add(
+      this.activatedRoute.params.subscribe(params => {
+        this.routeId = params["routeId"];
+        this.parameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 5, 0, false);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   isLoggedIn(): boolean {

@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {ChangeSetNetwork} from "../../../../kpn/shared/change-set-network";
+import {ChangeSetNetwork} from "../../../../kpn/api/common/change-set-network";
 
 export class ChangeSetNetworkAction {
   constructor(readonly action: string,

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Map} from "immutable";
-import {SubsetInfo} from "../kpn/shared/subset/subset-info";
+import {SubsetInfo} from "../kpn/api/common/subset/subset-info";
 
 @Injectable({
   providedIn: "root"

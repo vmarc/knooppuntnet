@@ -1,4 +1,4 @@
-import {Subset} from "../../kpn/shared/subset";
+import {Subset} from "../../kpn/api/custom/subset";
 
 export class StatisticConfiguration {
 

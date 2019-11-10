@@ -3,9 +3,9 @@ import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {RouteInfo} from "../../../kpn/shared/route/route-info";
-import {RouteMapPage} from "../../../kpn/shared/route/route-map-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {RouteInfo} from "../../../kpn/api/common/route/route-info";
+import {RouteMapPage} from "../../../kpn/api/common/route/route-map-page";
 import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({

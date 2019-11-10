@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
-import {NetworkChangesPage} from "../../../kpn/shared/network/network-changes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
+import {NetworkChangesPage} from "../../../kpn/api/common/network/network-changes-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -62,6 +62,7 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
               private networkCacheService: NetworkCacheService,
               private userService: UserService) {
   }
+
   ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {

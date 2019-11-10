@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {NetworkType} from "../../kpn/shared/network-type";
+import {NetworkType} from "../../kpn/api/custom/network-type";
 import {SelectedFeature} from "./domain/selected-feature";
 
 export class PoiId {

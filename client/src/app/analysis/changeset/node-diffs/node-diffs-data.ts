@@ -1,8 +1,8 @@
 import {List} from "immutable";
-import {KnownElements} from "../../../kpn/shared/common/known-elements";
-import {Ref} from "../../../kpn/shared/common/ref";
-import {RefDiffs} from "../../../kpn/shared/diff/ref-diffs";
-import {NodeChangeInfo} from "../../../kpn/shared/node/node-change-info";
+import {KnownElements} from "../../../kpn/api/common/common/known-elements";
+import {Ref} from "../../../kpn/api/common/common/ref";
+import {RefDiffs} from "../../../kpn/api/common/diff/ref-diffs";
+import {NodeChangeInfo} from "../../../kpn/api/common/node/node-change-info";
 
 export class NodeDiffsData {
 

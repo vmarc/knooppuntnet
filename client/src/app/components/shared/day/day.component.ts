@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Timestamp} from "../../../kpn/shared/timestamp";
+import {Timestamp} from "../../../kpn/api/custom/timestamp";
 
 @Component({
   selector: "kpn-day",

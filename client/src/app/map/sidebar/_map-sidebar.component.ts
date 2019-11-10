@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from "@angular/c
 import {MatButtonToggleChange} from "@angular/material";
 import {MapService} from "src/app/components/ol/map.service";
 import {SelectedFeature} from "../../components/ol/domain/selected-feature";
-import {NetworkType} from "../../kpn/shared/network-type";
+import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({
@@ -13,15 +13,15 @@ import {Subscriptions} from "../../util/Subscriptions";
         <mat-button-toggle-group [value]="pageMode" (change)="pageModeChanged($event)">
           <mat-button-toggle value="planner">
             <mat-icon svgIcon="map"></mat-icon>
-            <span  i18n="@@planner.menu.planner">Planner</span>
+            <span i18n="@@planner.menu.planner">Planner</span>
           </mat-button-toggle>
           <mat-button-toggle value="analysis">
             <mat-icon svgIcon="analysis"></mat-icon>
-            <span  i18n="@@planner.menu.analysis">Analysis</span>
+            <span i18n="@@planner.menu.analysis">Analysis</span>
           </mat-button-toggle>
           <mat-button-toggle value="poi">
             <mat-icon svgIcon="help"></mat-icon>
-            <span  i18n="@@planner.menu.poi">POI</span>
+            <span i18n="@@planner.menu.poi">POI</span>
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>

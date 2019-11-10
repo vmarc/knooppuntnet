@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {KnownElements} from "../../../kpn/shared/common/known-elements";
-import {Ref} from "../../../kpn/shared/common/ref";
+import {KnownElements} from "../../../kpn/api/common/common/known-elements";
+import {Ref} from "../../../kpn/api/common/common/ref";
 
 @Component({
   selector: "kpn-link-node-ref",

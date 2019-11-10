@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
-import {ChangeSetElementRef} from "../../../../kpn/shared/change-set-element-ref";
-import {ChangeSetElementRefs} from "../../../../kpn/shared/change-set-element-refs";
+import {ChangeSetElementRef} from "../../../../kpn/api/common/change-set-element-ref";
+import {ChangeSetElementRefs} from "../../../../kpn/api/common/change-set-element-refs";
 import {ChangeSetElement} from "./change-set-element-ref.component";
 
 @Component({

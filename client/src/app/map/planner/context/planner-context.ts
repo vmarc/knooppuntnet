@@ -1,5 +1,5 @@
 import {BehaviorSubject, Observable} from "rxjs";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {Plan} from "../plan/plan";

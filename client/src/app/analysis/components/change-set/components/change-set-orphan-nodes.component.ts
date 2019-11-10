@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {ChangeSetSubsetElementRefs} from "../../../../kpn/shared/change-set-subset-element-refs";
+import {ChangeSetSubsetElementRefs} from "../../../../kpn/api/common/change-set-subset-element-refs";
 
 @Component({
   selector: "kpn-change-set-orphan-nodes",

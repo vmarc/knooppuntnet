@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
+import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network-change-info";
 
 @Component({
   selector: "kpn-network-change",

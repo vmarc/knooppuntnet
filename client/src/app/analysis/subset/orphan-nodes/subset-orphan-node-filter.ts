@@ -4,8 +4,8 @@ import {FilterOptions} from "../../../kpn/filter/filter-options";
 import {Filters} from "../../../kpn/filter/filters";
 import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
 import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
-import {NodeInfo} from "../../../kpn/shared/node-info";
-import {TimeInfo} from "../../../kpn/shared/time-info";
+import {NodeInfo} from "../../../kpn/api/common/node-info";
+import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {SubsetOrphanNodeFilterCriteria} from "./subset-orphan-node-filter-criteria";
 
 export class SubsetOrphanNodeFilter {

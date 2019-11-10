@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {RawNode} from "../../../../kpn/shared/data/raw/raw-node";
-import {NodeUpdate} from "../../../../kpn/shared/diff/node-update";
-import {WayUpdate} from "../../../../kpn/shared/diff/way-update";
+import {RawNode} from "../../../../kpn/api/common/data/raw/raw-node";
+import {NodeUpdate} from "../../../../kpn/api/common/diff/node-update";
+import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
 
 @Component({
   selector: "kpn-route-change-way-updated",

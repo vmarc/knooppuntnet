@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
-import {Country} from "../../kpn/shared/country";
-import {NetworkType} from "../../kpn/shared/network-type";
-import {Subset} from "../../kpn/shared/subset";
+import {Country} from "../../kpn/api/custom/country";
+import {NetworkType} from "../../kpn/api/custom/network-type";
+import {Subset} from "../../kpn/api/custom/subset";
 import {Stat} from "./stat";
 
 @Component({

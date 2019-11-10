@@ -1,6 +1,6 @@
 import TileLayer from "ol/layer/Tile";
 import XYZ from "ol/source/XYZ";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 
 import {ZoomLevel} from "./zoom-level";
 

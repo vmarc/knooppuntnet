@@ -1,7 +1,7 @@
 import {List} from "immutable";
-import {Tags} from "../../../kpn/shared/data/tags";
+import {Tags} from "../../../kpn/api/custom/tags";
 import {InterpretedTags} from "./interpreted-tags";
-import {Tag} from "../../../kpn/shared/data/tag";
+import {Tag} from "../../../kpn/api/custom/tag";
 
 describe("TagFilter", () => {
 

@@ -2,12 +2,12 @@ import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
 import {PageWidthService} from "../../../components/shared/page-width.service";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {BehaviorSubject} from "rxjs";
 import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
-import {TimeInfo} from "../../../kpn/shared/time-info";
+import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkRouteFilter} from "./network-route-filter";
-import {NetworkRouteRow} from "../../../kpn/shared/network/network-route-row";
+import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
 import {NetworkRoutesService} from "./network-routes.service";
 
 @Component({

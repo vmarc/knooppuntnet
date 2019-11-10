@@ -12,7 +12,7 @@ import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
-import {NodeMoved} from "../../kpn/shared/diff/node/node-moved";
+import {NodeMoved} from "../../kpn/api/common/diff/node/node-moved";
 import {UniqueId} from "../../kpn/common/unique-id";
 
 @Component({

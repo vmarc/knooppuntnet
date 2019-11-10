@@ -3,8 +3,8 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {AppService} from "../../app.service";
 import {PageService} from "../../components/shared/page.service";
 import {Util} from "../../components/shared/util";
-import {ApiResponse} from "../../kpn/shared/api-response";
-import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
+import {ApiResponse} from "../../kpn/api/custom/api-response";
+import {ChangeSetPage} from "../../kpn/api/common/changes/change-set-page";
 import {Subscriptions} from "../../util/Subscriptions";
 import {flatMap, map} from "rxjs/operators";
 
@@ -17,18 +17,18 @@ class ChangeSetKey {
 @Component({
   selector: "kpn-change-set-page",
   template: `
-    <h1>
-      <ng-container i18n="@@change-set.title">Changeset</ng-container>
-      {{changeSetTitle()}}
-    </h1>
+      <h1>
+          <ng-container i18n="@@change-set.title">Changeset</ng-container>
+          {{changeSetTitle()}}
+      </h1>
 
-    <div *ngIf="response">
-      <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
-      <kpn-change-set-network-changes [page]="response.result"></kpn-change-set-network-changes>
-      <kpn-change-set-orphan-node-changes [page]="response.result"></kpn-change-set-orphan-node-changes>
-      <kpn-change-set-orphan-route-changes [page]="response.result"></kpn-change-set-orphan-route-changes>
-      <kpn-json [object]="response"></kpn-json>
-    </div>
+      <div *ngIf="response">
+          <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
+          <kpn-change-set-network-changes [page]="response.result"></kpn-change-set-network-changes>
+          <kpn-change-set-orphan-node-changes [page]="response.result"></kpn-change-set-orphan-node-changes>
+          <kpn-change-set-orphan-route-changes [page]="response.result"></kpn-change-set-orphan-route-changes>
+          <kpn-json [object]="response"></kpn-json>
+      </div>
   `
 })
 export class ChangeSetPageComponent implements OnInit, OnDestroy {

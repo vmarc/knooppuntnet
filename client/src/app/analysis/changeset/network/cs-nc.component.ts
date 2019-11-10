@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {ChangeSetPage} from "../../../kpn/shared/changes/change-set-page";
-import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
+import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
+import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network-change-info";
 import {NodeDiffsData} from "../node-diffs/node-diffs-data";
 import {RouteDiffsData} from "../route-diffs/route-diffs-data";
 

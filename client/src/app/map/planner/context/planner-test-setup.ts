@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";

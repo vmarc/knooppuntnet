@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes";
+import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 
 @Component({
   selector: "kpn-subset-map-network-dialog",

@@ -6,8 +6,8 @@ import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {RouteDetailsPage} from "../../../kpn/shared/route/route-details-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {RouteDetailsPage} from "../../../kpn/api/common/route/route-details-page";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {FactInfo} from "../../fact/fact-info";
 
@@ -95,16 +95,19 @@ import {FactInfo} from "../../fact/fact-info";
 })
 export class RoutePageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   routeId: string;
   response: ApiResponse<RouteDetailsPage>;
   tags: InterpretedTags;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService,
               private pageWidthService: PageWidthService) {
+  }
+
+  get route() {
+    return this.response.result.route;
   }
 
   ngOnInit(): void {
@@ -120,10 +123,6 @@ export class RoutePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  get route() {
-    return this.response.result.route;
   }
 
   factInfos(): List<FactInfo> {

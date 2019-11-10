@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {AppService} from "../../app.service";
 import {PageWidthService} from "../../components/shared/page-width.service";
 import {PageService} from "../../components/shared/page.service";
-import {ApiResponse} from "../../kpn/shared/api-response";
-import {Statistics} from "../../kpn/shared/statistics/statistics";
+import {ApiResponse} from "../../kpn/api/custom/api-response";
+import {Statistics} from "../../kpn/api/custom/statistics";
 import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({

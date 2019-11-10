@@ -4,12 +4,12 @@ import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {FactCountNew} from "../../../kpn/shared/fact-count-new";
-import {Subset} from "../../../kpn/shared/subset";
-import {SubsetFactsPageNew} from "../../../kpn/shared/subset/subset-facts-page-new";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {FactCount} from "../../../kpn/api/common/fact-count";
+import {SubsetFactsPage} from "../../../kpn/api/common/subset/subset-facts-page";
 
 @Component({
   selector: "kpn-subset-facts-page",
@@ -34,10 +34,10 @@ import {Subscriptions} from "../../../util/Subscriptions";
         <kpn-items>
           <kpn-item *ngFor="let factCount of response.result.factCounts; let i=index" [index]="i">
             <a [routerLink]="factDetailLink(factCount)">
-              <kpn-fact-name [factName]="factCount.factName"></kpn-fact-name>
+              <kpn-fact-name [factName]="factCount.fact.name"></kpn-fact-name>
             </a>
             ({{factCount.count}})
-            <kpn-fact-description [factName]="factCount.factName"></kpn-fact-description>
+            <kpn-fact-description [factName]="factCount.fact.name"></kpn-fact-description>
           </kpn-item>
         </kpn-items>
       </div>
@@ -48,7 +48,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
   subset: Subset;
-  response: ApiResponse<SubsetFactsPageNew>;
+  response: ApiResponse<SubsetFactsPage>;
   private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -75,11 +75,11 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
     return this.response && this.response.result && this.response.result.subsetInfo.factCount > 0;
   }
 
-  factDetailLink(factCount: FactCountNew): String {
-    return "/analysis/" + this.subset.key() + "/" + factCount.factName;
+  factDetailLink(factCount: FactCount): String {
+    return "/analysis/" + this.subset.key() + "/" + factCount.fact.name;
   }
 
-  private processResponse(response: ApiResponse<SubsetFactsPageNew>) {
+  private processResponse(response: ApiResponse<SubsetFactsPage>) {
     this.response = response;
     this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
   }

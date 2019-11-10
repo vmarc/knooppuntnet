@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {ChangeKey} from "../../../kpn/shared/changes/details/change-key";
+import {ChangeKey} from "../../../kpn/api/common/changes/details/change-key";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 
 @Component({

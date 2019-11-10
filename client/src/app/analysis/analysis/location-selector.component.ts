@@ -4,7 +4,7 @@ import {List} from "immutable";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {Countries} from "../../kpn/common/countries";
-import {Country} from "../../kpn/shared/country";
+import {Country} from "../../kpn/api/custom/country";
 import {Subscriptions} from "../../util/Subscriptions";
 import {LocationOption} from "./location-option";
 import {LocationNode, locations} from "./locations";

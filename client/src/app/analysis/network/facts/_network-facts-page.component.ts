@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkFactsPage} from "../../../kpn/shared/network/network-facts-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NetworkFactsPage} from "../../../kpn/api/common/network/network-facts-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 

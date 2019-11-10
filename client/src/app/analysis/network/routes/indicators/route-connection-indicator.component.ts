@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {RouteConnectionIndicatorDialogComponent} from "./route-connection-indicator-dialog.component";
-import {NetworkRouteRow} from "../../../../kpn/shared/network/network-route-row";
+import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-row";
 
 @Component({
   selector: "kpn-route-connection-indicator",

@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {Util} from "../../../components/shared/util";
 import {I18nService} from "../../../i18n/i18n.service";
-import {Subset} from "../../../kpn/shared/subset";
-import {SubsetInfo} from "../../../kpn/shared/subset/subset-info";
+import {Subset} from "../../../kpn/api/custom/subset";
+import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 
 @Component({

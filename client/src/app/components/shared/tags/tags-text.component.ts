@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Tags} from "../../../kpn/shared/data/tags";
+import {Tags} from "../../../kpn/api/custom/tags";
 
 @Component({
   selector: "kpn-tags-text",

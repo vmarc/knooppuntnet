@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes";
+import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 
 @Component({
   selector: "kpn-subset-network-table",

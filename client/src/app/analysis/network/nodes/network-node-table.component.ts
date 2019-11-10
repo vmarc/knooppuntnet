@@ -1,12 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatPaginator, MatTableDataSource} from "@angular/material";
 import {List} from "immutable";
-import {NetworkNodeInfo2} from "../../../kpn/shared/network/network-node-info2";
+import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-info2";
 import {PageWidthService} from "../../../components/shared/page-width.service";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {BehaviorSubject} from "rxjs";
 import {NetworkNodesService} from "./network-nodes.service";
-import {TimeInfo} from "../../../kpn/shared/time-info";
+import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkNodeFilter} from "./network-node-filter";
 import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
 

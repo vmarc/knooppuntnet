@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material";
 import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.component";
-import {NetworkNodeInfo2} from "../../../../kpn/shared/network/network-node-info2";
-import {NetworkType} from "../../../../kpn/shared/network-type";
+import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-info2";
+import {NetworkType} from "../../../../kpn/api/custom/network-type";
 import {IntegrityIndicatorData} from "./integrity-indicator-data";
 
 @Component({

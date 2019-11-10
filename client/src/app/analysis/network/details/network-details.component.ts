@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkDetailsPage} from "../../../kpn/shared/network/network-details-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-details-page";
 
 @Component({
   selector: "kpn-network-details",

@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {AppService} from "../../app.service";
 import {MapService, PoiId} from "../../components/ol/map.service";
-import {Tags} from "../../kpn/shared/data/tags";
-import {PoiPage} from "../../kpn/shared/poi-page";
+import {Tags} from "../../kpn/api/custom/tags";
+import {PoiPage} from "../../kpn/api/common/poi-page";
 import {PoiService} from "../../services/poi.service";
 import {Subscriptions} from "../../util/Subscriptions";
 import {InterpretedTags} from "../../components/shared/tags/interpreted-tags";

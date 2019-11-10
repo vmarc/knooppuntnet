@@ -1,10 +1,10 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {ChangeSetElementRef} from "../../kpn/shared/change-set-element-ref";
-import {ChangeSetSubsetElementRefs} from "../../kpn/shared/change-set-subset-element-refs";
-import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
-import {Ref} from "../../kpn/shared/common/ref";
-import {RefDiffs} from "../../kpn/shared/diff/ref-diffs";
+import {ChangeSetElementRef} from "../../kpn/api/common/change-set-element-ref";
+import {ChangeSetSubsetElementRefs} from "../../kpn/api/common/change-set-subset-element-refs";
+import {ChangeSetPage} from "../../kpn/api/common/changes/change-set-page";
+import {Ref} from "../../kpn/api/common/common/ref";
+import {RefDiffs} from "../../kpn/api/common/diff/ref-diffs";
 import {RouteDiffsData} from "./route-diffs/route-diffs-data";
 
 @Component({

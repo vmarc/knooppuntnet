@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {Statistics} from "../../kpn/shared/statistics/statistics";
 import {OverviewService} from "./overview.service";
 import {Stat} from "./stat";
+import {Statistics} from "../../kpn/api/custom/statistics";
 
 @Component({
   selector: "kpn-overview-table",

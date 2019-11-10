@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {Countries} from "../../kpn/common/countries";
-import {NetworkType} from "../../kpn/shared/network-type";
+import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Stat} from "./stat";
 
 @Component({

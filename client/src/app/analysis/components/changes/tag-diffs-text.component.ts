@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {TagDiffs} from "../../../kpn/shared/diff/tag-diffs";
-import {TagDetail} from "../../../kpn/shared/diff/tag-detail";
+import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
+import {TagDetail} from "../../../kpn/api/common/diff/tag-detail";
 import {List} from "immutable";
 
 @Component({

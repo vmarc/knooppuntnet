@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkNodesPage} from "../../../kpn/shared/network/network-nodes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NetworkNodesPage} from "../../../kpn/api/common/network/network-nodes-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 
@@ -12,9 +12,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-network-page-header
-        [networkId]="networkId"
-        pageTitle="Nodes"
-        i18n-pageTitle="@@network-nodes.title">
+      [networkId]="networkId"
+      pageTitle="Nodes"
+      i18n-pageTitle="@@network-nodes.title">
     </kpn-network-page-header>
 
     <div *ngIf="response">
@@ -26,10 +26,10 @@ import {Subscriptions} from "../../../util/Subscriptions";
           No network nodes in network
         </div>
         <kpn-network-node-table
-            *ngIf="!page.nodes.isEmpty()"
-            [networkType]="page.networkType"
-            [timeInfo]="page.timeInfo"
-            [nodes]="page.nodes">
+          *ngIf="!page.nodes.isEmpty()"
+          [networkType]="page.networkType"
+          [timeInfo]="page.timeInfo"
+          [nodes]="page.nodes">
         </kpn-network-node-table>
       </div>
       <kpn-json [object]="response"></kpn-json>

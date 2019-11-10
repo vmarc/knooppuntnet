@@ -1,6 +1,6 @@
 import Coordinate from "ol/coordinate";
 import {Util} from "../../../components/shared/util";
-import {LatLonImpl} from "../../../kpn/shared/lat-lon-impl";
+import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {FeatureId} from "../features/feature-id";
 
 export class PlanNode {

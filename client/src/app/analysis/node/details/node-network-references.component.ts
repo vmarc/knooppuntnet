@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {NodeNetworkReference} from "../../../kpn/shared/node/node-network-reference";
-import {NodeInfo} from "../../../kpn/shared/node-info";
+import {NodeNetworkReference} from "../../../kpn/api/common/node/node-network-reference";
+import {NodeInfo} from "../../../kpn/api/common/node-info";
 
 @Component({
   selector: "kpn-node-network-references",

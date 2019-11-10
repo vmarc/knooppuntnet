@@ -4,9 +4,9 @@ import {flatMap, map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {Subset} from "../../../kpn/shared/subset";
-import {SubsetFactDetailsPage} from "../../../kpn/shared/subset/subset-fact-details-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {Subset} from "../../../kpn/api/custom/subset";
+import {SubsetFactDetailsPage} from "../../../kpn/api/common/subset/subset-fact-details-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 
@@ -42,7 +42,7 @@ class SubsetFact {
       </div>
       <div *ngIf="hasFacts()">
         <p>
-          {{refCount()}} 
+          {{refCount()}}
           <span *ngIf="hasNodeRefs()">nodes</span>
           <span *ngIf="hasRouteRefs()">routes</span>
           <span *ngIf="hasOsmNodeRefs()">nodes</span>
@@ -77,11 +77,10 @@ class SubsetFact {
 })
 export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   subset: Subset;
   factName: String;
   response: ApiResponse<SubsetFactDetailsPage>;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,

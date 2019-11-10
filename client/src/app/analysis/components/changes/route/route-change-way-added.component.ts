@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
-import {WayInfo} from "../../../../kpn/shared/diff/way-info";
-import {RouteChangeInfo} from "../../../../kpn/shared/route/route-change-info";
+import {WayInfo} from "../../../../kpn/api/common/diff/way-info";
+import {RouteChangeInfo} from "../../../../kpn/api/common/route/route-change-info";
 
 @Component({
   selector: "kpn-route-change-way-added",

@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {TagDetailType} from "../../../kpn/shared/diff/tag-detail-type";
+import {TagDetailType} from "../../../kpn/api/common/diff/tag-detail-type";
 
 @Component({
   selector: "kpn-tag-diff-action",

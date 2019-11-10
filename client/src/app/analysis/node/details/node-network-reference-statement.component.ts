@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {NodeNetworkReference} from "../../../kpn/shared/node/node-network-reference";
-import {NodeInfo} from "../../../kpn/shared/node-info";
+import {NodeNetworkReference} from "../../../kpn/api/common/node/node-network-reference";
+import {NodeInfo} from "../../../kpn/api/common/node-info";
 
 @Component({
   selector: "kpn-node-network-reference-statement",

@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {flatMap, map} from "rxjs/operators";
 import {AppService} from "../../app.service";
-import {Ref} from "../../kpn/shared/common/ref";
+import {Ref} from "../../kpn/api/common/common/ref";
 import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({

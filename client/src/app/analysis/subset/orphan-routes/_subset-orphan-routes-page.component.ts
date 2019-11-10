@@ -5,10 +5,10 @@ import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {RouteSummary} from "../../../kpn/shared/route-summary";
-import {Subset} from "../../../kpn/shared/subset";
-import {SubsetOrphanRoutesPage} from "../../../kpn/shared/subset/subset-orphan-routes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {RouteSummary} from "../../../kpn/api/common/route-summary";
+import {Subset} from "../../../kpn/api/custom/subset";
+import {SubsetOrphanRoutesPage} from "../../../kpn/api/common/subset/subset-orphan-routes-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 
@@ -32,7 +32,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
         <p>
           <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
         </p>
-        <kpn-subset-orphan-routes-table 
+        <kpn-subset-orphan-routes-table
           [timeInfo]="response.result.timeInfo"
           [orphanRoutes]="response.result.rows">
         </kpn-subset-orphan-routes-table>

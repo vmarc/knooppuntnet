@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap, map} from "rxjs/operators";
 import {AppService} from "../../app.service";
-import {Country} from "../../kpn/shared/country";
-import {NetworkType} from "../../kpn/shared/network-type";
+import {Country} from "../../kpn/api/custom/country";
+import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Subscriptions} from "../../util/Subscriptions";
 
 @Component({

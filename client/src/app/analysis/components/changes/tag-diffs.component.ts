@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {TagDiffs} from "../../../kpn/shared/diff/tag-diffs";
+import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 
 @Component({

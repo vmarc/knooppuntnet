@@ -3,11 +3,11 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {ChangesPage} from "../../../kpn/shared/changes-page";
-import {ChangesParameters} from "../../../kpn/shared/changes/filter/changes-parameters";
-import {Subset} from "../../../kpn/shared/subset";
-import {SubsetChangesPage} from "../../../kpn/shared/subset/subset-changes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {ChangesPage} from "../../../kpn/api/common/changes-page";
+import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
+import {Subset} from "../../../kpn/api/custom/subset";
+import {SubsetChangesPage} from "../../../kpn/api/common/subset/subset-changes-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
@@ -47,7 +47,6 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   response: ApiResponse<SubsetChangesPage>;
 
   private readonly subscriptions = new Subscriptions();
-  private _parameters: ChangesParameters;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -56,17 +55,7 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
               private subsetCacheService: SubsetCacheService) {
   }
 
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      this.subset = Util.subsetInRoute(params);
-      //this.parameters = new ChangesParameters(this.subset, null, null, null, null, null, null, 5, 0, false);
-      this.parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
+  private _parameters: ChangesParameters;
 
   get parameters() {
     return this._parameters;
@@ -79,6 +68,18 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   get page(): ChangesPage {
     return this.response.result;
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.subset = Util.subsetInRoute(params);
+      //this.parameters = new ChangesParameters(this.subset, null, null, null, null, null, null, 5, 0, false);
+      this.parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   rowIndex(index: number): number {

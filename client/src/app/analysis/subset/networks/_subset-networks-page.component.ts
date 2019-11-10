@@ -6,10 +6,10 @@ import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes";
-import {Subset} from "../../../kpn/shared/subset";
-import {SubsetNetworksPage} from "../../../kpn/shared/subset/subset-networks-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
+import {Subset} from "../../../kpn/api/custom/subset";
+import {SubsetNetworksPage} from "../../../kpn/api/common/subset/subset-networks-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -33,12 +33,12 @@ import {Subscriptions} from "../../../util/Subscriptions";
         <p>
           <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
         </p>
-        
+
         <markdown i18n="@@subset-networks.summary">
           _There are __{{page.networkCount}}__ networks, with a total of __{{page.nodeCount}}__ nodes
           and __{{page.routeCount}}__ routes with an overall length of __{{page.km}}__ km._
         </markdown>
-        
+
         <kpn-subset-network-list
           *ngIf="!isLarge()"
           [networks]="networks">
@@ -66,6 +66,14 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
               private subsetCacheService: SubsetCacheService) {
   }
 
+  get page(): SubsetNetworksPage {
+    return this.response.result;
+  }
+
+  get networks(): List<NetworkAttributes> {
+    return this.page.networks;
+  }
+
   ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
@@ -78,14 +86,6 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  get page(): SubsetNetworksPage {
-    return this.response.result;
-  }
-
-  get networks(): List<NetworkAttributes> {
-    return this.page.networks;
   }
 
   isLarge(): boolean {

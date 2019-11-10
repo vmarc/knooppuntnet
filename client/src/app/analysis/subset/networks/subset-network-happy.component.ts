@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {NetworkAttributes} from "../../../kpn/shared/network/network-attributes";
+import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
 
 @Component({

@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
-import {WayInfo} from "../../../../kpn/shared/diff/way-info";
+import {WayInfo} from "../../../../kpn/api/common/diff/way-info";
 
 @Component({
   selector: "kpn-route-change-way-removed",

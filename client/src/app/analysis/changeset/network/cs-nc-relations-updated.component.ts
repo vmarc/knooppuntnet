@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
+import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network-change-info";
 
 @Component({
   selector: "kpn-cs-nc-relations-updated",

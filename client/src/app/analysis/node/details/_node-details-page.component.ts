@@ -5,9 +5,9 @@ import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {Ref} from "../../../kpn/shared/common/ref";
-import {NodeDetailsPage} from "../../../kpn/shared/node/node-details-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {Ref} from "../../../kpn/api/common/common/ref";
+import {NodeDetailsPage} from "../../../kpn/api/common/node/node-details-page";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {FactInfo} from "../../fact/fact-info";
 

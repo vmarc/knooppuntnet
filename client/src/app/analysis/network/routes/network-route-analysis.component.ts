@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {NetworkType} from "../../../kpn/shared/network-type";
-import {NetworkRouteInfo} from "../../../kpn/shared/network/network-route-info";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {NetworkRouteInfo} from "../../../kpn/api/common/network/network-route-info";
 
 @Component({
   selector: "kpn-network-route-analysis",

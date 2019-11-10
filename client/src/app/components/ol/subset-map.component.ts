@@ -11,7 +11,7 @@ import {fromLonLat} from "ol/proj";
 import VectorSource from "ol/source/Vector";
 import View from "ol/View";
 import Extent from "ol/View";
-import {NetworkAttributes} from "../../kpn/shared/network/network-attributes";
+import {NetworkAttributes} from "../../kpn/api/common/network/network-attributes";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {OsmLayer} from "./domain/osm-layer";

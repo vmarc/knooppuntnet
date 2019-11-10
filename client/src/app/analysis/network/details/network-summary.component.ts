@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NetworkDetailsPage} from "../../../kpn/shared/network/network-details-page";
+import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-details-page";
 
 @Component({
   selector: "kpn-network-summary",

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {Tags} from "../../../kpn/shared/data/tags";
+import {Tags} from "../../../kpn/api/custom/tags";
 
 @Component({
   selector: "kpn-subset-orphan-route",

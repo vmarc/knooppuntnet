@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {NetworkType} from "../../../kpn/shared/network-type";
-import {NodeInfo} from "../../../kpn/shared/node-info";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {NodeInfo} from "../../../kpn/api/common/node-info";
 
 @Component({
   selector: "kpn-node-summary",

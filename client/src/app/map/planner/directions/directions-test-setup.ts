@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {RouteLeg} from "../../../kpn/shared/planner/route-leg";
+import {RouteLeg} from "../../../kpn/api/common/planner/route-leg";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegBuilder} from "../plan/plan-leg-builder";

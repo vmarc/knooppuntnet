@@ -1,6 +1,6 @@
 import {saveAs} from "file-saver";
 import {List} from "immutable";
-import {LatLonImpl} from "../../kpn/shared/lat-lon-impl";
+import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
 import {Plan} from "../../map/planner/plan/plan";
 import {PlanNode} from "../../map/planner/plan/plan-node";
 

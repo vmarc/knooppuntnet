@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {ChangeSetPage} from "../../kpn/shared/changes/change-set-page";
+import {ChangeSetPage} from "../../kpn/api/common/changes/change-set-page";
 
 @Component({
   selector: "kpn-change-set-analysis",

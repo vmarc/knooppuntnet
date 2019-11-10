@@ -2,10 +2,10 @@ import {Params, Route} from "@angular/router";
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
 import {toLonLat, fromLonLat} from "ol/proj";
-import {Country} from "../../kpn/shared/country";
-import {LatLonImpl} from "../../kpn/shared/lat-lon-impl";
-import {NetworkType} from "../../kpn/shared/network-type";
-import {Subset} from "../../kpn/shared/subset";
+import {Country} from "../../kpn/api/custom/country";
+import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
+import {NetworkType} from "../../kpn/api/custom/network-type";
+import {Subset} from "../../kpn/api/custom/subset";
 
 interface IPropertyGetter<T> {
   (): T;

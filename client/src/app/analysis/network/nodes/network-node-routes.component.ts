@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NetworkNodeInfo2} from "../../../kpn/shared/network/network-node-info2";
+import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-info2";
 
 @Component({
   selector: "network-node-routes",

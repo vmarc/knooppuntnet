@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {ChangeSetElementRef} from "../../../../kpn/shared/change-set-element-ref";
+import {ChangeSetElementRef} from "../../../../kpn/api/common/change-set-element-ref";
 
 export class ChangeSetElement {
   constructor(readonly action: string,

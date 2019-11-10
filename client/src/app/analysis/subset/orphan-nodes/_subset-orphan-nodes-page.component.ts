@@ -5,10 +5,10 @@ import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NodeInfo} from "../../../kpn/shared/node-info";
-import {Subset} from "../../../kpn/shared/subset";
-import {SubsetOrphanNodesPage} from "../../../kpn/shared/subset/subset-orphan-nodes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NodeInfo} from "../../../kpn/api/common/node-info";
+import {Subset} from "../../../kpn/api/custom/subset";
+import {SubsetOrphanNodesPage} from "../../../kpn/api/common/subset/subset-orphan-nodes-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 

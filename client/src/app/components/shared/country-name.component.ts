@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Country} from "../../kpn/shared/country";
+import {Country} from "../../kpn/api/custom/country";
 import {Util} from "./util";
 import {I18nService} from "../../i18n/i18n.service";
 

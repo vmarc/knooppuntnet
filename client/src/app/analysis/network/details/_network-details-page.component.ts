@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkDetailsPage} from "../../../kpn/shared/network/network-details-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-details-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 
@@ -12,9 +12,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-network-page-header
-        [networkId]="networkId"
-        pageTitle="Details"
-        i18n-pageTitle="@@network-details.title">
+      [networkId]="networkId"
+      pageTitle="Details"
+      i18n-pageTitle="@@network-details.title">
     </kpn-network-page-header>
 
     <div *ngIf="response">

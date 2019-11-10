@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material";
-import {NetworkType} from "../../../../kpn/shared/network-type";
-import {NetworkRouteRow} from "../../../../kpn/shared/network/network-route-row";
+import {NetworkType} from "../../../../kpn/api/custom/network-type";
+import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-row";
 import {RouteAccessibleData} from "./route-accessible-data";
 import {RouteAccessibleIndicatorDialogComponent} from "./route-accessible-indicator-dialog.component";
 

@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NetworkFact} from "../../../kpn/shared/network-fact";
+import {NetworkFact} from "../../../kpn/api/common/network-fact";
 
 @Component({
   selector: "kpn-network-fact",

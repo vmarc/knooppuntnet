@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {NetworkType} from "../../../kpn/shared/network-type";
-import {RouteMemberInfo} from "../../../kpn/shared/route/route-member-info";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {RouteMemberInfo} from "../../../kpn/api/custom/route-member-info";
 
 @Component({
   selector: "kpn-route-members",

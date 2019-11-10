@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {Check} from "../../../kpn/shared/check";
+import {Check} from "../../../kpn/api/common/check";
 
 @Component({
   selector: "kpn-network-fact-checks",

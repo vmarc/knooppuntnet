@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Subset} from "../../kpn/shared/subset";
+import {Subset} from "../../kpn/api/custom/subset";
 import {Stat} from "./stat";
 
 @Component({

@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {Fact} from "../../../kpn/shared/fact";
+import {Fact} from "../../../kpn/api/custom/fact";
 
 @Component({
   selector: "kpn-fact-comma-list",

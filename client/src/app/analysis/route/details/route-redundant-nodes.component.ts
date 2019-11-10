@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {RouteInfoAnalysis} from "../../../kpn/shared/route/route-info-analysis";
+import {RouteInfoAnalysis} from "../../../kpn/api/common/route/route-info-analysis";
 
 @Component({
   selector: "kpn-route-redundant-nodes",

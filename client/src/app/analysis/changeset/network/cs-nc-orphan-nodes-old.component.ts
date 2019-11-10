@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {NetworkChangeInfo} from "../../../kpn/shared/changes/details/network-change-info";
-import {KnownElements} from "../../../kpn/shared/common/known-elements";
-import {Ref} from "../../../kpn/shared/common/ref";
+import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network-change-info";
+import {KnownElements} from "../../../kpn/api/common/common/known-elements";
+import {Ref} from "../../../kpn/api/common/common/ref";
 
 @Component({
   selector: "kpn-cs-nc-orphan-nodes-old",

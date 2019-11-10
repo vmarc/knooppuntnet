@@ -3,36 +3,36 @@ import {Injectable} from "@angular/core";
 import {MarkdownService} from "ngx-markdown";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {ApiResponse} from "./kpn/shared/api-response";
-import {ChangesPage} from "./kpn/shared/changes-page";
-import {ChangeSetPage} from "./kpn/shared/changes/change-set-page";
-import {ChangesParameters} from "./kpn/shared/changes/filter/changes-parameters";
-import {LocationPage} from "./kpn/shared/location-page";
-import {NetworkChangesPage} from "./kpn/shared/network/network-changes-page";
-import {NetworkDetailsPage} from "./kpn/shared/network/network-details-page";
-import {NetworkFactsPage} from "./kpn/shared/network/network-facts-page";
-import {NetworkMapPage} from "./kpn/shared/network/network-map-page";
-import {NetworkNodesPage} from "./kpn/shared/network/network-nodes-page";
-import {NetworkRoutesPage} from "./kpn/shared/network/network-routes-page";
-import {MapDetailNode} from "./kpn/shared/node/map-detail-node";
-import {NodeChangesPage} from "./kpn/shared/node/node-changes-page";
-import {NodeDetailsPage} from "./kpn/shared/node/node-details-page";
-import {NodeMapPage} from "./kpn/shared/node/node-map-page";
-import {RouteLeg} from "./kpn/shared/planner/route-leg";
-import {PoiPage} from "./kpn/shared/poi-page";
-import {MapDetailRoute} from "./kpn/shared/route/map-detail-route";
-import {RouteChangesPage} from "./kpn/shared/route/route-changes-page";
-import {RouteDetailsPage} from "./kpn/shared/route/route-details-page";
-import {RouteMapPage} from "./kpn/shared/route/route-map-page";
-import {Statistics} from "./kpn/shared/statistics/statistics";
-import {Subset} from "./kpn/shared/subset";
-import {SubsetChangesPage} from "./kpn/shared/subset/subset-changes-page";
-import {SubsetFactDetailsPage} from "./kpn/shared/subset/subset-fact-details-page";
-import {SubsetFactsPageNew} from "./kpn/shared/subset/subset-facts-page-new";
-import {SubsetNetworksPage} from "./kpn/shared/subset/subset-networks-page";
-import {SubsetOrphanNodesPage} from "./kpn/shared/subset/subset-orphan-nodes-page";
-import {SubsetOrphanRoutesPage} from "./kpn/shared/subset/subset-orphan-routes-page";
-import {ClientPoiConfiguration} from "./kpn/shared/tiles/client-poi-configuration";
+import {ApiResponse} from "./kpn/api/custom/api-response";
+import {ChangesPage} from "./kpn/api/common/changes-page";
+import {ChangeSetPage} from "./kpn/api/common/changes/change-set-page";
+import {ChangesParameters} from "./kpn/api/common/changes/filter/changes-parameters";
+import {LocationPage} from "./kpn/api/common/location-page";
+import {NetworkChangesPage} from "./kpn/api/common/network/network-changes-page";
+import {NetworkDetailsPage} from "./kpn/api/common/network/network-details-page";
+import {NetworkFactsPage} from "./kpn/api/common/network/network-facts-page";
+import {NetworkMapPage} from "./kpn/api/common/network/network-map-page";
+import {NetworkNodesPage} from "./kpn/api/common/network/network-nodes-page";
+import {NetworkRoutesPage} from "./kpn/api/common/network/network-routes-page";
+import {MapDetailNode} from "./kpn/api/common/node/map-detail-node";
+import {NodeChangesPage} from "./kpn/api/common/node/node-changes-page";
+import {NodeDetailsPage} from "./kpn/api/common/node/node-details-page";
+import {NodeMapPage} from "./kpn/api/common/node/node-map-page";
+import {RouteLeg} from "./kpn/api/common/planner/route-leg";
+import {PoiPage} from "./kpn/api/common/poi-page";
+import {MapDetailRoute} from "./kpn/api/common/route/map-detail-route";
+import {RouteChangesPage} from "./kpn/api/common/route/route-changes-page";
+import {RouteDetailsPage} from "./kpn/api/common/route/route-details-page";
+import {RouteMapPage} from "./kpn/api/common/route/route-map-page";
+import {Subset} from "./kpn/api/custom/subset";
+import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
+import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
+import {SubsetFactsPage} from "./kpn/api/common/subset/subset-facts-page";
+import {SubsetNetworksPage} from "./kpn/api/common/subset/subset-networks-page";
+import {SubsetOrphanNodesPage} from "./kpn/api/common/subset/subset-orphan-nodes-page";
+import {SubsetOrphanRoutesPage} from "./kpn/api/common/subset/subset-orphan-routes-page";
+import {ClientPoiConfiguration} from "./kpn/api/common/tiles/client-poi-configuration";
+import {Statistics} from "./kpn/api/custom/statistics";
 
 @Injectable()
 export class AppService {
@@ -58,10 +58,10 @@ export class AppService {
     );
   }
 
-  public subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPageNew>> {
+  public subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
     const url = this.subsetUrl(subset, "facts");
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, SubsetFactsPageNew.fromJSON))
+      map(response => ApiResponse.fromJSON(response, SubsetFactsPage.fromJSON))
     );
   }
 
@@ -226,15 +226,15 @@ export class AppService {
     );
   }
 
-  private subsetUrl(subset: Subset, target: string): string {
-    return `/json-api/${subset.country.domain}/${subset.networkType.name}/${target}`;
-  }
-
   public location(networkType: string): Observable<ApiResponse<LocationPage>> {
     const url = `/json-api/location/${networkType}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, LocationPage.fromJSON))
     );
+  }
+
+  private subsetUrl(subset: Subset, target: string): string {
+    return `/json-api/${subset.country.domain}/${subset.networkType.name}/${target}`;
   }
 
 }

@@ -3,8 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkMapPage} from "../../../kpn/shared/network/network-map-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NetworkMapPage} from "../../../kpn/api/common/network/network-map-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 
@@ -13,9 +13,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-network-page-header
-        [networkId]="networkId"
-        pageTitle="Map"
-        i18n-pageTitle="@@network-map.title">
+      [networkId]="networkId"
+      pageTitle="Map"
+      i18n-pageTitle="@@network-map.title">
     </kpn-network-page-header>
 
     TODO

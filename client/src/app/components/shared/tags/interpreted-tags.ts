@@ -1,6 +1,6 @@
 import {List} from "immutable";
-import {Tags} from "../../../kpn/shared/data/tags";
-import {Tag} from "../../../kpn/shared/data/tag";
+import {Tags} from "../../../kpn/api/custom/tags";
+import {Tag} from "../../../kpn/api/custom/tag";
 
 export class InterpretedTags {
 

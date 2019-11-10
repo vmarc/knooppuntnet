@@ -5,8 +5,8 @@ import {FilterOptions} from "../../../kpn/filter/filter-options";
 import {Filters} from "../../../kpn/filter/filters";
 import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
 import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
-import {RouteSummary} from "../../../kpn/shared/route-summary";
-import {TimeInfo} from "../../../kpn/shared/time-info";
+import {RouteSummary} from "../../../kpn/api/common/route-summary";
+import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {SubsetOrphanRouteFilterCriteria} from "./subset-orphan-route-filter-criteria";
 
 export class SubsetOrphanRouteFilter {

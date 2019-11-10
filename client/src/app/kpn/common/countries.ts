@@ -1,4 +1,4 @@
-import {Country} from "../shared/country";
+import {Country} from "../api/custom/country";
 
 export class Countries {
 

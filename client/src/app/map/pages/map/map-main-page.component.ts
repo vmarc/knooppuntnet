@@ -22,7 +22,7 @@ import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapService} from "../../../components/ol/map.service";
 import {PoiTileLayerService} from "../../../components/ol/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
-import {NetworkType} from "../../../kpn/shared/network-type";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";

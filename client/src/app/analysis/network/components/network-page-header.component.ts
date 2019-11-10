@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {Util} from "../../../components/shared/util";
-import {NetworkSummary} from "../../../kpn/shared/network/network-summary";
+import {NetworkSummary} from "../../../kpn/api/common/network/network-summary";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 
 @Component({

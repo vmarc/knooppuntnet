@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MetaData} from "../../kpn/shared/data/meta-data";
+import {MetaData} from "../../kpn/api/common/data/meta-data";
 
 @Component({
   selector: "kpn-version-change",

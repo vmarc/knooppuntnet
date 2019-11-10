@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {TagDiffs} from "../../../kpn/shared/diff/tag-diffs";
+import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
 
 @Component({
   selector: "kpn-tag-diffs-table",

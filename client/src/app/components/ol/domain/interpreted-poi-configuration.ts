@@ -1,8 +1,8 @@
 import {List, Map} from "immutable";
 
-import {ClientPoiConfiguration} from "../../../kpn/shared/tiles/client-poi-configuration";
-import {ClientPoiDefinition} from "../../../kpn/shared/tiles/client-poi-definition";
-import {ClientPoiGroupDefinition} from "../../../kpn/shared/tiles/client-poi-group-definition";
+import {ClientPoiConfiguration} from "../../../kpn/api/common/tiles/client-poi-configuration";
+import {ClientPoiDefinition} from "../../../kpn/api/common/tiles/client-poi-definition";
+import {ClientPoiGroupDefinition} from "../../../kpn/api/common/tiles/client-poi-group-definition";
 
 export class InterpretedPoiConfiguration {
 

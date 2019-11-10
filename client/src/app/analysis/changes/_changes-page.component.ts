@@ -2,9 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../app.service";
 import {PageService} from "../../components/shared/page.service";
-import {ApiResponse} from "../../kpn/shared/api-response";
-import {ChangesPage} from "../../kpn/shared/changes-page";
-import {ChangesParameters} from "../../kpn/shared/changes/filter/changes-parameters";
+import {ApiResponse} from "../../kpn/api/custom/api-response";
+import {ChangesPage} from "../../kpn/api/common/changes-page";
+import {ChangesParameters} from "../../kpn/api/common/changes/filter/changes-parameters";
 import {Subscriptions} from "../../util/Subscriptions";
 import {ChangeFilterOptions} from "../components/changes/filter/change-filter-options";
 import {ChangesService} from "../components/changes/filter/changes.service";
@@ -13,30 +13,30 @@ import {ChangesService} from "../components/changes/filter/changes.service";
   selector: "kpn-changes-page",
   template: `
 
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
-      <span i18n="@@breadcrumb.changes">Changes</span>
-    </div>
+      <div>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
+          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+          <span i18n="@@breadcrumb.changes">Changes</span>
+      </div>
 
-    <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
+      <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
 
-    <div *ngIf="response">
+      <div *ngIf="response">
 
-      <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      </p>
+          <p>
+              <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+          </p>
 
-      <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size" [showFirstLastButtons]="false">
-        <kpn-items>
-          <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
-            <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
-          </kpn-item>
-        </kpn-items>
-      </kpn-changes>
+          <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size" [showFirstLastButtons]="false">
+              <kpn-items>
+                  <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
+                      <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
+                  </kpn-item>
+              </kpn-items>
+          </kpn-changes>
 
-      <kpn-json [object]="response"></kpn-json>
-    </div>
+          <kpn-json [object]="response"></kpn-json>
+      </div>
   `
 })
 export class ChangesPageComponent implements OnInit {

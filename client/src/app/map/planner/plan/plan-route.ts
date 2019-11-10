@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {LatLonImpl} from "../../../kpn/shared/lat-lon-impl";
+import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {PlanNode} from "./plan-node";
 import {PlanSegment} from "./plan-segment";
 

@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/shared/api-response";
-import {NetworkRoutesPage} from "../../../kpn/shared/network/network-routes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {NetworkRoutesPage} from "../../../kpn/api/common/network/network-routes-page";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 
@@ -12,9 +12,9 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-network-page-header
-        [networkId]="networkId"
-        pageTitle="Routes"
-        i18n-pageTitle="@@network-routes.title">
+      [networkId]="networkId"
+      pageTitle="Routes"
+      i18n-pageTitle="@@network-routes.title">
     </kpn-network-page-header>
 
     <div *ngIf="response">
@@ -26,10 +26,10 @@ import {Subscriptions} from "../../../util/Subscriptions";
           No network routes in network
         </div>
         <kpn-network-route-table
-            *ngIf="!page.routes.isEmpty()"
-            [timeInfo]="page.timeInfo"
-            [networkType]="page.networkType"
-            [routes]="page.routes">
+          *ngIf="!page.routes.isEmpty()"
+          [timeInfo]="page.timeInfo"
+          [networkType]="page.networkType"
+          [routes]="page.routes">
         </kpn-network-route-table>
       </div>
       <kpn-json [object]="response"></kpn-json>
