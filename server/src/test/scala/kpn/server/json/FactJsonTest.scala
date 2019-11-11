@@ -4,7 +4,11 @@ import kpn.api.custom.Fact
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class FactJsonDeserializerTest extends FunSuite with Matchers {
+class FactJsonTest extends FunSuite with Matchers {
+
+  test("serializer") {
+    Json.string(Fact.Added) should equal(""""Added"""")
+  }
 
   test("deserializer") {
     val added = Json.value(""""Added"""", classOf[Fact])

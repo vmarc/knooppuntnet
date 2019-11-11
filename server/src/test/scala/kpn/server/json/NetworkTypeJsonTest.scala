@@ -4,7 +4,11 @@ import kpn.api.custom.NetworkType
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class NetworkTypeJsonDeserializerTest extends FunSuite with Matchers {
+class NetworkTypeJsonTest extends FunSuite with Matchers {
+
+  test("serializer") {
+    Json.string(NetworkType.cycling) should equal(""""cycling"""")
+  }
 
   test("deserializer") {
     val networkType = Json.value(""""cycling"""", classOf[NetworkType])

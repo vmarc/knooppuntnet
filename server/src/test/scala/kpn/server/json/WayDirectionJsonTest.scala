@@ -5,7 +5,11 @@ import kpn.api.common.route.WayDirection
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class WayDirectionJsonDeserializerTest extends FunSuite with Matchers {
+class WayDirectionJsonTest extends FunSuite with Matchers {
+
+  test("serializer") {
+    Json.string(Both) should equal(""""Both"""")
+  }
 
   test("deserializer") {
     val wayDirection = Json.value(""""Both"""", classOf[WayDirection])
