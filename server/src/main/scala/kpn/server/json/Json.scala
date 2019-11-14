@@ -1,6 +1,7 @@
 package kpn.server.json
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
@@ -21,6 +22,7 @@ object Json {
   val objectMapper: ObjectMapper = {
 
     val b = Jackson2ObjectMapperBuilder.json()
+    b.featuresToEnable(DeserializationFeature.USE_LONG_FOR_INTS)
     b.serializationInclusion(NON_ABSENT)
     b.annotationIntrospector(new JacksonAnnotationIntrospector)
 
