@@ -1,3 +1,3 @@
 package kpn.core.db.couch
 
-case class ViewResult(total_rows: Int, offset: Int, rows: Seq[ViewResultRow])
+case class ViewResult(total_rows: Long, offset: Long, rows: Seq[ViewResultRow])

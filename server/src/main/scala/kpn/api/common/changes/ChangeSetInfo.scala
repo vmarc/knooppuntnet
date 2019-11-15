@@ -20,6 +20,6 @@ case class ChangeSetInfo(
   createdAt: Timestamp,
   closedAt: Option[Timestamp],
   open: Boolean,
-  commentsCount: Int,
+  commentsCount: Long,
   tags: Tags
 ) extends Tagable

@@ -5,7 +5,7 @@ import kpn.api.custom.Timestamp
 case class NetworkRouteRow(
   id: Long,
   name: String,
-  length: Int,
+  length: Long,
   role: Option[String],
   investigate: Boolean,
   accessible: Boolean,

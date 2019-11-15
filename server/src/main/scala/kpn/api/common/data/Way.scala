@@ -4,11 +4,11 @@ import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
-case class Way(raw: RawWay, nodes: Seq[Node], length: Int) extends Element {
+case class Way(raw: RawWay, nodes: Seq[Node], length: Long) extends Element {
 
   def id: Long = raw.id
 
-  def version: Int = raw.version
+  def version: Long = raw.version
 
   def timestamp: Timestamp = raw.timestamp
 

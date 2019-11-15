@@ -145,7 +145,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
     refs.toSet
   }
 
-  override def waysLength(relation: Relation): Int = {
+  override def waysLength(relation: Relation): Long = {
     relation.wayMembers.map(_.way.length).sum
     // TODO ROUTE use the logic below for a more accurate result --> need to use the above to avoid MISMATCH between new and old
     // referencedWays(relation).map(_.length).sum

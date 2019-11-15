@@ -8,17 +8,17 @@ import kpn.core.poi.PoiInfo
 
 object PoiView extends View {
 
-  case class PoiViewResult(totalRows: Int, pois: Seq[PoiInfo])
+  case class PoiViewResult(totalRows: Long, pois: Seq[PoiInfo])
 
   private case class ViewResultRow(
     id: String,
     key: Seq[String],
-    value: Int
+    value: Long
   )
 
-  private case class ViewResult(total_rows: Int, offset: Int, rows: Seq[ViewResultRow])
+  private case class ViewResult(total_rows: Long, offset: Long, rows: Seq[ViewResultRow])
 
-  def query(database: Database, limit: Int, skip: Int, stale: Boolean = true): PoiViewResult = {
+  def query(database: Database, limit: Long, skip: Long, stale: Boolean = true): PoiViewResult = {
 
     val query = Query(PoiDesign, PoiView, classOf[ViewResult])
       .reduce(false)

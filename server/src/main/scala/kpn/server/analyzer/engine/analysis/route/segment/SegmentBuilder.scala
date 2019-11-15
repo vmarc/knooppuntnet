@@ -60,7 +60,7 @@ class SegmentBuilder {
     }
   }
 
-  private def length(sfs: Seq[SegmentFragment]): Int = {
+  private def length(sfs: Seq[SegmentFragment]): Long = {
     sfs.map(_.fragment.meters).sum
   }
 

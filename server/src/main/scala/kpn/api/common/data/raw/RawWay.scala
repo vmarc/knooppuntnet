@@ -5,7 +5,7 @@ import kpn.api.custom.Timestamp
 
 case class RawWay(
   id: Long,
-  version: Int,
+  version: Long,
   timestamp: Timestamp,
   changeSetId: Long,
   nodeIds: Seq[Long],

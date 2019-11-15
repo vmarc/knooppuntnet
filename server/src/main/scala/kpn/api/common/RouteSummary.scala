@@ -11,9 +11,9 @@ case class RouteSummary(
   country: Option[Country],
   networkType: NetworkType,
   name: String,
-  meters: Int,
+  meters: Long,
   isBroken: Boolean,
-  wayCount: Int,
+  wayCount: Long,
   timestamp: Timestamp,
   nodeNames: Seq[String],
   tags: Tags

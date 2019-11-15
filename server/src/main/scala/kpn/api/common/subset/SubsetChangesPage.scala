@@ -7,5 +7,5 @@ case class SubsetChangesPage(
   subsetInfo: SubsetInfo,
   filter: ChangesFilter,
   changes: Seq[ChangeSetSummaryInfo],
-  changeCount: Int
+  changeCount: Long
 )

@@ -60,7 +60,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
       }
     }
 
-    val remainingPois = (1 until pageCount).flatMap { pageIndex: Int =>
+    val remainingPois = (1L until pageCount).flatMap { pageIndex: Long =>
       val progress = (pageIndex * 100) / pageCount
       log.info(s"Loading ${initialResult.totalRows} pois: page ${pageIndex + 1} of $pageCount ($progress%)")
       val skip = pageIndex * pageSize

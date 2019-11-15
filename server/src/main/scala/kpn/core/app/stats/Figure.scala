@@ -7,8 +7,8 @@ import kpn.core.util.Formatter.number
 
 case class Figure(
   name: String,
-  total: Int,
-  counts: Map[Subset, Int]
+  total: Long,
+  counts: Map[Subset, Long]
 ) {
   def toStatistic: Statistic = {
     Statistic(

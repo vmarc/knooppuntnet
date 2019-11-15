@@ -3,7 +3,7 @@ package kpn.api.common.common
 case class TrackPath(
   startNodeId: Long,
   endNodeId: Long,
-  meters: Int,
+  meters: Long,
   segments: Seq[TrackSegment]
 ) {
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

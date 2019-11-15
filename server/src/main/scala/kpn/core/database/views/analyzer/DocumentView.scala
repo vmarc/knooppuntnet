@@ -10,11 +10,11 @@ object DocumentView extends View {
 
   case class ViewResult(rows: Seq[ViewResultRow])
 
-  case class ViewResultCountRow(key: String, value: Int)
+  case class ViewResultCountRow(key: String, value: Long)
 
   case class ViewResultCount(rows: Seq[ViewResultCountRow])
 
-  case class DocumentCount(prefix: String, count: Int)
+  case class DocumentCount(prefix: String, count: Long)
 
   def allNodeIds(database: Database): Seq[Long] = {
     allIds(database: Database, "node")

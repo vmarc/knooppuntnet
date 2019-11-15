@@ -80,7 +80,7 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
   }
 
   override def nodeNetworkReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeNetworkReference] = {
-    NodeNetworkReferenceView.query(analysisDatabase, nodeId, stale = false)
+    NodeNetworkReferenceView.query(analysisDatabase, nodeId, stale)
   }
 
   override def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {

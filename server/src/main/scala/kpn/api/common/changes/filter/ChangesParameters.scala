@@ -12,8 +12,8 @@ case class ChangesParameters(
   year: Option[String] = None,
   month: Option[String] = None,
   day: Option[String] = None,
-  itemsPerPage: Int = 5,
-  pageIndex: Int = 0,
+  itemsPerPage: Long = 5,
+  pageIndex: Long = 0,
   impact: Boolean = false
 ) {
 

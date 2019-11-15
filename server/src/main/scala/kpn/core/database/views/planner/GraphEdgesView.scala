@@ -13,7 +13,7 @@ import kpn.core.planner.graph.GraphEdge
  */
 object GraphEdgesView extends View {
 
-  private case class ViewResultRow(key: Seq[String], value: Seq[Int])
+  private case class ViewResultRow(key: Seq[String], value: Seq[Long])
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
@@ -35,7 +35,7 @@ object GraphEdgesView extends View {
         pathKey = TrackPathKey(
           routeId = key.long(1),
           pathType = key.string(2),
-          pathIndex = key.int(3)
+          pathIndex = key.long(3)
         )
       )
     }

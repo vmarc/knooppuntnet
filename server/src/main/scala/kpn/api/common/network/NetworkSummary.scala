@@ -5,9 +5,9 @@ import kpn.api.custom.NetworkType
 case class NetworkSummary(
   networkType: NetworkType,
   name: String,
-  factCount: Int,
-  nodeCount: Int,
-  routeCount: Int,
-  changeCount: Int,
+  factCount: Long,
+  nodeCount: Long,
+  routeCount: Long,
+  changeCount: Long,
   active: Boolean
 )

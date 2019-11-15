@@ -121,7 +121,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
     changesFilter(Seq("node", nodeId.toString), year, month, day, stale)
   }
 
-  override def nodeChangesCount(nodeId: Long, stale: Boolean = true): Int = {
+  override def nodeChangesCount(nodeId: Long, stale: Boolean = true): Long = {
     ChangesView.queryChangeCount(changeDatabase, "node", nodeId, stale)
   }
 
@@ -129,7 +129,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
     changesFilter(Seq("route", routeId.toString), year, month, day, stale)
   }
 
-  override def routeChangesCount(routeId: Long, stale: Boolean = true): Int = {
+  override def routeChangesCount(routeId: Long, stale: Boolean = true): Long = {
     ChangesView.queryChangeCount(changeDatabase, "route", routeId, stale)
   }
 
@@ -137,7 +137,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
     changesFilter(Seq("network", networkId.toString), year, month, day, stale)
   }
 
-  override def networkChangesCount(networkId: Long, stale: Boolean = true): Int = {
+  override def networkChangesCount(networkId: Long, stale: Boolean = true): Long = {
     ChangesView.queryChangeCount(changeDatabase, "network", networkId, stale)
   }
 

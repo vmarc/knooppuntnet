@@ -4,8 +4,8 @@ case class Integrity(
   isOk: Boolean = true,
   hasChecks: Boolean = false,
   count: String = "",
-  okCount: Int = 0,
-  nokCount: Int = 0,
+  okCount: Long = 0,
+  nokCount: Long = 0,
   coverage: String = "",
   okRate: String = "",
   nokRate: String = ""

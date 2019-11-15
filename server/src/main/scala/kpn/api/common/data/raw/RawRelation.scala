@@ -5,7 +5,7 @@ import kpn.api.custom.Timestamp
 
 case class RawRelation(
   id: Long,
-  version: Int,
+  version: Long,
   timestamp: Timestamp,
   changeSetId: Long,
   members: Seq[RawMember],

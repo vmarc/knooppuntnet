@@ -38,6 +38,6 @@ trait RelationAnalyzer {
 
   def lastUpdated(relation: Relation): Timestamp
 
-  def waysLength(relation: Relation): Int
+  def waysLength(relation: Relation): Long
 
 }

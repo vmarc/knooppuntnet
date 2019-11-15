@@ -49,7 +49,7 @@ class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
     elements
   }
 
-  private def replicationNumbersIn(elements: ChangeSetElements): Seq[Int] = {
+  private def replicationNumbersIn(elements: ChangeSetElements): Seq[Long] = {
     val replicationNumbers = elements.networkChanges.map(_.key.replicationNumber) ++
       elements.nodeChanges.map(_.key.replicationNumber) ++
       elements.routeChanges.map(_.key.replicationNumber) ++
@@ -84,7 +84,7 @@ class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
     }
   }
 
-  private def toReplicationChangeSetData(elements: ChangeSetElements, replicationNumber: Int): ChangeSetData = {
+  private def toReplicationChangeSetData(elements: ChangeSetElements, replicationNumber: Long): ChangeSetData = {
 
     val changeSetSummaries = elements.summaries.filter(_.key.replicationNumber == replicationNumber)
     val networkChanges = elements.networkChanges.filter(_.key.replicationNumber == replicationNumber)

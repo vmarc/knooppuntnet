@@ -13,7 +13,7 @@ case class Node(raw: RawNode) extends Element with LatLon {
 
   def longitude: String = raw.longitude
 
-  def version: Int = raw.version
+  def version: Long = raw.version
 
   def timestamp: Timestamp = raw.timestamp
 

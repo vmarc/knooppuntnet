@@ -17,7 +17,7 @@ object MigrateChangeSetInfoTool {
     createdAt: Timestamp,
     closedAt: Option[Timestamp],
     open: Boolean,
-    commentsCount: Int,
+    commentsCount: Long,
     tags: Tags,
     changeSetInfo: ChangeSetInfo
   ) {

@@ -11,7 +11,7 @@ import kpn.api.common.diff.route.RouteDiff
 
 case class RouteChangeInfo(
   id: Long,
-  version: Int,
+  version: Long,
   changeKey: ChangeKey,
   comment: Option[String],
   before: Option[MetaData],

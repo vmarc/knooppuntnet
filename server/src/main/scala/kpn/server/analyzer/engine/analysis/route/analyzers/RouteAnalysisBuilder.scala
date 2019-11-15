@@ -98,7 +98,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       )
     }
 
-    val length: Int = ways.map(_.length).sum
+    val length: Long = ways.map(_.length).sum
 
     val routeWays: Seq[Way] = {
       routeMembers.flatMap {

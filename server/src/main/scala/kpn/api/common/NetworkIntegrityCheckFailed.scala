@@ -1,3 +1,3 @@
 package kpn.api.common
 
-case class NetworkIntegrityCheckFailed(count: Int, checks: Seq[NodeIntegrityCheck])
+case class NetworkIntegrityCheckFailed(count: Long, checks: Seq[NodeIntegrityCheck])

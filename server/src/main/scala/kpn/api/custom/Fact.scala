@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 
 case class SimpleFact()
 
-case class Fact(id: Int, name: String, nlName: String, level: FactLevel) {
+case class Fact(id: Long, name: String, nlName: String, level: FactLevel) {
   def isError: Boolean = level == FactLevel.ERROR
 
   def isInfo: Boolean = level == FactLevel.INFO
@@ -19,7 +19,7 @@ class FactFactory() {
 
   private val facts = ListBuffer[Fact]()
 
-  def fact(id: Int, name: String, nlName: String, level: FactLevel): Fact = {
+  def fact(id: Long, name: String, nlName: String, level: FactLevel): Fact = {
     val newFact = Fact(id, name, nlName, level)
     facts += newFact
     newFact

@@ -1,3 +1,3 @@
 package kpn.core.db
 
-case class NodeDocViewResult(total_rows: Int, offset: Int, rows: Seq[NodeDocViewResultRow])
+case class NodeDocViewResult(total_rows: Long, offset: Long, rows: Seq[NodeDocViewResultRow])

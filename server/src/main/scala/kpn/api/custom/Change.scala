@@ -14,4 +14,4 @@ object Change {
   def delete(element: RawElement): Change = Change(Delete, Seq(element))
 }
 
-case class Change(action: Int, elements: Seq[RawElement])
+case class Change(action: Long, elements: Seq[RawElement])

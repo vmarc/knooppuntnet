@@ -7,5 +7,5 @@ case class NetworkChangesPage(
   network: NetworkSummary,
   filter: ChangesFilter,
   changes: Seq[NetworkChangeInfo],
-  totalCount: Int) {
+  totalCount: Long) {
 }

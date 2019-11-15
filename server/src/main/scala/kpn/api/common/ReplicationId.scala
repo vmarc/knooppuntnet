@@ -2,7 +2,7 @@ package kpn.api.common
 
 object ReplicationId {
 
-  def apply(sequenceNumber: Int): ReplicationId = {
+  def apply(sequenceNumber: Long): ReplicationId = {
     val level1 = sequenceNumber / 1000000
     val remainder = sequenceNumber % 1000000
     val level2 = remainder / 1000
@@ -25,9 +25,9 @@ object ReplicationId {
   }
 }
 
-case class ReplicationId(level1: Int, level2: Int, level3: Int) {
+case class ReplicationId(level1: Long, level2: Long, level3: Long) {
 
-  def number: Int = 1000000 * level1 + level2 * 1000 + level3
+  def number: Long = 1000000 * level1 + level2 * 1000 + level3
 
   def key: String = "%03d:%03d:%03d".format(level1, level2, level3)
 

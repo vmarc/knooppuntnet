@@ -13,7 +13,7 @@ import kpn.core.database.views.common.View
 
 object ChangesView extends View {
 
-  private case class ViewResultRow(key: Seq[String], value: Seq[Int])
+  private case class ViewResultRow(key: Seq[String], value: Seq[Long])
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
@@ -45,7 +45,7 @@ object ChangesView extends View {
     }
   }
 
-  def queryChangeCount(database: Database, elementType: String, elementId: Long, stale: Boolean = true): Int = {
+  def queryChangeCount(database: Database, elementType: String, elementId: Long, stale: Boolean = true): Long = {
     val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
       .keyStartsWith(elementType, elementId.toString)
       .groupLevel(2)

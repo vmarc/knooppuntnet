@@ -44,7 +44,7 @@ case class Network(
 
   def subset: Option[Subset] = country.flatMap(c => Subset.of(c, networkType))
 
-  def length: Int = routes.map(_.routeAnalysis.route.summary.meters).sum
+  def length: Long = routes.map(_.routeAnalysis.route.summary.meters).sum
 
   def nodeCount: Int = nodes.filterNot(n => n.roleConnection && !n.definedInRelation).size
 

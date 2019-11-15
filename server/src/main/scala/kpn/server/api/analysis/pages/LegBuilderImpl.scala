@@ -121,8 +121,8 @@ class LegBuilderImpl(
     trackPathKey.pathType match {
       case "forward" => routeMap.forwardPath
       case "backward" => routeMap.backwardPath
-      case "start" => Some(routeMap.startTentaclePaths(trackPathKey.pathIndex - 1))
-      case "end" => Some(routeMap.endTentaclePaths(trackPathKey.pathIndex - 1))
+      case "start" => Some(routeMap.startTentaclePaths(trackPathKey.pathIndex.toInt - 1))
+      case "end" => Some(routeMap.endTentaclePaths(trackPathKey.pathIndex.toInt - 1))
       case _ => None
     }
   }

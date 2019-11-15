@@ -5,14 +5,14 @@ import kpn.api.common.network.NetworkAttributes
 case class SubsetNetworksPage(
   subsetInfo: SubsetInfo,
   km: String,
-  networkCount: Int,
-  nodeCount: Int,
-  routeCount: Int,
-  brokenRouteNetworkCount: Int,
+  networkCount: Long,
+  nodeCount: Long,
+  routeCount: Long,
+  brokenRouteNetworkCount: Long,
   brokenRouteNetworkPercentage: String,
-  brokenRouteCount: Int,
+  brokenRouteCount: Long,
   brokenRoutePercentage: String,
-  unaccessibleRouteCount: Int,
+  unaccessibleRouteCount: Long,
   analysisUpdatedTime: String,
   networks: Seq[NetworkAttributes]
 )

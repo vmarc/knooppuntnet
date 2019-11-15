@@ -11,7 +11,7 @@ object Overview extends View {
 
   private case class ViewResultRow(
     key: Seq[String],
-    value: Int
+    value: Long
   )
 
   private case class ViewResult(rows: Seq[ViewResultRow])
@@ -32,7 +32,7 @@ object Overview extends View {
         val count = row.value
         subset -> count
       }.toMap
-      val total: Int = counts.values.sum
+      val total: Long = counts.values.sum
       Figure(factName, total, counts)
     }
   }

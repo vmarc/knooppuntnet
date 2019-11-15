@@ -7,7 +7,7 @@ import kpn.api.custom.Timestamp
 
 case class WayInfo(
   id: Long,
-  version: Int,
+  version: Long,
   changeSetId: Long,
   timestamp: Timestamp,
   tags: Tags

@@ -8,7 +8,7 @@ object Segment {
 
 case class Segment(surface: String, fragments: Seq[SegmentFragment]) {
 
-  def meters: Int = fragments.map(_.fragment.meters).sum
+  def meters: Long = fragments.map(_.fragment.meters).sum
 
   def nodes: Seq[Node] = {
     if (fragments.isEmpty) {

@@ -15,7 +15,7 @@ case class Path(
   broken: Boolean = false
 ) {
 
-  def meters: Int = segments.map(_.meters).sum
+  def meters: Long = segments.map(_.meters).sum
 
   def routeNodes: Seq[RouteNode] = Seq(start, end).flatten
 

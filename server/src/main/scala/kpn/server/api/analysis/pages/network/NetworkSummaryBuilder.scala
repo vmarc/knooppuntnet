@@ -5,7 +5,7 @@ import kpn.api.common.network.NetworkSummary
 
 object NetworkSummaryBuilder {
 
-  def toSummary(networkInfo: NetworkInfo, changeCount: Int): NetworkSummary = {
+  def toSummary(networkInfo: NetworkInfo, changeCount: Long): NetworkSummary = {
 
     val nodeCount = networkInfo.detail match {
       case Some(detail) => detail.nodes.size

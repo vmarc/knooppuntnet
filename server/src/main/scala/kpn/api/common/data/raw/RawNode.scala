@@ -8,7 +8,7 @@ case class RawNode(
   id: Long,
   latitude: String,
   longitude: String,
-  version: Int,
+  version: Long,
   timestamp: Timestamp,
   changeSetId: Long,
   tags: Tags

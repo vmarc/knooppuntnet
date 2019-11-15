@@ -4,5 +4,5 @@ import kpn.api.common.NodeInfo
 
 case class NodeMapPage(
   nodeInfo: NodeInfo,
-  changeCount: Int
+  changeCount: Long
 )

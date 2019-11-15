@@ -6,7 +6,7 @@ import java.util.Locale
 
 object Formatter {
 
-  def percentage(count: Int, denominator: Int): String = {
+  def percentage(count: Long, denominator: Long): String = {
     if (count == 0 || denominator == 0) {
       "-"
     }
@@ -15,7 +15,7 @@ object Formatter {
     }
   }
 
-  def number(number: Int): String = {
+  def number(number: Long): String = {
     if (number == 0) {
       "-"
     }

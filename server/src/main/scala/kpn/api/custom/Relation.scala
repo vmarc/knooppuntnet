@@ -11,7 +11,7 @@ case class Relation(raw: RawRelation, members: Seq[Member]) extends Element {
 
   def id: Long = raw.id
 
-  def version: Int = raw.version
+  def version: Long = raw.version
 
   def timestamp: Timestamp = raw.timestamp
 

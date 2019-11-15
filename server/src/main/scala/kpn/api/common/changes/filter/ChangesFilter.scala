@@ -2,7 +2,7 @@ package kpn.api.common.changes.filter
 
 case class ChangesFilter(periods: Seq[ChangesFilterPeriod]) {
 
-  def currentItemCount(impact: Boolean): Int = {
+  def currentItemCount(impact: Boolean): Long = {
     currentPeriod match {
       case None =>
         if (impact) {
@@ -21,9 +21,9 @@ case class ChangesFilter(periods: Seq[ChangesFilterPeriod]) {
     }
   }
 
-  def totalCount: Int = periods.map(_.totalCount).sum
+  def totalCount: Long = periods.map(_.totalCount).sum
 
-  def impactedCount: Int = periods.map(_.impactedCount).sum
+  def impactedCount: Long = periods.map(_.impactedCount).sum
 
   def currentPeriod: Option[ChangesFilterPeriod] = {
     currentPeriodIn(periods)

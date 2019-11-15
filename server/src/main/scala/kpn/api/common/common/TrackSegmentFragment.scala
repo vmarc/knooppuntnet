@@ -2,9 +2,9 @@ package kpn.api.common.common
 
 case class TrackSegmentFragment(
   trackPoint: TrackPoint,
-  meters: Int,
-  orientation: Int,
-  streetIndex: Option[Int]
+  meters: Long,
+  orientation: Long,
+  streetIndex: Option[Long]
 ) {
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("trackPoint", trackPoint).

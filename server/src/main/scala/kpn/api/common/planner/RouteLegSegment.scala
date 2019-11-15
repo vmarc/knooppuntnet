@@ -1,7 +1,7 @@
 package kpn.api.common.planner
 
 case class RouteLegSegment(
-  meters: Int,
+  meters: Long,
   surface: String,
   fragments: Seq[RouteLegFragment]
 )

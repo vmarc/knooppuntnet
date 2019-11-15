@@ -6,7 +6,7 @@ import kpn.api.custom.Timestamp
 trait Element extends Meta with Tagable {
 
   def id: Long
-  def version: Int
+  def version: Long
   def timestamp: Timestamp
   def changeSetId: Long
   def tags: Tags

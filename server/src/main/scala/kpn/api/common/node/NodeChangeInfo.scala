@@ -12,7 +12,7 @@ import kpn.api.custom.Tags
 
 case class NodeChangeInfo(
   id: Long,
-  version: Option[Int],
+  version: Option[Long],
   changeKey: ChangeKey,
   changeTags: Tags,
   comment: Option[String],

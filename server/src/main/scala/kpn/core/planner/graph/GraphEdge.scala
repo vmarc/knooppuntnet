@@ -5,6 +5,6 @@ import kpn.api.common.common.TrackPathKey
 case class GraphEdge(
   sourceNodeId: Long,
   sinkNodeId: Long,
-  meters: Int,
+  meters: Long,
   pathKey: TrackPathKey
 )

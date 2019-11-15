@@ -25,7 +25,7 @@ case class Fragment(
 
   def nodes: Seq[Node] = if (nodeSubset.isEmpty) way.nodes else nodeSubset
 
-  def meters: Int = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset.map(_.raw))
+  def meters: Long = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset.map(_.raw))
 
   override def toString: String = new FragmentFormatter(this).string
 }
