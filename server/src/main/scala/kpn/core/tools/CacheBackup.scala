@@ -1,8 +1,15 @@
 package kpn.core.tools
 
+import java.time.LocalDate
+
 object CacheBackup {
 
   def main(args: Array[String]): Unit = {
+    val start =  LocalDate.parse("2017-01-01")
+    0 to 365 foreach { days =>
+      val day = start.plusDays(days).toString.replaceAll("-", "/")
+      printf("tar cf /kpn/backup/cache-backup/%s.tar /kpn/cache/%s\n", day, day)
+    }
 
     0 to 2 foreach { level1 =>
       0 to 9 foreach { level2 =>
