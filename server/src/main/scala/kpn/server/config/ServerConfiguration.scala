@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.core.app.ActorSystemConfig
 import kpn.server.json.Json
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
@@ -22,4 +23,8 @@ class ServerConfiguration {
   @Bean
   def system: ActorSystem = ActorSystemConfig.actorSystem()
 
+  @Bean
+  def graphLoad(@Value("${graph.load:true}") load: Boolean): Boolean = {
+    load
+  }
 }
