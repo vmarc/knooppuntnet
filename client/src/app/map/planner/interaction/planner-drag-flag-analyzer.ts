@@ -31,9 +31,13 @@ export class PlannerDragFlagAnalyzer {
     if (legIndex > 0) {
       const previousLeg = legs.get(legIndex - 1);
       const nextLeg = legs.get(legIndex);
-      const anchor1 = previousLeg.source.coordinate;
-      const anchor2 = nextLeg.sink.coordinate;
-      return new PlannerDragFlag(PlanFlagType.Via, nextLeg.featureId, anchor1, anchor2, nextLeg.source);
+      return new PlannerDragFlag(
+        PlanFlagType.Via,
+        nextLeg.featureId,
+        previousLeg.source.coordinate,
+        nextLeg.sink.coordinate,
+        nextLeg.source
+      );
     }
 
     return null;

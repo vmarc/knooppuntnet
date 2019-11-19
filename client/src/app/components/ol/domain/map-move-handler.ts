@@ -38,8 +38,7 @@ export class MapMoveHandler {
       const layer = feature.get("layer");
       const id = feature.get("id");
       if (layer.endsWith("route")) {
-        const routeId = id.substring(0, id.indexOf("-"));
-        this.mapService.highlightedRouteId = routeId;
+        this.mapService.highlightedRouteId = id.substring(0, id.indexOf("-"));
       } else if (layer.endsWith("node")) {
         this.mapService.highlightedRouteId = null;
         this.mapService.highlightedNodeId = id;

@@ -53,8 +53,6 @@ export class MapSidebarComponent implements OnInit, OnDestroy {
 
   pageMode = "planner"; // "analysis" | "help"
 
-  analysisMode = "planner";
-  poiMode = "enabled";
   networkType: NetworkType = null;
 
   constructor(private mapService: MapService,
@@ -73,10 +71,6 @@ export class MapSidebarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  isDefault(): boolean {
-    return !(this.isNodeSelected() || this.isRouteSelected());
   }
 
   isNodeSelected(): boolean {

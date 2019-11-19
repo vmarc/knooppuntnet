@@ -65,7 +65,7 @@ export class PdfDocument {
 
       for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
 
-        const columnCount = this.model.columnCount(pageIndex, rowCount, rowIndex)
+        const columnCount = this.model.columnCount(pageIndex, rowCount, rowIndex);
 
         const yTop = PdfPage.marginTop + (rowIndex * this.model.totalRowHeight);
         const yBottom = yTop + this.model.rowHeight;
