@@ -6,6 +6,7 @@ import kpn.core.changes.ElementIds
 import kpn.core.db.BlackListDoc
 import kpn.core.db.Change
 import kpn.core.db.ChangeRevision
+import kpn.core.db.ChangeSetInfoDoc
 import kpn.core.db.Changes
 import kpn.core.db.GpxDoc
 import kpn.core.db.NetworkDoc
@@ -494,6 +495,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val changeFormat: RootJsonFormat[Change] = jsonFormat3(Change)
   implicit val changesFormat: RootJsonFormat[Changes] = jsonFormat2(Changes)
   implicit val changeSetInfoFormat: RootJsonFormat[ChangeSetInfo] = jsonFormat6(ChangeSetInfo)
+  implicit val changeSetInfoDocFormat: RootJsonFormat[ChangeSetInfoDoc] = jsonFormat3(ChangeSetInfoDoc)
 
   implicit val elementIdsFormat: RootJsonFormat[ElementIds] = jsonFormat3(ElementIds)
   implicit val elementIdMapFormat = ElementIdMap.ElementIdMapFormat

@@ -1,26 +1,30 @@
 package kpn.core.repository
 
+import kpn.core.db.ChangeSetInfoDoc
 import kpn.core.db.couch.Couch
 import kpn.core.db.couch.Database
-import kpn.core.db.json.JsonFormats.changeSetInfoFormat
+import kpn.core.db.json.JsonFormats.changeSetInfoDocFormat
 import kpn.shared.changes.ChangeSetInfo
 
 class ChangeSetInfoRepositoryImpl(database: Database) extends ChangeSetInfoRepository {
 
   override def save(changeSetInfo: ChangeSetInfo): Unit = {
     val id = docId(changeSetInfo.id)
+    val doc = ChangeSetInfoDoc(id, changeSetInfo)
     database.delete(id)
-    database.save(id, changeSetInfoFormat.write(changeSetInfo))
+    database.save(id, changeSetInfoDocFormat.write(doc))
   }
 
   override def get(changeSetId: Long): Option[ChangeSetInfo] = {
-    database.optionGet(docId(changeSetId), Couch.defaultTimeout).map(changeSetInfoFormat.read)
+    val doc: Option[ChangeSetInfoDoc] = database.optionGet(docId(changeSetId), Couch.defaultTimeout).map(changeSetInfoDocFormat.read)
+    doc.map(_.changeSetInfo)
   }
 
   override def all(changeSetIds: Seq[Long], stale: Boolean): Seq[ChangeSetInfo] = {
     changeSetIds.sliding(40, 40).flatMap { changeSetIdsSubset =>
       val ids = changeSetIdsSubset.map(docId)
-      database.objectsWithIds(ids, Couch.defaultTimeout, stale).map(changeSetInfoFormat.read)
+      val docs: Seq[ChangeSetInfoDoc] = database.objectsWithIds(ids, Couch.defaultTimeout, stale).map(changeSetInfoDocFormat.read)
+      docs.map(_.changeSetInfo)
     }.toSeq
   }
 
