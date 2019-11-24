@@ -45,7 +45,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/json-api/overview"))
   def overview(
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[Statistics] = {
     analysisFacade.overview(Option.apply(user))
   }
@@ -54,7 +54,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def subsetNetworks(
     @PathVariable country: String,
     @PathVariable networkType: String,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[SubsetNetworksPage] = {
     val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetNetworks(Option.apply(user), subset.get)
@@ -64,7 +64,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def subsetFacts(
     @PathVariable country: String,
     @PathVariable networkType: String,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[SubsetFactsPage] = {
     val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetFacts(Option.apply(user), subset.get)
@@ -75,7 +75,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: String,
     @PathVariable networkType: String,
     @PathVariable fact: String,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[SubsetFactDetailsPage] = {
     val subset = Subset.ofName(country, networkType).get // TODO improve
     val f = Fact.withName(fact).get // TODO improve
@@ -86,7 +86,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def subsetOrphanNodes(
     @PathVariable country: String,
     @PathVariable networkType: String,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[SubsetOrphanNodesPage] = {
     val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetOrphanNodes(Option.apply(user), subset.get)
@@ -96,7 +96,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def subsetOrphanRoutes(
     @PathVariable country: String,
     @PathVariable networkType: String,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[SubsetOrphanRoutesPage] = {
     val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetOrphanRoutes(Option.apply(user), subset.get)
@@ -106,7 +106,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def subsetChanges(
     @PathVariable country: String,
     @PathVariable networkType: String,
-    @CookieValue(name = "knooppuntnet-user") user: String,
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[SubsetChangesPage] = {
     val p = parameters.copy(subset = Subset.ofName(country, networkType))
@@ -116,7 +116,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/network/{networkId}"))
   def networkDetails(
     @PathVariable networkId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NetworkDetailsPage] = {
     analysisFacade.networkDetails(Option.apply(user), networkId)
   }
@@ -124,7 +124,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/network/{networkId}/map"))
   def networkMap(
     @PathVariable networkId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NetworkMapPage] = {
     analysisFacade.networkMap(Option.apply(user), networkId)
   }
@@ -132,7 +132,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/network/{networkId}/facts"))
   def networkFacts(
     @PathVariable networkId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NetworkFactsPage] = {
     analysisFacade.networkFacts(Option.apply(user), networkId)
   }
@@ -140,7 +140,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/network/{networkId}/nodes"))
   def networkNodes(
     @PathVariable networkId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NetworkNodesPage] = {
     analysisFacade.networkNodes(Option.apply(user), networkId)
   }
@@ -148,7 +148,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/network/{networkId}/routes"))
   def networkRoutes(
     @PathVariable networkId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NetworkRoutesPage] = {
     analysisFacade.networkRoutes(Option.apply(user), networkId)
   }
@@ -157,7 +157,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def networkChanges(
     @PathVariable networkId: Long,
     @RequestBody parameters: ChangesParameters,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NetworkChangesPage] = {
     val p = parameters.copy(networkId = Some(networkId))
     analysisFacade.networkChanges(Option.apply(user), p)
@@ -166,7 +166,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/node/{nodeId}"))
   def node(
     @PathVariable nodeId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NodeDetailsPage] = {
     analysisFacade.nodeDetails(Option.apply(user), nodeId)
   }
@@ -174,7 +174,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/node/{nodeId}/map"))
   def nodeMap(
     @PathVariable nodeId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NodeMapPage] = {
     analysisFacade.nodeMap(Option.apply(user), nodeId)
   }
@@ -183,7 +183,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def nodeChanges(
     @PathVariable nodeId: Long,
     @RequestBody parameters: ChangesParameters,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[NodeChangesPage] = {
     val p = parameters.copy(nodeId = Some(nodeId))
     analysisFacade.nodeChanges(Option.apply(user), nodeId, p)
@@ -192,7 +192,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/route/{routeId}"))
   def route(
     @PathVariable routeId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[RouteDetailsPage] = {
     analysisFacade.routeDetails(Option.apply(user), routeId)
   }
@@ -200,7 +200,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/route/{routeId}/map"))
   def routeMap(
     @PathVariable routeId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[RouteMapPage] = {
     analysisFacade.routeMap(Option.apply(user), routeId)
   }
@@ -209,7 +209,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def routeChanges(
     @PathVariable routeId: Long,
     @RequestBody parameters: ChangesParameters,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[RouteChangesPage] = {
     val p = parameters.copy(routeId = Some(routeId))
     analysisFacade.routeChanges(Option.apply(user), routeId, p)
@@ -217,7 +217,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @PostMapping(value = Array("/json-api/changes"))
   def changes(
-    @CookieValue(name = "knooppuntnet-user") user: String,
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[ChangesPage] = {
     analysisFacade.changes(Option.apply(user), parameters)
@@ -227,7 +227,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def changeSet(
     @PathVariable changeSetId: Long,
     @PathVariable replicationNumber: Int,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[ChangeSetPage] = {
     val replicationId = ReplicationId(replicationNumber)
     analysisFacade.changeSet(Option.apply(user), changeSetId, Some(replicationId))
@@ -237,7 +237,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def mapDetailNode(
     @PathVariable networkType: String,
     @PathVariable nodeId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[MapDetailNode] = {
     val networkTypeValue = NetworkType.withName(networkType).get
     analysisFacade.mapDetailNode(Option.apply(user), networkTypeValue, nodeId)
@@ -246,14 +246,14 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/route-detail/{routeId}"))
   def mapDetailRoute(
     @PathVariable routeId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[MapDetailRoute] = {
     analysisFacade.mapDetailRoute(Option.apply(user), routeId)
   }
 
   @GetMapping(value = Array("/json-api/poi-configuration"))
   def poiConfiguration(
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[ClientPoiConfiguration] = {
     analysisFacade.poiConfiguration(Option.apply(user))
   }
@@ -262,7 +262,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   def poi(
     @PathVariable elementType: String,
     @PathVariable elementId: Long,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[PoiPage] = {
     analysisFacade.poi(Option.apply(user), elementType, elementId)
   }
@@ -273,7 +273,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable legId: String,
     @PathVariable sourceNodeId: String,
     @PathVariable sinkNodeId: String,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[RouteLeg] = {
     analysisFacade.leg(Option.apply(user), NetworkType.withName(networkType).get, legId, sourceNodeId, sinkNodeId)
   }
@@ -281,7 +281,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @GetMapping(value = Array("/json-api/location/{networkType}"))
   def location(
     @PathVariable networkType: String,
-    @CookieValue(name = "knooppuntnet-user") user: String
+    @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[LocationPage] = {
     analysisFacade.location(Option.apply(user), NetworkType.withName(networkType).get)
   }
