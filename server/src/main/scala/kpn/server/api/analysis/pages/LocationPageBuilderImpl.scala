@@ -10,9 +10,7 @@ class LocationPageBuilderImpl(locationRepository: LocationRepository) extends Lo
 
   def build(networkType: NetworkType): Option[LocationPage] = {
     Some(
-      LocationPage(
-        locationRepository.routesWithoutLocation(networkType)
-      )
+      LocationPage(Seq())
     )
   }
 

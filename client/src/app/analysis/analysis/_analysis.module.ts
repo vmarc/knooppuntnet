@@ -21,7 +21,6 @@ import {LocationNodesPageComponent} from "./location-nodes-page.component";
 import {LocationSelectionPageComponent} from "./location-selection-page.component";
 import {LocationSelectorComponent} from "./location-selector.component";
 import {LocationTreeComponent} from "./location-tree.component";
-import {RoutesWithoutLocationPageComponent} from "./routes-without-location-page.component";
 
 @NgModule({
   imports: [
@@ -39,7 +38,6 @@ import {RoutesWithoutLocationPageComponent} from "./routes-without-location-page
   ],
   declarations: [
     AnalysisPageComponent,
-    RoutesWithoutLocationPageComponent,
     LocationTreeComponent,
     LocationSelectorComponent,
     AnalysisCyclingPageComponent,

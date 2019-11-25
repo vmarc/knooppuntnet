@@ -11,11 +11,9 @@ import {AnalysisMotorboatPageComponent} from "./analysis-motorboat-page.componen
 import {AnalysisPageComponent} from "./analysis-page.component";
 import {LocationNodesPageComponent} from "./location-nodes-page.component";
 import {LocationSelectionPageComponent} from "./location-selection-page.component";
-import {RoutesWithoutLocationPageComponent} from "./routes-without-location-page.component";
 
 const routes: Routes = [
   Util.routePath("", AnalysisPageComponent, AnalysisSidebarComponent),
-  Util.routePath("routes-without-location/:networkType", RoutesWithoutLocationPageComponent, AnalysisSidebarComponent),
   {
     path: "node",
     loadChildren: "../node/_node.module#NodeModule"
