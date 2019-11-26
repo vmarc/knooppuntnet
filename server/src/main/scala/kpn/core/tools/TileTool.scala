@@ -2,6 +2,9 @@ package kpn.core.tools
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
+import kpn.core.database.Database
+import kpn.core.database.views.analyzer.AnalyzerDesign
+import kpn.core.database.views.common.Design
 import kpn.core.db.couch.Couch
 import kpn.core.mail.Mail
 import kpn.core.mail.MailConfigReader
@@ -14,6 +17,7 @@ import kpn.core.tiles.TilesBuilder
 import kpn.core.tiles.raster.RasterTileBuilder
 import kpn.core.tiles.vector.VectorTileBuilder
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -45,6 +49,8 @@ object TileTool {
           }
 
           Couch.executeIn(options.analysisDatabaseName) { database =>
+
+            new CouchIndexer(database, AnalyzerDesign).index()
 
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(database)
