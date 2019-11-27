@@ -17,7 +17,8 @@ case class RouteInfo(
   lastUpdated: Timestamp,
   tags: Tags,
   facts: Seq[Fact],
-  analysis: Option[RouteInfoAnalysis]
+  analysis: Option[RouteInfoAnalysis],
+  tiles: Seq[String]
 ) extends Tagable {
   def id: Long = summary.id
 

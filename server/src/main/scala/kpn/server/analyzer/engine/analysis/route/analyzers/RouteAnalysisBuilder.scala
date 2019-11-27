@@ -6,12 +6,16 @@ import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
+import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
+import kpn.core.tiles.RouteTileAnalyzer
+import kpn.core.tiles.TileRouteBuilder
+import kpn.core.tiles.domain.TileCache
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -151,7 +155,8 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.loadedRoute.relation.tags
     )
 
-    RouteInfo(
+
+    val routeInfo = RouteInfo(
       summary,
       active = true,
       orphan = context.orphan,
@@ -160,7 +165,21 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       lastUpdated,
       context.loadedRoute.relation.tags,
       facts,
-      Some(routeAnalysis)
+      Some(routeAnalysis),
+      Seq()
     )
+
+    val tileNames = {
+      val routeTileAnalyzer = new RouteTileAnalyzer(new TileCache())
+      val tiles = (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
+        val b = new TileRouteBuilder(z)
+        b.build(routeInfo).toSeq.flatMap { tileDataRoute =>
+          routeTileAnalyzer.tiles(z, tileDataRoute)
+        }
+      }
+      tiles.map(tile => s"${routeInfo.summary.networkType.name}-${tile.name}")
+    }
+
+    routeInfo.copy(tiles = tileNames)
   }
 }

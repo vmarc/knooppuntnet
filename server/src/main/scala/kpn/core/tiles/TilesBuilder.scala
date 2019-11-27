@@ -1,12 +1,13 @@
 package kpn.core.tiles
 
 import kpn.api.common.NodeInfo
-import kpn.api.common.network.NetworkNodeInfo2
 import kpn.api.common.route.RouteInfo
+import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.tiles.domain.TileCache
+import kpn.core.tiles.domain.TileDataNode
+import kpn.core.tiles.domain.TileDataRoute
 import kpn.core.tiles.domain.TileNodes
-import kpn.core.tiles.domain.TileRoute
 import kpn.core.tiles.domain.TileRoutes
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
@@ -18,8 +19,6 @@ class TilesBuilder(
 ) {
 
   private val log = Log(classOf[TilesBuilder])
-
-  private val NODE_MIN_ZOOM_LEVEL = 9
 
   private val geomFactory = new GeometryFactory
 
@@ -97,27 +96,20 @@ class TilesBuilder(
     log.info(s"Obsolete tiles removed")
   }
 
-  private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[NetworkNodeInfo2], orphanNodes: Seq[NodeInfo]): Map[String, TileNodes] = {
-    if (z < NODE_MIN_ZOOM_LEVEL) {
+  private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[TileDataNode], orphanNodes: Seq[NodeInfo]): Map[String, TileNodes] = {
+    if (z < ZoomLevel.nodeMinZoom) {
       Map()
     }
     else {
       val allNodes = nodes ++ orphanNodes.map { node =>
-        NetworkNodeInfo2(
+        TileDataNode(
           node.id,
           name = NodeAnalyzer.name(networkType, node.tags),
-          number = "",
           latitude = node.latitude,
           longitude = node.longitude,
-          connection = false,
-          roleConnection = false,
           definedInRelation = false,
-          definedInRoute = false,
-          timestamp = node.lastUpdated,
           routeReferences = Seq.empty,
-          integrityCheck = None,
-          facts = Seq.empty,
-          tags = node.tags
+          integrityCheck = None
         )
       }
 
@@ -137,7 +129,7 @@ class TilesBuilder(
     }
   }
 
-  private def buildTileRouteMap(z: Int, tileRoutes: Seq[TileRoute]): Map[String, TileRoutes] = {
+  private def buildTileRouteMap(z: Int, tileRoutes: Seq[TileDataRoute]): Map[String, TileRoutes] = {
 
     val map = scala.collection.mutable.Map[String, TileRoutes]()
 
@@ -161,7 +153,7 @@ class TilesBuilder(
     map.toMap
   }
 
-  private def buildTileRoutes(z: Int, routeInfos: Seq[RouteInfo]): Seq[TileRoute] = {
+  private def buildTileRoutes(z: Int, routeInfos: Seq[RouteInfo]): Seq[TileDataRoute] = {
     val b = new TileRouteBuilder(z)
     routeInfos.flatMap(b.build)
   }

@@ -79,7 +79,8 @@ object NodePageExample {
         Fact.WasOrphan,
         Fact.Deleted
       ),
-      location = None
+      location = None,
+      Seq()
     )
   }
 

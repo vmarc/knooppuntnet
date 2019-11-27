@@ -9,11 +9,11 @@ import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 
 import javax.imageio.ImageIO
-import kpn.api.common.network.NetworkNodeInfo2
 import kpn.core.tiles.TileBuilder
 import kpn.core.tiles.TileData
 import kpn.core.tiles.domain.Tile
-import kpn.core.tiles.domain.TileRoute
+import kpn.core.tiles.domain.TileDataNode
+import kpn.core.tiles.domain.TileDataRoute
 
 class RasterTileBuilder extends TileBuilder {
 
@@ -103,7 +103,7 @@ class RasterTileBuilder extends TileBuilder {
     out.toByteArray
   }
 
-  private def routeColor(tileRoute: TileRoute): Color = {
+  private def routeColor(tileRoute: TileDataRoute): Color = {
     val colorValue = tileRoute.layer match {
       case "orphan-route" => "#006000" // MainStyleColors.darkGreen
       case "incomplete-route" => "#ff0000" // MainStyleColors.red
@@ -114,7 +114,7 @@ class RasterTileBuilder extends TileBuilder {
     Color.decode(colorValue)
   }
 
-  private def nodeColor(node: NetworkNodeInfo2): Color = {
+  private def nodeColor(node: TileDataNode): Color = {
 
     // TODO MAP share logic with VectorTileBuilder
     val colorString = if (!node.definedInRelation && !node.definedInRelation && node.routeReferences.isEmpty) {

@@ -53,7 +53,7 @@ class OrphanRouteTest01 extends AbstractTest {
       where { nodeInfo: NodeInfo =>
         nodeInfo.id match {
           case 1001 =>
-            nodeInfo should equal(
+            nodeInfo.copy(tiles = Seq()) should equal(
               newNodeInfo(
                 1001,
                 country = Some(Country.nl),
@@ -62,7 +62,7 @@ class OrphanRouteTest01 extends AbstractTest {
             )
 
           case 1002 =>
-            nodeInfo should equal(
+            nodeInfo.copy(tiles = Seq()) should equal(
               newNodeInfo(
                 1002,
                 country = Some(Country.nl),

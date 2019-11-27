@@ -47,7 +47,7 @@ class OrphanNodeTest02 extends AbstractTest {
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo should equal(
+        nodeInfo.copy(tiles = Seq()) should equal(
           NodeInfo(
             1001,
             active = true,
@@ -60,7 +60,8 @@ class OrphanNodeTest02 extends AbstractTest {
             Timestamp(2015, 8, 11, 0, 0, 0),
             Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "tag" -> "after"),
             Seq(),
-            None
+            None,
+            Seq()
           )
         )
         true

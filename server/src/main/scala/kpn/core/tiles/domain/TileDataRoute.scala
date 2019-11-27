@@ -1,6 +1,6 @@
 package kpn.core.tiles.domain
 
-case class TileRoute(
+case class TileDataRoute(
   routeId: Long,
   routeName: String,
   layer: String,

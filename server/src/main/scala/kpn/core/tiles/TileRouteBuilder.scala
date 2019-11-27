@@ -6,7 +6,7 @@ import kpn.api.custom.Fact
 import kpn.core.tiles.domain.Line
 import kpn.core.tiles.domain.Point
 import kpn.core.tiles.domain.Tile
-import kpn.core.tiles.domain.TileRoute
+import kpn.core.tiles.domain.TileDataRoute
 import kpn.core.tiles.domain.TileRouteSegment
 import kpn.core.util.Log
 import org.locationtech.jts.geom.Coordinate
@@ -26,7 +26,7 @@ class TileRouteBuilder(z: Int) {
 
   private val geomFactory = new GeometryFactory
 
-  def build(routeInfo: RouteInfo): Option[TileRoute] = {
+  def build(routeInfo: RouteInfo): Option[TileDataRoute] = {
 
     val surveyDate: Option[String] = routeInfo.tags("survey:date").flatMap { tagValue =>
       log.info(s"route ${routeInfo.id} surveyDate=$tagValue")
@@ -55,28 +55,33 @@ class TileRouteBuilder(z: Int) {
           new Coordinate(lon, lat)
         }
 
-        if (z < ZoomLevel.vectorTileMinZoom) {
-          val lineString = geomFactory.createLineString(coordinates.toArray)
-          val simplifiedLineString: LineString = DouglasPeuckerSimplifier.simplify(lineString, distanceTolerance).asInstanceOf[LineString]
-          val simplifiedCoordinates = simplifiedLineString.getCoordinates.toSeq
-
-          val lines = simplifiedCoordinates.sliding(2).flatMap { case Seq(c1, c2) =>
-            val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
-
-            // TODO MAP should check if line is within clipbounds of tile - return none if outside clipBounds
-
-            if (line.length > 0.00000001) Some(line) else None
-          }.toSeq
-
-          Some(TileRouteSegment(segment.surface, lines))
+        if (coordinates.size < 2) {
+          None
         }
         else {
-          val lines = coordinates.sliding(2).flatMap { case Seq(c1, c2) =>
-            // TODO MAP should make sure that empty lines are eliminated long before this point !!!
-            val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
-            if (line.length > 0.00000001) Some(line) else None
-          }.toSeq
-          Some(TileRouteSegment(segment.surface, lines))
+          if (z < ZoomLevel.vectorTileMinZoom) {
+            val lineString = geomFactory.createLineString(coordinates.toArray)
+            val simplifiedLineString: LineString = DouglasPeuckerSimplifier.simplify(lineString, distanceTolerance).asInstanceOf[LineString]
+            val simplifiedCoordinates = simplifiedLineString.getCoordinates.toSeq
+
+            val lines = simplifiedCoordinates.sliding(2).flatMap { case Seq(c1, c2) =>
+              val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
+
+              // TODO MAP should check if line is within clipbounds of tile - return none if outside clipBounds
+
+              if (line.length > 0.00000001) Some(line) else None
+            }.toSeq
+
+            Some(TileRouteSegment(segment.surface, lines))
+          }
+          else {
+            val lines = coordinates.sliding(2).flatMap { case Seq(c1, c2) =>
+              // TODO MAP should make sure that empty lines are eliminated long before this point !!!
+              val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
+              if (line.length > 0.00000001) Some(line) else None
+            }.toSeq
+            Some(TileRouteSegment(segment.surface, lines))
+          }
         }
       }
 
@@ -98,7 +103,7 @@ class TileRouteBuilder(z: Int) {
           "route"
         }
 
-        Some(TileRoute(routeInfo.id, routeInfo.summary.name, layer, surveyDate, tileRouteSegments))
+        Some(TileDataRoute(routeInfo.id, routeInfo.summary.name, layer, surveyDate, tileRouteSegments))
       }
     }
   }

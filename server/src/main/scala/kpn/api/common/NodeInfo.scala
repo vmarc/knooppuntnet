@@ -20,7 +20,8 @@ case class NodeInfo(
   lastUpdated: Timestamp,
   tags: Tags,
   facts: Seq[Fact],
-  location: Option[Location]
+  location: Option[Location],
+  tiles: Seq[String]
 ) extends Tagable with LatLon {
 
   def name(networkType: NetworkType): String = {
@@ -39,5 +40,6 @@ case class NodeInfo(
     field("lastUpdated", lastUpdated).
     field("tags", tags).
     field("facts", facts).
+    field("tiles", tiles).
     build
 }

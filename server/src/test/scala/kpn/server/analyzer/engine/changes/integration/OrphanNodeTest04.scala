@@ -40,7 +40,8 @@ class OrphanNodeTest04 extends AbstractTest {
             Timestamp(2015, 8, 11, 0, 0, 0),
             Tags.empty,
             Seq(Fact.Deleted),
-            None
+            None,
+            Seq()
           )
         )
         true

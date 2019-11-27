@@ -22,5 +22,4 @@ case class NetworkNodeInfo2(
   integrityCheck: Option[NodeIntegrityCheck],
   facts: Seq[Fact],
   tags: Tags
-) extends LatLon {
-}
+) extends LatLon

@@ -2,7 +2,7 @@ package kpn.core.tiles
 
 import kpn.core.tiles.domain.Line
 import kpn.core.tiles.domain.Point
-import kpn.core.tiles.domain.TileRoute
+import kpn.core.tiles.domain.TileDataRoute
 import kpn.core.tiles.domain.TileRouteSegment
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -25,7 +25,7 @@ class RouteTileAnalyzerTest  extends FunSuite with Matchers {
 
     val line = Line(Point(x1, y1), Point(x2, y2))
 
-    val tileRoute = TileRoute(
+    val tileRoute = TileDataRoute(
       routeId = 1L,
       "01-02",
       "layer",
@@ -52,7 +52,7 @@ class RouteTileAnalyzerTest  extends FunSuite with Matchers {
 
     val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
 
-    val tileRoute = TileRoute(
+    val tileRoute = TileDataRoute(
       routeId = 1L,
       "01-02",
       "layer",
@@ -79,7 +79,7 @@ class RouteTileAnalyzerTest  extends FunSuite with Matchers {
 
     val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
 
-    val tileRoute = TileRoute(
+    val tileRoute = TileDataRoute(
       routeId = 1L,
       "01-02",
       "layer",

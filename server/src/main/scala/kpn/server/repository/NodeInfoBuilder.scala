@@ -1,12 +1,16 @@
 package kpn.server.repository
 
+import kpn.api.common.LatLonImpl
 import kpn.api.common.NodeInfo
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.NetworkNodeInfo
+import kpn.core.tiles.NodeTileAnalyzer
+import kpn.core.tiles.domain.TileCache
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 
@@ -23,19 +27,35 @@ object NodeInfoBuilder {
     tags: Tags,
     facts: Seq[Fact]
   ): NodeInfo = {
+
+    val nodeNames = NodeAnalyzer.names(tags)
+
+    val tiles = {
+      val nodeTileAnalyzer = new NodeTileAnalyzer(new TileCache())
+      val tiles = (ZoomLevel.nodeMinZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
+        nodeTileAnalyzer.tiles(z, LatLonImpl(latitude, longitude))
+      }
+      tiles.flatMap { tile =>
+        nodeNames.map(_.scopedNetworkType.networkType).map { networkType =>
+          s"${networkType.name}-${tile.name}"
+        }
+      }
+    }
+
     NodeInfo(
       id,
       active,
       orphan,
       country,
       NodeAnalyzer.name(tags),
-      NodeAnalyzer.names(tags),
+      nodeNames,
       latitude,
       longitude,
       lastUpdated,
       tags,
       facts,
-      None
+      None,
+      tiles
     )
   }
 

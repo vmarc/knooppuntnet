@@ -267,7 +267,8 @@ trait SharedTestObjects {
       lastUpdated,
       tags,
       facts,
-      location
+      location,
+      Seq()
     )
   }
 
@@ -309,7 +310,8 @@ trait SharedTestObjects {
       lastUpdated,
       Tags.empty,
       facts,
-      Some(analysis)
+      Some(analysis),
+      Seq()
     )
   }
 
@@ -766,7 +768,8 @@ trait SharedTestObjects {
       lastUpdated,
       tags,
       facts,
-      analysis
+      analysis,
+      Seq()
     )
   }
 

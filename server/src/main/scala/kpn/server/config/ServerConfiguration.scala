@@ -4,6 +4,11 @@ import akka.actor.ActorSystem
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.core.app.ActorSystemConfig
+import kpn.core.tiles.TileBuilder
+import kpn.core.tiles.TileRepository
+import kpn.core.tiles.TileRepositoryImpl
+import kpn.core.tiles.raster.RasterTileBuilder
+import kpn.core.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -27,4 +32,25 @@ class ServerConfiguration {
   def graphLoadEnabled(@Value("${app.graph-load-enabled:false}") value: Boolean): Boolean = {
     value
   }
+
+  @Bean
+  def rasterTileBuilder: TileBuilder = {
+    new RasterTileBuilder()
+  }
+
+  @Bean
+  def vectorTileBuilder: TileBuilder = {
+    new VectorTileBuilder()
+  }
+
+  @Bean
+  def rasterTileRepository: TileRepository = {
+    new TileRepositoryImpl("/kpn/tiles", "png")
+  }
+
+  @Bean
+  def vectorTileRepository: TileRepository = {
+    new TileRepositoryImpl("/kpn/tiles", "mvt")
+  }
+
 }

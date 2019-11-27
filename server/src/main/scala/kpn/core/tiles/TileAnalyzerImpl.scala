@@ -4,6 +4,7 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
+import kpn.core.tiles.domain.TileDataNode
 import kpn.core.util.Log
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.OrphanRepository
@@ -30,7 +31,17 @@ class TileAnalyzerImpl(
       }
     }
 
-    val nodes = details.flatMap(_.nodes)
+    val nodes = details.flatMap(_.nodes).map { node =>
+      TileDataNode(
+        node.id,
+        node.name,
+        node.latitude,
+        node.longitude,
+        node.definedInRelation,
+        node.routeReferences,
+        node.integrityCheck
+      )
+    }
 
     val routeIds = details.flatMap(_.routes.map(_.id))
 

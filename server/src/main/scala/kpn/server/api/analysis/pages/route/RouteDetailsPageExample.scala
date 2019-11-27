@@ -201,7 +201,8 @@ object RouteDetailsPageExample {
           ),
           locationAnalysis = None
         )
-      )
+      ),
+      Seq()
     )
   }
 

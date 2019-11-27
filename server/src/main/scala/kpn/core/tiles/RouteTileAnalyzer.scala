@@ -4,7 +4,7 @@ import kpn.core.tiles.domain.Line
 import kpn.core.tiles.domain.Point
 import kpn.core.tiles.domain.Tile
 import kpn.core.tiles.domain.TileCache
-import kpn.core.tiles.domain.TileRoute
+import kpn.core.tiles.domain.TileDataRoute
 
 class RouteTileAnalyzer(tileCache: TileCache) {
 
@@ -12,7 +12,7 @@ class RouteTileAnalyzer(tileCache: TileCache) {
     Determines all tiles that will be needed to display given route
     at given zoom level.
    */
-  def tiles(z: Int, tileRoute: TileRoute): Seq[Tile] = {
+  def tiles(z: Int, tileRoute: TileDataRoute): Seq[Tile] = {
 
     val tileQueue = scala.collection.mutable.Queue[Tile]()
     val foundTiles = scala.collection.mutable.Set[Tile]()

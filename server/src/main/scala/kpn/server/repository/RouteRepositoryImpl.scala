@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
 @Component
 class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
 
-  private val groupSize = 25
+  private val groupSize = 20
   private val log = Log(classOf[RouteRepository])
 
   override def save(routes: RouteInfo*): Unit = {

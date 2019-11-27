@@ -1,3 +1,3 @@
 package kpn.core.tiles.domain
 
-case class TileRoutes(tile: Tile, routes: Seq[TileRoute])
+case class TileRoutes(tile: Tile, routes: Seq[TileDataRoute])
