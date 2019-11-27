@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.api.custom.NetworkType
-import kpn.core.planner.graph.GraphEdge
+import kpn.core.planner.graph.NodeNetworkGraph
 
 trait GraphRepository {
-  def edges(networkType: NetworkType): Seq[GraphEdge]
+  def graph(networkType: NetworkType): Option[NodeNetworkGraph]
 }

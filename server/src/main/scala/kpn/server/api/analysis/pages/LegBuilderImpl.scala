@@ -11,8 +11,6 @@ import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
-import kpn.core.planner.graph.NodeNetworkGraph
-import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.Log
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
@@ -27,20 +25,8 @@ class LegBuilderImpl(
 
   private val log = Log(classOf[LegBuilderImpl])
 
-  val graphMap: Map[String, NodeNetworkGraph] = {
-    if (graphLoad) {
-      NetworkType.all.map { networkType =>
-        val graph = buildGraph(networkType)
-        (networkType.name, graph)
-      }.toMap
-    }
-    else {
-      Map()
-    }
-  }
-
   override def build(networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): Option[RouteLeg] = {
-    graphMap.get(networkType.name) match {
+    graphRepository.graph(networkType) match {
       case Some(graph) =>
         graph.findPath(sourceNodeId.toLong, sinkNodeId.toLong) match {
           case Some(path) =>

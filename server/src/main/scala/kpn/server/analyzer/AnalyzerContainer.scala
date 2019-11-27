@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class AnalyzerContainer(analyzer: Analyzer) {
 
   @Bean
-  @ConditionalOnProperty(value = Array("analyzer.enabled"), matchIfMissing = false, havingValue = "true")
+  @ConditionalOnProperty(value = Array("app.analyzer-enabled"), matchIfMissing = false, havingValue = "true")
   def analyzer(): AnalyzerJob = {
     new AnalyzerJob(analyzer)
   }

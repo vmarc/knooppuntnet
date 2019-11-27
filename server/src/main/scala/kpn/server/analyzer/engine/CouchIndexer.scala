@@ -4,6 +4,7 @@ import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.common.Design
 import kpn.core.util.Log
+import org.springframework.web.client.HttpServerErrorException
 
 /**
  * Forces indexing of Couchdb views. Couchdb indexes are updated upon querying a view. We wait
@@ -33,12 +34,12 @@ class CouchIndexer(database: Database, design: Design) {
         retry = false
       }
       catch {
-        case e: Exception =>
+        case e: HttpServerErrorException =>
           val now = System.currentTimeMillis()
           if (now > maxEnd) {
             throw new RuntimeException(s"Maximum wait time ($timeoutMinutes mins) expired")
           }
-          if (e.getMessage.contains("The request could not be processed in a reasonable amount of time")) {
+          if (e.getResponseBodyAsString.contains("The request could not be processed in a reasonable amount of time")) {
             log.info("Continue waiting for indexing to finish")
           }
           else {

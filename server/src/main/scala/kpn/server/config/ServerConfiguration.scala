@@ -24,7 +24,7 @@ class ServerConfiguration {
   def system: ActorSystem = ActorSystemConfig.actorSystem()
 
   @Bean
-  def graphLoad(@Value("${graph.load:true}") load: Boolean): Boolean = {
-    load
+  def graphLoadEnabled(@Value("${app.graph-load-enabled:false}") value: Boolean): Boolean = {
+    value
   }
 }
