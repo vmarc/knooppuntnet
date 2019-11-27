@@ -1,4 +1,3 @@
-// TODO migrate to Angular
 package kpn.client.components.changes
 
 import chandu0101.scalajs.react.components.materialui.MuiToggle

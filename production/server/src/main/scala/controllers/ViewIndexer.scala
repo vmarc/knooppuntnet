@@ -24,7 +24,6 @@ class ViewIndexer(system: ActorSystem, analysisDatabase: Database, changesDataba
   private def index(): Unit = {
     val start = System.currentTimeMillis()
     index(analysisDatabase, AnalyzerDesign)
-    indexPlannerDesign(analysisDatabase)
     index2(changesDatabase, ChangesDesign)
     val end = System.currentTimeMillis()
     log.info(s"Indexing completed in ${end - start}ms")
@@ -48,16 +47,6 @@ class ViewIndexer(system: ActorSystem, analysisDatabase: Database, changesDataba
     catch {
       case e: Exception =>
         log.info(s"Exception while indexing ${design.name}: ${e.getMessage}")
-    }
-  }
-
-  private def indexPlannerDesign(database: Database): Unit = {
-    try {
-      // TODO query GraphEdgesView stale=false
-    }
-    catch {
-      case e: Exception =>
-        log.info(s"Exception while indexing PlannerDesign: ${e.getMessage}")
     }
   }
 }

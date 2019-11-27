@@ -1,4 +1,3 @@
-// TODO migrate to Angular
 package kpn.client.common
 
 import kpn.client.common.Nls.nls

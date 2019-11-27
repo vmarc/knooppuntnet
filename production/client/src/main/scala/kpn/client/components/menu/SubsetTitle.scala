@@ -1,4 +1,3 @@
-// TODO migrate to Angular
 package kpn.client.components.menu
 
 import kpn.client.common.Context

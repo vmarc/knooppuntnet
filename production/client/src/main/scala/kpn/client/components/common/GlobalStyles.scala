@@ -1,4 +1,3 @@
-// TODO migrate to Angular
 package kpn.client.components.common
 
 import kpn.client.components.common.CssSettings.default._
