@@ -12,7 +12,7 @@ import kpn.core.mail.MailImpl
 import kpn.core.tiles.TileAnalyzer
 import kpn.core.tiles.TileAnalyzerImpl
 import kpn.core.tiles.TileBuilder
-import kpn.core.tiles.TileRepositoryImpl
+import kpn.core.tiles.TileFileRepositoryImpl
 import kpn.core.tiles.TilesBuilder
 import kpn.core.tiles.raster.RasterTileBuilder
 import kpn.core.tiles.vector.VectorTileBuilder
@@ -44,8 +44,8 @@ object TileTool {
         case Some(options) =>
 
           def createTilesBuilder(tileBuilder: TileBuilder, extension: String): TilesBuilder = {
-            val tileRepository = new TileRepositoryImpl(options.tileDir, extension)
-            new TilesBuilder(tileBuilder, tileRepository)
+            val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, extension)
+            new TilesBuilder(tileBuilder, tileFileRepository)
           }
 
           Couch.executeIn(options.analysisDatabaseName) { database =>

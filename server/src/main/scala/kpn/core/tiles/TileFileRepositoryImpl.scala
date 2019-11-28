@@ -9,9 +9,9 @@ import org.apache.commons.io.filefilter.TrueFileFilter.TRUE
 
 import scala.collection.JavaConverters._
 
-class TileRepositoryImpl(root: String, extension: String) extends TileRepository {
+class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRepository {
 
-  private val log = Log(classOf[TileRepositoryImpl])
+  private val log = Log(classOf[TileFileRepositoryImpl])
 
   override def saveOrUpdate(tileType: String, tile: Tile, tileBytes: Array[Byte]): Unit = {
 

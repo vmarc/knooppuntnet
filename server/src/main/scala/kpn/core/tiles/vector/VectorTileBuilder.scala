@@ -34,22 +34,7 @@ class VectorTileBuilder() extends TileBuilder {
         "name" -> node.name
       )
 
-      val layer = if (!node.definedInRelation && !node.definedInRelation && node.routeReferences.isEmpty) {
-        if (node.integrityCheck.isDefined && node.integrityCheck.get.failed) {
-          "error-orphan-node"
-        }
-        else {
-          "orphan-node"
-        }
-      }
-      else if (node.integrityCheck.isDefined && node.integrityCheck.get.failed) {
-        "error-node"
-      }
-      else {
-        "node"
-      }
-
-      encoder.addPointFeature(layer, userData, point)
+      encoder.addPointFeature(node.layer, userData, point)
     }
 
     data.routes.zipWithIndex.foreach { case (tileRoute, index) =>

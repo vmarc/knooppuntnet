@@ -1,5 +1,6 @@
 package kpn.api.common.tiles
 
+import scala.math.max
 import scala.math.min
 
 object ZoomLevel {
@@ -15,7 +16,8 @@ object ZoomLevel {
   val vectorTileMaxOverZoom = 20
 
   val minZoom: Int = min(bitmapTileMinZoom, vectorTileMinZoom)
-  val maxZoom: Int = min(bitmapTileMaxZoom, vectorTileMaxZoom)
+  val maxZoom: Int = max(bitmapTileMaxZoom, vectorTileMaxZoom)
 
   val nodeMinZoom = 9
+
 }

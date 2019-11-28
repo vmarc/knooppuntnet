@@ -2,7 +2,7 @@ package kpn.core.tiles
 
 import kpn.core.tiles.domain.Tile
 
-trait TileRepository {
+trait TileFileRepository {
 
   def saveOrUpdate(tileType: String, tile: Tile, tileBytes: Array[Byte]): Unit
 

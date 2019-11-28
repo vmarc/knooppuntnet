@@ -10,12 +10,11 @@ import kpn.core.tiles.domain.TileDataRoute
 import kpn.core.tiles.domain.TileNodes
 import kpn.core.tiles.domain.TileRoutes
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import org.locationtech.jts.geom.GeometryFactory
 
 class TilesBuilder(
   tileBuilder: TileBuilder,
-  tileRepository: TileRepository
+  tileFileRepository: TileFileRepository
 ) {
 
   private val log = Log(classOf[TilesBuilder])
@@ -29,7 +28,7 @@ class TilesBuilder(
     analysis: TileAnalysis
   ): Unit = {
 
-    val existingTileNames = tileRepository.existingTileNames(analysis.networkType.name, z)
+    val existingTileNames = tileFileRepository.existingTileNames(analysis.networkType.name, z)
 
     log.info(s"Processing zoomlevel $z")
     log.info(s"Number of tiles before: " + existingTileNames.size)
@@ -82,7 +81,7 @@ class TilesBuilder(
 
       val tileBytes = tileBuilder.build(tileData)
       if (tileBytes.length > 0) {
-        tileRepository.saveOrUpdate(analysis.networkType.name, tile, tileBytes)
+        tileFileRepository.saveOrUpdate(analysis.networkType.name, tile, tileBytes)
       }
     }
 
@@ -92,7 +91,7 @@ class TilesBuilder(
     log.info(s"Obsolete: " + obsoleteTileNames)
 
     log.info(s"Obsolete tile count: " + obsoleteTileNames.size)
-    tileRepository.delete(obsoleteTileNames)
+    tileFileRepository.delete(obsoleteTileNames)
     log.info(s"Obsolete tiles removed")
   }
 
@@ -101,17 +100,7 @@ class TilesBuilder(
       Map()
     }
     else {
-      val allNodes = nodes ++ orphanNodes.map { node =>
-        TileDataNode(
-          node.id,
-          name = NodeAnalyzer.name(networkType, node.tags),
-          latitude = node.latitude,
-          longitude = node.longitude,
-          definedInRelation = false,
-          routeReferences = Seq.empty,
-          integrityCheck = None
-        )
-      }
+      val allNodes = nodes ++ orphanNodes.map(node => new TileDataNodeBuilder().build(networkType, node))
 
       val analyzer = new NodeTileAnalyzer(tileCache)
       val map = scala.collection.mutable.Map[String, TileNodes]()
@@ -154,7 +143,7 @@ class TilesBuilder(
   }
 
   private def buildTileRoutes(z: Int, routeInfos: Seq[RouteInfo]): Seq[TileDataRoute] = {
-    val b = new TileRouteBuilder(z)
+    val b = new TileDataRouteBuilder(z)
     routeInfos.flatMap(b.build)
   }
 }

@@ -2,90 +2,95 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
-import kpn.core.db.couch.Couch
-import kpn.core.tiles.TileBuilder
 import kpn.core.tiles.TileData
-import kpn.core.tiles.TileRepository
+import kpn.core.tiles.TileDataNodeBuilder
+import kpn.core.tiles.TileDataRouteBuilder
 import kpn.core.tiles.domain.Tile
+import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TileDataNode
 import kpn.core.tiles.domain.TileDataRoute
-import kpn.core.tiles.raster.RasterTileBuilder
-import kpn.core.tiles.vector.VectorTileBuilder
+import kpn.core.util.Log
 import kpn.server.repository.NodeRepository
+import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
+import kpn.server.repository.TileRepository
 import org.springframework.stereotype.Component
 
 @Component
 class TileUpdaterImpl(
   taskRepository: TaskRepository,
   nodeRepository: NodeRepository,
-  rasterTileBuilder: TileBuilder,
-  vectorTileBuilder: TileBuilder,
-  rasterTileRepository: TileRepository,
-  vectorTileRepository: TileRepository
+  routeRepository: RouteRepository,
+  tileRepository: TileRepository,
+  tileFileBuilder: TileFileBuilder
 ) extends TileUpdater {
 
+  private val log = Log(classOf[TileUpdaterImpl])
+  private val tileCache = new TileCache()
+
   override def update(minZoomLevel: Int): Unit = {
+    new Updater(minZoomLevel).update()
+  }
 
-    val nodeCache = scala.collection.mutable.Map[Long /* nodeId */ , TileDataNode]()
-    val routeCache = scala.collection.mutable.Map[Long /* routeId */ , TileDataRoute]()
+  private class Updater(minZoomLevel: Int) {
 
-    //    val tileName = s"$networkType-$z-$x-$y"
+    private val nodeCache = new TileDataCache[TileDataNode]()
+    private val routeCache = new TileDataCache[TileDataRoute]()
 
-    val tasks = taskRepository.all("tile-task:")
-    tasks.foreach { task =>
-      val networkType: NetworkType = null
-      val tile: Tile = null // tasks.map(key => key.substr("tile-task:".length).map(Tile.withName)
-
-      if (tile.z > minZoomLevel) {
-        val tileDataNodes = collectTileDataNodes(nodeCache)
-        val tileDataRoutes = collectTileDataRoutes(routeCache)
-        val tileData = TileData(networkType, tile, tileDataNodes, tileDataRoutes)
-
-        if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
-          val tileBytes = new RasterTileBuilder().build(tileData)
-          if (tileBytes.length > 0) {
-            rasterTileRepository.saveOrUpdate(networkType.name, tile, tileBytes)
-          }
-        }
-        else {
-          val tileBytes = new VectorTileBuilder().build(tileData)
-          if (tileBytes.length > 0) {
-            vectorTileRepository.saveOrUpdate(networkType.name, tile, tileBytes)
-          }
+    def update() {
+      val allTasks = taskRepository.all(TileTask.prefix)
+      (minZoomLevel to ZoomLevel.maxZoom).foreach { zoomLevel =>
+        routeCache.clear()
+        val tasks = allTasks.filter(task => TileTask.zoomLevel(task) == zoomLevel)
+        tasks.foreach { task =>
+          processTask(task)
+          taskRepository.delete(task)
         }
       }
     }
-  }
 
-  private def collectTileDataNodes(nodeCache: scala.collection.mutable.Map[Long, TileDataNode]): Seq[TileDataNode] = {
-
-    //    view key format [networkType, tileName, "node", nodeId]
-    //    view key format [networkType, tileName, "route", routeId]
-
-    val nodeIds: Seq[Long] = Seq() // read nodeIds from database with given tileName from new view
-    nodeIds.map { nodeId =>
-      nodeCache.getOrElseUpdate(nodeId, {
-        nodeRepository.nodeWithId(nodeId, Couch.batchTimeout) match {
-          case None => throw new IllegalStateException()
-          case Some(node) =>
-            TileDataNode(
-              node.id,
-              node.name,
-              node.latitude,
-              node.longitude,
-              false, // node.attributes.definedInRelation,
-              Seq(), //node.routeReferences,
-              None // node.integrityCheck
-            )
-        }
-      })
+    private def processTask(task: String): Unit = {
+      val tile = tileCache(TileTask.tileName(task))
+      val networkType: NetworkType = TileTask.networkType(task)
+      updateTile(networkType, tile)
     }
 
-  }
+    private def updateTile(networkType: NetworkType, tile: Tile): Unit = {
+      val tileDataNodes = collectTileDataNodes(networkType, tile)
+      val tileDataRoutes = collectTileDataRoutes(networkType, tile)
+      val tileData = TileData(networkType, tile, tileDataNodes, tileDataRoutes)
+      tileFileBuilder.build(tileData)
+    }
 
-  private def collectTileDataRoutes(nodeCache: scala.collection.mutable.Map[Long, TileDataRoute]): Seq[TileDataRoute] = {
-    Seq()
+    private def collectTileDataNodes(networkType: NetworkType, tile: Tile): Seq[TileDataNode] = {
+      val nodeIds = tileRepository.nodeIds(networkType, tile)
+      nodeIds.flatMap { nodeId =>
+        nodeCache.getOrElseUpdate(
+          nodeId,
+          nodeRepository.nodeWithId(nodeId) match {
+            case Some(node) => Some(new TileDataNodeBuilder().build(networkType, node))
+            case None =>
+              log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.name}-${tile.name} not found in database")
+              None
+          }
+        )
+      }
+    }
+
+    private def collectTileDataRoutes(networkType: NetworkType, tile: Tile): Seq[TileDataRoute] = {
+      val routeIds = tileRepository.routeIds(networkType, tile)
+      routeIds.flatMap { routeId =>
+        routeCache.getOrElseUpdate(
+          routeId,
+          routeRepository.routeWithId(routeId) match {
+            case Some(routeInfo) => new TileDataRouteBuilder(tile.z).build(routeInfo)
+            case None =>
+              log.error(s"Unexpected data integrity problem: route $routeId for tile ${networkType.name}-${tile.name} not found in database")
+              None
+          }
+        )
+      }
+    }
   }
 
 }
