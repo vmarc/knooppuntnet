@@ -20,7 +20,8 @@ class OrphanRouteProcessorImpl(
   analysisRepository: AnalysisRepository,
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
-  routeAnalyzer: MasterRouteAnalyzer
+  routeAnalyzer: MasterRouteAnalyzer,
+  nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanRouteProcessor {
 
   private val log = Log(classOf[OrphanRouteProcessorImpl])
@@ -38,7 +39,7 @@ class OrphanRouteProcessorImpl(
           analysis.routeNodes.routeNodes.foreach { routeNode =>
             val country = countryAnalyzer.country(Seq(routeNode.node))
             val loadedNode = LoadedNode.from(country, routeNode.node.raw)
-            val nodeInfo = NodeInfoBuilder.fromLoadedNode(loadedNode)
+            val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode)
             analysisRepository.saveNode(nodeInfo)
           }
 

@@ -115,23 +115,13 @@ class RasterTileBuilder extends TileBuilder {
   }
 
   private def nodeColor(node: TileDataNode): Color = {
-
-    // TODO MAP share logic with VectorTileBuilder
-    val colorString = if (!node.definedInRelation && !node.definedInRelation && node.routeReferences.isEmpty) {
-      if (node.integrityCheck.isDefined && node.integrityCheck.get.failed) {
-        "#0000bb" // MainStyleColors.darkBlue
-      }
-      else {
-        "#006000" // MainStyleColors.darkGreen
-      }
+    val colorString = node.layer match {
+      case "error-orphan-node" => "#0000bb" // MainStyleColors.darkBlue
+      case "orphan-node" => "#006000" // MainStyleColors.darkGreen
+      case "error-node" => "#0000ff" // MainStyleColors.blue
+      case "node" => "#00c800" // MainStyleColors.green
+      case _ => "#00c800" // MainStyleColors.green
     }
-    else if (node.integrityCheck.isDefined && node.integrityCheck.get.failed) {
-      "#0000ff" // MainStyleColors.blue
-    }
-    else {
-      "#00c800" // MainStyleColors.green
-    }
-
     Color.decode(colorString)
   }
 

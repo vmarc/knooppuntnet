@@ -3,9 +3,11 @@ package kpn.core.tools
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.db.couch.Couch
 import kpn.core.tiles.PoiTilesBuilder
-import kpn.core.tiles.TileRepositoryImpl
+import kpn.core.tiles.TileFileRepositoryImpl
 import kpn.core.tiles.vector.PoiVectorTileBuilder
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
@@ -27,12 +29,16 @@ object PoiTileTool {
         Couch.executeIn(options.poiDatabaseName) { database =>
 
           val poiRepository = new PoiRepositoryImpl(database)
-          val tileRepository = new TileRepositoryImpl(options.tileDir, "mvt")
+          val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
+          val tileCalculator = new TileCalculatorImpl()
+          val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+
           val tileTool = new PoiTileTool(
             poiRepository,
             new PoiTilesBuilder(
               new PoiVectorTileBuilder(),
-              tileRepository
+              tileFileRepository,
+              nodeTileAnalyzer
             )
           )
 

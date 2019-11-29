@@ -9,6 +9,7 @@ import kpn.core.database.views.common.Design
 import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.planner.PlannerDesign
 import kpn.core.database.views.poi.PoiDesign
+import kpn.core.database.views.tile.TileDesign
 import kpn.core.db.couch.Couch
 import kpn.core.util.Util
 
@@ -31,6 +32,7 @@ object DatabaseViewTool {
       updateView(database, AnalyzerDesign)
       updateView(database, PlannerDesign)
       updateView(database, LocationDesign)
+      updateView(database, TileDesign)
     }
 
     Couch.executeIn(host, changesDbName) { database =>

@@ -16,6 +16,9 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.analyzer.load.NetworksLoaderImpl
 import kpn.server.analyzer.load._
@@ -29,6 +32,7 @@ import kpn.server.analyzer.load.orphan.route.RouteIdsLoaderImpl
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
 import kpn.server.repository.FactRepository
+import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.OrphanRepository
 
 class AnalysisDataLoaderConfiguration(
@@ -65,7 +69,16 @@ class AnalysisDataLoaderConfiguration(
     cachingExecutor
   )
 
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+  private val tileCalculator = new TileCalculatorImpl()
+  private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+  private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(
+    analysisContext,
+    new AccessibilityAnalyzerImpl(),
+    routeTileAnalyzer
+  )
 
   val orphanRoutesLoaderWorker = new OrphanRoutesLoaderWorkerImpl(
     analysisContext,
@@ -73,7 +86,8 @@ class AnalysisDataLoaderConfiguration(
     routeAnalyzer,
     relationAnalyzer,
     countryAnalyzer,
-    analysisRepository
+    analysisRepository,
+    nodeInfoBuilder
   )
 
   private val orphanRoutesLoader = new OrphanRoutesLoaderImpl(
@@ -89,7 +103,8 @@ class AnalysisDataLoaderConfiguration(
   private val orphanNodeCreateProcessor = {
     new OrphanNodeCreateProcessorImpl(
       analysisContext,
-      analysisRepository
+      analysisRepository,
+      nodeInfoBuilder
     )
   }
 

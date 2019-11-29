@@ -1,7 +1,9 @@
-package kpn.core.tiles
+package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.LatLon
 import kpn.api.common.LatLonImpl
+import kpn.core.tiles.TestTile
+import kpn.core.tiles.TestTileSetup
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -9,7 +11,7 @@ class NodeTileAnalyzerTest extends FunSuite with Matchers {
 
   val t = new TestTileSetup()
 
-  val analyzer = new NodeTileAnalyzer(t.tileCache)
+  val analyzer = new NodeTileAnalyzerImpl(t.tileCalculator)
 
   test("test") {
 

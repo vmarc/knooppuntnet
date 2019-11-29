@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.core.app.ActorSystemConfig
 import kpn.core.tiles.TileBuilder
-import kpn.core.tiles.TileRepository
-import kpn.core.tiles.TileRepositoryImpl
+import kpn.core.tiles.TileFileRepository
+import kpn.core.tiles.TileFileRepositoryImpl
 import kpn.core.tiles.raster.RasterTileBuilder
 import kpn.core.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
@@ -44,13 +44,13 @@ class ServerConfiguration {
   }
 
   @Bean
-  def rasterTileRepository: TileRepository = {
-    new TileRepositoryImpl("/kpn/tiles", "png")
+  def rasterTileRepository: TileFileRepository = {
+    new TileFileRepositoryImpl("/kpn/tiles", "png")
   }
 
   @Bean
-  def vectorTileRepository: TileRepository = {
-    new TileRepositoryImpl("/kpn/tiles", "mvt")
+  def vectorTileRepository: TileFileRepository = {
+    new TileFileRepositoryImpl("/kpn/tiles", "mvt")
   }
 
 }

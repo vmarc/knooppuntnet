@@ -40,6 +40,10 @@ import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcesso
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileChangeAnalyzerImpl
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.RouteLoaderImpl
@@ -49,6 +53,7 @@ import kpn.server.repository.BlackListRepository
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
+import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.TaskRepository
 
 class ChangeProcessorConfiguration(
@@ -67,8 +72,16 @@ class ChangeProcessorConfiguration(
   nodeLoader: NodeLoader
 ) {
 
+  private val tileCalculator = new TileCalculatorImpl()
+  private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+  private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
   private val networkLoader = new NetworkLoaderImpl(cachingExecutor)
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(
+    analysisContext,
+    new AccessibilityAnalyzerImpl(),
+    routeTileAnalyzer
+  )
   private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
   private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
 
@@ -77,8 +90,11 @@ class ChangeProcessorConfiguration(
   val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
     analysisContext,
     analysisRepository,
-    nodeLoader
+    nodeLoader,
+    nodeInfoBuilder
   )
+
+  val tileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
 
   val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
     analysisContext,
@@ -86,7 +102,8 @@ class ChangeProcessorConfiguration(
     relationAnalyzer,
     countryAnalyzer,
     routeAnalyzer,
-    routeLoader
+    routeLoader,
+    tileChangeAnalyzer
   )
 
   private val routesLoader = new RoutesLoaderImpl(
@@ -191,7 +208,8 @@ class ChangeProcessorConfiguration(
       analysisRepository,
       relationAnalyzer,
       countryAnalyzer,
-      routeAnalyzer
+      routeAnalyzer,
+      nodeInfoBuilder
     )
     val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
       analysisContext,
@@ -204,7 +222,8 @@ class ChangeProcessorConfiguration(
       orphanRouteProcessor,
       routesLoader,
       routeAnalyzer,
-      countryAnalyzer
+      countryAnalyzer,
+      tileChangeAnalyzer
     )
   }
 
@@ -218,17 +237,20 @@ class ChangeProcessorConfiguration(
     val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
       analysisContext,
       analysisRepository,
-      countryAnalyzer
+      countryAnalyzer,
+      nodeInfoBuilder
     )
 
     val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
       analysisContext,
-      analysisRepository
+      analysisRepository,
+      nodeInfoBuilder
     )
 
     val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
       analysisContext,
-      analysisRepository
+      analysisRepository,
+      nodeInfoBuilder
     )
 
     new OrphanNodeChangeProcessorImpl(

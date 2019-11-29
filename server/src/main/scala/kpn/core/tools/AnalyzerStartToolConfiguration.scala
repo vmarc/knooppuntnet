@@ -22,6 +22,9 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl
@@ -34,6 +37,7 @@ import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.FactRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -50,11 +54,17 @@ class AnalyzerStartToolConfiguration(
   private val routeRepository = new RouteRepositoryImpl(analysisDatabase)
   private val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
 
+  private val tileCalculator = new TileCalculatorImpl()
+  private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+  private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
     analysisDatabase,
     networkRepository,
     routeRepository,
-    nodeRepository
+    nodeRepository,
+    nodeInfoBuilder
   )
 
   val statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
@@ -102,7 +112,11 @@ class AnalyzerStartToolConfiguration(
     countryAnalyzer
   )
 
-  val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+  val routeAnalyzer = new MasterRouteAnalyzerImpl(
+    analysisContext,
+    new AccessibilityAnalyzerImpl(),
+    routeTileAnalyzer
+  )
 
   val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
     system,

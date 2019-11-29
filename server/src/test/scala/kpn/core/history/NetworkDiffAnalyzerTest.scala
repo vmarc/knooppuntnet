@@ -1,17 +1,5 @@
 package kpn.core.history
 
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.core.test.TestData
-import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.NetworkNodeData
 import kpn.api.common.diff.NetworkNodeUpdate
@@ -19,6 +7,20 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.network.NetworkNodeDiff
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestData
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.load.data.LoadedNetwork
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -404,7 +406,9 @@ class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObje
     val countryAnalyzer = new CountryAnalyzerNoop()
     val analysisContext = new AnalysisContext()
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
     val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))

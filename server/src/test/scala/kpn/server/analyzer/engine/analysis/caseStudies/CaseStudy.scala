@@ -12,6 +12,8 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
 
 import scala.xml.InputSource
@@ -26,7 +28,9 @@ object CaseStudy {
     val (data, networkType, routeRelation) = load(filename)
     val analysisContext = new AnalysisContext(oldTagging = true)
     val networkNodes = new NetworkNodeBuilder(analysisContext, data, networkType, countryAnalyzer).networkNodes
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     routeAnalyzer.analyze(networkNodes, LoadedRoute(Some(Country.nl), networkType, "", data, routeRelation), orphan = false)
   }
 

@@ -15,6 +15,7 @@ import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
 import kpn.server.analyzer.load.RouteLoader
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
@@ -26,7 +27,8 @@ class RouteChangeBuilderImpl(
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   routeAnalyzer: MasterRouteAnalyzer,
-  routeLoader: RouteLoader
+  routeLoader: RouteLoader,
+  tileChangeAnalyzer: TileChangeAnalyzer
 ) extends RouteChangeBuilder {
 
   private val log = Log(classOf[RouteChangeBuilderImpl])
@@ -72,6 +74,8 @@ class RouteChangeBuilderImpl(
            */
           RouteUtil.assertVersion1(analysisAfter)
 
+          tileChangeAnalyzer.analyzeRoute(analysisAfter)
+
           analyzed(
             RouteChange(
               key = context.changeSetContext.buildChangeKey(analysisAfter.id),
@@ -92,6 +96,8 @@ class RouteChangeBuilderImpl(
         case Some(analysisBefore) =>
 
           val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
+
+          tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
           analyzed(
             RouteChange(
@@ -141,6 +147,7 @@ class RouteChangeBuilderImpl(
           )
 
           analysisRepository.saveRoute(routeInfo)
+          tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
           Some(
             analyzed(
@@ -210,6 +217,8 @@ class RouteChangeBuilderImpl(
 
       val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
 
+      tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
+
       Some(
         analyzed(
           RouteChange(
@@ -245,6 +254,9 @@ class RouteChangeBuilderImpl(
         val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
 
         if (routeUpdate.nonEmpty) {
+
+          tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
+
           Some(
             analyzed(
               RouteChange(

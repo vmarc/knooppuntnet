@@ -6,6 +6,8 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.RouteLoaderImpl
 
 object RouteAnalyzerDemo {
@@ -20,7 +22,9 @@ object RouteAnalyzerDemo {
 
     routeLoader.loadRoute(Timestamp(2018, 5, 24, 8, 59, 2), 101673) match {
       case Some(loadedRoute) =>
-        val routeAnalysis = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl()).analyze(Map(), loadedRoute, orphan = true)
+        val tileCalculator = new TileCalculatorImpl()
+        val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+        val routeAnalysis = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer).analyze(Map(), loadedRoute, orphan = true)
         println("facts=" + routeAnalysis.route.facts)
       case None => println("could not load route")
     }

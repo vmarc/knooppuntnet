@@ -14,7 +14,7 @@ import kpn.core.analysis.RouteMember
 
 case class RouteAnalysis(
   relation: Relation,
-  route: RouteInfo = null,
+  route: RouteInfo,
   structure: RouteStructure = RouteStructure(),
   routeNodes: RouteNodeAnalysis = RouteNodeAnalysis(),
   routeMembers: Seq[RouteMember] = Seq.empty,

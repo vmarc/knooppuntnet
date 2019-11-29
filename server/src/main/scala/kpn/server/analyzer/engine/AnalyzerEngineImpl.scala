@@ -34,7 +34,7 @@ class AnalyzerEngineImpl(
         val osmChange = osmChangeRepository.get(replicationId)
         val timestamp = osmChangeRepository.timestamp(replicationId)
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
-        changeSets.zipWithIndex.foreach { case (changeSet, index) =>
+        changeSets.foreach { changeSet =>
           Log.context(s"${changeSet.id}") {
             val context = ChangeSetContext(replicationId, changeSet)
             changeProcessor.process(context)

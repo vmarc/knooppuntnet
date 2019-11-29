@@ -1,18 +1,15 @@
-package kpn.core.tiles
+package kpn.server.analyzer.engine.tile
 
 import kpn.core.tiles.domain.Line
 import kpn.core.tiles.domain.Point
 import kpn.core.tiles.domain.Tile
-import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TileDataRoute
+import org.springframework.stereotype.Component
 
-class RouteTileAnalyzer(tileCache: TileCache) {
+@Component
+class RouteTileAnalyzerImpl(tileCalculator: TileCalculator) extends RouteTileAnalyzer {
 
-  /*
-    Determines all tiles that will be needed to display given route
-    at given zoom level.
-   */
-  def tiles(z: Int, tileRoute: TileDataRoute): Seq[Tile] = {
+  override def tiles(z: Int, tileRoute: TileDataRoute): Seq[Tile] = {
 
     val tileQueue = scala.collection.mutable.Queue[Tile]()
     val foundTiles = scala.collection.mutable.Set[Tile]()
@@ -20,7 +17,7 @@ class RouteTileAnalyzer(tileCache: TileCache) {
     val lines = tileRoute.segments.flatMap(_.lines)
 
     val tiles = lines.flatMap(_.points).map { p: Point =>
-      tileCache(z, p.x, p.y)
+      tileCalculator.get(z, p.x, p.y)
     }.toSet
 
     foundTiles ++= tiles.toSeq
@@ -37,8 +34,8 @@ class RouteTileAnalyzer(tileCache: TileCache) {
   }
 
   private def explore(tileQueue: scala.collection.mutable.Queue[Tile], foundTiles: scala.collection.mutable.Set[Tile], lines: Seq[Line], tile: Tile, side: Line,
-    xDelta: Int, yDelta: Int): Unit = {
-    val adjecentTile = tileCache(tile.z, tile.x + xDelta, tile.y + yDelta)
+                      xDelta: Int, yDelta: Int): Unit = {
+    val adjecentTile = tileCalculator.get(tile.z, tile.x + xDelta, tile.y + yDelta)
     if (!foundTiles.contains(adjecentTile)) {
       if (lines.exists(_.intersects(side))) {
         tileQueue += adjecentTile

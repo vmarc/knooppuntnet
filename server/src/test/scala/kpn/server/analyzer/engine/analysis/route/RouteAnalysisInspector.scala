@@ -1,7 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
@@ -9,11 +13,9 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.data.raw.RawData
-import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.ScopedNetworkType
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.Assertions
 
@@ -68,7 +70,9 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
 
     val analysisContext = new AnalysisContext()
     val networkNodes = new NetworkNodeBuilder(analysisContext, data, d.networkType, countryAnalyzer).networkNodes
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     val analysis = routeAnalyzer.analyze(networkNodes, LoadedRoute(None, d.networkType, "", data, relation), orphan = false)
 
     val report = new RouteAnalysisReport(analysis).report

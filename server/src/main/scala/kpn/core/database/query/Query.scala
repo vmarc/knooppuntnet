@@ -34,6 +34,10 @@ case class Query[T](
   skip: Option[Long] = None
 ) {
 
+  def args(value: Seq[Any]): Query[T] = {
+    copy(args = Some(value))
+  }
+
   def reduce(value: Boolean): Query[T] = {
     copy(reduce = Some(value.toString))
   }

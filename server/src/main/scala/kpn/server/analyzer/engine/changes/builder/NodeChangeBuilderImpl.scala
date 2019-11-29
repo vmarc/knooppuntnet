@@ -26,7 +26,8 @@ import org.springframework.stereotype.Component
 class NodeChangeBuilderImpl(
   analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
-  nodeLoader: NodeLoader
+  nodeLoader: NodeLoader,
+  nodeInfoBuilder: NodeInfoBuilder
 ) extends NodeChangeBuilder {
 
   private val log = Log(classOf[NodeChangeBuilderImpl])
@@ -161,7 +162,7 @@ class NodeChangeBuilderImpl(
           // the node was really deleted from the database
 
           analysisRepository.saveNode(
-            NodeInfoBuilder.build(
+            nodeInfoBuilder.build(
               id = nodeBefore.id,
               active = false,
               orphan = false,
@@ -233,7 +234,7 @@ class NodeChangeBuilderImpl(
               nodeBefore.networkNode.name
             }
 
-            val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, active = active)
+            val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = active)
             analysisRepository.saveNode(nodeInfo)
 
             analyzed(
@@ -265,7 +266,7 @@ class NodeChangeBuilderImpl(
             }
             else {
               // the node is not referenced anymore by any network or route
-              val nodeInfo = NodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
+              val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
               analysisRepository.saveNode(nodeInfo)
               analysisContext.data.orphanNodes.watched.add(after.id)
               Seq(Fact.BecomeOrphan)

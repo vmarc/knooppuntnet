@@ -6,7 +6,6 @@ import kpn.core.tiles.TileData
 import kpn.core.tiles.TileDataNodeBuilder
 import kpn.core.tiles.TileDataRouteBuilder
 import kpn.core.tiles.domain.Tile
-import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TileDataNode
 import kpn.core.tiles.domain.TileDataRoute
 import kpn.core.util.Log
@@ -22,11 +21,11 @@ class TileUpdaterImpl(
   nodeRepository: NodeRepository,
   routeRepository: RouteRepository,
   tileRepository: TileRepository,
-  tileFileBuilder: TileFileBuilder
+  tileFileBuilder: TileFileBuilder,
+  tileCalculator: TileCalculator
 ) extends TileUpdater {
 
   private val log = Log(classOf[TileUpdaterImpl])
-  private val tileCache = new TileCache()
 
   override def update(minZoomLevel: Int): Unit = {
     new Updater(minZoomLevel).update()
@@ -50,7 +49,7 @@ class TileUpdaterImpl(
     }
 
     private def processTask(task: String): Unit = {
-      val tile = tileCache(TileTask.tileName(task))
+      val tile = tileCalculator.get(TileTask.tileName(task))
       val networkType: NetworkType = TileTask.networkType(task)
       updateTile(networkType, tile)
     }

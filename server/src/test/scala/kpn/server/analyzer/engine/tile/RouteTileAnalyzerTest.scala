@@ -1,5 +1,6 @@
-package kpn.core.tiles
+package kpn.server.analyzer.engine.tile
 
+import kpn.core.tiles.TestTileSetup
 import kpn.core.tiles.domain.Line
 import kpn.core.tiles.domain.Point
 import kpn.core.tiles.domain.TileDataRoute
@@ -7,11 +8,11 @@ import kpn.core.tiles.domain.TileRouteSegment
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class RouteTileAnalyzerTest  extends FunSuite with Matchers {
+class RouteTileAnalyzerTest extends FunSuite with Matchers {
 
   val t = new TestTileSetup()
 
-  val analyzer = new RouteTileAnalyzer(t.tileCache)
+  val analyzer = new RouteTileAnalyzerImpl(t.tileCalculator)
 
   test("single tile route") {
 

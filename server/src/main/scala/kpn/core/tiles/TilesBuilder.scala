@@ -4,24 +4,25 @@ import kpn.api.common.NodeInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
-import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TileDataNode
 import kpn.core.tiles.domain.TileDataRoute
 import kpn.core.tiles.domain.TileNodes
 import kpn.core.tiles.domain.TileRoutes
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
 import org.locationtech.jts.geom.GeometryFactory
 
 class TilesBuilder(
   tileBuilder: TileBuilder,
-  tileFileRepository: TileFileRepository
+  tileFileRepository: TileFileRepository,
+  nodeTileAnalyzer: NodeTileAnalyzer,
+  routeTileAnalyzer: RouteTileAnalyzer
 ) {
 
   private val log = Log(classOf[TilesBuilder])
 
   private val geomFactory = new GeometryFactory
-
-  private val tileCache = new TileCache()
 
   def build(
     z: Int,
@@ -102,11 +103,10 @@ class TilesBuilder(
     else {
       val allNodes = nodes ++ orphanNodes.map(node => new TileDataNodeBuilder().build(networkType, node))
 
-      val analyzer = new NodeTileAnalyzer(tileCache)
       val map = scala.collection.mutable.Map[String, TileNodes]()
 
       allNodes.foreach { node =>
-        val tiles = analyzer.tiles(z, node)
+        val tiles = nodeTileAnalyzer.tiles(z, node)
         tiles.foreach { tile =>
           map(tile.name) = map.get(tile.name) match {
             case Some(tileNodes) => TileNodes(tile, tileNodes.nodes :+ node)
@@ -121,8 +121,6 @@ class TilesBuilder(
   private def buildTileRouteMap(z: Int, tileRoutes: Seq[TileDataRoute]): Map[String, TileRoutes] = {
 
     val map = scala.collection.mutable.Map[String, TileRoutes]()
-
-    val routeTileAnalyzer = new RouteTileAnalyzer(tileCache)
 
     var progress: Int = 0
     tileRoutes.zipWithIndex.foreach { case (tileRoute, index) =>

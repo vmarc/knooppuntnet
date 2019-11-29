@@ -1,11 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteWithoutWays
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -29,7 +31,9 @@ class RouteAnalyzerRouteWithoutWaysTest extends FunSuite with Matchers {
     )
 
     val analysisContext = new AnalysisContext()
-    val routeAnalysis = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl()).analyze(Map(), loadedRoute, orphan = false)
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalysis = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer).analyze(Map(), loadedRoute, orphan = false)
     routeAnalysis.route.facts should equal(Seq(RouteWithoutWays, RouteBroken))
   }
 }

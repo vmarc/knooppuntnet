@@ -13,19 +13,21 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
-import kpn.core.tiles.RouteTileAnalyzer
-import kpn.core.tiles.TileRouteBuilder
-import kpn.core.tiles.domain.TileCache
+import kpn.core.tiles.TileDataRouteBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
 
 import scala.collection.mutable.ListBuffer
 
-class RouteAnalysisBuilder(context: RouteAnalysisContext) {
+class RouteAnalysisBuilder(
+  context: RouteAnalysisContext,
+  routeTileAnalyzer: RouteTileAnalyzer
+) {
 
   val facts: ListBuffer[Fact] = ListBuffer[Fact]()
   facts ++= context.facts
@@ -170,9 +172,8 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     )
 
     val tileNames = {
-      val routeTileAnalyzer = new RouteTileAnalyzer(new TileCache())
       val tiles = (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
-        val b = new TileRouteBuilder(z)
+        val b = new TileDataRouteBuilder(z)
         b.build(routeInfo).toSeq.flatMap { tileDataRoute =>
           routeTileAnalyzer.tiles(z, tileDataRoute)
         }

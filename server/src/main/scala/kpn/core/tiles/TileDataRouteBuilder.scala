@@ -14,10 +14,9 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
-class TileRouteBuilder(z: Int) {
+class TileDataRouteBuilder(z: Int) {
 
-  private val log = Log(classOf[TileRouteBuilder])
-  private val ROUTE_ALL_SEGMENTS_MIN_ZOOM_LEVEL = 1
+  private val log = Log(classOf[TileDataRouteBuilder])
 
   private val distanceTolerance = {
     val tileX = (z - 7) * 65

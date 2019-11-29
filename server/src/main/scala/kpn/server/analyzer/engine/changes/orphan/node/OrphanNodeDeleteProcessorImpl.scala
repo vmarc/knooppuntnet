@@ -11,15 +11,15 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
-import kpn.server.repository.NodeInfoBuilder.fromRawNode
+import kpn.server.repository.NodeInfoBuilder
 import org.springframework.stereotype.Component
 
 @Component
 class OrphanNodeDeleteProcessorImpl(
   analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
-  countryAnalyzer: CountryAnalyzer
+  countryAnalyzer: CountryAnalyzer,
+  nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanNodeDeleteProcessor {
 
   private val log = Log(classOf[OrphanNodeDeleteProcessorImpl])
@@ -31,7 +31,7 @@ class OrphanNodeDeleteProcessorImpl(
     loadedNodeDelete.loadedNode match {
       case Some(loadedNode) =>
 
-        val nodeInfo = fromLoadedNode(loadedNode, active = false, orphan = true, facts = Seq(Fact.Deleted))
+        val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode, active = false, orphan = true, facts = Seq(Fact.Deleted))
         analysisRepository.saveNode(nodeInfo)
 
         val subsets = loadedNode.subsets
@@ -75,7 +75,7 @@ class OrphanNodeDeleteProcessorImpl(
           case None => None
           case Some(country) =>
 
-            val nodeInfo = fromRawNode(
+            val nodeInfo = nodeInfoBuilder.fromRawNode(
               loadedNodeDelete.rawNode,
               country = Some(country),
               active = false,

@@ -59,6 +59,10 @@ import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcesso
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileChangeAnalyzerImpl
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl
@@ -70,6 +74,7 @@ import kpn.server.repository.BlackListRepository
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
+import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
@@ -108,15 +113,22 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
     private val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(executor)
-    private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    private val tileCalculator = new TileCalculatorImpl()
+    private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+    private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
     private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
+    private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
       analysisContext,
       analysisRepository,
-      nodeLoader
+      nodeLoader,
+      nodeInfoBuilder
     )
+
+    private val tileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
 
     private val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
       analysisContext,
@@ -124,7 +136,8 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
       relationAnalyzer,
       countryAnalyzer,
       routeAnalyzer,
-      routeLoader
+      routeLoader,
+      tileChangeAnalyzer
     )
 
     private val routesLoader = new RoutesLoaderSyncImpl(
@@ -225,7 +238,8 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
         analysisRepository,
         relationAnalyzer,
         countryAnalyzer,
-        routeAnalyzer
+        routeAnalyzer,
+        nodeInfoBuilder
       )
       val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
         analysisContext,
@@ -238,7 +252,8 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
         orphanRouteProcessor,
         routesLoader,
         routeAnalyzer,
-        countryAnalyzer
+        countryAnalyzer,
+        tileChangeAnalyzer
       )
     }
 
@@ -252,17 +267,20 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
       val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
         analysisContext,
         analysisRepository,
-        countryAnalyzer
+        countryAnalyzer,
+        nodeInfoBuilder
       )
 
       val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
         analysisContext,
-        analysisRepository
+        analysisRepository,
+        nodeInfoBuilder
       )
 
       val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
         analysisContext,
-        analysisRepository
+        analysisRepository,
+        nodeInfoBuilder
       )
 
       new OrphanNodeChangeProcessorImpl(

@@ -1,12 +1,15 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
-import kpn.api.custom.Country
-import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.repository.AnalysisRepository
-import kpn.core.test.TestData
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.NodeInfo
 import kpn.api.common.data.Node
+import kpn.api.custom.Country
+import kpn.core.test.TestData
+import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.load.data.LoadedNode
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -58,10 +61,14 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
 
     val analysisContext: AnalysisContext = new AnalysisContext()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
+    val tileCalculator = new TileCalculatorImpl()
+    val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
 
     val processor: OrphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
       analysisContext,
-      analysisRepository
+      analysisRepository,
+      nodeInfoBuilder
     )
   }
 

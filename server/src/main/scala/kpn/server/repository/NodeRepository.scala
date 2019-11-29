@@ -4,6 +4,7 @@ import akka.util.Timeout
 import kpn.api.common.NodeInfo
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeOrphanRouteReference
+import kpn.core.db.couch.Couch
 
 trait NodeRepository {
 
@@ -11,7 +12,7 @@ trait NodeRepository {
 
   def delete(nodeId: Long): Unit
 
-  def nodeWithId(nodeId: Long, timeout: Timeout): Option[NodeInfo]
+  def nodeWithId(nodeId: Long, timeout: Timeout = Couch.defaultTimeout): Option[NodeInfo]
 
   def nodesWithIds(nodeIds: Seq[Long], timeout: Timeout, stale: Boolean = true): Seq[NodeInfo]
 

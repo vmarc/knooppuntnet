@@ -1,5 +1,8 @@
 package kpn.server.analyzer.engine.analysis.network
 
+import kpn.api.common.NetworkExtraMemberNode
+import kpn.api.common.NetworkExtraMemberRelation
+import kpn.api.common.NetworkExtraMemberWay
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.analysis.Network
@@ -9,10 +12,9 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.api.common.NetworkExtraMemberNode
-import kpn.api.common.NetworkExtraMemberRelation
-import kpn.api.common.NetworkExtraMemberWay
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -120,7 +122,9 @@ class NetworkAnalyzerTest extends FunSuite with Matchers with MockFactory {
     (countryAnalyzer.relationCountry _).when(*).returns(None)
     val analysisContext = new AnalysisContext(oldTagging)
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer).analyze(networkRelation)
     val analyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
     analyzer.analyze(networkRelationAnalysis, loadedNetwork)

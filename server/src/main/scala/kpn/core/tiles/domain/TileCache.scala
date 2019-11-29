@@ -12,12 +12,18 @@ class TileCache {
 
   def apply(z: Int, x: Int, y: Int): Tile = {
     val name = s"$z-$x-$y"
-    tiles.get(name) match {
-      case Some(tile) => tile
-      case None =>
-        val tile = new Tile(z, x, y)
-        tiles(name) = tile
-        tile
-    }
+    getTile(name, z, x, y)
+  }
+
+  def apply(tileName: String): Tile = {
+    val splitted = tileName.split("-")
+    val z = splitted(0).toInt
+    val x = splitted(1).toInt
+    val y = splitted(2).toInt
+    getTile(tileName, z, x, y)
+  }
+
+  private def getTile(tileName: String, z: Int, x: Int, y: Int): Tile = {
+    tiles.getOrElseUpdate(tileName, new Tile(z, x, y))
   }
 }

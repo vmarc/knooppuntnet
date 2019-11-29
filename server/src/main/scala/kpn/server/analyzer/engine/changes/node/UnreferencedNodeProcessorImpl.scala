@@ -15,8 +15,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.NodeInfoBuilder.fromLoadedNode
-import kpn.server.repository.NodeInfoBuilder.fromNetworkNodeInfo
+import kpn.server.repository.NodeInfoBuilder
 import org.springframework.stereotype.Component
 
 /*
@@ -28,7 +27,8 @@ class UnreferencedNodeProcessorImpl(
   analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
   nodeLoader: NodeLoader,
-  countryAnalyzer: CountryAnalyzer
+  countryAnalyzer: CountryAnalyzer,
+  nodeInfoBuilder: NodeInfoBuilder
 ) extends UnreferencedNodeProcessor {
 
   override def process(context: ChangeSetContext, candidateUnreferencedNodes: Seq[NetworkNodeInfo]): Seq[NodeChange] = {
@@ -81,7 +81,7 @@ class UnreferencedNodeProcessorImpl(
       furtherProcess(context, nodeBefore, nodeAfter, facts)
     }
     else {
-      val nodeInfo = fromLoadedNode(nodeAfter, active = false)
+      val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = false)
       analysisRepository.saveNode(nodeInfo)
 
       val subsets = NodeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
@@ -121,7 +121,7 @@ class UnreferencedNodeProcessorImpl(
 
   private def processDeletedNode(context: ChangeSetContext, nodeBefore: NetworkNodeInfo) = {
 
-    val nodeInfo = fromNetworkNodeInfo(nodeBefore, active = false, facts = Seq(Fact.Deleted))
+    val nodeInfo = nodeInfoBuilder.fromNetworkNodeInfo(nodeBefore, active = false, facts = Seq(Fact.Deleted))
     analysisRepository.saveNode(nodeInfo)
 
     val subsets = NodeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
@@ -158,7 +158,7 @@ class UnreferencedNodeProcessorImpl(
   private def furtherProcess(context: ChangeSetContext, nodeBefore: NetworkNodeInfo, nodeAfter: LoadedNode, changeFacts: Seq[Fact]): Option[NodeChange] = {
 
     analysisContext.data.orphanNodes.watched.add(nodeBefore.id)
-    val nodeInfo = fromLoadedNode(nodeAfter, orphan = true)
+    val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
     analysisRepository.saveNode(nodeInfo)
 
     val rawNodeBefore = nodeBefore.networkNode.node.raw

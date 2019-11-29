@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
 import kpn.server.analyzer.load.RoutesLoader
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
@@ -25,7 +26,8 @@ class OrphanRouteChangeProcessorImpl(
   orphanRouteProcessor: OrphanRouteProcessor,
   routesLoader: RoutesLoader,
   routeAnalyzer: MasterRouteAnalyzer,
-  countryAnalyzer: CountryAnalyzer
+  countryAnalyzer: CountryAnalyzer,
+  tileChangeAnalyzer: TileChangeAnalyzer
 ) extends OrphanRouteChangeProcessor {
 
   private val log = Log(classOf[OrphanRouteChangeProcessorImpl])
@@ -52,6 +54,8 @@ class OrphanRouteChangeProcessorImpl(
 
     val loadedRoutes = routesLoader.load(context.changeSet.timestampAfter, routeIds).flatten
     val routeAnalyses = loadedRoutes.flatMap(loadedRoute => orphanRouteProcessor.process(context, loadedRoute))
+    routeAnalyses.foreach(tileChangeAnalyzer.analyzeRoute)
+
     val creates = routeAnalyses.map(_.toRouteData)
 
     creates.map { routeData =>
@@ -94,6 +98,8 @@ class OrphanRouteChangeProcessorImpl(
           None
 
         case Some(beforeRouteAnalysis) =>
+
+          tileChangeAnalyzer.analyzeRouteChange(beforeRouteAnalysis, afterRouteAnalysis)
 
           val routeUpdate = new RouteDiffAnalyzer(beforeRouteAnalysis, afterRouteAnalysis).analysis
 
@@ -151,6 +157,7 @@ class OrphanRouteChangeProcessorImpl(
 
           val route = routeAnalysis.route.copy(orphan = true, active = false)
           analysisRepository.saveRoute(route)
+          tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
           Some(
             analyzed(

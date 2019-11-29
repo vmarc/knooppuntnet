@@ -19,7 +19,8 @@ class OrphanRoutesLoaderWorkerImpl(
   routeAnalyzer: MasterRouteAnalyzer,
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
-  analysisRepository: AnalysisRepository
+  analysisRepository: AnalysisRepository,
+  nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanRoutesLoaderWorker {
 
   val log = Log(classOf[OrphanRoutesLoaderWorkerImpl])
@@ -37,7 +38,7 @@ class OrphanRoutesLoaderWorkerImpl(
 
           allNodes.values.foreach { networkNode =>
             analysisRepository.saveNode(
-              NodeInfoBuilder.build(
+              nodeInfoBuilder.build(
                 id = networkNode.id,
                 active = true,
                 orphan = false,

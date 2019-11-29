@@ -5,8 +5,6 @@ import kpn.api.common.NetworkExtraMemberRelation
 import kpn.api.common.NetworkExtraMemberWay
 import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkNameMissing
-import kpn.api.common.common.Ref
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation
 import kpn.core.analysis.Network
@@ -19,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
@@ -39,7 +38,7 @@ class NetworkAnalyzerImpl(
 
     val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, loadedNetwork.data, loadedNetwork.networkType, countryAnalyzer).networkNodes
 
-    val allRouteAnalyses: Map[Long, kpn.server.analyzer.engine.analysis.route.RouteAnalysis] = {
+    val allRouteAnalyses: Map[Long, RouteAnalysis] = {
 
       val routeRelations = loadedNetwork.data.relations.values.filter { rel =>
         analysisContext.isRouteRelation(loadedNetwork.networkType, rel.raw)
@@ -208,10 +207,6 @@ class NetworkAnalyzerImpl(
 
   private def networkNameMissing(networkRelation: Relation): Option[NetworkNameMissing] = {
     if (networkRelation.tags.has("name")) None else Some(NetworkNameMissing())
-  }
-
-  private def routeRef(route: RouteInfo): Ref = {
-    Ref(route.id, route.summary.name)
   }
 
   private def toNetworkNode(rn: kpn.server.analyzer.engine.analysis.route.RouteNode): NetworkNode = {

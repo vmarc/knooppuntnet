@@ -19,6 +19,8 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepositoryImpl
@@ -59,7 +61,9 @@ class NetworksLoaderDemo(system: ActorSystem) {
   val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
-  val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+  val tileCalculator = new TileCalculatorImpl()
+  val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+  val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
   val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
   val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
   val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)

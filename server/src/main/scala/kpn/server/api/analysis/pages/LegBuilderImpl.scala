@@ -104,14 +104,6 @@ class LegBuilderImpl(
     }
   }
 
-  private def buildGraph(networkType: NetworkType): NodeNetworkGraph = {
-    val graph = new NodeNetworkGraphImpl()
-    val edges = graphRepository.edges(networkType)
-    log.info(s"Loaded ${networkType.name} ${edges.size} edges")
-    edges.foreach(graph.add)
-    graph
-  }
-
   private def trackPathFromRouteMap(routeMap: RouteMap, trackPathKey: TrackPathKey): Option[TrackPath] = {
     trackPathKey.pathType match {
       case "forward" => routeMap.forwardPath

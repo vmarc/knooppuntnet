@@ -20,6 +20,8 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.common.diff.route.RouteRoleDiff
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -434,7 +436,9 @@ class RouteDiffAnalyzerTest extends FunSuite with Matchers {
     val countryAnalyzer = new CountryAnalyzerNoop()
     val analysisContext = new AnalysisContext(oldTagging = true)
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
     val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))

@@ -3,14 +3,16 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
+import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.core.loadOld.Parser
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.load.data.LoadedRoute
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -22,7 +24,9 @@ class Issue48_RouteWithSingleNodeWayTest extends FunSuite with Matchers {
   test("ingore ways with less than 2 nodes in route analysis") {
     val loadedRoute = readRoute()
     val analysisContext = new AnalysisContext(oldTagging = true)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     val routeAnalysis = routeAnalyzer.analyze(Map(), loadedRoute, orphan = false)
     routeAnalysis.route.facts.contains(Fact.RouteSuspiciousWays) should equal(true)
   }

@@ -16,6 +16,8 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -351,7 +353,9 @@ class NetworkRouteBuilderTest extends FunSuite with Matchers with MockFactory wi
       .toMap
 
     val analysisContext = new AnalysisContext()
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl())
+    val tileCalculator = new TileCalculatorImpl()
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
     routeAnalyzer.analyze(networkNodes, LoadedRoute(None, NetworkType.hiking, "", data, routeRelation), orphan = false)
   }
 }

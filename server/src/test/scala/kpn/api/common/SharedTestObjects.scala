@@ -252,7 +252,8 @@ trait SharedTestObjects {
     lastUpdated: Timestamp = defaultTimestamp,
     tags: Tags = Tags.empty,
     facts: Seq[Fact] = Seq.empty,
-    location: Option[Location] = None
+    location: Option[Location] = None,
+    tiles: Seq[String] = Seq.empty
   ): NodeInfo = {
 
     NodeInfo(
@@ -268,7 +269,7 @@ trait SharedTestObjects {
       tags,
       facts,
       location,
-      Seq()
+      tiles
     )
   }
 
@@ -285,7 +286,8 @@ trait SharedTestObjects {
     lastUpdatedBy: String = "",
     relationLastUpdated: Timestamp = defaultTimestamp,
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    tiles: Seq[String] = Seq.empty
   ): RouteInfo = {
 
     val summary = RouteSummary(
@@ -311,7 +313,7 @@ trait SharedTestObjects {
       Tags.empty,
       facts,
       Some(analysis),
-      Seq()
+      tiles
     )
   }
 

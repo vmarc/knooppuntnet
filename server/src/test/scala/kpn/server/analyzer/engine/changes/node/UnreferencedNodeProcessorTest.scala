@@ -1,5 +1,9 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.LatLon
+import kpn.api.common.LatLonImpl
+import kpn.api.common.data.Node
+import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
@@ -12,12 +16,11 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
-import kpn.api.common.LatLon
-import kpn.api.common.LatLonImpl
-import kpn.api.common.data.Node
-import kpn.api.common.data.raw.RawNode
+import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -687,12 +690,16 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val nodeLoader: NodeLoader = stub[NodeLoader]
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
+    val tileCalculator = new TileCalculatorImpl()
+    val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
 
     val processor = new UnreferencedNodeProcessorImpl(
       analysisContext,
       analysisRepository,
       nodeLoader,
-      countryAnalyzer
+      countryAnalyzer,
+      nodeInfoBuilder
     )
 
     val context: ChangeSetContext = newChangeSetContext()

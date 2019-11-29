@@ -20,7 +20,8 @@ class AnalysisRepositoryImpl(
   analysisDatabase: Database,
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
-  nodeRepository: NodeRepository
+  nodeRepository: NodeRepository,
+  nodeInfoBuilder: NodeInfoBuilder
 ) extends AnalysisRepository {
 
   private val log = Log(classOf[AnalysisRepositoryImpl])
@@ -80,7 +81,7 @@ class AnalysisRepositoryImpl(
           }
       }
 
-      NodeInfoBuilder.build(
+      nodeInfoBuilder.build(
         node.networkNode.node.id,
         active = true,
         orphan = false,

@@ -2,26 +2,25 @@ package kpn.core.tiles
 
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiInfo
-import kpn.core.tiles.domain.TileCache
 import kpn.core.tiles.domain.TilePois
 import kpn.core.tiles.vector.PoiVectorTileBuilder
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
 
 class PoiTilesBuilder(
   tileBuilder: PoiVectorTileBuilder,
-  tileRepository: TileRepository
+  tileFileRepository: TileFileRepository,
+  nodeTileAnalyzer: NodeTileAnalyzer
 ) {
 
   private val log = Log(classOf[PoiTilesBuilder])
-
-  private val tileCache = new TileCache()
 
   def build(
     z: Int,
     pois: Seq[PoiInfo]
   ): Unit = {
 
-    val existingTileNames = tileRepository.existingTileNames("poi", z)
+    val existingTileNames = tileFileRepository.existingTileNames("poi", z)
 
     log.info(s"Processing zoomlevel $z")
     log.info(s"Number of tiles before: " + existingTileNames.size)
@@ -47,7 +46,7 @@ class PoiTilesBuilder(
 
       val tileBytes = tileBuilder.build(tileData)
       if (tileBytes.length > 0) {
-        tileRepository.saveOrUpdate("poi", tilePois.tile, tileBytes)
+        tileFileRepository.saveOrUpdate("poi", tilePois.tile, tileBytes)
       }
     }
 
@@ -57,18 +56,17 @@ class PoiTilesBuilder(
     log.info(s"Obsolete: " + obsoleteTileNames)
 
     log.info(s"Obsolete tile count: " + obsoleteTileNames.size)
-    tileRepository.delete(obsoleteTileNames)
+    tileFileRepository.delete(obsoleteTileNames)
     log.info(s"Obsolete tiles removed")
   }
 
   private def buildTilePoisMap(z: Int, pois: Seq[PoiInfo]): Map[String, TilePois] = {
-    val analyzer = new NodeTileAnalyzer(tileCache)
     val map = scala.collection.mutable.Map[String, TilePois]()
     pois.foreach { poi =>
       PoiConfiguration.instance.poiDefinition(poi.layer) match {
         case Some(poiDefinition) =>
           if (z >= poiDefinition.minLevel) {
-            val tiles = analyzer.tiles(z, poi)
+            val tiles = nodeTileAnalyzer.tiles(z, poi)
             tiles.foreach { tile =>
               map(tile.name) = map.get(tile.name) match {
                 case Some(tilePois) => TilePois(tile, tilePois.pois :+ poi)
