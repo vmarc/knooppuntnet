@@ -15,26 +15,26 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
 
   private val log = Log(classOf[PoiRepositoryImpl])
 
-  def save(poi: Poi): Boolean = {
+  override def save(poi: Poi): Boolean = {
 
-    val key = poiDocId(poi)
+    val id = poiDocId(poi)
 
-    poiDatabase.docWithId(key, classOf[PoiDoc]) match {
+    poiDatabase.docWithId(id, classOf[PoiDoc]) match {
       case Some(doc) =>
         if (poi == doc.poi) {
-          log.info(s"""Poi ${poi.layers} "$key" not saved (no change)""")
+          log.info(s"""Poi ${poi.layers} "$id" not saved (no change)""")
           false
         }
         else {
-          log.infoElapsed(s"""Poi ${poi.layers} "$key" update""") {
-            poiDatabase.save(PoiDoc(key, poi, doc._rev))
+          log.infoElapsed(s"""Poi ${poi.layers} "$id" update""") {
+            poiDatabase.save(PoiDoc(id, poi, doc._rev))
             true
           }
         }
 
       case None =>
-        log.infoElapsed(s"""Poi ${poi.layers} "$key" saved""") {
-          poiDatabase.save(PoiDoc(key, poi))
+        log.infoElapsed(s"""Poi ${poi.layers} "$id" saved""") {
+          poiDatabase.save(PoiDoc(id, poi))
           true
         }
     }
@@ -71,9 +71,14 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     initialPois ++ remainingPois
   }
 
-  def poi(elementType: String, elementId: Long): Option[Poi] = {
-    val key = docId(elementType, elementId)
-    poiDatabase.docWithId(key, classOf[PoiDoc]).map(_.poi)
+  override def poi(elementType: String, elementId: Long): Option[Poi] = {
+    val id = docId(elementType, elementId)
+    poiDatabase.docWithId(id, classOf[PoiDoc]).map(_.poi)
+  }
+
+  override def delete(elementType: String, elementId: Long): Unit = {
+    val id = docId(elementType, elementId)
+    poiDatabase.deleteDocWithId(id)
   }
 
   private def poiDocId(poi: Poi): String = {

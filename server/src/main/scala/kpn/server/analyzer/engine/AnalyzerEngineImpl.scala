@@ -7,6 +7,9 @@ import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
+import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
+import kpn.server.analyzer.engine.poi.PoiTileUpdater
+import kpn.server.analyzer.engine.tile.TileUpdater
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
@@ -16,7 +19,10 @@ class AnalyzerEngineImpl(
   osmChangeRepository: OsmChangeRepository,
   analysisDataLoader: AnalysisDataLoader,
   changeProcessor: ChangeProcessor,
-  analysisRepository: AnalysisRepository
+  analysisRepository: AnalysisRepository,
+  tileUpdater: TileUpdater,
+  poiChangeAnalyzer: PoiChangeAnalyzer,
+  poiTileUpdater: PoiTileUpdater
 ) extends AnalyzerEngine {
 
   private val log = Log(classOf[AnalyzerEngineImpl])
@@ -40,6 +46,11 @@ class AnalyzerEngineImpl(
             changeProcessor.process(context)
           }
         }
+
+        tileUpdater.update(12)
+        // poiChangeAnalyzer.analyze(osmChange)
+        // poiTileUpdater.update()
+
         analysisRepository.saveLastUpdated(timestamp)
         (osmChange.timestampFrom.map(_.iso).getOrElse(""), ())
       }

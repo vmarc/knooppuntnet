@@ -13,4 +13,6 @@ trait PoiRepository {
 
   def poi(elementType: String, elementId: Long): Option[Poi]
 
+  def delete(elementType: String, elementId: Long): Unit
+
 }
