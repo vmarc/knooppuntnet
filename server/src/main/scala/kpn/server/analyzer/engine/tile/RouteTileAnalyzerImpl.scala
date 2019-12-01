@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.core.tiles.domain.Line
-import kpn.core.tiles.domain.Point
-import kpn.core.tiles.domain.Tile
-import kpn.core.tiles.domain.TileDataRoute
+import kpn.server.analyzer.engine.tiles.domain.Line
+import kpn.server.analyzer.engine.tiles.domain.Point
+import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import org.springframework.stereotype.Component
 
 @Component

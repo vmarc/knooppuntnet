@@ -2,8 +2,8 @@ package kpn.core.poi
 
 import java.text.DecimalFormat
 
-import kpn.core.tiles.domain.Rectangle
-import kpn.core.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.Rectangle
+import kpn.server.analyzer.engine.tiles.domain.Tile
 
 object PoiLocation {
 

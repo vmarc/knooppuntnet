@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.tiles.ZoomLevel
-import kpn.core.tiles.TileData
-import kpn.core.tiles.TileFileRepository
-import kpn.core.tiles.raster.RasterTileBuilder
-import kpn.core.tiles.vector.VectorTileBuilder
+import kpn.server.analyzer.engine.tiles.TileData
+import kpn.server.analyzer.engine.tiles.TileFileRepository
+import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
+import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import org.springframework.stereotype.Component
 
 @Component

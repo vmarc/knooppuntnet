@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.core.tiles.TestTileSetup
-import kpn.core.tiles.domain.Line
-import kpn.core.tiles.domain.Point
-import kpn.core.tiles.domain.TileDataRoute
-import kpn.core.tiles.domain.TileRouteSegment
+import kpn.server.analyzer.engine.tiles.TestTileSetup
+import kpn.server.analyzer.engine.tiles.domain.Line
+import kpn.server.analyzer.engine.tiles.domain.Point
+import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
+import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

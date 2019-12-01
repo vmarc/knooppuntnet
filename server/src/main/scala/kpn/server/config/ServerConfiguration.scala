@@ -4,11 +4,11 @@ import akka.actor.ActorSystem
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.core.app.ActorSystemConfig
-import kpn.core.tiles.TileBuilder
-import kpn.core.tiles.TileFileRepository
-import kpn.core.tiles.TileFileRepositoryImpl
-import kpn.core.tiles.raster.RasterTileBuilder
-import kpn.core.tiles.vector.VectorTileBuilder
+import kpn.server.analyzer.engine.tiles.TileBuilder
+import kpn.server.analyzer.engine.tiles.TileFileRepository
+import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
+import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
+import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

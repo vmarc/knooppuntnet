@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.core.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.Tile
 
 trait TileCalculator {
 

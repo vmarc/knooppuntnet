@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.LatLon
 import kpn.api.common.LatLonImpl
-import kpn.core.tiles.TestTile
-import kpn.core.tiles.TestTileSetup
+import kpn.server.analyzer.engine.tiles.TestTile
+import kpn.server.analyzer.engine.tiles.TestTileSetup
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

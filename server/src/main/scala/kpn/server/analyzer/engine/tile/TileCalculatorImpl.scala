@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.core.tiles.domain.Tile
-import kpn.core.tiles.domain.TileCache
+import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileCache
 import org.springframework.stereotype.Component
 
 @Component

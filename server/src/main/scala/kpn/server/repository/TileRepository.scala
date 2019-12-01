@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.custom.NetworkType
-import kpn.core.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.Tile
 
 trait TileRepository {
 

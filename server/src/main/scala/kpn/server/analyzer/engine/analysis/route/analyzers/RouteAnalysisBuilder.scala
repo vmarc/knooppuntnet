@@ -13,7 +13,7 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
-import kpn.core.tiles.TileDataRouteBuilder
+import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis

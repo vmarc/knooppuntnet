@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
-import kpn.core.tiles.TileData
-import kpn.core.tiles.TileDataNodeBuilder
-import kpn.core.tiles.TileDataRouteBuilder
-import kpn.core.tiles.domain.Tile
-import kpn.core.tiles.domain.TileDataNode
-import kpn.core.tiles.domain.TileDataRoute
+import kpn.server.analyzer.engine.tiles.TileData
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
+import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
+import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileDataNode
+import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.core.util.Log
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository

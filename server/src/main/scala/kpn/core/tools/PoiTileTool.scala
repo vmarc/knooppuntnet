@@ -2,9 +2,9 @@ package kpn.core.tools
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.db.couch.Couch
-import kpn.core.tiles.PoiTilesBuilder
-import kpn.core.tiles.TileFileRepositoryImpl
-import kpn.core.tiles.vector.PoiVectorTileBuilder
+import kpn.server.analyzer.engine.tiles.PoiTilesBuilder
+import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
+import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
