@@ -1,8 +1,7 @@
-package kpn.server.analyzer.analyzer
+package kpn.server.analyzer.engine
 
 import java.io.File
 
-import kpn.server.analyzer.engine.AnalysisTimeRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

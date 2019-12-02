@@ -1,7 +1,5 @@
-package kpn.server.analyzer.analyzer
+package kpn.server.analyzer.engine
 
-import kpn.server.analyzer.engine.AnalysisTimeRepository
-import kpn.server.analyzer.engine.FullAnalysisTrigger
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
