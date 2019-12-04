@@ -5526,9 +5526,7 @@
         <source>
         Network created
       </source>
-        <target state="new">[
-        Network created
-      ]</target>
+        <target>Nieuw netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-type.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -5538,9 +5536,7 @@
         <source>
         Network deleted
       </source>
-        <target state="new">[
-        Network deleted
-      ]</target>
+        <target>Netwerk verwijderd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-type.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -6314,7 +6310,7 @@
       </trans-unit>
       <trans-unit id="network-changes.login-required" datatype="html">
         <source>The network history is available to registered OpenStreetMap contributors only, after</source>
-        <target state="new">[The network history is available to registered OpenStreetMap contributors only, after]</target>
+        <target>De details over netwerk wijzigingne zijn enkel beschikbaar voor geregistreerde OpenStreetMap leden, na</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -6464,7 +6460,7 @@
       </trans-unit>
       <trans-unit id="network-routes.table.last-edit" datatype="html">
         <source>Last edit</source>
-        <target state="new">[Last edit]</target>
+        <target>Meest recent wijziging</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -6474,10 +6470,7 @@
         <source>
         OK - Accessibility unknown
       </source>
-        <target state="new">[
-          OK - Accessibility unknown
-          ]
-        </target>
+        <target>OK - Toegankelijkheid onbekend</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -6487,10 +6480,7 @@
         <source>
         Accessibility information is unknown for this type of route.
       </source>
-        <target state="new">[
-          Accessibility information is unknown for this type of route.
-          ]
-        </target>
+        <target>Toegankelijkheidsinformatie is niet beschikbaar voor dit type route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -6500,10 +6490,7 @@
         <source>
         OK - Accessible
       </source>
-        <target state="new">[
-          OK - Accessible
-          ]
-        </target>
+        <target>OK - Toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -6513,10 +6500,7 @@
         <source>
         This route is completely accessible for bicycle.
       </source>
-        <target state="new">[
-          This route is completely accessible for bicycle.
-          ]
-        </target>
+        <target>Deze route is volledig toegankelijk voor fietsen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -6526,10 +6510,7 @@
         <source>
         This route is completely accessible for hiking.
       </source>
-        <target state="new">[
-          This route is completely accessible for hiking.
-          ]
-        </target>
+        <target>Deze route is volledig toegankelijk voor wandelen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -6539,10 +6520,7 @@
         <source>
         This route is completely accessible for motorboat.
       </source>
-        <target state="new">[
-          This route is completely accessible for motorboat.
-          ]
-        </target>
+        <target>Deze route is volledig toegankelijk voor motorboot.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -6552,10 +6530,7 @@
         <source>
         This route is completely accessible for canoe.
       </source>
-        <target state="new">[
-          This route is completely accessible for canoe.
-          ]
-        </target>
+        <target>Deze route is volledig toegankelijk voor kano.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -6565,10 +6540,7 @@
         <source>
         NOK - Not Accessible
       </source>
-        <target state="new">[
-          NOK - Not Accessible
-          ]
-        </target>
+        <target>Niet toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -6578,10 +6550,7 @@
         <source>
         This route is not completely accessible for bicycle.
       </source>
-        <target state="new">[
-          This route is not completely accessible for bicycle.
-          ]
-        </target>
+        <target>Deze route is niet volledig toegankelijk voor fietsen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">46</context>
@@ -6591,10 +6560,7 @@
         <source>
         This route is not completely accessible for hiking.
       </source>
-        <target state="new">[
-          This route is not completely accessible for hiking.
-          ]
-        </target>
+        <target>Deze route is niet volledig toegankelijk voor wandelen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">50</context>
@@ -6604,10 +6570,7 @@
         <source>
         This route is not completely accessible for motorboat.
       </source>
-        <target state="new">[
-          This route is not completely accessible for motorboat.
-          ]
-        </target>
+        <target>Deze rout is niet volledig toegankelijk voor motorboot.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -6617,10 +6580,7 @@
         <source>
         This route is not completely accessible for canoe.
       </source>
-        <target state="new">[
-          This route is not completely accessible for canoe.
-          ]
-        </target>
+        <target>Deze route is niet volledig toegankelijk voor kano.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">58</context>
@@ -6628,7 +6588,7 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.letter" datatype="html">
         <source>A</source>
-        <target state="new">[A]</target>
+        <target>T</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -6642,10 +6602,7 @@
         <source>
         OK - Connection
       </source>
-        <target state="new">[
-          OK - Connection
-          ]
-        </target>
+        <target>OK - Verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -6655,10 +6612,7 @@
         <source>
         This route is a connection to another network.
       </source>
-        <target state="new">[
-          This route is a connection to another network.
-          ]
-        </target>
+        <target>Deze route is een verbinding naar een ander netwerk.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -6668,10 +6622,7 @@
         <source>
        OK - No connection
       </source>
-        <target state="new">[
-          OK - No connection
-          ]
-        </target>
+        <target>OK - Geen verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -6681,10 +6632,7 @@
         <source>
         This route is not a connection to another network.
       </source>
-        <target state="new">[
-          This route is not a connection to another network.
-          ]
-        </target>
+        <target>Deze route is geen verbinding met een ander netwerk.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -6692,7 +6640,7 @@
       </trans-unit>
       <trans-unit id="route-connection.indicator.letter" datatype="html">
         <source>C</source>
-        <target state="new">[C]</target>
+        <target>V</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -6700,7 +6648,7 @@
       </trans-unit>
       <trans-unit id="route-connection-indicator.letter" datatype="html">
         <source>C</source>
-        <target state="new">[C]</target>
+        <target>V</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -6710,10 +6658,7 @@
         <source>
         OK - No facts
       </source>
-        <target state="new">[
-          OK - No facts
-          ]
-        </target>
+        <target>OK - Geen feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -6723,10 +6668,7 @@
         <source>
         No issues found during route analysis.
       </source>
-        <target state="new">[
-          No issues found during route analysis.
-          ]
-        </target>
+        <target>Geen problemen gevonden tijdens route analyse.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -6736,10 +6678,7 @@
         <source>
         NOK - Investigate facts
       </source>
-        <target state="new">[
-          NOK - Investigate facts
-          ]
-        </target>
+        <target>NOK - Onderzoek feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -6749,10 +6688,7 @@
         <source>
         Something is wrong with this route.
       </source>
-        <target state="new">[
-          Something is wrong with this route.
-          ]
-        </target>
+        <target>Er is iets mis met deze route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -6760,7 +6696,7 @@
       </trans-unit>
       <trans-unit id="route-investigate-indicator.letter" datatype="html">
         <source>F</source>
-        <target state="new">[F]</target>
+        <target>F</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -6804,7 +6740,7 @@
       </trans-unit>
       <trans-unit id="network-details.tags" datatype="html">
         <source>Tags</source>
-        <target state="new">[Tags]</target>
+        <target>Tags</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -6928,7 +6864,7 @@
       </trans-unit>
       <trans-unit id="network-nodes.network-not-found" datatype="html">
         <source>Network not found</source>
-        <target state="new">[Network not found]</target>
+        <target>Netwerk niet gevonden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -6954,7 +6890,7 @@
       </trans-unit>
       <trans-unit id="network-routes.network-not-found" datatype="html">
         <source>Network not found</source>
-        <target state="new">[Network not found]</target>
+        <target>Netwerk niet gevonden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -6964,10 +6900,7 @@
         <source>
           No network routes in network
         </source>
-        <target state="new">[
-          No network routes in network
-          ]
-        </target>
+        <target>Geen netwerk routes in netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
           <context context-type="linenumber">14</context>
