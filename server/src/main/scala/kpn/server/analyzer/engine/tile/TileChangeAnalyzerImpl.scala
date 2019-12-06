@@ -63,8 +63,10 @@ class TileChangeAnalyzerImpl(
     (ZoomLevel.minZoom to ZoomLevel.maxZoom).flatMap { zoomLevel =>
       val tileDataRouteBuilder = new TileDataRouteBuilder(zoomLevel)
       tileDataRouteBuilder.build(analysis.route) match {
-        case Some(tileDataRouteBefore) => tileNames(networkType, zoomLevel, tileDataRouteBefore)
-        case None => Seq()
+        case Some(tileDataRouteBefore) =>
+          tileNames(networkType, zoomLevel, tileDataRouteBefore)
+        case None =>
+          Seq()
       }
     }
   }
@@ -74,8 +76,8 @@ class TileChangeAnalyzerImpl(
   }
 
   private def generateTasks(tileNames: Seq[String]): Unit = {
-    tileNames.distinct.sorted.foreach { tileName =>
-      taskRepository.add(s"${TileTask.prefix}-$tileName")
+    tileNames.distinct.foreach { tileName =>
+      taskRepository.add(s"${TileTask.prefix}$tileName")
     }
   }
 

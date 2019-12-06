@@ -27,24 +27,16 @@ class TileChangeAnalyzerTest extends FunSuite with Matchers with MockFactory wit
     (taskRepository.add _).verify("tile-task:cycling-10-528-340") // OK
     (taskRepository.add _).verify("tile-task:cycling-11-1057-681") // OK
 
-    (taskRepository.add _).verify("tile-task:cycling-12-2115-1361") // not needed ?
     (taskRepository.add _).verify("tile-task:cycling-12-2115-1362") // OK
     (taskRepository.add _).verify("tile-task:cycling-12-2115-1363") // OK
-    (taskRepository.add _).verify("tile-task:cycling-12-2115-1364") // not needed ?
 
-    (taskRepository.add _).verify("tile-task:cycling-13-4231-2724") // not needed ?
     (taskRepository.add _).verify("tile-task:cycling-13-4231-2725") // OK
     (taskRepository.add _).verify("tile-task:cycling-13-4231-2726") // OK
-    (taskRepository.add _).verify("tile-task:cycling-13-4231-2727") // not needed ?
 
-    (taskRepository.add _).verify("tile-task:cycling-14-8462-5450") // not needed ?
     (taskRepository.add _).verify("tile-task:cycling-14-8462-5451") // OK
     (taskRepository.add _).verify("tile-task:cycling-14-8462-5452") // OK
-    (taskRepository.add _).verify("tile-task:cycling-14-8462-5453") // not needed ?
-    (taskRepository.add _).verify("tile-task:cycling-14-8463-5450") // not needed ?
     (taskRepository.add _).verify("tile-task:cycling-14-8463-5451") // OK
     (taskRepository.add _).verify("tile-task:cycling-14-8463-5452") // OK
-    (taskRepository.add _).verify("tile-task:cycling-14-8463-5453") // not needed ?
   }
 
 }
