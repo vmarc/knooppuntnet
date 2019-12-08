@@ -41,15 +41,15 @@ class WrongRouteTileAnalysisPrinter {
     val width = xs.max - xs.min
     val height = ys.max - ys.min
 
-    val xfactor = 500 / width
+    val xfactor = 350 / width
     val yfactor = 1000 / height
 
     def printLines(lines: Seq[Line], color: String): Unit = {
       lines.foreach { line =>
-        val x1 = (line.p1.x - xs.min) * xfactor
-        val y1 = 1000 - (line.p1.y - ys.min) * yfactor
-        val x2 = (line.p2.x - xs.min) * xfactor
-        val y2 = 1000 - (line.p2.y - ys.min) * yfactor
+        val x1 = Math.round((line.p1.x - xs.min) * xfactor) + 1
+        val y1 = Math.round(1000 - (line.p1.y - ys.min) * yfactor) + 1
+        val x2 = Math.round((line.p2.x - xs.min) * xfactor) + 1
+        val y2 = Math.round(1000 - (line.p2.y - ys.min) * yfactor) + 1
         println(s"""      <line x1="$x1" y1="$y1" x2="$x2" y2="$y2" stroke="$color" stroke-width="2"/>""")
       }
     }
@@ -61,7 +61,6 @@ class WrongRouteTileAnalysisPrinter {
     printLines(problemTileLines, "green")
     printFooter()
   }
-
 
   private def linesInTile(tileName: String): Seq[Line] = {
     val tile = tileCalculator.get(tileName)
@@ -76,7 +75,7 @@ class WrongRouteTileAnalysisPrinter {
   private def printHeader(): Unit = {
     println("<html>")
     println("  <body>")
-    println("""    <svg viewBox="0 0 1000 1000" version="1.1">""")
+    println("""    <svg viewBox="0 0 1010 1010" version="1.1">""")
   }
 
   private def printFooter(): Unit = {

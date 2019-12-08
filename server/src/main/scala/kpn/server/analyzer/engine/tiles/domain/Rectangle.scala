@@ -11,7 +11,7 @@ case class Rectangle(xMin: Double, xMax: Double, yMin: Double, yMax: Double) {
 
   def left: Line = Line(Point(xMin, yMin), Point(xMin, yMax))
 
-  def right: Line = Line(Point(xMax, yMin), Point(xMax, yMin))
+  def right: Line = Line(Point(xMax, yMin), Point(xMax, yMax))
 
   def xCenter: Double = xMin + ((xMax - xMin) / 2d)
 
