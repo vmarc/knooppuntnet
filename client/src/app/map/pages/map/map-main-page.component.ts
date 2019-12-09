@@ -27,6 +27,7 @@ import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
+import {DebugLayer} from "../../../components/ol/domain/debug-layer";
 
 @Component({
   selector: "kpn-map-main-page",
@@ -107,6 +108,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       target: "main-map",
       layers: [
         OsmLayer.build(),
+        DebugLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer

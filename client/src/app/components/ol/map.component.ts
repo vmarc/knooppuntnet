@@ -19,6 +19,7 @@ import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapService} from "./map.service";
 import {PoiTileLayerService} from "./poi-tile-layer.service";
+import {DebugLayer} from "./domain/debug-layer";
 
 @Component({
   selector: "kpn-map",
