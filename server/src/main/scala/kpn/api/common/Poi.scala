@@ -8,5 +8,6 @@ case class Poi(
   latitude: String,
   longitude: String,
   layers: Seq[String],
-  tags: Tags
+  tags: Tags,
+  tiles: Seq[String] = Seq.empty
 ) extends LatLon

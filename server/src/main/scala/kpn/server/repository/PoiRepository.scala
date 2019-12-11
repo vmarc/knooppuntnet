@@ -4,6 +4,7 @@ import akka.util.Timeout
 import kpn.api.common.Poi
 import kpn.core.db.couch.Couch
 import kpn.core.poi.PoiInfo
+import kpn.server.analyzer.engine.poi.PoiRef
 
 trait PoiRepository {
 
@@ -11,8 +12,14 @@ trait PoiRepository {
 
   def allPois(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[PoiInfo]
 
-  def poi(elementType: String, elementId: Long): Option[Poi]
+  def nodeIds(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[Long]
 
-  def delete(elementType: String, elementId: Long): Unit
+  def wayIds(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[Long]
+
+  def relationIds(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[Long]
+
+  def poi(poiRef: PoiRef): Option[Poi]
+
+  def delete(poiRef: PoiRef): Unit
 
 }

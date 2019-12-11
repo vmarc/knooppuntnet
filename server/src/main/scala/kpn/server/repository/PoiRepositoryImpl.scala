@@ -3,11 +3,15 @@ package kpn.server.repository
 import akka.util.Timeout
 import kpn.api.common.Poi
 import kpn.core.database.Database
+import kpn.core.database.views.poi.PoiNodeIdView
+import kpn.core.database.views.poi.PoiRelationIdView
 import kpn.core.database.views.poi.PoiView
+import kpn.core.database.views.poi.PoiWayIdView
 import kpn.core.db.KeyPrefix
 import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.poi.PoiRef
 import org.springframework.stereotype.Component
 
 @Component
@@ -71,22 +75,34 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     initialPois ++ remainingPois
   }
 
-  override def poi(elementType: String, elementId: Long): Option[Poi] = {
-    val id = docId(elementType, elementId)
+  override def nodeIds(timeout: Timeout, stale: Boolean = true): Seq[Long] = {
+    PoiNodeIdView.query(poiDatabase, stale)
+  }
+
+  override def wayIds(timeout: Timeout, stale: Boolean = true): Seq[Long] = {
+    PoiWayIdView.query(poiDatabase, stale)
+  }
+
+  override def relationIds(timeout: Timeout, stale: Boolean = true): Seq[Long] = {
+    PoiRelationIdView.query(poiDatabase, stale)
+  }
+
+  override def poi(poiRef: PoiRef): Option[Poi] = {
+    val id = docId(poiRef)
     poiDatabase.docWithId(id, classOf[PoiDoc]).map(_.poi)
   }
 
-  override def delete(elementType: String, elementId: Long): Unit = {
-    val id = docId(elementType, elementId)
+  override def delete(poiRef: PoiRef): Unit = {
+    val id = docId(poiRef)
     poiDatabase.deleteDocWithId(id)
   }
 
   private def poiDocId(poi: Poi): String = {
-    docId(poi.elementType, poi.elementId)
+    docId(PoiRef.of(poi))
   }
 
-  private def docId(elementType: String, elementId: Long): String = {
-    s"${KeyPrefix.Poi}:$elementType:$elementId"
+  private def docId(poiRef: PoiRef): String = {
+    s"${KeyPrefix.Poi}:${poiRef.elementType}:${poiRef.elementId}"
   }
 
 }

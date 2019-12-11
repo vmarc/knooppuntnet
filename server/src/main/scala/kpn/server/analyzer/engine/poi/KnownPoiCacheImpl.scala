@@ -1,51 +1,45 @@
 package kpn.server.analyzer.engine.poi
 
 import javax.annotation.PostConstruct
+import kpn.server.repository.PoiRepository
 import org.springframework.stereotype.Component
 
 @Component
-class KnownPoiCacheImpl extends KnownPoiCache {
+class KnownPoiCacheImpl(poiRepository: PoiRepository) extends KnownPoiCache {
 
   private var knownPois = KnownPois()
 
   @PostConstruct
   def loadKnownPois(): Unit = {
+    val poiInfos = poiRepository.allPois()
+    val nodeIds = poiInfos.filter(_.elementType == "node").map(_.elementId).toSet
+    val wayIds = poiInfos.filter(_.elementType == "way").map(_.elementId).toSet
+    val relationIds = poiInfos.filter(_.elementType == "relation").map(_.elementId).toSet
+    knownPois = KnownPois(nodeIds, wayIds, relationIds)
   }
 
-  def containsNode(nodeId: Long): Boolean = {
-    knownPois.nodeIds.contains(nodeId)
+  def contains(poiRef: PoiRef): Boolean = {
+    poiRef.elementType match {
+      case "node" => knownPois.nodeIds.contains(poiRef.elementId)
+      case "way" => knownPois.wayIds.contains(poiRef.elementId)
+      case "relation" => knownPois.relationIds.contains(poiRef.elementId)
+    }
   }
 
-  def containsWay(wayId: Long): Boolean = {
-    knownPois.wayIds.contains(wayId)
+  def add(poiRef: PoiRef): Unit = {
+    knownPois = poiRef.elementType match {
+      case "node" => knownPois.copy(nodeIds = knownPois.nodeIds + poiRef.elementId)
+      case "way" => knownPois.copy(wayIds = knownPois.wayIds + poiRef.elementId)
+      case "relation" => knownPois.copy(relationIds = knownPois.relationIds + poiRef.elementId)
+    }
   }
 
-  def containsRelation(relationId: Long): Boolean = {
-    knownPois.relationIds.contains(relationId)
-  }
-
-  def addNode(nodeId: Long): Unit = {
-    knownPois = knownPois.copy(nodeIds = knownPois.nodeIds + nodeId)
-  }
-
-  def addWay(wayId: Long): Unit = {
-    knownPois = knownPois.copy(wayIds = knownPois.wayIds + wayId)
-  }
-
-  def addRelation(relationId: Long): Unit = {
-    knownPois = knownPois.copy(relationIds = knownPois.relationIds + relationId)
-  }
-
-  def deleteNode(nodeId: Long): Unit = {
-    knownPois = knownPois.copy(nodeIds = knownPois.nodeIds - nodeId)
-  }
-
-  def deleteWay(wayId: Long): Unit = {
-    knownPois = knownPois.copy(wayIds = knownPois.wayIds - wayId)
-  }
-
-  def deleteRelation(relationId: Long): Unit = {
-    knownPois = knownPois.copy(relationIds = knownPois.relationIds + relationId)
+  def delete(poiRef: PoiRef): Unit = {
+    knownPois = poiRef.elementType match {
+      case "node" => knownPois.copy(nodeIds = knownPois.nodeIds - poiRef.elementId)
+      case "way" => knownPois.copy(wayIds = knownPois.wayIds - poiRef.elementId)
+      case "relation" => knownPois.copy(relationIds = knownPois.relationIds - poiRef.elementId)
+    }
   }
 
 }
