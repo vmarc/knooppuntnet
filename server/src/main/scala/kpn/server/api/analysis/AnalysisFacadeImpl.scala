@@ -40,6 +40,7 @@ import kpn.core.db.couch.Couch
 import kpn.core.gpx.GpxFile
 import kpn.core.poi.PoiConfiguration
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
 import kpn.server.api.analysis.pages.LegBuilder
@@ -295,9 +296,9 @@ class AnalysisFacadeImpl(
     ApiResponse(None, 1, Some(PoiConfiguration.instance.toClient))
   }
 
-  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage] = {
-    log.infoElapsed(s"$user poi($elementType, $elementId)") {
-      val poiPage = poiPageBuilder.build(elementType, elementId)
+  def poi(user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage] = {
+    log.infoElapsed(s"$user poi(${poiRef.elementType}, ${poiRef.elementId})") {
+      val poiPage = poiPageBuilder.build(poiRef)
       ApiResponse(None, 1, poiPage) // analysis timestamp not needed here
     }
   }

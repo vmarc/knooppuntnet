@@ -33,6 +33,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
+import kpn.server.analyzer.engine.poi.PoiRef
 import org.springframework.web.bind.annotation.CookieValue
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -264,7 +265,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable elementId: Long,
     @CookieValue(name = "knooppuntnet-user", required = false) user: String
   ): ApiResponse[PoiPage] = {
-    analysisFacade.poi(Option.apply(user), elementType, elementId)
+    analysisFacade.poi(Option.apply(user), PoiRef(elementType, elementId))
   }
 
   @GetMapping(value = Array("/json-api/leg/{networkType}/{legId}/{sourceNodeId}/{sinkNodeId}"))

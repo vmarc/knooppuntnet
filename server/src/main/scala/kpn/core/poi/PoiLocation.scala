@@ -23,7 +23,7 @@ object PoiLocation {
 
   val boundingBoxes: Seq[Rectangle] = {
     Seq(
-      germanyBoundingBox,
+      // germanyBoundingBox,
       belgiumAndNetherlandsBoundingBox
     )
   }
@@ -32,9 +32,9 @@ object PoiLocation {
     val formatter = new DecimalFormat("#.####")
     boundingBoxes.map { bounds =>
       val minLat = formatter.format(bounds.yMin) // south
-    val minLon = formatter.format(bounds.xMin) // west
-    val maxLat = formatter.format(bounds.yMax) // north
-    val maxLon = formatter.format(bounds.xMax) // east
+      val minLon = formatter.format(bounds.xMin) // west
+      val maxLat = formatter.format(bounds.yMax) // north
+      val maxLon = formatter.format(bounds.xMax) // east
       s"($minLat, $minLon, $maxLat, $maxLon)"
     }
   }

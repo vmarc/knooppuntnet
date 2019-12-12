@@ -34,6 +34,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
+import kpn.server.analyzer.engine.poi.PoiRef
 
 trait AnalysisFacade {
 
@@ -88,7 +89,7 @@ trait AnalysisFacade {
 
   def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration]
 
-  def poi(user: Option[String], elementType: String, elementId: Long): ApiResponse[PoiPage]
+  def poi(user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage]
 
   def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
 

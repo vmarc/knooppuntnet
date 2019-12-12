@@ -2,9 +2,6 @@ package kpn.server.analyzer.engine.poi
 
 trait PoiDeleteProcessor {
 
-  def deleteNodePoi(nodeId: Long): Unit
+  def delete(poiRef: PoiRef): Unit
 
-  def deleteWayPoi(wayId: Long): Unit
-
-  def deleteRelationPoi(relationId: Long): Unit
 }

@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages
 import kpn.api.common.PoiPage
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
+import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.repository.PoiRepository
 import org.springframework.stereotype.Component
 
@@ -32,9 +33,9 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
   )
 
 
-  def build(elementType: String, elementId: Long): Option[PoiPage] = {
+  def build(poiRef: PoiRef): Option[PoiPage] = {
 
-    poiRepository.poi(elementType, elementId).map { poi =>
+    poiRepository.poi(poiRef).map { poi =>
 
       var interpretedTagKeys: Set[String] = Set()
 
