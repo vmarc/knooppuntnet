@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.custom.Tags
 import kpn.core.TestObjects
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.server.repository.TaskRepository
@@ -37,6 +38,38 @@ class TileChangeAnalyzerTest extends FunSuite with Matchers with MockFactory wit
     (taskRepository.add _).verify("tile-task:cycling-14-8462-5452") // OK
     (taskRepository.add _).verify("tile-task:cycling-14-8463-5451") // OK
     (taskRepository.add _).verify("tile-task:cycling-14-8463-5452") // OK
+  }
+
+  test("no tile task when no change with impact") {
+
+    val taskRepository = stub[TaskRepository]
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(new TileCalculatorImpl())
+
+    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
+
+    val routeAnalysis = CaseStudy.routeAnalysis("1029885")
+
+    tileChangeAnalyzer.analyzeRouteChange(routeAnalysis, routeAnalysis)
+
+    (taskRepository.add _).verify(*).never()
+  }
+
+  test("tile tasks when change with impact") {
+
+    val taskRepository = stub[TaskRepository]
+    val routeTileAnalyzer = new RouteTileAnalyzerImpl(new TileCalculatorImpl())
+
+    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
+
+    val routeAnalysis = CaseStudy.routeAnalysis("1029885")
+
+    val modifiedTags = routeAnalysis.route.tags ++ Tags.from("survey:date" -> "2019-11-08")
+    val modifiedRoute = routeAnalysis.route.copy(tags = modifiedTags)
+    val modifiedRouteAnalysis = routeAnalysis.copy(route = modifiedRoute)
+
+    tileChangeAnalyzer.analyzeRouteChange(routeAnalysis, modifiedRouteAnalysis)
+
+    (taskRepository.add _).verify(*).repeated(14)
   }
 
 }
