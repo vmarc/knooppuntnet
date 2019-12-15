@@ -9,6 +9,8 @@ object PoiRepositoryDemo {
     Couch.executeIn("kpn-server", "pois3") { database =>
       val repo: PoiRepository = new PoiRepositoryImpl(database)
 
+      println("Sleeping before starting to load poi ids")
+      Thread.sleep(30000)
       println("Start reading node ids")
       val t1 = System.currentTimeMillis()
       val nodeIds = repo.nodeIds(stale = false)
@@ -25,6 +27,8 @@ object PoiRepositoryDemo {
       println(s"Finished reading way ids in ${t3 - t2}ms")
       println(s"Finished reading relation ids in ${t4 - t3}ms")
       println(s"Overall ${t4 - t1}ms")
+      println("Sleeping")
+      Thread.sleep(300000)
     }
   }
 }
