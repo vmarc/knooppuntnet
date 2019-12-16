@@ -29,7 +29,7 @@ class NetworkUpdateNetworkProcessorImpl(
   changeBuilder: ChangeBuilder
 ) extends NetworkUpdateNetworkProcessor {
 
-  val log = Log(classOf[NetworkUpdateNetworkProcessorImpl])
+  private val log = Log(classOf[NetworkUpdateNetworkProcessorImpl])
 
   override def process(
     context: ChangeSetContext,

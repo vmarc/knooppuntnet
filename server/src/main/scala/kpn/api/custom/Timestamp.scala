@@ -4,12 +4,8 @@ object Timestamp {
 
   val redaction: Timestamp = Timestamp(2012, 9, 12, 6, 55, 0)
 
-  implicit def timestampOrdering: Ordering[Timestamp] = {
-    new Ordering[Timestamp] {
-      def compare(x: Timestamp, y: Timestamp): Int = {
-        x.compareTo(y)
-      }
-    }
+  implicit def timestampOrdering: Ordering[Timestamp] = (x: Timestamp, y: Timestamp) => {
+    x.compareTo(y)
   }
 
   def fromKey(key: String): Timestamp = {
@@ -128,11 +124,11 @@ case class Timestamp(year: Int, month: Int, day: Int, hour: Int, minute: Int, se
 
   def ===(other: Timestamp): Boolean = {
     year == other.year &&
-    month == other.month &&
-    day == other.day &&
-    hour == other.hour &&
-    minute == other.minute &&
-    second == other.second
+      month == other.month &&
+      day == other.day &&
+      hour == other.hour &&
+      minute == other.minute &&
+      second == other.second
   }
 
   def >=(other: Timestamp): Boolean = {

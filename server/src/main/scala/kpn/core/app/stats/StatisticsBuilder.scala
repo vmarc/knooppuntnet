@@ -28,7 +28,7 @@ object StatisticsBuilder {
 
     private val stats: Map[String, Statistic] = fromdb ++ extra
 
-    def toStatistics = Statistics(stats)
+    def toStatistics: Statistics = Statistics(stats)
 
     private def routesBrokenPercentage = {
       if (!(figures.contains("RouteBrokenCount") && figures.contains("RouteCount"))) {

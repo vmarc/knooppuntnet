@@ -11,7 +11,7 @@ import kpn.server.api.analysis.pages.TimeInfoBuilder
 
 object NetworkNodesPageExample {
 
-  val nodesPage = NetworkNodesPage(
+  val nodesPage: NetworkNodesPage = NetworkNodesPage(
     TimeInfoBuilder.timeInfo,
     NetworkDetailsPageExample.networkSummary(),
     NetworkType.hiking,

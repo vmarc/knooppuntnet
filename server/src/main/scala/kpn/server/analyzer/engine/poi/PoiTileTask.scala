@@ -15,7 +15,7 @@ object PoiTileTask {
   }
 
   def withTileName(tileName: String): String = {
-    s"$prefix-${tileName}"
+    s"$prefix$tileName"
   }
 
 }

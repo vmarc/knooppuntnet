@@ -166,7 +166,7 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
       addedRelations.nonEmpty
   }
 
-  def diff = NetworkDiff(
+  def diff: NetworkDiff = NetworkDiff(
     after.network.country,
     after.network.networkType,
     after.id,

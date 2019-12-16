@@ -6,12 +6,12 @@ object NetworkType {
     all.find(_.name == name)
   }
 
-  val hiking = NetworkType("hiking", "w", Seq("hiking", "walking", "foot"))
-  val cycling = NetworkType("cycling", "c", Seq("bicycle"))
-  val horseRiding = NetworkType("horse-riding", "h", Seq("horse"))
-  val canoe = NetworkType("canoe", "p", Seq("canoe"))
-  val motorboat = NetworkType("motorboat", "m", Seq("motorboat"))
-  val inlineSkating = NetworkType("inline-skating", "i", Seq("inline_skates"))
+  val hiking: NetworkType = NetworkType("hiking", "w", Seq("hiking", "walking", "foot"))
+  val cycling: NetworkType = NetworkType("cycling", "c", Seq("bicycle"))
+  val horseRiding: NetworkType = NetworkType("horse-riding", "h", Seq("horse"))
+  val canoe: NetworkType = NetworkType("canoe", "p", Seq("canoe"))
+  val motorboat: NetworkType = NetworkType("motorboat", "m", Seq("motorboat"))
+  val inlineSkating: NetworkType = NetworkType("inline-skating", "i", Seq("inline_skates"))
 
   val all: Seq[NetworkType] = Seq(hiking, cycling, horseRiding, canoe, motorboat, inlineSkating)
 }

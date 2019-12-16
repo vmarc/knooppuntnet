@@ -42,7 +42,7 @@ class Configuration(
   initialLoadAnalysisRepository: AnalysisRepository
 ) {
 
-  val dirs = Dirs()
+  val dirs: Dirs = Dirs()
 
   val statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
 

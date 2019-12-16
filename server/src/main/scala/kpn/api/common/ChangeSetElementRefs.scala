@@ -4,7 +4,7 @@ import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.diff.RefDiffs
 
 object ChangeSetElementRefs {
-  val empty = ChangeSetElementRefs(Seq(), Seq(), Seq())
+  val empty: ChangeSetElementRefs = ChangeSetElementRefs(Seq(), Seq(), Seq())
 }
 
 case class ChangeSetElementRefs(

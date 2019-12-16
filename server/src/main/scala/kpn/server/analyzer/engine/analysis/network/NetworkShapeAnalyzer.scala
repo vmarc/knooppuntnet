@@ -12,26 +12,26 @@ import org.locationtech.jts.geom.GeometryFactory
 
 class NetworkShapeAnalyzer(relationAnalyzer: RelationAnalyzer, networkRelation: Relation) {
 
-  val log = Log(classOf[NetworkShapeAnalyzer])
+  private val log = Log(classOf[NetworkShapeAnalyzer])
 
   def shape: Option[NetworkShape] = {
     None
-//    log.debugElapsed {
-//      ("", calculatedShape)
-//    }
+    //    log.debugElapsed {
+    //      ("", calculatedShape)
+    //    }
   }
 
   private def calculatedShape: Option[NetworkShape] = {
     val nodes = relationAnalyzer.referencedNonConnectionNodes(networkRelation)
     val points = toGeometryCollection(nodes)
-//    val coordinates = new ConcaveHull(points, 0.03d).getConcaveHull.getCoordinates.toList
-//    if (coordinates.nonEmpty) {
-//      log.debug(s"nodeCount=${nodes.size}")
-//      Some(NetworkShape(bounds(coordinates), shapeCoordinate(coordinates)))
-//    }
-//    else {
-      None
-//    }
+    //    val coordinates = new ConcaveHull(points, 0.03d).getConcaveHull.getCoordinates.toList
+    //    if (coordinates.nonEmpty) {
+    //      log.debug(s"nodeCount=${nodes.size}")
+    //      Some(NetworkShape(bounds(coordinates), shapeCoordinate(coordinates)))
+    //    }
+    //    else {
+    None
+    //    }
   }
 
   private def toGeometryCollection(nodes: Iterable[Node]): GeometryCollection = {

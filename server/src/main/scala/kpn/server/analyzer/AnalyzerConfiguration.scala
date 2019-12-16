@@ -24,7 +24,7 @@ class AnalyzerConfiguration {
   var analysisDatabase: Database = _
 
   @Bean
-  def dirs = Dirs()
+  def dirs: Dirs = Dirs()
 
   @Bean
   def statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)

@@ -16,13 +16,13 @@ object RouteLoaderDemo {
 
 class RouteLoaderDemo() {
 
-  val log = Log(classOf[RouteLoaderDemo])
+  private val log = Log(classOf[RouteLoaderDemo])
 
-  val analysisContext = new AnalysisContext()
-  val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-  val executor = new OverpassQueryExecutorImpl()
-  val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
+  private val analysisContext = new AnalysisContext()
+  private val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+  private val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+  private val executor = new OverpassQueryExecutorImpl()
+  private val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
 
   def run(): Unit = {
     log.unitElapsed {

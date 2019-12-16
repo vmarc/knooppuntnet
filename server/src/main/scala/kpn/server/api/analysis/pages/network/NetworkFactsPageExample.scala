@@ -8,7 +8,7 @@ import kpn.api.custom.Fact
 
 object NetworkFactsPageExample {
 
-  val page = NetworkFactsPage(
+  val page: NetworkFactsPage = NetworkFactsPage(
     NetworkDetailsPageExample.networkSummary(),
     Seq(
       NetworkFact(

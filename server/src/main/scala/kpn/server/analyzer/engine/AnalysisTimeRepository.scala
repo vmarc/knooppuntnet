@@ -10,7 +10,7 @@ import org.apache.commons.io.FileUtils
 trait AnalysisTimeRepository {
   def get: Option[String]
 
-  // hhmm format? make sure this works OK arround midnight; will need date also ?
+  // hhmm format? make sure this works OK around midnight; will need date also ?
   def put(time: String): Unit
 }
 

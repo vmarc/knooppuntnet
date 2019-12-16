@@ -33,7 +33,7 @@ class NetworkDeleteProcessorWorkerImpl(
   changeBuilder: ChangeBuilder
 ) extends NetworkDeleteProcessorWorker {
 
-  val log: Log = Log(classOf[NetworkDeleteProcessorWorkerImpl])
+  private val log = Log(classOf[NetworkDeleteProcessorWorkerImpl])
 
   override def process(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
     Log.context(s"network=$networkId") {

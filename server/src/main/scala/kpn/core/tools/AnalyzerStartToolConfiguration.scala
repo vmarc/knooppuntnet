@@ -48,7 +48,7 @@ class AnalyzerStartToolConfiguration(
   changeDatabase: Database
 ) {
 
-  val dirs = Dirs()
+  val dirs: Dirs = Dirs()
 
   private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
   private val routeRepository = new RouteRepositoryImpl(analysisDatabase)

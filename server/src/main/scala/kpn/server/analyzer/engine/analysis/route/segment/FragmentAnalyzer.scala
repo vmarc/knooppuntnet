@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 
 object FragmentAnalyzer {
-  val log = Log(classOf[FragmentAnalyzer])
+  private val log: Log = Log(classOf[FragmentAnalyzer])
 }
 
 /**
@@ -20,7 +20,7 @@ object FragmentAnalyzer {
   */
 class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
-  import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer.log
+  import FragmentAnalyzer.log
 
   private val routeNodeIds = routeNodes.map(_.id)
 

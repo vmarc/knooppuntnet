@@ -23,7 +23,7 @@ class OrphanRoutesLoaderWorkerImpl(
   nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanRoutesLoaderWorker {
 
-  val log = Log(classOf[OrphanRoutesLoaderWorkerImpl])
+  private val log = Log(classOf[OrphanRoutesLoaderWorkerImpl])
 
   override def process(timestamp: Timestamp, routeId: Long): Unit = {
     log.unitElapsed {

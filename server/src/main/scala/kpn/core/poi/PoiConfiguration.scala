@@ -8,7 +8,7 @@ import kpn.core.poi.tags.TagContains
 
 object PoiConfiguration {
 
-  val instance = PoiConfiguration(
+  val instance: PoiConfiguration = PoiConfiguration(
     PoiGroupDefinition(
       "hiking-biking",
       true,

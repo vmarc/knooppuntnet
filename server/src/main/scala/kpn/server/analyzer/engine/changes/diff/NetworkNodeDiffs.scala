@@ -6,7 +6,7 @@ import kpn.api.common.diff.NetworkNodeUpdate
 import kpn.api.common.diff.RefDiffs
 
 object NetworkNodeDiffs {
-  def empty = NetworkNodeDiffs()
+  def empty: NetworkNodeDiffs = NetworkNodeDiffs()
 }
 
 case class NetworkNodeDiffs(

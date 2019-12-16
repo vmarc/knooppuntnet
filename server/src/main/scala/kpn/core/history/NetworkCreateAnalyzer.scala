@@ -36,7 +36,7 @@ class NetworkCreateAnalyzer(network: Network) {
       addedRelations.nonEmpty
   }
 
-  val diff = NetworkDiff(
+  val diff: NetworkDiff = NetworkDiff(
     network.country,
     network.networkType,
     network.id,
