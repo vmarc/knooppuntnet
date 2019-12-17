@@ -5,9 +5,11 @@ import kpn.api.common.Poi
 import kpn.core.database.Database
 import kpn.core.database.views.poi.PoiNodeIdView
 import kpn.core.database.views.poi.PoiRelationIdView
+import kpn.core.database.views.poi.PoiTileView
 import kpn.core.database.views.poi.PoiView
 import kpn.core.database.views.poi.PoiWayIdView
 import kpn.core.db.KeyPrefix
+import kpn.core.db.couch.Couch
 import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
@@ -95,6 +97,14 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
   override def delete(poiRef: PoiRef): Unit = {
     val id = docId(poiRef)
     poiDatabase.deleteDocWithId(id)
+  }
+
+  override def allTiles(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[String] = {
+    PoiTileView.allTiles(poiDatabase, stale)
+  }
+
+  override def tilePoiRefs(tileName: String): Seq[PoiRef] = {
+    PoiTileView.tilePoiRefs(tileName, poiDatabase)
   }
 
   private def poiDocId(poi: Poi): String = {

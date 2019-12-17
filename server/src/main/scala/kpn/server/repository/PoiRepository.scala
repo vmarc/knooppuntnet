@@ -22,4 +22,8 @@ trait PoiRepository {
 
   def delete(poiRef: PoiRef): Unit
 
+  def allTiles(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[String]
+
+  def tilePoiRefs(tileName: String): Seq[PoiRef]
+
 }

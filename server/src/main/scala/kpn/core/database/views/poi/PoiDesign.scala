@@ -10,6 +10,7 @@ object PoiDesign extends Design {
     LayerView,
     PoiNodeIdView,
     PoiWayIdView,
-    PoiRelationIdView
+    PoiRelationIdView,
+    PoiTileView
   )
 }
