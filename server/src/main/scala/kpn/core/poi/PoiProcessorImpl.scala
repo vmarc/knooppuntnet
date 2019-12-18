@@ -53,9 +53,14 @@ class PoiProcessorImpl(
               log.info(s"Saving ${pois.size} pois $layer $bbox $elementType")
               pois.foreach { poi =>
                 if (poiLocationFilter.filter(poi)) {
-                  val allLayers = findLayers(poi)
-                  if (allLayers.nonEmpty) {
-                    poiRepository.save(poi.copy(layers = allLayers))
+                  val poiDefinitions = findPoiDefinitions(poi)
+                  val layers = poiDefinitions.map(_.name).seq.distinct.sorted
+                  if (layers.nonEmpty) {
+                    val tileNames = {
+                      val minLevel = poiDefinitions.map(_.minLevel).min
+                      (minLevel.toInt to ZoomLevel.vectorTileMaxZoom).map(z => tileCalculator.tileLonLat(z, poi.lon, poi.lat))
+                    }.map(_.name)
+                    poiRepository.save(poi.copy(layers = layers, tiles=tileNames))
                   }
                 }
               }

@@ -49,7 +49,7 @@ class TileUpdaterImpl(
     }
 
     private def processTask(task: String): Unit = {
-      val tile = tileCalculator.get(TileTask.tileName(task))
+      val tile = tileCalculator.tileNamed(TileTask.tileName(task))
       val networkType: NetworkType = TileTask.networkType(task)
       updateTile(networkType, tile)
     }

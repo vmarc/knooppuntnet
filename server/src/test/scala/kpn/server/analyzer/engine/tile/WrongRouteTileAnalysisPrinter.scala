@@ -63,7 +63,7 @@ class WrongRouteTileAnalysisPrinter {
   }
 
   private def linesInTile(tileName: String): Seq[Line] = {
-    val tile = tileCalculator.get(tileName)
+    val tile = tileCalculator.tileNamed(tileName)
     Seq(
       tile.bounds.left,
       tile.bounds.right,

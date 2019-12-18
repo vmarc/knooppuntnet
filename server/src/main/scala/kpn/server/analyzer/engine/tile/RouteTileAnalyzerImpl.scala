@@ -17,7 +17,7 @@ class RouteTileAnalyzerImpl(tileCalculator: TileCalculator) extends RouteTileAna
     val lines = tileRoute.segments.flatMap(_.lines)
 
     val tiles = lines.flatMap(_.points).map { p: Point =>
-      tileCalculator.get(z, p.x, p.y)
+      tileCalculator.tileLonLat(z, p.x, p.y)
     }.toSet
 
     foundTiles ++= tiles.toSeq
@@ -42,7 +42,7 @@ class RouteTileAnalyzerImpl(tileCalculator: TileCalculator) extends RouteTileAna
     xDelta: Int,
     yDelta: Int
   ): Unit = {
-    val adjecentTile = tileCalculator.get(tile.z, tile.x + xDelta, tile.y + yDelta)
+    val adjecentTile = tileCalculator.tileXY(tile.z, tile.x + xDelta, tile.y + yDelta)
     if (!foundTiles.map(_.name).contains(adjecentTile.name)) {
       if (lines.exists(_.intersects(side))) {
         tileQueue += adjecentTile

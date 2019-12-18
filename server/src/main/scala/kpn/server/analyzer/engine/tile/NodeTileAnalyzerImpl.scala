@@ -15,10 +15,10 @@ class NodeTileAnalyzerImpl(tileCalculator: TileCalculator) extends NodeTileAnaly
     val x = Tile.x(z, lon)
     val y = Tile.y(z, lat)
 
-    val tile = tileCalculator.get(z, x, y)
+    val tile = tileCalculator.tileXY(z, x, y)
 
     Seq(
-      Some(tileCalculator.get(z, x, y)),
+      Some(tileCalculator.tileXY(z, x, y)),
       explore(lon, lat, z, x - 1, y),
       explore(lon, lat, z, x + 1, y),
       explore(lon, lat, z, x - 1, y - 1),
@@ -31,7 +31,7 @@ class NodeTileAnalyzerImpl(tileCalculator: TileCalculator) extends NodeTileAnaly
   }
 
   private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[Tile] = {
-    val tile = tileCalculator.get(z, x, y)
+    val tile = tileCalculator.tileXY(z, x, y)
     if (tile.clipBounds.contains(lon, lat)) Some(tile) else None
   }
 }

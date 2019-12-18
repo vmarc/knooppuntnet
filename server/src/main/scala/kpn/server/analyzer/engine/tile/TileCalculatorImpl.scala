@@ -9,15 +9,15 @@ class TileCalculatorImpl extends TileCalculator {
 
   private val cache = new TileCache()
 
-  def get(z: Int, lon: Double, lat: Double): Tile = {
+  def tileLonLat(z: Int, lon: Double, lat: Double): Tile = {
     cache(z, lon, lat)
   }
 
-  def get(z: Int, x: Int, y: Int): Tile = {
+  def tileXY(z: Int, x: Int, y: Int): Tile = {
     cache(z, x, y)
   }
 
-  def get(tileName: String): Tile = {
+  def tileNamed(tileName: String): Tile = {
     cache(tileName)
   }
 
