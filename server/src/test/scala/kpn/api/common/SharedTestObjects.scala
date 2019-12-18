@@ -793,7 +793,8 @@ trait SharedTestObjects {
     latitude: String = "",
     longitude: String = "",
     layers: Seq[String] = Seq.empty,
-    tags: Tags = Tags.empty
+    tags: Tags = Tags.empty,
+    tiles: Seq[String] = Seq.empty
   ): Poi = {
     Poi(
       elementType,
@@ -801,7 +802,8 @@ trait SharedTestObjects {
       latitude,
       longitude,
       layers,
-      tags
+      tags,
+      tiles
     )
   }
 

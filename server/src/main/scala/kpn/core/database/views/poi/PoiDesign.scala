@@ -7,10 +7,11 @@ object PoiDesign extends Design {
 
   val views: Seq[View] = Seq(
     PoiView,
-    LayerView,
+    PoiLayerView,
     PoiNodeIdView,
     PoiWayIdView,
     PoiRelationIdView,
-    PoiTileView
+    PoiTileView,
+    PoiMultiLayerView
   )
 }

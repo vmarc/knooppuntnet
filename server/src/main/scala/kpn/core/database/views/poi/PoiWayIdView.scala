@@ -6,16 +6,14 @@ import kpn.core.database.views.common.View
 
 object PoiWayIdView extends View {
 
-  private case class ViewResultRow(
-    key: String
-  )
+  private case class ViewResultRow(key: String)
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
   def query(database: Database, stale: Boolean = true): Seq[Long] = {
 
     val query = Query(PoiDesign, PoiWayIdView, classOf[ViewResult])
-      .reduce(true)
+      .reduce(true) // using 'reduce' to minimize response size
       .groupLevel(1)
       .stale(stale)
 

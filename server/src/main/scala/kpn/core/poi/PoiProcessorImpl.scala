@@ -1,6 +1,7 @@
 package kpn.core.poi
 
 import kpn.api.common.Poi
+import kpn.api.common.tiles.ZoomLevel
 import kpn.core.db.couch.Couch
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.poi.tags.TagExpressionFormatter
@@ -8,24 +9,32 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.TileCalculator
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
 object PoiProcessorImpl {
 
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("pois3") { poiDatabase =>
+    Couch.executeIn("knooppuntnet.server", "pois4") { poiDatabase =>
+      val poiLoader = {
+        val nonCachingExecutor = new OverpassQueryExecutorImpl()
+        new PoiLoaderImpl(nonCachingExecutor)
+      }
       val poiRepository = new PoiRepositoryImpl(poiDatabase)
-      val nonCachingExecutor = new OverpassQueryExecutorImpl()
-      val poiLoader = new PoiLoaderImpl(nonCachingExecutor)
-      val analysisContext = new AnalysisContext()
-      val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-      val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-      val poiLocationFilter = new PoiLocationFilterImpl(countryAnalyzer)
+      val poiLocationFilter = {
+        val analysisContext = new AnalysisContext()
+        val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+        val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+        new PoiLocationFilterImpl(countryAnalyzer)
+      }
+      val tileCalculator: TileCalculator = new TileCalculatorImpl()
       val processor = new PoiProcessorImpl(
         poiLoader,
         poiRepository,
-        poiLocationFilter
+        poiLocationFilter,
+        tileCalculator
       )
       processor.process()
     }
@@ -35,7 +44,8 @@ object PoiProcessorImpl {
 class PoiProcessorImpl(
   poiLoader: PoiLoader,
   poiRepository: PoiRepository,
-  poiLocationFilter: PoiLocationFilter
+  poiLocationFilter: PoiLocationFilter,
+  tileCalculator: TileCalculator
 ) {
 
   private val log = Log(classOf[PoiProcessorImpl])
@@ -72,9 +82,9 @@ class PoiProcessorImpl(
     log.info("Done")
   }
 
-  private def findLayers(poi: Poi): Seq[String] = {
+  private def findPoiDefinitions(poi: Poi): Seq[PoiDefinition] = {
     val poiDefinitions = PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions)
-    poiDefinitions.filter(_.expression.evaluate(poi.tags)).map(_.name).seq.distinct.sorted
+    poiDefinitions.filter(_.expression.evaluate(poi.tags))
   }
 
 }

@@ -2,19 +2,18 @@ package kpn.core.database.views.poi
 
 import kpn.core.database.views.common.View
 
-object LayerView extends View {
+/*
+  Provides an overview of points of interest that match multiple
+  PoiDefintion's (= multiple layers).
+ */
+object PoiMultiLayerView extends View {
 
   override val map: String =
     """
       |function(doc) {
       |  var poi = doc.poi;
-      |  if(poi) {
-      |    var key = [
-      |      poi.layers[0],
-      |      poi.elementType,
-      |      poi.elementId
-      |    ];
-      |    emit(key, 1);
+      |  if(poi && poi.layers && poi.layers.length > 1) {
+      |    emit(poi.layers.join(), 1);
       |  }
       |}
     """.stripMargin
