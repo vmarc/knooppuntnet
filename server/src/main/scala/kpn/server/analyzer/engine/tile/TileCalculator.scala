@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.common.LatLon
+import kpn.core.poi.PoiDefinition
 import kpn.server.analyzer.engine.tiles.domain.Tile
 
 trait TileCalculator {
@@ -9,5 +11,7 @@ trait TileCalculator {
   def tileXY(z: Int, x: Int, y: Int): Tile
 
   def tileNamed(tileName: String): Tile
+
+  def tiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String]
 
 }

@@ -1,5 +1,8 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.common.LatLon
+import kpn.api.common.tiles.ZoomLevel
+import kpn.core.poi.PoiDefinition
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileCache
 import org.springframework.stereotype.Component
@@ -21,4 +24,9 @@ class TileCalculatorImpl extends TileCalculator {
     cache(tileName)
   }
 
+  def tiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String] = {
+    val minLevel = poiDefinitions.map(_.minLevel).min
+    val tiles = (minLevel.toInt to ZoomLevel.poiTileMaxZoom).map(z => tileLonLat(z, latLon.lon, latLon.lat))
+    tiles.map(_.name)
+  }
 }
