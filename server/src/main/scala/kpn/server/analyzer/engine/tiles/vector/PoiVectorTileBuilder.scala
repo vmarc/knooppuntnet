@@ -6,9 +6,11 @@ import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Point
+import org.springframework.stereotype.Component
 
 import scala.collection.immutable.ListMap
 
+@Component
 class PoiVectorTileBuilder {
 
   def build(data: PoiTileData): Array[Byte] = {

@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.poi
 
+import kpn.api.common.LatLonImpl
 import kpn.api.common.Poi
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Change
@@ -20,21 +21,26 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
 
     val t = new TestSetup()
 
-    val node = newRawNode(
-      id = 123L,
-      latitude = "1",
-      longitude = "2",
-      tags = Tags.from("shop" -> "bicycle")
-    )
-
-    val osmChange = OsmChange(Seq(Change.create(node)))
-
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(None)
 
-    t.poiChangeAnalyzer.analyze(osmChange)
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.create(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2",
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
 
     (t.poiRepository.save _).verify(
       where { poi: Poi =>
@@ -69,29 +75,22 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
 
     val t = new TestSetup()
 
-    val node = newRawNode(
-      id = 123L,
-      latitude = "1",
-      longitude = "2"
-    )
-
-    val osmChange = OsmChange(Seq(Change.create(node)))
-
-    val existingPoi = newPoi(
-      elementType = "node",
-      elementId = 123L,
-      latitude = "1",
-      longitude = "2",
-      tags = Tags.from("shop" -> "bicycle"),
-      layers = Seq("bicycle"),
-      tiles = Seq("13-0-0", "14-0-0")
-    )
-
-    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi))
-
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
 
-    t.poiChangeAnalyzer.analyze(osmChange)
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.create(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2"
+            )
+          )
+        )
+      )
+    )
 
     (t.poiRepository.delete _).verify(
       where { poiRef: PoiRef =>
@@ -121,21 +120,26 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
 
     val t = new TestSetup()
 
-    val node = newRawNode(
-      id = 123L,
-      latitude = "1",
-      longitude = "2",
-      tags = Tags.from("shop" -> "bicycle")
-    )
-
-    val osmChange = OsmChange(Seq(Change.modify(node)))
-
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(None)
 
-    t.poiChangeAnalyzer.analyze(osmChange)
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.modify(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2",
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
 
     (t.poiRepository.save _).verify(
       where { poi: Poi =>
@@ -170,34 +174,27 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
 
     val t = new TestSetup()
 
-    val node = newRawNode(
-      id = 123L,
-      latitude = "1",
-      longitude = "2"
-    )
-
-    val osmChange = OsmChange(Seq(Change.modify(node)))
-
-    val existingPoi = newPoi(
-      elementType = "node",
-      elementId = 123L,
-      latitude = "1",
-      longitude = "2",
-      tags = Tags.from("shop" -> "bicycle"),
-      layers = Seq("bicycle"),
-      tiles = Seq("13-0-0", "14-0-0")
-    )
-
-    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi))
-
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 1, 1))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 1, 1))
-
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
 
-    t.poiChangeAnalyzer.analyze(osmChange)
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.modify(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2",
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
 
     (t.poiRepository.save _).verify(
       where { poi: Poi =>
@@ -223,8 +220,8 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
     t.taskRepository.all(PoiTileTask.prefix) should equal(
       Seq(
         "poi-tile-task:13-0-0",
-        "poi-tile-task:14-0-0",
         "poi-tile-task:13-1-1",
+        "poi-tile-task:14-0-0",
         "poi-tile-task:14-1-1"
       )
     )
@@ -234,29 +231,22 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
 
     val t = new TestSetup()
 
-    val node = newRawNode(
-      id = 123L,
-      latitude = "1",
-      longitude = "2"
-    )
-
-    val osmChange = OsmChange(Seq(Change.delete(node)))
-
-    val existingPoi = newPoi(
-      elementType = "node",
-      elementId = 123L,
-      latitude = "1",
-      longitude = "2",
-      tags = Tags.from("shop" -> "bicycle"),
-      layers = Seq("bicycle"),
-      tiles = Seq("13-0-0", "14-0-0")
-    )
-
-    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi))
-
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
 
-    t.poiChangeAnalyzer.analyze(osmChange)
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.delete(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2"
+            )
+          )
+        )
+      )
+    )
 
     (t.poiRepository.delete _).verify(
       where { poiRef: PoiRef =>
@@ -281,29 +271,22 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
 
     val t = new TestSetup()
 
-    val node = newRawNode(
-      id = 123L,
-      latitude = "1",
-      longitude = "2"
-    )
-
-    val osmChange = OsmChange(Seq(Change.delete(node)))
-
-    val existingPoi = newPoi(
-      elementType = "node",
-      elementId = 123L,
-      latitude = "1",
-      longitude = "2",
-      tags = Tags.from("shop" -> "bicycle"),
-      layers = Seq("bicycle"),
-      tiles = Seq("13-0-0", "14-0-0")
-    )
-
-    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi))
-
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
 
-    t.poiChangeAnalyzer.analyze(osmChange)
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.delete(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2"
+            )
+          )
+        )
+      )
+    )
 
     (t.poiRepository.delete _).verify(
       where { poiRef: PoiRef =>
@@ -312,7 +295,6 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
         true
       }
     ).once()
-
 
     (t.knownPoiCache.delete _).verify(
       where { poiRef: PoiRef =>
@@ -329,19 +311,22 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
 
     val t = new TestSetup()
 
-    val node = newRawNode(
-      id = 123L,
-      latitude = "1",
-      longitude = "2"
-    )
-
-    val osmChange = OsmChange(Seq(Change.delete(node)))
-
     (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(None)
-
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
 
-    t.poiChangeAnalyzer.analyze(osmChange)
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.delete(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2"
+            )
+          )
+        )
+      )
+    )
 
     (t.poiRepository.delete _).verify(*).never()
 
@@ -354,6 +339,231 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
     ).once()
 
     t.taskRepository.all(PoiTileTask.prefix) should equal(Seq())
+  }
+
+  test("known node poi not in scope anymore") {
+
+    val t = new TestSetup()
+
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
+    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
+    (t.poiScopeAnalyzer.inScope _).when(*).returns(false)
+
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.modify(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2",
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
+
+    (t.poiRepository.delete _).verify(
+      where { poiRef: PoiRef =>
+        poiRef.elementType should equal("node")
+        poiRef.elementId should equal(123)
+        true
+      }
+    ).once()
+
+    (t.knownPoiCache.delete _).verify(
+      where { poiRef: PoiRef =>
+        poiRef.elementType should equal("node")
+        poiRef.elementId should equal(123)
+        true
+      }
+    ).once()
+
+    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq("poi-tile-task:13-0-0", "poi-tile-task:14-0-0"))
+  }
+
+  test("unknown node poi not in scope: no action") {
+
+    val t = new TestSetup()
+
+    (t.poiRepository.poi _).when(PoiRef("node", 123)).returns(None)
+    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
+    (t.poiScopeAnalyzer.inScope _).when(*).returns(false)
+
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.modify(
+            newRawNode(
+              id = 123L,
+              latitude = "1",
+              longitude = "2",
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
+
+    (t.poiRepository.save _).verify(*).never()
+    (t.poiRepository.delete _).verify(*).never()
+    (t.knownPoiCache.add _).verify(*).never()
+    (t.knownPoiCache.delete _).verify(*).never()
+    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq.empty)
+  }
+
+  test("way poi") {
+
+    val t = new TestSetup()
+
+    (t.knownPoiCache.contains _).when(PoiRef("way", 123)).returns(false)
+    (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
+    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.poiRepository.poi _).when(PoiRef("way", 123)).returns(None)
+    (t.poiQueryExecutor.center _).when(PoiRef("way", 123)).returns(Some(LatLonImpl("1", "2")))
+
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.create(
+            newRawWay(
+              id = 123L,
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
+
+    (t.poiRepository.save _).verify(
+      where { poi: Poi =>
+        poi.elementType should equal("way")
+        poi.elementId should equal(123)
+        poi.latitude should equal("1")
+        poi.longitude should equal("2")
+        poi.layers should equal(Seq("bicycle"))
+        poi.tags should equal(Tags.from("shop" -> "bicycle"))
+        poi.tiles should equal(Seq("13-0-0", "14-0-0"))
+        true
+      }
+    ).once()
+
+    (t.knownPoiCache.add _).verify(
+      where { poiRef: PoiRef =>
+        poiRef.elementType should equal("way")
+        poiRef.elementId should equal(123)
+        true
+      }
+    ).once()
+
+    t.taskRepository.all(PoiTileTask.prefix) should equal(
+      Seq(
+        "poi-tile-task:13-0-0",
+        "poi-tile-task:14-0-0"
+      )
+    )
+  }
+
+  test("way poi - not found in overpass database") {
+
+    val t = new TestSetup()
+
+    (t.knownPoiCache.contains _).when(PoiRef("way", 123)).returns(false)
+    (t.poiRepository.poi _).when(PoiRef("way", 123)).returns(None)
+    (t.poiQueryExecutor.center _).when(PoiRef("way", 123)).returns(None)
+
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.create(
+            newRawWay(
+              id = 123L,
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
+
+    (t.knownPoiCache.delete _).verify(
+      where { poiRef: PoiRef =>
+        poiRef.elementType should equal("way")
+        poiRef.elementId should equal(123)
+        true
+      }
+    ).once()
+
+    (t.poiRepository.save _).verify(*).never()
+    (t.poiRepository.delete _).verify(*).never()
+    (t.knownPoiCache.add _).verify(*).never()
+    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq.empty)
+  }
+
+  test("relation poi") {
+
+    val t = new TestSetup()
+
+    (t.knownPoiCache.contains _).when(PoiRef("relation", 123)).returns(false)
+    (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
+    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.poiRepository.poi _).when(PoiRef("relation", 123)).returns(None)
+    (t.poiQueryExecutor.center _).when(PoiRef("relation", 123)).returns(Some(LatLonImpl("1", "2")))
+
+    t.poiChangeAnalyzer.analyze(
+      OsmChange(
+        Seq(
+          Change.create(
+            newRawRelation(
+              id = 123L,
+              tags = Tags.from("shop" -> "bicycle")
+            )
+          )
+        )
+      )
+    )
+
+    (t.poiRepository.save _).verify(
+      where { poi: Poi =>
+        poi.elementType should equal("relation")
+        poi.elementId should equal(123)
+        poi.latitude should equal("1")
+        poi.longitude should equal("2")
+        poi.layers should equal(Seq("bicycle"))
+        poi.tags should equal(Tags.from("shop" -> "bicycle"))
+        poi.tiles should equal(Seq("13-0-0", "14-0-0"))
+        true
+      }
+    ).once()
+
+    (t.knownPoiCache.add _).verify(
+      where { poiRef: PoiRef =>
+        poiRef.elementType should equal("relation")
+        poiRef.elementId should equal(123)
+        true
+      }
+    ).once()
+
+    t.taskRepository.all(PoiTileTask.prefix) should equal(
+      Seq(
+        "poi-tile-task:13-0-0",
+        "poi-tile-task:14-0-0"
+      )
+    )
+  }
+
+  private def existingPoi(): Poi = {
+    newPoi(
+      elementType = "node",
+      elementId = 123L,
+      latitude = "1",
+      longitude = "2",
+      tags = Tags.from("shop" -> "bicycle"),
+      layers = Seq("bicycle"),
+      tiles = Seq("13-0-0", "14-0-0")
+    )
   }
 
   private class TestSetup {
@@ -373,7 +583,6 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
       poiScopeAnalyzer,
       poiQueryExecutor
     )
-
   }
 
 }

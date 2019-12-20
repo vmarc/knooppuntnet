@@ -12,7 +12,7 @@ import scala.xml.XML
 @Component
 class PoiQueryExecutorImpl(executor: OverpassQueryExecutor) extends PoiQueryExecutor {
 
-  override def center(poiRef: PoiRef): LatLon = {
+  override def center(poiRef: PoiRef): Option[LatLon] = {
 
     val query = PoiCenterQuery(poiRef)
     val xmlString = executor.executeQuery(None, query)
@@ -24,10 +24,20 @@ class PoiQueryExecutorImpl(executor: OverpassQueryExecutor) extends PoiQueryExec
         throw new RuntimeException(s"Could not load xml\n$xmlString", e)
     }
 
-    val center = xml.child \\ "center"
-    val latitude = (center \ "@lat").text
-    val longitude = (center \ "@lon").text
-
-    LatLonImpl(latitude, longitude)
+    val way = xml \\ "way"
+    if (way.isEmpty) {
+      None
+    }
+    else {
+      val center = way \\ "center"
+      if (center.isEmpty) {
+        None
+      }
+      else {
+        val latitude = (center \ "@lat").text
+        val longitude = (center \ "@lon").text
+        Some(LatLonImpl(latitude, longitude))
+      }
+    }
   }
 }

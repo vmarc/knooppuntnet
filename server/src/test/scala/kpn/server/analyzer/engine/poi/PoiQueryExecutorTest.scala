@@ -8,7 +8,7 @@ import org.scalatest.Matchers
 
 class PoiQueryExecutorTest extends FunSuite with Matchers with MockFactory {
 
-  test("test") {
+  test("pick up way center") {
 
     val queryResult =
       """
@@ -47,7 +47,25 @@ class PoiQueryExecutorTest extends FunSuite with Matchers with MockFactory {
 
     val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
 
-    poiQueryExecutor.center(PoiRef("way", 179212052)) should equal(LatLonImpl("47.7402732", "8.9747377"))
+    poiQueryExecutor.center(PoiRef("way", 179212052)) should equal(Some(LatLonImpl("47.7402732", "8.9747377")))
+  }
+
+  test("'None' when way not found in database") {
+
+    val queryResult =
+      """
+        |<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+        |<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+        |<meta osm_base="2019-12-18T11:56:02Z"/>
+        |</osm>
+        |""".stripMargin
+
+    val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
+    (overpassQueryExecutor.executeQuery _).when(*, *).returns(queryResult)
+
+    val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
+
+    poiQueryExecutor.center(PoiRef("way", 179212052)) should equal(None)
   }
 
 }

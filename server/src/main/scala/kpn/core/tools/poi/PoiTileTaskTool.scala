@@ -46,7 +46,7 @@ class PoiTileTaskTool(
   def generateTasks(): Unit = {
 
     log.info("Reading tile names")
-    val tiles = poiRepository.allTiles(stale = true).sorted
+    val tiles = poiRepository.allTiles(stale = false).sorted
 
     log.info(s"Generating ${tiles.size} tile tasks")
     tiles.zipWithIndex.foreach { case (tileName, index) =>

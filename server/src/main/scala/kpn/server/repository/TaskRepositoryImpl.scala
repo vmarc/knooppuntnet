@@ -27,7 +27,7 @@ class TaskRepositoryImpl(taskDatabase: Database) extends TaskRepository {
   override def all(prefix: String): Seq[String] = {
     val startKey = s""""$prefix""""
     val endKey = s""""${prefix}999999999999999""""
-    val query = Query("_all_docs", classOf[ViewResult2]).startKey(startKey).endKey(endKey).reduce(false).limit(50)
+    val query = Query("_all_docs", classOf[ViewResult2]).startKey(startKey).endKey(endKey).reduce(false).stale(false)
     val result = taskDatabase.execute(query)
     result.rows.map(_.key)
   }
