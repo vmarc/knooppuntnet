@@ -1,20 +1,22 @@
 package kpn.server.analyzer.engine.poi
 
 import javax.annotation.PostConstruct
+import kpn.core.util.Log
 import kpn.server.repository.PoiRepository
 import org.springframework.stereotype.Component
 
 @Component
 class KnownPoiCacheImpl(poiRepository: PoiRepository) extends KnownPoiCache {
 
+  private val log = Log(classOf[KnownPoiCacheImpl])
   private var knownPois = KnownPois()
 
   @PostConstruct
   def loadKnownPois(): Unit = {
-    val poiInfos = poiRepository.allPois()
-    val nodeIds = poiInfos.filter(_.elementType == "node").map(_.elementId).toSet
-    val wayIds = poiInfos.filter(_.elementType == "way").map(_.elementId).toSet
-    val relationIds = poiInfos.filter(_.elementType == "relation").map(_.elementId).toSet
+    log.info("Loading known poi ids")
+    val relationIds = loadRelationIds()
+    val wayIds = loadWayIds()
+    val nodeIds = loadNodeIds()
     knownPois = KnownPois(nodeIds, wayIds, relationIds)
   }
 
@@ -42,4 +44,24 @@ class KnownPoiCacheImpl(poiRepository: PoiRepository) extends KnownPoiCache {
     }
   }
 
+  private def loadRelationIds(): Set[Long] = {
+    log.elapsed {
+      val ids = poiRepository.relationIds(stale = false).toSet
+      (s"Loaded ${ids.size} relation ids", ids)
+    }
+  }
+
+  private def loadWayIds(): Set[Long] = {
+    log.elapsed {
+      val ids = poiRepository.wayIds(stale = false).toSet
+      (s"Loaded ${ids.size} way ids", ids)
+    }
+  }
+
+  private def loadNodeIds(): Set[Long] = {
+    log.elapsed {
+      val ids = poiRepository.nodeIds(stale = false).toSet
+      (s"Loaded ${ids.size} node ids", ids)
+    }
+  }
 }

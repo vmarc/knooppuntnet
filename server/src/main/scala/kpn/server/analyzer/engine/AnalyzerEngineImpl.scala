@@ -48,8 +48,8 @@ class AnalyzerEngineImpl(
         }
 
         tileUpdater.update(12)
-        // poiChangeAnalyzer.analyze(osmChange)
-        // poiTileUpdater.update()
+        poiChangeAnalyzer.analyze(osmChange)
+        poiTileUpdater.update()
 
         analysisRepository.saveLastUpdated(timestamp)
         (osmChange.timestampFrom.map(_.iso).getOrElse(""), ())

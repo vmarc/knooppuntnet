@@ -7,14 +7,12 @@ import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
-import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.tile.TileCalculator
-import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
 import org.springframework.stereotype.Component
@@ -34,27 +32,15 @@ class PoiChangeAnalyzerImpl(
   override def analyze(osmChange: OsmChange): Unit = {
     osmChange.actions.foreach { change =>
       change.action match {
-        case Create => processElements(change.elements)
-        case Modify => processElements(change.elements)
-        case Delete => deleteElements(change.elements)
+        case Create => change.elements.foreach(processElement)
+        case Modify => change.elements.foreach(processElement)
+        case Delete => change.elements.foreach(element => deletePoi(PoiRef.of(element), "delete"))
       }
     }
   }
 
-  private def processElements(elements: Seq[RawElement]): Unit = {
-    elements.foreach(processElement)
-  }
-
-  private def deleteElements(elements: Seq[RawElement]): Unit = {
-    elements.foreach { element =>
-      deletePoi(PoiRef.of(element), "delete")
-    }
-  }
-
   private def processElement(element: RawElement): Unit = {
-
     val matchingPoiDefinitions = findMatchingPoiDefinitions(element.tags)
-
     val poiRef = PoiRef.of(element)
     if (knownPoiCache.contains(poiRef) && matchingPoiDefinitions.isEmpty) {
       deletePoi(poiRef, "known poi lost poi tags")
@@ -62,32 +48,18 @@ class PoiChangeAnalyzerImpl(
     else {
       if (matchingPoiDefinitions.nonEmpty) {
         element match {
-          case node: RawNode => processNodeElement(node, matchingPoiDefinitions)
-          case _ => processNonNodeElement(element, matchingPoiDefinitions)
+          case node: RawNode => processPoi(poiRef, node, node, matchingPoiDefinitions)
+          case _ =>
+            poiQueryExecutor.center(poiRef) match {
+              case Some(center) => processPoi(poiRef, center, element, matchingPoiDefinitions)
+              case _ => deletePoi(poiRef, "center not found")
+            }
         }
       }
     }
   }
 
-  private def processNodeElement(node: RawNode, poiDefinitions: Seq[PoiDefinition]): Unit = {
-
-    val poiRef = PoiRef.of(node)
-
-    if (!poiScopeAnalyzer.inScope(node)) {
-      if (knownPoiCache.contains(poiRef)) {
-        deletePoi(poiRef, "known poi no longer in scope")
-      }
-    }
-    else {
-      savePoi(poiRef, node, node.tags, poiDefinitions)
-    }
-  }
-
-  private def processNonNodeElement(element: RawElement, poiDefinitions: Seq[PoiDefinition]): Unit = {
-
-    val poiRef = PoiRef.of(element)
-    val center = poiQueryExecutor.center(poiRef)
-
+  private def processPoi(poiRef: PoiRef, center: LatLon, element: RawElement, poiDefinitions: Seq[PoiDefinition]): Unit = {
     if (!poiScopeAnalyzer.inScope(center)) {
       if (knownPoiCache.contains(poiRef)) {
         deletePoi(poiRef, "known poi no longer in scope")
@@ -98,32 +70,20 @@ class PoiChangeAnalyzerImpl(
     }
   }
 
-  private def findMatchingPoiDefinitions(tags: Tags): Seq[PoiDefinition] = {
-    PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter { poiDefinition =>
-      poiDefinition.expression.evaluate(tags)
-    }
-  }
-
-  private def tilesFor(poiDefinitions: Seq[PoiDefinition], latLon: LatLon): Seq[Tile] = {
-    val minLevel = poiDefinitions.map(_.minLevel).min
-    (minLevel.toInt to ZoomLevel.vectorTileMaxZoom).map(z => tileCalculator.tileLonLat(z, latLon.lon, latLon.lat))
-  }
-
   private def deletePoi(poiRef: PoiRef, reason: String): Unit = {
     knownPoiCache.delete(poiRef)
     poiRepository.poi(poiRef) foreach { poi =>
       poiRepository.delete(poiRef)
-      poi.tiles.foreach { tileName =>
-        taskRepository.add(PoiTileTask.withTileName(tileName))
-      }
-      val tileNameString = poi.tiles.mkString(", ")
-      log.info(s"removed poi ${poiRef.elementType} ${poiRef.elementId} [$reason] (tile(s): $tileNameString)")
+      poi.tiles.foreach(tileName => taskRepository.add(PoiTileTask.withTileName(tileName)))
+      logPoi(poi, "remove", Some(reason))
     }
   }
 
   private def savePoi(poiRef: PoiRef, center: LatLon, tags: Tags, poiDefinitions: Seq[PoiDefinition]): Unit = {
 
-    val tiles = tilesFor(poiDefinitions, center)
+    val oldTileNames = poiRepository.poi(poiRef).toSeq.flatMap(_.tiles)
+    val newTileNames = tileCalculator.tiles(center, poiDefinitions)
+    val allTileNames = (oldTileNames ++ newTileNames).sorted.distinct
 
     val poi = Poi(
       poiRef.elementType,
@@ -132,16 +92,26 @@ class PoiChangeAnalyzerImpl(
       center.longitude,
       poiDefinitions.map(_.name),
       tags,
-      tiles.map(_.name)
+      newTileNames
     )
-    poiRepository.save(poi)
 
-    tiles.foreach { tile =>
-      taskRepository.add(PoiTileTask.withTile(tile))
+    if (poiRepository.save(poi)) {
+      allTileNames.foreach(tileName => taskRepository.add(PoiTileTask.withTileName(tileName)))
+      knownPoiCache.add(poiRef)
+      logPoi(poi, "add")
     }
-
-    knownPoiCache.add(poiRef)
-    log.info("added ")
   }
 
+  private def findMatchingPoiDefinitions(tags: Tags): Seq[PoiDefinition] = {
+    PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter { poiDefinition =>
+      poiDefinition.expression.evaluate(tags)
+    }
+  }
+
+  private def logPoi(poi: Poi, action: String, reason: Option[String] = None): Unit = {
+    val tileString = poi.tiles.mkString("+")
+    val layerString = poi.layers.mkString("+")
+    val reasonString = reason.map(string => s" [$string]").getOrElse("")
+    log.info(s"$action poi ${poi.elementType}:${poi.elementId}$reasonString, layer(s)=$layerString, tile(s)=$tileString")
+  }
 }
