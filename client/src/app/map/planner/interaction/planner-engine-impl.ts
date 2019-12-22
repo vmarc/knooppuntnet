@@ -29,7 +29,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDownEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
-      this.context.crosshair.updatePosition(coordinate);
       return false;
     }
 
@@ -53,22 +52,18 @@ export class PlannerEngineImpl implements PlannerEngine {
       }
     }
 
-    this.context.crosshair.updatePosition(coordinate);
     return false;
   }
 
   handleMoveEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
-      this.context.crosshair.setVisible(true);
       this.context.cursor.setStyle("default");
-      this.context.crosshair.updatePosition(coordinate);
       return false;
     }
 
     const flagFeature = this.findFlag(features);
     if (!!flagFeature) {
-      this.context.crosshair.setVisible(false);
       this.context.cursor.setStyle("move");
       return true;
     }
@@ -76,20 +71,16 @@ export class PlannerEngineImpl implements PlannerEngine {
     const networkNodeFeature = this.findNetworkNode(features);
     if (networkNodeFeature != null) {
       this.context.cursor.setStyle("default");
-      this.context.crosshair.updatePosition(networkNodeFeature.node.coordinate); // snap
       return true;
     }
 
     const leg = this.findLeg(features);
     if (leg != null) {
-      this.context.crosshair.setVisible(false);
       this.context.cursor.setStyle("move");
       return true;
     }
 
-    this.context.crosshair.setVisible(true);
     this.context.cursor.setStyle("default");
-    this.context.crosshair.updatePosition(coordinate);
 
     return false;
   }
@@ -134,8 +125,6 @@ export class PlannerEngineImpl implements PlannerEngine {
         } else if (this.isDraggingNode()) {
           this.endDragNode(networkNode.node);
         }
-        this.context.crosshair.setVisible(true);
-        this.context.crosshair.updatePosition(coordinate);
         return true;
       }
 
@@ -147,22 +136,16 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.dragCancel();
     }
 
-    this.context.crosshair.setVisible(true);
-    this.context.crosshair.updatePosition(coordinate);
     return false;
   }
 
   handleMouseOut() {
-    this.context.crosshair.setVisible(false);
   }
 
   handleMouseEnter() {
-    this.context.crosshair.setVisible(true);
   }
 
   private nodeSelected(networkNode: PlannerMapFeature): void {
-    this.context.crosshair.setVisible(true);
-    this.context.crosshair.updatePosition(networkNode.node.coordinate); // snap
     if (this.context.plan.source === null) {
       const command = new PlannerCommandAddStartPoint(networkNode.node);
       this.context.execute(command);
