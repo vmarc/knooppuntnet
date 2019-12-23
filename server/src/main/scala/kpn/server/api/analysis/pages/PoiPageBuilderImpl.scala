@@ -35,7 +35,7 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
 
   def build(poiRef: PoiRef): Option[PoiPage] = {
 
-    poiRepository.poi(poiRef).map { poi =>
+    poiRepository.get(poiRef).map { poi =>
 
       var interpretedTagKeys: Set[String] = Set()
 
