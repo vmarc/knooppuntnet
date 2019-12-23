@@ -72,7 +72,7 @@ class PoiChangeAnalyzerImpl(
 
   private def deletePoi(poiRef: PoiRef, reason: String): Unit = {
     knownPoiCache.delete(poiRef)
-    poiRepository.poi(poiRef) foreach { poi =>
+    poiRepository.get(poiRef) foreach { poi =>
       poiRepository.delete(poiRef)
       poi.tiles.foreach(tileName => taskRepository.add(PoiTileTask.withTileName(tileName)))
       logPoi(poi, "remove", Some(reason))
@@ -81,7 +81,7 @@ class PoiChangeAnalyzerImpl(
 
   private def savePoi(poiRef: PoiRef, center: LatLon, tags: Tags, poiDefinitions: Seq[PoiDefinition]): Unit = {
 
-    val oldTileNames = poiRepository.poi(poiRef).toSeq.flatMap(_.tiles)
+    val oldTileNames = poiRepository.get(poiRef).toSeq.flatMap(_.tiles)
     val newTileNames = tileCalculator.tiles(center, poiDefinitions)
     val allTileNames = (oldTileNames ++ newTileNames).sorted.distinct
 

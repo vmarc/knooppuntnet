@@ -25,7 +25,7 @@ class PoiTileBuilderImpl(
 
       val tile = tileCalculator.tileNamed(tileName)
       val poiRefs = poiRepository.tilePoiRefs(tileName)
-      val pois = poiRefs.flatMap(poiRef => poiRepository.poi(poiRef))
+      val pois = poiRefs.flatMap(poiRef => poiRepository.get(poiRef))
 
       val poiInfos = pois.map { poi =>
         PoiInfo(

@@ -18,7 +18,7 @@ trait PoiRepository {
 
   def relationIds(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[Long]
 
-  def poi(poiRef: PoiRef): Option[Poi]
+  def get(poiRef: PoiRef): Option[Poi]
 
   def delete(poiRef: PoiRef): Unit
 

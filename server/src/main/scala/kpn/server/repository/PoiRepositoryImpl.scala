@@ -89,7 +89,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     PoiRelationIdView.query(poiDatabase, stale)
   }
 
-  override def poi(poiRef: PoiRef): Option[Poi] = {
+  override def get(poiRef: PoiRef): Option[Poi] = {
     val id = docId(poiRef)
     poiDatabase.docWithId(id, classOf[PoiDoc]).map(_.poi)
   }
