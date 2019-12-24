@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {throttleTime} from "rxjs/operators";
+import {asyncScheduler, Observable} from "rxjs";
 import {Attribution, defaults as defaultControls} from "ol/control";
 import Coordinate from "ol/coordinate";
 import {click, pointerMove} from "ol/events/condition";
@@ -28,16 +30,25 @@ import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 import {DebugLayer} from "../../../components/ol/domain/debug-layer";
+import {TileLoadProgressService} from "../../../components/ol/tile-load-progress.service";
 
 @Component({
   selector: "kpn-map-main-page",
   template: `
+    <mat-progress-bar class="progress" mode="determinate" [value]="progress | async"></mat-progress-bar>
     <div id="main-map" class="map"></div>
   `,
   styles: [`
-    .map {
+    .progress {
       position: absolute;
       top: 48px;
+      left: 0;
+      right: 0;
+    }
+
+    .map {
+      position: absolute;
+      top: 52px;
       left: 0;
       right: 0;
       bottom: 0;
@@ -49,6 +60,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   map: Map;
   mainMapStyle: (feature, resolution) => Style;
 
+  progress: Observable<number>;
   bitmapTileLayer: TileLayer;
   vectorTileLayer: VectorTileLayer;
   poiTileLayer: VectorTileLayer;
@@ -62,8 +74,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private mapService: MapService,
               private poiService: PoiService,
               private poiTileLayerService: PoiTileLayerService,
-              private plannerService: PlannerService) {
+              private plannerService: PlannerService,
+              private tileLoadProgressService: TileLoadProgressService) {
     this.pageService.showFooter = false;
+    this.progress = tileLoadProgressService.progress.pipe(throttleTime(200, asyncScheduler, {trailing: true}));
   }
 
   ngOnInit(): void {
@@ -135,6 +149,17 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     const view = this.map.getView();
     view.fit(extent);
     view.on("change:resolution", () => this.zoom(view.getZoom()));
+    view.on("change:center", (e) => {
+      let center: Coordinate = view.getCenter();
+      let zoom = view.getZoom();
+      console.log("DEBUG change:center x=" + center[0] + ", y=" + center[1], ", zoom=" + zoom);
+    });
+    view.on("change:rotation", (e) => {
+      console.log("DEBUG change:rotation" + e);
+
+    });
+
+    this.tileLoadProgressService.install(this.bitmapTileLayer, this.vectorTileLayer, this.poiTileLayer);
 
     this.vectorTileLayer.setStyle(this.mainMapStyle);
     this.updateLayerVisibility(view.getZoom());

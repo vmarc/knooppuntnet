@@ -49,6 +49,7 @@ import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
 import {PoiDetailComponent} from "./sidebar/poi-detail.component";
 import {PlanDistanceComponent} from "./sidebar/plan-distance.component";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import {PlanDistanceComponent} from "./sidebar/plan-distance.component";
     MapRoutingModule,
     SharedModule,
     OlModule,
-    PdfModule
+    PdfModule,
+    MatProgressBarModule
   ],
   declarations: [
     MapPageComponent,

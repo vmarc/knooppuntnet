@@ -8,16 +8,6 @@ import {createXYZ} from "ol/tilegrid";
 
 export class OsmLayer {
 
-  public static bitmapBuild() {
-    return new TileLayer({
-      source: new XYZ({
-        minZoom: 0,
-        maxZoom: 14,
-        url: "/tiles/osm-bitmap/{z}/{x}/{y}.png"
-      })
-    });
-  }
-
   public static build(): TileLayer {
 
     const tileGrid = createXYZ({

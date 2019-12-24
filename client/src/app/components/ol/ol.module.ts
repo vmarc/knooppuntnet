@@ -10,6 +10,7 @@ import {RouteMapComponent} from "./route-map.component";
 import {NodeMovedMapComponent} from "./node-moved-map.component";
 import { SubsetMapComponent } from './subset-map.component';
 import { LayerSwitcherComponent } from './layer-switcher.component';
+import {TileLoadProgressService} from "./tile-load-progress.service";
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { LayerSwitcherComponent } from './layer-switcher.component';
   providers: [
     MapService,
     MapClickService,
-    PoiTileLayerService
+    PoiTileLayerService,
+    TileLoadProgressService
   ]
 })
 export class OlModule {
