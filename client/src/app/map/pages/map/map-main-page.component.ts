@@ -3,16 +3,13 @@ import {ActivatedRoute} from "@angular/router";
 import {throttleTime} from "rxjs/operators";
 import {asyncScheduler, Observable} from "rxjs";
 import {Attribution, defaults as defaultControls} from "ol/control";
-import Coordinate from "ol/coordinate";
 import {click, pointerMove} from "ol/events/condition";
 import Select from "ol/interaction/Select";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
-import {fromLonLat} from "ol/proj";
 import Style from "ol/style/Style";
 import View from "ol/View";
-import Extent from "ol/View";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
 import {MapClickHandler} from "../../../components/ol/domain/map-click-handler";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
@@ -31,6 +28,7 @@ import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 import {DebugLayer} from "../../../components/ol/domain/debug-layer";
 import {TileLoadProgressService} from "../../../components/ol/tile-load-progress.service";
+import {MapPositionService} from "../../../components/ol/map-position.service";
 
 @Component({
   selector: "kpn-map-main-page",
@@ -75,7 +73,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private poiService: PoiService,
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
-              private tileLoadProgressService: TileLoadProgressService) {
+              private tileLoadProgressService: TileLoadProgressService,
+              private mapPositionService: MapPositionService) {
     this.pageService.showFooter = false;
     this.progress = tileLoadProgressService.progress.pipe(throttleTime(200, asyncScheduler, {trailing: true}));
   }
@@ -142,27 +141,14 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // this.installClickInteraction();
     // this.installMoveInteraction();
-
-    const a: Coordinate = fromLonLat([2.24, 50.16]);
-    const b: Coordinate = fromLonLat([10.56, 54.09]);
-    const extent: Extent = [a[0], a[1], b[0], b[1]];
     const view = this.map.getView();
-    view.fit(extent);
-    view.on("change:resolution", () => this.zoom(view.getZoom()));
-    view.on("change:center", (e) => {
-      let center: Coordinate = view.getCenter();
-      let zoom = view.getZoom();
-      console.log("DEBUG change:center x=" + center[0] + ", y=" + center[1], ", zoom=" + zoom);
-    });
-    view.on("change:rotation", (e) => {
-      console.log("DEBUG change:rotation" + e);
-
-    });
-
     this.tileLoadProgressService.install(this.bitmapTileLayer, this.vectorTileLayer, this.poiTileLayer);
+    this.mapPositionService.install(view);
+
+    view.on("change:resolution", () => this.zoom(view.getZoom()));
 
     this.vectorTileLayer.setStyle(this.mainMapStyle);
-    this.updateLayerVisibility(view.getZoom());
+    this.updateLayerVisibility(this.map.getView().getZoom());
 
     MapGeocoder.install(this.map);
   }
