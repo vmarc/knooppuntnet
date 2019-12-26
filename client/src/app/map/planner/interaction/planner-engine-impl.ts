@@ -58,29 +58,29 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleMoveEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
-      this.context.cursor.setStyle("default");
+      this.context.cursor.setStyleDefault();
       return false;
     }
 
     const flagFeature = this.findFlag(features);
     if (!!flagFeature) {
-      this.context.cursor.setStyle("move");
+      this.context.cursor.setStyleMove();
       return true;
     }
 
     const networkNodeFeature = this.findNetworkNode(features);
     if (networkNodeFeature != null) {
-      this.context.cursor.setStyle("default");
+      this.context.cursor.setStylePointer();
       return true;
     }
 
     const leg = this.findLeg(features);
     if (leg != null) {
-      this.context.cursor.setStyle("move");
+      this.context.cursor.setStyleMove();
       return true;
     }
 
-    this.context.cursor.setStyle("default");
+    this.context.cursor.setStyleDefault();
 
     return false;
   }
@@ -115,7 +115,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleUpEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
-      this.context.cursor.setStyle("default");
+      this.context.cursor.setStyleDefault();
       this.context.elasticBand.setInvisible();
 
       const networkNode = this.findNetworkNode(features);

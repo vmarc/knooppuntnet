@@ -1,6 +1,7 @@
 import Map from "ol/Map";
+import {PlannerCursor} from "./planner-cursor";
 
-export class PlannerCursorImpl {
+export class PlannerCursorImpl implements PlannerCursor {
 
   viewPort: HTMLElement;
 
@@ -8,7 +9,22 @@ export class PlannerCursorImpl {
     this.viewPort = map.getViewport();
   }
 
-  setStyle(style: string): void {
+  setStyleMove(): void {
+    this.setStyle("move");
+  }
+
+  setStylePointer(): void {
+    this.setStyle("pointer");
+  }
+
+  setStyleDefault(): void {
+    this.setStyle("default");
+  }
+
+  private setStyle(style: string): void {
+
+    console.log("DEBUG cursor set style " + style);
+
     this.viewPort.style.cursor = style;
   }
 

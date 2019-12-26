@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material";
-import {Subscription} from "rxjs";
 import {PdfService} from "../../pdf/pdf.service";
 import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {Subscriptions} from "../../util/Subscriptions";
@@ -82,12 +81,9 @@ import {ExportDialogComponent} from "./export-dialog.component";
 })
 export class PlanComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   plan: Plan;
-  planSubscription: Subscription;
-
   mode = "compact"; // compact | detailed | instructions
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private plannerService: PlannerService,
               private pdfService: PdfService,
