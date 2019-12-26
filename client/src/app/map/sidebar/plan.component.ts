@@ -71,6 +71,10 @@ import {ExportDialogComponent} from "./export-dialog.component";
       font-weight: bold;
     }
 
+    a:hover {
+      cursor: pointer;
+    }
+
   `],
   providers: [
     PdfService
