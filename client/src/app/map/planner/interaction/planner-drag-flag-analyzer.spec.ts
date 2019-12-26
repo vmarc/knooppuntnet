@@ -1,10 +1,9 @@
 import {List} from "immutable";
-import {PlannerMapFeature} from "../features/planner-map-feature";
 import {Plan} from "../plan/plan";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
+import {FlagFeature} from "../features/flag-feature";
 
 describe("PlannerNodeDragAnalyzer", () => {
 
@@ -20,7 +19,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   it("start start-point drag", () => {
 
     const plan = Plan.create(node1, List([leg12, leg23, leg34]));
-    const flag = PlannerMapFeature.startFlag(node1.featureId);
+    const flag = FlagFeature.start(node1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
     expect(drag.anchor1).toEqual(node1.coordinate);
@@ -31,7 +30,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   it("start via-point 2 drag", () => {
 
     const plan = Plan.create(node1, List([leg12, leg23, leg34]));
-    const flag = PlannerMapFeature.flag(PlanFlagType.Via, node2.featureId);
+    const flag = FlagFeature.via(node2.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
     expect(drag.anchor1).toEqual(node1.coordinate);
@@ -42,7 +41,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   it("start via-point 3 drag", () => {
 
     const plan = Plan.create(node1, List([leg12, leg23, leg34]));
-    const flag = PlannerMapFeature.flag(PlanFlagType.Via, node3.featureId);
+    const flag = FlagFeature.via(node3.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
     expect(drag.anchor1).toEqual(node2.coordinate);
@@ -52,7 +51,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("cannot initiate drag of via node on plan with no legs", () => {
     const plan = Plan.create(node1, List());
-    const flag = PlannerMapFeature.flag(PlanFlagType.Via, node1.featureId);
+    const flag = FlagFeature.via(node1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
     expect(drag).toBeNull();
   });
@@ -60,7 +59,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   it("end-point", () => {
 
     const plan = Plan.create(node1, List([leg12, leg23, leg34]));
-    const flag = PlannerMapFeature.flag(PlanFlagType.Via, node4.featureId);
+    const flag = FlagFeature.via(node4.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
     expect(drag.anchor1).toEqual(node4.coordinate);

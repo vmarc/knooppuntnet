@@ -6,10 +6,13 @@ import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-sta
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
-import {PlannerMapFeature} from "../features/planner-map-feature";
+import {MapFeature} from "../features/map-feature";
 import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlannerEngineImpl} from "./planner-engine-impl";
+import {NetworkNodeFeature} from "../features/network-node-feature";
+import {FlagFeature} from "../features/flag-feature";
+import {LegFeature} from "../features/leg-feature";
 
 describe("PlannerEngine", () => {
 
@@ -21,8 +24,8 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
 
-      const node = PlannerMapFeature.networkNode("1001", "01", [1, 1]);
-      const features: List<PlannerMapFeature> = List([node]);
+      const node = NetworkNodeFeature.create("1001", "01", [1, 1]);
+      const features: List<MapFeature> = List([node]);
 
       // act
       const eventIsNotFurtherPropagated = engine.handleDownEvent(features, [1.1, 1.1]);
@@ -49,12 +52,12 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
 
-      const node1 = PlannerMapFeature.networkNode("1001", "01", [1, 1]);
-      const node2 = PlannerMapFeature.networkNode("1002", "02", [2, 2]);
+      const node1 = NetworkNodeFeature.create("1001", "01", [1, 1]);
+      const node2 = NetworkNodeFeature.create("1002", "02", [2, 2]);
 
       setup.context.updatePlan(Plan.create(node1.node, List()));
 
-      const features: List<PlannerMapFeature> = List([node2]);
+      const features: List<MapFeature> = List([node2]);
 
       // act
       const eventIsNotFurtherPropagated = engine.handleDownEvent(features, [2.1, 2.1]);
@@ -85,8 +88,8 @@ describe("PlannerEngine", () => {
 
       const plan = setup.createPlanWithStartPointOnly();
 
-      const oldStartNodeFeature = PlannerMapFeature.startFlag(plan.source.featureId);
-      const newStartNodeFeature = PlannerMapFeature.networkNode("1002", "02", [2, 2]);
+      const oldStartNodeFeature = FlagFeature.start(plan.source.featureId);
+      const newStartNodeFeature = NetworkNodeFeature.create("1002", "02", [2, 2]);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldStartNodeFeature]), [1.1, 1.1]);
@@ -95,7 +98,7 @@ describe("PlannerEngine", () => {
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
       setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldStartNodeFeature.featureId, [1.1, 1.1]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldStartNodeFeature.id, [1.1, 1.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -109,7 +112,7 @@ describe("PlannerEngine", () => {
       expect(eventIsNotFurtherPropagated2).toBeTruthy();
 
       setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldStartNodeFeature.featureId, [1.5, 1.5]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldStartNodeFeature.id, [1.5, 1.5]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -143,7 +146,7 @@ describe("PlannerEngine", () => {
 
       const plan = setup.createPlanWithStartPointOnly();
 
-      const startFlag = PlannerMapFeature.startFlag(plan.source.featureId);
+      const startFlag = FlagFeature.start(plan.source.featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([startFlag]), [1.1, 1.1]);
@@ -152,7 +155,7 @@ describe("PlannerEngine", () => {
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
       setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Start, startFlag.featureId, [1.1, 1.1]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Start, startFlag.id, [1.1, 1.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -182,9 +185,9 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
-      const newStartNodeFeature = PlannerMapFeature.networkNode("1003", "03", [3, 3]);
+      const newStartNodeFeature = NetworkNodeFeature.create("1003", "03", [3, 3]);
       setup.createLeg(setup.node3, setup.node2);
-      const oldStartNodeFeature = PlannerMapFeature.startFlag(oldPlan.source.featureId);
+      const oldStartNodeFeature = FlagFeature.start(oldPlan.source.featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldStartNodeFeature]), [1.1, 1.1]);
@@ -208,7 +211,7 @@ describe("PlannerEngine", () => {
       expect(eventIsNotFurtherPropagated2).toBeTruthy();
 
       setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldStartNodeFeature.featureId, [1.5, 1.5]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldStartNodeFeature.id, [1.5, 1.5]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.legs.get(0).sink.featureId, [2, 2]);
 
       setup.elasticBand.expectVisible(true);
@@ -248,7 +251,7 @@ describe("PlannerEngine", () => {
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
 
-      const oldStartNodeFeature = PlannerMapFeature.startFlag(oldPlan.source.featureId);
+      const oldStartNodeFeature = FlagFeature.start(oldPlan.source.featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldStartNodeFeature]), [1.1, 1.1]);
@@ -297,9 +300,9 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
-      const newEndNodeFeature = PlannerMapFeature.networkNode("1003", "03", [3, 3]);
+      const newEndNodeFeature = NetworkNodeFeature.create("1003", "03", [3, 3]);
       setup.createLeg(setup.node1, setup.node3);
-      const oldEndNodeFeature = PlannerMapFeature.viaFlag(oldPlan.sink.featureId);
+      const oldEndNodeFeature = FlagFeature.via(oldPlan.sink.featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldEndNodeFeature]), [2.1, 2.1]);
@@ -362,7 +365,7 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
-      const oldEndNodeFeature = PlannerMapFeature.viaFlag(oldPlan.sink.featureId);
+      const oldEndNodeFeature = FlagFeature.via(oldPlan.sink.featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldEndNodeFeature]), [2.1, 2.1]);
@@ -413,10 +416,10 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createTwoLegPlan();
-      const newViaNodeFeature = PlannerMapFeature.networkNode("1004", "04", [4, 4]);
+      const newViaNodeFeature = NetworkNodeFeature.create("1004", "04", [4, 4]);
       setup.createLeg(setup.node1, setup.node4);
       setup.createLeg(setup.node4, setup.node3);
-      const oldViaNodeFeature = PlannerMapFeature.viaFlag(oldPlan.legs.get(0).sink.featureId);
+      const oldViaNodeFeature = FlagFeature.via(oldPlan.legs.get(0).sink.featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldViaNodeFeature]), [2.1, 2.1]);
@@ -427,7 +430,7 @@ describe("PlannerEngine", () => {
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.source.featureId, [1, 1]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sink.featureId, [3, 3]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.featureId, [2.1, 2.1]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.id, [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -443,7 +446,7 @@ describe("PlannerEngine", () => {
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.source.featureId, [1, 1]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sink.featureId, [3, 3]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.featureId, [2.5, 2.5]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.id, [2.5, 2.5]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -491,7 +494,7 @@ describe("PlannerEngine", () => {
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createTwoLegPlan();
 
-      const oldViaNodeFeature = PlannerMapFeature.viaFlag(oldPlan.legs.get(0).sink.featureId);
+      const oldViaNodeFeature = FlagFeature.via(oldPlan.legs.get(0).sink.featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldViaNodeFeature]), [2.1, 2.1]);
@@ -502,7 +505,7 @@ describe("PlannerEngine", () => {
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.source.featureId, [1, 1]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sink.featureId, [3, 3]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.featureId, [2.1, 2.1]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.id, [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -552,10 +555,10 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
-      const newViaNodeFeature = PlannerMapFeature.networkNode("1003", "03", [3, 3]);
+      const newViaNodeFeature = NetworkNodeFeature.create("1003", "03", [3, 3]);
       setup.createLeg(setup.node1, setup.node3);
       setup.createLeg(setup.node3, setup.node2);
-      const oldLegFeature = PlannerMapFeature.leg(oldPlan.legs.get(0).featureId);
+      const oldLegFeature = new LegFeature(oldPlan.legs.get(0).featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldLegFeature]), [1.5, 1.5]);
@@ -629,7 +632,7 @@ describe("PlannerEngine", () => {
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
 
-      const oldLegFeature = PlannerMapFeature.leg(oldPlan.legs.get(0).featureId);
+      const oldLegFeature = new LegFeature(oldPlan.legs.get(0).featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldLegFeature]), [1.5, 1.5]);

@@ -1,16 +1,16 @@
 import {List} from "immutable";
 import Coordinate from "ol/coordinate";
-import {PlannerMapFeature} from "../features/planner-map-feature";
+import {MapFeature} from "../features/map-feature";
 
 export interface PlannerEngine {
 
-  handleDownEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
+  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
 
-  handleMoveEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
+  handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
 
-  handleDragEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
+  handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
 
-  handleUpEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean;
+  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
 
   handleMouseOut();
 

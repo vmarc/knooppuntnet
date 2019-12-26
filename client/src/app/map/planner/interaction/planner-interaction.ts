@@ -1,17 +1,18 @@
-import {List} from "immutable";
-import Coordinate from "ol/coordinate";
+import Map from "ol/Map";
 import MapBrowserEvent from "ol/events"
+import PointerInteraction from "ol/interaction/Pointer";
+import Coordinate from "ol/coordinate";
 import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
-import PointerInteraction from "ol/interaction/Pointer";
-import Map from "ol/Map";
-import {PlannerMapFeature} from "../features/planner-map-feature";
+import {List} from "immutable";
+import {MapFeature} from "../features/map-feature";
 import {PlannerEngine} from "./planner-engine";
+import {LegFeature} from "../features/leg-feature";
+import {FlagFeature} from "../features/flag-feature";
+import {NetworkNodeFeature} from "../features/network-node-feature";
+import {PoiFeature} from "../features/poi-feature";
 
 export class PlannerInteraction {
-
-  constructor(private engine: PlannerEngine) {
-  }
 
   private interaction = new PointerInteraction({
     handleDownEvent: (evt: MapBrowserEvent) => {
@@ -28,41 +29,51 @@ export class PlannerInteraction {
     }
   });
 
+  constructor(private engine: PlannerEngine) {
+  }
+
   addToMap(map: Map) {
     map.addInteraction(this.interaction);
     map.getViewport().addEventListener("mouseout", (e) => this.engine.handleMouseOut());
     map.getViewport().addEventListener("mouseenter", (e) => this.engine.handleMouseEnter());
   }
 
-  private getFeaturesAt(evt: MapBrowserEvent): List<PlannerMapFeature> {
+  private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
     const tolerance = 20;
     const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
     if (features) {
-      return List(features.map(feature => this.fromFeature(feature)).filter(f => f !== null));
+      return List(features.map(feature => this.mapFeature(feature)).filter(f => f !== null));
     }
     return List();
   }
 
-  private fromFeature(feature: Feature): PlannerMapFeature {
+  private mapFeature(feature: Feature): MapFeature {
 
     const layer = feature.get("layer");
     if (layer) {
       if ("leg" === layer) {
         const legId = feature.getId();
-        return PlannerMapFeature.leg(legId);
+        return new LegFeature(legId);
       }
       if ("flag" === layer) {
         const id = feature.getId();
-        const nodeId = feature.get("nodeId");
         const flagType = feature.get("flag-type");
-        return PlannerMapFeature.flag(flagType, id); // TODO nodeId not used now, is this correct?
+        return new FlagFeature(id, flagType);
       }
       if (layer.endsWith("node")) {
         const nodeId = feature.get("id");
         const nodeName = feature.get("name");
         const point: Point = feature.getGeometry() as Point;
         const coordinate: Coordinate = point.getCoordinates();
-        return PlannerMapFeature.networkNode(nodeId, nodeName, coordinate);
+        return NetworkNodeFeature.create(nodeId, nodeName, coordinate);
+      }
+
+      const layerType = feature.get("type");
+      if ("node" == layerType || "way" == layerType || "relation" == layerType) {
+        const poiId = feature.get("id");
+        const point: Point = feature.getGeometry() as Point;
+        const coordinate: Coordinate = point.getCoordinates();
+        return new PoiFeature(poiId, layerType, layer, coordinate);
       }
     }
 

@@ -22,9 +22,6 @@ export class PlannerCursorImpl implements PlannerCursor {
   }
 
   private setStyle(style: string): void {
-
-    console.log("DEBUG cursor set style " + style);
-
     this.viewPort.style.cursor = style;
   }
 

@@ -1,15 +1,15 @@
-import {PlannerMapFeature} from "../features/planner-map-feature";
 import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerDragFlag} from "./planner-drag-flag";
+import {FlagFeature} from "../features/flag-feature";
 
 export class PlannerDragFlagAnalyzer {
 
   constructor(private plan: Plan) {
   }
 
-  dragStarted(flag: PlannerMapFeature): PlannerDragFlag {
+  dragStarted(flag: FlagFeature): PlannerDragFlag {
 
     if (flag.flagType == PlanFlagType.Start) {
       const anchor = this.plan.source.coordinate;
@@ -22,12 +22,12 @@ export class PlannerDragFlagAnalyzer {
     }
 
     const lastLeg: PlanLeg = legs.last();
-    if (lastLeg.sink.featureId == flag.featureId) {
+    if (lastLeg.sink.featureId == flag.id) {
       const anchor = lastLeg.sink.coordinate;
       return new PlannerDragFlag(PlanFlagType.Via, lastLeg.featureId, anchor, anchor, lastLeg.sink);
     }
 
-    const legIndex = legs.findIndex(leg => leg.source.featureId === flag.featureId);
+    const legIndex = legs.findIndex(leg => leg.source.featureId === flag.id);
     if (legIndex > 0) {
       const previousLeg = legs.get(legIndex - 1);
       const nextLeg = legs.get(legIndex);

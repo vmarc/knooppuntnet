@@ -9,7 +9,7 @@ import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-p
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerContext} from "../context/planner-context";
 import {FeatureId} from "../features/feature-id";
-import {PlannerMapFeature} from "../features/planner-map-feature";
+import {MapFeature} from "../features/map-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
@@ -17,6 +17,10 @@ import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
 import {PlannerDragLeg} from "./planner-drag-leg";
 import {PlannerEngine} from "./planner-engine";
+import {LegFeature} from "../features/leg-feature";
+import {PoiFeature} from "../features/poi-feature";
+import {NetworkNodeFeature} from "../features/network-node-feature";
+import {FlagFeature} from "../features/flag-feature";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -26,7 +30,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   constructor(private context: PlannerContext) {
   }
 
-  handleDownEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
+  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
       return false;
@@ -47,15 +51,21 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const leg = this.findLeg(features);
     if (leg != null) {
-      if (this.legDragStarted(leg.legId, coordinate)) {
+      if (this.legDragStarted(leg.id, coordinate)) {
         return true;
       }
+    }
+
+    const poiFeature = this.findPoi(features);
+    if (poiFeature != null) {
+      console.log("DEBUG: clicked poi " + poiFeature.poiType + ":" + poiFeature.poiId + ", layer=" + poiFeature.layer);
+      return true;
     }
 
     return false;
   }
 
-  handleMoveEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
+  handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
       this.context.cursor.setStyleDefault();
@@ -80,12 +90,18 @@ export class PlannerEngineImpl implements PlannerEngine {
       return true;
     }
 
+    const poiFeature = this.findPoi(features);
+    if (poiFeature != null) {
+      this.context.cursor.setStylePointer();
+      return true;
+    }
+
     this.context.cursor.setStyleDefault();
 
     return false;
   }
 
-  handleDragEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
+  handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (this.isDraggingNode()) {
       const networkNodeFeature = this.findNetworkNode(features);
@@ -112,7 +128,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleUpEvent(features: List<PlannerMapFeature>, coordinate: Coordinate): boolean {
+  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       this.context.cursor.setStyleDefault();
@@ -145,7 +161,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleMouseEnter() {
   }
 
-  private nodeSelected(networkNode: PlannerMapFeature): void {
+  private nodeSelected(networkNode: NetworkNodeFeature): void {
     if (this.context.plan.source === null) {
       const command = new PlannerCommandAddStartPoint(networkNode.node);
       this.context.execute(command);
@@ -169,7 +185,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  private flagDragStarted(flag: PlannerMapFeature, coordinate: Coordinate): boolean {
+  private flagDragStarted(flag: FlagFeature, coordinate: Coordinate): boolean {
 
     this.nodeDrag = new PlannerDragFlagAnalyzer(this.context.plan).dragStarted(flag);
     if (this.nodeDrag !== null) {
@@ -276,29 +292,36 @@ export class PlannerEngineImpl implements PlannerEngine {
     return leg;
   }
 
-
-  private findFlag(features: List<PlannerMapFeature>): PlannerMapFeature {
-    const flagFeatures = features.filter(f => f.isFlag());
+  private findFlag(features: List<MapFeature>): FlagFeature {
+    const flagFeatures = features.filter(f => f instanceof FlagFeature);
     if (flagFeatures.isEmpty()) {
       return null;
     }
-    return flagFeatures.get(0); // TODO find the closest
+    return flagFeatures.get(0) as FlagFeature; // TODO find the closest
   }
 
-  private findNetworkNode(features: List<PlannerMapFeature>): PlannerMapFeature {
-    const nodes = features.filter(f => f.isNetworkNode());
+  private findNetworkNode(features: List<MapFeature>): NetworkNodeFeature {
+    const nodes = features.filter(f => f instanceof NetworkNodeFeature);
     if (nodes.isEmpty()) {
       return null;
     }
-    return nodes.get(0); // TODO find the closest
+    return nodes.get(0) as NetworkNodeFeature; // TODO find the closest
   }
 
-  private findLeg(features: List<PlannerMapFeature>): PlannerMapFeature {
-    const legs = features.filter(f => f.isLeg());
+  private findLeg(features: List<MapFeature>): LegFeature {
+    const legs = features.filter(f => f instanceof LegFeature);
     if (legs.isEmpty()) {
       return null;
     }
-    return legs.get(0); // TODO find the closest
+    return legs.get(0) as LegFeature; // TODO find the closest
+  }
+
+  private findPoi(features: List<MapFeature>): PoiFeature {
+    const pois = features.filter(f => f instanceof PoiFeature);
+    if (pois.isEmpty()) {
+      return null;
+    }
+    return pois.get(0) as PoiFeature; // TODO find the closest
   }
 
 }
