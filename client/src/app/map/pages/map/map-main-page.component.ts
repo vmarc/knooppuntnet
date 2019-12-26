@@ -3,17 +3,13 @@ import {ActivatedRoute} from "@angular/router";
 import {throttleTime} from "rxjs/operators";
 import {asyncScheduler, Observable} from "rxjs";
 import {Attribution, defaults as defaultControls} from "ol/control";
-import {click, pointerMove} from "ol/events/condition";
-import Select from "ol/interaction/Select";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import Style from "ol/style/Style";
 import View from "ol/View";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
-import {MapClickHandler} from "../../../components/ol/domain/map-click-handler";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
-import {MapMoveHandler} from "../../../components/ol/domain/map-move-handler";
 import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {OsmLayer} from "../../../components/ol/domain/osm-layer";
@@ -102,7 +98,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         setTimeout(() => this.map.updateSize(), 250);
       }
     }));
-
   }
 
   ngAfterViewInit(): void {
@@ -139,8 +134,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.plannerService.context.setNetworkType(this.mapService.networkType.value);
     this.interaction.addToMap(this.map);
 
-    // this.installClickInteraction();
-    // this.installMoveInteraction();
     const view = this.map.getView();
     this.tileLoadProgressService.install(this.bitmapTileLayer, this.vectorTileLayer, this.poiTileLayer);
     this.mapPositionService.install(view);
@@ -178,35 +171,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.poiTileLayer.setVisible(false);
     }
-  }
-
-
-  private installClickInteraction() {
-    const interaction = new Select({
-      condition: click,
-      multi: false,
-      style: new Style() // this overrides the normal openlayers default edit style
-    });
-    interaction.on("select", (e) => {
-      new MapClickHandler(this.mapService).handle(e);
-      this.vectorTileLayer.changed();
-      return true;
-    });
-    this.map.addInteraction(interaction);
-  }
-
-  private installMoveInteraction() {
-    const interaction = new Select({
-      condition: pointerMove,
-      multi: false,
-      style: new Style() // this overrides the normal openlayers default edit style
-    });
-    interaction.on("select", (e) => {
-      new MapMoveHandler(this.map, this.mapService).handle(e);
-      this.vectorTileLayer.changed();
-      return true;
-    });
-    this.map.addInteraction(interaction);
   }
 
 }
