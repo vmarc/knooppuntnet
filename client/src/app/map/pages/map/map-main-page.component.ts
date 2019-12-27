@@ -6,6 +6,7 @@ import {Attribution, defaults as defaultControls} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
+import Overlay from 'ol/Overlay';
 import Style from "ol/style/Style";
 import View from "ol/View";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
@@ -29,6 +30,12 @@ import {MapPositionService} from "../../../components/ol/map-position.service";
 @Component({
   selector: "kpn-map-main-page",
   template: `
+    <div id="popup" class="ol-popup">
+      <a href="#" (click)="closePopup()" id="popup-closer" class="ol-popup-closer"></a>
+      <div>
+        This is the popup.
+      </div>
+    </div>
     <mat-progress-bar class="progress" mode="determinate" [value]="progress | async"></mat-progress-bar>
     <div id="main-map" class="map"></div>
   `,
@@ -47,6 +54,55 @@ import {MapPositionService} from "../../../components/ol/map-position.service";
       right: 0;
       bottom: 0;
     }
+
+    .ol-popup {
+      position: absolute;
+      background-color: white;
+      -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+      filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #CCCCCC;
+      bottom: 12px;
+      left: -50px;
+      min-width: 280px;
+    }
+
+    .ol-popup:after, .ol-popup:before {
+      top: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .ol-popup:after {
+      border-top-color: white;
+      border-width: 10px;
+      left: 48px;
+      margin-left: -10px;
+    }
+
+    .ol-popup:before {
+      border-top-color: #CCCCCC;
+      border-width: 11px;
+      left: 48px;
+      margin-left: -11px;
+    }
+
+    .ol-popup-closer {
+      text-decoration: none;
+      position: absolute;
+      top: 2px;
+      right: 8px;
+    }
+
+    .ol-popup-closer:after {
+      content: "✖";
+    }
+
   `]
 })
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -59,6 +115,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   vectorTileLayer: VectorTileLayer;
   poiTileLayer: VectorTileLayer;
   interaction = new PlannerInteraction(this.plannerService.engine);
+  overlay: Overlay;
 
   private readonly subscriptions = new Subscriptions();
   private lastKnownSidebarOpen = false;
@@ -98,9 +155,19 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         setTimeout(() => this.map.updateSize(), 250);
       }
     }));
+
   }
 
   ngAfterViewInit(): void {
+
+    this.overlay = new Overlay({
+      id: "popup",
+      element: document.getElementById("popup"),
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250
+      }
+    });
 
     this.bitmapTileLayer = NetworkBitmapTileLayer.build(this.mapService.networkType.value);
     this.vectorTileLayer = NetworkVectorTileLayer.build(this.mapService.networkType.value);
@@ -121,6 +188,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.bitmapTileLayer,
         this.vectorTileLayer
       ],
+      overlays: [this.overlay],
       controls: defaultControls({attribution: false}).extend([attribution]),
       view: new View({
         minZoom: ZoomLevel.minZoom,
@@ -149,6 +217,12 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
+  }
+
+  private closePopup() {
+    this.overlay.setPosition(undefined);
+    // this.poiInformation = undefined;
+    return false;
   }
 
   private zoom(zoomLevel: number) {

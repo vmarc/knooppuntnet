@@ -58,7 +58,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const poiFeature = this.findPoi(features);
     if (poiFeature != null) {
-      console.log("DEBUG: clicked poi " + poiFeature.poiType + ":" + poiFeature.poiId + ", layer=" + poiFeature.layer);
+      this.context.overlay.setPosition(poiFeature.coordinate);
       return true;
     }
 

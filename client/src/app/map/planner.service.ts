@@ -11,6 +11,7 @@ import {PlannerRouteLayerImpl} from "./planner/context/planner-route-layer-impl"
 import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
 import {PlanLegCache} from "./planner/plan/plan-leg-cache";
+import {PlannerOverlayImpl} from "./planner/context/planner-overlay-impl";
 
 @Injectable({
   providedIn: "root"
@@ -24,13 +25,15 @@ export class PlannerService {
   private elasticBand = new PlannerElasticBandImpl();
   private legRepository = new PlannerLegRepositoryImpl(this.appService);
   private legCache: PlanLegCache = new PlanLegCache();
+  private overlay = new PlannerOverlayImpl();
   context: PlannerContext = new PlannerContext(
     this.commandStack,
     this.routeLayer,
     this.cursor,
     this.elasticBand,
     this.legRepository,
-    this.legCache
+    this.legCache,
+    this.overlay
   );
   engine: PlannerEngine = new PlannerEngineImpl(this.context);
 
@@ -41,6 +44,7 @@ export class PlannerService {
     this.cursor.addToMap(map);
     this.routeLayer.addToMap(map);
     this.elasticBand.addToMap(map);
+    this.overlay.addToMap(map);
   }
 
   updateTranslationRegistry(translationElements: HTMLCollection) {

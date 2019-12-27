@@ -10,6 +10,7 @@ import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerLegRepository} from "./planner-leg-repository";
 import {PlannerMode} from "./planner-mode";
 import {PlannerRouteLayer} from "./planner-route-layer";
+import {PlannerOverlay} from "./planner-overlay";
 
 export class PlannerContext {
 
@@ -18,7 +19,8 @@ export class PlannerContext {
               readonly cursor: PlannerCursor,
               readonly elasticBand: PlannerElasticBand,
               readonly legRepository: PlannerLegRepository,
-              readonly legs: PlanLegCache) {
+              readonly legs: PlanLegCache,
+              readonly overlay: PlannerOverlay) {
   }
 
   private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
