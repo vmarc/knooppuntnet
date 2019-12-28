@@ -59,7 +59,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     const poiFeature = this.findPoi(features);
     if (poiFeature != null) {
       this.context.overlay.setPosition(poiFeature.coordinate);
-      return true;
+      return false;
     }
 
     return false;
