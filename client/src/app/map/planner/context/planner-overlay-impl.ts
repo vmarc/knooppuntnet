@@ -9,6 +9,7 @@ export class PlannerOverlayImpl implements PlannerOverlay {
 
   addToMap(map: Map) {
     this.overlay = map.getOverlayById("popup");
+    this.overlay.setOffset([0, -30]);
   }
 
   setPosition(coordinate: Coordinate): void {
