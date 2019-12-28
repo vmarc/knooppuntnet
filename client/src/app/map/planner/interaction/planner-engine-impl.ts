@@ -155,12 +155,6 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleMouseOut() {
-  }
-
-  handleMouseEnter() {
-  }
-
   private nodeSelected(networkNode: NetworkNodeFeature): void {
     if (this.context.plan.source === null) {
       const command = new PlannerCommandAddStartPoint(networkNode.node);

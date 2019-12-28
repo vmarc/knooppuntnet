@@ -32,22 +32,7 @@ export class PlannerInteraction {
   constructor(private engine: PlannerEngine) {
   }
 
-  addToMap(map: Map) {
-    map.addInteraction(this.interaction);
-    map.getViewport().addEventListener("mouseout", (e) => this.engine.handleMouseOut());
-    map.getViewport().addEventListener("mouseenter", (e) => this.engine.handleMouseEnter());
-  }
-
-  private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
-    const tolerance = 20;
-    const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
-    if (features) {
-      return List(features.map(feature => this.mapFeature(feature)).filter(f => f !== null));
-    }
-    return List();
-  }
-
-  private mapFeature(feature: Feature): MapFeature {
+  private static mapFeature(feature: Feature): MapFeature {
 
     const layer = feature.get("layer");
     if (layer) {
@@ -79,6 +64,19 @@ export class PlannerInteraction {
 
     // we are not interested in the feature for planner purposes
     return null;
+  }
+
+  addToMap(map: Map) {
+    map.addInteraction(this.interaction);
+  }
+
+  private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
+    const tolerance = 20;
+    const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+    if (features) {
+      return List(features.map(feature => PlannerInteraction.mapFeature(feature)).filter(f => f !== null));
+    }
+    return List();
   }
 
 }

@@ -12,8 +12,4 @@ export interface PlannerEngine {
 
   handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
 
-  handleMouseOut();
-
-  handleMouseEnter();
-
 }

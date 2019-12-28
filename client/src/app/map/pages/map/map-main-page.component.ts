@@ -30,12 +30,7 @@ import {MapPositionService} from "../../../components/ol/map-position.service";
 @Component({
   selector: "kpn-map-main-page",
   template: `
-    <div id="popup" class="ol-popup">
-      <a href="#" (click)="closePopup()" id="popup-closer" class="ol-popup-closer"></a>
-      <div>
-        This is the popup.
-      </div>
-    </div>
+    <kpn-map-popup></kpn-map-popup>
     <mat-progress-bar class="progress" mode="determinate" [value]="progress | async"></mat-progress-bar>
     <div id="main-map" class="map"></div>
   `,
@@ -53,54 +48,6 @@ import {MapPositionService} from "../../../components/ol/map-position.service";
       left: 0;
       right: 0;
       bottom: 0;
-    }
-
-    .ol-popup {
-      position: absolute;
-      background-color: white;
-      -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
-      filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid #CCCCCC;
-      bottom: 12px;
-      left: -50px;
-      min-width: 280px;
-    }
-
-    .ol-popup:after, .ol-popup:before {
-      top: 100%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-    }
-
-    .ol-popup:after {
-      border-top-color: white;
-      border-width: 10px;
-      left: 48px;
-      margin-left: -10px;
-    }
-
-    .ol-popup:before {
-      border-top-color: #CCCCCC;
-      border-width: 11px;
-      left: 48px;
-      margin-left: -11px;
-    }
-
-    .ol-popup-closer {
-      text-decoration: none;
-      position: absolute;
-      top: 2px;
-      right: 8px;
-    }
-
-    .ol-popup-closer:after {
-      content: "✖";
     }
 
   `]
@@ -217,12 +164,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
-  }
-
-  private closePopup() {
-    this.overlay.setPosition(undefined);
-    // this.poiInformation = undefined;
-    return false;
   }
 
   private zoom(zoomLevel: number) {
