@@ -34,6 +34,11 @@ class ServerConfiguration {
   }
 
   @Bean
+  def analyzerEnabled(@Value("${app.analyzer-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def rasterTileBuilder: TileBuilder = {
     new RasterTileBuilder()
   }

@@ -6,18 +6,20 @@ import kpn.server.repository.PoiRepository
 import org.springframework.stereotype.Component
 
 @Component
-class KnownPoiCacheImpl(poiRepository: PoiRepository) extends KnownPoiCache {
+class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) extends KnownPoiCache {
 
   private val log = Log(classOf[KnownPoiCacheImpl])
   private var knownPois = KnownPois()
 
   @PostConstruct
   def loadKnownPois(): Unit = {
-    log.info("Loading known poi ids")
-    val relationIds = loadRelationIds()
-    val wayIds = loadWayIds()
-    val nodeIds = loadNodeIds()
-    knownPois = KnownPois(nodeIds, wayIds, relationIds)
+    if (analyzerEnabled) {
+      log.info("Loading known poi ids")
+      val relationIds = loadRelationIds()
+      val wayIds = loadWayIds()
+      val nodeIds = loadNodeIds()
+      knownPois = KnownPois(nodeIds, wayIds, relationIds)
+    }
   }
 
   def contains(poiRef: PoiRef): Boolean = {

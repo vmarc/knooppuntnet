@@ -19,8 +19,7 @@ import org.springframework.stereotype.Component
 @Component
 class LegBuilderImpl(
   graphRepository: GraphRepository,
-  routeRepository: RouteRepository,
-  graphLoad: Boolean
+  routeRepository: RouteRepository
 ) extends LegBuilder {
 
   private val log = Log(classOf[LegBuilderImpl])
