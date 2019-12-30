@@ -21,7 +21,8 @@ export class NodeInfo {
               readonly lastUpdated: Timestamp,
               readonly tags: Tags,
               readonly facts: List<Fact>,
-              readonly location: Location) {
+              readonly location: Location,
+              readonly tiles: List<string>) {
   }
 
   public static fromJSON(jsonObject): NodeInfo {
@@ -40,7 +41,8 @@ export class NodeInfo {
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Tags.fromJSON(jsonObject.tags),
       jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
-      Location.fromJSON(jsonObject.location)
+      Location.fromJSON(jsonObject.location),
+      jsonObject.tiles ? List(jsonObject.tiles) : List()
     );
   }
 }

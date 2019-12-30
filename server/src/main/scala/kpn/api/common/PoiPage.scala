@@ -16,5 +16,6 @@ case class PoiPage(
   addressLine1: Option[String],
   addressLine2: Option[String],
   website: Option[String],
-  image: Option[String]
+  image: Option[String],
+  wheelchair: Option[String]
 )

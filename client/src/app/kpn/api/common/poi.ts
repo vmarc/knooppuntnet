@@ -10,7 +10,8 @@ export class Poi {
               readonly latitude: string,
               readonly longitude: string,
               readonly layers: List<string>,
-              readonly tags: Tags) {
+              readonly tags: Tags,
+              readonly tiles: List<string>) {
   }
 
   public static fromJSON(jsonObject): Poi {
@@ -23,7 +24,8 @@ export class Poi {
       jsonObject.latitude,
       jsonObject.longitude,
       jsonObject.layers ? List(jsonObject.layers) : List(),
-      Tags.fromJSON(jsonObject.tags)
+      Tags.fromJSON(jsonObject.tags),
+      jsonObject.tiles ? List(jsonObject.tiles) : List()
     );
   }
 }

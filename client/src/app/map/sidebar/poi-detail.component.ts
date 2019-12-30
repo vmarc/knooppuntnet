@@ -29,6 +29,7 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       </p>
 
       <div *ngIf="poiPage.description">{{poiPage.description}}</div>
+      <div *ngIf="poiPage.wheelchair"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poiPage.wheelchair}}</div>
       <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>
       <div *ngIf="poiPage.image"><a [href]="poiPage.image" class="external" target="_blank">image</a></div>
 
@@ -40,8 +41,10 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
         <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
       </div>
 
-      <kpn-osm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="osm"></kpn-osm-link>
-      <kpn-josm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="edit"></kpn-josm-link>
+      <div class="footer">
+        <kpn-osm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="osm"></kpn-osm-link>
+        <kpn-josm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="edit"></kpn-josm-link>
+      </div>
 
     </div>
   `,
@@ -49,6 +52,10 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
     .tags-table {
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+
+    .footer {
+      padding-top: 10px;
     }
   `]
 })

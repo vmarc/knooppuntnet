@@ -17,7 +17,8 @@ export class RouteInfo {
               readonly lastUpdated: Timestamp,
               readonly tags: Tags,
               readonly facts: List<Fact>,
-              readonly analysis: RouteInfoAnalysis) {
+              readonly analysis: RouteInfoAnalysis,
+              readonly tiles: List<string>) {
   }
 
   public static fromJSON(jsonObject): RouteInfo {
@@ -33,7 +34,8 @@ export class RouteInfo {
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Tags.fromJSON(jsonObject.tags),
       jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
-      RouteInfoAnalysis.fromJSON(jsonObject.analysis)
+      RouteInfoAnalysis.fromJSON(jsonObject.analysis),
+      jsonObject.tiles ? List(jsonObject.tiles) : List()
     );
   }
 }

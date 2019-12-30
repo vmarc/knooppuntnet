@@ -25,7 +25,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "website",
     "contact:website",
     "url",
-    "image"
+    "image",
+    "wheelchair"
   )
 
   private val ignoredTagKeys = Seq(
@@ -33,7 +34,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "source:date",
     "ref:bag",
     "ref:rce",
-    "start_date"
+    "start_date",
+    "addr:housename"
   )
 
   def build(poiRef: PoiRef): Option[PoiPage] = {
@@ -99,6 +101,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
       val processedTags = Tags(poi.tags.tags.filter(t => processedTagKeys.contains(t.key)))
       logPoi(poi, filteredTags, interpretedTags, processedTags, ignoredTags)
 
+      val wheelchair = poi.tags("wheelchair")
+
       PoiPage(
         elementType = poi.elementType,
         elementId = poi.elementId,
@@ -113,7 +117,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         addressLine1 = addressLine1,
         addressLine2 = addressLine2,
         website = website,
-        image = image
+        image = image,
+        wheelchair = wheelchair
       )
     }
   }

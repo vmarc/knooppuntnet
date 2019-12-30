@@ -18,7 +18,8 @@ export class PoiPage {
               readonly addressLine1: string,
               readonly addressLine2: string,
               readonly website: string,
-              readonly image: string) {
+              readonly image: string,
+              readonly wheelchair: string) {
   }
 
   public static fromJSON(jsonObject): PoiPage {
@@ -39,7 +40,8 @@ export class PoiPage {
       jsonObject.addressLine1,
       jsonObject.addressLine2,
       jsonObject.website,
-      jsonObject.image
+      jsonObject.image,
+      jsonObject.wheelchair
     );
   }
 }
