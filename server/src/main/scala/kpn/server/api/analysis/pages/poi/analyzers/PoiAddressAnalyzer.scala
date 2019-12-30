@@ -41,7 +41,7 @@ class PoiAddressAnalyzer(context: PoiAnalysisContext) {
         addressLine1 = addressLine1,
         addressLine2 = addressLine2
       ),
-      ignoredTagKeys = context.ignoredTagKeys :+ "addr:housename",
+      ignoredTagKeys = context.ignoredTagKeys ++ Seq("addr:housename", "addr:country"),
       processedTagKeys = context.processedTagKeys ++ Seq(
         "addr:city",
         "addr:postcode",
@@ -50,5 +50,4 @@ class PoiAddressAnalyzer(context: PoiAnalysisContext) {
       )
     )
   }
-
 }

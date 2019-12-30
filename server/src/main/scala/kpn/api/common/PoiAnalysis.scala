@@ -20,5 +20,6 @@ case class PoiAnalysis(
   hollandscheMolenDatabase: Option[String] = None,
   image: Option[String] = None,
   mapillary: Option[String] = None,
-  wheelchair: Option[String] = None
+  wheelchair: Option[String] = None,
+  onroerendErfgoed: Option[String] = None
 )

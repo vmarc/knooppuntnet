@@ -35,8 +35,9 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       <div *ngIf="poi.description" class="item">{{poi.description}}</div>
       <div *ngIf="poi.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poi.wheelchair}}</div>
 
-      <div *ngIf="poi.image"><a [href]="poi.image" i18n="@@poi.detail.image" class="external" target="_blank">Image</a></div>
-      <div *ngIf="poi.mapillary"><a [href]="poi.mapillary" i18n="@@poi.detail.mapillary" class="external" target="_blank">Mapillary</a></div>
+      <div *ngIf="poi.image" class="item"><a [href]="poi.image" i18n="@@poi.detail.image" class="external" target="_blank">Image</a></div>
+      <div *ngIf="poi.mapillary" class="item"><a [href]="poi.mapillary" i18n="@@poi.detail.mapillary" class="external" target="_blank">Mapillary</a></div>
+      <div *ngIf="poi.onroerendErfgoed" class="item"><a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank">Onroerend Erfgoed</a></div>
 
       <div *ngIf="poi.website || poi.wikidata || poi.wikipedia" class="item">
         <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank">website</a>

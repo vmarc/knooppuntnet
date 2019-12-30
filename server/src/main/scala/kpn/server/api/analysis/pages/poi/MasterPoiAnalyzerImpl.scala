@@ -3,6 +3,8 @@ package kpn.server.api.analysis.pages.poi
 import kpn.api.common.Poi
 import kpn.api.common.PoiAnalysis
 import kpn.api.custom.Tag
+import kpn.server.api.analysis.pages.poi.analyzers.IgnoredTagAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.OnroerendErfgoedAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiAddressAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiContactAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiHollandscheModelDatabaseAnalyzer
@@ -54,7 +56,9 @@ class MasterPoiAnalyzerImpl extends MasterPoiAnalyzer {
       PoiWebsiteAnalyzer,
       PoiWheelchairAnalyzer,
       PoiWikidataAnalyzer,
-      PoiWikipediaAnalyzer
+      PoiWikipediaAnalyzer,
+      IgnoredTagAnalyzer,
+      OnroerendErfgoedAnalyzer
     )
 
     doAnalyze(analyzers, context)
