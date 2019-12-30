@@ -28,6 +28,9 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
         <span *ngIf="poiPage.addressLine2">{{poiPage.addressLine2}}</span>
       </p>
 
+      <div *ngIf="poiPage.phone"><span i18n="@@poi.detail.phone">Phone</span>: {{poiPage.phone}}</div>
+      <div *ngIf="poiPage.email"><span i18n="@@poi.detail.email">E-mail</span>: {{poiPage.email}}</div>
+
       <div *ngIf="poiPage.description">{{poiPage.description}}</div>
       <div *ngIf="poiPage.wheelchair"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poiPage.wheelchair}}</div>
       <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>

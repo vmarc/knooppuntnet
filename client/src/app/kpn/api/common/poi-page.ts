@@ -17,6 +17,8 @@ export class PoiPage {
               readonly description: string,
               readonly addressLine1: string,
               readonly addressLine2: string,
+              readonly phone: string,
+              readonly email: string,
               readonly website: string,
               readonly image: string,
               readonly wheelchair: string) {
@@ -39,6 +41,8 @@ export class PoiPage {
       jsonObject.description,
       jsonObject.addressLine1,
       jsonObject.addressLine2,
+      jsonObject.phone,
+      jsonObject.email,
       jsonObject.website,
       jsonObject.image,
       jsonObject.wheelchair

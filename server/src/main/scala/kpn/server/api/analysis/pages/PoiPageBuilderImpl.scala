@@ -2,6 +2,7 @@ package kpn.server.api.analysis.pages
 
 import kpn.api.common.Poi
 import kpn.api.common.PoiPage
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
 import kpn.core.util.Log
@@ -24,6 +25,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "addr:country",
     "website",
     "contact:website",
+    "contact:phone",
+    "contact:email",
     "url",
     "image",
     "wheelchair"
@@ -36,6 +39,10 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "ref:rce",
     "start_date",
     "addr:housename"
+  )
+
+  private val ignoredTagKeyValues = Seq(
+    Tag("building", "yes")
   )
 
   def build(poiRef: PoiRef): Option[PoiPage] = {
@@ -70,6 +77,9 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         case None => city
       }
 
+      val phone = poi.tags("contact:phone")
+      val email = poi.tags("contact:email")
+
       val website: Option[String] = {
         Seq(
           poi.tags("website"),
@@ -94,12 +104,15 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
           ignoredTagKeys.contains(t.key)
             || processedTagKeys.contains(t.key)
             || interpretedTagKeys.contains(t.key)
+            || ignoredTagKeyValues.contains(t)
         )
       )
 
       val interpretedTags = Tags(poi.tags.tags.filter(t => interpretedTagKeys.contains(t.key)))
       val processedTags = Tags(poi.tags.tags.filter(t => processedTagKeys.contains(t.key)))
-      logPoi(poi, filteredTags, interpretedTags, processedTags, ignoredTags)
+      val processedTagKeyValues = Tags(poi.tags.tags.filter(t => ignoredTagKeyValues.contains(t)))
+
+      logPoi(poi, filteredTags, interpretedTags, processedTags, ignoredTags ++ processedTagKeyValues)
 
       val wheelchair = poi.tags("wheelchair")
 
@@ -116,6 +129,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         description = poi.tags("description"),
         addressLine1 = addressLine1,
         addressLine2 = addressLine2,
+        phone,
+        email,
         website = website,
         image = image,
         wheelchair = wheelchair
