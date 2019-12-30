@@ -3,6 +3,7 @@ import {AppService} from "../../app.service";
 import {MapService} from "../../components/ol/map.service";
 import {Tags} from "../../kpn/api/custom/tags";
 import {PoiPage} from "../../kpn/api/common/poi-page";
+import {PoiAnalysis} from "../../kpn/api/common/poi-analysis";
 import {PoiService} from "../../services/poi.service";
 import {Subscriptions} from "../../util/Subscriptions";
 import {InterpretedTags} from "../../components/shared/tags/interpreted-tags";
@@ -14,45 +15,45 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
   selector: "kpn-poi-detail",
   template: `
 
-    <div *ngIf="poiPage != null">
+    <div *ngIf="poi != null">
 
-      <h2 *ngIf="poiPage.name">{{poiPage.name}}</h2>
-      <h2 *ngIf="!poiPage.name">{{layerName()}}</h2>
+      <h2 *ngIf="poi.name">{{poi.name}}</h2>
+      <h2 *ngIf="!poi.name">{{layerName()}}</h2>
 
-      <div *ngIf="poiPage.name" class="item">{{layerName()}}</div>
+      <div *ngIf="poi.name" class="item">{{layerName()}}</div>
 
-      <div *ngIf="poiPage.subject" class="item">{{poiPage.subject}}</div>
+      <div *ngIf="poi.subject" class="item">{{poi.subject}}</div>
 
-      <div *ngIf="poiPage.addressLine1 || poiPage.addressLine2" class="item">
-        <span *ngIf="poiPage.addressLine1">{{poiPage.addressLine1}}</span><br/>
-        <span *ngIf="poiPage.addressLine2">{{poiPage.addressLine2}}</span>
+      <div *ngIf="poi.addressLine1 || poi.addressLine2" class="item">
+        <span *ngIf="poi.addressLine1">{{poi.addressLine1}}</span><br/>
+        <span *ngIf="poi.addressLine2">{{poi.addressLine2}}</span>
       </div>
 
-      <div *ngIf="poiPage.phone" class="item"><span i18n="@@poi.detail.phone">Phone</span>: {{poiPage.phone}}</div>
-      <div *ngIf="poiPage.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: <a [href]="emailLink()">{{poiPage.email}}</a></div>
+      <div *ngIf="poi.phone" class="item"><span i18n="@@poi.detail.phone">Phone</span>: {{poi.phone}}</div>
+      <div *ngIf="poi.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: <a [href]="emailLink()">{{poi.email}}</a></div>
 
-      <div *ngIf="poiPage.description" class="item">{{poiPage.description}}</div>
-      <div *ngIf="poiPage.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poiPage.wheelchair}}</div>
+      <div *ngIf="poi.description" class="item">{{poi.description}}</div>
+      <div *ngIf="poi.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poi.wheelchair}}</div>
 
-      <div *ngIf="poiPage.website || poiPage.wikidata || poiPage.wikipedia" class="item">
-        <a *ngIf="poiPage.website" [href]="poiPage.website" class="external" target="_blank">website</a>
-        <a *ngIf="poiPage.wikidata" [href]="poiPage.wikidata" class="external" target="_blank">wikidata</a>
-        <a *ngIf="poiPage.wikipedia" [href]="poiPage.wikipedia" class="external" target="_blank">wikipedia</a>
+      <div *ngIf="poi.website || poi.wikidata || poi.wikipedia" class="item">
+        <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank">website</a>
+        <a *ngIf="poi.wikidata" [href]="poi.wikidata" class="external" target="_blank">wikidata</a>
+        <a *ngIf="poi.wikipedia" [href]="poi.wikipedia" class="external" target="_blank">wikipedia</a>
       </div>
 
-      <div *ngIf="poiPage.molenDatabase" class="item">
-        <a [href]="poiPage.molenDatabase" class="external" target="_blank">Molen database</a>
+      <div *ngIf="poi.molenDatabase" class="item">
+        <a [href]="poi.molenDatabase" class="external" target="_blank">Molen database</a>
       </div>
 
-      <div *ngIf="poiPage.hollandscheMolenDatabase" class="item">
-        <a [href]="poiPage.hollandscheMolenDatabase" class="external" target="_blank">Hollandsche Molen database</a>
+      <div *ngIf="poi.hollandscheMolenDatabase" class="item">
+        <a [href]="poi.hollandscheMolenDatabase" class="external" target="_blank">Hollandsche Molen database</a>
       </div>
 
-      <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()" class="item">
+      <div *ngIf="poi.mainTags && !poi.mainTags.tags.isEmpty()" class="item">
         <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
       </div>
 
-      <div *ngIf="poiPage.extraTags && !poiPage.extraTags.tags.isEmpty()" class="item">
+      <div *ngIf="poi.extraTags && !poi.extraTags.tags.isEmpty()" class="item">
         <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
       </div>
 
@@ -74,6 +75,7 @@ export class PoiDetailComponent {
 
   poiClick: PoiClick;
   poiPage: PoiPage;
+  poi: PoiAnalysis;
   tags: Tags;
   latitude: string;
   longitude: string;
@@ -92,9 +94,10 @@ export class PoiDetailComponent {
         flatMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId))
       ).subscribe(response => {
         this.poiPage = response.result;
+        this.poi = response.result.analysis;
         this.latitude = response.result.latitude;
         this.longitude = response.result.longitude;
-        this.tags = response.result.mainTags;
+        this.tags = response.result.analysis.mainTags;
         this.cdr.detectChanges();
         this.plannerService.context.overlay.setPosition(this.poiClick.coordinate)
       })
@@ -106,19 +109,19 @@ export class PoiDetailComponent {
   }
 
   layerName(): string {
-    const layer = this.poiPage.layers.get(0);
+    const layer = this.poi.layers.get(0);
     return this.poiService.name(layer);
   }
 
   mainTags(): InterpretedTags {
-    return InterpretedTags.all(this.poiPage.mainTags);
+    return InterpretedTags.all(this.poi.mainTags);
   }
 
   extraTags(): InterpretedTags {
-    return InterpretedTags.all(this.poiPage.extraTags);
+    return InterpretedTags.all(this.poi.extraTags);
   }
 
   emailLink(): string {
-    return "mailto:" + this.poiPage.email;
+    return "mailto:" + this.poi.email;
   }
 }

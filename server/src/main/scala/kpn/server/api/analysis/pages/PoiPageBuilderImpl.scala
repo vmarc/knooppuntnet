@@ -2,54 +2,18 @@ package kpn.server.api.analysis.pages
 
 import kpn.api.common.Poi
 import kpn.api.common.PoiPage
-import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef
+import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.repository.PoiRepository
 import org.springframework.stereotype.Component
 
 @Component
-class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
+class PoiPageBuilderImpl(poiRepository: PoiRepository, masterPoiAnalyzer: MasterPoiAnalyzer) extends PoiPageBuilder {
 
   private val log = Log(classOf[PoiPageBuilderImpl])
-
-  private val processedTagKeys = Seq(
-    "name",
-    "description",
-    "addr:city",
-    "addr:postcode",
-    "addr:street",
-    "addr:housenumber",
-    "addr:country",
-    "website",
-    "wikidata",
-    "wikipedia",
-    "contact:website",
-    "contact:phone",
-    "phone",
-    "contact:email",
-    "email",
-    "url",
-    "image",
-    "wheelchair",
-    "mdb_id",
-    "dhm_id"
-  )
-
-  private val ignoredTagKeys = Seq(
-    "source",
-    "source:date",
-    "ref:bag",
-    "ref:rce",
-    "start_date",
-    "addr:housename"
-  )
-
-  private val ignoredTagKeyValues = Seq(
-    Tag("building", "yes")
-  )
 
   def build(poiRef: PoiRef): Option[PoiPage] = {
 
@@ -59,131 +23,31 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
 
       interpretedTagKeys = interpretedTagKeys ++ PoiConfiguration.instance.tagKeys(poi.layers.head)
 
-      val city = poi.tags("addr:city")
-      val postcode = poi.tags("addr:postcode")
-      val street = poi.tags("addr:street")
-      val housenumber = poi.tags("addr:housenumber")
+      val context = masterPoiAnalyzer.analyze(poi)
 
-
-      val addressLine1: Option[String] = street match {
-        case Some(s) =>
-          housenumber match {
-            case Some(n) => Some(s + " " + n)
-            case None => street
-          }
-        case None => None
-      }
-
-      val addressLine2: Option[String] = postcode match {
-        case Some(p) =>
-          city match {
-            case Some(c) => Some(p + " " + c)
-            case None => postcode
-          }
-        case None => city
-      }
-
-      val phone = Seq(
-        poi.tags("contact:phone"),
-        poi.tags("phone")
-      ).flatten.headOption
-
-      val email = Seq(
-        poi.tags("contact:email"),
-        poi.tags("email")
-      ).flatten.headOption
-
-      val wikidata = poi.tags("wikidata").map { id =>
-        "https://www.wikidata.org/wiki/" + id
-      }
-      val wikipedia = poi.tags("wikipedia").map { tagValue =>
-        if (tagValue.startsWith("nl:")) {
-          val id = tagValue.substring(3)
-          "https://nl.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
-        }
-        else if (tagValue.startsWith("de:")) {
-          val id = tagValue.substring(3)
-          "https://de.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
-        }
-        else if (tagValue.startsWith("fr:")) {
-          val id = tagValue.substring(3)
-          "https://fr.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
-        }
-        else if (tagValue.startsWith("en:")) {
-          val id = tagValue.substring(3)
-          "https://en.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
-        }
-        else {
-          tagValue
-        }
-      }
-
-      val website: Option[String] = {
-        Seq(
-          poi.tags("website"),
-          poi.tags("contact:website"),
-          poi.tags("url")
-        ).flatten.headOption.map { url =>
-          if (url.startsWith("http://") || url.startsWith("https://")) {
-            url
-          }
-          else {
-            "http://" + url
-          }
-        }
-      }
-
-      val molenDatabase = poi.tags("mdb_id").map { id =>
-        s"http://www.molendatabase.nl/nederland/molen.php?nummer=$id"
-      }
-
-      val hollandscheMolenDatabase = poi.tags("dhm_id").map { id =>
-        s"https://www.molens.nl/molen/zoek-een-molen/molendetail/?molenid=$id"
-      }
-
-      val image = poi.tags("image")
-
-      val ignoredTags = Tags(poi.tags.tags.filter(t => ignoredTagKeys.contains(t.key)))
+      val ignoredTags = Tags(poi.tags.tags.filter(t => context.ignoredTagKeys.contains(t.key)))
 
       val filteredTags = Tags(
         poi.tags.tags.filterNot(t =>
-          ignoredTagKeys.contains(t.key)
-            || processedTagKeys.contains(t.key)
+          context.ignoredTagKeys.contains(t.key)
+            || context.processedTagKeys.contains(t.key)
             || interpretedTagKeys.contains(t.key)
-            || ignoredTagKeyValues.contains(t)
+            || context.ignoredTagKeyValues.contains(t)
         )
       )
 
       val interpretedTags = Tags(poi.tags.tags.filter(t => interpretedTagKeys.contains(t.key)))
-      val processedTags = Tags(poi.tags.tags.filter(t => processedTagKeys.contains(t.key)))
-      val processedTagKeyValues = Tags(poi.tags.tags.filter(t => ignoredTagKeyValues.contains(t)))
+      val processedTags = Tags(poi.tags.tags.filter(t => context.processedTagKeys.contains(t.key)))
+      val processedTagKeyValues = Tags(poi.tags.tags.filter(t => context.ignoredTagKeyValues.contains(t)))
 
       logPoi(poi, filteredTags, interpretedTags, processedTags, ignoredTags ++ processedTagKeyValues)
-
-      val wheelchair = poi.tags("wheelchair")
 
       PoiPage(
         elementType = poi.elementType,
         elementId = poi.elementId,
         latitude = poi.latitude,
         longitude = poi.longitude,
-        layers = poi.layers,
-        mainTags = filteredTags,
-        extraTags = Tags.empty,
-        name = poi.tags("name"),
-        subject = None,
-        description = poi.tags("description"),
-        addressLine1 = addressLine1,
-        addressLine2 = addressLine2,
-        phone,
-        email,
-        website = website,
-        wikidata = wikidata,
-        wikipedia = wikipedia,
-        molenDatabase = molenDatabase,
-        hollandscheMolenDatabase = hollandscheMolenDatabase,
-        image = image,
-        wheelchair = wheelchair
+        context.analysis.copy(mainTags = filteredTags)
       )
     }
   }
