@@ -34,7 +34,8 @@ class MasterPoiAnalyzerImpl extends MasterPoiAnalyzer {
     )
 
     val ignoredTagKeyValues = Seq(
-      Tag("building", "yes")
+      Tag("building", "yes"),
+      Tag("type", "multipolygon")
     )
 
     val analysis = PoiAnalysis()

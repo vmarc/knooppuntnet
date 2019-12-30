@@ -30,6 +30,7 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       </div>
 
       <div *ngIf="poi.phone" class="item"><span i18n="@@poi.detail.phone">Phone</span>: {{poi.phone}}</div>
+      <div *ngIf="poi.fax" class="item"><span i18n="@@poi.detail.fax">Fax</span>: {{poi.fax}}</div>
       <div *ngIf="poi.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: <a [href]="emailLink()">{{poi.email}}</a></div>
       <div *ngIf="poi.facebook" class="item"><a [href]="poi.facebook" class="external" target="_blank" i18n="@@poi.detail.facebook">Facebook</a></div>
 
