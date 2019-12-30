@@ -89,14 +89,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       this.mapService.networkType.next(networkType);
     }));
 
-    this.subscriptions.add(this.mapService.selectedFeature.subscribe(selectedFeature => {
-      if (selectedFeature == null) {
-        console.log("DEBUG MapMainPageComponent selectedFeature null");
-      } else {
-        console.log("DEBUG MapMainPageComponent selectedFeature type=" + selectedFeature.featureType + ", id=" + selectedFeature.featureId + ", name=" + selectedFeature.name);
-      }
-    }));
-
     this.subscriptions.add(this.pageService.sidebarOpen.subscribe(state => {
       if (this.map) {
         setTimeout(() => this.map.updateSize(), 250);

@@ -15,7 +15,6 @@ import {SharedModule} from "../components/shared/shared.module";
 import {PdfModule} from "../pdf/pdf.module";
 import {MapRoutingModule} from "./map-routing.module";
 import {MapPageComponent} from "./pages/map/_map-page.component";
-import {MapDetailDefaultComponent} from "./pages/map/map-detail-default.component";
 import {MapDetailNodeComponent} from "./pages/map/map-detail-node.component";
 import {MapDetailRouteComponent} from "./pages/map/map-detail-route.component";
 import {MapMainPageComponent} from "./pages/map/map-main-page.component";
@@ -35,7 +34,6 @@ import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {ExportDialogComponent} from "./sidebar/export-dialog.component";
-import {MapSidebarAnalysisComponent} from "./sidebar/map-side-bar-analysis.component";
 import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
 import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
@@ -74,11 +72,9 @@ import {MapPopupComponent} from './pages/map/popup/map-popup.component';
     MapMainPageComponent,
     MapSidebarComponent,
     MapSidebarPlannerComponent,
-    MapSidebarAnalysisComponent,
     MapSidebarLegendComponent,
     MapSidebarAppearanceComponent,
     MapSidebarPoiConfigurationComponent,
-    MapDetailDefaultComponent,
     MapDetailNodeComponent,
     MapDetailRouteComponent,
     MapPoiConfigComponent,
