@@ -23,6 +23,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "addr:housenumber",
     "addr:country",
     "website",
+    "contact:website",
+    "url",
     "image"
   )
 
@@ -31,7 +33,6 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "source:date",
     "ref:bag",
     "ref:rce",
-    "building=yes",
     "start_date"
   )
 
@@ -67,7 +68,21 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         case None => city
       }
 
-      val website = poi.tags("website")
+      val website: Option[String] = {
+        Seq(
+          poi.tags("website"),
+          poi.tags("contact:website"),
+          poi.tags("url")
+        ).flatten.headOption.map { url =>
+          if (url.startsWith("http://") || url.startsWith("https://")) {
+            url
+          }
+          else {
+            "http://" + url
+          }
+        }
+      }
+
       val image = poi.tags("image")
 
       val ignoredTags = Tags(poi.tags.tags.filter(t => ignoredTagKeys.contains(t.key)))
