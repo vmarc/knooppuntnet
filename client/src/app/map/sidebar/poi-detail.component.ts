@@ -31,18 +31,20 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
 
       <div *ngIf="poi.phone" class="item"><span i18n="@@poi.detail.phone">Phone</span>: {{poi.phone}}</div>
       <div *ngIf="poi.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: <a [href]="emailLink()">{{poi.email}}</a></div>
+      <div *ngIf="poi.facebook" class="item"><a [href]="poi.facebook" class="external" target="_blank" i18n="@@poi.detail.facebook">Facebook</a></div>
 
       <div *ngIf="poi.description" class="item">{{poi.description}}</div>
       <div *ngIf="poi.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poi.wheelchair}}</div>
 
-      <div *ngIf="poi.image" class="item"><a [href]="poi.image" i18n="@@poi.detail.image" class="external" target="_blank">Image</a></div>
-      <div *ngIf="poi.mapillary" class="item"><a [href]="poi.mapillary" i18n="@@poi.detail.mapillary" class="external" target="_blank">Mapillary</a></div>
-      <div *ngIf="poi.onroerendErfgoed" class="item"><a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank">Onroerend Erfgoed</a></div>
+      <div *ngIf="poi.image" class="item"><a [href]="poi.image" class="external" target="_blank" i18n="@@poi.detail.image">Image</a></div>
+      <div *ngIf="poi.mapillary" class="item"><a [href]="poi.mapillary" class="external" target="_blank" i18n="@@poi.detail.mapillary">Mapillary</a></div>
+      <div *ngIf="poi.onroerendErfgoed" class="item"><a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank">Onroerend
+        Erfgoed</a></div>
 
       <div *ngIf="poi.website || poi.wikidata || poi.wikipedia" class="item">
-        <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank">website</a>
-        <a *ngIf="poi.wikidata" [href]="poi.wikidata" class="external" target="_blank">wikidata</a>
-        <a *ngIf="poi.wikipedia" [href]="poi.wikipedia" class="external" target="_blank">wikipedia</a>
+        <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank" i18n="@@poi.detail.website">Website</a>
+        <a *ngIf="poi.wikidata" [href]="poi.wikidata" class="external" target="_blank" i18n="@@poi.detail.wikidata">Wikidata</a>
+        <a *ngIf="poi.wikipedia" [href]="poi.wikipedia" class="external" target="_blank" i18n="@@poi.detail.wikipedia">Wikipedia</a>
       </div>
 
       <div *ngIf="poi.molenDatabase" class="item">

@@ -13,6 +13,7 @@ case class PoiAnalysis(
   addressLine2: Option[String] = None,
   phone: Option[String] = None,
   email: Option[String] = None,
+  facebook: Option[String] = None,
   website: Option[String] = None,
   wikidata: Option[String] = None,
   wikipedia: Option[String] = None,

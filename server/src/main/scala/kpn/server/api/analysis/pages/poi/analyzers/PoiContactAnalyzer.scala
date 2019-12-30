@@ -23,12 +23,18 @@ class PoiContactAnalyzer(context: PoiAnalysisContext) {
       context.poi.tags("phone")
     ).flatten.headOption
 
+    val facebook = Seq(
+      context.poi.tags("contact:facebook")
+    ).flatten.headOption
+
     context.copy(
       analysis = context.analysis.copy(
         email = email,
-        phone = phone
+        phone = phone,
+        facebook = facebook
       ),
       processedTagKeys = context.processedTagKeys ++ Seq(
+        "contact:facebook",
         "contact:email",
         "email",
         "contact:phone",
