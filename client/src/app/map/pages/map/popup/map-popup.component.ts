@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {PlannerService} from "../../../planner.service";
 
 @Component({
@@ -66,7 +66,7 @@ export class MapPopupComponent {
   }
 
   private closePopup() {
-    this.plannerService.context.overlay.setPosition(undefined, undefined);
+    this.plannerService.context.overlay.setPosition(undefined);
     return false;
   }
 

@@ -1,8 +1,9 @@
-import Coordinate from "ol/coordinate";
-import {PoiId} from "../../../components/ol/domain/poi-id";
+import {PoiClick} from "../../../components/ol/domain/poi-click";
 
 export interface PlannerOverlay {
 
-  setPosition(coordinate: Coordinate, poiId: PoiId): void;
+  poiClicked(poiClick: PoiClick): void;
+
+  setPosition(poiClick: PoiClick): void;
 
 }

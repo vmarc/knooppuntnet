@@ -1,14 +1,18 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.Poi
 import kpn.api.common.PoiPage
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.repository.PoiRepository
 import org.springframework.stereotype.Component
 
 @Component
 class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
+
+  private val log = Log(classOf[PoiPageBuilderImpl])
 
   private val processedTagKeys = Seq(
     "name",
@@ -32,10 +36,11 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "start_date"
   )
 
-
   def build(poiRef: PoiRef): Option[PoiPage] = {
 
     poiRepository.get(poiRef).map { poi =>
+
+      logPoi(poi)
 
       var interpretedTagKeys: Set[String] = Set()
 
@@ -97,4 +102,10 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     }
   }
 
+  private def logPoi(poi: Poi): Unit = {
+    val header = s"""${poi.elementType}:${poi.elementId} ${poi.layers.mkString(", ")}"""
+    val tags = poi.tags.tags.map(tag => s"${tag.key}=${tag.value}").mkString("  ", "  \n", "")
+    val message = s"$header\n$tags"
+    log.info(message)
+  }
 }

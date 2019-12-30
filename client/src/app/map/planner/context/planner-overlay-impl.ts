@@ -3,7 +3,7 @@ import Overlay from "ol/Overlay";
 import Coordinate from "ol/coordinate";
 import {PlannerOverlay} from "./planner-overlay";
 import {MapService} from "../../../components/ol/map.service";
-import {PoiId} from "../../../components/ol/domain/poi-id";
+import {PoiClick} from "../../../components/ol/domain/poi-click";
 
 export class PlannerOverlayImpl implements PlannerOverlay {
 
@@ -17,8 +17,11 @@ export class PlannerOverlayImpl implements PlannerOverlay {
     this.overlay.setOffset([0, -30]);
   }
 
-  setPosition(coordinate: Coordinate, poiId: PoiId): void {
-    this.mapService.poiClicked(poiId);
+  poiClicked(poiClick: PoiClick): void {
+    this.mapService.poiClicked(poiClick);
+  }
+
+  setPosition(coordinate: Coordinate): void {
     this.overlay.setPosition(coordinate);
   }
 

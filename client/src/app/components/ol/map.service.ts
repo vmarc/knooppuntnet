@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {NetworkType} from "../../kpn/api/custom/network-type";
 import {SelectedFeature} from "./domain/selected-feature";
-import {PoiId} from "./domain/poi-id";
+import {PoiClick} from "./domain/poi-click";
 
 @Injectable()
 export class MapService {
@@ -12,16 +12,16 @@ export class MapService {
   selectedRouteId: string;
   selectedNodeId: string;
 
-  networkType: BehaviorSubject<NetworkType|null> = new BehaviorSubject(null);
+  networkType: BehaviorSubject<NetworkType | null> = new BehaviorSubject(null);
   selectedFeature: BehaviorSubject<SelectedFeature> = new BehaviorSubject(null);
-   _poiClickedObserver: Subject<PoiId> = new Subject(); // not a BehaviorSubject because we do not want subscriber notified upon subscribe
+  _poiClickedObserver: Subject<PoiClick> = new Subject(); // not a BehaviorSubject because we do not want subscriber notified upon subscribe
 
-  get poiClickedObserver(): Observable<PoiId> {
+  get poiClickedObserver(): Observable<PoiClick> {
     return this._poiClickedObserver;
   }
 
-  poiClicked(poiId: PoiId) {
-    this._poiClickedObserver.next(poiId);
+  poiClicked(poiClick: PoiClick) {
+    this._poiClickedObserver.next(poiClick);
   }
 
 }

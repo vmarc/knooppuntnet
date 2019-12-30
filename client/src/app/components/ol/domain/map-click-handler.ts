@@ -2,7 +2,6 @@ import Feature from "ol/Feature";
 import SelectEvent from "ol/interaction/Select";
 import {MapService} from "../map.service";
 import {SelectedFeature} from "./selected-feature";
-import {PoiId} from "./poi-id";
 
 export class MapClickHandler {
 
@@ -35,12 +34,6 @@ export class MapClickHandler {
           this.handleRouteSelection(feature);
         } else if (layer.endsWith("node")) {
           this.handleNodeSelection(feature);
-        } else {
-          const id = feature.get("id");
-          const type = feature.get("type");
-          if (type === "way" || type === "node" || type === "relation") {
-            this.mapService.poiClicked(new PoiId(type, id));
-          }
         }
       }
     }

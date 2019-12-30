@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {ChangeDetectorRef, Component} from "@angular/core";
 import {AppService} from "../../app.service";
 import {MapService} from "../../components/ol/map.service";
 import {Tags} from "../../kpn/api/custom/tags";
@@ -7,7 +7,8 @@ import {PoiService} from "../../services/poi.service";
 import {Subscriptions} from "../../util/Subscriptions";
 import {InterpretedTags} from "../../components/shared/tags/interpreted-tags";
 import {filter, flatMap, tap} from "rxjs/operators";
-import {PoiId} from "../../components/ol/domain/poi-id";
+import {PlannerService} from "../planner.service";
+import {PoiClick} from "../../components/ol/domain/poi-click";
 
 @Component({
   selector: "kpn-poi-detail",
@@ -31,8 +32,8 @@ import {PoiId} from "../../components/ol/domain/poi-id";
       <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>
       <div *ngIf="poiPage.image"><a [href]="poiPage.image" class="external" target="_blank">image</a></div>
 
-      <kpn-osm-link kind="{{poiId.elementType}}" id="{{poiId.elementId}}" title="osm"></kpn-osm-link>
-      <kpn-josm-link kind="{{poiId.elementType}}" id="{{poiId.elementId}}" title="edit"></kpn-josm-link>
+      <kpn-osm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="osm"></kpn-osm-link>
+      <kpn-josm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="edit"></kpn-josm-link>
 
       <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()">
         <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
@@ -46,7 +47,7 @@ import {PoiId} from "../../components/ol/domain/poi-id";
 })
 export class PoiDetailComponent {
 
-  poiId: PoiId;
+  poiClick: PoiClick;
   poiPage: PoiPage;
   tags: Tags;
   latitude: string;
@@ -55,18 +56,22 @@ export class PoiDetailComponent {
 
   constructor(private mapService: MapService,
               private appService: AppService,
-              private poiService: PoiService) {
+              private poiService: PoiService,
+              private plannerService: PlannerService,
+              private cdr: ChangeDetectorRef) {
 
     this.subscriptions.add(
       mapService.poiClickedObserver.pipe(
-        tap(poiId => this.poiId = poiId),
-        filter(poiId => poiId !== null),
-        flatMap(poiId => this.appService.poi(poiId.elementType, poiId.elementId))
+        tap(poiClick => this.poiClick = poiClick),
+        filter(poiClick => poiClick !== null),
+        flatMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId))
       ).subscribe(response => {
         this.poiPage = response.result;
         this.latitude = response.result.latitude;
         this.longitude = response.result.longitude;
         this.tags = response.result.mainTags;
+        this.cdr.detectChanges();
+        this.plannerService.context.overlay.setPosition(this.poiClick.coordinate)
       })
     );
   }

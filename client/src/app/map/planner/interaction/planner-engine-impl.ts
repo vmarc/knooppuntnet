@@ -22,6 +22,7 @@ import {PoiFeature} from "../features/poi-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
 import {FlagFeature} from "../features/flag-feature";
 import {PoiId} from "../../../components/ol/domain/poi-id";
+import {PoiClick} from "../../../components/ol/domain/poi-click";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -59,7 +60,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const poiFeature = this.findPoi(features);
     if (poiFeature != null) {
-      this.context.overlay.setPosition(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId));
+      this.context.overlay.poiClicked(new PoiClick(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId)));
       return true;
     }
 
