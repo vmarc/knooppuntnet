@@ -19,32 +19,36 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       <h2 *ngIf="poiPage.name">{{poiPage.name}}</h2>
       <h2 *ngIf="!poiPage.name">{{layerName()}}</h2>
 
-      <p *ngIf="poiPage.name">{{layerName()}}</p>
+      <div *ngIf="poiPage.name" class="item">{{layerName()}}</div>
 
-      <div *ngIf="poiPage.subject">{{poiPage.subject}}</div>
+      <div *ngIf="poiPage.subject" class="item">{{poiPage.subject}}</div>
 
-      <p *ngIf="poiPage.addressLine1 || poiPage.addressLine2">
+      <div *ngIf="poiPage.addressLine1 || poiPage.addressLine2" class="item">
         <span *ngIf="poiPage.addressLine1">{{poiPage.addressLine1}}</span><br/>
         <span *ngIf="poiPage.addressLine2">{{poiPage.addressLine2}}</span>
-      </p>
+      </div>
 
-      <div *ngIf="poiPage.phone"><span i18n="@@poi.detail.phone">Phone</span>: {{poiPage.phone}}</div>
-      <div *ngIf="poiPage.email"><span i18n="@@poi.detail.email">E-mail</span>: {{poiPage.email}}</div>
+      <div *ngIf="poiPage.phone" class="item"><span i18n="@@poi.detail.phone">Phone</span>: {{poiPage.phone}}</div>
+      <div *ngIf="poiPage.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: {{poiPage.email}}</div>
 
-      <div *ngIf="poiPage.description">{{poiPage.description}}</div>
-      <div *ngIf="poiPage.wheelchair"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poiPage.wheelchair}}</div>
-      <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>
-      <div *ngIf="poiPage.image"><a [href]="poiPage.image" class="external" target="_blank">image</a></div>
+      <div *ngIf="poiPage.description" class="item">{{poiPage.description}}</div>
+      <div *ngIf="poiPage.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poiPage.wheelchair}}</div>
 
-      <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()" class="tags-table">
+      <div *ngIf="poiPage.website || poiPage.wikidata || poiPage.wikipedia" class="item">
+        <a *ngIf="poiPage.website" [href]="poiPage.website" class="external" target="_blank">website</a>
+        <a *ngIf="poiPage.wikidata" [href]="poiPage.wikidata" class="external" target="_blank">wikidata</a>
+        <a *ngIf="poiPage.wikipedia" [href]="poiPage.wikipedia" class="external" target="_blank">wikipedia</a>
+      </div>
+
+      <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()" class="item">
         <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
       </div>
 
-      <div *ngIf="poiPage.extraTags && !poiPage.extraTags.tags.isEmpty()" class="tags-table">
+      <div *ngIf="poiPage.extraTags && !poiPage.extraTags.tags.isEmpty()" class="item">
         <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
       </div>
 
-      <div class="footer">
+      <div class="item">
         <kpn-osm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="osm"></kpn-osm-link>
         <kpn-josm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="edit"></kpn-josm-link>
       </div>
@@ -52,13 +56,9 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
     </div>
   `,
   styles: [`
-    .tags-table {
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-
-    .footer {
-      padding-top: 10px;
+    .item {
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
   `]
 })
@@ -109,5 +109,4 @@ export class PoiDetailComponent {
   extraTags(): InterpretedTags {
     return InterpretedTags.all(this.poiPage.extraTags);
   }
-
 }

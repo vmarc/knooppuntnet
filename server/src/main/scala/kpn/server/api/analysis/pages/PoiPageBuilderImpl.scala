@@ -24,6 +24,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "addr:housenumber",
     "addr:country",
     "website",
+    "wikidata",
+    "wikipedia",
     "contact:website",
     "contact:phone",
     "contact:email",
@@ -79,6 +81,30 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
 
       val phone = poi.tags("contact:phone")
       val email = poi.tags("contact:email")
+      val wikidata = poi.tags("wikidata").map { id =>
+        "https://www.wikidata.org/wiki/" + id
+      }
+      val wikipedia = poi.tags("wikipedia").map { tagValue =>
+        if (tagValue.startsWith("nl:")) {
+          val id = tagValue.substring(3)
+          "https://nl.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        }
+        else if (tagValue.startsWith("de:")) {
+          val id = tagValue.substring(3)
+          "https://de.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        }
+        else if (tagValue.startsWith("fr:")) {
+          val id = tagValue.substring(3)
+          "https://fr.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        }
+        else if (tagValue.startsWith("en:")) {
+          val id = tagValue.substring(3)
+          "https://en.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        }
+        else {
+          tagValue
+        }
+      }
 
       val website: Option[String] = {
         Seq(
@@ -132,6 +158,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         phone,
         email,
         website = website,
+        wikidata = wikidata,
+        wikipedia = wikipedia,
         image = image,
         wheelchair = wheelchair
       )

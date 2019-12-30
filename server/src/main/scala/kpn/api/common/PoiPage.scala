@@ -18,6 +18,8 @@ case class PoiPage(
   phone: Option[String],
   email: Option[String],
   website: Option[String],
+  wikidata: Option[String],
+  wikipedia: Option[String],
   image: Option[String],
   wheelchair: Option[String]
 )
