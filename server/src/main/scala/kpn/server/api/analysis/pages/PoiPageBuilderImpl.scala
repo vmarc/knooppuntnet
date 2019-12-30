@@ -29,6 +29,7 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "contact:website",
     "contact:phone",
     "contact:email",
+    "email",
     "url",
     "image",
     "wheelchair"
@@ -80,7 +81,12 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
       }
 
       val phone = poi.tags("contact:phone")
-      val email = poi.tags("contact:email")
+
+      val email = Seq(
+        poi.tags("contact:email"),
+        poi.tags("email")
+      ).flatten.headOption
+
       val wikidata = poi.tags("wikidata").map { id =>
         "https://www.wikidata.org/wiki/" + id
       }

@@ -29,7 +29,7 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       </div>
 
       <div *ngIf="poiPage.phone" class="item"><span i18n="@@poi.detail.phone">Phone</span>: {{poiPage.phone}}</div>
-      <div *ngIf="poiPage.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: {{poiPage.email}}</div>
+      <div *ngIf="poiPage.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: <a [href]="emailLink()">{{poiPage.email}}</a></div>
 
       <div *ngIf="poiPage.description" class="item">{{poiPage.description}}</div>
       <div *ngIf="poiPage.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poiPage.wheelchair}}</div>
@@ -108,5 +108,9 @@ export class PoiDetailComponent {
 
   extraTags(): InterpretedTags {
     return InterpretedTags.all(this.poiPage.extraTags);
+  }
+
+  emailLink(): string {
+    return "mailto:" + this.poiPage.email;
   }
 }
