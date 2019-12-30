@@ -1,5 +1,22 @@
 package kpn.server.api.analysis.pages.poi
 
+import kpn.api.common.Poi
+import kpn.api.common.PoiAnalysis
+import kpn.api.custom.Tag
+import kpn.server.api.analysis.pages.poi.analyzers.PoiAddressAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiContactAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiHollandscheModelDatabaseAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiImageAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiMolenDatabaseAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiTitleAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiWebsiteAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiWheelchairAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiWikidataAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiWikipediaAnalyzer
+import org.springframework.stereotype.Component
+
+import scala.annotation.tailrec
+
 @Component
 class MasterPoiAnalyzerImpl extends MasterPoiAnalyzer {
 
@@ -10,7 +27,8 @@ class MasterPoiAnalyzerImpl extends MasterPoiAnalyzer {
       "source:date",
       "ref:bag",
       "ref:rce",
-      "start_date"
+      "start_date",
+      "building:levels"
     )
 
     val ignoredTagKeyValues = Seq(

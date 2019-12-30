@@ -13,13 +13,22 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
 
-    val image = context.poi.tags("image") // TODO add support for 'mapillary' here ...
+    val mapillary = context.poi.tags("mapillary").map { tagValue =>
+      if (tagValue.startsWith("http")) {
+        tagValue
+      }
+      else {
+        s"http://www.mapillary.com/map/im/$tagValue"
+      }
+    }
+
+    val image = context.poi.tags("image")
 
     context.copy(
-      analysis = context.analysis.copy(image = image),
+      analysis = context.analysis.copy(image = image, mapillary = mapillary),
       processedTagKeys = context.processedTagKeys ++ Seq(
         "image",
-        "TODO mapillary"
+        "mapillary"
       )
     )
   }
