@@ -28,11 +28,14 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "wikipedia",
     "contact:website",
     "contact:phone",
+    "phone",
     "contact:email",
     "email",
     "url",
     "image",
-    "wheelchair"
+    "wheelchair",
+    "mdb_id",
+    "dhm_id"
   )
 
   private val ignoredTagKeys = Seq(
@@ -80,7 +83,10 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         case None => city
       }
 
-      val phone = poi.tags("contact:phone")
+      val phone = Seq(
+        poi.tags("contact:phone"),
+        poi.tags("phone")
+      ).flatten.headOption
 
       val email = Seq(
         poi.tags("contact:email"),
@@ -127,6 +133,14 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         }
       }
 
+      val molenDatabase = poi.tags("mdb_id").map { id =>
+        s"http://www.molendatabase.nl/nederland/molen.php?nummer=$id"
+      }
+
+      val hollandscheMolenDatabase = poi.tags("dhm_id").map { id =>
+        s"https://www.molens.nl/molen/zoek-een-molen/molendetail/?molenid=$id"
+      }
+
       val image = poi.tags("image")
 
       val ignoredTags = Tags(poi.tags.tags.filter(t => ignoredTagKeys.contains(t.key)))
@@ -166,6 +180,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         website = website,
         wikidata = wikidata,
         wikipedia = wikipedia,
+        molenDatabase = molenDatabase,
+        hollandscheMolenDatabase = hollandscheMolenDatabase,
         image = image,
         wheelchair = wheelchair
       )

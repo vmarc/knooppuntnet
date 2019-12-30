@@ -40,6 +40,14 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
         <a *ngIf="poiPage.wikipedia" [href]="poiPage.wikipedia" class="external" target="_blank">wikipedia</a>
       </div>
 
+      <div *ngIf="poiPage.molenDatabase" class="item">
+        <a [href]="poiPage.molenDatabase" class="external" target="_blank">Molen database</a>
+      </div>
+
+      <div *ngIf="poiPage.hollandscheMolenDatabase" class="item">
+        <a [href]="poiPage.hollandscheMolenDatabase" class="external" target="_blank">Hollandsche Molen database</a>
+      </div>
+
       <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()" class="item">
         <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
       </div>

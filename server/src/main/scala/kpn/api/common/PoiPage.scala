@@ -20,6 +20,8 @@ case class PoiPage(
   website: Option[String],
   wikidata: Option[String],
   wikipedia: Option[String],
+  molenDatabase: Option[String],
+  hollandscheMolenDatabase: Option[String],
   image: Option[String],
   wheelchair: Option[String]
 )

@@ -22,6 +22,8 @@ export class PoiPage {
               readonly website: string,
               readonly wikidata: string,
               readonly wikipedia: string,
+              readonly molenDatabase: string,
+              readonly hollandscheMolenDatabase: string,
               readonly image: string,
               readonly wheelchair: string) {
   }
@@ -48,6 +50,8 @@ export class PoiPage {
       jsonObject.website,
       jsonObject.wikidata,
       jsonObject.wikipedia,
+      jsonObject.molenDatabase,
+      jsonObject.hollandscheMolenDatabase,
       jsonObject.image,
       jsonObject.wheelchair
     );
