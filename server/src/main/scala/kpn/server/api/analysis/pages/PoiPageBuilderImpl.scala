@@ -26,12 +26,11 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     "image"
   )
 
-  private val extraTagKeys = Seq(
+  private val ignoredTagKeys = Seq(
     "source",
     "source:date",
     "ref:bag",
     "ref:rce",
-    "mapillary",
     "building=yes",
     "start_date"
   )
@@ -39,8 +38,6 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
   def build(poiRef: PoiRef): Option[PoiPage] = {
 
     poiRepository.get(poiRef).map { poi =>
-
-      logPoi(poi)
 
       var interpretedTagKeys: Set[String] = Set()
 
@@ -73,15 +70,19 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
       val website = poi.tags("website")
       val image = poi.tags("image")
 
-      val extraTags = Tags(poi.tags.tags.filter(t => extraTagKeys.contains(t.key)))
+      val ignoredTags = Tags(poi.tags.tags.filter(t => ignoredTagKeys.contains(t.key)))
 
       val filteredTags = Tags(
         poi.tags.tags.filterNot(t =>
-          extraTagKeys.contains(t.key)
+          ignoredTagKeys.contains(t.key)
             || processedTagKeys.contains(t.key)
             || interpretedTagKeys.contains(t.key)
         )
       )
+
+      val interpretedTags = Tags(poi.tags.tags.filter(t => interpretedTagKeys.contains(t.key)))
+      val processedTags = Tags(poi.tags.tags.filter(t => processedTagKeys.contains(t.key)))
+      logPoi(poi, filteredTags, interpretedTags, processedTags, ignoredTags)
 
       PoiPage(
         elementType = poi.elementType,
@@ -90,7 +91,7 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
         longitude = poi.longitude,
         layers = poi.layers,
         mainTags = filteredTags,
-        extraTags = extraTags,
+        extraTags = Tags.empty,
         name = poi.tags("name"),
         subject = None,
         description = poi.tags("description"),
@@ -102,10 +103,25 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository) extends PoiPageBuilder {
     }
   }
 
-  private def logPoi(poi: Poi): Unit = {
+  private def logPoi(poi: Poi, filteredTags: Tags, interpretedTags: Tags, processedTags: Tags, ignoredTags: Tags): Unit = {
     val header = s"""${poi.elementType}:${poi.elementId} ${poi.layers.mkString(", ")}"""
-    val tags = poi.tags.tags.map(tag => s"${tag.key}=${tag.value}").mkString("  ", "  \n", "")
-    val message = s"$header\n$tags"
+
+    val tags = format("Reported", filteredTags) +
+      format("Interpreted", interpretedTags) +
+      format("Processed", processedTags) +
+      format("Ingored", ignoredTags)
+
+    val message = s"$header$tags"
     log.info(message)
+  }
+
+  private def format(title: String, tags: Tags): String = {
+    if (tags.nonEmpty) {
+      s"\n  $title tags:" +
+        tags.tags.map(tag => s"${tag.key}=${tag.value}").mkString("\n    ", "\n    ", "")
+    }
+    else {
+      ""
+    }
   }
 }

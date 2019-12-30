@@ -32,18 +32,25 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>
       <div *ngIf="poiPage.image"><a [href]="poiPage.image" class="external" target="_blank">image</a></div>
 
-      <kpn-osm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="osm"></kpn-osm-link>
-      <kpn-josm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="edit"></kpn-josm-link>
-
-      <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()">
+      <div *ngIf="poiPage.mainTags && !poiPage.mainTags.tags.isEmpty()" class="tags-table">
         <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
       </div>
 
-      <div *ngIf="poiPage.extraTags && !poiPage.extraTags.tags.isEmpty()">
+      <div *ngIf="poiPage.extraTags && !poiPage.extraTags.tags.isEmpty()" class="tags-table">
         <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
       </div>
+
+      <kpn-osm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="osm"></kpn-osm-link>
+      <kpn-josm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="edit"></kpn-josm-link>
+
     </div>
-  `
+  `,
+  styles: [`
+    .tags-table {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  `]
 })
 export class PoiDetailComponent {
 
