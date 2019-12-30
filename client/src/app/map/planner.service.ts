@@ -12,6 +12,7 @@ import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
 import {PlanLegCache} from "./planner/plan/plan-leg-cache";
 import {PlannerOverlayImpl} from "./planner/context/planner-overlay-impl";
+import {MapService} from "../components/ol/map.service";
 
 @Injectable({
   providedIn: "root"
@@ -25,7 +26,7 @@ export class PlannerService {
   private elasticBand = new PlannerElasticBandImpl();
   private legRepository = new PlannerLegRepositoryImpl(this.appService);
   private legCache: PlanLegCache = new PlanLegCache();
-  private overlay = new PlannerOverlayImpl();
+  private overlay = new PlannerOverlayImpl(this.mapService);
   context: PlannerContext = new PlannerContext(
     this.commandStack,
     this.routeLayer,
@@ -37,7 +38,8 @@ export class PlannerService {
   );
   engine: PlannerEngine = new PlannerEngineImpl(this.context);
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService,
+              private mapService: MapService) {
   }
 
   init(map: Map): void {

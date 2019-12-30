@@ -32,10 +32,6 @@ import {Subscriptions} from "../../util/Subscriptions";
 
       <kpn-map-sidebar-analysis *ngIf="pageMode === 'analysis'" [networkType]="networkType"></kpn-map-sidebar-analysis>
 
-      <div *ngIf="pageMode === 'poi'">
-        <kpn-poi-detail></kpn-poi-detail>
-      </div>
-
       <ng-container *ngIf="pageMode !== 'poi'">
         <mat-divider></mat-divider>
         <kpn-map-sidebar-appearance></kpn-map-sidebar-appearance>
@@ -60,9 +56,6 @@ export class MapSidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.mapService.poiClickedObserver.subscribe(poiId => {
-      this.pageMode = "poi";
-    }));
     this.subscriptions.add(this.mapService.networkType.subscribe(networkType => {
       this.networkType = networkType;
       this.cdr.detectChanges();

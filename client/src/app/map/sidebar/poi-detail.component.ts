@@ -1,22 +1,17 @@
 import {Component} from "@angular/core";
 import {AppService} from "../../app.service";
-import {MapService, PoiId} from "../../components/ol/map.service";
+import {MapService} from "../../components/ol/map.service";
 import {Tags} from "../../kpn/api/custom/tags";
 import {PoiPage} from "../../kpn/api/common/poi-page";
 import {PoiService} from "../../services/poi.service";
 import {Subscriptions} from "../../util/Subscriptions";
 import {InterpretedTags} from "../../components/shared/tags/interpreted-tags";
 import {filter, flatMap, tap} from "rxjs/operators";
+import {PoiId} from "../../components/ol/domain/poi-id";
 
 @Component({
   selector: "kpn-poi-detail",
   template: `
-
-    <div *ngIf="poiId == null">
-      Click on point of interest icons in the map to see detail.
-    </div>
-
-    <kpn-poi-names></kpn-poi-names>
 
     <div *ngIf="poiPage != null">
 
@@ -32,7 +27,6 @@ import {filter, flatMap, tap} from "rxjs/operators";
         <span *ngIf="poiPage.addressLine2">{{poiPage.addressLine2}}</span>
       </p>
 
-
       <div *ngIf="poiPage.description">{{poiPage.description}}</div>
       <div *ngIf="poiPage.website"><a [href]="poiPage.website" class="external" target="_blank">website</a></div>
       <div *ngIf="poiPage.image"><a [href]="poiPage.image" class="external" target="_blank">image</a></div>
@@ -47,33 +41,17 @@ import {filter, flatMap, tap} from "rxjs/operators";
       <div *ngIf="poiPage.extraTags && !poiPage.extraTags.tags.isEmpty()">
         <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
       </div>
-
-      <br/>
-      <br/>
-      <br/>
-      latitude {{latitude}}
-      <br/>
-      longitude {{longitude}}
-      <br/>
-
     </div>
-  `,
-  styles: [`
-    :host {
-      display: block;
-      padding: 20px;
-    }
-  `]
+  `
 })
 export class PoiDetailComponent {
-
-  private readonly subscriptions = new Subscriptions();
 
   poiId: PoiId;
   poiPage: PoiPage;
   tags: Tags;
   latitude: string;
   longitude: string;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private mapService: MapService,
               private appService: AppService,

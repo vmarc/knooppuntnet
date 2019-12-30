@@ -6,12 +6,11 @@ import {PlannerService} from "../../../planner.service";
   template: `
     <div id="popup" class="ol-popup">
       <a href="#" (click)="closePopup()" id="popup-closer" class="ol-popup-closer"></a>
-      <div>
-        This is the popup.
-      </div>
+      <kpn-poi-detail></kpn-poi-detail>
     </div>
   `,
   styles: [`
+
     .ol-popup {
       position: absolute;
       background-color: white;
@@ -61,17 +60,13 @@ import {PlannerService} from "../../../planner.service";
     }
   `]
 })
-export class MapPopupComponent implements OnInit {
+export class MapPopupComponent {
 
   constructor(private plannerService: PlannerService) {
   }
 
-  ngOnInit() {
-  }
-
   private closePopup() {
-    this.plannerService.context.overlay.setPosition(undefined);
-    // this.poiInformation = undefined;
+    this.plannerService.context.overlay.setPosition(undefined, undefined);
     return false;
   }
 

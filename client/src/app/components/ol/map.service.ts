@@ -2,12 +2,7 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {NetworkType} from "../../kpn/api/custom/network-type";
 import {SelectedFeature} from "./domain/selected-feature";
-
-export class PoiId {
-  constructor(readonly elementType: string,
-              readonly elementId: number) {
-  }
-}
+import {PoiId} from "./domain/poi-id";
 
 @Injectable()
 export class MapService {

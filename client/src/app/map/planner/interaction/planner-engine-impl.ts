@@ -21,6 +21,7 @@ import {LegFeature} from "../features/leg-feature";
 import {PoiFeature} from "../features/poi-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
 import {FlagFeature} from "../features/flag-feature";
+import {PoiId} from "../../../components/ol/domain/poi-id";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -58,7 +59,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const poiFeature = this.findPoi(features);
     if (poiFeature != null) {
-      this.context.overlay.setPosition(poiFeature.coordinate);
+      this.context.overlay.setPosition(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId));
       return true;
     }
 
