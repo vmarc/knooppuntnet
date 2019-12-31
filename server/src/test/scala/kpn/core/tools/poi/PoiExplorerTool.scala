@@ -10,18 +10,24 @@ object PoiExplorerTool {
     Couch.executeIn("pois4") { database =>
       val repo = new PoiRepositoryImpl(database)
       val poiRefs = loadPoiRefs(repo)
-      val denominations = poiRefs.zipWithIndex.flatMap { case (poiRef, index) =>
+      val wheelchairTags = poiRefs.zipWithIndex.flatMap { case (poiRef, index) =>
         if (index % 1000 == 0) {
           println(s"$index/${poiRefs.size}")
         }
-        repo.get(poiRef).flatMap { poi => poi.tags("denomination") }
+        repo.get(poiRef).toSeq.flatMap { poi =>
+          poi.tags.tags.filter { tag =>
+            tag.key.contains("wheelchair") || tag.value.contains("wheelchair")
+          }
+        }
       }
 
-      val denominationFrequencies = denominations.foldLeft(Map.empty[String, Int]) {
+      val tagStrings = wheelchairTags.map(tag => s"${tag.key}=${tag.value}")
+
+      val tagFrequencies = tagStrings.foldLeft(Map.empty[String, Int]) {
         (count, word) => count + (word -> (count.getOrElse(word, 0) + 1))
       }
 
-      denominationFrequencies.toSeq.sortBy(_._2).reverse.foreach { kv => println(s"${kv._2} -> ${kv._1}") }
+      tagFrequencies.toSeq.sortBy(_._2).reverse.foreach { kv => println(s"${kv._2} -> ${kv._1}") }
     }
   }
 
