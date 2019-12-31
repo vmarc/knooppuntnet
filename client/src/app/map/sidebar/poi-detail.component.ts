@@ -37,7 +37,14 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       <div *ngIf="poi.description" class="item">{{poi.description}}</div>
       <div *ngIf="poi.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poi.wheelchair}}</div>
 
-      <div *ngIf="poi.image" class="item"><a [href]="poi.image" class="external" target="_blank" i18n="@@poi.detail.image">Image</a></div>
+      <div *ngIf="poi.image" class="item">
+        <a [href]="poi.image" target="_blank">
+          <img src="{{poi.image}}" width="inherit" height="100px" alt="image" class="image"/>
+        </a>
+      </div>
+
+      <div *ngIf="poi.imageLink" class="item"><a [href]="poi.imageLink" class="external" target="_blank" i18n="@@poi.detail.image">Image</a></div>
+
       <div *ngIf="poi.mapillary" class="item"><a [href]="poi.mapillary" class="external" target="_blank" i18n="@@poi.detail.mapillary">Mapillary</a></div>
       <div *ngIf="poi.onroerendErfgoed" class="item"><a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank">Onroerend
         Erfgoed</a></div>
@@ -75,6 +82,9 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
     .item {
       margin-top: 10px;
       margin-bottom: 10px;
+    }
+    .image {
+      border: 1px solid #cccccc;
     }
   `]
 })

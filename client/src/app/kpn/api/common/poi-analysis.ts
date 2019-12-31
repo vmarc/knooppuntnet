@@ -23,6 +23,7 @@ export class PoiAnalysis {
               readonly molenDatabase: string,
               readonly hollandscheMolenDatabase: string,
               readonly image: string,
+              readonly imageLink: string,
               readonly mapillary: string,
               readonly wheelchair: string,
               readonly onroerendErfgoed: string) {
@@ -51,6 +52,7 @@ export class PoiAnalysis {
       jsonObject.molenDatabase,
       jsonObject.hollandscheMolenDatabase,
       jsonObject.image,
+      jsonObject.imageLink,
       jsonObject.mapillary,
       jsonObject.wheelchair,
       jsonObject.onroerendErfgoed
