@@ -15,8 +15,13 @@ object PoiExplorerTool {
           println(s"$index/${poiRefs.size}")
         }
         repo.get(poiRef).flatMap { poi => poi.tags("denomination") }
-      }.toSet
-      denominations.toSeq.sorted.foreach(println)
+      }
+
+      val denominationFrequencies = denominations.foldLeft(Map.empty[String, Int]) {
+        (count, word) => count + (word -> (count.getOrElse(word, 0) + 1))
+      }
+
+      denominationFrequencies.toSeq.sortBy(_._2).reverse.foreach { kv => println(s"${kv._2} -> ${kv._1}") }
     }
   }
 
