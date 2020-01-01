@@ -2,11 +2,17 @@ package kpn.core.poi.tags
 
 class TagExpressionFormatter {
 
-  def format(expression: TagExpression): String = {
+  def format(expression: TagExpression): Seq[String] = {
+    expression match {
+      case e: Or => Seq(formatExpression(e.left) ,formatExpression(e.right))
+      case _ => Seq(formatExpression(expression))
+    }
+  }
+
+  private def formatExpression(expression: TagExpression): String = {
 
     expression match {
-      case e: And => format(e.left) + format(e.right)
-      case e: Or => format(e.left) + format(e.right)
+      case e: And => formatExpression(e.left) + formatExpression(e.right)
       case e: HasTag => formatHasTag(e)
       case e: NotHasTag => formatNotHasTag(e)
       case e: TagContains => formatTagContains(e)

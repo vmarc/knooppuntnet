@@ -77,16 +77,18 @@ class PoiTileAnalyzerTool(
           Log.context(s"$layer $elementType") {
             log.info(s"Load pois")
             PoiLocation.boundingBoxStrings.foreach { bbox =>
-              val condition = new TagExpressionFormatter().format(poiDefinition.expression)
-              val pois = poiLoader.load(elementType, layer, bbox, condition)
-              log.info(s"Saving ${pois.size} pois $layer $bbox $elementType")
-              pois.foreach { poi =>
-                if (poiScopeAnalyzer.inScope(poi)) {
-                  val poiDefinitions = findPoiDefinitions(poi)
-                  val layers = poiDefinitions.map(_.name).seq.distinct.sorted
-                  if (layers.nonEmpty) {
-                    val tileNames = tileCalculator.tiles(poi, poiDefinitions)
-                    poiRepository.save(poi.copy(layers = layers, tiles = tileNames))
+              val conditions = new TagExpressionFormatter().format(poiDefinition.expression)
+              conditions.foreach { condition =>
+                val pois = poiLoader.load(elementType, layer, bbox, condition)
+                log.info(s"Saving ${pois.size} pois $layer $bbox $elementType")
+                pois.foreach { poi =>
+                  if (poiScopeAnalyzer.inScope(poi)) {
+                    val poiDefinitions = findPoiDefinitions(poi)
+                    val layers = poiDefinitions.map(_.name).seq.distinct.sorted
+                    if (layers.nonEmpty) {
+                      val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
+                      poiRepository.save(poi.copy(layers = layers, tiles = tileNames))
+                    }
                   }
                 }
               }
