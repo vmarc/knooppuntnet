@@ -12,7 +12,7 @@ export class PoiService {
 
   private zoomLevel: number;
   private poiPreferences: PoiPreferences;
-  private poiActive = Map<string, boolean>();
+  /*private*/ poiActive = Map<string, boolean>();
   private poiNames: Map<string, string> = null;
 
   poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(null);
@@ -25,6 +25,7 @@ export class PoiService {
     this.appService.poiConfiguration().subscribe(response => {
       this.poiConfiguration.next(new InterpretedPoiConfiguration(response.result));
       this.initPoiConfig();
+      this.updatePoiActive();
     });
   }
 

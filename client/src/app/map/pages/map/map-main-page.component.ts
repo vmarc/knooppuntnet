@@ -144,11 +144,12 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     const view = this.map.getView();
     this.tileLoadProgressService.install(this.bitmapTileLayer, this.vectorTileLayer, this.poiTileLayer);
     this.mapPositionService.install(view);
+    this.poiService.updateZoomLevel(view.getZoom());
 
     view.on("change:resolution", () => this.zoom(view.getZoom()));
 
     this.vectorTileLayer.setStyle(this.mainMapStyle);
-    this.updateLayerVisibility(this.map.getView().getZoom());
+    this.updateLayerVisibility(view.getZoom());
 
     MapGeocoder.install(this.map);
   }
