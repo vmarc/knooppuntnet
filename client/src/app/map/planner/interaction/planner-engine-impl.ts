@@ -35,6 +35,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
+      this.context.closeOverlay();
       return false;
     }
 

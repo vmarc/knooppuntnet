@@ -80,4 +80,8 @@ export class PlannerContext {
     this.routeLayer.addRouteLeg(newLeg);
   }
 
+  closeOverlay(): void {
+    this.overlay.setPosition(undefined);
+  }
+
 }
