@@ -15,6 +15,8 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
   selector: "kpn-poi-detail",
   template: `
 
+    <div *ngIf="poi == null" class="item" i18n="@@poi.detail.none">No details available</div>
+
     <div *ngIf="poi != null">
 
       <h2 *ngIf="poi.name">{{poi.name}}</h2>
@@ -83,6 +85,7 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       margin-top: 10px;
       margin-bottom: 10px;
     }
+
     .image {
       border: 1px solid #cccccc;
     }
@@ -94,8 +97,6 @@ export class PoiDetailComponent {
   poiPage: PoiPage;
   poi: PoiAnalysis;
   tags: Tags;
-  latitude: string;
-  longitude: string;
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapService: MapService,
@@ -110,11 +111,15 @@ export class PoiDetailComponent {
         filter(poiClick => poiClick !== null),
         flatMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId))
       ).subscribe(response => {
-        this.poiPage = response.result;
-        this.poi = response.result.analysis;
-        this.latitude = response.result.latitude;
-        this.longitude = response.result.longitude;
-        this.tags = response.result.analysis.mainTags;
+        if (response.result) {
+          this.poiPage = response.result;
+          this.poi = response.result.analysis;
+          this.tags = response.result.analysis.mainTags;
+        } else {
+          this.poiPage = null;
+          this.poi = null;
+          this.tags = null;
+        }
         this.cdr.detectChanges();
         this.plannerService.context.overlay.setPosition(this.poiClick.coordinate)
       })

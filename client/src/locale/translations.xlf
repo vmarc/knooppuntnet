@@ -5711,53 +5711,60 @@
           <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="poi.detail.none" datatype="html">
+        <source>No details available</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="poi.detail.phone" datatype="html">
         <source>Phone</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.fax" datatype="html">
         <source>Fax</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.email" datatype="html">
         <source>E-mail</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.facebook" datatype="html">
         <source>Facebook</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wheelchair" datatype="html">
         <source>Wheelchair</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.image" datatype="html">
         <source>Image</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.mapillary" datatype="html">
         <source>Mapillary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.onroerendErfgoed" datatype="html">
@@ -5765,28 +5772,28 @@
         Erfgoed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.website" datatype="html">
         <source>Website</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikidata" datatype="html">
         <source>Wikidata</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikipedia" datatype="html">
         <source>Wikipedia</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.undo" datatype="html">
