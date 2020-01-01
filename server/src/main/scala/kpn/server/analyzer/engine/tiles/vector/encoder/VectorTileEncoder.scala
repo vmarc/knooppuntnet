@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
-import kpn.server.analyzer.engine.tiles.domain
+import kpn.server.analyzer.engine.tiles.domain.ClipBuffer
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
@@ -15,7 +15,7 @@ import org.locationtech.jts.io.WKTReader
 
 import scala.collection.immutable.ListMap
 
-class VectorTileEncoder {
+class VectorTileEncoder(clipBuffer: ClipBuffer = Tile.CLIP_BUFFER) {
 
   private val layers = new VectorTileLayers()
 
@@ -101,13 +101,12 @@ class VectorTileEncoder {
   }
 
   private def buildTileEnvelope(): Polygon = {
-    val buffer = domain.Tile.CLIP_BUFFER.toDouble
     val size = extent.toDouble
     val coords = new Array[Coordinate](5)
-    coords(0) = new Coordinate(0d - buffer, size + buffer)
-    coords(1) = new Coordinate(size + buffer, size + buffer)
-    coords(2) = new Coordinate(size + buffer, 0d - buffer)
-    coords(3) = new Coordinate(0d - buffer, 0d - buffer)
+    coords(0) = new Coordinate(0d - clipBuffer.left, size + clipBuffer.bottom)
+    coords(1) = new Coordinate(size + clipBuffer.right, size + clipBuffer.bottom)
+    coords(2) = new Coordinate(size + clipBuffer.right, 0d - clipBuffer.top)
+    coords(3) = new Coordinate(0d - clipBuffer.left, 0d - clipBuffer.top)
     coords(4) = coords(0)
     new GeometryFactory().createPolygon(coords)
   }

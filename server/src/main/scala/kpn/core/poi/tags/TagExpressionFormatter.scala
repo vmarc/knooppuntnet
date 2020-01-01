@@ -6,6 +6,7 @@ class TagExpressionFormatter {
 
     expression match {
       case e: And => format(e.left) + format(e.right)
+      case e: Or => format(e.left) + format(e.right)
       case e: HasTag => formatHasTag(e)
       case e: NotHasTag => formatNotHasTag(e)
       case e: TagContains => formatTagContains(e)

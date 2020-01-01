@@ -17,7 +17,7 @@ class PoiVectorTileBuilder {
 
     val geomFactory = new GeometryFactory
 
-    val encoder = new VectorTileEncoder()
+    val encoder = new VectorTileEncoder(Tile.POI_CLIP_BUFFER)
 
     def scaleLat(lat: Double): Double = {
       Tile.EXTENT - ((lat - data.tile.bounds.yMin) * Tile.EXTENT / (data.tile.bounds.yMax - data.tile.bounds.yMin))

@@ -24,6 +24,6 @@ trait PoiRepository {
 
   def allTiles(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[String]
 
-  def tilePoiRefs(tileName: String): Seq[PoiRef]
+  def tilePoiRefs(tileName: String, stale: Boolean = true): Seq[PoiRef]
 
 }

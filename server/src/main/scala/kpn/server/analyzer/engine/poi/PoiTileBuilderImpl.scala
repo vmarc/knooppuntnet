@@ -24,7 +24,7 @@ class PoiTileBuilderImpl(
     log.elapsed {
 
       val tile = tileCalculator.tileNamed(tileName)
-      val poiRefs = poiRepository.tilePoiRefs(tileName)
+      val poiRefs = poiRepository.tilePoiRefs(tileName, stale = false)
       val pois = poiRefs.flatMap(poiRef => poiRepository.get(poiRef))
 
       val poiInfos = pois.map { poi =>

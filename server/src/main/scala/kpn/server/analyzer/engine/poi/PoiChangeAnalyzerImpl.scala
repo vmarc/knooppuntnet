@@ -82,7 +82,7 @@ class PoiChangeAnalyzerImpl(
   private def savePoi(poiRef: PoiRef, center: LatLon, tags: Tags, poiDefinitions: Seq[PoiDefinition]): Unit = {
 
     val oldTileNames = poiRepository.get(poiRef).toSeq.flatMap(_.tiles)
-    val newTileNames = tileCalculator.tiles(center, poiDefinitions)
+    val newTileNames = tileCalculator.poiTiles(center, poiDefinitions)
     val allTileNames = (oldTileNames ++ newTileNames).sorted.distinct
 
     val poi = Poi(

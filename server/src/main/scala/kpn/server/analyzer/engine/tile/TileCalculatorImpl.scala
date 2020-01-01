@@ -24,9 +24,32 @@ class TileCalculatorImpl extends TileCalculator {
     cache(tileName)
   }
 
-  def tiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String] = {
+  def poiTiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String] = {
     val minLevel = poiDefinitions.map(_.minLevel).min
-    val tiles = (minLevel.toInt to ZoomLevel.poiTileMaxZoom).map(z => tileLonLat(z, latLon.lon, latLon.lat))
+    val tiles = (minLevel.toInt to ZoomLevel.poiTileMaxZoom).flatMap { z =>
+      val lon = latLon.lon
+      val lat = latLon.lat
+
+      val tile = tileLonLat(z, lon, lat)
+
+      Seq(
+        Some(tile),
+        explore(lon, lat, z, tile.x - 1, tile.y),
+        explore(lon, lat, z, tile.x + 1, tile.y),
+        explore(lon, lat, z, tile.x - 1, tile.y - 1),
+        explore(lon, lat, z, tile.x, tile.y - 1),
+        explore(lon, lat, z, tile.x + 1, tile.y - 1),
+        explore(lon, lat, z, tile.x - 1, tile.y + 1),
+        explore(lon, lat, z, tile.x, tile.y + 1),
+        explore(lon, lat, z, tile.x + 1, tile.y + 1)
+      ).flatten
+    }
     tiles.map(_.name)
   }
+
+  private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[Tile] = {
+    val tile = tileXY(z, x, y)
+    if (tile.poiClipBounds.contains(lon, lat)) Some(tile) else None
+  }
+
 }

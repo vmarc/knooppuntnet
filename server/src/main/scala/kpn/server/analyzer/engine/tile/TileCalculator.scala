@@ -12,6 +12,6 @@ trait TileCalculator {
 
   def tileNamed(tileName: String): Tile
 
-  def tiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String]
+  def poiTiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String]
 
 }

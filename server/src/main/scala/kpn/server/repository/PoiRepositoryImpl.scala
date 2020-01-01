@@ -99,12 +99,12 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     poiDatabase.deleteDocWithId(id)
   }
 
-  override def allTiles(timeout: Timeout = Couch.batchTimeout, stale: Boolean = true): Seq[String] = {
+  override def allTiles(timeout: Timeout = Couch.batchTimeout, stale: Boolean): Seq[String] = {
     PoiTileView.allTiles(poiDatabase, stale)
   }
 
-  override def tilePoiRefs(tileName: String): Seq[PoiRef] = {
-    PoiTileView.tilePoiRefs(tileName, poiDatabase)
+  override def tilePoiRefs(tileName: String, stale: Boolean): Seq[PoiRef] = {
+    PoiTileView.tilePoiRefs(tileName, poiDatabase, stale)
   }
 
   private def poiDocId(poi: Poi): String = {
