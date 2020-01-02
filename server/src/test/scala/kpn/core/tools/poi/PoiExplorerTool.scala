@@ -10,18 +10,18 @@ object PoiExplorerTool {
     Couch.executeIn("pois4") { database =>
       val repo = new PoiRepositoryImpl(database)
       val poiRefs = loadPoiRefs(repo)
-      poiRefs.zipWithIndex.foreach { case (poiRef, index) =>
+      val tagValues = poiRefs.zipWithIndex.flatMap { case (poiRef, index) =>
         if (index % 1000 == 0) {
           println(s"$index/${poiRefs.size}")
         }
-        repo.get(poiRef).toSeq.foreach { poi =>
-          poi.tags.tags.foreach { tag =>
-            if (tag.key.contains("wikimedia")) {
-              println(tag)
-            }
-          }
-        }
+        repo.get(poiRef).flatMap { poi => poi.tags("cuisine") }
       }
+
+      val frequencies = tagValues.foldLeft(Map.empty[String, Int]) {
+        (count, word) => count + (word -> (count.getOrElse(word, 0) + 1))
+      }
+
+      frequencies.toSeq.sortBy(_._2).reverse.foreach { kv => println(s"${kv._2} -> ${kv._1}") }
     }
   }
 
