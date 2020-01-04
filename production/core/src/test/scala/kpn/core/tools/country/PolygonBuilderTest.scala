@@ -52,9 +52,9 @@ class PolygonBuilderTest extends FunSuite with Matchers {
     val nodes = Seq(a, b, c, d, e, f, g, h).map(n => n.id -> n).toMap
     val ways = Seq(ab, bc, cd, da, ef, fg, gh, he).map(w => w.id -> w).toMap
     val relations = Seq(r).map(r => r.id -> r).toMap
-    val data: SkeletonData = SkeletonData(nodes, ways, relations)
+    val data: SkeletonData = SkeletonData(r.id, nodes, ways, relations)
 
-    val polygons = new PolygonBuilder(Country.be, data: SkeletonData).polygons(1)
+    val polygons = new PolygonBuilder(Country.be, data: SkeletonData).polygons()
 
     polygons.size should equal(1)
     val polygon = polygons.head

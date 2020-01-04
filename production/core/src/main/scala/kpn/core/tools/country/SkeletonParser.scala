@@ -8,7 +8,7 @@ class SkeletonParser {
     val nodes = nodesIn(xml).map(n => n.id -> n).toMap
     val ways = waysIn(xml).map(w => w.id -> w).toMap
     val relations = relationsIn(xml).map(r => r.id -> r).toMap
-    SkeletonData(nodes, ways, relations)
+    SkeletonData(0L, nodes, ways, relations)
   }
 
   private def nodesIn(xml: scala.xml.Node): Seq[SkeletonNode] = {
