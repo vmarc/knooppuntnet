@@ -29,6 +29,6 @@ class CountryBoundaryLoader(country: Country) {
     val response = executor.execute(s"relation($countryId);>>;out skel;")
     FileUtils.writeStringToFile(new File(s"/kpn/country/debug/${country.domain}.xml"), response, "UTF-8")
     val xml = XML.loadString(response)
-    new SkeletonParser().parse(xml.head)
+    new SkeletonParser().parse(xml.head).copy(countryRelationId = countryId)
   }
 }

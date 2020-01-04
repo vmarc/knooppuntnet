@@ -12,8 +12,8 @@ class PolygonBuilder(country: Country, data: SkeletonData) {
 
   private val factory: GeometryFactory = new GeometryFactory()
 
-  def polygons(id: Long): Seq[Polygon] = {
-    val countryRelation = data.relations(id)
+  def polygons(): Seq[Polygon] = {
+    val countryRelation = data.relations(data.countryRelationId)
     val outers = findRingsWithRole(countryRelation, "outer").map(toRing)
     val inners = findRingsWithRole(countryRelation, "inner").map(toRing)
     log(outers, "outer")

@@ -78,6 +78,10 @@ class CountryAnalyzerTest extends FunSuite with Matchers with SharedTestObjects 
     analyzer.countries(node("48.8568537", "2.3411688")) should equal(Seq(Country.fr))
   }
 
+  test("Vienna") {
+    analyzer.countries(node("48.12", "16.22")) should equal(Seq(Country.at))
+  }
+
   private def node(latitude: String, longitude: String): LatLon = {
     newRawNode(latitude = latitude, longitude = longitude)
   }
