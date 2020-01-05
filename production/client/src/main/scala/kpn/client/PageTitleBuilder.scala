@@ -72,6 +72,7 @@ object PageTitleBuilder {
         case Subset.beBicycle => nls("Cycling in Belgium", "Fietsen in België")
         case Subset.deBicycle => nls("Cycling in Germany", "Fietsen in Duitsland")
         case Subset.frBicycle => nls("Cycling in France", "Fietsen in Frankrijk")
+        case Subset.atBicycle => nls("Cycling in Austria", "Fietsen in Oostenrijk")
         case Subset.nlHiking => nls("Hiking in The Netherlands", "Wandelen in Nederland")
         case Subset.beHiking => nls("Hiking in Belgium", "Wandelen in België")
         case Subset.deHiking => nls("Hiking in Germany", "Wandelen in Duitsland")

@@ -32,13 +32,20 @@ case class Figure(
   frRhn: Int = 0,
   frRmn: Int = 0,
   frRpn: Int = 0,
-  frRin: Int = 0
+  frRin: Int = 0,
+  atRwn: Int = 0,
+  atRcn: Int = 0,
+  atRhn: Int = 0,
+  atRmn: Int = 0,
+  atRpn: Int = 0,
+  atRin: Int = 0
 ) {
 
   def total: Int = nlRwn + nlRcn + nlRhn + nlRmn + nlRpn + nlRin +
     beRwn + beRcn + beRhn + beRmn + beRpn + beRin +
     deRwn + deRcn + deRhn + deRmn + deRpn + deRin +
-    frRwn + frRcn + frRhn + frRmn + frRpn + frRin
+    frRwn + frRcn + frRhn + frRmn + frRpn + frRin +
+    atRwn + atRcn + atRhn + atRmn + atRpn + atRin
 
   def value(subset: Subset): Int = {
     subset.country match {
@@ -78,6 +85,15 @@ case class Figure(
           case NetworkType.canoe => frRpn
           case NetworkType.inlineSkates => frRin
         }
+      case Country.at =>
+        subset.networkType match {
+          case NetworkType.hiking => atRwn
+          case NetworkType.bicycle => atRcn
+          case NetworkType.horseRiding => atRhn
+          case NetworkType.motorboat => atRmn
+          case NetworkType.canoe => atRpn
+          case NetworkType.inlineSkates => atRin
+        }
     }
   }
 
@@ -87,7 +103,8 @@ case class Figure(
       CountryStatistic(number(nlRwn), number(nlRcn), number(nlRhn), number(nlRmn), number(nlRpn), number(nlRin)),
       CountryStatistic(number(beRwn), number(beRcn), number(beRhn), number(beRmn), number(beRpn), number(beRin)),
       CountryStatistic(number(deRwn), number(deRcn), number(deRhn), number(deRmn), number(deRpn), number(deRin)),
-      CountryStatistic(number(frRwn), number(frRcn), number(frRhn), number(frRmn), number(frRpn), number(frRin))
+      CountryStatistic(number(frRwn), number(frRcn), number(frRhn), number(frRmn), number(frRpn), number(frRin)),
+      CountryStatistic(number(atRwn), number(atRcn), number(atRhn), number(atRmn), number(atRpn), number(atRin))
     )
   }
 }

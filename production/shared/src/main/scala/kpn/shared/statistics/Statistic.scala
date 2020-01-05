@@ -7,6 +7,7 @@ object Statistic {
     CountryStatistic("-", "-", "-", "-", "-", "-"),
     CountryStatistic("-", "-", "-", "-", "-", "-"),
     CountryStatistic("-", "-", "-", "-", "-", "-"),
+    CountryStatistic("-", "-", "-", "-", "-", "-"),
     CountryStatistic("-", "-", "-", "-", "-", "-")
   )
 }
@@ -16,5 +17,6 @@ case class Statistic(
   nl: CountryStatistic,
   be: CountryStatistic,
   de: CountryStatistic,
-  fr: CountryStatistic
+  fr: CountryStatistic,
+  at: CountryStatistic
 )

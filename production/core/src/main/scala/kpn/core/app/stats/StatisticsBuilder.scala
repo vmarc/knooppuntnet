@@ -69,6 +69,14 @@ object StatisticsBuilder {
             percentage(numerator.frRmn, denominator.frRmn),
             percentage(numerator.frRpn, denominator.frRpn),
             percentage(numerator.frRin, denominator.frRin)
+          ),
+          CountryStatistic(
+            percentage(numerator.atRwn, denominator.atRwn),
+            percentage(numerator.atRcn, denominator.atRcn),
+            percentage(numerator.atRhn, denominator.atRhn),
+            percentage(numerator.atRmn, denominator.atRmn),
+            percentage(numerator.atRpn, denominator.atRpn),
+            percentage(numerator.atRin, denominator.atRin)
           )
         )
       }
@@ -114,6 +122,14 @@ object StatisticsBuilder {
             percentage(numerator.frRmn, denominator.frRmn),
             percentage(numerator.frRpn, denominator.frRpn),
             percentage(numerator.frRin, denominator.frRin)
+          ),
+          CountryStatistic(
+            percentage(numerator.atRwn, denominator.atRwn),
+            percentage(numerator.atRcn, denominator.atRcn),
+            percentage(numerator.atRhn, denominator.atRhn),
+            percentage(numerator.atRmn, denominator.atRmn),
+            percentage(numerator.atRpn, denominator.atRpn),
+            percentage(numerator.atRin, denominator.atRin)
           )
         )
       }
@@ -158,6 +174,14 @@ object StatisticsBuilder {
             number(count.frRmn / 1000),
             number(count.frRpn / 1000),
             number(count.frRin / 1000)
+          ),
+          CountryStatistic(
+            number(count.atRwn / 1000),
+            number(count.atRcn / 1000),
+            number(count.atRhn / 1000),
+            number(count.atRmn / 1000),
+            number(count.atRpn / 1000),
+            number(count.atRin / 1000)
           )
         )
       }
@@ -202,6 +226,14 @@ object StatisticsBuilder {
             number(count.frRmn / 1000),
             number(count.frRpn / 1000),
             number(count.frRin / 1000)
+          ),
+          CountryStatistic(
+            number(count.atRwn / 1000),
+            number(count.atRcn / 1000),
+            number(count.atRhn / 1000),
+            number(count.atRmn / 1000),
+            number(count.atRpn / 1000),
+            number(count.atRin / 1000)
           )
         )
       }
@@ -247,6 +279,14 @@ object StatisticsBuilder {
             percentage(count.frRmn - failed.frRmn, count.frRmn),
             percentage(count.frRpn - failed.frRpn, count.frRpn),
             percentage(count.frRin - failed.frRin, count.frRin)
+          ),
+          CountryStatistic(
+            percentage(count.atRwn - failed.atRwn, count.atRwn),
+            percentage(count.atRcn - failed.atRcn, count.atRcn),
+            percentage(count.atRhn - failed.atRhn, count.atRhn),
+            percentage(count.atRmn - failed.atRmn, count.atRmn),
+            percentage(count.atRpn - failed.atRpn, count.atRpn),
+            percentage(count.atRin - failed.atRin, count.atRin)
           )
         )
       }
@@ -292,6 +332,14 @@ object StatisticsBuilder {
             percentage(checkCount.frRmn, nodeCount.frRmn),
             percentage(checkCount.frRpn, nodeCount.frRpn),
             percentage(checkCount.frRin, nodeCount.frRin)
+          ),
+          CountryStatistic(
+            percentage(checkCount.atRwn, nodeCount.atRwn),
+            percentage(checkCount.atRcn, nodeCount.atRcn),
+            percentage(checkCount.atRhn, nodeCount.atRhn),
+            percentage(checkCount.atRmn, nodeCount.atRmn),
+            percentage(checkCount.atRpn, nodeCount.atRpn),
+            percentage(checkCount.atRin, nodeCount.atRin)
           )
         )
       }

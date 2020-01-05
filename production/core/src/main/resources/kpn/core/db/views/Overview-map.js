@@ -1,5 +1,11 @@
 var emitCount = function (key, index, count) {
-  var value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var value = [
+    0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0
+  ];
   value[index] = count;
   emit(key, value);
 };
@@ -84,12 +90,32 @@ var calculateSubsetIndex = function (country, networkType) {
     if (networkType === "rmn") {
       return 21;
     }
-    // if (networkType === "rpn") {
-    //   return 22;
-    // }
-    // if (networkType === "rin") {
-    //   return 23;
-    // }
+    if (networkType === "rpn") {
+      return 22;
+    }
+    if (networkType === "rin") {
+      return 23;
+    }
+  }
+  if (country === "at") {
+    if (networkType === "rwn") {
+      return 24;
+    }
+    if (networkType === "rcn") {
+      return 25;
+    }
+    if (networkType === "rhn") {
+      return 26;
+    }
+    if (networkType === "rmn") {
+      return 27;
+    }
+    if (networkType === "rpn") {
+      return 28;
+    }
+    if (networkType === "rin") {
+      return 29;
+    }
   }
   return -1;
 };

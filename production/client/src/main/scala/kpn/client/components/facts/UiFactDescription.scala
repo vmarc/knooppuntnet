@@ -395,9 +395,9 @@ object UiFactDescription {
         case IgnoreForeignCountry =>
           <.p(
             if (nlsNL) {
-              """Niet opgenomen in analyse: bevind zich in ander land dan Nederland, België of Duitsland."""
+              """Niet opgenomen in analyse: bevind zich in ander land dan Nederland, België, Duitsland, Frankrijk of Oostenrijk."""
             } else {
-              """Not included in analysis: located in a country different from The Netherlands, Belgium or Germany."""
+              """Not included in analysis: located in a country different from The Netherlands, Belgium, Germany, France or Austria."""
             }
           )
 

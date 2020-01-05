@@ -21,7 +21,8 @@ object SubsetInfoCache {
     Subset.deHorseRiding -> SubsetInfo("de", "rhn"),
     Subset.frHiking -> SubsetInfo("fr", "rwn"),
     Subset.frBicycle -> SubsetInfo("fr", "rcn"),
-    Subset.frHorseRiding -> SubsetInfo("fr", "rhn")
+    Subset.frHorseRiding -> SubsetInfo("fr", "rhn"),
+    Subset.atBicycle -> SubsetInfo("at", "rcn")
   )
 
   def get(subset: Subset): SubsetInfo = {

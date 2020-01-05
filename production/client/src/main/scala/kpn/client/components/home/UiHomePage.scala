@@ -107,8 +107,7 @@ object UiHomePage {
         UiPageContents(
           TagMod.when(nlsEN) {
             <.p(
-              "This is an analysis of the node networks in The Netherlands, " +
-                "Belgium and Germany, as defined in ",
+              "This is an analysis of the node networks as defined in ",
               <.a(
                 ^.href := "https://www.openstreetmap.org",
                 ^.cls := "external",
@@ -120,8 +119,7 @@ object UiHomePage {
           },
           TagMod.when(nlsNL) {
             <.p(
-              "Dit is een analyse van de knooppuntnetwerken in Nederland, België en Duitsland, " +
-                "zoals deze zijn opgenomen in ",
+              "Dit is een analyse van de knooppuntnetwerken zoals deze zijn opgenomen in ",
               <.a(
                 ^.href := "https://www.openstreetmap.org",
                 ^.cls := "external",
@@ -233,7 +231,9 @@ object UiHomePage {
       subsetCard(Subset.deHiking),
       <.div(Styles.country, Nls.country(Some(Country.fr))),
       subsetCard(Subset.frBicycle),
-      subsetCard(Subset.frHiking)
+      subsetCard(Subset.frHiking),
+      <.div(Styles.country, Nls.country(Some(Country.at))),
+      subsetCard(Subset.atBicycle)
     )
 
     private def subsetCard(subset: Subset): VdomElement = {

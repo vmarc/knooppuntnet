@@ -589,7 +589,7 @@ object JsonFormats extends DefaultJsonProtocol {
   implicit val changesParametersFormat: RootJsonFormat[ChangesParameters] = jsonFormat10(ChangesParameters)
 
   implicit val countryStatisticFormat: RootJsonFormat[CountryStatistic] = jsonFormat6(CountryStatistic)
-  implicit val statisticFormat: RootJsonFormat[Statistic] = jsonFormat5(Statistic.apply)
+  implicit val statisticFormat: RootJsonFormat[Statistic] = jsonFormat6(Statistic.apply)
   implicit val statisticsFormat: RootJsonFormat[Statistics] = jsonFormat1(Statistics)
 
   implicit val mapDetailNodeFormat: RootJsonFormat[MapDetailNode] = jsonFormat2(MapDetailNode)

@@ -25,6 +25,7 @@ object Nls {
       case Some(Country.nl) => nls("The Netherlands", "Nederland")
       case Some(Country.de) => nls("Germany", "Duitsland")
       case Some(Country.fr) => nls("France", "Frankrijk")
+      case Some(Country.at) => nls("Austria", "Oostenrijk")
       case _ => nls("Unknown", "Onbekend")
     }
   }

@@ -98,6 +98,7 @@ object UiOverviewList {
           countryCounts(Country.be, nls("Belgium", "België"), info.counts.beRcn, info.counts.beRwn, info.counts.beRhn, null, null, null),
           countryCounts(Country.de, nls("Germany", "Duitsland"), info.counts.deRcn, info.counts.deRwn, null, null, null, null),
           countryCounts(Country.fr, nls("France", "Frankrijk"), info.counts.frRcn, info.counts.frRwn, null, null, null, null),
+          countryCounts(Country.at, nls("Austria", "Oostenrijk"), info.counts.atRcn, null, null, null, null, null),
           <.tr(
             <.td(
               ^.colSpan := 2,
@@ -113,13 +114,21 @@ object UiOverviewList {
     }
 
     private def countryCounts(country: Country, countryName: String, rcn: VdomElement, rwn: VdomElement, rhn: VdomElement, rmn: VdomElement, rpn: VdomElement,
-      rin: VdomElement): TagMod = {
+                              rin: VdomElement): TagMod = {
       Seq(
         <.tr(
           <.td(
-            ^.rowSpan := (if (Country.nl == country) 6 else {
-              if (Country.be == country) 3 else 2
-            }),
+            ^.rowSpan := (
+              if (Country.nl == country) {
+                6
+              } else if (Country.be == country) {
+                3
+              } else if (Country.at == country) {
+                1
+              } else {
+                2
+              }
+              ),
             countryName
           ),
           <.td(
@@ -130,15 +139,17 @@ object UiOverviewList {
             rcn
           )
         ),
-        <.tr(
-          <.td(
-            UiNetworkTypeIcon(NetworkType.hiking)
-          ),
-          <.td(
-            UiOverviewPage.Styles.valueColumn,
-            rwn
+        TagMod.when(Country.at != country) {
+          <.tr(
+            <.td(
+              UiNetworkTypeIcon(NetworkType.hiking)
+            ),
+            <.td(
+              UiOverviewPage.Styles.valueColumn,
+              rwn
+            )
           )
-        ),
+        },
         TagMod.when(Country.nl == country || Country.be == country) {
           <.tr(
             <.td(

@@ -16,25 +16,48 @@ object Overview extends View {
     row.key match {
       case JsString(name) =>
         row.value match {
-          case JsArray(
-            Vector(
-              JsNumber(nlRwn), JsNumber(nlRcn), JsNumber(nlRhn), JsNumber(nlRmn), JsNumber(nlRpn), JsNumber(nlRin),
-              JsNumber(beRwn), JsNumber(beRcn), JsNumber(beRhn), JsNumber(beRmn), JsNumber(beRpn), JsNumber(beRin),
-              JsNumber(deRwn), JsNumber(deRcn), JsNumber(deRhn), JsNumber(deRmn), JsNumber(deRpn), JsNumber(deRin),
-              JsNumber(frRwn), JsNumber(frRcn), JsNumber(frRhn) // JsNumber(frRmn), JsNumber(frRpn), JsNumber(frRin)
-              )
-            ) =>
+          case numbers: JsArray =>
             Figure(
               name,
-              nlRwn.toInt, nlRcn.toInt, nlRhn.toInt, nlRmn.toInt, nlRpn.toInt, nlRin.toInt,
-              beRwn.toInt, beRcn.toInt, beRhn.toInt, beRmn.toInt, beRpn.toInt, beRin.toInt,
-              deRwn.toInt, deRcn.toInt, deRhn.toInt, deRmn.toInt, deRpn.toInt, deRin.toInt,
-              frRwn.toInt, frRcn.toInt, frRhn.toInt // frRmn.toInt, frRpn.toInt, frRin.toInt
+              figure(numbers, 0),
+              figure(numbers, 1),
+              figure(numbers, 2),
+              figure(numbers, 3),
+              figure(numbers, 4),
+              figure(numbers, 5),
+              figure(numbers, 6),
+              figure(numbers, 7),
+              figure(numbers, 8),
+              figure(numbers, 9),
+              figure(numbers, 10),
+              figure(numbers, 11),
+              figure(numbers, 12),
+              figure(numbers, 13),
+              figure(numbers, 14),
+              figure(numbers, 15),
+              figure(numbers, 16),
+              figure(numbers, 17),
+              figure(numbers, 18),
+              figure(numbers, 19),
+              figure(numbers, 20),
+              figure(numbers, 21),
+              figure(numbers, 22),
+              figure(numbers, 23),
+              figure(numbers, 24),
+              figure(numbers, 25),
+              figure(numbers, 26),
+              figure(numbers, 27),
+              figure(numbers, 28),
+              figure(numbers, 29)
             )
           case _ =>
             throw DeserializationException("Figure fields expected, but found:\n" + row.value.prettyPrint)
         }
       case _ => throw DeserializationException("string expected")
     }
+  }
+
+  private def figure(numbers: JsArray, index: Int): Int = {
+    numbers.elements(index).asInstanceOf[JsNumber].value.toInt
   }
 }

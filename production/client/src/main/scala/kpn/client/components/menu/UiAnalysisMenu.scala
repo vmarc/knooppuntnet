@@ -12,16 +12,14 @@ import kpn.client.RouteConfiguration.GotoSubsetPage
 import kpn.client.common.Context
 import kpn.client.common.Nls.nls
 import kpn.client.components.common.PageProps
-import kpn.shared.Subset
+import kpn.shared.Subset.atBicycle
 import kpn.shared.Subset.beBicycle
 import kpn.shared.Subset.beHiking
 import kpn.shared.Subset.beHorseRiding
 import kpn.shared.Subset.deBicycle
 import kpn.shared.Subset.deHiking
-import kpn.shared.Subset.deHorseRiding
 import kpn.shared.Subset.frBicycle
 import kpn.shared.Subset.frHiking
-import kpn.shared.Subset.frHorseRiding
 import kpn.shared.Subset.nlBicycle
 import kpn.shared.Subset.nlCanoe
 import kpn.shared.Subset.nlHiking
@@ -49,6 +47,7 @@ object UiAnalysisMenu {
         beBicycle,
         deBicycle,
         frBicycle,
+        atBicycle,
         nlHiking,
         beHiking,
         deHiking,

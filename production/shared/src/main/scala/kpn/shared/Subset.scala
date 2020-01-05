@@ -2,30 +2,33 @@ package kpn.shared
 
 object Subset {
 
-  val beHiking = Subset(Country.be, NetworkType.hiking)
-  val beBicycle = Subset(Country.be, NetworkType.bicycle)
-  val beHorseRiding = Subset(Country.be, NetworkType.horseRiding)
+  val beHiking: Subset = Subset(Country.be, NetworkType.hiking)
+  val beBicycle: Subset = Subset(Country.be, NetworkType.bicycle)
+  val beHorseRiding: Subset = Subset(Country.be, NetworkType.horseRiding)
 
-  val nlHiking = Subset(Country.nl, NetworkType.hiking)
-  val nlBicycle = Subset(Country.nl, NetworkType.bicycle)
-  val nlHorseRiding = Subset(Country.nl, NetworkType.horseRiding)
-  val nlCanoe = Subset(Country.nl, NetworkType.canoe)
-  val nlMotorboat = Subset(Country.nl, NetworkType.motorboat)
-  val nlInlineSkates = Subset(Country.nl, NetworkType.inlineSkates)
+  val nlHiking: Subset = Subset(Country.nl, NetworkType.hiking)
+  val nlBicycle: Subset = Subset(Country.nl, NetworkType.bicycle)
+  val nlHorseRiding: Subset = Subset(Country.nl, NetworkType.horseRiding)
+  val nlCanoe: Subset = Subset(Country.nl, NetworkType.canoe)
+  val nlMotorboat: Subset = Subset(Country.nl, NetworkType.motorboat)
+  val nlInlineSkates: Subset = Subset(Country.nl, NetworkType.inlineSkates)
 
-  val deHiking = Subset(Country.de, NetworkType.hiking)
-  val deBicycle = Subset(Country.de, NetworkType.bicycle)
-  val deHorseRiding = Subset(Country.de, NetworkType.horseRiding)
+  val deHiking: Subset = Subset(Country.de, NetworkType.hiking)
+  val deBicycle: Subset = Subset(Country.de, NetworkType.bicycle)
+  val deHorseRiding: Subset = Subset(Country.de, NetworkType.horseRiding)
 
-  val frHiking = Subset(Country.fr, NetworkType.hiking)
-  val frBicycle = Subset(Country.fr, NetworkType.bicycle)
-  val frHorseRiding = Subset(Country.fr, NetworkType.horseRiding)
+  val frHiking: Subset = Subset(Country.fr, NetworkType.hiking)
+  val frBicycle: Subset = Subset(Country.fr, NetworkType.bicycle)
+  val frHorseRiding: Subset = Subset(Country.fr, NetworkType.horseRiding)
+
+  val atBicycle: Subset = Subset(Country.at, NetworkType.bicycle)
 
   val all: Seq[Subset] = Seq(
     nlBicycle,
     beBicycle,
     deBicycle,
     frBicycle,
+    atBicycle,
     nlHiking,
     beHiking,
     deHiking,

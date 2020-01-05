@@ -172,8 +172,8 @@ object UiNetworkDetailsPage {
           }
           else {
             nls(
-              "Unsupported (not Belgium, The Netherlands or Germany)",
-              "Niet België, Nederland of Duitsland"
+              "Unsupported (not Belgium, The Netherlands, Germany, France or Austria)",
+              "Niet België, Nederland, Duitsland, Frankrijk of Oostenrijk"
             )
           }
         )
