@@ -24,6 +24,11 @@ import {Stat} from "./stat";
       <kpn-overview-list-stat-row [stat]="stat" [country]="de()" [networkType]="hiking()"></kpn-overview-list-stat-row>
       <kpn-overview-list-stat-row [stat]="stat" [country]="de()" [networkType]="horse()"></kpn-overview-list-stat-row>
 
+      <kpn-overview-list-stat-row [stat]="stat" [country]="fr()" [networkType]="cycling()" [rowspan]="2"></kpn-overview-list-stat-row>
+      <kpn-overview-list-stat-row [stat]="stat" [country]="fr()" [networkType]="hiking()"></kpn-overview-list-stat-row>
+
+      <kpn-overview-list-stat-row [stat]="stat" [country]="at()" [networkType]="cycling()" [rowspan]="1"></kpn-overview-list-stat-row>
+
       <tr>
         <td colspan="2" i18n="@@overview.total">
           Total
@@ -58,6 +63,14 @@ export class OverviewListStatTableComponent {
 
   de() {
     return Countries.de;
+  }
+
+  fr() {
+    return Countries.fr;
+  }
+
+  at() {
+    return Countries.at;
   }
 
   cycling(): NetworkType {

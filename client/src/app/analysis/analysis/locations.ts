@@ -3668,4 +3668,219 @@ export const locations: LocationNode[] = [{
       "name": "fr/Toulon_1693227_AL7"
     }]
   }]
+}, {
+  "name": "at/Austria_16239_AL2",
+  "children": [{
+    "name": "at/Burgenland_76909_AL4",
+    "children": [{
+      "name": "at/Bezirk Eisenstadt-Umgebung_103816_AL6"
+    }, {
+      "name": "at/Bezirk Mattersburg_106097_AL6"
+    }, {
+      "name": "at/Bezirk Neusiedl am See_78829_AL6"
+    }, {
+      "name": "at/Bezirk Oberpullendorf_109411_AL6"
+    }, {
+      "name": "at/Bezirk Oberwart_110268_AL6"
+    }, {
+      "name": "at/Eisenstadt_79747_AL6"
+    }, {
+      "name": "at/Güssing_109543_AL6"
+    }, {
+      "name": "at/Jennersdorf_109793_AL6"
+    }, {
+      "name": "at/Rust_78752_AL6"
+    }]
+  }, {
+    "name": "at/Carinthia_52345_AL4",
+    "children": [{
+      "name": "at/Bezirk Sankt Veit an der Glan_105348_AL6"
+    }, {
+      "name": "at/Feldkirchen_106175_AL6"
+    }, {
+      "name": "at/Hermagor_376675_AL6"
+    }, {
+      "name": "at/Klagenfurt am Wörthersee_105870_AL6"
+    }, {
+      "name": "at/Klagenfurt-Land_69648_AL6"
+    }, {
+      "name": "at/Spittal an der Drau_376676_AL6"
+    }, {
+      "name": "at/Villach_106163_AL6"
+    }, {
+      "name": "at/Villach-Land_106094_AL6"
+    }, {
+      "name": "at/Völkermarkt_105958_AL6"
+    }, {
+      "name": "at/Wolfsberg_105735_AL6"
+    }]
+  }, {
+    "name": "at/Lower Austria_77189_AL4",
+    "children": [{
+      "name": "at/Bezirk Amstetten_128099_AL6"
+    }, {
+      "name": "at/Bezirk Baden_105088_AL6"
+    }, {
+      "name": "at/Bezirk Bruck an der Leitha_112050_AL6"
+    }, {
+      "name": "at/Bezirk Gmünd_446967_AL6"
+    }, {
+      "name": "at/Bezirk Gänserndorf_104072_AL6"
+    }, {
+      "name": "at/Bezirk Hollabrunn_103095_AL6"
+    }, {
+      "name": "at/Bezirk Horn_105949_AL6"
+    }, {
+      "name": "at/Bezirk Korneuburg_106740_AL6"
+    }, {
+      "name": "at/Bezirk Krems_114684_AL6"
+    }, {
+      "name": "at/Bezirk Krems an der Donau (Stadt)_130944_AL6"
+    }, {
+      "name": "at/Bezirk Lilienfeld_112678_AL6"
+    }, {
+      "name": "at/Bezirk Melk_114629_AL6"
+    }, {
+      "name": "at/Bezirk Mödling_111858_AL6"
+    }, {
+      "name": "at/Bezirk Neunkirchen_110525_AL6"
+    }, {
+      "name": "at/Bezirk Scheibbs_112705_AL6"
+    }, {
+      "name": "at/Bezirk St. Pölten_63619_AL6"
+    }, {
+      "name": "at/Bezirk Tulln_106250_AL6"
+    }, {
+      "name": "at/Bezirk Waidhofen an der Thaya_446160_AL6"
+    }, {
+      "name": "at/Bezirk Waidhofen an der Ybbs_131937_AL6"
+    }, {
+      "name": "at/Bezirk Wiener Neustadt_106447_AL6"
+    }, {
+      "name": "at/Bezirk Zwettl_446158_AL6"
+    }, {
+      "name": "at/Mistelbach District_104883_AL6"
+    }, {
+      "name": "at/St. Pölten_134351_AL6"
+    }, {
+      "name": "at/Statutarstadt Wiener Neustadt_110451_AL6"
+    }]
+  }, {
+    "name": "at/Salzburg_86539_AL4",
+    "children": [{
+      "name": "at/Hallein_86340_AL6"
+    }, {
+      "name": "at/Salzburg_86538_AL6"
+    }, {
+      "name": "at/Salzburg-Umgebung_86381_AL6"
+    }, {
+      "name": "at/Sankt Johann im Pongau_533765_AL6"
+    }, {
+      "name": "at/Tamsweg - Lungau_533764_AL6"
+    }, {
+      "name": "at/Zell am See_539863_AL6"
+    }]
+  }, {
+    "name": "at/Styria_35183_AL4",
+    "children": [{
+      "name": "at/Bezirk Bruck-Mürzzuschlag_2661074_AL6"
+    }, {
+      "name": "at/Deutschlandsberg_35202_AL6"
+    }, {
+      "name": "at/Graz_34719_AL6"
+    }, {
+      "name": "at/Graz-Umgebung_34676_AL6"
+    }, {
+      "name": "at/Hartberg-Fürstenfeld_2661100_AL6"
+    }, {
+      "name": "at/Leibnitz_36182_AL6"
+    }, {
+      "name": "at/Leoben_49964_AL6"
+    }, {
+      "name": "at/Liezen_50587_AL6"
+    }, {
+      "name": "at/Murau_50802_AL6"
+    }, {
+      "name": "at/Murtal_37894_AL6"
+    }, {
+      "name": "at/Südoststeiermark_2661101_AL6"
+    }, {
+      "name": "at/Voitsberg_51331_AL6"
+    }, {
+      "name": "at/Weiz_52123_AL6"
+    }]
+  }, {
+    "name": "at/Tyrol_52343_AL4",
+    "children": [{
+      "name": "at/Bezirk Imst_77101_AL6"
+    }, {
+      "name": "at/Bezirk Innsbruck-Land_78251_AL6"
+    }, {
+      "name": "at/Bezirk Kitzbühel_85647_AL6"
+    }, {
+      "name": "at/Bezirk Kufstein_544102_AL6"
+    }, {
+      "name": "at/Bezirk Landeck_76826_AL6"
+    }, {
+      "name": "at/Bezirk Lienz_539866_AL6"
+    }, {
+      "name": "at/Bezirk Reutte_30030_AL6"
+    }, {
+      "name": "at/Bezirk Schwaz_80051_AL6"
+    }, {
+      "name": "at/Statutarstadt Innsbruck_4835169_AL6"
+    }]
+  }, {
+    "name": "at/Upper Austria_102303_AL4",
+    "children": [{
+      "name": "at/Braunau am Inn_417294_AL6"
+    }, {
+      "name": "at/Eferding_86256_AL6"
+    }, {
+      "name": "at/Freistadt_422468_AL6"
+    }, {
+      "name": "at/Gmunden_63349_AL6"
+    }, {
+      "name": "at/Grieskirchen_88553_AL6"
+    }, {
+      "name": "at/Kirchdorf an der Krems_63163_AL6"
+    }, {
+      "name": "at/Linz_86708_AL6"
+    }, {
+      "name": "at/Linz-Land_86309_AL6"
+    }, {
+      "name": "at/Perg_128117_AL6"
+    }, {
+      "name": "at/Ried im Innkreis_421817_AL6"
+    }, {
+      "name": "at/Rohrbach_107941_AL6"
+    }, {
+      "name": "at/Schärding_419452_AL6"
+    }, {
+      "name": "at/Steyr_90143_AL6"
+    }, {
+      "name": "at/Steyr-Land_86459_AL6"
+    }, {
+      "name": "at/Urfahr-Umgebung_86257_AL6"
+    }, {
+      "name": "at/Vöcklabruck_102302_AL6"
+    }, {
+      "name": "at/Wels_63175_AL6"
+    }, {
+      "name": "at/Wels-Land_64917_AL6"
+    }]
+  }, {
+    "name": "at/Vienna_109166_AL4"
+  }, {
+    "name": "at/Vorarlberg_74942_AL4",
+    "children": [{
+      "name": "at/Bezirk Bludenz_74804_AL6"
+    }, {
+      "name": "at/Bezirk Bregenz_74231_AL6"
+    }, {
+      "name": "at/Bezirk Dornbirn_75111_AL6"
+    }, {
+      "name": "at/Bezirk Feldkirch_75152_AL6"
+    }]
+  }]
 }];

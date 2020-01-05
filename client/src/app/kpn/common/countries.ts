@@ -6,12 +6,14 @@ export class Countries {
   static be = new Country("be");
   static de = new Country("de");
   static fr = new Country("fr");
+  static at = new Country("at");
 
   static all: Array<Country> = [
     Countries.nl,
     Countries.be,
     Countries.de,
-    Countries.fr
+    Countries.fr,
+    Countries.at
   ];
 
 }

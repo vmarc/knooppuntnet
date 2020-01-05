@@ -21,11 +21,14 @@ object Subset {
   val frBicycle: Subset = Subset(Country.fr, NetworkType.cycling)
   val frHorseRiding: Subset = Subset(Country.fr, NetworkType.horseRiding)
 
+  val atBicycle: Subset = Subset(Country.at, NetworkType.cycling)
+
   val all: Seq[Subset] = Seq(
     nlBicycle,
     beBicycle,
     deBicycle,
     frBicycle,
+    atBicycle,
     nlHiking,
     beHiking,
     deHiking,

@@ -70,6 +70,14 @@ object StatisticsBuilder {
             "-",
             "-",
             "-"
+          ),
+          CountryStatistic(
+            "-",
+            percentage(numerator.counts.getOrElse(Subset.atBicycle, 0L), denominator.counts.getOrElse(Subset.atBicycle, 0L)),
+            "-",
+            "-",
+            "-",
+            "-"
           )
         )
       }
@@ -112,6 +120,14 @@ object StatisticsBuilder {
             percentage(numerator.counts.getOrElse(Subset.frHiking, 0L), denominator.counts.getOrElse(Subset.frHiking, 0L)),
             percentage(numerator.counts.getOrElse(Subset.frBicycle, 0L), denominator.counts.getOrElse(Subset.frBicycle, 0L)),
             percentage(numerator.counts.getOrElse(Subset.frHorseRiding, 0L), denominator.counts.getOrElse(Subset.frHorseRiding, 0L)),
+            "-",
+            "-",
+            "-"
+          ),
+          CountryStatistic(
+            "-",
+            percentage(numerator.counts.getOrElse(Subset.atBicycle, 0L), denominator.counts.getOrElse(Subset.atBicycle, 0L)),
+            "-",
             "-",
             "-",
             "-"
@@ -159,6 +175,14 @@ object StatisticsBuilder {
             "-",
             "-",
             "-"
+          ),
+          CountryStatistic(
+            "-",
+            number(count.counts.getOrElse(Subset.atBicycle, 0L) / 1000),
+            "-",
+            "-",
+            "-",
+            "-"
           )
         )
       }
@@ -200,6 +224,14 @@ object StatisticsBuilder {
             number(count.counts.getOrElse(Subset.frHiking, 0L) / 1000),
             number(count.counts.getOrElse(Subset.frBicycle, 0L) / 1000),
             number(count.counts.getOrElse(Subset.frHorseRiding, 0L) / 1000),
+            "-",
+            "-",
+            "-"
+          ),
+          CountryStatistic(
+            "-",
+            number(count.counts.getOrElse(Subset.atBicycle, 0L) / 1000),
+            "-",
             "-",
             "-",
             "-"
@@ -253,6 +285,14 @@ object StatisticsBuilder {
             "-",
             "-",
             "-"
+          ),
+          CountryStatistic(
+            "-",
+            percentage(count.counts.getOrElse(Subset.atBicycle, 0L) - failed.counts.getOrElse(Subset.atBicycle, 0L), count.counts.getOrElse(Subset.atBicycle, 0L)),
+            "-",
+            "-",
+            "-",
+            "-"
           )
         )
       }
@@ -295,6 +335,14 @@ object StatisticsBuilder {
             percentage(checkCount.counts.getOrElse(Subset.frHiking, 0L), nodeCount.counts.getOrElse(Subset.frHiking, 0L)),
             percentage(checkCount.counts.getOrElse(Subset.frBicycle, 0L), nodeCount.counts.getOrElse(Subset.frBicycle, 0L)),
             percentage(checkCount.counts.getOrElse(Subset.frHorseRiding, 0L), nodeCount.counts.getOrElse(Subset.frHorseRiding, 0L)),
+            "-",
+            "-",
+            "-"
+          ),
+          CountryStatistic(
+            "-",
+            percentage(checkCount.counts.getOrElse(Subset.atBicycle, 0L), nodeCount.counts.getOrElse(Subset.atBicycle, 0L)),
+            "-",
             "-",
             "-",
             "-"

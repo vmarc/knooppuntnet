@@ -51,7 +51,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.overview(Option.apply(user))
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
   def subsetNetworks(
     @PathVariable country: String,
     @PathVariable networkType: String,
@@ -61,7 +61,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetNetworks(Option.apply(user), subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
   def subsetFacts(
     @PathVariable country: String,
     @PathVariable networkType: String,
@@ -71,7 +71,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetFacts(Option.apply(user), subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
   def subsetFactDetails(
     @PathVariable country: String,
     @PathVariable networkType: String,
@@ -83,7 +83,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetFactDetails(Option.apply(user), subset, f)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
   def subsetOrphanNodes(
     @PathVariable country: String,
     @PathVariable networkType: String,
@@ -93,7 +93,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetOrphanNodes(Option.apply(user), subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
   def subsetOrphanRoutes(
     @PathVariable country: String,
     @PathVariable networkType: String,
@@ -103,7 +103,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetOrphanRoutes(Option.apply(user), subset.get)
   }
 
-  @PostMapping(value = Array("/json-api/{country:be|de|fr|nl}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
+  @PostMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
     @PathVariable country: String,
     @PathVariable networkType: String,

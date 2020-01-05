@@ -9,7 +9,7 @@ class PathMatcherTest extends FunSuite with Matchers {
 
   test("subset") {
 
-    val pattern = "/json-api/{country:be|de|fr|nl}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"
+    val pattern = "/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"
     val path = "/json-api/be/cycling/networks"
 
     val matcher: PathMatcher = new AntPathMatcher()

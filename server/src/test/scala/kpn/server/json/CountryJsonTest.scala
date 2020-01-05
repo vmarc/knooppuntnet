@@ -12,6 +12,7 @@ class CountryJsonTest extends FunSuite with Matchers {
     Json.string(Country.nl) should equal(""""nl"""")
     Json.string(Country.de) should equal(""""de"""")
     Json.string(Country.fr) should equal(""""fr"""")
+    Json.string(Country.at) should equal(""""at"""")
   }
 
   test("deserializer") {
@@ -19,6 +20,7 @@ class CountryJsonTest extends FunSuite with Matchers {
     Json.value(""""nl"""", classOf[Country]) should equal(Country.nl)
     Json.value(""""de"""", classOf[Country]) should equal(Country.de)
     Json.value(""""fr"""", classOf[Country]) should equal(Country.fr)
+    Json.value(""""at"""", classOf[Country]) should equal(Country.at)
   }
 
   test("exception") {

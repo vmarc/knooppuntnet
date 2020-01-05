@@ -74,6 +74,8 @@ export class LocationSelectorComponent implements OnInit, OnDestroy {
       countryIndex = 2;
     } else if (this.country.domain === Countries.fr.domain) {
       countryIndex = 3;
+    } else if (this.country.domain === Countries.at.domain) {
+      countryIndex = 4;
     }
     this.options = List(locations[countryIndex].children).flatMap(location => this.toOptions(location));
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(

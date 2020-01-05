@@ -98,16 +98,10 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
       countryIndex = 2;
     } else if (this.country.domain === Countries.fr.domain) {
       countryIndex = 3;
+    } else if (this.country.domain === Countries.at.domain) {
+      countryIndex = 4;
     }
     this.dataSource.data = locations[countryIndex].children;
-    // this.subscriptions.add(
-    //   this.activatedRoute.params.pipe(
-    //     map(params => {
-    //       return params["networkType"];
-    //     }),
-    //     flatMap(networkType => this.appService.location(networkType))
-    //   ).subscribe(response => this.refs = response.result.routeRefs)
-    // );
   }
 
   ngOnDestroy(): void {

@@ -17,8 +17,9 @@ object LocationConfigurationDefinition {
   val be: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.be, Seq(2, 4, 6, 7, 8))
   val de: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.de, Seq(2, 4, 5, 6))
   val fr: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.fr, Seq(3, 4, 7))
+  val at: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.at, Seq(2, 4, 6))
 
-  val countries: Seq[LocationConfigurationDefinition] = Seq(nl, be, de, fr)
+  val countries: Seq[LocationConfigurationDefinition] = Seq(nl, be, de, fr, at)
 }
 
 case class LocationConfigurationDefinition(country: Country, levels: Seq[Int])

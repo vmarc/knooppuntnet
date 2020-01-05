@@ -39,6 +39,13 @@ import {Component} from "@angular/core";
       text="France"
       i18n-text="@@country.fr">
     </kpn-icon-button>
+
+    <kpn-icon-button
+      routerLink="/analysis/cycling/at"
+      icon="austria"
+      text="Austria"
+      i18n-text="@@country.at">
+    </kpn-icon-button>
   `
 })
 export class AnalysisCyclingPageComponent {
