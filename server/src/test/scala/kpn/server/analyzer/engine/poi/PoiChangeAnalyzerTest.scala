@@ -25,7 +25,9 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
+    (t.poiRepository.save _).when(*).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -124,7 +126,9 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
+    (t.poiRepository.save _).when(*).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -179,7 +183,9 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 1, 1))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 1, 1))
+    (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-1-1", "14-1-1"))
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
+    (t.poiRepository.save _).when(*).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -421,8 +427,10 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
     (t.poiQueryExecutor.center _).when(PoiRef("way", 123)).returns(Some(LatLonImpl("1", "2")))
+    (t.poiRepository.save _).when(*).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -509,8 +517,10 @@ class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObject
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
     (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("relation", 123)).returns(None)
     (t.poiQueryExecutor.center _).when(PoiRef("relation", 123)).returns(Some(LatLonImpl("1", "2")))
+    (t.poiRepository.save _).when(*).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
