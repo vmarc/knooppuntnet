@@ -7,7 +7,7 @@
         <target state="new">[Hiking]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
@@ -31,7 +31,7 @@
         <target state="new">[Cycling]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
@@ -55,7 +55,7 @@
         <target state="new">[Horse riding]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
@@ -79,7 +79,7 @@
         <target state="new">[Motorboat]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
@@ -103,7 +103,7 @@
         <target state="new">[Canoe]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
@@ -127,7 +127,7 @@
         <target state="new">[Inline Skating]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
@@ -151,7 +151,7 @@
         <target state="new">[in]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/location-selection-page.component.ts</context>
@@ -163,7 +163,7 @@
         <target state="new">[Start node]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.end-node" datatype="html">
@@ -171,7 +171,7 @@
         <target state="new">[End node]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.start-tentacle-node" datatype="html">
@@ -179,7 +179,7 @@
         <target state="new">[Start tentacle node]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.end-tentacle-node" datatype="html">
@@ -187,7 +187,7 @@
         <target state="new">[End tentacle node]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.redundant-node" datatype="html">
@@ -195,7 +195,7 @@
         <target state="new">[Redundant node]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.forward-route" datatype="html">
@@ -203,7 +203,7 @@
         <target state="new">[Forward route]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.backward-route" datatype="html">
@@ -211,7 +211,7 @@
         <target state="new">[Backward route]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.start-tentacle" datatype="html">
@@ -219,7 +219,7 @@
         <target state="new">[Start tentacle]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.end-tentacle" datatype="html">
@@ -227,7 +227,7 @@
         <target state="new">[End tentacle]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.unused" datatype="html">
@@ -235,7 +235,7 @@
         <target state="new">[Unused]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.nodes" datatype="html">
@@ -243,7 +243,7 @@
         <target state="new">[Nodes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -1170,11 +1170,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
-        <source> 
-        Unexpected - Defined in network relation        
+        <source>
+        Unexpected - Defined in network relation
       </source>
-        <target state="new">[ 
-        Unexpected - Defined in network relation        
+        <target state="new">[
+        Unexpected - Defined in network relation
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
@@ -1253,10 +1253,10 @@
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
         <source>
-        NOK - Not defined in network relation        
+        NOK - Not defined in network relation
       </source>
         <target state="new">[
-        NOK - Not defined in network relation        
+        NOK - Not defined in network relation
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
@@ -1391,10 +1391,10 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.green.title" datatype="html">
         <source>
-        OK - expected route count       
+        OK - expected route count
       </source>
         <target state="new">[
-        OK - expected route count       
+        OK - expected route count
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
@@ -1417,10 +1417,10 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
         <source>
-        NOK - unexpected route count     
+        NOK - unexpected route count
       </source>
         <target state="new">[
-        NOK - unexpected route count     
+        NOK - unexpected route count
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
@@ -1455,10 +1455,10 @@
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection        
+        OK - Connection
       </source>
         <target state="new">[
-        OK - Connection        
+        OK - Connection
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
@@ -1517,10 +1517,10 @@
       </trans-unit>
       <trans-unit id="route-indicator.green.title" datatype="html">
         <source>
-        OK - Defined in route relation        
+        OK - Defined in route relation
       </source>
         <target state="new">[
-        OK - Defined in route relation        
+        OK - Defined in route relation
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/route-indicator-dialog.component.ts</context>
@@ -1553,11 +1553,11 @@
       </trans-unit>
       <trans-unit id="route-indicator.gray.text" datatype="html">
         <source>
-        This node is not included as a member in any route relations. This is OK as including de 
+        This node is not included as a member in any route relations. This is OK as including de
         node as member in the route relations is optional.
       </source>
         <target state="new">[
-        This node is not included as a member in any route relations. This is OK as including de 
+        This node is not included as a member in any route relations. This is OK as including de
         node as member in the route relations is optional.
       ]</target>
         <context-group purpose="location">
@@ -1729,11 +1729,11 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database 
+        Older changes cannot be shown. The history in the analysis database
         does not go beyond
       </source>
         <target state="new">[
-        Older changes cannot be shown. The history in the analysis database 
+        Older changes cannot be shown. The history in the analysis database
         does not go beyond
       ]</target>
         <context-group purpose="location">
@@ -1771,7 +1771,7 @@
     </source>
         <target state="new">[
       Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.after}}"/>" added to networkrelation.
-      
+
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
@@ -1784,7 +1784,7 @@
     </source>
         <target state="new">[
       Route role "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" removed from networkrelation.
-      
+
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
@@ -1797,7 +1797,7 @@
     </source>
         <target state="new">[
       Route role in networkrelation changed from "<x id="INTERPOLATION" equiv-text="{{diffs.roleDiff.before}}"/>" to "<x id="INTERPOLATION_1" equiv-text="{{diffs.roleDiff.after}}"/>".
-      
+
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
@@ -2158,10 +2158,10 @@
       </trans-unit>
       <trans-unit id="filter.title" datatype="html">
         <source>
-        Filter  
+        Filter
       </source>
         <target state="new">[
-        Filter  
+        Filter
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/filter/filter-title.component.ts</context>
@@ -4949,7 +4949,7 @@
         <source>Node</source>
         <target state="new">[
               Node
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -4960,7 +4960,7 @@
         <source>Id</source>
         <target state="new">[
               Id
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -4971,7 +4971,7 @@
         <source>Nodes</source>
         <target state="new">[
               Nodes
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -4982,7 +4982,7 @@
         <source>Role</source>
         <target state="new">[
               Role
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -4993,7 +4993,7 @@
         <source>Length</source>
         <target state="new">[
               Length
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -5004,7 +5004,7 @@
         <source>#Nodes</source>
         <target state="new">[
               #Nodes
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -5015,7 +5015,7 @@
         <source>Name</source>
         <target state="new">[
               Name
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -5026,7 +5026,7 @@
         <source>Unaccessible</source>
         <target state="new">[
               Unaccessible
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -5037,7 +5037,7 @@
         <source>One Way</source>
         <target state="new">[
               One Way
-              
+
             ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
@@ -5133,7 +5133,7 @@
       None
     </source>
         <target state="new">[
-      None 
+      None
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/facts.component.ts</context>
@@ -5546,7 +5546,7 @@
         <source>
           Changeset
         </source>
-        <target state="new">[ 
+        <target state="new">[
           Changeset
         ]</target>
         <context-group purpose="location">
@@ -5558,7 +5558,7 @@
         <source>
           Minute diff
         </source>
-        <target state="new">[ 
+        <target state="new">[
           Minute diff
         ]</target>
         <context-group purpose="location">
@@ -5570,7 +5570,7 @@
         <source>
           Comment
         </source>
-        <target state="new">[ 
+        <target state="new">[
           Comment
         ]</target>
         <context-group purpose="location">
@@ -5582,7 +5582,7 @@
         <source>
           Analysis
         </source>
-        <target state="new">[ 
+        <target state="new">[
           Analysis
         ]</target>
         <context-group purpose="location">
@@ -5638,7 +5638,7 @@
         <source>
         Network created
       </source>
-        <target state="new">[ 
+        <target state="new">[
           Network created
         ]</target>
         <context-group purpose="location">
@@ -5650,7 +5650,7 @@
         <source>
         Network deleted
       </source>
-        <target state="new">[ 
+        <target state="new">[
           Network deleted
         ]</target>
         <context-group purpose="location">
@@ -5838,7 +5838,7 @@
         <source>
                   Existing node
                 </source>
-        <target state="new">[ 
+        <target state="new">[
                   Existing node
                 ]</target>
         <context-group purpose="location">
@@ -5850,7 +5850,7 @@
         <source>
                   Node change to
                 </source>
-        <target state="new">[ 
+        <target state="new">[
                   Node change to
                 ]</target>
         <context-group purpose="location">
@@ -6028,7 +6028,7 @@
       </source>
         <target state="new">[
         The node has moved <x id="INTERPOLATION" equiv-text="{{nodeMoved.distance}}"/> meters.
-        
+
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
@@ -6041,7 +6041,7 @@
       </source>
         <target state="new">[
         The node has moved less than 1 meter.
-        
+
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
@@ -6416,12 +6416,28 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="country.at" datatype="html">
+        <source>Austria</source>
+        <target state="new">[Austria]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="overview-table.comment" datatype="html">
         <source>Comment</source>
         <target state="new">[Comment]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="country.nl" datatype="html">
@@ -6815,7 +6831,7 @@
       This network is not active anymore.
     </source>
         <target state="new">[
-      Not active      
+      Not active
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-summary.component.ts</context>
@@ -6866,7 +6882,7 @@
         <source>
       no routes
     </source>
-        <target state="new">[ 
+        <target state="new">[
       no routes
     ]</target>
         <context-group purpose="location">
@@ -6932,10 +6948,10 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.title" datatype="html">
         <source>
-        OK - Accessible        
+        OK - Accessible
       </source>
         <target state="new">[
-        OK - Accessible        
+        OK - Accessible
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
@@ -6992,10 +7008,10 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>
-        NOK - Not Accessible        
+        NOK - Not Accessible
       </source>
         <target state="new">[
-        NOK - Not Accessible        
+        NOK - Not Accessible
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
@@ -7064,10 +7080,10 @@
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection       
+        OK - Connection
       </source>
         <target state="new">[
-        OK - Connection       
+        OK - Connection
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
@@ -7128,10 +7144,10 @@
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
         <source>
-        OK - No facts       
+        OK - No facts
       </source>
         <target state="new">[
-        OK - No facts       
+        OK - No facts
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
