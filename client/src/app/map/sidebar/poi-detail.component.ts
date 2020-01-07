@@ -25,6 +25,8 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       <div *ngIf="poi.name" class="item">{{layerName()}}</div>
 
       <div *ngIf="poi.subject" class="item">{{poi.subject}}</div>
+      <div *ngIf="poi.denomination" class="item">{{poi.denomination}}</div>
+      <div *ngIf="poi.cuisine" class="item">{{poi.cuisine}}</div>
 
       <div *ngIf="poi.addressLine1 || poi.addressLine2" class="item">
         <span *ngIf="poi.addressLine1">{{poi.addressLine1}}</span><br/>
@@ -38,6 +40,9 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
 
       <div *ngIf="poi.description" class="item">{{poi.description}}</div>
       <div *ngIf="poi.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poi.wheelchair}}</div>
+
+      <div *ngIf="poi.openingHours" class="item"><span i18n="@@poi.detail.opengingHours">Opening hours</span>: {{poi.openingHours}}</div>
+      <div *ngIf="poi.serviceTimes" class="item"><span i18n="@@poi.detail.serviceHours">Service times</span>: {{poi.serviceTimes}}</div>
 
       <div *ngIf="poi.image" class="item">
         <a [href]="poi.image" target="_blank">

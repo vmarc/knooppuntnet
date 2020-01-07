@@ -543,7 +543,7 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database
+        Older changes cannot be shown. The history in the analysis database 
         does not go beyond
       </source>
         <context-group purpose="location">
@@ -731,7 +731,7 @@
       </trans-unit>
       <trans-unit id="filter.title" datatype="html">
         <source>
-        Filter
+        Filter  
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/filter/filter-title.component.ts</context>
@@ -2554,7 +2554,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.green.title" datatype="html">
         <source>
-        OK - expected route count
+        OK - expected route count       
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
@@ -2573,7 +2573,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
         <source>
-        NOK - unexpected route count
+        NOK - unexpected route count     
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
@@ -2602,8 +2602,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
-        <source>
-        Unexpected - Defined in network relation
+        <source> 
+        Unexpected - Defined in network relation        
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
@@ -2662,7 +2662,7 @@
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
         <source>
-        NOK - Not defined in network relation
+        NOK - Not defined in network relation        
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
@@ -2746,7 +2746,7 @@
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection
+        OK - Connection        
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
@@ -2794,7 +2794,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.green.title" datatype="html">
         <source>
-        OK - Defined in route relation
+        OK - Defined in route relation        
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/route-indicator-dialog.component.ts</context>
@@ -2821,7 +2821,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.gray.text" datatype="html">
         <source>
-        This node is not included as a member in any route relations. This is OK as including de
+        This node is not included as a member in any route relations. This is OK as including de 
         node as member in the route relations is optional.
       </source>
         <context-group purpose="location">
@@ -2860,7 +2860,7 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.title" datatype="html">
         <source>
-        OK - Accessible
+        OK - Accessible        
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
@@ -2905,7 +2905,7 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>
-        NOK - Not Accessible
+        NOK - Not Accessible        
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
@@ -2961,7 +2961,7 @@
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection
+        OK - Connection       
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
@@ -3011,7 +3011,7 @@
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
         <source>
-        OK - No facts
+        OK - No facts       
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
@@ -5737,49 +5737,63 @@
         <source>Phone</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.fax" datatype="html">
         <source>Fax</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.email" datatype="html">
         <source>E-mail</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.facebook" datatype="html">
         <source>Facebook</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wheelchair" datatype="html">
         <source>Wheelchair</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.detail.opengingHours" datatype="html">
+        <source>Opening hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.detail.serviceHours" datatype="html">
+        <source>Service times</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.image" datatype="html">
         <source>Image</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.mapillary" datatype="html">
         <source>Mapillary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.onroerendErfgoed" datatype="html">
@@ -5787,28 +5801,28 @@
         Erfgoed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.website" datatype="html">
         <source>Website</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikidata" datatype="html">
         <source>Wikidata</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikipedia" datatype="html">
         <source>Wikipedia</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.undo" datatype="html">

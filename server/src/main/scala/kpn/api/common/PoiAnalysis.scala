@@ -24,5 +24,9 @@ case class PoiAnalysis(
   imageLink: Option[String] = None,
   mapillary: Option[String] = None,
   wheelchair: Option[String] = None,
-  onroerendErfgoed: Option[String] = None
+  onroerendErfgoed: Option[String] = None,
+  openingHours: Option[String] = None,
+  serviceTimes: Option[String] = None,
+  cuisine: Option[String] = None,
+  denomination: Option[String] = None
 )

@@ -26,7 +26,11 @@ export class PoiAnalysis {
               readonly imageLink: string,
               readonly mapillary: string,
               readonly wheelchair: string,
-              readonly onroerendErfgoed: string) {
+              readonly onroerendErfgoed: string,
+              readonly openingHours: string,
+              readonly serviceTimes: string,
+              readonly cuisine: string,
+              readonly denomination: string) {
   }
 
   public static fromJSON(jsonObject): PoiAnalysis {
@@ -55,7 +59,11 @@ export class PoiAnalysis {
       jsonObject.imageLink,
       jsonObject.mapillary,
       jsonObject.wheelchair,
-      jsonObject.onroerendErfgoed
+      jsonObject.onroerendErfgoed,
+      jsonObject.openingHours,
+      jsonObject.serviceTimes,
+      jsonObject.cuisine,
+      jsonObject.denomination
     );
   }
 }

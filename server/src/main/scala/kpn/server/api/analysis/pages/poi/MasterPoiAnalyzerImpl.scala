@@ -10,6 +10,7 @@ import kpn.server.api.analysis.pages.poi.analyzers.PoiContactAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiHollandscheModelDatabaseAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiImageAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiMolenDatabaseAnalyzer
+import kpn.server.api.analysis.pages.poi.analyzers.PoiTagAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiTitleAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiWebsiteAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiWheelchairAnalyzer
@@ -53,6 +54,7 @@ class MasterPoiAnalyzerImpl extends MasterPoiAnalyzer {
       PoiHollandscheModelDatabaseAnalyzer,
       PoiImageAnalyzer,
       PoiMolenDatabaseAnalyzer,
+      PoiTagAnalyzer,
       PoiTitleAnalyzer,
       PoiWebsiteAnalyzer,
       PoiWheelchairAnalyzer,
