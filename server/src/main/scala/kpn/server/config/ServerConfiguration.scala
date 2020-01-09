@@ -58,4 +58,19 @@ class ServerConfiguration {
     new TileFileRepositoryImpl("/kpn/tiles", "mvt")
   }
 
+  @Bean
+  def oauthApplicationKey(@Value("${oauthApplicationKey}") value: String): String = {
+    value
+  }
+
+  @Bean
+  def oauthApplicationSecret(@Value("${oauthApplicationSecret}") value: String): String = {
+    value
+  }
+
+  @Bean
+  def cryptoKey(@Value("${cryptoKey}") value: String): String = {
+    value
+  }
+
 }

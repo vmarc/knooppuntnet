@@ -41,7 +41,7 @@ export class UserService {
       this.loginCallbackPage = "";
     }
 
-    const loginUrl = "/api/login?callbackUrl=" + window.location.origin + "/authenticate?page=" + whereWeComeFrom;
+    const loginUrl = "/json-api/login?callbackUrl=" + window.location.origin + "/authenticate?page=" + whereWeComeFrom;
 
     console.log("DEBUG UserService login loginUrl=" + loginUrl);
 
@@ -81,7 +81,7 @@ export class UserService {
 
   authenticated() {
     let search = decodeURIComponent(window.location.search);
-    this.http.get("/api/authenticated" + search, {
+    this.http.get("/json-api/authenticated" + search, {
       responseType: "text"
     }).subscribe(r => {
         console.log("DEBUG authenticated success");

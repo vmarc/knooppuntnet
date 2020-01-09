@@ -3,7 +3,6 @@ import MVT from "ol/format/MVT";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
-import XYZ from "ol/source/XYZ";
 import {createXYZ} from "ol/tilegrid";
 
 export class OsmLayer {
