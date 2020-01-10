@@ -1,4 +1,4 @@
-package kpn.server.api.analysis
+package kpn.server.api.authentication
 
 import org.scalatest.FunSuite
 import org.scalatest.Matchers

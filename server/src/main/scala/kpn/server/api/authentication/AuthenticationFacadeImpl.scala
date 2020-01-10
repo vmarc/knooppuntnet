@@ -1,4 +1,4 @@
-package kpn.server.api.analysis
+package kpn.server.api.authentication
 
 import kpn.core.util.Log
 import org.springframework.social.oauth1.AuthorizedRequestToken

@@ -1,4 +1,4 @@
-package kpn.server.api.analysis
+package kpn.server.api.authentication
 
 trait Crypto {
 

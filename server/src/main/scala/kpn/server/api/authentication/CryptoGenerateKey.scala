@@ -1,4 +1,4 @@
-package kpn.server.api.analysis
+package kpn.server.api.authentication
 
 import javax.crypto.KeyGenerator
 import org.apache.commons.codec.binary.Base64.encodeBase64String

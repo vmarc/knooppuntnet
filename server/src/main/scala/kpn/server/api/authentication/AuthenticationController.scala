@@ -1,11 +1,9 @@
-package kpn.server.api
+package kpn.server.api.authentication
 
 import java.net.URLEncoder
 
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
-import kpn.server.api.analysis.AuthenticationFacade
-import kpn.server.api.analysis.Crypto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.social.oauth1.OAuthToken
