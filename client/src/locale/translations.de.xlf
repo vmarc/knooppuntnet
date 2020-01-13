@@ -1170,8 +1170,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
-        <source> 
-        Unexpected - Defined in network relation        
+        <source>
+        Unexpected - Defined in network relation
       </source>
         <target state="new">[
         Unexpected - Defined in network relation
@@ -1253,7 +1253,7 @@
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
         <source>
-        NOK - Not defined in network relation        
+        NOK - Not defined in network relation
       </source>
         <target state="new">[
         NOK - Not defined in network relation
@@ -1391,7 +1391,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.green.title" datatype="html">
         <source>
-        OK - expected route count       
+        OK - expected route count
       </source>
         <target state="new">[
         OK - expected route count
@@ -1417,7 +1417,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
         <source>
-        NOK - unexpected route count     
+        NOK - unexpected route count
       </source>
         <target state="new">[
         NOK - unexpected route count
@@ -1455,7 +1455,7 @@
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection        
+        OK - Connection
       </source>
         <target state="new">[
         OK - Connection
@@ -1517,7 +1517,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.green.title" datatype="html">
         <source>
-        OK - Defined in route relation        
+        OK - Defined in route relation
       </source>
         <target state="new">[
         OK - Defined in route relation
@@ -1553,7 +1553,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.gray.text" datatype="html">
         <source>
-        This node is not included as a member in any route relations. This is OK as including de 
+        This node is not included as a member in any route relations. This is OK as including de
         node as member in the route relations is optional.
       </source>
         <target state="new">[
@@ -1729,7 +1729,7 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database 
+        Older changes cannot be shown. The history in the analysis database
         does not go beyond
       </source>
         <target state="new">[
@@ -2158,7 +2158,7 @@
       </trans-unit>
       <trans-unit id="filter.title" datatype="html">
         <source>
-        Filter  
+        Filter
       </source>
         <target state="new">[
         Filter
@@ -2628,7 +2628,7 @@
       </trans-unit>
       <trans-unit id="poi.bench" datatype="html">
         <source>Bench</source>
-        <target state="new">[bench]</target>
+        <target>Sitzbank</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -2772,7 +2772,7 @@
       </trans-unit>
       <trans-unit id="poi.toilets" datatype="html">
         <source>Toilets</source>
-        <target state="new">[toilets]</target>
+        <target>Toiletten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">121</context>
@@ -2828,7 +2828,7 @@
       </trans-unit>
       <trans-unit id="poi.attraction" datatype="html">
         <source>Attraction</source>
-        <target state="new">[attraction]</target>
+        <target>Sehenswürdigkeit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -2900,7 +2900,7 @@
       </trans-unit>
       <trans-unit id="poi.information" datatype="html">
         <source>Information</source>
-        <target state="new">[information]</target>
+        <target>Information</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">78</context>
@@ -2932,7 +2932,7 @@
       </trans-unit>
       <trans-unit id="poi.picnic" datatype="html">
         <source>Picnic</source>
-        <target state="new">[picnic]</target>
+        <target>Picknick</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">98</context>
@@ -2948,7 +2948,7 @@
       </trans-unit>
       <trans-unit id="poi.viewpoint" datatype="html">
         <source>Viewpoint</source>
-        <target state="new">[viewpoint]</target>
+        <target>Aussichtspunkt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">126</context>
@@ -3554,7 +3554,7 @@
       </trans-unit>
       <trans-unit id="poi.bicycle" datatype="html">
         <source>Bicycle</source>
-        <target state="new">[bicycle]</target>
+        <target>Fahrradladen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -3562,7 +3562,7 @@
       </trans-unit>
       <trans-unit id="poi.bicycle-parking" datatype="html">
         <source>Bicycle parking</source>
-        <target state="new">[Bicycle parking]</target>
+        <target>Fahrradparkplatz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -3570,7 +3570,7 @@
       </trans-unit>
       <trans-unit id="poi.bicycle-rental" datatype="html">
         <source>Bicycle rental</source>
-        <target state="new">[Bicycle rental]</target>
+        <target>Fahrradverleih</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -3874,7 +3874,7 @@
       </trans-unit>
       <trans-unit id="poi.drinking-water" datatype="html">
         <source>Drinking water</source>
-        <target state="new">[Drinking water]</target>
+        <target>Trinkwasser</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">52</context>
@@ -3882,7 +3882,7 @@
       </trans-unit>
       <trans-unit id="poi.ebike-charging" datatype="html">
         <source>Ebike charging</source>
-        <target state="new">[Ebike charging]</target>
+        <target>Ladestation für Fahrräder</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">53</context>
@@ -4018,7 +4018,7 @@
       </trans-unit>
       <trans-unit id="poi.defibrillator" datatype="html">
         <source>Defibrillator</source>
-        <target state="new">[defibrillator]</target>
+        <target>Defibrillator</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">48</context>
@@ -6964,7 +6964,7 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.title" datatype="html">
         <source>
-        OK - Accessible        
+        OK - Accessible
       </source>
         <target state="new">[
         OK - Accessible
@@ -7024,7 +7024,7 @@
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>
-        NOK - Not Accessible        
+        NOK - Not Accessible
       </source>
         <target state="new">[
         NOK - Not Accessible
@@ -7096,7 +7096,7 @@
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection       
+        OK - Connection
       </source>
         <target state="new">[
         OK - Connection
@@ -7160,7 +7160,7 @@
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
         <source>
-        OK - No facts       
+        OK - No facts
       </source>
         <target state="new">[
         OK - No facts
