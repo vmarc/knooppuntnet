@@ -8,7 +8,7 @@ import java.nio.ByteOrder
 import java.nio.ShortBuffer
 import java.util.zip.GZIPInputStream
 
-import kpn.api.common.LatLon
+import kpn.core.common.LatLonD
 import org.apache.commons.io.IOUtils
 import org.springframework.stereotype.Component
 
@@ -22,14 +22,16 @@ class ElevationRepositoryImpl {
 
   private val cache = scala.collection.mutable.Map[String, Option[ShortBuffer]]()
 
-  def elevation(latLon: LatLon): Option[Double] = {
+  def elevation(latLon: LatLonD): Option[Int] = {
     val tilename = tileNameFrom(latLon)
     cache.getOrElseUpdate(tilename, loadTileBuffer(tilename)).flatMap { tileBuffer =>
       elevationInTile(tileBuffer, latLon)
     }
   }
 
-  private def elevationInTile(tileBuffer: ShortBuffer, latLon: LatLon): Option[Double] = {
+  def tileCount: Int = cache.size
+
+  private def elevationInTile(tileBuffer: ShortBuffer, latLon: LatLonD): Option[Int] = {
     val row: Int = elevationValuesPerLine - Math.round(fractionalPart(latLon.lat) * secondsPerMinute * secondsPerMinute / resolutionInArcSeconds).toInt
     val column: Int = Math.round(fractionalPart(latLon.lon) * secondsPerMinute * secondsPerMinute / resolutionInArcSeconds).toInt
     val bufferIndex = (elevationValuesPerLine * (row - 1)) + column
@@ -39,7 +41,7 @@ class ElevationRepositoryImpl {
         None
       }
       else {
-        Some(elevation)
+        Some(elevation.toInt)
       }
     }
     else {
@@ -70,7 +72,7 @@ class ElevationRepositoryImpl {
     }
   }
 
-  private def tileNameFrom(latLon: LatLon): String = {
+  private def tileNameFrom(latLon: LatLonD): String = {
     val lat = latLon.lat.toInt
     val lon = latLon.lon.toInt
     val latPref = if (lat < 0) "S" else "N"

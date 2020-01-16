@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.elevation
 
-import kpn.api.common.LatLon
+import kpn.core.common.LatLonD
 
 trait ElevationRepository {
 
-  def elevation(latLon: LatLon): Option[Double]
+  def elevation(latLon: LatLonD): Option[Int]
 
 }
