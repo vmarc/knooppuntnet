@@ -1,5 +1,5 @@
 package kpn.server.analyzer.engine.elevation
 
-class ElevationFacadeImpl extends ElevationFacade {
+class ElevationFacadeImpl(builder: ElevationCoordinatesBuilder) extends ElevationFacade {
 
 }

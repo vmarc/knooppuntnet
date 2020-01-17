@@ -8,14 +8,8 @@ import kpn.core.gpx.GpxWriter
 import kpn.core.gpx.WayPoint
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
-import org.locationtech.jts.densify.Densifier
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.Geometry
-import org.locationtech.jts.geom.GeometryFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-
-import scala.annotation.tailrec
 
 class ElevationFacadeTest extends FunSuite with Matchers {
 
@@ -28,20 +22,18 @@ class ElevationFacadeTest extends FunSuite with Matchers {
     // expected accumulated descent: 100 m
 
     val forwardPath = loadForwardPath("10460202")
-    val densified = densify(forwardPath)
-    val densified2 = altDensify(forwardPath)
+    val sampleCoordinates = new ElevationCoordinatesBuilder().build(forwardPath)
 
     printInfo("original", forwardPath)
-    printInfo("densified", densified)
-    printInfo("densified2", densified2)
+    printInfo("sampleCoordinates", sampleCoordinates)
 
     val repo = new ElevationRepositoryImpl()
 
     // calculate elevations first time to warm up the tile cache
-    densified2.flatMap(repo.elevation)
+    sampleCoordinates.flatMap(repo.elevation)
 
     val t1 = System.currentTimeMillis()
-    val elevations = densified2.flatMap(repo.elevation)
+    val elevations = sampleCoordinates.flatMap(repo.elevation)
     val t2 = System.currentTimeMillis()
     println(s"elevations calculated in ${t2 - t1}ms")
 
@@ -53,26 +45,13 @@ class ElevationFacadeTest extends FunSuite with Matchers {
     println(elevations)
     // elevations.reverse.foreach(println)
 
-    println(gpx(densified2))
+    println(gpx(sampleCoordinates))
   }
 
   private def loadForwardPath(routeId: String): Seq[LatLonD] = {
     val forwardPath = CaseStudy.routeAnalysis(routeId).route.analysis.get.map.forwardPath.get
     val trackPoints = forwardPath.segments.flatMap(_.fragments.map(_.trackPoint))
     trackPoints.map(tp => LatLonD(tp.lat.toDouble, tp.lon.toDouble))
-  }
-
-  private def densify(latLons: Seq[LatLonD]): Seq[LatLonD] = {
-    val m1 = Haversine.km(47, 14, 48, 14) * 1000
-    val m2 = Haversine.km(47, 14, 47, 15) * 1000
-    println("m1=" + m1)
-    println("m2=" + m2)
-    println("meters=" + (m1 / 1201))
-
-    val coordinates = latLons.map(latLon => new Coordinate(latLon.lat, latLon.lon)).toArray
-    val lineString = new GeometryFactory().createLineString(coordinates)
-    val g: Geometry = Densifier.densify(lineString, 50L / m1)
-    g.getCoordinates.toSeq.map(c => LatLonD(c.x, c.y))
   }
 
   private def deltas(elevations: Seq[Int]): Seq[Int] = {
@@ -98,48 +77,13 @@ class ElevationFacadeTest extends FunSuite with Matchers {
     println(s"  distances between coordinates: ${distances(latLons).mkString(", ")}")
   }
 
-  private val segmentDistance = 40
-
-  private def altDensify(latLons: Seq[LatLonD]): Seq[LatLonD] = {
-    altDensify1(segmentDistance, latLons, Seq.empty)
-  }
-
-  @tailrec
-  private def altDensify1(remainingDistanceInSegment: Double, latLons: Seq[LatLonD], result: Seq[LatLonD]): Seq[LatLonD] = {
-    if (latLons.size == 1) {
-      result ++ latLons
-    }
-    else {
-      val latLon1 = latLons.head
-      val latLon2 = latLons(1)
-      val segmentLength = distance(latLon1, latLon2)
-      if (remainingDistanceInSegment < segmentLength) {
-        val ratio = remainingDistanceInSegment / segmentLength
-        val lat = latLon1.lat + (ratio * (latLon2.lat - latLon1.lat))
-        val lon = latLon1.lon + (ratio * (latLon2.lon - latLon1.lon))
-        val latLon = LatLonD(lat, lon)
-        val newLatLons = Seq(latLon) ++ latLons.tail
-        altDensify1(segmentDistance, newLatLons, result :+ latLon)
-      }
-      else {
-        altDensify1(remainingDistanceInSegment - segmentLength, latLons.tail, result)
-      }
-    }
-  }
-
-  private def distance(a: LatLonD, b: LatLonD): Double = {
-    Haversine.km(a.lat, a.lon, b.lat, b.lon) * 1000
-  }
 
   private def gpx(latLons: Seq[LatLonD]): String = {
-
     val wayPoints: Seq[WayPoint] = latLons.zipWithIndex.map { case (latLon, index) =>
       val name = "" + index
       WayPoint(name, latLon.lat.toString, latLon.lon.toString, "")
     }
-
     val trackSegments = Seq(GpxSegment(latLons.map(p => TrackPoint(p.lat.toString, p.lon.toString))))
-
     val file = GpxFile(0L, "", wayPoints, trackSegments)
     new GpxWriter(file).string
   }
