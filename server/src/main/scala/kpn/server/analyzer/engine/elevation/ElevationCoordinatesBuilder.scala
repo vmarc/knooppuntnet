@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 
 class ElevationCoordinatesBuilder {
 
-  private val segmentDistance = 5
+  private val segmentDistance = 45
 
   def build(latLons: Seq[LatLonD]): Seq[LatLonD] = {
     buildCoordinates(segmentDistance, latLons, Seq.empty)

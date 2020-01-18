@@ -15,37 +15,26 @@ import org.springframework.stereotype.Component
 @Component
 class ElevationRepositoryImpl {
 
-  private val secondsPerMinute = 60
-  private val resolutionInArcSeconds = 3
-  private val elevationValuesPerLine = 1201
   private val unknownElevation: Int = -32768 // magic number indicating 'void data' in HGT file
 
   private val cache = scala.collection.mutable.Map[String, Option[ShortBuffer]]()
 
+  def tileCount: Int = cache.size
+
   def elevation(latLon: LatLonD): Option[Int] = {
-    val tilename = tileNameFrom(latLon)
-    cache.getOrElseUpdate(tilename, loadTileBuffer(tilename)).flatMap { tileBuffer =>
-      elevationInTile(tileBuffer, latLon)
+    val tile = ElevationTile(latLon)
+    cache.getOrElseUpdate(tile.name, loadTileBuffer(tile.name)).flatMap { tileBuffer =>
+      elevationInTile(tileBuffer, tile)
     }
   }
 
-  def tileCount: Int = cache.size
-
-  private def elevationInTile(tileBuffer: ShortBuffer, latLon: LatLonD): Option[Int] = {
-    val row: Int = elevationValuesPerLine - Math.round(fractionalPart(latLon.lat) * secondsPerMinute * secondsPerMinute / resolutionInArcSeconds).toInt
-    val column: Int = Math.round(fractionalPart(latLon.lon) * secondsPerMinute * secondsPerMinute / resolutionInArcSeconds).toInt
-    val bufferIndex = (elevationValuesPerLine * (row - 1)) + column
-    if (bufferIndex < tileBuffer.limit) {
-      val elevation: Short = tileBuffer.get(bufferIndex)
-      if (elevation == unknownElevation) {
-        None
-      }
-      else {
-        Some(elevation.toInt)
-      }
+  private def elevationInTile(tileBuffer: ShortBuffer, tile: ElevationTile): Option[Int] = {
+    val elevation: Short = tileBuffer.get(tile.bufferIndex)
+    if (elevation == unknownElevation) {
+      None
     }
     else {
-      None
+      Some(elevation.toInt)
     }
   }
 
@@ -70,19 +59,6 @@ class ElevationRepositoryImpl {
     finally {
       gis.close()
     }
-  }
-
-  private def tileNameFrom(latLon: LatLonD): String = {
-    val lat = latLon.lat.toInt
-    val lon = latLon.lon.toInt
-    val latPref = if (lat < 0) "S" else "N"
-    val lonPref = if (lon < 0) "W" else "E"
-    "%s%02d%s%03d".format(latPref, lat, lonPref, lon)
-  }
-
-  private def fractionalPart(value: Double): Double = {
-    val integerPart = value.toLong
-    value - integerPart
   }
 
 }
