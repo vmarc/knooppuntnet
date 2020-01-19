@@ -1,7 +1,10 @@
 package kpn.server.api.authentication
 
-import java.net.URLEncoder
-
+import com.nimbusds.jose.JWSAlgorithm.HS256
+import com.nimbusds.jose.JWSHeader
+import com.nimbusds.jose.crypto.MACSigner
+import com.nimbusds.jwt.JWTClaimsSet
+import com.nimbusds.jwt.SignedJWT
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 import org.springframework.http.HttpStatus
@@ -14,7 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class AuthenticationController(authenticationFacade: AuthenticationFacade, crypto: Crypto) {
+class AuthenticationController(authenticationFacade: AuthenticationFacade, crypto: Crypto, cryptoKey: String) {
+
+  private val userKey = "user" // TODO see: SecurityFilter
+  private val accessTokenKey = "access-token" // TODO see: SecurityFilter
+  private val SECRET = "from-server.properties-configuration-file"
+
 
   @GetMapping(value = Array("/json-api/login"))
   @ResponseBody def login(
@@ -45,13 +53,16 @@ class AuthenticationController(authenticationFacade: AuthenticationFacade, crypt
     val token = new OAuthToken(oauth_token, secret)
     val user = authenticationFacade.authenticated(token, oauth_verifier)
 
-    val cookie = new Cookie("knooppuntnet-user", URLEncoder.encode(user, "UTF-8"))
-    cookie.setMaxAge(7 * 24 * 60 * 60)
-    //    cookie.setSecure(true)
-    cookie.setHttpOnly(true)
-    cookie.setPath("/")
-    response.addCookie(cookie)
-    new ResponseEntity[String]("", HttpStatus.OK)
+    val encryptedAccessToken = crypto.encrypt(secret)
+    val claimsSetBuilder = new JWTClaimsSet.Builder
+    claimsSetBuilder.claim(userKey, user)
+    claimsSetBuilder.claim(accessTokenKey, encryptedAccessToken)
+    val signer = new MACSigner(cryptoKey)
+    val signedJWT = new SignedJWT(new JWSHeader(HS256), claimsSetBuilder.build)
+    signedJWT.sign(signer)
+    val body = signedJWT.serialize
+
+    new ResponseEntity[String](body, HttpStatus.OK)
   }
 
 }
