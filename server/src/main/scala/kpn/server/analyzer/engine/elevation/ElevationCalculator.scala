@@ -41,7 +41,7 @@ class ElevationCalculator {
       Seq.empty
     }
 
-    Seq.empty // TODO pick up heights
+    Seq.empty // TODO pick up heights and distances
   }
 
   private def explore(
