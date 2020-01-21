@@ -8,21 +8,21 @@ import java.nio.ByteOrder
 import java.nio.ShortBuffer
 import java.util.zip.GZIPInputStream
 
-import kpn.core.common.LatLonD
+import kpn.server.analyzer.engine.tiles.domain.Point
 import org.apache.commons.io.IOUtils
 import org.springframework.stereotype.Component
 
 @Component
-class ElevationRepositoryImpl {
+class ElevationRepositoryImpl extends ElevationRepository {
 
   private val unknownElevation: Int = -32768 // magic number indicating 'void data' in HGT file
 
   private val cache = scala.collection.mutable.Map[String, Option[ShortBuffer]]()
 
-  def tileCount: Int = cache.size
+  override def tileCount: Int = cache.size
 
-  def elevation(latLon: LatLonD): Option[Int] = {
-    val tile = ElevationTile(latLon)
+  override def elevation(point: Point): Option[Int] = {
+    val tile = ElevationTile(point)
     cache.getOrElseUpdate(tile.name, loadTileBuffer(tile.name)).flatMap { tileBuffer =>
       elevationInTile(tileBuffer, tile)
     }

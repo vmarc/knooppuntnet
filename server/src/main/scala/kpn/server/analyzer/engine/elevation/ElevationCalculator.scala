@@ -1,33 +1,34 @@
 package kpn.server.analyzer.engine.elevation
 
-import kpn.core.common.LatLonD
+import kpn.server.analyzer.engine.tiles.domain.Line
+import kpn.server.analyzer.engine.tiles.domain.Point
 
 class ElevationCalculator {
 
-  def calculate(latLons: Seq[LatLonD]): Seq[DistanceElevation] = {
-    latLons.sliding(2).flatMap { case Seq(a, b) =>
-      calculateSegment(LatLonLine(a, b))
+  def calculate(points: Seq[Point]): Seq[DistanceElevation] = {
+    points.sliding(2).flatMap { case Seq(p1, p2) =>
+      calculateSegment(Line(p1, p2))
     }.toSeq
   }
 
-  private def calculateSegment(line: LatLonLine): Seq[DistanceElevation] = {
+  private def calculateSegment(line: Line): Seq[DistanceElevation] = {
 
-    val aTile = ElevationTile(line.a)
-    val bTile = ElevationTile(line.b)
+    val tile1 = ElevationTile(line.p1)
+    val tile2 = ElevationTile(line.p2)
 
-    val infos = if (aTile == bTile) {
-      Seq(DistanceTile(line.distance, aTile))
+    val infos = if (tile1 == tile2) {
+      Seq(DistanceTile(line.length, tile1))
     }
     else {
 
       val tileQueue = scala.collection.mutable.Queue[ElevationTile]()
       val foundTiles = scala.collection.mutable.Set[ElevationTile]()
 
-      tileQueue += aTile
-      tileQueue += bTile
+      tileQueue += tile1
+      tileQueue += tile2
 
-      foundTiles += aTile
-      foundTiles += bTile
+      foundTiles += tile1
+      foundTiles += tile2
 
       while (tileQueue.nonEmpty) {
         val tile = tileQueue.dequeue()
@@ -47,9 +48,9 @@ class ElevationCalculator {
   private def explore(
     tileQueue: scala.collection.mutable.Queue[ElevationTile],
     foundTiles: scala.collection.mutable.Set[ElevationTile],
-    line: LatLonLine,
+    line: Line,
     tile: ElevationTile,
-    side: LatLonLine,
+    side: Line,
     xDelta: Int,
     yDelta: Int
   ): Unit = {
@@ -62,6 +63,5 @@ class ElevationCalculator {
       }
     }
   }
-
 
 }

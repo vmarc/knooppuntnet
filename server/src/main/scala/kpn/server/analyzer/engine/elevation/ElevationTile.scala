@@ -1,16 +1,17 @@
 package kpn.server.analyzer.engine.elevation
 
-import kpn.core.common.LatLonD
 import kpn.server.analyzer.engine.elevation.ElevationTile.elevationValuesPerLine
+import kpn.server.analyzer.engine.tiles.domain.Line
+import kpn.server.analyzer.engine.tiles.domain.Point
 
 object ElevationTile {
 
   private val elevationValuesPerLine = 1201
 
-  def apply(latLon: LatLonD): ElevationTile = {
-    val row: Int = elevationValuesPerLine - Math.round(fractionalPart(latLon.lat) * 1200).toInt
-    val column: Int = Math.round(fractionalPart(latLon.lon) * 1200).toInt
-    ElevationTile(latLon.lat.toInt, latLon.lon.toInt, row, column)
+  def apply(point: Point): ElevationTile = {
+    val row: Int = elevationValuesPerLine - Math.round(fractionalPart(point.x) * 1200).toInt
+    val column: Int = Math.round(fractionalPart(point.y) * 1200).toInt
+    ElevationTile(point.x.toInt, point.y.toInt, row, column)
   }
 
   private def fractionalPart(value: Double): Double = {
@@ -38,13 +39,13 @@ case class ElevationTile(lat: Int, lon: Int, row: Int, column: Int) {
 
   private def lonMax: Double = (lon + 1).toDouble
 
-  def top: LatLonLine = LatLonLine(LatLonD(latMin, lonMin), LatLonD(latMax, lonMin))
+  def top: Line = Line(Point(latMin, lonMin), Point(latMax, lonMin))
 
-  def bottom: LatLonLine = LatLonLine(LatLonD(latMin, lonMax), LatLonD(latMax, lonMax))
+  def bottom: Line = Line(Point(latMin, lonMax), Point(latMax, lonMax))
 
-  def left: LatLonLine = LatLonLine(LatLonD(latMin, lonMin), LatLonD(latMin, lonMax))
+  def left: Line = Line(Point(latMin, lonMin), Point(latMin, lonMax))
 
-  def right: LatLonLine = LatLonLine(LatLonD(latMax, lonMin), LatLonD(latMax, lonMax))
+  def right: Line = Line(Point(latMax, lonMin), Point(latMax, lonMax))
 
   def adjecent(rowDelta: Int, columnDelta: Int): ElevationTile = {
 

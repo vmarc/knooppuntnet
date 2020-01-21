@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.elevation
 
-import kpn.core.common.LatLonD
 import kpn.core.util.Haversine
+import kpn.server.analyzer.engine.tiles.domain.Point
 
 import scala.annotation.tailrec
 
@@ -9,35 +9,35 @@ class ElevationCoordinatesBuilder {
 
   private val segmentDistance = 45
 
-  def build(latLons: Seq[LatLonD]): Seq[LatLonD] = {
-    buildCoordinates(segmentDistance, latLons, Seq.empty)
+  def build(points: Seq[Point]): Seq[Point] = {
+    buildCoordinates(segmentDistance, points, Seq.empty)
   }
 
   @tailrec
-  private def buildCoordinates(remainingDistanceInSegment: Double, latLons: Seq[LatLonD], result: Seq[LatLonD]): Seq[LatLonD] = {
-    if (latLons.size == 1) {
-      result ++ latLons
+  private def buildCoordinates(remainingDistanceInSegment: Double, points: Seq[Point], result: Seq[Point]): Seq[Point] = {
+    if (points.size == 1) {
+      result ++ points
     }
     else {
-      val latLon1 = latLons.head
-      val latLon2 = latLons(1)
-      val segmentLength = distance(latLon1, latLon2)
+      val point1 = points.head
+      val point2 = points(1)
+      val segmentLength = distance(point1, point2)
       if (remainingDistanceInSegment < segmentLength) {
         val ratio = remainingDistanceInSegment / segmentLength
-        val newStartLat = latLon1.lat + (ratio * (latLon2.lat - latLon1.lat))
-        val newStartLon = latLon1.lon + (ratio * (latLon2.lon - latLon1.lon))
-        val newStart = LatLonD(newStartLat, newStartLon)
-        val newLatLons = Seq(newStart) ++ latLons.tail
-        buildCoordinates(segmentDistance, newLatLons, result :+ newStart)
+        val newStartPointX = point1.x + (ratio * (point2.x - point1.x))
+        val newStartPointY = point1.y + (ratio * (point2.y - point1.y))
+        val newStartPoint = Point(newStartPointX, newStartPointY)
+        val newPoints = Seq(newStartPoint) ++ points.tail
+        buildCoordinates(segmentDistance, newPoints, result :+ newStartPoint)
       }
       else {
-        buildCoordinates(remainingDistanceInSegment - segmentLength, latLons.tail, result)
+        buildCoordinates(remainingDistanceInSegment - segmentLength, points.tail, result)
       }
     }
   }
 
-  private def distance(a: LatLonD, b: LatLonD): Double = {
-    Haversine.km(a.lat, a.lon, b.lat, b.lon) * 1000
+  private def distance(a: Point, b: Point): Double = {
+    Haversine.km(a.x, a.y, b.x, b.y) * 1000
   }
 
 }

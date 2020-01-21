@@ -1,9 +1,11 @@
 package kpn.server.analyzer.engine.elevation
 
-import kpn.core.common.LatLonD
+import kpn.server.analyzer.engine.tiles.domain.Point
 
 trait ElevationRepository {
 
-  def elevation(latLon: LatLonD): Option[Int]
+  def tileCount: Int
+
+  def elevation(point: Point): Option[Int]
 
 }
