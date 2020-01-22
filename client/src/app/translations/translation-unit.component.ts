@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TranslationLocation} from "./domain/translation-location";
 import {List} from "immutable";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translation-unit",
   template: `
@@ -50,7 +51,7 @@ import {List} from "immutable";
     .text-areas :first-child {
       margin-right: 20px;
     }
-    
+
     .text-areas > div > textarea {
       width: 100%;
       font-size: 18px;

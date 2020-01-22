@@ -5,6 +5,7 @@ import {XliffParser} from "./domain/xliff-parser";
 import {Router} from "@angular/router";
 import {TranslationFile} from "./domain/translation-file";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translations-load",
   template: `

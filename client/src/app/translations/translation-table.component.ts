@@ -7,6 +7,7 @@ import {TranslationUnit} from "./domain/translation-unit";
 import {List} from "immutable";
 import {SelectionModel} from "@angular/cdk/collections";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translation-table",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,7 +61,7 @@ import {SelectionModel} from "@angular/cdk/collections";
     </mat-table>
   `,
   styles: [`
-    
+
     mat-table {
       width: 100%;
     }

@@ -34,7 +34,7 @@ export class UserService {
   public login(): void {
 
     let whereWeComeFrom = "";
-    if (this.loginCallbackPage.length == 0) {
+    if (this.loginCallbackPage.length === 0) {
       whereWeComeFrom = "/";
     } else {
       whereWeComeFrom = this.loginCallbackPage;
@@ -52,7 +52,7 @@ export class UserService {
     }).subscribe(r => {
         console.log("DEBUG UserService success");
         console.log(JSON.stringify(r, null, 2));
-        window.location.href = "https://www.openstreetmap.org/oauth/authorize?oauth_token=" + r
+        window.location.href = "https://www.openstreetmap.org/oauth/authorize?oauth_token=" + r;
       },
       error => {
         console.log("DEBUG UserService error response");
@@ -80,7 +80,7 @@ export class UserService {
   }
 
   authenticated() {
-    let search = decodeURIComponent(window.location.search);
+    const search = decodeURIComponent(window.location.search);
     this.http.get("/json-api/authenticated" + search, {
       responseType: "text"
     }).subscribe(r => {

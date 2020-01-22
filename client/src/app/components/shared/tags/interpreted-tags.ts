@@ -4,30 +4,6 @@ import {Tag} from "../../../kpn/api/custom/tag";
 
 export class InterpretedTags {
 
-  private constructor(private standardTagKeys: List<string>, private tags: Tags) {
-  }
-
-  isEmpty(): boolean {
-    return this.tags.isEmpty();
-  }
-
-  standardTags(): List<Tag> {
-    return this.standardTagKeys.flatMap(key => this.tags.tagsWithKey(key));
-  }
-
-  extraTags(): List<Tag> {
-    const tags = this.tags.tags.filter(tag => !this.standardTagKeys.contains(tag.key));
-    return tags.sortBy((tag) => tag.key);
-  }
-
-  hasStandardTags(): boolean {
-    return this.tags.tags.find(tag => this.standardTagKeys.contains(tag.key)) !== undefined;
-  }
-
-  hasExtraTags(): boolean {
-    return this.tags.tags.find(tag => !this.standardTagKeys.contains(tag.key)) !== undefined;
-  }
-
   static nodeTags(tags: Tags): InterpretedTags {
     const standardTagKeys = List([
       "rwn_ref",
@@ -67,6 +43,30 @@ export class InterpretedTags {
   static all(tags: Tags): InterpretedTags {
     const standardTagKeys = List([]);
     return new InterpretedTags(standardTagKeys, tags);
+  }
+
+  private constructor(private standardTagKeys: List<string>, private tags: Tags) {
+  }
+
+  isEmpty(): boolean {
+    return this.tags.isEmpty();
+  }
+
+  standardTags(): List<Tag> {
+    return this.standardTagKeys.flatMap(key => this.tags.tagsWithKey(key));
+  }
+
+  extraTags(): List<Tag> {
+    const tags = this.tags.tags.filter(tag => !this.standardTagKeys.contains(tag.key));
+    return tags.sortBy((tag) => tag.key);
+  }
+
+  hasStandardTags(): boolean {
+    return this.tags.tags.find(tag => this.standardTagKeys.contains(tag.key)) !== undefined;
+  }
+
+  hasExtraTags(): boolean {
+    return this.tags.tags.find(tag => !this.standardTagKeys.contains(tag.key)) !== undefined;
   }
 
 }

@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {TranslationFile} from "./domain/translation-file";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translations",
   template: `

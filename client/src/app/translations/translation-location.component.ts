@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import {TranslationsService} from "./translations.service";
 import {TranslationLocation} from "./domain/translation-location";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translation-location",
   template: `

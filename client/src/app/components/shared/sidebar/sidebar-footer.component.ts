@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-sidebar-footer",
   template: `

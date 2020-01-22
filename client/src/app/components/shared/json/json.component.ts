@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-json",
   template: `
@@ -19,7 +20,7 @@ import {Component, Input, OnInit} from "@angular/core";
 export class JsonComponent implements OnInit {
 
   @Input() object: any;
-  contents: string = "";
+  contents = "";
   visible = false;
 
   ngOnInit(): void {

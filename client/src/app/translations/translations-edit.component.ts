@@ -5,6 +5,7 @@ import {XliffWriter} from "./domain/xliff-writer";
 import {TranslationUnit} from "./domain/translation-unit";
 import {List} from "immutable";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translations-edit",
   template: `
@@ -26,12 +27,12 @@ import {List} from "immutable";
     </kpn-translation-table>
   `,
   styles: [`
-    
+
     .top {
       display: flex;
       margin-bottom: 5px;
     }
-    
+
     .left {
       flex: 1;
     }

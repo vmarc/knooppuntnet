@@ -23,7 +23,7 @@ import {PlannerCommand} from "./planner-command";
 */
 export class PlannerCommandStack {
 
-  private _commandCount: number = 0;
+  private _commandCount = 0;
   private _commands: List<PlannerCommand> = List();
 
   private _canUndo = false;

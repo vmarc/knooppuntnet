@@ -62,7 +62,7 @@ export class PdfStripDocumentModel {
       rowCount = this.maxRowCount;
     } else {
       rowCount = pageNodesCount % this.maxRowCount;
-      if (rowCount == 0) {
+      if (rowCount === 0) {
         rowCount = this.maxRowCount;
       }
     }

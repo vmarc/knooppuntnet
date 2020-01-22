@@ -4,20 +4,20 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 @Component({
   selector: "kpn-role-connection-indicator-dialog",
   template: `
-    <kpn-indicator-dialog 
+    <kpn-indicator-dialog
       letter="C"
       i18n-letter="@@role-connection-indicator.letter"
       [color]="color"
       (closeDialog)="onCloseDialog()">
-      
+
       <span dialog-title *ngIf="isBlue()" i18n="@@role-connection-indicator.blue.title">
-        OK - Connection        
+        OK - Connection
       </span>
       <div dialog-body *ngIf="isBlue()" i18n="@@role-connection-indicator.blue.text">
         This node is a connection to another network.
         This node has role "connection" in the network relation.
       </div>
-      
+
       <span dialog-title *ngIf="isGray()" i18n="@@role-connection-indicator.gray.title">
         OK - No connection role
       </span>

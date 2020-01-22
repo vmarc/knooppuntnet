@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-sidebar-version-warning",
   template: `

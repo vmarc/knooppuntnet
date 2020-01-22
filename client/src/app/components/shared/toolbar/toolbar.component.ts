@@ -14,12 +14,12 @@ import {PageService} from "../page.service";
     </mat-toolbar>
   `,
   styles: [`
-    
+
     :host {
       display: block;
       border-bottom: solid 1px lightgray;
     }
-    
+
     .toolbar-spacer {
       flex: 1 1 auto;
     }
