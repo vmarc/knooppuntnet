@@ -21,7 +21,7 @@ class ElevationCoordinatesBuilder {
     else {
       val point1 = points.head
       val point2 = points(1)
-      val segmentLength = distance(point1, point2)
+      val segmentLength = Haversine.distance(point1, point2)
       if (remainingDistanceInSegment < segmentLength) {
         val ratio = remainingDistanceInSegment / segmentLength
         val newStartPointX = point1.x + (ratio * (point2.x - point1.x))
@@ -34,10 +34,6 @@ class ElevationCoordinatesBuilder {
         buildCoordinates(remainingDistanceInSegment - segmentLength, points.tail, result)
       }
     }
-  }
-
-  private def distance(a: Point, b: Point): Double = {
-    Haversine.km(a.x, a.y, b.x, b.y) * 1000
   }
 
 }

@@ -1,14 +1,18 @@
 package kpn.server.analyzer.engine.elevation
 
+import kpn.core.util.Haversine
+import kpn.server.analyzer.engine.tiles.CohenSutherland
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 
-class ElevationCalculator {
+class ElevationCalculator(elevationRepository: ElevationRepository) {
 
   def calculate(points: Seq[Point]): Seq[DistanceElevation] = {
-    points.sliding(2).flatMap { case Seq(p1, p2) =>
-      calculateSegment(Line(p1, p2))
-    }.toSeq
+    DistanceElevationMerger.merge(
+      points.sliding(2).toSeq.flatMap { case Seq(p1, p2) =>
+        calculateSegment(Line(p1, p2))
+      }
+    )
   }
 
   private def calculateSegment(line: Line): Seq[DistanceElevation] = {
@@ -16,8 +20,10 @@ class ElevationCalculator {
     val tile1 = ElevationTile(line.p1)
     val tile2 = ElevationTile(line.p2)
 
-    val infos = if (tile1 == tile2) {
-      Seq(DistanceTile(line.length, tile1))
+    if (tile1 == tile2) {
+      elevationRepository.elevationFor(tile1).toSeq.map { elevation =>
+        DistanceElevation(Haversine.distance(line), elevation)
+      }
     }
     else {
 
@@ -32,17 +38,26 @@ class ElevationCalculator {
 
       while (tileQueue.nonEmpty) {
         val tile = tileQueue.dequeue()
-        explore(tileQueue, foundTiles, line, tile, tile.left, -1, 0)
-        explore(tileQueue, foundTiles, line, tile, tile.right, 1, 0)
-        explore(tileQueue, foundTiles, line, tile, tile.top, 0, 1)
-        explore(tileQueue, foundTiles, line, tile, tile.bottom, 0, -1)
+        explore(tileQueue, foundTiles, line, tile, tile.bounds.left, -1, 0)
+        explore(tileQueue, foundTiles, line, tile, tile.bounds.right, 1, 0)
+        explore(tileQueue, foundTiles, line, tile, tile.bounds.top, 0, 1)
+        explore(tileQueue, foundTiles, line, tile, tile.bounds.bottom, 0, -1)
       }
-      foundTiles.toSeq
 
-      Seq.empty
+      println(s"line=$line, foundTiles=${foundTiles.map(t => t.fullName + " " + elevationRepository.elevationFor(t).get + "m")}")
+
+      foundTiles.toSeq.flatMap { tile =>
+        CohenSutherland.clip(tile.bounds, line).flatMap { linePart =>
+          val distance = Haversine.distance(linePart)
+          elevationRepository.elevationFor(tile).map { elevation =>
+
+            println(s"    part=$linePart, distance=$distance, elevation=$elevation")
+
+            DistanceElevation(distance, elevation)
+          }
+        }
+      }
     }
-
-    Seq.empty // TODO pick up heights and distances
   }
 
   private def explore(

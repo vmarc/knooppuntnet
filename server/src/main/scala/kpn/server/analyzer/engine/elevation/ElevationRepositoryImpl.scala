@@ -22,7 +22,10 @@ class ElevationRepositoryImpl extends ElevationRepository {
   override def tileCount: Int = cache.size
 
   override def elevation(point: Point): Option[Int] = {
-    val tile = ElevationTile(point)
+    elevationFor(ElevationTile(point))
+  }
+
+  override def elevationFor(tile: ElevationTile): Option[Int] = {
     cache.getOrElseUpdate(tile.name, loadTileBuffer(tile.name)).flatMap { tileBuffer =>
       elevationInTile(tileBuffer, tile)
     }

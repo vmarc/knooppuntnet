@@ -1,6 +1,8 @@
 package kpn.core.util
 
 import kpn.api.common.data.raw.RawNode
+import kpn.server.analyzer.engine.tiles.domain.Line
+import kpn.server.analyzer.engine.tiles.domain.Point
 
 import scala.math.asin
 import scala.math.cos
@@ -13,6 +15,14 @@ import scala.math.sqrt
 object Haversine {
 
   val R = 6372.8 //radius in km
+
+  def distance(line: Line): Double = {
+    distance(line.p1, line.p2)
+  }
+
+  def distance(p1: Point, p2: Point): Double = {
+    km(p1.x, p1.y, p2.x, p2.y) * 1000
+  }
 
   def km(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double = {
     val dLat = (lat2 - lat1).toRadians

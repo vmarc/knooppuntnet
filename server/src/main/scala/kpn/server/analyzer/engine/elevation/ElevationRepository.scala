@@ -8,4 +8,6 @@ trait ElevationRepository {
 
   def elevation(point: Point): Option[Int]
 
+  def elevationFor(tile: ElevationTile): Option[Int]
+
 }

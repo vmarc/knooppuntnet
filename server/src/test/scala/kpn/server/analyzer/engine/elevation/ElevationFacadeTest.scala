@@ -7,6 +7,7 @@ import kpn.core.gpx.GpxWriter
 import kpn.core.gpx.WayPoint
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
+import kpn.server.analyzer.engine.analysis.common.Converter
 import kpn.server.analyzer.engine.tiles.domain.Point
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -45,13 +46,27 @@ class ElevationFacadeTest extends FunSuite with Matchers {
     println(elevations)
     // elevations.reverse.foreach(println)
 
-    println(gpx(sampleCoordinates))
+    //println(gpx(sampleCoordinates))
+
+    val distanceElevations = new ElevationCalculator(repo).calculate(forwardPath)
+    //distanceElevations.foreach(println)
+
+    println("distanceElevations.size=" + distanceElevations.size)
+    println("total distance=" + distanceElevations.map(_.distance).sum)
+
+    //    var total = 0.0
+    //    distanceElevations.reverse.foreach { case DistanceElevation(distance, elevation) =>
+    //      total = total + distance
+    //      println(total + "\t" + elevation)
+    //    }
   }
 
   private def loadForwardPath(routeId: String): Seq[Point] = {
     val forwardPath = CaseStudy.routeAnalysis(routeId).route.analysis.get.map.forwardPath.get
-    val trackPoints = forwardPath.segments.flatMap(_.fragments.map(_.trackPoint))
-    trackPoints.map(tp => Point(tp.lat.toDouble, tp.lon.toDouble))
+    println("forwardPatch distance=" + forwardPath.segments.flatMap(_.fragments.map(_.meters)).sum)
+    val points = Converter.trackPathToPoints(forwardPath)
+    println("points distance=" + points.sliding(2).map { case Seq(p1, p2) => Haversine.distance(p1, p2) }.sum)
+    points
   }
 
   private def deltas(elevations: Seq[Int]): Seq[Int] = {
@@ -67,7 +82,7 @@ class ElevationFacadeTest extends FunSuite with Matchers {
   }
 
   private def doubleDistances(points: Seq[Point]): Seq[Double] = {
-    points.sliding(2).toSeq.map { case Seq(a, b) => Haversine.km(a.x, a.y, b.x, b.y) * 1000 }
+    points.sliding(2).toSeq.map { case Seq(p1, p2) => Haversine.distance(p1, p2) }
   }
 
   private def printInfo(title: String, points: Seq[Point]): Unit = {
