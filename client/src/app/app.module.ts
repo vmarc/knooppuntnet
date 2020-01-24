@@ -4,10 +4,10 @@ import {NgModule} from "@angular/core";
 import {MatButtonModule, MatIconModule, MatIconRegistry, MatSidenavModule} from "@angular/material";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {ServiceWorkerModule} from '@angular/service-worker';
+import {ServiceWorkerModule} from "@angular/service-worker";
 import {CookieService} from "ngx-cookie-service";
 import {MarkdownModule} from "ngx-markdown";
-import {environment} from '../environments/environment';
+import {environment} from "../environments/environment";
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {AppService} from "./app.service";
@@ -39,7 +39,7 @@ import {I18nService} from "./i18n/i18n.service";
     SharedModule,
     AppRoutingModule,
     SpinnerModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register("ngsw-worker.js", {enabled: environment.production})
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true},

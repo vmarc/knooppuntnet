@@ -29,7 +29,11 @@ import {SubsetChangesService} from "./subset-changes.service";
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
 
-      <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size" [showFirstLastButtons]="false">
+      <kpn-changes
+        [(parameters)]="parameters"
+        [totalCount]="page.changeCount"
+        [changeCount]="page.changes.size"
+        [showFirstLastButtons]="false">
         <kpn-items>
           <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
             <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
@@ -73,7 +77,6 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.subset = Util.subsetInRoute(params);
-      //this.parameters = new ChangesParameters(this.subset, null, null, null, null, null, null, 5, 0, false);
       this.parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
     });
   }

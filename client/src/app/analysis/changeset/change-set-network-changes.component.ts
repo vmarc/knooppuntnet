@@ -11,7 +11,8 @@ import {ChangeSetPage} from "../../kpn/api/common/changes/change-set-page";
         <div class="kpn-line">
           <kpn-network-type-icon [networkType]="networkChangeInfo.networkType"></kpn-network-type-icon>
           <span i18n="@@change-set.network-changes.network">Network</span>
-          <kpn-link-network-details [networkId]="networkChangeInfo.networkId" [title]="networkChangeInfo.networkName"></kpn-link-network-details>
+          <kpn-link-network-details [networkId]="networkChangeInfo.networkId" [title]="networkChangeInfo.networkName">
+          </kpn-link-network-details>
         </div>
       </div>
 

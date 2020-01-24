@@ -43,14 +43,14 @@ export class BooleanFilter<T> extends Filter<T> {
       const yesOption = new FilterOption(
         "yes",
         yesElements.size,
-        this.criterium == true,
+        this.criterium === true,
         this.yes
       );
 
       const noOption = new FilterOption(
         "no",
         noElements.size,
-        this.criterium == false,
+        this.criterium === false,
         this.no
       );
 

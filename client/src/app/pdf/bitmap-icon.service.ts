@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {MatIconRegistry} from "@angular/material";
 import * as canvg from "canvg";
-import {Map} from 'immutable';
+import {Map} from "immutable";
 import {Observable, of} from "rxjs";
 import {map, tap} from "rxjs/operators";
 

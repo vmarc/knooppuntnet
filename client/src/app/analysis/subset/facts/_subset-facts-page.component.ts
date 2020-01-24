@@ -81,7 +81,7 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
 
   private processResponse(response: ApiResponse<SubsetFactsPage>) {
     this.response = response;
-    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
+    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
   }
 
 }

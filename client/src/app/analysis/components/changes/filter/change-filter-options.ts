@@ -63,7 +63,13 @@ export class ChangeFilterOptions {
     return new ChangeFilterOptions(List(flatOptions));
   }
 
-  private static updatedParameters(parameters: ChangesParameters, impact: boolean, year: string = null, month: string = null, day: string = null): ChangesParameters {
+  private static updatedParameters(
+    parameters: ChangesParameters,
+    impact: boolean,
+    year: string = null,
+    month: string = null,
+    day: string = null
+  ): ChangesParameters {
     return new ChangesParameters(
       parameters.subset,
       parameters.networkId,

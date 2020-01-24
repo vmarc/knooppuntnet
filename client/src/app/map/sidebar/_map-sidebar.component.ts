@@ -16,7 +16,7 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from "@angular/core";
     <kpn-map-sidebar-poi-configuration></kpn-map-sidebar-poi-configuration>
   `
 })
-export class MapSidebarComponent implements AfterViewInit{
+export class MapSidebarComponent implements AfterViewInit {
 
   @ViewChild("profile") canvas: ElementRef;
 
@@ -30,8 +30,8 @@ export class MapSidebarComponent implements AfterViewInit{
     ctx.lineTo(200, 0);
     ctx.stroke();
     ctx.fillStyle = "#0000FF";
-    ctx.font = '16px serif';
-    ctx.fillText("text", 50, 50, 150)
+    ctx.font = "16px serif";
+    ctx.fillText("text", 50, 50, 150);
   }
 
 }
