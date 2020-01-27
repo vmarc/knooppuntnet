@@ -19,7 +19,7 @@ import {ChangeSetPage} from "../../kpn/api/common/changes/change-set-page";
               class="external"
               rel="nofollow"
               target="_blank"
-              [href]="'https://overpass-api.de/achavi/?changeset=' + page.summary.key.changeSetId">
+              [href]="'https://overpass-api.de/achavi/?changeset=' + page.summary.key.changeSetId" i18n="@@change-set.header.achavi">
               achavi
             </a>
           </div>

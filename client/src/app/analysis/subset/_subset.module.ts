@@ -1,6 +1,12 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatButtonModule, MatDialogModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
+import {MatButtonModule} from "@angular/material";
+import {MatDialogModule} from "@angular/material";
+import {MatDividerModule} from "@angular/material";
+import {MatIconModule} from "@angular/material";
+import {MatPaginatorModule} from "@angular/material";
+import {MatSortModule} from "@angular/material";
+import {MatTableModule} from "@angular/material";
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";

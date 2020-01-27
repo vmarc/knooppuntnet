@@ -9,8 +9,8 @@ import {MatRadioChange} from "@angular/material";
       <div class="group-name">{{group.name}}</div>
       <mat-radio-group [value]="selection()" (change)="selectionChanged($event)">
         <mat-radio-button
-            *ngFor="let option of group.options"
-            value="{{option.name}}">
+          *ngFor="let option of group.options"
+          value="{{option.name}}">
           <span class="option-name">{{option.name}}</span>
           <span class="option-count">{{option.count}}</span>
         </mat-radio-button>
@@ -29,7 +29,7 @@ export class FilterRadioGroupComponent {
   }
 
   selectionChanged(event: MatRadioChange) {
-    const option = this.group.options.find(option => option.name == event.value);
+    const option = this.group.options.find(o => o.name === event.value);
     if (option) {
       option.updateState();
     }

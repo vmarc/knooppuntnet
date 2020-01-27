@@ -247,3 +247,7 @@ table.kpn-bordered-table {
   content: ": ";
 }
 
+.breadcrumb-link::after {
+  content: " > ";
+  color: black;
+}

@@ -41,7 +41,7 @@ export class DirectionsAnalyzer {
                   this.setInstructionStreet(street);
                   this.addInstructionDistance(fragment.meters);
                 } else {
-                  if (this.currentInstruction.distance == 0) {
+                  if (this.currentInstruction.distance === 0) {
                     this.setInstructionCommand(command);
                     this.setInstructionStreet(street);
                   }
@@ -184,17 +184,17 @@ export class DirectionsAnalyzer {
     if (street1 == null || street2 == null) {
       return false;
     }
-    if (street1 == "" || street2 == "") {
+    if (street1 === "" || street2 === "") {
       return false;
     }
-    return street1 != street2;
+    return street1 !== street2;
   }
 
   private isHardTurn(text: string): boolean {
-    return text == "turn-left" ||
-      text == "turn-right" ||
-      text == "turn-sharp-left" ||
-      text == "turn-sharp-right";
+    return text === "turn-left" ||
+      text === "turn-right" ||
+      text === "turn-sharp-left" ||
+      text === "turn-sharp-right";
   }
 
 }

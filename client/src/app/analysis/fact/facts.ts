@@ -13,19 +13,19 @@ export class Facts {
     new FactDefinition("BecomeOrphan", FactLevel.other),
     new FactDefinition("Deleted", FactLevel.other),
     new FactDefinition("IntegrityCheck", FactLevel.other),
-    new FactDefinition("IntegrityCheckFailed", FactLevel.error), // OnverwachtRouteAantal
+    new FactDefinition("IntegrityCheckFailed", FactLevel.error),
     new FactDefinition("LostBicycleNodeTag", FactLevel.other),
     new FactDefinition("LostCanoeNodeTag", FactLevel.other),
     new FactDefinition("LostHikingNodeTag", FactLevel.other),
     new FactDefinition("LostHorseNodeTag", FactLevel.other),
     new FactDefinition("LostInlineSkateNodeTag", FactLevel.other),
     new FactDefinition("LostMotorboatNodeTag", FactLevel.other),
-    new FactDefinition("LostRouteTags", FactLevel.other), // GeenRouteMeer
+    new FactDefinition("LostRouteTags", FactLevel.other),
     new FactDefinition("NameMissing", FactLevel.error),
-    new FactDefinition("NetworkExtraMemberNode", FactLevel.error), // OnverwachteKnoop
-    new FactDefinition("NetworkExtraMemberRelation", FactLevel.error), // OnverwachteRelatie
-    new FactDefinition("NetworkExtraMemberWay", FactLevel.error), // OnverwachteWeg
-    new FactDefinition("NodeMemberMissing", FactLevel.error), //OntbrekendKnooppuntLid
+    new FactDefinition("NetworkExtraMemberNode", FactLevel.error),
+    new FactDefinition("NetworkExtraMemberRelation", FactLevel.error),
+    new FactDefinition("NetworkExtraMemberWay", FactLevel.error),
+    new FactDefinition("NodeMemberMissing", FactLevel.error),
     new FactDefinition("OrphanNode", FactLevel.error),
     new FactDefinition("OrphanRoute", FactLevel.error),
     new FactDefinition("RouteAnalysisFailed", FactLevel.error),

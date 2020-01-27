@@ -38,7 +38,7 @@ export class ChangeSetTagsComponent {
 
   tags(): List<Tag> {
     if (this.changeSetTags && this.changeSetTags.tags) {
-      return this.changeSetTags.tags.filterNot(tag => tag.key == "comment");
+      return this.changeSetTags.tags.filterNot(tag => tag.key === "comment");
     }
     return List();
   }

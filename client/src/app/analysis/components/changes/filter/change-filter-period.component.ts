@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {ChangeFilterOption} from "./change-filter-option";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-change-filter-period",
   template: `

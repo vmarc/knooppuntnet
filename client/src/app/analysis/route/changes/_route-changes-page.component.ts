@@ -22,7 +22,7 @@ import {RouteChangesService} from "./route-changes.service";
     <div *ngIf="!isLoggedIn()">
       <span i18n="@@route-changes.login-required">The route history is available to registered OpenStreetMap contributors only, after</span>
       <kpn-link-login></kpn-link-login>
-      .
+      <span i18n="@@route-changes.login-required.trailer">.</span>
     </div>
 
     <div *ngIf="response">

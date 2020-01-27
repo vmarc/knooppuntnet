@@ -4,7 +4,7 @@ import {UserService} from "../../../services/user.service";
 @Component({
   selector: "kpn-link-login",
   template: `
-    <a routerLink="/login" (click)="registerLoginCallbackPage()">login</a>
+    <a routerLink="/login" (click)="registerLoginCallbackPage()" i18n="@@login">login</a>
   `
 })
 export class LinkLoginComponent {

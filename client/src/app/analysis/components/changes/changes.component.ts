@@ -6,7 +6,7 @@ import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-
   selector: "kpn-changes",
   template: `
 
-    <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)">Impact</mat-slide-toggle>
+    <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)" i18n="@@changes.impact">Impact</mat-slide-toggle>
 
     <mat-paginator
       (page)="pageChanged($event)"

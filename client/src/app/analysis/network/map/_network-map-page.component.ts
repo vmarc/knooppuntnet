@@ -18,8 +18,6 @@ import {Subscriptions} from "../../../util/Subscriptions";
       i18n-pageTitle="@@network-map.title">
     </kpn-network-page-header>
 
-    TODO
-
     <div *ngIf="response">
       <kpn-json [object]="response"></kpn-json>
     </div>
@@ -27,16 +25,19 @@ import {Subscriptions} from "../../../util/Subscriptions";
 })
 export class NetworkMapPageComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   networkId: number;
   response: ApiResponse<NetworkMapPage>;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService,
               private networkCacheService: NetworkCacheService) {
     this.pageService.showFooter = false;
+  }
+
+  get page(): NetworkMapPage {
+    return this.response.result;
   }
 
   ngOnInit(): void {
@@ -52,10 +53,6 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
-  }
-
-  get page(): NetworkMapPage {
-    return this.response.result;
   }
 
   private processResponse(response: ApiResponse<NetworkMapPage>): void {

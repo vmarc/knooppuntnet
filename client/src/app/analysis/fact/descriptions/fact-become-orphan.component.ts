@@ -6,7 +6,6 @@ import {Component} from "@angular/core";
     <p i18n="@@fact.description.become-orphan">
       Has become orphan.
     </p>
-    
   `
 })
 export class FactBecomeOrphanComponent {

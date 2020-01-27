@@ -361,6 +361,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
         name="NameMissing"
         i18n-name="@@stats.name-missing.name"
         i18n="@@stats.name-missing.comment"
+        [markdownEnabled]="true"
         [linkFunction]="factDetailCounts">
         Number of networks without _"name"_ tag in the network relation.
       </kpn-statistic-configuration>
@@ -408,12 +409,12 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 })
 export class StatisticConfigurationsComponent implements AfterViewInit {
 
+  @ViewChildren(StatisticConfigurationComponent) children: StatisticConfigurationComponent[];
+
   readonly networks = (id: string, subset: Subset) => subset.key() + "/networks";
   readonly orphanNodes = (id: string, subset: Subset) => subset.key() + "/orphan-nodes";
   readonly orphanRoutes = (id: string, subset: Subset) => subset.key() + "orphan-routes";
   readonly factDetailCounts = (id: string, subset: Subset) => subset.key() + "/" + id;
-
-  @ViewChildren(StatisticConfigurationComponent) children: StatisticConfigurationComponent[];
 
   constructor(private overviewService: OverviewService,
               private cdr: ChangeDetectorRef) {

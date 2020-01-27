@@ -4,6 +4,7 @@ import {Facts} from "./facts";
 import {FactInfo} from "./fact-info";
 import {FactLevel} from "./fact-level";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-facts",
   template: `

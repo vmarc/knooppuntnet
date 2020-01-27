@@ -26,9 +26,11 @@ import {NodeChangesService} from "./node-changes.service";
     </p>
 
     <div *ngIf="!isLoggedIn()">
-      <span i18n="@@node.login-required">The node history is available to registered OpenStreetMap contributors only, after</span>
+      <span i18n="@@node.login-required">
+        The node history is available to registered OpenStreetMap contributors only, after
+      </span>
       <kpn-link-login></kpn-link-login>
-      .
+      <span i18n="@@node.login-required.trailer">.</span>
     </div>
 
     <div *ngIf="response?.result">
@@ -62,13 +64,27 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   response: ApiResponse<NodeChangesPage>;
 
   private readonly subscriptions = new Subscriptions();
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private nodeChangesService: NodeChangesService,
               private pageService: PageService,
               private userService: UserService) {
+  }
+
+  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+
+  get parameters() {
+    return this._parameters;
+  }
+
+  set parameters(parameters: ChangesParameters) {
+    this._parameters = parameters;
+    this.reload();
+  }
+
+  get page(): NodeChangesPage {
+    return this.response.result;
   }
 
   ngOnInit(): void {
@@ -85,19 +101,6 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  get parameters() {
-    return this._parameters;
-  }
-
-  set parameters(parameters: ChangesParameters) {
-    this._parameters = parameters;
-    this.reload();
-  }
-
-  get page(): NodeChangesPage {
-    return this.response.result;
   }
 
   isLoggedIn(): boolean {

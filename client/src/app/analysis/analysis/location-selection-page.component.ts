@@ -11,11 +11,11 @@ import {Subscriptions} from "../../util/Subscriptions";
   template: `
 
     <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
-      <a routerLink="{{networkTypeLink()}}">
+      <a routerLink="/" class="breadcrumb-link" i18n="@@breadcrumb.home">Home</a>
+      <a routerLink="/analysis" class="breadcrumb-link" i18n="@@breadcrumb.analysis">Analysis</a>
+      <a routerLink="{{networkTypeLink()}}" class="breadcrumb-link">
         <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
-      </a> >
+      </a>
       <kpn-country-name [country]="country"></kpn-country-name>
     </div>
 

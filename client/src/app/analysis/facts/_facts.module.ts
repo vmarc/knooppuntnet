@@ -1,7 +1,7 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {FactsPageComponent} from "./_facts-page.component";
-import {_factsRoutingModule} from "./_facts-routing.module";
+import {FactsRoutingModule} from "./_facts-routing.module";
 import {FactModule} from "../fact/_fact.module";
 import {SharedModule} from "../../components/shared/shared.module";
 
@@ -10,7 +10,7 @@ import {SharedModule} from "../../components/shared/shared.module";
     CommonModule,
     SharedModule,
     FactModule,
-    _factsRoutingModule
+    FactsRoutingModule
   ],
   declarations: [
     FactsPageComponent

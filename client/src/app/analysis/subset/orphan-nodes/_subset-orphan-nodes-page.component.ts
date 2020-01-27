@@ -73,7 +73,7 @@ export class SubsetOrphanNodesPageComponent implements OnInit, OnDestroy {
 
   private processResponse(response: ApiResponse<SubsetOrphanNodesPage>) {
     this.response = response;
-    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
+    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
   }
 
 }

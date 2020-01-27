@@ -1,9 +1,14 @@
 import {Component, Input} from "@angular/core";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-doc-link",
   template: `
-    <a [href]="href()" target="knooppuntnet-documentation" title="Go to documentation" class="help-link">
+    <a [href]="href()"
+       target="knooppuntnet-documentation"
+       title="Go to documentation"
+       i18n-title="@@doc-link.go-to-documentation"
+       class="help-link">
       <div class="help">?</div>
     </a>
   `,

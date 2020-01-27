@@ -7,9 +7,12 @@ import {ChangeSetSubsetElementRefs} from "../../../../kpn/api/common/change-set-
     <div class="kpn-line">
       <span>{{domain()}}</span>
       <kpn-network-type-icon [networkType]="networkType()"></kpn-network-type-icon>
-      <span>Orphan route(s)</span>
+      <span i18n="@@change-set.orphan-routes">Orphan route(s)</span>
     </div>
-    <kpn-change-set-element-refs [elementType]="'route'" [changeSetElementRefs]="subsetElementRefs.elementRefs"></kpn-change-set-element-refs>
+    <kpn-change-set-element-refs
+      [elementType]="'route'"
+      [changeSetElementRefs]="subsetElementRefs.elementRefs">
+    </kpn-change-set-element-refs>
   `
 })
 export class ChangesSetOrphanRoutesComponent {

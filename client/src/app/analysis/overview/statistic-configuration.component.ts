@@ -13,7 +13,7 @@ export class StatisticConfigurationComponent implements AfterViewInit {
   @Input() id: string;
   @Input() fact: string;
   @Input() name: string;
-  @Input() markdownEnabled: boolean = false;
+  @Input() markdownEnabled = false;
   @Input() linkFunction: (id: string, subset: Subset) => string | null = null;
 
   comment: string;

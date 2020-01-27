@@ -38,17 +38,17 @@ class SubsetFact {
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
       <div *ngIf="!hasFacts()">
-        <i>No facts</i>
+        <i i18n="@@subset-facts.no-facts">No facts</i>
       </div>
       <div *ngIf="hasFacts()">
         <p>
           {{refCount()}}
-          <span *ngIf="hasNodeRefs()">nodes</span>
-          <span *ngIf="hasRouteRefs()">routes</span>
-          <span *ngIf="hasOsmNodeRefs()">nodes</span>
-          <span *ngIf="hasOsmWayRefs()">ways</span>
-          <span *ngIf="hasOsmRelationRefs()">relations</span>
-          in {{response.result.networks.size}} networks.
+          <span *ngIf="hasNodeRefs()" i18n="@@subset-facts.node-refs">nodes</span>
+          <span *ngIf="hasRouteRefs()" i18n="@@subset-facts.route-refs">routes</span>
+          <span *ngIf="hasOsmNodeRefs()" i18n="@@subset-facts.osm-node-refs">nodes</span>
+          <span *ngIf="hasOsmWayRefs()" i18n="@@subset-facts.osm-way-refs">ways</span>
+          <span *ngIf="hasOsmRelationRefs()" i18n="@@subset-facts.osm-relation-refs">relations</span>
+          <span i18n="@@subset-facts.in-networks">in {{response.result.networks.size}} networks.</span>
         </p>
 
         <kpn-items>
@@ -57,7 +57,7 @@ class SubsetFact {
               {{networkFactRefs.networkName}}
             </a>
             <br/>
-            {{networkFactRefs.factRefs.size}} routes:
+            <span i18n="@@subset-facts.routes">{{networkFactRefs.factRefs.size}} routes:</span>
             <br/>
             <div class="kpn-comma-list">
               <span *ngFor="let ref of networkFactRefs.factRefs">
@@ -110,20 +110,20 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   hasNodeRefs(): boolean {
-    return this.factName == "NodeMemberMissing"
-      || this.factName == "IntegrityCheckFailed";
+    return this.factName === "NodeMemberMissing"
+      || this.factName === "IntegrityCheckFailed";
   }
 
   hasOsmNodeRefs(): boolean {
-    return this.factName == "NetworkExtraMemberNode";
+    return this.factName === "NetworkExtraMemberNode";
   }
 
   hasOsmWayRefs(): boolean {
-    return this.factName == "NetworkExtraMemberWay";
+    return this.factName === "NetworkExtraMemberWay";
   }
 
   hasOsmRelationRefs(): boolean {
-    return this.factName == "NetworkExtraMemberRelation";
+    return this.factName === "NetworkExtraMemberRelation";
   }
 
   hasRouteRefs(): boolean {
@@ -143,7 +143,7 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
   private processResponse(response: ApiResponse<SubsetFactDetailsPage>) {
     this.response = response;
-    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo)
+    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
   }
 
 }

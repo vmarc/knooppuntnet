@@ -68,7 +68,7 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
   }
 
   networkClicked(networkId: number): void {
-    const network = this.networks.find(network => network.id === networkId);
+    const network = this.networks.find(n => n.id === networkId);
     if (network) {
       this.dialog.open(SubsetMapNetworkDialogComponent, {data: network});
     }

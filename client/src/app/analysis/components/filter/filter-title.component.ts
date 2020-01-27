@@ -6,7 +6,7 @@ import {FilterOptions} from "../../../kpn/filter/filter-options";
   template: `
     <div class="row">
       <div class="title" i18n="@@filter.title">
-        Filter  
+        Filter
       </div>
       <div class="total">
         {{filterOptions.filteredCount}}/{{filterOptions.totalCount}}

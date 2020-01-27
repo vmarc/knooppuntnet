@@ -4,7 +4,7 @@ import {Facts} from "../fact/facts";
 @Component({
   selector: "kpn-facts-page",
   template: `
-    <h1>
+    <h1 i18n="@@fact-page.title">
       All facts
     </h1>
 

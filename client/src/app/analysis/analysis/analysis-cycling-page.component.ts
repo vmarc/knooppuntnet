@@ -5,47 +5,18 @@ import {Component} from "@angular/core";
   template: `
 
     <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+      <a routerLink="/" class="breadcrumb-link" i18n="@@breadcrumb.home">Home</a>
+      <a routerLink="/analysis" class="breadcrumb-link" i18n="@@breadcrumb.analysis">Analysis</a>
       <ng-container i18n="@@network-type.cycling">Cycling</ng-container>
     </div>
 
     <kpn-page-header i18n="@@network-type.cycling">Cycling</kpn-page-header>
 
-    <kpn-icon-button
-      routerLink="/analysis/cycling/nl"
-      icon="netherlands"
-      text="Netherlands"
-      i18n-text="@@country.nl">
-    </kpn-icon-button>
-
-    <kpn-icon-button
-      routerLink="/analysis/cycling/be"
-      icon="belgium"
-      text="Belgium"
-      i18n-text="@@country.be">
-    </kpn-icon-button>
-
-    <kpn-icon-button
-      routerLink="/analysis/cycling/de"
-      icon="germany"
-      text="Germany"
-      i18n-text="@@country.de">
-    </kpn-icon-button>
-
-    <kpn-icon-button
-      routerLink="/analysis/cycling/fr"
-      icon="france"
-      text="France"
-      i18n-text="@@country.fr">
-    </kpn-icon-button>
-
-    <kpn-icon-button
-      routerLink="/analysis/cycling/at"
-      icon="austria"
-      text="Austria"
-      i18n-text="@@country.at">
-    </kpn-icon-button>
+    <kpn-icon-button routerLink="/analysis/cycling/nl" icon="netherlands" i18n="@@country.nl">Netherlands</kpn-icon-button>
+    <kpn-icon-button routerLink="/analysis/cycling/be" icon="belgium" i18n="@@country.be">Belgium</kpn-icon-button>
+    <kpn-icon-button routerLink="/analysis/cycling/de" icon="germany" i18n="@@country.de">Germany</kpn-icon-button>
+    <kpn-icon-button routerLink="/analysis/cycling/fr" icon="france" i18n="@@country.fr">France</kpn-icon-button>
+    <kpn-icon-button routerLink="/analysis/cycling/at" icon="austria" i18n="@@country.at">Austria</kpn-icon-button>
   `
 })
 export class AnalysisCyclingPageComponent {

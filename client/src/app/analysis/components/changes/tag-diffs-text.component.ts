@@ -135,6 +135,9 @@ import {List} from "immutable";
       margin-left: 5px;
       width: 60px;
     }
+    .label::after {
+      content: ":";
+    }
 
     .important-value {
       display: inline-block;

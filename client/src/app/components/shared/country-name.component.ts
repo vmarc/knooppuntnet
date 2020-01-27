@@ -9,7 +9,7 @@ import {I18nService} from "../../i18n/i18n.service";
     <ng-container *ngIf="country">
       {{countryName()}}
     </ng-container>
-    <ng-container *ngIf="!country">
+    <ng-container *ngIf="!country" i18n="@@country.unsupported">
       Unsupported (not Belgium, The Netherlands, Germany, France or Austria)
     </ng-container>
   `

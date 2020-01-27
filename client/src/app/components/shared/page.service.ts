@@ -12,7 +12,7 @@ export class PageService {
 
   readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(this.sidebarOpenInitialState());
 
-  showFooter: boolean = true;
+  showFooter = true;
 
   constructor(private pageWidthService: PageWidthService,
               private titleService: Title) {

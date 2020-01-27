@@ -20,9 +20,13 @@ import {NetworkChangesService} from "./network-changes.service";
     </kpn-network-page-header>
 
     <div *ngIf="!isLoggedIn()">
-      <span i18n="@@network-changes.login-required">The network history is available to registered OpenStreetMap contributors only, after</span>
+      <span i18n="@@network-changes.login-required">
+        The network history is available to registered OpenStreetMap contributors only, after
+      </span>
       <kpn-link-login></kpn-link-login>
-      .
+      <span i18n="@@network-changes.login-required.trailer">
+        .
+      </span>
     </div>
 
     <div *ngIf="response">
@@ -54,13 +58,27 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
   response: ApiResponse<NetworkChangesPage>;
 
   private readonly subscriptions = new Subscriptions();
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private networkChangesService: NetworkChangesService,
               private networkCacheService: NetworkCacheService,
               private userService: UserService) {
+  }
+
+  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+
+  get parameters(): ChangesParameters {
+    return this._parameters;
+  }
+
+  set parameters(parameters: ChangesParameters) {
+    this._parameters = parameters;
+    this.reload();
+  }
+
+  get page(): NetworkChangesPage {
+    return this.response.result;
   }
 
   ngOnInit(): void {
@@ -74,20 +92,6 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-
-  get parameters(): ChangesParameters {
-    return this._parameters;
-  }
-
-  set parameters(parameters: ChangesParameters) {
-    this._parameters = parameters;
-    this.reload();
-  }
-
-  get page(): NetworkChangesPage {
-    return this.response.result;
   }
 
   isLoggedIn(): boolean {

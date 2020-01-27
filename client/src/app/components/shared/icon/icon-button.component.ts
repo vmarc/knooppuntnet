@@ -8,7 +8,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
         <mat-icon [svgIcon]="icon" class="icon"></mat-icon>
       </div>
       <div class="text">
-        {{text}}
+        <ng-content></ng-content>
       </div>
     </a>
   `,
@@ -18,11 +18,11 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
       display: inline-block;
       margin: 15px;
     }
-    
+
     a:hover {
       cursor: pointer;
     }
-    
+
     .wrapper {
       display: inline-block;
       border-color: gray;
@@ -60,7 +60,6 @@ export class IconButtonComponent {
 
   @Input() routerLink;
   @Input() icon;
-  @Input() text;
 
   @Output() action = new EventEmitter<void>();
 

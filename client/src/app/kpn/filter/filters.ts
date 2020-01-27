@@ -6,7 +6,7 @@ export class Filters<T> {
   readonly filters: List<Filter<T>>;
 
   constructor(...filters: Filter<T>[]) {
-    this.filters = List(filters)
+    this.filters = List(filters);
   }
 
   passes(element: T): boolean {

@@ -11,8 +11,8 @@ import {Subscriptions} from "../../util/Subscriptions";
   template: `
 
     <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
+      <a routerLink="/" class="breadcrumb-link" i18n="@@breadcrumb.home">Home</a>
+      <a routerLink="/analysis" class="breadcrumb-link" i18n="@@breadcrumb.analysis">Analysis</a>
       <span i18n="@@breadcrumb.overview">Overview</span>
     </div>
 

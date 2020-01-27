@@ -16,5 +16,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class _factsRoutingModule {
+export class FactsRoutingModule {
 }

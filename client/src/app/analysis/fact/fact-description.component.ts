@@ -48,7 +48,7 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-route-unused-segments *ngSwitchCase="'RouteUnusedSegments'"></kpn-fact-route-unused-segments>
       <kpn-fact-route-without-ways *ngSwitchCase="'RouteWithoutWays'"></kpn-fact-route-without-ways>
       <kpn-fact-was-orphan *ngSwitchCase="'WasOrphan'"></kpn-fact-was-orphan>
-      <p *ngSwitchDefault>{{factName}} description missing!!</p>
+      <p *ngSwitchDefault i18n="@@fact.description-missing">{{factName}} description missing!!</p>
     </ng-container>
   `
 })

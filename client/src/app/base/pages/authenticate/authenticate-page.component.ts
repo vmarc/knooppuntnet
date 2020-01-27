@@ -5,7 +5,7 @@ import {UserService} from "../../../services/user.service";
 @Component({
   selector: "kpn-authenticate-page",
   template: `
-    <h1>
+    <h1 i18n="@@authenticate-page.title">
       Authenticate
     </h1>
   `

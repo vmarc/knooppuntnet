@@ -13,37 +13,40 @@ import {ChangesService} from "../components/changes/filter/changes.service";
   selector: "kpn-changes-page",
   template: `
 
-      <div>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a> >
-          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a> >
-          <span i18n="@@breadcrumb.changes">Changes</span>
-      </div>
+    <div>
+      <a routerLink="/" class="breadcrumb-link" i18n="@@breadcrumb.home">Home</a>
+      <a routerLink="/analysis" class="breadcrumb-link" i18n="@@breadcrumb.analysis">Analysis</a>
+      <span i18n="@@breadcrumb.changes">Changes</span>
+    </div>
 
-      <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
+    <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
 
-      <div *ngIf="response">
+    <div *ngIf="response">
 
-          <p>
-              <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-          </p>
+      <p>
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      </p>
 
-          <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size" [showFirstLastButtons]="false">
-              <kpn-items>
-                  <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
-                      <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
-                  </kpn-item>
-              </kpn-items>
-          </kpn-changes>
+      <kpn-changes
+        [(parameters)]="parameters"
+        [totalCount]="page.changeCount"
+        [changeCount]="page.changes.size"
+        [showFirstLastButtons]="false">
+        <kpn-items>
+          <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
+            <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
+          </kpn-item>
+        </kpn-items>
+      </kpn-changes>
 
-          <kpn-json [object]="response"></kpn-json>
-      </div>
+      <kpn-json [object]="response"></kpn-json>
+    </div>
   `
 })
 export class ChangesPageComponent implements OnInit {
 
   response: ApiResponse<ChangesPage>;
   private readonly subscriptions = new Subscriptions();
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -51,14 +54,7 @@ export class ChangesPageComponent implements OnInit {
               private pageService: PageService) {
   }
 
-  ngOnInit(): void {
-    this.pageService.defaultMenu();
-    this.reload();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
+  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
 
   get parameters() {
     return this._parameters;
@@ -71,6 +67,15 @@ export class ChangesPageComponent implements OnInit {
 
   get page(): ChangesPage {
     return this.response.result;
+  }
+
+  ngOnInit(): void {
+    this.pageService.defaultMenu();
+    this.reload();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   rowIndex(index: number): number {
