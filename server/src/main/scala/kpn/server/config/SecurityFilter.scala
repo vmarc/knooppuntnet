@@ -11,7 +11,7 @@ import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import kpn.server.api.authentication.Crypto
-import org.springframework.security.core.Authentication
+import org.apache.commons.codec.binary.Base64.decodeBase64
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
@@ -24,22 +24,24 @@ class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBea
   private val accessTokenKey = "access-token"
 
   override def doFilter(servletRequest: ServletRequest, servletResponse: ServletResponse, filterChain: FilterChain): Unit = {
-
     val httpRequest = servletRequest.asInstanceOf[HttpServletRequest]
-    val headerValue = httpRequest.getHeader("Authorization")
-    if (headerValue != null && headerValue.startsWith("Bearer")) {
-      val bearer = headerValue.substring("Bearer".length).trim
-      val authentication = extractAuthentication(bearer)
-      SecurityContextHolder.getContext.setAuthentication(authentication)
+    val cookies = httpRequest.getCookies
+    if (cookies != null) {
+      cookies.find(c => "knooppuntnet" == c.getName) match {
+        case None =>
+        case Some(cookie) =>
+          extractAuthentication(cookie.getValue)
+      }
     }
     filterChain.doFilter(httpRequest, servletResponse)
   }
 
-  private def extractAuthentication(bearer: String): Authentication = {
-    var authentication: Authentication = null
+  private def extractAuthentication(bearer: String): Unit = {
     try {
       val signedJWT: SignedJWT = SignedJWT.parse(bearer)
-      val signatureVerification: Boolean = signedJWT.verify(new MACVerifier(cryptoKey))
+      val decodedCryptoKey = decodeBase64(cryptoKey)
+
+      val signatureVerification: Boolean = signedJWT.verify(new MACVerifier(decodedCryptoKey))
       if (signatureVerification) {
         val claims: util.Map[String, AnyRef] = signedJWT.getJWTClaimsSet.getClaims
         val encryptedAccessToken: Any = claims.get(accessTokenKey)
@@ -54,7 +56,8 @@ class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBea
           val userValue: Any = claims.get(userKey)
           if (userValue != null) {
             val user: String = userValue.toString
-            authentication = new UserAuthentication(user)
+            val authentication = new UserAuthentication(user)
+            authentication.setAuthenticated(true)
             SecurityContextHolder.getContext.setAuthentication(authentication)
           }
         }
@@ -65,7 +68,6 @@ class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBea
       case e: JOSEException =>
         System.out.println("JOSEException " + e.getMessage)
     }
-    authentication
   }
 
 }

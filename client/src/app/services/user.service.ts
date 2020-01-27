@@ -1,6 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
+import {BrowserStorageService} from "./browser-storage.service";
 import {CookieService} from "ngx-cookie-service";
 
 @Injectable()
@@ -10,15 +11,23 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private router: Router,
+              private browserStorageService: BrowserStorageService,
               private cookieService: CookieService) {
   }
 
   public isLoggedIn(): boolean {
-    return !!this.currentUser();
+    const xx = !!this.currentUser();
+    console.log("isLoggedIn=" + xx);
+    return xx;
   }
 
   public currentUser(): string {
-    return this.cookieService.get("knooppuntnet-user");
+    const user = this.browserStorageService.get("user");
+    console.log("currentUser(): user=" + user);
+    if (user !== null) {
+      return user;
+    }
+    return "";
   }
 
   registerLoginCallbackPage(): void {
@@ -64,7 +73,8 @@ export class UserService {
   }
 
   public logout(): void {
-    this.http.get("/api/logout", {
+    this.browserStorageService.remove("user");
+    this.http.get("/json-api/logout", {
       responseType: "text"
     }).subscribe(r => {
         console.log("DEBUG logout success");
@@ -83,8 +93,9 @@ export class UserService {
     const search = decodeURIComponent(window.location.search);
     this.http.get("/json-api/authenticated" + search, {
       responseType: "text"
-    }).subscribe(r => {
-        console.log("DEBUG authenticated success");
+    }).subscribe(user => {
+        this.browserStorageService.set("user", user);
+        console.log("DEBUG authenticated success, user=" + user);
         console.log("DEBUG search=" + search);
 
         const withoutQuestionMark = search.substr(1);
@@ -106,4 +117,13 @@ export class UserService {
       });
   }
 
+  private parseJwt(token: string) {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(atob(base64).split("").map(function (c) {
+      return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(""));
+
+    return JSON.parse(jsonPayload);
+  }
 }

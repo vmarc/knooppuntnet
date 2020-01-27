@@ -7,6 +7,7 @@ import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
+import org.apache.commons.codec.binary.Base64.decodeBase64
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.social.oauth1.OAuthToken
@@ -57,12 +58,32 @@ class AuthenticationController(authenticationFacade: AuthenticationFacade, crypt
     val claimsSetBuilder = new JWTClaimsSet.Builder
     claimsSetBuilder.claim(userKey, user)
     claimsSetBuilder.claim(accessTokenKey, encryptedAccessToken)
-    val signer = new MACSigner(cryptoKey)
+    val decodedCryptoKey = decodeBase64(cryptoKey)
+    val signer = new MACSigner(decodedCryptoKey)
     val signedJWT = new SignedJWT(new JWSHeader(HS256), claimsSetBuilder.build)
     signedJWT.sign(signer)
-    val body = signedJWT.serialize
+    val cookieContents = signedJWT.serialize
 
-    new ResponseEntity[String](body, HttpStatus.OK)
+    val cookie = new Cookie("knooppuntnet", cookieContents)
+    cookie.setMaxAge(52 * 7 * 24 * 60 * 60)
+    // cookie.setSecure(true)
+    cookie.setHttpOnly(true)
+    cookie.setPath("/")
+
+    response.addCookie(cookie)
+    new ResponseEntity[String](user, HttpStatus.OK)
   }
 
+  @GetMapping(value = Array("/json-api/logout"))
+  @ResponseBody def logout(
+    response: HttpServletResponse
+  ): ResponseEntity[_] = {
+    val cookie = new Cookie("knooppuntnet", "")
+    cookie.setMaxAge(0) // a zero value here will delete the cookie
+    // cookie.setSecure(true)
+    cookie.setHttpOnly(true)
+    cookie.setPath("/")
+    response.addCookie(cookie)
+    new ResponseEntity[String]("", HttpStatus.OK)
+  }
 }
