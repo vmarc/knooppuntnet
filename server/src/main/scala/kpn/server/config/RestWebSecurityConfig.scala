@@ -6,7 +6,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.stereotype.Component
 
 @Component
-class RestWebSecurityConfig(securityFilter: SecurityFilter) extends WebSecurityConfigurerAdapter {
+class RestWebSecurityConfig(securityFilter: SecurityFilter) extends WebSecurityConfigurerAdapter(true) {
 
   override protected def configure(http: HttpSecurity): Unit = {
     http.addFilterAfter(securityFilter, classOf[BasicAuthenticationFilter])

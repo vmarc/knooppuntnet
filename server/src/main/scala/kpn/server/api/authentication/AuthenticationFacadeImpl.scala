@@ -27,14 +27,14 @@ class AuthenticationFacadeImpl(
     "https://www.openstreetmap.org/oauth/access_token"
   )
 
-  def login(user: Option[String], callbackUrl: String): OAuthToken = {
+  override def login(callbackUrl: String): OAuthToken = {
     log.elapsed {
       val token = oauthTemplate.fetchRequestToken(callbackUrl, null)
       (s"fetched requestToken", token)
     }
   }
 
-  def authenticated(token: OAuthToken, verifier: String): String = {
+  override def authenticated(token: OAuthToken, verifier: String): String = {
 
     val requestToken = new AuthorizedRequestToken(token, verifier)
 

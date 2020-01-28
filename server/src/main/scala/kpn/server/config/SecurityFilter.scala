@@ -10,41 +10,37 @@ import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
+import kpn.server.api.authentication.AuthenticationConfiguration
 import kpn.server.api.authentication.Crypto
 import org.apache.commons.codec.binary.Base64.decodeBase64
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
 
-
 @Component
 class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBean {
 
-  private val userKey = "user"
-  private val accessTokenKey = "access-token"
+  private val verifier = new MACVerifier(decodeBase64(cryptoKey))
 
   override def doFilter(servletRequest: ServletRequest, servletResponse: ServletResponse, filterChain: FilterChain): Unit = {
     val httpRequest = servletRequest.asInstanceOf[HttpServletRequest]
     val cookies = httpRequest.getCookies
     if (cookies != null) {
-      cookies.find(c => "knooppuntnet" == c.getName) match {
+      cookies.find(cookie => AuthenticationConfiguration.cookieName == cookie.getName) match {
+        case Some(cookie) => authenticate(cookie.getValue)
         case None =>
-        case Some(cookie) =>
-          extractAuthentication(cookie.getValue)
       }
     }
     filterChain.doFilter(httpRequest, servletResponse)
   }
 
-  private def extractAuthentication(bearer: String): Unit = {
+  private def authenticate(tokenString: String): Unit = {
     try {
-      val signedJWT: SignedJWT = SignedJWT.parse(bearer)
-      val decodedCryptoKey = decodeBase64(cryptoKey)
-
-      val signatureVerification: Boolean = signedJWT.verify(new MACVerifier(decodedCryptoKey))
+      val signedJWT: SignedJWT = SignedJWT.parse(tokenString)
+      val signatureVerification: Boolean = signedJWT.verify(verifier)
       if (signatureVerification) {
         val claims: util.Map[String, AnyRef] = signedJWT.getJWTClaimsSet.getClaims
-        val encryptedAccessToken: Any = claims.get(accessTokenKey)
+        val encryptedAccessToken: Any = claims.get(AuthenticationConfiguration.accessTokenKey)
         if (encryptedAccessToken != null) {
           val accessToken: String = crypto.decrypt(encryptedAccessToken.toString)
           // At this moment we do not use the access token.
@@ -53,7 +49,7 @@ class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBea
           // time but look at 'issueTime' (currently not added in the claims)
           // to decide whether or not to do the check (once per calendar day?
           // once per hour?).
-          val userValue: Any = claims.get(userKey)
+          val userValue: Any = claims.get(AuthenticationConfiguration.userKey)
           if (userValue != null) {
             val user: String = userValue.toString
             val authentication = new UserAuthentication(user)
