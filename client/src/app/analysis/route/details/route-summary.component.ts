@@ -32,7 +32,7 @@ import {RouteInfo} from "../../../kpn/api/common/route/route-info";
         <mat-icon svgIcon="warning"></mat-icon>
         <markdown i18n="@@route.incomplete">
           Route definition is incomplete (has tag _"fixme=incomplete"_).
-        </markdown>        
+        </markdown>
       </p>
 
       <p *ngIf="!route.active" class="warning" i18n="@@route.not-active">

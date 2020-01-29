@@ -16,25 +16,25 @@ export class MapMoveHandler {
 
   private updateCursor(e: SelectEvent) {
     if (e.selected.length > 0) {
-      this.map.getTargetElement().setAttribute("style", "cursor: pointer")
+      this.map.getTargetElement().setAttribute("style", "cursor: pointer");
     } else {
-      this.map.getTargetElement().setAttribute("style", "cursor: default")
+      this.map.getTargetElement().setAttribute("style", "cursor: default");
     }
   }
 
   private handleDeselectedFeatures(features: Array<Feature>) {
-    for (let feature of features) {
+    for (const feature of features) {
       const layer = feature.get("layer");
       if (layer.endsWith("route")) {
-        this.mapService.highlightedRouteId = null
+        this.mapService.highlightedRouteId = null;
       } else if (layer.endsWith("node")) {
-        this.mapService.highlightedNodeId = null
+        this.mapService.highlightedNodeId = null;
       }
     }
   }
 
   private handleSelectedFeatures(features: Array<Feature>) {
-    for (let feature of features) {
+    for (const feature of features) {
       const layer = feature.get("layer");
       const id = feature.get("id");
       if (layer.endsWith("route")) {

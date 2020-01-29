@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import View from "ol/View";
 import Extent from "ol/View";
 import Coordinate from "ol/coordinate";

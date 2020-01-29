@@ -32,7 +32,7 @@ export class MainMapNodeStyle {
 
   private determineNodeSelectedStyle(featureId: string, large: boolean): Style {
     let style = null;
-    if (this.mapService.selectedNodeId && featureId && featureId == this.mapService.selectedNodeId) {
+    if (this.mapService.selectedNodeId && featureId && featureId === this.mapService.selectedNodeId) {
       if (large) {
         style = this.largeNodeSelectedStyle;
       } else {
@@ -59,7 +59,7 @@ export class MainMapNodeStyle {
     this.largeNodeStyle.getText().setText(feature.get("name"));
     this.largeNodeStyle.getImage().getStroke().setColor(color);
 
-    if (this.mapService.highlightedNodeId && feature.get("id") == this.mapService.highlightedNodeId) {
+    if (this.mapService.highlightedNodeId && feature.get("id") === this.mapService.highlightedNodeId) {
       this.largeNodeStyle.getImage().getStroke().setWidth(5);
       this.largeNodeStyle.getImage().setRadius(16);
     } else {
@@ -70,7 +70,7 @@ export class MainMapNodeStyle {
   }
 
   private determineSmallNodeStyle(layer: string, enabled: boolean): Style {
-    let color = this.nodeColor(layer, enabled);
+    const color = this.nodeColor(layer, enabled);
     this.smallNodeStyle.getImage().getStroke().setColor(color);
     return this.smallNodeStyle;
   }
@@ -89,11 +89,11 @@ export class MainMapNodeStyle {
   private nodeColor(layer: string, enabled: boolean) {
     let nodeColor = MainStyleColors.gray;
     if (enabled) {
-      if ("error-node" == layer) {
+      if ("error-node" === layer) {
         nodeColor = MainStyleColors.blue;
-      } else if ("orphan-node" == layer) {
+      } else if ("orphan-node" === layer) {
         nodeColor = MainStyleColors.darkGreen;
-      } else if ("error-orphan-node" == layer) {
+      } else if ("error-orphan-node" === layer) {
         nodeColor = MainStyleColors.darkBlue;
       } else {
         nodeColor = MainStyleColors.green;

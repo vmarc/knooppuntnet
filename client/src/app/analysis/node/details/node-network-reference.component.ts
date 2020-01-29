@@ -16,7 +16,8 @@ import {NodeNetworkRouteReference} from "../../../kpn/api/common/node/node-netwo
           <kpn-node-network-reference-statement [nodeInfo]="nodeInfo" [reference]="reference"></kpn-node-network-reference-statement>
 
           <div *ngIf="reference.nodeIntegrityCheck && reference.nodeIntegrityCheck.failed" i18n="@@node.network.integrity-check-failed">
-            Integritycheck failed: expected {{reference.nodeIntegrityCheck.expected}} routes, but found {{reference.nodeIntegrityCheck.actual}}.
+            Integritycheck failed: expected {{reference.nodeIntegrityCheck.expected}} routes,
+            but found {{reference.nodeIntegrityCheck.actual}}.
           </div>
           <div *ngIf="reference.nodeIntegrityCheck && !reference.nodeIntegrityCheck.failed" i18n="@@node.network.integrity-check-ok">
             Expected number of routes ({{reference.nodeIntegrityCheck.expected}}) matches the number of routes found.
@@ -64,7 +65,7 @@ export class NodeNetworkReferenceComponent {
   }
 
   toRouteReference(ref: NodeNetworkRouteReference): Reference {
-    return new Reference(ref.routeId, ref.routeName, this.reference.networkType, ref.routeRole == "connection");
+    return new Reference(ref.routeId, ref.routeName, this.reference.networkType, ref.routeRole === "connection");
   }
 
 }

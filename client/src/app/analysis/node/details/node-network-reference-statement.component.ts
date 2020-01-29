@@ -59,7 +59,7 @@ export class NodeNetworkReferenceStatementComponent implements OnInit {
   }
 
   get expectedRouteRelationsTag() {
-    return `expected_${this.reference.networkType.id}_route_relations`
+    return `expected_${this.reference.networkType.id}_route_relations`;
   }
 
   private hasExpectedRouteRelationsTag() {

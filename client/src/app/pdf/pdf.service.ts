@@ -15,7 +15,7 @@ export class PdfService {
   }
 
   printDocument(plan: Plan): void {
-    new PdfDocument(plan).print()
+    new PdfDocument(plan).print();
   }
 
   printStripDocument(plan: Plan): void {

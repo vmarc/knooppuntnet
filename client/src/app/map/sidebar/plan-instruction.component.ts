@@ -30,8 +30,8 @@ import {PlanInstruction} from "../planner/plan/plan-instruction";
             {{translate("command-" + instruction.command)}}
           </span>
         </div>
-        <div>
-          {{instruction.distance}}m
+        <div class="kpn-meters">
+          {{instruction.distance}}
         </div>
       </div>
     </div>

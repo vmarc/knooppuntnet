@@ -6,10 +6,10 @@ import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-
 @Component({
   selector: "kpn-node-connection-indicator",
   template: `
-    <kpn-indicator 
+    <kpn-indicator
       letter="C"
       i18n-letter="@@node-connection-indicator.letter"
-      [color]="color" 
+      [color]="color"
       (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `

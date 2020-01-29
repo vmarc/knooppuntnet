@@ -11,8 +11,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
       [color]="color"
       (closeDialog)="onCloseDialog()">
 
-      <span dialog-title *ngIf="isOrange()" i18n="@@network-indicator.orange.title"> 
-        Unexpected - Defined in network relation        
+      <span dialog-title *ngIf="isOrange()" i18n="@@network-indicator.orange.title">
+        Unexpected - Defined in network relation
       </span>
       <div dialog-body *ngIf="isOrange()" i18n="@@network-indicator.orange.text">
         This node is included as a member in the network relation. We did not expect this,
@@ -38,7 +38,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
       </div>
 
       <span dialog-title *ngIf="isRed()" i18n="@@network-indicator.red.title">
-        NOK - Not defined in network relation        
+        NOK - Not defined in network relation
       </span>
       <div dialog-body *ngIf="isRed()" i18n="@@network-indicator.red.text">
         This node is not included as a member in the network relation. This is not OK. The

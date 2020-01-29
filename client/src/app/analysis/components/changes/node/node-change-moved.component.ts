@@ -22,9 +22,8 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
           Note: Node position is shown as it was at
         </span>
         <kpn-timestamp [timestamp]="nodeChangeInfo.changeKey.timestamp"></kpn-timestamp>
-        ,
         <span i18n="@@node-change.moved.note.2">
-          while the map background is shown as it is today.
+          , while the map background is shown as it is today.
         </span>
       </div>
 

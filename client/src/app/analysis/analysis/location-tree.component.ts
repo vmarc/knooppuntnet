@@ -13,6 +13,7 @@ interface LocationFlatNode {
   level: number;
 }
 
+/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-location-tree",
   template: `

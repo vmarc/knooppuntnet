@@ -66,7 +66,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   displayedColumns = ["rowNumber", "node"];
 
-  private readonly filterCriteria: BehaviorSubject<SubsetOrphanNodeFilterCriteria> = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
+  private readonly filterCriteria = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
 
   constructor(private subsetOrphanNodesService: SubsetOrphanNodesService) {
   }

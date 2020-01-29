@@ -14,7 +14,7 @@ export class MapClickHandler {
   }
 
   private handleDeselectedFeatures(features: Array<Feature>) {
-    for (let feature of features) {
+    for (const feature of features) {
       const layer = feature.get("layer");
       if (layer.endsWith("route")) {
         this.mapService.selectedRouteId = null;
@@ -25,10 +25,10 @@ export class MapClickHandler {
   }
 
   private handleSelectedFeatures(features: Array<Feature>) {
-    if (features.length == 0) {
+    if (features.length === 0) {
       this.mapService.selectedFeature.next(null);
     } else {
-      for (let feature of features) {
+      for (const feature of features) {
         const layer = feature.get("layer");
         if (layer.endsWith("route")) {
           this.handleRouteSelection(feature);
@@ -45,7 +45,7 @@ export class MapClickHandler {
     const name = feature.get("name");
     this.mapService.selectedRouteId = id2 + "-";
     const selection = new SelectedFeature(+id2, name, "route");
-    this.mapService.selectedFeature.next(selection)
+    this.mapService.selectedFeature.next(selection);
   }
 
   private handleNodeSelection(feature: Feature) {

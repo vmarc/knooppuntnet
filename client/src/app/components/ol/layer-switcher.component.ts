@@ -48,7 +48,7 @@ export class LayerSwitcherComponent implements OnInit {
   @Input() layers: List<Layer>;
   namedLayers: List<Layer>;
 
-  open: boolean = false;
+  open = false;
 
   ngOnInit() {
     this.namedLayers = this.layers.filter(layer => layer.get("name"));

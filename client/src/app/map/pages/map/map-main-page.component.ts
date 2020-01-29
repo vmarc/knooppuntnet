@@ -6,7 +6,7 @@ import {Attribution, defaults as defaultControls} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
-import Overlay from 'ol/Overlay';
+import Overlay from "ol/Overlay";
 import Style from "ol/style/Style";
 import View from "ol/View";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";

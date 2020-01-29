@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/co
 import {List} from "immutable";
 import {Attribution, defaults as defaultControls} from "ol/control";
 import Coordinate from "ol/coordinate";
-import MapBrowserEvent from "ol/events"
+import MapBrowserEvent from "ol/events";
 import Interaction from "ol/interaction/Interaction";
 import PointerInteraction from "ol/interaction/Pointer";
 import VectorLayer from "ol/layer/Vector";
@@ -112,7 +112,7 @@ export class SubsetMapComponent implements AfterViewInit {
         const tolerance = 20;
         const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
         if (features) {
-          const index = features.findIndex(feature => this.networkMarker == feature.get(this.layer));
+          const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
           if (index >= 0) {
             const networkId = features[index].get(this.networkId);
             this.networkClicked.emit(+networkId);
@@ -125,7 +125,7 @@ export class SubsetMapComponent implements AfterViewInit {
         const tolerance = 20;
         const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
         if (features) {
-          const index = features.findIndex(feature => this.networkMarker == feature.get(this.layer));
+          const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
           evt.map.getTargetElement().setAttribute("style", "cursor: " + (index >= 0 ? "pointer" : "default"));
         }
         return false;

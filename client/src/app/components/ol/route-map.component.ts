@@ -241,7 +241,10 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     const startTentacleNodeMarkers = this.buildMarkers(routeMap.startTentacleNodes, "orange", "@@map.start-tentacle-node");
     const endTentacleNodeMarkers = this.buildMarkers(routeMap.endTentacleNodes, "purple", "@@map.end-tentacle-node");
     const redundantNodeMarkers = this.buildMarkers(routeMap.redundantNodes, "yellow", "@@map.redundant-node");
-    const markers: List<Feature> = startNodeMarkers.concat(endNodeMarkers).concat(startTentacleNodeMarkers).concat(endTentacleNodeMarkers).concat(redundantNodeMarkers);
+    const markers: List<Feature> = startNodeMarkers.concat(endNodeMarkers)
+      .concat(startTentacleNodeMarkers)
+      .concat(endTentacleNodeMarkers)
+      .concat(redundantNodeMarkers);
 
     const source = new VectorSource();
     const layer = new VectorLayer({
@@ -274,7 +277,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
   private segmentToFeature(title: string, color: Color, segment: TrackSegment): Feature {
     let trackPoints = List<TrackPoint>([segment.source]);
     trackPoints = trackPoints.concat(segment.fragments.map(fragment => fragment.trackPoint));
-    return this.trackPointsToFeature(title, color, trackPoints)
+    return this.trackPointsToFeature(title, color, trackPoints);
   }
 
   private trackPointsToFeature(title: string, color: Color, trackPoints: List<TrackPoint>): Feature {

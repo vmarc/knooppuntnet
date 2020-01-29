@@ -247,7 +247,20 @@ table.kpn-bordered-table {
   content: ": ";
 }
 
+.kpn-km::after {
+  content: " km";
+}
+
+.kpn-meters::after {
+  content: "m";
+}
+
 .breadcrumb-link::after {
   content: " > ";
+  color: black;
+}
+
+.link-list-entry::after {
+  content: " | ";
   color: black;
 }

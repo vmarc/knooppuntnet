@@ -79,8 +79,8 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
   @Input() name: string;
 
   icon: string;
-  minLevel: number = 0;
-  level: number = 0;
+  minLevel = 0;
+  level = 0;
 
   constructor(private mapService: MapService, private poiService: PoiService) {
   }

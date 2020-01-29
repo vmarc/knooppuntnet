@@ -1,4 +1,4 @@
-import {applyStyle} from 'ol-mapbox-style';
+import {applyStyle} from "ol-mapbox-style";
 import MVT from "ol/format/MVT";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
@@ -26,7 +26,7 @@ export class OsmLayer {
 
     const layer = new VectorTileLayer({
       source: source,
-      renderMode: 'image'
+      renderMode: "image"
     });
 
     fetch("assets/style.json").then((response) => {

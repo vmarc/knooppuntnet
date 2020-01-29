@@ -4,6 +4,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {NodeDetailsPage} from "../../../kpn/api/common/node/node-details-page";
 
+/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-map-detail-node",
   template: `

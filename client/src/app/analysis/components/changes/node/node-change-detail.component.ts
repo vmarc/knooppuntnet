@@ -33,8 +33,8 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
       </span>
       <kpn-link-network-details [networkId]="change.ref.id" [title]="change.ref.name"></kpn-link-network-details>
     </div>
-    
-    
+
+
     <!-- definedInNetworkChanges -->
     <div *ngFor="let change of nodeChangeInfo.definedInNetworkChanges" class="kpn-detail">
       <span *ngIf="change.after" class="kpn-label" i18n="@@node-change.added-to-network-relation">
@@ -45,14 +45,14 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
       </span>
       <kpn-link-network-details [networkId]="change.ref.id" [title]="change.ref.name"></kpn-link-network-details>
     </div>
-    
+
 
     <div *ngFor="let ref of nodeChangeInfo.addedToRoute" class="kpn-detail">
       <ng-container class="kpn-label" i18n="@@node-change.added-to-route">Added to route</ng-container>
       <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
     </div>
 
-    
+
     <div *ngFor="let ref of nodeChangeInfo.addedToNetwork" class="kpn-detail">
       <ng-container i18n="@@node-change.added-to-network">Added to network</ng-container>
       <kpn-link-network-details [networkId]="ref.id" [title]="ref.name"></kpn-link-network-details>
@@ -71,7 +71,7 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
     </div>
 
     <kpn-fact-diffs [factDiffs]="nodeChangeInfo.factDiffs"></kpn-fact-diffs>
-    
+
     <div *ngIf="nodeChangeInfo.tagDiffs" class="kpn-detail">
       <kpn-tag-diffs [tagDiffs]="nodeChangeInfo.tagDiffs"></kpn-tag-diffs>
     </div>

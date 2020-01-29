@@ -1233,8 +1233,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
-        <source> 
-        Unexpected - Defined in network relation        
+        <source>
+        Unexpected - Defined in network relation
       </source>
         <target>Overwacht - Opgenomen in netwerk relatie</target>
         <context-group purpose="location">
@@ -1309,7 +1309,7 @@
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
         <source>
-        NOK - Not defined in network relation        
+        NOK - Not defined in network relation
       </source>
         <target>NOK - Niet opgenomen in netwerk relatie</target>
         <context-group purpose="location">
@@ -1440,7 +1440,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.green.title" datatype="html">
         <source>
-        OK - expected route count       
+        OK - expected route count
       </source>
         <target>OK - verwacht aantal routes</target>
         <context-group purpose="location">
@@ -1467,7 +1467,7 @@
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
         <source>
-        NOK - unexpected route count     
+        NOK - unexpected route count
       </source>
         <target>NOK - onverwacht aantal routes</target>
         <context-group purpose="location">
@@ -1563,7 +1563,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.green.title" datatype="html">
         <source>
-        OK - Defined in route relation        
+        OK - Defined in route relation
       </source>
         <target>OK - Opgenomen in route relatie</target>
         <context-group purpose="location">
@@ -1595,7 +1595,7 @@
       </trans-unit>
       <trans-unit id="route-indicator.gray.text" datatype="html">
         <source>
-        This node is not included as a member in any route relations. This is OK as including de 
+        This node is not included as a member in any route relations. This is OK as including the
         node as member in the route relations is optional.
       </source>
         <target>
@@ -2431,6 +2431,218 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="login.title" datatype="html">
+        <source>Login</source>
+        <target>Login</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.note.1" datatype="html">
+        <source>
+        Login allows you to view extra information, such as changeset details, network history,
+        route history and node history.
+      </source>
+        <target state="new">[
+        Login allows you to view extra information, such as changeset details, network history,
+        route history and node history.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.note.2" datatype="html">
+        <source>
+        This information is available to registered OpenStreetMap users only.
+      </source>
+        <target state="new">[
+        This information is available to registered OpenStreetMap users only.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.note.3" datatype="html">
+        <source>
+        After clicking the "login" button below, you will be directed (via the OpenStreetMap login page
+        if you are not logged in to OpenStreetMap yet) to the OpenStreetMap
+        page "Authorize access to your account". Click the button "Grant access"
+        (leave the option "read your user preferences" checked).
+      </source>
+        <target state="new">[
+        After clicking the "login" button below, you will be directed (via the OpenStreetMap login page
+        if you are not logged in to OpenStreetMap yet) to the OpenStreetMap
+        page "Authorize access to your account". Click the button "Grant access"
+        (leave the option "read your user preferences" checked).
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.note.4" datatype="html">
+        <source>
+        The knooppuntnet application only reads your username from the user preferences to establish that
+        you are a registered OpenStreetMap user. All other user preferences are ignored,
+        and not stored in knooppuntnet.
+      </source>
+        <target state="new">[
+        The knooppuntnet application only reads your username from the user preferences to establish that
+        you are a registered OpenStreetMap user. All other user preferences are ignored,
+        and not stored in knooppuntnet.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.note.5" datatype="html">
+        <source>
+        This login procedure uses OpenStreetMap security.
+        Knooppuntnet does not have access to your password at any moment.
+      </source>
+        <target state="new">[
+        This login procedure uses OpenStreetMap security.
+        Knooppuntnet does not have access to your password at any moment.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.note.6" datatype="html">
+        <source>
+        You remain logged in (also after closing you browser), until you explicitly logout through the logout page.
+        To login again after logout you will have to use the same login procedure again.
+      </source>
+        <target state="new">[
+        You remain logged in (also after closing you browser), until you explicitly logout through the logout page.
+        To login again after logout you will have to use the same login procedure again.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login.submit" datatype="html">
+        <source>Login</source>
+        <target state="new">[Login]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout.title" datatype="html">
+        <source>Logout</source>
+        <target state="new">[Logout]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout.logged-in" datatype="html">
+        <source>
+        You are currently logged in as
+        <x id="START_TAG_KPN-OSM-LINK-USER" ctype="x-kpn-osm-link-user" equiv-text="&lt;kpn-osm-link-user>"/><x id="CLOSE_TAG_KPN-OSM-LINK-USER" ctype="x-kpn-osm-link-user" equiv-text="&lt;/kpn-osm-link-user>"/>
+        .
+      </source>
+        <target state="new">[
+        You are currently logged in as
+        <x id="START_TAG_KPN-OSM-LINK-USER" ctype="x-kpn-osm-link-user" equiv-text="&lt;kpn-osm-link-user>"/><x id="CLOSE_TAG_KPN-OSM-LINK-USER" ctype="x-kpn-osm-link-user" equiv-text="&lt;/kpn-osm-link-user>"/>
+        .
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout.note.1" datatype="html">
+        <source>
+          This allows you to view extra information that is available to OpenStreetMap users only.
+        </source>
+        <target state="new">[
+          This allows you to view extra information that is available to OpenStreetMap users only.
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout.note.2" datatype="html">
+        <source>
+          After logging out you can continue to use this website. However, the additional information
+          such as changesets, network changes, route changes and node changes will not be visible anymore.
+          Your personal OpenStreetMap
+          <x id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS" ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients>"/><x id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS" ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients>"/>
+          will still contain this application. The application can safely be revoked.
+          The authorization will not be used anymore. A new authorization will be created when logging in again.
+        </source>
+        <target state="new">[
+          After logging out you can continue to use this website. However, the additional information
+          such as changesets, network changes, route changes and node changes will not be visible anymore.
+          Your personal OpenStreetMap
+          <x id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS" ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients>"/><x id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS" ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients>"/>
+          will still contain this application. The application can safely be revoked.
+          The authorization will not be used anymore. A new authorization will be created when logging in again.
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout.submit" datatype="html">
+        <source>Logout</source>
+        <target state="new">[Logout]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout.not-logged-in" datatype="html">
+        <source>
+        You are not logged in.
+      </source>
+        <target state="new">[
+        You are not logged in.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="logout.loing-comment" datatype="html">
+        <source>
+        You can <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>login<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to view extra information that is
+        available to
+        <x id="START_TAG_KPN-OSM-WEBSITE" ctype="x-kpn-osm-website" equiv-text="&lt;kpn-osm-website>"/><x id="CLOSE_TAG_KPN-OSM-WEBSITE" ctype="x-kpn-osm-website" equiv-text="&lt;/kpn-osm-website>"/>
+        users only.
+      </source>
+        <target state="new">[
+        You can <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>login<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> to view extra information that is
+        available to
+        <x id="START_TAG_KPN-OSM-WEBSITE" ctype="x-kpn-osm-website" equiv-text="&lt;kpn-osm-website>"/><x id="CLOSE_TAG_KPN-OSM-WEBSITE" ctype="x-kpn-osm-website" equiv-text="&lt;/kpn-osm-website>"/>
+        users only.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="not-found.title" datatype="html">
+        <source>
+      Not found
+    </source>
+        <target state="new">[
+      Not found
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/not-found/not-found-page.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="breadcrumb.map" datatype="html">
         <source>Map</source>
         <target>Kaart</target>
@@ -2981,7 +3193,7 @@
         <target>Telefoon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.fax" datatype="html">
@@ -2989,7 +3201,7 @@
         <target>Fax</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.email" datatype="html">
@@ -2997,7 +3209,7 @@
         <target>E-mail</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.facebook" datatype="html">
@@ -3005,7 +3217,7 @@
         <target>Facebook</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wheelchair" datatype="html">
@@ -3013,7 +3225,7 @@
         <target>Rolstoel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.opengingHours" datatype="html">
@@ -3021,7 +3233,7 @@
         <target>Openingsuren]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.serviceHours" datatype="html">
@@ -3029,7 +3241,7 @@
         <target>Diensten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.image" datatype="html">
@@ -3037,7 +3249,7 @@
         <target>Afbeelding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.mapillary" datatype="html">
@@ -3045,17 +3257,16 @@
         <target>Mapillary</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.onroerendErfgoed" datatype="html">
-        <source>Onroerend
-        Erfgoed</source>
+        <source>Onroerend Erfgoed</source>
         <target>Onroerend
         Erfgoed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.website" datatype="html">
@@ -3063,7 +3274,7 @@
         <target>Web</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikidata" datatype="html">
@@ -3071,7 +3282,7 @@
         <target>Wikidata</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikipedia" datatype="html">
@@ -3079,7 +3290,25 @@
         <target>Wikipedia</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.detail.molen-database" datatype="html">
+        <source>Molen database</source>
+        <target>Molen database</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.detail.hollandsche-molen-database" datatype="html">
+        <source>
+          Hollandsche Molen database
+        </source>
+        <target>Hollandsche Molen database</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/poi-detail.component.ts</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="export.title" datatype="html">
@@ -5853,7 +6082,7 @@
         <target>Nieuwe relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-diffs-added.updated-relation" datatype="html">
@@ -5863,7 +6092,7 @@
         <target>Relatie aangepast in deze wijzigingenset</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-diffs-added.existing-relation" datatype="html">
@@ -5871,7 +6100,7 @@
         <target>Bestaande relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-diffs-removed.title" datatype="html">
@@ -5895,7 +6124,7 @@
         <target>Relatie veranderd naar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="version-change.relation-unchanged" datatype="html">
@@ -5903,7 +6132,7 @@
         <target>Relatie onveranderd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.network-diffs.network-created" datatype="html">
@@ -6053,12 +6282,12 @@
       </trans-unit>
       <trans-unit id="node-change.moved.note.2" datatype="html">
         <source>
-          while the map background is shown as it is today.
+          , while the map background is shown as it is today.
         </source>
-        <target>de kaart achtergrond toont de toestand van vandaag.</target>
+        <target>, de kaart achtergrond toont de toestand van vandaag.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.summary" datatype="html">
@@ -6211,7 +6440,8 @@
       </trans-unit>
       <trans-unit id="node.network.integrity-check-failed" datatype="html">
         <source>
-            Integritycheck failed: expected <x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/> routes, but found <x id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>.
+            Integritycheck failed: expected <x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/> routes,
+            but found <x id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>.
           </source>
         <target>
           Onverwacht aantal routes (<x id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>),
@@ -6231,7 +6461,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-network-reference.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.network.role-connection" datatype="html">
@@ -6513,27 +6743,49 @@
         </context-group>
       </trans-unit>
       <trans-unit id="footer.documentation" datatype="html">
-        <source>documentation</source>
+        <source>
+        documentation
+      </source>
         <target>documentatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footer.contact" datatype="html">
-        <source>contact</source>
+        <source>
+        contact
+      </source>
         <target>contact</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footer.issues" datatype="html">
-        <source>issues</source>
+        <source>
+        issues
+      </source>
         <target>problemen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.title" datatype="html">
+        <source>knooppuntnet</source>
+        <target>knooppuntnet</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/toolbar/toolbar.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sidebar.back" datatype="html">
+        <source>back</source>
+        <target>Terug</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/sidebar/sidebar-back.component.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="doc-link.go-to-documentation" datatype="html">
@@ -6915,7 +7167,7 @@
         <target>OK - Toegankelijkheid onbekend</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.text" datatype="html">
@@ -6925,17 +7177,17 @@
         <target>Toegankelijkheidsinformatie is niet beschikbaar voor dit type route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.title" datatype="html">
         <source>
-        OK - Accessible        
+        OK - Accessible
       </source>
         <target>OK - Toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.cycling" datatype="html">
@@ -6945,7 +7197,7 @@
         <target>Deze route is volledig toegankelijk voor fietsen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.hiking" datatype="html">
@@ -6955,7 +7207,7 @@
         <target>Deze route is volledig toegankelijk voor wandelen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.motorboat" datatype="html">
@@ -6965,7 +7217,7 @@
         <target>Deze route is volledig toegankelijk voor motorboot.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.canoe" datatype="html">
@@ -6975,17 +7227,17 @@
         <target>Deze route is volledig toegankelijk voor kano.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>
-        NOK - Not Accessible        
+        NOK - Not Accessible
       </source>
         <target>Niet toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.cycling" datatype="html">
@@ -6995,7 +7247,7 @@
         <target>Deze route is niet volledig toegankelijk voor fietsen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.hiking" datatype="html">
@@ -7005,7 +7257,7 @@
         <target>Deze route is niet volledig toegankelijk voor wandelen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.motorboat" datatype="html">
@@ -7015,7 +7267,7 @@
         <target>Deze rout is niet volledig toegankelijk voor motorboot.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.canoe" datatype="html">
@@ -7025,7 +7277,7 @@
         <target>Deze route is niet volledig toegankelijk voor kano.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.letter" datatype="html">
@@ -7033,7 +7285,7 @@
         <target>T</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator.component.ts</context>
@@ -7042,12 +7294,12 @@
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">
         <source>
-        OK - Connection       
+        OK - Connection
       </source>
         <target>OK - Verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.text" datatype="html">
@@ -7057,7 +7309,7 @@
         <target>Deze route is een verbinding naar een ander netwerk.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.gray.title" datatype="html">
@@ -7067,7 +7319,7 @@
         <target>OK - Geen verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.gray.text" datatype="html">
@@ -7077,7 +7329,7 @@
         <target>Deze route is geen verbinding met een ander netwerk.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection.indicator.letter" datatype="html">
@@ -7098,12 +7350,12 @@
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
         <source>
-        OK - No facts       
+        OK - No facts
       </source>
         <target>OK - Geen feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.text" datatype="html">
@@ -7113,7 +7365,7 @@
         <target>Geen problemen gevonden tijdens route analyse.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.title" datatype="html">
@@ -7123,7 +7375,7 @@
         <target>NOK - Onderzoek feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.text" datatype="html">
@@ -7133,7 +7385,7 @@
         <target>Er is iets mis met deze route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.letter" datatype="html">
@@ -7141,7 +7393,7 @@
         <target>F</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator.component.ts</context>

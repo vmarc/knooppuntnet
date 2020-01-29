@@ -13,11 +13,11 @@ export class Tags {
   }
 
   has(key: string) {
-    return this.tags.filter(t => t.key == key).size > 0;
+    return this.tags.filter(t => t.key === key).size > 0;
   }
 
   get(key: string) {
-    const values = this.tags.filter(t => t.key == key).map(x => x.value);
+    const values = this.tags.filter(t => t.key === key).map(x => x.value);
     if (values.size > 0) {
       return values.get(0);
     }
@@ -25,7 +25,7 @@ export class Tags {
   }
 
   tagsWithKey(key: string): List<Tag> {
-    return this.tags.filter(t => t.key == key);
+    return this.tags.filter(t => t.key === key);
   }
 
   static fromArray(array: Array<Array<string>>): Tags {

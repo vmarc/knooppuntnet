@@ -8,7 +8,7 @@ import {PageService} from "../page.service";
       <button mat-icon-button (click)="toggleSidebarOpen()">
         <mat-icon svgIcon="menu"></mat-icon>
       </button>
-      <button mat-button routerLink="/" class="toolbar-app-name"><h1>knooppuntnet</h1></button>
+      <button mat-button routerLink="/" class="toolbar-app-name"><h1 i18n="@@toolbar.title">knooppuntnet</h1></button>
       <kpn-spinner></kpn-spinner>
       <span class="toolbar-spacer"></span>
     </mat-toolbar>

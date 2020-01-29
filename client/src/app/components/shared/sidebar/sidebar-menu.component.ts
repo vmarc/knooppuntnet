@@ -22,7 +22,7 @@ import {Component, Input} from "@angular/core";
       vertical-align: top;
       padding-top: 7px;
     }
-    
+
     /deep/ .mat-nav-list {
       padding-top: 0 !important;
     }
@@ -34,12 +34,12 @@ import {Component, Input} from "@angular/core";
     /deep/ .mat-list-item-with-avatar {
       height: 32px !important;
     }
-    
+
   `]
 })
 export class SidebarMenuComponent {
 
-  @Input() open: boolean = true;
+  @Input() open = true;
   @Input() title: string;
 
   toggleOpen(): void {

@@ -65,7 +65,7 @@ export class PdfDocumentModel {
       columnCount = this.maxColumnCount;
     } else {
       columnCount = pageNodesCount % this.maxColumnCount;
-      if (columnCount == 0) {
+      if (columnCount === 0) {
         columnCount = this.maxColumnCount;
       }
     }

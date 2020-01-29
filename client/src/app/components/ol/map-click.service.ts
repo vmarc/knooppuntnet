@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import Feature from "ol/Feature";
 import Interaction from "ol/interaction/Interaction";
 import Map from "ol/Map";
-import MapBrowserEvent from "ol/events"
+import MapBrowserEvent from "ol/events";
 
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
@@ -56,7 +56,7 @@ export class MapClickService {
   }
 
   private findFeature(features: Array<Feature>, test: (feature: Feature) => boolean): Feature {
-    for (let feature of features) {
+    for (const feature of features) {
       if (test(feature)) {
         return feature;
       }
@@ -80,7 +80,7 @@ export class MapClickService {
   private isHooveringOverNodeOrRoute(evt: MapBrowserEvent): boolean {
     const features = this.getFeatures(evt);
     if (features) {
-      for (let feature of features) {
+      for (const feature of features) {
         if (this.isNode(feature) || this.isRoute(feature)) {
           return true;
         }

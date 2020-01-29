@@ -1,4 +1,4 @@
-import * as JsPdf from "jspdf"
+import * as JsPdf from "jspdf";
 // import * as QRious from "qrious";
 import {Plan} from "../../map/planner/plan/plan";
 import {PdfPage} from "./pdf-page";
@@ -15,7 +15,7 @@ export class PdfDocument {
 
   constructor(plan: Plan) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
-    this.model = new PdfDocumentModel(pdfPlan.nodes)
+    this.model = new PdfDocumentModel(pdfPlan.nodes);
   }
 
   print(): void {
@@ -87,9 +87,14 @@ export class PdfDocument {
 
           this.doc.setDrawColor(180);
           this.doc.setLineWidth(0.1);
-          this.doc.line(xColLeft, yBottom - this.model.cumulativeDistanceHeight, xLegDistanceLeft, yBottom - this.model.cumulativeDistanceHeight);
+          this.doc.line(
+            xColLeft,
+            yBottom - this.model.cumulativeDistanceHeight,
+            xLegDistanceLeft,
+            yBottom - this.model.cumulativeDistanceHeight
+          );
 
-          if (columnIndex == 0) {
+          if (columnIndex === 0) {
             this.doc.line(xColLeft, yTop, xColLeft, yBottom);
           }
           this.doc.line(xColRight, yTop, xColRight, yBottom);
@@ -99,11 +104,21 @@ export class PdfDocument {
           const xNodeNumberText = xColLeft + ((xLegDistanceLeft - xColLeft) / 2);
           const yNodeNumberText = yTop + (this.model.nodeNumberHeight / 2);
           this.doc.setFontSize(20);
-          this.doc.text(node.nodeName, xNodeNumberText, yNodeNumberText, {align: "center", baseline: "middle", lineHeightFactor: "1"});
+          this.doc.text(
+            node.nodeName,
+            xNodeNumberText,
+            yNodeNumberText,
+            {align: "center", baseline: "middle", lineHeightFactor: "1"}
+          );
 
           const yCumulativeDistance = yBottom - (this.model.cumulativeDistanceHeight / 2);
           this.doc.setFontSize(8);
-          this.doc.text(node.cumulativeDistance, xNodeNumberText, yCumulativeDistance, {align: "center", baseline: "middle", lineHeightFactor: "1"});
+          this.doc.text(
+            node.cumulativeDistance,
+            xNodeNumberText,
+            yCumulativeDistance,
+            {align: "center", baseline: "middle", lineHeightFactor: "1"}
+          );
 
           const xLegDistance = xLegDistanceLeft + (this.model.legDistanceWidth / 2);
           this.doc.setFontSize(8);

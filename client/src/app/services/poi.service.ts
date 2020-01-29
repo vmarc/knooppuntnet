@@ -151,7 +151,7 @@ export class PoiService {
           group.pois.forEach((poi, poiName) => {
             const active = this.poiPreferences.enabled &&
               group.enabled &&
-              poi.minLevel != 0 &&
+              poi.minLevel !== 0 &&
               poi.minLevel <= this.zoomLevel;
             if (this.poiActive.get(poiName) !== active) {
               this.poiActive = this.poiActive.set(poiName, active);

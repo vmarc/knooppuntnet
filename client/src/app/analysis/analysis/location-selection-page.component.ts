@@ -6,6 +6,7 @@ import {Country} from "../../kpn/api/custom/country";
 import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Subscriptions} from "../../util/Subscriptions";
 
+/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-location-selection-page",
   template: `

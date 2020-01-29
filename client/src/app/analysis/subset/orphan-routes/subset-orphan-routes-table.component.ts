@@ -67,7 +67,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   displayedColumns = ["rowNumber", "route"];
 
-  private readonly filterCriteria: BehaviorSubject<SubsetOrphanRouteFilterCriteria> = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
+  private readonly filterCriteria = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
 
   constructor(private subsetOrphanRoutesService: SubsetOrphanRoutesService) {
   }

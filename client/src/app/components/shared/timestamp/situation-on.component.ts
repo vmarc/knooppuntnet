@@ -4,7 +4,7 @@ import {Timestamp} from "../../../kpn/api/custom/timestamp";
 @Component({
   selector: "kpn-situation-on",
   template: `
-    <ng-container i18n="@@situation-on">Situation on</ng-container>:
+    <ng-container class="kpn-label" i18n="@@situation-on">Situation on</ng-container>
     <kpn-timestamp [timestamp]="timestamp"></kpn-timestamp>
   `
 })

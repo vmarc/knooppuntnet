@@ -4,7 +4,7 @@ import {PageService} from "../../../components/shared/page.service";
 @Component({
   selector: "kpn-not-found-page",
   template: `
-    <h1>
+    <h1 i18n="@@not-found.title">
       Not found
     </h1>
   `

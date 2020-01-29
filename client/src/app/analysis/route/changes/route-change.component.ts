@@ -31,7 +31,7 @@ export class RouteChangeComponent {
   isVersionUnchanged(): boolean {
     const before = this.routeChangeInfo.before ? this.routeChangeInfo.before.version : null;
     const after = this.routeChangeInfo.after ? this.routeChangeInfo.after.version : null;
-    return before && after && before == after;
+    return before && after && before === after;
   }
 
 }

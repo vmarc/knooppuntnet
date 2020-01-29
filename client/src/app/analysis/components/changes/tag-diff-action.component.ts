@@ -14,19 +14,19 @@ export class TagDiffActionComponent {
   @Input() action: TagDetailType;
 
   isAdd(): boolean {
-    return this.action.name == "Add";
+    return this.action.name === "Add";
   }
 
   isUpdate(): boolean {
-    return this.action.name == "Update";
+    return this.action.name === "Update";
   }
 
   isDelete(): boolean {
-    return this.action.name == "Delete";
+    return this.action.name === "Delete";
   }
 
   isSame(): boolean {
-    return this.action.name == "Same";
+    return this.action.name === "Same";
   }
 
 }

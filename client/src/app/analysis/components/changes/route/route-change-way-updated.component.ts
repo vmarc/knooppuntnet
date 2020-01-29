@@ -66,7 +66,7 @@ export class RouteChangeWayUpdatedComponent {
   }
 
   isNewVersion(wayUpdate: WayUpdate): boolean {
-    return wayUpdate.before.version != wayUpdate.after.version;
+    return wayUpdate.before.version !== wayUpdate.after.version;
   }
 
 }

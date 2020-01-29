@@ -4,14 +4,14 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 @Component({
   selector: "kpn-route-indicator-dialog",
   template: `
-    <kpn-indicator-dialog 
+    <kpn-indicator-dialog
       letter="R"
       i18n-letter="@@route-indicator.letter"
-      [color]="color" 
+      [color]="color"
       (closeDialog)="onCloseDialog()">
 
       <span dialog-title *ngIf="isGreen()" i18n="@@route-indicator.green.title">
-        OK - Defined in route relation        
+        OK - Defined in route relation
       </span>
       <div dialog-body *ngIf="isGreen()" i18n="@@route-indicator.green.text">
         This node is included as a member in one or more route relations.
@@ -21,7 +21,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
         OK - Not defined in route relation
       </span>
       <div dialog-body *ngIf="isGray()" i18n="@@route-indicator.gray.text">
-        This node is not included as a member in any route relations. This is OK as including de 
+        This node is not included as a member in any route relations. This is OK as including the
         node as member in the route relations is optional.
       </div>
 

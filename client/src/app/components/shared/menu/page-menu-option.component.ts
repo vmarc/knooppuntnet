@@ -11,9 +11,9 @@ import {Component, Input} from "@angular/core";
   styles: [`
 
     .link {
-      white-space: nowrap;      
+      white-space: nowrap;
     }
-    
+
     .active {
       font-weight: bold;
       color: black;

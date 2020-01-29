@@ -8,7 +8,7 @@ import {PlannerService} from "../planner.service";
 
       <span id="head" i18n="@@plan.head">Head</span>
       <span id="onto" i18n="@@plan.onto">onto</span>
-      
+
       <span id="heading-north" i18n="@@plan.heading.north">north</span>
       <span id="heading-north-east" i18n="@@plan.heading.north-east">north-east</span>
       <span id="heading-east" i18n="@@plan.heading.east">east</span>

@@ -6,10 +6,10 @@ import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-
 @Component({
   selector: "kpn-role-connection-indicator",
   template: `
-    <kpn-indicator 
+    <kpn-indicator
       letter="C"
       i18n-letter="@@role-connection-indicator.letter"
-      [color]="color" 
+      [color]="color"
       (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `

@@ -18,7 +18,7 @@ export class PdfPlanBuilder {
     });
 
     const nodes = Range(0, allRoutes.size + 1).map(nodeIndex => {
-      if (nodeIndex == 0) {
+      if (nodeIndex === 0) {
         return new PdfPlanNode(plan.source.nodeName, PdfPlanBuilder.distanceToString(allMeters.get(0)), "START");
       }
       const routeIndex = nodeIndex - 1;

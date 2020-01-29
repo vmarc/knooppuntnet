@@ -25,7 +25,7 @@ export class SpinnerService {
   }
 
   end(action: string): void {
-    this.activeActions = this.activeActions.filter(a => a != action);
+    this.activeActions = this.activeActions.filter(a => a !== action);
     if (this.activeActions.isEmpty() && this._spinnerState.value !== false) {
       this._spinnerState.next(false);
     }

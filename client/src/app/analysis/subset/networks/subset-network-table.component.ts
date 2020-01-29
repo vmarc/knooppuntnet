@@ -33,8 +33,8 @@ import {NetworkAttributes} from "../../../kpn/api/common/network/network-attribu
         <td class="happy">
           <kpn-subset-network-happy [network]="network"></kpn-subset-network-happy>
         </td>
-        <td>
-          {{network.km}} km
+        <td class="kpn-km">
+          {{network.km}}
         </td>
         <td>
           {{network.nodeCount}}

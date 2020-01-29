@@ -1,5 +1,5 @@
 import Map from "ol/Map";
-import MapBrowserEvent from "ol/events"
+import MapBrowserEvent from "ol/events";
 import PointerInteraction from "ol/interaction/Pointer";
 import Coordinate from "ol/coordinate";
 import Feature from "ol/Feature";
@@ -54,7 +54,7 @@ export class PlannerInteraction {
       }
 
       const layerType = feature.get("type");
-      if ("node" == layerType || "way" == layerType || "relation" == layerType) {
+      if ("node" === layerType || "way" === layerType || "relation" === layerType) {
         const poiId = feature.get("id");
         const point: Point = feature.getGeometry() as Point;
         const coordinate: Coordinate = point.getCoordinates();

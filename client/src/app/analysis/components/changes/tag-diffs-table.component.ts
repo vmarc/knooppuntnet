@@ -48,7 +48,7 @@ import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
       margin-top: 2px;
       margin-bottom: 4px;
     }
-    
+
     .same {
       color: gray;
     }

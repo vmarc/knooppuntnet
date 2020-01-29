@@ -9,6 +9,7 @@ import {Subscriptions} from "../../util/Subscriptions";
 import {LocationOption} from "./location-option";
 import {LocationNode, locations} from "./locations";
 
+/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-location-selector",
   template: `

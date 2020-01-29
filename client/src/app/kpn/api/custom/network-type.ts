@@ -31,7 +31,7 @@ export class NetworkType {
   }
 
   static withName(name: string): NetworkType {
-    return NetworkType.all.find(n => n.name == name);
+    return NetworkType.all.find(n => n.name === name);
   }
 
 }

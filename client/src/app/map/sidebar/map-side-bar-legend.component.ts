@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 
+/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-map-sidebar-legend",
   template: `
@@ -9,11 +10,11 @@ import {Component} from "@angular/core";
       </mat-expansion-panel-header>
       <pre>
           -----
-          
+
           +++++
-          
+
           =====
-          
+
           -*-*-*
         </pre>
     </mat-expansion-panel>

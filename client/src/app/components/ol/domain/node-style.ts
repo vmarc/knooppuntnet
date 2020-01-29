@@ -44,7 +44,7 @@ export class NodeStyle {
           width: 5
         })
       })
-    })
+    });
   }
 
 }

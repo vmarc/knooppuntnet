@@ -6,6 +6,14 @@ export class Plan {
 
   private static _empty: Plan = new Plan(null, List());
 
+  static empty(): Plan {
+    return Plan._empty;
+  }
+
+  static create(source: PlanNode, legs: List<PlanLeg>): Plan {
+    return new Plan(source, legs);
+  }
+
   private constructor(readonly source: PlanNode,
                       readonly legs: List<PlanLeg>) {
   }
@@ -34,14 +42,6 @@ export class Plan {
     const km = Math.round(meters / 100) / 10;
     const kmString = parseFloat(km.toFixed(1));
     return kmString + " km";
-  }
-
-  static empty(): Plan {
-    return Plan._empty;
-  }
-
-  static create(source: PlanNode, legs: List<PlanLeg>): Plan {
-    return new Plan(source, legs);
   }
 
 }

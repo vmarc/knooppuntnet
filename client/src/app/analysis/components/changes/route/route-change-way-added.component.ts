@@ -39,7 +39,7 @@ export class RouteChangeWayAddedComponent {
   }
 
   isWayChangedInThisChangeset(wayInfo: WayInfo): boolean {
-    return wayInfo.changeSetId == this.routeChangeInfo.changeKey.changeSetId;
+    return wayInfo.changeSetId === this.routeChangeInfo.changeKey.changeSetId;
   }
 
 }

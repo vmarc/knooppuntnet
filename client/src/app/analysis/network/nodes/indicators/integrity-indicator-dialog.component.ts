@@ -20,7 +20,7 @@ import {IntegrityIndicatorData} from "./integrity-indicator-data";
       </markdown>
 
       <span dialog-title *ngIf="isGreen()" i18n="@@integrity-indicator.green.title">
-        OK - expected route count       
+        OK - expected route count
       </span>
       <markdown dialog-body *ngIf="isGreen()" i18n="@@integrity-indicator.green.text">
         The number of routes found in this network node ({{actual}}) does match the expected number of
@@ -28,7 +28,7 @@ import {IntegrityIndicatorData} from "./integrity-indicator-data";
       </markdown>
 
       <span dialog-title *ngIf="isRed()" i18n="@@integrity-indicator.red.title">
-        NOK - unexpected route count     
+        NOK - unexpected route count
       </span>
       <markdown dialog-body *ngIf="isRed()" i18n="@@integrity-indicator.red.text">
         The number of routes found in this network node ({{actual}}) does not match the expected number of

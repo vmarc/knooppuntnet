@@ -76,7 +76,7 @@ import {Stat} from "./stat";
     .body {
       margin-left: 20px;
     }
-    
+
     .comment {
       margin-top: 20px;
       margin-bottom: 20px;
@@ -95,7 +95,7 @@ export class OverviewListStatComponent {
 
   @Input() stat: Stat;
 
-  open: boolean = false;
+  open = false;
 
   toggleOpen(): void {
     this.open = !this.open;

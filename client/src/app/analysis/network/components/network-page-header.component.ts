@@ -74,7 +74,7 @@ export class NetworkPageHeaderComponent {
   networkPageTitle(): string {
     const networkName = this.networkCacheService.getNetworkName(this.networkId);
     if (networkName) {
-      return `${networkName} | ${this.pageTitle}`
+      return `${networkName} | ${this.pageTitle}`;
     }
     return null;
   }

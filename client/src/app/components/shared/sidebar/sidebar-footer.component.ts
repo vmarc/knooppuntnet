@@ -8,12 +8,9 @@ import {Router} from "@angular/router";
   template: `
     <div class="footer">
       <p>
-        <a [href]="link('en')">English</a>
-        |
-        <a [href]="link('nl')">Nederlands</a>
-        |
-        <a [href]="link('fr')">Français</a>
-        |
+        <a [href]="link('en')" class="link-list-entry">English</a>
+        <a [href]="link('nl')" class="link-list-entry">Nederlands</a>
+        <a [href]="link('fr')" class="link-list-entry">Français</a>
         <a [href]="link('de')">Deutsch</a>
       </p>
 

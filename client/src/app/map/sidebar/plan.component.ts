@@ -121,13 +121,13 @@ export class PlanComponent implements OnInit, OnDestroy {
   export(): void {
     const dialogRef = this.dialog.open(ExportDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      if (result == "pdf1") {
+      if (result === "pdf1") {
         this.pdfService.printDocument(this.plan);
-      } else if (result == "pdf2") {
+      } else if (result === "pdf2") {
         this.pdfService.printStripDocument(this.plan);
-      } else if (result == "pdf3") {
+      } else if (result === "pdf3") {
         this.pdfService.printInstructions(this.plan);
-      } else if (result == "gpx") {
+      } else if (result === "gpx") {
         new GpxWriter().write(this.plan);
       }
     });

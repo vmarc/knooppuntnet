@@ -8,8 +8,8 @@ import {Tags} from "../../../kpn/api/custom/tags";
     <p>
       <kpn-link-route [routeId]="route.id" [title]="route.name"></kpn-link-route>
     </p>
-    <p>
-      {{route.meters}}m
+    <p class="kpn-meters">
+      {{route.meters}}
     </p>
     <p *ngIf="route.isBroken" i18n="@@subset-orphan-routes.route-is-broken">
       route is broken

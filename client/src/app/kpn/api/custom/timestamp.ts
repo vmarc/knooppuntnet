@@ -118,12 +118,12 @@ export class Timestamp {
   }
 
   sameAs(other: Timestamp): boolean {
-    return this.year == other.year &&
-      this.month == other.month &&
-      this.day == other.day &&
-      this.hour == other.hour &&
-      this.minute == other.minute &&
-      this.second == other.second;
+    return this.year === other.year &&
+      this.month === other.month &&
+      this.day === other.day &&
+      this.hour === other.hour &&
+      this.minute === other.minute &&
+      this.second === other.second;
   }
 
   sameAsOrYoungerThan(other: Timestamp): boolean {

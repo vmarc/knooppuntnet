@@ -15,8 +15,8 @@ import {NodeChangeInfo} from "../../../kpn/api/common/node/node-change-info";
     <kpn-change-set-tags [changeSetTags]="nodeChangeInfo.changeTags"></kpn-change-set-tags>
 
     <div class="kpn-detail">
-      <span i18n="@@node.version">Version</span> 
-      {{nodeChangeInfo.version}} 
+      <span i18n="@@node.version">Version</span>
+      {{nodeChangeInfo.version}}
       <span *ngIf="isVersionUnchanged()" i18n="@@node.unchanged">(Unchanged)</span>
     </div>
 
@@ -31,7 +31,7 @@ export class NodeChangeComponent {
   isVersionUnchanged(): boolean {
     const before = this.nodeChangeInfo.before ? this.nodeChangeInfo.before.version : null;
     const after = this.nodeChangeInfo.after ? this.nodeChangeInfo.after.version : null;
-    return before && after && before == after;
+    return before && after && before === after;
   }
 
 }

@@ -15,7 +15,7 @@ export class PoiTileLayerService {
   constructor(private poiService: PoiService) {
     poiService.poiConfiguration.subscribe(configuration => {
       if (configuration !== null) {
-        this.poiStyleMap = new PoiStyleMap(configuration)
+        this.poiStyleMap = new PoiStyleMap(configuration);
       }
     });
   }
@@ -38,7 +38,7 @@ export class PoiTileLayerService {
 
     const layer = new VectorTileLayer({
       source: source,
-      renderMode: 'image'
+      renderMode: "image"
     });
 
     layer.setStyle(this.poiStyleFunction());

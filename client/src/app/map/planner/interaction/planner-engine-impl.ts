@@ -216,7 +216,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private endDragNode(newNode: PlanNode): void {
 
-    if (this.nodeDrag.flagType == PlanFlagType.Start) {
+    if (this.nodeDrag.flagType === PlanFlagType.Start) {
       if (this.context.plan.legs.isEmpty()) {
         const command = new PlannerCommandMoveStartPoint(this.nodeDrag.oldNode, newNode);
         this.context.execute(command);
@@ -230,13 +230,13 @@ export class PlannerEngineImpl implements PlannerEngine {
       }
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan.legs.last();
-      if (this.nodeDrag.oldNode.featureId == oldLastLeg.sink.featureId) {
+      if (this.nodeDrag.oldNode.featureId === oldLastLeg.sink.featureId) {
         const newLastLeg: PlanLeg = this.buildLeg(FeatureId.next(), oldLastLeg.source, newNode);
         const command = new PlannerCommandMoveEndPoint(oldLastLeg.featureId, newLastLeg.featureId);
         this.context.execute(command);
       } else {
         const legs = this.context.plan.legs;
-        const nextLegIndex = legs.findIndex(leg => leg.featureId == this.nodeDrag.legFeatureId);
+        const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
 
         const oldLeg1 = legs.get(nextLegIndex - 1);
         const oldLeg2 = legs.get(nextLegIndex);
@@ -244,7 +244,13 @@ export class PlannerEngineImpl implements PlannerEngine {
         const newLeg1: PlanLeg = this.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
         const newLeg2: PlanLeg = this.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
 
-        const command = new PlannerCommandMoveViaPoint(nextLegIndex, oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);
+        const command = new PlannerCommandMoveViaPoint(
+          nextLegIndex,
+          oldLeg1.featureId,
+          oldLeg2.featureId,
+          newLeg1.featureId,
+          newLeg2.featureId
+        );
         this.context.execute(command);
       }
     }

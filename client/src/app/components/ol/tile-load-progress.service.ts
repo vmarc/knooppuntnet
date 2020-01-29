@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import TileLayer from "ol/layer/Tile";
 import {BehaviorSubject} from "rxjs";
 

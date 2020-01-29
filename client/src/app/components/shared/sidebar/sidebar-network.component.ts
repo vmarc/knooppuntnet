@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-sidebar-network",
   template: `

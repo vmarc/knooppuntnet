@@ -57,13 +57,13 @@ export class MainMapRouteStyle {
   private routeColor(layer: string, enabled: boolean) /*ol.Color*/ {
     let color = MainStyleColors.gray;
     if (enabled) {
-      if ("route" == layer) {
+      if ("route" === layer) {
         color = MainStyleColors.green;
-      } else if ("orphan-route" == layer) {
+      } else if ("orphan-route" === layer) {
         color = MainStyleColors.darkGreen;
-      } else if ("incomplete-route" == layer) {
+      } else if ("incomplete-route" === layer) {
         color = MainStyleColors.red;
-      } else if ("error-route" == layer) {
+      } else if ("error-route" === layer) {
         color = [255, 165, 0]; // ol.Color
       }
     }

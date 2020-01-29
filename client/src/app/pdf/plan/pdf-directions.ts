@@ -72,7 +72,7 @@ export class PdfDirections {
     if (!!instruction.node) {
       this.printNode(y, instruction.node);
     } else {
-      let yy = y + PdfPage.spacer;
+      const yy = y + PdfPage.spacer;
       this.printInstructionIcon(yy, instruction.command);
       this.printInstructionText(yy, instruction);
     }

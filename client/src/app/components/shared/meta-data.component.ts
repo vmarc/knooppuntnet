@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {MetaData} from "../../kpn/api/common/data/meta-data";
 
+/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-meta-data",
   template: `

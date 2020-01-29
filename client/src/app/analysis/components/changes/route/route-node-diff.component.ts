@@ -18,8 +18,8 @@ import {Ref} from "../../../../kpn/api/common/common/ref";
         End tentacle nodes
       </span>
 
-    <span *ngIf="action === 'added'" i18n="@@route-changes.node-diff.added">added</span>
-    <span *ngIf="action === 'removed'" i18n="@@route-changes.node-diff.removed">removed</span>:
+    <span *ngIf="action === 'added'" class="kpn-label" i18n="@@route-changes.node-diff.added">added</span>
+    <span *ngIf="action === 'removed'" class="kpn-label" i18n="@@route-changes.node-diff.removed">removed</span>
 
     <div class="kpn-comma-list">
       <kpn-link-node

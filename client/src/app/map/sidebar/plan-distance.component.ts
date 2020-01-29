@@ -20,7 +20,7 @@ export class PlanDistanceComponent implements OnChanges {
 
   @Input() plan: Plan;
 
-  meters: number = 0;
+  meters = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.meters = this.plan.meters();

@@ -33,16 +33,37 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
         <span *ngIf="poi.addressLine2">{{poi.addressLine2}}</span>
       </div>
 
-      <div *ngIf="poi.phone" class="item"><span i18n="@@poi.detail.phone">Phone</span>: {{poi.phone}}</div>
-      <div *ngIf="poi.fax" class="item"><span i18n="@@poi.detail.fax">Fax</span>: {{poi.fax}}</div>
-      <div *ngIf="poi.email" class="item"><span i18n="@@poi.detail.email">E-mail</span>: <a [href]="emailLink()">{{poi.email}}</a></div>
-      <div *ngIf="poi.facebook" class="item"><a [href]="poi.facebook" class="external" target="_blank" i18n="@@poi.detail.facebook">Facebook</a></div>
+      <div *ngIf="poi.phone" class="item">
+        <span class="kpn-label" i18n="@@poi.detail.phone">Phone</span>
+        {{poi.phone}}
+      </div>
+
+      <div *ngIf="poi.fax" class="item">
+        <span class="kpn-label" i18n="@@poi.detail.fax">Fax</span>
+        {{poi.fax}}
+      </div>
+
+      <div *ngIf="poi.email" class="item">
+        <span class="kpn-label" i18n="@@poi.detail.email">E-mail</span> <a [href]="emailLink()">{{poi.email}}</a>
+      </div>
+      <div *ngIf="poi.facebook" class="item">
+        <a [href]="poi.facebook" class="external" target="_blank" i18n="@@poi.detail.facebook">Facebook</a>
+      </div>
 
       <div *ngIf="poi.description" class="item">{{poi.description}}</div>
-      <div *ngIf="poi.wheelchair" class="item"><span i18n="@@poi.detail.wheelchair">Wheelchair</span>: {{poi.wheelchair}}</div>
+      <div *ngIf="poi.wheelchair" class="item">
+        <span class="kpn-label" i18n="@@poi.detail.wheelchair">Wheelchair</span>
+        {{poi.wheelchair}}
+      </div>
 
-      <div *ngIf="poi.openingHours" class="item"><span i18n="@@poi.detail.opengingHours">Opening hours</span>: {{poi.openingHours}}</div>
-      <div *ngIf="poi.serviceTimes" class="item"><span i18n="@@poi.detail.serviceHours">Service times</span>: {{poi.serviceTimes}}</div>
+      <div *ngIf="poi.openingHours" class="item">
+        <span class="kpn-label" i18n="@@poi.detail.opengingHours">Opening hours</span>
+        {{poi.openingHours}}
+      </div>
+      <div *ngIf="poi.serviceTimes" class="item">
+        <span class="kpn-label" i18n="@@poi.detail.serviceHours">Service times</span>
+        {{poi.serviceTimes}}
+      </div>
 
       <div *ngIf="poi.image" class="item">
         <a [href]="poi.image" target="_blank">
@@ -50,11 +71,17 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
         </a>
       </div>
 
-      <div *ngIf="poi.imageLink" class="item"><a [href]="poi.imageLink" class="external" target="_blank" i18n="@@poi.detail.image">Image</a></div>
+      <div *ngIf="poi.imageLink" class="item">
+        <a [href]="poi.imageLink" class="external" target="_blank" i18n="@@poi.detail.image">Image</a>
+      </div>
 
-      <div *ngIf="poi.mapillary" class="item"><a [href]="poi.mapillary" class="external" target="_blank" i18n="@@poi.detail.mapillary">Mapillary</a></div>
-      <div *ngIf="poi.onroerendErfgoed" class="item"><a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank">Onroerend
-        Erfgoed</a></div>
+      <div *ngIf="poi.mapillary" class="item">
+        <a [href]="poi.mapillary" class="external" target="_blank" i18n="@@poi.detail.mapillary">Mapillary</a>
+      </div>
+
+      <div *ngIf="poi.onroerendErfgoed" class="item">
+        <a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank">Onroerend Erfgoed</a>
+      </div>
 
       <div *ngIf="poi.website || poi.wikidata || poi.wikipedia" class="item">
         <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank" i18n="@@poi.detail.website">Website</a>
@@ -63,11 +90,13 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       </div>
 
       <div *ngIf="poi.molenDatabase" class="item">
-        <a [href]="poi.molenDatabase" class="external" target="_blank">Molen database</a>
+        <a [href]="poi.molenDatabase" class="external" target="_blank" i18n="@@poi.detail.molen-database">Molen database</a>
       </div>
 
       <div *ngIf="poi.hollandscheMolenDatabase" class="item">
-        <a [href]="poi.hollandscheMolenDatabase" class="external" target="_blank">Hollandsche Molen database</a>
+        <a [href]="poi.hollandscheMolenDatabase" class="external" target="_blank" i18n="@@poi.detail.hollandsche-molen-database">
+          Hollandsche Molen database
+        </a>
       </div>
 
       <div *ngIf="poi.mainTags && !poi.mainTags.tags.isEmpty()" class="item">
@@ -126,7 +155,7 @@ export class PoiDetailComponent {
           this.tags = null;
         }
         this.cdr.detectChanges();
-        this.plannerService.context.overlay.setPosition(this.poiClick.coordinate)
+        this.plannerService.context.overlay.setPosition(this.poiClick.coordinate);
       })
     );
   }

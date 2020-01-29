@@ -4,8 +4,8 @@ import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-detail
 @Component({
   selector: "kpn-network-summary",
   template: `
-    <p>
-      {{page.attributes.km}} km
+    <p  class="kpn-km">
+      {{page.attributes.km}}
     </p>
     <p>
       {{page.networkSummary.nodeCount}}
@@ -22,16 +22,16 @@ import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-detail
       <kpn-osm-link-relation [relationId]="page.attributes.id"></kpn-osm-link-relation>
       <kpn-josm-relation [relationId]="page.attributes.id"></kpn-josm-relation>
     </p>
-    
+
     <p *ngIf="page.attributes.brokenRouteCount > 0" class="kpn-line">
       <mat-icon svgIcon="warning"></mat-icon>
       <span i18n="@@network-details.contains-broken-routes">This network contains broken (non-continuous) routes.</span>
     </p>
-    
+
     <p *ngIf="!page.active" class="warning" i18n="@@network-details.not-active">
       This network is not active anymore.
     </p>
-    
+
   `
 })
 export class NetworkSummaryComponent {

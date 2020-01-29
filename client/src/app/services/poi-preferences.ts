@@ -21,7 +21,7 @@ export class PoiPreferences {
     let result: PoiPreference = null;
     this.groups.forEach((group, groupName) => {
       group.pois.forEach((poi, poiNameKey) => {
-        if (poiNameKey == poiName) {
+        if (poiNameKey === poiName) {
           result = poi;
         }
       });

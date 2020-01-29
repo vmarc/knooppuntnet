@@ -10,7 +10,7 @@ import {NetworkAttributes} from "../../../kpn/api/common/network/network-attribu
         {{network.name}}
       </div>
       <div mat-dialog-content>
-        <div>{{network.km}} km</div>
+        <div class="kpn-km">{{network.km}}</div>
         <div>
           <span>{{network.nodeCount}}</span>&nbsp;
           <span i18n="@@subset-map.dialog.nodeCount">nodes</span>
