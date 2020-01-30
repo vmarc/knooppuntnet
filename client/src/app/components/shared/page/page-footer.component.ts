@@ -29,7 +29,7 @@ import {Component} from "@angular/core";
   `,
   styles: [`
     .footer {
-      padding: 15px
+      padding: 15px;
       border-top-width: 1px;
       border-top-style: solid;
       border-top-color: lightgray;

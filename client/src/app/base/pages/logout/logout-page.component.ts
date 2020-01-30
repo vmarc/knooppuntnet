@@ -10,13 +10,14 @@ import {UserService} from "../../../services/user.service";
 
     <div *ngIf="loggedIn()">
 
-      <p i18n="@@logout.logged-in">
-        You are currently logged in as
-        <kpn-osm-link-user user="{{loggedInUser()}}"></kpn-osm-link-user>
-        .
-      </p>
+      <div class="note-page-contents">
 
-      <div class="note">
+        <p i18n="@@logout.logged-in">
+          You are currently logged in as
+          <kpn-osm-link-user></kpn-osm-link-user>
+          .
+        </p>
+
         <p i18n="@@logout.note.1">
           This allows you to view extra information that is available to OpenStreetMap users only.
         </p>
@@ -25,7 +26,7 @@ import {UserService} from "../../../services/user.service";
           After logging out you can continue to use this website. However, the additional information
           such as changesets, network changes, route changes and node changes will not be visible anymore.
           Your personal OpenStreetMap
-          <kpn-osm-link-user-oath-clients user="{{loggedInUser}}" title="list of authorised applications"></kpn-osm-link-user-oath-clients>
+          <kpn-osm-link-user-oath-clients></kpn-osm-link-user-oath-clients>
           will still contain this application. The application can safely be revoked.
           The authorization will not be used anymore. A new authorization will be created when logging in again.
         </p>
@@ -41,22 +42,14 @@ import {UserService} from "../../../services/user.service";
         You are not logged in.
       </p>
 
-      <p i18n="@@logout.loing-comment">
-        You can <a routerLink="/login">login</a> to view extra information that is
-        available to
+      <p i18n="@@logout.login-comment">
+        You can <a routerLink="/login">login</a> to view extra information that is available to
         <kpn-osm-website></kpn-osm-website>
         users only.
       </p>
 
     </div>
-  `,
-  styles: [`
-    .note {
-      padding-top: 20px;
-      padding-bottom: 40px;
-      font-style: italic;
-    }
-  `]
+  `
 })
 export class LogoutPageComponent {
 
@@ -70,11 +63,7 @@ export class LogoutPageComponent {
   }
 
   loggedIn() {
-    return this.loggedInUser() !== "";
-  }
-
-  loggedInUser() {
-    return this.userService.currentUser();
+    return this.userService.isLoggedIn();
   }
 
 }

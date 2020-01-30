@@ -5,7 +5,6 @@ import {MatButtonModule, MatIconModule, MatIconRegistry, MatSidenavModule} from 
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ServiceWorkerModule} from "@angular/service-worker";
-import {CookieService} from "ngx-cookie-service";
 import {MarkdownModule} from "ngx-markdown";
 import {environment} from "../environments/environment";
 import {AppRoutingModule} from "./app-routing.module";
@@ -43,7 +42,6 @@ import {I18nService} from "./i18n/i18n.service";
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true},
-    CookieService,
     UserService,
     AppService,
     I18nService,

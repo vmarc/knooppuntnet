@@ -19,10 +19,10 @@ import {RouteChangesService} from "./route-changes.service";
       [changeCount]="response?.result?.changeCount">
     </kpn-route-page-header>
 
-    <div *ngIf="!isLoggedIn()">
-      <span i18n="@@route-changes.login-required">The route history is available to registered OpenStreetMap contributors only, after</span>
+    <div *ngIf="!isLoggedIn()" i18n="@@route-changes.login-required">
+      The details of the route changes history is available to registered OpenStreetMap contributors only, after
       <kpn-link-login></kpn-link-login>
-      <span i18n="@@route-changes.login-required.trailer">.</span>
+      .
     </div>
 
     <div *ngIf="response">
@@ -69,7 +69,11 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   set parameters(parameters: ChangesParameters) {
     this._parameters = parameters;
-    this.reload();
+    if (this.isLoggedIn()) {
+      this.reload();
+    } else {
+      this.routeChangesService.resetFilterOptions();
+    }
   }
 
   get page(): RouteChangesPage {

@@ -12,6 +12,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 import {SubsetChangesService} from "./subset-changes.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: "kpn-subset-changes-page",
@@ -23,6 +24,12 @@ import {SubsetChangesService} from "./subset-changes.service";
       pageTitle="Changes"
       i18n-pageTitle="@@subset-changes.title">
     </kpn-subset-page-header-block>
+
+    <div *ngIf="!isLoggedIn()" i18n="@@subset-changes.login-required">
+      This details of the changes history are available to registered OpenStreetMap contributors only, after
+      <kpn-link-login></kpn-link-login>
+      .
+    </div>
 
     <div *ngIf="response">
       <p>
@@ -56,6 +63,7 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
               private appService: AppService,
               private subsetChangesService: SubsetChangesService,
               private pageService: PageService,
+              private userService: UserService,
               private subsetCacheService: SubsetCacheService) {
   }
 
@@ -67,7 +75,12 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   set parameters(parameters: ChangesParameters) {
     this._parameters = parameters;
-    this.reload();
+    if (this.isLoggedIn()) {
+      this.reload();
+    }
+    else {
+      this.subsetChangesService.resetFilterOptions();
+    }
   }
 
   get page(): ChangesPage {
@@ -87,6 +100,10 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   rowIndex(index: number): number {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
+  }
+
+  isLoggedIn(): boolean {
+    return this.userService.isLoggedIn();
   }
 
   private reload() {

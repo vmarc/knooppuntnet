@@ -8,7 +8,7 @@ import {UserService} from "../../../services/user.service";
 
     <kpn-page-header subject="login-page" i18n="@@login.title">Login</kpn-page-header>
 
-    <div class="note">
+    <div class="note-page-contents">
       <p i18n="@@login.note.1">
         Login allows you to view extra information, such as changeset details, network history,
         route history and node history.
@@ -38,14 +38,7 @@ import {UserService} from "../../../services/user.service";
     </div>
 
     <button mat-raised-button color="primary" (click)="login()" i18n="@@login.submit">Login</button>
-  `,
-  styles: [`
-    .note {
-      padding-top: 20px;
-      padding-bottom: 40px;
-      font-style: italic;
-    }
-  `]
+  `
 })
 export class LoginPageComponent {
 

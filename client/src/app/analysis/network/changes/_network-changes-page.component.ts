@@ -19,14 +19,10 @@ import {NetworkChangesService} from "./network-changes.service";
       i18n-pageTitle="@@network-changes.title">
     </kpn-network-page-header>
 
-    <div *ngIf="!isLoggedIn()">
-      <span i18n="@@network-changes.login-required">
-        The network history is available to registered OpenStreetMap contributors only, after
-      </span>
+    <div *ngIf="!isLoggedIn()" i18n="@@network-changes.login-required">
+      The details of network changes history are available to registered OpenStreetMap contributors only, after
       <kpn-link-login></kpn-link-login>
-      <span i18n="@@network-changes.login-required.trailer">
-        .
-      </span>
+      .
     </div>
 
     <div *ngIf="response">
@@ -74,7 +70,11 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
 
   set parameters(parameters: ChangesParameters) {
     this._parameters = parameters;
-    this.reload();
+    if (this.isLoggedIn()) {
+      this.reload();
+    } else {
+      this.networkChangesService.resetFilterOptions();
+    }
   }
 
   get page(): NetworkChangesPage {

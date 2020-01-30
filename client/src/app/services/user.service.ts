@@ -11,8 +11,7 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private browserStorageService: BrowserStorageService,
-              private cookieService: CookieService) {
+              private browserStorageService: BrowserStorageService) {
   }
 
   public isLoggedIn(): boolean {

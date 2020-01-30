@@ -47,7 +47,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/json-api/overview"))
   def overview(): ApiResponse[Statistics] = {
-    analysisFacade.overview(Option.apply("vmarc"))
+    analysisFacade.overview(user())
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
@@ -56,7 +56,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String
   ): ApiResponse[SubsetNetworksPage] = {
     val subset = Subset.ofName(country, networkType)
-    analysisFacade.subsetNetworks(Option.apply("vmarc"), subset.get)
+    analysisFacade.subsetNetworks(user(), subset.get)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
@@ -65,7 +65,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String
   ): ApiResponse[SubsetFactsPage] = {
     val subset = Subset.ofName(country, networkType)
-    analysisFacade.subsetFacts(Option.apply("vmarc"), subset.get)
+    analysisFacade.subsetFacts(user(), subset.get)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
@@ -76,7 +76,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetFactDetailsPage] = {
     val subset = Subset.ofName(country, networkType).get // TODO improve
     val f = Fact.withName(fact).get // TODO improve
-    analysisFacade.subsetFactDetails(Option.apply("vmarc"), subset, f)
+    analysisFacade.subsetFactDetails(user(), subset, f)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
@@ -85,7 +85,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String
   ): ApiResponse[SubsetOrphanNodesPage] = {
     val subset = Subset.ofName(country, networkType)
-    analysisFacade.subsetOrphanNodes(Option.apply("vmarc"), subset.get)
+    analysisFacade.subsetOrphanNodes(user(), subset.get)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
@@ -94,7 +94,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String
   ): ApiResponse[SubsetOrphanRoutesPage] = {
     val subset = Subset.ofName(country, networkType)
-    analysisFacade.subsetOrphanRoutes(Option.apply("vmarc"), subset.get)
+    analysisFacade.subsetOrphanRoutes(user(), subset.get)
   }
 
   @PostMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
@@ -104,42 +104,42 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[SubsetChangesPage] = {
     val p = parameters.copy(subset = Subset.ofName(country, networkType))
-    analysisFacade.subsetChanges(Option.apply("vmarc"), p)
+    analysisFacade.subsetChanges(user(), p)
   }
 
   @GetMapping(value = Array("/json-api/network/{networkId}"))
   def networkDetails(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkDetailsPage] = {
-    analysisFacade.networkDetails(Option.apply("vmarc"), networkId)
+    analysisFacade.networkDetails(user(), networkId)
   }
 
   @GetMapping(value = Array("/json-api/network/{networkId}/map"))
   def networkMap(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkMapPage] = {
-    analysisFacade.networkMap(Option.apply("vmarc"), networkId)
+    analysisFacade.networkMap(user(), networkId)
   }
 
   @GetMapping(value = Array("/json-api/network/{networkId}/facts"))
   def networkFacts(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkFactsPage] = {
-    analysisFacade.networkFacts(Option.apply("vmarc"), networkId)
+    analysisFacade.networkFacts(user(), networkId)
   }
 
   @GetMapping(value = Array("/json-api/network/{networkId}/nodes"))
   def networkNodes(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkNodesPage] = {
-    analysisFacade.networkNodes(Option.apply("vmarc"), networkId)
+    analysisFacade.networkNodes(user(), networkId)
   }
 
   @GetMapping(value = Array("/json-api/network/{networkId}/routes"))
   def networkRoutes(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkRoutesPage] = {
-    analysisFacade.networkRoutes(Option.apply("vmarc"), networkId)
+    analysisFacade.networkRoutes(user(), networkId)
   }
 
   @PostMapping(value = Array("/json-api/network/{networkId}/changes"))
@@ -148,21 +148,21 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[NetworkChangesPage] = {
     val p = parameters.copy(networkId = Some(networkId))
-    analysisFacade.networkChanges(Option.apply("vmarc"), p)
+    analysisFacade.networkChanges(user(), p)
   }
 
   @GetMapping(value = Array("/json-api/node/{nodeId}"))
   def node(
     @PathVariable nodeId: Long
   ): ApiResponse[NodeDetailsPage] = {
-    analysisFacade.nodeDetails(Option.apply("vmarc"), nodeId)
+    analysisFacade.nodeDetails(user(), nodeId)
   }
 
   @GetMapping(value = Array("/json-api/node/{nodeId}/map"))
   def nodeMap(
     @PathVariable nodeId: Long
   ): ApiResponse[NodeMapPage] = {
-    analysisFacade.nodeMap(Option.apply("vmarc"), nodeId)
+    analysisFacade.nodeMap(user(), nodeId)
   }
 
   @PostMapping(value = Array("/json-api/node/{nodeId}/Changes"))
@@ -171,21 +171,21 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[NodeChangesPage] = {
     val p = parameters.copy(nodeId = Some(nodeId))
-    analysisFacade.nodeChanges(Option.apply("vmarc"), nodeId, p)
+    analysisFacade.nodeChanges(user(), nodeId, p)
   }
 
   @GetMapping(value = Array("/json-api/route/{routeId}"))
   def route(
     @PathVariable routeId: Long
   ): ApiResponse[RouteDetailsPage] = {
-    analysisFacade.routeDetails(Option.apply("vmarc"), routeId)
+    analysisFacade.routeDetails(user(), routeId)
   }
 
   @GetMapping(value = Array("/json-api/route/{routeId}/map"))
   def routeMap(
     @PathVariable routeId: Long
   ): ApiResponse[RouteMapPage] = {
-    analysisFacade.routeMap(Option.apply("vmarc"), routeId)
+    analysisFacade.routeMap(user(), routeId)
   }
 
   @PostMapping(value = Array("/json-api/route/{routeId}/changes"))
@@ -194,7 +194,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[RouteChangesPage] = {
     val p = parameters.copy(routeId = Some(routeId))
-    analysisFacade.routeChanges(Option.apply("vmarc"), routeId, p)
+    analysisFacade.routeChanges(user(), routeId, p)
   }
 
   @PostMapping(value = Array("/json-api/changes"))
@@ -210,7 +210,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable replicationNumber: Int
   ): ApiResponse[ChangeSetPage] = {
     val replicationId = ReplicationId(replicationNumber)
-    analysisFacade.changeSet(Option.apply("vmarc"), changeSetId, Some(replicationId))
+    analysisFacade.changeSet(user(), changeSetId, Some(replicationId))
   }
 
   @GetMapping(value = Array("/json-api/node-detail/{nodeId}/{networkType}"))
@@ -219,20 +219,20 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable nodeId: Long
   ): ApiResponse[MapDetailNode] = {
     val networkTypeValue = NetworkType.withName(networkType).get
-    analysisFacade.mapDetailNode(Option.apply("vmarc"), networkTypeValue, nodeId)
+    analysisFacade.mapDetailNode(user(), networkTypeValue, nodeId)
   }
 
   @GetMapping(value = Array("/json-api/route-detail/{routeId}"))
   def mapDetailRoute(
     @PathVariable routeId: Long
   ): ApiResponse[MapDetailRoute] = {
-    analysisFacade.mapDetailRoute(Option.apply("vmarc"), routeId)
+    analysisFacade.mapDetailRoute(user(), routeId)
   }
 
   @GetMapping(value = Array("/json-api/poi-configuration"))
   def poiConfiguration(
   ): ApiResponse[ClientPoiConfiguration] = {
-    analysisFacade.poiConfiguration(Option.apply("vmarc"))
+    analysisFacade.poiConfiguration(user())
   }
 
   @GetMapping(value = Array("/json-api/poi/{elementType}/{elementId}"))
@@ -240,7 +240,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable elementType: String,
     @PathVariable elementId: Long
   ): ApiResponse[PoiPage] = {
-    analysisFacade.poi(Option.apply("vmarc"), PoiRef(elementType, elementId))
+    analysisFacade.poi(user(), PoiRef(elementType, elementId))
   }
 
   @GetMapping(value = Array("/json-api/leg/{networkType}/{legId}/{sourceNodeId}/{sinkNodeId}"))
@@ -250,19 +250,19 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable sourceNodeId: String,
     @PathVariable sinkNodeId: String
   ): ApiResponse[RouteLeg] = {
-    analysisFacade.leg(Option.apply("vmarc"), NetworkType.withName(networkType).get, legId, sourceNodeId, sinkNodeId)
+    analysisFacade.leg(user(), NetworkType.withName(networkType).get, legId, sourceNodeId, sinkNodeId)
   }
 
   @GetMapping(value = Array("/json-api/location/{networkType}"))
   def location(
     @PathVariable networkType: String
   ): ApiResponse[LocationPage] = {
-    analysisFacade.location(Option.apply("vmarc"), NetworkType.withName(networkType).get)
+    analysisFacade.location(user(), NetworkType.withName(networkType).get)
   }
 
   private def user(): Option[String] = {
-    val authentication = SecurityContextHolder.getContext.getAuthentication()
-    if (authentication != null && authentication.getName != "anonymousUser") {
+    val authentication = SecurityContextHolder.getContext.getAuthentication
+    if (authentication != null) {
       Some(authentication.getName)
     }
     else {

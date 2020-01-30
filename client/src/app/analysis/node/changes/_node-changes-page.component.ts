@@ -25,12 +25,10 @@ import {NodeChangesService} from "./node-changes.service";
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
     </p>
 
-    <div *ngIf="!isLoggedIn()">
-      <span i18n="@@node.login-required">
-        The node history is available to registered OpenStreetMap contributors only, after
-      </span>
+    <div *ngIf="!isLoggedIn()" i18n="@@node.login-required">
+      The details of the node changes history is available to registered OpenStreetMap contributors only, after
       <kpn-link-login></kpn-link-login>
-      <span i18n="@@node.login-required.trailer">.</span>
+      .
     </div>
 
     <div *ngIf="response?.result">

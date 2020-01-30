@@ -21,6 +21,12 @@ import {ChangesService} from "../components/changes/filter/changes.service";
 
     <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
 
+    <div *ngIf="!isLoggedIn()" i18n="@@changes-page.login-required">
+      The details of the changes history are available to registered OpenStreetMap contributors only, after
+      <kpn-link-login></kpn-link-login>
+      .
+    </div>
+
     <div *ngIf="response">
 
       <p>
@@ -51,7 +57,8 @@ export class ChangesPageComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private changesService: ChangesService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private userService: UserService) {
   }
 
   private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
@@ -71,7 +78,11 @@ export class ChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageService.defaultMenu();
-    this.reload();
+    if (this.isLoggedIn()) {
+      this.reload();
+    } else {
+      this.changesService.resetFilterOptions();
+    }
   }
 
   ngOnDestroy(): void {
@@ -80,6 +91,10 @@ export class ChangesPageComponent implements OnInit {
 
   rowIndex(index: number): number {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
+  }
+
+  isLoggedIn(): boolean {
+    return this.userService.isLoggedIn();
   }
 
   private reload() {
