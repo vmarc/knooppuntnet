@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {AnalysisModeService} from "./analysis-mode.service";
 
 @Component({
   selector: "kpn-analysis-inline-skating-page",
@@ -11,8 +12,38 @@ import {Component} from "@angular/core";
 
     <kpn-page-header i18n="@@network-type.inline-skating">Inline skating</kpn-page-header>
 
-    <kpn-icon-button routerLink="/analysis/inline-skating/nl" icon="netherlands" i18n="@@country.nl">Netherlands</kpn-icon-button>
+    <kpn-analysis-mode></kpn-analysis-mode>
+
+    <div *ngIf="isModeNetwork() | async">
+      <kpn-icon-button
+        routerLink="/analysis/inline-skating/nl/networks"
+        icon="netherlands"
+        i18n="@@country.nl">
+        Netherlands
+      </kpn-icon-button>
+    </div>
+
+    <div *ngIf="isModeLocation() | async">
+      <kpn-icon-button
+        routerLink="/analysis/inline-skating/nl"
+        icon="netherlands"
+        i18n="@@country.nl">
+        Netherlands
+      </kpn-icon-button>
+    </div>
   `
 })
 export class AnalysisInlineSkatingPageComponent {
+
+  constructor(public analysisModeService: AnalysisModeService) {
+  }
+
+  isModeNetwork() {
+    return this.analysisModeService.isModeNetwork;
+  }
+
+  isModeLocation() {
+    return this.analysisModeService.isModeLocation;
+  }
+
 }

@@ -20,80 +20,22 @@ import {Subscriptions} from "../../util/Subscriptions";
       <kpn-country-name [country]="country"></kpn-country-name>
     </div>
 
-    <kpn-page-header [pageTitle]="'TODO'" subject="network-page">
+    <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
       <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
       <span i18n="@@subset.in">in</span>
       <kpn-country-name [country]="country"></kpn-country-name>
     </kpn-page-header>
 
-    <div class="option-title">
-      <mat-icon svgIcon="dot" class="dot-icon"></mat-icon>
-      <a [routerLink]="'/analysis/' + networkType.name + '/' + country.domain + '/networks'">Networks</a> <span class="node-count">(123)</span>
+    <kpn-location-mode></kpn-location-mode>
+
+    <div *ngIf="isModeName() | async">
+      <kpn-location-selector [country]="country" (selection)="selected($event)"></kpn-location-selector>
     </div>
 
-    <div class="option-title">
-      <mat-icon svgIcon="dot" class="dot-icon"></mat-icon>
-      <span>Location</span>
+    <div *ngIf="isModeTree() | async">
+      <kpn-location-tree [country]="country" (selection)="selected($event)"></kpn-location-tree>
     </div>
-
-    <div class="option-body">
-
-      <div class="sub-option-title">
-        <mat-icon svgIcon="dot" class="dot-icon"></mat-icon>
-        <span>Enter name:</span>
-      </div>
-      <div class="sub-option-body">
-        <kpn-location-selector [country]="country" (selection)="selected($event)"></kpn-location-selector>
-      </div>
-
-      <div class="sub-option-title">
-        <mat-icon svgIcon="dot" class="dot-icon"></mat-icon>
-        <span>Select from tree:</span>
-      </div>
-      <div class="sub-option-body">
-        <kpn-location-tree [country]="country" (selection)="selected($event)"></kpn-location-tree>
-      </div>
-    </div>
-  `,
-  styles: [`
-    /deep/ .dot-icon > svg {
-      width: 6px;
-      height: 6px;
-      vertical-align: middle;
-      color: lightgrey;
-    }
-
-    .node-count {
-      padding-left: 20px;
-      font-size: 16px;
-      color: gray;
-    }
-
-    .location {
-      padding-top: 50px;
-      font-size: 25px;
-    }
-
-    .option-title {
-      padding-top: 30px;
-    }
-
-    .option-body {
-      padding-top: 10px;
-      padding-left: 30px;
-    }
-
-    .sub-option-title {
-      padding-top: 20px;
-    }
-
-    .sub-option-body {
-      padding-top: 10px;
-      padding-bottom: 40px;
-      padding-left: 30px;
-    }
-
-  `]
+  `
 })
 export class LocationSelectionPageComponent implements OnInit {
 
@@ -102,7 +44,8 @@ export class LocationSelectionPageComponent implements OnInit {
 
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(private locationModeService: LocationModeService,
+              private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private router: Router) {
   }

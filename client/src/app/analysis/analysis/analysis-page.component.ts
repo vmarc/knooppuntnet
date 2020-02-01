@@ -40,6 +40,7 @@ import {Component} from "@angular/core";
   styles: [`
     .buttons {
       display: flex;
+      flex-wrap: wrap;
     }
   `]
 })

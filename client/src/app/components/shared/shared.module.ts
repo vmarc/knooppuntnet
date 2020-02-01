@@ -61,17 +61,16 @@ import {SidebarFooterComponent} from "./sidebar/sidebar-footer.component";
 import {SidebarMenuComponent} from "./sidebar/sidebar-menu.component";
 import {SidebarNetworkComponent} from "./sidebar/sidebar-network.component";
 import {SidebarSubItemComponent} from "./sidebar/sidebar-sub-item.component";
-import {SidebarVersionWarningComponent} from "./sidebar/sidebar-version-warning.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {TagsTableComponent} from "./tags/tags-table.component";
 import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
-import { IconHappyComponent } from "./icon/icon-happy.component";
-import { IconInvestigateComponent } from "./icon/icon-investigate.component";
-import { LinkNodeRefComponent } from "./link/link-node-ref.component";
-import { LinkRouteRefComponent } from "./link/link-route-ref.component";
+import {IconHappyComponent} from "./icon/icon-happy.component";
+import {IconInvestigateComponent} from "./icon/icon-investigate.component";
+import {LinkNodeRefComponent} from "./link/link-node-ref.component";
+import {LinkRouteRefComponent} from "./link/link-route-ref.component";
 
 @NgModule({
   imports: [
@@ -135,7 +134,6 @@ import { LinkRouteRefComponent } from "./link/link-route-ref.component";
     SidebarComponent,
     SidebarBackComponent,
     SidebarFooterComponent,
-    SidebarVersionWarningComponent,
     SidebarNetworkComponent,
     SidebarMenuComponent,
     SidebarSubItemComponent,
@@ -206,7 +204,6 @@ import { LinkRouteRefComponent } from "./link/link-route-ref.component";
     SidebarComponent,
     SidebarBackComponent,
     SidebarFooterComponent,
-    SidebarVersionWarningComponent,
     SidebarNetworkComponent,
     SidebarSubItemComponent,
     ItemsComponent,

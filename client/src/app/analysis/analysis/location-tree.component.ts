@@ -17,19 +17,19 @@ interface LocationFlatNode {
 @Component({
   selector: "kpn-location-tree",
   template: `
-    <div>
-      <button mat-stroked-button>Expand all</button>
-      <button mat-stroked-button>Collapse all</button>
+    <div class="buttons">
+      <button mat-stroked-button class="location-button">Expand all</button>
+      <button mat-stroked-button class="location-button">Collapse all</button>
       <mat-radio-group>
         <mat-radio-button
           value="0"
           title="All"
-          class="col-level-0">All
+          class="location-button">All
         </mat-radio-button>
         <mat-radio-button
           value="11"
           title="In use only"
-          class="col-level-11">In use only
+          class="location-button">In use only
         </mat-radio-button>
       </mat-radio-group>
     </div>
@@ -59,6 +59,14 @@ interface LocationFlatNode {
     .node-count {
       padding-left: 20px;
       color: gray;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .location-button {
+      margin-right: 10px;
     }
   `]
 })
@@ -90,7 +98,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    var countryIndex = 0;
+    let countryIndex = 0;
     if (this.country.domain === Countries.nl.domain) {
       countryIndex = 0;
     } else if (this.country.domain === Countries.be.domain) {

@@ -15,7 +15,11 @@ import {LocationNode, locations} from "./locations";
   template: `
     <form class="selector-form" [formGroup]="formGroup" (submit)="select()">
       <mat-form-field class="selector-full-width">
-        <input type="text" placeholder="municipality or other administrative boundary name" matInput [formControl]="locationInputControl" [matAutocomplete]="auto">
+        <input
+          type="text"
+          placeholder="enter municipality or other administrative boundary name"
+          matInput [formControl]="locationInputControl"
+          [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayName">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option.locationName}} <span class="node-count">({{option.nodeCount}})</span>
@@ -46,27 +50,18 @@ export class LocationSelectorComponent implements OnInit, OnDestroy {
 
   @Input() country: Country;
   @Output() selection = new EventEmitter<string>();
-
-  private readonly subscriptions = new Subscriptions();
-
   options: List<LocationOption> = List();
-
   locationInputControl = new FormControl();
   filteredOptions: Observable<LocationOption[]>;
-
   readonly formGroup: FormGroup;
-
-  private _filter(value: string): LocationOption[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.locationName.toLowerCase().indexOf(filterValue) >= 0).toArray();
-  }
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private fb: FormBuilder) {
     this.formGroup = this.fb.group({locationInputControl: this.locationInputControl});
   }
 
   ngOnInit() {
-    var countryIndex = 0;
+    let countryIndex = 0;
     if (this.country.domain === Countries.nl.domain) {
       countryIndex = 0;
     } else if (this.country.domain === Countries.be.domain) {
@@ -98,8 +93,15 @@ export class LocationSelectorComponent implements OnInit, OnDestroy {
     return locationOption ? locationOption.locationName : undefined;
   }
 
+  private _filter(value: string): LocationOption[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.locationName.toLowerCase().indexOf(filterValue) >= 0).toArray();
+  }
+
   private toOptions(location: LocationNode): List<LocationOption> {
-    return List([this.extractOption(location.name)]).concat(List(location.children).flatMap(child => this.toOptions(child))).sortBy(locationOption => locationOption.locationName);
+    return List([this.extractOption(location.name)])
+      .concat(List(location.children).flatMap(child => this.toOptions(child)))
+      .sortBy(locationOption => locationOption.locationName);
   }
 
   private extractOption(name: string): LocationOption {

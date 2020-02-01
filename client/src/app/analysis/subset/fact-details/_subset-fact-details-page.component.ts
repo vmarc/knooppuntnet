@@ -63,9 +63,9 @@ class SubsetFact {
               <span *ngFor="let ref of networkFactRefs.factRefs">
                 <a *ngIf="hasNodeRefs()" [routerLink]="'/analysis/node/' + ref.id">{{ref.name}}</a>
                 <a *ngIf="hasRouteRefs()" [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
-                <kpn-osm-link-node *ngIf="hasOsmNodeRefs()" id="ref.id" title="ref.id"></kpn-osm-link-node>
-                <kpn-osm-link-way *ngIf="hasOsmWayRefs()" id="ref.id" title="ref.id"></kpn-osm-link-way>
-                <kpn-osm-link-relation *ngIf="hasOsmRelationRefs()" id="ref.id" title="ref.id"></kpn-osm-link-relation>
+                <kpn-osm-link-node *ngIf="hasOsmNodeRefs()" [id]="ref.id" title="ref.id"></kpn-osm-link-node>
+                <kpn-osm-link-way *ngIf="hasOsmWayRefs()" [id]="ref.id" title="ref.id"></kpn-osm-link-way>
+                <kpn-osm-link-relation *ngIf="hasOsmRelationRefs()" [relationId]="ref.id" title="{{ref.id}}"></kpn-osm-link-relation>
               </span>
             </div>
           </kpn-item>

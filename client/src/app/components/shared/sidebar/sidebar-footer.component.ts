@@ -54,7 +54,7 @@ export class SidebarFooterComponent {
   }
 
   isLoggedIn(): boolean {
-    return this.currentUser().length > 0;
+    return this.userService.isLoggedIn();
   }
 
   link(language: string): string {
