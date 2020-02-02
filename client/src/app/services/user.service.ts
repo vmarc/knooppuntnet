@@ -2,7 +2,6 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {BrowserStorageService} from "./browser-storage.service";
-import {CookieService} from "ngx-cookie-service";
 
 @Injectable()
 export class UserService {
@@ -15,14 +14,11 @@ export class UserService {
   }
 
   public isLoggedIn(): boolean {
-    const xx = !!this.currentUser();
-    console.log("isLoggedIn=" + xx);
-    return xx;
+    return this.browserStorageService.get("user") !== null;
   }
 
   public currentUser(): string {
     const user = this.browserStorageService.get("user");
-    console.log("currentUser(): user=" + user);
     if (user !== null) {
       return user;
     }
@@ -72,12 +68,12 @@ export class UserService {
   }
 
   public logout(): void {
-    this.browserStorageService.remove("user");
     this.http.get("/json-api/logout", {
       responseType: "text"
     }).subscribe(r => {
         console.log("DEBUG logout success");
         console.log(JSON.stringify(r, null, 2));
+        this.browserStorageService.remove("user");
       },
       error => {
         console.log("DEBUG logout error response");

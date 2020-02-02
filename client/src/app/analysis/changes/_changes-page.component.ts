@@ -8,6 +8,7 @@ import {ChangesParameters} from "../../kpn/api/common/changes/filter/changes-par
 import {Subscriptions} from "../../util/Subscriptions";
 import {ChangeFilterOptions} from "../components/changes/filter/change-filter-options";
 import {ChangesService} from "../components/changes/filter/changes.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: "kpn-changes-page",

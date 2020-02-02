@@ -29,6 +29,9 @@ class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBea
       cookies.find(cookie => AuthenticationConfiguration.cookieName == cookie.getName) match {
         case Some(cookie) => authenticate(cookie.getValue)
         case None =>
+          val authentication = new UserAuthentication("")
+          authentication.setAuthenticated(false)
+          SecurityContextHolder.getContext.setAuthentication(authentication)
       }
     }
     filterChain.doFilter(httpRequest, servletResponse)

@@ -4,5 +4,10 @@ import {ChangeFilterOptions} from "../../components/changes/filter/change-filter
 
 @Injectable()
 export class SubsetChangesService {
+
   readonly filterOptions: BehaviorSubject<ChangeFilterOptions> = new BehaviorSubject(ChangeFilterOptions.empty());
+
+  resetFilterOptions() {
+    this.filterOptions.next(ChangeFilterOptions.empty());
+  }
 }

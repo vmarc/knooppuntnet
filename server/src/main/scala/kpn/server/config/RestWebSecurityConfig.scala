@@ -10,6 +10,9 @@ class RestWebSecurityConfig(securityFilter: SecurityFilter) extends WebSecurityC
 
   override protected def configure(http: HttpSecurity): Unit = {
     http.addFilterAfter(securityFilter, classOf[BasicAuthenticationFilter])
-      .csrf.disable
+    // .authorizeRequests
+    // .antMatchers("/**").permitAll()
+    // .antMatchers("/**/changes").fullyAuthenticated()
+    http.csrf.disable
   }
 }

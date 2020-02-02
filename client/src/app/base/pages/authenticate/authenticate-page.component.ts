@@ -5,9 +5,9 @@ import {UserService} from "../../../services/user.service";
 @Component({
   selector: "kpn-authenticate-page",
   template: `
-    <h1 i18n="@@authenticate-page.title">
-      Authenticate
-    </h1>
+    <span i18n="@@authenticate-page.title">
+      Logging in...
+    </span>
   `
 })
 export class AuthenticatePageComponent implements OnInit {

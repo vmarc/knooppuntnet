@@ -78,7 +78,11 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
 
   set parameters(parameters: ChangesParameters) {
     this._parameters = parameters;
-    this.reload();
+    if (this.isLoggedIn()) {
+      this.reload();
+    } else {
+      this.nodeChangesService.resetFilterOptions();
+    }
   }
 
   get page(): NodeChangesPage {
