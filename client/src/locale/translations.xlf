@@ -119,27 +119,51 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
@@ -154,15 +178,27 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
@@ -177,11 +213,19 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
@@ -196,11 +240,19 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
@@ -215,7 +267,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
@@ -583,6 +639,42 @@
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="analysis.by-network" datatype="html">
+        <source>
+        Explore by network
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-mode.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="analysis.by-location" datatype="html">
+        <source>
+        Explore by location
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/analysis-mode.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="analysis.location.search-by-name" datatype="html">
+        <source>
+        Search by name
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/location-mode.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="analysis.location.select-from-tree" datatype="html">
+        <source>
+        Select from tree
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/location-mode.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="breadcrumb.changes" datatype="html">
         <source>Changes</source>
         <context-group purpose="location">
@@ -599,7 +691,7 @@
       </trans-unit>
       <trans-unit id="changes-page.login-required" datatype="html">
         <source>
-      This historical information is available to registered OpenStreetMap contributors only, after
+      The details of the changes history are available to registered OpenStreetMap contributors only, after
       <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
       .
     </source>
@@ -2301,7 +2393,7 @@
       </trans-unit>
       <trans-unit id="network-changes.login-required" datatype="html">
         <source>
-      The network history is available to registered OpenStreetMap contributors only, after
+      The details of network changes history are available to registered OpenStreetMap contributors only, after
       <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
       .
     </source>
@@ -3363,7 +3455,7 @@
       </trans-unit>
       <trans-unit id="node.login-required" datatype="html">
         <source>
-      The node history is available to registered OpenStreetMap contributors only, after
+      The details of the node changes history is available to registered OpenStreetMap contributors only, after
       <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
       .
     </source>
@@ -4262,7 +4354,7 @@
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
         <source>
-      The route history is available to registered OpenStreetMap contributors only, after
+      The details of the route changes history is available to registered OpenStreetMap contributors only, after
       <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
       .
     </source>
@@ -4558,6 +4650,17 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/changes/_subset-changes-page.component.ts</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-changes.login-required" datatype="html">
+        <source>
+      This details of the changes history are available to registered OpenStreetMap contributors only, after
+      <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
+      .
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/changes/_subset-changes-page.component.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.title" datatype="html">
@@ -4869,7 +4972,7 @@
       </trans-unit>
       <trans-unit id="authenticate-page.title" datatype="html">
         <source>
-      Authenticate
+      Logging in...
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/authenticate/authenticate-page.component.ts</context>
@@ -5032,8 +5135,7 @@
       </trans-unit>
       <trans-unit id="logout.login-comment" datatype="html">
         <source>
-        You can <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>login<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to view extra information that is
-        available to
+        You can <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>login<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to view extra information that is available to
         <x id="START_TAG_KPN-OSM-WEBSITE" ctype="x-kpn-osm-website" equiv-text="&lt;kpn-osm-website&gt;"/><x id="CLOSE_TAG_KPN-OSM-WEBSITE" ctype="x-kpn-osm-website" equiv-text="&lt;/kpn-osm-website&gt;"/>
         users only.
       </source>

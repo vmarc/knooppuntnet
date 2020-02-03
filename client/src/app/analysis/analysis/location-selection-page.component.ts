@@ -5,6 +5,7 @@ import {AppService} from "../../app.service";
 import {Country} from "../../kpn/api/custom/country";
 import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Subscriptions} from "../../util/Subscriptions";
+import {LocationModeService} from "./location-mode.service";
 
 /* tslint:disable:template-i18n work-in-progress */
 @Component({
@@ -48,6 +49,14 @@ export class LocationSelectionPageComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private router: Router) {
+  }
+
+  isModeName() {
+    return this.locationModeService.isModeName;
+  }
+
+  isModeTree() {
+    return this.locationModeService.isModeTree;
   }
 
   selected(locationName: string): void {
