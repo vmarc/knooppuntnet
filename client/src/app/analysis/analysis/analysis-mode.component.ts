@@ -38,7 +38,7 @@ export class AnalysisModeComponent {
   }
 
   mode() {
-    return this.analysisModeService.currentMode();
+    return this.analysisModeService.mode();
   }
 
   modeChanged(event: MatRadioChange) {

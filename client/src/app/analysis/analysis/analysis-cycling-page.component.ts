@@ -16,33 +16,27 @@ import {Observable} from "rxjs";
 
     <kpn-analysis-mode></kpn-analysis-mode>
 
-    <div *ngIf="isModeNetwork() | async">
-      <kpn-icon-button routerLink="/analysis/cycling/nl/networks" icon="netherlands" i18n="@@country.nl">Netherlands</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/be/networks" icon="belgium" i18n="@@country.be">Belgium</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/de/networks" icon="germany" i18n="@@country.de">Germany</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/fr/networks" icon="france" i18n="@@country.fr">France</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/at/networks" icon="austria" i18n="@@country.at">Austria</kpn-icon-button>
-    </div>
-    <div *ngIf="isModeLocation() | async">
-      <kpn-icon-button routerLink="/analysis/cycling/nl" icon="netherlands" i18n="@@country.nl">Netherlands</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/be" icon="belgium" i18n="@@country.be">Belgium</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/de" icon="germany" i18n="@@country.de">Germany</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/fr" icon="france" i18n="@@country.fr">France</kpn-icon-button>
-      <kpn-icon-button routerLink="/analysis/cycling/at" icon="austria" i18n="@@country.at">Austria</kpn-icon-button>
-    </div>
+    <kpn-icon-button [routerLink]="nlLink | async" icon="netherlands" i18n="@@country.nl">Netherlands</kpn-icon-button>
+    <kpn-icon-button [routerLink]="beLink | async" icon="belgium" i18n="@@country.be">Belgium</kpn-icon-button>
+    <kpn-icon-button [routerLink]="deLink | async" icon="germany" i18n="@@country.de">Germany</kpn-icon-button>
+    <kpn-icon-button [routerLink]="frLink | async" icon="france" i18n="@@country.fr">France</kpn-icon-button>
+    <kpn-icon-button [routerLink]="atLink | async" icon="austria" i18n="@@country.at">Austria</kpn-icon-button>
   `
 })
 export class AnalysisCyclingPageComponent {
 
-  constructor(public analysisModeService: AnalysisModeService) {
-  }
+  readonly nlLink: Observable<string>;
+  readonly beLink: Observable<string>;
+  readonly deLink: Observable<string>;
+  readonly frLink: Observable<string>;
+  readonly atLink: Observable<string>;
 
-  isModeNetwork() {
-    return this.analysisModeService.isModeNetwork;
-  }
-
-  isModeLocation() {
-    return this.analysisModeService.isModeLocation;
+  constructor(private analysisModeService: AnalysisModeService) {
+    this.nlLink = analysisModeService.link("cycling", "nl");
+    this.beLink = analysisModeService.link("cycling", "be");
+    this.deLink = analysisModeService.link("cycling", "de");
+    this.frLink = analysisModeService.link("cycling", "fr");
+    this.atLink = analysisModeService.link("cycling", "at");
   }
 
 }

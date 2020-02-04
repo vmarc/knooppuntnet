@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {AnalysisModeService} from "./analysis-mode.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: "kpn-analysis-inline-skating-page",
@@ -14,36 +15,15 @@ import {AnalysisModeService} from "./analysis-mode.service";
 
     <kpn-analysis-mode></kpn-analysis-mode>
 
-    <div *ngIf="isModeNetwork() | async">
-      <kpn-icon-button
-        routerLink="/analysis/inline-skating/nl/networks"
-        icon="netherlands"
-        i18n="@@country.nl">
-        Netherlands
-      </kpn-icon-button>
-    </div>
-
-    <div *ngIf="isModeLocation() | async">
-      <kpn-icon-button
-        routerLink="/analysis/inline-skating/nl"
-        icon="netherlands"
-        i18n="@@country.nl">
-        Netherlands
-      </kpn-icon-button>
-    </div>
+    <kpn-icon-button [routerLink]="nlLink | async" icon="netherlands" i18n="@@country.nl">Netherlands</kpn-icon-button>
   `
 })
 export class AnalysisInlineSkatingPageComponent {
 
-  constructor(public analysisModeService: AnalysisModeService) {
-  }
+  readonly nlLink: Observable<string>;
 
-  isModeNetwork() {
-    return this.analysisModeService.isModeNetwork;
-  }
-
-  isModeLocation() {
-    return this.analysisModeService.isModeLocation;
+  constructor(private analysisModeService: AnalysisModeService) {
+    this.nlLink = analysisModeService.link("inline-skating", "nl");
   }
 
 }

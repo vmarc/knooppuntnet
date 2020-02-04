@@ -2,15 +2,13 @@ import {Injectable} from "@angular/core";
 import {BrowserStorageService} from "../../services/browser-storage.service";
 import {BehaviorSubject} from "rxjs";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 
 @Injectable()
 export class AnalysisModeService {
 
-  isModeNetwork: Observable<boolean>;
-  isModeLocation: Observable<boolean>;
   private readonly localStorageKey = "analysis-mode";
-  private modeSubject: BehaviorSubject<string>;
+  private readonly modeSubject: BehaviorSubject<string>;
 
   constructor(private browserStorageService: BrowserStorageService) {
     let initialMode = browserStorageService.get(this.localStorageKey);
@@ -19,15 +17,9 @@ export class AnalysisModeService {
       initialMode = "network";
     }
     this.modeSubject = new BehaviorSubject(initialMode);
-    this.isModeNetwork = this.modeSubject.pipe(map(e => e === "network"));
-    this.isModeLocation = this.modeSubject.pipe(map(e => e === "location"));
   }
 
-  mode(): Observable<string> {
-    return this.modeSubject;
-  }
-
-  currentMode(): string {
+  mode(): string {
     return this.modeSubject.getValue();
   }
 
@@ -35,4 +27,10 @@ export class AnalysisModeService {
     this.browserStorageService.set(this.localStorageKey, mode);
     this.modeSubject.next(mode);
   }
+
+  link(networkType: string, country: string): Observable<string> {
+    const url = "/analysis/" + networkType + "/" + country;
+    return this.modeSubject.pipe(map(e => url + (e === "network" ? "/networks" : "")));
+  }
+
 }
