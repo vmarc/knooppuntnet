@@ -1793,7 +1793,7 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database 
+        Older changes cannot be shown. The history in the analysis database
         does not go beyond
       </source>
         <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank gaat niet verder terug dan</target>
@@ -2237,7 +2237,7 @@
       </trans-unit>
       <trans-unit id="changes.impact" datatype="html">
         <source>Impact</source>
-        <target state="new">[Impact]</target>
+        <target>Impact</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/changes.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -3311,7 +3311,7 @@
       </trans-unit>
       <trans-unit id="export.title" datatype="html">
         <source>Export</source>
-        <target state="new">[Export]</target>
+        <target>Resultaat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -3321,10 +3321,7 @@
         <source>
           Print (pdf)
         </source>
-        <target state="new">[
-          Print (pdf)
-          ]
-        </target>
+        <target>Document (pdf)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -3334,10 +3331,7 @@
         <source>
           Node strip (pdf)
         </source>
-        <target state="new">[
-          Node strip (pdf)
-          ]
-        </target>
+        <target>Knooppuntenstrip (pdf)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -3347,10 +3341,7 @@
         <source>
           Navigation instructions (pdf)
         </source>
-        <target state="new">[
-          Navigation instructions (pdf)
-          ]
-        </target>
+        <target>Navigatie instructies (pdf)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -3360,10 +3351,7 @@
         <source>
           GPX file
         </source>
-        <target state="new">[
-          GPX file
-          ]
-        </target>
+        <target>GPX bestand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -3371,7 +3359,7 @@
       </trans-unit>
       <trans-unit id="export.cancel" datatype="html">
         <source>Cancel</source>
-        <target state="new">[Cancel]</target>
+        <target>Annuleren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -3379,7 +3367,7 @@
       </trans-unit>
       <trans-unit id="export.ok" datatype="html">
         <source>OK</source>
-        <target state="new">[OK]</target>
+        <target>OK</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -5549,7 +5537,7 @@
       </trans-unit>
       <trans-unit id="subset-facts.node-refs" datatype="html">
         <source>nodes</source>
-        <target state="new">[nodes]</target>
+        <target>knooppunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -5557,7 +5545,7 @@
       </trans-unit>
       <trans-unit id="subset-facts.route-refs" datatype="html">
         <source>routes</source>
-        <target state="new">[routes]</target>
+        <target>routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">27</context>
@@ -5565,7 +5553,7 @@
       </trans-unit>
       <trans-unit id="subset-facts.osm-node-refs" datatype="html">
         <source>nodes</source>
-        <target state="new">[nodes]</target>
+        <target>knooppunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -5573,7 +5561,7 @@
       </trans-unit>
       <trans-unit id="subset-facts.osm-way-refs" datatype="html">
         <source>ways</source>
-        <target state="new">[ways]</target>
+        <target>wegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -5581,7 +5569,7 @@
       </trans-unit>
       <trans-unit id="subset-facts.osm-relation-refs" datatype="html">
         <source>relations</source>
-        <target state="new">[relations]</target>
+        <target>relaties</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">30</context>
@@ -5589,10 +5577,9 @@
       </trans-unit>
       <trans-unit id="subset-facts.in-networks" datatype="html">
         <source>in <x id="INTERPOLATION" equiv-text="{{response.result.networks.size}}"/> networks.</source>
-        <target state="new">[in
+        <target>in
           <x id="INTERPOLATION" equiv-text="{{response.result.networks.size}}"/>
-          networks.]
-        </target>
+          netwerken.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -5600,9 +5587,9 @@
       </trans-unit>
       <trans-unit id="subset-facts.routes" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{networkFactRefs.factRefs.size}}"/> routes:</source>
-        <target state="new">[
+        <target>
           <x id="INTERPOLATION" equiv-text="{{networkFactRefs.factRefs.size}}"/>
-          routes:]
+          routes:
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
@@ -5813,10 +5800,7 @@
         <source>
               achavi
             </source>
-        <target state="new">[
-          achavi
-          ]
-        </target>
+        <target>achavi</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -6000,10 +5984,7 @@
         <source>
       All facts
     </source>
-        <target state="new">[
-          All facts
-          ]
-        </target>
+        <target>Alle feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/facts/_facts-page.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -6816,7 +6797,7 @@
       </trans-unit>
       <trans-unit id="doc-link.go-to-documentation" datatype="html">
         <source>Go to documentation</source>
-        <target state="new">[Go to documentation]</target>
+        <target>Ga naar de documentatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/doc-link.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -6970,9 +6951,7 @@
         <source>
         Explore by network
       </source>
-        <target state="new">[
-        Explore by network
-      ]</target>
+        <target>Analyse per netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-mode.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -6982,9 +6961,7 @@
         <source>
         Explore by location
       </source>
-        <target state="new">[
-        Explore by location
-      ]</target>
+        <target>Analyse per gebied</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/analysis-mode.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -6994,9 +6971,7 @@
         <source>
         Search by name
       </source>
-        <target state="new">[
-        Search by name
-      ]</target>
+        <target>Zoek op naam</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/location-mode.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7006,9 +6981,7 @@
         <source>
         Select from tree
       </source>
-        <target state="new">[
-        Select from tree
-      ]</target>
+        <target>Selecteer uit boomstructuur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/location-mode.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -7047,7 +7020,7 @@
       </trans-unit>
       <trans-unit id="change-set.orphan-nodes" datatype="html">
         <source>Orphan node(s)</source>
-        <target state="new">[Orphan node(s)]</target>
+        <target>Knooppuntwezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/change-set/components/change-set-orphan-nodes.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7055,7 +7028,7 @@
       </trans-unit>
       <trans-unit id="change-set.orphan-routes" datatype="html">
         <source>Orphan route(s)</source>
-        <target state="new">[Orphan route(s)]</target>
+        <target>Route wezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/change-set/components/change-set-orphan-routes.component.ts</context>
           <context context-type="linenumber">5</context>
