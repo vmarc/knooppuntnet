@@ -13,7 +13,7 @@ import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
 @Component({
   selector: "kpn-network-node-table",
   template: `
-    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" showFirstLastButtons></mat-paginator>
+    <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" showFirstLastButtons></kpn-paginator>
     <mat-divider></mat-divider>
 
     <mat-table matSort [dataSource]="dataSource">
@@ -53,8 +53,8 @@ import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let node; columns: displayedColumns;"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns()"></mat-header-row>
+      <mat-row *matRowDef="let node; columns: displayedColumns();"></mat-row>
     </mat-table>
   `,
   styles: [`
@@ -103,7 +103,7 @@ export class NetworkNodeTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<NetworkNodeInfo2>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> = new BehaviorSubject(new NetworkNodeFilterCriteria());
 
@@ -113,7 +113,7 @@ export class NetworkNodeTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator.paginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.nodes).toArray();
@@ -121,7 +121,7 @@ export class NetworkNodeTableComponent implements OnInit {
     });
   }
 
-  get displayedColumns() {
+  displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
       return ["nr", "analysis", "node", "routes", "lastEdit"];
     }

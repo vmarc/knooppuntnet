@@ -14,14 +14,14 @@ import {NetworkRoutesService} from "./network-routes.service";
   selector: "kpn-network-route-table",
   template: `
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="routes?.size" showFirstLastButtons></mat-paginator>
+    <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="routes?.size" showFirstLastButtons></kpn-paginator>
     <mat-divider></mat-divider>
 
     <mat-table matSort [dataSource]="dataSource">
 
       <ng-container matColumnDef="nr">
         <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let route; let i = index">{{i + 1}}</mat-cell>
+        <mat-cell *matCellDef="let route; let i = index">{{rowNumber(i)}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -47,8 +47,8 @@ import {NetworkRoutesService} from "./network-routes.service";
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let route; columns: displayedColumns;"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns()"></mat-header-row>
+      <mat-row *matRowDef="let route; columns: displayedColumns();"></mat-row>
     </mat-table>
   `,
   styles: [`
@@ -93,7 +93,7 @@ export class NetworkRouteTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<NetworkRouteRow>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   private readonly filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(new NetworkRouteFilterCriteria());
 
@@ -103,7 +103,7 @@ export class NetworkRouteTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator.paginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new NetworkRouteFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.routes).toArray();
@@ -111,7 +111,7 @@ export class NetworkRouteTableComponent implements OnInit {
     });
   }
 
-  get displayedColumns() {
+  displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
       return ["nr", "analysis", "route", "lastEdit"];
     }
@@ -123,4 +123,7 @@ export class NetworkRouteTableComponent implements OnInit {
     return ["nr", "analysis", "route"];
   }
 
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
 }

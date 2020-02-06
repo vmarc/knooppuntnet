@@ -7,11 +7,7 @@ import {OnInit} from "@angular/core";
     <kpn-osm-link kind="relation" [id]="relationId" [title]="title"></kpn-osm-link>
   `
 })
-export class OsmLinkRelationComponent implements OnInit {
+export class OsmLinkRelationComponent {
   @Input() relationId: number;
   @Input() title = "osm";
-
-  ngOnInit(): void {
-    console.log("OsmLinkRelationComponent relationId=" + this.relationId + ", title=" + this.title);
-  }
 }

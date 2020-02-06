@@ -8,14 +8,14 @@ import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-
 
     <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)" i18n="@@changes.impact">Impact</mat-slide-toggle>
 
-    <mat-paginator
+    <kpn-paginator
       (page)="pageChanged($event)"
       [pageIndex]="parameters.pageIndex"
       [pageSize]="parameters.itemsPerPage"
       [pageSizeOptions]="[5, 25, 50, 100, 250, 1000]"
       [length]="totalCount"
       [showFirstLastButtons]="showFirstLastButtons">
-    </mat-paginator>
+    </kpn-paginator>
 
     <div *ngIf="totalCount == 0" i18n="@@changes.no-changes">
       No changes
@@ -25,13 +25,13 @@ import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-
 
       <ng-content></ng-content>
 
-      <mat-paginator
+      <kpn-paginator
         (page)="bottomPageChanged($event)"
         [pageIndex]="parameters.pageIndex"
         [pageSize]="parameters.itemsPerPage"
         [length]="totalCount"
         [hidePageSize]="true">
-      </mat-paginator>
+      </kpn-paginator>
     </div>
   `
 })

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
-import {MatPaginator, MatTableDataSource} from "@angular/material";
+import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
 import {BehaviorSubject} from "rxjs";
 import {NodeInfo} from "../../../kpn/api/common/node-info";
@@ -7,24 +7,24 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {SubsetOrphanNodeFilter} from "./subset-orphan-node-filter";
 import {SubsetOrphanNodeFilterCriteria} from "./subset-orphan-node-filter-criteria";
 import {SubsetOrphanNodesService} from "./subset-orphan-nodes.service";
+import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 
 @Component({
   selector: "kpn-subset-orphan-nodes-table",
   template: `
-    <mat-paginator
-      #paginator
+    <kpn-paginator
       [length]="dataSource.data.length"
       [pageIndex]="0"
       [pageSize]="50"
       [pageSizeOptions]="[25, 50, 100, 250, 1000]">
-    </mat-paginator>
+    </kpn-paginator>
 
     <mat-divider></mat-divider>
     <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
 
       <ng-container matColumnDef="rowNumber">
         <td mat-cell *matCellDef="let route; let i = index">
-          {{i + 1}}
+          {{rowNumber(i)}}
         </td>
       </ng-container>
 
@@ -73,10 +73,16 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
+    this.dataSource.paginator = this.paginator.paginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.nodes).toArray();
       this.subsetOrphanNodesService.filterOptions.next(filter.filterOptions(this.nodes));
     });
   }
+
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
+
 }

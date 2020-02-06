@@ -82,7 +82,8 @@ import {LinkRouteRefComponent} from "./link/link-route-ref.component";
     MatButtonModule,
     MatDialogModule,
     RouterModule,
-    SpinnerModule
+    SpinnerModule,
+    MatPaginatorModule
   ],
   declarations: [
     LinkChangesetComponent,
@@ -153,7 +154,8 @@ import {LinkRouteRefComponent} from "./link/link-route-ref.component";
     IconInvestigateComponent,
     LinkNodeRefComponent,
     LinkRouteRefComponent,
-    NodeListComponent
+    NodeListComponent,
+    PaginatorComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -223,7 +225,8 @@ import {LinkRouteRefComponent} from "./link/link-route-ref.component";
     IconInvestigateComponent,
     LinkNodeRefComponent,
     LinkRouteRefComponent,
-    NodeListComponent
+    NodeListComponent,
+    PaginatorComponent
   ]
 })
 export class SharedModule {
