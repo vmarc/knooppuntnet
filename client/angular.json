@@ -4,6 +4,22 @@
   "newProjectRoot": "projects",
   "projects": {
     "knooppuntnet": {
+      "i18n": {
+        "locales": {
+          "nl": {
+            "translation": "src/locale/translations.nl.xlf",
+            "baseHref": ""
+          },
+          "fr": {
+            "translation": "src/locale/translations.fr.xlf",
+            "baseHref": ""
+          },
+          "de": {
+            "translation": "src/locale/translations.de.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -24,6 +40,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/knooppuntnet",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -46,6 +63,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -64,6 +87,12 @@
               "serviceWorker": true
             },
             "production-nl": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -81,11 +110,16 @@
               "buildOptimizer": true,
               "outputPath": "dist/kpn-nl/",
               "i18nFile": "src/locale/translations.nl.xlf",
-              "i18nFormat": "xlf",
               "i18nLocale": "nl",
               "i18nMissingTranslation": "error"
             },
             "production-fr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -103,11 +137,16 @@
               "buildOptimizer": true,
               "outputPath": "dist/kpn-fr/",
               "i18nFile": "src/locale/translations.fr.xlf",
-              "i18nFormat": "xlf",
               "i18nLocale": "fr",
               "i18nMissingTranslation": "error"
             },
             "production-de": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -125,31 +164,45 @@
               "buildOptimizer": true,
               "outputPath": "dist/kpn-de/",
               "i18nFile": "src/locale/translations.de.xlf",
-              "i18nFormat": "xlf",
               "i18nLocale": "de",
               "i18nMissingTranslation": "error"
             },
             "nl": {
               "aot": true,
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "outputPath": "dist/kpn-nl/",
               "i18nFile": "src/locale/translations.nl.xlf",
-              "i18nFormat": "xlf",
               "i18nLocale": "nl",
               "i18nMissingTranslation": "error"
             },
             "fr": {
               "aot": true,
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "outputPath": "dist/kpn-fr/",
               "i18nFile": "src/locale/translations.fr.xlf",
-              "i18nFormat": "xlf",
               "i18nLocale": "fr",
               "i18nMissingTranslation": "error"
             },
             "de": {
               "aot": true,
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "outputPath": "dist/kpn-de/",
               "i18nFile": "src/locale/translations.de.xlf",
-              "i18nFormat": "xlf",
               "i18nLocale": "de",
               "i18nMissingTranslation": "error"
             }
