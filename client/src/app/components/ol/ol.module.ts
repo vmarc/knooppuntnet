@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatCheckboxModule} from "@angular/material";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MapClickService} from "./map-click.service";
 import {MapComponent} from "./map.component";
 import {MapService} from "./map.service";

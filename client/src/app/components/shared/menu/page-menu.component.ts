@@ -18,7 +18,7 @@ import {Component} from "@angular/core";
       line-height: 30px;
     }
 
-    /deep/ .menu :not(:last-child):after {
+    ::ng-deep .menu :not(:last-child):after {
       content: " | ";
       padding-left: 5px;
       padding-right: 5px;

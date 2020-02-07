@@ -12,7 +12,7 @@ import {Component, Input} from "@angular/core";
       height: 40px;
     }
 
-    /deep/ .command-icon > svg {
+    ::ng-deep .command-icon > svg {
       fill: #666666;
       stroke: #666666;
     }

@@ -1,6 +1,17 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from "@angular/core";
+import {Component} from "@angular/core";
+import {Input} from "@angular/core";
+import {Output} from "@angular/core";
+import {ChangeDetectionStrategy} from "@angular/core";
+import {EventEmitter} from "@angular/core";
+import {OnChanges} from "@angular/core";
+import {OnDestroy} from "@angular/core";
+import {OnInit} from "@angular/core";
+import {SimpleChanges} from "@angular/core";
+import {ViewChild} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
 import {debounceTime} from "rxjs/operators";
 import {Subscriptions} from "../util/Subscriptions";
 import {TranslationUnit} from "./domain/translation-unit";
@@ -73,23 +84,17 @@ import {SelectionModel} from "@angular/cdk/collections";
 })
 export class TranslationTableComponent implements OnInit, OnChanges, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   @Input() translationUnits: List<TranslationUnit>;
   @Output() selected = new EventEmitter<TranslationUnit>();
-
   showTranslated = false;
-
   displayedColumns: Array<string> = ["state", "id", "source", "target", "sourceFile"];
   dataSource: MatTableDataSource<TranslationUnit>;
-
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   readonly form: FormGroup;
   readonly filter = new FormControl();
-
   readonly selection = new SelectionModel<TranslationUnit>(false, [], true);
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private fb: FormBuilder) {
     this.form = this.buildForm();

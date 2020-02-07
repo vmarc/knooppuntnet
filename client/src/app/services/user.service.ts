@@ -45,7 +45,14 @@ export class UserService {
       this.loginCallbackPage = "";
     }
 
-    const loginUrl = "/json-api/login?callbackUrl=" + window.location.origin + "/authenticate?page=" + whereWeComeFrom;
+    let language = whereWeComeFrom.substr(0, 2);
+    if (language === "en" || language === "de" || language === "fr" || language === "nl") {
+      language = "/" + language;
+    } else {
+      language = "";
+    }
+
+    const loginUrl = "/json-api/login?callbackUrl=" + window.location.origin + language + "/authenticate?page=" + whereWeComeFrom;
 
     console.log("DEBUG UserService login loginUrl=" + loginUrl);
 

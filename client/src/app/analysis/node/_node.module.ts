@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatPaginatorModule} from "@angular/material";
+import {MatPaginatorModule} from "@angular/material/paginator";
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";

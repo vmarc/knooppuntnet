@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.component";
 import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-info2";
 import {NetworkType} from "../../../../kpn/api/custom/network-type";
@@ -11,7 +11,7 @@ import {IntegrityIndicatorData} from "./integrity-indicator-data";
     <kpn-indicator
       letter="E"
       i18n-letter="@@integrity-indicator.letter"
-      [color]="color"
+      [color]="color()"
       (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `
@@ -26,7 +26,7 @@ export class IntegrityIndicatorComponent {
 
   onOpenDialog() {
     const indicatorData = new IntegrityIndicatorData(
-      this.color,
+      this.color(),
       this.networkType,
       this.node.integrityCheck ? this.node.integrityCheck.actual : 0,
       this.node.integrityCheck ? this.node.integrityCheck.expected : 0
@@ -34,7 +34,7 @@ export class IntegrityIndicatorComponent {
     this.dialog.open(IntegrityIndicatorDialogComponent, {data: indicatorData});
   }
 
-  get color() {
+  color() {
     let color = "gray";
     if (this.node.integrityCheck) {
       if (this.node.integrityCheck.failed) {

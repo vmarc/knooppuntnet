@@ -29,7 +29,7 @@ export class PageHeaderComponent implements AfterViewInit, OnChanges {
   @Input() subject: string;
   @Input() pageTitle: string;
 
-  @ViewChild("title", {read: ElementRef}) renderedTitle: ElementRef;
+  @ViewChild("title", { read: ElementRef, static: true }) renderedTitle: ElementRef;
 
   constructor(private pageService: PageService) {
   }

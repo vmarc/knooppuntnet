@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
-import {MatPaginator, MatTableDataSource} from "@angular/material";
+import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
@@ -9,6 +9,7 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkRouteFilter} from "./network-route-filter";
 import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
 import {NetworkRoutesService} from "./network-routes.service";
+import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 
 @Component({
   selector: "kpn-network-route-table",

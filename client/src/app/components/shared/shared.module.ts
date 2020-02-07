@@ -1,6 +1,11 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatButtonModule, MatDialogModule, MatDividerModule, MatIconModule, MatListModule, MatToolbarModule} from "@angular/material";
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatIconModule} from "@angular/material/icon";
+import {MatListModule} from "@angular/material/list";
+import {MatToolbarModule} from "@angular/material/toolbar";
 import {RouterModule} from "@angular/router";
 import {I18nComponent} from "../../i18n/i18n.component";
 import {SpinnerModule} from "../../spinner/spinner.module";
@@ -71,6 +76,8 @@ import {IconHappyComponent} from "./icon/icon-happy.component";
 import {IconInvestigateComponent} from "./icon/icon-investigate.component";
 import {LinkNodeRefComponent} from "./link/link-node-ref.component";
 import {LinkRouteRefComponent} from "./link/link-route-ref.component";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {PaginatorComponent} from "./paginator/paginator.component";
 
 @NgModule({
   imports: [

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {MatSlideToggleChange, PageEvent} from "@angular/material";
+import {PageEvent} from "@angular/material/paginator";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 
 @Component({

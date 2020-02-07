@@ -78,11 +78,11 @@
   margin: 5px;
 }
 
-:host /deep/ .mat-radio-label {
+:host ::ng-deep .mat-radio-label {
   display: flex;
 }
 
-:host /deep/ .mat-radio-label-content {
+:host ::ng-deep .mat-radio-label-content {
   flex: 1;
   display: flex;
 }

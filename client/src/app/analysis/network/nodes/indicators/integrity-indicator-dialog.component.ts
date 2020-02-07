@@ -1,5 +1,5 @@
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {IntegrityIndicatorData} from "./integrity-indicator-data";
 
 @Component({
@@ -44,22 +44,6 @@ export class IntegrityIndicatorDialogComponent {
               @Inject(MAT_DIALOG_DATA) private indicatorData: IntegrityIndicatorData) {
   }
 
-  onCloseDialog(): void {
-    this.dialogRef.close();
-  }
-
-  isGray() {
-    return this.color === "gray";
-  }
-
-  isGreen() {
-    return this.color === "green";
-  }
-
-  isRed() {
-    return this.color === "red";
-  }
-
   get color() {
     return this.indicatorData.color;
   }
@@ -74,6 +58,22 @@ export class IntegrityIndicatorDialogComponent {
 
   get expected() {
     return this.indicatorData.expected;
+  }
+
+  onCloseDialog(): void {
+    this.dialogRef.close();
+  }
+
+  isGray() {
+    return this.color === "gray";
+  }
+
+  isGreen() {
+    return this.color === "green";
+  }
+
+  isRed() {
+    return this.color === "red";
   }
 
 }

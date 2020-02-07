@@ -67,7 +67,7 @@ import {Stat} from "./stat";
       display: inline-block;
     }
 
-    /deep/ .icon svg {
+    ::ng-deep .icon svg {
       width: 12px;
       height: 12px;
       vertical-align: middle;

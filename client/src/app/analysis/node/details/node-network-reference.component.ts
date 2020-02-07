@@ -43,7 +43,7 @@ import {NodeNetworkRouteReference} from "../../../kpn/api/common/node/node-netwo
       padding-bottom: 10px;
     }
 
-    /deep/ .text p {
+    ::ng-deep .text p {
       margin: 0 0 5px 0;
     }
 

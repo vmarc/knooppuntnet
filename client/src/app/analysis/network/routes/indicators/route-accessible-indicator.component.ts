@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {NetworkType} from "../../../../kpn/api/custom/network-type";
 import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-row";
 import {RouteAccessibleData} from "./route-accessible-data";
@@ -8,7 +8,6 @@ import {RouteAccessibleIndicatorDialogComponent} from "./route-accessible-indica
 @Component({
   selector: "kpn-route-accessible-indicator",
   template: `
-    <!--@@ letter T -->
     <kpn-indicator
       letter="A"
       i18n-letter="@@route-accessible-indicator.letter"
@@ -25,11 +24,6 @@ export class RouteAccessibleIndicatorComponent {
   constructor(private dialog: MatDialog) {
   }
 
-  onOpenDialog() {
-    const data = new RouteAccessibleData(this.networkType, this.route.accessible, this.color);
-    this.dialog.open(RouteAccessibleIndicatorDialogComponent, {data: data});
-  }
-
   get color() {
     let color = "gray";
     if (NetworkType.horseRiding.name === this.networkType.name || NetworkType.inlineSkating.name === this.networkType.name) {
@@ -41,6 +35,11 @@ export class RouteAccessibleIndicatorComponent {
       color = this.route.accessible ? "green" : "red";
     }
     return color;
+  }
+
+  onOpenDialog() {
+    const data = new RouteAccessibleData(this.networkType, this.route.accessible, this.color);
+    this.dialog.open(RouteAccessibleIndicatorDialogComponent, {data: data});
   }
 
 }

@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatIconModule} from "@angular/material";
+import {MatIconModule} from "@angular/material/icon";
 import {MarkdownModule} from "ngx-markdown";
 import {SharedModule} from "../../components/shared/shared.module";
 import {OverviewPageComponent} from "./_overview-page.component";

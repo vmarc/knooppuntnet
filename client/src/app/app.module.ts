@@ -1,7 +1,9 @@
 import {LayoutModule} from "@angular/cdk/layout";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgModule} from "@angular/core";
-import {MatButtonModule, MatIconModule, MatIconRegistry, MatSidenavModule} from "@angular/material";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
+import {MatSidenavModule} from "@angular/material/sidenav";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ServiceWorkerModule} from "@angular/service-worker";

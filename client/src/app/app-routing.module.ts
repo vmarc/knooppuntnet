@@ -4,19 +4,19 @@ import {RouterModule, Routes} from "@angular/router";
 export const routes: Routes = [
   {
     path: "analysis",
-    loadChildren: "./analysis/analysis/_analysis.module#AnalysisModule"
+    loadChildren: () => import("./analysis/analysis/_analysis.module").then(m => m.AnalysisModule)
   },
   {
     path: "map",
-    loadChildren: "./map/map.module#MapModule"
+    loadChildren: () => import("./map/map.module").then(m => m.MapModule)
   },
   {
     path: "translations",
-    loadChildren: "./translations/translations.module#TranslationsModule"
+    loadChildren: () => import("./translations/translations.module").then(m => m.TranslationsModule)
   },
   {
     path: "",
-    loadChildren: "./base/base.module#BaseModule"
+    loadChildren: () => import("./base/base.module").then(m => m.BaseModule)
   }
 ];
 

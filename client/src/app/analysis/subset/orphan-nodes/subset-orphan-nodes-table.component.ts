@@ -61,7 +61,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   @Input() timeInfo: TimeInfo;
   @Input() nodes: List<NodeInfo>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
   dataSource: MatTableDataSource<NodeInfo>;
 
   displayedColumns = ["rowNumber", "node"];

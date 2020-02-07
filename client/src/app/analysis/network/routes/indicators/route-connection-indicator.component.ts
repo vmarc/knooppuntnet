@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {RouteConnectionIndicatorDialogComponent} from "./route-connection-indicator-dialog.component";
 import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-row";
 
@@ -8,10 +8,10 @@ import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-
   template: `
     <!--@@ letter V -->
     <kpn-indicator
-        letter="C"
-        i18n-letter="@@route-connection-indicator.letter"
-        [color]="color"
-        (openDialog)="onOpenDialog()">
+      letter="C"
+      i18n-letter="@@route-connection-indicator.letter"
+      [color]="color"
+      (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `
 })
@@ -22,12 +22,12 @@ export class RouteConnectionIndicatorComponent {
   constructor(private dialog: MatDialog) {
   }
 
-  onOpenDialog() {
-    this.dialog.open(RouteConnectionIndicatorDialogComponent, {data: this.color});
-  }
-
   get color() {
     return this.route.roleConnection ? "blue" : "gray";
+  }
+
+  onOpenDialog() {
+    this.dialog.open(RouteConnectionIndicatorDialogComponent, {data: this.color});
   }
 
 }

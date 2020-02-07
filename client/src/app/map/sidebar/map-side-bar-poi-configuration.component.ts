@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material";
+import {MatCheckboxChange} from "@angular/material/checkbox";
 import {PoiService} from "../../services/poi.service";
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-import {MatRadioChange} from "@angular/material";
+import {MatRadioChange} from "@angular/material/radio";
 import {MapService} from "../../../../components/ol/map.service";
 import {PoiService} from "../../../../services/poi.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
@@ -59,7 +59,7 @@ import {Subscriptions} from "../../../../util/Subscriptions";
   `,
   styles: [`
 
-    /deep/ .mat-radio-button.mat-radio-disabled .mat-radio-outer-circle {
+    ::ng-deep .mat-radio-button.mat-radio-disabled .mat-radio-outer-circle {
       border-color: rgba(0, 0, 0, 0.10);
     }
 
@@ -73,14 +73,12 @@ import {Subscriptions} from "../../../../util/Subscriptions";
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
 
-  private readonly subscriptions = new Subscriptions();
-
   @Input() poiId: string;
   @Input() name: string;
-
   icon: string;
   minLevel = 0;
   level = 0;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private mapService: MapService, private poiService: PoiService) {
   }

@@ -1,15 +1,13 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCheckboxModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatRadioModule
-} from "@angular/material";
+import {MatButtonModule} from "@angular/material/button";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatIconModule} from "@angular/material/icon";
+import {MatRadioModule} from "@angular/material/radio";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
 import {PdfModule} from "../pdf/pdf.module";

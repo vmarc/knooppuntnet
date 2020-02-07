@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MatIconModule} from "@angular/material";
+import {MatIconModule} from "@angular/material/icon";
 import {SharedModule} from "../../components/shared/shared.module";
 import {AnalysisComponentsModule} from "../components/_analysis-components.module";
 import {ChangeSetPageComponent} from "./_change-set-page.component";

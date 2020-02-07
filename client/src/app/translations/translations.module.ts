@@ -1,17 +1,15 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {ReactiveFormsModule} from "@angular/forms";
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatDividerModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatRadioModule,
-  MatSortModule,
-  MatTableModule
-} from "@angular/material";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 import {TranslationTableComponent} from "./translation-table.component";
 import {TranslationsRoutingModule} from "./translations-routing.module";
 import {TranslationsComponent} from "./translations.component";

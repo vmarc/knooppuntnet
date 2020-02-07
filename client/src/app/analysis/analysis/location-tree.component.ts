@@ -49,7 +49,7 @@ interface LocationFlatNode {
     </mat-tree>
   `,
   styles: [`
-    /deep/ .expand-collapse-icon > svg {
+    ::ng-deep .expand-collapse-icon > svg {
       width: 12px;
       height: 12px;
       vertical-align: top;

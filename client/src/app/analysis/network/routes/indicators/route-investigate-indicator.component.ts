@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {RouteInvestigateIndicatorDialogComponent} from "./route-investigate-indicator-dialog.component";
 import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-row";
 
@@ -8,10 +8,10 @@ import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-
   template: `
     <!--@@ letter F -->
     <kpn-indicator
-        letter="F"
-        i18n-letter="@@route-investigate-indicator.letter"
-        [color]="color"
-        (openDialog)="onOpenDialog()">
+      letter="F"
+      i18n-letter="@@route-investigate-indicator.letter"
+      [color]="color"
+      (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `
 })
@@ -22,12 +22,12 @@ export class RouteInvestigateIndicatorComponent {
   constructor(private dialog: MatDialog) {
   }
 
-  onOpenDialog() {
-    this.dialog.open(RouteInvestigateIndicatorDialogComponent, {data: this.color});
-  }
-
   get color() {
     return this.route.investigate ? "red" : "green";
+  }
+
+  onOpenDialog() {
+    this.dialog.open(RouteInvestigateIndicatorDialogComponent, {data: this.color});
   }
 
 }

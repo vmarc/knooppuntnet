@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {NetworkIndicatorDialogComponent} from "./network-indicator-dialog.component";
 import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-info2";
 
@@ -21,10 +21,6 @@ export class NetworkIndicatorComponent {
   constructor(private dialog: MatDialog) {
   }
 
-  onOpenDialog() {
-    this.dialog.open(NetworkIndicatorDialogComponent, {data: this.color});
-  }
-
   get color() {
     let color = "";
     if (this.node.definedInRelation) {
@@ -41,6 +37,10 @@ export class NetworkIndicatorComponent {
       }
     }
     return color;
+  }
+
+  onOpenDialog() {
+    this.dialog.open(NetworkIndicatorDialogComponent, {data: this.color});
   }
 
 }

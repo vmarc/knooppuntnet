@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {PdfService} from "../../pdf/pdf.service";
 import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {Subscriptions} from "../../util/Subscriptions";

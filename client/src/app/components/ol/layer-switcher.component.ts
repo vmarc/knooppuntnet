@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material";
+import {MatCheckboxChange} from "@angular/material/checkbox";
 import {List} from "immutable";
 import Layer from "ol/layer";
 

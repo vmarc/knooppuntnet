@@ -61,7 +61,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   @Input() timeInfo: TimeInfo;
   @Input() orphanRoutes: List<RouteSummary> = List();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   dataSource: MatTableDataSource<RouteSummary>;
 

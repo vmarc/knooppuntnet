@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {RouteIndicatorDialogComponent} from "./route-indicator-dialog.component";
 import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-info2";
 

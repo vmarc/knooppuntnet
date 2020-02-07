@@ -51,7 +51,7 @@ export class Util {
 
   public static safeGet<T>(getter: IPropertyGetter<T>, defaultValue?: T): T {
     try {
-      let result: T = getter.apply(this);
+      const result: T = getter.apply(this);
       return (result == null) ? defaultValue : result;
     } catch (ex) {
       if (ex instanceof TypeError) {

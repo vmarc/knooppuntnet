@@ -16,22 +16,22 @@ import {Component, Input} from "@angular/core";
   `,
   styles: [`
 
-    /deep/ .mat-list-icon > svg {
+    ::ng-deep .mat-list-icon > svg {
       width: 12px;
       height: 12px;
       vertical-align: top;
       padding-top: 7px;
     }
 
-    /deep/ .mat-nav-list {
+    ::ng-deep .mat-nav-list {
       padding-top: 0 !important;
     }
 
-    /deep/ .mat-list-item {
+    ::ng-deep .mat-list-item {
       height: 32px !important;
     }
 
-    /deep/ .mat-list-item-with-avatar {
+    ::ng-deep .mat-list-item-with-avatar {
       height: 32px !important;
     }
 

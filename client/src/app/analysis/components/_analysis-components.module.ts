@@ -1,16 +1,14 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {
-  MatCheckboxModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatIconModule,
-  MatPaginatorModule,
-  MatRadioModule,
-  MatSlideToggleModule,
-  MatSortModule,
-  MatTableModule
-} from "@angular/material";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatIconModule} from "@angular/material/icon";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";

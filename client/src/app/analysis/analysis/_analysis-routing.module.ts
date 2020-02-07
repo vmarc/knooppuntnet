@@ -16,31 +16,31 @@ const routes: Routes = [
   Util.routePath("", AnalysisPageComponent, AnalysisSidebarComponent),
   {
     path: "node",
-    loadChildren: "../node/_node.module#NodeModule"
+    loadChildren: () => import("../node/_node.module").then(m => m.NodeModule)
   },
   {
     path: "route",
-    loadChildren: "../route/_route.module#RouteModule"
+    loadChildren: () => import("../route/_route.module").then(m => m.RouteModule)
   },
   {
     path: "network",
-    loadChildren: "../network/_network.module#NetworkModule"
+    loadChildren: () => import("../network/_network.module").then(m => m.NetworkModule)
   },
   {
     path: "changeset",
-    loadChildren: "../changeset/_change-set.module#ChangeSetModule"
+    loadChildren: () => import("../changeset/_change-set.module").then(m => m.ChangeSetModule)
   },
   {
     path: "changes",
-    loadChildren: "../changes/_changes.module#ChangesModule"
+    loadChildren: () => import("../changes/_changes.module").then(m => m.ChangesModule)
   },
   {
     path: "facts",
-    loadChildren: "../facts/_facts.module#FactsModule"
+    loadChildren: () => import("../facts/_facts.module").then(m => m.FactsModule)
   },
   {
     path: "overview",
-    loadChildren: "../overview/_overview.module#OverviewModule"
+    loadChildren: () => import("../overview/_overview.module").then(m => m.OverviewModule)
   },
   Util.routePath("cycling", AnalysisCyclingPageComponent, AnalysisSidebarComponent),
   Util.routePath("hiking", AnalysisHikingPageComponent, AnalysisSidebarComponent),
@@ -52,7 +52,7 @@ const routes: Routes = [
   Util.routePath(":networkType/:country/:location/nodes", LocationNodesPageComponent, AnalysisSidebarComponent),
   {
     path: "",
-    loadChildren: "../subset/_subset.module#SubsetModule"
+    loadChildren: () => import("../subset/_subset.module").then(m => m.SubsetModule)
   }
 ];
 

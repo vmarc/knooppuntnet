@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {MatIconModule} from "@angular/material";
+import {MatIconModule} from "@angular/material/icon";
 import {PlannerService} from "../map/planner.service";
 import {BitmapIconService} from "./bitmap-icon.service";
 import {PdfService} from "./pdf.service";

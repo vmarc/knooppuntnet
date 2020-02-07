@@ -26,11 +26,11 @@ import {Stat} from "./stat";
       display: table-row;
     }
 
-    /deep/ .comment-cell p:first-child {
+    ::ng-deep .comment-cell p:first-child {
       margin-top: 0;
     }
 
-    /deep/ .comment-cell p:last-child {
+    ::ng-deep .comment-cell p:last-child {
       margin-bottom: 0;
     }
   `]

@@ -8,7 +8,6 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from "@angular/core";
 
     <canvas #profile width="200" height="100"></canvas>
 
-
     <mat-divider></mat-divider>
 
     <kpn-map-sidebar-appearance></kpn-map-sidebar-appearance>
@@ -18,7 +17,7 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from "@angular/core";
 })
 export class MapSidebarComponent implements AfterViewInit {
 
-  @ViewChild("profile") canvas: ElementRef;
+  @ViewChild("profile", { static: true }) canvas: ElementRef;
 
   ngAfterViewInit(): void {
     const ctx = this.canvas.nativeElement.getContext("2d");
