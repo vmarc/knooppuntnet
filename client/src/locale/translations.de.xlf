@@ -319,7 +319,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.from" datatype="html">
-        <source>ofX</source>
+        <source>of</source>
         <target state="new">[ofX]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/paginator/paginator.component.ts</context>
@@ -5873,7 +5873,7 @@
         <target state="new">[No facts]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/facts/_subset-facts-page.component.ts</context>
@@ -5885,7 +5885,7 @@
         <target state="new">[nodes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.route-refs" datatype="html">
@@ -5893,7 +5893,7 @@
         <target state="new">[routes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.osm-node-refs" datatype="html">
@@ -5901,7 +5901,7 @@
         <target state="new">[nodes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.osm-way-refs" datatype="html">
@@ -5909,7 +5909,7 @@
         <target state="new">[ways]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.osm-relation-refs" datatype="html">
@@ -5917,15 +5917,23 @@
         <target state="new">[relations]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.in-networks" datatype="html">
-        <source>in <x id="INTERPOLATION" equiv-text="{{response.result.networks.size}}"/> networks.</source>
+        <source> in <x id="INTERPOLATION" equiv-text="{{response.result.networks.size}}"/> networks.</source>
         <target state="new">[in <x id="INTERPOLATION" equiv-text="{{response.result.networks.size}}"/> networks.]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-facts.orphan-routes" datatype="html">
+        <source>Orphan routes</source>
+        <target state="new">[Orphan routes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.routes" datatype="html">
@@ -5933,7 +5941,7 @@
         <target state="new">[<x id="INTERPOLATION" equiv-text="{{networkFactRefs.factRefs.size}}"/> routes:]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-map.dialog.nodeCount" datatype="html">
@@ -7804,7 +7812,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">

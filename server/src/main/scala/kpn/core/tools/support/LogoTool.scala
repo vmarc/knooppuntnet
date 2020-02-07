@@ -18,15 +18,15 @@ object LogoTool {
 
 class LogoTool() {
 
-  private val width = 1000
-  private val height = 1000
+  private val width = 300
+  private val height = 300
 
-  private val circleRadius = 100
-  private val circleCenterRadius = 400
+  private val circleRadius = 34
+  private val circleCenterRadius = 120
 
-  private val strokeWidth = 60
+  private val strokeWidth = 20
 
-  private val centerX = width / 2 - 100
+  private val centerX = width / 2 - 30
   private val centerY = height / 2
 
   private val lineRadius1 = (circleRadius / 2) + (strokeWidth / 2)
@@ -38,7 +38,7 @@ class LogoTool() {
     val angle2 = -120d
     val angle3 = -240d
 
-    println(s"""<svg width="$width" height="$height">""")
+    println(s"""<svg xmlns="http://www.w3.org/2000/svg" width="$width" height="$height">""")
 //    println(s"""<rect width="$width" height="$height" style="stroke-width:1;stroke:rgb(0,0,0)"  fill="white"/>""")
 //    println(s"""<line x1="0" y1="$centerY" x2="$width" y2="$centerY" style="stroke:rgb(255,0,0);stroke-width:1" />""")
 //    println(s"""<line x1="$centerX" y1="0" x2="$centerX" y2="$height" style="stroke:rgb(255,0,0);stroke-width:1" />""")

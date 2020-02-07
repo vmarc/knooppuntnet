@@ -164,7 +164,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.nodeMap(user(), nodeId)
   }
 
-  @PostMapping(value = Array("/json-api/node/{nodeId}/Changes"))
+  @PostMapping(value = Array("/json-api/node/{nodeId}/changes"))
   def nodeChanges(
     @PathVariable nodeId: Long,
     @RequestBody parameters: ChangesParameters

@@ -3,7 +3,7 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-sidebar",
   template: `
-    <div class="sidebar-body">
+    <div class="sidebar-body sidebar-logo">
       <ng-content></ng-content>
     </div>
     <div class="sidebar-footer">

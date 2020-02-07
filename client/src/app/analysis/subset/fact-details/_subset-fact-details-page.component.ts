@@ -4,9 +4,9 @@ import {flatMap, map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
+import {SubsetFactDetailsPage} from "../../../kpn/api/common/subset/subset-fact-details-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subset} from "../../../kpn/api/custom/subset";
-import {SubsetFactDetailsPage} from "../../../kpn/api/common/subset/subset-fact-details-page";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 
@@ -31,7 +31,9 @@ class SubsetFact {
       <kpn-fact-name [factName]="factName"></kpn-fact-name>
     </h2>
 
-    <kpn-fact-description [factName]="factName"></kpn-fact-description>
+    <div class="fact-description">
+      <kpn-fact-description [factName]="factName"></kpn-fact-description>
+    </div>
 
     <div *ngIf="response">
       <p>
@@ -48,12 +50,13 @@ class SubsetFact {
           <span *ngIf="hasOsmNodeRefs()" i18n="@@subset-facts.osm-node-refs">nodes</span>
           <span *ngIf="hasOsmWayRefs()" i18n="@@subset-facts.osm-way-refs">ways</span>
           <span *ngIf="hasOsmRelationRefs()" i18n="@@subset-facts.osm-relation-refs">relations</span>
-          <span i18n="@@subset-facts.in-networks">in {{response.result.networks.size}} networks.</span>
+          <span i18n="@@subset-facts.in-networks"> in {{response.result.networks.size}} networks.</span>
         </p>
 
         <kpn-items>
           <kpn-item *ngFor="let networkFactRefs of response.result.networks; let i=index" [index]="i">
-            <a [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
+            <span *ngIf="networkFactRefs.networkId === 0" i18n="@@subset-facts.orphan-routes">Orphan routes</span>
+            <a *ngIf="networkFactRefs.networkId !== 0" [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
               {{networkFactRefs.networkName}}
             </a>
             <br/>
@@ -73,7 +76,8 @@ class SubsetFact {
       </div>
       <kpn-json [object]="response"></kpn-json>
     </div>
-  `
+  `,
+  styleUrls: ["./_subset-fact-details-page.component.scss"]
 })
 export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
@@ -92,7 +96,7 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
         map(params => this.interpreteParams(params)),
-        flatMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset /* TODO: add parameter, subsetFact.factName*/))
+        flatMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset, subsetFact.factName))
       ).subscribe(response => this.processResponse(response))
     );
   }

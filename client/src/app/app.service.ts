@@ -65,8 +65,8 @@ export class AppService {
     );
   }
 
-  public subsetFactDetails(subset: Subset /*, fact: Fact*/): Observable<ApiResponse<SubsetFactDetailsPage>> {
-    const url = this.subsetUrl(subset, "RouteBroken");
+  public subsetFactDetails(subset: Subset, factName: string): Observable<ApiResponse<SubsetFactDetailsPage>> {
+    const url = this.subsetUrl(subset, factName);
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetFactDetailsPage.fromJSON))
     );

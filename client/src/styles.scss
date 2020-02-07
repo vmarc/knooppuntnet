@@ -283,3 +283,8 @@ table.kpn-bordered-table {
   content: " | ";
   color: black;
 }
+
+.sidebar-logo {
+  background: rgba(254, 254, 254, 255) url('/assets/images/logo.svg') no-repeat center;
+  background-position-y: 30px;
+}
