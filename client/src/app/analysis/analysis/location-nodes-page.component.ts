@@ -10,22 +10,21 @@ import {Subscriptions} from "../../util/Subscriptions";
 @Component({
   selector: "kpn-location-networks-page",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="{{networkTypeLink()}}">
-        <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
-      </a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="{{countryLink()}}">
-        <kpn-country-name [country]="country"></kpn-country-name>
-      </a>
-      <span class="breadcrumb-separator"></span>
-      {{location}}
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li>
+        <a routerLink="{{networkTypeLink()}}">
+          <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
+        </a>
+      </li>
+      <li>
+        <a routerLink="{{countryLink()}}">
+          <kpn-country-name [country]="country"></kpn-country-name>
+        </a>
+      </li>
+      <li>{{location}}</li>
+    </ul>
 
     <h1>
       <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
@@ -42,7 +41,7 @@ export class LocationNodesPageComponent implements OnInit, OnDestroy {
 
   networkType: NetworkType;
   country: Country;
-  location: string = "";
+  location = "";
 
   private readonly subscriptions = new Subscriptions();
 

@@ -9,14 +9,11 @@ import {Subscriptions} from "../../util/Subscriptions";
 @Component({
   selector: "kpn-overview-page",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      <span class="breadcrumb-separator"></span>
-      <span i18n="@@breadcrumb.overview">Overview</span>
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.overview">Overview</li>
+    </ul>
 
     <kpn-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title">Overview</kpn-page-header>
 

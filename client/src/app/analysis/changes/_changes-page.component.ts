@@ -2,25 +2,22 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../app.service";
 import {PageService} from "../../components/shared/page.service";
-import {ApiResponse} from "../../kpn/api/custom/api-response";
 import {ChangesPage} from "../../kpn/api/common/changes-page";
 import {ChangesParameters} from "../../kpn/api/common/changes/filter/changes-parameters";
+import {ApiResponse} from "../../kpn/api/custom/api-response";
+import {UserService} from "../../services/user.service";
 import {Subscriptions} from "../../util/Subscriptions";
 import {ChangeFilterOptions} from "../components/changes/filter/change-filter-options";
 import {ChangesService} from "../components/changes/filter/changes.service";
-import {UserService} from "../../services/user.service";
 
 @Component({
   selector: "kpn-changes-page",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      <span class="breadcrumb-separator"></span>
-      <span i18n="@@breadcrumb.changes">Changes</span>
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.changes">Changes</li>
+    </ul>
 
     <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
 

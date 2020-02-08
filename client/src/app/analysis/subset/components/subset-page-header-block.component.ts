@@ -1,36 +1,36 @@
 import {Component, Input} from "@angular/core";
 import {Util} from "../../../components/shared/util";
 import {I18nService} from "../../../i18n/i18n.service";
-import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
+import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 
 @Component({
   selector: "kpn-subset-page-header-block",
   template: `
 
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="{{networkTypeLink()}}">
-        <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
-      </a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="{{countryLink()}}">
-        <kpn-country-name [country]="subset.country"></kpn-country-name>
-      </a>
-      <span class="breadcrumb-separator"></span>
-
-      <span *ngIf="pageName == 'networks'" i18n="@@subset-page.menu.networks">Networks</span>
-      <span *ngIf="pageName == 'facts'" i18n="@@subset-page.menu.facts">Facts</span>
-      <span *ngIf="pageName == 'orphan-nodes'" i18n="@@subset-page.menu.orphan-nodes">Orphan nodes</span>
-      <span *ngIf="pageName == 'orphan-routes'" i18n="@@subset-page.menu.orphan-routes">Orphan routes</span>
-      <span *ngIf="pageName == 'map'" i18n="@@subset-page.menu.map">Map</span>
-      <span *ngIf="pageName == 'changes'" i18n="@@subset-page.menu.changes">Changes</span>
-
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li>
+        <a routerLink="{{networkTypeLink()}}">
+          <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
+        </a>
+      </li>
+      <li>
+        <a routerLink="{{countryLink()}}">
+          <kpn-country-name [country]="subset.country"></kpn-country-name>
+        </a>
+      </li>
+      <li>
+        <span *ngIf="pageName == 'networks'" i18n="@@subset-page.menu.networks">Networks</span>
+        <span *ngIf="pageName == 'facts'" i18n="@@subset-page.menu.facts">Facts</span>
+        <span *ngIf="pageName == 'orphan-nodes'" i18n="@@subset-page.menu.orphan-nodes">Orphan nodes</span>
+        <span *ngIf="pageName == 'orphan-routes'" i18n="@@subset-page.menu.orphan-routes">Orphan routes</span>
+        <span *ngIf="pageName == 'map'" i18n="@@subset-page.menu.map">Map</span>
+        <span *ngIf="pageName == 'changes'" i18n="@@subset-page.menu.changes">Changes</span>
+      </li>
+    </ul>
 
     <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName + '-page'">
       {{subsetName()}}

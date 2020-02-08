@@ -3,12 +3,10 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-analysis-page",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <span i18n="@@breadcrumb.analysis">Analysis</span>
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li i18n="@@breadcrumb.analysis">Analysis</li>
+    </ul>
 
     <kpn-page-header i18n="@@analysis-page.title">Analysis</kpn-page-header>
 

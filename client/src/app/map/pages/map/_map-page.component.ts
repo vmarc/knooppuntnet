@@ -4,11 +4,10 @@ import {MapService} from "../../../components/ol/map.service";
 @Component({
   selector: "kpn-map-page",
   template: `
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <span i18n="@@breadcrumb.map">Map</span>
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li i18n="@@breadcrumb.map">Map</li>
+    </ul>
 
     <kpn-page-header subject="planner" i18n="@@planner.map">Map</kpn-page-header>
 

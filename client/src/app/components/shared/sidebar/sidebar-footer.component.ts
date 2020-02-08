@@ -1,21 +1,21 @@
 import {Component} from "@angular/core";
-import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
+import {UserService} from "../../../services/user.service";
 
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-sidebar-footer",
   template: `
     <div class="footer">
-      <p>
-        <a [href]="link('en')" class="link-list-entry">English</a>
-        <a [href]="link('nl')" class="link-list-entry">Nederlands</a>
-        <a [href]="link('fr')" class="link-list-entry">Français</a>
-        <a [href]="link('de')">Deutsch</a>
-      </p>
+      <ul class="links">
+        <li><a [href]="link('en')">English</a></li>
+        <li><a [href]="link('nl')">Nederlands</a></li>
+        <li><a [href]="link('fr')">Français</a></li>
+        <li><a [href]="link('de')">Deutsch</a></li>
+      </ul>
 
       <p class="version">
-        v3.0.0-alpha-6
+        v3.0.0-alpha-7
       </p>
 
       <p *ngIf="isLoggedIn()">
@@ -32,6 +32,7 @@ import {Router} from "@angular/router";
   `,
   styles: [`
     .footer {
+      padding-top: 15px;
       border-top-width: 1px;
       border-top-style: solid;
       border-top-color: lightgray;

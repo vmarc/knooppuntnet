@@ -3,16 +3,16 @@ import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {ChangesPage} from "../../../kpn/api/common/changes-page";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
-import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetChangesPage} from "../../../kpn/api/common/subset/subset-changes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
+import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 import {SubsetChangesService} from "./subset-changes.service";
-import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: "kpn-subset-changes-page",
@@ -77,8 +77,7 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
     this._parameters = parameters;
     if (this.isLoggedIn()) {
       this.reload();
-    }
-    else {
+    } else {
       this.subsetChangesService.resetFilterOptions();
     }
   }

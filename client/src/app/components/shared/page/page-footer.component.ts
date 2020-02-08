@@ -3,29 +3,35 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-page-footer",
   template: `
-    <div class="footer">
-      <a
-        [href]="docsUrl()"
-        class="external link-list-entry"
-        target="knooppuntnet-documentation"
-        i18n="@@footer.documentation">
-        documentation
-      </a>
-      <a
-        href="https://www.openstreetmap.org/message/new/vmarc"
-        class="external link-list-entry"
-        target="_blank"
-        i18n="@@footer.contact">
-        contact
-      </a>
-      <a
-        href="https://github.com/vmarc/knooppuntnet/issues"
-        class="external"
-        target="_blank"
-        i18n="@@footer.issues">
-        issues
-      </a>
-    </div>
+    <ul class="footer links">
+      <li>
+        <a
+          [href]="docsUrl()"
+          class="external"
+          target="knooppuntnet-documentation"
+          i18n="@@footer.documentation">
+          documentation
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.openstreetmap.org/message/new/vmarc"
+          class="external"
+          target="_blank"
+          i18n="@@footer.contact">
+          contact
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/vmarc/knooppuntnet/issues"
+          class="external"
+          target="_blank"
+          i18n="@@footer.issues">
+          issues
+        </a>
+      </li>
+    </ul>
   `,
   styles: [`
     .footer {

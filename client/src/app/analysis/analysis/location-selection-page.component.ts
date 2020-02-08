@@ -11,18 +11,18 @@ import {LocationModeService} from "./location-mode.service";
 @Component({
   selector: "kpn-location-selection-page",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="{{networkTypeLink()}}">
-        <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
-      </a>
-      <span class="breadcrumb-separator"></span>
-      <kpn-country-name [country]="country"></kpn-country-name>
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li>
+        <a routerLink="{{networkTypeLink()}}">
+          <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
+        </a>
+      </li>
+      <li>
+        <kpn-country-name [country]="country"></kpn-country-name>
+      </li>
+    </ul>
 
     <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
       <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>

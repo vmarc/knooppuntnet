@@ -6,55 +6,52 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
 @Component({
   selector: "kpn-network-page-header",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      <span class="breadcrumb-separator"></span>
-      <ng-container i18n="@@breadcrumb.network">Network</ng-container>
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.network">Network</li>
+    </ul>
 
     <kpn-page-header [pageTitle]="networkPageTitle()" subject="network-page">{{networkName()}}</kpn-page-header>
 
     <kpn-page-menu>
       <kpn-page-menu-option
-          link="{{'/analysis/network/' + networkId}}"
-          i18n="@@network-page.menu.details">
+        link="{{'/analysis/network/' + networkId}}"
+        i18n="@@network-page.menu.details">
         Details
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-          link="{{'/analysis/network/' + networkId + '/facts'}}"
-          i18n="@@network-page.menu.facts"
-          [elementCount]="factCount()">
+        link="{{'/analysis/network/' + networkId + '/facts'}}"
+        i18n="@@network-page.menu.facts"
+        [elementCount]="factCount()">
         Facts
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-          link="{{'/analysis/network/' + networkId + '/nodes'}}"
-          i18n="@@network-page.menu.nodes"
-          [elementCount]="nodeCount()">
+        link="{{'/analysis/network/' + networkId + '/nodes'}}"
+        i18n="@@network-page.menu.nodes"
+        [elementCount]="nodeCount()">
         Nodes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-          link="{{'/analysis/network/' + networkId + '/routes'}}"
-          i18n="@@network-page.menu.routes"
-          [elementCount]="routeCount()">
+        link="{{'/analysis/network/' + networkId + '/routes'}}"
+        i18n="@@network-page.menu.routes"
+        [elementCount]="routeCount()">
         Routes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-          link="{{'/analysis/network/' + networkId + '/map'}}"
-          i18n="@@network-page.menu.map">
+        link="{{'/analysis/network/' + networkId + '/map'}}"
+        i18n="@@network-page.menu.map">
         Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-          link="{{'/analysis/network/' + networkId + '/changes'}}"
-          i18n="@@network-page.menu.changes"
-          [elementCount]="changeCount()">
+        link="{{'/analysis/network/' + networkId + '/changes'}}"
+        i18n="@@network-page.menu.changes"
+        [elementCount]="changeCount()">
         Changes
       </kpn-page-menu-option>
 

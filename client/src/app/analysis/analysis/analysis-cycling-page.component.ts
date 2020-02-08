@@ -1,18 +1,15 @@
 import {Component} from "@angular/core";
-import {AnalysisModeService} from "./analysis-mode.service";
 import {Observable} from "rxjs";
+import {AnalysisModeService} from "./analysis-mode.service";
 
 @Component({
   selector: "kpn-analysis-cycling-page",
   template: `
-
-    <div>
-      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      <span class="breadcrumb-separator"></span>
-      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      <span class="breadcrumb-separator"></span>
-      <ng-container i18n="@@network-type.cycling">Cycling</ng-container>
-    </div>
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@network-type.cycling">Cycling</li>
+    </ul>
 
     <kpn-page-header i18n="@@network-type.cycling">Cycling</kpn-page-header>
 
