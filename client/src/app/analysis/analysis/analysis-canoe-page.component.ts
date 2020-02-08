@@ -7,8 +7,10 @@ import {Observable} from "rxjs";
   template: `
 
     <div>
-      <a routerLink="/" class="breadcrumb-link" i18n="@@breadcrumb.home">Home</a>
-      <a routerLink="/analysis" class="breadcrumb-link" i18n="@@breadcrumb.analysis">Analysis</a>
+      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+      <span class="breadcrumb-separator"></span>
+      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+      <span class="breadcrumb-separator"></span>
       <ng-container i18n="@@network-type.canoe">Canoe</ng-container>
     </div>
 

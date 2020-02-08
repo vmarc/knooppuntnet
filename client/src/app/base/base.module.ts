@@ -32,8 +32,7 @@ import {NotFoundPageComponent} from "./pages/not-found/not-found-page.component"
     LoginPageComponent,
     LogoutPageComponent,
     NotFoundPageComponent
-  ],
-  entryComponents: []
+  ]
 })
 export class BaseModule {
 }

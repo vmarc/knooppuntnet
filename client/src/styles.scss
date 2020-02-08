@@ -30,6 +30,10 @@ a.external {
   margin-right: 6px;
 }
 
+a:hover, a:active {
+  text-decoration: underline;
+}
+
 strong {
   color: #222;
   font-weight: 600;
@@ -274,7 +278,7 @@ table.kpn-bordered-table {
   content: "m";
 }
 
-.breadcrumb-link::after {
+.breadcrumb-separator::after {
   content: " > ";
   color: black;
 }

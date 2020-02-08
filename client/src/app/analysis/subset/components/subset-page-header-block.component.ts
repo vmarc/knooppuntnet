@@ -10,14 +10,18 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
   template: `
 
     <div>
-      <a routerLink="/" class="breadcrumb-link" i18n="@@breadcrumb.home">Home</a>
-      <a routerLink="/analysis" class="breadcrumb-link" i18n="@@breadcrumb.analysis">Analysis</a>
-      <a routerLink="{{networkTypeLink()}}" class="breadcrumb-link">
+      <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+      <span class="breadcrumb-separator"></span>
+      <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+      <span class="breadcrumb-separator"></span>
+      <a routerLink="{{networkTypeLink()}}">
         <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
       </a>
-      <a routerLink="{{countryLink()}}" class="breadcrumb-link">
+      <span class="breadcrumb-separator"></span>
+      <a routerLink="{{countryLink()}}">
         <kpn-country-name [country]="subset.country"></kpn-country-name>
       </a>
+      <span class="breadcrumb-separator"></span>
 
       <span *ngIf="pageName == 'networks'" i18n="@@subset-page.menu.networks">Networks</span>
       <span *ngIf="pageName == 'facts'" i18n="@@subset-page.menu.facts">Facts</span>

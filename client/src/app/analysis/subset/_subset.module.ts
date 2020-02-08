@@ -80,9 +80,6 @@ import {SubsetOrphanRoutesService} from "./orphan-routes/subset-orphan-routes.se
     SubsetOrphanNodesService,
     SubsetOrphanRoutesService,
     SubsetChangesService
-  ],
-  entryComponents: [
-    SubsetMapNetworkDialogComponent
   ]
 })
 export class SubsetModule {

@@ -1,13 +1,11 @@
 import {Component, Input} from "@angular/core";
-import {NetworkType} from "../../kpn/api/custom/network-type";
 import {I18nService} from "../../i18n/i18n.service";
+import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Util} from "./util";
 
 @Component({
   selector: "kpn-network-type-name",
-  template: `
-    {{networkTypeName()}}
-  `
+  template: `{{networkTypeName()}}`
 })
 export class NetworkTypeNameComponent {
 

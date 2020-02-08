@@ -7,6 +7,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatIconModule} from "@angular/material/icon";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
@@ -29,6 +30,7 @@ import {PoiGroupSportsComponent} from "./pages/map/poi/poi-group-sports.componen
 import {PoiGroupTourismComponent} from "./pages/map/poi/poi-group-tourism.component";
 import {PoiGroupComponent} from "./pages/map/poi/poi-group.component";
 import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
+import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {ExportDialogComponent} from "./sidebar/export-dialog.component";
@@ -38,15 +40,13 @@ import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.compone
 import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
 import {PlanCompactComponent} from "./sidebar/plan-compact.component";
 import {PlanDetailedComponent} from "./sidebar/plan-detailed.component";
+import {PlanDistanceComponent} from "./sidebar/plan-distance.component";
 import {PlanInstructionCommandComponent} from "./sidebar/plan-instruction-command.component";
 import {PlanInstructionComponent} from "./sidebar/plan-instruction.component";
 import {PlanInstructionsComponent} from "./sidebar/plan-instructions.component";
 import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
 import {PoiDetailComponent} from "./sidebar/poi-detail.component";
-import {PlanDistanceComponent} from "./sidebar/plan-distance.component";
-import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
 
 @NgModule({
   imports: [
@@ -105,9 +105,6 @@ import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
   ],
   providers: [
     PlannerService
-  ],
-  entryComponents: [
-    ExportDialogComponent
   ]
 })
 export class MapModule {

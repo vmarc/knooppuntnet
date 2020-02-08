@@ -6,7 +6,7 @@ import {ElementRef} from "@angular/core";
 import {ChangeDetectorRef} from "@angular/core";
 import {ViewChild} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
-import {PageEvent} from "@angular/material/paginator/typings/paginator";
+import {PageEvent} from "@angular/material/paginator";
 import {PaginatorService} from "./paginator.service";
 import {MatPaginator} from "@angular/material/paginator";
 

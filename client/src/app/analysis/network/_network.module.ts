@@ -120,16 +120,6 @@ import {NetworkRoutesService} from "./routes/network-routes.service";
     NetworkFactComponent,
     NetworkChangesSidebarComponent
   ],
-  entryComponents: [
-    NodeConnectionIndicatorDialogComponent,
-    IntegrityIndicatorDialogComponent,
-    NetworkIndicatorDialogComponent,
-    RoleConnectionIndicatorDialogComponent,
-    RouteIndicatorDialogComponent,
-    RouteAccessibleIndicatorDialogComponent,
-    RouteConnectionIndicatorDialogComponent,
-    RouteInvestigateIndicatorDialogComponent,
-  ],
   providers: [
     NetworkChangesService,
     NetworkNodesService,
