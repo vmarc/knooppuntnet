@@ -33,7 +33,7 @@ import {Subscriptions} from "../../util/Subscriptions";
     </h1>
 
     <div>
-      <b>Nodes</b> | <a>Routes</a> | <a>Orphan nodes</a> | <a>Facts</a> | <a>Map</a> | <a>Changes</a>
+      <b>Nodes</b> | <a>Routes</a> | <a>Facts</a> | <a>Map</a> | <a>Changes</a>
     </div>
   `
 })

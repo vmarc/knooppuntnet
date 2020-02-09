@@ -9,8 +9,8 @@ import {AnalysisHorseRidingPageComponent} from "./analysis-horse-riding-page.com
 import {AnalysisInlineSkatingPageComponent} from "./analysis-inline-skating-page.component";
 import {AnalysisMotorboatPageComponent} from "./analysis-motorboat-page.component";
 import {AnalysisPageComponent} from "./analysis-page.component";
-import {LocationNodesPageComponent} from "./location-nodes-page.component";
 import {LocationSelectionPageComponent} from "./location-selection-page.component";
+import {LocationUrlMatcher} from "./location-url-matcher";
 
 const routes: Routes = [
   Util.routePath("", AnalysisPageComponent, AnalysisSidebarComponent),
@@ -49,9 +49,12 @@ const routes: Routes = [
   Util.routePath("canoe", AnalysisCanoePageComponent, AnalysisSidebarComponent),
   Util.routePath("inline-skating", AnalysisInlineSkatingPageComponent, AnalysisSidebarComponent),
   Util.routePath(":networkType/:country", LocationSelectionPageComponent, AnalysisSidebarComponent),
-  Util.routePath(":networkType/:country/:location/nodes", LocationNodesPageComponent, AnalysisSidebarComponent),
   {
-    path: "",
+    matcher: LocationUrlMatcher.match,
+    loadChildren: () => import("../location/_location.module").then(m => m.LocationModule)
+  },
+  {
+    matcher: LocationUrlMatcher.subsetUrl,
     loadChildren: () => import("../subset/_subset.module").then(m => m.SubsetModule)
   }
 ];

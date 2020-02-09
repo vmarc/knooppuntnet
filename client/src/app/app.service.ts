@@ -3,11 +3,15 @@ import {Injectable} from "@angular/core";
 import {MarkdownService} from "ngx-markdown";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {ApiResponse} from "./kpn/api/custom/api-response";
 import {ChangesPage} from "./kpn/api/common/changes-page";
 import {ChangeSetPage} from "./kpn/api/common/changes/change-set-page";
 import {ChangesParameters} from "./kpn/api/common/changes/filter/changes-parameters";
-import {LocationPage} from "./kpn/api/common/location-page";
+import {LocationChangesPage} from "./kpn/api/common/location/location-changes-page";
+import {LocationFactsPage} from "./kpn/api/common/location/location-facts-page";
+import {LocationMapPage} from "./kpn/api/common/location/location-map-page";
+import {LocationNodesPage} from "./kpn/api/common/location/location-nodes-page";
+import {LocationPage} from "./kpn/api/common/location/location-page";
+import {LocationRoutesPage} from "./kpn/api/common/location/location-routes-page";
 import {NetworkChangesPage} from "./kpn/api/common/network/network-changes-page";
 import {NetworkDetailsPage} from "./kpn/api/common/network/network-details-page";
 import {NetworkFactsPage} from "./kpn/api/common/network/network-facts-page";
@@ -24,7 +28,6 @@ import {MapDetailRoute} from "./kpn/api/common/route/map-detail-route";
 import {RouteChangesPage} from "./kpn/api/common/route/route-changes-page";
 import {RouteDetailsPage} from "./kpn/api/common/route/route-details-page";
 import {RouteMapPage} from "./kpn/api/common/route/route-map-page";
-import {Subset} from "./kpn/api/custom/subset";
 import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
 import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
 import {SubsetFactsPage} from "./kpn/api/common/subset/subset-facts-page";
@@ -32,7 +35,10 @@ import {SubsetNetworksPage} from "./kpn/api/common/subset/subset-networks-page";
 import {SubsetOrphanNodesPage} from "./kpn/api/common/subset/subset-orphan-nodes-page";
 import {SubsetOrphanRoutesPage} from "./kpn/api/common/subset/subset-orphan-routes-page";
 import {ClientPoiConfiguration} from "./kpn/api/common/tiles/client-poi-configuration";
+import {ApiResponse} from "./kpn/api/custom/api-response";
+import {LocationKey} from "./kpn/api/custom/location-key";
 import {Statistics} from "./kpn/api/custom/statistics";
+import {Subset} from "./kpn/api/custom/subset";
 
 @Injectable()
 export class AppService {
@@ -231,6 +237,45 @@ export class AppService {
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, LocationPage.fromJSON))
     );
+  }
+
+  public locationNodes(locationKey: LocationKey): Observable<ApiResponse<LocationNodesPage>> {
+    const url = this.locationUrl(locationKey, "nodes");
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, LocationNodesPage.fromJSON))
+    );
+  }
+
+  public locationRoutes(locationKey: LocationKey): Observable<ApiResponse<LocationRoutesPage>> {
+    const url = this.locationUrl(locationKey, "routes");
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, LocationRoutesPage.fromJSON))
+    );
+  }
+
+  public locationFacts(locationKey: LocationKey): Observable<ApiResponse<LocationFactsPage>> {
+    const url = this.locationUrl(locationKey, "facts");
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, LocationFactsPage.fromJSON))
+    );
+  }
+
+  public locationMap(locationKey: LocationKey): Observable<ApiResponse<LocationMapPage>> {
+    const url = this.locationUrl(locationKey, "facts");
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, LocationFactsPage.fromJSON))
+    );
+  }
+
+  public locationChanges(locationKey: LocationKey, parameters: ChangesParameters): Observable<ApiResponse<LocationChangesPage>> {
+    const url = this.locationUrl(locationKey, "changes");
+    return this.http.post(url, parameters).pipe(
+      map(response => ApiResponse.fromJSON(response, LocationChangesPage.fromJSON))
+    );
+  }
+
+  private locationUrl(locationKey: LocationKey, target: string): string {
+    return `/json-api/${locationKey.networkType.name}/${locationKey.country.domain}/${locationKey.name}/${target}`;
   }
 
   private subsetUrl(subset: Subset, target: string): string {

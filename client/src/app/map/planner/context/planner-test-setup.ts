@@ -31,7 +31,8 @@ export class PlannerTestSetup {
     this.cursor,
     this.elasticBand,
     this.legRepository,
-    this.legs
+    this.legs,
+    null
   );
 
   readonly node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);

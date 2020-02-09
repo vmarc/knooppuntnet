@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
 import {List} from "immutable";
-import {Location} from "./location";
-import {LocationCandidate} from "./location-candidate";
+import {Location} from "./location/location";
+import {LocationCandidate} from "./location/location-candidate";
 
 export class RouteLocationAnalysis {
 

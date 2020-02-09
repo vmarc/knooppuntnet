@@ -16,4 +16,8 @@ export class Countries {
     Countries.at
   ];
 
+  public static withDomain(domain: string): Country {
+    return Countries.all.find(n => n.domain === domain);
+  }
+
 }
