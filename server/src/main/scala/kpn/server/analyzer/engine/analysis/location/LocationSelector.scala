@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.api.common.Location
+import kpn.api.common.location.Location
 
 case class LocationSelector(locationDefinitions: Seq[LocationDefinition]) {
 

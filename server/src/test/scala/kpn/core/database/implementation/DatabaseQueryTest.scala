@@ -1,5 +1,6 @@
 package kpn.core.database.implementation
 
+import kpn.api.common.location.Location
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
@@ -10,7 +11,6 @@ import kpn.core.db.couch.ViewResult
 import kpn.core.db.couch.ViewResultRow
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.DesignRepositoryImpl
-import kpn.api.common.Location
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

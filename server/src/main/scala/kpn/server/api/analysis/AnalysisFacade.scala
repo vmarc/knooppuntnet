@@ -1,11 +1,16 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
-import kpn.api.common.LocationPage
 import kpn.api.common.PoiPage
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationFactsPage
+import kpn.api.common.location.LocationMapPage
+import kpn.api.common.location.LocationNodesPage
+import kpn.api.common.location.LocationPage
+import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkFactsPage
@@ -30,6 +35,7 @@ import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Fact
+import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
@@ -94,5 +100,15 @@ trait AnalysisFacade {
   def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
 
   def location(user: Option[String], networkType: NetworkType): ApiResponse[LocationPage]
+
+  def locationNodes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationNodesPage]
+
+  def locationRoutes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationRoutesPage]
+
+  def locationFacts(user: Option[String], locationKey: LocationKey): ApiResponse[LocationFactsPage]
+
+  def locationMap(user: Option[String], locationKey: LocationKey): ApiResponse[LocationMapPage]
+
+  def locationChanges(user: Option[String], locationKey: LocationKey): ApiResponse[LocationChangesPage]
 
 }

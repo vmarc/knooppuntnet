@@ -5,10 +5,10 @@ import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import kpn.api.common.Location
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
+import kpn.api.common.location.Location
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 

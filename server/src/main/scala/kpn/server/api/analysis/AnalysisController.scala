@@ -1,11 +1,16 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
-import kpn.api.common.LocationPage
 import kpn.api.common.PoiPage
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationFactsPage
+import kpn.api.common.location.LocationMapPage
+import kpn.api.common.location.LocationNodesPage
+import kpn.api.common.location.LocationPage
+import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkFactsPage
@@ -29,7 +34,9 @@ import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
+import kpn.api.custom.Country
 import kpn.api.custom.Fact
+import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
@@ -257,6 +264,78 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: String
   ): ApiResponse[LocationPage] = {
     analysisFacade.location(user(), NetworkType.withName(networkType).get)
+  }
+
+  @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/nodes"))
+  def locationNodes(
+    @PathVariable networkType: String,
+    @PathVariable country: String,
+    @PathVariable location: String
+  ): ApiResponse[LocationNodesPage] = {
+    val locationKey = LocationKey(
+      NetworkType.withName(networkType).get,
+      Country.withDomain(country).get,
+      location
+    )
+    analysisFacade.locationNodes(user(), locationKey)
+  }
+
+  @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/routes"))
+  def locationRoutes(
+    @PathVariable networkType: String,
+    @PathVariable country: String,
+    @PathVariable location: String
+  ): ApiResponse[LocationRoutesPage] = {
+    val locationKey = LocationKey(
+      NetworkType.withName(networkType).get,
+      Country.withDomain(country).get,
+      location
+    )
+    analysisFacade.locationRoutes(user(), locationKey)
+  }
+
+  @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/facts"))
+  def locationFacts(
+    @PathVariable networkType: String,
+    @PathVariable country: String,
+    @PathVariable location: String
+  ): ApiResponse[LocationFactsPage] = {
+    val locationKey = LocationKey(
+      NetworkType.withName(networkType).get,
+      Country.withDomain(country).get,
+      location
+    )
+    analysisFacade.locationFacts(user(), locationKey)
+  }
+
+  @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/map"))
+  def locationMap(
+    @PathVariable networkType: String,
+    @PathVariable country: String,
+    @PathVariable location: String
+  ): ApiResponse[LocationMapPage] = {
+    val locationKey = LocationKey(
+      NetworkType.withName(networkType).get,
+      Country.withDomain(country).get,
+      location
+    )
+    analysisFacade.locationMap(user(), locationKey)
+  }
+
+  @PostMapping(value = Array("/json-api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at}/{location}/changes"))
+  def locationChanges(
+    @PathVariable country: String,
+    @PathVariable networkType: String,
+    @PathVariable location: String,
+    @RequestBody parameters: ChangesParameters
+  ): ApiResponse[LocationChangesPage] = {
+    val locationKey = LocationKey(
+      NetworkType.withName(networkType).get,
+      Country.withDomain(country).get,
+      location
+    )
+    // TODO include changesParameters!!
+    analysisFacade.locationChanges(user(), locationKey)
   }
 
   private def user(): Option[String] = {

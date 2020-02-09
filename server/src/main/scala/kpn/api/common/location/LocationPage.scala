@@ -1,4 +1,4 @@
-package kpn.api.common
+package kpn.api.common.location
 
 import kpn.api.common.common.Ref
 

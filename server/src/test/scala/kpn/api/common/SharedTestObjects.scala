@@ -25,6 +25,7 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.location.Location
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo

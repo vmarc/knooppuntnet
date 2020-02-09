@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.api.common.LocationCandidate
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.TrackSegment
+import kpn.api.common.location.LocationCandidate
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import org.locationtech.jts.geom.Coordinate

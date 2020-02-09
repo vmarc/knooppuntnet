@@ -1,11 +1,16 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
-import kpn.api.common.LocationPage
 import kpn.api.common.PoiPage
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationFactsPage
+import kpn.api.common.location.LocationMapPage
+import kpn.api.common.location.LocationNodesPage
+import kpn.api.common.location.LocationPage
+import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkFactsPage
@@ -31,6 +36,7 @@ import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Fact
+import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
@@ -46,6 +52,11 @@ import kpn.server.api.analysis.pages.ChangesPageBuilder
 import kpn.server.api.analysis.pages.LegBuilder
 import kpn.server.api.analysis.pages.LocationPageBuilder
 import kpn.server.api.analysis.pages.PoiPageBuilder
+import kpn.server.api.analysis.pages.location.LocationChangesPageBuilder
+import kpn.server.api.analysis.pages.location.LocationFactsPageBuilder
+import kpn.server.api.analysis.pages.location.LocationMapPageBuilder
+import kpn.server.api.analysis.pages.location.LocationNodesPageBuilder
+import kpn.server.api.analysis.pages.location.LocationRoutesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkChangesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkDetailsPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkFactsPageBuilder
@@ -95,7 +106,12 @@ class AnalysisFacadeImpl(
   networkChangesPageBuilder: NetworkChangesPageBuilder,
   poiPageBuilder: PoiPageBuilder,
   legBuilder: LegBuilder,
-  locationPageBuilder: LocationPageBuilder
+  locationPageBuilder: LocationPageBuilder,
+  locationNodesPageBuilder: LocationNodesPageBuilder,
+  locationRoutesPageBuilder: LocationRoutesPageBuilder,
+  locationFactsPageBuilder: LocationFactsPageBuilder,
+  locationMapPageBuilder: LocationMapPageBuilder,
+  locationChangesPageBuilder: LocationChangesPageBuilder
 ) extends AnalysisFacade {
 
   private val log = Log(classOf[AnalysisFacadeImpl])
@@ -307,6 +323,41 @@ class AnalysisFacadeImpl(
     val label = s"$user location(${networkType.name})"
     log.infoElapsed(label) {
       reply(label, locationPageBuilder.build(networkType))
+    }
+  }
+
+  def locationNodes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationNodesPage] = {
+    val label = s"$user locationNodes(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
+    log.infoElapsed(label) {
+      reply(label, locationNodesPageBuilder.build(locationKey))
+    }
+  }
+
+  def locationRoutes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationRoutesPage] = {
+    val label = s"$user locationRoutes(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
+    log.infoElapsed(label) {
+      reply(label, locationRoutesPageBuilder.build(locationKey))
+    }
+  }
+
+  def locationFacts(user: Option[String], locationKey: LocationKey): ApiResponse[LocationFactsPage] = {
+    val label = s"$user locationFacts(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
+    log.infoElapsed(label) {
+      reply(label, locationFactsPageBuilder.build(locationKey))
+    }
+  }
+
+  def locationMap(user: Option[String], locationKey: LocationKey): ApiResponse[LocationMapPage] = {
+    val label = s"$user locationMap(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
+    log.infoElapsed(label) {
+      reply(label, locationMapPageBuilder.build(locationKey))
+    }
+  }
+
+  def locationChanges(user: Option[String], locationKey: LocationKey): ApiResponse[LocationChangesPage] = {
+    val label = s"$user locationChanges(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
+    log.infoElapsed(label) {
+      reply(label, locationChangesPageBuilder.build(locationKey))
     }
   }
 
