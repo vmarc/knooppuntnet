@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap} from "rxjs/operators";
 import {tap} from "rxjs/operators";
@@ -21,8 +21,22 @@ import {Subscriptions} from "../../../util/Subscriptions";
       i18n-pageTitle="@@location-nodes.title">
     </kpn-location-page-header>
 
-    NODES
-
+    <div *ngIf="response">
+      <div *ngIf="!page">
+        <p i18n="@@location-nodes.location-not-found">Location not found</p>
+      </div>
+      <div *ngIf="page">
+        <div *ngIf="page.nodes.isEmpty()" i18n="@@location-nodes.no-nodes">
+          No nodes
+        </div>
+        <kpn-location-node-table
+          *ngIf="!page.nodes.isEmpty()"
+          [timeInfo]="page.timeInfo"
+          [nodes]="page.nodes">
+        </kpn-location-node-table>
+      </div>
+      <kpn-json [object]="response"></kpn-json>
+    </div>
   `
 })
 export class LocationNodesPageComponent {
@@ -47,4 +61,7 @@ export class LocationNodesPageComponent {
     );
   }
 
+  get page(): LocationNodesPage {
+    return this.response.result;
+  }
 }

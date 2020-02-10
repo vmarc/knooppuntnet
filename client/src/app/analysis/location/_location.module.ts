@@ -1,5 +1,8 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 import {SharedModule} from "../../components/shared/shared.module";
 import {LocationRoutingModule} from "./_location-routing.module";
 import {LocationChangesPageComponent} from "./changes/location-changes-page.component";
@@ -9,12 +12,17 @@ import {LocationFactsPageComponent} from "./facts/location-facts-page.component"
 import {LocationMapPageComponent} from "./map/location-map-page.component";
 import {LocationNodesPageComponent} from "./nodes/location-nodes-page.component";
 import {LocationRoutesPageComponent} from "./routes/location-routes-page.component";
+import { LocationNodeTableComponent } from './nodes/location-node-table.component';
+import { LocationNodeRoutesComponent } from './nodes/location-node-routes.component';
 
 @NgModule({
   imports: [
     LocationRoutingModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatDividerModule,
+    MatTableModule,
+    MatSortModule
   ],
   declarations: [
     LocationPageHeaderComponent,
@@ -23,7 +31,9 @@ import {LocationRoutesPageComponent} from "./routes/location-routes-page.compone
     LocationFactsPageComponent,
     LocationRoutesPageComponent,
     LocationMapPageComponent,
-    LocationChangesPageComponent
+    LocationChangesPageComponent,
+    LocationNodeTableComponent,
+    LocationNodeRoutesComponent
   ]
 })
 export class LocationModule {
