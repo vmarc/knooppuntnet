@@ -34,7 +34,10 @@ class LocationConfigurationReader {
   def read(): LocationConfiguration = {
     val string = FileUtils.readFileToString(LocationConfigurationDefinition.treeFile, "UTF-8")
     val root = Json.objectMapper.readValue(string, classOf[LocationTree])
-    LocationConfiguration(root.children.toSeq.flatten.map(toLocationConfiguration))
+    val configuration = LocationConfiguration(root.children.toSeq.flatten.map(toLocationConfiguration))
+    val deDuplicatedConfiguration = new LocationConfigurationDeDuplicator().deduplicate(configuration)
+    new LocationConfigurationValidator().validate(deDuplicatedConfiguration)
+    deDuplicatedConfiguration
   }
 
   private def toLocationConfiguration(tree: LocationTree): LocationDefinition = {

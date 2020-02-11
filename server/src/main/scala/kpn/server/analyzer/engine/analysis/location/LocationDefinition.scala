@@ -5,6 +5,7 @@ import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry
 
 case class LocationDefinition(
+  id: String,
   name: String,
   locationNames: Map[Language, String],
   filename: String,

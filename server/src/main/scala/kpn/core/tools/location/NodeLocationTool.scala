@@ -62,6 +62,7 @@ class NodeLocationTool(database: Database) {
         }
       }
     }
+    println("Done")
   }
 
 }

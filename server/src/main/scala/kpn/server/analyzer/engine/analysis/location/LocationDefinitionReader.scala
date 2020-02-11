@@ -12,7 +12,7 @@ import org.locationtech.jts.geom.Geometry
 
 object LocationDefinitionReader {
 
-  private case class LocationJsonProperties(name: String, alltags: Map[String, String])
+  private case class LocationJsonProperties(id: String, name: String, alltags: Map[String, String])
 
   private case class LocationJson(properties: LocationJsonProperties, bbox: Seq[String], geometry: Geometry)
 
@@ -30,7 +30,15 @@ class LocationDefinitionReader(file: File) {
     val locationNames = parseLocationNames(locationJson)
     val boundingBox = parseBoundingBox(locationJson)
 
-    LocationDefinition(locationJson.properties.name, locationNames, filename, boundingBox, locationJson.geometry, children)
+    LocationDefinition(
+      locationJson.properties.id,
+      locationJson.properties.name,
+      locationNames,
+      filename,
+      boundingBox,
+      locationJson.geometry,
+      children
+    )
   }
 
   private def parseLocationNames(locationJson: LocationJson): Map[Language, String] = {
