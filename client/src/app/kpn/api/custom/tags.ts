@@ -8,6 +8,19 @@ export class Tags {
     this.tags = tags;
   }
 
+  static fromArray(array: Array<Array<string>>): Tags {
+    return new Tags(List(array.map(row => new Tag(row[0], row[1]))));
+  }
+
+  static fromJSON(jsonObject): Tags {
+    if (!jsonObject) {
+      return undefined;
+    }
+    return new Tags(
+      List(jsonObject.map(json => Tag.fromJSON(json)))
+    );
+  }
+
   isEmpty() {
     return this.tags.isEmpty();
   }
@@ -28,16 +41,4 @@ export class Tags {
     return this.tags.filter(t => t.key === key);
   }
 
-  static fromArray(array: Array<Array<string>>): Tags {
-    return new Tags(List(array.map(row => new Tag(row[0], row[1]))));
-  }
-
-  static fromJSON(jsonObject): Tags {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new Tags(
-      List(jsonObject.map(json => Tag.fromJSON(json)))
-    );
-  }
 }

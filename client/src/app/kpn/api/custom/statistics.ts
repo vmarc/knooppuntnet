@@ -8,10 +8,6 @@ export class Statistics {
     this.map = map;
   }
 
-  public get(key: string): Statistic {
-    return this.map.get(key, null);
-  }
-
   public static fromJSON(jsonObject): Statistics {
     if (!jsonObject) {
       return undefined;
@@ -25,4 +21,9 @@ export class Statistics {
     const map = Map<string, Statistic>(keysAndValues);
     return new Statistics(map);
   }
+
+  public get(key: string): Statistic {
+    return this.map.get(key, null);
+  }
+
 }

@@ -21,7 +21,7 @@ import {PaginatorComponent} from "../../../components/shared/paginator/paginator
 
       <ng-container matColumnDef="nr">
         <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let node">{{node.number}}</mat-cell>
+        <mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -134,4 +134,7 @@ export class NetworkNodeTableComponent implements OnInit {
     return ["nr", "analysis", "node"];
   }
 
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
 }

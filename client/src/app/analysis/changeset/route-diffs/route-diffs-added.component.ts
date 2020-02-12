@@ -26,12 +26,10 @@ import {RouteDiffsData} from "./route-diffs-data";
                       New relation
                     </ng-container>
                     <ng-container *ngIf="routeChangeInfo.after.version > 1" i18n="@@route-diffs-added.updated-relation">
-                      Relation updated in this changeset
+                      Relation updated in this changeset v{{routeChangeInfo.after.version}}
                     </ng-container>
-                    v{{routeChangeInfo.after.version}}
                   </ng-container>
                   <ng-container *ngIf="routeChangeInfo.after.changeSetId != data.changeSetId">
-                    <!-- @@ Bestaande relatie -->
                     <ng-container i18n="@@route-diffs-added.existing-relation">Existing relation</ng-container>
                     <kpn-meta-data [metaData]="routeChangeInfo.after"></kpn-meta-data>
                   </ng-container>

@@ -30,7 +30,7 @@ export class TranslationsService {
         const lineIndex = location.lineNumber;
         const lines = response.split("\n");
         const templateStartIndex = lines.findIndex(line => line.indexOf("template:") >= 0);
-        const templateStart = templateStartIndex == -1 ? 0 : templateStartIndex - 1;
+        const templateStart = templateStartIndex === -1 ? 0 : templateStartIndex - 1;
         const startLineNumber = templateStart + Math.max(0, lineIndex - 2);
         const endLineNumber = templateStart + lineIndex + 3;
         return lines.slice(startLineNumber, endLineNumber).join("\n");

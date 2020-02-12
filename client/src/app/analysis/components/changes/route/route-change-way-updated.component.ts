@@ -17,8 +17,7 @@ import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
         <div class="kpn-detail">
           <div class="kpn-thin">
             <ng-container *ngIf="isNewVersion(wayUpdate)">
-              <ng-container i18n="@@route-change.way-update.changed-to">Changed to</ng-container>
-              v{{wayUpdate.after.version}}.
+              <ng-container i18n="@@route-change.way-update.changed-to">Changed to v{{wayUpdate.after.version}}.</ng-container>
             </ng-container>
             <ng-container *ngIf="!isNewVersion(wayUpdate)" i18n="@@route-change.way-update.version-unchanged">
               Way version unchanged
@@ -37,12 +36,12 @@ import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
         </div>
 
         <div *ngIf="!wayUpdate.addedNodes.isEmpty()" class="kpn-detail">
-          <span i18n="@@route-change.way-update.added-nodes">Added node(s)</span>:
+          <span class="kpn-label" i18n="@@route-change.way-update.added-nodes">Added node(s)</span>
           <kpn-node-list [nodeIds]="nodeIds(wayUpdate.addedNodes)"></kpn-node-list>
         </div>
 
         <div *ngIf="!wayUpdate.updatedNodes.isEmpty()" class="kpn-detail">
-          <span i18n="@@route-change.way-update.updated-nodes">Updated node(s)</span>:
+          <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes">Updated node(s)</span>
           <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)"></kpn-node-list>
         </div>
 

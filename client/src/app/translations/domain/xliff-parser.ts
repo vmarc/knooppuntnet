@@ -27,8 +27,11 @@ export class XliffParser {
     for (let i = 0; i < translationUnitElements.length; i++) {
       const translationUnitElement = translationUnitElements.item(i);
       const id = translationUnitElement.getAttribute("id");
-      const source = translationUnitElement.getElementsByTagName("source").item(0).innerHTML.split('xmlns="urn:oasis:names:tc:xliff:document:1.2"').join("");
+      const source = translationUnitElement.getElementsByTagName("source").item(0).innerHTML
+        // tslint:disable-next-line:quotemark
+        .split('xmlns="urn:oasis:names:tc:xliff:document:1.2"').join("");
       const targetElement = translationUnitElement.getElementsByTagName("target").item(0);
+      // tslint:disable-next-line:quotemark
       const target = targetElement.innerHTML.split('xmlns="urn:oasis:names:tc:xliff:document:1.2"').join("");
       const state = targetElement.getAttribute("state");
 
@@ -42,9 +45,9 @@ export class XliffParser {
         for (let j = 0; j < contexts.length; j++) {
           const context = contexts.item(j);
           const contextType = context.getAttribute("context-type");
-          if ("sourcefile" == contextType) {
+          if ("sourcefile" === contextType) {
             sourceFile = context.childNodes[0].nodeValue;
-          } else if ("linenumber" == contextType) {
+          } else if ("linenumber" === contextType) {
             lineNumber = +context.childNodes[0].nodeValue;
           }
         }

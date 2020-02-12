@@ -18,7 +18,7 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
 
       <ng-container matColumnDef="nr">
         <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let node">{{node.number}}</mat-cell>
+        <mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -130,4 +130,7 @@ export class LocationNodeTableComponent implements OnInit {
     return ["nr", "analysis", "node"];
   }
 
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
 }

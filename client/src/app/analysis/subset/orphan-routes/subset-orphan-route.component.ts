@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
+import {RouteSummary} from "../../../kpn/api/common/route-summary";
 import {Tags} from "../../../kpn/api/custom/tags";
 
 @Component({
@@ -15,7 +16,7 @@ import {Tags} from "../../../kpn/api/custom/tags";
       route is broken
     </p>
     <p>
-      {{route.nodes}}
+      {{route.nodeNames}}
     </p>
     <p>
       <kpn-timestamp [timestamp]="route.timestamp"></kpn-timestamp>
@@ -33,7 +34,7 @@ import {Tags} from "../../../kpn/api/custom/tags";
 })
 export class SubsetOrphanRouteComponent implements OnInit {
 
-  @Input() route;
+  @Input() route: RouteSummary;
   extraTags: InterpretedTags;
 
   ngOnInit(): void {

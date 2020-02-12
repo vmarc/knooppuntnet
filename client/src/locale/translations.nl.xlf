@@ -1841,7 +1841,7 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database 
+        Older changes cannot be shown. The history in the analysis database
         does not go beyond
       </source>
         <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank gaat niet verder terug dan</target>
@@ -1982,8 +1982,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.changed-to" datatype="html">
-        <source>Changed to</source>
-        <target>Veranderd naar</target>
+        <source>Changed to v<x id="INTERPOLATION" equiv-text="{{wayUpdate.after.version}}"/>.</source>
+        <target>Veranderd naar v<x id="INTERPOLATION" equiv-text="{{wayUpdate.after.version}}"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -1996,7 +1996,7 @@
         <target>Versie niet veranderd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.direction-reversed" datatype="html">
@@ -2006,7 +2006,7 @@
         <target>Wegrichting omgekeerd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.removed-nodes" datatype="html">
@@ -2014,7 +2014,7 @@
         <target>Verwijderde punten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.added-nodes" datatype="html">
@@ -2022,7 +2022,7 @@
         <target>Toegevoegde punten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.updated-nodes" datatype="html">
@@ -2030,7 +2030,7 @@
         <target>Gewijzigde punten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-added.title" datatype="html">
@@ -5124,10 +5124,12 @@
         <x id="INTERPOLATION" equiv-text="{{locationKey.name}}"/>
       </source>
         <target state="new">[
-        <x id="START_TAG_KPN-NETWORK-TYPE-NAME" ctype="x-kpn-network-type-name" equiv-text="&lt;kpn-network-type-name>"/><x id="CLOSE_TAG_KPN-NETWORK-TYPE-NAME" ctype="x-kpn-network-type-name" equiv-text="&lt;/kpn-network-type-name>"/>
-        in
-        <x id="INTERPOLATION" equiv-text="{{locationKey.name}}"/>
-      ]</target>
+          <x id="START_TAG_KPN-NETWORK-TYPE-NAME" ctype="x-kpn-network-type-name" equiv-text="&lt;kpn-network-type-name>"/>
+          <x id="CLOSE_TAG_KPN-NETWORK-TYPE-NAME" ctype="x-kpn-network-type-name" equiv-text="&lt;/kpn-network-type-name>"/>
+          in
+          <x id="INTERPOLATION" equiv-text="{{locationKey.name}}"/>
+          ]
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -5139,7 +5141,8 @@
         </source>
         <target state="new">[
           Nodes
-        ]</target>
+          ]
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -5151,7 +5154,8 @@
         </source>
         <target state="new">[
           Routes
-        ]</target>
+          ]
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -5163,7 +5167,8 @@
         </source>
         <target state="new">[
           Facts
-        ]</target>
+          ]
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">30</context>
@@ -5175,7 +5180,8 @@
         </source>
         <target state="new">[
           Map
-        ]</target>
+          ]
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -5187,7 +5193,8 @@
         </source>
         <target state="new">[
           Changes
-        ]</target>
+          ]
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -5199,6 +5206,27 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-nodes-page.component.ts</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.location-not-found" datatype="html">
+        <source>Location not found</source>
+        <target state="new">[Location not found]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-nodes-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.no-nodes" datatype="html">
+        <source>
+          No nodes
+        </source>
+        <target state="new">[
+          No nodes
+          ]
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-nodes-page.component.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">
@@ -5231,6 +5259,59 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/changes/location-changes-page.component.ts</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.table.nr" datatype="html">
+        <source>Nr</source>
+        <target state="new">[Nr]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.table.analysis" datatype="html">
+        <source>Analysis</source>
+        <target state="new">[Analysis]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.table.node" datatype="html">
+        <source>Node</source>
+        <target state="new">[Node]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.table.routes" datatype="html">
+        <source>Routes</source>
+        <target state="new">[Routes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.table.last-edit" datatype="html">
+        <source>Last edit</source>
+        <target state="new">[Last edit]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.no-routes" datatype="html">
+        <source>
+      no routes
+    </source>
+        <target state="new">[
+          no routes
+          ]
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-node-routes.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
@@ -5295,6 +5376,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/components/route-page-header.component.ts</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.meters" datatype="html">
+        <source>
+        <x id="INTERPOLATION" equiv-text="{{route.summary.meters}}"/> m
+      </source>
+        <target state="new">[
+          <x id="INTERPOLATION" equiv-text="{{route.summary.meters}}"/>
+          m
+          ]
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.members.title" datatype="html">
@@ -5743,7 +5838,7 @@
       </trans-unit>
       <trans-unit id="subset-facts.in-networks" datatype="html">
         <source> in <x id="INTERPOLATION" equiv-text="{{response.result.networks.size}}"/> networks.</source>
-        <target> in
+        <target>in
           <x id="INTERPOLATION" equiv-text="{{response.result.networks.size}}"/>
           netwerken.
         </target>
@@ -5837,6 +5932,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
           <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network.component.ts</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-nodes.title" datatype="html">
@@ -5933,6 +6032,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-networks.table.ok" datatype="html">
+        <source>OK</source>
+        <target state="new">[OK]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network-table.component.ts</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.route-is-broken" datatype="html">
@@ -6269,9 +6376,11 @@
       </trans-unit>
       <trans-unit id="route-diffs-added.updated-relation" datatype="html">
         <source>
-                      Relation updated in this changeset
+                      Relation updated in this changeset v<x id="INTERPOLATION" equiv-text="{{routeChangeInfo.after.version}}"/>
                     </source>
-        <target>Relatie aangepast in deze wijzigingenset</target>
+        <target>Relatie aangepast in deze wijzigingenset v
+          <x id="INTERPOLATION" equiv-text="{{routeChangeInfo.after.version}}"/>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -6282,7 +6391,7 @@
         <target>Bestaande relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-diffs-removed.title" datatype="html">
@@ -6302,19 +6411,21 @@
         </context-group>
       </trans-unit>
       <trans-unit id="version-change.relation-changed-to" datatype="html">
-        <source>Relation changed to</source>
-        <target>Relatie veranderd naar</target>
+        <source>Relation changed to v<x id="INTERPOLATION" equiv-text="{{after.version}}"/></source>
+        <target>Relatie veranderd naar v
+          <x id="INTERPOLATION" equiv-text="{{after.version}}"/>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="version-change.relation-unchanged" datatype="html">
-        <source>Relation unchanged</source>
-        <target>Relatie onveranderd</target>
+        <source>Relation unchanged.</source>
+        <target>Relatie onveranderd.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.network-diffs.network-created" datatype="html">

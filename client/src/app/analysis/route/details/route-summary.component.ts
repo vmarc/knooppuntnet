@@ -6,15 +6,15 @@ import {RouteInfo} from "../../../kpn/api/common/route/route-info";
   template: `
     <div>
 
-      <p>
+      <p i18n="@@route.meters">
         {{route.summary.meters}} m
       </p>
 
       <p>
         <kpn-osm-link-relation [relationId]="route.summary.id"></kpn-osm-link-relation>
-        (
-        <kpn-josm-relation [relationId]="route.summary.id"></kpn-josm-relation>
-        )
+        <span class="kpn-brackets">
+          <kpn-josm-relation [relationId]="route.summary.id"></kpn-josm-relation>
+        </span>
       </p>
 
       <kpn-network-type [networkType]="route.summary.networkType"></kpn-network-type>

@@ -7,9 +7,9 @@ import {RouteNetworkNodeInfo} from "../../../kpn/api/common/route/route-network-
     <p class="kpn-line">
       <img [src]="'/assets/images/' + title" class="image">
       <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName"></kpn-link-node>
-      (
-      <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
-      )
+      <span class="kpn-brackets">
+        <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
+      </span>
     </p>
   `
 })

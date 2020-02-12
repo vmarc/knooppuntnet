@@ -21,7 +21,7 @@ import {NetworkAttributes} from "../../../kpn/api/common/network/network-attribu
         <th></th>
         <th colSpan="2" i18n="@@subset-networks.table.broken">Broken</th>
         <th colSpan="2" i18n="@@subset-networks.table.integrity-nodes">Nodes</th>
-        <th>OK</th>
+        <th i18n="@@subset-networks.table.ok">OK</th>
       </tr>
       </thead>
 

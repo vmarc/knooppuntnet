@@ -32,7 +32,7 @@ export class TileLoadProgressService {
   }
 
   private update() {
-    let value = 100 * this.loaded / this.loading;
+    const value = 100 * this.loaded / this.loading;
     this.progress.next(value);
     if (this.loading === this.loaded) {
       this.loading = 0;
