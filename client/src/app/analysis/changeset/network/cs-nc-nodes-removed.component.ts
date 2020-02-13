@@ -13,7 +13,11 @@ import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network
         <kpn-icon-happy></kpn-icon-happy>
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
-        <kpn-osm-link-node *ngFor="let nodeId of nodeIds()" [nodeId]="nodeId" [title]="nodeId.toString()"></kpn-osm-link-node>
+        <kpn-osm-link-node
+          *ngFor="let nodeId of nodeIds()"
+          [nodeId]="nodeId"
+          [title]="nodeId.toString()">
+        </kpn-osm-link-node>
       </div>
     </div>
   `

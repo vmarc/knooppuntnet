@@ -10,7 +10,7 @@ import {MatRadioChange} from "@angular/material/radio";
       <mat-radio-group [value]="selection()" (change)="selectionChanged($event)">
         <mat-radio-button
           *ngFor="let option of group.options"
-          value="{{option.name}}">
+          [value]="option.name">
           <span class="option-name">{{option.name}}</span>
           <span class="option-count">{{option.count}}</span>
         </mat-radio-button>

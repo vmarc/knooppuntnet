@@ -75,7 +75,7 @@ export class SubsetFactsPageComponent implements OnInit, OnDestroy {
     return this.response && this.response.result && this.response.result.subsetInfo.factCount > 0;
   }
 
-  factDetailLink(factCount: FactCount): String {
+  factDetailLink(factCount: FactCount): string {
     return "/analysis/" + this.subset.key() + "/" + factCount.fact.name;
   }
 

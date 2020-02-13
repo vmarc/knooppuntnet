@@ -5,6 +5,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
+import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {RouterModule} from "@angular/router";
 import {I18nComponent} from "../../i18n/i18n.component";
@@ -13,6 +14,8 @@ import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
 import {IconButtonComponent} from "./icon/icon-button.component";
+import {IconHappyComponent} from "./icon/icon-happy.component";
+import {IconInvestigateComponent} from "./icon/icon-investigate.component";
 import {IndicatorDialogComponent} from "./indicator/indicator-dialog.component";
 import {IndicatorIconComponent} from "./indicator/indicator-icon.component";
 import {IndicatorComponent} from "./indicator/indicator.component";
@@ -34,14 +37,10 @@ import {LinkChangesetComponent} from "./link/link-changeset.component";
 import {LinkFactComponent} from "./link/link-fact.component";
 import {LinkLoginComponent} from "./link/link-login.component";
 import {LinkLogoutComponent} from "./link/link-logout.component";
-import {LinkMapComponent} from "./link/link-map.component";
-import {LinkNetworkChangesComponent} from "./link/link-network-changes.component";
 import {LinkNetworkDetailsComponent} from "./link/link-network-details.component";
-import {LinkNetworkFactsComponent} from "./link/link-network-facts.component";
-import {LinkNetworkMapComponent} from "./link/link-network-map.component";
-import {LinkNetworkNodesComponent} from "./link/link-network-nodes.component";
-import {LinkNetworkRoutesComponent} from "./link/link-network-routes.component";
+import {LinkNodeRefComponent} from "./link/link-node-ref.component";
 import {LinkNodeComponent} from "./link/link-node.component";
+import {LinkRouteRefComponent} from "./link/link-route-ref.component";
 import {LinkRouteComponent} from "./link/link-route.component";
 import {NodeListComponent} from "./link/node-list.component";
 import {OsmLinkChangeSetComponent} from "./link/osm-link-change-set.component";
@@ -60,6 +59,7 @@ import {NetworkTypeNameComponent} from "./network-type-name.component";
 import {NetworkTypeComponent} from "./network-type.component";
 import {PageFooterComponent} from "./page/page-footer.component";
 import {PageHeaderComponent} from "./page/page-header.component";
+import {PaginatorComponent} from "./paginator/paginator.component";
 import {AnalysisSidebarComponent} from "./sidebar/analysis-sidebar.component";
 import {SidebarBackComponent} from "./sidebar/sidebar-back.component";
 import {SidebarFooterComponent} from "./sidebar/sidebar-footer.component";
@@ -72,12 +72,6 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
-import {IconHappyComponent} from "./icon/icon-happy.component";
-import {IconInvestigateComponent} from "./icon/icon-investigate.component";
-import {LinkNodeRefComponent} from "./link/link-node-ref.component";
-import {LinkRouteRefComponent} from "./link/link-route-ref.component";
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {PaginatorComponent} from "./paginator/paginator.component";
 
 @NgModule({
   imports: [
@@ -95,13 +89,7 @@ import {PaginatorComponent} from "./paginator/paginator.component";
   declarations: [
     LinkChangesetComponent,
     LinkChangesComponent,
-    LinkMapComponent,
-    LinkNetworkChangesComponent,
     LinkNetworkDetailsComponent,
-    LinkNetworkFactsComponent,
-    LinkNetworkMapComponent,
-    LinkNetworkNodesComponent,
-    LinkNetworkRoutesComponent,
     LinkNodeComponent,
     LinkRouteComponent,
     LinkChangesComponent,
@@ -167,13 +155,7 @@ import {PaginatorComponent} from "./paginator/paginator.component";
   exports: [
     LinkChangesetComponent,
     LinkChangesComponent,
-    LinkMapComponent,
-    LinkNetworkChangesComponent,
     LinkNetworkDetailsComponent,
-    LinkNetworkFactsComponent,
-    LinkNetworkMapComponent,
-    LinkNetworkNodesComponent,
-    LinkNetworkRoutesComponent,
     LinkNodeComponent,
     LinkRouteComponent,
     LinkChangesComponent,

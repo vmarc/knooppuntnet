@@ -18,7 +18,7 @@ import {UniqueId} from "../../kpn/common/unique-id";
 @Component({
   selector: "kpn-node-moved-map",
   template: `
-    <div id="{{mapId}}" class="map"></div>
+    <div [id]="mapId" class="map"></div>
   `,
   styles: [`
     .map {

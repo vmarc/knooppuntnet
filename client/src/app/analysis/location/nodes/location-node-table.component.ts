@@ -11,7 +11,11 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
 @Component({
   selector: "kpn-location-node-table",
   template: `
-    <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" showFirstLastButtons></kpn-paginator>
+    <kpn-paginator
+      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
+      [length]="nodes?.size"
+      [showFirstLastButtons]="true">
+    </kpn-paginator>
     <mat-divider></mat-divider>
 
     <mat-table matSort [dataSource]="dataSource">

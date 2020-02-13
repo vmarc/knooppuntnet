@@ -13,7 +13,7 @@ import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-inf
 
     <div *ngIf="node.routeReferences.size > 0" class="kpn-comma-list route-list">
       <span *ngFor="let ref of node.routeReferences">
-        <a routerLink="{{'/analysis/route/' + ref.id}}">{{ref.name}}</a>
+        <a [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
       </span>
     </div>
   `,

@@ -4,7 +4,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
   selector: "kpn-indicator",
   template: `
     <div class="indicator" (click)="onOpenDialog()">
-      <kpn-indicator-icon letter="{{letter}}" color="{{color}}"></kpn-indicator-icon>
+      <kpn-indicator-icon [letter]="letter" [color]="color"></kpn-indicator-icon>
     </div>
   `,
   styles: [`

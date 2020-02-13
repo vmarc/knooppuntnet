@@ -1,4 +1,5 @@
 import {Component, Input} from "@angular/core";
+import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {NetworkRouteInfo} from "../../../kpn/api/common/network/network-route-info";
 
@@ -12,7 +13,7 @@ import {NetworkRouteInfo} from "../../../kpn/api/common/network/network-route-in
 })
 export class NetworkRouteAnalysisComponent {
 
-  @Input() route: NetworkRouteInfo;
+  @Input() route: NetworkRouteRow;
   @Input() networkType: NetworkType;
 
 }

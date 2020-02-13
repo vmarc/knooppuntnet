@@ -27,7 +27,7 @@ export class PaginatorService {
     return this.itemsPerPageLabel !== null;
   }
 
-  private translate(elements: HTMLCollection, id: String): string {
+  private translate(elements: HTMLCollection, id: string): string {
     const element = Array.from(elements).find(span => span.getAttribute("id") === id);
     if (element === undefined) {
       console.error(`PaginatorService: could not find element with id '${id}'`);

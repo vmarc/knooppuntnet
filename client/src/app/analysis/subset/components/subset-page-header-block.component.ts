@@ -13,12 +13,12 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
       <li>
-        <a routerLink="{{networkTypeLink()}}">
+        <a [routerLink]="networkTypeLink()">
           <kpn-network-type-name [networkType]="subset.networkType"></kpn-network-type-name>
         </a>
       </li>
       <li>
-        <a routerLink="{{countryLink()}}">
+        <a [routerLink]="countryLink()">
           <kpn-country-name [country]="subset.country"></kpn-country-name>
         </a>
       </li>

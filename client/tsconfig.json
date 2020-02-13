@@ -18,5 +18,10 @@
       "es2018",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParaeters": true,
+    "strictTemplates": true
   }
 }

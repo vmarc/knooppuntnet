@@ -7,7 +7,7 @@ import {Component, Input} from "@angular/core";
       class="external"
       rel="nofollow"
       target="_blank"
-      href="https://www.openstreetmap.org/{{kind}}/{{id}}">
+      href="https://www.openstreetmap.org/{{kind}}/{{elementId}}">
       {{title}}
     </a>
   `
@@ -15,7 +15,7 @@ import {Component, Input} from "@angular/core";
 export class OsmLinkComponent {
 
   @Input() kind: string;
-  @Input() id: number;
+  @Input() elementId: string;
   @Input() title: string;
 
 }

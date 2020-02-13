@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {NodeInfo} from "../../../kpn/api/common/node-info";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 
 @Component({
   selector: "kpn-node-summary",
@@ -9,10 +9,10 @@ import {NodeInfo} from "../../../kpn/api/common/node-info";
     <div>
 
       <p>
-        <kpn-osm-link-node nodeId="{{nodeInfo.id}}"></kpn-osm-link-node>
-        (
-        <kpn-josm-node nodeId="{{nodeInfo.id}}"></kpn-josm-node>
-        )
+        <kpn-osm-link-node [nodeId]="nodeInfo.id"></kpn-osm-link-node>
+        <span class="kpn-brackets">
+          <kpn-josm-node [nodeId]="nodeInfo.id"></kpn-josm-node>
+        </span>
       </p>
 
       <p *ngIf="!nodeInfo.active" class="warning" i18n="@@node.inactive">

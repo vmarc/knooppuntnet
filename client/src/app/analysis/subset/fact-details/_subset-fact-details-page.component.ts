@@ -82,7 +82,7 @@ class SubsetFact {
 export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
   subset: Subset;
-  factName: String;
+  factName: string;
   response: ApiResponse<SubsetFactDetailsPage>;
   private readonly subscriptions = new Subscriptions();
 

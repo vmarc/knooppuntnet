@@ -2,12 +2,12 @@ import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
 import {BehaviorSubject} from "rxjs";
+import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {NodeInfo} from "../../../kpn/api/common/node-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {SubsetOrphanNodeFilter} from "./subset-orphan-node-filter";
 import {SubsetOrphanNodeFilterCriteria} from "./subset-orphan-node-filter-criteria";
 import {SubsetOrphanNodesService} from "./subset-orphan-nodes.service";
-import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 
 @Component({
   selector: "kpn-subset-orphan-nodes-table",

@@ -1,21 +1,24 @@
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {BehaviorSubject} from "rxjs";
-import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {NetworkRouteFilter} from "./network-route-filter";
-import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
-import {NetworkRoutesService} from "./network-routes.service";
+import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
+import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
+import {TimeInfo} from "../../../kpn/api/common/time-info";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {NetworkRouteFilter} from "./network-route-filter";
+import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
+import {NetworkRoutesService} from "./network-routes.service";
 
 @Component({
   selector: "kpn-network-route-table",
   template: `
 
-    <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="routes?.size" showFirstLastButtons></kpn-paginator>
+    <kpn-paginator
+      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
+      [length]="routes?.size" [showFirstLastButtons]="true">
+    </kpn-paginator>
     <mat-divider></mat-divider>
 
     <mat-table matSort [dataSource]="dataSource">

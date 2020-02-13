@@ -1,3 +1,4 @@
+import {AfterViewInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {Input} from "@angular/core";
 import {Output} from "@angular/core";
@@ -82,15 +83,15 @@ import {SelectionModel} from "@angular/cdk/collections";
     }
   `]
 })
-export class TranslationTableComponent implements OnInit, OnChanges, OnDestroy {
+export class TranslationTableComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   @Input() translationUnits: List<TranslationUnit>;
   @Output() selected = new EventEmitter<TranslationUnit>();
   showTranslated = false;
   displayedColumns: Array<string> = ["state", "id", "source", "target", "sourceFile"];
   dataSource: MatTableDataSource<TranslationUnit>;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   readonly form: FormGroup;
   readonly filter = new FormControl();
   readonly selection = new SelectionModel<TranslationUnit>(false, [], true);
@@ -105,7 +106,7 @@ export class TranslationTableComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.updateDataSource();
   }
 

@@ -67,7 +67,7 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
 
       <div *ngIf="poi.image" class="item">
         <a [href]="poi.image" target="_blank">
-          <img src="{{poi.image}}" width="inherit" height="100px" alt="image" class="image"/>
+          <img [src]="poi.image" width="inherit" height="100px" alt="image" class="image"/>
         </a>
       </div>
 
@@ -108,8 +108,8 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
       </div>
 
       <div class="item">
-        <kpn-osm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="osm"></kpn-osm-link>
-        <kpn-josm-link kind="{{poiClick.poiId.elementType}}" id="{{poiClick.poiId.elementId}}" title="edit"></kpn-josm-link>
+        <kpn-osm-link [kind]="poiClick.poiId.elementType" [elementId]="poiClick.poiId.elementId.toString()" title="osm"></kpn-osm-link>
+        <kpn-josm-link [kind]="poiClick.poiId.elementType" [elementId]="poiClick.poiId.elementId" title="edit"></kpn-josm-link>
       </div>
 
     </div>

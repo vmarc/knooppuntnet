@@ -4,7 +4,7 @@ import {OnInit} from "@angular/core";
 @Component({
   selector: "kpn-osm-link-relation",
   template: `
-    <kpn-osm-link kind="relation" [id]="relationId" [title]="title"></kpn-osm-link>
+    <kpn-osm-link kind="relation" [elementId]="relationId.toString()" [title]="title"></kpn-osm-link>
   `
 })
 export class OsmLinkRelationComponent {

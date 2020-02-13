@@ -47,13 +47,13 @@ import {RouteMemberInfo} from "../../../kpn/api/custom/route-member-info";
               </div>
             </td>
             <td>
-              <kpn-osm-link kind="{{member.memberType}}" id="{{member.id}}" title="{{member.id}}"></kpn-osm-link>
+              <kpn-osm-link [kind]="member.memberType" [elementId]="member.id.toString()" [title]="member.id.toString()"></kpn-osm-link>
             </td>
             <td>
-              <kpn-osm-link kind="node" id="{{member.fromNodeId}}" title="{{member.from}}"></kpn-osm-link>
+              <kpn-osm-link kind="node" [elementId]="member.fromNodeId.toString()" [title]="member.from"></kpn-osm-link>
             </td>
             <td>
-              <kpn-osm-link *ngIf="member.isWay" kind="node" id="{{member.toNodeId}}" title="{{member.to}}"></kpn-osm-link>
+              <kpn-osm-link *ngIf="member.isWay" kind="node" [elementId]="member.toNodeId.toString()" [title]="member.to"></kpn-osm-link>
             </td>
             <td>
               {{member.role}}
@@ -92,6 +92,7 @@ import {RouteMemberInfo} from "../../../kpn/api/custom/route-member-info";
       min-height: 40px;
       max-height: 40px;
     }
+
     .image {
       height: 40px;
       padding: 0;

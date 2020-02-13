@@ -23,7 +23,7 @@ import {PoiTileLayerService} from "./poi-tile-layer.service";
 @Component({
   selector: "kpn-map",
   template: `
-    <div id="{{id}}" class="map"></div>
+    <div [id]="id" class="map"></div>
   `,
   styles: [`
     .map {

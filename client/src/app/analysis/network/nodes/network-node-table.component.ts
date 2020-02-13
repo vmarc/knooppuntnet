@@ -1,20 +1,20 @@
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
-import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-info2";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {BehaviorSubject} from "rxjs";
-import {NetworkNodesService} from "./network-nodes.service";
+import {PageWidthService} from "../../../components/shared/page-width.service";
+import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
+import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-info2";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {NetworkNodeFilter} from "./network-node-filter";
 import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
-import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
+import {NetworkNodesService} from "./network-nodes.service";
 
 @Component({
   selector: "kpn-network-node-table",
   template: `
-    <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" showFirstLastButtons></kpn-paginator>
+    <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" [showFirstLastButtons]="true"></kpn-paginator>
     <mat-divider></mat-divider>
 
     <mat-table matSort [dataSource]="dataSource">

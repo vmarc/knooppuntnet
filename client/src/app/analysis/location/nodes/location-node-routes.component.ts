@@ -11,7 +11,7 @@ import {LocationNodeInfo} from "../../../kpn/api/common/location/location-node-i
 
     <div *ngIf="node.routeReferences.size > 0" class="kpn-comma-list route-list">
       <span *ngFor="let ref of node.routeReferences">
-        <a routerLink="{{'/analysis/route/' + ref.id}}">{{ref.name}}</a>
+        <a [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
       </span>
     </div>
   `,
