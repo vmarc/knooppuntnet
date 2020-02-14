@@ -6,11 +6,12 @@ class LocationConfigurationValidator {
 
   def validate(configuration: LocationConfiguration): Unit = {
 
-    val duplicates = configuration.locations.flatMap { location =>
-      val locationsByName = scala.collection.mutable.Map[String, Seq[LocationInfo]]()
+    val locationsByName = scala.collection.mutable.Map[String, Seq[LocationInfo]]()
+    configuration.locations.foreach { location =>
       validateLocation(locationsByName, 0, location)
-      locationsByName.filter { case (name, xs) => xs.size > 1 }
     }
+
+    val duplicates = locationsByName.filter { case (name, xs) => xs.size > 1 }
 
     if (duplicates.nonEmpty) {
       val lines = duplicates.flatMap { case (name, xs) =>
