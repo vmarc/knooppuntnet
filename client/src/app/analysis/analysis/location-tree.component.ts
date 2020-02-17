@@ -83,7 +83,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
       name: this.extractName(node.name),
       level: level,
     };
-  };
+  }
 
   treeControl = new FlatTreeControl<LocationFlatNode>(node => node.level, node => node.expandable);
 

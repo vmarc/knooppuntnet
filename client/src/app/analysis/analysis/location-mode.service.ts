@@ -10,7 +10,7 @@ export class LocationModeService {
   isModeName: Observable<boolean>;
   isModeTree: Observable<boolean>;
   private readonly localStorageKey = "location-mode";
-  private modeSubject: BehaviorSubject<string>;
+  private readonly modeSubject: BehaviorSubject<string>;
 
   constructor(private browserStorageService: BrowserStorageService) {
     let initialMode = browserStorageService.get(this.localStorageKey);

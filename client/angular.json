@@ -29,11 +29,13 @@
           "styleext": "scss",
           "inlineStyle": true,
           "inlineTemplate": true,
+          "lintFix": true,
           "spec": false,
           "flat": true
         },
         "@schematics/angular:service": {
-          "skipTests": true
+          "skipTests": true,
+          "lintFix": true
         }
       },
       "architect": {

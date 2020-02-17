@@ -10,6 +10,14 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="link.logout" datatype="html">
+        <source>logout</source>
+        <target state="new">[logout]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/link-logout.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="links.edit" datatype="html">
         <source>edit</source>
         <target>aanpassen</target>
@@ -1849,7 +1857,7 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database
+        Older changes cannot be shown. The history in the analysis database 
         does not go beyond
       </source>
         <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank gaat niet verder terug dan</target>

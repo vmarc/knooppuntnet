@@ -31,8 +31,6 @@ import {JosmLinkComponent} from "./link/josm-link.component";
 import {JosmNodeComponent} from "./link/josm-node.component";
 import {JosmRelationComponent} from "./link/josm-relation.component";
 import {JosmWayComponent} from "./link/josm-way.component";
-import {LinkAuthenticateComponent} from "./link/link-authenticate.component";
-import {LinkChangesComponent} from "./link/link-changes.component";
 import {LinkChangesetComponent} from "./link/link-changeset.component";
 import {LinkFactComponent} from "./link/link-fact.component";
 import {LinkLoginComponent} from "./link/link-login.component";
@@ -88,13 +86,10 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
   ],
   declarations: [
     LinkChangesetComponent,
-    LinkChangesComponent,
     LinkNetworkDetailsComponent,
     LinkNodeComponent,
     LinkRouteComponent,
-    LinkChangesComponent,
     LinkFactComponent,
-    LinkAuthenticateComponent,
     LinkLoginComponent,
     LinkLogoutComponent,
     JosmLinkComponent,
@@ -154,13 +149,10 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
   ],
   exports: [
     LinkChangesetComponent,
-    LinkChangesComponent,
     LinkNetworkDetailsComponent,
     LinkNodeComponent,
     LinkRouteComponent,
-    LinkChangesComponent,
     LinkFactComponent,
-    LinkAuthenticateComponent,
     LinkLoginComponent,
     LinkLogoutComponent,
     JosmNodeComponent,

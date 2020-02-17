@@ -23,7 +23,7 @@ import {LocationSelectorComponent} from "./location-selector.component";
 import {LocationTreeComponent} from "./location-tree.component";
 import {AnalysisModeComponent} from "./analysis-mode.component";
 import {AnalysisModeService} from "./analysis-mode.service";
-import { LocationModeComponent } from './location-mode.component';
+import { LocationModeComponent } from "./location-mode.component";
 import {LocationModeService} from "./location-mode.service";
 
 @NgModule({

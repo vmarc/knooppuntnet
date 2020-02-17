@@ -10,10 +10,10 @@ import {LocationPageBreadcrumbComponent} from "./components/location-page-breadc
 import {LocationPageHeaderComponent} from "./components/location-page-header.component";
 import {LocationFactsPageComponent} from "./facts/location-facts-page.component";
 import {LocationMapPageComponent} from "./map/location-map-page.component";
+import {LocationNodeRoutesComponent} from "./nodes/location-node-routes.component";
+import {LocationNodeTableComponent} from "./nodes/location-node-table.component";
 import {LocationNodesPageComponent} from "./nodes/location-nodes-page.component";
 import {LocationRoutesPageComponent} from "./routes/location-routes-page.component";
-import { LocationNodeTableComponent } from './nodes/location-node-table.component';
-import { LocationNodeRoutesComponent } from './nodes/location-node-routes.component';
 
 @NgModule({
   imports: [
