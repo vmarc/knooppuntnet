@@ -1927,28 +1927,19 @@
       </trans-unit>
       <trans-unit id="history-incomplete.warning" datatype="html">
         <source>
-        Older changes cannot be shown. The history in the analysis database 
-        does not go beyond
-      </source>
+      Older changes cannot be shown. The history in the analysis database
+      does not go beyond 2012-09-12 (
+      <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>
+        License change
+      <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>).
+    </source>
         <target state="new">[
         Older changes cannot be shown. The history in the analysis database
         does not go beyond
       ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/history-incomplete-warning.component.ts</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="history-incomplete.license-change" datatype="html">
-        <source>
-        License change
-      </source>
-        <target state="new">[
-        License change
-      ]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/components/changes/history-incomplete-warning.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
