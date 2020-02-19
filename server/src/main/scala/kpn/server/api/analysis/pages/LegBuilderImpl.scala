@@ -60,8 +60,6 @@ class LegBuilderImpl(
                         )
                       }
 
-                      val meters = segments.map(_.meters).sum
-
                       nodeFromRouteMap(routeMap, trackPath.endNodeId) match {
                         case Some(sinkRouteNetworkNodeInfo) =>
                           val sinkNodeId = sinkRouteNetworkNodeInfo.id.toString

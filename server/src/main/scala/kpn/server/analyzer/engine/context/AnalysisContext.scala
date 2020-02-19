@@ -133,13 +133,6 @@ class AnalysisContext(oldTagging: Boolean = false, beforeNetworkTypeTaggingStart
     !isNetworkNode(networkType, node.raw) && !isMap(node)
   }
 
-  private def isMap(member: Member): Boolean = {
-    member match {
-      case nodeMember: NodeMember => isMap(nodeMember.node)
-      case _ => false
-    }
-  }
-
   private def isMap(node: Node): Boolean = {
     node.tags.has("tourism", "information") &&
       (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))

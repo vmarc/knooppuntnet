@@ -102,7 +102,7 @@ class FtpFileSystem(ftpConfig: FtpConfig, val baseDir: String) extends FileSyste
     }
   }
 
-  override def getFile(local: File, dest: String): Unit = {
+  override def retrieveFile(local: File, dest: String): Unit = {
     val targetFilename = fullPath(dest)
     val out = new FileOutputStream(local)
     try {

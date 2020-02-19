@@ -308,8 +308,9 @@ class AnalysisFacadeImpl(
   }
 
   override def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration] = {
-    val label = s"$user poiConfiguration"
-    ApiResponse(None, 1, Some(PoiConfiguration.instance.toClient))
+    log.infoElapsed(s"$user poiConfiguration") {
+      ApiResponse(None, 1, Some(PoiConfiguration.instance.toClient))
+    }
   }
 
   def poi(user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage] = {

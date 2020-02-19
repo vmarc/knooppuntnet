@@ -56,7 +56,7 @@ class ElevationRepositoryImpl extends ElevationRepository {
     val gis: InputStream = new GZIPInputStream(new FileInputStream(filename))
     try {
       val byteArray = IOUtils.toByteArray(gis)
-      val byteBuffer = ByteBuffer.wrap(byteArray);
+      val byteBuffer = ByteBuffer.wrap(byteArray)
       byteBuffer.order(ByteOrder.BIG_ENDIAN).asShortBuffer
     }
     finally {

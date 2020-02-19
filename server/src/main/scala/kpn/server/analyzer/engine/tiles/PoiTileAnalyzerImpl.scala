@@ -7,8 +7,6 @@ import kpn.server.repository.PoiRepository
 
 class PoiTileAnalyzerImpl(poiRepository: PoiRepository) {
 
-  private val log = Log(classOf[TileAnalyzerImpl])
-
   def analysis(): Seq[PoiInfo] = {
     poiRepository.allPois(Couch.defaultTimeout)
   }

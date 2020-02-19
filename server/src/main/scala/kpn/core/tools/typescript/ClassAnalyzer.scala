@@ -146,11 +146,6 @@ class ClassAnalyzer {
     }
   }
 
-
-  private def isCollection(fieldTypeString: String): Boolean = {
-    Seq("Seq[", "Set[").exists(c => fieldTypeString.startsWith(c))
-  }
-
   private def fieldTypeToTypescript(fieldType: String): ClassType = {
     fieldType match {
       case "Int" => ClassType("number", primitive = true)

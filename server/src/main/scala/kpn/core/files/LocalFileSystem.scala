@@ -33,7 +33,7 @@ class LocalFileSystem(val baseDir: String) extends FileSystem {
     FsUtils.copy(new FileInputStream(local), new FileOutputStream(fullPath(dest)))
   }
 
-  override def getFile(local: File, dest: String): Unit = {
+  override def retrieveFile(local: File, dest: String): Unit = {
     FsUtils.copy(new FileInputStream(fullPath(dest)), new FileOutputStream(local))
   }
 

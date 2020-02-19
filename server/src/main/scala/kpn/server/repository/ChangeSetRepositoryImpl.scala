@@ -26,8 +26,6 @@ import org.springframework.stereotype.Component
 @Component
 class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetRepository {
 
-  private val log = Log(classOf[ChangeSetRepositoryImpl])
-
   override def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit = {
     val id = docId("summary", changeSetSummary.key)
     val existingDoc = changeDatabase.docWithId(id, classOf[ChangeSetSummaryDoc])

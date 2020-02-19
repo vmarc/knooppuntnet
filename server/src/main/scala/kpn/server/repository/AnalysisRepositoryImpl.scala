@@ -24,8 +24,6 @@ class AnalysisRepositoryImpl(
   nodeInfoBuilder: NodeInfoBuilder
 ) extends AnalysisRepository {
 
-  private val log = Log(classOf[AnalysisRepositoryImpl])
-
   private val lastUpdatedDocumentKey = "analysis"
 
   override def saveNetwork(network: Network): Unit = {

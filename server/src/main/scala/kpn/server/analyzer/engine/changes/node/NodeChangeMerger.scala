@@ -76,10 +76,6 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
     (left.subsets ++ right.subsets).distinct
   }
 
-  private def mergedName(): String = {
-    left.name
-  }
-
   private def mergedBefore(): Option[RawNode] = {
     if (left.before.isEmpty && right.before.isEmpty) {
       None

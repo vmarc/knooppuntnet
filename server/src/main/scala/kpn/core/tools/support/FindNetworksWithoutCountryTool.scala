@@ -10,7 +10,7 @@ object FindNetworksWithoutCountryTool {
     Couch.executeIn("kpn-server", "master-test") { database =>
       val repo = new NetworkRepositoryImpl(database)
       val networks = NetworkType.all.flatMap { networkType =>
-        repo.networks(kpn.api.custom.Subset(Country.nl, networkType), Couch.defaultTimeout, stale = true).filter(_.country.isEmpty)
+        repo.networks(kpn.api.custom.Subset(Country.nl, networkType), Couch.defaultTimeout).filter(_.country.isEmpty)
       }
       println(networks.map(_.id).mkString(","))
       println(networks.map(_.name).mkString(","))

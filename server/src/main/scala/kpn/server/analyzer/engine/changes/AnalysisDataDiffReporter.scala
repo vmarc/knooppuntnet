@@ -108,7 +108,6 @@ class AnalysisDataDiffReporter {
       val rightIds = right.ids.toSet
       val leftOnlyKeys = leftIds -- rightIds
       val rightOnlyKeys = rightIds -- leftIds
-      val commonKeys = rightIds intersect leftIds
 
       val leftOnly = idList("    leftOnly", leftOnlyKeys)
       val rightOnly = idList("    rightOnly", rightOnlyKeys)

@@ -12,7 +12,7 @@ trait FileSystem {
 
   def putFile(local: File, dest: String): Unit
 
-  def getFile(local: File, dest: String): Unit
+  def retrieveFile(local: File, dest: String): Unit
 
   def createDirectory(name: String): Unit
 
