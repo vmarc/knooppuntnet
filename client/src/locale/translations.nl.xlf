@@ -765,7 +765,7 @@
       <trans-unit id="fact.description.route-not-continious" datatype="html">
         <source>
       The route is broken: the begin- and end-networknodes cannot be connected through ways either
-      "in the forward direction or the backward direction or both.
+      in the forward direction or the backward direction or both.
     </source>
         <target>
           De route is onderbroken: de begin- en eindknooppunten van deze route kunnen niet door wegen
@@ -1026,14 +1026,10 @@
       </trans-unit>
       <trans-unit id="fact.description.route-unaccessible" datatype="html">
         <source>
-      Part of the route does not seem
-      context.gotoGlossaryEntry("accessible", "accessible"),
-      .
+      Part of the route does not seem [accessible](/en/docs/en.html#_accessible).
     </source>
         <target>
-          Een deel van de route lijkt niet,
-          context.gotoGlossaryEntry("accessible", "toegankelijk"),
-          .
+          Een deel van de route lijkt niet[toegankelijk](/nl/docs/nl.html#_accessible).
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unaccessible.component.ts</context>
@@ -1859,9 +1855,9 @@
         <source>
       Older changes cannot be shown. The history in the analysis database
       does not go beyond 2012-09-12 (
-          <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>
-          License change
-          <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>).
+      <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>
+        License change
+      <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>).
     </source>
         <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank
           gaat niet verder terug dan 2012-09-12 (

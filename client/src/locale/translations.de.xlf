@@ -763,7 +763,7 @@
       <trans-unit id="fact.description.route-not-continious" datatype="html">
         <source>
       The route is broken: the begin- and end-networknodes cannot be connected through ways either
-      "in the forward direction or the backward direction or both.
+      in the forward direction or the backward direction or both.
     </source>
         <target state="new">[
           The route is broken: the begin- and end-networknodes cannot be connected through ways either
@@ -1043,9 +1043,7 @@
       </trans-unit>
       <trans-unit id="fact.description.route-unaccessible" datatype="html">
         <source>
-      Part of the route does not seem
-      context.gotoGlossaryEntry("accessible", "accessible"),
-      .
+      Part of the route does not seem [accessible](/en/docs/en.html#_accessible).
     </source>
         <target state="new">[
           Part of the route does not seem
