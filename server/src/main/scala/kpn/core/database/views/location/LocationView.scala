@@ -13,9 +13,9 @@ object LocationView extends View {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def query(database: Database, elementType: String, networkType: NetworkType, locationNames: Seq[String] = Seq(), stale: Boolean = true): Seq[Ref] = {
+  def query(database: Database, elementType: String, networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[Ref] = {
 
-    val args = Seq(elementType, networkType.name) ++ locationNames
+    val args = Seq(elementType, networkType.name, locationName)
 
     val query = Query(LocationDesign, LocationView, classOf[ViewResult])
       .keyStartsWith(args: _*)
