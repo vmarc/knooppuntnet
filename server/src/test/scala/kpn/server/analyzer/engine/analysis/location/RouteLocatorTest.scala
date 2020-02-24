@@ -1,50 +1,106 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import java.io.File
+
+import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
-import org.scalamock.scalatest.MockFactory
+import kpn.api.common.location.LocationCandidate
+import kpn.api.common.route.RouteInfo
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class RouteLocatorTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
+class RouteLocatorTest extends FunSuite with Matchers with SharedTestObjects {
 
-  test("location found by node based locator") {
+  private val essen = Location(Seq("Belgium", "Flanders", "Antwerp", "Antwerp", "Essen"))
+  private val kalmthout = Location(Seq("Belgium", "Flanders", "Antwerp", "Antwerp", "Kalmthout"))
+  private val roosendaal = Location(Seq("Netherlands", "North Brabant", "Roosendaal"))
+  private val rucphen = Location(Seq("Netherlands", "North Brabant", "Rucphen"))
+  private val woensdrecht = Location(Seq("Netherlands", "North Brabant", "Woensdrecht"))
 
-    val nodeBasedLocator = stub[RouteNodeBasedLocator]
-    val wayBasedLocator = stub[RouteWayBasedLocator]
-    (nodeBasedLocator.locate _).when(*).returns(Some(Location(Seq("one"))))
+  test("way based locator") {
 
-    val route = newRoute()
-    val locator = new RouteLocatorImpl(nodeBasedLocator, wayBasedLocator)
+    val locator = {
+      val configuration = readLocationConfiguration()
+      // val locationConfiguration = new LocationConfigurationReader().read()
+      new RouteLocatorImpl(configuration)
+    }
 
-    locator.locate(route) should equal(Some(RouteLocationAnalysis(Location(Seq("one")))))
+    // route 24-81
+    locator.locate(route("28184")) should equal(
+      Some(
+        RouteLocationAnalysis(
+          essen,
+          Seq(
+            LocationCandidate(essen, 68),
+            LocationCandidate(roosendaal, 30),
+            LocationCandidate(woensdrecht, 2)
+          )
+        )
+      )
+    )
+
+    // route 55-95
+    locator.locate(route("19227")) should equal(
+      Some(
+        RouteLocationAnalysis(
+          rucphen,
+          Seq(
+            LocationCandidate(rucphen, 61),
+            LocationCandidate(roosendaal, 23),
+            LocationCandidate(essen, 16)
+          )
+        )
+      )
+    )
+
+    // route 80-89
+    locator.locate(route("28182")) should equal(
+      Some(
+        RouteLocationAnalysis(
+          kalmthout,
+          Seq(
+            LocationCandidate(kalmthout, 85),
+            LocationCandidate(essen, 15)
+          )
+        )
+      )
+    )
   }
 
-  test("location found by way based locator") {
+  private def readLocationConfiguration(): LocationConfiguration = {
 
-    val nodeBasedLocator = stub[RouteNodeBasedLocator]
-    val wayBasedLocator = stub[RouteWayBasedLocator]
-    (nodeBasedLocator.locate _).when(*).returns(None)
-    (wayBasedLocator.locate _).when(*).returns(Some(RouteLocationAnalysis(Location(Seq("one")))))
+    val be = {
+      val essen = location("be/Essen_964003_AL8.GeoJson")
+      val kalmthout = location("be/Kalmthout_1284337_AL8.GeoJson")
+      val antwerp7 = location("be/Antwerp_1902793_AL7.GeoJson", Seq(essen, kalmthout))
+      val antwerp6 = location("be/Antwerp_53114_AL6.GeoJson", Seq(antwerp7))
+      val flanders = location("be/Flanders_53134_AL4.GeoJson", Seq(antwerp6))
+      location("be/Belgium_52411_AL2.GeoJson", Seq(flanders))
+    }
 
-    val route = newRoute()
-    val locator = new RouteLocatorImpl(nodeBasedLocator, wayBasedLocator)
+    val nl = {
+      val roosendaal = location("nl/Roosendaal_2078302_AL8.GeoJson")
+      val rucphen = location("nl/Rucphen_2078299_AL8.GeoJson")
+      val woensdrecht = location("nl/Woensdrecht_2078304_AL8.GeoJson")
+      val northBrabant = location("nl/North Brabant_47696_AL4.GeoJson", Seq(roosendaal, rucphen, woensdrecht))
+      location("nl/Netherlands_47796_AL3.GeoJson", Seq(northBrabant))
+    }
 
-    locator.locate(route) should equal(Some(RouteLocationAnalysis(Location(Seq("one")))))
+    val de = location("de/Germany_51477_AL2.GeoJson")
+
+    LocationConfiguration(Seq(nl, be, de))
   }
 
-  test("location not found by either locator") {
+  private def location(name: String, children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {
+    val filename = "/kpn/conf/locations/" + name
+    val file = new File(filename)
+    new LocationDefinitionReader(file).read(children)
+  }
 
-    val nodeBasedLocator = stub[RouteNodeBasedLocator]
-    val wayBasedLocator = stub[RouteWayBasedLocator]
-    (nodeBasedLocator.locate _).when(*).returns(None)
-    (wayBasedLocator.locate _).when(*).returns(None)
-
-    val route = newRoute()
-    val locator = new RouteLocatorImpl(nodeBasedLocator, wayBasedLocator)
-
-    locator.locate(route) should equal(None)
+  private def route(routeId: String): RouteInfo = {
+    CaseStudy.routeAnalysis(routeId).route
   }
 
 }

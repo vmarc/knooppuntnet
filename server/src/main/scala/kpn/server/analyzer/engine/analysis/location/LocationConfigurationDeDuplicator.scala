@@ -59,7 +59,24 @@ class LocationConfigurationDeDuplicator {
     "62434" -> "Leipzig Bundesland",
     // Austria
     "16239" -> "at",
-    "86539" -> "Salzburg Bundesland"
+    "86539" -> "Salzburg Bundesland",
+    // duplicates in different countries
+    "2180490" -> "Lens BE",
+    "1647285" -> "Lens FR",
+    "2252998" -> "Rochefort BE",
+    "1661785" -> "Rochefort FR",
+    "2571206" -> "Neufchâteau BE",
+    "1668377" -> "Neufchâteau FR",
+    "308722" -> "Zwijndrecht NL",
+    "60889" -> "Zwijndrecht BE",
+    "47793" -> "Limburg NL",
+    "53142" -> "Limburg BE",
+    "1282972" -> "Lille BE",
+    "1643919" -> "Lille FR",
+    "1225337" -> "Herne BE",
+    "62396" -> "Herne DE",
+    "964003" -> "Essen BE",
+    "62713" -> "Essen DE"
   )
 
   def deduplicate(configuration: LocationConfiguration): LocationConfiguration = {

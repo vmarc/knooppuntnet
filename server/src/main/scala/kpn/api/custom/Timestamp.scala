@@ -19,6 +19,16 @@ object Timestamp {
     Timestamp(year, month, day, hour, minute, second)
   }
 
+  def fromIso(iso: String): Timestamp = {
+    val year = iso.substring(0, 4).toInt
+    val month = iso.substring(5, 7).toInt
+    val day = iso.substring(8, 10).toInt
+    val hour = iso.substring(11, 13).toInt
+    val minute = iso.substring(14, 16).toInt
+    val second = iso.substring(17, 19).toInt
+    Timestamp(year, month, day, hour, minute, second)
+  }
+
   def apply(year: Int, month: Int, day: Int): Timestamp = {
     Timestamp(year, month, day, 0, 0, 0)
   }
