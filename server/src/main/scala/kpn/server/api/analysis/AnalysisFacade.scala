@@ -9,6 +9,7 @@ import kpn.api.common.location.LocationChangesPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
+import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationPage
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.network.NetworkChangesPage
@@ -101,7 +102,7 @@ trait AnalysisFacade {
 
   def location(user: Option[String], networkType: NetworkType): ApiResponse[LocationPage]
 
-  def locationNodes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationNodesPage]
+  def locationNodes(user: Option[String], locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
 
   def locationRoutes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationRoutesPage]
 

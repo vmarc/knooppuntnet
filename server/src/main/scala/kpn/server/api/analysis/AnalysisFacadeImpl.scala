@@ -9,6 +9,7 @@ import kpn.api.common.location.LocationChangesPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
+import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationPage
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.network.NetworkChangesPage
@@ -327,10 +328,10 @@ class AnalysisFacadeImpl(
     }
   }
 
-  def locationNodes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationNodesPage] = {
+  def locationNodes(user: Option[String], locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val label = s"$user locationNodes(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
     log.infoElapsed(label) {
-      reply(label, locationNodesPageBuilder.build(locationKey))
+      reply(label, locationNodesPageBuilder.build(locationKey, parameters))
     }
   }
 

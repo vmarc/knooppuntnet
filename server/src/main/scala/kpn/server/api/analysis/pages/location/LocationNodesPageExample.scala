@@ -4,8 +4,6 @@ import kpn.api.common.common.Ref
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationSummary
-import kpn.api.custom.Fact
-import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 
@@ -19,17 +17,14 @@ object LocationNodesPageExample {
         LocationNodeInfo(
           id = 1001,
           name = "01",
-          number = "1",
           latitude = "1",
           longitude = "2",
-          definedInRoute = false,
-          timestamp = Timestamp(2018, 11, 8),
+          lastUpdated = Timestamp(2018, 11, 8),
+          factCount = 3,
           routeReferences = Seq(
             Ref(101, "01-02"),
             Ref(102, "01-03")
-          ),
-          facts = Seq(Fact.RouteNotBackward),
-          tags = Tags.empty
+          )
         )
       )
     )
