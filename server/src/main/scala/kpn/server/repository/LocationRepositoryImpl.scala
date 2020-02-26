@@ -3,10 +3,13 @@ package kpn.server.repository
 import kpn.api.common.common.Ref
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
+import kpn.api.common.location.LocationRouteInfo
+import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.location.LocationNodeView
+import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
 import kpn.core.database.views.location.NodeRouteReferenceView
 import org.springframework.stereotype.Component
@@ -29,4 +32,14 @@ class LocationRepositoryImpl(analysisDatabase: Database) extends LocationReposit
   override def nodeCount(locationKey: LocationKey, stale: Boolean): Long = {
     LocationNodeView.queryCount(analysisDatabase, locationKey, stale)
   }
+
+  override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo] = {
+    LocationRouteView.query(analysisDatabase, locationKey, parameters, stale)
+
+  }
+
+  override def routeCount(locationKey: LocationKey, stale: Boolean = true): Long = {
+    LocationRouteView.queryCount(analysisDatabase, locationKey, stale)
+  }
+
 }

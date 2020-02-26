@@ -12,6 +12,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
@@ -70,6 +71,7 @@ class MasterRouteAnalyzerImpl(
         RouteMemberAnalyzer,
         RouteStreetsAnalyzer,
         RouteMapAnalyzer,
+        GeometryDigestAnalyzer,
         IncompleteOkRouteAnalyzer,
         FactCombinationAnalyzer
       )
@@ -88,7 +90,6 @@ class MasterRouteAnalyzerImpl(
       doAnalyze(analyzers.tail, newContext)
     }
   }
-
 }
 
 object RouteAnalyzerFunctions {

@@ -45,7 +45,7 @@ export class PaginatorComponent implements AfterViewInit {
 
   @Output() page = new EventEmitter<PageEvent>();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) matPaginator: MatPaginator;
 
   constructor(private paginatorService: PaginatorService,
               private element: ElementRef,
@@ -71,16 +71,16 @@ export class PaginatorComponent implements AfterViewInit {
   }
 
   rowNumber(index: number): number {
-    return (this.paginator.pageIndex * this.paginator.pageSize) + index + 1;
+    return (this.matPaginator.pageIndex * this.matPaginator.pageSize) + index + 1;
   }
 
   private initTranslations(): void {
-    this.paginator._intl.itemsPerPageLabel = this.paginatorService.itemsPerPageLabel;
-    this.paginator._intl.nextPageLabel = this.paginatorService.nextPageLabel;
-    this.paginator._intl.previousPageLabel = this.paginatorService.previousPageLabel;
-    this.paginator._intl.firstPageLabel = this.paginatorService.firstPageLabel;
-    this.paginator._intl.lastPageLabel = this.paginatorService.lastPageLabel;
-    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+    this.matPaginator._intl.itemsPerPageLabel = this.paginatorService.itemsPerPageLabel;
+    this.matPaginator._intl.nextPageLabel = this.paginatorService.nextPageLabel;
+    this.matPaginator._intl.previousPageLabel = this.paginatorService.previousPageLabel;
+    this.matPaginator._intl.firstPageLabel = this.paginatorService.firstPageLabel;
+    this.matPaginator._intl.lastPageLabel = this.paginatorService.lastPageLabel;
+    this.matPaginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0 || pageSize === 0) {
         return `0 ${this.paginatorService.of} ${length}`;
       }

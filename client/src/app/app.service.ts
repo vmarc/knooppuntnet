@@ -10,8 +10,10 @@ import {LocationChangesPage} from "./kpn/api/common/location/location-changes-pa
 import {LocationFactsPage} from "./kpn/api/common/location/location-facts-page";
 import {LocationMapPage} from "./kpn/api/common/location/location-map-page";
 import {LocationNodesPage} from "./kpn/api/common/location/location-nodes-page";
+import {LocationNodesParameters} from "./kpn/api/common/location/location-nodes-parameters";
 import {LocationPage} from "./kpn/api/common/location/location-page";
 import {LocationRoutesPage} from "./kpn/api/common/location/location-routes-page";
+import {LocationRoutesParameters} from "./kpn/api/common/location/location-routes-parameters";
 import {NetworkChangesPage} from "./kpn/api/common/network/network-changes-page";
 import {NetworkDetailsPage} from "./kpn/api/common/network/network-details-page";
 import {NetworkFactsPage} from "./kpn/api/common/network/network-facts-page";
@@ -239,16 +241,16 @@ export class AppService {
     );
   }
 
-  public locationNodes(locationKey: LocationKey): Observable<ApiResponse<LocationNodesPage>> {
+  public locationNodes(locationKey: LocationKey, parameters: LocationNodesParameters): Observable<ApiResponse<LocationNodesPage>> {
     const url = this.locationUrl(locationKey, "nodes");
-    return this.http.get(url).pipe(
+    return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationNodesPage.fromJSON))
     );
   }
 
-  public locationRoutes(locationKey: LocationKey): Observable<ApiResponse<LocationRoutesPage>> {
+  public locationRoutes(locationKey: LocationKey, parameters: LocationRoutesParameters): Observable<ApiResponse<LocationRoutesPage>> {
     const url = this.locationUrl(locationKey, "routes");
-    return this.http.get(url).pipe(
+    return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationRoutesPage.fromJSON))
     );
   }

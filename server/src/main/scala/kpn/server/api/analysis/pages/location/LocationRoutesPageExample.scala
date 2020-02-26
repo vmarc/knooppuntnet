@@ -16,18 +16,16 @@ object LocationRoutesPageExample {
         LocationRouteInfo(
           id = 101,
           name = "01-02",
-          length = 100,
-          investigate = true,
-          accessible = false,
-          relationLastUpdated = Timestamp(2018, 8, 11)
+          meters = 100,
+          lastUpdated = Timestamp(2018, 8, 11),
+          broken = true
         ),
         LocationRouteInfo(
           id = 102,
           name = "01-03",
-          length = 130,
-          investigate = false,
-          accessible = true,
-          relationLastUpdated = Timestamp(2018, 8, 13)
+          meters = 130,
+          lastUpdated = Timestamp(2018, 8, 13),
+          broken = false
         )
       )
     )

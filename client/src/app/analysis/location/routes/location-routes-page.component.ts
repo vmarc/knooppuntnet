@@ -5,6 +5,7 @@ import {tap} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {LocationRoutesPage} from "../../../kpn/api/common/location/location-routes-page";
+import {LocationRoutesParameters} from "../../../kpn/api/common/location/location-routes-parameters";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
@@ -42,7 +43,7 @@ export class LocationRoutesPageComponent {
           return new LocationKey(networkType, country, name);
         }),
         tap(locationKey => this.locationKey = locationKey),
-        flatMap(locationKey => this.appService.locationRoutes(locationKey))
+        flatMap(locationKey => this.appService.locationRoutes(locationKey, new LocationRoutesParameters(5, 0)))
       ).subscribe(response => this.response = response)
     );
   }

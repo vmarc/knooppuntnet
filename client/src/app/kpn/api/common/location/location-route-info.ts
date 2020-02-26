@@ -6,10 +6,9 @@ export class LocationRouteInfo {
 
   constructor(readonly id: number,
               readonly name: string,
-              readonly length: number,
-              readonly investigate: boolean,
-              readonly accessible: boolean,
-              readonly relationLastUpdated: Timestamp) {
+              readonly meters: number,
+              readonly lastUpdated: Timestamp,
+              readonly broken: boolean) {
   }
 
   public static fromJSON(jsonObject): LocationRouteInfo {
@@ -19,10 +18,9 @@ export class LocationRouteInfo {
     return new LocationRouteInfo(
       jsonObject.id,
       jsonObject.name,
-      jsonObject.length,
-      jsonObject.investigate,
-      jsonObject.accessible,
-      Timestamp.fromJSON(jsonObject.relationLastUpdated)
+      jsonObject.meters,
+      Timestamp.fromJSON(jsonObject.lastUpdated),
+      jsonObject.broken
     );
   }
 }

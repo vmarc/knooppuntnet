@@ -1,6 +1,11 @@
+import {OnChanges} from "@angular/core";
+import {SimpleChanges} from "@angular/core";
+import {EventEmitter} from "@angular/core";
+import {Output} from "@angular/core";
 import {ViewChild} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
+import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
 import {PageWidthService} from "../../../components/shared/page-width.service";
@@ -12,10 +17,14 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
   selector: "kpn-location-node-table",
   template: `
     <kpn-paginator
+      (page)="page.emit($event)"
+      [pageIndex]="0"
+      [pageSize]="5"
       [pageSizeOptions]="[5, 10, 20, 50, 1000]"
-      [length]="nodes?.size"
+      [length]="nodeCount"
       [showFirstLastButtons]="true">
     </kpn-paginator>
+
     <mat-divider></mat-divider>
 
     <mat-table matSort [dataSource]="dataSource">
@@ -96,10 +105,12 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
     }
   `]
 })
-export class LocationNodeTableComponent implements OnInit {
+export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   @Input() timeInfo: TimeInfo;
   @Input() nodes: List<LocationNodeInfo> = List();
+  @Input() nodeCount: number;
+  @Output() page = new EventEmitter<PageEvent>();
 
   dataSource: MatTableDataSource<LocationNodeInfo>;
 
@@ -109,17 +120,23 @@ export class LocationNodeTableComponent implements OnInit {
 
   constructor(private pageWidthService: PageWidthService
               /*private networkNodesService: NetworkNodesService*/) {
+    this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator.paginator;
+    this.dataSource.paginator = this.paginator.matPaginator;
     this.dataSource.data = this.nodes.toArray();
     // this.filterCriteria.subscribe(criteria => {
     //   const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);
     //   this.dataSource.data = filter.filter(this.nodes).toArray();
     //   this.networkNodesService.filterOptions.next(filter.filterOptions(this.nodes));
     // });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["nodes"]) {
+      this.dataSource.data = this.nodes.toArray();
+    }
   }
 
   displayedColumns() {

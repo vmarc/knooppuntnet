@@ -15,10 +15,8 @@ object LocationView extends View {
 
   def query(database: Database, elementType: String, networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[Ref] = {
 
-    val args = Seq(elementType, networkType.name, locationName)
-
     val query = Query(LocationDesign, LocationView, classOf[ViewResult])
-      .keyStartsWith(args: _*)
+      .keyStartsWith(elementType, networkType.name, locationName)
       .reduce(false)
       .stale(stale)
 

@@ -34,8 +34,8 @@ case class RouteAnalysisContext(
   routeMap: Option[RouteMap] = None,
   ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
-  streets: Option[Seq[String]] = None
-
+  streets: Option[Seq[String]] = None,
+  geometryDigest: Option[String] = None
 ) {
 
   def networkType: NetworkType = loadedRoute.networkType

@@ -6,10 +6,11 @@ import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.server.api.analysis.pages.TimeInfoBuilder
+import kpn.server.repository.LocationRepository
 import org.springframework.stereotype.Component
 
 @Component
-class LocationRoutesPageBuilderImpl extends LocationRoutesPageBuilder {
+class LocationRoutesPageBuilderImpl(locationRepository: LocationRepository) extends LocationRoutesPageBuilder {
 
   override def build(locationKey: LocationKey): Option[LocationRoutesPage] = {
     if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
@@ -21,10 +22,13 @@ class LocationRoutesPageBuilderImpl extends LocationRoutesPageBuilder {
   }
 
   private def buildPage(locationKey: LocationKey): Option[LocationRoutesPage] = {
+    val nodeCount = locationRepository.nodeCount(locationKey)
+    val routeCount = locationRepository.routeCount(locationKey)
+
     Some(
       LocationRoutesPage(
         TimeInfoBuilder.timeInfo,
-        LocationSummary(10, 20, 30, 40),
+        LocationSummary(10, nodeCount, routeCount, 40),
         Seq.empty
       )
     )

@@ -1,10 +1,9 @@
 import {Component} from "@angular/core";
+import {PageEvent} from "@angular/material/paginator";
 import {ActivatedRoute} from "@angular/router";
-import {flatMap} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {LocationNodesPage} from "../../../kpn/api/common/location/location-nodes-page";
+import {LocationNodesParameters} from "../../../kpn/api/common/location/location-nodes-parameters";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
@@ -31,8 +30,10 @@ import {Subscriptions} from "../../../util/Subscriptions";
         </div>
         <kpn-location-node-table
           *ngIf="!page.nodes.isEmpty()"
+          (page)="pageChanged($event)"
           [timeInfo]="page.timeInfo"
-          [nodes]="page.nodes">
+          [nodes]="page.nodes"
+          [nodeCount]="page.summary.nodeCount">
         </kpn-location-node-table>
       </div>
       <kpn-json [object]="response"></kpn-json>
@@ -47,21 +48,45 @@ export class LocationNodesPageComponent {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService) {
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => {
-          const networkType = NetworkType.withName(params["networkType"]);
-          const country = Countries.withDomain(params["country"]);
-          const name = params["location"];
-          return new LocationKey(networkType, country, name);
-        }),
-        tap(locationKey => this.locationKey = locationKey),
-        flatMap(locationKey => this.appService.locationNodes(locationKey))
-      ).subscribe(response => this.response = response)
-    );
+  }
+
+  private _parameters = new LocationNodesParameters(5, 0);
+
+  get parameters(): LocationNodesParameters {
+    return this._parameters;
+  }
+
+  set parameters(parameters: LocationNodesParameters) {
+    this._parameters = parameters;
+    this.reload();
   }
 
   get page(): LocationNodesPage {
     return this.response.result;
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.activatedRoute.params.subscribe(params => {
+        const networkType = NetworkType.withName(params["networkType"]);
+        const country = Countries.withDomain(params["country"]);
+        const name = params["location"];
+        this.locationKey = new LocationKey(networkType, country, name);
+        // TODO read parameters from localstorage instead
+        this.parameters = new LocationNodesParameters(5, 0);
+      })
+    );
+  }
+
+  pageChanged(event: PageEvent) {
+    window.scroll(0, 0);
+    this.parameters = {...this.parameters, pageIndex: event.pageIndex, itemsPerPage: event.pageSize};
+  }
+
+  private reload() {
+    console.log("this.parameters=" + JSON.stringify(this.parameters));
+    this.appService.locationNodes(this.locationKey, this.parameters).subscribe(response => {
+      this.response = response;
+    });
   }
 }

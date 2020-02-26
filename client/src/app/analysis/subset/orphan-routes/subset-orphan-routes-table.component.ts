@@ -74,7 +74,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator.paginator;
+    this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new SubsetOrphanRouteFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.orphanRoutes).toArray();

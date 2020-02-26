@@ -7,6 +7,7 @@ object LocationDesign extends Design {
   val views: Seq[View] = Seq(
     LocationView,
     // LocationCountView,
+    LocationRouteView,
     LocationNodeView,
     NodeRouteReferenceView
   )

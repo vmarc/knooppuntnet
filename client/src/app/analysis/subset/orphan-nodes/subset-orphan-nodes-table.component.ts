@@ -73,7 +73,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator.paginator;
+    this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.nodes).toArray();
