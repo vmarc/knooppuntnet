@@ -23,12 +23,14 @@ class LocationNodesPageBuilderImpl(locationRepository: LocationRepository) exten
   }
 
   private def buildPage(locationKey: LocationKey, parameters: LocationNodesParameters): Option[LocationNodesPage] = {
-    val nodeCount = locationRepository.nodeCount(locationKey)
+
+    val summary = locationRepository.summary(locationKey)
     val nodes = locationRepository.nodes(locationKey, parameters)
+
     Some(
       LocationNodesPage(
         TimeInfoBuilder.timeInfo,
-        LocationSummary(10, nodeCount, 30, 40),
+        summary,
         nodes
       )
     )

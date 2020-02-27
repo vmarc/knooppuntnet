@@ -17,7 +17,13 @@ object LocationRouteView extends View {
 
   private case class ViewResultRow(
     key: Seq[String],
-    value: Seq[String]
+    value: ViewResultRowValue
+  )
+
+  private case class ViewResultRowValue(
+    meters: Long,
+    lastUpdated: Timestamp,
+    broken: Boolean
   )
 
   private case class CountViewResult(
@@ -25,7 +31,7 @@ object LocationRouteView extends View {
   )
 
   private case class CountViewResultRow(
-    value: Int
+    value: Long
   )
 
   def query(database: Database, locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean): Seq[LocationRouteInfo] = {
@@ -43,13 +49,12 @@ object LocationRouteView extends View {
     val result = database.execute(query)
     result.rows.map { row =>
       val key = Fields(row.key)
-      val value = Fields(row.value)
       LocationRouteInfo(
         id = key.long(3),
         name = key.string(2),
-        meters = value.long(0),
-        lastUpdated = Timestamp.fromIso(value.string(1)),
-        broken = value.boolean(2)
+        meters = row.value.meters,
+        lastUpdated = row.value.lastUpdated,
+        broken = row.value.broken
       )
     }
   }
@@ -63,7 +68,10 @@ object LocationRouteView extends View {
       .groupLevel(2)
 
     val result = database.execute(query)
-    result.rows.head.value
+    result.rows.headOption match {
+      case Some(row) => row.value
+      case None => 0
+    }
   }
 
   override def reduce: Option[String] = Some("_count")

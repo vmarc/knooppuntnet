@@ -5,6 +5,7 @@ import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.common.location.LocationSummary
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
@@ -16,6 +17,15 @@ import org.springframework.stereotype.Component
 
 @Component
 class LocationRepositoryImpl(analysisDatabase: Database) extends LocationRepository {
+
+  override def summary(locationKey: LocationKey): LocationSummary = {
+    LocationSummary(
+      0,
+      nodeCount(locationKey),
+      routeCount(locationKey),
+      0
+    )
+  }
 
   override def routesWithoutLocation(networkType: NetworkType): Seq[Ref] = {
     LocationView.query(analysisDatabase, "route-without-location", networkType, "").sortBy(_.name)
@@ -35,7 +45,6 @@ class LocationRepositoryImpl(analysisDatabase: Database) extends LocationReposit
 
   override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo] = {
     LocationRouteView.query(analysisDatabase, locationKey, parameters, stale)
-
   }
 
   override def routeCount(locationKey: LocationKey, stale: Boolean = true): Long = {

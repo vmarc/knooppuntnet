@@ -5,10 +5,13 @@ import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.common.location.LocationSummary
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 
 trait LocationRepository {
+
+  def summary(locationKey: LocationKey): LocationSummary
 
   def routesWithoutLocation(networkType: NetworkType): Seq[Ref]
 

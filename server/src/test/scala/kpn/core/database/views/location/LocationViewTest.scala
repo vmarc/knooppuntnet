@@ -8,6 +8,7 @@ import kpn.api.common.location.LocationCandidate
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
@@ -16,7 +17,7 @@ import org.scalatest.Matchers
 class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("node location") {
-    withDatabase(true) { database =>
+    withDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(
         newNodeInfo(
@@ -49,42 +50,53 @@ class LocationViewTest extends FunSuite with Matchers with SharedTestObjects {
   }
 
   test("route location") {
-    withDatabase(true) { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
-      routeRepository.save(
-        newRoute(
-          id = 11,
-          name = "01-02",
-          analysis = newRouteInfoAnalysis(
-            locationAnalysis = Some(
-              RouteLocationAnalysis(
-                Location(Seq("country", "province2", "municipality3")),
-                candidates = Seq(
-                  LocationCandidate(Location(Seq("country", "province1", "municipality1")), 20),
-                  LocationCandidate(Location(Seq("country", "province2", "municipality2")), 30),
-                  LocationCandidate(Location(Seq("country", "province2", "municipality3")), 50),
-                )
-              )
-            )
+    withDatabase { database =>
+
+      val route1 = newRoute(
+        id = 11,
+        name = "01-02",
+        analysis = newRouteInfoAnalysis()
+      )
+
+      val route2 = newRoute(
+        id = 12,
+        name = "02-03",
+        analysis = newRouteInfoAnalysis()
+      )
+
+      val routeLocator: RouteLocator = stub[RouteLocator]
+      (routeLocator.locate _).when(route1).returns(
+        RouteLocationAnalysis(
+          location = Some(Location(Seq("country", "province2", "municipality3"))),
+          candidates = Seq(
+            LocationCandidate(Location(Seq("country", "province1", "municipality1")), 20),
+            LocationCandidate(Location(Seq("country", "province2", "municipality2")), 30),
+            LocationCandidate(Location(Seq("country", "province2", "municipality3")), 50),
+          ),
+          locationNames = Seq(
+            "country",
+            "province1",
+            "province2",
+            "municipality1",
+            "municipality2",
+            "municipality3"
           )
         )
       )
-      routeRepository.save(
-        newRoute(
-          id = 12,
-          name = "02-03",
-          analysis = newRouteInfoAnalysis(
-            locationAnalysis = Some(
-              RouteLocationAnalysis(
-                Location(Seq("country", "province1", "municipality1")),
-                candidates = Seq(
-                  LocationCandidate(Location(Seq("country", "province1", "municipality1")), 100)
-                )
-              )
-            )
-          )
+      (routeLocator.locate _).when(route2).returns(
+        RouteLocationAnalysis(
+          location = Some(Location(Seq("country", "province1", "municipality1"))),
+          candidates = Seq(
+            LocationCandidate(Location(Seq("country", "province1", "municipality1")), 100)
+          ),
+          locationNames = Seq("country", "province1", "municipality1")
         )
       )
+
+      val routeRepository = new RouteRepositoryImpl(database, routeLocator)
+
+      routeRepository.save(route1)
+      routeRepository.save(route2)
 
       def query(locationName: String): Seq[Ref] = {
         LocationView.query(database, "route", NetworkType.hiking, locationName, stale = false)

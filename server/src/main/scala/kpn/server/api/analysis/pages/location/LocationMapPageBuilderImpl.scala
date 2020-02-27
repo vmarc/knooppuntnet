@@ -5,10 +5,11 @@ import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
+import kpn.server.repository.LocationRepository
 import org.springframework.stereotype.Component
 
 @Component
-class LocationMapPageBuilderImpl extends LocationMapPageBuilder {
+class LocationMapPageBuilderImpl(locationRepository: LocationRepository) extends LocationMapPageBuilder {
 
   override def build(locationKey: LocationKey): Option[LocationMapPage] = {
     if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
@@ -20,8 +21,9 @@ class LocationMapPageBuilderImpl extends LocationMapPageBuilder {
   }
 
   private def buildPage(locationKey: LocationKey): Option[LocationMapPage] = {
+    val summary = locationRepository.summary(locationKey)
     Some(
-      LocationMapPage(LocationSummary(10, 20, 30, 40))
+      LocationMapPage(summary)
     )
   }
 }

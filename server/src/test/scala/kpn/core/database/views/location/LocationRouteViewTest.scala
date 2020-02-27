@@ -11,6 +11,7 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
@@ -18,31 +19,38 @@ import org.scalatest.Matchers
 class LocationRouteViewTest extends FunSuite with Matchers with SharedTestObjects {
 
   test("route") {
-    withDatabase(true) { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
-      routeRepository.save(
-        newRoute(
-          id = 11,
-          name = "01-02",
-          meters = 103,
-          lastUpdated = Timestamp(2018, 11, 8),
-          analysis = newRouteInfoAnalysis(
-            locationAnalysis = Some(
-              RouteLocationAnalysis(
-                Location(Seq("country", "province", "municipality")),
-                candidates = Seq(
-                  LocationCandidate(Location(Seq("country", "province", "municipality")), 100),
-                )
-              )
-            )
-          )
+    withDatabase { database =>
+
+      val route = newRoute(
+        id = 11,
+        name = "01-02",
+        meters = 123,
+        lastUpdated = Timestamp(2018, 11, 8)
+      )
+
+      val routeLocator: RouteLocator = stub[RouteLocator]
+      (routeLocator.locate _).when(route).returns(
+        RouteLocationAnalysis(
+          Some(Location(Seq("country", "province", "municipality"))),
+          candidates = Seq(
+            LocationCandidate(Location(Seq("country", "province", "municipality")), 100),
+          ),
+          locationNames = Seq("country", "province", "municipality")
         )
       )
+
+      val routeRepository = new RouteRepositoryImpl(database, routeLocator)
+      routeRepository.save(route)
 
       def query(locationName: String): Seq[LocationRouteInfo] = {
         val key = LocationKey(NetworkType.hiking, Country.nl, locationName)
         val parameters = LocationRoutesParameters()
         LocationRouteView.query(database, key, parameters, stale = false)
+      }
+
+      def queryCount(locationName: String): Long = {
+        val key = LocationKey(NetworkType.hiking, Country.nl, locationName)
+        LocationRouteView.queryCount(database, key, stale = false)
       }
 
       val expectedRouteInfo = LocationRouteInfo(
@@ -56,7 +64,19 @@ class LocationRouteViewTest extends FunSuite with Matchers with SharedTestObject
       query("country") should equal(Seq(expectedRouteInfo))
       query("province") should equal(Seq(expectedRouteInfo))
       query("municipality") should equal(Seq(expectedRouteInfo))
+
+      queryCount("country") should equal(1)
+      queryCount("province") should equal(1)
+      queryCount("municipality") should equal(1)
     }
   }
 
+  test("no routes at location") {
+    withDatabase { database =>
+      val key = LocationKey(NetworkType.hiking, Country.nl, "unknown")
+      val parameters = LocationRoutesParameters()
+      LocationRouteView.query(database, key, parameters, stale = false) should equal(Seq())
+      LocationRouteView.queryCount(database, key, stale = false) should equal(0)
+    }
+  }
 }
