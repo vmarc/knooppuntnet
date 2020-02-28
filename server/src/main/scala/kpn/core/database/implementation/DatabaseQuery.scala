@@ -26,7 +26,7 @@ class DatabaseQuery(context: DatabaseContext) {
       }
       catch {
         case e: JsonProcessingException =>
-          throw new IllegalStateException(s"Could process response for query $url\n response=${response.getBody}", e)
+          throw new IllegalStateException(s"Could not process response for query $url\n response=${response.getBody}", e)
       }
     }
     catch {

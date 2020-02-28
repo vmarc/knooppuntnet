@@ -1,11 +1,11 @@
 package kpn.server.repository
 
-import kpn.api.custom.NetworkType
-import kpn.core.db.couch.Couch
-import kpn.core.test.TestSupport.withDatabase
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteReferences
+import kpn.api.custom.NetworkType
+import kpn.core.db.couch.Couch
+import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -13,7 +13,8 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("routeWithId") {
     withDatabase { database =>
-      val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+
+      val routeRepository = newRouteRepository(database)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -26,7 +27,7 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("routesWithIds") {
     withDatabase { database =>
-      val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
       routeRepository.routesWithIds(Seq(10, 20, 30), Couch.uiTimeout) should equal(Seq(newRoute(10), newRoute(20)))
@@ -47,7 +48,7 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
         )
       )
 
-      val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.routeReferences(10, Couch.uiTimeout, stale = false) should equal(
         RouteReferences(
           Seq(Reference(1, "network-name", NetworkType.hiking))
@@ -58,42 +59,35 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("save") {
     withDatabase { database =>
-      val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+
+      val routeRepository = newRouteRepository(database)
 
       // first save
-      routeRepository.save(
-        newRoute(10, name = "01-02"),
-        newRoute(20, name = "02-03")
-      )
+      routeRepository.save(newRoute(10, name = "01-02"))
+      routeRepository.save(newRoute(20, name = "02-03"))
 
       routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02")))
       routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-03")))
       routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
 
       // save again without change
-      routeRepository.save(
-        newRoute(10, name = "01-02"),
-        newRoute(20, name = "02-03")
-      )
+      routeRepository.save(newRoute(10, name = "01-02"))
+      routeRepository.save(newRoute(20, name = "02-03"))
 
       routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02")))
       routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-03")))
       routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
 
       // update
-      routeRepository.save(
-        newRoute(10, name = "01-02"),
-        newRoute(20, name = "02-04")
-      )
+      routeRepository.save(newRoute(10, name = "01-02"))
+      routeRepository.save(newRoute(20, name = "02-04"))
 
       routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02")))
       routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-04"))) // updated
       routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
 
       // update
-      routeRepository.save(
-        newRoute(20, name = "02-05")
-      )
+      routeRepository.save(newRoute(20, name = "02-05"))
 
       routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02"))) // not deleted
       routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-05"))) // updated
@@ -103,7 +97,8 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
 
   test("filterKnown") {
     withDatabase { database =>
-      val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+
+      val routeRepository = newRouteRepository(database)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))

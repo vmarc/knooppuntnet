@@ -9,13 +9,17 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.NetworkNodeInfo
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.stereotype.Component
 
 @Component
-class NodeInfoBuilderImpl(nodeTileAnalyzer: NodeTileAnalyzer) extends NodeInfoBuilder {
+class NodeInfoBuilderImpl(
+  nodeTileAnalyzer: NodeTileAnalyzer,
+  nodeLocationAnalyzer: NodeLocationAnalyzer
+) extends NodeInfoBuilder {
 
   def build(
     id: Long,
@@ -30,6 +34,8 @@ class NodeInfoBuilderImpl(nodeTileAnalyzer: NodeTileAnalyzer) extends NodeInfoBu
   ): NodeInfo = {
 
     val nodeNames = NodeAnalyzer.names(tags)
+
+    val location = nodeLocationAnalyzer.locate(latitude, longitude)
 
     val tiles = {
       val tiles = (ZoomLevel.nodeMinZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
@@ -54,7 +60,7 @@ class NodeInfoBuilderImpl(nodeTileAnalyzer: NodeTileAnalyzer) extends NodeInfoBu
       lastUpdated,
       tags,
       facts,
-      None,
+      location,
       tiles
     )
   }

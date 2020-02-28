@@ -4,6 +4,7 @@ import kpn.api.common.NodeInfo
 import kpn.api.common.data.Node
 import kpn.api.custom.Country
 import kpn.core.test.TestData
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -63,7 +64,9 @@ class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFact
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val tileCalculator = new TileCalculatorImpl()
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+    private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
+    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
 
     val processor: OrphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
       analysisContext,

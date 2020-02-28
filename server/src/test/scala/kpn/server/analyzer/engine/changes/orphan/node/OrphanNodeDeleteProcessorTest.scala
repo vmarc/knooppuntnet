@@ -9,6 +9,7 @@ import kpn.api.custom.Subset
 import kpn.core.TestObjects
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -157,7 +158,9 @@ class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFact
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val tileCalculator = new TileCalculatorImpl()
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+    private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
+    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
 
     (countryAnalyzer.country _).when(*).returns(country).anyNumberOfTimes()

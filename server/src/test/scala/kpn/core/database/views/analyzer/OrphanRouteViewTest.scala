@@ -1,13 +1,12 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.RouteSummary
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.RouteRepositoryImpl
-import kpn.api.common.RouteSummary
-import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -44,7 +43,7 @@ class OrphanRouteViewTest extends FunSuite with Matchers with SharedTestObjects 
       networkType = NetworkType.hiking
     )
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = newRouteRepository(database)
     routeRepository.save(routeInfo)
 
     OrphanRouteView.query(database, Subset.nlHiking, stale = false)

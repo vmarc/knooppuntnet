@@ -2,19 +2,19 @@ package kpn.server.analyzer.engine.analysis.location
 
 import java.io.File
 
-import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.route.RouteInfo
+import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
 class RouteLocatorTest extends FunSuite with Matchers with SharedTestObjects {
 
-  private val essen = Location(Seq("Belgium", "Flanders", "Antwerp", "Antwerp", "Essen"))
-  private val kalmthout = Location(Seq("Belgium", "Flanders", "Antwerp", "Antwerp", "Kalmthout"))
+  private val essen = Location(Seq("Belgium", "Flanders", "Antwerp province", "Antwerp", "Essen"))
+  private val kalmthout = Location(Seq("Belgium", "Flanders", "Antwerp province", "Antwerp", "Kalmthout"))
   private val roosendaal = Location(Seq("Netherlands", "North Brabant", "Roosendaal"))
   private val rucphen = Location(Seq("Netherlands", "North Brabant", "Rucphen"))
   private val woensdrecht = Location(Seq("Netherlands", "North Brabant", "Woensdrecht"))
@@ -29,41 +29,65 @@ class RouteLocatorTest extends FunSuite with Matchers with SharedTestObjects {
 
     // route 24-81
     locator.locate(route("28184")) should equal(
-      Some(
-        RouteLocationAnalysis(
-          essen,
-          Seq(
-            LocationCandidate(essen, 68),
-            LocationCandidate(roosendaal, 30),
-            LocationCandidate(woensdrecht, 2)
-          )
+      RouteLocationAnalysis(
+        Some(essen),
+        Seq(
+          LocationCandidate(essen, 68),
+          LocationCandidate(roosendaal, 30),
+          LocationCandidate(woensdrecht, 2)
+        ),
+        Seq(
+          "Antwerp",
+          "Antwerp province",
+          "Belgium",
+          "Essen",
+          "Flanders",
+          "Netherlands",
+          "North Brabant",
+          "Roosendaal",
+          "Woensdrecht"
         )
       )
     )
 
     // route 55-95
     locator.locate(route("19227")) should equal(
-      Some(
-        RouteLocationAnalysis(
-          rucphen,
-          Seq(
-            LocationCandidate(rucphen, 61),
-            LocationCandidate(roosendaal, 23),
-            LocationCandidate(essen, 16)
-          )
+      RouteLocationAnalysis(
+        Some(rucphen),
+        Seq(
+          LocationCandidate(rucphen, 61),
+          LocationCandidate(roosendaal, 23),
+          LocationCandidate(essen, 16)
+        ),
+        Seq(
+          "Antwerp",
+          "Antwerp province",
+          "Belgium",
+          "Essen",
+          "Flanders",
+          "Netherlands",
+          "North Brabant",
+          "Roosendaal",
+          "Rucphen"
         )
       )
     )
 
     // route 80-89
     locator.locate(route("28182")) should equal(
-      Some(
-        RouteLocationAnalysis(
-          kalmthout,
-          Seq(
-            LocationCandidate(kalmthout, 85),
-            LocationCandidate(essen, 15)
-          )
+      RouteLocationAnalysis(
+        Some(kalmthout),
+        Seq(
+          LocationCandidate(kalmthout, 85),
+          LocationCandidate(essen, 15)
+        ),
+        Seq(
+          "Antwerp",
+          "Antwerp province",
+          "Belgium",
+          "Essen",
+          "Flanders",
+          "Kalmthout"
         )
       )
     )
@@ -75,7 +99,7 @@ class RouteLocatorTest extends FunSuite with Matchers with SharedTestObjects {
       val essen = location("be/Essen_964003_AL8.GeoJson")
       val kalmthout = location("be/Kalmthout_1284337_AL8.GeoJson")
       val antwerp7 = location("be/Antwerp_1902793_AL7.GeoJson", Seq(essen, kalmthout))
-      val antwerp6 = location("be/Antwerp_53114_AL6.GeoJson", Seq(antwerp7))
+      val antwerp6 = location("be/Antwerp_53114_AL6.GeoJson", Seq(antwerp7), Some("Antwerp province"))
       val flanders = location("be/Flanders_53134_AL4.GeoJson", Seq(antwerp6))
       location("be/Belgium_52411_AL2.GeoJson", Seq(flanders))
     }
@@ -93,10 +117,14 @@ class RouteLocatorTest extends FunSuite with Matchers with SharedTestObjects {
     LocationConfiguration(Seq(nl, be, de))
   }
 
-  private def location(name: String, children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {
+  private def location(name: String, children: Seq[LocationDefinition] = Seq.empty, uniqueName: Option[String] = None): LocationDefinition = {
     val filename = "/kpn/conf/locations/" + name
     val file = new File(filename)
-    new LocationDefinitionReader(file).read(children)
+    val locationDefinition = new LocationDefinitionReader(file).read(children)
+    uniqueName match {
+      case Some(un) => locationDefinition.copy(name = un)
+      case None => locationDefinition
+    }
   }
 
   private def route(routeId: String): RouteInfo = {

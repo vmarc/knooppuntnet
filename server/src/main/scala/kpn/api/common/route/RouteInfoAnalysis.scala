@@ -14,6 +14,7 @@ case class RouteInfoAnalysis(
   expectedName: String,
   map: RouteMap,
   structureStrings: Seq[String],
+  geometryDigest: String,
   locationAnalysis: Option[RouteLocationAnalysis]
 ) {
 
@@ -27,5 +28,7 @@ case class RouteInfoAnalysis(
     field("expectedName", expectedName).
     field("map", map).
     field("structureStrings", structureStrings).
+    field("geometryDigest", geometryDigest).
+    field("locationAnalysis", locationAnalysis).
     build
 }

@@ -3,7 +3,6 @@ package kpn.core.database.views.tile
 import kpn.core.TestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -46,7 +45,7 @@ class TileViewTest extends FunSuite with Matchers with TestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
       routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001")))
 
@@ -64,7 +63,7 @@ class TileViewTest extends FunSuite with Matchers with TestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001")))
       routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001"), active = false))
 
@@ -73,5 +72,4 @@ class TileViewTest extends FunSuite with Matchers with TestObjects {
       )
     }
   }
-
 }

@@ -7,7 +7,7 @@ import kpn.core.db.couch.Couch
 
 trait RouteRepository {
 
-  def save(routes: RouteInfo*): Unit
+  def save(routes: RouteInfo): Unit
 
   def delete(routeIds: Seq[Long]): Unit
 

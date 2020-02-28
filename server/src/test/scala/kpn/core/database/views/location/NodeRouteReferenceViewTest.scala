@@ -5,7 +5,6 @@ import kpn.api.common.common.Ref
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -14,7 +13,7 @@ class NodeRouteReferenceViewTest extends FunSuite with Matchers with SharedTestO
   test("node references in route") {
 
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -68,7 +67,7 @@ class NodeRouteReferenceViewTest extends FunSuite with Matchers with SharedTestO
 
   test("node references in non-active routes are ignored") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -93,5 +92,4 @@ class NodeRouteReferenceViewTest extends FunSuite with Matchers with SharedTestO
   def queryNode(database: Database, nodeId: Long): Seq[Ref] = {
     NodeRouteReferenceView.query(database, NetworkType.hiking, nodeId, stale = false)
   }
-
 }

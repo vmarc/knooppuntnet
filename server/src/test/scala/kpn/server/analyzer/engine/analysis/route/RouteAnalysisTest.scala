@@ -729,7 +729,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
   ignore("route without nodes, but with state=connection") {
 
-    val d = new RouteTestData("01-02", tags = Tags.from("state" -> "connection")) {
+    val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "connection")) {
       memberWay(10, "", 1, 2)
       memberWay(11, "", 2, 3)
       memberWay(12, "", 3, 4)
@@ -741,7 +741,7 @@ class RouteAnalysisTest extends FunSuite with Matchers {
 
   ignore("route without nodes, but with state=connection, with wrong sorting order") {
 
-    val d = new RouteTestData("01-02", tags = Tags.from("state" -> "connection")) {
+    val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "connection")) {
       memberWay(10, "", 1, 2)
       memberWay(12, "", 3, 4)
       memberWay(11, "", 2, 3)

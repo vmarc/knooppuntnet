@@ -13,11 +13,11 @@ import kpn.server.repository.RouteRepositoryImpl
 class AnalysisRepositoryConfiguration(analysisDatabase: Database) {
 
   private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
-  private val routeRepository = new RouteRepositoryImpl(analysisDatabase)
+  private val routeRepository = new RouteRepositoryImpl(analysisDatabase, null)
   private val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, null)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
     analysisDatabase,

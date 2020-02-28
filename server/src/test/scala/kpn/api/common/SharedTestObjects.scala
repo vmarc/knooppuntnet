@@ -44,16 +44,21 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.database.Database
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteRepositoryImpl
+import org.scalamock.scalatest.MockFactory
 
-trait SharedTestObjects {
+trait SharedTestObjects extends MockFactory {
 
   val defaultTimestamp: Timestamp = Timestamp(2015, 8, 11, 0, 0, 0)
 
-  val timestampBeforeValue = Timestamp(2015, 8, 11, 0, 0, 1)
-  val timestampFromValue = Timestamp(2015, 8, 11, 0, 0, 2)
-  val timestampUntilValue = Timestamp(2015, 8, 11, 0, 0, 3)
-  val timestampAfterValue = Timestamp(2015, 8, 11, 0, 0, 4)
+  val timestampBeforeValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 1)
+  val timestampFromValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 2)
+  val timestampUntilValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 3)
+  val timestampAfterValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 4)
 
   def newRawNode(
     id: Long = 1,
@@ -497,7 +502,8 @@ trait SharedTestObjects {
     facts: Seq[String] = Seq.empty,
     map: RouteMap = RouteMap(),
     structureStrings: Seq[String] = Seq.empty,
-    locationAnalysis: Option[RouteLocationAnalysis] = None
+    geometryDigest: String = "",
+    locationAnalysis: Option[RouteLocationAnalysis] = Some(RouteLocationAnalysis())
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
       startNodes,
@@ -509,6 +515,7 @@ trait SharedTestObjects {
       expectedName,
       map,
       structureStrings,
+      geometryDigest,
       locationAnalysis
     )
   }
@@ -808,4 +815,9 @@ trait SharedTestObjects {
     )
   }
 
+  def newRouteRepository(database: Database): RouteRepository = {
+    val routeLocator: RouteLocator = stub[RouteLocator]
+    (routeLocator.locate _).when(*).returns(RouteLocationAnalysis())
+    new RouteRepositoryImpl(database, routeLocator)
+  }
 }

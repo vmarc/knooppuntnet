@@ -60,7 +60,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       "network" -> ScopedNetworkType(NetworkScope.regional, d.networkType).key,
       "route" -> d.networkType.routeTagValues.head,
       "note" -> d.routeName
-    ) ++ d.tags
+    ) ++ d.routeTags
     val rr: RawRelation = newRawRelation(10, members = d.members, tags = tags)
     val rawData = RawData(None, d.nodes, d.ways, Seq(rr))
     val data = new DataBuilder(rawData).data

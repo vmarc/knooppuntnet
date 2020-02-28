@@ -12,7 +12,6 @@ import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
 import kpn.core.tools.db.NetworkInfoBuilder
-import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 @Component
@@ -61,7 +60,8 @@ class AnalysisRepositoryImpl(
 
   private def buildRouteDocs(network: Network): Unit = {
     val routes: Seq[RouteInfo] = network.routes.map(_.routeAnalysis.route)
-    routeRepository.save(routes: _*)
+    // routeRepository.oldSave(routes: _*)
+    routes.foreach(routeRepository.save)
   }
 
   private def buildNodeDocs(network: Network): Unit = {

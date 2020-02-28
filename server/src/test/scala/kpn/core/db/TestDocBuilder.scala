@@ -27,7 +27,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
 
   private val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   private val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-  private val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+  private val routeRepository: RouteRepository = newRouteRepository(database)
 
   def networkInfoDetail(
     nodes: Seq[NetworkNodeInfo2] = Seq.empty,

@@ -75,7 +75,7 @@ class ChangeProcessorConfiguration(
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
   private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, null)
   private val networkLoader = new NetworkLoaderImpl(cachingExecutor)
   private val routeAnalyzer = new MasterRouteAnalyzerImpl(
     analysisContext,

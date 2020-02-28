@@ -139,7 +139,7 @@ class RouteNameAnalyzerTest extends FunSuite with Matchers {
 
   private def analyzeNameInRefTag(name: String): RouteNameAnalysis = {
 
-    val data = new RouteTestData("this is note for the note tag", tags = Tags.from("ref" -> name)).data
+    val data = new RouteTestData("this is note for the note tag", routeTags = Tags.from("ref" -> name)).data
 
     val loadedRoute = LoadedRoute(
       country = None,

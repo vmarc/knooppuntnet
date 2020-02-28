@@ -7,6 +7,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
@@ -49,6 +50,7 @@ class AnalysisDataLoaderConfiguration(
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   nodeLoader: NodeLoader,
+  nodeLocationAnalyzer: NodeLocationAnalyzer,
   analysisDatabaseIndexer: CouchIndexer
 ) {
 
@@ -71,7 +73,7 @@ class AnalysisDataLoaderConfiguration(
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, null)
   private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
 
   private val routeAnalyzer = new MasterRouteAnalyzerImpl(

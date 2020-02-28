@@ -10,15 +10,98 @@ import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
 import kpn.core.db.couch.Couch
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import org.springframework.stereotype.Component
 
 @Component
-class RouteRepositoryImpl(analysisDatabase: Database) extends RouteRepository {
+class RouteRepositoryImpl(
+  analysisDatabase: Database,
+  routeLocator: RouteLocator
+) extends RouteRepository {
 
   private val groupSize = 20
   private val log = Log(classOf[RouteRepository])
 
-  override def save(routes: RouteInfo*): Unit = {
+  override def save(routeInfo: RouteInfo): Unit = {
+    log.debugElapsed {
+      val comment = analysisDatabase.docWithId(docId(routeInfo.id), classOf[RouteDoc]) match {
+        case Some(oldRouteDoc) =>
+          updateRoute(oldRouteDoc, routeInfo)
+        case None =>
+          saveNewRoute(routeInfo)
+      }
+      (s"Save route ${routeInfo.id} $comment", ())
+    }
+  }
+
+  private def saveNewRoute(routeInfo: RouteInfo): String = {
+    routeInfo.analysis match {
+      case Some(analysis) =>
+        val routeLocationAnalysis = routeLocator.locate(routeInfo)
+        val newAnalysis = analysis.copy(locationAnalysis = Some(routeLocationAnalysis))
+        doSaveNewRoute(routeInfo.copy(analysis = Some(newAnalysis)))
+        s"new, location calculated"
+      case None =>
+        doSaveNewRoute(routeInfo)
+        s"new, without location"
+    }
+  }
+
+  private def doSaveNewRoute(routeInfo: RouteInfo): Unit = {
+    val doc = RouteDoc(docId(routeInfo.id), routeInfo)
+    analysisDatabase.save(doc)
+  }
+
+  private def updateRoute(oldRouteDoc: RouteDoc, newRouteInfo: RouteInfo): String = {
+
+    oldRouteDoc.route.analysis match {
+      case Some(oldAnalysis) =>
+        newRouteInfo.analysis match {
+          case Some(newAnalysis) =>
+            if (oldAnalysis.geometryDigest == newAnalysis.geometryDigest) {
+              val analysisWithLocationInfo = newAnalysis.copy(locationAnalysis = oldAnalysis.locationAnalysis)
+              val updated = newRouteInfo.copy(analysis = Some(analysisWithLocationInfo))
+              "location re-used" + doUpdateRoute(oldRouteDoc, updated)
+            }
+            else {
+              val routeLocationAnalysis = routeLocator.locate(newRouteInfo)
+              val analysisWithLocationInfo = newAnalysis.copy(locationAnalysis = Some(routeLocationAnalysis))
+              val updated = newRouteInfo.copy(analysis = Some(analysisWithLocationInfo))
+              "location calculated" + doUpdateRoute(oldRouteDoc, updated)
+            }
+
+          case None =>
+            // old route did have analysis, but new route does not
+            "without location" + doUpdateRoute(oldRouteDoc, newRouteInfo)
+        }
+
+      case None =>
+
+        newRouteInfo.analysis match {
+          case Some(newAnalysis) =>
+            // old route did not have analysis, but new route does have analysis, need to calculate location
+            val routeLocationAnalysis = routeLocator.locate(newRouteInfo)
+            val analysisWithLocationInfo = newAnalysis.copy(locationAnalysis = Some(routeLocationAnalysis))
+            val updated = newRouteInfo.copy(analysis = Some(analysisWithLocationInfo))
+            "location calculated" + doUpdateRoute(oldRouteDoc, updated)
+          case None =>
+            "without location" + doUpdateRoute(oldRouteDoc, newRouteInfo)
+        }
+    }
+  }
+
+  private def doUpdateRoute(oldRouteDoc: RouteDoc, newRouteInfo: RouteInfo): String = {
+    if (newRouteInfo != oldRouteDoc.route) {
+      val doc = RouteDoc(docId(newRouteInfo.id), newRouteInfo, oldRouteDoc._rev)
+      analysisDatabase.save(doc)
+      " (changed)"
+    }
+    else {
+      " (no change)"
+    }
+  }
+
+  def oldSave(routes: RouteInfo*): Unit = {
     log.debugElapsed {
       routes.toSeq.sliding(groupSize, groupSize).toSeq.foreach { groupRoutes =>
         saveRoutes(groupRoutes)

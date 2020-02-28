@@ -1,12 +1,11 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.RouteRepositoryImpl
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.node.NodeOrphanRouteReference
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -17,7 +16,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
   test("node references in orphan route") {
 
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -76,7 +75,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
 
   test("node references in non-orphan routes are ignored") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(
         newRoute( // not an orphan route
           id = 10,
@@ -96,7 +95,7 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
 
   test("node references in non-active orphan routes are ignored") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -122,5 +121,4 @@ class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with Share
   def queryNode(database: Database, nodeId: Long): Seq[NodeOrphanRouteReference] = {
     NodeOrphanRouteReferenceView.query(database, nodeId, stale = false)
   }
-
 }

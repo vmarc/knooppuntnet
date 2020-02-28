@@ -53,23 +53,43 @@ class DatabaseQueryTest extends FunSuite with Matchers with TestObjects {
 
       result should equal(
         ViewResult(
-          2,
+          6,
           0,
           Seq(
             ViewResultRow(
               "node:1001",
-              Seq("node", "cycling", "country", "province", "municipality"),
+              Seq("node", "cycling", "country"),
               Seq("01", "1001")
             ),
             ViewResultRow(
               "node:1002",
-              Seq("node", "cycling", "country", "province", "municipality"),
+              Seq("node", "cycling", "country"),
+              Seq("01", "1002")
+            ),
+            ViewResultRow(
+              "node:1001",
+              Seq("node", "cycling", "municipality"),
+              Seq("01", "1001")
+            ),
+            ViewResultRow(
+              "node:1002",
+              Seq("node", "cycling", "municipality"),
+              Seq("01", "1002")
+            ),
+            ViewResultRow(
+              "node:1001",
+              Seq("node", "cycling", "province"),
+              Seq("01", "1001")
+            ),
+            ViewResultRow(
+              "node:1002",
+              Seq("node", "cycling", "province"),
               Seq("01", "1002")
             )
           )
         )
       )
-    });
+    })
   }
 
 }

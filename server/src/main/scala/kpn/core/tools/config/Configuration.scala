@@ -146,6 +146,7 @@ class Configuration(
     relationAnalyzer,
     countryAnalyzer,
     nodeLoader,
+    null,
     analysisDatabaseIndexer
   ).analysisDataLoader
 

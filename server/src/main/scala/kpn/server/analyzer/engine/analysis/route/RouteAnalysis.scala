@@ -25,7 +25,7 @@ case class RouteAnalysis(
   endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   allWayNodes: Seq[Node] = Seq.empty,
   bounds: MapBounds = MapBounds(),
-  geometryDigest: String
+  geometryDigest: String = ""
 ) {
 
   def id: Long = relation.id

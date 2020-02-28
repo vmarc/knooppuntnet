@@ -1,21 +1,24 @@
 package kpn.core.database.views.planner
 
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
-import kpn.core.database.Database
-import kpn.core.planner.graph.GraphEdge
-import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.common._
 import kpn.api.common.route.RouteInfo
-import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.TestObjects
+import kpn.core.database.Database
+import kpn.core.planner.graph.GraphEdge
+import kpn.core.test.TestSupport.withDatabase
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
+import kpn.server.repository.RouteRepositoryImpl
+import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
-class GraphEdgesViewTest extends FunSuite with Matchers {
+class GraphEdgesViewTest extends FunSuite with Matchers with TestObjects {
 
   private val routeId = 10L
 
@@ -75,7 +78,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
   }
 
   private def doTest(database: Database, routeMap: RouteMap): Seq[GraphEdge] = {
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = newRouteRepository(database)
     val routeInfo = buildRoute(routeMap)
     routeRepository.save(routeInfo)
     GraphEdgesView.query(database, NetworkType.hiking, stale = false)
@@ -105,18 +108,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers {
       tags = Tags.empty,
       facts = Seq(),
       analysis = Some(
-        RouteInfoAnalysis(
-          startNodes = Seq(),
-          endNodes = Seq(),
-          startTentacleNodes = Seq(),
-          endTentacleNodes = Seq(),
-          unexpectedNodeIds = Seq(),
-          members = Seq(),
-          expectedName = "",
-          map = routeMap,
-          structureStrings = Seq(),
-          locationAnalysis = None
-        )
+        newRouteInfoAnalysis(map = routeMap)
       ),
       Seq()
     )

@@ -12,6 +12,7 @@ import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationPage
 import kpn.api.common.location.LocationRoutesPage
+import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkFactsPage
@@ -335,10 +336,10 @@ class AnalysisFacadeImpl(
     }
   }
 
-  def locationRoutes(user: Option[String], locationKey: LocationKey): ApiResponse[LocationRoutesPage] = {
+  def locationRoutes(user: Option[String], locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
     val label = s"$user locationRoutes(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
     log.infoElapsed(label) {
-      reply(label, locationRoutesPageBuilder.build(locationKey))
+      reply(label, locationRoutesPageBuilder.build(locationKey, parameters))
     }
   }
 

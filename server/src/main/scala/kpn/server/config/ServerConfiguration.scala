@@ -4,6 +4,8 @@ import akka.actor.ActorSystem
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.core.app.ActorSystemConfig
+import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
@@ -73,4 +75,8 @@ class ServerConfiguration {
     value
   }
 
+  @Bean
+  def locationConfiguration: LocationConfiguration = {
+    new LocationConfigurationReader().read()
+  }
 }

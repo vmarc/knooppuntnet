@@ -13,6 +13,7 @@ import kpn.core.TestObjects
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -692,7 +693,9 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
     val tileCalculator = new TileCalculatorImpl()
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+    private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
+    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
 
     val processor = new UnreferencedNodeProcessorImpl(
       analysisContext,

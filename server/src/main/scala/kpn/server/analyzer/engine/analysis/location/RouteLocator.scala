@@ -4,5 +4,5 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.route.RouteInfo
 
 trait RouteLocator {
-  def locate(route: RouteInfo): Option[RouteLocationAnalysis]
+  def locate(route: RouteInfo): RouteLocationAnalysis
 }

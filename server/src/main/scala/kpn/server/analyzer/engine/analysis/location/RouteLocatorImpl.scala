@@ -12,16 +12,16 @@ import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.MultiLineString
 import org.springframework.stereotype.Component
 
-//@Component
-class RouteLocatorImpl(configuration: LocationConfiguration) extends RouteLocator {
+@Component
+class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends RouteLocator {
 
   private val geomFactory = new GeometryFactory
 
-  def locate(route: RouteInfo): Option[RouteLocationAnalysis] = {
+  def locate(route: RouteInfo): RouteLocationAnalysis = {
 
     val routeGeometries: Seq[Geometry] = toGeometries(route)
 
-    val candidates: Seq[LocationSelector] = configuration.locations.flatMap { location =>
+    val candidates: Seq[LocationSelector] = locationConfiguration.locations.flatMap { location =>
       doLocate(routeGeometries, Seq(), location)
     }.toVector
 
@@ -31,23 +31,25 @@ class RouteLocatorImpl(configuration: LocationConfiguration) extends RouteLocato
     }
 
     if (locationSelectorCandidates.isEmpty) {
-      None
+      RouteLocationAnalysis()
     }
     else {
       val sorted = locationSelectorCandidates.sortBy(_.distance).reverse
 
       val totalDistance = locationSelectorCandidates.map(_.distance).sum
 
-      val ccc = if (sorted.size > 1) {
-        sorted.map { locationSelectorCandidate =>
-          val percentage = Math.round(100d * locationSelectorCandidate.distance / totalDistance).toInt
-          LocationCandidate(locationSelectorCandidate.selector.toLocation, percentage)
-        }
+      val locationCandidates = sorted.map { locationSelectorCandidate =>
+        val percentage = Math.round(100d * locationSelectorCandidate.distance / totalDistance).toInt
+        LocationCandidate(locationSelectorCandidate.selector.toLocation, percentage)
       }
-      else {
-        Seq.empty
-      }
-      Some(RouteLocationAnalysis(sorted.head.selector.toLocation, ccc))
+
+      val locationNames = locationCandidates.flatMap(_.location.names).sorted.distinct
+
+      RouteLocationAnalysis(
+        Some(sorted.head.selector.toLocation),
+        locationCandidates,
+        locationNames
+      )
     }
   }
 

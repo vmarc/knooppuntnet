@@ -23,6 +23,8 @@ case class Query[T](
   url: String,
   docType: Class[T],
   args: Option[Seq[Any]] = None,
+  key: Option[String] = None,
+  keyLong: Option[Long] = None,
   startKey: Option[String] = None,
   endKey: Option[String] = None,
   stale: Option[String] = None,
@@ -52,6 +54,14 @@ case class Query[T](
 
   def stale(ok: Boolean): Query[T] = {
     if (ok) copy(stale = Some("ok")) else this
+  }
+
+  def key(value: String): Query[T] = {
+    copy(key = Some(value))
+  }
+
+  def keyLong(value: Long): Query[T] = {
+    copy(keyLong = Some(value))
   }
 
   def keyStartsWith(args: Any*): Query[T] = {
@@ -100,6 +110,8 @@ case class Query[T](
       }
     })
 
+    key.foreach(value => parameters.append(s"""key="$value""""))
+    keyLong.foreach(value => parameters.append(s"key=$value"))
     startKey.foreach(value => parameters.append(s"startkey=$value"))
     endKey.foreach(value => parameters.append(s"endkey=$value"))
     groupLevel.foreach(level => parameters.append(s"group_level=$level"))

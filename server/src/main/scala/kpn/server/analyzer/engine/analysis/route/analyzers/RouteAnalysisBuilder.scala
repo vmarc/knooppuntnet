@@ -13,7 +13,6 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
-import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -21,6 +20,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
+import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
 
 import scala.collection.mutable.ListBuffer
 
@@ -66,7 +66,8 @@ class RouteAnalysisBuilder(
       startTentacleNodes = context.routeMap.get.startTentacleNodes,
       endTentacleNodes = context.routeMap.get.endTentacleNodes,
       allWayNodes = context.allWayNodes.get,
-      bounds = context.routeMap.get.bounds
+      bounds = context.routeMap.get.bounds,
+      geometryDigest = context.geometryDigest.get
     )
   }
 
@@ -132,6 +133,7 @@ class RouteAnalysisBuilder(
       expectedName,
       routeMap,
       new RouteStructureFormatter(structure).strings,
+      context.geometryDigest.get,
       None
     )
 

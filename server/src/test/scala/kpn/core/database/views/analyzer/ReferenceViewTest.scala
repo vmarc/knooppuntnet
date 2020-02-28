@@ -1,14 +1,13 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.route.RouteNetworkNodeInfo
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -25,7 +24,7 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
       nodeRepository.save(newNodeInfo(1002, tags = Tags.from("rwn_ref" -> "02")))
       nodeRepository.save(newNodeInfo(1003, tags = Tags.from("rwn_ref" -> "03"))) // orphan node
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = newRouteRepository(database)
       routeRepository.save(
         newRoute(
           id = 10,

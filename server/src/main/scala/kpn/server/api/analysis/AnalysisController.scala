@@ -295,7 +295,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
       Country.withDomain(country).get,
       location
     )
-    analysisFacade.locationRoutes(user(), locationKey)
+    analysisFacade.locationRoutes(user(), locationKey, parameters)
   }
 
   @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/facts"))

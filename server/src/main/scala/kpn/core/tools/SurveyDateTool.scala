@@ -17,7 +17,7 @@ class SurveyDateTool(database: Database) {
 
   def analyze(): Unit = {
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(database, null)
 
     val counts = new scala.collection.mutable.HashMap[String, Seq[Long]]
 

@@ -14,7 +14,7 @@ import kpn.api.custom.ScopedNetworkType
 
 import scala.collection.mutable.ListBuffer
 
-class RouteTestData(val routeName: String, val networkType: NetworkType = NetworkType.hiking, val tags: Tags = Tags.empty) extends SharedTestObjects {
+class RouteTestData(val routeName: String, val networkType: NetworkType = NetworkType.hiking, val routeTags: Tags = Tags.empty) extends SharedTestObjects {
 
   private val nodeBuffer = ListBuffer[RawNode]()
   private val wayBuffer = ListBuffer[RawWay]()
@@ -79,8 +79,8 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
       "route" -> "foot",
       "network:type" -> "node_network"
     )
-    val routeTags = Tags(tags.tags ++ standardRouteTags.tags)
-    val relation = newRawRelation(routeRelationId, members = memberBuffer, tags = routeTags)
+    val allRouteTags = Tags(routeTags.tags ++ standardRouteTags.tags)
+    val relation = newRawRelation(routeRelationId, members = memberBuffer, tags = allRouteTags)
     val rawData = RawData(None, nodeBuffer, wayBuffer, Seq(relation))
     new DataBuilder(rawData).data
   }

@@ -45,7 +45,7 @@ class RouteLocationTool(database: Database) {
 
     val routeIds = DocumentView.allRouteIds(database)
     println(s"Updating ${routeIds.size} route definitions")
-    val repo = new RouteRepositoryImpl(database)
+    val repo = new RouteRepositoryImpl(database, null)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if ((index + 1) % 100 == 0) {
         println(s"${index + 1}/${routeIds.size}")
@@ -53,16 +53,10 @@ class RouteLocationTool(database: Database) {
       repo.routeWithId(routeId, Couch.uiTimeout).foreach { routeInfo =>
         routeInfo.analysis match {
           case Some(analysis: RouteInfoAnalysis) =>
-            analysis.locationAnalysis match {
-              case None =>
-                locator.locate(routeInfo) match {
-                  case Some(locationAnalysis) =>
-                    val newAnalysis = analysis.copy(locationAnalysis = Some(locationAnalysis))
-                    repo.save(routeInfo.copy(analysis = Some(newAnalysis)))
-                  case None =>
-                    println(s"Could not determine location of route $routeId")
-                }
-              case _ =>
+            if (analysis.locationAnalysis.isEmpty) {
+              val locationAnalysis = locator.locate(routeInfo)
+              val newAnalysis = analysis.copy(locationAnalysis = Some(locationAnalysis))
+              repo.save(routeInfo.copy(analysis = Some(newAnalysis)))
             }
           case _ =>
         }

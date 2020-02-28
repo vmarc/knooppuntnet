@@ -4,7 +4,6 @@ import kpn.core.TestObjects
 import kpn.core.database.views.analyzer.DocumentView.DocumentCount
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -25,7 +24,7 @@ class DocumentViewTest extends FunSuite with Matchers with TestObjects {
   test("allRouteIds") {
 
     withDatabase { database =>
-      val repo = new RouteRepositoryImpl(database)
+      val repo = newRouteRepository(database)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))
@@ -42,7 +41,7 @@ class DocumentViewTest extends FunSuite with Matchers with TestObjects {
       nodeRepository.save(newNodeInfo(1001))
       nodeRepository.save(newNodeInfo(1002))
 
-      val repo = new RouteRepositoryImpl(database)
+      val repo = newRouteRepository(database)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))

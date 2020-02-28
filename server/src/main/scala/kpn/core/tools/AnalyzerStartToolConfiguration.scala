@@ -12,6 +12,9 @@ import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.server.analyzer.engine.CouchIndexer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
@@ -50,13 +53,17 @@ class AnalyzerStartToolConfiguration(
 
   val dirs: Dirs = Dirs()
 
+  private val locationConfiguration = new LocationConfigurationReader().read()
+  private val routeLocator = new RouteLocatorImpl(locationConfiguration)
+  private val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration)
+
   private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
-  private val routeRepository = new RouteRepositoryImpl(analysisDatabase)
+  private val routeRepository = new RouteRepositoryImpl(analysisDatabase, routeLocator)
   private val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer)
+  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
   private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
@@ -132,6 +139,7 @@ class AnalyzerStartToolConfiguration(
     relationAnalyzer,
     countryAnalyzer,
     nodeLoader,
+    nodeLocationAnalyzer,
     analysisDatabaseIndexer
   ).analysisDataLoader
 

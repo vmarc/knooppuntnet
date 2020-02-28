@@ -199,6 +199,7 @@ object RouteDetailsPageExample {
             "two",
             "three"
           ),
+          "",
           locationAnalysis = None
         )
       ),
