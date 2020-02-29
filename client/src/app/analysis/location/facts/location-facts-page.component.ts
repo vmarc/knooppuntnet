@@ -10,6 +10,7 @@ import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {LocationParams} from "../components/location-params";
 import {LocationService} from "../location.service";
 
 /* tslint:disable:template-i18n work-in-progress */
@@ -37,12 +38,7 @@ export class LocationFactsPageComponent {
               private appService: AppService) {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
-        map(params => {
-          const networkType = NetworkType.withName(params["networkType"]);
-          const country = Countries.withDomain(params["country"]);
-          const name = params["location"];
-          return new LocationKey(networkType, country, name);
-        }),
+        map(params => LocationParams.toKey(params)),
         tap(locationKey => this.locationKey = locationKey),
         flatMap(locationKey => this.appService.locationFacts(locationKey))
       ).subscribe(response => {

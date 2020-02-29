@@ -7,9 +7,8 @@ import {LocationNodesPage} from "../../../kpn/api/common/location/location-nodes
 import {LocationNodesParameters} from "../../../kpn/api/common/location/location-nodes-parameters";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {LocationParams} from "../components/location-params";
 import {LocationService} from "../location.service";
 
 @Component({
@@ -70,10 +69,7 @@ export class LocationNodesPageComponent implements OnInit {
   ngOnInit(): void {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
-        const networkType = NetworkType.withName(params["networkType"]);
-        const country = Countries.withDomain(params["country"]);
-        const name = params["location"];
-        this.locationKey = new LocationKey(networkType, country, name);
+        this.locationKey = LocationParams.toKey(params);
         // TODO read parameters from localstorage instead
         this.parameters = new LocationNodesParameters(5, 0);
       })

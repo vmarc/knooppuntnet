@@ -5237,6 +5237,26 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="location-routes.location-not-found" datatype="html">
+        <source>Location not found</source>
+        <target state="new">[Location not found]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-routes-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.no-routes" datatype="html">
+        <source>
+          No routes
+        </source>
+        <target state="new">[
+          No routes
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-routes-page.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="location-map.title" datatype="html">
         <source>Map</source>
         <target>Kaart</target>
@@ -5258,7 +5278,7 @@
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.analysis" datatype="html">
@@ -5266,7 +5286,7 @@
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.node" datatype="html">
@@ -5274,7 +5294,7 @@
         <target>Knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.routes" datatype="html">
@@ -5282,7 +5302,7 @@
         <target>Routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.last-edit" datatype="html">
@@ -5290,7 +5310,7 @@
         <target>Meest recente aanpassing</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.no-routes" datatype="html">
@@ -5301,6 +5321,58 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-routes.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.table.nr" datatype="html">
+        <source>Nr</source>
+        <target state="new">[Nr]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.table.route" datatype="html">
+        <source>Route</source>
+        <target state="new">[Route]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.table.distance" datatype="html">
+        <source>Distance</source>
+        <target state="new">[Distance]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.table.distance.value" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{route.meters}}"/>m
+        </source>
+        <target state="new">[
+          <x id="INTERPOLATION" equiv-text="{{route.meters}}"/>m
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.table.broken" datatype="html">
+        <source>Broken</source>
+        <target state="new">[Broken]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.table.last-edit" datatype="html">
+        <source>Last edit</source>
+        <target state="new">[Last edit]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">

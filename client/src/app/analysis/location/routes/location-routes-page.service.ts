@@ -4,6 +4,7 @@ import {Subject} from "rxjs";
 import {combineLatest} from "rxjs";
 import {BehaviorSubject} from "rxjs";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {shareReplay} from "rxjs/operators";
 import {tap} from "rxjs/operators";
 import {switchMap} from "rxjs/operators";
@@ -14,6 +15,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {Countries} from "../../../kpn/common/countries";
+import {LocationParams} from "../components/location-params";
 import {LocationService} from "../location.service";
 
 @Injectable()
@@ -43,13 +45,7 @@ export class LocationRoutesPageService {
   }
 
   setParams(params: Params): void {
-
-    console.log("setParams");
-
-    const networkType = NetworkType.withName(params["networkType"]);
-    const country = Countries.withDomain(params["country"]);
-    const name = params["location"];
-    this.locationKey.next(new LocationKey(networkType, country, name));
+    this.locationKey.next(LocationParams.toKey(params));
   }
 
 }

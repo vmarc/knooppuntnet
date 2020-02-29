@@ -7,9 +7,8 @@ import {ActivatedRoute} from "@angular/router";
 import {LocationRoutesPage} from "../../../kpn/api/common/location/location-routes-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {LocationParams} from "../components/location-params";
 import {LocationRoutesPageService} from "./location-routes-page.service";
 
 @Component({
@@ -69,12 +68,7 @@ export class LocationRoutesPageComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
-
-        const networkType = NetworkType.withName(params["networkType"]);
-        const country = Countries.withDomain(params["country"]);
-        const name = params["location"];
-        this.locationKey = new LocationKey(networkType, country, name);
-
+        this.locationKey = LocationParams.toKey(params);
         this.service.setParams(params);
         this.cdr.detectChanges();
       })
