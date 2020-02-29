@@ -9,10 +9,12 @@ import {LocationChangesPageComponent} from "./changes/location-changes-page.comp
 import {LocationPageBreadcrumbComponent} from "./components/location-page-breadcrumb.component";
 import {LocationPageHeaderComponent} from "./components/location-page-header.component";
 import {LocationFactsPageComponent} from "./facts/location-facts-page.component";
+import {LocationService} from "./location.service";
 import {LocationMapPageComponent} from "./map/location-map-page.component";
 import {LocationNodeRoutesComponent} from "./nodes/location-node-routes.component";
 import {LocationNodeTableComponent} from "./nodes/location-node-table.component";
 import {LocationNodesPageComponent} from "./nodes/location-nodes-page.component";
+import {LocationRouteTableComponent} from './routes/location-route-table.component';
 import {LocationRoutesPageComponent} from "./routes/location-routes-page.component";
 
 @NgModule({
@@ -33,7 +35,11 @@ import {LocationRoutesPageComponent} from "./routes/location-routes-page.compone
     LocationMapPageComponent,
     LocationChangesPageComponent,
     LocationNodeTableComponent,
-    LocationNodeRoutesComponent
+    LocationNodeRoutesComponent,
+    LocationRouteTableComponent
+  ],
+  providers: [
+    LocationService
   ]
 })
 export class LocationModule {

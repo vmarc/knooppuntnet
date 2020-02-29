@@ -10,6 +10,7 @@ import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {LocationService} from "../location.service";
 
 /* tslint:disable:template-i18n work-in-progress */
 @Component({
@@ -32,6 +33,7 @@ export class LocationChangesPageComponent {
   private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
+              private locationService: LocationService,
               private appService: AppService) {
     this.subscriptions.add(
       this.activatedRoute.params.pipe(
@@ -43,7 +45,10 @@ export class LocationChangesPageComponent {
         }),
         tap(locationKey => this.locationKey = locationKey),
         flatMap(locationKey => this.appService.locationChanges(locationKey, null))
-      ).subscribe(response => this.response = response)
+      ).subscribe(response => {
+        this.response = response;
+        this.locationService.setSummary(this.locationKey.name, this.response.result.summary);
+      })
     );
   }
 

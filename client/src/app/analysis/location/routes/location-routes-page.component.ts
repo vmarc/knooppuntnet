@@ -1,18 +1,17 @@
+import {ChangeDetectorRef} from "@angular/core";
+import {OnDestroy} from "@angular/core";
+import {OnInit} from "@angular/core";
 import {Component} from "@angular/core";
+import {PageEvent} from "@angular/material/paginator";
 import {ActivatedRoute} from "@angular/router";
-import {flatMap} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {AppService} from "../../../app.service";
 import {LocationRoutesPage} from "../../../kpn/api/common/location/location-routes-page";
-import {LocationRoutesParameters} from "../../../kpn/api/common/location/location-routes-parameters";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {LocationRoutesPageService} from "./location-routes-page.service";
 
-/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-location-routes-page",
   template: `
@@ -22,30 +21,73 @@ import {Subscriptions} from "../../../util/Subscriptions";
       i18n-pageTitle="@@location-routes.title">
     </kpn-location-page-header>
 
-    ROUTES
-
-  `
+    <div *ngIf="response">
+      <div *ngIf="!page">
+        <p i18n="@@location-routes.location-not-found">Location not found</p>
+      </div>
+      <div *ngIf="page">
+        <div *ngIf="page.routes.isEmpty()" i18n="@@location-routes.no-routes">
+          No routes
+        </div>
+        <kpn-location-route-table
+          *ngIf="!page.routes.isEmpty()"
+          (page)="pageChanged($event)"
+          [timeInfo]="page.timeInfo"
+          [routes]="page.routes"
+          [routeCount]="page.summary.routeCount">
+        </kpn-location-route-table>
+      </div>
+      <kpn-json [object]="page"></kpn-json>
+    </div>
+  `,
+  providers: [
+    LocationRoutesPageService
+  ]
 })
-export class LocationRoutesPageComponent {
+export class LocationRoutesPageComponent implements OnInit, OnDestroy {
 
+  json = JSON;
+
+  response: ApiResponse<LocationRoutesPage> = null;
   locationKey: LocationKey;
-  response: ApiResponse<LocationRoutesPage>;
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService) {
+  constructor(public service: LocationRoutesPageService,
+              private activatedRoute: ActivatedRoute,
+              private cdr: ChangeDetectorRef) {
+    console.log("LocationRoutesPageComponent constructor");
+  }
+
+  get page(): LocationRoutesPage {
+    return this.response.result;
+  }
+
+  ngOnInit(): void {
+    console.log("LocationRoutesPageComponent ngOnInit()");
+    this.service.response.subscribe(response => {
+      this.response = response;
+    });
     this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => {
-          const networkType = NetworkType.withName(params["networkType"]);
-          const country = Countries.withDomain(params["country"]);
-          const name = params["location"];
-          return new LocationKey(networkType, country, name);
-        }),
-        tap(locationKey => this.locationKey = locationKey),
-        flatMap(locationKey => this.appService.locationRoutes(locationKey, new LocationRoutesParameters(5, 0)))
-      ).subscribe(response => this.response = response)
+      this.activatedRoute.params.subscribe(params => {
+
+        const networkType = NetworkType.withName(params["networkType"]);
+        const country = Countries.withDomain(params["country"]);
+        const name = params["location"];
+        this.locationKey = new LocationKey(networkType, country, name);
+
+        this.service.setParams(params);
+        this.cdr.detectChanges();
+      })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  pageChanged(event: PageEvent) {
+    window.scroll(0, 0);
+    // this.parameters = {...this.parameters, pageIndex: event.pageIndex, itemsPerPage: event.pageSize};
   }
 
 }

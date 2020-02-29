@@ -1,5 +1,4 @@
 import {Component, Input} from "@angular/core";
-import {Util} from "../../../components/shared/util";
 import {NetworkSummary} from "../../../kpn/api/common/network/network-summary";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 
@@ -24,21 +23,21 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/facts'"
         i18n="@@network-page.menu.facts"
-        [elementCount]="factCount()">
+        [elementCount]="summary?.factCount">
         Facts
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/nodes'"
         i18n="@@network-page.menu.nodes"
-        [elementCount]="nodeCount()">
+        [elementCount]="summary?.nodeCount">
         Nodes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/routes'"
         i18n="@@network-page.menu.routes"
-        [elementCount]="routeCount()">
+        [elementCount]="summary?.routeCount">
         Routes
       </kpn-page-menu-option>
 
@@ -51,7 +50,7 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/changes'"
         i18n="@@network-page.menu.changes"
-        [elementCount]="changeCount()">
+        [elementCount]="summary?.changeCount">
         Changes
       </kpn-page-menu-option>
 
@@ -66,6 +65,10 @@ export class NetworkPageHeaderComponent {
   constructor(private networkCacheService: NetworkCacheService) {
   }
 
+  get summary(): NetworkSummary {
+    return this.networkCacheService.getNetworkSummary(this.networkId);
+  }
+
   networkName(): string {
     return this.networkCacheService.getNetworkName(this.networkId);
   }
@@ -76,26 +79,6 @@ export class NetworkPageHeaderComponent {
       return `${networkName} | ${this.pageTitle}`;
     }
     return null;
-  }
-
-  factCount() {
-    return Util.safeGet(() => this.networkSummary().factCount);
-  }
-
-  nodeCount() {
-    return Util.safeGet(() => this.networkSummary().nodeCount);
-  }
-
-  routeCount() {
-    return Util.safeGet(() => this.networkSummary().routeCount);
-  }
-
-  changeCount() {
-    return Util.safeGet(() => this.networkSummary().changeCount);
-  }
-
-  private networkSummary(): NetworkSummary {
-    return this.networkCacheService.getNetworkSummary(this.networkId);
   }
 
 }

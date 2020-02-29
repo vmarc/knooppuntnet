@@ -1,6 +1,8 @@
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
+import {LocationSummary} from "../../../kpn/api/common/location/location-summary";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
+import {LocationService} from "../location.service";
 
 @Component({
   selector: "kpn-location-page-header",
@@ -19,21 +21,21 @@ import {LocationKey} from "../../../kpn/api/custom/location-key";
         <kpn-page-menu-option
           [link]="link('nodes')"
           i18n="@@location-page.menu.nodes"
-          [elementCount]="nodeCount()">
+          [elementCount]="summary?.nodeCount">
           Nodes
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
           [link]="link('routes')"
           i18n="@@location-page.menu.routes"
-          [elementCount]="routeCount()">
+          [elementCount]="summary?.routeCount">
           Routes
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
           [link]="link('facts')"
           i18n="@@location-page.menu.facts"
-          [elementCount]="factCount()">
+          [elementCount]="summary?.factCount">
           Facts
         </kpn-page-menu-option>
 
@@ -46,7 +48,7 @@ import {LocationKey} from "../../../kpn/api/custom/location-key";
         <kpn-page-menu-option
           [link]="link('changes')"
           i18n="@@location-page.menu.changes"
-          [elementCount]="changeCount()">
+          [elementCount]="summary?.changeCount">
           Changes
         </kpn-page-menu-option>
 
@@ -59,7 +61,11 @@ export class LocationPageHeaderComponent {
   @Input() locationKey: LocationKey;
   @Input() pageTitle;
 
-  constructor(/*private networkCacheService: NetworkCacheService*/) {
+  constructor(private locationService: LocationService) {
+  }
+
+  get summary(): LocationSummary {
+    return this.locationService.getSummary(this.locationKey.name);
   }
 
   link(target: string): string {
@@ -69,29 +75,5 @@ export class LocationPageHeaderComponent {
   locationPageTitle(): string {
     return `${this.locationKey.name} | ${this.pageTitle}`;
   }
-
-  factCount(): number {
-    // return Util.safeGet(() => this.networkSummary().factCount);
-    return 0;
-  }
-
-  nodeCount(): number {
-    // return Util.safeGet(() => this.networkSummary().nodeCount);
-    return 0;
-  }
-
-  routeCount(): number {
-    // return Util.safeGet(() => this.networkSummary().routeCount);
-    return 0;
-  }
-
-  changeCount(): number {
-    // return Util.safeGet(() => this.networkSummary().changeCount);
-    return 0;
-  }
-
-  // private networkSummary(): NetworkSummary {
-  //   return this.networkCacheService.getNetworkSummary(this.networkId);
-  // }
 
 }

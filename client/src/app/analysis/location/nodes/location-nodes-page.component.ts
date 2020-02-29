@@ -1,3 +1,4 @@
+import {OnInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
 import {ActivatedRoute} from "@angular/router";
@@ -9,8 +10,8 @@ import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {LocationService} from "../location.service";
 
-/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-location-nodes-page",
   template: `
@@ -40,13 +41,14 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </div>
   `
 })
-export class LocationNodesPageComponent {
+export class LocationNodesPageComponent implements OnInit {
 
   locationKey: LocationKey;
   response: ApiResponse<LocationNodesPage>;
   private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
+              private locationService: LocationService,
               private appService: AppService) {
   }
 
@@ -87,6 +89,7 @@ export class LocationNodesPageComponent {
     console.log("this.parameters=" + JSON.stringify(this.parameters));
     this.appService.locationNodes(this.locationKey, this.parameters).subscribe(response => {
       this.response = response;
+      this.locationService.setSummary(this.locationKey.name, this.page.summary);
     });
   }
 }
