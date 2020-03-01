@@ -14,8 +14,9 @@ import {LocationMapPageComponent} from "./map/location-map-page.component";
 import {LocationNodeRoutesComponent} from "./nodes/location-node-routes.component";
 import {LocationNodeTableComponent} from "./nodes/location-node-table.component";
 import {LocationNodesPageComponent} from "./nodes/location-nodes-page.component";
-import {LocationRouteTableComponent} from './routes/location-route-table.component';
+import {LocationRouteTableComponent} from "./routes/location-route-table.component";
 import {LocationRoutesPageComponent} from "./routes/location-routes-page.component";
+import {LocationRoutesComponent} from "./routes/location-routes.component";
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {LocationRoutesPageComponent} from "./routes/location-routes-page.compone
     LocationChangesPageComponent,
     LocationNodeTableComponent,
     LocationNodeRoutesComponent,
-    LocationRouteTableComponent
+    LocationRouteTableComponent,
+    LocationRoutesComponent
   ],
   providers: [
     LocationService
