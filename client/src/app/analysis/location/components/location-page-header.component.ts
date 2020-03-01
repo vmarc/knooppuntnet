@@ -1,13 +1,12 @@
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {LocationSummary} from "../../../kpn/api/common/location/location-summary";
-import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {LocationService} from "../location.service";
 
 @Component({
   selector: "kpn-location-page-header",
   template: `
-    <ng-container *ngIf="locationKey">
+    <ng-container *ngIf="service.locationKey | async as locationKey">
 
       <kpn-location-page-breadcrumb [locationKey]="locationKey"></kpn-location-page-breadcrumb>
 
@@ -58,22 +57,21 @@ import {LocationService} from "../location.service";
 })
 export class LocationPageHeaderComponent {
 
-  @Input() locationKey: LocationKey;
   @Input() pageTitle;
 
-  constructor(private locationService: LocationService) {
+  constructor(public service: LocationService) {
   }
 
   get summary(): LocationSummary {
-    return this.locationService.getSummary(this.locationKey.name);
+    return this.service.summary;
   }
 
   link(target: string): string {
-    return `/analysis/${this.locationKey.key()}/${target}`;
+    return `/analysis/${this.service.key}/${target}`;
   }
 
   locationPageTitle(): string {
-    return `${this.locationKey.name} | ${this.pageTitle}`;
+    return `${this.service.name} | ${this.pageTitle}`;
   }
 
 }

@@ -8,7 +8,6 @@ import {LocationNodesPageService} from "./location-nodes-page.service";
   selector: "kpn-location-nodes-page",
   template: `
     <kpn-location-page-header
-      [locationKey]="service.locationKey | async"
       pageTitle="Nodes"
       i18n-pageTitle="@@location-nodes.title">
     </kpn-location-page-header>
