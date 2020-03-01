@@ -6,6 +6,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationChangesParameters
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
@@ -357,10 +358,10 @@ class AnalysisFacadeImpl(
     }
   }
 
-  def locationChanges(user: Option[String], locationKey: LocationKey): ApiResponse[LocationChangesPage] = {
+  def locationChanges(user: Option[String], locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage] = {
     val label = s"$user locationChanges(${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name})"
     log.infoElapsed(label) {
-      reply(label, locationChangesPageBuilder.build(locationKey))
+      reply(label, locationChangesPageBuilder.build(locationKey, parameters))
     }
   }
 

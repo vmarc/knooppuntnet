@@ -6,6 +6,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationChangesParameters
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
@@ -331,15 +332,14 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: String,
     @PathVariable networkType: String,
     @PathVariable location: String,
-    @RequestBody parameters: ChangesParameters
+    @RequestBody parameters: LocationChangesParameters
   ): ApiResponse[LocationChangesPage] = {
     val locationKey = LocationKey(
       NetworkType.withName(networkType).get,
       Country.withDomain(country).get,
       location
     )
-    // TODO include changesParameters!!
-    analysisFacade.locationChanges(user(), locationKey)
+    analysisFacade.locationChanges(user(), locationKey, parameters)
   }
 
   private def user(): Option[String] = {

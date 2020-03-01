@@ -14,13 +14,9 @@ import {LocationRoutesPageService} from "./location-routes-page.service";
     </kpn-location-page-header>
 
     <div *ngIf="service.response | async as response">
-      <div *ngIf="!response.result">
-        <p i18n="@@location-routes.location-not-found">Location not found</p>
-      </div>
-      <div *ngIf="response.result">
+      <kpn-location-response [response]="response">
         <kpn-location-routes [page]="response.result"></kpn-location-routes>
-      </div>
-      <kpn-json [object]="response"></kpn-json>
+      </kpn-location-response>
     </div>
   `,
   providers: [

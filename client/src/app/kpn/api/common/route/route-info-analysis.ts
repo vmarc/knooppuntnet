@@ -17,6 +17,7 @@ export class RouteInfoAnalysis {
               readonly expectedName: string,
               readonly map: RouteMap,
               readonly structureStrings: List<string>,
+              readonly geometryDigest: string,
               readonly locationAnalysis: RouteLocationAnalysis) {
   }
 
@@ -34,6 +35,7 @@ export class RouteInfoAnalysis {
       jsonObject.expectedName,
       RouteMap.fromJSON(jsonObject.map),
       jsonObject.structureStrings ? List(jsonObject.structureStrings) : List(),
+      jsonObject.geometryDigest,
       RouteLocationAnalysis.fromJSON(jsonObject.locationAnalysis)
     );
   }

@@ -80,21 +80,13 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
-  // private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> = new BehaviorSubject(new NetworkNodeFilterCriteria());
-
-  constructor(private pageWidthService: PageWidthService
-              /*private networkNodesService: NetworkNodesService*/) {
+  constructor(private pageWidthService: PageWidthService) {
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator.matPaginator;
     this.dataSource.data = this.routes.toArray();
-    // this.filterCriteria.subscribe(criteria => {
-    //   const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);
-    //   this.dataSource.data = filter.filter(this.nodes).toArray();
-    //   this.networkNodesService.filterOptions.next(filter.filterOptions(this.nodes));
-    // });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

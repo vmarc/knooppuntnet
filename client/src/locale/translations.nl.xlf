@@ -5203,22 +5203,22 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="location-nodes.location-not-found" datatype="html">
-        <source>Location not found</source>
-        <target>Gebied niet gevonden</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/location/nodes/location-nodes-page.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location-nodes.no-nodes" datatype="html">
         <source>
-          No nodes
-        </source>
+      No nodes
+    </source>
         <target>Knooppunten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/location/nodes/location-nodes-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="sourcefile">app/analysis/location/nodes/location-nodes.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location.location-not-found" datatype="html">
+        <source>Location not found</source>
+        <target state="new">[Location not found]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/components/location-response.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">
@@ -5237,24 +5237,16 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="location-routes.location-not-found" datatype="html">
-        <source>Location not found</source>
-        <target state="new">[Location not found]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/location/routes/location-routes-page.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location-routes.no-routes" datatype="html">
         <source>
-          No routes
-        </source>
+      No routes
+    </source>
         <target state="new">[
           No routes
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/location/routes/location-routes-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="sourcefile">app/analysis/location/routes/location-routes.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-map.title" datatype="html">

@@ -7,6 +7,7 @@ import {ChangesPage} from "./kpn/api/common/changes-page";
 import {ChangeSetPage} from "./kpn/api/common/changes/change-set-page";
 import {ChangesParameters} from "./kpn/api/common/changes/filter/changes-parameters";
 import {LocationChangesPage} from "./kpn/api/common/location/location-changes-page";
+import {LocationChangesParameters} from "./kpn/api/common/location/location-changes-parameters";
 import {LocationFactsPage} from "./kpn/api/common/location/location-facts-page";
 import {LocationMapPage} from "./kpn/api/common/location/location-map-page";
 import {LocationNodesPage} from "./kpn/api/common/location/location-nodes-page";
@@ -269,7 +270,7 @@ export class AppService {
     );
   }
 
-  public locationChanges(locationKey: LocationKey, parameters: ChangesParameters): Observable<ApiResponse<LocationChangesPage>> {
+  public locationChanges(locationKey: LocationKey, parameters: LocationChangesParameters): Observable<ApiResponse<LocationChangesPage>> {
     const url = this.locationUrl(locationKey, "changes");
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationChangesPage.fromJSON))
