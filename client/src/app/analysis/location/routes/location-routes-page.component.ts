@@ -4,8 +4,6 @@ import {OnInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
 import {ActivatedRoute} from "@angular/router";
-import {LocationRoutesPage} from "../../../kpn/api/common/location/location-routes-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {LocationParams} from "../components/location-params";
@@ -20,23 +18,23 @@ import {LocationRoutesPageService} from "./location-routes-page.service";
       i18n-pageTitle="@@location-routes.title">
     </kpn-location-page-header>
 
-    <div *ngIf="response">
-      <div *ngIf="!page">
+    <div *ngIf="service.response | async as response">
+      <div *ngIf="!response.result">
         <p i18n="@@location-routes.location-not-found">Location not found</p>
       </div>
-      <div *ngIf="page">
-        <div *ngIf="page.routes.isEmpty()" i18n="@@location-routes.no-routes">
+      <div *ngIf="response.result">
+        <div *ngIf="response.result.routes.isEmpty()" i18n="@@location-routes.no-routes">
           No routes
         </div>
         <kpn-location-route-table
-          *ngIf="!page.routes.isEmpty()"
+          *ngIf="!response.result.routes.isEmpty()"
           (page)="pageChanged($event)"
-          [timeInfo]="page.timeInfo"
-          [routes]="page.routes"
-          [routeCount]="page.summary.routeCount">
+          [timeInfo]="response.result.timeInfo"
+          [routes]="response.result.routes"
+          [routeCount]="response.result.summary.routeCount">
         </kpn-location-route-table>
       </div>
-      <kpn-json [object]="page"></kpn-json>
+      <kpn-json [object]="response"></kpn-json>
     </div>
   `,
   providers: [
@@ -45,10 +43,8 @@ import {LocationRoutesPageService} from "./location-routes-page.service";
 })
 export class LocationRoutesPageComponent implements OnInit, OnDestroy {
 
-  json = JSON;
-
-  response: ApiResponse<LocationRoutesPage> = null;
   locationKey: LocationKey;
+
   private readonly subscriptions = new Subscriptions();
 
   constructor(public service: LocationRoutesPageService,
@@ -57,20 +53,11 @@ export class LocationRoutesPageComponent implements OnInit, OnDestroy {
     console.log("LocationRoutesPageComponent constructor");
   }
 
-  get page(): LocationRoutesPage {
-    return this.response.result;
-  }
-
   ngOnInit(): void {
-    console.log("LocationRoutesPageComponent ngOnInit()");
-    this.service.response.subscribe(response => {
-      this.response = response;
-    });
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
         this.locationKey = LocationParams.toKey(params);
-        this.service.setParams(params);
-        this.cdr.detectChanges();
+        this.service.setParams(this.locationKey);
       })
     );
   }

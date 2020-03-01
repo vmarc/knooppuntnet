@@ -66,8 +66,8 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
 
       <mat-header-row *matHeaderRowDef="displayedColumns()"></mat-header-row>
       <mat-row *matRowDef="let route; columns: displayedColumns();"></mat-row>
-    </mat-table>  `,
-  styles: []
+    </mat-table>
+  `
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
 
