@@ -47,6 +47,7 @@ import {PlanInstructionsComponent} from "./sidebar/plan-instructions.component";
 import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
 import {PoiDetailComponent} from "./sidebar/poi-detail.component";
+import { ElevationProfileComponent } from './sidebar/elevation-profile.component';
 
 @NgModule({
   imports: [
@@ -98,7 +99,8 @@ import {PoiDetailComponent} from "./sidebar/poi-detail.component";
     PlanInstructionsComponent,
     ExportDialogComponent,
     PlanTranslationsComponent,
-    MapPopupComponent
+    MapPopupComponent,
+    ElevationProfileComponent
   ],
   exports: [
     MapPageComponent
