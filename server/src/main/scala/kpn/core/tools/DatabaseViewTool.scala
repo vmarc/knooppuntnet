@@ -35,13 +35,13 @@ object DatabaseViewTool {
       updateView(database, TileDesign)
     }
 
-    Couch.executeIn(host, changesDbName) { database =>
-      updateView(database, ChangesDesign)
-    }
-
-    Couch.executeIn(host, poisDbName) { database =>
-      updateView(database, PoiDesign)
-    }
+//    Couch.executeIn(host, changesDbName) { database =>
+//      updateView(database, ChangesDesign)
+//    }
+//
+//    Couch.executeIn(host, poisDbName) { database =>
+//      updateView(database, PoiDesign)
+//    }
     println("Ready")
   }
 
