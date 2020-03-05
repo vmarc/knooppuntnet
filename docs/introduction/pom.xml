@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>knooppuntnet</groupId>
+    <artifactId>introduction</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+    <name>knooppuntnet</name>
+    <description>knoooppuntnet introduction</description>
+
+    <properties>
+        <project.slides.directory>${project.build.directory}/generated-slides</project.slides.directory>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <asciidoctor.maven.plugin.version>2.0.0-RC.1</asciidoctor.maven.plugin.version>
+        <asciidoctorj.version>2.2.0</asciidoctorj.version>
+        <jruby.version>9.2.9.0</jruby.version>
+        <revealjs.version>3.8.0</revealjs.version>
+        <!-- Use 'master' as version and remove the 'v' prefixing the download url to use the current snapshot version  -->
+        <asciidoctor-revealjs.version>master</asciidoctor-revealjs.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>rubygems</groupId>
+            <artifactId>asciidoctor-revealjs</artifactId>
+            <version>3.0.0</version>
+            <type>gem</type>
+            <!-- Avoid downloading gems included in AsciidoctorJ -->
+            <exclusions>
+                <exclusion>
+                    <groupId>rubygems</groupId>
+                    <artifactId>asciidoctor</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>rubygems</groupId>
+                    <artifactId>thread_safe</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>rubygems</groupId>
+                    <artifactId>concurrent-ruby</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <defaultGoal>process-resources</defaultGoal>
+        <extensions>
+            <extension> <!-- this allows us to download gems -->
+                <groupId>org.torquebox.mojo</groupId>
+                <artifactId>mavengem-wagon</artifactId>
+                <version>1.0.3</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.4.2</version>
+                <executions>
+                    <execution>
+                        <id>install-revealjs</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/hakimel/reveal.js/archive/${revealjs.version}.zip</url>
+                            <unpack>true</unpack>
+                            <outputFileName>reveal.js-${revealjs.version}.zip</outputFileName>
+                            <outputDirectory>${project.slides.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>de.saumya.mojo</groupId>
+                <artifactId>gem-maven-plugin</artifactId>
+                <version>1.1.8</version>
+                <configuration>
+                    <jrubyVersion>${jruby.version}</jrubyVersion>
+                    <gemHome>${project.build.directory}/gems</gemHome>
+                    <gemPath>${project.build.directory}/gems</gemPath>
+                </configuration>
+                <executions>
+                    <!-- Install required gems in target directory -->
+                    <execution>
+                        <id>install-gems</id>
+                        <goals>
+                            <goal>initialize</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>${asciidoctor.maven.plugin.version}</version>
+                <dependencies>
+                    <!-- Comment this section to use the default jruby artifact provided by the plugin -->
+                    <dependency>
+                        <groupId>org.jruby</groupId>
+                        <artifactId>jruby-complete</artifactId>
+                        <version>${jruby.version}</version>
+                    </dependency>
+                    <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj</artifactId>
+                        <version>${asciidoctorj.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDirectory>src/asciidoc</sourceDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-slides</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <gemPath>${project.build.directory}/gems</gemPath>
+                            <requires>
+                                <require>asciidoctor-revealjs</require>
+                            </requires>
+                            <outputDirectory>${project.slides.directory}</outputDirectory>
+                            <backend>revealjs</backend>
+                            <sourceHighlighter>rouge</sourceHighlighter>
+                            <attributes>
+                                <revealjsdir>reveal.js-${revealjs.version}</revealjsdir>
+                                <sourcedir>${basedir}/src/main/java</sourcedir>
+                                <project-version>${project.version}</project-version>
+                                <rouge-css>class</rouge-css>
+                                <customcss>styles/monokai.css</customcss>
+                                <customcss>introduction.css</customcss>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>mavengems</id>
+            <url>mavengem:http://rubygems.org</url>
+        </repository>
+    </repositories>
+
+</project>

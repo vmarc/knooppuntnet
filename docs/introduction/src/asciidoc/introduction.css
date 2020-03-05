@@ -1,0 +1,65 @@
+.reveal .knooppuntnet-title-1 {
+	font-weight: 800;
+	font-size: 80%;
+	color: green;
+}
+
+.reveal .knooppuntnet-title-2 {
+	margin-left: -0.2em;
+	font-weight: 800;
+	font-size: 80%;
+	color: red;
+}
+
+.reveal .introduction-title {
+	font-size: 200%;
+}
+.reveal section img {
+  margin: 15px 0;
+  background: rgba(255, 255, 255, 0.12);
+  border: 0 solid #000;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.15); }
+
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  text-transform: none;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides .title {
+  text-align: center;
+}
+
+.reveal .slide-number {
+  color: #444;
+  background-color: #fff;
+}
+
+#couchdb .imageblock img {
+	width: 250px;
+	height: 65px;
+	margin-top: 50px;	
+	float: right;
+}
+
+#couchdb_2 .imageblock img {
+	width: 250px;
+	height: 65px;
+	margin-top: 50px;	
+	float: right;
+}
+
+body {
+	background-image: url('images/logo.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: auto 80%;
+}

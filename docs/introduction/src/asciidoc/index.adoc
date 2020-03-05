@@ -1,0 +1,174 @@
+= [.knooppuntnet-title-1]*knooppunt* [.knooppuntnet-title-2]*net*
+vmarc
+:imagesdir: images
+:revealjs_theme: simple
+:revealjs_center: false
+:revealjs_transition: slide
+:revealjs_transitionSpeed: fast
+:revealjs_slideNumber: true
+:source-highlighter: highlightjs
+:highlightjs-theme: node_modules/highlight.js/styles/idea.css
+:hide-uri-scheme:
+:linkattrs:
+:customcss: introduction.css
+== *
+
+[.introduction-title]#introduction#
+
+== Project
+
+* Introduction
+* Release 3.0
+* Help welcome
+
+
+== Introduction
+
+- knooppunten
+
+- routes
+
+- netwerken
+
+
+[%notitle]
+=== map
+image::map.png[background, size=cover]
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-1.jpg[background, size=cover]
+
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-2.jpg[background, size=cover]
+
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-3.jpg[background, size=cover]
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-4.jpg[background, size=cover]
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-5.jpg[background, size=cover]
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-6.jpg[background, size=cover]
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-7.jpg[background, size=cover]
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-8.jpg[background, size=cover]
+
+[%notitle]
+=== knooppunt
+
+image::knooppunt-9.jpg[background, size=cover]
+
+
+== Release 3.0
+
+- Angular frontend
+- Translations
+- Route planner
+- Points of interest
+- Self served background tiles
+- Location based analysis
+
+
+=== Release 3.0 - Angular frontend
+
+- More widespread technology
+- Makes it possible to attract contributions?
+
+
+=== Release 3.0 - Translations
+
+=== Release 3.0 - Route planner
+
+=== Release 3.0 - Points of interest
+
+=== Release 3.0 - Self served background tiles
+
+=== Release 3.0 - Location based analysis
+
+
+== Help
+
+* Help with project is welcome
+- docs and translations
+- GPDR impact
+- Server administration
+- application
+
+=== Help - docs and translations
+
+* Guide
+- pdf, html
+- context sensitive help
+- asciidoc
+
+* Application
+- German, French
+- https://experimental.knooppuntnet.nl/nl/translations[tool]
+
+
+=== Help - GPDR
+
+* Early 2018
+- https://wiki.openstreetmap.org/w/images/8/88/GDPR_Position_Paper.pdf[OpenStreetMap position paper]
+- user related pages and information removed
+- OpenStreetMap login needed to see changes information
+- still using changeset id's and timestamps
+
+=== Help - GPDR
+
+* Further impact
+- Update from minute diffs?
+- Local OverpassAPI database with attic data?
+- https://knooppuntnet.nl/nl/changes[Change analysis]
+
+
+=== Help - Server administration
+
+* monitoring
+- disk space, memory, ...
+- application
+
+* operating system
+
+* security
+
+=== Help - Application
+
+* testing
+
+* code
+- bugs
+- improve points of interest
+- height profiles
+- turn-by-turn directions
+- ...
+
+[%notitle]
+== knooppunt
+
+image::knooppuntnet.svg[background, size=contain]
+
