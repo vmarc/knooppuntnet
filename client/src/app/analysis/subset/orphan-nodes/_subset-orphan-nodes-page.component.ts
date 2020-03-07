@@ -24,14 +24,14 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </kpn-subset-page-header-block>
 
     <div *ngIf="response">
+      <p>
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      </p>
       <div *ngIf="nodes.isEmpty()" class="kpn-line">
         <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
       </div>
       <div *ngIf="!nodes.isEmpty()">
-        <p>
-          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-        </p>
         <kpn-subset-orphan-nodes-table
           [timeInfo]="response.result.timeInfo"
           [nodes]="nodes">

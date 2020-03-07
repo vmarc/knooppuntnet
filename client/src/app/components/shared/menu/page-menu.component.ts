@@ -11,7 +11,7 @@ import {Component} from "@angular/core";
   styles: [`
 
     mat-divider {
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
 
     .menu {
