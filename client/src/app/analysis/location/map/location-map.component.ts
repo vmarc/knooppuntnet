@@ -4,7 +4,7 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-location-map",
   template: `
-    map
+    map work-in-progress
   `
 })
 export class LocationMapComponent {

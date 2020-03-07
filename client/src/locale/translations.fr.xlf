@@ -58,15 +58,15 @@
           <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
@@ -82,15 +82,15 @@
           <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
@@ -106,15 +106,15 @@
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
@@ -130,15 +130,15 @@
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-motorboat-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-motorboat-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
@@ -154,15 +154,15 @@
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
@@ -178,15 +178,15 @@
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-inline-skating-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-inline-skating-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
@@ -202,7 +202,7 @@
           <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/location-selection-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/location-selection-page.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -4531,7 +4531,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -4539,7 +4539,7 @@
         <source>Length (km)</source>
         <target state="new">[Length (km)]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
@@ -4553,7 +4553,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -4561,7 +4561,7 @@
         <source>NetworkCount</source>
         <target state="new">[NetworkCount]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -4575,7 +4575,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -4583,7 +4583,7 @@
         <source>Node count</source>
         <target state="new">[Node count]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -4597,7 +4597,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
@@ -4605,7 +4605,7 @@
         <source>Route count</source>
         <target state="new">[Route count]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
@@ -4619,7 +4619,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -4627,7 +4627,7 @@
         <source>RouteNotContiniousNetworkCount</source>
         <target state="new">[RouteNotContiniousNetworkCount]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
@@ -4641,7 +4641,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -4649,7 +4649,7 @@
         <source>RouteNotContinious</source>
         <target state="new">[RouteNotContinious]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
@@ -4663,7 +4663,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
@@ -4671,7 +4671,7 @@
         <source>RouteNotContiniousPercentage</source>
         <target state="new">[RouteNotContiniousPercentage]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
@@ -4685,7 +4685,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
@@ -4693,7 +4693,7 @@
         <source>RouteBrokenNetworkCount</source>
         <target state="new">[RouteBrokenNetworkCount]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
@@ -4707,7 +4707,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
@@ -4715,7 +4715,7 @@
         <source>RouteBrokenCount</source>
         <target state="new">[RouteBrokenCount]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
@@ -4729,7 +4729,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
@@ -4737,7 +4737,7 @@
         <source>RouteBrokenPercentage</source>
         <target state="new">[RouteBrokenPercentage]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
@@ -4756,7 +4756,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
@@ -4764,7 +4764,7 @@
         <source>RouteIncomplete</source>
         <target state="new">[RouteIncomplete]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
@@ -4785,7 +4785,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
@@ -4793,7 +4793,7 @@
         <source>RouteIncompleteOk</source>
         <target state="new">[RouteIncompleteOk]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
@@ -4807,7 +4807,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
@@ -4815,7 +4815,7 @@
         <source>RouteFixmetodo</source>
         <target state="new">[RouteFixmetodo]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
@@ -4823,7 +4823,7 @@
         <source>Orphan nodes</source>
         <target state="new">[Orphan nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
@@ -4841,7 +4841,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
@@ -4849,7 +4849,7 @@
         <source>Orphan routes</source>
         <target state="new">[Orphan routes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
@@ -4863,7 +4863,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
@@ -4871,7 +4871,7 @@
         <source>Orphan route length (km)</source>
         <target state="new">[Orphan route length (km)]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
@@ -4885,7 +4885,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
@@ -4893,7 +4893,7 @@
         <source>IntegrityCheck</source>
         <target state="new">[IntegrityCheck]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
@@ -4907,7 +4907,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
@@ -4915,7 +4915,7 @@
         <source>IntegrityCheck</source>
         <target state="new">[IntegrityCheck]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
@@ -4929,7 +4929,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">183</context>
         </context-group>
       </trans-unit>
@@ -4937,7 +4937,7 @@
         <source>IntegrityCheckFailed</source>
         <target state="new">[IntegrityCheckFailed]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
@@ -4951,7 +4951,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
@@ -4959,7 +4959,7 @@
         <source>IntegrityCheckPassRate</source>
         <target state="new">[IntegrityCheckPassRate]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">189</context>
         </context-group>
       </trans-unit>
@@ -4973,7 +4973,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">199</context>
         </context-group>
       </trans-unit>
@@ -4981,7 +4981,7 @@
         <source>IntegrityCheckCoverage</source>
         <target state="new">[IntegrityCheckCoverage]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">197</context>
         </context-group>
       </trans-unit>
@@ -4998,7 +4998,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
@@ -5006,7 +5006,7 @@
         <source>RouteUnusedSegments</source>
         <target state="new">[RouteUnusedSegments]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">206</context>
         </context-group>
       </trans-unit>
@@ -5020,7 +5020,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">220</context>
         </context-group>
       </trans-unit>
@@ -5028,7 +5028,7 @@
         <source>RouteNodeMissingInWays</source>
         <target state="new">[RouteNodeMissingInWays]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">217</context>
         </context-group>
       </trans-unit>
@@ -5043,7 +5043,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">230</context>
         </context-group>
       </trans-unit>
@@ -5051,7 +5051,7 @@
         <source>RouteRedundantNodes</source>
         <target state="new">[RouteRedundantNodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">227</context>
         </context-group>
       </trans-unit>
@@ -5065,7 +5065,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">241</context>
         </context-group>
       </trans-unit>
@@ -5073,7 +5073,7 @@
         <source>RouteWithoutWays</source>
         <target state="new">[RouteWithoutWays]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">237</context>
         </context-group>
       </trans-unit>
@@ -5087,7 +5087,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">252</context>
         </context-group>
       </trans-unit>
@@ -5095,7 +5095,7 @@
         <source>RouteNameMissing</source>
         <target state="new">[RouteNameMissing]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">248</context>
         </context-group>
       </trans-unit>
@@ -5109,7 +5109,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">263</context>
         </context-group>
       </trans-unit>
@@ -5117,7 +5117,7 @@
         <source>RouteTagMissing</source>
         <target state="new">[RouteTagMissing]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">259</context>
         </context-group>
       </trans-unit>
@@ -5131,7 +5131,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">274</context>
         </context-group>
       </trans-unit>
@@ -5139,7 +5139,7 @@
         <source>RouteTagInvalid</source>
         <target state="new">[RouteTagInvalid]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">270</context>
         </context-group>
       </trans-unit>
@@ -5156,7 +5156,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">285</context>
         </context-group>
       </trans-unit>
@@ -5164,7 +5164,7 @@
         <source>RouteUnexpectedNode</source>
         <target state="new">[RouteUnexpectedNode]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">281</context>
         </context-group>
       </trans-unit>
@@ -5183,7 +5183,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">297</context>
         </context-group>
       </trans-unit>
@@ -5191,7 +5191,7 @@
         <source>RouteUnexpectedRelation</source>
         <target state="new">[RouteUnexpectedRelation]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">293</context>
         </context-group>
       </trans-unit>
@@ -5209,7 +5209,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">310</context>
         </context-group>
       </trans-unit>
@@ -5217,7 +5217,7 @@
         <source>NetworkExtraMemberNode</source>
         <target state="new">[NetworkExtraMemberNode]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">306</context>
         </context-group>
       </trans-unit>
@@ -5233,7 +5233,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">323</context>
         </context-group>
       </trans-unit>
@@ -5241,7 +5241,7 @@
         <source>NetworkExtraMemberWay</source>
         <target state="new">[NetworkExtraMemberWay]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">319</context>
         </context-group>
       </trans-unit>
@@ -5258,7 +5258,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">335</context>
         </context-group>
       </trans-unit>
@@ -5266,7 +5266,7 @@
         <source>NetworkExtraMemberRelation</source>
         <target state="new">[NetworkExtraMemberRelation]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">331</context>
         </context-group>
       </trans-unit>
@@ -5280,7 +5280,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">346</context>
         </context-group>
       </trans-unit>
@@ -5288,7 +5288,7 @@
         <source>NodeMemberMissing</source>
         <target state="new">[NodeMemberMissing]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">343</context>
         </context-group>
       </trans-unit>
@@ -5302,7 +5302,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">357</context>
         </context-group>
       </trans-unit>
@@ -5310,7 +5310,7 @@
         <source>NameMissing</source>
         <target state="new">[NameMissing]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">353</context>
         </context-group>
       </trans-unit>
@@ -5324,7 +5324,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">368</context>
         </context-group>
       </trans-unit>
@@ -5332,7 +5332,7 @@
         <source>RouteUnaccessible</source>
         <target state="new">[RouteUnaccessible]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">364</context>
         </context-group>
       </trans-unit>
@@ -5346,7 +5346,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">378</context>
         </context-group>
       </trans-unit>
@@ -5354,7 +5354,7 @@
         <source>RouteInvalidSortingOrder</source>
         <target state="new">[RouteInvalidSortingOrder]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">375</context>
         </context-group>
       </trans-unit>
@@ -5372,7 +5372,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">388</context>
         </context-group>
       </trans-unit>
@@ -5380,7 +5380,7 @@
         <source>RouteNodeNameMismatch</source>
         <target state="new">[RouteNodeNameMismatch]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">385</context>
         </context-group>
       </trans-unit>
@@ -6282,10 +6282,6 @@
           <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/subset/networks/subset-network.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-nodes.title" datatype="html">
         <source>Orphan nodes</source>
@@ -6391,6 +6387,14 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="subset-network.summary" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{network.km}}"/> km, <x id="INTERPOLATION_1" equiv-text="{{network.nodeCount}}"/> nodes, <x id="INTERPOLATION_2" equiv-text="{{network.routeCount}}"/> routes</source>
+        <target state="new">[<x id="INTERPOLATION" equiv-text="{{network.km}}"/> km, <x id="INTERPOLATION_1" equiv-text="{{network.nodeCount}}"/> nodes, <x id="INTERPOLATION_2" equiv-text="{{network.routeCount}}"/> routes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/subset/networks/subset-network.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subset-orphan-routes.route-is-broken" datatype="html">
         <source>
       route is broken
@@ -6427,7 +6431,7 @@
           Changeset
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6439,7 +6443,7 @@
               achavi
             ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
@@ -6451,7 +6455,7 @@
           Minute diff
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
@@ -6463,7 +6467,7 @@
           Comment
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
@@ -6475,7 +6479,7 @@
           Analysis
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
@@ -6487,7 +6491,7 @@
         This changeset brought improvements.
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6499,7 +6503,7 @@
         Maybe this changeset is worth a closer look.
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -6511,7 +6515,7 @@
         The changes do not seem to have an impact on the analysis result.
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-analysis.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -6519,7 +6523,7 @@
         <source>Network</source>
         <target state="new">[Network]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-network-changes.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-network-changes.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -6531,7 +6535,7 @@
           Network created
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-type.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-type.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -6543,7 +6547,7 @@
           Network deleted
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-type.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-type.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -6555,11 +6559,11 @@
         Orphan routes added to this network
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-routes-old.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-orphan-routes-old.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-routes-new.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-orphan-routes-new.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -6571,7 +6575,7 @@
           Orphan nodes added to this network
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-nodes-old.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-orphan-nodes-old.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -6583,7 +6587,7 @@
         Following nodes that used to be part of this network have become orphan
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-orphan-nodes-new.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-orphan-nodes-new.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -6591,7 +6595,7 @@
         <source>Added non-network nodes</source>
         <target state="new">[Added non-network nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-nodes-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-added.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6599,7 +6603,7 @@
         <source>Removed non-network nodes</source>
         <target state="new">[Removed non-network nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-nodes-removed.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-removed.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6607,7 +6611,7 @@
         <source>Updated non-network nodes</source>
         <target state="new">[Updated non-network nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-nodes-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-updated.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6615,7 +6619,7 @@
         <source>Added ways</source>
         <target state="new">[Added ways]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-ways-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-added.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6623,7 +6627,7 @@
         <source>Removed ways</source>
         <target state="new">[Removed ways]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-ways-removed.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-removed.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6631,7 +6635,7 @@
         <source>Updated ways</source>
         <target state="new">[Updated ways]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-ways-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-updated.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6639,7 +6643,7 @@
         <source>Added non-route relations</source>
         <target state="new">[Added non-route relations]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-relations-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-added.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6647,7 +6651,7 @@
         <source>Updated non-route relations</source>
         <target state="new">[Updated non-route relations]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-relations-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-updated.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6655,7 +6659,7 @@
         <source>Removed non-route relations</source>
         <target state="new">[Removed non-route relations]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/network/cs-nc-relations-removed.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-removed.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6667,7 +6671,7 @@
       All facts
     ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/facts/_facts-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/facts/facts-page.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
@@ -6675,7 +6679,7 @@
         <source>Orphan nodes</source>
         <target state="new">[Orphan nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-orphan-node-changes.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-orphan-node-changes.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -6683,7 +6687,7 @@
         <source>Orphan routes</source>
         <target state="new">[Orphan routes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/change-set-orphan-route-changes.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-orphan-route-changes.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -6691,7 +6695,7 @@
         <source>Removed network nodes</source>
         <target state="new">[Removed network nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-removed.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-removed.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -6699,7 +6703,7 @@
         <source>Added network nodes</source>
         <target state="new">[Added network nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-added.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -6707,7 +6711,7 @@
         <source>Created in this changeset.</source>
         <target state="new">[Created in this changeset.]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-added.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -6715,7 +6719,7 @@
         <source>Updated in this changeset.</source>
         <target state="new">[Updated in this changeset.]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-added.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -6723,7 +6727,7 @@
         <source>Existing node</source>
         <target state="new">[Existing node]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-added.component.ts</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -6731,7 +6735,7 @@
         <source>Updated network nodes</source>
         <target state="new">[Updated network nodes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -6743,7 +6747,7 @@
                   Existing node
                 ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -6755,7 +6759,7 @@
                   Node change to
                 ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/node-diffs/node-diffs-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -6763,7 +6767,7 @@
         <source>Added routes</source>
         <target state="new">[Added routes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -6775,7 +6779,7 @@
                       New relation
                     ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -6787,7 +6791,7 @@
                       Relation updated in this changeset
                     ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -6795,7 +6799,7 @@
         <source>Existing relation</source>
         <target state="new">[Existing relation]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-added.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -6803,7 +6807,7 @@
         <source>Removed routes</source>
         <target state="new">[Removed routes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-removed.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-removed.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -6811,7 +6815,7 @@
         <source>Updated routes</source>
         <target state="new">[Updated routes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/route-diffs/route-diffs-updated.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-updated.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -6819,7 +6823,7 @@
         <source>Relation changed to v<x id="INTERPOLATION" equiv-text="{{after.version}}"/></source>
         <target state="new">[Relation changed to]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/version-change.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -6827,7 +6831,7 @@
         <source>Relation unchanged.</source>
         <target state="new">[Relation unchanged]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/version-change.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/version-change.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
@@ -6992,7 +6996,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/statistic-configurations.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
@@ -7072,7 +7076,7 @@
         <source>Overview</source>
         <target state="new">[Overview]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/_overview-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/_overview-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -7083,7 +7087,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/_overview-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/_overview-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -7095,7 +7099,7 @@
           Total
         ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-list-stat-table.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-list-stat-table.component.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -7286,7 +7290,7 @@
         <source>Detail</source>
         <target state="new">[Detail]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -7294,7 +7298,7 @@
         <source>Total</source>
         <target state="new">[Total]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
@@ -7306,15 +7310,15 @@
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -7326,11 +7330,11 @@
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -7338,7 +7342,7 @@
         <source>Comment</source>
         <target state="new">[Comment]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -7350,31 +7354,31 @@
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-inline-skating-page.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-motorboat-page.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -7386,19 +7390,19 @@
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -7410,15 +7414,15 @@
           <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/overview-table-header.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
@@ -7520,39 +7524,39 @@
         <source>Home</source>
         <target state="new">[Home]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-inline-skating-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-motorboat-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/location-selection-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/location-selection-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/location-nodes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/location-nodes-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
@@ -7560,11 +7564,11 @@
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/page/_changes-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/_overview-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/_overview-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
@@ -7584,39 +7588,39 @@
         <source>Analysis</source>
         <target state="new">[Analysis]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-cycling-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-hiking-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-inline-skating-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-inline-skating-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-motorboat-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-motorboat-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-horse-riding-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-canoe-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/location-selection-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/location-selection-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/location-nodes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/location-nodes-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
@@ -7624,11 +7628,11 @@
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/page/_changes-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/overview/_overview-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/overview/overview/_overview-page.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
@@ -7647,7 +7651,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
@@ -7655,7 +7659,7 @@
         <source>Overview</source>
         <target state="new">[Overview]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -7663,7 +7667,7 @@
         <source>Changes</source>
         <target state="new">[Changes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -7675,7 +7679,7 @@
         Explore by network
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-mode.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-mode.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -7687,7 +7691,7 @@
         Explore by location
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/analysis-mode.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-mode.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -7699,7 +7703,7 @@
         Search by name
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/location-mode.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/location-mode.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -7711,7 +7715,7 @@
         Select from tree
       ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/analysis/location-mode.component.ts</context>
+          <context context-type="sourcefile">app/analysis/analysis/pages/location-mode.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -7719,7 +7723,7 @@
         <source>Changes</source>
         <target state="new">[Changes]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/page/_changes-page.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
@@ -7730,7 +7734,7 @@
           ]
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/page/_changes-page.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -7744,7 +7748,7 @@
       Deze informatie is enkel beschikbaar voor OpenStreetMap gebruikers, na <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login>"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login>"/>.
     ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changes/_changes-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changes/page/_changes-page.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -7768,7 +7772,7 @@
         <source>Changeset</source>
         <target state="new">[Changeset]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/changeset/_change-set-page.component.ts</context>
+          <context context-type="sourcefile">app/analysis/changeset/page/_change-set-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
