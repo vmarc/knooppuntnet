@@ -20,7 +20,7 @@ const routes: Routes = [
   Util.routePath(":networkType/:country/orphan-routes", SubsetOrphanRoutesPageComponent, SubsetOrphanRoutesSidebarComponent),
   Util.routePath(":networkType/:country/map", SubsetMapPageComponent, AnalysisSidebarComponent),
   Util.routePath(":networkType/:country/changes", SubsetChangesPageComponent, SubsetChangesSidebarComponent),
-  Util.routePath(":networkType/:country/:fact", SubsetFactDetailsPageComponent, AnalysisSidebarComponent)
+  Util.routePath(":networkType/:country/facts/:fact", SubsetFactDetailsPageComponent, AnalysisSidebarComponent)
 ];
 
 @NgModule({

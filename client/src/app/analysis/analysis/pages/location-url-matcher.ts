@@ -33,7 +33,6 @@ export class LocationUrlMatcher {
     const target = /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 
     if (
-      segments.length === 3 &&
       networkType.test(segments[0].path) &&
       country.test(segments[1].path) &&
       target.test(segments[2].path)
@@ -46,6 +45,7 @@ export class LocationUrlMatcher {
         }
       };
     }
+    console.log("\n\n\nNOT A SUBSET url=" + segments.map(s => s.path) + "\n\n\n");
     return null;
   }
 }
