@@ -4,7 +4,7 @@ import {Component} from "@angular/core";
 @Component({
   selector: "kpn-location-changes",
   template: `
-    changes work-in-progress
+    <p>changes work-in-progress</p>
   `
 })
 export class LocationChangesComponent {

@@ -6,6 +6,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
   selector: "kpn-location-response",
   template: `
     <div *ngIf="response">
+      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       <div *ngIf="!response.result">
         <p i18n="@@location.location-not-found">Location not found</p>
       </div>
