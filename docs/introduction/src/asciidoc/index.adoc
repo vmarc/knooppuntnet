@@ -18,7 +18,7 @@ vmarc
 == Project
 
 * Introduction
-* Release 3.0
+* 3.0 Release
 * Help welcome
 
 
@@ -83,31 +83,30 @@ image::knooppunt-8.jpg[background, size=cover]
 image::knooppunt-9.jpg[background, size=cover]
 
 
-== Release 3.0
+== 3.0 Release
 
-- Angular frontend
 - Translations
 - Route planner
 - Points of interest
 - Self served background tiles
 - Location based analysis
+- Angular frontend
 
+=== 3.0 - Translations
 
-=== Release 3.0 - Angular frontend
+=== 3.0 - Route planner
+
+=== 3.0 - Points of interest
+
+=== 3.0 - Self served background tiles
+
+=== 3.0 - Location based analysis
+
+=== 3.0 - Angular frontend
 
 - More widespread technology
 - Makes it possible to attract contributions?
 
-
-=== Release 3.0 - Translations
-
-=== Release 3.0 - Route planner
-
-=== Release 3.0 - Points of interest
-
-=== Release 3.0 - Self served background tiles
-
-=== Release 3.0 - Location based analysis
 
 
 == Help
