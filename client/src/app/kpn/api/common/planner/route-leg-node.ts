@@ -8,7 +8,7 @@ export class RouteLegNode {
               readonly lon: string) {
   }
 
-  public static fromJSON(jsonObject): RouteLegNode {
+  public static fromJSON(jsonObject: any): RouteLegNode {
     if (!jsonObject) {
       return undefined;
     }

@@ -11,7 +11,7 @@ export class TrackPath {
               readonly segments: List<TrackSegment>) {
   }
 
-  public static fromJSON(jsonObject): TrackPath {
+  public static fromJSON(jsonObject: any): TrackPath {
     if (!jsonObject) {
       return undefined;
     }

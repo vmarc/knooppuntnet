@@ -8,7 +8,7 @@ export class NetworkDataUpdate {
               readonly after: NetworkData) {
   }
 
-  public static fromJSON(jsonObject): NetworkDataUpdate {
+  public static fromJSON(jsonObject: any): NetworkDataUpdate {
     if (!jsonObject) {
       return undefined;
     }

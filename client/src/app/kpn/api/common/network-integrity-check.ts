@@ -6,7 +6,7 @@ export class NetworkIntegrityCheck {
               readonly failed: number) {
   }
 
-  public static fromJSON(jsonObject): NetworkIntegrityCheck {
+  public static fromJSON(jsonObject: any): NetworkIntegrityCheck {
     if (!jsonObject) {
       return undefined;
     }

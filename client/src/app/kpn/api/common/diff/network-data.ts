@@ -8,7 +8,7 @@ export class NetworkData {
               readonly name: string) {
   }
 
-  public static fromJSON(jsonObject): NetworkData {
+  public static fromJSON(jsonObject: any): NetworkData {
     if (!jsonObject) {
       return undefined;
     }

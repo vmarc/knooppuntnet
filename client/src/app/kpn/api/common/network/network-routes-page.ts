@@ -14,7 +14,7 @@ export class NetworkRoutesPage {
               readonly routes: List<NetworkRouteRow>) {
   }
 
-  public static fromJSON(jsonObject): NetworkRoutesPage {
+  public static fromJSON(jsonObject: any): NetworkRoutesPage {
     if (!jsonObject) {
       return undefined;
     }
@@ -22,7 +22,7 @@ export class NetworkRoutesPage {
       TimeInfo.fromJSON(jsonObject.timeInfo),
       NetworkType.fromJSON(jsonObject.networkType),
       NetworkSummary.fromJSON(jsonObject.networkSummary),
-      jsonObject.routes ? List(jsonObject.routes.map(json => NetworkRouteRow.fromJSON(json))) : List()
+      jsonObject.routes ? List(jsonObject.routes.map((json: any) => NetworkRouteRow.fromJSON(json))) : List()
     );
   }
 }

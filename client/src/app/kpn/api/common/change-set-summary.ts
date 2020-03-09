@@ -22,19 +22,19 @@ export class ChangeSetSummary {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject): ChangeSetSummary {
+  public static fromJSON(jsonObject: any): ChangeSetSummary {
     if (!jsonObject) {
       return undefined;
     }
     return new ChangeSetSummary(
       ChangeKey.fromJSON(jsonObject.key),
-      jsonObject.subsets ? List(jsonObject.subsets.map(json => Subset.fromJSON(json))) : List(),
+      jsonObject.subsets ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : List(),
       Timestamp.fromJSON(jsonObject.timestampFrom),
       Timestamp.fromJSON(jsonObject.timestampUntil),
       NetworkChanges.fromJSON(jsonObject.networkChanges),
-      jsonObject.orphanRouteChanges ? List(jsonObject.orphanRouteChanges.map(json => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
-      jsonObject.orphanNodeChanges ? List(jsonObject.orphanNodeChanges.map(json => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
-      jsonObject.subsetAnalyses ? List(jsonObject.subsetAnalyses.map(json => ChangeSetSubsetAnalysis.fromJSON(json))) : List(),
+      jsonObject.orphanRouteChanges ? List(jsonObject.orphanRouteChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
+      jsonObject.orphanNodeChanges ? List(jsonObject.orphanNodeChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
+      jsonObject.subsetAnalyses ? List(jsonObject.subsetAnalyses.map((json: any) => ChangeSetSubsetAnalysis.fromJSON(json))) : List(),
       jsonObject.happy,
       jsonObject.investigate
     );

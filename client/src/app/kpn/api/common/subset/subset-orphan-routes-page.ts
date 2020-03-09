@@ -12,14 +12,14 @@ export class SubsetOrphanRoutesPage {
               readonly rows: List<RouteSummary>) {
   }
 
-  public static fromJSON(jsonObject): SubsetOrphanRoutesPage {
+  public static fromJSON(jsonObject: any): SubsetOrphanRoutesPage {
     if (!jsonObject) {
       return undefined;
     }
     return new SubsetOrphanRoutesPage(
       TimeInfo.fromJSON(jsonObject.timeInfo),
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
-      jsonObject.rows ? List(jsonObject.rows.map(json => RouteSummary.fromJSON(json))) : List()
+      jsonObject.rows ? List(jsonObject.rows.map((json: any) => RouteSummary.fromJSON(json))) : List()
     );
   }
 }

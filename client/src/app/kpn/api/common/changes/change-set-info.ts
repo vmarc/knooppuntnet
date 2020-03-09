@@ -13,7 +13,7 @@ export class ChangeSetInfo {
               readonly tags: Tags) {
   }
 
-  public static fromJSON(jsonObject): ChangeSetInfo {
+  public static fromJSON(jsonObject: any): ChangeSetInfo {
     if (!jsonObject) {
       return undefined;
     }

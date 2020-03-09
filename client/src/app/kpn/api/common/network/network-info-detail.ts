@@ -14,13 +14,13 @@ export class NetworkInfoDetail {
               readonly shape: NetworkShape) {
   }
 
-  public static fromJSON(jsonObject): NetworkInfoDetail {
+  public static fromJSON(jsonObject: any): NetworkInfoDetail {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkInfoDetail(
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => NetworkNodeInfo2.fromJSON(json))) : List(),
-      jsonObject.routes ? List(jsonObject.routes.map(json => NetworkRouteInfo.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => NetworkNodeInfo2.fromJSON(json))) : List(),
+      jsonObject.routes ? List(jsonObject.routes.map((json: any) => NetworkRouteInfo.fromJSON(json))) : List(),
       NetworkFacts.fromJSON(jsonObject.networkFacts),
       NetworkShape.fromJSON(jsonObject.shape)
     );

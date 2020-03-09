@@ -7,7 +7,7 @@ export class NodeNetworkIntegrityCheck {
               readonly actual: number) {
   }
 
-  public static fromJSON(jsonObject): NodeNetworkIntegrityCheck {
+  public static fromJSON(jsonObject: any): NodeNetworkIntegrityCheck {
     if (!jsonObject) {
       return undefined;
     }

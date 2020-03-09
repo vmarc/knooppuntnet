@@ -13,14 +13,14 @@ export class NetworkChangesPage {
               readonly totalCount: number) {
   }
 
-  public static fromJSON(jsonObject): NetworkChangesPage {
+  public static fromJSON(jsonObject: any): NetworkChangesPage {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkChangesPage(
       NetworkSummary.fromJSON(jsonObject.network),
       ChangesFilter.fromJSON(jsonObject.filter),
-      jsonObject.changes ? List(jsonObject.changes.map(json => NetworkChangeInfo.fromJSON(json))) : List(),
+      jsonObject.changes ? List(jsonObject.changes.map((json: any) => NetworkChangeInfo.fromJSON(json))) : List(),
       jsonObject.totalCount
     );
   }

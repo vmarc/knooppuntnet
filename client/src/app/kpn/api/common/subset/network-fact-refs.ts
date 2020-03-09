@@ -10,14 +10,14 @@ export class NetworkFactRefs {
               readonly factRefs: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): NetworkFactRefs {
+  public static fromJSON(jsonObject: any): NetworkFactRefs {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkFactRefs(
       jsonObject.networkId,
       jsonObject.networkName,
-      jsonObject.factRefs ? List(jsonObject.factRefs.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.factRefs ? List(jsonObject.factRefs.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

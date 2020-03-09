@@ -10,13 +10,13 @@ export class NodeReferences {
               readonly routeReferences: List<NodeOrphanRouteReference>) {
   }
 
-  public static fromJSON(jsonObject): NodeReferences {
+  public static fromJSON(jsonObject: any): NodeReferences {
     if (!jsonObject) {
       return undefined;
     }
     return new NodeReferences(
-      jsonObject.networkReferences ? List(jsonObject.networkReferences.map(json => NodeNetworkReference.fromJSON(json))) : List(),
-      jsonObject.routeReferences ? List(jsonObject.routeReferences.map(json => NodeOrphanRouteReference.fromJSON(json))) : List()
+      jsonObject.networkReferences ? List(jsonObject.networkReferences.map((json: any) => NodeNetworkReference.fromJSON(json))) : List(),
+      jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => NodeOrphanRouteReference.fromJSON(json))) : List()
     );
   }
 }

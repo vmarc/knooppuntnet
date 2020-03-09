@@ -6,7 +6,7 @@ export class LocationRoutesParameters {
               readonly pageIndex: number) {
   }
 
-  public static fromJSON(jsonObject): LocationRoutesParameters {
+  public static fromJSON(jsonObject: any): LocationRoutesParameters {
     if (!jsonObject) {
       return undefined;
     }

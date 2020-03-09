@@ -12,14 +12,14 @@ export class LocationNodesPage {
               readonly nodes: List<LocationNodeInfo>) {
   }
 
-  public static fromJSON(jsonObject): LocationNodesPage {
+  public static fromJSON(jsonObject: any): LocationNodesPage {
     if (!jsonObject) {
       return undefined;
     }
     return new LocationNodesPage(
       TimeInfo.fromJSON(jsonObject.timeInfo),
       LocationSummary.fromJSON(jsonObject.summary),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => LocationNodeInfo.fromJSON(json))) : List()
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => LocationNodeInfo.fromJSON(json))) : List()
     );
   }
 }

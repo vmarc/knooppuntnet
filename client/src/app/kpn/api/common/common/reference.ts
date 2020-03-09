@@ -10,7 +10,7 @@ export class Reference {
               readonly connection: boolean) {
   }
 
-  public static fromJSON(jsonObject): Reference {
+  public static fromJSON(jsonObject: any): Reference {
     if (!jsonObject) {
       return undefined;
     }

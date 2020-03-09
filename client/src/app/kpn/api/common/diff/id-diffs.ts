@@ -9,7 +9,7 @@ export class IdDiffs {
               readonly updated: List<number>) {
   }
 
-  public static fromJSON(jsonObject): IdDiffs {
+  public static fromJSON(jsonObject: any): IdDiffs {
     if (!jsonObject) {
       return undefined;
     }

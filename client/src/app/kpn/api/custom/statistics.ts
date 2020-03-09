@@ -8,11 +8,11 @@ export class Statistics {
     this.map = map;
   }
 
-  public static fromJSON(jsonObject): Statistics {
+  public static fromJSON(jsonObject: any): Statistics {
     if (!jsonObject) {
       return undefined;
     }
-    const keysAndValues = [];
+    const keysAndValues: Array<[string, Statistic]> = [];
     Object.keys(jsonObject.map).forEach(key => {
       const value = jsonObject.map[key];
       const s = Statistic.fromJSON(value);

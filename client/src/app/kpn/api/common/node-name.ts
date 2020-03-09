@@ -8,7 +8,7 @@ export class NodeName {
               readonly name: string) {
   }
 
-  public static fromJSON(jsonObject): NodeName {
+  public static fromJSON(jsonObject: any): NodeName {
     if (!jsonObject) {
       return undefined;
     }

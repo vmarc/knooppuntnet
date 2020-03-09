@@ -10,14 +10,14 @@ export class FactDiffs {
               readonly remaining: List<Fact>) {
   }
 
-  public static fromJSON(jsonObject): FactDiffs {
+  public static fromJSON(jsonObject: any): FactDiffs {
     if (!jsonObject) {
       return undefined;
     }
     return new FactDiffs(
-      jsonObject.resolved ? List(jsonObject.resolved.map(json => Fact.fromJSON(json))) : List(),
-      jsonObject.introduced ? List(jsonObject.introduced.map(json => Fact.fromJSON(json))) : List(),
-      jsonObject.remaining ? List(jsonObject.remaining.map(json => Fact.fromJSON(json))) : List()
+      jsonObject.resolved ? List(jsonObject.resolved.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.introduced ? List(jsonObject.introduced.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.remaining ? List(jsonObject.remaining.map((json: any) => Fact.fromJSON(json))) : List()
     );
   }
 }

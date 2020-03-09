@@ -11,7 +11,7 @@ export class LocationRouteInfo {
               readonly broken: boolean) {
   }
 
-  public static fromJSON(jsonObject): LocationRouteInfo {
+  public static fromJSON(jsonObject: any): LocationRouteInfo {
     if (!jsonObject) {
       return undefined;
     }

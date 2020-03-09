@@ -10,7 +10,7 @@ export class ChangeKey {
               readonly elementId: number) {
   }
 
-  public static fromJSON(jsonObject): ChangeKey {
+  public static fromJSON(jsonObject: any): ChangeKey {
     if (!jsonObject) {
       return undefined;
     }

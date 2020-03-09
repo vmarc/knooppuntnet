@@ -6,7 +6,7 @@ export class TrackPoint {
               readonly lon: string) {
   }
 
-  public static fromJSON(jsonObject): TrackPoint {
+  public static fromJSON(jsonObject: any): TrackPoint {
     if (!jsonObject) {
       return undefined;
     }

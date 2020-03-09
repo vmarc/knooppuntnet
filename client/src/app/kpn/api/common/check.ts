@@ -8,7 +8,7 @@ export class Check {
               readonly expected: number) {
   }
 
-  public static fromJSON(jsonObject): Check {
+  public static fromJSON(jsonObject: any): Check {
     if (!jsonObject) {
       return undefined;
     }

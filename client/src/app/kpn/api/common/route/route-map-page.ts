@@ -8,7 +8,7 @@ export class RouteMapPage {
               readonly changeCount: number) {
   }
 
-  public static fromJSON(jsonObject): RouteMapPage {
+  public static fromJSON(jsonObject: any): RouteMapPage {
     if (!jsonObject) {
       return undefined;
     }

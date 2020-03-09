@@ -18,7 +18,7 @@ export class ChangeSetPage {
               readonly knownElements: KnownElements) {
   }
 
-  public static fromJSON(jsonObject): ChangeSetPage {
+  public static fromJSON(jsonObject: any): ChangeSetPage {
     if (!jsonObject) {
       return undefined;
     }

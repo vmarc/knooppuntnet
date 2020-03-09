@@ -9,7 +9,7 @@ export class NodeChangeDoc {
               readonly _rev: string) {
   }
 
-  public static fromJSON(jsonObject): NodeChangeDoc {
+  public static fromJSON(jsonObject: any): NodeChangeDoc {
     if (!jsonObject) {
       return undefined;
     }

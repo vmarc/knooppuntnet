@@ -10,7 +10,7 @@ export class Change {
     this.elements = elements;
   }
 
-  public static fromJSON(jsonObject): Change {
+  public static fromJSON(jsonObject: any): Change {
     if (!jsonObject) {
       return undefined;
     }

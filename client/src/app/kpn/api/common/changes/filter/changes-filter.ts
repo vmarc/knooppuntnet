@@ -8,12 +8,12 @@ export class ChangesFilter {
   constructor(readonly periods: List<ChangesFilterPeriod>) {
   }
 
-  public static fromJSON(jsonObject): ChangesFilter {
+  public static fromJSON(jsonObject: any): ChangesFilter {
     if (!jsonObject) {
       return undefined;
     }
     return new ChangesFilter(
-      jsonObject.periods ? List(jsonObject.periods.map(json => ChangesFilterPeriod.fromJSON(json))) : List()
+      jsonObject.periods ? List(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : List()
     );
   }
 }

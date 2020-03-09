@@ -14,7 +14,7 @@ export class RawNode {
               readonly tags: Tags) {
   }
 
-  public static fromJSON(jsonObject): RawNode {
+  public static fromJSON(jsonObject: any): RawNode {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class ChangeSetSummaryDoc {
               readonly _rev: string) {
   }
 
-  public static fromJSON(jsonObject): ChangeSetSummaryDoc {
+  public static fromJSON(jsonObject: any): ChangeSetSummaryDoc {
     if (!jsonObject) {
       return undefined;
     }

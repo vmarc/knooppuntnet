@@ -25,7 +25,7 @@ export class NodeInfo {
               readonly tiles: List<string>) {
   }
 
-  public static fromJSON(jsonObject): NodeInfo {
+  public static fromJSON(jsonObject: any): NodeInfo {
     if (!jsonObject) {
       return undefined;
     }
@@ -35,7 +35,7 @@ export class NodeInfo {
       jsonObject.orphan,
       Country.fromJSON(jsonObject.country),
       jsonObject.name,
-      jsonObject.names ? List(jsonObject.names.map(json => NodeName.fromJSON(json))) : List(),
+      jsonObject.names ? List(jsonObject.names.map((json: any) => NodeName.fromJSON(json))) : List(),
       jsonObject.latitude,
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),

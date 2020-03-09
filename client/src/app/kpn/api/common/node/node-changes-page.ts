@@ -15,7 +15,7 @@ export class NodeChangesPage {
               readonly changeCount: number) {
   }
 
-  public static fromJSON(jsonObject): NodeChangesPage {
+  public static fromJSON(jsonObject: any): NodeChangesPage {
     if (!jsonObject) {
       return undefined;
     }

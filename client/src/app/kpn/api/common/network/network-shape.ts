@@ -8,7 +8,7 @@ export class NetworkShape {
               readonly coordinates: string) {
   }
 
-  public static fromJSON(jsonObject): NetworkShape {
+  public static fromJSON(jsonObject: any): NetworkShape {
     if (!jsonObject) {
       return undefined;
     }

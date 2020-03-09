@@ -18,7 +18,7 @@ export class WayUpdate {
               readonly tagDiffs: TagDiffs) {
   }
 
-  public static fromJSON(jsonObject): WayUpdate {
+  public static fromJSON(jsonObject: any): WayUpdate {
     if (!jsonObject) {
       return undefined;
     }
@@ -26,9 +26,9 @@ export class WayUpdate {
       jsonObject.id,
       MetaData.fromJSON(jsonObject.before),
       MetaData.fromJSON(jsonObject.after),
-      jsonObject.removedNodes ? List(jsonObject.removedNodes.map(json => RawNode.fromJSON(json))) : List(),
-      jsonObject.addedNodes ? List(jsonObject.addedNodes.map(json => RawNode.fromJSON(json))) : List(),
-      jsonObject.updatedNodes ? List(jsonObject.updatedNodes.map(json => NodeUpdate.fromJSON(json))) : List(),
+      jsonObject.removedNodes ? List(jsonObject.removedNodes.map((json: any) => RawNode.fromJSON(json))) : List(),
+      jsonObject.addedNodes ? List(jsonObject.addedNodes.map((json: any) => RawNode.fromJSON(json))) : List(),
+      jsonObject.updatedNodes ? List(jsonObject.updatedNodes.map((json: any) => NodeUpdate.fromJSON(json))) : List(),
       jsonObject.directionReversed,
       TagDiffs.fromJSON(jsonObject.tagDiffs)
     );

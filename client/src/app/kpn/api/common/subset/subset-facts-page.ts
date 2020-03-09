@@ -10,13 +10,13 @@ export class SubsetFactsPage {
               readonly factCounts: List<FactCount>) {
   }
 
-  public static fromJSON(jsonObject): SubsetFactsPage {
+  public static fromJSON(jsonObject: any): SubsetFactsPage {
     if (!jsonObject) {
       return undefined;
     }
     return new SubsetFactsPage(
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
-      jsonObject.factCounts ? List(jsonObject.factCounts.map(json => FactCount.fromJSON(json))) : List()
+      jsonObject.factCounts ? List(jsonObject.factCounts.map((json: any) => FactCount.fromJSON(json))) : List()
     );
   }
 }

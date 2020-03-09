@@ -8,7 +8,7 @@ export class FactCount {
               readonly count: number) {
   }
 
-  public static fromJSON(jsonObject): FactCount {
+  public static fromJSON(jsonObject: any): FactCount {
     if (!jsonObject) {
       return undefined;
     }

@@ -21,12 +21,12 @@ export class RouteInfoAnalysis {
               readonly locationAnalysis: RouteLocationAnalysis) {
   }
 
-  public static fromJSON(jsonObject): RouteInfoAnalysis {
+  public static fromJSON(jsonObject: any): RouteInfoAnalysis {
     if (!jsonObject) {
       return undefined;
     }
     return new RouteInfoAnalysis(
-      jsonObject.startNodes ? List(jsonObject.startNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.startNodes ? List(jsonObject.startNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.endNodes ? List(jsonObject.endNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),

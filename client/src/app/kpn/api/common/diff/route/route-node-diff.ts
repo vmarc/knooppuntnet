@@ -10,14 +10,14 @@ export class RouteNodeDiff {
               readonly removed: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): RouteNodeDiff {
+  public static fromJSON(jsonObject: any): RouteNodeDiff {
     if (!jsonObject) {
       return undefined;
     }
     return new RouteNodeDiff(
       jsonObject.title,
-      jsonObject.added ? List(jsonObject.added.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.removed ? List(jsonObject.removed.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.added ? List(jsonObject.added.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.removed ? List(jsonObject.removed.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

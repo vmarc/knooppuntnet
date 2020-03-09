@@ -10,14 +10,14 @@ export class RouteLegSegment {
               readonly fragments: List<RouteLegFragment>) {
   }
 
-  public static fromJSON(jsonObject): RouteLegSegment {
+  public static fromJSON(jsonObject: any): RouteLegSegment {
     if (!jsonObject) {
       return undefined;
     }
     return new RouteLegSegment(
       jsonObject.meters,
       jsonObject.surface,
-      jsonObject.fragments ? List(jsonObject.fragments.map(json => RouteLegFragment.fromJSON(json))) : List()
+      jsonObject.fragments ? List(jsonObject.fragments.map((json: any) => RouteLegFragment.fromJSON(json))) : List()
     );
   }
 }

@@ -35,7 +35,7 @@ export class NodeChangeInfo {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject): NodeChangeInfo {
+  public static fromJSON(jsonObject: any): NodeChangeInfo {
     if (!jsonObject) {
       return undefined;
     }
@@ -47,17 +47,17 @@ export class NodeChangeInfo {
       jsonObject.comment,
       MetaData.fromJSON(jsonObject.before),
       MetaData.fromJSON(jsonObject.after),
-      jsonObject.connectionChanges ? List(jsonObject.connectionChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
-      jsonObject.roleConnectionChanges ? List(jsonObject.roleConnectionChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
-      jsonObject.definedInNetworkChanges ? List(jsonObject.definedInNetworkChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.connectionChanges ? List(jsonObject.connectionChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.roleConnectionChanges ? List(jsonObject.roleConnectionChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.definedInNetworkChanges ? List(jsonObject.definedInNetworkChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
       TagDiffs.fromJSON(jsonObject.tagDiffs),
       NodeMoved.fromJSON(jsonObject.nodeMoved),
-      jsonObject.addedToRoute ? List(jsonObject.addedToRoute.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.removedFromRoute ? List(jsonObject.removedFromRoute.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.addedToRoute ? List(jsonObject.addedToRoute.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.removedFromRoute ? List(jsonObject.removedFromRoute.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
       FactDiffs.fromJSON(jsonObject.factDiffs),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       jsonObject.happy,
       jsonObject.investigate
     );

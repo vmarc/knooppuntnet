@@ -15,7 +15,7 @@ export class RawRelation {
               readonly tags: Tags) {
   }
 
-  public static fromJSON(jsonObject): RawRelation {
+  public static fromJSON(jsonObject: any): RawRelation {
     if (!jsonObject) {
       return undefined;
     }
@@ -24,7 +24,7 @@ export class RawRelation {
       jsonObject.version,
       Timestamp.fromJSON(jsonObject.timestamp),
       jsonObject.changeSetId,
-      jsonObject.members ? List(jsonObject.members.map(json => RawMember.fromJSON(json))) : List(),
+      jsonObject.members ? List(jsonObject.members.map((json: any) => RawMember.fromJSON(json))) : List(),
       Tags.fromJSON(jsonObject.tags)
     );
   }

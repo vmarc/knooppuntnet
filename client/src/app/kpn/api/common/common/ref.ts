@@ -6,7 +6,7 @@ export class Ref {
               readonly name: string) {
   }
 
-  public static fromJSON(jsonObject): Ref {
+  public static fromJSON(jsonObject: any): Ref {
     if (!jsonObject) {
       return undefined;
     }

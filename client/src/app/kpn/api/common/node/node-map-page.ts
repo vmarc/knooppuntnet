@@ -8,7 +8,7 @@ export class NodeMapPage {
               readonly changeCount: number) {
   }
 
-  public static fromJSON(jsonObject): NodeMapPage {
+  public static fromJSON(jsonObject: any): NodeMapPage {
     if (!jsonObject) {
       return undefined;
     }

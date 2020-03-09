@@ -11,7 +11,7 @@ export class Relation {
     this.members = members;
   }
 
-  public static fromJSON(jsonObject): Relation {
+  public static fromJSON(jsonObject: any): Relation {
     if (!jsonObject) {
       return undefined;
     }

@@ -12,7 +12,7 @@ export class SubsetFactDetailsPage {
               readonly networks: List<NetworkFactRefs>) {
   }
 
-  public static fromJSON(jsonObject): SubsetFactDetailsPage {
+  public static fromJSON(jsonObject: any): SubsetFactDetailsPage {
     if (!jsonObject) {
       return undefined;
     }

@@ -14,15 +14,15 @@ export class RawData {
               readonly relations: List<RawRelation>) {
   }
 
-  public static fromJSON(jsonObject): RawData {
+  public static fromJSON(jsonObject: any): RawData {
     if (!jsonObject) {
       return undefined;
     }
     return new RawData(
       Timestamp.fromJSON(jsonObject.timestamp),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => RawNode.fromJSON(json))) : List(),
-      jsonObject.ways ? List(jsonObject.ways.map(json => RawWay.fromJSON(json))) : List(),
-      jsonObject.relations ? List(jsonObject.relations.map(json => RawRelation.fromJSON(json))) : List()
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => RawNode.fromJSON(json))) : List(),
+      jsonObject.ways ? List(jsonObject.ways.map((json: any) => RawWay.fromJSON(json))) : List(),
+      jsonObject.relations ? List(jsonObject.relations.map((json: any) => RawRelation.fromJSON(json))) : List()
     );
   }
 }

@@ -9,7 +9,7 @@ export class NetworkChangeDoc {
               readonly _rev: string) {
   }
 
-  public static fromJSON(jsonObject): NetworkChangeDoc {
+  public static fromJSON(jsonObject: any): NetworkChangeDoc {
     if (!jsonObject) {
       return undefined;
     }

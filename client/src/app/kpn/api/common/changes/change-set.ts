@@ -15,7 +15,7 @@ export class ChangeSet {
               readonly changes: List<Change>) {
   }
 
-  public static fromJSON(jsonObject): ChangeSet {
+  public static fromJSON(jsonObject: any): ChangeSet {
     if (!jsonObject) {
       return undefined;
     }

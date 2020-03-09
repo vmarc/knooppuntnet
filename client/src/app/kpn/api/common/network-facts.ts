@@ -18,12 +18,12 @@ export class NetworkFacts {
               readonly nameMissing: NetworkNameMissing) {
   }
 
-  public static fromJSON(jsonObject): NetworkFacts {
+  public static fromJSON(jsonObject: any): NetworkFacts {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkFacts(
-      jsonObject.networkExtraMemberNode ? List(jsonObject.networkExtraMemberNode.map(json => NetworkExtraMemberNode.fromJSON(json))) : List(),
+      jsonObject.networkExtraMemberNode ? List(jsonObject.networkExtraMemberNode.map((json: any) => NetworkExtraMemberNode.fromJSON(json))) : List(),
       jsonObject.networkExtraMemberWay ? List(jsonObject.networkExtraMemberWay.map(json => NetworkExtraMemberWay.fromJSON(json))) : List(),
       jsonObject.networkExtraMemberRelation ? List(jsonObject.networkExtraMemberRelation.map(json => NetworkExtraMemberRelation.fromJSON(json))) : List(),
       NetworkIntegrityCheck.fromJSON(jsonObject.integrityCheck),

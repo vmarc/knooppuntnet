@@ -11,14 +11,14 @@ export class NodeDiffs {
               readonly updated: List<NodeDataUpdate>) {
   }
 
-  public static fromJSON(jsonObject): NodeDiffs {
+  public static fromJSON(jsonObject: any): NodeDiffs {
     if (!jsonObject) {
       return undefined;
     }
     return new NodeDiffs(
-      jsonObject.removed ? List(jsonObject.removed.map(json => NodeData.fromJSON(json))) : List(),
-      jsonObject.added ? List(jsonObject.added.map(json => NodeData.fromJSON(json))) : List(),
-      jsonObject.updated ? List(jsonObject.updated.map(json => NodeDataUpdate.fromJSON(json))) : List()
+      jsonObject.removed ? List(jsonObject.removed.map((json: any) => NodeData.fromJSON(json))) : List(),
+      jsonObject.added ? List(jsonObject.added.map((json: any) => NodeData.fromJSON(json))) : List(),
+      jsonObject.updated ? List(jsonObject.updated.map((json: any) => NodeDataUpdate.fromJSON(json))) : List()
     );
   }
 }

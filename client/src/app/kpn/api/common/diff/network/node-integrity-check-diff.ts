@@ -8,7 +8,7 @@ export class NodeIntegrityCheckDiff {
               readonly after: NodeIntegrityCheck) {
   }
 
-  public static fromJSON(jsonObject): NodeIntegrityCheckDiff {
+  public static fromJSON(jsonObject: any): NodeIntegrityCheckDiff {
     if (!jsonObject) {
       return undefined;
     }

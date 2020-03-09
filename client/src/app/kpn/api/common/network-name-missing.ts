@@ -5,7 +5,7 @@ export class NetworkNameMissing {
   constructor() {
   }
 
-  public static fromJSON(jsonObject): NetworkNameMissing {
+  public static fromJSON(jsonObject: any): NetworkNameMissing {
     if (!jsonObject) {
       return undefined;
     }

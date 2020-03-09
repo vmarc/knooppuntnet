@@ -10,7 +10,7 @@ export class NodeDetailsPage {
               readonly changeCount: number) {
   }
 
-  public static fromJSON(jsonObject): NodeDetailsPage {
+  public static fromJSON(jsonObject: any): NodeDetailsPage {
     if (!jsonObject) {
       return undefined;
     }

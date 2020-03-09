@@ -9,7 +9,7 @@ export class MapDetailNode {
               readonly references: NodeReferences) {
   }
 
-  public static fromJSON(jsonObject): MapDetailNode {
+  public static fromJSON(jsonObject: any): MapDetailNode {
     if (!jsonObject) {
       return undefined;
     }

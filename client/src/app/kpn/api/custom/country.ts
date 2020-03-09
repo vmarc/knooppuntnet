@@ -3,7 +3,7 @@ export class Country {
   constructor(readonly domain: string) {
   }
 
-  public static fromJSON(jsonObject): Country {
+  public static fromJSON(jsonObject: any): Country {
     if (!jsonObject) {
       return undefined;
     }

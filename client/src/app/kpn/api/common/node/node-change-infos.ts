@@ -9,12 +9,12 @@ export class NodeChangeInfos {
               readonly incompleteWarning: boolean) {
   }
 
-  public static fromJSON(jsonObject): NodeChangeInfos {
+  public static fromJSON(jsonObject: any): NodeChangeInfos {
     if (!jsonObject) {
       return undefined;
     }
     return new NodeChangeInfos(
-      jsonObject.changes ? List(jsonObject.changes.map(json => NodeChangeInfo.fromJSON(json))) : List(),
+      jsonObject.changes ? List(jsonObject.changes.map((json: any) => NodeChangeInfo.fromJSON(json))) : List(),
       jsonObject.incompleteWarning
     );
   }

@@ -14,7 +14,7 @@ export class NetworkRefs {
               readonly refs: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): NetworkRefs {
+  public static fromJSON(jsonObject: any): NetworkRefs {
     if (!jsonObject) {
       return undefined;
     }
@@ -23,7 +23,7 @@ export class NetworkRefs {
       NetworkType.fromJSON(jsonObject.networkType),
       Ref.fromJSON(jsonObject.networkRef),
       jsonObject.refType,
-      jsonObject.refs ? List(jsonObject.refs.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.refs ? List(jsonObject.refs.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

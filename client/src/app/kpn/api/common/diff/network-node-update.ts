@@ -10,7 +10,7 @@ export class NetworkNodeUpdate {
               readonly diffs: NetworkNodeDiff) {
   }
 
-  public static fromJSON(jsonObject): NetworkNodeUpdate {
+  public static fromJSON(jsonObject: any): NetworkNodeUpdate {
     if (!jsonObject) {
       return undefined;
     }

@@ -11,13 +11,13 @@ export class Way {
               readonly length: number) {
   }
 
-  public static fromJSON(jsonObject): Way {
+  public static fromJSON(jsonObject: any): Way {
     if (!jsonObject) {
       return undefined;
     }
     return new Way(
       RawWay.fromJSON(jsonObject.raw),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => Node.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => Node.fromJSON(json))) : List(),
       jsonObject.length
     );
   }

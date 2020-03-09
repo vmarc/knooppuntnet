@@ -7,7 +7,7 @@ export class RawMember {
               readonly role: string) {
   }
 
-  public static fromJSON(jsonObject): RawMember {
+  public static fromJSON(jsonObject: any): RawMember {
     if (!jsonObject) {
       return undefined;
     }

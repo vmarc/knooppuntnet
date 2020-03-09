@@ -18,7 +18,7 @@ export class NetworkInfo {
               readonly detail: NetworkInfoDetail) {
   }
 
-  public static fromJSON(jsonObject): NetworkInfo {
+  public static fromJSON(jsonObject: any): NetworkInfo {
     if (!jsonObject) {
       return undefined;
     }
@@ -28,7 +28,7 @@ export class NetworkInfo {
       jsonObject.nodeRefs ? List(jsonObject.nodeRefs) : List(),
       jsonObject.routeRefs ? List(jsonObject.routeRefs) : List(),
       jsonObject.networkRefs ? List(jsonObject.networkRefs) : List(),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       Tags.fromJSON(jsonObject.tags),
       NetworkInfoDetail.fromJSON(jsonObject.detail)
     );

@@ -25,7 +25,7 @@ export class NetworkNodeInfo2 {
               readonly tags: Tags) {
   }
 
-  public static fromJSON(jsonObject): NetworkNodeInfo2 {
+  public static fromJSON(jsonObject: any): NetworkNodeInfo2 {
     if (!jsonObject) {
       return undefined;
     }
@@ -40,7 +40,7 @@ export class NetworkNodeInfo2 {
       jsonObject.definedInRelation,
       jsonObject.definedInRoute,
       Timestamp.fromJSON(jsonObject.timestamp),
-      jsonObject.routeReferences ? List(jsonObject.routeReferences.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))) : List(),
       NodeIntegrityCheck.fromJSON(jsonObject.integrityCheck),
       jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
       Tags.fromJSON(jsonObject.tags)

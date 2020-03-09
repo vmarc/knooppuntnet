@@ -15,7 +15,7 @@ export class LocationNodeInfo {
               readonly routeReferences: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): LocationNodeInfo {
+  public static fromJSON(jsonObject: any): LocationNodeInfo {
     if (!jsonObject) {
       return undefined;
     }
@@ -26,7 +26,7 @@ export class LocationNodeInfo {
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),
       jsonObject.factCount,
-      jsonObject.routeReferences ? List(jsonObject.routeReferences.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

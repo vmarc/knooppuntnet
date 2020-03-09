@@ -10,14 +10,14 @@ export class RefDiffs {
               readonly updated: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): RefDiffs {
+  public static fromJSON(jsonObject: any): RefDiffs {
     if (!jsonObject) {
       return undefined;
     }
     return new RefDiffs(
-      jsonObject.removed ? List(jsonObject.removed.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.added ? List(jsonObject.added.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.updated ? List(jsonObject.updated.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.removed ? List(jsonObject.removed.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.added ? List(jsonObject.added.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.updated ? List(jsonObject.updated.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

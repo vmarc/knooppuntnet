@@ -12,12 +12,12 @@ export class Tags {
     return new Tags(List(array.map(row => new Tag(row[0], row[1]))));
   }
 
-  static fromJSON(jsonObject): Tags {
+  static fromJSON(jsonObject: any): Tags {
     if (!jsonObject) {
       return undefined;
     }
     return new Tags(
-      List(jsonObject.map(json => Tag.fromJSON(json)))
+      List(jsonObject.map((json: any) => Tag.fromJSON(json)))
     );
   }
 

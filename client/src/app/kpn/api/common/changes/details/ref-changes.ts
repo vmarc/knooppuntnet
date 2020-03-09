@@ -9,13 +9,13 @@ export class RefChanges {
               readonly newRefs: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): RefChanges {
+  public static fromJSON(jsonObject: any): RefChanges {
     if (!jsonObject) {
       return undefined;
     }
     return new RefChanges(
-      jsonObject.oldRefs ? List(jsonObject.oldRefs.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.newRefs ? List(jsonObject.newRefs.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.oldRefs ? List(jsonObject.oldRefs.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.newRefs ? List(jsonObject.newRefs.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

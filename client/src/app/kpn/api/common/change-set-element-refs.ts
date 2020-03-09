@@ -10,14 +10,14 @@ export class ChangeSetElementRefs {
               readonly updated: List<ChangeSetElementRef>) {
   }
 
-  public static fromJSON(jsonObject): ChangeSetElementRefs {
+  public static fromJSON(jsonObject: any): ChangeSetElementRefs {
     if (!jsonObject) {
       return undefined;
     }
     return new ChangeSetElementRefs(
-      jsonObject.removed ? List(jsonObject.removed.map(json => ChangeSetElementRef.fromJSON(json))) : List(),
-      jsonObject.added ? List(jsonObject.added.map(json => ChangeSetElementRef.fromJSON(json))) : List(),
-      jsonObject.updated ? List(jsonObject.updated.map(json => ChangeSetElementRef.fromJSON(json))) : List()
+      jsonObject.removed ? List(jsonObject.removed.map((json: any) => ChangeSetElementRef.fromJSON(json))) : List(),
+      jsonObject.added ? List(jsonObject.added.map((json: any) => ChangeSetElementRef.fromJSON(json))) : List(),
+      jsonObject.updated ? List(jsonObject.updated.map((json: any) => ChangeSetElementRef.fromJSON(json))) : List()
     );
   }
 }

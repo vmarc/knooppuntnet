@@ -9,7 +9,7 @@ export class NetworkMapInfo {
               readonly map: NetworkShape) {
   }
 
-  public static fromJSON(jsonObject): NetworkMapInfo {
+  public static fromJSON(jsonObject: any): NetworkMapInfo {
     if (!jsonObject) {
       return undefined;
     }

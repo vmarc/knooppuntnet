@@ -23,7 +23,7 @@ export class NetworkType {
                       readonly letter: string) {
   }
 
-  public static fromJSON(jsonObject): NetworkType {
+  public static fromJSON(jsonObject: any): NetworkType {
     if (!jsonObject) {
       return undefined;
     }

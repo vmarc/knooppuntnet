@@ -8,7 +8,7 @@ export class LocationSummary {
               readonly changeCount: number) {
   }
 
-  public static fromJSON(jsonObject): LocationSummary {
+  public static fromJSON(jsonObject: any): LocationSummary {
     if (!jsonObject) {
       return undefined;
     }

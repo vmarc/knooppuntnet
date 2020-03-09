@@ -8,7 +8,7 @@ export class ClientPoiDefinition {
               readonly defaultLevel: number) {
   }
 
-  public static fromJSON(jsonObject): ClientPoiDefinition {
+  public static fromJSON(jsonObject: any): ClientPoiDefinition {
     if (!jsonObject) {
       return undefined;
     }

@@ -11,7 +11,7 @@ export class TrackSegment {
               readonly fragments: List<TrackSegmentFragment>) {
   }
 
-  public static fromJSON(jsonObject): TrackSegment {
+  public static fromJSON(jsonObject: any): TrackSegment {
     if (!jsonObject) {
       return undefined;
     }

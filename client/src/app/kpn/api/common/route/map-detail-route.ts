@@ -9,7 +9,7 @@ export class MapDetailRoute {
               readonly references: RouteReferences) {
   }
 
-  public static fromJSON(jsonObject): MapDetailRoute {
+  public static fromJSON(jsonObject: any): MapDetailRoute {
     if (!jsonObject) {
       return undefined;
     }

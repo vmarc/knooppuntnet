@@ -13,14 +13,14 @@ export class SubsetChangesPage {
               readonly changeCount: number) {
   }
 
-  public static fromJSON(jsonObject): SubsetChangesPage {
+  public static fromJSON(jsonObject: any): SubsetChangesPage {
     if (!jsonObject) {
       return undefined;
     }
     return new SubsetChangesPage(
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
       ChangesFilter.fromJSON(jsonObject.filter),
-      jsonObject.changes ? List(jsonObject.changes.map(json => ChangeSetSummaryInfo.fromJSON(json))) : List(),
+      jsonObject.changes ? List(jsonObject.changes.map((json: any) => ChangeSetSummaryInfo.fromJSON(json))) : List(),
       jsonObject.changeCount
     );
   }

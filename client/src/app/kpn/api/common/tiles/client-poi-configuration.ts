@@ -8,12 +8,12 @@ export class ClientPoiConfiguration {
   constructor(readonly groupDefinitions: List<ClientPoiGroupDefinition>) {
   }
 
-  public static fromJSON(jsonObject): ClientPoiConfiguration {
+  public static fromJSON(jsonObject: any): ClientPoiConfiguration {
     if (!jsonObject) {
       return undefined;
     }
     return new ClientPoiConfiguration(
-      jsonObject.groupDefinitions ? List(jsonObject.groupDefinitions.map(json => ClientPoiGroupDefinition.fromJSON(json))) : List()
+      jsonObject.groupDefinitions ? List(jsonObject.groupDefinitions.map((json: any) => ClientPoiGroupDefinition.fromJSON(json))) : List()
     );
   }
 }

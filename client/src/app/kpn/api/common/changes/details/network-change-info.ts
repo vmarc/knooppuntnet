@@ -32,7 +32,7 @@ export class NetworkChangeInfo {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject): NetworkChangeInfo {
+  public static fromJSON(jsonObject: any): NetworkChangeInfo {
     if (!jsonObject) {
       return undefined;
     }

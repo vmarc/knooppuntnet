@@ -18,7 +18,7 @@ export class NetworkScope {
               readonly letter: string) {
   }
 
-  public static fromJSON(jsonObject): NetworkScope {
+  public static fromJSON(jsonObject: any): NetworkScope {
     if (!jsonObject) {
       return undefined;
     }

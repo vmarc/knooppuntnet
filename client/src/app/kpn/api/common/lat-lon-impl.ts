@@ -6,7 +6,7 @@ export class LatLonImpl {
               readonly longitude: string) {
   }
 
-  public static fromJSON(jsonObject): LatLonImpl {
+  public static fromJSON(jsonObject: any): LatLonImpl {
     if (!jsonObject) {
       return undefined;
     }

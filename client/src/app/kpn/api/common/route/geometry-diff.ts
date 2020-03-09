@@ -10,14 +10,14 @@ export class GeometryDiff {
               readonly after: List<PointSegment>) {
   }
 
-  public static fromJSON(jsonObject): GeometryDiff {
+  public static fromJSON(jsonObject: any): GeometryDiff {
     if (!jsonObject) {
       return undefined;
     }
     return new GeometryDiff(
-      jsonObject.common ? List(jsonObject.common.map(json => PointSegment.fromJSON(json))) : List(),
-      jsonObject.before ? List(jsonObject.before.map(json => PointSegment.fromJSON(json))) : List(),
-      jsonObject.after ? List(jsonObject.after.map(json => PointSegment.fromJSON(json))) : List()
+      jsonObject.common ? List(jsonObject.common.map((json: any) => PointSegment.fromJSON(json))) : List(),
+      jsonObject.before ? List(jsonObject.before.map((json: any) => PointSegment.fromJSON(json))) : List(),
+      jsonObject.after ? List(jsonObject.after.map((json: any) => PointSegment.fromJSON(json))) : List()
     );
   }
 }

@@ -25,7 +25,7 @@ export class RouteMap {
               readonly streets: List<string>) {
   }
 
-  public static fromJSON(jsonObject): RouteMap {
+  public static fromJSON(jsonObject: any): RouteMap {
     if (!jsonObject) {
       return undefined;
     }
@@ -33,7 +33,7 @@ export class RouteMap {
       MapBounds.fromJSON(jsonObject.bounds),
       TrackPath.fromJSON(jsonObject.forwardPath),
       TrackPath.fromJSON(jsonObject.backwardPath),
-      jsonObject.unusedSegments ? List(jsonObject.unusedSegments.map(json => TrackSegment.fromJSON(json))) : List(),
+      jsonObject.unusedSegments ? List(jsonObject.unusedSegments.map((json: any) => TrackSegment.fromJSON(json))) : List(),
       jsonObject.startTentaclePaths ? List(jsonObject.startTentaclePaths.map(json => TrackPath.fromJSON(json))) : List(),
       jsonObject.endTentaclePaths ? List(jsonObject.endTentaclePaths.map(json => TrackPath.fromJSON(json))) : List(),
       TrackPoint.fromJSON(jsonObject.forwardBreakPoint),

@@ -7,7 +7,7 @@ export class TrackPathKey {
               readonly pathIndex: number) {
   }
 
-  public static fromJSON(jsonObject): TrackPathKey {
+  public static fromJSON(jsonObject: any): TrackPathKey {
     if (!jsonObject) {
       return undefined;
     }

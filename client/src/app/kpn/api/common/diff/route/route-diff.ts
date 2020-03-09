@@ -17,7 +17,7 @@ export class RouteDiff {
               readonly tagDiffs: TagDiffs) {
   }
 
-  public static fromJSON(jsonObject): RouteDiff {
+  public static fromJSON(jsonObject: any): RouteDiff {
     if (!jsonObject) {
       return undefined;
     }
@@ -25,7 +25,7 @@ export class RouteDiff {
       RouteNameDiff.fromJSON(jsonObject.nameDiff),
       RouteRoleDiff.fromJSON(jsonObject.roleDiff),
       FactDiffs.fromJSON(jsonObject.factDiffs),
-      jsonObject.nodeDiffs ? List(jsonObject.nodeDiffs.map(json => RouteNodeDiff.fromJSON(json))) : List(),
+      jsonObject.nodeDiffs ? List(jsonObject.nodeDiffs.map((json: any) => RouteNodeDiff.fromJSON(json))) : List(),
       jsonObject.memberOrderChanged,
       TagDiffs.fromJSON(jsonObject.tagDiffs)
     );

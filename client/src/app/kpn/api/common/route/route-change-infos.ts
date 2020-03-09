@@ -9,12 +9,12 @@ export class RouteChangeInfos {
               readonly incompleteWarning: boolean) {
   }
 
-  public static fromJSON(jsonObject): RouteChangeInfos {
+  public static fromJSON(jsonObject: any): RouteChangeInfos {
     if (!jsonObject) {
       return undefined;
     }
     return new RouteChangeInfos(
-      jsonObject.changes ? List(jsonObject.changes.map(json => RouteChangeInfo.fromJSON(json))) : List(),
+      jsonObject.changes ? List(jsonObject.changes.map((json: any) => RouteChangeInfo.fromJSON(json))) : List(),
       jsonObject.incompleteWarning
     );
   }

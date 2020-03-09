@@ -10,14 +10,14 @@ export class ClientPoiGroupDefinition {
               readonly poiDefinitions: List<ClientPoiDefinition>) {
   }
 
-  public static fromJSON(jsonObject): ClientPoiGroupDefinition {
+  public static fromJSON(jsonObject: any): ClientPoiGroupDefinition {
     if (!jsonObject) {
       return undefined;
     }
     return new ClientPoiGroupDefinition(
       jsonObject.name,
       jsonObject.enabledDefault,
-      jsonObject.poiDefinitions ? List(jsonObject.poiDefinitions.map(json => ClientPoiDefinition.fromJSON(json))) : List()
+      jsonObject.poiDefinitions ? List(jsonObject.poiDefinitions.map((json: any) => ClientPoiDefinition.fromJSON(json))) : List()
     );
   }
 }

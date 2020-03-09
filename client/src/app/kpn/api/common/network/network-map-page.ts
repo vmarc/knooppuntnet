@@ -12,13 +12,13 @@ export class NetworkMapPage {
               readonly routeIds: List<number>) {
   }
 
-  public static fromJSON(jsonObject): NetworkMapPage {
+  public static fromJSON(jsonObject: any): NetworkMapPage {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkMapPage(
       NetworkSummary.fromJSON(jsonObject.networkSummary),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => NetworkNodeInfo2.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => NetworkNodeInfo2.fromJSON(json))) : List(),
       jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
       jsonObject.routeIds ? List(jsonObject.routeIds) : List()
     );

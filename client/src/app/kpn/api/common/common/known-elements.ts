@@ -8,7 +8,7 @@ export class KnownElements {
               readonly routeIds: List<number>) {
   }
 
-  public static fromJSON(jsonObject): KnownElements {
+  public static fromJSON(jsonObject: any): KnownElements {
     if (!jsonObject) {
       return undefined;
     }

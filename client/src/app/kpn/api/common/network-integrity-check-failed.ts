@@ -9,13 +9,13 @@ export class NetworkIntegrityCheckFailed {
               readonly checks: List<NodeIntegrityCheck>) {
   }
 
-  public static fromJSON(jsonObject): NetworkIntegrityCheckFailed {
+  public static fromJSON(jsonObject: any): NetworkIntegrityCheckFailed {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkIntegrityCheckFailed(
       jsonObject.count,
-      jsonObject.checks ? List(jsonObject.checks.map(json => NodeIntegrityCheck.fromJSON(json))) : List()
+      jsonObject.checks ? List(jsonObject.checks.map((json: any) => NodeIntegrityCheck.fromJSON(json))) : List()
     );
   }
 }

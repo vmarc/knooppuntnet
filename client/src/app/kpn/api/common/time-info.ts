@@ -10,7 +10,7 @@ export class TimeInfo {
               readonly lastYearStart: Timestamp) {
   }
 
-  public static fromJSON(jsonObject): TimeInfo {
+  public static fromJSON(jsonObject: any): TimeInfo {
     if (!jsonObject) {
       return undefined;
     }

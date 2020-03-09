@@ -14,15 +14,15 @@ export class ChangeSetData {
               readonly nodeChanges: List<NodeChange>) {
   }
 
-  public static fromJSON(jsonObject): ChangeSetData {
+  public static fromJSON(jsonObject: any): ChangeSetData {
     if (!jsonObject) {
       return undefined;
     }
     return new ChangeSetData(
       ChangeSetSummary.fromJSON(jsonObject.summary),
-      jsonObject.networkChanges ? List(jsonObject.networkChanges.map(json => NetworkChange.fromJSON(json))) : List(),
-      jsonObject.routeChanges ? List(jsonObject.routeChanges.map(json => RouteChange.fromJSON(json))) : List(),
-      jsonObject.nodeChanges ? List(jsonObject.nodeChanges.map(json => NodeChange.fromJSON(json))) : List()
+      jsonObject.networkChanges ? List(jsonObject.networkChanges.map((json: any) => NetworkChange.fromJSON(json))) : List(),
+      jsonObject.routeChanges ? List(jsonObject.routeChanges.map((json: any) => RouteChange.fromJSON(json))) : List(),
+      jsonObject.nodeChanges ? List(jsonObject.nodeChanges.map((json: any) => NodeChange.fromJSON(json))) : List()
     );
   }
 }

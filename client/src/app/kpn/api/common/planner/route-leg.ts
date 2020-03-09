@@ -9,13 +9,13 @@ export class RouteLeg {
               readonly routes: List<RouteLegRoute>) {
   }
 
-  public static fromJSON(jsonObject): RouteLeg {
+  public static fromJSON(jsonObject: any): RouteLeg {
     if (!jsonObject) {
       return undefined;
     }
     return new RouteLeg(
       jsonObject.legId,
-      jsonObject.routes ? List(jsonObject.routes.map(json => RouteLegRoute.fromJSON(json))) : List()
+      jsonObject.routes ? List(jsonObject.routes.map((json: any) => RouteLegRoute.fromJSON(json))) : List()
     );
   }
 }

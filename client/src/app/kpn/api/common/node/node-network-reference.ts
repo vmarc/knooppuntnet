@@ -19,7 +19,7 @@ export class NodeNetworkReference {
               readonly routes: List<NodeNetworkRouteReference>) {
   }
 
-  public static fromJSON(jsonObject): NodeNetworkReference {
+  public static fromJSON(jsonObject: any): NodeNetworkReference {
     if (!jsonObject) {
       return undefined;
     }

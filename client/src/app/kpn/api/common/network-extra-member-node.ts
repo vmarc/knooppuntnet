@@ -5,7 +5,7 @@ export class NetworkExtraMemberNode {
   constructor(readonly memberId: number) {
   }
 
-  public static fromJSON(jsonObject): NetworkExtraMemberNode {
+  public static fromJSON(jsonObject: any): NetworkExtraMemberNode {
     if (!jsonObject) {
       return undefined;
     }

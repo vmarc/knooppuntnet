@@ -13,7 +13,7 @@ export class NetworkFact {
               readonly checks: List<Check>) {
   }
 
-  public static fromJSON(jsonObject): NetworkFact {
+  public static fromJSON(jsonObject: any): NetworkFact {
     if (!jsonObject) {
       return undefined;
     }
@@ -21,8 +21,8 @@ export class NetworkFact {
       jsonObject.name,
       jsonObject.elementType,
       jsonObject.elementIds ? List(jsonObject.elementIds) : List(),
-      jsonObject.elements ? List(jsonObject.elements.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.checks ? List(jsonObject.checks.map(json => Check.fromJSON(json))) : List()
+      jsonObject.elements ? List(jsonObject.elements.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.checks ? List(jsonObject.checks.map((json: any) => Check.fromJSON(json))) : List()
     );
   }
 }

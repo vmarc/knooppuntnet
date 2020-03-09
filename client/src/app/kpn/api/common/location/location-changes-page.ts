@@ -7,7 +7,7 @@ export class LocationChangesPage {
   constructor(readonly summary: LocationSummary) {
   }
 
-  public static fromJSON(jsonObject): LocationChangesPage {
+  public static fromJSON(jsonObject: any): LocationChangesPage {
     if (!jsonObject) {
       return undefined;
     }

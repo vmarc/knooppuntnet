@@ -8,7 +8,7 @@ export class LocationCandidate {
               readonly percentage: number) {
   }
 
-  public static fromJSON(jsonObject): LocationCandidate {
+  public static fromJSON(jsonObject: any): LocationCandidate {
     if (!jsonObject) {
       return undefined;
     }

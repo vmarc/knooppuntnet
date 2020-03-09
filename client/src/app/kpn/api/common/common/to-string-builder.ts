@@ -8,7 +8,7 @@ export class ToStringBuilder {
               readonly strings: List<string>) {
   }
 
-  public static fromJSON(jsonObject): ToStringBuilder {
+  public static fromJSON(jsonObject: any): ToStringBuilder {
     if (!jsonObject) {
       return undefined;
     }

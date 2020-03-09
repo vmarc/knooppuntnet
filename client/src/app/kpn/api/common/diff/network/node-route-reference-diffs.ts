@@ -10,7 +10,7 @@ export class NodeRouteReferenceDiffs {
               readonly remaining: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): NodeRouteReferenceDiffs {
+  public static fromJSON(jsonObject: any): NodeRouteReferenceDiffs {
     if (!jsonObject) {
       return undefined;
     }

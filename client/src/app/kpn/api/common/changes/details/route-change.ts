@@ -28,7 +28,7 @@ export class RouteChange {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject): RouteChange {
+  public static fromJSON(jsonObject: any): RouteChange {
     if (!jsonObject) {
       return undefined;
     }
@@ -36,12 +36,12 @@ export class RouteChange {
       ChangeKey.fromJSON(jsonObject.key),
       ChangeType.fromJSON(jsonObject.changeType),
       jsonObject.name,
-      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map(json => Ref.fromJSON(json))) : List(),
-      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map(json => Ref.fromJSON(json))) : List(),
+      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
       RouteData.fromJSON(jsonObject.before),
       RouteData.fromJSON(jsonObject.after),
-      jsonObject.removedWays ? List(jsonObject.removedWays.map(json => RawWay.fromJSON(json))) : List(),
-      jsonObject.addedWays ? List(jsonObject.addedWays.map(json => RawWay.fromJSON(json))) : List(),
+      jsonObject.removedWays ? List(jsonObject.removedWays.map((json: any) => RawWay.fromJSON(json))) : List(),
+      jsonObject.addedWays ? List(jsonObject.addedWays.map((json: any) => RawWay.fromJSON(json))) : List(),
       jsonObject.updatedWays ? List(jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json))) : List(),
       RouteDiff.fromJSON(jsonObject.diffs),
       jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),

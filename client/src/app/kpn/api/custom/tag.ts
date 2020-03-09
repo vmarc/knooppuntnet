@@ -4,7 +4,7 @@ export class Tag {
               readonly value: string) {
   }
 
-  public static fromJSON(jsonObject): Tag {
+  public static fromJSON(jsonObject: any): Tag {
     if (!jsonObject) {
       return undefined;
     }

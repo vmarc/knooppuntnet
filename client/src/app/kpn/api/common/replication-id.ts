@@ -7,7 +7,7 @@ export class ReplicationId {
               readonly level3: number) {
   }
 
-  public static fromJSON(jsonObject): ReplicationId {
+  public static fromJSON(jsonObject: any): ReplicationId {
     if (!jsonObject) {
       return undefined;
     }

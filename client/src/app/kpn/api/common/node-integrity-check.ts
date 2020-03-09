@@ -9,7 +9,7 @@ export class NodeIntegrityCheck {
               readonly failed: boolean) {
   }
 
-  public static fromJSON(jsonObject): NodeIntegrityCheck {
+  public static fromJSON(jsonObject: any): NodeIntegrityCheck {
     if (!jsonObject) {
       return undefined;
     }

@@ -21,7 +21,7 @@ export class RouteData {
               readonly facts: List<Fact>) {
   }
 
-  public static fromJSON(jsonObject): RouteData {
+  public static fromJSON(jsonObject: any): RouteData {
     if (!jsonObject) {
       return undefined;
     }
@@ -30,11 +30,11 @@ export class RouteData {
       NetworkType.fromJSON(jsonObject.networkType),
       RawRelation.fromJSON(jsonObject.relation),
       jsonObject.name,
-      jsonObject.networkNodes ? List(jsonObject.networkNodes.map(json => RawNode.fromJSON(json))) : List(),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => RawNode.fromJSON(json))) : List(),
-      jsonObject.ways ? List(jsonObject.ways.map(json => RawWay.fromJSON(json))) : List(),
-      jsonObject.relations ? List(jsonObject.relations.map(json => RawRelation.fromJSON(json))) : List(),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+      jsonObject.networkNodes ? List(jsonObject.networkNodes.map((json: any) => RawNode.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => RawNode.fromJSON(json))) : List(),
+      jsonObject.ways ? List(jsonObject.ways.map((json: any) => RawWay.fromJSON(json))) : List(),
+      jsonObject.relations ? List(jsonObject.relations.map((json: any) => RawRelation.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List()
     );
   }
 }

@@ -25,7 +25,7 @@ export class Subset {
               readonly networkType: NetworkType) {
   }
 
-  public static fromJSON(jsonObject): Subset {
+  public static fromJSON(jsonObject: any): Subset {
     if (!jsonObject) {
       return undefined;
     }

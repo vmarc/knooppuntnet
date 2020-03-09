@@ -8,7 +8,7 @@ export class NodeMember {
               readonly role: string) {
   }
 
-  public static fromJSON(jsonObject): NodeMember {
+  public static fromJSON(jsonObject: any): NodeMember {
     if (!jsonObject) {
       return undefined;
     }

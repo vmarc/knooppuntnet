@@ -10,7 +10,7 @@ export class CountryStatistic {
               readonly rin: string) {
   }
 
-  public static fromJSON(jsonObject): CountryStatistic {
+  public static fromJSON(jsonObject: any): CountryStatistic {
     if (!jsonObject) {
       return undefined;
     }

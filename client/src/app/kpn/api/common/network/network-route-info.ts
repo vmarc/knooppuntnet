@@ -16,7 +16,7 @@ export class NetworkRouteInfo {
               readonly facts: List<Fact>) {
   }
 
-  public static fromJSON(jsonObject): NetworkRouteInfo {
+  public static fromJSON(jsonObject: any): NetworkRouteInfo {
     if (!jsonObject) {
       return undefined;
     }
@@ -28,7 +28,7 @@ export class NetworkRouteInfo {
       jsonObject.role,
       Timestamp.fromJSON(jsonObject.relationLastUpdated),
       Timestamp.fromJSON(jsonObject.lastUpdated),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List()
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List()
     );
   }
 }

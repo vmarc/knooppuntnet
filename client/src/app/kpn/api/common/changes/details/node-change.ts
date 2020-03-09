@@ -35,19 +35,19 @@ export class NodeChange {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject): NodeChange {
+  public static fromJSON(jsonObject: any): NodeChange {
     if (!jsonObject) {
       return undefined;
     }
     return new NodeChange(
       ChangeKey.fromJSON(jsonObject.key),
       ChangeType.fromJSON(jsonObject.changeType),
-      jsonObject.subsets ? List(jsonObject.subsets.map(json => Subset.fromJSON(json))) : List(),
+      jsonObject.subsets ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : List(),
       jsonObject.name,
       RawNode.fromJSON(jsonObject.before),
       RawNode.fromJSON(jsonObject.after),
-      jsonObject.connectionChanges ? List(jsonObject.connectionChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
-      jsonObject.roleConnectionChanges ? List(jsonObject.roleConnectionChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.connectionChanges ? List(jsonObject.connectionChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.roleConnectionChanges ? List(jsonObject.roleConnectionChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
       jsonObject.definedInNetworkChanges ? List(jsonObject.definedInNetworkChanges.map(json => RefBooleanChange.fromJSON(json))) : List(),
       TagDiffs.fromJSON(jsonObject.tagDiffs),
       NodeMoved.fromJSON(jsonObject.nodeMoved),

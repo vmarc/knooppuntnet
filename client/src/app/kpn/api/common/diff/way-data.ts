@@ -10,7 +10,7 @@ export class WayData {
               readonly nodes: List<RawNode>) {
   }
 
-  public static fromJSON(jsonObject): WayData {
+  public static fromJSON(jsonObject: any): WayData {
     if (!jsonObject) {
       return undefined;
     }

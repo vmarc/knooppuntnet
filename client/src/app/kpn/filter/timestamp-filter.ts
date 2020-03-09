@@ -10,7 +10,7 @@ import {FilterOption} from "./filter-option";
 export class TimestampFilter<T> extends Filter<T> {
 
   constructor(private readonly kind: TimestampFilterKind,
-              private readonly getter: (T) => Timestamp,
+              private readonly getter: (arg: T) => Timestamp,
               private readonly timeInfo: TimeInfo,
               private readonly selectAll: () => void,
               private readonly selectLastWeek: () => void,

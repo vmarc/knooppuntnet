@@ -12,14 +12,14 @@ export class SubsetNodeFactDetailsPage {
               readonly networks: List<NetworkFactRefs>) {
   }
 
-  public static fromJSON(jsonObject): SubsetNodeFactDetailsPage {
+  public static fromJSON(jsonObject: any): SubsetNodeFactDetailsPage {
     if (!jsonObject) {
       return undefined;
     }
     return new SubsetNodeFactDetailsPage(
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
       Fact.fromJSON(jsonObject.fact),
-      jsonObject.networks ? List(jsonObject.networks.map(json => NetworkFactRefs.fromJSON(json))) : List()
+      jsonObject.networks ? List(jsonObject.networks.map((json: any) => NetworkFactRefs.fromJSON(json))) : List()
     );
   }
 }

@@ -10,12 +10,12 @@ export class NetworkChanges {
               readonly deletes: List<ChangeSetNetwork>) {
   }
 
-  public static fromJSON(jsonObject): NetworkChanges {
+  public static fromJSON(jsonObject: any): NetworkChanges {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkChanges(
-      jsonObject.creates ? List(jsonObject.creates.map(json => ChangeSetNetwork.fromJSON(json))) : List(),
+      jsonObject.creates ? List(jsonObject.creates.map((json: any) => ChangeSetNetwork.fromJSON(json))) : List(),
       jsonObject.updates ? List(jsonObject.updates.map(json => ChangeSetNetwork.fromJSON(json))) : List(),
       jsonObject.deletes ? List(jsonObject.deletes.map(json => ChangeSetNetwork.fromJSON(json))) : List()
     );

@@ -10,7 +10,7 @@ export class NetworkNodeData {
               readonly country: Country) {
   }
 
-  public static fromJSON(jsonObject): NetworkNodeData {
+  public static fromJSON(jsonObject: any): NetworkNodeData {
     if (!jsonObject) {
       return undefined;
     }

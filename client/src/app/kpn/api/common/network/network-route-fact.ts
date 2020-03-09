@@ -10,13 +10,13 @@ export class NetworkRouteFact {
               readonly routes: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): NetworkRouteFact {
+  public static fromJSON(jsonObject: any): NetworkRouteFact {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkRouteFact(
       Fact.fromJSON(jsonObject.fact),
-      jsonObject.routes ? List(jsonObject.routes.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.routes ? List(jsonObject.routes.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

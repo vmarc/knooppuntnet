@@ -11,13 +11,13 @@ export class RouteLocationAnalysis {
               readonly locationNames: List<string>) {
   }
 
-  public static fromJSON(jsonObject): RouteLocationAnalysis {
+  public static fromJSON(jsonObject: any): RouteLocationAnalysis {
     if (!jsonObject) {
       return undefined;
     }
     return new RouteLocationAnalysis(
       Location.fromJSON(jsonObject.location),
-      jsonObject.candidates ? List(jsonObject.candidates.map(json => LocationCandidate.fromJSON(json))) : List(),
+      jsonObject.candidates ? List(jsonObject.candidates.map((json: any) => LocationCandidate.fromJSON(json))) : List(),
       jsonObject.locationNames ? List(jsonObject.locationNames) : List()
     );
   }

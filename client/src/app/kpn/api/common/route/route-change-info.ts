@@ -31,7 +31,7 @@ export class RouteChangeInfo {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject): RouteChangeInfo {
+  public static fromJSON(jsonObject: any): RouteChangeInfo {
     if (!jsonObject) {
       return undefined;
     }
@@ -42,11 +42,11 @@ export class RouteChangeInfo {
       jsonObject.comment,
       MetaData.fromJSON(jsonObject.before),
       MetaData.fromJSON(jsonObject.after),
-      jsonObject.removedWays ? List(jsonObject.removedWays.map(json => WayInfo.fromJSON(json))) : List(),
-      jsonObject.addedWays ? List(jsonObject.addedWays.map(json => WayInfo.fromJSON(json))) : List(),
-      jsonObject.updatedWays ? List(jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json))) : List(),
+      jsonObject.removedWays ? List(jsonObject.removedWays.map((json: any) => WayInfo.fromJSON(json))) : List(),
+      jsonObject.addedWays ? List(jsonObject.addedWays.map((json: any) => WayInfo.fromJSON(json))) : List(),
+      jsonObject.updatedWays ? List(jsonObject.updatedWays.map((json: any) => WayUpdate.fromJSON(json))) : List(),
       RouteDiff.fromJSON(jsonObject.diffs),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => RawNode.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => RawNode.fromJSON(json))) : List(),
       ChangeSetInfo.fromJSON(jsonObject.changeSetInfo),
       GeometryDiff.fromJSON(jsonObject.geometryDiff),
       Bounds.fromJSON(jsonObject.bounds),

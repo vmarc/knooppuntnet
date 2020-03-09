@@ -8,7 +8,7 @@ export class ChangeSetSummaryInfo {
               readonly comment: string) {
   }
 
-  public static fromJSON(jsonObject): ChangeSetSummaryInfo {
+  public static fromJSON(jsonObject: any): ChangeSetSummaryInfo {
     if (!jsonObject) {
       return undefined;
     }

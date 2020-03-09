@@ -13,7 +13,7 @@ export class RouteLegRoute {
               readonly streets: List<string>) {
   }
 
-  public static fromJSON(jsonObject): RouteLegRoute {
+  public static fromJSON(jsonObject: any): RouteLegRoute {
     if (!jsonObject) {
       return undefined;
     }
@@ -21,7 +21,7 @@ export class RouteLegRoute {
       RouteLegNode.fromJSON(jsonObject.source),
       RouteLegNode.fromJSON(jsonObject.sink),
       jsonObject.meters,
-      jsonObject.segments ? List(jsonObject.segments.map(json => RouteLegSegment.fromJSON(json))) : List(),
+      jsonObject.segments ? List(jsonObject.segments.map((json: any) => RouteLegSegment.fromJSON(json))) : List(),
       jsonObject.streets ? List(jsonObject.streets) : List()
     );
   }

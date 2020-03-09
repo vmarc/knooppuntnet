@@ -12,7 +12,7 @@ export class Integrity {
               readonly nokRate: string) {
   }
 
-  public static fromJSON(jsonObject): Integrity {
+  public static fromJSON(jsonObject: any): Integrity {
     if (!jsonObject) {
       return undefined;
     }

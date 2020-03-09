@@ -14,7 +14,7 @@ export class NetworkNodeDiff {
               readonly tagDiffs: TagDiffs) {
   }
 
-  public static fromJSON(jsonObject): NetworkNodeDiff {
+  public static fromJSON(jsonObject: any): NetworkNodeDiff {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class RouteChangeDoc {
               readonly _rev: string) {
   }
 
-  public static fromJSON(jsonObject): RouteChangeDoc {
+  public static fromJSON(jsonObject: any): RouteChangeDoc {
     if (!jsonObject) {
       return undefined;
     }

@@ -14,7 +14,7 @@ export class RawWay {
               readonly tags: Tags) {
   }
 
-  public static fromJSON(jsonObject): RawWay {
+  public static fromJSON(jsonObject: any): RawWay {
     if (!jsonObject) {
       return undefined;
     }

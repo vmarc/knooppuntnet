@@ -14,7 +14,7 @@ export class NetworkDetailsPage {
               readonly facts: NetworkFacts) {
   }
 
-  public static fromJSON(jsonObject): NetworkDetailsPage {
+  public static fromJSON(jsonObject: any): NetworkDetailsPage {
     if (!jsonObject) {
       return undefined;
     }

@@ -11,12 +11,12 @@ export class NodeData {
               readonly node: RawNode) {
   }
 
-  public static fromJSON(jsonObject): NodeData {
+  public static fromJSON(jsonObject: any): NodeData {
     if (!jsonObject) {
       return undefined;
     }
     return new NodeData(
-      jsonObject.subsets ? List(jsonObject.subsets.map(json => Subset.fromJSON(json))) : List(),
+      jsonObject.subsets ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : List(),
       jsonObject.name,
       RawNode.fromJSON(jsonObject.node)
     );

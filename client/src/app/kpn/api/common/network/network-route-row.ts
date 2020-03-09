@@ -14,7 +14,7 @@ export class NetworkRouteRow {
               readonly relationLastUpdated: Timestamp) {
   }
 
-  public static fromJSON(jsonObject): NetworkRouteRow {
+  public static fromJSON(jsonObject: any): NetworkRouteRow {
     if (!jsonObject) {
       return undefined;
     }

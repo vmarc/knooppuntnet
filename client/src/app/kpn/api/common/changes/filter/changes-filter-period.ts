@@ -12,7 +12,7 @@ export class ChangesFilterPeriod {
               readonly periods: List<ChangesFilterPeriod>) {
   }
 
-  public static fromJSON(jsonObject): ChangesFilterPeriod {
+  public static fromJSON(jsonObject: any): ChangesFilterPeriod {
     if (!jsonObject) {
       return undefined;
     }
@@ -22,7 +22,7 @@ export class ChangesFilterPeriod {
       jsonObject.impactedCount,
       jsonObject.current,
       jsonObject.selected,
-      jsonObject.periods ? List(jsonObject.periods.map(json => ChangesFilterPeriod.fromJSON(json))) : List()
+      jsonObject.periods ? List(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : List()
     );
   }
 }

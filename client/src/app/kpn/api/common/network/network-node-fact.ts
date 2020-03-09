@@ -10,13 +10,13 @@ export class NetworkNodeFact {
               readonly nodes: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): NetworkNodeFact {
+  public static fromJSON(jsonObject: any): NetworkNodeFact {
     if (!jsonObject) {
       return undefined;
     }
     return new NetworkNodeFact(
       Fact.fromJSON(jsonObject.fact),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

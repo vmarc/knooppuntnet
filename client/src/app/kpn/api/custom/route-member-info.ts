@@ -26,7 +26,7 @@ export class RouteMemberInfo {
               readonly oneWayTags: Tags) {
   }
 
-  public static fromJSON(jsonObject): RouteMemberInfo {
+  public static fromJSON(jsonObject: any): RouteMemberInfo {
     if (!jsonObject) {
       return undefined;
     }
@@ -34,7 +34,7 @@ export class RouteMemberInfo {
       jsonObject.id,
       jsonObject.memberType,
       jsonObject.isWay,
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.linkName,
       jsonObject.from,
       jsonObject.fromNodeId,

@@ -8,7 +8,7 @@ export class ReferencedElements {
               readonly routeIds: List<number>) {
   }
 
-  public static fromJSON(jsonObject): ReferencedElements {
+  public static fromJSON(jsonObject: any): ReferencedElements {
     if (!jsonObject) {
       return undefined;
     }

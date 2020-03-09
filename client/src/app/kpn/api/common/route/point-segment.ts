@@ -8,7 +8,7 @@ export class PointSegment {
               readonly p2: LatLonImpl) {
   }
 
-  public static fromJSON(jsonObject): PointSegment {
+  public static fromJSON(jsonObject: any): PointSegment {
     if (!jsonObject) {
       return undefined;
     }

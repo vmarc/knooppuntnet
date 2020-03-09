@@ -20,7 +20,7 @@ export class Timestamp {
     this.second = second;
   }
 
-  public static fromJSON(jsonObject): Timestamp {
+  public static fromJSON(jsonObject: any): Timestamp {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class RouteNetworkNodeInfo {
               readonly lon: string) {
   }
 
-  public static fromJSON(jsonObject): RouteNetworkNodeInfo {
+  public static fromJSON(jsonObject: any): RouteNetworkNodeInfo {
     if (!jsonObject) {
       return undefined;
     }

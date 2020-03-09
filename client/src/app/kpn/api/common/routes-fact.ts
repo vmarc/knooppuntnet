@@ -8,7 +8,7 @@ export class RoutesFact {
   constructor(readonly routes: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject): RoutesFact {
+  public static fromJSON(jsonObject: any): RoutesFact {
     if (!jsonObject) {
       return undefined;
     }
