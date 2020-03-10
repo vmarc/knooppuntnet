@@ -6,7 +6,7 @@ export class MapPosition {
               readonly rotation: number) {
   }
 
-  public static fromJSON(jsonObject): MapPosition {
+  public static fromJSON(jsonObject: any): MapPosition {
     if (!jsonObject) {
       return undefined;
     }

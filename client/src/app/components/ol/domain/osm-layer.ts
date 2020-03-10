@@ -1,13 +1,13 @@
 import {applyStyle} from "ol-mapbox-style";
 import MVT from "ol/format/MVT";
-import TileLayer from "ol/layer/Tile";
+import BaseLayer from "ol/layer/Base";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 
 export class OsmLayer {
 
-  public static build(): TileLayer {
+  public static build(): BaseLayer {
 
     const tileGrid = createXYZ({
       tileSize: 512,

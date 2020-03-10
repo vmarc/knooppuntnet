@@ -118,7 +118,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.map = new Map({
-      declutter: true,
       target: "main-map",
       layers: [
         OsmLayer.build(),

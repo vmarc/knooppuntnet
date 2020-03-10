@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {PlanNode} from "../plan/plan-node";
 import {MapFeature} from "./map-feature";
 

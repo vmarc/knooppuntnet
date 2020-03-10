@@ -14,7 +14,11 @@ export class ChangeFilterOptions {
     return new ChangeFilterOptions(List());
   }
 
-  public static from(parameters: ChangesParameters, filter: ChangesFilter, update: (ChangesParameters) => void): ChangeFilterOptions {
+  public static from(
+    parameters: ChangesParameters,
+    filter: ChangesFilter,
+    update: (changesParameters: ChangesParameters) => void
+  ): ChangeFilterOptions {
 
     const all = this.buildAll(parameters, filter, update);
 
@@ -84,7 +88,11 @@ export class ChangeFilterOptions {
     );
   }
 
-  private static buildAll(parameters: ChangesParameters, filter: ChangesFilter, update: (ChangesParameters) => void): ChangeFilterOption {
+  private static buildAll(
+    parameters: ChangesParameters,
+    filter: ChangesFilter,
+    update: (changesParameters: ChangesParameters) => void
+  ): ChangeFilterOption {
 
     const totalCount = Util.sum(filter.periods.map(period => period.totalCount));
     const impactedCount = Util.sum(filter.periods.map(period => period.impactedCount));

@@ -1,14 +1,15 @@
 import {AfterViewInit, Component, Input} from "@angular/core";
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {click, pointerMove} from "ol/events/condition";
 import Select from "ol/interaction/Select";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
+import {StyleFunction} from "ol/style/Style";
 import Style from "ol/style/Style";
 import View from "ol/View";
-import Extent from "ol/View";
+import {Extent} from "ol/extent";
 import {PoiService} from "../../services/poi.service";
 import {MainMapStyle} from "./domain/main-map-style";
 import {MapClickHandler} from "./domain/map-click-handler";
@@ -37,10 +38,10 @@ import {PoiTileLayerService} from "./poi-tile-layer.service";
 })
 export class MapComponent implements AfterViewInit {
 
-  @Input() id;
+  @Input() id: string;
 
   map: Map;
-  mainMapStyle: (feature, resolution) => Style;
+  mainMapStyle: StyleFunction;
 
   bitmapTileLayer: TileLayer;
   vectorTileLayer: VectorTileLayer;

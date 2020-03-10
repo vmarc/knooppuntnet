@@ -3,6 +3,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angula
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
+import {Country} from "../../../kpn/api/custom/country";
 import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {LocationNode, locations} from "./locations";
@@ -72,7 +73,7 @@ interface LocationFlatNode {
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
 
-  @Input() country;
+  @Input() country: Country;
   @Output() selection = new EventEmitter<string>();
 
   private readonly subscriptions = new Subscriptions();

@@ -43,7 +43,6 @@ export class NodeMovedMapComponent implements AfterViewInit {
     const center = Util.latLonToCoordinate(this.nodeMoved.after);
 
     this.map = new Map({
-      declutter: true,
       target: this.mapId,
       layers: [
         OsmLayer.build(),

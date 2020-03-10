@@ -59,8 +59,8 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
 })
 export class NetworkPageHeaderComponent {
 
-  @Input() networkId;
-  @Input() pageTitle;
+  @Input() networkId: number;
+  @Input() pageTitle: string;
 
   constructor(private networkCacheService: NetworkCacheService) {
   }

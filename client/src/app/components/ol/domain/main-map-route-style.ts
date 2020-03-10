@@ -1,4 +1,4 @@
-import Feature from "ol/Feature";
+import {FeatureLike} from "ol/Feature";
 import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import {MapService} from "../map.service";
@@ -13,13 +13,13 @@ export class MainMapRouteStyle {
   constructor(private mapService: MapService) {
   }
 
-  public routeStyle(zoom: number, feature: Feature, layer: string, enabled: boolean): Array<Style> {
+  public routeStyle(zoom: number, feature: FeatureLike, layer: string, enabled: boolean): Array<Style> {
     const selectedStyle = this.determineRouteSelectedStyle(feature);
     const style = this.determineRouteStyle(feature, layer, enabled, zoom);
     return selectedStyle ? [selectedStyle, style] : [style];
   }
 
-  private determineRouteSelectedStyle(feature: Feature): Style {
+  private determineRouteSelectedStyle(feature: FeatureLike): Style {
     const featureId = feature.get("id");
     let style = null;
     if (this.mapService.selectedRouteId && featureId && featureId.startsWith(this.mapService.selectedRouteId)) {
@@ -28,7 +28,7 @@ export class MainMapRouteStyle {
     return style;
   }
 
-  private determineRouteStyle(feature: Feature, layer: string, enabled: boolean, zoom: number): Style {
+  private determineRouteStyle(feature: FeatureLike, layer: string, enabled: boolean, zoom: number): Style {
 
     const color = this.routeColor(layer, enabled);
     const highligthed = this.mapService.highlightedRouteId && feature.get("id").startsWith(this.mapService.highlightedRouteId);

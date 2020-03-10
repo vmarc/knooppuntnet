@@ -56,7 +56,6 @@ export class NodeMapComponent implements AfterViewInit {
     const center = Util.toCoordinate(this.nodeInfo.latitude, this.nodeInfo.longitude);
 
     this.map = new Map({
-      declutter: true,
       target: "node-map",
       layers: [
         OsmLayer.build(),

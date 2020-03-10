@@ -57,7 +57,7 @@ import {LocationService} from "../location.service";
 })
 export class LocationPageHeaderComponent {
 
-  @Input() pageTitle;
+  @Input() pageTitle: string;
 
   constructor(public service: LocationService) {
   }

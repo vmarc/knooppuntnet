@@ -1,4 +1,5 @@
-import Feature from "ol/Feature";
+import {FeatureLike} from "ol/Feature";
+import CircleStyle from "ol/style/Circle";
 import Circle from "ol/style/Circle";
 import Fill from "ol/style/Fill";
 import Style from "ol/style/Style";
@@ -8,17 +9,16 @@ import {NodeStyle} from "./node-style";
 
 export class MainMapNodeStyle {
 
-  constructor(private mapService: MapService) {
-  }
-
   private readonly largeMinZoomLevel = 13;
-
   private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(8);
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
   private readonly smallNodeStyle = NodeStyle.smallNodeStyle();
   private readonly largeNodeStyle = NodeStyle.largeNodeStyle();
 
-  public nodeStyle(zoom: number, feature: Feature, enabled: boolean): Array<Style> {
+  constructor(private mapService: MapService) {
+  }
+
+  public nodeStyle(zoom: number, feature: FeatureLike, enabled: boolean): Array<Style> {
 
     const featureId = feature.get("id");
     const layer = feature.get("layer");
@@ -42,7 +42,7 @@ export class MainMapNodeStyle {
     return style;
   }
 
-  private determineNodeMainStyle(feature: Feature, layer: string, enabled: boolean, large: boolean): Style {
+  private determineNodeMainStyle(feature: FeatureLike, layer: string, enabled: boolean, large: boolean): Style {
     let style: Style = null;
     if (large) {
       style = this.determineLargeNodeStyle(feature, layer, enabled);
@@ -52,26 +52,29 @@ export class MainMapNodeStyle {
     return style;
   }
 
-  private determineLargeNodeStyle(feature: Feature, layer: string, enabled: boolean): Style {
+  private determineLargeNodeStyle(feature: FeatureLike, layer: string, enabled: boolean): Style {
 
     const color = this.nodeColor(layer, enabled);
 
+    const circleStyle: CircleStyle = this.largeNodeStyle.getImage() as CircleStyle;
+
     this.largeNodeStyle.getText().setText(feature.get("name"));
-    this.largeNodeStyle.getImage().getStroke().setColor(color);
+    circleStyle.getStroke().setColor(color);
 
     if (this.mapService.highlightedNodeId && feature.get("id") === this.mapService.highlightedNodeId) {
-      this.largeNodeStyle.getImage().getStroke().setWidth(5);
-      this.largeNodeStyle.getImage().setRadius(16);
+      circleStyle.getStroke().setWidth(5);
+      circleStyle.setRadius(16);
     } else {
-      this.largeNodeStyle.getImage().getStroke().setWidth(3);
-      this.largeNodeStyle.getImage().setRadius(14);
+      circleStyle.getStroke().setWidth(3);
+      circleStyle.setRadius(14);
     }
     return this.largeNodeStyle;
   }
 
   private determineSmallNodeStyle(layer: string, enabled: boolean): Style {
     const color = this.nodeColor(layer, enabled);
-    this.smallNodeStyle.getImage().getStroke().setColor(color);
+    const circleStyle: CircleStyle = this.smallNodeStyle.getImage() as CircleStyle;
+    circleStyle.getStroke().setColor(color);
     return this.smallNodeStyle;
   }
 

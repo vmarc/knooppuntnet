@@ -1,10 +1,10 @@
-import PointerInteraction from "ol/interaction/Pointer";
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
-import Feature from "ol/Feature";
+import {MapBrowserEvent} from "ol";
+import {FeatureLike} from "ol/Feature";
 import Interaction from "ol/interaction/Interaction";
+import PointerInteraction from "ol/interaction/Pointer";
 import Map from "ol/Map";
-import MapBrowserEvent from "ol/events";
 
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
@@ -50,12 +50,11 @@ export class MapClickService {
     return true;
   }
 
-  private getFeatures(evt: MapBrowserEvent): Array<Feature> {
-    const tolerance = 20;
-    return evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+  private getFeatures(evt: MapBrowserEvent): Array<FeatureLike> {
+    return evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
   }
 
-  private findFeature(features: Array<Feature>, test: (feature: Feature) => boolean): Feature {
+  private findFeature(features: Array<FeatureLike>, test: (feature: FeatureLike) => boolean): FeatureLike {
     for (const feature of features) {
       if (test(feature)) {
         return feature;
@@ -64,14 +63,14 @@ export class MapClickService {
     return null;
   }
 
-  private handleRouteClicked(feature: Feature): void {
+  private handleRouteClicked(feature: FeatureLike): void {
     const featureId = feature.get("id");
     const routeName = feature.get("name");
     const routeId = featureId.substring(0, featureId.indexOf("-"));
     this.router.navigateByUrl(`/analysis/route/${routeId}`, {state: {routeName: routeName}});
   }
 
-  private handleNodeClicked(feature: Feature): void {
+  private handleNodeClicked(feature: FeatureLike): void {
     const nodeId = feature.get("id");
     const nodeName = feature.get("name");
     this.router.navigateByUrl(`/analysis/node/${nodeId}`, {state: {nodeName: nodeName}});
@@ -89,12 +88,12 @@ export class MapClickService {
     return false;
   }
 
-  private isNode(feature: Feature): boolean {
+  private isNode(feature: FeatureLike): boolean {
     const layer = feature.get("layer");
     return layer && layer.endsWith("node");
   }
 
-  private isRoute(feature: Feature): boolean {
+  private isRoute(feature: FeatureLike): boolean {
     const layer = feature.get("layer");
     return layer && layer.endsWith("route");
   }

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {List} from "immutable";
-import Layer from "ol/layer";
+import BaseLayer from "ol/layer/Base";
 
 @Component({
   selector: "kpn-layer-switcher",
@@ -45,8 +45,8 @@ import Layer from "ol/layer";
 })
 export class LayerSwitcherComponent implements OnInit {
 
-  @Input() layers: List<Layer>;
-  namedLayers: List<Layer>;
+  @Input() layers: List<BaseLayer>;
+  namedLayers: List<BaseLayer>;
 
   open = false;
 
@@ -66,15 +66,15 @@ export class LayerSwitcherComponent implements OnInit {
     this.open = !this.open;
   }
 
-  isVisible(layer: Layer): boolean {
+  isVisible(layer: BaseLayer): boolean {
     return layer.getVisible();
   }
 
-  layerChanged(layer: Layer, event: MatCheckboxChange): void {
+  layerChanged(layer: BaseLayer, event: MatCheckboxChange): void {
     layer.setVisible(event.checked);
   }
 
-  layerName(layer: Layer): string {
+  layerName(layer: BaseLayer): string {
     return layer.get("name");
   }
 
