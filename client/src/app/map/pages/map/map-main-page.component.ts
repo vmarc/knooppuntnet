@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {StyleFunction} from "ol/style/Style";
 import {throttleTime} from "rxjs/operators";
 import {asyncScheduler, Observable} from "rxjs";
 import {Attribution, defaults as defaultControls} from "ol/control";
@@ -55,7 +56,7 @@ import {MapPositionService} from "../../../components/ol/map-position.service";
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   map: Map;
-  mainMapStyle: (feature, resolution) => Style;
+  mainMapStyle: StyleFunction;
 
   progress: Observable<number>;
   bitmapTileLayer: TileLayer;

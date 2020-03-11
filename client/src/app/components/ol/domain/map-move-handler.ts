@@ -1,5 +1,5 @@
 import Feature from "ol/Feature";
-import SelectEvent from "ol/interaction/Select";
+import {SelectEvent} from "ol/interaction/Select";
 import Map from "ol/Map";
 import {MapService} from "../map.service";
 

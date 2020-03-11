@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {Util} from "../../../components/shared/util";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {FeatureId} from "../features/feature-id";

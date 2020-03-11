@@ -1,11 +1,12 @@
 import {AfterViewInit, Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
-import Color from "ol/color";
+import {Color} from "ol/color";
 import {Attribution, defaults as defaultControls} from "ol/control";
+import {Extent} from "ol/extent";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
-import Layer from "ol/layer";
-import TileLayer from "ol/layer/Tile";
+import {Layer} from "ol/layer";
+import BaseLayer from "ol/layer/Base";
 import VectorLayer from "ol/layer/Vector";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
@@ -13,7 +14,6 @@ import VectorSource from "ol/source/Vector";
 import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import View from "ol/View";
-import Extent from "ol/View";
 import {I18nService} from "../../i18n/i18n.service";
 import {TrackPath} from "../../kpn/api/common/common/track-path";
 import {TrackPoint} from "../../kpn/api/common/common/track-point";
@@ -52,10 +52,10 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
   @Input() routeInfo: RouteInfo;
 
-  layers: List<Layer> = List();
+  layers: List<BaseLayer> = List();
 
   private map: Map;
-  private bitmapTileLayer: TileLayer;
+  private bitmapTileLayer: BaseLayer;
   private vectorTileLayer: VectorTileLayer;
 
   constructor(private mapClickService: MapClickService,
@@ -74,7 +74,6 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     });
 
     this.map = new Map({
-      declutter: true,
       target: "route-map",
       layers: this.layers.toArray(),
       controls: defaultControls({attribution: false}).extend([attribution]),
@@ -101,7 +100,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private buildLayers(): List<Layer> {
+  private buildLayers(): List<BaseLayer> {
 
     this.bitmapTileLayer = this.buildBitmapTileLayer();
     this.vectorTileLayer = this.buildVectorTileLayer();
@@ -149,7 +148,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     return NetworkBitmapTileLayer.build(this.routeInfo.summary.networkType);
   }
 
-  private buildVectorTileLayer(): Layer {
+  private buildVectorTileLayer(): VectorTileLayer {
     return NetworkVectorTileLayer.build(this.routeInfo.summary.networkType);
   }
 

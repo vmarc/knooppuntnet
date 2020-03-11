@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
 import VectorLayer from "ol/layer/Vector";
@@ -11,6 +11,7 @@ import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
+import Point from "ol/geom/Point";
 
 /*
   - displays planned route
@@ -57,7 +58,7 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
   updateFlagCoordinate(featureId: string, coordinate: Coordinate): void {
     const feature = this.source.getFeatureById(featureId);
     if (feature) {
-      feature.getGeometry().setCoordinates(coordinate);
+      (feature.getGeometry() as Point).setCoordinates(coordinate);
     }
   }
 

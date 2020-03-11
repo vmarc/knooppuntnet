@@ -1,16 +1,16 @@
-import Map from "ol/Map";
-import MapBrowserEvent from "ol/events";
-import PointerInteraction from "ol/interaction/Pointer";
-import Coordinate from "ol/coordinate";
-import Feature from "ol/Feature";
-import Point from "ol/geom/Point";
 import {List} from "immutable";
-import {MapFeature} from "../features/map-feature";
-import {PlannerEngine} from "./planner-engine";
-import {LegFeature} from "../features/leg-feature";
+import {Coordinate} from "ol/coordinate";
+import {FeatureLike} from "ol/Feature";
+import Point from "ol/geom/Point";
+import PointerInteraction from "ol/interaction/Pointer";
+import Map from "ol/Map";
+import MapBrowserEvent from "ol/MapBrowserEvent";
 import {FlagFeature} from "../features/flag-feature";
+import {LegFeature} from "../features/leg-feature";
+import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
 import {PoiFeature} from "../features/poi-feature";
+import {PlannerEngine} from "./planner-engine";
 
 export class PlannerInteraction {
 
@@ -32,24 +32,25 @@ export class PlannerInteraction {
   constructor(private engine: PlannerEngine) {
   }
 
-  private static mapFeature(feature: Feature): MapFeature {
+  private static mapFeature(feature: FeatureLike): MapFeature {
 
     const layer = feature.get("layer");
     if (layer) {
       if ("leg" === layer) {
-        const legId = feature.getId();
+        const legId = feature.getId() as string;
         return new LegFeature(legId);
       }
       if ("flag" === layer) {
-        const id = feature.getId();
+        const id = feature.getId() as string;
         const flagType = feature.get("flag-type");
-        return new FlagFeature(id, flagType);
+        return new FlagFeature(flagType, id);
       }
       if (layer.endsWith("node")) {
         const nodeId = feature.get("id");
         const nodeName = feature.get("name");
         const point: Point = feature.getGeometry() as Point;
-        const coordinate: Coordinate = point.getCoordinates();
+        const extent = point.getExtent();
+        const coordinate: Coordinate = [extent[0], extent[1]];
         return NetworkNodeFeature.create(nodeId, nodeName, coordinate);
       }
 
@@ -57,7 +58,8 @@ export class PlannerInteraction {
       if ("node" === layerType || "way" === layerType || "relation" === layerType) {
         const poiId = feature.get("id");
         const point: Point = feature.getGeometry() as Point;
-        const coordinate: Coordinate = point.getCoordinates();
+        const extent = point.getExtent();
+        const coordinate: Coordinate = [extent[0], extent[1]];
         return new PoiFeature(poiId, layerType, layer, coordinate);
       }
     }
@@ -71,8 +73,7 @@ export class PlannerInteraction {
   }
 
   private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
-    const tolerance = 20;
-    const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+    const features = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
     if (features) {
       return List(features.map(feature => PlannerInteraction.mapFeature(feature)).filter(f => f !== null));
     }

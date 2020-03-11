@@ -29,9 +29,11 @@ export class PoiTileLayerService {
     });
 
     const source = new VectorTile({
-      format: new MVT({
-        featureClass: Feature // this is important to avoid error upon first selection in the map
-      }),
+      format: new MVT(
+        // {
+        //   featureClass: Feature // this is important to avoid error upon first selection in the map
+        // }
+      ),
       tileGrid: tileGrid,
       url: "/tiles/poi/{z}/{x}/{y}.mvt"
     });

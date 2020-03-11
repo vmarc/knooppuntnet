@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import TileLayer from "ol/layer/Tile";
+import {Layer} from "ol/layer";
 import {BehaviorSubject} from "rxjs";
 
 @Injectable()
@@ -10,13 +10,13 @@ export class TileLoadProgressService {
   private loading = 0;
   private loaded = 0;
 
-  install(bitmapTileLayer: TileLayer, vectorTileLayer: TileLayer, poiTileLayer: TileLayer): void {
+  install(bitmapTileLayer: Layer, vectorTileLayer: Layer, poiTileLayer: Layer): void {
     this.installLayer(bitmapTileLayer);
     this.installLayer(vectorTileLayer);
     this.installLayer(poiTileLayer);
   }
 
-  private installLayer(layer): void {
+  private installLayer(layer: Layer): void {
     layer.getSource().on("tileloadstart", () => {
       this.loading++;
       this.update();

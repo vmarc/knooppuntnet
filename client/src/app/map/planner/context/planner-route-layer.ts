@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanLeg} from "../plan/plan-leg";
 

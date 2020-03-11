@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 
 export class PlanFragment {

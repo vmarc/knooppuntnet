@@ -9,24 +9,15 @@ import {PoiGroupPreference, PoiPreference, PoiPreferences} from "./poi-preferenc
 export class PoiService {
 
   changed: BehaviorSubject<boolean> = new BehaviorSubject(null);
-
+  /*private*/
+  poiActive = Map<string, boolean>();
+  poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(null);
   private zoomLevel: number;
   private poiPreferences: PoiPreferences;
-  /*private*/ poiActive = Map<string, boolean>();
   private poiNames: Map<string, string> = null;
-
-  poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(null);
 
   constructor(private appService: AppService) {
     this.loadPoiConfiguration();
-  }
-
-  private loadPoiConfiguration() {
-    this.appService.poiConfiguration().subscribe(response => {
-      this.poiConfiguration.next(new InterpretedPoiConfiguration(response.result));
-      this.initPoiConfig();
-      this.updatePoiActive();
-    });
   }
 
   updatePoiNameRegistry(poiElements: HTMLCollection) {
@@ -114,17 +105,6 @@ export class PoiService {
     });
   }
 
-  private updateGroup(groupName: string, action: (PoiConfigGroup) => void) {
-    if (this.poiPreferences != null) {
-      const group = this.poiPreferences.groups.get(groupName);
-      if (group != null) {
-        action(group);
-        this.savePoiConfig();
-        this.updatePoiActive();
-      }
-    }
-  }
-
   poiLevel(poiId: string): string {
     if (this.poiPreferences != null) {
       const poi = this.poiPreferences.poi(poiId);
@@ -135,7 +115,7 @@ export class PoiService {
     return null;
   }
 
-  updatePoiLevel(poiId: string, minLevel): void {
+  updatePoiLevel(poiId: string, minLevel: number): void {
     const poi = this.poiPreferences.poi(poiId);
     if (poi != null) {
       poi.minLevel = minLevel;
@@ -163,6 +143,25 @@ export class PoiService {
 
       if (activeChanged) {
         this.changed.next(true);
+      }
+    }
+  }
+
+  private loadPoiConfiguration() {
+    this.appService.poiConfiguration().subscribe(response => {
+      this.poiConfiguration.next(new InterpretedPoiConfiguration(response.result));
+      this.initPoiConfig();
+      this.updatePoiActive();
+    });
+  }
+
+  private updateGroup(groupName: string, action: (groupPreference: PoiGroupPreference) => void) {
+    if (this.poiPreferences != null) {
+      const groupPreference = this.poiPreferences.groups.get(groupName);
+      if (groupPreference != null) {
+        action(groupPreference);
+        this.savePoiConfig();
+        this.updatePoiActive();
       }
     }
   }

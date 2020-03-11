@@ -1,4 +1,4 @@
-import Color from "ol";
+import {Color} from "ol/color";
 import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import {MainStyleColors} from "./main-style-colors";

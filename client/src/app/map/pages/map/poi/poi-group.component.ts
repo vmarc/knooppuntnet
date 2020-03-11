@@ -50,8 +50,8 @@ import {PoiService} from "../../../../services/poi.service";
 })
 export class PoiGroupComponent {
 
-  @Input() name;
-  @Input() title;
+  @Input() name: string;
+  @Input() title: string;
 
   constructor(private poiService: PoiService) {
   }

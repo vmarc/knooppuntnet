@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {TestSupport} from "../../../util/test-support";
 import {PlannerElasticBand} from "./planner-elastic-band";
 

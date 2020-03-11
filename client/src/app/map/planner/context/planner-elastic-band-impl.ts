@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
 import VectorLayer from "ol/layer/Vector";

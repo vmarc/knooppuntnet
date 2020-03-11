@@ -66,7 +66,7 @@ export class PdfStripDocument {
     const yDistance = yCircleCenter + this.model.circleRadius + PdfPage.spacer;
 
     this.doc.setLineWidth(0.05);
-    this.doc.circle(xCircleCenter, yCircleCenter, this.model.circleRadius);
+    this.doc.circle(xCircleCenter, yCircleCenter, this.model.circleRadius, "");
 
     this.doc.setFontSize(12);
     this.doc.text(node.nodeName, xCircleCenter, yCircleCenter, {align: "center", baseline: "middle", lineHeightFactor: "1"});

@@ -36,10 +36,10 @@ import {Component, Input} from "@angular/core";
 })
 export class RoutePageHeaderComponent {
 
-  @Input() routeId;
-  @Input() routeName;
-  @Input() pageName;
-  @Input() changeCount;
+  @Input() routeId: string;
+  @Input() routeName: string;
+  @Input() pageName: string;
+  @Input() changeCount: number;
 
   linkRouteDetails(): string {
     return this.linkRoute("");

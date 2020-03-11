@@ -86,8 +86,8 @@ export class TranslationsLoadComponent {
     document.getElementById("selectedFile").click();
   }
 
-  fileChangeListener($event): void {
-    this.readThis($event.target);
+  fileChangeListener(event: Event): void {
+    this.readThis(event.target);
   }
 
   private readThis(inputValue: any): void {

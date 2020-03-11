@@ -1,4 +1,4 @@
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {PoiId} from "./poi-id";
 
 export class PoiClick {

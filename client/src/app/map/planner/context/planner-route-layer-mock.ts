@@ -1,5 +1,5 @@
 import {Map} from "immutable";
-import Coordinate from "ol/coordinate";
+import {Coordinate} from "ol/coordinate";
 import {TestSupport} from "../../../util/test-support";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";

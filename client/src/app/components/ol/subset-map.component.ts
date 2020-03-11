@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {List} from "immutable";
+import {MapBrowserEvent} from "ol";
 import {Attribution, defaults as defaultControls} from "ol/control";
-import Coordinate from "ol/coordinate";
-import MapBrowserEvent from "ol/events";
+import {Coordinate} from "ol/coordinate";
+import {Extent} from "ol/extent";
+import {FeatureLike} from "ol/Feature";
 import Interaction from "ol/interaction/Interaction";
 import PointerInteraction from "ol/interaction/Pointer";
 import VectorLayer from "ol/layer/Vector";
@@ -10,7 +12,6 @@ import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
 import VectorSource from "ol/source/Vector";
 import View from "ol/View";
-import Extent from "ol/View";
 import {NetworkAttributes} from "../../kpn/api/common/network/network-attributes";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
@@ -50,7 +51,6 @@ export class SubsetMapComponent implements AfterViewInit {
     });
 
     this.map = new Map({
-      declutter: true,
       target: "subset-map",
       layers: [
         OsmLayer.build(),
@@ -109,8 +109,7 @@ export class SubsetMapComponent implements AfterViewInit {
   private buildInteraction(): Interaction {
     return new PointerInteraction({
       handleDownEvent: (evt: MapBrowserEvent) => {
-        const tolerance = 20;
-        const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
         if (features) {
           const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
           if (index >= 0) {
@@ -122,8 +121,7 @@ export class SubsetMapComponent implements AfterViewInit {
         return false;
       },
       handleMoveEvent: (evt: MapBrowserEvent) => {
-        const tolerance = 20;
-        const features = evt.map.getFeaturesAtPixel(evt.pixel, tolerance);
+        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
         if (features) {
           const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
           evt.map.getTargetElement().setAttribute("style", "cursor: " + (index >= 0 ? "pointer" : "default"));

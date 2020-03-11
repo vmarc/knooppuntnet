@@ -95,7 +95,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   }
 
   private def writeDeserializer(): Unit = {
-    out.println(s"  public static fromJSON(jsonObject): ${classInfo.className} {")
+    out.println(s"  public static fromJSON(jsonObject: any): ${classInfo.className} {")
     out.println(s"    if (!jsonObject) {")
     out.println(s"      return undefined;")
     out.println(s"    }")
