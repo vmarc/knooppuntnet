@@ -1049,9 +1049,9 @@
   integrity sha1-zlblOfg1UrWNENZy6k1vya3HsjQ=
 
 "@mapbox/mapbox-gl-style-spec@^13.11.0":
-  version "13.11.0"
-  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.11.0.tgz#94758e51ee45070a1c8b0774205006c8efa25c33"
-  integrity sha512-OIMGgdp7+KLvSC0v699sXIo7AmBko7XRhsMLCWkxkFfVo7qyUxVkoDpU+xpfvghPteLYy4d30C9sVSQH8IKFwA==
+  version "13.12.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.12.0.tgz#c97a394ea6b014a61734fce86a8154b5d00598e2"
+  integrity sha512-tRSvlYUI73LOkvS1iQhVwnltoI/QC4ZaLOAS6NM6zx0NwJfsGUJDPucsaKif8l7Sce1ECLd8LYs1MRCyJjdo5Q==
   dependencies:
     "@mapbox/jsonlint-lines-primitives" "~2.0.2"
     "@mapbox/unitbezier" "^0.0.0"
@@ -6758,10 +6758,10 @@ ol-geocoder@4.0.0:
   resolved "https://registry.yarnpkg.com/ol-geocoder/-/ol-geocoder-4.0.0.tgz#43470bb607528e5270c02d5d08a52c6a77713cae"
   integrity sha512-CPD62EgimRKbsXlQjJRx5m2z+ge0xc1mNzN61rn2J7icWuwuRZ48XH0F2aAA7uCCrtAf8ftYtz+xyJzRJS+syg==
 
-ol-mapbox-style@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/ol-mapbox-style/-/ol-mapbox-style-6.0.0.tgz#6dc34110971f7c392836bfd638d430cd70136b1a"
-  integrity sha512-ODSaYtLvSentp655RdS/cTlK2zCMuOxz9idDo3hyxh+ARgkYu69fZHomjeEJ49pW16Bv8Am8SZSfBUGT5SOW+w==
+ol-mapbox-style@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/ol-mapbox-style/-/ol-mapbox-style-6.0.1.tgz#dc053f6d48e687d42373c9bf1705c0047a473a88"
+  integrity sha512-+yIQk4gnb+nMPBuP+8H+orsXQi2okiTvOmnS1IPFBMCAyQurKsfUVuwCmvXS1FYewkD3EryOxtUOug7AFArZkg==
   dependencies:
     "@mapbox/mapbox-gl-style-spec" "^13.11.0"
     mapbox-to-css-font "^2.4.0"

@@ -7,6 +7,7 @@ import RenderFeature from "ol/render/Feature";
 import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {ZoomLevel} from "./zoom-level";
 
 export class NetworkVectorTileLayer {
 
@@ -14,8 +15,8 @@ export class NetworkVectorTileLayer {
 
     const tileGrid = createXYZ({
       tileSize: 512,
-      minZoom: 12,
-      maxZoom: 14
+      minZoom: ZoomLevel.vectorTileMinZoom,
+      maxZoom: ZoomLevel.vectorTileMaxZoom
     });
 
     const xxx = new Feature<Geometry>();

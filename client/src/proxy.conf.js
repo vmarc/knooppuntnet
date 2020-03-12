@@ -10,16 +10,6 @@ PROXY_CONFIG = {
   "/tiles/**": {
     "target": "https://experimental.knooppuntnet.nl",
     "secure": false
-  },
-  "**": {
-    "target": "http://localhost:9000",
-    "secure": false,
-    "bypass": function (req) {
-      console.log("URL " + req.url);
-      if (req.headers.accept.indexOf("html") !== -1) {
-        return "/index.html";
-      }
-    }
   }
 };
 

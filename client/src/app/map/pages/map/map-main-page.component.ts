@@ -174,11 +174,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       this.bitmapTileLayer.setVisible(false);
       this.vectorTileLayer.setVisible(true);
     }
-    if (zoom >= 11) {
-      this.poiTileLayer.setVisible(true);
-    } else {
-      this.poiTileLayer.setVisible(false);
-    }
+    this.poiTileLayer.setVisible(zoom >= ZoomLevel.poiTileMinZoom);
   }
 
 }

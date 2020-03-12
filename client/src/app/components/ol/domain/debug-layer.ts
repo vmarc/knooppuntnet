@@ -7,13 +7,13 @@ export class DebugLayer {
   public static build(): TileLayer {
 
     const tileGrid = createXYZ({
-      tileSize: 512,
+      tileSize: 256,
       maxZoom: 20
     });
 
     return new TileLayer({
       source: new TileDebug({
-        projection: "EPSG:3857",
+        zDirection: 1,
         tileGrid: tileGrid
       })
     });

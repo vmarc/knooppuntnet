@@ -6,6 +6,7 @@ import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 import {PoiService} from "../../services/poi.service";
 import {PoiStyleMap} from "./domain/poi-style-map";
+import {ZoomLevel} from "./domain/zoom-level";
 
 @Injectable()
 export class PoiTileLayerService {
@@ -24,8 +25,8 @@ export class PoiTileLayerService {
 
     const tileGrid = createXYZ({
       tileSize: 512,
-      minZoom: 12,
-      maxZoom: 15
+      minZoom: ZoomLevel.poiTileMinZoom,
+      maxZoom: ZoomLevel.poiTileMaxZoom
     });
 
     const source = new VectorTile({

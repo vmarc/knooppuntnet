@@ -47,7 +47,7 @@
     "ngx-markdown": "8.2.2",
     "ol": "^6.1.1",
     "ol-geocoder": "4.0.0",
-    "ol-mapbox-style": "6.0.0",
+    "ol-mapbox-style": "6.0.1",
     "qrious": "^4.0.2",
     "rxjs": "^6.5.4",
     "tslib": "^1.10.0",

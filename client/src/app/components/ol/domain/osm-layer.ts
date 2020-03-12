@@ -1,4 +1,4 @@
-import {applyStyle} from "ol-mapbox-style";
+import stylefunction from "ol-mapbox-style/dist/stylefunction";
 import MVT from "ol/format/MVT";
 import BaseLayer from "ol/layer/Base";
 import VectorTileLayer from "ol/layer/VectorTile";
