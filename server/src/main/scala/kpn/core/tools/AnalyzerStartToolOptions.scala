@@ -17,11 +17,16 @@ object AnalyzerStartToolOptions {
       opt[String]('a', "analysis") required() valueName "<analysis-database>" action { (x, c) =>
         c.copy(analysisDatabaseName = x)
       } text "analysis database name"
+
+      opt[String]('p', "poi") required() valueName "<poi-database>" action { (x, c) =>
+        c.copy(poiDatabaseName = x)
+      } text "poi database name"
     }
   }
 }
 
 case class AnalyzerStartToolOptions(
   analysisDatabaseName: String = "",
-  changeDatabaseName: String = ""
+  changeDatabaseName: String = "",
+  poiDatabaseName: String = ""
 )

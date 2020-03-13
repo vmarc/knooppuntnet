@@ -5,7 +5,7 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalyzerEngine
-import kpn.server.analyzer.engine.CouchIndexer
+import kpn.server.analyzer.engine.DatabaseIndexer
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -13,7 +13,7 @@ import scala.annotation.tailrec
 @Component
 class AnalyzerImpl(
   statusRepository: StatusRepository,
-  analysisDatabaseIndexer: CouchIndexer,
+  databaseIndexer: DatabaseIndexer,
   engine: AnalyzerEngine,
   dirs: Dirs
 ) extends Analyzer {
@@ -24,7 +24,7 @@ class AnalyzerImpl(
     statusRepository.analysisStatus2 match {
       case None => log.error("Could not start: failed to read analysis status " + dirs.analysisStatus2)
       case Some(replicationId) =>
-        analysisDatabaseIndexer.index()
+        databaseIndexer.index()
         engine.load(replicationId)
     }
   }

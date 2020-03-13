@@ -11,7 +11,7 @@ object TileToolOptions {
 
       opt[String]('t', "tileDir") required() valueName "<tile-root-directory>" action { (x, c) =>
         c.copy(tileDir = x)
-      } text "changes database name"
+      } text "tile directory"
 
       opt[String]('a', "analysis") required() valueName "<analysis-database>" action { (x, c) =>
         c.copy(analysisDatabaseName = x)

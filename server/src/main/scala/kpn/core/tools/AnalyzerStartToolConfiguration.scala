@@ -9,7 +9,7 @@ import kpn.core.tools.config.AnalysisDataLoaderConfiguration
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
-import kpn.server.analyzer.engine.CouchIndexer
+import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
@@ -48,14 +48,15 @@ import kpn.server.repository.RouteRepositoryImpl
 class AnalyzerStartToolConfiguration(
   system: ActorSystem,
   analysisDatabase: Database,
-  changeDatabase: Database
+  changeDatabase: Database,
+  poiDatabase: Database
 ) {
 
   val dirs: Dirs = Dirs()
 
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
-  private val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration)
+  private val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
   private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
   private val routeRepository = new RouteRepositoryImpl(analysisDatabase, routeLocator)
@@ -84,7 +85,7 @@ class AnalyzerStartToolConfiguration(
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val analysisDatabaseIndexer: CouchIndexer = new CouchIndexer(analysisDatabase, AnalyzerDesign)
+  val analysisDatabaseIndexer: DatabaseIndexer = new DatabaseIndexer(analysisDatabase, changeDatabase, poiDatabase)
 
   val analysisData: AnalysisData = AnalysisData()
 

@@ -39,7 +39,7 @@ class NodeLocationTool(database: Database) {
 
     val analyzer = {
       val configuration = new LocationConfigurationReader().read()
-      new NodeLocationAnalyzerImpl(configuration)
+      new NodeLocationAnalyzerImpl(configuration, true)
     }
 
     val nodeIds = DocumentView.allNodeIds(database)

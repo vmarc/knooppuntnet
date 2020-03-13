@@ -73,10 +73,12 @@ object AnalyzerStartTool {
     val couchConfig = Couch.config
     val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.analysisDatabaseName))
     val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.changeDatabaseName))
+    val poiDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.poiDatabaseName))
     new AnalyzerStartToolConfiguration(
       system,
       analysisDatabase,
-      changeDatabase
+      changeDatabase,
+      poiDatabase
     )
   }
 }

@@ -4,7 +4,7 @@ import java.io.File
 
 import akka.actor.ActorSystem
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.server.analyzer.engine.CouchIndexer
+import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
@@ -51,7 +51,7 @@ class AnalysisDataLoaderConfiguration(
   countryAnalyzer: CountryAnalyzer,
   nodeLoader: NodeLoader,
   nodeLocationAnalyzer: NodeLocationAnalyzer,
-  analysisDatabaseIndexer: CouchIndexer
+  databaseIndexer: DatabaseIndexer
 ) {
 
   private val nodeIdsLoader: NodeIdsLoader = new NodeIdsLoaderImpl(
@@ -98,7 +98,7 @@ class AnalysisDataLoaderConfiguration(
     routeIdsLoader,
     orphanRepository,
     blackListRepository,
-    analysisDatabaseIndexer,
+    databaseIndexer,
     orphanRoutesLoaderWorker
   )
 
@@ -116,7 +116,7 @@ class AnalysisDataLoaderConfiguration(
     nodeLoader,
     orphanRepository,
     orphanNodeCreateProcessor,
-    analysisDatabaseIndexer
+    databaseIndexer
   )
 
   private val networkIdsLoader: NetworkIdsLoader = new NetworkIdsLoaderImpl(

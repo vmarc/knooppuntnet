@@ -5,13 +5,25 @@ import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 @Component
-class NodeLocationAnalyzerImpl(locationConfiguration: LocationConfiguration) extends NodeLocationAnalyzer {
+class NodeLocationAnalyzerImpl(
+  locationConfiguration: LocationConfiguration,
+  analyzerEnabled: Boolean
+) extends NodeLocationAnalyzer {
 
   private val log = Log(classOf[NodeLocationAnalyzerImpl])
 
-  log.info("Initiating locators")
-  private val locators = locationConfiguration.locations.map(LocationLocator.from)
-  log.info("Initiating locators done")
+  private val locators: Seq[LocationLocator] = if (analyzerEnabled) {
+    log.info("Initiating locators")
+    try {
+      locationConfiguration.locations.map(LocationLocator.from)
+    }
+    finally {
+      log.info("Initiating locators done")
+    }
+  }
+  else {
+    Seq()
+  }
 
   def locate(latitude: String, longitude: String): Option[Location] = {
     locators.foreach { locators =>

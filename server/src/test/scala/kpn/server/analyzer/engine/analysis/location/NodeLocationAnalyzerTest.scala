@@ -10,7 +10,7 @@ class NodeLocationAnalyzerTest extends FunSuite with Matchers {
 
     val analyzer = {
       val configuration = new LocationConfigurationReader().read()
-      new NodeLocationAnalyzerImpl(configuration)
+      new NodeLocationAnalyzerImpl(configuration, true)
     }
 
     // Essen

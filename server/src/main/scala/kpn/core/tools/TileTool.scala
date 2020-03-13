@@ -15,7 +15,7 @@ import kpn.server.analyzer.engine.tiles.TilesBuilder
 import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
 import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.CouchIndexer
+import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -52,14 +52,14 @@ object TileTool {
             new TilesBuilder(tileBuilder, tileFileRepository, nodeTileAnalyzer, routeTileAnalyzer)
           }
 
-          Couch.executeIn(options.analysisDatabaseName) { database =>
+          Couch.executeIn(options.analysisDatabaseName) { analysisDatabase =>
 
-            new CouchIndexer(database, AnalyzerDesign).index()
+            new DatabaseIndexer(analysisDatabase, null, null).index()
 
             val tileAnalyzer = {
-              val networkRepository = new NetworkRepositoryImpl(database)
-              val orphanRepository = new OrphanRepositoryImpl(database)
-              val routeRepository = new RouteRepositoryImpl(database, null)
+              val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
+              val orphanRepository = new OrphanRepositoryImpl(analysisDatabase)
+              val routeRepository = new RouteRepositoryImpl(analysisDatabase, null)
               new TileAnalyzerImpl(
                 networkRepository,
                 orphanRepository,
