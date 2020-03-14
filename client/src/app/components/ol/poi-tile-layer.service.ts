@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
-import Feature from "ol/Feature";
 import MVT from "ol/format/MVT";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
+import {StyleFunction} from "ol/style/Style";
 import {createXYZ} from "ol/tilegrid";
 import {PoiService} from "../../services/poi.service";
 import {PoiStyleMap} from "./domain/poi-style-map";
@@ -30,11 +30,7 @@ export class PoiTileLayerService {
     });
 
     const source = new VectorTile({
-      format: new MVT(
-        // {
-        //   featureClass: Feature // this is important to avoid error upon first selection in the map
-        // }
-      ),
+      format: new MVT(),
       tileGrid: tileGrid,
       url: "/tiles/poi/{z}/{x}/{y}.mvt"
     });
@@ -46,12 +42,12 @@ export class PoiTileLayerService {
 
     layer.setStyle(this.poiStyleFunction());
 
-    this.poiService.changed.subscribe(changed => layer.changed());
+    this.poiService.changed.subscribe(() => layer.changed());
 
     return layer;
   }
 
-  private poiStyleFunction() {
+  private poiStyleFunction(): StyleFunction {
     return (feature, resolution) => {
       if (this.poiStyleMap) {
         const layer = feature.get("layer");

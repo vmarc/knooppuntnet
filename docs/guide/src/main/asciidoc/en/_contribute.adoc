@@ -57,7 +57,7 @@ Install the software and fetch all dependencies:
 
 Build and run the client:
 
-	yarn run start
+	yarn run start:en
 
 The above command will build and start the English version of the application in development mode.
 Use one of the following commands to start the application in another language:
@@ -67,7 +67,7 @@ Use one of the following commands to start the application in another language:
 |Language|Command
 
 |English
-|yarn run start
+|yarn run start:en
 
 |Dutch
 |yarn run start:nl

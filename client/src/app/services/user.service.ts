@@ -7,6 +7,7 @@ import {BrowserStorageService} from "./browser-storage.service";
 export class UserService {
 
   loginCallbackPage = "";
+  language = "";
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -26,33 +27,31 @@ export class UserService {
   }
 
   registerLoginCallbackPage(): void {
-    if (window.location.pathname === "/login" ||
-      window.location.pathname === "/en/login" ||
-      window.location.pathname === "/nl/login") {
-      this.loginCallbackPage = "";
+    const lang = window.location.pathname.substr(1, 2);
+    if (lang === "en" || lang === "de" || lang === "fr" || lang === "nl") {
+      this.language = lang;
     } else {
-      this.loginCallbackPage = window.location.pathname;
+      this.language = "";
     }
+    if (window.location.pathname.endsWith("/login")) {
+      this.loginCallbackPage = "/";
+    } else {
+      if (this.language.length > 0) {
+        this.loginCallbackPage = window.location.pathname.substr(3);
+      } else {
+        this.loginCallbackPage = window.location.pathname;
+      }
+    }
+    console.log("UserService.registerLoginCallbackPage(): registered loginCallbackPage=" + this.loginCallbackPage +
+      ", based on window.location.pathname=" + window.location.pathname + ", language=" + this.language);
+
   }
 
   public login(): void {
 
-    let whereWeComeFrom = "";
-    if (this.loginCallbackPage.length === 0) {
-      whereWeComeFrom = "/";
-    } else {
-      whereWeComeFrom = this.loginCallbackPage;
-      this.loginCallbackPage = "";
-    }
-
-    let language = whereWeComeFrom.substr(0, 2);
-    if (language === "en" || language === "de" || language === "fr" || language === "nl") {
-      language = "/" + language;
-    } else {
-      language = "";
-    }
-
-    const loginUrl = "/json-api/login?callbackUrl=" + window.location.origin + language + "/authenticate?page=" + whereWeComeFrom;
+    const languageUrlPart = this.language.length > 0 ? "/" + this.language : "";
+    const loginUrl = "/json-api/login?callbackUrl=" + window.location.origin +
+      languageUrlPart + "/authenticate?page=" + this.loginCallbackPage;
 
     console.log("DEBUG UserService login loginUrl=" + loginUrl);
 

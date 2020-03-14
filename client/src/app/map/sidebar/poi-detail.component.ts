@@ -1,3 +1,5 @@
+import {OnDestroy} from "@angular/core";
+import {OnInit} from "@angular/core";
 import {ChangeDetectorRef, Component} from "@angular/core";
 import {AppService} from "../../app.service";
 import {MapService} from "../../components/ol/map.service";
@@ -125,7 +127,7 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
     }
   `]
 })
-export class PoiDetailComponent {
+export class PoiDetailComponent implements OnInit, OnDestroy {
 
   poiClick: PoiClick;
   poiPage: PoiPage;
@@ -138,9 +140,11 @@ export class PoiDetailComponent {
               private poiService: PoiService,
               private plannerService: PlannerService,
               private cdr: ChangeDetectorRef) {
+  }
 
+  ngOnInit(): void {
     this.subscriptions.add(
-      mapService.poiClickedObserver.pipe(
+      this.mapService.poiClickedObserver.pipe(
         tap(poiClick => this.poiClick = poiClick),
         filter(poiClick => poiClick !== null),
         flatMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId))
@@ -154,8 +158,8 @@ export class PoiDetailComponent {
           this.poi = null;
           this.tags = null;
         }
-        this.cdr.detectChanges();
         this.plannerService.context.overlay.setPosition(this.poiClick.coordinate);
+        this.cdr.detectChanges();
       })
     );
   }

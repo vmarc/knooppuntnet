@@ -113,7 +113,7 @@ export class NetworkNodeTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource();
+    this.dataSource = new MatTableDataSource<NetworkNodeInfo2>();
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);

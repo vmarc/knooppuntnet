@@ -6,6 +6,7 @@ vmarc
 :revealjs_transition: slide
 :revealjs_transitionSpeed: fast
 :revealjs_slideNumber: true
+:docinfo: shared
 :source-highlighter: highlightjs
 :highlightjs-theme: node_modules/highlight.js/styles/idea.css
 :hide-uri-scheme:
@@ -13,7 +14,7 @@ vmarc
 :customcss: introduction.css
 == *
 
-[.introduction-title]#introduction#
+[.introduction-title]#De Markten - March 2020#
 
 == Project
 

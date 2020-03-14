@@ -1,32 +1,31 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {StyleFunction} from "ol/style/Style";
-import {throttleTime} from "rxjs/operators";
-import {asyncScheduler, Observable} from "rxjs";
 import {Attribution, defaults as defaultControls} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
-import Style from "ol/style/Style";
+import {StyleFunction} from "ol/style/Style";
 import View from "ol/View";
+import {asyncScheduler, Observable} from "rxjs";
+import {throttleTime} from "rxjs/operators";
+import {DebugLayer} from "../../../components/ol/domain/debug-layer";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {OsmLayer} from "../../../components/ol/domain/osm-layer";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
+import {MapPositionService} from "../../../components/ol/map-position.service";
 import {MapService} from "../../../components/ol/map.service";
 import {PoiTileLayerService} from "../../../components/ol/poi-tile-layer.service";
+import {TileLoadProgressService} from "../../../components/ol/tile-load-progress.service";
 import {PageService} from "../../../components/shared/page.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
-import {DebugLayer} from "../../../components/ol/domain/debug-layer";
-import {TileLoadProgressService} from "../../../components/ol/tile-load-progress.service";
-import {MapPositionService} from "../../../components/ol/map-position.service";
 
 @Component({
   selector: "kpn-map-main-page",
@@ -131,7 +130,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       controls: defaultControls({attribution: false}).extend([attribution]),
       view: new View({
         minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.maxZoom
+        maxZoom: ZoomLevel.vectorTileMaxOverZoom
       })
     });
 

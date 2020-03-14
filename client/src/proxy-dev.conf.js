@@ -1,10 +1,10 @@
 PROXY_CONFIG = {
   "/api/**": {
-    "target": "https://experimental.knooppuntnet.nl",
+    "target": "http://experimental.knooppuntnet.nl",
     "secure": false
   },
   "/json-api/**": {
-    "target": "https://experimental.knooppuntnet.nl",
+    "target": "http://localhost:9005",
     "secure": false
   },
   "/tiles/**": {

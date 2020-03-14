@@ -31,7 +31,7 @@ export class OsmLayer {
 
     fetch("assets/style.json").then((response) => {
       response.json().then((glStyle) => {
-        applyStyle(layer, glStyle, "openmaptiles");
+        stylefunction(layer, glStyle, "openmaptiles");
       });
     });
 

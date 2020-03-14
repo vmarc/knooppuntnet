@@ -45,7 +45,7 @@ export class PaginatorComponent implements AfterViewInit {
 
   @Output() page = new EventEmitter<PageEvent>();
 
-  @ViewChild(MatPaginator) matPaginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) matPaginator: MatPaginator;
 
   constructor(private paginatorService: PaginatorService,
               private element: ElementRef,

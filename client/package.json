@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "3.0.0-alpha-8",
+  "version": "3.0.0-alpha-9",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -8,10 +8,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "extract-i18n": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json nl de fr",
-    "start": "ng serve --baseHref=en --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
-    "start:nl": "ng serve --baseHref=nl --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
-    "start:de": "ng serve --baseHref=de --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
-    "start:fr": "ng serve --baseHref=fr --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
+    "start": "ng serve --open --proxy-config src/proxy-dev.conf.js --host 0.0.0.0 --disable-host-check",
+    "start:en": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
+    "start:nl": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
+    "start:de": "ng serve --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
+    "start:fr": "ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "test-no-watch": "ng test --single-run",
     "build-dev": "ng build --progress --output-path ./dist",
     "build-prod": "ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./dist/${npm_package_name}-${npm_package_version}/en;cd dist/${npm_package_name}-${npm_package_version}/en; gzip --keep *.js *.json *.css",
