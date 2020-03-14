@@ -16,8 +16,8 @@ export class NetworkChanges {
     }
     return new NetworkChanges(
       jsonObject.creates ? List(jsonObject.creates.map((json: any) => ChangeSetNetwork.fromJSON(json))) : List(),
-      jsonObject.updates ? List(jsonObject.updates.map(json => ChangeSetNetwork.fromJSON(json))) : List(),
-      jsonObject.deletes ? List(jsonObject.deletes.map(json => ChangeSetNetwork.fromJSON(json))) : List()
+      jsonObject.updates ? List(jsonObject.updates.map((json: any) => ChangeSetNetwork.fromJSON(json))) : List(),
+      jsonObject.deletes ? List(jsonObject.deletes.map((json: any) => ChangeSetNetwork.fromJSON(json))) : List()
     );
   }
 }

@@ -27,11 +27,11 @@ export class RouteInfoAnalysis {
     }
     return new RouteInfoAnalysis(
       jsonObject.startNodes ? List(jsonObject.startNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.endNodes ? List(jsonObject.endNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.endNodes ? List(jsonObject.endNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.unexpectedNodeIds ? List(jsonObject.unexpectedNodeIds) : List(),
-      jsonObject.members ? List(jsonObject.members.map(json => RouteMemberInfo.fromJSON(json))) : List(),
+      jsonObject.members ? List(jsonObject.members.map((json: any) => RouteMemberInfo.fromJSON(json))) : List(),
       jsonObject.expectedName,
       RouteMap.fromJSON(jsonObject.map),
       jsonObject.structureStrings ? List(jsonObject.structureStrings) : List(),

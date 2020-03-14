@@ -42,7 +42,7 @@ export class NetworkNodeInfo2 {
       Timestamp.fromJSON(jsonObject.timestamp),
       jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))) : List(),
       NodeIntegrityCheck.fromJSON(jsonObject.integrityCheck),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       Tags.fromJSON(jsonObject.tags)
     );
   }

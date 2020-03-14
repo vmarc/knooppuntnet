@@ -19,7 +19,7 @@ export class SubsetFactDetailsPage {
     return new SubsetFactDetailsPage(
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
       Fact.fromJSON(jsonObject.fact),
-      jsonObject.networks ? List(jsonObject.networks.map(json => NetworkFactRefs.fromJSON(json))) : List()
+      jsonObject.networks ? List(jsonObject.networks.map((json: any) => NetworkFactRefs.fromJSON(json))) : List()
     );
   }
 }

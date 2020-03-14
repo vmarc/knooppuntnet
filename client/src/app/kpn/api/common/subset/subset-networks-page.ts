@@ -36,7 +36,7 @@ export class SubsetNetworksPage {
       jsonObject.brokenRoutePercentage,
       jsonObject.unaccessibleRouteCount,
       jsonObject.analysisUpdatedTime,
-      jsonObject.networks ? List(jsonObject.networks.map(json => NetworkAttributes.fromJSON(json))) : List()
+      jsonObject.networks ? List(jsonObject.networks.map((json: any) => NetworkAttributes.fromJSON(json))) : List()
     );
   }
 }

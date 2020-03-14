@@ -31,8 +31,8 @@ export class NodeNetworkReference {
       jsonObject.nodeConnection,
       jsonObject.nodeRoleConnection,
       NodeNetworkIntegrityCheck.fromJSON(jsonObject.nodeIntegrityCheck),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
-      jsonObject.routes ? List(jsonObject.routes.map(json => NodeNetworkRouteReference.fromJSON(json))) : List()
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.routes ? List(jsonObject.routes.map((json: any) => NodeNetworkRouteReference.fromJSON(json))) : List()
     );
   }
 }

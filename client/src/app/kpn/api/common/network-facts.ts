@@ -24,8 +24,8 @@ export class NetworkFacts {
     }
     return new NetworkFacts(
       jsonObject.networkExtraMemberNode ? List(jsonObject.networkExtraMemberNode.map((json: any) => NetworkExtraMemberNode.fromJSON(json))) : List(),
-      jsonObject.networkExtraMemberWay ? List(jsonObject.networkExtraMemberWay.map(json => NetworkExtraMemberWay.fromJSON(json))) : List(),
-      jsonObject.networkExtraMemberRelation ? List(jsonObject.networkExtraMemberRelation.map(json => NetworkExtraMemberRelation.fromJSON(json))) : List(),
+      jsonObject.networkExtraMemberWay ? List(jsonObject.networkExtraMemberWay.map((json: any) => NetworkExtraMemberWay.fromJSON(json))) : List(),
+      jsonObject.networkExtraMemberRelation ? List(jsonObject.networkExtraMemberRelation.map((json: any) => NetworkExtraMemberRelation.fromJSON(json))) : List(),
       NetworkIntegrityCheck.fromJSON(jsonObject.integrityCheck),
       NetworkIntegrityCheckFailed.fromJSON(jsonObject.integrityCheckFailed),
       NetworkNameMissing.fromJSON(jsonObject.nameMissing)

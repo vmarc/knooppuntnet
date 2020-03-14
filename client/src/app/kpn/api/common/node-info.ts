@@ -40,7 +40,7 @@ export class NodeInfo {
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Tags.fromJSON(jsonObject.tags),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       Location.fromJSON(jsonObject.location),
       jsonObject.tiles ? List(jsonObject.tiles) : List()
     );

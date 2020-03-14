@@ -19,7 +19,7 @@ export class TrackPath {
       jsonObject.startNodeId,
       jsonObject.endNodeId,
       jsonObject.meters,
-      jsonObject.segments ? List(jsonObject.segments.map(json => TrackSegment.fromJSON(json))) : List()
+      jsonObject.segments ? List(jsonObject.segments.map((json: any) => TrackSegment.fromJSON(json))) : List()
     );
   }
 }

@@ -42,9 +42,9 @@ export class RouteChange {
       RouteData.fromJSON(jsonObject.after),
       jsonObject.removedWays ? List(jsonObject.removedWays.map((json: any) => RawWay.fromJSON(json))) : List(),
       jsonObject.addedWays ? List(jsonObject.addedWays.map((json: any) => RawWay.fromJSON(json))) : List(),
-      jsonObject.updatedWays ? List(jsonObject.updatedWays.map(json => WayUpdate.fromJSON(json))) : List(),
+      jsonObject.updatedWays ? List(jsonObject.updatedWays.map((json: any) => WayUpdate.fromJSON(json))) : List(),
       RouteDiff.fromJSON(jsonObject.diffs),
-      jsonObject.facts ? List(jsonObject.facts.map(json => Fact.fromJSON(json))) : List(),
+      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       jsonObject.happy,
       jsonObject.investigate
     );

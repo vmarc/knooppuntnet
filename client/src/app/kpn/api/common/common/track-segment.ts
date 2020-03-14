@@ -18,7 +18,7 @@ export class TrackSegment {
     return new TrackSegment(
       jsonObject.surface,
       TrackPoint.fromJSON(jsonObject.source),
-      jsonObject.fragments ? List(jsonObject.fragments.map(json => TrackSegmentFragment.fromJSON(json))) : List()
+      jsonObject.fragments ? List(jsonObject.fragments.map((json: any) => TrackSegmentFragment.fromJSON(json))) : List()
     );
   }
 }

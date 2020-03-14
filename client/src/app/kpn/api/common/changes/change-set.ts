@@ -26,7 +26,7 @@ export class ChangeSet {
       Timestamp.fromJSON(jsonObject.timestampUntil),
       Timestamp.fromJSON(jsonObject.timestampBefore),
       Timestamp.fromJSON(jsonObject.timestampAfter),
-      jsonObject.changes ? List(jsonObject.changes.map(json => Change.fromJSON(json))) : List()
+      jsonObject.changes ? List(jsonObject.changes.map((json: any) => Change.fromJSON(json))) : List()
     );
   }
 }

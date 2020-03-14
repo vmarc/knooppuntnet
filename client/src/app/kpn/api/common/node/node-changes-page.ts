@@ -22,7 +22,7 @@ export class NodeChangesPage {
     return new NodeChangesPage(
       NodeInfo.fromJSON(jsonObject.nodeInfo),
       ChangesFilter.fromJSON(jsonObject.filter),
-      jsonObject.changes ? List(jsonObject.changes.map(json => NodeChangeInfo.fromJSON(json))) : List(),
+      jsonObject.changes ? List(jsonObject.changes.map((json: any) => NodeChangeInfo.fromJSON(json))) : List(),
       jsonObject.incompleteWarning,
       jsonObject.totalCount,
       jsonObject.changeCount

@@ -16,7 +16,7 @@ export class WayData {
     }
     return new WayData(
       RawWay.fromJSON(jsonObject.way),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => RawNode.fromJSON(json))) : List()
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => RawNode.fromJSON(json))) : List()
     );
   }
 }

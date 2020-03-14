@@ -34,15 +34,15 @@ export class RouteMap {
       TrackPath.fromJSON(jsonObject.forwardPath),
       TrackPath.fromJSON(jsonObject.backwardPath),
       jsonObject.unusedSegments ? List(jsonObject.unusedSegments.map((json: any) => TrackSegment.fromJSON(json))) : List(),
-      jsonObject.startTentaclePaths ? List(jsonObject.startTentaclePaths.map(json => TrackPath.fromJSON(json))) : List(),
-      jsonObject.endTentaclePaths ? List(jsonObject.endTentaclePaths.map(json => TrackPath.fromJSON(json))) : List(),
+      jsonObject.startTentaclePaths ? List(jsonObject.startTentaclePaths.map((json: any) => TrackPath.fromJSON(json))) : List(),
+      jsonObject.endTentaclePaths ? List(jsonObject.endTentaclePaths.map((json: any) => TrackPath.fromJSON(json))) : List(),
       TrackPoint.fromJSON(jsonObject.forwardBreakPoint),
       TrackPoint.fromJSON(jsonObject.backwardBreakPoint),
-      jsonObject.startNodes ? List(jsonObject.startNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.endNodes ? List(jsonObject.endNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.redundantNodes ? List(jsonObject.redundantNodes.map(json => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.startNodes ? List(jsonObject.startNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.endNodes ? List(jsonObject.endNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
+      jsonObject.redundantNodes ? List(jsonObject.redundantNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.streets ? List(jsonObject.streets) : List()
     );
   }

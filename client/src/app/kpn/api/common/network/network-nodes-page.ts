@@ -23,7 +23,7 @@ export class NetworkNodesPage {
       TimeInfo.fromJSON(jsonObject.timeInfo),
       NetworkSummary.fromJSON(jsonObject.networkSummary),
       NetworkType.fromJSON(jsonObject.networkType),
-      jsonObject.nodes ? List(jsonObject.nodes.map(json => NetworkNodeInfo2.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => NetworkNodeInfo2.fromJSON(json))) : List(),
       jsonObject.routeIds ? List(jsonObject.routeIds) : List()
     );
   }

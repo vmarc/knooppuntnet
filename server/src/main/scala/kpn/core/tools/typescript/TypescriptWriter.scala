@@ -112,7 +112,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
               s"      jsonObject.${field.name} ? List(jsonObject.${field.name}) : List()"
             }
             else {
-              s"      jsonObject.${field.name} ? List(jsonObject.${field.name}.map(json => ${arrayClassType.typeName}.fromJSON(json))) : List()"
+              s"      jsonObject.${field.name} ? List(jsonObject.${field.name}.map((json: any) => ${arrayClassType.typeName}.fromJSON(json))) : List()"
             }
           case _ =>
             s"      ${field.classType.typeName}.fromJSON(jsonObject.${field.name})"

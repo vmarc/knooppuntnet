@@ -13,7 +13,7 @@ export class RoutesFact {
       return undefined;
     }
     return new RoutesFact(
-      jsonObject.routes ? List(jsonObject.routes.map(json => Ref.fromJSON(json))) : List()
+      jsonObject.routes ? List(jsonObject.routes.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }
