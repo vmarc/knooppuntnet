@@ -87,8 +87,9 @@ export class PdfDirections {
   private printNode(y: number, node: string): void {
     const xCircleCenter = this.leftMargin + this.nodeCircleRadius;
     const yCircleCenter = y + 2.5 + this.nodeCircleRadius;
-    this.doc.setLineWidth(0.05);
-    this.doc.circle(xCircleCenter, yCircleCenter, this.nodeCircleRadius, "");
+    this.doc.setDrawColor(0);
+    this.doc.setLineWidth(0.4);
+    this.doc.circle(xCircleCenter, yCircleCenter, this.nodeCircleRadius, "S");
     this.doc.setFontSize(12);
     this.doc.text(node, xCircleCenter, yCircleCenter, {align: "center", baseline: "middle", lineHeightFactor: "1"});
   }
