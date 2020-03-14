@@ -1,6 +1,8 @@
-package kpn.server.analyzer.engine.tiles
+package kpn.core.tools.poi
 
 import kpn.core.db.couch.Couch
+import kpn.server.analyzer.engine.tiles.TileFileRepository
+import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
