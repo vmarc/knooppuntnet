@@ -9,7 +9,7 @@ import {TranslationLocation} from "./domain/translation-location";
 @Injectable()
 export class TranslationsService {
 
-  private readonly root = "https://raw.githubusercontent.com/vmarc/knooppuntnet/master/client/src";
+  private readonly root = "https://raw.githubusercontent.com/vmarc/knooppuntnet/develop/client/src";
 
   constructor(private http: HttpClient) {
   }
