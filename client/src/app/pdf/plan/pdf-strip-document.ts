@@ -80,9 +80,9 @@ export class PdfStripDocument {
     const y = PdfPage.height - PdfPage.marginBottom;
     this.doc.setDrawColor(180);
     this.doc.setLineWidth(0.1);
-    this.doc.setLineDash([2, 2]);
+    // this.doc.setLineDash([2, 2]);
     this.doc.line(x, PdfPage.yContentsTop, x, y);
-    this.doc.setLineDash([]);
+    // this.doc.setLineDash([]);
 
     this.iconService.getIcon("scissors").subscribe(icon => {
       this.doc.addImage(icon, "PNG", x - 3, y - 10, 6, 6, "", "FAST");
