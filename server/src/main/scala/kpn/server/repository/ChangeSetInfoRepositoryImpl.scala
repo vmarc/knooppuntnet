@@ -30,7 +30,8 @@ class ChangeSetInfoRepositoryImpl(changesetDatabase: Database) extends ChangeSet
     import ChangeSetInfoRepositoryImpl._
     changeSetIds.sliding(40, 40).flatMap { changeSetIdsSubset =>
       val ids = changeSetIdsSubset.map(docId)
-      changesetDatabase.docsWithIds(ids, classOf[ViewResult], stale).rows.map(_.doc.changeSetInfo)
+      val rows = changesetDatabase.docsWithIds(ids, classOf[ViewResult], stale).rows
+      rows.filter(_.doc != null).map(_.doc.changeSetInfo)
     }.toSeq
   }
 
