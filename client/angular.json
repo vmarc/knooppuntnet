@@ -26,11 +26,11 @@
       "prefix": "kpn",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss",
+          "style": "scss",
           "inlineStyle": true,
           "inlineTemplate": true,
           "lintFix": true,
-          "spec": false,
+          "skipTests": true,
           "flat": true
         },
         "@schematics/angular:service": {
