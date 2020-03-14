@@ -6,4 +6,4 @@ nohup /kpn/java/bin/java \
   kpn.core.tools.backup.BackupTool \
   --localRoot /kpn/cache/ \
   --remoteRoot /cache-backup-files/ \
-  --directory 2014 >> /kpn/logs/backup-cache-stdout.log 2>&1 &
+  --directory 2019 >> /kpn/logs/backup-cache-stdout.log 2>&1 &
