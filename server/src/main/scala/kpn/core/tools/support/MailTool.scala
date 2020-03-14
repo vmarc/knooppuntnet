@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.support
 
 import kpn.core.mail.Mail
 import kpn.core.mail.MailConfigReader

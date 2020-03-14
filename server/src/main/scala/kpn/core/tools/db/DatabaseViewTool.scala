@@ -1,14 +1,12 @@
-package kpn.core.tools
+package kpn.core.tools.db
 
 import kpn.core.database.Database
 import kpn.core.database.doc.DesignDoc
 import kpn.core.database.doc.ViewDoc
 import kpn.core.database.views.analyzer.AnalyzerDesign
-import kpn.core.database.views.changes.ChangesDesign
 import kpn.core.database.views.common.Design
 import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.planner.PlannerDesign
-import kpn.core.database.views.poi.PoiDesign
 import kpn.core.database.views.tile.TileDesign
 import kpn.core.db.couch.Couch
 import kpn.core.util.Util

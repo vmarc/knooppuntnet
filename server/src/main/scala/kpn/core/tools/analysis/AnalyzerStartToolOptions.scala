@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.analysis
 
 object AnalyzerStartToolOptions {
 

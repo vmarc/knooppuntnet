@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.tile
 
 object TileToolOptions {
   def parse(args: Array[String]): Option[TileToolOptions] = {

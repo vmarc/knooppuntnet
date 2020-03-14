@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.analysis
 
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext

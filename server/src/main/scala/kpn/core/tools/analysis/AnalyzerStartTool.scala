@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.analysis
 
 import akka.actor.ActorSystem
 import kpn.api.common.ReplicationId

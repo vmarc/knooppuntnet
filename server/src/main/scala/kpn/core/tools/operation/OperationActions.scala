@@ -1,9 +1,9 @@
 package kpn.core.tools.operation
 
 import kpn.core.replicate.ReplicationStateRepositoryImpl
-import kpn.core.tools.Stop
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
+import kpn.core.tools.support.Stop
 
 import scala.sys.process.Process
 

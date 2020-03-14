@@ -11,7 +11,6 @@ import kpn.core.database.doc.TimestampDoc
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
-import kpn.core.tools.db.NetworkInfoBuilder
 import org.springframework.stereotype.Component
 
 @Component

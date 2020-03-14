@@ -1,4 +1,4 @@
-package kpn.core.tools.db
+package kpn.server.repository
 
 import kpn.api.common.LatLon
 import kpn.api.common.LatLonImpl

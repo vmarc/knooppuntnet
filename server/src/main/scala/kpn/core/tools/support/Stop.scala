@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.support
 
 import javax.management.JMX
 import javax.management.ObjectName

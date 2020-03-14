@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.support
 
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.DocumentView

@@ -1,4 +1,4 @@
-package kpn.core.tools
+package kpn.core.tools.support
 
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
