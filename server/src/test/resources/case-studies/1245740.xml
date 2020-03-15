@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
+	<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+	<meta osm_base="2020-03-15T09:20:02Z"/>
+
+	<node id="243880917" lat="50.9385646" lon="5.1315458" version="2" timestamp="2012-12-23T18:51:38Z" changeset="14381803" uid="911613" user="StijnRR"/>
+	<node id="243880918" lat="50.9398494" lon="5.1312700" version="4" timestamp="2014-05-03T15:29:54Z" changeset="22107360" uid="911613" user="StijnRR"/>
+	<node id="243880920" lat="50.9411037" lon="5.1290057" version="1" timestamp="2008-01-28T20:09:51Z" changeset="705303" uid="15188" user="Polyglot">
+		<tag k="created_by" v="JOSM"/>
+	</node>
+	<node id="243880921" lat="50.9421472" lon="5.1278604" version="2" timestamp="2013-06-28T19:43:33Z" changeset="16743909" uid="911613" user="StijnRR"/>
+	<node id="243880922" lat="50.9435620" lon="5.1259095" version="4" timestamp="2013-10-10T17:48:45Z" changeset="18285132" uid="911613" user="StijnRR"/>
+	<node id="243880923" lat="50.9450495" lon="5.1266585" version="2" timestamp="2012-06-24T12:50:38Z" changeset="11999694" uid="310392" user="meet00"/>
+	<node id="243880928" lat="50.9483904" lon="5.1166507" version="5" timestamp="2012-12-22T22:01:32Z" changeset="14371447" uid="911613" user="StijnRR"/>
+	<node id="261937618" lat="50.9571741" lon="5.1164581" version="3" timestamp="2014-03-13T19:03:07Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="261937622" lat="50.9515877" lon="5.1166052" version="3" timestamp="2017-01-22T18:33:09Z" changeset="45375856" uid="911613" user="StijnRR"/>
+	<node id="261937624" lat="50.9511182" lon="5.1165728" version="3" timestamp="2014-03-13T19:03:07Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="261937627" lat="50.9507444" lon="5.1164539" version="3" timestamp="2014-03-13T19:03:07Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="261937629" lat="50.9498515" lon="5.1160499" version="5" timestamp="2017-11-16T20:27:35Z" changeset="53854501" uid="911613" user="StijnRR">
+		<tag k="traffic_sign" v="city_limit"/>
+	</node>
+	<node id="297344490" lat="50.9608261" lon="5.1317412" version="5" timestamp="2019-09-18T10:37:48Z" changeset="74618304" uid="553736" user="A67-A67">
+		<tag k="network:type" v="node_network"/>
+		<tag k="rcn_ref" v="314"/>
+	</node>
+	<node id="297345588" lat="50.9578540" lon="5.1217504" version="2" timestamp="2012-12-01T17:47:44Z" changeset="14114727" uid="911613" user="StijnRR"/>
+	<node id="297345589" lat="50.9579262" lon="5.1218254" version="3" timestamp="2012-12-23T18:51:44Z" changeset="14381803" uid="911613" user="StijnRR"/>
+	<node id="297345590" lat="50.9581495" lon="5.1220843" version="2" timestamp="2012-12-23T18:51:40Z" changeset="14381803" uid="911613" user="StijnRR"/>
+	<node id="297345591" lat="50.9582219" lon="5.1222396" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345592" lat="50.9582976" lon="5.1224370" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345593" lat="50.9583355" lon="5.1226001" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345594" lat="50.9583733" lon="5.1228747" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345595" lat="50.9584166" lon="5.1230721" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345596" lat="50.9584922" lon="5.1232867" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345597" lat="50.9585950" lon="5.1235013" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345598" lat="50.9589139" lon="5.1242137" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345599" lat="50.9592275" lon="5.1248660" version="1" timestamp="2008-09-15T22:14:45Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345600" lat="50.9594546" lon="5.1254153" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345601" lat="50.9595032" lon="5.1256127" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345602" lat="50.9595735" lon="5.1259131" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345603" lat="50.9596438" lon="5.1263165" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345605" lat="50.9597141" lon="5.1265826" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345606" lat="50.9598654" lon="5.1270719" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345607" lat="50.9600114" lon="5.1275868" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345608" lat="50.9600942" lon="5.1279687" version="2" timestamp="2013-07-07T16:51:18Z" changeset="16863227" uid="138772" user="lodde1949"/>
+	<node id="297345609" lat="50.9601303" lon="5.1284709" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345610" lat="50.9601655" lon="5.1288641" version="2" timestamp="2013-07-07T16:51:18Z" changeset="16863227" uid="138772" user="lodde1949"/>
+	<node id="297345611" lat="50.9602168" lon="5.1292348" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345612" lat="50.9602763" lon="5.1295438" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345613" lat="50.9604547" lon="5.1302133" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297345614" lat="50.9606547" lon="5.1310029" version="1" timestamp="2008-09-15T22:14:46Z" changeset="643562" uid="45448" user="Wim Poulmans"/>
+	<node id="297533465" lat="50.9485088" lon="5.1207288" version="2" timestamp="2017-02-05T17:22:08Z" changeset="45833634" uid="672253" user="JanFi"/>
+	<node id="297533469" lat="50.9483097" lon="5.1193652" version="2" timestamp="2010-12-09T22:05:44Z" changeset="6600225" uid="15188" user="Polyglot"/>
+	<node id="297533472" lat="50.9483334" lon="5.1185394" version="3" timestamp="2013-11-11T00:29:29Z" changeset="18827401" uid="15188" user="Polyglot"/>
+	<node id="297533648" lat="50.9453814" lon="5.1255138" version="2" timestamp="2013-07-06T14:33:40Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="297533650" lat="50.9455392" lon="5.1245322" version="1" timestamp="2008-09-16T19:30:39Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297533654" lat="50.9459795" lon="5.1235934" version="2" timestamp="2013-07-06T14:33:40Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="297533656" lat="50.9468857" lon="5.1228757" version="1" timestamp="2008-09-16T19:30:39Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297533657" lat="50.9472372" lon="5.1225324" version="1" timestamp="2008-09-16T19:30:39Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297533658" lat="50.9473392" lon="5.1223594" version="2" timestamp="2013-07-06T14:33:40Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="297533662" lat="50.9483583" lon="5.1212771" version="2" timestamp="2016-03-21T20:24:03Z" changeset="37985627" uid="911613" user="StijnRR"/>
+	<node id="297533853" lat="50.9483340" lon="5.1196033" version="2" timestamp="2017-11-19T15:37:02Z" changeset="53925743" uid="911613" user="StijnRR">
+		<tag k="traffic_sign" v="city_limit"/>
+	</node>
+	<node id="297533854" lat="50.9483019" lon="5.1191000" version="2" timestamp="2010-12-09T22:05:29Z" changeset="6600225" uid="15188" user="Polyglot"/>
+	<node id="297534368" lat="50.9483615" lon="5.1179151" version="3" timestamp="2013-11-11T00:29:29Z" changeset="18827401" uid="15188" user="Polyglot"/>
+	<node id="297534370" lat="50.9486432" lon="5.1179232" version="1" timestamp="2008-09-16T19:32:25Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297534371" lat="50.9487621" lon="5.1178803" version="1" timestamp="2008-09-16T19:32:25Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297534372" lat="50.9488746" lon="5.1177466" version="3" timestamp="2017-11-19T15:37:02Z" changeset="53925743" uid="911613" user="StijnRR">
+		<tag k="traffic_sign" v="city_limit"/>
+	</node>
+	<node id="297534373" lat="50.9489490" lon="5.1176199" version="4" timestamp="2017-11-19T15:37:02Z" changeset="53925743" uid="911613" user="StijnRR"/>
+	<node id="297534375" lat="50.9491470" lon="5.1172175" version="4" timestamp="2017-11-19T15:37:02Z" changeset="53925743" uid="911613" user="StijnRR"/>
+	<node id="297535245" lat="50.9452147" lon="5.1263947" version="1" timestamp="2008-09-16T19:35:28Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297535246" lat="50.9452772" lon="5.1261067" version="2" timestamp="2013-07-06T14:33:40Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="297535247" lat="50.9454689" lon="5.1249957" version="1" timestamp="2008-09-16T19:35:28Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297535253" lat="50.9475833" lon="5.1220689" version="1" timestamp="2008-09-16T19:35:29Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297535562" lat="50.9456852" lon="5.1239486" version="1" timestamp="2008-09-16T19:36:46Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297535564" lat="50.9463449" lon="5.1232962" version="1" timestamp="2008-09-16T19:36:46Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297536031" lat="50.9456041" lon="5.1242060" version="1" timestamp="2008-09-16T19:38:24Z" changeset="649824" uid="45448" user="Wim Poulmans"/>
+	<node id="297536032" lat="50.9458032" lon="5.1237685" version="2" timestamp="2013-07-06T14:33:40Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="297540081" lat="50.9585953" lon="5.1171371" version="3" timestamp="2013-09-28T15:39:00Z" changeset="18078611" uid="911613" user="StijnRR"/>
+	<node id="297540082" lat="50.9586103" lon="5.1173783" version="2" timestamp="2013-09-28T15:39:00Z" changeset="18078611" uid="911613" user="StijnRR"/>
+	<node id="297540084" lat="50.9586599" lon="5.1178006" version="3" timestamp="2013-09-28T15:39:00Z" changeset="18078611" uid="911613" user="StijnRR"/>
+	<node id="297540086" lat="50.9585202" lon="5.1192974" version="2" timestamp="2013-07-08T15:36:17Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="297540087" lat="50.9584563" lon="5.1199578" version="3" timestamp="2013-09-28T15:39:00Z" changeset="18078611" uid="911613" user="StijnRR"/>
+	<node id="297540088" lat="50.9584422" lon="5.1206466" version="3" timestamp="2013-07-08T15:36:17Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="297540090" lat="50.9584867" lon="5.1211984" version="2" timestamp="2012-12-01T17:47:44Z" changeset="14114727" uid="911613" user="StijnRR"/>
+	<node id="297540091" lat="50.9584049" lon="5.1212664" version="3" timestamp="2013-07-08T15:36:17Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="297540092" lat="50.9581698" lon="5.1212697" version="2" timestamp="2012-12-01T17:47:44Z" changeset="14114727" uid="911613" user="StijnRR"/>
+	<node id="297540093" lat="50.9580447" lon="5.1213525" version="2" timestamp="2012-12-01T17:47:44Z" changeset="14114727" uid="911613" user="StijnRR"/>
+	<node id="297540230" lat="50.9586455" lon="5.1185364" version="2" timestamp="2013-09-28T15:39:00Z" changeset="18078611" uid="911613" user="StijnRR"/>
+	<node id="297540231" lat="50.9584882" lon="5.1210415" version="2" timestamp="2013-07-08T15:36:17Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="297540383" lat="50.9585467" lon="5.1165598" version="3" timestamp="2012-12-01T17:47:44Z" changeset="14114727" uid="911613" user="StijnRR"/>
+	<node id="354928383" lat="50.9482329" lon="5.1143104" version="3" timestamp="2013-11-25T21:18:45Z" changeset="19117401" uid="911613" user="StijnRR"/>
+	<node id="354928390" lat="50.9482106" lon="5.1148655" version="3" timestamp="2013-11-25T21:18:45Z" changeset="19117401" uid="911613" user="StijnRR">
+		<tag k="highway" v="crossing"/>
+	</node>
+	<node id="354928413" lat="50.9483632" lon="5.1162612" version="3" timestamp="2017-11-18T20:31:19Z" changeset="53910628" uid="911613" user="StijnRR">
+		<tag k="highway" v="crossing"/>
+	</node>
+	<node id="354928417" lat="50.9483943" lon="5.1168731" version="7" timestamp="2018-02-01T14:35:36Z" changeset="55967782" uid="1927048" user="Schakkebroek"/>
+	<node id="393447981" lat="50.9360725" lon="5.1323281" version="6" timestamp="2019-09-18T10:37:48Z" changeset="74618304" uid="553736" user="A67-A67">
+		<tag k="network:type" v="node_network"/>
+		<tag k="rcn_ref" v="353"/>
+	</node>
+	<node id="454129087" lat="50.9485553" lon="5.1141951" version="3" timestamp="2013-10-02T20:32:29Z" changeset="18151011" uid="911613" user="StijnRR"/>
+	<node id="849320384" lat="50.9481926" lon="5.1145647" version="4" timestamp="2013-11-25T21:18:46Z" changeset="19117401" uid="911613" user="StijnRR"/>
+	<node id="849320390" lat="50.9483790" lon="5.1164735" version="3" timestamp="2011-08-22T12:54:04Z" changeset="9093889" uid="310392" user="meet00"/>
+	<node id="1016985802" lat="50.9579280" lon="5.1165068" version="3" timestamp="2014-03-13T19:03:03Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="1016985912" lat="50.9577647" lon="5.1164948" version="3" timestamp="2014-03-13T19:03:03Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="1030096501" lat="50.9486806" lon="5.1142371" version="3" timestamp="2013-10-02T20:32:24Z" changeset="18151011" uid="911613" user="StijnRR"/>
+	<node id="1058907809" lat="50.9557852" lon="5.1164861" version="2" timestamp="2014-03-13T19:03:03Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="1365282900" lat="50.9389066" lon="5.1314595" version="3" timestamp="2018-01-23T17:30:13Z" changeset="55691082" uid="911613" user="StijnRR"/>
+	<node id="1393954987" lat="50.9580830" lon="5.1220017" version="2" timestamp="2012-12-23T18:51:43Z" changeset="14381803" uid="911613" user="StijnRR"/>
+	<node id="1800525795" lat="50.9451310" lon="5.1265667" version="1" timestamp="2012-06-24T12:50:38Z" changeset="11999694" uid="310392" user="meet00"/>
+	<node id="1800560164" lat="50.9539331" lon="5.1165396" version="2" timestamp="2014-03-13T19:03:04Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="1990817379" lat="50.9492410" lon="5.1148446" version="2" timestamp="2017-01-22T18:33:10Z" changeset="45375856" uid="911613" user="StijnRR"/>
+	<node id="1992823825" lat="50.9483281" lon="5.1157255" version="2" timestamp="2017-11-19T15:37:03Z" changeset="53925743" uid="911613" user="StijnRR"/>
+	<node id="2044451219" lat="50.9577074" lon="5.1164908" version="3" timestamp="2014-03-13T19:03:05Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="2044451356" lat="50.9578418" lon="5.1216928" version="1" timestamp="2012-12-01T17:47:41Z" changeset="14114727" uid="911613" user="StijnRR"/>
+	<node id="2044451358" lat="50.9579247" lon="5.1215243" version="1" timestamp="2012-12-01T17:47:41Z" changeset="14114727" uid="911613" user="StijnRR"/>
+	<node id="2080278215" lat="50.9374961" lon="5.1318147" version="1" timestamp="2012-12-23T18:51:36Z" changeset="14381803" uid="911613" user="StijnRR"/>
+	<node id="2080278216" lat="50.9369348" lon="5.1319528" version="1" timestamp="2012-12-23T18:51:36Z" changeset="14381803" uid="911613" user="StijnRR"/>
+	<node id="2080278217" lat="50.9366814" lon="5.1320542" version="1" timestamp="2012-12-23T18:51:36Z" changeset="14381803" uid="911613" user="StijnRR"/>
+	<node id="2098290521" lat="50.9494869" lon="5.1151246" version="2" timestamp="2013-11-25T21:18:44Z" changeset="19117401" uid="911613" user="StijnRR"/>
+	<node id="2098290576" lat="50.9485521" lon="5.1211210" version="2" timestamp="2013-10-02T20:32:27Z" changeset="18151011" uid="911613" user="StijnRR"/>
+	<node id="2098290578" lat="50.9485093" lon="5.1209774" version="1" timestamp="2013-01-06T16:28:11Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098290637" lat="50.9494387" lon="5.1154923" version="1" timestamp="2013-01-06T16:28:12Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098290648" lat="50.9493390" lon="5.1160583" version="1" timestamp="2013-01-06T16:28:12Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098290657" lat="50.9495020" lon="5.1161341" version="2" timestamp="2014-03-13T19:03:05Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="2098290662" lat="50.9495288" lon="5.1160946" version="3" timestamp="2014-03-13T19:03:05Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="2098290679" lat="50.9496067" lon="5.1156188" version="2" timestamp="2013-01-06T16:49:10Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098290697" lat="50.9496016" lon="5.1155680" version="2" timestamp="2016-03-21T20:24:02Z" changeset="37985627" uid="911613" user="StijnRR"/>
+	<node id="2098290714" lat="50.9491886" lon="5.1171636" version="3" timestamp="2017-01-22T18:33:10Z" changeset="45375856" uid="911613" user="StijnRR"/>
+	<node id="2098290715" lat="50.9492224" lon="5.1168817" version="1" timestamp="2013-01-06T16:28:12Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098311588" lat="50.9496714" lon="5.1160300" version="2" timestamp="2014-03-13T19:03:05Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="2098311708" lat="50.9496580" lon="5.1157246" version="1" timestamp="2013-01-06T16:49:06Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098311761" lat="50.9498121" lon="5.1159590" version="1" timestamp="2013-01-06T16:49:07Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098311791" lat="50.9497209" lon="5.1158276" version="1" timestamp="2013-01-06T16:49:08Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2098311826" lat="50.9497453" lon="5.1160454" version="1" timestamp="2013-01-06T16:49:08Z" changeset="14551040" uid="911613" user="StijnRR"/>
+	<node id="2101920364" lat="50.9494193" lon="5.1160911" version="1" timestamp="2013-01-08T18:42:34Z" changeset="14578193" uid="911613" user="StijnRR"/>
+	<node id="2101920392" lat="50.9495192" lon="5.1155313" version="4" timestamp="2017-02-24T11:37:12Z" changeset="46364874" uid="672253" user="JanFi">
+		<tag k="highway" v="crossing"/>
+	</node>
+	<node id="2167537839" lat="50.9574172" lon="5.1164711" version="2" timestamp="2014-03-13T19:03:05Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="2288282063" lat="50.9578634" lon="5.1216488" version="1" timestamp="2013-05-01T17:42:53Z" changeset="15936225" uid="911613" user="StijnRR"/>
+	<node id="2288282116" lat="50.9578429" lon="5.1217254" version="1" timestamp="2013-05-01T17:42:54Z" changeset="15936225" uid="911613" user="StijnRR"/>
+	<node id="2364814949" lat="50.9397376" lon="5.1313072" version="2" timestamp="2014-03-07T17:47:18Z" changeset="20974070" uid="1927048" user="Schakkebroek"/>
+	<node id="2364814958" lat="50.9432491" lon="5.1259129" version="2" timestamp="2013-10-10T17:48:45Z" changeset="18285132" uid="911613" user="StijnRR"/>
+	<node id="2364814963" lat="50.9415295" lon="5.1285736" version="2" timestamp="2013-07-06T14:33:39Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="2364814965" lat="50.9409528" lon="5.1292248" version="1" timestamp="2013-06-28T19:43:32Z" changeset="16743909" uid="911613" user="StijnRR"/>
+	<node id="2364814966" lat="50.9430687" lon="5.1261088" version="3" timestamp="2013-10-10T17:48:45Z" changeset="18285132" uid="911613" user="StijnRR"/>
+	<node id="2364814972" lat="50.9420460" lon="5.1279967" version="2" timestamp="2013-07-06T14:33:39Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="2376064109" lat="50.9482860" lon="5.1153530" version="1" timestamp="2013-07-06T13:24:35Z" changeset="16848766" uid="138772" user="lodde1949"/>
+	<node id="2376136353" lat="50.9452474" lon="5.1262661" version="1" timestamp="2013-07-06T14:33:22Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="2376136364" lat="50.9456394" lon="5.1240643" version="1" timestamp="2013-07-06T14:33:22Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="2376136385" lat="50.9458880" lon="5.1236734" version="1" timestamp="2013-07-06T14:33:22Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="2376136455" lat="50.9470983" lon="5.1226932" version="1" timestamp="2013-07-06T14:33:24Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="2376136488" lat="50.9473927" lon="5.1222811" version="1" timestamp="2013-07-06T14:33:24Z" changeset="16849536" uid="138772" user="lodde1949"/>
+	<node id="2377164802" lat="50.9600590" lon="5.1277510" version="1" timestamp="2013-07-07T16:50:55Z" changeset="16863227" uid="138772" user="lodde1949"/>
+	<node id="2378086905" lat="50.9584428" lon="5.1203450" version="1" timestamp="2013-07-08T15:36:00Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="2378086907" lat="50.9584525" lon="5.1212509" version="1" timestamp="2013-07-08T15:36:00Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="2378086915" lat="50.9584768" lon="5.1196518" version="1" timestamp="2013-07-08T15:36:00Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="2378086920" lat="50.9585025" lon="5.1211285" version="1" timestamp="2013-07-08T15:36:00Z" changeset="16875234" uid="138772" user="lodde1949"/>
+	<node id="2475365575" lat="50.9586652" lon="5.1181397" version="1" timestamp="2013-09-28T15:38:36Z" changeset="18078611" uid="911613" user="StijnRR"/>
+	<node id="2475365578" lat="50.9607944" lon="5.1315906" version="1" timestamp="2013-09-28T15:38:36Z" changeset="18078611" uid="911613" user="StijnRR"/>
+	<node id="2480549300" lat="50.9484907" lon="5.1208590" version="1" timestamp="2013-10-02T20:32:09Z" changeset="18151011" uid="911613" user="StijnRR"/>
+	<node id="2480549316" lat="50.9490768" lon="5.1173368" version="2" timestamp="2017-11-19T15:37:03Z" changeset="53925743" uid="911613" user="StijnRR"/>
+	<node id="2491397883" lat="50.9433929" lon="5.1258651" version="1" timestamp="2013-10-10T17:48:38Z" changeset="18285132" uid="911613" user="StijnRR"/>
+	<node id="2551523687" lat="50.9483429" lon="5.1142831" version="1" timestamp="2013-11-25T21:18:19Z" changeset="19117401" uid="911613" user="StijnRR"/>
+	<node id="2551523714" lat="50.9494531" lon="5.1150898" version="1" timestamp="2013-11-25T21:18:19Z" changeset="19117401" uid="911613" user="StijnRR">
+		<tag k="highway" v="crossing"/>
+	</node>
+	<node id="2705797358" lat="50.9399384" lon="5.1311556" version="1" timestamp="2014-03-07T17:47:16Z" changeset="20974070" uid="1927048" user="Schakkebroek"/>
+	<node id="2705797359" lat="50.9404051" lon="5.1302874" version="1" timestamp="2014-03-07T17:47:16Z" changeset="20974070" uid="1927048" user="Schakkebroek"/>
+	<node id="2715831855" lat="50.9495921" lon="5.1160437" version="1" timestamp="2014-03-13T19:02:49Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="2715831856" lat="50.9509090" lon="5.1165147" version="1" timestamp="2014-03-13T19:02:49Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="2715831857" lat="50.9512753" lon="5.1165938" version="1" timestamp="2014-03-13T19:02:49Z" changeset="21087607" uid="911613" user="StijnRR"/>
+	<node id="3375256761" lat="50.9437401" lon="5.1259935" version="2" timestamp="2017-03-04T19:07:27Z" changeset="46579932" uid="911613" user="StijnRR"/>
+	<node id="4072318606" lat="50.9476699" lon="5.1219830" version="1" timestamp="2016-03-21T20:23:00Z" changeset="37985627" uid="911613" user="StijnRR"/>
+	<node id="4717087030" lat="50.9494517" lon="5.1152831" version="1" timestamp="2017-03-04T19:07:24Z" changeset="46579932" uid="911613" user="StijnRR"/>
+	<node id="5233463017" lat="50.9517579" lon="5.1166004" version="1" timestamp="2017-11-16T20:27:34Z" changeset="53854501" uid="911613" user="StijnRR">
+		<tag k="traffic_sign" v="city_limit"/>
+	</node>
+	<node id="5237027563" lat="50.9484358" lon="5.1142430" version="1" timestamp="2017-11-18T20:31:16Z" changeset="53910628" uid="911613" user="StijnRR">
+		<tag k="highway" v="crossing"/>
+	</node>
+	<node id="5238001462" lat="50.9484307" lon="5.1179203" version="1" timestamp="2017-11-19T15:37:01Z" changeset="53925743" uid="911613" user="StijnRR">
+		<tag k="highway" v="give_way"/>
+	</node>
+	<node id="5238001468" lat="50.9493369" lon="5.1149612" version="1" timestamp="2017-11-19T15:37:02Z" changeset="53925743" uid="911613" user="StijnRR"/>
+	<node id="5300878594" lat="50.9379610" lon="5.1316977" version="1" timestamp="2017-12-23T15:57:54Z" changeset="54866885" uid="579178" user="GuyVV"/>
+	<node id="6548965431" lat="50.9493005" lon="5.1149169" version="1" timestamp="2019-06-15T08:11:01Z" changeset="71273898" uid="911613" user="StijnRR"/>
+	<node id="6548965434" lat="50.9491654" lon="5.1147543" version="1" timestamp="2019-06-15T08:11:01Z" changeset="71273898" uid="911613" user="StijnRR"/>
+	<way id="27101306" version="10" timestamp="2014-11-17T20:40:30Z" changeset="26852138" uid="911613" user="StijnRR">
+		<nd ref="2288282063"/>
+		<nd ref="2044451356"/>
+		<nd ref="2288282116"/>
+		<nd ref="297345588"/>
+		<nd ref="297345589"/>
+		<tag k="highway" v="unclassified"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="27119092" version="10" timestamp="2019-04-16T20:42:53Z" changeset="69286671" uid="4816382" user="jul2">
+		<nd ref="297534372"/>
+		<nd ref="297534371"/>
+		<nd ref="297534370"/>
+		<nd ref="5238001462"/>
+		<nd ref="297534368"/>
+		<tag k="highway" v="residential"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="27119198" version="12" timestamp="2019-04-22T19:36:05Z" changeset="69465846" uid="4816382" user="jul2">
+		<nd ref="393447981"/>
+		<nd ref="2080278217"/>
+		<nd ref="2080278216"/>
+		<nd ref="2080278215"/>
+		<nd ref="5300878594"/>
+		<tag k="highway" v="unclassified"/>
+		<tag k="lit" v="no"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Zwarteveldstraat"/>
+		<tag k="surface" v="concrete"/>
+		<tag k="width" v="3"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="27119611" version="13" timestamp="2019-04-16T20:42:53Z" changeset="69286671" uid="4816382" user="jul2">
+		<nd ref="297533853"/>
+		<nd ref="297533465"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Grote Baan"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="27119613" version="13" timestamp="2017-11-16T20:27:36Z" changeset="53854501" uid="911613" user="StijnRR">
+		<nd ref="297534368"/>
+		<nd ref="354928417"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="name" v="Zwarte Duivelsstraat"/>
+		<tag k="source:maxspeed" v="BE-VLG:urban"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="38419240" version="14" timestamp="2019-06-15T08:11:01Z" changeset="71273898" uid="911613" user="StijnRR">
+		<nd ref="354928383"/>
+		<nd ref="2551523687"/>
+		<nd ref="5237027563"/>
+		<nd ref="454129087"/>
+		<nd ref="1030096501"/>
+		<nd ref="6548965434"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="highway" v="residential"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="maxweight" v="3.5"/>
+		<tag k="name" v="Koepoortstraat"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="oneway:bicycle" v="no"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="87456793" version="17" timestamp="2019-04-17T22:44:47Z" changeset="69325720" uid="4816382" user="jul2">
+		<nd ref="1016985912"/>
+		<nd ref="2044451219"/>
+		<nd ref="2167537839"/>
+		<nd ref="261937618"/>
+		<nd ref="1058907809"/>
+		<nd ref="1800560164"/>
+		<nd ref="5233463017"/>
+		<tag k="cycleway" v="track"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="lanes" v="2"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Mosstraat"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="87456804" version="10" timestamp="2019-04-17T22:44:47Z" changeset="69325720" uid="4816382" user="jul2">
+		<nd ref="1016985802"/>
+		<nd ref="1016985912"/>
+		<tag k="bridge" v="yes"/>
+		<tag k="cycleway" v="track"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="lanes" v="2"/>
+		<tag k="layer" v="1"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Mosstraat"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="125525546" version="4" timestamp="2017-09-10T14:56:34Z" changeset="51910300" uid="911613" user="StijnRR">
+		<nd ref="297345589"/>
+		<nd ref="1393954987"/>
+		<tag k="bridge" v="yes"/>
+		<tag k="highway" v="unclassified"/>
+		<tag k="layer" v="1"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="125525547" version="5" timestamp="2014-11-17T20:40:29Z" changeset="26852138" uid="911613" user="StijnRR">
+		<nd ref="1393954987"/>
+		<nd ref="297345590"/>
+		<nd ref="297345591"/>
+		<nd ref="297345592"/>
+		<nd ref="297345593"/>
+		<nd ref="297345594"/>
+		<nd ref="297345595"/>
+		<nd ref="297345596"/>
+		<nd ref="297345597"/>
+		<nd ref="297345598"/>
+		<nd ref="297345599"/>
+		<nd ref="297345600"/>
+		<nd ref="297345601"/>
+		<nd ref="297345602"/>
+		<nd ref="297345603"/>
+		<nd ref="297345605"/>
+		<nd ref="297345606"/>
+		<nd ref="297345607"/>
+		<nd ref="2377164802"/>
+		<nd ref="297345608"/>
+		<nd ref="297345609"/>
+		<nd ref="297345610"/>
+		<nd ref="297345611"/>
+		<nd ref="297345612"/>
+		<nd ref="297345613"/>
+		<nd ref="297345614"/>
+		<nd ref="2475365578"/>
+		<nd ref="297344490"/>
+		<tag k="embankment" v="yes"/>
+		<tag k="highway" v="unclassified"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="197710268" version="7" timestamp="2017-11-19T15:37:13Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="849320384"/>
+		<nd ref="354928383"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="maxweight" v="3.5"/>
+		<tag k="name" v="Markt"/>
+		<tag k="source:maxspeed" v="BE-VLG:urban"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="197710273" version="7" timestamp="2019-06-15T08:11:01Z" changeset="71273898" uid="911613" user="StijnRR">
+		<nd ref="849320390"/>
+		<nd ref="354928413"/>
+		<nd ref="1992823825"/>
+		<nd ref="2376064109"/>
+		<nd ref="354928390"/>
+		<nd ref="849320384"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="maxweight" v="3.5"/>
+		<tag k="name" v="Nederstraat"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="oneway:bicycle" v="no"/>
+		<tag k="source:maxspeed" v="BE-VLG:urban"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="199831795" version="3" timestamp="2017-11-19T15:37:14Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290648"/>
+		<nd ref="2101920364"/>
+		<nd ref="2098290657"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="199831804" version="3" timestamp="2017-11-19T15:37:14Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290697"/>
+		<nd ref="2101920392"/>
+		<nd ref="2098290637"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="199834024" version="4" timestamp="2017-11-19T15:37:15Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290662"/>
+		<nd ref="2715831855"/>
+		<nd ref="2098311588"/>
+		<nd ref="2098311826"/>
+		<nd ref="261937629"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="206702474" version="6" timestamp="2017-02-05T17:22:13Z" changeset="45833634" uid="672253" user="JanFi">
+		<nd ref="297540383"/>
+		<nd ref="297540081"/>
+		<nd ref="297540082"/>
+		<nd ref="297540084"/>
+		<nd ref="2475365575"/>
+		<nd ref="297540230"/>
+		<nd ref="297540086"/>
+		<nd ref="2378086915"/>
+		<nd ref="297540087"/>
+		<nd ref="2378086905"/>
+		<nd ref="297540088"/>
+		<nd ref="297540231"/>
+		<nd ref="2378086920"/>
+		<nd ref="297540090"/>
+		<nd ref="2378086907"/>
+		<nd ref="297540091"/>
+		<nd ref="297540092"/>
+		<nd ref="297540093"/>
+		<nd ref="2044451358"/>
+		<nd ref="2288282063"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+	<way id="206702475" version="2" timestamp="2017-11-19T15:37:16Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290679"/>
+		<nd ref="2098290697"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="206702482" version="3" timestamp="2017-11-19T15:37:16Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290648"/>
+		<nd ref="2098290715"/>
+		<nd ref="2098290714"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="227834826" version="9" timestamp="2019-04-16T20:42:55Z" changeset="69286671" uid="4816382" user="jul2">
+		<nd ref="5233463017"/>
+		<nd ref="261937622"/>
+		<nd ref="2715831857"/>
+		<nd ref="261937624"/>
+		<nd ref="2715831856"/>
+		<nd ref="261937627"/>
+		<nd ref="261937629"/>
+		<tag k="cycleway" v="track"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="lanes" v="2"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="name" v="Mosstraat"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="227834827" version="4" timestamp="2017-11-16T20:28:06Z" changeset="53854501" uid="911613" user="StijnRR">
+		<nd ref="297533853"/>
+		<nd ref="297533469"/>
+		<nd ref="297533854"/>
+		<nd ref="297533472"/>
+		<nd ref="297534368"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="name" v="Zwarte Duivelsstraat"/>
+		<tag k="source:maxspeed" v="BE-VLG:urban"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="227834830" version="6" timestamp="2019-04-16T20:42:55Z" changeset="69286671" uid="4816382" user="jul2">
+		<nd ref="5238001468"/>
+		<nd ref="2551523714"/>
+		<nd ref="2098290521"/>
+		<tag k="highway" v="residential"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="maxweight" v="3.5"/>
+		<tag k="name" v="Koepoortstraat"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="227841682" version="10" timestamp="2019-04-03T18:05:56Z" changeset="68851590" uid="4816382" user="jul2">
+		<nd ref="2364814965"/>
+		<nd ref="243880920"/>
+		<nd ref="2364814963"/>
+		<nd ref="2364814972"/>
+		<nd ref="243880921"/>
+		<nd ref="2364814966"/>
+		<nd ref="2364814958"/>
+		<nd ref="2491397883"/>
+		<nd ref="243880922"/>
+		<nd ref="3375256761"/>
+		<nd ref="243880923"/>
+		<tag k="highway" v="unclassified"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="name" v="Kasteelstraat"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="width" v="3"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="248357260" version="4" timestamp="2019-04-16T20:42:56Z" changeset="69286671" uid="4816382" user="jul2">
+		<nd ref="2098290714"/>
+		<nd ref="297534375"/>
+		<nd ref="2480549316"/>
+		<nd ref="297534373"/>
+		<tag k="cycleway" v="opposite"/>
+		<tag k="highway" v="residential"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="oneway:bicycle" v="no"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="264932912" version="5" timestamp="2019-05-03T23:24:23Z" changeset="69863292" uid="4816382" user="jul2">
+		<nd ref="2364814949"/>
+		<nd ref="243880918"/>
+		<nd ref="2705797358"/>
+		<nd ref="2705797359"/>
+		<nd ref="2364814965"/>
+		<tag k="highway" v="residential"/>
+		<tag k="lit" v="yes"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Kasteelstraat"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="width" v="3"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="279139463" version="7" timestamp="2019-04-03T18:05:56Z" changeset="68851590" uid="4816382" user="jul2">
+		<nd ref="243880923"/>
+		<nd ref="1800525795"/>
+		<nd ref="297535245"/>
+		<nd ref="2376136353"/>
+		<nd ref="297535246"/>
+		<nd ref="297533648"/>
+		<nd ref="297535247"/>
+		<nd ref="297533650"/>
+		<nd ref="297536031"/>
+		<nd ref="2376136364"/>
+		<nd ref="297535562"/>
+		<nd ref="297536032"/>
+		<nd ref="2376136385"/>
+		<nd ref="297533654"/>
+		<nd ref="297535564"/>
+		<nd ref="297533656"/>
+		<nd ref="2376136455"/>
+		<nd ref="297533657"/>
+		<nd ref="297533658"/>
+		<nd ref="2376136488"/>
+		<nd ref="297535253"/>
+		<nd ref="4072318606"/>
+		<nd ref="297533662"/>
+		<nd ref="2098290576"/>
+		<tag k="highway" v="unclassified"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="name" v="Kasteelstraat"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="width" v="3"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="279139582" version="6" timestamp="2019-05-03T23:24:23Z" changeset="69863292" uid="4816382" user="jul2">
+		<nd ref="1365282900"/>
+		<nd ref="2364814949"/>
+		<tag k="highway" v="residential"/>
+		<tag k="lit" v="yes"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Zwarteveldstraat"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="width" v="3"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="350503565" version="3" timestamp="2017-11-19T15:37:28Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="354928417"/>
+		<nd ref="243880928"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="maxweight" v="3.5"/>
+		<tag k="name" v="Zwarte Duivelsstraat"/>
+		<tag k="source:maxspeed" v="BE-VLG:urban"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="472368344" version="3" timestamp="2019-04-17T22:44:48Z" changeset="69325720" uid="4816382" user="jul2">
+		<nd ref="297540383"/>
+		<nd ref="1016985802"/>
+		<tag k="cycleway" v="track"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="lanes" v="2"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Mosstraat"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="472368345" version="2" timestamp="2017-11-19T15:37:29Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="261937629"/>
+		<nd ref="2098311761"/>
+		<nd ref="2098311791"/>
+		<nd ref="2098311708"/>
+		<nd ref="2098290679"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="472368348" version="2" timestamp="2017-11-19T15:37:29Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="297533465"/>
+		<nd ref="2480549300"/>
+		<nd ref="2098290578"/>
+		<nd ref="2098290576"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="no"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="478490978" version="2" timestamp="2017-11-19T15:37:30Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290637"/>
+		<nd ref="2098290648"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="478490979" version="2" timestamp="2017-11-19T15:37:30Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290657"/>
+		<nd ref="2098290662"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="478490981" version="2" timestamp="2017-11-19T15:37:30Z" changeset="53925743" uid="911613" user="StijnRR">
+		<nd ref="2098290521"/>
+		<nd ref="4717087030"/>
+		<nd ref="2098290637"/>
+		<tag k="highway" v="cycleway"/>
+		<tag k="surface" v="paved"/>
+	</way>
+	<way id="541715594" version="2" timestamp="2019-06-15T08:11:01Z" changeset="71273898" uid="911613" user="StijnRR">
+		<nd ref="6548965434"/>
+		<nd ref="1990817379"/>
+		<nd ref="6548965431"/>
+		<nd ref="5238001468"/>
+		<tag k="highway" v="residential"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="maxweight" v="3.5"/>
+		<tag k="name" v="Koepoortstraat"/>
+		<tag k="source:maxspeed" v="BE-VLG:urban"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<way id="541715596" version="2" timestamp="2019-04-29T12:06:44Z" changeset="69693225" uid="4816382" user="jul2">
+		<nd ref="297534373"/>
+		<nd ref="297534372"/>
+		<tag k="highway" v="residential"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="548719938" version="2" timestamp="2019-05-03T23:24:23Z" changeset="69863292" uid="4816382" user="jul2">
+		<nd ref="5300878594"/>
+		<nd ref="243880917"/>
+		<nd ref="1365282900"/>
+		<tag k="highway" v="unclassified"/>
+		<tag k="lit" v="yes"/>
+		<tag k="maxspeed" v="70"/>
+		<tag k="name" v="Zwarteveldstraat"/>
+		<tag k="surface" v="concrete"/>
+		<tag k="width" v="3"/>
+		<tag k="zone:traffic" v="BE:rural"/>
+	</way>
+	<way id="697282030" version="1" timestamp="2019-06-15T08:11:01Z" changeset="71273898" uid="911613" user="StijnRR">
+		<nd ref="243880928"/>
+		<nd ref="849320390"/>
+		<tag k="highway" v="tertiary"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="maxweight" v="3.5"/>
+		<tag k="name" v="Nederstraat"/>
+		<tag k="source:maxspeed" v="BE-VLG:urban"/>
+		<tag k="surface" v="asphalt"/>
+		<tag k="zone:traffic" v="BE:urban"/>
+	</way>
+	<relation id="1245740" version="31" timestamp="2019-12-30T10:16:10Z" changeset="79008231" uid="911613" user="StijnRR">
+		<member type="way" ref="125525547" role=""/>
+		<member type="way" ref="125525546" role=""/>
+		<member type="way" ref="27101306" role=""/>
+		<member type="way" ref="206702474" role=""/>
+		<member type="way" ref="472368344" role=""/>
+		<member type="way" ref="87456804" role=""/>
+		<member type="way" ref="87456793" role=""/>
+		<member type="way" ref="227834826" role=""/>
+		<member type="way" ref="472368345" role="forward"/>
+		<member type="way" ref="206702475" role="forward"/>
+		<member type="way" ref="199831804" role="forward"/>
+		<member type="way" ref="478490978" role="forward"/>
+		<member type="way" ref="206702482" role="forward"/>
+		<member type="way" ref="248357260" role="forward"/>
+		<member type="way" ref="541715596" role="forward"/>
+		<member type="way" ref="27119092" role="forward"/>
+		<member type="way" ref="199834024" role="forward"/>
+		<member type="way" ref="478490979" role="forward"/>
+		<member type="way" ref="199831795" role="forward"/>
+		<member type="way" ref="478490978" role="forward"/>
+		<member type="way" ref="478490981" role="forward"/>
+		<member type="way" ref="227834830" role="forward"/>
+		<member type="way" ref="541715594" role="forward"/>
+		<member type="way" ref="38419240" role="forward"/>
+		<member type="way" ref="197710268" role="forward"/>
+		<member type="way" ref="197710273" role="forward"/>
+		<member type="way" ref="697282030" role="forward"/>
+		<member type="way" ref="350503565" role="forward"/>
+		<member type="way" ref="27119613" role="forward"/>
+		<member type="way" ref="227834827" role=""/>
+		<member type="way" ref="27119611" role=""/>
+		<member type="way" ref="472368348" role=""/>
+		<member type="way" ref="279139463" role=""/>
+		<member type="way" ref="227841682" role=""/>
+		<member type="way" ref="264932912" role=""/>
+		<member type="way" ref="279139582" role=""/>
+		<member type="way" ref="548719938" role=""/>
+		<member type="way" ref="27119198" role=""/>
+		<tag k="network" v="rcn"/>
+		<tag k="network:type" v="node_network"/>
+		<tag k="note" v="314-353"/>
+		<tag k="route" v="bicycle"/>
+		<tag k="type" v="route"/>
+	</relation>
+
+</osm>
