@@ -5217,7 +5217,7 @@
         <target>Gebied niet gevonden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-response.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">
@@ -5573,6 +5573,14 @@
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="route.location.none" datatype="html">
+        <source>None</source>
+        <target>Geen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/route/details/route-location.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="route.no-network-references" datatype="html">
         <source>None</source>
         <target>Geen</target>
@@ -5769,12 +5777,20 @@
           <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="route.location" datatype="html">
+        <source>Location</source>
+        <target>Locatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="route.structure" datatype="html">
         <source>Structure</source>
         <target>Structuur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.facts" datatype="html">
@@ -5782,7 +5798,7 @@
         <target>Feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-map-page.route-not-found" datatype="html">
@@ -5842,7 +5858,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/facts/_subset-facts-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.node-refs" datatype="html">
@@ -5996,7 +6012,7 @@
         <target>Geen knooppuntwezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.title" datatype="html">
@@ -6012,7 +6028,7 @@
         <target>Geen routewezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-networks.table.network" datatype="html">
@@ -6668,12 +6684,20 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="node.location" datatype="html">
+        <source>Location</source>
+        <target>Locatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.networks" datatype="html">
         <source>Networks</source>
         <target>Netwerken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
@@ -6681,7 +6705,7 @@
         <target>Route wezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.facts" datatype="html">
@@ -6689,7 +6713,7 @@
         <target>Feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.version" datatype="html">
@@ -6910,6 +6934,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/components/node-page-header.component.ts</context>
           <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.location.none" datatype="html">
+        <source>None</source>
+        <target>Geen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-location.component.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview-table.detail" datatype="html">
