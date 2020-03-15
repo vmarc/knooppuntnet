@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
   selector: "kpn-icon-button",
@@ -57,14 +57,6 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
   `]
 })
 export class IconButtonComponent {
-
-  @Input() routerLink;
-  @Input() icon;
-
-  @Output() action = new EventEmitter<void>();
-
-  onClick() {
-    this.action.emit();
-  }
-
+  @Input() routerLink: string;
+  @Input() icon: string;
 }

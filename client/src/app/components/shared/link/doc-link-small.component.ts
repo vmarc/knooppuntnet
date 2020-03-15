@@ -36,7 +36,7 @@ import {Component, Input} from "@angular/core";
 })
 export class DocLinkSmallComponent {
 
-  @Input() subject;
+  @Input() subject: string;
 
   href(): string {
     return `docs/en.html#${this.subject}`;

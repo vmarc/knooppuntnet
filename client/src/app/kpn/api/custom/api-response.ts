@@ -7,7 +7,7 @@ export class ApiResponse<T> {
               public result?: T) {
   }
 
-  public static fromJSON<T>(jsonObject, resultsFromJSON: (jsonObject2) => T): ApiResponse<T> {
+  public static fromJSON<T>(jsonObject: any, resultsFromJSON: (jsonObject2: any) => T): ApiResponse<T> {
     if (!jsonObject) {
       return undefined;
     }

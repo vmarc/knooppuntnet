@@ -17,8 +17,8 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 })
 export class IndicatorDialogComponent {
 
-  @Input() letter;
-  @Input() color;
+  @Input() letter: string;
+  @Input() color: string;
 
   @Output() closeDialog = new EventEmitter<void>();
 

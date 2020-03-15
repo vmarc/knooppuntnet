@@ -8,7 +8,7 @@ export class BooleanFilter<T> extends Filter<T> {
 
   constructor(name: string,
               private readonly criterium: boolean,
-              private readonly getter: (T) => boolean,
+              private readonly getter: (row: T) => boolean,
               private readonly all: () => void,
               private readonly yes: () => void,
               private readonly no: () => void) {

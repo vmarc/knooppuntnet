@@ -42,6 +42,6 @@ import {Component, Input} from "@angular/core";
   `]
 })
 export class IndicatorIconComponent {
-  @Input() letter;
-  @Input() color;
+  @Input() letter: string;
+  @Input() color: string;
 }
