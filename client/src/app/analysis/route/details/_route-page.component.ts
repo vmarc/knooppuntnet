@@ -6,8 +6,8 @@ import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {RouteDetailsPage} from "../../../kpn/api/common/route/route-details-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {FactInfo} from "../../fact/fact-info";
 
@@ -72,6 +72,10 @@ import {FactInfo} from "../../fact/fact-info";
 
         <kpn-data title="Tags" i18n-title="@@route.tags">
           <kpn-tags-table [tags]="tags"></kpn-tags-table>
+        </kpn-data>
+
+        <kpn-data title="Location" i18n-title="@@route.location">
+          <kpn-route-location [locationAnalysis]="route.analysis.locationAnalysis"></kpn-route-location>
         </kpn-data>
 
         <div *ngIf="route.analysis && !isPageSmall()">

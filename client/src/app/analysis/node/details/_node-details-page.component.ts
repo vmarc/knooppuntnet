@@ -43,6 +43,10 @@ import {FactInfo} from "../../fact/fact-info";
           <kpn-tags-table [tags]="tags"></kpn-tags-table>
         </kpn-data>
 
+        <kpn-data title="Location" i18n-title="@@node.location">
+          <kpn-node-location [location]="nodeInfo.location"></kpn-node-location>
+        </kpn-data>
+
         <kpn-data title="Networks" i18n-title="@@node.networks">
           <kpn-node-network-references [nodeInfo]="nodeInfo" [references]="references.networkReferences"></kpn-node-network-references>
         </kpn-data>
