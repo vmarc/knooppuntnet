@@ -20,13 +20,12 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkMapPage
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.api.common.node.MapDetailNode
+import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
-import kpn.api.common.node.NodeReferences
 import kpn.api.common.planner.RouteLeg
-import kpn.api.common.route.MapDetailRoute
+import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -66,7 +65,9 @@ import kpn.server.api.analysis.pages.network.NetworkFactsPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkMapPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkNodesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkRoutesPageBuilder
+import kpn.server.api.analysis.pages.node.MapNodeDetailBuilder
 import kpn.server.api.analysis.pages.node.NodePageBuilder
+import kpn.server.api.analysis.pages.route.MapRouteDetailBuilder
 import kpn.server.api.analysis.pages.route.RoutePageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetChangesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactDetailsPageBuilder
@@ -109,6 +110,8 @@ class AnalysisFacadeImpl(
   networkChangesPageBuilder: NetworkChangesPageBuilder,
   poiPageBuilder: PoiPageBuilder,
   legBuilder: LegBuilder,
+  mapNodeDetailBuilder: MapNodeDetailBuilder,
+  mapRouteDetailBuilder: MapRouteDetailBuilder,
   locationPageBuilder: LocationPageBuilder,
   locationNodesPageBuilder: LocationNodesPageBuilder,
   locationRoutesPageBuilder: LocationRoutesPageBuilder,
@@ -276,37 +279,17 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def mapDetailNode(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapDetailNode] = {
-    val label = s"$user mapDetailNode(${networkType.name}, $nodeId)"
-    log.infoElapsed(s"$user mapDetailNode(${networkType.name}, $nodeId)") {
-      val page = nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
-        val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
-        val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)
-        val nodeReferences = NodeReferences(
-          nodeNetworkReferences.filter(_.networkType == networkType),
-          nodeOrphanRouteReferences.filter(_.networkType == networkType)
-        )
-        MapDetailNode(nodeInfo, nodeReferences)
-      }
-      log.infoElapsed(s"timestamp localize " + label) {
-        TimestampLocal.localize(page)
-      }
-      ApiResponse(None, 1, page) // analysis timestamp not needed here
+  override def mapNodeDetail(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail] = {
+    val label = s"$user mapNodeDetail(${networkType.name}, $nodeId)"
+    log.infoElapsed(label) {
+      reply(label, mapNodeDetailBuilder.build(user, networkType, nodeId))
     }
   }
 
-  override def mapDetailRoute(user: Option[String], routeId: Long): ApiResponse[MapDetailRoute] = {
-    val label = s"$user mapDetailRoute($routeId)"
-    log.infoElapsed(s"$user mapDetailRoute($routeId)") {
-      val page = routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
-        val routeWithoutAnalysis = route.copy(analysis = None)
-        val routeReferences = routeRepository.routeReferences(routeId, Couch.uiTimeout)
-        MapDetailRoute(routeWithoutAnalysis, routeReferences)
-      }
-      log.infoElapsed(s"timestamp localize " + label) {
-        TimestampLocal.localize(page)
-      }
-      ApiResponse(None, 1, page) // analysis timestamp not needed here
+  override def mapRouteDetail(user: Option[String], routeId: Long): ApiResponse[MapRouteDetail] = {
+    val label = s"$user mapRouteDetail($routeId)"
+    log.infoElapsed(label) {
+      reply(label, mapRouteDetailBuilder.build(user, routeId))
     }
   }
 

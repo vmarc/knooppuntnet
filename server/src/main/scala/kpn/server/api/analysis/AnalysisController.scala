@@ -20,12 +20,12 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkMapPage
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.api.common.node.MapDetailNode
+import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.planner.RouteLeg
-import kpn.api.common.route.MapDetailRoute
+import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -223,19 +223,19 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   }
 
   @GetMapping(value = Array("/json-api/node-detail/{nodeId}/{networkType}"))
-  def mapDetailNode(
+  def mapNodeDetail(
     @PathVariable networkType: String,
     @PathVariable nodeId: Long
-  ): ApiResponse[MapDetailNode] = {
+  ): ApiResponse[MapNodeDetail] = {
     val networkTypeValue = NetworkType.withName(networkType).get
-    analysisFacade.mapDetailNode(user(), networkTypeValue, nodeId)
+    analysisFacade.mapNodeDetail(user(), networkTypeValue, nodeId)
   }
 
   @GetMapping(value = Array("/json-api/route-detail/{routeId}"))
-  def mapDetailRoute(
+  def mapRouteDetail(
     @PathVariable routeId: Long
-  ): ApiResponse[MapDetailRoute] = {
-    analysisFacade.mapDetailRoute(user(), routeId)
+  ): ApiResponse[MapRouteDetail] = {
+    analysisFacade.mapRouteDetail(user(), routeId)
   }
 
   @GetMapping(value = Array("/json-api/poi-configuration"))

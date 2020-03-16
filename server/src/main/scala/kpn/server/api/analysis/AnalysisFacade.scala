@@ -20,12 +20,12 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkMapPage
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.api.common.node.MapDetailNode
+import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.planner.RouteLeg
-import kpn.api.common.route.MapDetailRoute
+import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -92,9 +92,9 @@ trait AnalysisFacade {
 
   def changes(user: Option[String], parameters: ChangesParameters): ApiResponse[ChangesPage]
 
-  def mapDetailNode(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapDetailNode]
+  def mapNodeDetail(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail]
 
-  def mapDetailRoute(user: Option[String], routeId: Long): ApiResponse[MapDetailRoute]
+  def mapRouteDetail(user: Option[String], routeId: Long): ApiResponse[MapRouteDetail]
 
   def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration]
 
