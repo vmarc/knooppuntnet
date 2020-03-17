@@ -109,7 +109,7 @@ export class SubsetMapComponent implements AfterViewInit {
   private buildInteraction(): Interaction {
     return new PointerInteraction({
       handleDownEvent: (evt: MapBrowserEvent) => {
-        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
+        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
         if (features) {
           const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
           if (index >= 0) {
@@ -121,10 +121,10 @@ export class SubsetMapComponent implements AfterViewInit {
         return false;
       },
       handleMoveEvent: (evt: MapBrowserEvent) => {
-        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
+        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
         if (features) {
           const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
-          evt.map.getTargetElement().setAttribute("style", "cursor: " + (index >= 0 ? "pointer" : "default"));
+          evt.map.getTargetElement().style.cursor = index >= 0 ? "pointer" : "default";
         }
         return false;
       },

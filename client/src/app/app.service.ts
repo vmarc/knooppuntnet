@@ -21,13 +21,13 @@ import {NetworkFactsPage} from "./kpn/api/common/network/network-facts-page";
 import {NetworkMapPage} from "./kpn/api/common/network/network-map-page";
 import {NetworkNodesPage} from "./kpn/api/common/network/network-nodes-page";
 import {NetworkRoutesPage} from "./kpn/api/common/network/network-routes-page";
-import {MapDetailNode} from "./kpn/api/common/node/map-detail-node";
+import {MapNodeDetail} from "./kpn/api/common/node/map-node-detail";
 import {NodeChangesPage} from "./kpn/api/common/node/node-changes-page";
 import {NodeDetailsPage} from "./kpn/api/common/node/node-details-page";
 import {NodeMapPage} from "./kpn/api/common/node/node-map-page";
 import {RouteLeg} from "./kpn/api/common/planner/route-leg";
 import {PoiPage} from "./kpn/api/common/poi-page";
-import {MapDetailRoute} from "./kpn/api/common/route/map-detail-route";
+import {MapRouteDetail} from "./kpn/api/common/route/map-route-detail";
 import {RouteChangesPage} from "./kpn/api/common/route/route-changes-page";
 import {RouteDetailsPage} from "./kpn/api/common/route/route-details-page";
 import {RouteMapPage} from "./kpn/api/common/route/route-map-page";
@@ -40,6 +40,7 @@ import {SubsetOrphanRoutesPage} from "./kpn/api/common/subset/subset-orphan-rout
 import {ClientPoiConfiguration} from "./kpn/api/common/tiles/client-poi-configuration";
 import {ApiResponse} from "./kpn/api/custom/api-response";
 import {LocationKey} from "./kpn/api/custom/location-key";
+import {NetworkType} from "./kpn/api/custom/network-type";
 import {Statistics} from "./kpn/api/custom/statistics";
 import {Subset} from "./kpn/api/custom/subset";
 
@@ -200,17 +201,17 @@ export class AppService {
     );
   }
 
-  public mapDetailNode(networkType: string /*NetworkType*/, nodeId: string): Observable<ApiResponse<MapDetailNode>> {
-    const url = `/json-api/node-detail/${nodeId}/${networkType}`;
+  public mapNodeDetail(networkType: NetworkType, nodeId: number): Observable<ApiResponse<MapNodeDetail>> {
+    const url = `/json-api/node-detail/${nodeId}/${networkType.name}`;
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, MapDetailNode.fromJSON))
+      map(response => ApiResponse.fromJSON(response, MapNodeDetail.fromJSON))
     );
   }
 
-  public mapDetailRoute(routeId: string): Observable<ApiResponse<MapDetailRoute>> {
+  public mapRouteDetail(routeId: number): Observable<ApiResponse<MapRouteDetail>> {
     const url = `/json-api/route-detail/${routeId}`;
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, MapDetailRoute.fromJSON))
+      map(response => ApiResponse.fromJSON(response, MapRouteDetail.fromJSON))
     );
   }
 

@@ -6,7 +6,7 @@ import {PlannerService} from "../../../planner.service";
   template: `
     <div id="popup" class="ol-popup">
       <a href="#" (click)="closePopup()" id="popup-closer" class="ol-popup-closer"></a>
-      <kpn-poi-detail></kpn-poi-detail>
+      <kpn-map-popup-contents></kpn-map-popup-contents>
     </div>
   `,
   styles: [`

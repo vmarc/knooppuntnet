@@ -14,8 +14,6 @@ import {SharedModule} from "../components/shared/shared.module";
 import {PdfModule} from "../pdf/pdf.module";
 import {MapRoutingModule} from "./map-routing.module";
 import {MapPageComponent} from "./pages/map/_map-page.component";
-import {MapDetailNodeComponent} from "./pages/map/map-detail-node.component";
-import {MapDetailRouteComponent} from "./pages/map/map-detail-route.component";
 import {MapMainPageComponent} from "./pages/map/map-main-page.component";
 import {MapPoiConfigComponent} from "./pages/map/poi/map-poi-config.component";
 import {PoiConfigComponent} from "./pages/map/poi/poi-config.component";
@@ -30,9 +28,15 @@ import {PoiGroupSportsComponent} from "./pages/map/poi/poi-group-sports.componen
 import {PoiGroupTourismComponent} from "./pages/map/poi/poi-group-tourism.component";
 import {PoiGroupComponent} from "./pages/map/poi/poi-group.component";
 import {PoiNamesComponent} from "./pages/map/poi/poi-names.component";
+import {MapPopupContentsComponent} from "./pages/map/popup/map-popup-contents.component";
+import {MapPopupNodeComponent} from "./pages/map/popup/map-popup-node.component";
+import {MapPopupPoiComponent} from "./pages/map/popup/map-popup-poi.component";
+import {MapPopupRouteComponent} from "./pages/map/popup/map-popup-route.component";
+import {MapPopupRouteService} from "./pages/map/popup/map-popup-route.service";
 import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
+import {ElevationProfileComponent} from "./sidebar/elevation-profile.component";
 import {ExportDialogComponent} from "./sidebar/export-dialog.component";
 import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
@@ -46,8 +50,6 @@ import {PlanInstructionComponent} from "./sidebar/plan-instruction.component";
 import {PlanInstructionsComponent} from "./sidebar/plan-instructions.component";
 import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
-import {PoiDetailComponent} from "./sidebar/poi-detail.component";
-import { ElevationProfileComponent } from './sidebar/elevation-profile.component';
 
 @NgModule({
   imports: [
@@ -74,8 +76,8 @@ import { ElevationProfileComponent } from './sidebar/elevation-profile.component
     MapSidebarLegendComponent,
     MapSidebarAppearanceComponent,
     MapSidebarPoiConfigurationComponent,
-    MapDetailNodeComponent,
-    MapDetailRouteComponent,
+    MapPopupNodeComponent,
+    MapPopupRouteComponent,
     MapPoiConfigComponent,
     PoiGroupComponent,
     PoiGroupAmenityComponent,
@@ -89,7 +91,7 @@ import { ElevationProfileComponent } from './sidebar/elevation-profile.component
     PoiGroupLandmarksComponent,
     PoiConfigComponent,
     PoiNamesComponent,
-    PoiDetailComponent,
+    MapPopupPoiComponent,
     PlanInstructionComponent,
     PlanInstructionCommandComponent,
     PlanComponent,
@@ -100,7 +102,8 @@ import { ElevationProfileComponent } from './sidebar/elevation-profile.component
     ExportDialogComponent,
     PlanTranslationsComponent,
     MapPopupComponent,
-    ElevationProfileComponent
+    ElevationProfileComponent,
+    MapPopupContentsComponent
   ],
   exports: [
     MapPageComponent

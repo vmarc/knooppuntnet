@@ -42,21 +42,21 @@ export class MapClickService {
   }
 
   private handleMoveEvent(evt: MapBrowserEvent): boolean {
-    let cursorStyle = "cursor: default";
+    let cursorStyle = "default";
     if (this.isHooveringOverNodeOrRoute(evt)) {
-      cursorStyle = "cursor: pointer";
+      cursorStyle = "pointer";
     }
-    evt.map.getTargetElement().setAttribute("style", cursorStyle);
+    evt.map.getTargetElement().style.cursor = cursorStyle;
     return true;
   }
 
   private getFeatures(evt: MapBrowserEvent): Array<FeatureLike> {
-    return evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
+    return evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
   }
 
-  private findFeature(features: Array<FeatureLike>, test: (feature: FeatureLike) => boolean): FeatureLike {
+  private findFeature(features: Array<FeatureLike>, predicate: (feature: FeatureLike) => boolean): FeatureLike {
     for (const feature of features) {
-      if (test(feature)) {
+      if (predicate(feature)) {
         return feature;
       }
     }

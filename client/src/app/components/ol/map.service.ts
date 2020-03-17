@@ -1,8 +1,10 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {NetworkType} from "../../kpn/api/custom/network-type";
-import {SelectedFeature} from "./domain/selected-feature";
+import {NodeClick} from "./domain/node-click";
 import {PoiClick} from "./domain/poi-click";
+import {RouteClick} from "./domain/route-click";
+import {SelectedFeature} from "./domain/selected-feature";
 
 @Injectable()
 export class MapService {
@@ -14,14 +16,35 @@ export class MapService {
 
   networkType: BehaviorSubject<NetworkType | null> = new BehaviorSubject(null);
   selectedFeature: BehaviorSubject<SelectedFeature> = new BehaviorSubject(null);
-  _poiClickedObserver: Subject<PoiClick> = new Subject(); // not a BehaviorSubject because we do not want subscriber notified upon subscribe
+  popupType = "poi";
 
-  get poiClickedObserver(): Observable<PoiClick> {
-    return this._poiClickedObserver;
+  poiClicked: Observable<PoiClick>;
+  nodeClicked: Observable<NodeClick>;
+  routeClicked: Observable<RouteClick>;
+
+  private _poiClicked: Subject<PoiClick> = new BehaviorSubject(null);
+  private _nodeClicked: Subject<NodeClick> = new BehaviorSubject(null);
+  private _routeClicked: Subject<RouteClick> = new BehaviorSubject(null);
+
+  constructor() {
+    this.poiClicked = this._poiClicked.asObservable();
+    this.nodeClicked = this._nodeClicked.asObservable();
+    this.routeClicked = this._routeClicked.asObservable();
   }
 
-  poiClicked(poiClick: PoiClick) {
-    this._poiClickedObserver.next(poiClick);
+  nextPoiClick(poiClick: PoiClick) {
+    this.popupType = "poi";
+    this._poiClicked.next(poiClick);
+  }
+
+  nextNodeClick(nodeClick: NodeClick) {
+    this.popupType = "node";
+    this._nodeClicked.next(nodeClick);
+  }
+
+  nextRouteClick(routeClick: RouteClick) {
+    this.popupType = "route";
+    this._routeClicked.next(routeClick);
   }
 
 }

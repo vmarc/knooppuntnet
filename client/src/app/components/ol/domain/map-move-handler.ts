@@ -15,11 +15,7 @@ export class MapMoveHandler {
   }
 
   private updateCursor(e: SelectEvent) {
-    if (e.selected.length > 0) {
-      this.map.getTargetElement().setAttribute("style", "cursor: pointer");
-    } else {
-      this.map.getTargetElement().setAttribute("style", "cursor: default");
-    }
+    this.map.getTargetElement().style.cursor = e.selected.length > 0 ? "pointer" : "default";
   }
 
   private handleDeselectedFeatures(features: Array<Feature>) {

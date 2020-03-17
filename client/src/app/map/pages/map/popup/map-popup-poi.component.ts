@@ -1,20 +1,20 @@
 import {OnDestroy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {ChangeDetectorRef, Component} from "@angular/core";
-import {AppService} from "../../app.service";
-import {MapService} from "../../components/ol/map.service";
-import {Tags} from "../../kpn/api/custom/tags";
-import {PoiPage} from "../../kpn/api/common/poi-page";
-import {PoiAnalysis} from "../../kpn/api/common/poi-analysis";
-import {PoiService} from "../../services/poi.service";
-import {Subscriptions} from "../../util/Subscriptions";
-import {InterpretedTags} from "../../components/shared/tags/interpreted-tags";
 import {filter, flatMap, tap} from "rxjs/operators";
-import {PlannerService} from "../planner.service";
-import {PoiClick} from "../../components/ol/domain/poi-click";
+import {AppService} from "../../../../app.service";
+import {PoiClick} from "../../../../components/ol/domain/poi-click";
+import {MapService} from "../../../../components/ol/map.service";
+import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
+import {PoiAnalysis} from "../../../../kpn/api/common/poi-analysis";
+import {PoiPage} from "../../../../kpn/api/common/poi-page";
+import {Tags} from "../../../../kpn/api/custom/tags";
+import {PoiService} from "../../../../services/poi.service";
+import {Subscriptions} from "../../../../util/Subscriptions";
+import {PlannerService} from "../../../planner.service";
 
 @Component({
-  selector: "kpn-poi-detail",
+  selector: "kpn-map-popup-poi",
   template: `
 
     <div *ngIf="poi == null" class="item" i18n="@@poi.detail.none">No details available</div>
@@ -127,7 +127,7 @@ import {PoiClick} from "../../components/ol/domain/poi-click";
     }
   `]
 })
-export class PoiDetailComponent implements OnInit, OnDestroy {
+export class MapPopupPoiComponent implements OnInit, OnDestroy {
 
   poiClick: PoiClick;
   poiPage: PoiPage;
@@ -144,8 +144,10 @@ export class PoiDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.mapService.poiClickedObserver.pipe(
-        tap(poiClick => this.poiClick = poiClick),
+      this.mapService.poiClicked.pipe(
+        tap(poiClick => {
+          this.poiClick = poiClick;
+        }),
         filter(poiClick => poiClick !== null),
         flatMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId))
       ).subscribe(response => {

@@ -1,5 +1,6 @@
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
+import {platformModifierKeyOnly} from "ol/events/condition";
 import {FeatureLike} from "ol/Feature";
 import Point from "ol/geom/Point";
 import PointerInteraction from "ol/interaction/Pointer";
@@ -9,7 +10,9 @@ import {FlagFeature} from "../features/flag-feature";
 import {LegFeature} from "../features/leg-feature";
 import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
+import {NodeFeature} from "../features/node-feature";
 import {PoiFeature} from "../features/poi-feature";
+import {RouteFeature} from "../features/route-feature";
 import {PlannerEngine} from "./planner-engine";
 
 export class PlannerInteraction {
@@ -68,14 +71,43 @@ export class PlannerInteraction {
     return null;
   }
 
+  private static analysisFeature(feature: FeatureLike): MapFeature {
+
+    const layer = feature.get("layer");
+    if (layer) {
+      if (layer.endsWith("node")) {
+        const nodeId = feature.get("id");
+        const nodeName = feature.get("name");
+        return new NodeFeature(+nodeId, nodeName);
+      }
+      if (layer.endsWith("route")) {
+        const segmentId = feature.get("id");
+        const routeName = feature.get("name");
+        const dashIndex = segmentId.indexOf("-");
+        const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
+        return new RouteFeature(+routeId, routeName);
+      }
+    }
+
+    // we are not interested in the feature for analysis purposes
+    return null;
+  }
+
   addToMap(map: Map) {
     map.addInteraction(this.interaction);
   }
 
   private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
-    const features = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 20});
+    const features = evt.map.getFeaturesAtPixel(evt.pixel);
     if (features) {
-      return List(features.map(feature => PlannerInteraction.mapFeature(feature)).filter(f => f !== null));
+      return List(
+        features.map(feature => {
+          if (platformModifierKeyOnly(evt)) {
+            return PlannerInteraction.analysisFeature(feature);
+          }
+          return PlannerInteraction.mapFeature(feature);
+        }).filter(f => f !== null)
+      );
     }
     return List();
   }

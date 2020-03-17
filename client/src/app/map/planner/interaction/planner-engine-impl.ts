@@ -1,5 +1,9 @@
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
+import {NodeClick} from "../../../components/ol/domain/node-click";
+import {PoiClick} from "../../../components/ol/domain/poi-click";
+import {PoiId} from "../../../components/ol/domain/poi-id";
+import {RouteClick} from "../../../components/ol/domain/route-click";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
@@ -9,7 +13,13 @@ import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-p
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerContext} from "../context/planner-context";
 import {FeatureId} from "../features/feature-id";
+import {FlagFeature} from "../features/flag-feature";
+import {LegFeature} from "../features/leg-feature";
 import {MapFeature} from "../features/map-feature";
+import {NetworkNodeFeature} from "../features/network-node-feature";
+import {NodeFeature} from "../features/node-feature";
+import {PoiFeature} from "../features/poi-feature";
+import {RouteFeature} from "../features/route-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
@@ -17,12 +27,6 @@ import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
 import {PlannerDragLeg} from "./planner-drag-leg";
 import {PlannerEngine} from "./planner-engine";
-import {LegFeature} from "../features/leg-feature";
-import {PoiFeature} from "../features/poi-feature";
-import {NetworkNodeFeature} from "../features/network-node-feature";
-import {FlagFeature} from "../features/flag-feature";
-import {PoiId} from "../../../components/ol/domain/poi-id";
-import {PoiClick} from "../../../components/ol/domain/poi-click";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -57,6 +61,18 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (this.legDragStarted(leg.id, coordinate)) {
         return true;
       }
+    }
+
+    const node = this.findNode(features);
+    if (node != null) {
+      this.context.overlay.nodeClicked(new NodeClick(coordinate, node));
+      return true;
+    }
+
+    const route = this.findRoute(features);
+    if (route != null) {
+      this.context.overlay.routeClicked(new RouteClick(coordinate, route));
+      return true;
     }
 
     const poiFeature = this.findPoi(features);
@@ -95,6 +111,18 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const poiFeature = this.findPoi(features);
     if (poiFeature != null) {
+      this.context.cursor.setStylePointer();
+      return true;
+    }
+
+    const node = this.findNode(features);
+    if (node != null) {
+      this.context.cursor.setStylePointer();
+      return true;
+    }
+
+    const route = this.findRoute(features);
+    if (route != null) {
       this.context.cursor.setStylePointer();
       return true;
     }
@@ -325,6 +353,22 @@ export class PlannerEngineImpl implements PlannerEngine {
       return null;
     }
     return pois.get(0) as PoiFeature; // TODO find the closest
+  }
+
+  private findNode(features: List<MapFeature>): NodeFeature {
+    const nodes = features.filter(f => f instanceof NodeFeature);
+    if (nodes.isEmpty()) {
+      return null;
+    }
+    return nodes.get(0) as NodeFeature; // TODO find the closest
+  }
+
+  private findRoute(features: List<MapFeature>): RouteFeature {
+    const routes = features.filter(f => f instanceof RouteFeature);
+    if (routes.isEmpty()) {
+      return null;
+    }
+    return routes.get(0) as RouteFeature; // TODO find the closest
   }
 
 }
