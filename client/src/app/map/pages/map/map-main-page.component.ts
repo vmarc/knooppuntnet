@@ -9,7 +9,6 @@ import {StyleFunction} from "ol/style/Style";
 import View from "ol/View";
 import {asyncScheduler, Observable} from "rxjs";
 import {throttleTime} from "rxjs/operators";
-import {DebugLayer} from "../../../components/ol/domain/debug-layer";
 import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitmap-tile-layer";
@@ -121,7 +120,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       target: "main-map",
       layers: [
         OsmLayer.build(),
-        DebugLayer.build(),
+        // DebugLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer

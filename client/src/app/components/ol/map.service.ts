@@ -4,7 +4,6 @@ import {NetworkType} from "../../kpn/api/custom/network-type";
 import {NodeClick} from "./domain/node-click";
 import {PoiClick} from "./domain/poi-click";
 import {RouteClick} from "./domain/route-click";
-import {SelectedFeature} from "./domain/selected-feature";
 
 @Injectable()
 export class MapService {
@@ -15,7 +14,6 @@ export class MapService {
   selectedNodeId: string;
 
   networkType: BehaviorSubject<NetworkType | null> = new BehaviorSubject(null);
-  selectedFeature: BehaviorSubject<SelectedFeature> = new BehaviorSubject(null);
   popupType = "poi";
 
   poiClicked: Observable<PoiClick>;
