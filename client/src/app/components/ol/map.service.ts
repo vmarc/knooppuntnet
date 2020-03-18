@@ -22,9 +22,9 @@ export class MapService {
   nodeClicked: Observable<NodeClick>;
   routeClicked: Observable<RouteClick>;
 
-  private _poiClicked: Subject<PoiClick> = new BehaviorSubject(null);
-  private _nodeClicked: Subject<NodeClick> = new BehaviorSubject(null);
-  private _routeClicked: Subject<RouteClick> = new BehaviorSubject(null);
+  private _poiClicked: Subject<PoiClick> = new Subject();
+  private _nodeClicked: Subject<NodeClick> = new Subject();
+  private _routeClicked: Subject<RouteClick> = new Subject();
 
   constructor() {
     this.poiClicked = this._poiClicked.asObservable();

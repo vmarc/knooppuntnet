@@ -4,10 +4,21 @@ import {MapService} from "../../../../components/ol/map.service";
 @Component({
   selector: "kpn-map-popup-contents",
   template: `
-    <kpn-map-popup-poi *ngIf="isPoi()"></kpn-map-popup-poi>
-    <kpn-map-popup-node *ngIf="isNode()"></kpn-map-popup-node>
-    <kpn-map-popup-route *ngIf="isRoute()"></kpn-map-popup-route>
-  `
+    <div [ngClass]="{hidden: !isPoi()}">
+      <kpn-map-popup-poi></kpn-map-popup-poi>
+    </div>
+    <div [ngClass]="{hidden: !isNode()}">
+      <kpn-map-popup-node></kpn-map-popup-node>
+    </div>
+    <div [ngClass]="{hidden: !isRoute()}">
+      <kpn-map-popup-route></kpn-map-popup-route>
+    </div>
+  `,
+  styles: [`
+    .hidden {
+      display: none;
+    }
+  `]
 })
 export class MapPopupContentsComponent {
 

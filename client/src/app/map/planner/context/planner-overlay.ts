@@ -11,6 +11,6 @@ export interface PlannerOverlay {
 
   routeClicked(routeClick: RouteClick): void;
 
-  setPosition(coordinate: Coordinate): void;
+  setPosition(coordinate: Coordinate, verticalOffset: number): void;
 
 }

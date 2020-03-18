@@ -160,8 +160,8 @@ export class MapPopupPoiComponent implements OnInit, OnDestroy {
           this.poi = null;
           this.tags = null;
         }
-        this.plannerService.context.overlay.setPosition(this.poiClick.coordinate);
         this.cdr.detectChanges();
+        this.plannerService.context.overlay.setPosition(this.poiClick.coordinate, -30);
       })
     );
   }

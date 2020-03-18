@@ -1,10 +1,19 @@
+import {ChangeDetectorRef} from "@angular/core";
 import {Component} from "@angular/core";
-import {MapPopupRouteService} from "./map-popup-route.service";
+import {Observable} from "rxjs";
+import {switchMap} from "rxjs/operators";
+import {filter} from "rxjs/operators";
+import {tap} from "rxjs/operators";
+import {AppService} from "../../../../app.service";
+import {MapService} from "../../../../components/ol/map.service";
+import {MapRouteDetail} from "../../../../kpn/api/common/route/map-route-detail";
+import {ApiResponse} from "../../../../kpn/api/custom/api-response";
+import {PlannerService} from "../../../planner.service";
 
 @Component({
   selector: "kpn-map-popup-route",
   template: `
-    <div *ngIf="service.response | async as response">
+    <div *ngIf="response$ | async as response">
       <h2>
         <span i18n="@@map.route-popup.title">Route</span> {{response.result.name}}
       </h2>
@@ -32,12 +41,28 @@ import {MapPopupRouteService} from "./map-popup-route.service";
     .more-details {
       margin-top: 2em;
     }
-  `],
-  providers: [
-    MapPopupRouteService
-  ]
+  `]
 })
 export class MapPopupRouteComponent {
-  constructor(public service: MapPopupRouteService) {
+
+  readonly response$: Observable<ApiResponse<MapRouteDetail>>;
+
+  constructor(private appService: AppService,
+              private mapService: MapService,
+              private plannerService: PlannerService,
+              private cdr: ChangeDetectorRef) {
+    this.response$ = this.mapService.routeClicked.pipe(
+      tap(() => console.log("route clicked")),
+      filter(routeClick => routeClick !== null),
+      switchMap(routeClick =>
+        this.appService.mapRouteDetail(routeClick.route.routeId).pipe(
+          tap(xx => console.log("route info received")),
+          tap(response => {
+            this.cdr.detectChanges();
+            this.plannerService.context.overlay.setPosition(routeClick.coordinate, 0);
+          })
+        )
+      )
+    );
   }
 }

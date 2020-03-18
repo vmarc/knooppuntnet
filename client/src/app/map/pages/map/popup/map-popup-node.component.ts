@@ -1,26 +1,24 @@
-import {OnDestroy} from "@angular/core";
-import {OnInit} from "@angular/core";
+import {ChangeDetectorRef} from "@angular/core";
 import {Component} from "@angular/core";
-import {flatMap} from "rxjs/operators";
-import {filter} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {switchMap} from "rxjs/operators";
 import {tap} from "rxjs/operators";
+import {filter} from "rxjs/operators";
 import {AppService} from "../../../../app.service";
-import {NodeClick} from "../../../../components/ol/domain/node-click";
 import {MapService} from "../../../../components/ol/map.service";
+import {Util} from "../../../../components/shared/util";
 import {MapNodeDetail} from "../../../../kpn/api/common/node/map-node-detail";
 import {ApiResponse} from "../../../../kpn/api/custom/api-response";
-import {Subscriptions} from "../../../../util/Subscriptions";
 import {PlannerService} from "../../../planner.service";
 
 @Component({
   selector: "kpn-map-popup-node",
   template: `
-    <h2>
-      <ng-container i18n="@@map.node-popup.title">Node</ng-container>
-      {{nodeClick.node.nodeName}}
-    </h2>
-
-    <div *ngIf="response?.result">
+    <div *ngIf="response$ | async as response">
+      <h2>
+        <ng-container i18n="@@map.node-popup.title">Node</ng-container>
+        {{response.result.name}}
+      </h2>
       <p>
         <span class="kpn-label" i18n="@@map.node-popup.title">Last updated</span>
         <kpn-timestamp [timestamp]="response.result.lastUpdated"></kpn-timestamp>
@@ -45,8 +43,8 @@ import {PlannerService} from "../../../planner.service";
 
       <div class="more-details">
         <a
-          [routerLink]="'/analysis/node/' + nodeClick.node.nodeId"
-          [state]="{nodeName: nodeClick.node.nodeName}"
+          [routerLink]="'/analysis/node/' + response.result.id"
+          [state]="{nodeName: response.result.name}"
           i18n="@@map.node-popup.more-details">
           More details
         </a>
@@ -64,33 +62,28 @@ import {PlannerService} from "../../../planner.service";
     }
   `]
 })
-export class MapPopupNodeComponent implements OnInit, OnDestroy {
+export class MapPopupNodeComponent {
 
-  nodeClick: NodeClick;
-
-  response: ApiResponse<MapNodeDetail>;
-  private readonly subscriptions = new Subscriptions();
+  readonly response$: Observable<ApiResponse<MapNodeDetail>>;
 
   constructor(private appService: AppService,
               private mapService: MapService,
-              private plannerService: PlannerService) {
-  }
+              private plannerService: PlannerService,
+              private cdr: ChangeDetectorRef) {
 
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.mapService.nodeClicked.pipe(
-        tap(nodeClick => this.nodeClick = nodeClick),
-        filter(nodeClick => nodeClick !== null),
-        flatMap(() => this.appService.mapNodeDetail(this.mapService.networkType.value, this.nodeClick.node.nodeId))
-      ).subscribe(response => {
-        this.response = response;
-        this.plannerService.context.overlay.setPosition(this.nodeClick.coordinate);
-      })
+    this.response$ = this.mapService.nodeClicked.pipe(
+      tap(xx => console.log("node clicked")),
+      filter(nodeClick => nodeClick !== null),
+      switchMap(nodeClick =>
+        this.appService.mapNodeDetail(this.mapService.networkType.value, nodeClick.node.nodeId).pipe(
+          tap(xx => console.log("route info received")),
+          tap(response => {
+            this.cdr.detectChanges();
+            const coordinate = Util.toCoordinate(response.result.latitude, response.result.longitude);
+            this.plannerService.context.overlay.setPosition(coordinate, -10);
+          })
+        )
+      )
     );
   }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
 }

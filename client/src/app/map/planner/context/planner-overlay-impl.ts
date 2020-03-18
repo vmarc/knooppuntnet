@@ -16,7 +16,6 @@ export class PlannerOverlayImpl implements PlannerOverlay {
 
   addToMap(map: Map) {
     this.overlay = map.getOverlayById("popup");
-    this.overlay.setOffset([0, -30]);
   }
 
   poiClicked(poiClick: PoiClick): void {
@@ -31,7 +30,8 @@ export class PlannerOverlayImpl implements PlannerOverlay {
     this.mapService.nextRouteClick(routeClick);
   }
 
-  setPosition(coordinate: Coordinate): void {
+  setPosition(coordinate: Coordinate, verticalOffset: number): void {
+    this.overlay.setOffset([0, verticalOffset]);
     this.overlay.setPosition(coordinate);
   }
 

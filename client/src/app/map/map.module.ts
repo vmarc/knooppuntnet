@@ -32,7 +32,6 @@ import {MapPopupContentsComponent} from "./pages/map/popup/map-popup-contents.co
 import {MapPopupNodeComponent} from "./pages/map/popup/map-popup-node.component";
 import {MapPopupPoiComponent} from "./pages/map/popup/map-popup-poi.component";
 import {MapPopupRouteComponent} from "./pages/map/popup/map-popup-route.component";
-import {MapPopupRouteService} from "./pages/map/popup/map-popup-route.service";
 import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";

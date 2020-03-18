@@ -26,7 +26,7 @@ case class NodeInfo(
 ) extends Tagable with LatLon {
 
   def name(networkType: NetworkType): String = {
-    names.filter(_.scopedNetworkType.networkType == networkType).mkString(" / ")
+    names.filter(_.scopedNetworkType.networkType == networkType).map(_.name).mkString(" / ")
   }
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

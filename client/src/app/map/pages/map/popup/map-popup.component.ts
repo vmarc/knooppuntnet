@@ -66,7 +66,7 @@ export class MapPopupComponent {
   }
 
   closePopup() {
-    this.plannerService.context.overlay.setPosition(undefined);
+    this.plannerService.context.overlay.setPosition(undefined, 0);
     return false;
   }
 

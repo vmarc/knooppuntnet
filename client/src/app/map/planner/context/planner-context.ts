@@ -81,7 +81,7 @@ export class PlannerContext {
   }
 
   closeOverlay(): void {
-    this.overlay.setPosition(undefined);
+    this.overlay.setPosition(undefined, 0);
   }
 
 }

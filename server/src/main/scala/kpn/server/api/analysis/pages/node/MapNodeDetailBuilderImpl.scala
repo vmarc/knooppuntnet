@@ -25,6 +25,8 @@ class MapNodeDetailBuilderImpl(
       MapNodeDetail(
         nodeInfo.id,
         nodeInfo.name(networkType),
+        nodeInfo.latitude,
+        nodeInfo.longitude,
         nodeInfo.lastUpdated,
         networkReferences.map(toRef),
         routeReferences
