@@ -35,7 +35,9 @@ class MapNodeDetailBuilderImpl(
   }
 
   private def buildNetworkReferences(networkType: NetworkType, nodeId: Long): Seq[NodeNetworkReference] = {
-    nodeRepository.nodeNetworkReferences(nodeId, Couch.uiTimeout).filter(_.networkType == networkType)
+    nodeRepository.nodeNetworkReferences(nodeId, Couch.uiTimeout)
+      .filter(_.networkType == networkType)
+      .filter(_.nodeConnection == false)
   }
 
   private def buildRouteReferences(networkRefs: Seq[NodeNetworkReference], networkType: NetworkType, nodeId: Long): Seq[Ref] = {
