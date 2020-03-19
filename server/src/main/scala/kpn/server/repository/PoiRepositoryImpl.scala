@@ -103,8 +103,8 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     PoiTileView.allTiles(poiDatabase, stale)
   }
 
-  override def tilePoiRefs(tileName: String, stale: Boolean): Seq[PoiRef] = {
-    PoiTileView.tilePoiRefs(tileName, poiDatabase, stale)
+  override def tilePoiInfos(tileName: String, stale: Boolean): Seq[PoiInfo] = {
+    PoiTileView.tilePoiInfos(tileName, poiDatabase, stale)
   }
 
   private def poiDocId(poi: Poi): String = {

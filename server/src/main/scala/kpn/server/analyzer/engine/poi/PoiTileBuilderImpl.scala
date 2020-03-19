@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.poi
 
-import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.TileCalculator
 import kpn.server.analyzer.engine.tiles.PoiTileData
@@ -24,19 +23,7 @@ class PoiTileBuilderImpl(
     log.elapsed {
 
       val tile = tileCalculator.tileNamed(tileName)
-      val poiRefs = poiRepository.tilePoiRefs(tileName, stale = false)
-      val pois = poiRefs.flatMap(poiRef => poiRepository.get(poiRef))
-
-      val poiInfos = pois.map { poi =>
-        PoiInfo(
-          poi.elementType,
-          poi.elementId,
-          poi.latitude,
-          poi.longitude,
-          poi.layers.head
-        )
-      }
-
+      val poiInfos = poiRepository.tilePoiInfos(tileName, stale = false)
       val tileData = PoiTileData(
         tile,
         poiInfos

@@ -7,7 +7,7 @@ class AnalyzerJob(analyzer: Analyzer) {
   var init = false
 
   @Scheduled(fixedDelay = 5000)
-  def reportCurrentTime(): Unit = {
+  def analyze(): Unit = {
     if (!init) {
       analyzer.load()
       init = true

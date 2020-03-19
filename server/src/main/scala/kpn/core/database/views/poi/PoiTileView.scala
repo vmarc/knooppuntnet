@@ -5,19 +5,26 @@ import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
 import kpn.core.poi.PoiInfo
-import kpn.server.analyzer.engine.poi.PoiRef
 
 object PoiTileView extends View {
 
   case class PoiViewResult(totalRows: Long, pois: Seq[PoiInfo])
 
   private case class ViewResultRow(
-    key: Seq[String]
+    key: Seq[String],
+    value: Seq[String]
   )
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def tilePoiRefs(tileName: String, database: Database, stale: Boolean = true): Seq[PoiRef] = {
+
+  private case class TileViewResultRow(
+    key: Seq[String]
+  )
+
+  private case class TileViewResult(rows: Seq[TileViewResultRow])
+
+  def tilePoiInfos(tileName: String, database: Database, stale: Boolean = true): Seq[PoiInfo] = {
     val query = Query(PoiDesign, PoiTileView, classOf[ViewResult])
       .reduce(false)
       .startKey(s"""["$tileName"]""")
@@ -28,16 +35,20 @@ object PoiTileView extends View {
 
     result.rows.map { row =>
       val key = Fields(row.key)
-      PoiRef(
-        key.string(1),
-        key.long(2),
+      val value = Fields(row.value)
+      PoiInfo(
+        elementType = key.string(1),
+        elementId = key.long(2),
+        latitude = value.string(1),
+        longitude = value.string(2),
+        layer = value.string(0)
       )
     }
   }
 
   def allTiles(database: Database, stale: Boolean = true): Seq[String] = {
 
-    val query = Query(PoiDesign, PoiTileView, classOf[ViewResult])
+    val query = Query(PoiDesign, PoiTileView, classOf[TileViewResult])
       .reduce(true)
       .groupLevel(1)
       .stale(stale)
@@ -50,26 +61,6 @@ object PoiTileView extends View {
     }
   }
 
-  override val map: String =
-    """
-      |function(doc) {
-      |  var poi = doc.poi;
-      |  if(poi) {
-      |    if (!!poi.tiles) {
-      |      for (var i = 0; i < poi.tiles.length; i++) {
-      |        var tile = poi.tiles[i];
-      |        var key = [
-      |          tile,
-      |          poi.elementType,
-      |          poi.elementId
-      |        ];
-      |        emit(key, 1);
-      |      }
-      |    }
-      |  }
-      |}
-    """.stripMargin
-
-  override val reduce: Option[String] = Some("_sum")
+  override val reduce: Option[String] = Some("_count")
 
 }

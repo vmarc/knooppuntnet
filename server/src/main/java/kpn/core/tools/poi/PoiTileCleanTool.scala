@@ -38,7 +38,7 @@ class PoiTileCleanTool(
           println(s"$z $index/${existingTileNames.size}")
         }
         val shortTileName = tileName.drop("poi-".length)
-        poiRepository.tilePoiRefs(shortTileName, stale = false).isEmpty
+        poiRepository.tilePoiInfos(shortTileName, stale = false).isEmpty
       }.map(_._1)
       println(s"$z delete ${obsoleteTileNames.size} obsolete tiles")
       tileFileRepository.delete(obsoleteTileNames)

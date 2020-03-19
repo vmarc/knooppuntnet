@@ -43,13 +43,9 @@ class AnalyzerImpl(
     val updaterReplicationId = readUpdaterReplicationId()
 
     if (replicationId.number <= updaterReplicationId.number) {
-      //      if (oper.isActive) {
       engine.process(replicationId)
       statusRepository.writeAnalysisStatus2(replicationId)
-      //if (oper.isActive) {
       processLoop(replicationId)
-      //}
-      //      }
     }
   }
 
