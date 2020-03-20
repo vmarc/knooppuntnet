@@ -42,6 +42,7 @@ object DatabaseViewTool {
     Couch.executeIn(host, poisDbName) { database =>
       updateView(database, PoiDesign)
     }
+
     println("Ready")
   }
 
