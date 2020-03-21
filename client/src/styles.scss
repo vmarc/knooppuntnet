@@ -72,6 +72,7 @@ strong {
 
 .kpn-table th, .kpn-table td {
   text-align: left;
+  vertical-align: top;
   padding: 5px;
   line-height: 20px;
   border-width: 1px;
@@ -255,6 +256,14 @@ table.kpn-bordered-table {
   }
 }
 
+.kpn-space-separated {
+  display: inline-block;
+
+  :not(:last-child):after {
+    content: " ";
+  }
+}
+
 .kpn-brackets a::before {
   content: "(";
   color: grey;
@@ -289,7 +298,7 @@ ul.breadcrumb li {
   display: inline;
 }
 
-ul.breadcrumb li+li:before {
+ul.breadcrumb li + li:before {
   padding: 0.3em;
   color: black;
   content: ">";
@@ -306,7 +315,7 @@ ul.links li {
   display: inline;
 }
 
-ul.links li+li:before {
+ul.links li + li:before {
   padding: 0.3em;
   color: black;
   content: "|";

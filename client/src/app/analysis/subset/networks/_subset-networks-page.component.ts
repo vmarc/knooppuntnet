@@ -1,31 +1,31 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
+import {Observable} from "rxjs";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
-import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetNetworksPage} from "../../../kpn/api/common/subset/subset-networks-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {Subset} from "../../../kpn/api/custom/subset";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-subset-networks-page",
   template: `
 
     <kpn-subset-page-header-block
-      [subset]="subset"
+      [subset]="subset$ | async"
       pageName="networks"
       pageTitle="Networks"
       i18n-pageTitle="@@subset-networks.title">
     </kpn-subset-page-header-block>
 
-    <div *ngIf="response">
+    <div *ngIf="response$ | async as response">
       <div *ngIf="networks.isEmpty()" i18n="@@subset-networks.no-networks">
         No networks
       </div>
@@ -35,8 +35,8 @@ import {Subscriptions} from "../../../util/Subscriptions";
         </p>
 
         <markdown i18n="@@subset-networks.summary">
-          _There are __{{page.networkCount}}__ networks, with a total of __{{page.nodeCount}}__ nodes
-          and __{{page.routeCount}}__ routes with an overall length of __{{page.km}}__ km._
+          _There are __{{page.networkCount | integer}}__ networks, with a total of __{{page.nodeCount | integer}}__ nodes
+          and __{{page.routeCount | integer}}__ routes with an overall length of __{{page.km | integer}}__ km._
         </markdown>
 
         <kpn-subset-network-list
@@ -48,15 +48,16 @@ import {Subscriptions} from "../../../util/Subscriptions";
           [networks]="networks">
         </kpn-subset-network-table>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
-export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
+export class SubsetNetworksPageComponent implements OnInit {
 
-  subset: Subset;
-  response: ApiResponse<SubsetNetworksPage>;
-  private readonly subscriptions = new Subscriptions();
+  subset$: Observable<Subset>;
+  response$: Observable<ApiResponse<SubsetNetworksPage>>;
+
+  page: SubsetNetworksPage;
+  networks: List<NetworkAttributes>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -66,38 +67,24 @@ export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
               private subsetCacheService: SubsetCacheService) {
   }
 
-  get page(): SubsetNetworksPage {
-    return this.response.result;
-  }
-
-  get networks(): List<NetworkAttributes> {
-    return this.page.networks;
-  }
-
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => Util.subsetInRoute(params)),
-        tap(subset => this.subset = subset),
-        flatMap(subset => this.appService.subsetNetworks(subset))
-      ).subscribe(response => this.processResponse(response))
+    this.subset$ = this.activatedRoute.params.pipe(map(params => Util.subsetInRoute(params)));
+    this.response$ = this.subset$.pipe(
+      flatMap(subset => this.appService.subsetNetworks(subset).pipe(
+        tap(response => {
+          this.page = response.result;
+          this.networks = response.result.networks;
+          this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+          response.result.networks.forEach(networkAttributes => {
+            this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
+          });
+        })
+      ))
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   isLarge(): boolean {
     return this.pageWidthService.isLarge() || this.pageWidthService.isVeryLarge();
-  }
-
-  private processResponse(response: ApiResponse<SubsetNetworksPage>) {
-    this.response = response;
-    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
-    response.result.networks.forEach(networkAttributes => {
-      this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
-    });
   }
 
 }

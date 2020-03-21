@@ -7,7 +7,7 @@ import {SubsetInfo} from "./subset-info";
 export class SubsetNetworksPage {
 
   constructor(readonly subsetInfo: SubsetInfo,
-              readonly km: string,
+              readonly km: number,
               readonly networkCount: number,
               readonly nodeCount: number,
               readonly routeCount: number,

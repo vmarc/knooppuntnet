@@ -4,7 +4,7 @@ import kpn.api.common.network.NetworkAttributes
 
 case class SubsetNetworksPage(
   subsetInfo: SubsetInfo,
-  km: String,
+  km: Long,
   networkCount: Long,
   nodeCount: Long,
   routeCount: Long,

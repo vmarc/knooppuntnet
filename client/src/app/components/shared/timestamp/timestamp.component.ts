@@ -19,7 +19,7 @@ export class TimestampComponent {
       this.digits(this.timestamp.month) + "-" +
       this.digits(this.timestamp.day) + " " +
       this.digits(this.timestamp.hour) + ":" +
-      this.digits(this.timestamp.second);
+      this.digits(this.timestamp.minute);
   }
 
   private digits(n: number): string {

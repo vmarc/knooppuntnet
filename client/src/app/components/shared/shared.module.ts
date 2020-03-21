@@ -13,6 +13,7 @@ import {SpinnerModule} from "../../spinner/spinner.module";
 import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
+import {IntegerFormatPipe} from "./format/integer-format.pipe";
 import {IconButtonComponent} from "./icon/icon-button.component";
 import {IconHappyComponent} from "./icon/icon-happy.component";
 import {IconInvestigateComponent} from "./icon/icon-investigate.component";
@@ -145,7 +146,8 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkNodeRefComponent,
     LinkRouteRefComponent,
     NodeListComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    IntegerFormatPipe
   ],
   exports: [
     LinkChangesetComponent,
@@ -207,7 +209,8 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkNodeRefComponent,
     LinkRouteRefComponent,
     NodeListComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    IntegerFormatPipe
   ]
 })
 export class SharedModule {

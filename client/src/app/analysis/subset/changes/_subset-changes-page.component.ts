@@ -48,7 +48,6 @@ import {SubsetChangesService} from "./subset-changes.service";
         </kpn-items>
       </kpn-changes>
 
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

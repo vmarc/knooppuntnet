@@ -15,8 +15,10 @@ import {Tags} from "../../../kpn/api/custom/tags";
     <p *ngIf="route.isBroken" i18n="@@subset-orphan-routes.route-is-broken">
       route is broken
     </p>
-    <p>
-      {{route.nodeNames}}
+    <p *ngIf="!route.nodeNames.isEmpty()" class="kpn-comma-list">
+      <span *ngFor="let name of route.nodeNames">
+        {{name}}
+      </span>
     </p>
     <p>
       <kpn-timestamp [timestamp]="route.timestamp"></kpn-timestamp>

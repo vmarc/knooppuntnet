@@ -33,31 +33,31 @@ import {NetworkAttributes} from "../../../kpn/api/common/network/network-attribu
         <td class="happy">
           <kpn-subset-network-happy [network]="network"></kpn-subset-network-happy>
         </td>
-        <td class="kpn-km">
-          {{network.km}}
+        <td class="number-value kpn-km">
+          {{network.km | integer}}
         </td>
-        <td>
+        <td class="number-value">
           {{network.nodeCount}}
         </td>
-        <td>
+        <td class="number-value">
           {{network.routeCount}}
         </td>
-        <td>
+        <td class="number-value">
           {{network.brokenRouteCount}}
         </td>
-        <td>
+        <td [ngClass]="{warning: network.brokenRouteCount > 0}" class="number-value">
           {{network.brokenRoutePercentage}}
         </td>
-        <td>
+        <td class="number-value">
           {{network.integrity.count}}
         </td>
-        <td>
+        <td class="number-value">
           {{network.integrity.coverage}}
         </td>
-        <td>
+        <td class="number-value">
           {{network.integrity.okRate}}
         </td>
-        <td>
+        <td class="number-value">
           {{network.connectionCount}}
         </td>
       </tr>
@@ -66,12 +66,12 @@ import {NetworkAttributes} from "../../../kpn/api/common/network/network-attribu
   `,
   styles: [`
 
-    table {
-      width: 100%;
-    }
-
     .happy {
       min-width: 55px;
+    }
+
+    .number-value {
+      text-align: right;
     }
 
   `]

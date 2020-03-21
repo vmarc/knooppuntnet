@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
+import {Observable} from "rxjs";
+import {tap} from "rxjs/operators";
 import {flatMap, map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
 import {SubsetFactDetailsPage} from "../../../kpn/api/common/subset/subset-fact-details-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {Subscriptions} from "../../../util/Subscriptions";
 
 class SubsetFact {
   constructor(readonly subset: Subset,
@@ -20,49 +20,49 @@ class SubsetFact {
   selector: "kpn-subset-fact-details-page",
   template: `
 
-    <kpn-subset-page-header-block
-      [subset]="subset"
-      pageName="facts"
-      pageTitle="Facts"
-      i18n-pageTitle="@@subset-facts.title">
-    </kpn-subset-page-header-block>
-
-    <h2>
-      <kpn-fact-name [factName]="factName"></kpn-fact-name>
-    </h2>
-
-    <div class="fact-description">
-      <kpn-fact-description [factName]="factName"></kpn-fact-description>
+    <div *ngIf="subsetFact$ | async as subsetFact">
+      <kpn-subset-page-header-block
+        [subset]="subsetFact.subset"
+        pageName="facts"
+        pageTitle="Facts"
+        i18n-pageTitle="@@subset-facts.title">
+      </kpn-subset-page-header-block>
+      <h2>
+        <kpn-fact-name [factName]="subsetFact.factName"></kpn-fact-name>
+      </h2>
     </div>
 
-    <div *ngIf="response">
-      <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      </p>
-      <div *ngIf="!hasFacts()">
+    <div *ngIf="response$ | async as response">
+      <div class="fact-description">
+        <kpn-fact-description [factName]="factName"></kpn-fact-description>
+      </div>
+      <div *ngIf="!hasFacts">
         <i i18n="@@subset-facts.no-facts">No facts</i>
       </div>
-      <div *ngIf="hasFacts()">
-        <p>
-          {{refCount()}}
-          <span *ngIf="hasNodeRefs()" i18n="@@subset-facts.node-refs">nodes</span>
-          <span *ngIf="hasRouteRefs()" i18n="@@subset-facts.route-refs">routes</span>
-          <span *ngIf="hasOsmNodeRefs()" i18n="@@subset-facts.osm-node-refs">nodes</span>
-          <span *ngIf="hasOsmWayRefs()" i18n="@@subset-facts.osm-way-refs">ways</span>
-          <span *ngIf="hasOsmRelationRefs()" i18n="@@subset-facts.osm-relation-refs">relations</span>
-          <span i18n="@@subset-facts.in-networks"> in {{response.result.networks.size}} networks.</span>
-        </p>
+      <div *ngIf="hasFacts">
+        <div class="kpn-space-separated kpn-label">
+          <span>{{refCount}}</span>
+          <span *ngIf="hasNodeRefs()" i18n="@@subset-facts.node-refs">{refCount, plural, one {node} other {nodes}}</span>
+          <span *ngIf="hasRouteRefs()" i18n="@@subset-facts.route-refs">{refCount, plural, one {route} other {routes}}</span>
+          <span *ngIf="hasOsmNodeRefs()" i18n="@@subset-facts.osm-node-refs">{refCount, plural, one {node} other {nodes}}</span>
+          <span *ngIf="hasOsmWayRefs()" i18n="@@subset-facts.osm-way-refs">{refCount, plural, one {way} other {ways}}</span>
+          <span *ngIf="hasOsmRelationRefs()"
+                i18n="@@subset-facts.osm-relation-refs">{refCount, plural, one {relation} other {relations}}</span>
+          <span i18n="@@subset-facts.in-networks">{networkCount, plural, one {in 1 network} other {in {{networkCount}} networks}}</span>
+        </div>
 
         <kpn-items>
           <kpn-item *ngFor="let networkFactRefs of response.result.networks; let i=index" [index]="i">
-            <span *ngIf="networkFactRefs.networkId === 0" i18n="@@subset-facts.orphan-routes">Orphan routes</span>
-            <a *ngIf="networkFactRefs.networkId !== 0" [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
-              {{networkFactRefs.networkName}}
-            </a>
-            <br/>
-            <span i18n="@@subset-facts.routes">{{networkFactRefs.factRefs.size}} routes:</span>
-            <br/>
-            <div class="kpn-comma-list">
+            <div class="fact-detail">
+              <span *ngIf="networkFactRefs.networkId === 0" i18n="@@subset-facts.orphan-routes">Orphan routes</span>
+              <a *ngIf="networkFactRefs.networkId !== 0" [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
+                {{networkFactRefs.networkName}}
+              </a>
+            </div>
+            <div class="fact-detail">
+              <span i18n="@@subset-facts.routes" class="kpn-label">{networkFactRefs.factRefs.size, plural, one {1 route} other {{{networkFactRefs.factRefs.size}} routes}}</span>
+            </div>
+            <div class="kpn-comma-list fact-detail">
               <span *ngFor="let ref of networkFactRefs.factRefs">
                 <a *ngIf="hasNodeRefs()" [routerLink]="'/analysis/node/' + ref.id">{{ref.name}}</a>
                 <a *ngIf="hasRouteRefs()" [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
@@ -74,43 +74,37 @@ class SubsetFact {
           </kpn-item>
         </kpn-items>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `,
   styleUrls: ["./_subset-fact-details-page.component.scss"]
 })
-export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
+export class SubsetFactDetailsPageComponent implements OnInit {
 
-  subset: Subset;
+  subsetFact$: Observable<SubsetFact>;
+  response$: Observable<ApiResponse<SubsetFactDetailsPage>>;
+
   factName: string;
-  response: ApiResponse<SubsetFactDetailsPage>;
-  private readonly subscriptions = new Subscriptions();
+  hasFacts: boolean;
+  refCount: number;
+  networkCount: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService,
               private subsetCacheService: SubsetCacheService) {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => this.interpreteParams(params)),
-        flatMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset, subsetFact.factName))
-      ).subscribe(response => this.processResponse(response))
+    this.subsetFact$ = this.activatedRoute.params.pipe(map(params => this.interpreteParams(params)));
+    this.response$ = this.subsetFact$.pipe(
+      flatMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset, subsetFact.factName).pipe(
+        tap(response => {
+          this.hasFacts = response.result && response.result.networks.size > 0;
+          this.refCount = this.calculateRefCount(response);
+          this.networkCount = response.result.networks.size;
+          this.subsetCacheService.setSubsetInfo(subsetFact.subset.key(), response.result.subsetInfo);
+        })
+      ))
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  hasFacts() {
-    return this.response && this.response.result && this.response.result.networks.size > 0;
-  }
-
-  refCount(): number {
-    return this.response.result.networks.map(n => n.factRefs.size).reduce((sum, current) => sum + current);
   }
 
   hasNodeRefs(): boolean {
@@ -139,15 +133,11 @@ export class SubsetFactDetailsPageComponent implements OnInit, OnDestroy {
 
   private interpreteParams(params: Params): SubsetFact {
     const subset = Util.subsetInRoute(params);
-    const factName = params["fact"];
-    this.subset = subset;
-    this.factName = factName;
-    return new SubsetFact(subset, factName);
+    this.factName = params["fact"];
+    return new SubsetFact(subset, this.factName);
   }
 
-  private processResponse(response: ApiResponse<SubsetFactDetailsPage>) {
-    this.response = response;
-    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
+  private calculateRefCount(response: ApiResponse<SubsetFactDetailsPage>): number {
+    return response.result.networks.map(n => n.factRefs.size).reduce((sum, current) => sum + current);
   }
-
 }

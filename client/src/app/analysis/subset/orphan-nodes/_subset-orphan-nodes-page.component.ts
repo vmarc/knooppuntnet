@@ -1,29 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
+import {Observable} from "rxjs";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {NodeInfo} from "../../../kpn/api/common/node-info";
-import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetOrphanNodesPage} from "../../../kpn/api/common/subset/subset-orphan-nodes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-subset-orphan-nodes-page",
   template: `
 
     <kpn-subset-page-header-block
-      [subset]="subset"
+      [subset]="subset$ | async"
       pageName="orphan-nodes"
       pageTitle="Orphan nodes"
       i18n-pageTitle="@@subset-orphan-nodes.title">
     </kpn-subset-page-header-block>
 
-    <div *ngIf="response">
+    <div *ngIf="response$ | async as response">
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
@@ -37,43 +36,31 @@ import {Subscriptions} from "../../../util/Subscriptions";
           [nodes]="nodes">
         </kpn-subset-orphan-nodes-table>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
-export class SubsetOrphanNodesPageComponent implements OnInit, OnDestroy {
+export class SubsetOrphanNodesPageComponent implements OnInit {
 
-  subset: Subset;
-  response: ApiResponse<SubsetOrphanNodesPage>;
-  private readonly subscriptions = new Subscriptions();
+  subset$: Observable<Subset>;
+  response$: Observable<ApiResponse<SubsetOrphanNodesPage>>;
+
+  nodes: List<NodeInfo>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService,
               private subsetCacheService: SubsetCacheService) {
   }
 
-  get nodes(): List<NodeInfo> {
-    return this.response.result.rows;
-  }
-
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => Util.subsetInRoute(params)),
-        tap(subset => this.subset = subset),
-        flatMap(subset => this.appService.subsetOrphanNodes(subset))
-      ).subscribe(response => this.processResponse(response))
+    this.subset$ = this.activatedRoute.params.pipe(map(params => Util.subsetInRoute(params)));
+    this.response$ = this.subset$.pipe(
+      flatMap(subset => this.appService.subsetOrphanNodes(subset).pipe(
+        tap(response => {
+          this.nodes = response.result.rows;
+          this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+        })
+      ))
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  private processResponse(response: ApiResponse<SubsetOrphanNodesPage>) {
-    this.response = response;
-    this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
   }
 
 }

@@ -2,10 +2,8 @@ import {Map} from "immutable";
 import {Statistic} from "../common/statistics/statistic";
 
 export class Statistics {
-  readonly map: Map<string, Statistic>;
 
-  constructor(map: Map<string, Statistic>) {
-    this.map = map;
+  constructor(readonly map: Map<string, Statistic>) {
   }
 
   public static fromJSON(jsonObject: any): Statistics {

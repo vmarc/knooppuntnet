@@ -1,23 +1,10 @@
 export class Timestamp {
-  readonly year: number;
-  readonly month: number;
-  readonly day: number;
-  readonly hour: number;
-  readonly minute: number;
-  readonly second: number;
-
-  constructor(year: number,
-              month: number,
-              day: number,
-              hour: number,
-              minute: number,
-              second: number) {
-    this.year = year;
-    this.month = month;
-    this.day = day;
-    this.hour = hour;
-    this.minute = minute;
-    this.second = second;
+  constructor(readonly year: number,
+              readonly month: number,
+              readonly day: number,
+              readonly hour: number,
+              readonly minute: number,
+              readonly second: number) {
   }
 
   public static fromJSON(jsonObject: any): Timestamp {
@@ -33,7 +20,6 @@ export class Timestamp {
       +jsonObject.substr(17, 2)
     );
   }
-
 
   /*
     def >(other: Timestamp): Boolean = {

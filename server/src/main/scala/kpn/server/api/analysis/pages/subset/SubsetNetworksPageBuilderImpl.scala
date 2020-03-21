@@ -3,7 +3,6 @@ package kpn.server.api.analysis.pages.subset
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
-import kpn.core.util.Formatter.number
 import kpn.core.util.Formatter.percentage
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.OverviewRepository
@@ -29,7 +28,7 @@ class SubsetNetworksPageBuilderImpl(
 
     SubsetNetworksPage(
       subsetInfo,
-      km = number(networks.map(_.meters).sum / 1000),
+      km = networks.map(_.meters).sum / 1000,
       networkCount = networks.size,
       nodeCount = networks.map(_.nodeCount).sum,
       routeCount = routeCount,
