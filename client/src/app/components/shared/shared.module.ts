@@ -62,9 +62,6 @@ import {PaginatorComponent} from "./paginator/paginator.component";
 import {AnalysisSidebarComponent} from "./sidebar/analysis-sidebar.component";
 import {SidebarBackComponent} from "./sidebar/sidebar-back.component";
 import {SidebarFooterComponent} from "./sidebar/sidebar-footer.component";
-import {SidebarMenuComponent} from "./sidebar/sidebar-menu.component";
-import {SidebarNetworkComponent} from "./sidebar/sidebar-network.component";
-import {SidebarSubItemComponent} from "./sidebar/sidebar-sub-item.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {TagsTableComponent} from "./tags/tags-table.component";
 import {TagsTextComponent} from "./tags/tags-text.component";
@@ -126,9 +123,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     SidebarComponent,
     SidebarBackComponent,
     SidebarFooterComponent,
-    SidebarNetworkComponent,
-    SidebarMenuComponent,
-    SidebarSubItemComponent,
     ItemsComponent,
     ItemComponent,
     IndicatorIconComponent,
@@ -189,8 +183,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     SidebarComponent,
     SidebarBackComponent,
     SidebarFooterComponent,
-    SidebarNetworkComponent,
-    SidebarSubItemComponent,
     ItemsComponent,
     ItemComponent,
     IndicatorComponent,
