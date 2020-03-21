@@ -31,6 +31,7 @@ import {MapRouteDetail} from "./kpn/api/common/route/map-route-detail";
 import {RouteChangesPage} from "./kpn/api/common/route/route-changes-page";
 import {RouteDetailsPage} from "./kpn/api/common/route/route-details-page";
 import {RouteMapPage} from "./kpn/api/common/route/route-map-page";
+import {BarChart2D} from "./kpn/api/common/status/bar-chart2d";
 import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
 import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
 import {SubsetFactsPage} from "./kpn/api/common/subset/subset-facts-page";
@@ -275,6 +276,13 @@ export class AppService {
     const url = this.locationUrl(locationKey, "changes");
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationChangesPage.fromJSON))
+    );
+  }
+
+  public statusExample(): Observable<ApiResponse<BarChart2D>> {
+    const url = "/json-api/status/example";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart2D.fromJSON))
     );
   }
 

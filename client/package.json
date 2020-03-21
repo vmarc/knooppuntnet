@@ -37,6 +37,7 @@
     "@angular/platform-browser-dynamic": "^9.0.6",
     "@angular/router": "^9.0.6",
     "@angular/service-worker": "^9.0.6",
+    "@swimlane/ngx-charts": "^13.0.2",
     "@types/file-saver": "^2.0.0",
     "@types/ol": "^6.1.0",
     "canvg": "^1.5.3",

@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadChildren: () => import("./translations/translations.module").then(m => m.TranslationsModule)
   },
   {
+    path: "status",
+    loadChildren: () => import("./status/status.module").then(m => m.StatusModule)
+  },
+  {
     path: "",
     loadChildren: () => import("./base/base.module").then(m => m.BaseModule)
   }
