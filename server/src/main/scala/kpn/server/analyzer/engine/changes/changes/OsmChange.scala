@@ -10,6 +10,8 @@ case class OsmChange(actions: Seq[Change]) {
 
   def allChangeSetIds: Set[Long] = actions.flatMap(_.elements.map(_.changeSetId)).toSet
 
+  def allElementIds: Set[Long] = actions.flatMap(_.elements.map(_.id)).toSet
+
   // this logic assumes there is at least 1 action with at least 1 element
   def timestampFrom: Option[Timestamp] = {
     if(actions.nonEmpty) {

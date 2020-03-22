@@ -29,6 +29,12 @@ object TimestampLocal {
     }
   }
 
+  def toLocal(timestamp: Timestamp): Timestamp = {
+    val local = timestamp.copy()
+    timestampLocal.makeLocal(local)
+    local
+  }
+
   private def walk(root: Any): Unit = {
     val instanceMirror = rm.reflect(root)
     for (accessor <- accessorsOfInstance(root)) {

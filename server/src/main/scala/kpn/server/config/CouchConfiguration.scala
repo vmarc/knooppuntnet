@@ -20,7 +20,8 @@ class CouchConfiguration(
   @Value("${couch.database.changes:changes}") changeDatabaseName: String,
   @Value("${couch.database.changesets:changesets}") changesetDatabaseName: String,
   @Value("${couch.database.pois:pois}") poiDatabaseName: String,
-  @Value("${couch.database.tasks:tasks}") taskDatabaseName: String
+  @Value("${couch.database.tasks:tasks}") taskDatabaseName: String,
+  @Value("${couch.database.actions:actions}") actionsDatabaseName: String
 ) {
 
   @Bean
@@ -58,4 +59,8 @@ class CouchConfiguration(
     new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, taskDatabaseName))
   }
 
+  @Bean
+  def actionsDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, taskDatabaseName))
+  }
 }

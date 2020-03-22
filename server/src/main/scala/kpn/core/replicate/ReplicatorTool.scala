@@ -3,11 +3,16 @@ package kpn.core.replicate
 import java.io.File
 
 import kpn.api.common.ReplicationId
+import kpn.core.action.ActionTimestamp
+import kpn.core.action.ReplicationAction
+import kpn.core.db.couch.Couch
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.OsmChangeReader
+import kpn.server.repository.ActionsRepository
+import kpn.server.repository.ActionsRepositoryImpl
 
 object ReplicatorTool {
 
@@ -29,30 +34,59 @@ object ReplicatorTool {
 
   def main(args: Array[String]): Unit = {
 
-    val dirs = Dirs()
+    val exit = ReplicatorToolOptions.parse(args) match {
+      case Some(options) =>
 
-    try {
-      val statusRepository = new StatusRepositoryImpl(dirs)
-      val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-      val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-      new ReplicatorTool(
-        dirs.replicate,
-        statusRepository,
-        replicationStateRepository,
-        replicationRequestExecutor
-      ).launch()
+        Couch.executeIn(options.actionsDatabaseName) { actionsDatabase =>
+          val dirs = Dirs()
+
+          try {
+            val statusRepository = new StatusRepositoryImpl(dirs)
+            val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
+            val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
+            val actionsRepository = new ActionsRepositoryImpl(actionsDatabase)
+            new ReplicatorTool(
+              dirs.replicate,
+              statusRepository,
+              replicationStateRepository,
+              replicationRequestExecutor,
+              actionsRepository
+            ).launch()
+          }
+          finally {
+            log.info("Ended")
+          }
+        }
+        0
+
+      case None =>
+        // arguments are bad, error message will have been displayed
+        -1
     }
-    finally {
-      log.info("Ended")
-    }
+
+    System.exit(exit)
   }
 }
+
+private object ReplicationResultCode extends Enumeration {
+  val Ok, NotFound, Error, End = Value
+}
+
+private case class ReplicationResult(
+  code: ReplicationResultCode.Value,
+  fileSize: Long = 0,
+  elementCount: Long = 0,
+  changeSetCount: Long = 0
+)
+
+import kpn.core.replicate.ReplicationResultCode._
 
 class ReplicatorTool(
   replicateDir: File,
   statusRepository: StatusRepositoryImpl,
   replicationStateRepository: ReplicationStateRepository,
-  replicationRequestExecutor: ReplicationRequestExecutor
+  replicationRequestExecutor: ReplicationRequestExecutor,
+  actionsRepository: ActionsRepository
 ) {
 
   private val log = ReplicatorTool.log
@@ -80,10 +114,20 @@ class ReplicatorTool(
 
         try {
           replicate(replicationId) match {
-            case ReplicationResult.Ok =>
-              val timestamp = replicationStateRepository.read(replicationId)
-              log.info(s"OK ${timestamp.yyyymmddhhmmss}")
+            case ReplicationResult(Ok, fileSize, elementCount, changeSetCount) =>
               statusRepository.writeReplicationStatus(replicationId)
+              val timestamp = replicationStateRepository.read(replicationId)
+              val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(replicationId.number, timestamp)
+              actionsRepository.saveReplicationAction(
+                ReplicationAction(
+                  minuteDiffInfo,
+                  fileSize,
+                  elementCount,
+                  changeSetCount
+                )
+              )
+              log.info(s"OK ${timestamp.yyyymmddhhmmss}")
+
               replicationId = replicationId.next
               /*
                 We have successfully replicated the files for the current replication id. If we were in error mode
@@ -91,7 +135,7 @@ class ReplicatorTool(
                */
               inerror = false
 
-            case ReplicationResult.NotFound =>
+            case ReplicationResult(NotFound, _, _, _) =>
               /*
                 The OpenStreetMap server told us that the files for the current replication id do not exist (yet). We
                 assume that we have replicated all available files and wait for a longer time for new files to become
@@ -99,7 +143,7 @@ class ReplicatorTool(
                */
               insync = true
 
-            case ReplicationResult.Error =>
+            case ReplicationResult(Error, _, _, _) =>
               /*
                 An error occurred. We switch to error mode (with longer waiting time between retries), and we assume
                 that we will no longer be in sync after we recover from the error mode.
@@ -107,7 +151,7 @@ class ReplicatorTool(
               inerror = true
               insync = false
 
-            case ReplicationResult.End =>
+            case ReplicationResult(End, _, _, _) =>
           }
         }
         catch {
@@ -128,47 +172,59 @@ class ReplicatorTool(
     }
   }
 
-  private def replicate(replicationId: ReplicationId): ReplicationResult.Value = {
-    replicateChangesFile(replicationId) match {
-      case ReplicationResult.Ok =>
+  private def replicate(replicationId: ReplicationId): ReplicationResult = {
+    val result = replicateChangesFile(replicationId)
+    result match {
+      case ReplicationResult(Ok, _, _, _) =>
         if (oper.isActive) {
-          replicateStateFile(replicationId)
+          if (!replicateStateFile(replicationId)) {
+            ReplicationResult(NotFound)
+          }
+          else {
+            result
+          }
         }
         else {
-          ReplicationResult.End
+          ReplicationResult(End)
         }
       case result => result
     }
   }
 
-  private def replicateChangesFile(replicationId: ReplicationId): ReplicationResult.Value = {
+  private def replicateChangesFile(replicationId: ReplicationId): ReplicationResult = {
     replicationRequestExecutor.requestChangesFile(replicationId) match {
-      case None => ReplicationResult.NotFound
+      case None =>
+        ReplicationResult(NotFound)
+
       case Some(changesString) =>
         val file = new File(replicateDir + "/" + replicationId.name + ".osc.gz")
         file.getParentFile.mkdirs()
         GZipFile.write(file.getAbsolutePath, changesString)
         try {
-          new OsmChangeReader(file.getAbsolutePath).read
+          val osmChange = new OsmChangeReader(file.getAbsolutePath).read
           log.debug(file.getAbsolutePath + " integrity check OK")
-          ReplicationResult.Ok
+          ReplicationResult(
+            Ok,
+            file.length(),
+            osmChange.allElementIds.size,
+            osmChange.allChangeSetIds.size
+          )
         }
         catch {
           case e: Exception =>
             log.error(file.getAbsolutePath + " integrity check 2 NOK", e)
-            ReplicationResult.Error
+            ReplicationResult(Error)
         }
     }
   }
 
-  private def replicateStateFile(replicationId: ReplicationId): ReplicationResult.Value = {
+  private def replicateStateFile(replicationId: ReplicationId): Boolean = {
     replicationRequestExecutor.requestStateFile(replicationId) match {
-      case None => ReplicationResult.NotFound
+      case None => false
       case Some(stateString) =>
         replicationStateRepository.write(replicationId, stateString)
-        ReplicationResult.Ok
+        true
     }
-    ReplicationResult.Ok
   }
 
   private def sleep(seconds: Int): Unit = {
