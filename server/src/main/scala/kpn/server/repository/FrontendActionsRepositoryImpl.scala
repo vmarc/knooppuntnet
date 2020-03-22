@@ -1,0 +1,20 @@
+package kpn.server.repository
+
+import kpn.core.action.ApiAction
+import kpn.core.action.ApiActionDoc
+import kpn.core.database.Database
+import org.springframework.stereotype.Component
+
+import scala.util.Random
+
+@Component
+class FrontendActionsRepositoryImpl(frontendActionsDatabase: Database) extends FrontendActionsRepository {
+
+  private val random = new Random()
+
+  def saveApiAction(apiAction: ApiAction): Unit = {
+    val id = s"api-${apiAction.timestamp.toId}-${random.nextInt(10000)}"
+    frontendActionsDatabase.save(ApiActionDoc(id, apiAction))
+  }
+
+}

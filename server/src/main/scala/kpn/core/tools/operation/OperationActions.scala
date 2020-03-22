@@ -57,27 +57,27 @@ class OperationActions {
   }
 
   def stopReplicator(): String = {
-    new Stop().stop("5551")
+    new Stop().stop("5102")
     ""
   }
 
   def stopUpdater(): String = {
-    new Stop().stop("5552")
+    new Stop().stop("5103")
     ""
   }
 
   def stopAnalyzer1(): String = {
-    new Stop().stop("5553")
+    new Stop().stop("5201")
     ""
   }
 
   def stopAnalyzer2(): String = {
-    new Stop().stop("5554")
+    new Stop().stop("5202")
     ""
   }
 
   def stopAnalyzer3(): String = {
-    new Stop().stop("5555")
+    new Stop().stop("5203")
     ""
   }
 }

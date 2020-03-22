@@ -4,7 +4,7 @@ import kpn.core.action.AnalysisAction
 import kpn.core.action.ReplicationAction
 import kpn.core.action.UpdateAction
 
-trait ActionsRepository {
+trait BackendActionsRepository {
 
   def saveReplicationAction(replicationAction: ReplicationAction): Unit
 

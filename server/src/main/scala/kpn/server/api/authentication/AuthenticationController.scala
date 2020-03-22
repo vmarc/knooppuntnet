@@ -7,6 +7,7 @@ import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
+import kpn.server.api.Api
 import org.apache.commons.codec.binary.Base64.decodeBase64
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,14 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class AuthenticationController(authenticationFacade: AuthenticationFacade, crypto: Crypto, cryptoKey: String) {
+class AuthenticationController(api: Api, authenticationFacade: AuthenticationFacade, crypto: Crypto, cryptoKey: String) {
 
   @GetMapping(value = Array("/json-api/login"))
   @ResponseBody def login(@RequestParam callbackUrl: String, response: HttpServletResponse): ResponseEntity[_] = {
-    val token = authenticationFacade.login(callbackUrl)
-    val encryptedSecret = crypto.encrypt(token.getSecret)
-    response.addCookie(createCookie(encryptedSecret, 60))
-    new ResponseEntity[String](token.getValue, HttpStatus.OK)
+    api.execute("login") {
+      val token = authenticationFacade.login(callbackUrl)
+      val encryptedSecret = crypto.encrypt(token.getSecret)
+      response.addCookie(createCookie(encryptedSecret, 60))
+      new ResponseEntity[String](token.getValue, HttpStatus.OK)
+    }
   }
 
   @GetMapping(value = Array("/json-api/authenticated"))
@@ -56,8 +59,10 @@ class AuthenticationController(authenticationFacade: AuthenticationFacade, crypt
 
   @GetMapping(value = Array("/json-api/logout"))
   @ResponseBody def logout(response: HttpServletResponse): ResponseEntity[_] = {
-    response.addCookie(createCookie("", 0))
-    new ResponseEntity[String]("", HttpStatus.OK)
+    api.execute("logout") {
+      response.addCookie(createCookie("", 0))
+      new ResponseEntity[String]("", HttpStatus.OK)
+    }
   }
 
   private def createCookie(value: String, maxAge: Int): Cookie = {

@@ -13,8 +13,8 @@ import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.server.analyzer.engine.changes.ReplicationStateReader
-import kpn.server.repository.ActionsRepository
-import kpn.server.repository.ActionsRepositoryImpl
+import kpn.server.repository.BackendActionsRepository
+import kpn.server.repository.BackendActionsRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
 
@@ -50,11 +50,11 @@ object UpdaterTool {
       UpdaterToolOptions.parse(args) match {
         case Some(options) =>
 
-          Couch.executeIn(options.actionsDatabaseName) { actionsDatabase =>
+          Couch.executeIn(Couch.config.host, options.actionsDatabaseName) { actionsDatabase =>
             val dirs = Dirs()
             val statusRepository = new StatusRepositoryImpl(dirs)
             val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-            val actionsRepository = new ActionsRepositoryImpl(actionsDatabase)
+            val actionsRepository = new BackendActionsRepositoryImpl(actionsDatabase)
             val updater = new UpdaterTool(options, statusRepository, actionsRepository, replicationStateRepository)
             updater.launch()
 
@@ -79,7 +79,7 @@ object UpdaterTool {
 class UpdaterTool(
   options: UpdaterToolOptions,
   statusRepository: StatusRepository,
-  actionsRepository: ActionsRepository,
+  actionsRepository: BackendActionsRepository,
   replicationStateRepository: ReplicationStateRepository
 ) {
 

@@ -29,6 +29,10 @@ class ActionTimestampTest extends FunSuite with Matchers {
     Time.clear()
   }
 
+  test("toId") {
+    ActionTimestamp(2020, 1, 2, 3, 4, 5, 0, 0, 0).toId should equal("2020-01-02-03-04-05")
+  }
+
   private def calculateWeek(timestamp: Timestamp): (Long, Long, Long) = {
     val actionTimestamp = ActionTimestamp.from(timestamp)
     (actionTimestamp.weekYear, actionTimestamp.weekWeek, actionTimestamp.weekDay)

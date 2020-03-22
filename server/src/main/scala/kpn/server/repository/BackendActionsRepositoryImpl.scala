@@ -10,21 +10,21 @@ import kpn.core.database.Database
 import org.springframework.stereotype.Component
 
 @Component
-class ActionsRepositoryImpl(actionsDatabase: Database) extends ActionsRepository {
+class BackendActionsRepositoryImpl(backendActionsDatabase: Database) extends BackendActionsRepository {
 
   override def saveReplicationAction(replicationAction: ReplicationAction): Unit = {
     val id = s"replication-${replicationAction.minuteDiff.id}"
-    actionsDatabase.save(ReplicationActionDoc(id, replicationAction))
+    backendActionsDatabase.save(ReplicationActionDoc(id, replicationAction))
   }
 
   override def saveUpdateAction(updateAction: UpdateAction): Unit = {
     val id = s"update-${updateAction.minuteDiff.id}"
-    actionsDatabase.save(UpdateActionDoc(id, updateAction))
+    backendActionsDatabase.save(UpdateActionDoc(id, updateAction))
   }
 
   override def saveAnalysisAction(analysisAction: AnalysisAction): Unit = {
     val id = s"analysis-${analysisAction.minuteDiff.id}"
-    actionsDatabase.save(AnalysisActionDoc(id, analysisAction))
+    backendActionsDatabase.save(AnalysisActionDoc(id, analysisAction))
   }
 
 }

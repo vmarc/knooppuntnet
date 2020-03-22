@@ -72,4 +72,10 @@ case class ActionTimestamp(
   weekYear: Long,
   weekWeek: Long,
   weekDay: Long
-)
+) {
+
+  def toId: String = {
+    f"$year-$month%02d-$day%02d-$hour%02d-$minute%02d-$second%02d"
+  }
+
+}

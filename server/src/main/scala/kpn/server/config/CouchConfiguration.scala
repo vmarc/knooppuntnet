@@ -21,7 +21,8 @@ class CouchConfiguration(
   @Value("${couch.database.changesets:changesets}") changesetDatabaseName: String,
   @Value("${couch.database.pois:pois}") poiDatabaseName: String,
   @Value("${couch.database.tasks:tasks}") taskDatabaseName: String,
-  @Value("${couch.database.actions:actions}") actionsDatabaseName: String
+  @Value("${couch.database.backend-actions:backend-actions}") backendActionsDatabaseName: String,
+  @Value("${couch.database.backend-actions:frontend-actions}") frontendActionsDatabaseName: String
 ) {
 
   @Bean
@@ -60,7 +61,12 @@ class CouchConfiguration(
   }
 
   @Bean
-  def actionsDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, taskDatabaseName))
+  def backendActionsDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, backendActionsDatabaseName))
+  }
+
+  @Bean
+  def frontendActionsDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, frontendActionsDatabaseName))
   }
 }

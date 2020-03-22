@@ -11,8 +11,8 @@ import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.OsmChangeReader
-import kpn.server.repository.ActionsRepository
-import kpn.server.repository.ActionsRepositoryImpl
+import kpn.server.repository.BackendActionsRepository
+import kpn.server.repository.BackendActionsRepositoryImpl
 
 object ReplicatorTool {
 
@@ -37,14 +37,14 @@ object ReplicatorTool {
     val exit = ReplicatorToolOptions.parse(args) match {
       case Some(options) =>
 
-        Couch.executeIn(options.actionsDatabaseName) { actionsDatabase =>
+        Couch.executeIn(Couch.config.host, options.actionsDatabaseName) { actionsDatabase =>
           val dirs = Dirs()
 
           try {
             val statusRepository = new StatusRepositoryImpl(dirs)
             val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
             val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-            val actionsRepository = new ActionsRepositoryImpl(actionsDatabase)
+            val actionsRepository = new BackendActionsRepositoryImpl(actionsDatabase)
             new ReplicatorTool(
               dirs.replicate,
               statusRepository,
@@ -86,7 +86,7 @@ class ReplicatorTool(
   statusRepository: StatusRepositoryImpl,
   replicationStateRepository: ReplicationStateRepository,
   replicationRequestExecutor: ReplicationRequestExecutor,
-  actionsRepository: ActionsRepository
+  actionsRepository: BackendActionsRepository
 ) {
 
   private val log = ReplicatorTool.log
