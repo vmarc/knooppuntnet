@@ -2,7 +2,10 @@ package kpn.core.replicate
 
 import java.io.File
 
-case class UpdaterToolOptions(rootDir: File = new File("/kpn")) {
+case class UpdaterToolOptions(
+  rootDir: File = new File("/kpn"),
+  actionsDatabaseName: String = ""
+) {
 
   def databaseDir: File = new File(rootDir, "database")
 
@@ -31,6 +34,10 @@ object UpdaterToolOptions {
       opt[File]("rootDir") valueName "root-directory" action { (x, c) =>
         c.copy(rootDir = x)
       } text "root directory"
+
+      opt[String]('a', "actions-database") required() valueName "<database-name>" action { (x, c) =>
+        c.copy(actionsDatabaseName = x)
+      } text "actions database name"
     }
   }
 }

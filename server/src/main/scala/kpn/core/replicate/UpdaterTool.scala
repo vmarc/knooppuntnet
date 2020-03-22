@@ -4,12 +4,17 @@ import java.io.File
 
 import kpn.api.common.ReplicationId
 import kpn.api.custom.Timestamp
+import kpn.core.action.ActionTimestamp
+import kpn.core.action.UpdateAction
+import kpn.core.db.couch.Couch
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.server.analyzer.engine.changes.ReplicationStateReader
+import kpn.server.repository.ActionsRepository
+import kpn.server.repository.ActionsRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
 
@@ -19,6 +24,7 @@ import scala.annotation.tailrec
   Updates the Overpass API database from the minute diff files.
 
     --rootDir=/kpn
+    --actionsDatabase=actions
 
     -Dlog4j.configurationFile=file:///kpn/conf/updater-log4j2.xml
     -Dcom.sun.management.jmxremote.port=5555
@@ -44,10 +50,15 @@ object UpdaterTool {
       UpdaterToolOptions.parse(args) match {
         case Some(options) =>
 
-          val statusRepository = new StatusRepositoryImpl(Dirs())
-          val updater = new UpdaterTool(options, statusRepository)
-          updater.launch()
+          Couch.executeIn(options.actionsDatabaseName) { actionsDatabase =>
+            val dirs = Dirs()
+            val statusRepository = new StatusRepositoryImpl(dirs)
+            val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
+            val actionsRepository = new ActionsRepositoryImpl(actionsDatabase)
+            val updater = new UpdaterTool(options, statusRepository, actionsRepository, replicationStateRepository)
+            updater.launch()
 
+          }
           0
 
         case None =>
@@ -65,7 +76,12 @@ object UpdaterTool {
   }
 }
 
-class UpdaterTool(options: UpdaterToolOptions, statusRepository: StatusRepository) {
+class UpdaterTool(
+  options: UpdaterToolOptions,
+  statusRepository: StatusRepository,
+  actionsRepository: ActionsRepository,
+  replicationStateRepository: ReplicationStateRepository
+) {
 
   import kpn.core.replicate.UpdaterTool._
 
@@ -109,10 +125,20 @@ class UpdaterTool(options: UpdaterToolOptions, statusRepository: StatusRepositor
           (s"${timestampOption.get.yyyymmddhhmmss}", ())
         }
         statusRepository.writeUpdateStatus(lastReplicationId)
+        log(previousReplicationId, lastReplicationId)
         if (oper.isActive) {
           processBatchLoop(lastReplicationId)
         }
       }
+    }
+  }
+
+  private def log(previousReplicationId: ReplicationId, lastReplicationId: ReplicationId): Unit = {
+    (previousReplicationId.next.number to lastReplicationId.number) foreach { id =>
+      val replicationId = ReplicationId(id)
+      val timestamp = replicationStateRepository.read(replicationId)
+      val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(id, timestamp)
+      actionsRepository.saveUpdateAction(UpdateAction(minuteDiffInfo))
     }
   }
 
