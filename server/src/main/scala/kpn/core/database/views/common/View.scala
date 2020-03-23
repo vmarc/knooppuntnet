@@ -21,6 +21,29 @@ trait View {
     )
   }
 
+  def sumAndCount: Option[String] = Some(
+    """
+      |function(keys, values, rereduce) {
+      |  var sum = 0;
+      |  var count = 0;
+      |  if (rereduce) {
+      |    for(var i=0; i < values.length; i++) {
+      |      var r = values[i];
+      |      sum = sum + r[0];
+      |      count = count + r[1];
+      |    }
+      |  }
+      |  else {
+      |    for(var i=0; i < values.length; i++) {
+      |      sum = sum + values[i];
+      |      count = count + 1;
+      |    }
+      |  }
+      |  return [sum, count];
+      |}
+    """.stripMargin
+  )
+
   private def load(fileType: String): String = {
     val filename = "/" + getClass.getCanonicalName.replaceAll("\\.", "/").replaceAll("\\$", "") + "-" + fileType + ".js"
     IOUtils.toString(this.getClass.getResource(filename), "UTF-8")

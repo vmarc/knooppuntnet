@@ -31,6 +31,7 @@ import {MapRouteDetail} from "./kpn/api/common/route/map-route-detail";
 import {RouteChangesPage} from "./kpn/api/common/route/route-changes-page";
 import {RouteDetailsPage} from "./kpn/api/common/route/route-details-page";
 import {RouteMapPage} from "./kpn/api/common/route/route-map-page";
+import {BarChart} from "./kpn/api/common/status/bar-chart";
 import {BarChart2D} from "./kpn/api/common/status/bar-chart2d";
 import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
 import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
@@ -283,6 +284,55 @@ export class AppService {
     const url = "/json-api/status/example";
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, BarChart2D.fromJSON))
+    );
+  }
+
+  public dayDelay(): Observable<ApiResponse<BarChart2D>> {
+    const url = "/json-api/status/day-delay";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart2D.fromJSON))
+    );
+  }
+
+  public dayReplicationDelay(): Observable<ApiResponse<BarChart>> {
+    const url = "/json-api/status/day-replication-delay";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart.fromJSON))
+    );
+  }
+
+  public dayReplicationBytes(): Observable<ApiResponse<BarChart>> {
+    const url = "/json-api/status/day-replication-bytes";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart.fromJSON))
+    );
+  }
+
+  public dayReplicationElements(): Observable<ApiResponse<BarChart>> {
+    const url = "/json-api/status/day-replication-elements";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart.fromJSON))
+    );
+  }
+
+  public dayReplicationChangesets(): Observable<ApiResponse<BarChart>> {
+    const url = "/json-api/status/day-replication-changesets";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart.fromJSON))
+    );
+  }
+
+  public dayUpdateDelay(): Observable<ApiResponse<BarChart>> {
+    const url = "/json-api/status/day-update-delay";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart.fromJSON))
+    );
+  }
+
+  public dayAnalysisDelay(): Observable<ApiResponse<BarChart>> {
+    const url = "/json-api/status/day-analysis-delay";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, BarChart.fromJSON))
     );
   }
 
