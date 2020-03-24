@@ -13,6 +13,7 @@ import {ReplicationChangesetsComponent} from "./status/charts/replication-change
 import {ReplicationDelayComponent} from "./status/charts/replication-delay.component";
 import {ReplicationElementsComponent} from "./status/charts/replication-elements.component";
 import {UpdateDelayComponent} from "./status/charts/update-delay.component";
+import {ReplicationStatusPageComponent} from "./status/replication-status-page.component";
 import {StatusPageComponent} from "./status/status-page.component";
 import {StatusSidebarComponent} from "./status/status-sidebar.component";
 
@@ -29,7 +30,8 @@ import {StatusSidebarComponent} from "./status/status-sidebar.component";
     UpdateDelayComponent,
     AnalysisDelayComponent,
     ActionBarChartStackedComponent,
-    DelayComponent
+    DelayComponent,
+    ReplicationStatusPageComponent
   ],
   imports: [
     CommonModule,

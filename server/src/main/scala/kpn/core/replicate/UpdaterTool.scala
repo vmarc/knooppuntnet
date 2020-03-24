@@ -3,8 +3,8 @@ package kpn.core.replicate
 import java.io.File
 
 import kpn.api.common.ReplicationId
+import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
-import kpn.core.action.ActionTimestamp
 import kpn.core.action.UpdateAction
 import kpn.core.db.couch.Couch
 import kpn.core.tools.config.Dirs
@@ -119,7 +119,8 @@ class UpdaterTool(
     }
     else {
       if (oper.isActive) {
-        LOG.info("Processing batch " + previousReplicationId.next.name + " to " + lastReplicationId.name)
+        val batchSize = lastReplicationId.number - previousReplicationId.next.number + 1
+        LOG.info(s"Processing batch ${previousReplicationId.next.name} to ${lastReplicationId.name} [$batchSize]")
         LOG.elapsed {
           new OverpassUpdate(options.overpassUpdate, options.tmpDir).update(timestampOption.get)
           (s"${timestampOption.get.yyyymmddhhmmss}", ())

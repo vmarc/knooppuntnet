@@ -27,7 +27,7 @@ export class ActionBarChartStackedComponent {
   @Input() xAxisLabel: string;
   @Input() yAxisLabel: string;
 
-  view: [number, number] = [700, 300];
+  view: [number, number] = [850, 300];
 
   onSelect(event) {
     console.log(event);

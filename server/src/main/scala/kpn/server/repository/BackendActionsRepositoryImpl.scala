@@ -1,6 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.status.NameValue
+import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.Timestamp
 import kpn.core.action.AnalysisAction
 import kpn.core.action.AnalysisActionDoc
@@ -36,6 +37,10 @@ class BackendActionsRepositoryImpl(backendActionsDatabase: Database) extends Bac
 
   override def dayActionAverage(day: Timestamp, action: String): Seq[NameValue] = {
     BackendActionView.queryDayAverage(backendActionsDatabase, day, action, stale = false)
+  }
+
+  override def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
+    BackendActionView.query(backendActionsDatabase, parameters, action, average, stale)
   }
 
 }

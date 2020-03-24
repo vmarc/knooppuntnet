@@ -33,6 +33,9 @@ import {RouteDetailsPage} from "./kpn/api/common/route/route-details-page";
 import {RouteMapPage} from "./kpn/api/common/route/route-map-page";
 import {BarChart} from "./kpn/api/common/status/bar-chart";
 import {BarChart2D} from "./kpn/api/common/status/bar-chart2d";
+import {PeriodParameters} from "./kpn/api/common/status/period-parameters";
+import {ReplicationStatusPage} from "./kpn/api/common/status/replication-status-page";
+import {Status} from "./kpn/api/common/status/status";
 import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
 import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
 import {SubsetFactsPage} from "./kpn/api/common/subset/subset-facts-page";
@@ -277,6 +280,20 @@ export class AppService {
     const url = this.locationUrl(locationKey, "changes");
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationChangesPage.fromJSON))
+    );
+  }
+
+  public status(): Observable<ApiResponse<Status>> {
+    const url = "/json-api/status";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, Status.fromJSON))
+    );
+  }
+
+  public replicationStatus(parameters: PeriodParameters): Observable<ApiResponse<ReplicationStatusPage>> {
+    const url = "/json-api/status/replication";
+    return this.http.post(url, parameters).pipe(
+      map(response => ApiResponse.fromJSON(response, ReplicationStatusPage.fromJSON))
     );
   }
 

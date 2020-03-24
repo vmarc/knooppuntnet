@@ -1,7 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {AppService} from "../../../app.service";
+import {Input} from "@angular/core";
+import {Component} from "@angular/core";
 import {BarChart} from "../../../kpn/api/common/status/bar-chart";
 
 /* tslint:disable:template-i18n work-in-progress */
@@ -13,23 +11,14 @@ import {BarChart} from "../../../kpn/api/common/status/bar-chart";
     </h2>
     <div class="chart">
       <kpn-action-bar-chart
-        *ngIf="barChart$ | async as barChart"
         [barChart]="barChart"
-        xAxisLabel="Today"
+        [xAxisLabel]="xAxisLabel"
         yAxisLabel="Elements">
       </kpn-action-bar-chart>
     </div>
   `
 })
-export class ReplicationElementsComponent implements OnInit {
-
-  barChart$: Observable<BarChart>;
-
-  constructor(private readonly appService: AppService) {
-  }
-
-  ngOnInit(): void {
-    this.barChart$ = this.appService.dayReplicationElements().pipe(map(r => r.result));
-  }
-
+export class ReplicationElementsComponent {
+  @Input() barChart: BarChart;
+  @Input() xAxisLabel: string;
 }

@@ -3,7 +3,7 @@ package kpn.core.replicate
 import java.io.File
 
 import kpn.api.common.ReplicationId
-import kpn.core.action.ActionTimestamp
+import kpn.api.common.status.ActionTimestamp
 import kpn.core.action.ReplicationAction
 import kpn.core.db.couch.Couch
 import kpn.core.tools.config.Dirs

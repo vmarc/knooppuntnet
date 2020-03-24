@@ -31,6 +31,13 @@ import {Component} from "@angular/core";
           issues
         </a>
       </li>
+      <li>
+        <a
+          routerLink="/status"
+          i18n="@@footer.status">
+          status
+        </a>
+      </li>
     </ul>
   `,
   styles: [`

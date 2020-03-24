@@ -1,6 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.status.NameValue
+import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.Timestamp
 import kpn.core.action.AnalysisAction
 import kpn.core.action.ReplicationAction
@@ -17,5 +18,7 @@ trait BackendActionsRepository {
   def dayAction(day: Timestamp, action: String): Seq[NameValue]
 
   def dayActionAverage(day: Timestamp, action: String): Seq[NameValue]
+
+  def query(parameters: PeriodParameters, action: String, average: Boolean = false, stale: Boolean = true): Seq[NameValue]
 
 }

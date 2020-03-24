@@ -1,4 +1,4 @@
-package kpn.core.action
+package kpn.api.common.status
 
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
