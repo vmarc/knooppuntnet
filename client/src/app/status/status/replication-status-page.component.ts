@@ -10,7 +10,7 @@ import {AppService} from "../../app.service";
 import {PeriodParameters} from "../../kpn/api/common/status/period-parameters";
 import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-status-page";
 
-/* tslint:disable:template-i18n work-in-progress */
+/* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-replication-status-page",
   template: `
@@ -24,36 +24,11 @@ import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-sta
 
     <div *ngIf="page$ | async as page">
       <kpn-page-menu>
-        <kpn-page-menu-option
-          link="/status/replication/hour"
-          i18n="@@network-page.menu.details">
-          Hour
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/replication/day"
-          i18n="@@network-page.menu.facts">
-          Day
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/replication/week"
-          i18n="@@network-page.menu.nodes">
-          Week
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/replication/month"
-          i18n="@@network-page.menu.routes">
-          Month
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/replication/year"
-          i18n="@@network-page.menu.map">
-          Year
-        </kpn-page-menu-option>
-
+        <kpn-page-menu-option link="/status/replication/hour"> Hour</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/replication/day"> Day</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/replication/week"> Week</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/replication/month"> Month</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/replication/year"> Year</kpn-page-menu-option>
       </kpn-page-menu>
 
       <div>

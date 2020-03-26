@@ -5,8 +5,9 @@ import {tap} from "rxjs/operators";
 import {AppService} from "../../app.service";
 import {Status} from "../../kpn/api/common/status/status";
 import {ApiResponse} from "../../kpn/api/custom/api-response";
+import {StatusLinks} from "./status-links";
 
-/* tslint:disable:template-i18n work-in-progress */
+/* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-status-page",
   template: `
@@ -17,23 +18,11 @@ import {ApiResponse} from "../../kpn/api/custom/api-response";
       </p>
       <p>
         <span class="kpn-label" i18n="@@status.replication">Replication details</span>
-        <span class="kpn-comma-list">
-          <a [routerLink]="hourLink">Hour</a>
-          <a [routerLink]="dayLink">Day</a>
-          <a [routerLink]="weekLink">Week</a>
-          <a [routerLink]="monthLink">Month</a>
-          <a [routerLink]="yearLink">Year</a>
-        </span>
+        <kpn-status-links [links]="replicationLinks"></kpn-status-links>
       </p>
       <p>
         <span class="kpn-label" i18n="@@status.system">System details</span>
-        <span class="kpn-comma-list">
-          <a [routerLink]="systemHourLink">Hour</a>
-          <a [routerLink]="systemDayLink">Day</a>
-          <a [routerLink]="systemWeekLink">Week</a>
-          <a [routerLink]="systemMonthLink">Month</a>
-          <a [routerLink]="systemYearLink">Year</a>
-        </span>
+        <kpn-status-links [links]="systemLinks"></kpn-status-links>
       </p>
     </div>
   `
@@ -42,17 +31,8 @@ export class StatusPageComponent implements OnInit {
 
   response$: Observable<ApiResponse<Status>>;
 
-  yearLink: string;
-  weekLink: string;
-  monthLink: string;
-  dayLink: string;
-  hourLink: string;
-
-  systemYearLink: string;
-  systemWeekLink: string;
-  systemMonthLink: string;
-  systemDayLink: string;
-  systemHourLink: string;
+  replicationLinks: StatusLinks;
+  systemLinks: StatusLinks;
 
   constructor(private readonly appService: AppService) {
   }
@@ -60,21 +40,9 @@ export class StatusPageComponent implements OnInit {
   ngOnInit(): void {
     this.response$ = this.appService.status().pipe(
       tap(response => {
-
-        const ts = response.result.timestamp;
-
-        this.yearLink = `/status/replication/year/${ts.weekYear}`;
-        this.monthLink = `/status/replication/month/${ts.year}/${ts.month}`;
-        this.weekLink = `/status/replication/week/${ts.weekYear}/${ts.weekWeek}`;
-        this.dayLink = `/status/replication/day/${ts.year}/${ts.month}/${ts.day}`;
-        this.hourLink = `/status/replication/hour/${ts.year}/${ts.month}/${ts.day}//${ts.hour}`;
-
-        this.systemYearLink = `/status/system/year/${ts.weekYear}`;
-        this.systemMonthLink = `/status/system/month/${ts.year}/${ts.month}`;
-        this.systemWeekLink = `/status/system/week/${ts.weekYear}/${ts.weekWeek}`;
-        this.systemDayLink = `/status/system/day/${ts.year}/${ts.month}/${ts.day}`;
-        this.systemHourLink = `/status/system/hour/${ts.year}/${ts.month}/${ts.day}//${ts.hour}`;
-
+        const timestamp = response.result.timestamp;
+        this.replicationLinks = new StatusLinks(timestamp, "/status/replication");
+        this.systemLinks = new StatusLinks(timestamp, "/status/system");
       })
     );
   }

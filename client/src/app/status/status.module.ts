@@ -6,7 +6,6 @@ import {StatusRoutingModule} from "./status-routing.module";
 import {ActionBarChartStackedComponent} from "./status/charts/action-bar-chart-stacked.component";
 import {ActionBarChartComponent} from "./status/charts/action-bar-chart.component";
 import {AnalysisDelayComponent} from "./status/charts/analysis-delay.component";
-import {ChartExampleComponent} from "./status/charts/chart-example.component";
 import {DelayComponent} from "./status/charts/delay.component";
 import {ReplicationBytesComponent} from "./status/charts/replication-bytes.component";
 import {ReplicationChangesetsComponent} from "./status/charts/replication-changesets.component";
@@ -24,12 +23,12 @@ import {ReplicationStatusPageComponent} from "./status/replication-status-page.c
 import {StatusPageComponent} from "./status/status-page.component";
 import {StatusSidebarComponent} from "./status/status-sidebar.component";
 import {SystemStatusPageComponent} from "./status/system-status-page.component";
+import { StatusLinksComponent } from './status/status-links.component';
 
 @NgModule({
   declarations: [
     StatusPageComponent,
     StatusSidebarComponent,
-    ChartExampleComponent,
     ActionBarChartComponent,
     ReplicationDelayComponent,
     ReplicationBytesComponent,
@@ -47,7 +46,8 @@ import {SystemStatusPageComponent} from "./status/system-status-page.component";
     DataSizeChartComponent,
     DiskSpaceUsedChartComponent,
     DiskSpaceAvailableChartComponent,
-    DiskSpaceOverpassChartComponent
+    DiskSpaceOverpassChartComponent,
+    StatusLinksComponent
   ],
   imports: [
     CommonModule,

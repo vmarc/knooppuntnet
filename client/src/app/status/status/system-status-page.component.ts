@@ -10,7 +10,7 @@ import {AppService} from "../../app.service";
 import {PeriodParameters} from "../../kpn/api/common/status/period-parameters";
 import {SystemStatusPage} from "../../kpn/api/common/status/system-status-page";
 
-/* tslint:disable:template-i18n work-in-progress */
+/* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-system-status-page",
   template: `
@@ -24,36 +24,11 @@ import {SystemStatusPage} from "../../kpn/api/common/status/system-status-page";
 
     <div *ngIf="page$ | async as page">
       <kpn-page-menu>
-        <kpn-page-menu-option
-          link="/status/system/hour"
-          i18n="@@system-status-page.menu.hour">
-          Hour
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/system/day"
-          i18n="@@system-status-page.menu.day">
-          Day
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/system/week"
-          i18n="system-status-page.menu.week">
-          Week
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/system/month"
-          i18n="@@system-status-page.menu.month">
-          Month
-        </kpn-page-menu-option>
-
-        <kpn-page-menu-option
-          link="/status/system/year"
-          i18n="@@system-status-page.menu.year">
-          Year
-        </kpn-page-menu-option>
-
+        <kpn-page-menu-option link="/status/system/hour">Hour</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/system/day">Day</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/system/week">Week</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/system/month">Month</kpn-page-menu-option>
+        <kpn-page-menu-option link="/status/system/year">Year</kpn-page-menu-option>
       </kpn-page-menu>
 
       <div>

@@ -55,7 +55,7 @@ class SystemStatusMonitorImpl(
 
   private def allSystemStatusValues(): Seq[SystemStatusValue] = {
     Seq(
-      systemStatusValues("rsh kpn-backend /kpn/scripts/status-backend.sh"),
+      systemStatusValues("/kpn/scripts/status-backend.sh"),
       systemStatusValues("rsh kpn-frontend /kpn/scripts/status-frontend.sh"),
       systemStatusValues("rsh kpn-database /kpn/scripts/status-database.sh"),
       databaseInfo()
@@ -63,10 +63,17 @@ class SystemStatusMonitorImpl(
   }
 
   private def systemStatusValues(command: String): Seq[SystemStatusValue] = {
-    val contents = Process(command).lineStream
-    contents.filterNot(_.startsWith("#")).map { line =>
-      val splitted = line.split("=")
-      SystemStatusValue(splitted.head, splitted(1).toLong)
+    try {
+      val contents = Process(command).lineStream
+      contents.filterNot(_.startsWith("#")).map { line =>
+        val splitted = line.split("=")
+        SystemStatusValue(splitted.head, splitted(1).toLong)
+      }
+    }
+    catch {
+      case e: RuntimeException =>
+        log.error("Could not execute command: '$command':" + e.getMessage)
+        Seq()
     }
   }
 

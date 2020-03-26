@@ -2,7 +2,7 @@ import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {BarChart2D} from "../../../kpn/api/common/status/bar-chart2d";
 
-/* tslint:disable:template-i18n work-in-progress */
+/* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-delay",
   template: `
