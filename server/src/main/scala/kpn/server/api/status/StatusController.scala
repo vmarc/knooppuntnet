@@ -5,6 +5,7 @@ import kpn.api.common.status.BarChart2D
 import kpn.api.common.status.PeriodParameters
 import kpn.api.common.status.ReplicationStatusPage
 import kpn.api.common.status.Status
+import kpn.api.common.status.SystemStatusPage
 import kpn.api.custom.ApiResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -24,6 +25,10 @@ class StatusController(statusFacade: StatusFacade) {
     statusFacade.replicationStatus(parameters)
   }
 
+  @PostMapping(value = Array("/json-api/status/system"))
+  def systemStatus(@RequestBody parameters: PeriodParameters): ApiResponse[SystemStatusPage] = {
+    statusFacade.systemStatus(parameters)
+  }
 
   @GetMapping(value = Array("/json-api/status/example"))
   def example(): ApiResponse[BarChart2D] = {

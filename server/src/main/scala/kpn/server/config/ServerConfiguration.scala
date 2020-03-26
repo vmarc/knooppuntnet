@@ -31,6 +31,11 @@ class ServerConfiguration {
   def system: ActorSystem = ActorSystemConfig.actorSystem()
 
   @Bean
+  def systemMetricsEnabled(@Value("${app.system-metrics-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def graphLoadEnabled(@Value("${app.graph-load-enabled:false}") value: Boolean): Boolean = {
     value
   }

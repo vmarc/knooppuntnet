@@ -8,49 +8,49 @@ import {tap} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {AppService} from "../../app.service";
 import {PeriodParameters} from "../../kpn/api/common/status/period-parameters";
-import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-status-page";
+import {SystemStatusPage} from "../../kpn/api/common/status/system-status-page";
 
 /* tslint:disable:template-i18n work-in-progress */
 @Component({
-  selector: "kpn-replication-status-page",
+  selector: "kpn-system-status-page",
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
-      <li i18n="@@breadcrumb.replication">Replication</li>
+      <li i18n="@@breadcrumb.system">System</li>
     </ul>
 
-    <h1>Replication</h1>
+    <h1>System</h1>
 
     <div *ngIf="page$ | async as page">
       <kpn-page-menu>
         <kpn-page-menu-option
-          link="/status/replication/hour"
-          i18n="@@network-page.menu.details">
+          link="/status/system/hour"
+          i18n="@@system-status-page.menu.hour">
           Hour
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          link="/status/replication/day"
-          i18n="@@network-page.menu.facts">
+          link="/status/system/day"
+          i18n="@@system-status-page.menu.day">
           Day
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          link="/status/replication/week"
-          i18n="@@network-page.menu.nodes">
+          link="/status/system/week"
+          i18n="system-status-page.menu.week">
           Week
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          link="/status/replication/month"
-          i18n="@@network-page.menu.routes">
+          link="/status/system/month"
+          i18n="@@system-status-page.menu.month">
           Month
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          link="/status/replication/year"
-          i18n="@@network-page.menu.map">
+          link="/status/system/year"
+          i18n="@@system-status-page.menu.year">
           Year
         </kpn-page-menu-option>
 
@@ -62,16 +62,26 @@ import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-sta
       </div>
 
       <div class="chart-group">
-        <kpn-delay [barChart]="page.delay" [xAxisLabel]="xAxisLabel"></kpn-delay>
-        <kpn-analysis-delay [barChart]="page.analysisDelay" [xAxisLabel]="xAxisLabel"></kpn-analysis-delay>
-        <kpn-update-delay [barChart]="page.updateDelay" [xAxisLabel]="xAxisLabel"></kpn-update-delay>
-        <kpn-replication-delay [barChart]="page.replicationDelay" [xAxisLabel]="xAxisLabel"></kpn-replication-delay>
+        <h2>Backend disk space</h2>
+        <kpn-disk-space-used-chart [barChart]="page.backendDiskSpaceUsed" [xAxisLabel]="xAxisLabel"></kpn-disk-space-used-chart>
+        <kpn-disk-space-available-chart [barChart]="page.backendDiskSpaceAvailable" [xAxisLabel]="xAxisLabel"></kpn-disk-space-available-chart>
+        <kpn-disk-space-overpass-chart [barChart]="page.backendDiskSpaceOverpass" [xAxisLabel]="xAxisLabel"></kpn-disk-space-overpass-chart>
       </div>
 
       <div class="chart-group">
-        <kpn-replication-bytes [barChart]="page.replicationBytes" [xAxisLabel]="xAxisLabel"></kpn-replication-bytes>
-        <kpn-replication-elements [barChart]="page.replicationElements" [xAxisLabel]="xAxisLabel"></kpn-replication-elements>
-        <kpn-replication-changesets [barChart]="page.replicationChangeSets" [xAxisLabel]="xAxisLabel"></kpn-replication-changesets>
+        <h2>Analysis database</h2>
+        <kpn-docs-chart [barChart]="page.analysisDocCount" [xAxisLabel]="xAxisLabel"></kpn-docs-chart>
+        <kpn-disk-size-chart [barChart]="page.analysisDiskSize" [xAxisLabel]="xAxisLabel"></kpn-disk-size-chart>
+        <kpn-disk-size-external-chart [barChart]="page.analysisDiskSizeExternal" [xAxisLabel]="xAxisLabel"></kpn-disk-size-external-chart>
+        <kpn-data-size-chart [barChart]="page.analysisDataSize" [xAxisLabel]="xAxisLabel"></kpn-data-size-chart>
+      </div>
+
+      <div class="chart-group">
+        <h2>Changes database</h2>
+        <kpn-docs-chart [barChart]="page.changesDocCount" [xAxisLabel]="xAxisLabel"></kpn-docs-chart>
+        <kpn-disk-size-chart [barChart]="page.changesDiskSize" [xAxisLabel]="xAxisLabel"></kpn-disk-size-chart>
+        <kpn-disk-size-external-chart [barChart]="page.changesDiskSizeExternal" [xAxisLabel]="xAxisLabel"></kpn-disk-size-external-chart>
+        <kpn-data-size-chart [barChart]="page.changesDataSize" [xAxisLabel]="xAxisLabel"></kpn-data-size-chart>
       </div>
 
     </div>
@@ -91,9 +101,9 @@ import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-sta
 
   `]
 })
-export class ReplicationStatusPageComponent implements OnInit {
+export class SystemStatusPageComponent implements OnInit {
 
-  page$: Observable<ReplicationStatusPage>;
+  page$: Observable<SystemStatusPage>;
 
   xAxisLabel: string;
 
@@ -117,7 +127,7 @@ export class ReplicationStatusPageComponent implements OnInit {
           this.xAxisLabel = "minutes";
         }
       }),
-      flatMap(parameters => this.appService.replicationStatus(parameters).pipe(map(r => r.result)))
+      flatMap(parameters => this.appService.systemStatus(parameters).pipe(map(r => r.result)))
     );
   }
 

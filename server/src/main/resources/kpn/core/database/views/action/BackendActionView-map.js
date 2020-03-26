@@ -15,19 +15,24 @@ if (doc) {
     emit(["week", "replication-bytes", t.weekYear, t.weekWeek, t.weekDay], fileSize);
     emit(["week", "replication-elements", t.weekYear, t.weekWeek, t.weekDay], elementCount);
     emit(["week", "replication-changesets", t.weekYear, t.weekWeek, t.weekDay], changeSetCount);
-  }
-  else if (doc.update) {
+  } else if (doc.update) {
     var delay = doc.update.minuteDiff.delay;
     var t = doc.update.minuteDiff.timestamp;
 
     emit(["time", "update-delay", t.year, t.month, t.day, t.hour, t.minute], delay);
     emit(["week", "update-delay", t.weekYear, t.weekWeek, t.weekDay], delay);
-  }
-  else if (doc.analysis) {
+  } else if (doc.analysis) {
     var delay = doc.analysis.minuteDiff.delay;
     var t = doc.analysis.minuteDiff.timestamp;
 
     emit(["time", "analysis-delay", t.year, t.month, t.day, t.hour, t.minute], delay);
     emit(["week", "analysis-delay", t.weekYear, t.weekWeek, t.weekDay], delay);
+  } else if (doc.status) {
+    var t = doc.status.timestamp;
+    for (var i = 0; i < doc.status.values.length; i++) {
+      var systemStatusValue = doc.status.values[i];
+      emit(["time", systemStatusValue.name, t.year, t.month, t.day, t.hour, t.minute], systemStatusValue.value);
+      emit(["week", systemStatusValue.name, t.weekYear, t.weekWeek, t.weekDay], systemStatusValue.value);
+    }
   }
 }

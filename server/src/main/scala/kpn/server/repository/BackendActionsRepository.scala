@@ -5,6 +5,7 @@ import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.Timestamp
 import kpn.core.action.AnalysisAction
 import kpn.core.action.ReplicationAction
+import kpn.core.action.SystemStatus
 import kpn.core.action.UpdateAction
 
 trait BackendActionsRepository {
@@ -14,6 +15,8 @@ trait BackendActionsRepository {
   def saveUpdateAction(updateAction: UpdateAction): Unit
 
   def saveAnalysisAction(analysisAction: AnalysisAction): Unit
+
+  def saveSystemStatus(systemStatus: SystemStatus): Unit
 
   def dayAction(day: Timestamp, action: String): Seq[NameValue]
 

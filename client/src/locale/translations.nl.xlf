@@ -1710,6 +1710,10 @@
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.facts" datatype="html">
         <source>
@@ -1718,6 +1722,10 @@
         <target>Feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
@@ -1730,6 +1738,10 @@
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">27</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.routes" datatype="html">
         <source>
@@ -1740,6 +1752,10 @@
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">34</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.map" datatype="html">
         <source>
@@ -1749,6 +1765,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.changes" datatype="html">
@@ -3793,6 +3813,119 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="status.situation-on" datatype="html">
+        <source>The analysis is up-to-date until</source>
+        <target state="new">[The analysis is up-to-date until]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="status.replication" datatype="html">
+        <source>Replication details</source>
+        <target state="new">[Replication details]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="status.system" datatype="html">
+        <source>System details</source>
+        <target state="new">[System details]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="breadcrumb.status" datatype="html">
+        <source>Status</source>
+        <target state="new">[Status]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="breadcrumb.replication" datatype="html">
+        <source>Replication</source>
+        <target state="new">[Replication]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="breadcrumb.system" datatype="html">
+        <source>System</source>
+        <target state="new">[System]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="system-status-page.menu.hour" datatype="html">
+        <source>
+          Hour
+        </source>
+        <target state="new">[
+          Hour
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="system-status-page.menu.day" datatype="html">
+        <source>
+          Day
+        </source>
+        <target state="new">[
+          Day
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c24ed5890478a9825d2f4dd71df9416b7f4d4503" datatype="html">
+        <source>
+          Week
+        </source>
+        <target state="new">[
+          Week
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">system-status-page.menu.week</note>
+      </trans-unit>
+      <trans-unit id="system-status-page.menu.month" datatype="html">
+        <source>
+          Month
+        </source>
+        <target state="new">[
+          Month
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="system-status-page.menu.year" datatype="html">
+        <source>
+          Year
+        </source>
+        <target state="new">[
+          Year
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.tourism" datatype="html">
@@ -7355,6 +7488,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>

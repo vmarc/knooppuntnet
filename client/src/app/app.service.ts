@@ -36,6 +36,7 @@ import {BarChart2D} from "./kpn/api/common/status/bar-chart2d";
 import {PeriodParameters} from "./kpn/api/common/status/period-parameters";
 import {ReplicationStatusPage} from "./kpn/api/common/status/replication-status-page";
 import {Status} from "./kpn/api/common/status/status";
+import {SystemStatusPage} from "./kpn/api/common/status/system-status-page";
 import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
 import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
 import {SubsetFactsPage} from "./kpn/api/common/subset/subset-facts-page";
@@ -294,6 +295,13 @@ export class AppService {
     const url = "/json-api/status/replication";
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, ReplicationStatusPage.fromJSON))
+    );
+  }
+
+  public systemStatus(parameters: PeriodParameters): Observable<ApiResponse<SystemStatusPage>> {
+    const url = "/json-api/status/system";
+    return this.http.post(url, parameters).pipe(
+      map(response => ApiResponse.fromJSON(response, SystemStatusPage.fromJSON))
     );
   }
 
