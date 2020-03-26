@@ -9,6 +9,7 @@ import {map} from "rxjs/operators";
 import {AppService} from "../../app.service";
 import {PeriodParameters} from "../../kpn/api/common/status/period-parameters";
 import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-status-page";
+import {StatusLinks} from "./status-links";
 
 /* tslint:disable:template-i18n English only */
 @Component({
@@ -23,13 +24,7 @@ import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-sta
     <h1>Replication</h1>
 
     <div *ngIf="page$ | async as page">
-      <kpn-page-menu>
-        <kpn-page-menu-option link="/status/replication/hour"> Hour</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/replication/day"> Day</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/replication/week"> Week</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/replication/month"> Month</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/replication/year"> Year</kpn-page-menu-option>
-      </kpn-page-menu>
+      <kpn-status-page-menu [links]="statusLinks"></kpn-status-page-menu>
 
       <div>
         <a [routerLink]="'TODO previous'" class="previous">previous</a>
@@ -70,6 +65,8 @@ export class ReplicationStatusPageComponent implements OnInit {
 
   page$: Observable<ReplicationStatusPage>;
 
+  statusLinks: StatusLinks;
+
   xAxisLabel: string;
 
   constructor(private readonly activatedRoute: ActivatedRoute,
@@ -92,7 +89,10 @@ export class ReplicationStatusPageComponent implements OnInit {
           this.xAxisLabel = "minutes";
         }
       }),
-      flatMap(parameters => this.appService.replicationStatus(parameters).pipe(map(r => r.result)))
+      flatMap(parameters => this.appService.replicationStatus(parameters).pipe(
+        map(r => r.result),
+        tap(page => this.statusLinks = new StatusLinks(page.timestamp, "/status/replication"))
+      ))
     );
   }
 

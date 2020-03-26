@@ -1,10 +1,12 @@
 // this class is generated, please do not modify
 
+import {ActionTimestamp} from "./action-timestamp";
 import {BarChart} from "./bar-chart";
 
 export class SystemStatusPage {
 
-  constructor(readonly periodType: string,
+  constructor(readonly timestamp: ActionTimestamp,
+              readonly periodType: string,
               readonly periodTitle: string,
               readonly previous: string,
               readonly next: string,
@@ -26,6 +28,7 @@ export class SystemStatusPage {
       return undefined;
     }
     return new SystemStatusPage(
+      ActionTimestamp.fromJSON(jsonObject.timestamp),
       jsonObject.periodType,
       jsonObject.periodTitle,
       jsonObject.previous,

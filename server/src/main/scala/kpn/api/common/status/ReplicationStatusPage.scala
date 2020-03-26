@@ -1,6 +1,7 @@
 package kpn.api.common.status
 
 case class ReplicationStatusPage(
+  timestamp: ActionTimestamp,
   periodType: String,
   periodTitle: String,
   previous: String,

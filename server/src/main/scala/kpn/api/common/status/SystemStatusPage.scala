@@ -1,6 +1,9 @@
 package kpn.api.common.status
 
 case class SystemStatusPage(
+
+  timestamp: ActionTimestamp,
+
   periodType: String,
   periodTitle: String,
   previous: String,

@@ -24,6 +24,7 @@ import {StatusLinksComponent} from "./status/status-links.component";
 import {StatusPageComponent} from "./status/status-page.component";
 import {StatusSidebarComponent} from "./status/status-sidebar.component";
 import {SystemStatusPageComponent} from "./status/system-status-page.component";
+import { StatusPageMenuComponent } from './status/status-page-menu.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {SystemStatusPageComponent} from "./status/system-status-page.component";
     DiskSpaceUsedChartComponent,
     DiskSpaceAvailableChartComponent,
     DiskSpaceOverpassChartComponent,
-    StatusLinksComponent
+    StatusLinksComponent,
+    StatusPageMenuComponent
   ],
   imports: [
     CommonModule,

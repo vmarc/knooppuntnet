@@ -92,6 +92,7 @@ class StatusFacadeImpl(
       1,
       Some(
         ReplicationStatusPage(
+          ActionTimestamp.now(),
           parameters.period,
           periodTitle,
           previous,
@@ -156,6 +157,7 @@ class StatusFacadeImpl(
       1,
       Some(
         SystemStatusPage(
+          ActionTimestamp.now(),
           parameters.period,
           periodTitle,
           previous,

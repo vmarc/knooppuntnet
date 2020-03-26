@@ -1,11 +1,13 @@
 // this class is generated, please do not modify
 
+import {ActionTimestamp} from "./action-timestamp";
 import {BarChart} from "./bar-chart";
 import {BarChart2D} from "./bar-chart2d";
 
 export class ReplicationStatusPage {
 
-  constructor(readonly periodType: string,
+  constructor(readonly timestamp: ActionTimestamp,
+              readonly periodType: string,
               readonly periodTitle: string,
               readonly previous: string,
               readonly next: string,
@@ -23,6 +25,7 @@ export class ReplicationStatusPage {
       return undefined;
     }
     return new ReplicationStatusPage(
+      ActionTimestamp.fromJSON(jsonObject.timestamp),
       jsonObject.periodType,
       jsonObject.periodTitle,
       jsonObject.previous,

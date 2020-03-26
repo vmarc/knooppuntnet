@@ -9,6 +9,7 @@ import {map} from "rxjs/operators";
 import {AppService} from "../../app.service";
 import {PeriodParameters} from "../../kpn/api/common/status/period-parameters";
 import {SystemStatusPage} from "../../kpn/api/common/status/system-status-page";
+import {StatusLinks} from "./status-links";
 
 /* tslint:disable:template-i18n English only */
 @Component({
@@ -23,13 +24,7 @@ import {SystemStatusPage} from "../../kpn/api/common/status/system-status-page";
     <h1>System</h1>
 
     <div *ngIf="page$ | async as page">
-      <kpn-page-menu>
-        <kpn-page-menu-option link="/status/system/hour">Hour</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/system/day">Day</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/system/week">Week</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/system/month">Month</kpn-page-menu-option>
-        <kpn-page-menu-option link="/status/system/year">Year</kpn-page-menu-option>
-      </kpn-page-menu>
+      <kpn-status-page-menu [links]="statusLinks"></kpn-status-page-menu>
 
       <div>
         <a [routerLink]="'TODO previous'" class="previous">previous</a>
@@ -79,7 +74,7 @@ import {SystemStatusPage} from "../../kpn/api/common/status/system-status-page";
 export class SystemStatusPageComponent implements OnInit {
 
   page$: Observable<SystemStatusPage>;
-
+  statusLinks: StatusLinks;
   xAxisLabel: string;
 
   constructor(private readonly activatedRoute: ActivatedRoute,
@@ -102,7 +97,10 @@ export class SystemStatusPageComponent implements OnInit {
           this.xAxisLabel = "minutes";
         }
       }),
-      flatMap(parameters => this.appService.systemStatus(parameters).pipe(map(r => r.result)))
+      flatMap(parameters => this.appService.systemStatus(parameters).pipe(
+        map(r => r.result),
+        tap(page => this.statusLinks = new StatusLinks(page.timestamp, "/status/system"))
+      ))
     );
   }
 
