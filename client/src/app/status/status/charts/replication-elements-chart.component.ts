@@ -4,21 +4,21 @@ import {BarChart} from "../../../kpn/api/common/status/bar-chart";
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-replication-delay",
+  selector: "kpn-replication-elements-chart",
   template: `
     <h2>
-      Replication average delay
+      Replication element count
     </h2>
     <div class="chart">
       <kpn-action-bar-chart
         [barChart]="barChart"
         [xAxisLabel]="xAxisLabel"
-        yAxisLabel="Average delay">
+        yAxisLabel="Elements">
       </kpn-action-bar-chart>
     </div>
   `
 })
-export class ReplicationDelayComponent {
+export class ReplicationElementsChartComponent {
   @Input() barChart: BarChart;
   @Input() xAxisLabel: string;
 }

@@ -5,12 +5,12 @@ import {SharedModule} from "../components/shared/shared.module";
 import {StatusRoutingModule} from "./status-routing.module";
 import {ActionBarChartStackedComponent} from "./status/charts/action-bar-chart-stacked.component";
 import {ActionBarChartComponent} from "./status/charts/action-bar-chart.component";
-import {AnalysisDelayComponent} from "./status/charts/analysis-delay.component";
-import {DelayComponent} from "./status/charts/delay.component";
-import {ReplicationBytesComponent} from "./status/charts/replication-bytes.component";
-import {ReplicationChangesetsComponent} from "./status/charts/replication-changesets.component";
-import {ReplicationDelayComponent} from "./status/charts/replication-delay.component";
-import {ReplicationElementsComponent} from "./status/charts/replication-elements.component";
+import {AnalysisDelayChartComponent} from "./status/charts/analysis-delay-chart.component";
+import {DelayChartComponent} from "./status/charts/delay-chart.component";
+import {ReplicationBytesChartComponent} from "./status/charts/replication-bytes-chart.component";
+import {ReplicationChangesetsChartComponent} from "./status/charts/replication-changesets-chart.component";
+import {ReplicationDelayChartComponent} from "./status/charts/replication-delay-chart.component";
+import {ReplicationElementsChartComponent} from "./status/charts/replication-elements-chart.component";
 import {DataSizeChartComponent} from "./status/charts/system/data-size-chart.component";
 import {DiskSizeChartComponent} from "./status/charts/system/disk-size-chart.component";
 import {DiskSizeExternalChartComponent} from "./status/charts/system/disk-size-external-chart.component";
@@ -18,26 +18,26 @@ import {DiskSpaceAvailableChartComponent} from "./status/charts/system/disk-spac
 import {DiskSpaceOverpassChartComponent} from "./status/charts/system/disk-space-overpass-chart.component";
 import {DiskSpaceUsedChartComponent} from "./status/charts/system/disk-space-used-chart.component";
 import {DocsChartComponent} from "./status/charts/system/docs-chart.component";
-import {UpdateDelayComponent} from "./status/charts/update-delay.component";
+import {UpdateDelayChartComponent} from "./status/charts/update-delay-chart.component";
 import {ReplicationStatusPageComponent} from "./status/replication-status-page.component";
+import {StatusLinksComponent} from "./status/status-links.component";
 import {StatusPageComponent} from "./status/status-page.component";
 import {StatusSidebarComponent} from "./status/status-sidebar.component";
 import {SystemStatusPageComponent} from "./status/system-status-page.component";
-import { StatusLinksComponent } from './status/status-links.component';
 
 @NgModule({
   declarations: [
     StatusPageComponent,
     StatusSidebarComponent,
     ActionBarChartComponent,
-    ReplicationDelayComponent,
-    ReplicationBytesComponent,
-    ReplicationElementsComponent,
-    ReplicationChangesetsComponent,
-    UpdateDelayComponent,
-    AnalysisDelayComponent,
+    ReplicationDelayChartComponent,
+    ReplicationBytesChartComponent,
+    ReplicationElementsChartComponent,
+    ReplicationChangesetsChartComponent,
+    UpdateDelayChartComponent,
+    AnalysisDelayChartComponent,
     ActionBarChartStackedComponent,
-    DelayComponent,
+    DelayChartComponent,
     ReplicationStatusPageComponent,
     SystemStatusPageComponent,
     DiskSizeChartComponent,

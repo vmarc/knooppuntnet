@@ -4,7 +4,7 @@ import {BarChart} from "../../../kpn/api/common/status/bar-chart";
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-replication-bytes",
+  selector: "kpn-replication-bytes-chart",
   template: `
     <h2>
       Replication bytes
@@ -18,7 +18,7 @@ import {BarChart} from "../../../kpn/api/common/status/bar-chart";
     </div>
   `
 })
-export class ReplicationBytesComponent {
+export class ReplicationBytesChartComponent {
   @Input() barChart: BarChart;
   @Input() xAxisLabel: string;
 }

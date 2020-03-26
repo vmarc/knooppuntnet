@@ -37,16 +37,16 @@ import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-sta
       </div>
 
       <div class="chart-group">
-        <kpn-delay [barChart]="page.delay" [xAxisLabel]="xAxisLabel"></kpn-delay>
-        <kpn-analysis-delay [barChart]="page.analysisDelay" [xAxisLabel]="xAxisLabel"></kpn-analysis-delay>
-        <kpn-update-delay [barChart]="page.updateDelay" [xAxisLabel]="xAxisLabel"></kpn-update-delay>
-        <kpn-replication-delay [barChart]="page.replicationDelay" [xAxisLabel]="xAxisLabel"></kpn-replication-delay>
+        <kpn-delay-chart [barChart]="page.delay" [xAxisLabel]="xAxisLabel"></kpn-delay-chart>
+        <kpn-analysis-delay-chart [barChart]="page.analysisDelay" [xAxisLabel]="xAxisLabel"></kpn-analysis-delay-chart>
+        <kpn-update-delay-chart [barChart]="page.updateDelay" [xAxisLabel]="xAxisLabel"></kpn-update-delay-chart>
+        <kpn-replication-delay-chart [barChart]="page.replicationDelay" [xAxisLabel]="xAxisLabel"></kpn-replication-delay-chart>
       </div>
 
       <div class="chart-group">
-        <kpn-replication-bytes [barChart]="page.replicationBytes" [xAxisLabel]="xAxisLabel"></kpn-replication-bytes>
-        <kpn-replication-elements [barChart]="page.replicationElements" [xAxisLabel]="xAxisLabel"></kpn-replication-elements>
-        <kpn-replication-changesets [barChart]="page.replicationChangeSets" [xAxisLabel]="xAxisLabel"></kpn-replication-changesets>
+        <kpn-replication-bytes-chart [barChart]="page.replicationBytes" [xAxisLabel]="xAxisLabel"></kpn-replication-bytes-chart>
+        <kpn-replication-elements-chart [barChart]="page.replicationElements" [xAxisLabel]="xAxisLabel"></kpn-replication-elements-chart>
+        <kpn-replication-changesets-chart [barChart]="page.replicationChangeSets" [xAxisLabel]="xAxisLabel"></kpn-replication-changesets-chart>
       </div>
 
     </div>

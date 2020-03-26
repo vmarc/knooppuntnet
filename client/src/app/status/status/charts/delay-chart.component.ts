@@ -1,24 +1,25 @@
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
-import {BarChart} from "../../../kpn/api/common/status/bar-chart";
+import {BarChart2D} from "../../../kpn/api/common/status/bar-chart2d";
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-analysis-delay",
+  selector: "kpn-delay-chart",
   template: `
     <h2>
-      Analysis average delay
+      Average delay
     </h2>
     <div class="chart">
-      <kpn-action-bar-chart
+      <kpn-action-bar-chart-stacked
         [barChart]="barChart"
         [xAxisLabel]="xAxisLabel"
         yAxisLabel="Average delay">
-      </kpn-action-bar-chart>
+      </kpn-action-bar-chart-stacked>
     </div>
   `
 })
-export class AnalysisDelayComponent {
-  @Input() barChart: BarChart;
+export class DelayChartComponent {
+  @Input() barChart: BarChart2D;
   @Input() xAxisLabel: string;
 }
+
