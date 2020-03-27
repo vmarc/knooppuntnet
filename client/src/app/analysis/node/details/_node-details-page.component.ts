@@ -1,27 +1,39 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {OnInit} from "@angular/core";
+import {AfterViewInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
+import {Observable} from "rxjs";
+import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Ref} from "../../../kpn/api/common/common/ref";
+import {NodeInfo} from "../../../kpn/api/common/node-info";
 import {NodeDetailsPage} from "../../../kpn/api/common/node/node-details-page";
-import {Subscriptions} from "../../../util/Subscriptions";
+import {NodeReferences} from "../../../kpn/api/common/node/node-references";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {FactInfo} from "../../fact/fact-info";
 
 @Component({
   selector: "kpn-node-details-page",
   template: `
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.node">Node</li>
+    </ul>
 
     <kpn-node-page-header
+      *ngIf="nodeId$ | async as nodeId"
+      page="details"
       [nodeId]="nodeId"
       [nodeName]="nodeName"
-      [changeCount]="response?.result?.changeCount">
+      [changeCount]="changeCount">
     </kpn-node-page-header>
 
-    <div *ngIf="response?.result">
+    <div *ngIf="response$ | async as response">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
       </div>
@@ -59,19 +71,22 @@ import {FactInfo} from "../../fact/fact-info";
           <kpn-facts [factInfos]="factInfos"></kpn-facts>
         </kpn-data>
 
-        <kpn-json [object]="response"></kpn-json>
       </div>
     </div>
   `
 })
-export class NodeDetailsPageComponent implements OnInit, OnDestroy {
+export class NodeDetailsPageComponent implements OnInit, AfterViewInit {
 
-  private readonly subscriptions = new Subscriptions();
+  nodeId$: Observable<string>;
+  response$: Observable<ApiResponse<NodeDetailsPage>>;
 
-  nodeId: number;
   nodeName: string;
+  changeCount = 0;
+
   tags: InterpretedTags;
-  response: ApiResponse<NodeDetailsPage>;
+  nodeInfo: NodeInfo;
+  factInfos: List<FactInfo>;
+  references: NodeReferences;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -80,46 +95,38 @@ export class NodeDetailsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.nodeName = history.state.nodeName;
-    this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => params["nodeId"]),
-        tap(nodeId => this.nodeId = nodeId),
-        flatMap(nodeId => this.appService.nodeDetails(nodeId))
-      ).subscribe(response => this.processResponse(response))
+    this.changeCount = history.state.changeCount;
+    this.pageService.showFooter = true;
+    this.nodeId$ = this.activatedRoute.params.pipe(
+      map(params => params["nodeId"]),
+      shareReplay()
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+  ngAfterViewInit(): void {
+    this.response$ = this.nodeId$.pipe(
+      flatMap(nodeId => this.appService.nodeDetails(nodeId).pipe(
+        tap(response => {
+          this.nodeName = response.result.nodeInfo.name;
+          this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
+          this.factInfos = this.buildFactInfos(response.result);
+          this.nodeInfo = response.result.nodeInfo;
+          this.references = response.result.references;
+          this.changeCount = response.result.changeCount;
+        })
+      ))
+    );
   }
 
-  get nodeInfo() {
-    return this.response.result.nodeInfo;
-  }
-
-  get references() {
-    return this.response.result.references;
-  }
-
-  get factInfos(): List<FactInfo> {
-
-    const nodeFacts = this.nodeInfo.facts.map(fact => new FactInfo(fact));
-
-    const extraFacts = this.response.result.references.networkReferences.flatMap(networkReference => {
+  private buildFactInfos(page: NodeDetailsPage): List<FactInfo> {
+    const nodeFacts = page.nodeInfo.facts.map(fact => new FactInfo(fact));
+    const extraFacts = page.references.networkReferences.flatMap(networkReference => {
       return networkReference.facts.map(fact => {
         const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
         return new FactInfo(fact, networkRef, null, null);
       });
     });
-
     return nodeFacts.concat(extraFacts);
-  }
-
-  private processResponse(response: ApiResponse<NodeDetailsPage>) {
-    this.response = response;
-    this.nodeName = response.result.nodeInfo.name;
-    this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
   }
 
 }

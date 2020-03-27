@@ -1,29 +1,39 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {OnDestroy} from "@angular/core";
+import {AfterViewInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {combineLatest} from "rxjs";
+import {Observable} from "rxjs";
+import {shareReplay} from "rxjs/operators";
+import {switchMap} from "rxjs/operators";
+import {map} from "rxjs/operators";
+import {tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {NodeChangesPage} from "../../../kpn/api/common/node/node-changes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {UserService} from "../../../services/user.service";
-import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 import {NodeChangesService} from "./node-changes.service";
 
 @Component({
   selector: "kpn-node-changes-page",
   template: `
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.node-changes">Node changes</li>
+    </ul>
 
     <kpn-node-page-header
+      *ngIf="nodeId$ | async as nodeId"
+      page="changes"
       [nodeId]="nodeId"
       [nodeName]="nodeName"
-      [changeCount]="response?.result?.changeCount">
+      [changeCount]="changeCount">
     </kpn-node-page-header>
-
-    <p *ngIf="response">
-      <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-    </p>
 
     <div *ngIf="!isLoggedIn()" i18n="@@node.login-required">
       The details of the node changes history is available to registered OpenStreetMap contributors only, after
@@ -31,7 +41,10 @@ import {NodeChangesService} from "./node-changes.service";
       .
     </div>
 
-    <div *ngIf="response?.result">
+    <div *ngIf="isLoggedIn() && response$ | async as response">
+      <p>
+        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      </p>
       <div *ngIf="!page" i18n="@@node.node-not-found">
         Node not found
       </div>
@@ -48,20 +61,18 @@ import {NodeChangesService} from "./node-changes.service";
         <div *ngIf="page.incompleteWarning">
           <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
         </div>
-
       </div>
-
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
-export class NodeChangesPageComponent implements OnInit, OnDestroy {
+export class NodeChangesPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  nodeId: number;
+  nodeId$: Observable<string>;
+  response$: Observable<ApiResponse<NodeChangesPage>>;
+
   nodeName: string;
-  response: ApiResponse<NodeChangesPage>;
-
-  private readonly subscriptions = new Subscriptions();
+  changeCount = 0;
+  page: NodeChangesPage;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -70,71 +81,62 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
               private userService: UserService) {
   }
 
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
-
   get parameters() {
-    return this._parameters;
+    return this.nodeChangesService.parameters$.value;
   }
 
   set parameters(parameters: ChangesParameters) {
-    this._parameters = parameters;
     if (this.isLoggedIn()) {
-      this.reload();
-    } else {
-      this.nodeChangesService.resetFilterOptions();
+      this.nodeChangesService.updateParameters(parameters);
     }
-  }
-
-  get page(): NodeChangesPage {
-    return this.response.result;
   }
 
   ngOnInit(): void {
     this.nodeName = history.state.nodeName;
-    this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.activatedRoute.params.subscribe(params => {
-        const nodeId = params["nodeId"];
-        this.nodeId = +nodeId;
-        this.updateParameters();
-      })
+    this.changeCount = history.state.changeCount;
+    this.pageService.showFooter = true;
+    this.nodeId$ = this.activatedRoute.params.pipe(
+      map(params => params["nodeId"]),
+      tap(nodeId => this.updateParameters(nodeId)),
+      shareReplay()
     );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.nodeChangesService.resetFilterOptions();
+  }
+
+  ngAfterViewInit(): void {
+    this.response$ = combineLatest([this.nodeId$, this.nodeChangesService.parameters$]).pipe(
+      switchMap(([nodeId, changeParameters]) =>
+        this.appService.nodeChanges(nodeId, changeParameters).pipe(
+          tap(response => {
+            this.page = Util.safeGet(() => response.result);
+            this.nodeName = Util.safeGet(() => response.result.nodeInfo.name);
+            this.changeCount = Util.safeGet(() => response.result.changeCount);
+            this.nodeChangesService.filterOptions$.next(
+              ChangeFilterOptions.from(
+                this.parameters,
+                response.result.filter,
+                (parameters: ChangesParameters) => this.parameters = parameters
+              )
+            );
+          })
+        )
+      )
+    );
   }
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
   }
 
-  private reload() {
-    this.subscriptions.add(
-      this.appService.nodeChanges(this.nodeId.toString(), this.parameters).subscribe(response => {
-        this.processResponse(response);
-      })
-    );
-  }
-
-  private processResponse(response: ApiResponse<NodeChangesPage>) {
-    this.response = response;
-    this.nodeName = Util.safeGet(() => response.result.nodeInfo.name);
-    this.nodeChangesService.filterOptions.next(
-      ChangeFilterOptions.from(
-        this.parameters,
-        this.response.result.filter,
-        (parameters: ChangesParameters) => this.parameters = parameters
-      )
-    );
-  }
-
-  private updateParameters() {
+  private updateParameters(nodeId: string) {
     this.parameters = new ChangesParameters(
       null,
       null,
       null,
-      this.nodeId,
+      +nodeId,
       this.parameters.year,
       this.parameters.month,
       this.parameters.day,

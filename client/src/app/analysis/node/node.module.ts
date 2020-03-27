@@ -12,6 +12,7 @@ import {NodeChangesSidebarComponent} from "./changes/node-changes-sidebar.compon
 import {NodeChangesService} from "./changes/node-changes.service";
 import {NodePageHeaderComponent} from "./components/node-page-header.component";
 import {NodeDetailsPageComponent} from "./details/_node-details-page.component";
+import {NodeDetailsSidebarComponent} from "./details/node-details-sidebar.component";
 import {NodeLocationComponent} from "./details/node-location.component";
 import {NodeNetworkReferenceStatementComponent} from "./details/node-network-reference-statement.component";
 import {NodeNetworkReferenceComponent} from "./details/node-network-reference.component";
@@ -45,6 +46,7 @@ import {NodeRoutingModule} from "./node-routing.module";
     NodePageHeaderComponent,
     NodeChangesSidebarComponent,
     NodeLocationComponent,
+    NodeDetailsSidebarComponent,
   ],
   providers: [
     NodeChangesService

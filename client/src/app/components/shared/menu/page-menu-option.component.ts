@@ -3,7 +3,7 @@ import {Component, Input} from "@angular/core";
 @Component({
   selector: "kpn-page-menu-option",
   template: `
-    <a [routerLink]="link" [state]="state" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" class="link">
+    <a [routerLink]="link" [state]="state" [ngClass]="{'active': active}" class="link">
       <ng-content></ng-content>
       <span *ngIf="elementCount != null" class="element-count"> ({{elementCount}})</span>
     </a>
@@ -28,6 +28,7 @@ import {Component, Input} from "@angular/core";
 })
 export class PageMenuOptionComponent {
   @Input() link: string;
+  @Input() active = false;
   @Input() state: { [k: string]: any; };
   @Input() elementCount: number;
 }

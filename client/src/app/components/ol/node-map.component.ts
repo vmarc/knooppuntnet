@@ -25,7 +25,7 @@ import {MapClickService} from "./map-click.service";
   styles: [`
     .map {
       position: absolute;
-      top: 170px;
+      top: 200px;
       left: 0;
       right: 0;
       bottom: 0;

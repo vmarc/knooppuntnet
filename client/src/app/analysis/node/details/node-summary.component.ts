@@ -19,9 +19,26 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
         This network node is not active anymore.
       </p>
 
-      <p *ngFor="let networkType of networkTypes()">
-        <kpn-network-type [networkType]="networkType">&nbsp;<span i18n="@@node.node">network node</span></kpn-network-type>
-      </p>
+      <table *ngIf="hasMultipleNames()">
+        <tr *ngFor="let networkType of networkTypes()">
+          <td class="network-name">
+            {{networkName(networkType)}}
+          </td>
+          <td>
+            <kpn-network-type [networkType]="networkType">
+              <span i18n="@@node.node" class="network-type">network node</span>
+            </kpn-network-type>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngIf="!hasMultipleNames()">
+        <p *ngFor="let networkType of networkTypes()">
+          <kpn-network-type [networkType]="networkType">
+            <span i18n="@@node.node" class="network-type">network node</span>
+          </kpn-network-type>
+        </p>
+      </div>
 
       <p *ngIf="nodeInfo.country">
         <kpn-country-name [country]="nodeInfo.country"></kpn-country-name>
@@ -32,14 +49,35 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
       </p>
 
     </div>
-  `
+  `,
+  styles: [`
+    .network-name {
+      padding-right: 1em;
+    }
+
+    .network-type {
+      padding-left: 0.4em;
+    }
+  `]
 })
 export class NodeSummaryComponent {
 
   @Input() nodeInfo: NodeInfo;
 
+  hasMultipleNames(): boolean {
+    return this.nodeInfo.names.size > 1;
+  }
+
   networkTypes(): List<NetworkType> {
-    return NetworkType.all.filter(networkType => this.nodeInfo.tags.has(networkType.id + "_ref"));
+    return NetworkType.all.filter(networkType => this.networkName(networkType));
+  }
+
+  networkName(networkType: NetworkType): string {
+    const nodeName = this.nodeInfo.names.find(name => name.scopedNetworkType.networkType.id === networkType.id);
+    if (nodeName) {
+      return nodeName.name;
+    }
+    return undefined;
   }
 
 }

@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Subscriptions} from "../../../util/Subscriptions";
+import {Component} from "@angular/core";
+import {Observable} from "rxjs";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 import {NodeChangesService} from "./node-changes.service";
 
@@ -7,27 +7,16 @@ import {NodeChangesService} from "./node-changes.service";
   selector: "kpn-node-changes-sidebar",
   template: `
     <kpn-sidebar>
-      <kpn-change-filter [filterOptions]="filterOptions"></kpn-change-filter>
+      <kpn-change-filter [filterOptions]="filterOptions$ | async"></kpn-change-filter>
     </kpn-sidebar>
   `
 })
-export class NodeChangesSidebarComponent implements OnInit, OnDestroy {
+export class NodeChangesSidebarComponent {
 
-  filterOptions: ChangeFilterOptions;
-  private readonly subscriptions = new Subscriptions();
+  readonly filterOptions$: Observable<ChangeFilterOptions>;
 
   constructor(private nodeChangesService: NodeChangesService) {
+    this.filterOptions$ = this.nodeChangesService.filterOptions$;
   }
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.nodeChangesService.filterOptions.subscribe(filterOptions => this.filterOptions = filterOptions)
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
 }
 
