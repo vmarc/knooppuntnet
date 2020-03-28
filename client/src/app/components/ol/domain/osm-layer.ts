@@ -4,6 +4,7 @@ import BaseLayer from "ol/layer/Base";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
+import {osmStyle} from "./style";
 
 export class OsmLayer {
 
@@ -29,11 +30,7 @@ export class OsmLayer {
       renderMode: "image"
     });
 
-    fetch("assets/style.json").then((response) => {
-      response.json().then((glStyle) => {
-        stylefunction(layer, glStyle, "openmaptiles");
-      });
-    });
+    stylefunction(layer, osmStyle, "openmaptiles");
 
     return layer;
   }

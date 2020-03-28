@@ -1,6 +1,6 @@
-{
+export const osmStyle = {
   "version": 8,
-  "name": "OSM Liberty ==> COPY TO style.ts !!!",
+  "name": "OSM Liberty",
   "metadata": {
     "maputnik:license": "https://github.com/maputnik/osm-liberty/blob/gh-pages/LICENSE.md",
     "maputnik:renderer": "mbgljs"
@@ -1505,4 +1505,4 @@
     }
   ],
   "id": "osm-liberty"
-}
+};
