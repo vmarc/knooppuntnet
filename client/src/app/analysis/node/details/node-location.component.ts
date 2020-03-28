@@ -6,7 +6,7 @@ import {Location} from "../../../kpn/api/common/location/location";
 @Component({
   selector: "kpn-node-location",
   template: `
-    <p *ngIf="location.names.isEmpty()" i18n="@@node.location.none">None</p>
+    <p *ngIf="!hasLocation()" i18n="@@node.location.none">None</p>
     <div class="kpn-comma-list">
       <span *ngFor="let name of locationNames()">{{name}}</span>
     </div>
@@ -15,6 +15,10 @@ import {Location} from "../../../kpn/api/common/location/location";
 export class NodeLocationComponent {
 
   @Input() location: Location;
+
+  hasLocation() {
+    return this.location && !this.location.names.isEmpty();
+  }
 
   locationNames(): List<string> {
     if (this.location) {

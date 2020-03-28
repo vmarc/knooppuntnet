@@ -12,6 +12,7 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
+import kpn.api.common.location.Location
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
@@ -79,7 +80,7 @@ object NodePageExample {
         Fact.WasOrphan,
         Fact.Deleted
       ),
-      location = None,
+      location = Some(Location(Seq("Roosendaal", "North Brabant", "NL"))),
       Seq()
     )
   }

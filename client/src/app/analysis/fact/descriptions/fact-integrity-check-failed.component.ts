@@ -5,7 +5,7 @@ import {Component} from "@angular/core";
   template: `
     <p i18n="@@fact.description.integrity-check-failed">
       The actual number of routes does not match the expected number of routes. Routes with
-      tag "state" equal to "connection or "alternate" are not counted.
+      tag "state" equal to "connection" or "alternate" are not counted.
     </p>
   `
 })

@@ -9,7 +9,7 @@ import {Fact} from "../../../kpn/api/custom/fact";
       {{title}}:&nbsp;
       <div class="kpn-comma-list">
         <div *ngFor="let fact of facts">
-          {{fact.name}}
+          <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
         </div>
       </div>
       <kpn-icon-happy *ngIf="icon == 'happy'"></kpn-icon-happy>

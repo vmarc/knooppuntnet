@@ -25,7 +25,7 @@ export class Facts {
     new FactDefinition("NetworkExtraMemberNode", FactLevel.error),
     new FactDefinition("NetworkExtraMemberRelation", FactLevel.error),
     new FactDefinition("NetworkExtraMemberWay", FactLevel.error),
-    new FactDefinition("NodeMemberMissing", FactLevel.error),
+    new FactDefinition("NodeMemberMissing", FactLevel.info),
     new FactDefinition("OrphanNode", FactLevel.error),
     new FactDefinition("OrphanRoute", FactLevel.error),
     new FactDefinition("RouteAnalysisFailed", FactLevel.error),
