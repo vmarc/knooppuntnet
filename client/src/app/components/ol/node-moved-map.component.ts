@@ -1,19 +1,19 @@
-import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
 import {AfterViewInit, Component, Input} from "@angular/core";
 import {Attribution, defaults as defaultControls} from "ol/control";
+import Feature from "ol/Feature";
+import LineString from "ol/geom/LineString";
 import VectorLayer from "ol/layer/Vector";
 import Map from "ol/Map";
 import VectorSource from "ol/source/Vector";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
 import View from "ol/View";
+import {NodeMoved} from "../../kpn/api/common/diff/node/node-moved";
+import {UniqueId} from "../../kpn/common/unique-id";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
-import {NodeMoved} from "../../kpn/api/common/diff/node/node-moved";
-import {UniqueId} from "../../kpn/common/unique-id";
 
 @Component({
   selector: "kpn-node-moved-map",
@@ -35,6 +35,12 @@ export class NodeMovedMapComponent implements AfterViewInit {
   mapId = UniqueId.get();
 
   ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.buildMap();
+    }, 100);
+  }
+
+  buildMap(): void {
 
     const attribution = new Attribution({
       collapsible: false
