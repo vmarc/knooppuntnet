@@ -28,7 +28,12 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
       </div>
 
     </div>
-  `
+  `,
+  styles: [`
+    .note {
+      margin-top: 5px;
+    }
+  `]
 })
 export class NodeChangeMovedComponent {
 
