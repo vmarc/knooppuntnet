@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {ScaleLine} from "ol/control";
+import {FullScreen} from "ol/control";
 import {Attribution, defaults as defaultControls} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
@@ -47,6 +49,7 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
       left: 0;
       right: 0;
       bottom: 0;
+      background-color: white;
     }
 
   `]
@@ -112,6 +115,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.poiTileLayer = this.poiTileLayerService.buildLayer();
     this.poiTileLayer.setVisible(false);
 
+    const fullScreen = new FullScreen();
+    const scaleLine = new ScaleLine();
     const attribution = new Attribution({
       collapsible: false
     });
@@ -126,7 +131,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.vectorTileLayer
       ],
       overlays: [this.overlay],
-      controls: defaultControls({attribution: false}).extend([attribution]),
+      controls: defaultControls({attribution: false}).extend([fullScreen, scaleLine, attribution]),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.vectorTileMaxOverZoom

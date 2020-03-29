@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, Input} from "@angular/core";
+import {FullScreen} from "ol/control";
 import {Attribution, defaults as defaultControls} from "ol/control";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
@@ -24,6 +25,7 @@ import {ZoomLevel} from "./domain/zoom-level";
     .map {
       width: 500px;
       height: 300px;
+      background-color: white;
     }
   `]
 })
@@ -42,6 +44,7 @@ export class NodeMovedMapComponent implements AfterViewInit {
 
   buildMap(): void {
 
+    const fullScreen = new FullScreen();
     const attribution = new Attribution({
       collapsible: false
     });
@@ -54,7 +57,7 @@ export class NodeMovedMapComponent implements AfterViewInit {
         OsmLayer.build(),
         this.buildDetailLayer()
       ],
-      controls: defaultControls({attribution: false}).extend([attribution]),
+      controls: defaultControls({attribution: false}).extend([fullScreen, attribution]),
       view: new View({
         center: center,
         minZoom: ZoomLevel.minZoom,

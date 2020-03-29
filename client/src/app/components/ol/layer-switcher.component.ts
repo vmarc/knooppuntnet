@@ -26,7 +26,7 @@ import BaseLayer from "ol/layer/Base";
 
     .switcher {
       position: absolute;
-      top: 10px;
+      top: 50px;
       right: 10px;
       z-index: 100;
       background-color: white;

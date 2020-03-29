@@ -1,13 +1,18 @@
+import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, Input} from "@angular/core";
+import {List} from "immutable";
+import {ScaleLine} from "ol/control";
+import {FullScreen} from "ol/control";
 import {Attribution, defaults as defaultControls} from "ol/control";
+import BaseLayer from "ol/layer/Base";
 import TileLayer from "ol/layer/Tile";
 import VectorLayer from "ol/layer/Vector";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import VectorSource from "ol/source/Vector";
 import View from "ol/View";
-import {NetworkType} from "../../kpn/api/custom/network-type";
 import {NodeInfo} from "../../kpn/api/common/node-info";
+import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
@@ -20,7 +25,9 @@ import {MapClickService} from "./map-click.service";
 @Component({
   selector: "kpn-node-map",
   template: `
-    <div id="node-map" class="map"></div>
+    <div id="node-map" class="map">
+      <kpn-layer-switcher [layers]="layers"></kpn-layer-switcher>
+    </div>
   `,
   styles: [`
     .map {
@@ -29,10 +36,11 @@ import {MapClickService} from "./map-click.service";
       left: 0;
       right: 0;
       bottom: 0;
+      background-color: white;
     }
   `]
 })
-export class NodeMapComponent implements AfterViewInit {
+export class NodeMapComponent implements OnInit, AfterViewInit {
 
   @Input() nodeInfo: NodeInfo;
 
@@ -41,14 +49,20 @@ export class NodeMapComponent implements AfterViewInit {
   bitmapTileLayer: TileLayer;
   vectorTileLayer: VectorTileLayer;
 
+  layers: List<BaseLayer> = List();
+
   constructor(private mapClickService: MapClickService) {
+  }
+
+  ngOnInit(): void {
+    this.layers = this.buildLayers();
   }
 
   ngAfterViewInit(): void {
 
-    this.bitmapTileLayer = NetworkBitmapTileLayer.build(NetworkType.hiking);
-    this.vectorTileLayer = NetworkVectorTileLayer.build(NetworkType.hiking);
 
+    const fullScreen = new FullScreen();
+    const scaleLine = new ScaleLine();
     const attribution = new Attribution({
       collapsible: false
     });
@@ -57,13 +71,8 @@ export class NodeMapComponent implements AfterViewInit {
 
     this.map = new Map({
       target: "node-map",
-      layers: [
-        OsmLayer.build(),
-        this.bitmapTileLayer,
-        this.vectorTileLayer,
-        this.buildMarkerLayer()
-      ],
-      controls: defaultControls({attribution: false}).extend([attribution]),
+      layers: this.layers.toArray(),
+      controls: defaultControls({attribution: false}).extend([fullScreen, scaleLine, attribution]),
       view: new View({
         center: center,
         minZoom: ZoomLevel.minZoom,
@@ -93,6 +102,33 @@ export class NodeMapComponent implements AfterViewInit {
     return true;
   }
 
+  private updateLayerVisibility(zoomLevel: number) {
+    const zoom = Math.round(zoomLevel);
+    if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
+      this.bitmapTileLayer.setVisible(true);
+      this.vectorTileLayer.setVisible(false);
+    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
+      this.bitmapTileLayer.setVisible(false);
+      this.vectorTileLayer.setVisible(true);
+    }
+  }
+
+  private buildLayers(): List<BaseLayer> {
+
+    this.bitmapTileLayer = NetworkBitmapTileLayer.build(NetworkType.hiking);
+    this.vectorTileLayer = NetworkVectorTileLayer.build(NetworkType.hiking);
+
+    this.bitmapTileLayer.set("name", "Hiking B"); // TODO translate
+    this.vectorTileLayer.set("name", "Hiking V"); // TODO translate
+
+    return List([
+      OsmLayer.build(),
+      this.bitmapTileLayer,
+      this.vectorTileLayer,
+      this.buildMarkerLayer()
+    ]);
+  }
+
   private buildMarkerLayer() {
 
     const coordinate = Util.toCoordinate(this.nodeInfo.latitude, this.nodeInfo.longitude);
@@ -106,17 +142,6 @@ export class NodeMapComponent implements AfterViewInit {
     source.addFeature(marker);
     layer.set("name", "Node"); // TODO translate: "Knooppunt"
     return layer;
-  }
-
-  private updateLayerVisibility(zoomLevel: number) {
-    const zoom = Math.round(zoomLevel);
-    if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
-      this.bitmapTileLayer.setVisible(true);
-      this.vectorTileLayer.setVisible(false);
-    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
-      this.bitmapTileLayer.setVisible(false);
-      this.vectorTileLayer.setVisible(true);
-    }
   }
 
 }
