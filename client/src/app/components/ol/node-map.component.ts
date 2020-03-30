@@ -5,17 +5,16 @@ import {ScaleLine} from "ol/control";
 import {FullScreen} from "ol/control";
 import {Attribution, defaults as defaultControls} from "ol/control";
 import BaseLayer from "ol/layer/Base";
-import TileLayer from "ol/layer/Tile";
+import LayerGroup from "ol/layer/Group";
 import VectorLayer from "ol/layer/Vector";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import VectorSource from "ol/source/Vector";
 import View from "ol/View";
-import {NodeInfo} from "../../kpn/api/common/node-info";
-import {NetworkType} from "../../kpn/api/custom/network-type";
+import {I18nService} from "../../i18n/i18n.service";
+import {NodeMapInfo} from "../../kpn/api/common/node-map-info";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
-import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
 import {OsmLayer} from "./domain/osm-layer";
@@ -42,16 +41,14 @@ import {MapClickService} from "./map-click.service";
 })
 export class NodeMapComponent implements OnInit, AfterViewInit {
 
-  @Input() nodeInfo: NodeInfo;
+  @Input() nodeMapInfo: NodeMapInfo;
 
   map: Map;
 
-  bitmapTileLayer: TileLayer;
-  vectorTileLayer: VectorTileLayer;
-
   layers: List<BaseLayer> = List();
 
-  constructor(private mapClickService: MapClickService) {
+  constructor(private mapClickService: MapClickService,
+              private i18nService: I18nService) {
   }
 
   ngOnInit(): void {
@@ -60,14 +57,13 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-
     const fullScreen = new FullScreen();
     const scaleLine = new ScaleLine();
     const attribution = new Attribution({
       collapsible: false
     });
 
-    const center = Util.toCoordinate(this.nodeInfo.latitude, this.nodeInfo.longitude);
+    const center = Util.toCoordinate(this.nodeMapInfo.latitude, this.nodeMapInfo.longitude);
 
     this.map = new Map({
       target: "node-map",
@@ -75,63 +71,49 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
       controls: defaultControls({attribution: false}).extend([fullScreen, scaleLine, attribution]),
       view: new View({
         center: center,
-        minZoom: ZoomLevel.minZoom,
+        minZoom: ZoomLevel.vectorTileMinZoom,
         maxZoom: ZoomLevel.maxZoom,
         zoom: 18
       })
     });
 
-    this.mapClickService.installOn(this.map);
-
-    const view = this.map.getView();
-    view.on("change:resolution", () => this.zoom(view.getZoom()));
-
     const nodeMapStyle = new NodeMapStyle(this.map).styleFunction();
-    this.vectorTileLayer.setStyle(nodeMapStyle);
-    this.updateLayerVisibility(view.getZoom());
-  }
+    this.layers.filter(layer => layer instanceof VectorTileLayer && layer.get("mapStyle") === "nodeMapStyle").forEach(layer => {
+      (layer as VectorTileLayer).setStyle(nodeMapStyle);
+    });
 
-  updateSize() {
-    if (this.map != null) {
-      this.map.updateSize();
-    }
-  }
-
-  private zoom(zoomLevel: number) {
-    this.updateLayerVisibility(zoomLevel);
-    return true;
-  }
-
-  private updateLayerVisibility(zoomLevel: number) {
-    const zoom = Math.round(zoomLevel);
-    if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
-      this.bitmapTileLayer.setVisible(true);
-      this.vectorTileLayer.setVisible(false);
-    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
-      this.bitmapTileLayer.setVisible(false);
-      this.vectorTileLayer.setVisible(true);
-    }
+    this.map.setLayerGroup(new LayerGroup({layers: this.layers.toArray()}));
+    this.mapClickService.installOn(this.map);
   }
 
   private buildLayers(): List<BaseLayer> {
-
-    this.bitmapTileLayer = NetworkBitmapTileLayer.build(NetworkType.hiking);
-    this.vectorTileLayer = NetworkVectorTileLayer.build(NetworkType.hiking);
-
-    this.bitmapTileLayer.set("name", "Hiking B"); // TODO translate
-    this.vectorTileLayer.set("name", "Hiking V"); // TODO translate
-
-    return List([
-      OsmLayer.build(),
-      this.bitmapTileLayer,
-      this.vectorTileLayer,
-      this.buildMarkerLayer()
-    ]);
+    const layerArray: Array<BaseLayer> = [];
+    layerArray.push(this.buildOsmLayer());
+    this.buildNetworkLayers().forEach(layer => layerArray.push(layer));
+    layerArray.push(this.buildMarkerLayer());
+    return List(layerArray);
   }
 
-  private buildMarkerLayer() {
+  private buildOsmLayer(): BaseLayer {
+    const osmLayerName = this.i18nService.translation("@@map.layer.osm");
+    const osmLayer = OsmLayer.build();
+    osmLayer.set("name", osmLayerName);
+    return osmLayer;
+  }
 
-    const coordinate = Util.toCoordinate(this.nodeInfo.latitude, this.nodeInfo.longitude);
+  private buildNetworkLayers(): Array<BaseLayer> {
+    return this.nodeMapInfo.networkTypes.map(networkType => {
+      const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
+      const layer: VectorTileLayer = NetworkVectorTileLayer.build(networkType);
+      layer.set("name", layerName);
+      layer.set("mapStyle", "nodeMapStyle");
+      return layer;
+    }).toArray();
+  }
+
+  private buildMarkerLayer(): BaseLayer {
+
+    const coordinate = Util.toCoordinate(this.nodeMapInfo.latitude, this.nodeMapInfo.longitude);
     const marker = Marker.create("blue", coordinate);
 
     const source = new VectorSource();
@@ -140,7 +122,10 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
     });
 
     source.addFeature(marker);
-    layer.set("name", "Node"); // TODO translate: "Knooppunt"
+
+    const layerName = this.i18nService.translation("@@map.layer.node");
+    layer.set("name", layerName);
+
     return layer;
   }
 

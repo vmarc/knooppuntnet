@@ -1,8 +1,8 @@
 package kpn.api.common.node
 
-import kpn.api.common.NodeInfo
+import kpn.api.common.NodeMapInfo
 
 case class NodeMapPage(
-  nodeInfo: NodeInfo,
+  nodeMapInfo: NodeMapInfo,
   changeCount: Long
 )

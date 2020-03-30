@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {NodeInfo} from "../node-info";
+import {NodeMapInfo} from "../node-map-info";
 
 export class NodeMapPage {
 
-  constructor(readonly nodeInfo: NodeInfo,
+  constructor(readonly nodeMapInfo: NodeMapInfo,
               readonly changeCount: number) {
   }
 
@@ -13,7 +13,7 @@ export class NodeMapPage {
       return undefined;
     }
     return new NodeMapPage(
-      NodeInfo.fromJSON(jsonObject.nodeInfo),
+      NodeMapInfo.fromJSON(jsonObject.nodeMapInfo),
       jsonObject.changeCount
     );
   }

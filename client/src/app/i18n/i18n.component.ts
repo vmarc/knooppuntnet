@@ -34,6 +34,15 @@ import {I18nService} from "./i18n.service";
       <span id="@@map.layer.unused" i18n="@@map.layer.unused">Unused</span>
       <span id="@@map.layer.nodes" i18n="@@map.layer.nodes">Nodes</span>
 
+      <span id="@@map.layer.osm" i18n="@@map.layer.cycling">OpenStreetMap</span>
+      <span id="@@map.layer.node" i18n="@@map.layer.node">Node</span>
+      <span id="@@map.layer.cycling" i18n="@@map.layer.cycling">Cycling</span>
+      <span id="@@map.layer.hiking" i18n="@@map.layer.hiking">Hiking</span>
+      <span id="@@map.layer.horse-riding" i18n="@@map.layer.horse-riding">Horse riding</span>
+      <span id="@@map.layer.motorboat" i18n="@@map.layer.motorboat">Motorboat</span>
+      <span id="@@map.layer.canoe" i18n="@@map.layer.canoe">Canoe</span>
+      <span id="@@map.layer.inline-skating" i18n="@@map.layer.inline-skating">Inline Skating</span>
+
     </div>
   `,
   styles: [`

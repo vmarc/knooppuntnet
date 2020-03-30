@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.node
 
 import kpn.api.common.NodeInfo
+import kpn.api.common.NodeMapInfo
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.node.NodeChangesPage
@@ -62,7 +63,16 @@ class NodePageBuilderImpl(
 
   private def buildNodeMapPage(user: Option[String], nodeInfo: NodeInfo): NodeMapPage = {
     val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
-    NodeMapPage(nodeInfo, changeCount)
+    NodeMapPage(
+      NodeMapInfo(
+        nodeInfo.id,
+        nodeInfo.name,
+        nodeInfo.names.map(_.scopedNetworkType.networkType),
+        nodeInfo.latitude,
+        nodeInfo.longitude
+      ),
+      changeCount
+    )
   }
 
   private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters: ChangesParameters): NodeChangesPage = {

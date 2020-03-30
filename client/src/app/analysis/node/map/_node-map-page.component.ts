@@ -5,7 +5,7 @@ import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
-import {NodeInfo} from "../../../kpn/api/common/node-info";
+import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
 import {NodeMapPage} from "../../../kpn/api/common/node/node-map-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 
@@ -31,7 +31,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
         Node not found
       </div>
       <div *ngIf="response.result">
-        <kpn-node-map [nodeInfo]="nodeInfo"></kpn-node-map>
+        <kpn-node-map [nodeMapInfo]="nodeMapInfo"></kpn-node-map>
       </div>
     </div>
   `
@@ -43,7 +43,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
 
   nodeName: string;
   changeCount = 0;
-  nodeInfo: NodeInfo;
+  nodeMapInfo: NodeMapInfo;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -65,8 +65,8 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
     this.response$ = this.nodeId$.pipe(
       flatMap(nodeId => this.appService.nodeMap(nodeId).pipe(
         tap(response => {
-          this.nodeInfo = response.result.nodeInfo;
-          this.nodeName = response.result.nodeInfo.name;
+          this.nodeMapInfo = response.result.nodeMapInfo;
+          this.nodeName = response.result.nodeMapInfo.name;
           this.changeCount = response.result.changeCount;
         })
       ))

@@ -29,7 +29,6 @@ export class OsmLayer {
       source: source,
       renderMode: "image"
     });
-    layer.set("name", "OpenStreetMap");
 
     stylefunction(layer, osmStyle, "openmaptiles");
 

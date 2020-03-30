@@ -2,6 +2,7 @@ package kpn.server.api.analysis.pages.node
 
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NodeInfo
+import kpn.api.common.NodeMapInfo
 import kpn.api.common.NodeName
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
@@ -41,7 +42,19 @@ object NodePageExample {
   }
 
   val nodeMapPage: NodeMapPage = {
-    NodeMapPage(nodeInfo(), 123)
+    NodeMapPage(
+      NodeMapInfo(
+        id = 1,
+        name = "01 / 02",
+        networkTypes = Seq(
+          NetworkType.cycling,
+          NetworkType.hiking
+        ),
+        latitude = "51.5291600",
+        longitude = "4.297800",
+      ),
+      123
+    )
   }
 
   val nodeChangesPage: NodeChangesPage = {
