@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {RouteChangesPage} from "../../../kpn/api/common/route/route-changes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
@@ -69,6 +69,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   set parameters(parameters: ChangesParameters) {
     this._parameters = parameters;
+    this.appService.storeChangesParameters(parameters);
     if (this.isLoggedIn()) {
       this.reload();
     } else {
@@ -89,7 +90,8 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
         this.routeId = params["routeId"];
-        this.parameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 5, 0, false);
+        const initialParameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 0, 0, false);
+        this.parameters = this.appService.changesParameters(initialParameters);
       })
     );
   }

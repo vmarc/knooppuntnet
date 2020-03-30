@@ -59,9 +59,11 @@ export class ChangesPageComponent implements OnInit {
               private changesService: ChangesService,
               private pageService: PageService,
               private userService: UserService) {
+    const initialParameters = new ChangesParameters(null, null, null, null, null, null, null, 0, 0, false);
+    this._parameters = appService.changesParameters(initialParameters);
   }
 
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 15, 0, true);
+  private _parameters;
 
   get parameters() {
     return this._parameters;
@@ -69,6 +71,7 @@ export class ChangesPageComponent implements OnInit {
 
   set parameters(parameters: ChangesParameters) {
     this._parameters = parameters;
+    this.appService.storeChangesParameters(parameters);
     this.reload();
   }
 

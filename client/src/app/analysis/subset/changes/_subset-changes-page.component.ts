@@ -73,6 +73,7 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   }
 
   set parameters(parameters: ChangesParameters) {
+    this.appService.storeChangesParameters(parameters);
     this._parameters = parameters;
     if (this.isLoggedIn()) {
       this.reload();
@@ -88,7 +89,8 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.subset = Util.subsetInRoute(params);
-      this.parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+      const initialParameters = new ChangesParameters(null, null, null, null, null, null, null, 0, 0, false);
+      this.parameters = this.appService.changesParameters(initialParameters);
     });
   }
 

@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {NetworkChangesPage} from "../../../kpn/api/common/network/network-changes-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -60,15 +60,18 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
               private networkChangesService: NetworkChangesService,
               private networkCacheService: NetworkCacheService,
               private userService: UserService) {
+    const initialParameters = new ChangesParameters(null, null, null, null, null, null, null, 0, 0, false);
+    this._parameters = appService.changesParameters(initialParameters);
   }
 
-  private _parameters = new ChangesParameters(null, null, null, null, null, null, null, 5, 0, false);
+  private _parameters: ChangesParameters;
 
   get parameters(): ChangesParameters {
     return this._parameters;
   }
 
   set parameters(parameters: ChangesParameters) {
+    this.appService.storeChangesParameters(parameters);
     this._parameters = parameters;
     if (this.isLoggedIn()) {
       this.reload();

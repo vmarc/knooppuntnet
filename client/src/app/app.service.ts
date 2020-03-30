@@ -47,12 +47,14 @@ import {LocationKey} from "./kpn/api/custom/location-key";
 import {NetworkType} from "./kpn/api/custom/network-type";
 import {Statistics} from "./kpn/api/custom/statistics";
 import {Subset} from "./kpn/api/custom/subset";
+import {BrowserStorageService} from "./services/browser-storage.service";
 
 @Injectable()
 export class AppService {
 
   constructor(private http: HttpClient,
-              markdownService: MarkdownService) {
+              markdownService: MarkdownService,
+              private browserStorageService: BrowserStorageService) {
     markdownService.renderer.link = (href: string, title: string, text: string) => {
       return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
     };
@@ -301,6 +303,20 @@ export class AppService {
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, SystemStatusPage.fromJSON))
     );
+  }
+
+  public storeChangesParameters(parameters: ChangesParameters): void {
+    this.browserStorageService.set("impact", parameters.impact.toString());
+    this.browserStorageService.set("items-per-page", parameters.itemsPerPage.toString());
+  }
+
+  public changesParameters(parameters: ChangesParameters): ChangesParameters {
+    const impact = this.browserStorageService.get("impact") === "true";
+    let itemsPerPage = this.browserStorageService.get("items-per-page");
+    if (itemsPerPage == null) {
+      itemsPerPage = "15";
+    }
+    return {...parameters, impact: impact, itemsPerPage: +itemsPerPage};
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {
