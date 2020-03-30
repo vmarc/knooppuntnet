@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular
 package kpn.client
 
 import japgolly.scalajs.react.extra.router.Redirect

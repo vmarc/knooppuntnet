@@ -1,4 +1,4 @@
-// TODO migrate to Angular
+// Migrated to Angular
 package kpn.client.components.node
 
 import kpn.client.common.Context
