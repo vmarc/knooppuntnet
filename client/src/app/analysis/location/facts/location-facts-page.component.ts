@@ -7,6 +7,7 @@ import {LocationFactsPageService} from "./location-facts-page.service";
   selector: "kpn-location-facts-page",
   template: `
     <kpn-location-page-header
+      pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@location-facts.title">
     </kpn-location-page-header>

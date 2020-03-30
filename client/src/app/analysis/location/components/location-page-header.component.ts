@@ -19,6 +19,7 @@ import {LocationService} from "../location.service";
       <kpn-page-menu>
         <kpn-page-menu-option
           [link]="link('nodes')"
+          [active]="pageName === 'nodes'"
           i18n="@@location-page.menu.nodes"
           [elementCount]="summary?.nodeCount">
           Nodes
@@ -26,6 +27,7 @@ import {LocationService} from "../location.service";
 
         <kpn-page-menu-option
           [link]="link('routes')"
+          [active]="pageName === 'routes'"
           i18n="@@location-page.menu.routes"
           [elementCount]="summary?.routeCount">
           Routes
@@ -33,6 +35,7 @@ import {LocationService} from "../location.service";
 
         <kpn-page-menu-option
           [link]="link('facts')"
+          [active]="pageName === 'facts'"
           i18n="@@location-page.menu.facts"
           [elementCount]="summary?.factCount">
           Facts
@@ -40,12 +43,14 @@ import {LocationService} from "../location.service";
 
         <kpn-page-menu-option
           [link]="link('map')"
+          [active]="pageName === 'map'"
           i18n="@@location-page.menu.map">
           Map
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
           [link]="link('changes')"
+          [active]="pageName === 'changes'"
           i18n="@@location-page.menu.changes"
           [elementCount]="summary?.changeCount">
           Changes
@@ -57,6 +62,7 @@ import {LocationService} from "../location.service";
 })
 export class LocationPageHeaderComponent {
 
+  @Input() pageName: string;
   @Input() pageTitle: string;
 
   constructor(public service: LocationService) {

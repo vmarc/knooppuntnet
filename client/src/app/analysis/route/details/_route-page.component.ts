@@ -16,6 +16,7 @@ import {FactInfo} from "../../fact/fact-info";
   template: `
 
     <kpn-route-page-header
+      pageName="details"
       [routeId]="routeId"
       [routeName]="response?.result?.route.summary.name"
       [changeCount]="response?.result?.changeCount">

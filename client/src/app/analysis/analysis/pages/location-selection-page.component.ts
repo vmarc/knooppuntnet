@@ -26,7 +26,7 @@ import {LocationModeService} from "./location-mode.service";
 
     <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
       <kpn-network-type-name [networkType]="networkType"></kpn-network-type-name>
-      <span i18n="@@subset.in">in</span>
+      <span i18n="@@subset.in" class="in">in</span>
       <kpn-country-name [country]="country"></kpn-country-name>
     </kpn-page-header>
 
@@ -39,7 +39,15 @@ import {LocationModeService} from "./location-mode.service";
     <div *ngIf="isModeTree() | async">
       <kpn-location-tree [country]="country" (selection)="selected($event)"></kpn-location-tree>
     </div>
-  `
+  `,
+  styles: [`
+    .in:before {
+      content: ' ';
+    }
+    .in:after {
+      content: ' ';
+    }
+  `]
 })
 export class LocationSelectionPageComponent implements OnInit {
 

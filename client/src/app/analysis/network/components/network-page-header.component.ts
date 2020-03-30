@@ -16,41 +16,47 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
     <kpn-page-menu>
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId"
+        [active]="pageName === 'details'"
         i18n="@@network-page.menu.details">
         Details
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/facts'"
-        i18n="@@network-page.menu.facts"
-        [elementCount]="summary?.factCount">
+        [active]="pageName === 'facts'"
+        [elementCount]="summary?.factCount"
+        i18n="@@network-page.menu.facts">
         Facts
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/nodes'"
-        i18n="@@network-page.menu.nodes"
-        [elementCount]="summary?.nodeCount">
+        [active]="pageName === 'nodes'"
+        [elementCount]="summary?.nodeCount"
+        i18n="@@network-page.menu.nodes">
         Nodes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/routes'"
-        i18n="@@network-page.menu.routes"
-        [elementCount]="summary?.routeCount">
+        [active]="pageName === 'routes'"
+        [elementCount]="summary?.routeCount"
+        i18n="@@network-page.menu.routes">
         Routes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/map'"
+        [active]="pageName === 'map'"
         i18n="@@network-page.menu.map">
         Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId + '/changes'"
-        i18n="@@network-page.menu.changes"
-        [elementCount]="summary?.changeCount">
+        [active]="pageName === 'changes'"
+        [elementCount]="summary?.changeCount"
+        i18n="@@network-page.menu.changes">
         Changes
       </kpn-page-menu-option>
 
@@ -59,6 +65,7 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
 })
 export class NetworkPageHeaderComponent {
 
+  @Input() pageName: string;
   @Input() networkId: number;
   @Input() pageTitle: string;
 

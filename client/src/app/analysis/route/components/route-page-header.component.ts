@@ -13,25 +13,27 @@ import {Component, Input} from "@angular/core";
 
       <kpn-page-menu-option
         [link]="linkRouteDetails()"
+        [active]="pageName === 'details'"
         i18n="@@route.menu.details">
         Details
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkRouteMap()"
+        [active]="pageName === 'map'"
         i18n="@@route.menu.map">
         Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="linkRouteChanges()"
+        [active]="pageName === 'changes'"
         [elementCount]="changeCount"
         i18n="@@route.menu.changes">
         Changes
       </kpn-page-menu-option>
 
     </kpn-page-menu>
-
   `
 })
 export class RoutePageHeaderComponent {

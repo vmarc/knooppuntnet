@@ -29,7 +29,7 @@ import {NodeChangesService} from "./node-changes.service";
 
     <kpn-node-page-header
       *ngIf="nodeId$ | async as nodeId"
-      page="changes"
+      pageName="changes"
       [nodeId]="nodeId"
       [nodeName]="nodeName"
       [changeCount]="changeCount">

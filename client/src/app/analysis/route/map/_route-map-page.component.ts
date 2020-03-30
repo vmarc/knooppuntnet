@@ -13,6 +13,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
   template: `
 
     <kpn-route-page-header
+      pageName="map"
       [routeId]="routeId"
       [routeName]="response?.result?.route.summary.name"
       [changeCount]="response?.result?.changeCount">

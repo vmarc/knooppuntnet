@@ -24,7 +24,7 @@ import {StatusLinks} from "./status-links";
     <h1>System</h1>
 
     <div *ngIf="page$ | async as page">
-      <kpn-status-page-menu [links]="statusLinks"></kpn-status-page-menu>
+      <kpn-status-page-menu [links]="statusLinks" [periodType]="page.periodType"></kpn-status-page-menu>
 
       <div>
         <a [routerLink]="'TODO previous'" class="previous">previous</a>

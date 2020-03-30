@@ -13,6 +13,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
     <kpn-network-page-header
       [networkId]="networkId"
+      pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@network-facts.title">
     </kpn-network-page-header>

@@ -14,6 +14,7 @@ import {RouteChangesService} from "./route-changes.service";
   selector: "kpn-route-changes-page",
   template: `
     <kpn-route-page-header
+      pageName="changes"
       [routeId]="routeId"
       [routeName]="response?.result?.route.summary.name"
       [changeCount]="response?.result?.changeCount">

@@ -23,12 +23,12 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
         </a>
       </li>
       <li>
-        <span *ngIf="pageName == 'networks'" i18n="@@subset-page.menu.networks">Networks</span>
-        <span *ngIf="pageName == 'facts'" i18n="@@subset-page.menu.facts">Facts</span>
-        <span *ngIf="pageName == 'orphan-nodes'" i18n="@@subset-page.menu.orphan-nodes">Orphan nodes</span>
-        <span *ngIf="pageName == 'orphan-routes'" i18n="@@subset-page.menu.orphan-routes">Orphan routes</span>
-        <span *ngIf="pageName == 'map'" i18n="@@subset-page.menu.map">Map</span>
-        <span *ngIf="pageName == 'changes'" i18n="@@subset-page.menu.changes">Changes</span>
+        <span *ngIf="pageName === 'networks'" i18n="@@subset-page.menu.networks">Networks</span>
+        <span *ngIf="pageName === 'facts'" i18n="@@subset-page.menu.facts">Facts</span>
+        <span *ngIf="pageName === 'orphan-nodes'" i18n="@@subset-page.menu.orphan-nodes">Orphan nodes</span>
+        <span *ngIf="pageName === 'orphan-routes'" i18n="@@subset-page.menu.orphan-routes">Orphan routes</span>
+        <span *ngIf="pageName === 'map'" i18n="@@subset-page.menu.map">Map</span>
+        <span *ngIf="pageName === 'changes'" i18n="@@subset-page.menu.changes">Changes</span>
       </li>
     </ul>
 
@@ -40,6 +40,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
       <kpn-page-menu-option
         [link]="link('networks')"
+        [active]="pageName === 'networks'"
         [elementCount]="networkCount()"
         i18n="@@subset-page.menu.networks">
         Networks
@@ -47,6 +48,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
       <kpn-page-menu-option
         [link]="link('facts')"
+        [active]="pageName === 'facts'"
         [elementCount]="factCount()"
         i18n="@@subset-page.menu.facts">
         Facts
@@ -54,6 +56,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
       <kpn-page-menu-option
         [link]="link('orphan-nodes')"
+        [active]="pageName === 'orphan-nodes'"
         [elementCount]="orphanNodeCount()"
         i18n="@@subset-page.menu.orphan-nodes">
         Orphan nodes
@@ -61,6 +64,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
       <kpn-page-menu-option
         [link]="link('orphan-routes')"
+        [active]="pageName === 'orphan-routes'"
         [elementCount]="orphanRouteCount()"
         i18n="@@subset-page.menu.orphan-routes">
         Orphan routes
@@ -68,12 +72,14 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
       <kpn-page-menu-option
         [link]="link('map')"
+        [active]="pageName === 'map'"
         i18n="@@subset-page.menu.map">
         Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
         [link]="link('changes')"
+        [active]="pageName === 'changes'"
         i18n="@@subset-page.menu.changes">
         Changes
       </kpn-page-menu-option>

@@ -20,7 +20,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
 
     <kpn-node-page-header
       *ngIf="nodeId$ | async as nodeId"
-      page="map"
+      pageName="map"
       [nodeId]="nodeId"
       [nodeName]="nodeName"
       [changeCount]="changeCount">

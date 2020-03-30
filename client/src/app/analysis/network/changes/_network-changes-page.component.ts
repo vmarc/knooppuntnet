@@ -15,6 +15,7 @@ import {NetworkChangesService} from "./network-changes.service";
   template: `
     <kpn-network-page-header
       [networkId]="networkId"
+      pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@network-changes.title">
     </kpn-network-page-header>

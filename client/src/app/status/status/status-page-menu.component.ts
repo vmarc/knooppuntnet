@@ -7,14 +7,15 @@ import {StatusLinks} from "./status-links";
   selector: "kpn-status-page-menu",
   template: `
     <kpn-page-menu>
-      <kpn-page-menu-option [link]="links.hour">Hour</kpn-page-menu-option>
-      <kpn-page-menu-option [link]="links.day">Day</kpn-page-menu-option>
-      <kpn-page-menu-option [link]="links.week">Week</kpn-page-menu-option>
-      <kpn-page-menu-option [link]="links.month">Month</kpn-page-menu-option>
-      <kpn-page-menu-option [link]="links.year">Year</kpn-page-menu-option>
+      <kpn-page-menu-option [link]="links.hour" [active]="periodType === 'hour'">Hour</kpn-page-menu-option>
+      <kpn-page-menu-option [link]="links.day" [active]="periodType === 'day'">Day</kpn-page-menu-option>
+      <kpn-page-menu-option [link]="links.week" [active]="periodType === 'week'">Week</kpn-page-menu-option>
+      <kpn-page-menu-option [link]="links.month" [active]="periodType === 'month'">Month</kpn-page-menu-option>
+      <kpn-page-menu-option [link]="links.year" [active]="periodType === 'year'">Year</kpn-page-menu-option>
     </kpn-page-menu>
   `
 })
 export class StatusPageMenuComponent {
+  @Input() periodType: string;
   @Input() links: StatusLinks;
 }

@@ -7,6 +7,7 @@ import {LocationMapPageService} from "./location-map-page.service";
   selector: "kpn-location-map-page",
   template: `
     <kpn-location-page-header
+      pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@location-map.title">
     </kpn-location-page-header>

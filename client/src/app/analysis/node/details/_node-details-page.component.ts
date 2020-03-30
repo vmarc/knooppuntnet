@@ -27,7 +27,7 @@ import {FactInfo} from "../../fact/fact-info";
 
     <kpn-node-page-header
       *ngIf="nodeId$ | async as nodeId"
-      page="details"
+      pageName="details"
       [nodeId]="nodeId"
       [nodeName]="nodeName"
       [changeCount]="changeCount">

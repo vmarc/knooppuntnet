@@ -14,6 +14,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
     <kpn-network-page-header
       [networkId]="networkId"
+      pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@network-map.title">
     </kpn-network-page-header>
