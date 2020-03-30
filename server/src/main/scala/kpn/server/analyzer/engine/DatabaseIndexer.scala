@@ -1,8 +1,11 @@
 package kpn.server.analyzer.engine
 
 import javax.annotation.PostConstruct
+import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
+import kpn.core.database.views.action.BackendActionView
+import kpn.core.database.views.action.FrontendActionView
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.database.views.location.LocationView
@@ -22,7 +25,9 @@ import org.springframework.web.client.HttpServerErrorException
 class DatabaseIndexer(
   analysisDatabase: Database,
   changeDatabase: Database,
-  poiDatabase: Database
+  poiDatabase: Database,
+  backendActionsDatabase: Database,
+  frontendActionsDatabase: Database
 ) {
 
   private val log = Log(classOf[DatabaseIndexer])
@@ -45,6 +50,14 @@ class DatabaseIndexer(
 
     if (poiDatabase != null) {
       indexDatabase("poi-database", poiDatabaseQuery)
+    }
+
+    if (backendActionsDatabase != null) {
+      indexDatabase("backend-actions-database", backendActionsDatabaseQuery)
+    }
+
+    if (frontendActionsDatabase != null) {
+      indexDatabase("frontend-actions-database", frontendActionsDatabaseQuery)
     }
   }
 
@@ -70,6 +83,16 @@ class DatabaseIndexer(
 
   private def poiDatabaseQuery(): Unit = {
     PoiView.query(poiDatabase, 1, 0, stale = false) // PoiViewResult
+  }
+
+  private def backendActionsDatabaseQuery(): Unit = {
+    val parameters = PeriodParameters("year", 2000, None, None, None, None)
+    BackendActionView.query(backendActionsDatabase, parameters, "action", average = false, stale = false)
+  }
+
+  private def frontendActionsDatabaseQuery(): Unit = {
+    val parameters = PeriodParameters("year", 2000, None, None, None, None)
+    FrontendActionView.query(frontendActionsDatabase, parameters, "action", average = false, stale = false)
   }
 
   private def indexDatabase(databaseName: String, databaseQuery: () => Unit): Unit = {
