@@ -8,11 +8,14 @@ import kpn.core.database.query.Query
 import kpn.core.database.views.common.Design
 import kpn.core.database.views.common.View
 
-private case class ViewResultRow(key: Seq[String], value: Seq[Long])
+object ActionQuery {
+  private case class ViewResultRow(key: Seq[String], value: Seq[Long])
+  private case class ViewResult(rows: Seq[ViewResultRow])
+}
 
-private case class ViewResult(rows: Seq[ViewResultRow])
+class ActionQuery(database: Database, design: Design, view: View, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true) {
 
-class ActionView(database: Database, design: Design, view: View, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true) {
+  import ActionQuery._
 
   def query(): Seq[NameValue] = {
     parameters.period match {

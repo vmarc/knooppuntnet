@@ -5,8 +5,8 @@ import java.time.LocalDate
 object CacheBackup {
 
   def main(args: Array[String]): Unit = {
-    val start =  LocalDate.parse("2020-01-01")
-    0 to 365 foreach { days =>
+    val start =  LocalDate.parse("2020-03-01")
+    0 to 30 foreach { days =>
       val day = start.plusDays(days).toString.replaceAll("-", "/")
       printf("tar cf /kpn/backup/cache-backup/%s.tar /kpn/cache/%s\n", day, day)
     }

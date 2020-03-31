@@ -10,7 +10,7 @@ object FrontendActionView extends View {
   override def reduce: Option[String] = Some("_sum")
 
   def query(database: Database, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    new ActionView(database, FrontendActionDesign, FrontendActionView, parameters, action, average, stale).query()
+    new ActionQuery(database, FrontendActionDesign, FrontendActionView, parameters, action, average, stale).query()
   }
 
 }

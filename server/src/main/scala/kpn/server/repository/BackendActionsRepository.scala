@@ -19,4 +19,6 @@ trait BackendActionsRepository {
 
   def query(parameters: PeriodParameters, action: String, average: Boolean = false, stale: Boolean = true): Seq[NameValue]
 
+  def lastKnownValue(action: String, stale: Boolean = true): Long
+
 }

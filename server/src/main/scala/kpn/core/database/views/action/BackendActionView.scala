@@ -10,6 +10,11 @@ object BackendActionView extends View {
   override def reduce: Option[String] = sumAndCount
 
   def query(database: Database, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    new ActionView(database, BackendActionDesign, BackendActionView, parameters, action, average, stale).query()
+    new ActionQuery(database, BackendActionDesign, BackendActionView, parameters, action, average, stale).query()
   }
+
+  def queryLastKnown(database: Database, action: String, stale: Boolean = true): Long = {
+    new LastKnownActionQuery(database, BackendActionDesign, BackendActionView, action, stale).value()
+  }
+
 }
