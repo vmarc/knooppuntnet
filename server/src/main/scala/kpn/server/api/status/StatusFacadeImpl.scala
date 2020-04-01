@@ -4,6 +4,7 @@ import kpn.api.common.status.ActionTimestamp
 import kpn.api.common.status.BarChart
 import kpn.api.common.status.BarChart2D
 import kpn.api.common.status.BarChart2dValue
+import kpn.api.common.status.DiskUsage
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
 import kpn.api.common.status.ReplicationStatusPage
@@ -22,7 +23,52 @@ class StatusFacadeImpl(
 ) extends StatusFacade {
 
   override def status(): ApiResponse[Status] = {
-    val response = ApiResponse(analysisRepository.lastUpdated(), 1, Some(Status(ActionTimestamp.now())))
+
+    val frontEnd = {
+      val used = backendActionsRepository.lastKnownValue("frontend-disk-space-used")
+      val available = backendActionsRepository.lastKnownValue("frontend-disk-space-available")
+      BarChart(
+        Seq(
+          NameValue("Used", Math.round(used.toDouble / 1024 / 1024)),
+          NameValue("Free", Math.round(available.toDouble / 1024 / 1024)),
+        )
+      )
+    }
+
+    val database = {
+      val used = backendActionsRepository.lastKnownValue("db-disk-space-used")
+      val available = backendActionsRepository.lastKnownValue("db-disk-space-available")
+      BarChart(
+        Seq(
+          NameValue("Used", Math.round(used.toDouble / 1024 / 1024)),
+          NameValue("Free", Math.round(available.toDouble / 1024 / 1024)),
+        )
+      )
+    }
+
+    val backEnd = {
+      val used = backendActionsRepository.lastKnownValue("backend-disk-space-used")
+      val available = backendActionsRepository.lastKnownValue("backend-disk-space-available")
+      val overpass = backendActionsRepository.lastKnownValue("backend-disk-space-overpass")
+      BarChart(
+        Seq(
+          NameValue("Overpass", Math.round(overpass.toDouble / 1024 / 1024)),
+          NameValue("Used", Math.round((used - overpass).toDouble / 1024 / 1024)),
+          NameValue("Free", Math.round(available.toDouble / 1024 / 1024)),
+        )
+      )
+    }
+
+    val status = Status(
+      ActionTimestamp.now(),
+      DiskUsage(
+        frontEnd,
+        database,
+        backEnd
+      )
+    )
+
+    val response = ApiResponse(analysisRepository.lastUpdated(), 1, Some(status))
     TimestampLocal.localize(response)
     response
   }

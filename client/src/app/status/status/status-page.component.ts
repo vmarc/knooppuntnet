@@ -13,17 +13,18 @@ import {StatusLinks} from "./status-links";
   template: `
     <div *ngIf="response$ | async as response">
       <p>
-        <span class="kpn-label" i18n="@@status.situation-on">The analysis is up-to-date until</span>
+        <span class="kpn-label">The analysis is up-to-date until</span>
         <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
       </p>
       <p>
-        <span class="kpn-label" i18n="@@status.replication">Replication details</span>
+        <span class="kpn-label">Replication details</span>
         <kpn-status-links [links]="replicationLinks"></kpn-status-links>
       </p>
       <p>
-        <span class="kpn-label" i18n="@@status.system">System details</span>
+        <span class="kpn-label">System details</span>
         <kpn-status-links [links]="systemLinks"></kpn-status-links>
       </p>
+      <kpn-server-disk-usage [diskUsage]="response.result.diskUsage"></kpn-server-disk-usage>
     </div>
   `
 })

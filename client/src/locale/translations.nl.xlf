@@ -295,7 +295,7 @@
       </trans-unit>
       <trans-unit id="map.layer.cycling" datatype="html">
         <source>OpenStreetMap</source>
-        <target state="new">[OpenStreetMap]</target>
+        <target>OpenStreetMap</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -307,7 +307,7 @@
       </trans-unit>
       <trans-unit id="map.layer.node" datatype="html">
         <source>Node</source>
-        <target state="new">[Node]</target>
+        <target>Knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -315,7 +315,7 @@
       </trans-unit>
       <trans-unit id="map.layer.hiking" datatype="html">
         <source>Hiking</source>
-        <target state="new">[Hiking]</target>
+        <target>Wandelen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -323,7 +323,7 @@
       </trans-unit>
       <trans-unit id="map.layer.horse-riding" datatype="html">
         <source>Horse riding</source>
-        <target state="new">[Horse riding]</target>
+        <target>Ruiter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -331,7 +331,7 @@
       </trans-unit>
       <trans-unit id="map.layer.motorboat" datatype="html">
         <source>Motorboat</source>
-        <target state="new">[Motorboat]</target>
+        <target>Motorboot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">37</context>
@@ -339,7 +339,7 @@
       </trans-unit>
       <trans-unit id="map.layer.canoe" datatype="html">
         <source>Canoe</source>
-        <target state="new">[Canoe]</target>
+        <target>Kano</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">38</context>
@@ -347,7 +347,7 @@
       </trans-unit>
       <trans-unit id="map.layer.inline-skating" datatype="html">
         <source>Inline Skating</source>
-        <target state="new">[Inline Skating]</target>
+        <target>Inline Skating</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">39</context>
@@ -2878,7 +2878,7 @@
       </trans-unit>
       <trans-unit id="map.node-popup.title" datatype="html">
         <source>Node</source>
-        <target state="new">[Node]</target>
+        <target>Knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-node.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -2890,7 +2890,7 @@
       </trans-unit>
       <trans-unit id="map.node-popup.network" datatype="html">
         <source>Network</source>
-        <target state="new">[Network]</target>
+        <target>Netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-node.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -2898,7 +2898,7 @@
       </trans-unit>
       <trans-unit id="map.node-popup.networks" datatype="html">
         <source>Networks</source>
-        <target state="new">[Networks]</target>
+        <target>Netwerken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-node.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -2906,7 +2906,7 @@
       </trans-unit>
       <trans-unit id="map.node-popup.no-networks" datatype="html">
         <source>None</source>
-        <target state="new">[None]</target>
+        <target>Geen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-node.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -2914,7 +2914,7 @@
       </trans-unit>
       <trans-unit id="map.node-popup.routes" datatype="html">
         <source>Routes</source>
-        <target state="new">[Routes]</target>
+        <target>Routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-node.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -2922,7 +2922,7 @@
       </trans-unit>
       <trans-unit id="map.node-popup.routes.none" datatype="html">
         <source>None</source>
-        <target state="new">[None]</target>
+        <target>Geen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-node.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -2932,9 +2932,7 @@
         <source>
           More details
         </source>
-        <target state="new">[
-          More details
-        ]</target>
+        <target>Meer details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-node.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -2942,7 +2940,7 @@
       </trans-unit>
       <trans-unit id="map.route-popup.title" datatype="html">
         <source>Route</source>
-        <target state="new">[Route]</target>
+        <target>Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -2950,9 +2948,7 @@
       </trans-unit>
       <trans-unit id="map.route-popup.network" datatype="html">
         <source>Network</source>
-        <target state="new">[
-          Network
-        ]</target>
+        <target>Netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -2960,9 +2956,7 @@
       </trans-unit>
       <trans-unit id="map.route-popup.networks" datatype="html">
         <source>Networks</source>
-        <target state="new">[
-        Networks
-      ]</target>
+        <target>Netwerken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -2970,9 +2964,7 @@
       </trans-unit>
       <trans-unit id="map.route-popup.no-networks" datatype="html">
         <source>None</source>
-        <target state="new">[
-        None
-      ]</target>
+        <target>Geen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -2980,7 +2972,7 @@
       </trans-unit>
       <trans-unit id="map.route-popup.more-details" datatype="html">
         <source>More details</source>
-        <target state="new">[More details]</target>
+        <target>Meer details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -3855,33 +3847,9 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="status.situation-on" datatype="html">
-        <source>The analysis is up-to-date until</source>
-        <target state="new">[The analysis is up-to-date until]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="status.replication" datatype="html">
-        <source>Replication details</source>
-        <target state="new">[Replication details]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="status.system" datatype="html">
-        <source>System details</source>
-        <target state="new">[System details]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
         <source>Status</source>
-        <target state="new">[Status]</target>
+        <target>Status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -3893,7 +3861,7 @@
       </trans-unit>
       <trans-unit id="breadcrumb.replication" datatype="html">
         <source>Replication</source>
-        <target state="new">[Replication]</target>
+        <target>Replicatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/status/status/replication-status-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -3901,7 +3869,7 @@
       </trans-unit>
       <trans-unit id="breadcrumb.system" datatype="html">
         <source>System</source>
-        <target state="new">[System]</target>
+        <target>Systeem</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7390,9 +7358,7 @@
         <source>
           status
         </source>
-        <target state="new">[
-          status
-        ]</target>
+        <target>status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
           <context context-type="linenumber">33</context>

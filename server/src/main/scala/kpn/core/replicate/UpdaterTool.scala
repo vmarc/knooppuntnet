@@ -36,7 +36,7 @@ object UpdaterTool {
   private val LOG = Log(classOf[UpdaterTool])
 
   // maximum number of minute diff files to process in one go
-  private val BATCH_SIZE = 60 * 24
+  private val BATCH_SIZE = 10 // 60 * 24
 
   // number of seconds to wait before attempting to make new request to osm API once in sync
   private val WAIT = 30

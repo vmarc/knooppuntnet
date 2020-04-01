@@ -6931,27 +6931,6 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="status.situation-on" datatype="html">
-        <source>The analysis is up-to-date until</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="status.replication" datatype="html">
-        <source>Replication details</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="status.system" datatype="html">
-        <source>System details</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/status/status/status-page.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
         <source>Status</source>
         <context-group purpose="location">

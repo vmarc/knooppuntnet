@@ -97,7 +97,7 @@ class DatabaseIndexer(
 
   private def indexDatabase(databaseName: String, databaseQuery: () => Unit): Unit = {
 
-    log.info(s"$databaseName database - Start waiting for indexing to finish")
+    log.info(s"$databaseName - Start waiting for indexing to finish")
 
     val start = System.currentTimeMillis()
     val timeoutMinutes = 120
