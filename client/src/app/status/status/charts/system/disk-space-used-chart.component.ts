@@ -16,9 +16,34 @@ import {BarChart} from "../../../../kpn/api/common/status/bar-chart";
         yAxisLabel="TODO bytes?">
       </kpn-action-bar-chart>
     </div>
+    <div class="chart">
+      <ngx-charts-line-chart
+        [view]="view"
+        [autoScale]="true"
+        [results]="data()"
+        [xAxis]="true"
+        [yAxis]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="'bytes'"
+        [legend]="false"
+        [roundDomains]="false">
+      </ngx-charts-line-chart>
+    </div>
   `
 })
 export class DiskSpaceUsedChartComponent {
   @Input() barChart: BarChart;
   @Input() xAxisLabel: string;
+  view: [number, number] = [700, 300];
+
+  data() {
+    return [
+      {
+        "name": "Lesotho",
+        "series": this.barChart.data
+      }
+    ];
+  }
 }
