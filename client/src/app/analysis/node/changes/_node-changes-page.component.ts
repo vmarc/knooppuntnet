@@ -94,7 +94,6 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy, AfterViewIni
   ngOnInit(): void {
     this.nodeName = history.state.nodeName;
     this.changeCount = history.state.changeCount;
-    this.pageService.showFooter = true;
     this.nodeId$ = this.activatedRoute.params.pipe(
       map(params => params["nodeId"]),
       tap(nodeId => this.updateParameters(nodeId)),

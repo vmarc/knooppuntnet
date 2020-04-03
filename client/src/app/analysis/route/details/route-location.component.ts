@@ -8,12 +8,14 @@ import {RouteLocationAnalysis} from "../../../kpn/api/common/route-location-anal
 @Component({
   selector: "kpn-route-location",
   template: `
-    <p *ngIf="!locationAnalysis || locationAnalysis.candidates.isEmpty()" i18n="@@route.location.none">None</p>
-    <div *ngFor="let candidate of locationAnalysis.candidates" class="candidates">
-      <div class="kpn-comma-list">
-        <span *ngFor="let name of locationNames(candidate.location)">{{name}}</span>
+    <p *ngIf="!hasLocations()" i18n="@@route.location.none">None</p>
+    <div *ngIf="hasLocations()">
+      <div *ngFor="let candidate of locationAnalysis.candidates" class="candidates">
+        <div class="kpn-comma-list">
+          <span *ngFor="let name of locationNames(candidate.location)">{{name}}</span>
+        </div>
+        <div class="percentage">{{percentage(candidate)}}</div>
       </div>
-      <div class="percentage">{{percentage(candidate)}}</div>
     </div>
   `,
   styles: [`
@@ -35,6 +37,10 @@ export class RouteLocationComponent {
     const country = location.names.get(0).toUpperCase();
     const names = location.names.set(0, country);
     return names.reverse();
+  }
+
+  hasLocations(): boolean {
+    return this.locationAnalysis && this.locationAnalysis.candidates && !this.locationAnalysis.candidates.isEmpty();
   }
 
   percentage(locationCandidate: LocationCandidate): string {

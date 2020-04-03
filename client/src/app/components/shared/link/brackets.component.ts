@@ -1,0 +1,18 @@
+import {Component} from "@angular/core";
+
+/* tslint:disable:template-i18n */
+@Component({
+  selector: "kpn-brackets",
+  template: `
+    <span class="bracket">(</span>
+    <ng-content></ng-content>
+    <span class="bracket">)</span>
+  `,
+  styles: [`
+    .bracket {
+      color: gray;
+    }
+  `]
+})
+export class BracketsComponent {
+}

@@ -1,28 +1,37 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {AfterViewInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
+import {Observable} from "rxjs";
+import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
 import {RouteDetailsPage} from "../../../kpn/api/common/route/route-details-page";
+import {RouteInfo} from "../../../kpn/api/common/route/route-info";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {Subscriptions} from "../../../util/Subscriptions";
 import {FactInfo} from "../../fact/fact-info";
 
 @Component({
   selector: "kpn-route-page",
   template: `
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.route-details">Route details</li>
+    </ul>
 
     <kpn-route-page-header
+      *ngIf="routeId$ | async as routeId"
       pageName="details"
       [routeId]="routeId"
-      [routeName]="response?.result?.route.summary.name"
-      [changeCount]="response?.result?.changeCount">
+      [routeName]="routeName"
+      [changeCount]="changeCount">
     </kpn-route-page-header>
 
-    <div *ngIf="response">
+    <div *ngIf="response$ | async as response">
 
       <div *ngIf="!response.result" i18n="@@route.route-not-found">
         Route not found
@@ -86,24 +95,26 @@ import {FactInfo} from "../../fact/fact-info";
         </div>
 
         <kpn-data title="Facts" i18n-title="@@route.facts">
-          <kpn-facts [factInfos]="factInfos()"></kpn-facts>
+          <kpn-facts [factInfos]="factInfos"></kpn-facts>
         </kpn-data>
 
         <div *ngIf="!isPageSmall()">
           <kpn-route-members [networkType]="route.summary.networkType" [members]="route.analysis.members"></kpn-route-members>
         </div>
-
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
-export class RoutePageComponent implements OnInit, OnDestroy {
+export class RoutePageComponent implements OnInit, AfterViewInit {
 
-  routeId: string;
-  response: ApiResponse<RouteDetailsPage>;
+  routeId$: Observable<string>;
+  response$: Observable<ApiResponse<RouteDetailsPage>>;
+
+  routeName: string;
+  changeCount = 0;
+  route: RouteInfo;
   tags: InterpretedTags;
-  private readonly subscriptions = new Subscriptions();
+  factInfos: List<FactInfo>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -111,36 +122,31 @@ export class RoutePageComponent implements OnInit, OnDestroy {
               private pageWidthService: PageWidthService) {
   }
 
-  get route() {
-    return this.response.result.route;
-  }
-
   ngOnInit(): void {
-    this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => params["routeId"]),
-        tap(routeId => this.routeId = routeId),
-        flatMap(routeId => this.appService.routeDetails(routeId))
-      ).subscribe(response => this.processResponse(response))
+    this.routeName = history.state.routeName;
+    this.changeCount = history.state.changeCount;
+    this.routeId$ = this.activatedRoute.params.pipe(
+      map(params => params["routeId"]),
+      shareReplay()
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  factInfos(): List<FactInfo> {
-    return this.route.facts.map(fact => new FactInfo(fact));
+  ngAfterViewInit(): void {
+    this.response$ = this.routeId$.pipe(
+      flatMap(routeId => this.appService.routeDetails(routeId).pipe(
+        tap(response => {
+          this.route = response.result.route;
+          this.routeName = this.route.summary.name;
+          this.changeCount = response.result.changeCount;
+          this.tags = InterpretedTags.routeTags(this.route.tags);
+          this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
+        })
+      ))
+    );
   }
 
   isPageSmall(): boolean {
     return this.pageWidthService.isSmall();
-  }
-
-  private processResponse(response: ApiResponse<RouteDetailsPage>) {
-    this.response = response;
-    this.tags = InterpretedTags.routeTags(this.response.result.route.tags);
   }
 
 }

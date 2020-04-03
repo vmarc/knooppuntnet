@@ -1,10 +1,9 @@
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {Facts} from "./facts";
 import {FactInfo} from "./fact-info";
 import {FactLevel} from "./fact-level";
+import {Facts} from "./facts";
 
-/* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-facts",
   template: `
@@ -18,13 +17,19 @@ import {FactLevel} from "./fact-level";
         <kpn-fact-level [factLevel]="factLevel(factInfo)" class="level"></kpn-fact-level>
         <kpn-fact-name [factName]="factInfo.fact.name"></kpn-fact-name>
         <div *ngIf="factInfo.networkRef" class="reference">
-          (<a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{factInfo.networkRef.name}}</a>)
+          <kpn-brackets>
+            <a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{factInfo.networkRef.name}}</a>
+          </kpn-brackets>
         </div>
         <div *ngIf="factInfo.routeRef" class="reference">
-          (<a class="text" [routerLink]="'/analysis/route/' + factInfo.routeRef.id">{{factInfo.routeRef.name}}</a>)
+          <kpn-brackets>
+            <a class="text" [routerLink]="'/analysis/route/' + factInfo.routeRef.id">{{factInfo.routeRef.name}}</a>
+          </kpn-brackets>
         </div>
         <div *ngIf="factInfo.nodeRef" class="reference">
-          (<kpn-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name"></kpn-link-node>)
+          <kpn-brackets>
+            <kpn-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name"></kpn-link-node>
+          </kpn-brackets>
         </div>
       </div>
       <div class="description">
@@ -48,6 +53,7 @@ import {FactLevel} from "./fact-level";
       padding-left: 25px; /* level-width */
       padding-bottom: 10px;
       font-style: italic;
+      max-width: 60em;
     }
 
     .reference {

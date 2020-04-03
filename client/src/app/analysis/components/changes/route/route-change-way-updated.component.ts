@@ -9,7 +9,7 @@ import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
-        <span i18n="@@route-change.way-update.title">Updated way</span>
+        <span class="kpn-label" i18n="@@route-change.way-update.title">Updated way</span>
         <kpn-osm-link-way [wayId]="wayUpdate.id" [title]="wayUpdate.id.toString()"></kpn-osm-link-way>
       </div>
 
@@ -31,7 +31,7 @@ import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
         </div>
 
         <div *ngIf="!wayUpdate.removedNodes.isEmpty()" class="kpn-detail">
-          <span i18n="@@route-change.way-update.removed-nodes">Removed node(s)</span>:
+          <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes">Removed node(s)</span>
           <kpn-node-list [nodeIds]="nodeIds(wayUpdate.removedNodes)"></kpn-node-list>
         </div>
 

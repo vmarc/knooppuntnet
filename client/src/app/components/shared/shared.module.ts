@@ -68,6 +68,7 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
+import { BracketsComponent } from './link/brackets.component';
 
 @NgModule({
   imports: [
@@ -141,7 +142,8 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkRouteRefComponent,
     NodeListComponent,
     PaginatorComponent,
-    IntegerFormatPipe
+    IntegerFormatPipe,
+    BracketsComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -202,7 +204,8 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     LinkRouteRefComponent,
     NodeListComponent,
     PaginatorComponent,
-    IntegerFormatPipe
+    IntegerFormatPipe,
+    BracketsComponent
   ]
 })
 export class SharedModule {

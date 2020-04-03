@@ -1,23 +1,37 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {combineLatest} from "rxjs";
+import {Observable} from "rxjs";
+import {switchMap} from "rxjs/operators";
+import {shareReplay} from "rxjs/operators";
+import {tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
+import {Util} from "../../../components/shared/util";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {RouteChangesPage} from "../../../kpn/api/common/route/route-changes-page";
+import {RouteInfo} from "../../../kpn/api/common/route/route-info";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {UserService} from "../../../services/user.service";
-import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 import {RouteChangesService} from "./route-changes.service";
 
 @Component({
   selector: "kpn-route-changes-page",
   template: `
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.route-changes">Route changes</li>
+    </ul>
+
     <kpn-route-page-header
+      *ngIf="routeId$ | async as routeId"
       pageName="changes"
       [routeId]="routeId"
-      [routeName]="response?.result?.route.summary.name"
-      [changeCount]="response?.result?.changeCount">
+      [routeName]="routeName"
+      [changeCount]="changeCount">
     </kpn-route-page-header>
 
     <div *ngIf="!isLoggedIn()" i18n="@@route-changes.login-required">
@@ -26,7 +40,7 @@ import {RouteChangesService} from "./route-changes.service";
       .
     </div>
 
-    <div *ngIf="response">
+    <div *ngIf="response$ | async as response">
 
       <div *ngIf="!page" i18n="@@route-changes.route-not-found">
         Route not found
@@ -44,16 +58,19 @@ import {RouteChangesService} from "./route-changes.service";
           <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
         </div>
       </div>
-
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
 export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
-  routeId: string;
-  response: ApiResponse<RouteChangesPage>;
-  private readonly subscriptions = new Subscriptions();
+  routeId$: Observable<string>;
+  response$: Observable<ApiResponse<RouteChangesPage>>;
+
+  routeName: string;
+  changeCount = 0;
+
+  page: RouteChangesPage;
+  route: RouteInfo;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -62,62 +79,67 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
               private userService: UserService) {
   }
 
-  private _parameters: ChangesParameters;
-
   get parameters() {
-    return this._parameters;
+    return this.routeChangesService.parameters$.value;
   }
 
   set parameters(parameters: ChangesParameters) {
-    this._parameters = parameters;
-    this.appService.storeChangesParameters(parameters);
     if (this.isLoggedIn()) {
-      this.reload();
-    } else {
-      this.routeChangesService.resetFilterOptions();
+      this.routeChangesService.updateParameters(parameters);
     }
   }
 
-  get page(): RouteChangesPage {
-    return this.response.result;
-  }
-
-  get route() {
-    return this.response.result.route;
-  }
-
   ngOnInit(): void {
-    this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.activatedRoute.params.subscribe(params => {
-        this.routeId = params["routeId"];
-        const initialParameters = new ChangesParameters(null, null, +this.routeId, null, null, null, null, 0, 0, false);
-        this.parameters = this.appService.changesParameters(initialParameters);
-      })
+    this.routeName = history.state.routeName;
+    this.changeCount = history.state.changeCount;
+    this.routeId$ = this.activatedRoute.params.pipe(
+      map(params => params["routeId"]),
+      tap(routeId => this.updateParameters(routeId)),
+      shareReplay()
     );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.routeChangesService.resetFilterOptions();
+  }
+
+  ngAfterViewInit(): void {
+    this.response$ = combineLatest([this.routeId$, this.routeChangesService.parameters$]).pipe(
+      switchMap(([nodeId, changeParameters]) =>
+        this.appService.routeChanges(nodeId, changeParameters).pipe(
+          tap(response => {
+            this.page = Util.safeGet(() => response.result);
+            this.routeName = Util.safeGet(() => response.result.route.summary.name);
+            this.changeCount = Util.safeGet(() => response.result.changeCount);
+            this.routeChangesService.filterOptions$.next(
+              ChangeFilterOptions.from(
+                this.parameters,
+                response.result.filter,
+                (parameters: ChangesParameters) => this.parameters = parameters
+              )
+            );
+          })
+        )
+      )
+    );
   }
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
   }
 
-  private reload(): void {
-    this.subscriptions.add(
-      this.appService.routeChanges(this.routeId.toString(), this.parameters).subscribe(response => {
-        this.response = response;
-        this.routeChangesService.filterOptions.next(
-          ChangeFilterOptions.from(
-            this.parameters,
-            this.response.result.filter,
-            (parameters: ChangesParameters) => this.parameters = parameters
-          )
-        );
-      })
+  private updateParameters(routeId: string) {
+    this.parameters = new ChangesParameters(
+      null,
+      null,
+      +routeId,
+      null,
+      this.parameters.year,
+      this.parameters.month,
+      this.parameters.day,
+      this.parameters.itemsPerPage,
+      this.parameters.pageIndex,
+      this.parameters.impact
     );
   }
-
 }

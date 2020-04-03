@@ -1,25 +1,32 @@
+import {AfterViewInit} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
+import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {RouteInfo} from "../../../kpn/api/common/route/route-info";
 import {RouteMapPage} from "../../../kpn/api/common/route/route-map-page";
-import {Subscriptions} from "../../../util/Subscriptions";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 
 @Component({
   selector: "kpn-route-changes-page",
   template: `
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li i18n="@@breadcrumb.route-map">Route map</li>
+    </ul>
 
     <kpn-route-page-header
+      *ngIf="routeId$ | async as routeId"
       pageName="map"
       [routeId]="routeId"
-      [routeName]="response?.result?.route.summary.name"
-      [changeCount]="response?.result?.changeCount">
+      [routeName]="routeName"
+      [changeCount]="changeCount">
     </kpn-route-page-header>
 
-    <div *ngIf="response">
+    <div *ngIf="response$ | async as response">
       <div *ngIf="!response.result" i18n="@@route-map-page.route-not-found">
         Route not found
       </div>
@@ -29,12 +36,13 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </div>
   `
 })
-export class RouteMapPageComponent implements OnInit, OnDestroy {
+export class RouteMapPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  routeId: string;
-  response: ApiResponse<RouteMapPage>;
+  routeId$: Observable<string>;
+  response$: Observable<ApiResponse<RouteMapPage>>;
 
-  private readonly subscriptions = new Subscriptions();
+  routeName: string;
+  changeCount = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -42,22 +50,27 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
     this.pageService.showFooter = false;
   }
 
-  get route(): RouteInfo {
-    return this.response.result.route;
+  ngOnInit(): void {
+    this.routeName = history.state.routeName;
+    this.changeCount = history.state.changeCount;
+    this.routeId$ = this.activatedRoute.params.pipe(
+      map(params => params["routeId"]),
+      shareReplay()
+    );
   }
 
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => params["routeId"]),
-        tap(routeId => this.routeId = routeId),
-        flatMap(routeId => this.appService.routeMap(routeId))
-      ).subscribe(response => this.response = response)
+  ngAfterViewInit(): void {
+    this.response$ = this.routeId$.pipe(
+      flatMap(routeId => this.appService.routeMap(routeId).pipe(
+        tap(response => {
+          this.routeName = response.result.route.summary.name;
+          this.changeCount = response.result.changeCount;
+        })
+      ))
     );
   }
 
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
-    this.subscriptions.unsubscribe();
   }
 }

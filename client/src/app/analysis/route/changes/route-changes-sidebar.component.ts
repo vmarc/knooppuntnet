@@ -21,7 +21,7 @@ export class RouteChangesSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.routeChangesService.filterOptions.subscribe(filterOptions => this.filterOptions = filterOptions)
+      this.routeChangesService.filterOptions$.subscribe(filterOptions => this.filterOptions = filterOptions)
     );
   }
 

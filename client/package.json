@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "extract-i18n": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json nl de fr",
-    "start": "ng serve --open --proxy-config src/proxy-dev.conf.js --host 0.0.0.0 --disable-host-check",
+    "start": "node --max_old_space_size=8192 ./node_modules/.bin/ng  serve --open --proxy-config src/proxy-dev.conf.js --host 0.0.0.0 --disable-host-check",
     "start:en": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "start:nl": "ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "start:de": "ng serve --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",

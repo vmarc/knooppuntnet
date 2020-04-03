@@ -1,3 +1,4 @@
+import {AfterViewInit} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
@@ -36,7 +37,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
     </div>
   `
 })
-export class NodeMapPageComponent implements OnInit, OnDestroy {
+export class NodeMapPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   nodeId$: Observable<string>;
   response$: Observable<ApiResponse<NodeMapPage>>;
@@ -54,7 +55,6 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.nodeName = history.state.nodeName;
     this.changeCount = history.state.changeCount;
-    this.pageService.showFooter = false;
     this.nodeId$ = this.activatedRoute.params.pipe(
       map(params => params["nodeId"]),
       shareReplay()

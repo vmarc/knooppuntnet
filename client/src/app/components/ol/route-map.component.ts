@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {Color} from "ol/color";
+import {ScaleLine} from "ol/control";
+import {FullScreen} from "ol/control";
 import {Attribution, defaults as defaultControls} from "ol/control";
 import {Extent} from "ol/extent";
 import Feature from "ol/Feature";
@@ -23,7 +25,6 @@ import {RouteNetworkNodeInfo} from "../../kpn/api/common/route/route-network-nod
 import {Util} from "../shared/util";
 import {MainMapStyle} from "./domain/main-map-style";
 import {Marker} from "./domain/marker";
-import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
 import {OsmLayer} from "./domain/osm-layer";
@@ -41,10 +42,11 @@ import {MapService} from "./map.service";
   styles: [`
     .map {
       position: absolute;
-      top: 170px;
+      top: 200px;
       left: 0;
       right: 0;
       bottom: 0;
+      background-color: white;
     }
   `]
 })
@@ -55,7 +57,6 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
   layers: List<BaseLayer> = List();
 
   private map: Map;
-  private bitmapTileLayer: BaseLayer;
   private vectorTileLayer: VectorTileLayer;
 
   constructor(private mapClickService: MapClickService,
@@ -69,6 +70,8 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
+    const fullScreen = new FullScreen();
+    const scaleLine = new ScaleLine();
     const attribution = new Attribution({
       collapsible: false
     });
@@ -76,7 +79,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     this.map = new Map({
       target: "route-map",
       layers: this.layers.toArray(),
-      controls: defaultControls({attribution: false}).extend([attribution]),
+      controls: defaultControls({attribution: false}).extend([fullScreen, scaleLine, attribution]),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.maxZoom
@@ -87,11 +90,9 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
     const view = this.map.getView();
     view.fit(this.buildExtent());
-    view.on("change:resolution", () => this.zoom(view.getZoom()));
 
     const nodeMapStyle = new NodeMapStyle(this.map).styleFunction();
     this.vectorTileLayer.setStyle(nodeMapStyle);
-    this.updateLayerVisibility(view.getZoom());
   }
 
   updateSize() {
@@ -102,15 +103,15 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
   private buildLayers(): List<BaseLayer> {
 
-    this.bitmapTileLayer = this.buildBitmapTileLayer();
-    this.vectorTileLayer = this.buildVectorTileLayer();
+    const osmLayer = OsmLayer.build();
+    osmLayer.set("name", this.i18nService.translation("@@map.layer.osm"));
 
-    const mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
-    this.vectorTileLayer.setStyle(mainMapStyle);
+    this.vectorTileLayer = this.buildVectorTileLayer();
+    this.vectorTileLayer.set("name", this.i18nService.translation("@@map.layer.other-routes"));
+    this.vectorTileLayer.setStyle(new MainMapStyle(this.map, this.mapService).styleFunction());
 
     return List([
-      OsmLayer.build(),
-      this.bitmapTileLayer,
+      osmLayer,
       this.vectorTileLayer,
       this.buildMarkerLayer(),
       this.buildForwardLayer(),
@@ -126,26 +127,6 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     const min = Util.toCoordinate(bounds.latMin, bounds.lonMin);
     const max = Util.toCoordinate(bounds.latMax, bounds.lonMax);
     return [min[0], min[1], max[0], max[1]];
-  }
-
-  private zoom(zoomLevel: number) {
-    this.updateLayerVisibility(zoomLevel);
-    return true;
-  }
-
-  private updateLayerVisibility(zoomLevel: number) {
-    const zoom = Math.round(zoomLevel);
-    if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
-      this.bitmapTileLayer.setVisible(true);
-      this.vectorTileLayer.setVisible(false);
-    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
-      this.bitmapTileLayer.setVisible(false);
-      this.vectorTileLayer.setVisible(true);
-    }
-  }
-
-  private buildBitmapTileLayer(): Layer {
-    return NetworkBitmapTileLayer.build(this.routeInfo.summary.networkType);
   }
 
   private buildVectorTileLayer(): VectorTileLayer {

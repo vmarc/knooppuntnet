@@ -25,9 +25,8 @@ a:visited {
 }
 
 a.external {
-  background: rgba(0, 0, 0, 0) url('/assets/images/external.png') no-repeat scroll right center;
+  background: white url('/assets/images/external.png') no-repeat scroll right center;
   padding-right: 13px;
-  margin-right: 6px;
 }
 
 a:hover, a:active {

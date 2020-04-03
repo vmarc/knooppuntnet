@@ -13,6 +13,7 @@ import {Component, Input} from "@angular/core";
 
       <kpn-page-menu-option
         [link]="linkRouteDetails()"
+        [state]="state()"
         [active]="pageName === 'details'"
         i18n="@@route.menu.details">
         Details
@@ -20,6 +21,7 @@ import {Component, Input} from "@angular/core";
 
       <kpn-page-menu-option
         [link]="linkRouteMap()"
+        [state]="state()"
         [active]="pageName === 'map'"
         i18n="@@route.menu.map">
         Map
@@ -27,6 +29,7 @@ import {Component, Input} from "@angular/core";
 
       <kpn-page-menu-option
         [link]="linkRouteChanges()"
+        [state]="state()"
         [active]="pageName === 'changes'"
         [elementCount]="changeCount"
         i18n="@@route.menu.changes">
@@ -53,6 +56,10 @@ export class RoutePageHeaderComponent {
 
   linkRouteChanges(): string {
     return this.linkRoute("/changes");
+  }
+
+  state(): { [k: string]: any; } {
+    return {routeName: this.routeName, changeCount: this.changeCount};
   }
 
   private linkRoute(suffix: string): string {

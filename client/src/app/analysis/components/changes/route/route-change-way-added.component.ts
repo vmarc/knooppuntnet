@@ -8,7 +8,7 @@ import {RouteChangeInfo} from "../../../../kpn/api/common/route/route-change-inf
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
-        <span i18n="@@route-change.way-added.title">Added way</span>
+        <span class="kpn-label" i18n="@@route-change.way-added.title">Added way</span>
         <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()"></kpn-osm-link-way>
       </div>
       <div class="kpn-level-4-body">
