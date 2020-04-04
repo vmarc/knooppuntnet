@@ -11,14 +11,14 @@ import kpn.core.action.SystemStatusDoc
 import kpn.core.action.UpdateAction
 import kpn.core.action.UpdateActionDoc
 import kpn.core.database.Database
-import kpn.core.database.views.action.BackendActionView
+import kpn.core.database.views.metrics.BackendMetricsView
 import kpn.core.db.couch.Couch
 import org.springframework.stereotype.Component
 
-object BackendActionsRepositoryImpl {
+object BackendMetricsRepositoryImpl {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-frontend", "backend-actions") { database =>
-      val repo = new BackendActionsRepositoryImpl(database)
+      val repo = new BackendMetricsRepositoryImpl(database)
 
       {
         val used = repo.lastKnownValue("backend-disk-space-used")
@@ -52,7 +52,7 @@ object BackendActionsRepositoryImpl {
 }
 
 @Component
-class BackendActionsRepositoryImpl(backendActionsDatabase: Database) extends BackendActionsRepository {
+class BackendMetricsRepositoryImpl(backendActionsDatabase: Database) extends BackendActionsRepository {
 
   override def saveReplicationAction(replicationAction: ReplicationAction): Unit = {
     val id = s"replication-${replicationAction.minuteDiff.id}"
@@ -75,11 +75,11 @@ class BackendActionsRepositoryImpl(backendActionsDatabase: Database) extends Bac
   }
 
   override def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    BackendActionView.query(backendActionsDatabase, parameters, action, average, stale)
+    BackendMetricsView.query(backendActionsDatabase, parameters, action, average, stale)
   }
 
   override def lastKnownValue(action: String, stale: Boolean = true): Long = {
-    BackendActionView.queryLastKnown(backendActionsDatabase, action, stale)
+    BackendMetricsView.queryLastKnown(backendActionsDatabase, action, stale)
   }
 
 }

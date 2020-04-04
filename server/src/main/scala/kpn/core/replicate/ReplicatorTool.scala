@@ -12,7 +12,7 @@ import kpn.core.util.GZipFile
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.OsmChangeReader
 import kpn.server.repository.BackendActionsRepository
-import kpn.server.repository.BackendActionsRepositoryImpl
+import kpn.server.repository.BackendMetricsRepositoryImpl
 
 object ReplicatorTool {
 
@@ -44,7 +44,7 @@ object ReplicatorTool {
             val statusRepository = new StatusRepositoryImpl(dirs)
             val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
             val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-            val actionsRepository = new BackendActionsRepositoryImpl(actionsDatabase)
+            val actionsRepository = new BackendMetricsRepositoryImpl(actionsDatabase)
             new ReplicatorTool(
               dirs.replicate,
               statusRepository,

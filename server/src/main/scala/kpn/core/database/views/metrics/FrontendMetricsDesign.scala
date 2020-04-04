@@ -1,10 +1,10 @@
-package kpn.core.database.views.action
+package kpn.core.database.views.metrics
 
 import kpn.core.database.views.common.Design
 import kpn.core.database.views.common.View
 
-object BackendActionDesign extends Design {
+object FrontendMetricsDesign extends Design {
   val views: Seq[View] = Seq(
-    BackendActionView
+    FrontendMetricsView
   )
 }

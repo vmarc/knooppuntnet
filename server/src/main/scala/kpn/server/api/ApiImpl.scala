@@ -3,11 +3,11 @@ package kpn.server.api
 import kpn.api.common.status.ActionTimestamp
 import kpn.core.action.ApiAction
 import kpn.core.util.Log
-import kpn.server.repository.FrontendActionsRepository
+import kpn.server.repository.FrontendMetricsRepository
 import org.springframework.stereotype.Component
 
 @Component
-class ApiImpl(frontendActionsRepository: FrontendActionsRepository) extends Api {
+class ApiImpl(frontendActionsRepository: FrontendMetricsRepository) extends Api {
 
   private val log = Log(classOf[Api])
 

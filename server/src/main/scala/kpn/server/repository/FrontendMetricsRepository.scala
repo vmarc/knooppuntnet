@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.core.action.ApiAction
 
-trait FrontendActionsRepository {
+trait FrontendMetricsRepository {
 
   def saveApiAction(action: ApiAction): Unit
 

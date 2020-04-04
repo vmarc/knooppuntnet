@@ -3,6 +3,8 @@ package kpn.core.tools.db
 import kpn.core.database.Database
 import kpn.core.database.doc.DesignDoc
 import kpn.core.database.doc.ViewDoc
+import kpn.core.database.views.metrics.BackendMetricsDesign
+import kpn.core.database.views.metrics.FrontendMetricsDesign
 import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.changes.ChangesDesign
 import kpn.core.database.views.common.Design
@@ -39,8 +41,8 @@ object DatabaseViewTool {
       updateView(database, ChangesDesign)
     }
 
-    Couch.executeIn(host, poisDbName) { database =>
-      updateView(database, PoiDesign)
+    Couch.executeIn(host, backendDbName) { database =>
+      updateView(database, BackendMetricsDesign)
     }
 
     println("Ready")

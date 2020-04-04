@@ -4,8 +4,8 @@ import javax.annotation.PostConstruct
 import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
-import kpn.core.database.views.action.BackendActionView
-import kpn.core.database.views.action.FrontendActionView
+import kpn.core.database.views.metrics.BackendMetricsView
+import kpn.core.database.views.metrics.FrontendMetricsView
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.database.views.location.LocationView
@@ -87,12 +87,12 @@ class DatabaseIndexer(
 
   private def backendActionsDatabaseQuery(): Unit = {
     val parameters = PeriodParameters("year", 2000, None, None, None, None)
-    BackendActionView.query(backendActionsDatabase, parameters, "action", average = false, stale = false)
+    BackendMetricsView.query(backendActionsDatabase, parameters, "action", average = false, stale = false)
   }
 
   private def frontendActionsDatabaseQuery(): Unit = {
     val parameters = PeriodParameters("year", 2000, None, None, None, None)
-    FrontendActionView.query(frontendActionsDatabase, parameters, "action", average = false, stale = false)
+    FrontendMetricsView.query(frontendActionsDatabase, parameters, "action", average = false, stale = false)
   }
 
   private def indexDatabase(databaseName: String, databaseQuery: () => Unit): Unit = {

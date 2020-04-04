@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 import scala.util.Random
 
 @Component
-class FrontendActionsRepositoryImpl(frontendActionsDatabase: Database) extends FrontendActionsRepository {
+class FrontendMetricsRepositoryImpl(frontendActionsDatabase: Database) extends FrontendMetricsRepository {
 
   private val random = new Random()
 

@@ -1,16 +1,16 @@
-package kpn.core.database.views.action
+package kpn.core.database.views.metrics
 
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
 import kpn.core.database.Database
 import kpn.core.database.views.common.View
 
-object FrontendActionView extends View {
+object FrontendMetricsView extends View {
 
   override def reduce: Option[String] = Some("_sum")
 
   def query(database: Database, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    new ActionQuery(database, FrontendActionDesign, FrontendActionView, parameters, action, average, stale).query()
+    new MetricsQuery(database, FrontendMetricsDesign, FrontendMetricsView, parameters, action, average, stale).query()
   }
 
 }

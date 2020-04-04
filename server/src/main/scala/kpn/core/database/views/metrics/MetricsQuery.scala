@@ -1,4 +1,4 @@
-package kpn.core.database.views.action
+package kpn.core.database.views.metrics
 
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
@@ -8,14 +8,14 @@ import kpn.core.database.query.Query
 import kpn.core.database.views.common.Design
 import kpn.core.database.views.common.View
 
-object ActionQuery {
+object MetricsQuery {
   private case class ViewResultRow(key: Seq[String], value: Seq[Long])
   private case class ViewResult(rows: Seq[ViewResultRow])
 }
 
-class ActionQuery(database: Database, design: Design, view: View, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true) {
+class MetricsQuery(database: Database, design: Design, view: View, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true) {
 
-  import ActionQuery._
+  import MetricsQuery._
 
   def query(): Seq[NameValue] = {
     parameters.period match {
