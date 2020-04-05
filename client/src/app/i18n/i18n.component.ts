@@ -34,6 +34,10 @@ import {I18nService} from "./i18n.service";
       <span id="@@map.layer.unused" i18n="@@map.layer.unused">Unused</span>
       <span id="@@map.layer.nodes" i18n="@@map.layer.nodes">Nodes</span>
 
+      <span id="@@map.layer.unchanged" i18n="@@map.layer.unchanged">Unchanged</span>
+      <span id="@@map.layer.added" i18n="@@map.layer.added">Added</span>
+      <span id="@@map.layer.deleted" i18n="@@map.layer.deleted">Deleted</span>
+
       <span id="@@map.layer.osm" i18n="@@map.layer.osm">OpenStreetMap</span>
       <span id="@@map.layer.other-routes" i18n="@@map.layer.other-routes">Other routes</span>
       <span id="@@map.layer.node" i18n="@@map.layer.node">Node</span>

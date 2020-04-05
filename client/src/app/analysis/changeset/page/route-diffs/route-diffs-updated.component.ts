@@ -8,7 +8,6 @@ import {RouteDiffsData} from "./route-diffs-data";
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
-        <!-- @@ Gewijzigde routes -->
         <span class="kpn-thick" i18n="@@route-diffs-updated.title">Updated routes</span>
         <span>({{refs().size}})</span>
       </div>

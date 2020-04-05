@@ -12,17 +12,11 @@ import {RouteChangeInfo} from "../../../../kpn/api/common/route/route-change-inf
     </div>
 
     <div *ngIf="routeChangeInfo.geometryDiff" class="kpn-detail">
-      TODO MAP
-      <!--
-        UiSmallMap(
-				  new RouteHistoryMap(
-					  "map-" + key,
-					  routeChangeInfo.nodes,
-					  routeChangeInfo.bounds,
-					  geometryDiff
-				  )
-				)
-      -->
+      <kpn-route-change-map
+        [geometryDiff]="routeChangeInfo.geometryDiff"
+        [nodes]="routeChangeInfo.nodes"
+        [bounds]="routeChangeInfo.bounds">
+      </kpn-route-change-map>
     </div>
 
     <kpn-route-change-way-removed

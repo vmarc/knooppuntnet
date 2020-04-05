@@ -8,6 +8,7 @@ import {MapService} from "./map.service";
 import {NodeMapComponent} from "./node-map.component";
 import {NodeMovedMapComponent} from "./node-moved-map.component";
 import {PoiTileLayerService} from "./poi-tile-layer.service";
+import {RouteChangeMapComponent} from "./route-change-map.component";
 import {RouteMapComponent} from "./route-map.component";
 import {SubsetMapComponent} from "./subset-map.component";
 import {TileLoadProgressService} from "./tile-load-progress.service";
@@ -22,13 +23,15 @@ import {TileLoadProgressService} from "./tile-load-progress.service";
     NodeMovedMapComponent,
     RouteMapComponent,
     SubsetMapComponent,
-    LayerSwitcherComponent
+    LayerSwitcherComponent,
+    RouteChangeMapComponent
   ],
   exports: [
     NodeMapComponent,
     NodeMovedMapComponent,
     RouteMapComponent,
-    SubsetMapComponent
+    SubsetMapComponent,
+    RouteChangeMapComponent
   ],
   providers: [
     MapService,

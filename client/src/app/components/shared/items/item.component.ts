@@ -30,6 +30,7 @@ import {Component, Input} from "@angular/core";
         border-left-color: lightgray;
         border-left-style: solid;
         border-left-width: 1px;
+        width: 100%;
       }
     }
 

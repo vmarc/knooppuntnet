@@ -23,8 +23,12 @@ import {ZoomLevel} from "./domain/zoom-level";
   `,
   styles: [`
     .map {
-      width: 500px;
-      height: 300px;
+      position: relative;
+      left: 0;
+      right: 20px;
+      height: 320px;
+      max-width: 640px;
+      border: 1px solid lightgray;
       background-color: white;
     }
   `]
@@ -46,7 +50,7 @@ export class NodeMovedMapComponent implements AfterViewInit {
 
     const fullScreen = new FullScreen();
     const attribution = new Attribution({
-      collapsible: false
+      collapsible: true
     });
 
     const center = Util.latLonToCoordinate(this.nodeMoved.after);
