@@ -14,16 +14,16 @@ import {LocationFlatNode} from "./location-flat-node";
   selector: "kpn-location-tree",
   template: `
     <div class="buttons">
-      <button mat-stroked-button class="location-button">Expand all</button>
-      <button mat-stroked-button class="location-button">Collapse all</button>
-      <mat-radio-group>
+      <button mat-stroked-button class="location-button" (click)="expandAll()">Expand all</button>
+      <button mat-stroked-button class="location-button" (click)="collapseAll()">Collapse all</button>
+      <mat-radio-group [value]="all" (change)="allChanged()">
         <mat-radio-button
-          value="0"
+          [value]="true"
           title="All"
           class="location-button">All
         </mat-radio-button>
         <mat-radio-button
-          value="11"
+          [value]="false"
           title="In use only"
           class="location-button">In use only
         </mat-radio-button>
@@ -31,10 +31,10 @@ import {LocationFlatNode} from "./location-flat-node";
     </div>
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-      <mat-tree-node *matTreeNodeDef="let leafNode" matTreeNodePadding>
+      <mat-tree-node *matTreeNodeDef="let leafNode" matTreeNodePadding [ngClass]="{'hidden': !all && leafNode.nodeCount === 0}">
         <a (click)="select(leafNode.name)">{{leafNode.name}}</a><span class="node-count">{{leafNode.nodeCount}}</span>
       </mat-tree-node>
-      <mat-tree-node *matTreeNodeDef="let expandableNode;when: hasChild" matTreeNodePadding>
+      <mat-tree-node *matTreeNodeDef="let expandableNode;when: hasChild" matTreeNodePadding [ngClass]="{'hidden': !all && expandableNode.nodeCount === 0}">
         <div mat-icon-button matTreeNodeToggle
              [attr.aria-label]="'toggle ' + expandableNode.name">
           <mat-icon svgIcon="expand" *ngIf="treeControl.isExpanded(expandableNode)" class="expand-collapse-icon"></mat-icon>
@@ -64,6 +64,10 @@ import {LocationFlatNode} from "./location-flat-node";
     .location-button {
       margin-right: 10px;
     }
+
+    .hidden {
+      display: none;
+    }
   `]
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
@@ -71,6 +75,8 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() country: Country;
   @Output() selection = new EventEmitter<string>();
+
+  all = false;
 
   treeControl = new FlatTreeControl<LocationFlatNode>(node => node.level, node => node.expandable);
   treeFlattener = new MatTreeFlattener(this.transformer(), node => node.level, node => node.expandable, node => node.children.toArray());
@@ -87,6 +93,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
     this.appService.locations(this.networkType, this.country).subscribe(response => {
       // this.dataSource.data = [this.toFlatNode(response.result.locationNode, 0)];
       this.dataSource.data = [response.result.locationNode];
+      this.treeControl.expand(this.treeControl.dataNodes[0]);
     });
   }
 
@@ -96,6 +103,18 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
 
   select(locationName: string): void {
     this.selection.emit(locationName);
+  }
+
+  expandAll(): void {
+    this.treeControl.expandAll();
+  }
+
+  collapseAll(): void {
+    this.treeControl.collapseAll();
+  }
+
+  allChanged(): void {
+    this.all = !this.all;
   }
 
   private transformer() {
