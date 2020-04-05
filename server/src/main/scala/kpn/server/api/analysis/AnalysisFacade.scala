@@ -11,9 +11,9 @@ import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
-import kpn.api.common.location.LocationPage
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.common.location.LocationsPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkFactsPage
@@ -37,6 +37,7 @@ import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
+import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
@@ -102,7 +103,7 @@ trait AnalysisFacade {
 
   def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
 
-  def location(user: Option[String], networkType: NetworkType): ApiResponse[LocationPage]
+  def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 
   def locationNodes(user: Option[String], locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
 

@@ -11,9 +11,9 @@ import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
-import kpn.api.common.location.LocationPage
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.common.location.LocationsPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkFactsPage
@@ -37,6 +37,7 @@ import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
+import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
@@ -53,7 +54,7 @@ import kpn.server.api.Api
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
 import kpn.server.api.analysis.pages.LegBuilder
-import kpn.server.api.analysis.pages.LocationPageBuilder
+import kpn.server.api.analysis.pages.LocationsPageBuilder
 import kpn.server.api.analysis.pages.PoiPageBuilder
 import kpn.server.api.analysis.pages.location.LocationChangesPageBuilder
 import kpn.server.api.analysis.pages.location.LocationFactsPageBuilder
@@ -114,7 +115,7 @@ class AnalysisFacadeImpl(
   legBuilder: LegBuilder,
   mapNodeDetailBuilder: MapNodeDetailBuilder,
   mapRouteDetailBuilder: MapRouteDetailBuilder,
-  locationPageBuilder: LocationPageBuilder,
+  locationsPageBuilder: LocationsPageBuilder,
   locationNodesPageBuilder: LocationNodesPageBuilder,
   locationRoutesPageBuilder: LocationRoutesPageBuilder,
   locationFactsPageBuilder: LocationFactsPageBuilder,
@@ -286,9 +287,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def location(user: Option[String], networkType: NetworkType): ApiResponse[LocationPage] = {
+  override def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
     execute(user, "location", networkType.name) {
-      locationPageBuilder.build(networkType)
+      locationsPageBuilder.build(networkType, country)
     }
   }
 

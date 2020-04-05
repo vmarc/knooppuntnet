@@ -37,7 +37,11 @@ import {LocationModeService} from "./location-mode.service";
     </div>
 
     <div *ngIf="isModeTree() | async">
-      <kpn-location-tree [country]="country" (selection)="selected($event)"></kpn-location-tree>
+      <kpn-location-tree
+        [networkType]="networkType"
+        [country]="country"
+        (selection)="selected($event)">
+      </kpn-location-tree>
     </div>
   `,
   styles: [`
@@ -83,7 +87,7 @@ export class LocationSelectionPageComponent implements OnInit {
           this.country = new Country(params["country"]);
           return params["networkType"];
         }),
-        flatMap(networkType => this.appService.location(networkType))
+        // flatMap(networkType => this.appService.location(networkType))
       ).subscribe(response => { /* process result */
       })
     );

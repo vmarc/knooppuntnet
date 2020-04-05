@@ -3,16 +3,11 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angula
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
+import {LocationNode} from "../../../kpn/api/common/location/location-node";
 import {Country} from "../../../kpn/api/custom/country";
-import {Countries} from "../../../kpn/common/countries";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {LocationNode, locations} from "./locations";
-
-interface LocationFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
+import {LocationFlatNode} from "./location-flat-node";
 
 /* tslint:disable:template-i18n work-in-progress */
 @Component({
@@ -37,7 +32,7 @@ interface LocationFlatNode {
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node *matTreeNodeDef="let leafNode" matTreeNodePadding>
-        <a (click)="select(leafNode.name)">{{leafNode.name}}</a><span class="node-count">(123)</span>
+        <a (click)="select(leafNode.name)">{{leafNode.name}}</a><span class="node-count">{{leafNode.nodeCount}}</span>
       </mat-tree-node>
       <mat-tree-node *matTreeNodeDef="let expandableNode;when: hasChild" matTreeNodePadding>
         <div mat-icon-button matTreeNodeToggle
@@ -45,7 +40,7 @@ interface LocationFlatNode {
           <mat-icon svgIcon="expand" *ngIf="treeControl.isExpanded(expandableNode)" class="expand-collapse-icon"></mat-icon>
           <mat-icon svgIcon="collapse" *ngIf="!treeControl.isExpanded(expandableNode)" class="expand-collapse-icon"></mat-icon>
         </div>
-        <a (click)="select(expandableNode.name)">{{expandableNode.name}}</a><span class="node-count">(123)</span>
+        <a (click)="select(expandableNode.name)">{{expandableNode.name}}</a><span class="node-count">{{expandableNode.nodeCount}}</span>
       </mat-tree-node>
     </mat-tree>
   `,
@@ -73,45 +68,26 @@ interface LocationFlatNode {
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
 
+  @Input() networkType: NetworkType;
   @Input() country: Country;
   @Output() selection = new EventEmitter<string>();
 
-  private readonly subscriptions = new Subscriptions();
-
-  private _transformer = (node: LocationNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: this.extractName(node.name),
-      level: level,
-    };
-  }
-
   treeControl = new FlatTreeControl<LocationFlatNode>(node => node.level, node => node.expandable);
-
-  treeFlattener = new MatTreeFlattener(this._transformer, node => node.level, node => node.expandable, node => node.children);
-
+  treeFlattener = new MatTreeFlattener(this.transformer(), node => node.level, node => node.expandable, node => node.children.toArray());
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-  hasChild = (_: number, node: LocationFlatNode) => node.expandable;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService) {
   }
 
+  hasChild = (_: number, node: LocationFlatNode) => node.expandable;
+
   ngOnInit() {
-    let countryIndex = 0;
-    if (this.country.domain === Countries.nl.domain) {
-      countryIndex = 0;
-    } else if (this.country.domain === Countries.be.domain) {
-      countryIndex = 1;
-    } else if (this.country.domain === Countries.de.domain) {
-      countryIndex = 2;
-    } else if (this.country.domain === Countries.fr.domain) {
-      countryIndex = 3;
-    } else if (this.country.domain === Countries.at.domain) {
-      countryIndex = 4;
-    }
-    this.dataSource.data = locations[countryIndex].children;
+    this.appService.locations(this.networkType, this.country).subscribe(response => {
+      // this.dataSource.data = [this.toFlatNode(response.result.locationNode, 0)];
+      this.dataSource.data = [response.result.locationNode];
+    });
   }
 
   ngOnDestroy(): void {
@@ -122,8 +98,15 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
     this.selection.emit(locationName);
   }
 
-  private extractName(name: string): string {
-    return name.split("/")[1].split("_")[0];
+  private transformer() {
+    return (node: LocationNode, level: number) => {
+      return new LocationFlatNode(
+        !!node.children && node.children.size > 0,
+        node.name,
+        node.nodeCount,
+        level
+      );
+    };
   }
 
 }

@@ -3,11 +3,11 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {List} from "immutable";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
-import {Countries} from "../../../kpn/common/countries";
+import {LocationNode} from "../../../kpn/api/common/location/location-node";
 import {Country} from "../../../kpn/api/custom/country";
+import {Countries} from "../../../kpn/common/countries";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {LocationOption} from "./location-option";
-import {LocationNode, locations} from "./locations";
 
 /* tslint:disable:template-i18n work-in-progress */
 @Component({
@@ -73,7 +73,7 @@ export class LocationSelectorComponent implements OnInit, OnDestroy {
     } else if (this.country.domain === Countries.at.domain) {
       countryIndex = 4;
     }
-    this.options = List(locations[countryIndex].children).flatMap(location => this.toOptions(location));
+    this.options = List(); // List(locations[countryIndex].children).flatMap(location => this.toOptions(location));
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(""),
       map(value => typeof value === "string" ? value : value.locationName),

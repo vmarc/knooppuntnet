@@ -15,6 +15,7 @@ import {LocationNodesParameters} from "./kpn/api/common/location/location-nodes-
 import {LocationPage} from "./kpn/api/common/location/location-page";
 import {LocationRoutesPage} from "./kpn/api/common/location/location-routes-page";
 import {LocationRoutesParameters} from "./kpn/api/common/location/location-routes-parameters";
+import {LocationsPage} from "./kpn/api/common/location/locations-page";
 import {NetworkChangesPage} from "./kpn/api/common/network/network-changes-page";
 import {NetworkDetailsPage} from "./kpn/api/common/network/network-details-page";
 import {NetworkFactsPage} from "./kpn/api/common/network/network-facts-page";
@@ -43,6 +44,7 @@ import {SubsetOrphanNodesPage} from "./kpn/api/common/subset/subset-orphan-nodes
 import {SubsetOrphanRoutesPage} from "./kpn/api/common/subset/subset-orphan-routes-page";
 import {ClientPoiConfiguration} from "./kpn/api/common/tiles/client-poi-configuration";
 import {ApiResponse} from "./kpn/api/custom/api-response";
+import {Country} from "./kpn/api/custom/country";
 import {LocationKey} from "./kpn/api/custom/location-key";
 import {NetworkType} from "./kpn/api/custom/network-type";
 import {Statistics} from "./kpn/api/custom/statistics";
@@ -242,10 +244,10 @@ export class AppService {
     );
   }
 
-  public location(networkType: string): Observable<ApiResponse<LocationPage>> {
-    const url = `/json-api/location/${networkType}`;
+  public locations(networkType: NetworkType, country: Country): Observable<ApiResponse<LocationsPage>> {
+    const url = `/json-api/locations/${networkType.name}/${country.domain}`;
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, LocationPage.fromJSON))
+      map(response => ApiResponse.fromJSON(response, LocationsPage.fromJSON))
     );
   }
 

@@ -50,18 +50,18 @@ export class LocationNodesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => {
-          this.networkType = NetworkType.withName(params["networkType"]);
-          this.country = new Country(params["country"]);
-          this.location = params["location"];
-          return params["networkType"];
-        }),
-        flatMap(networkType => this.appService.location(networkType))
-      ).subscribe(response => { /* process result */
-      })
-    );
+    // this.subscriptions.add(
+    //   this.activatedRoute.params.pipe(
+    //     map(params => {
+    //       this.networkType = NetworkType.withName(params["networkType"]);
+    //       this.country = new Country(params["country"]);
+    //       this.location = params["location"];
+    //       return params["networkType"];
+    //     }),
+    //     flatMap(networkType => this.appService.locationNodes(networkType))
+    //   ).subscribe(response => { /* process result */
+    //   })
+    // );
   }
 
   ngOnDestroy(): void {
