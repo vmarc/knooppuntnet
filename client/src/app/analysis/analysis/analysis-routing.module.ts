@@ -9,7 +9,6 @@ import {AnalysisHorseRidingPageComponent} from "./pages/analysis-horse-riding-pa
 import {AnalysisInlineSkatingPageComponent} from "./pages/analysis-inline-skating-page.component";
 import {AnalysisMotorboatPageComponent} from "./pages/analysis-motorboat-page.component";
 import {AnalysisPageComponent} from "./pages/analysis-page.component";
-import {LocationSelectionPageComponent} from "./pages/location-selection-page.component";
 import {LocationUrlMatcher} from "./pages/location-url-matcher";
 
 const routes: Routes = [
@@ -48,7 +47,6 @@ const routes: Routes = [
   Util.routePath("motorboat", AnalysisMotorboatPageComponent, AnalysisSidebarComponent),
   Util.routePath("canoe", AnalysisCanoePageComponent, AnalysisSidebarComponent),
   Util.routePath("inline-skating", AnalysisInlineSkatingPageComponent, AnalysisSidebarComponent),
-  Util.routePath(":networkType/:country", LocationSelectionPageComponent, AnalysisSidebarComponent),
   {
     matcher: LocationUrlMatcher.match,
     loadChildren: () => import("../location/location.module").then(m => m.LocationModule)

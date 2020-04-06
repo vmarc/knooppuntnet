@@ -13,6 +13,18 @@ export class BrowserStorageService {
   constructor(@Inject(BROWSER_STORAGE) public storage: Storage) {
   }
 
+  get itemsPerPage(): number {
+    let value = this.get("items-per-page");
+    if (value == null) {
+      value = "15";
+    }
+    return +value;
+  }
+
+  set itemsPerPage(value: number) {
+    this.set("items-per-page", value.toString());
+  }
+
   get(key: string): string | null {
     return this.storage.getItem(key);
   }

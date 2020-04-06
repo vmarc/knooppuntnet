@@ -14,9 +14,9 @@ import {FactDiffs} from "../../../kpn/api/common/diff/common/fact-diffs";
         <div *ngIf="factDiffs.resolved.size > 1">
           <span i18n="@@fact-diffs.resolved-facts" class="kpn-label">Resolved facts</span>
           <div class="kpn-comma-list">
-            <div *ngFor="let fact of factDiffs.resolved">
+            <span *ngFor="let fact of factDiffs.resolved">
               <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
-            </div>
+            </span>
           </div>
         </div>
         <kpn-icon-happy></kpn-icon-happy>
@@ -31,9 +31,9 @@ import {FactDiffs} from "../../../kpn/api/common/diff/common/fact-diffs";
         <div *ngIf="factDiffs.introduced.size > 1">
           <span i18n="@@fact-diffs.introduced-facts" class="kpn-label">Introduced facts</span>
           <div class="kpn-comma-list">
-            <div *ngFor="let fact of factDiffs.introduced">
+            <span *ngFor="let fact of factDiffs.introduced">
               <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
-            </div>
+            </span>
           </div>
         </div>
         <kpn-icon-investigate></kpn-icon-investigate>
@@ -48,9 +48,9 @@ import {FactDiffs} from "../../../kpn/api/common/diff/common/fact-diffs";
         <div *ngIf="factDiffs.remaining.size > 1">
           <span i18n="@@fact-diffs.remaining-facts" class="kpn-label">Remaining facts</span>
           <div class="kpn-comma-list">
-            <div *ngFor="let fact of factDiffs.remaining">
+            <span *ngFor="let fact of factDiffs.remaining">
               <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
-            </div>
+            </span>
           </div>
         </div>
       </div>

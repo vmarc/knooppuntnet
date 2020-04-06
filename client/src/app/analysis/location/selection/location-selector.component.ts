@@ -1,15 +1,12 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {List} from "immutable";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {LocationNode} from "../../../kpn/api/common/location/location-node";
 import {Country} from "../../../kpn/api/custom/country";
-import {Countries} from "../../../kpn/common/countries";
-import {Subscriptions} from "../../../util/Subscriptions";
 import {LocationOption} from "./location-option";
 
-/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-location-selector",
   template: `
@@ -18,6 +15,7 @@ import {LocationOption} from "./location-option";
         <input
           type="text"
           placeholder="enter municipality or other administrative boundary name"
+          i18n-placeholder="@@location.selector.input.place-holder"
           matInput [formControl]="locationInputControl"
           [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayName">
@@ -26,7 +24,7 @@ import {LocationOption} from "./location-option";
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-stroked-button (submit)="select()">Location overview</button>
+      <button mat-stroked-button (submit)="select()" i18n="@@location.selector.button">Location overview</button>
     </form>
   `,
   styles: [`
@@ -46,43 +44,28 @@ import {LocationOption} from "./location-option";
     }
   `]
 })
-export class LocationSelectorComponent implements OnInit, OnDestroy {
+export class LocationSelectorComponent implements OnInit {
 
   @Input() country: Country;
+  @Input() locationNode: LocationNode;
   @Output() selection = new EventEmitter<string>();
+
   options: List<LocationOption> = List();
   locationInputControl = new FormControl();
   filteredOptions: Observable<LocationOption[]>;
   readonly formGroup: FormGroup;
-  private readonly subscriptions = new Subscriptions();
 
   constructor(private fb: FormBuilder) {
     this.formGroup = this.fb.group({locationInputControl: this.locationInputControl});
   }
 
   ngOnInit() {
-    let countryIndex = 0;
-    if (this.country.domain === Countries.nl.domain) {
-      countryIndex = 0;
-    } else if (this.country.domain === Countries.be.domain) {
-      countryIndex = 1;
-    } else if (this.country.domain === Countries.de.domain) {
-      countryIndex = 2;
-    } else if (this.country.domain === Countries.fr.domain) {
-      countryIndex = 3;
-    } else if (this.country.domain === Countries.at.domain) {
-      countryIndex = 4;
-    }
-    this.options = List(); // List(locations[countryIndex].children).flatMap(location => this.toOptions(location));
+    this.options = this.toOptions(this.locationNode);
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(""),
       map(value => typeof value === "string" ? value : value.locationName),
       map(name => name ? this._filter(name) : this.options.toArray())
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   select() {
@@ -99,14 +82,8 @@ export class LocationSelectorComponent implements OnInit, OnDestroy {
   }
 
   private toOptions(location: LocationNode): List<LocationOption> {
-    return List([this.extractOption(location.name)])
-      .concat(List(location.children).flatMap(child => this.toOptions(child)))
+    return List([new LocationOption(location.name, location.nodeCount)])
+      .concat(location.children.flatMap(child => this.toOptions(child)))
       .sortBy(locationOption => locationOption.locationName);
   }
-
-  private extractOption(name: string): LocationOption {
-    const locationName = name.split("/")[1].split("_")[0];
-    return new LocationOption(locationName, 123);
-  }
-
 }

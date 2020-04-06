@@ -8,9 +8,9 @@ import {Fact} from "../../../kpn/api/custom/fact";
     <div *ngIf="hasFacts()" class="kpn-detail kpn-line">
       {{title}}:&nbsp;
       <div class="kpn-comma-list">
-        <div *ngFor="let fact of facts">
+        <span *ngFor="let fact of facts">
           <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
-        </div>
+        </span>
       </div>
       <kpn-icon-happy *ngIf="icon == 'happy'"></kpn-icon-happy>
       <kpn-icon-investigate *ngIf="icon == 'investigate'"></kpn-icon-investigate>

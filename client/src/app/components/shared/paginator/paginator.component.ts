@@ -7,8 +7,8 @@ import {ChangeDetectorRef} from "@angular/core";
 import {ViewChild} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
-import {PaginatorService} from "./paginator.service";
 import {MatPaginator} from "@angular/material/paginator";
+import {PaginatorService} from "./paginator.service";
 
 @Component({
   selector: "kpn-paginator",

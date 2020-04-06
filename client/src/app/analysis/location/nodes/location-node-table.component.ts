@@ -12,16 +12,17 @@ import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {LocationNodeInfo} from "../../../kpn/api/common/location/location-node-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
+import {BrowserStorageService} from "../../../services/browser-storage.service";
 
 @Component({
   selector: "kpn-location-node-table",
   template: `
     <kpn-paginator
       (page)="page.emit($event)"
-      [pageIndex]="0"
-      [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
       [length]="nodeCount"
+      [pageIndex]="0"
+      [pageSize]="itemsPerPage"
+      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
       [showFirstLastButtons]="true">
     </kpn-paginator>
 
@@ -112,25 +113,20 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Input() nodeCount: number;
   @Output() page = new EventEmitter<PageEvent>();
 
+  itemsPerPage: number;
+
   dataSource: MatTableDataSource<LocationNodeInfo>;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
-  // private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> = new BehaviorSubject(new NetworkNodeFilterCriteria());
-
-  constructor(private pageWidthService: PageWidthService
-              /*private networkNodesService: NetworkNodesService*/) {
+  constructor(private pageWidthService: PageWidthService,
+              private browserStorageService: BrowserStorageService) {
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator.matPaginator;
+    this.itemsPerPage = this.browserStorageService.itemsPerPage;
     this.dataSource.data = this.nodes.toArray();
-    // this.filterCriteria.subscribe(criteria => {
-    //   const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);
-    //   this.dataSource.data = filter.filter(this.nodes).toArray();
-    //   this.networkNodesService.filterOptions.next(filter.filterOptions(this.nodes));
-    // });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

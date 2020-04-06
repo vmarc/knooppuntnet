@@ -12,6 +12,16 @@ export class LocationUrlMatcher {
     const p3 = /(nodes)|(routes)|(facts)|(map)|(changes)/;
 
     if (
+      segments.length === 2 &&
+      p0.test(segments[0].path) &&
+      p1.test(segments[1].path)
+    ) {
+      return {
+        consumed: [],
+        posParams: {}
+      };
+    }
+    if (
       segments.length === 4 &&
       p0.test(segments[0].path) &&
       p1.test(segments[1].path) &&
@@ -33,6 +43,7 @@ export class LocationUrlMatcher {
     const target = /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 
     if (
+      segments.length === 3 &&
       networkType.test(segments[0].path) &&
       country.test(segments[1].path) &&
       target.test(segments[2].path)

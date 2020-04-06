@@ -309,15 +309,12 @@ export class AppService {
 
   public storeChangesParameters(parameters: ChangesParameters): void {
     this.browserStorageService.set("impact", parameters.impact.toString());
-    this.browserStorageService.set("items-per-page", parameters.itemsPerPage.toString());
+    this.browserStorageService.itemsPerPage = parameters.itemsPerPage;
   }
 
   public changesParameters(parameters: ChangesParameters): ChangesParameters {
     const impact = this.browserStorageService.get("impact") === "true";
-    let itemsPerPage = this.browserStorageService.get("items-per-page");
-    if (itemsPerPage == null) {
-      itemsPerPage = "15";
-    }
+    const itemsPerPage = this.browserStorageService.itemsPerPage;
     return {...parameters, impact: impact, itemsPerPage: +itemsPerPage};
   }
 

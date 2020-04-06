@@ -1,5 +1,3 @@
-import {List} from "immutable";
-
 export class LocationFlatNode {
   constructor(
     public expandable: boolean,

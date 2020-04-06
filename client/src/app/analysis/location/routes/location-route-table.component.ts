@@ -12,6 +12,7 @@ import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {LocationRouteInfo} from "../../../kpn/api/common/location/location-route-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
+import {BrowserStorageService} from "../../../services/browser-storage.service";
 
 @Component({
   selector: "kpn-location-route-table",
@@ -19,7 +20,7 @@ import {TimeInfo} from "../../../kpn/api/common/time-info";
     <kpn-paginator
       (page)="page.emit($event)"
       [pageIndex]="0"
-      [pageSize]="5"
+      [pageSize]="itemsPerPage"
       [pageSizeOptions]="[5, 10, 20, 50, 1000]"
       [length]="routeCount"
       [showFirstLastButtons]="true">
@@ -78,14 +79,17 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   dataSource: MatTableDataSource<LocationRouteInfo>;
 
+  itemsPerPage: number;
+
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
-  constructor(private pageWidthService: PageWidthService) {
+  constructor(private pageWidthService: PageWidthService,
+              private browserStorageService: BrowserStorageService) {
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator.matPaginator;
+    this.itemsPerPage = this.browserStorageService.itemsPerPage;
     this.dataSource.data = this.routes.toArray();
   }
 

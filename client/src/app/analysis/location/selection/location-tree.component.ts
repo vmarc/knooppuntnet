@@ -1,7 +1,6 @@
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
-import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {LocationNode} from "../../../kpn/api/common/location/location-node";
 import {Country} from "../../../kpn/api/custom/country";
@@ -9,23 +8,26 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {LocationFlatNode} from "./location-flat-node";
 
-/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-location-tree",
   template: `
     <div class="buttons">
-      <button mat-stroked-button class="location-button" (click)="expandAll()">Expand all</button>
-      <button mat-stroked-button class="location-button" (click)="collapseAll()">Collapse all</button>
+      <button mat-stroked-button class="location-button" (click)="expandAll()" i18n="@@location.tree.expand-all">Expand all</button>
+      <button mat-stroked-button class="location-button" (click)="collapseAll()" i18n="@@location.tree.collapse-all">Collapse all</button>
       <mat-radio-group [value]="all" (change)="allChanged()">
         <mat-radio-button
           [value]="true"
           title="All"
-          class="location-button">All
+          i18n-title="@@location.tree.all"
+          class="location-button"
+          i18n="@@location.tree.all">All
         </mat-radio-button>
         <mat-radio-button
           [value]="false"
           title="In use only"
-          class="location-button">In use only
+          i18n-title="@@location.tree.in-use-only"
+          class="location-button"
+          i18n="@@location.tree.in-use-only">In use only
         </mat-radio-button>
       </mat-radio-group>
     </div>
@@ -74,6 +76,8 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
 
   @Input() networkType: NetworkType;
   @Input() country: Country;
+  @Input() locationNode: LocationNode;
+
   @Output() selection = new EventEmitter<string>();
 
   all = false;
@@ -83,18 +87,14 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService) {
+  constructor(private appService: AppService) {
   }
 
   hasChild = (_: number, node: LocationFlatNode) => node.expandable;
 
   ngOnInit() {
-    this.appService.locations(this.networkType, this.country).subscribe(response => {
-      // this.dataSource.data = [this.toFlatNode(response.result.locationNode, 0)];
-      this.dataSource.data = [response.result.locationNode];
-      this.treeControl.expand(this.treeControl.dataNodes[0]);
-    });
+    this.dataSource.data = [this.locationNode];
+    this.treeControl.expand(this.treeControl.dataNodes[0]);
   }
 
   ngOnDestroy(): void {
