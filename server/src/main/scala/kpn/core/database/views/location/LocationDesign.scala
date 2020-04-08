@@ -8,6 +8,7 @@ object LocationDesign extends Design {
     LocationView,
     LocationRouteView,
     LocationNodeView,
-    NodeRouteReferenceView
+    NodeRouteReferenceView,
+    LocationFactView
   )
 }

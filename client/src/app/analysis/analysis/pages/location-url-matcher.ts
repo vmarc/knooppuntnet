@@ -7,14 +7,14 @@ export class LocationUrlMatcher {
 
   public static match(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
 
-    const p0 = /(cycling)|(hiking)|(canoe)/;
-    const p1 = /(be)|(nl)|(de)|(fr)|(at)/;
-    const p3 = /(nodes)|(routes)|(facts)|(map)|(changes)/;
+    const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
+    const country = /(be)|(nl)|(de)|(fr)|(at)/;
+    const detail = /(nodes)|(routes)|(facts)|(map)|(changes)/;
 
     if (
       segments.length === 2 &&
-      p0.test(segments[0].path) &&
-      p1.test(segments[1].path)
+      networkType.test(segments[0].path) &&
+      country.test(segments[1].path)
     ) {
       return {
         consumed: [],
@@ -23,9 +23,9 @@ export class LocationUrlMatcher {
     }
     if (
       segments.length === 4 &&
-      p0.test(segments[0].path) &&
-      p1.test(segments[1].path) &&
-      p3.test(segments[3].path)
+      networkType.test(segments[0].path) &&
+      country.test(segments[1].path) &&
+      detail.test(segments[3].path)
     ) {
       return {
         consumed: [],
@@ -47,6 +47,19 @@ export class LocationUrlMatcher {
       networkType.test(segments[0].path) &&
       country.test(segments[1].path) &&
       target.test(segments[2].path)
+    ) {
+      return {
+        consumed: [],
+        posParams: {
+          // username: new UrlSegment(url[0].path.substr(1), {})
+        }
+      };
+    }
+    if (
+      (segments.length === 3 || segments.length === 4) &&
+      networkType.test(segments[0].path) &&
+      country.test(segments[1].path) &&
+      "facts" === segments[2].path
     ) {
       return {
         consumed: [],

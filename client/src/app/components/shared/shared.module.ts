@@ -68,7 +68,7 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
-import { BracketsComponent } from './link/brackets.component';
+import { BracketsComponent } from "./link/brackets.component";
 
 @NgModule({
   imports: [

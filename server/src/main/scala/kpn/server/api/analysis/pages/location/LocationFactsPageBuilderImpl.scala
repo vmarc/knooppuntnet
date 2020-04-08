@@ -21,8 +21,9 @@ class LocationFactsPageBuilderImpl(locationRepository: LocationRepository) exten
 
   private def buildPage(locationKey: LocationKey): Option[LocationFactsPage] = {
     val summary = locationRepository.summary(locationKey)
+    val locationFacts = locationRepository.facts(locationKey.networkType, locationKey.name)
     Some(
-      LocationFactsPage(summary)
+      LocationFactsPage(summary, locationFacts)
     )
   }
 }

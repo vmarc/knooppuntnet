@@ -13,7 +13,6 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
       <div *ngIf="response.result">
         <ng-content></ng-content>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

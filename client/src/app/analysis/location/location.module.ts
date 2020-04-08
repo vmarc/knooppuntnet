@@ -12,6 +12,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MatTreeModule} from "@angular/material/tree";
 import {SharedModule} from "../../components/shared/shared.module";
+import {FactModule} from "../fact/fact.module";
 import {LocationChangesPageComponent} from "./changes/location-changes-page.component";
 import {LocationChangesComponent} from "./changes/location-changes.component";
 import {LocationPageBreadcrumbComponent} from "./components/location-page-breadcrumb.component";
@@ -52,7 +53,8 @@ import {LocationTreeComponent} from "./selection/location-tree.component";
     MatIconModule,
     MatTreeModule,
     MatRadioModule,
-    MatButtonModule
+    MatButtonModule,
+    FactModule
   ],
   declarations: [
     LocationPageHeaderComponent,

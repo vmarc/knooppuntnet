@@ -1,10 +1,13 @@
 // this class is generated, please do not modify
 
+import {List} from "immutable";
+import {LocationFact} from "./location-fact";
 import {LocationSummary} from "./location-summary";
 
 export class LocationFactsPage {
 
-  constructor(readonly summary: LocationSummary) {
+  constructor(readonly summary: LocationSummary,
+              readonly locationFacts: List<LocationFact>) {
   }
 
   public static fromJSON(jsonObject: any): LocationFactsPage {
@@ -12,7 +15,8 @@ export class LocationFactsPage {
       return undefined;
     }
     return new LocationFactsPage(
-      LocationSummary.fromJSON(jsonObject.summary)
+      LocationSummary.fromJSON(jsonObject.summary),
+      jsonObject.locationFacts ? List(jsonObject.locationFacts.map((json: any) => LocationFact.fromJSON(json))) : List()
     );
   }
 }

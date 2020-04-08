@@ -14,7 +14,7 @@ import {LocationFactsPageService} from "./location-facts-page.service";
 
     <div *ngIf="service.response | async as response">
       <kpn-location-response [response]="response">
-        <kpn-location-facts></kpn-location-facts>
+        <kpn-location-facts [locationFacts]="response.result.locationFacts"></kpn-location-facts>
       </kpn-location-response>
     </div>
   `,
