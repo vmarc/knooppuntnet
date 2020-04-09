@@ -1,15 +1,10 @@
 package kpn.server.api.analysis.pages.location
 
-import kpn.api.common.location.LocationMapPage
-import kpn.api.common.location.LocationSummary
-import kpn.api.custom.Country
-import kpn.api.custom.LocationKey
-import kpn.api.custom.NetworkType
-import kpn.server.repository.LocationRepository
-import org.springframework.stereotype.Component
-
 @Component
-class LocationMapPageBuilderImpl(locationRepository: LocationRepository) extends LocationMapPageBuilder {
+class LocationMapPageBuilderImpl(
+  locationRepository: LocationRepository,
+  locationConfiguration: LocationConfiguration
+) extends LocationMapPageBuilder {
 
   override def build(locationKey: LocationKey): Option[LocationMapPage] = {
     if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
@@ -22,8 +17,32 @@ class LocationMapPageBuilderImpl(locationRepository: LocationRepository) extends
 
   private def buildPage(locationKey: LocationKey): Option[LocationMapPage] = {
     val summary = locationRepository.summary(locationKey)
-    Some(
-      LocationMapPage(summary)
-    )
+    LocationDefinition.find(locationConfiguration.locations, locationKey.name) match {
+      case Some(locationDefinition) =>
+        val bounds = Bounds(
+          minLat = locationDefinition.boundingBox.getMinY,
+          minLon = locationDefinition.boundingBox.getMinX,
+          maxLat = locationDefinition.boundingBox.getMaxY,
+          maxLon = locationDefinition.boundingBox.getMaxX
+        )
+        val geoWriter = new GeoJsonWriter()
+        val geoJson = geoWriter.write(locationDefinition.geometry)
+        Some(
+          LocationMapPage(
+            summary,
+            bounds,
+            geoJson
+          )
+        )
+
+      case None =>
+        Some(
+          LocationMapPage(
+            summary,
+            Bounds(),
+            ""
+          )
+        )
+    }
   }
 }

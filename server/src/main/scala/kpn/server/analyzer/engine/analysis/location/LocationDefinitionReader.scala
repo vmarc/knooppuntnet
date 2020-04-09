@@ -9,6 +9,8 @@ import kpn.server.json.Json
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom.MultiPolygon
+import org.locationtech.jts.geom.Polygon
 
 object LocationDefinitionReader {
 
@@ -27,8 +29,26 @@ class LocationDefinitionReader(file: File) {
 
     val locationJson = Json.objectMapper.readValue(json, classOf[LocationJson])
 
+    val newGeometry = locationJson.geometry match {
+      case multiPolygon: MultiPolygon =>
+
+        val polygons = (0 until multiPolygon.getNumGeometries).flatMap { index =>
+          multiPolygon.getGeometryN(index) match {
+            case polygon: Polygon =>
+              if (polygon.getCoordinate.x > -50) {
+                Some(polygon)
+              }
+              else {
+                None
+              }
+            case _ => None
+          }
+        }.toArray
+        new MultiPolygon(polygons, multiPolygon.getFactory)
+    }
+
+    val boundingBox = newGeometry.getEnvelopeInternal
     val locationNames = parseLocationNames(locationJson)
-    val boundingBox = parseBoundingBox(locationJson)
 
     LocationDefinition(
       locationJson.properties.id,
@@ -36,7 +56,7 @@ class LocationDefinitionReader(file: File) {
       locationNames,
       filename,
       boundingBox,
-      locationJson.geometry,
+      newGeometry,
       children
     )
   }

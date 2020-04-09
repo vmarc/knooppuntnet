@@ -77,7 +77,12 @@ object LocationNodeView extends View {
       .groupLevel(3)
 
     val result = database.execute(query)
-    result.rows.head.value
+    if (result.rows.nonEmpty) {
+      result.rows.head.value
+    }
+    else {
+      0L
+    }
   }
 
 

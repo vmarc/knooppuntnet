@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs/operators";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {LocationMapPageService} from "./location-map-page.service";
 
 @Component({
@@ -12,9 +13,13 @@ import {LocationMapPageService} from "./location-map-page.service";
       i18n-pageTitle="@@location-map.title">
     </kpn-location-page-header>
 
-    <div *ngIf="service.response | async as response">
+    <div *ngIf="service.response$ | async as response">
       <kpn-location-response [response]="response">
-        <kpn-location-map></kpn-location-map>
+        <kpn-location-map
+          [networkType]="networkType()"
+          [geoJson]="response.result.geoJson"
+          [bounds]="response.result.bounds">
+        </kpn-location-map>
       </kpn-location-response>
     </div>
   `,
@@ -31,4 +36,9 @@ export class LocationMapPageComponent {
   ngOnInit(): void {
     this.activatedRoute.params.pipe(first()).subscribe(params => this.service.params(params));
   }
+
+  networkType(): NetworkType {
+    return this.service.networkType;
+  }
+
 }

@@ -40,10 +40,7 @@
         <source>
       Unsupported (not Belgium, The Netherlands, Germany, France or Austria)
     </source>
-        <target state="new">[
-          Unsupported (not Belgium, The Netherlands, Germany, France or Austria)
-          ]
-        </target>
+        <target>Niet België, Nederland, Duitsland, Frankrijk of Oostenrijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -387,6 +384,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.layer.nodes-and-routes" datatype="html">
+        <source>Nodes and routes</source>
+        <target>Knooppunten en routes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.layer.boundary" datatype="html">
+        <source>Boundary</source>
+        <target>Locatie grenzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
@@ -5364,6 +5377,16 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="location-facts.none" datatype="html">
+        <source>
+      None
+    </source>
+        <target>Geen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/facts/location-facts.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">
         <source>Facts</source>
         <target>Feiten</target>
@@ -5494,7 +5517,7 @@
       </trans-unit>
       <trans-unit id="location-routes.table.broken" datatype="html">
         <source>Broken</source>
-        <target state="new">[Broken]</target>
+        <target>Onderbroken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -5502,7 +5525,7 @@
       </trans-unit>
       <trans-unit id="location-routes.table.last-edit" datatype="html">
         <source>Last edit</source>
-        <target state="new">[Last edit]</target>
+        <target>Laatst bewerkt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
           <context context-type="linenumber">42</context>

@@ -47,6 +47,8 @@ import {I18nService} from "./i18n.service";
       <span id="@@map.layer.motorboat" i18n="@@map.layer.motorboat">Motorboat</span>
       <span id="@@map.layer.canoe" i18n="@@map.layer.canoe">Canoe</span>
       <span id="@@map.layer.inline-skating" i18n="@@map.layer.inline-skating">Inline Skating</span>
+      <span id="@@map.layer.nodes-and-routes" i18n="@@map.layer.nodes-and-routes">Nodes and routes</span>
+      <span id="@@map.layer.boundary" i18n="@@map.layer.boundary">Boundary</span>
 
     </div>
   `,

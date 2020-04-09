@@ -1,10 +1,13 @@
 // this class is generated, please do not modify
 
+import {Bounds} from "../bounds";
 import {LocationSummary} from "./location-summary";
 
 export class LocationMapPage {
 
-  constructor(readonly summary: LocationSummary) {
+  constructor(readonly summary: LocationSummary,
+              readonly bounds: Bounds,
+              readonly geoJson: string) {
   }
 
   public static fromJSON(jsonObject: any): LocationMapPage {
@@ -12,7 +15,9 @@ export class LocationMapPage {
       return undefined;
     }
     return new LocationMapPage(
-      LocationSummary.fromJSON(jsonObject.summary)
+      LocationSummary.fromJSON(jsonObject.summary),
+      Bounds.fromJSON(jsonObject.bounds),
+      jsonObject.geoJson
     );
   }
 }

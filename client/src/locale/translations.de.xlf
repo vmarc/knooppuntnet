@@ -390,6 +390,22 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="map.layer.nodes-and-routes" datatype="html">
+        <source>Nodes and routes</source>
+        <target state="new">[Nodes and routes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.layer.boundary" datatype="html">
+        <source>Boundary</source>
+        <target state="new">[Boundary]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
         <source>Items per page</source>
         <target state="new">[Items per page]</target>
@@ -5638,6 +5654,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-response.component.ts</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-facts.none" datatype="html">
+        <source>
+      None
+    </source>
+        <target state="new">[
+      None
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/facts/location-facts.component.ts</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">

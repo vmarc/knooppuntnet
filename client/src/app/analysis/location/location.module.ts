@@ -7,10 +7,12 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MatTreeModule} from "@angular/material/tree";
+import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
 import {FactModule} from "../fact/fact.module";
 import {LocationChangesPageComponent} from "./changes/location-changes-page.component";
@@ -23,7 +25,6 @@ import {LocationFactsComponent} from "./facts/location-facts.component";
 import {LocationRoutingModule} from "./location-routing.module";
 import {LocationService} from "./location.service";
 import {LocationMapPageComponent} from "./map/location-map-page.component";
-import {LocationMapComponent} from "./map/location-map.component";
 import {LocationNodeRoutesComponent} from "./nodes/location-node-routes.component";
 import {LocationNodeTableComponent} from "./nodes/location-node-table.component";
 import {LocationNodesPageComponent} from "./nodes/location-nodes-page.component";
@@ -54,7 +55,9 @@ import {LocationTreeComponent} from "./selection/location-tree.component";
     MatTreeModule,
     MatRadioModule,
     MatButtonModule,
-    FactModule
+    FactModule,
+    MatProgressBarModule,
+    OlModule
   ],
   declarations: [
     LocationPageHeaderComponent,
@@ -72,7 +75,6 @@ import {LocationTreeComponent} from "./selection/location-tree.component";
     LocationResponseComponent,
     LocationChangesComponent,
     LocationFactsComponent,
-    LocationMapComponent,
     LocationModeComponent,
     LocationSelectionPageComponent,
     LocationSelectorComponent,

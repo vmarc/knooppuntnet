@@ -12,7 +12,6 @@ import {LocationFactsPage} from "./kpn/api/common/location/location-facts-page";
 import {LocationMapPage} from "./kpn/api/common/location/location-map-page";
 import {LocationNodesPage} from "./kpn/api/common/location/location-nodes-page";
 import {LocationNodesParameters} from "./kpn/api/common/location/location-nodes-parameters";
-import {LocationPage} from "./kpn/api/common/location/location-page";
 import {LocationRoutesPage} from "./kpn/api/common/location/location-routes-page";
 import {LocationRoutesParameters} from "./kpn/api/common/location/location-routes-parameters";
 import {LocationsPage} from "./kpn/api/common/location/locations-page";
@@ -273,9 +272,9 @@ export class AppService {
   }
 
   public locationMap(locationKey: LocationKey): Observable<ApiResponse<LocationMapPage>> {
-    const url = this.locationUrl(locationKey, "facts");
+    const url = this.locationUrl(locationKey, "map");
     return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, LocationFactsPage.fromJSON))
+      map(response => ApiResponse.fromJSON(response, LocationMapPage.fromJSON))
     );
   }
 

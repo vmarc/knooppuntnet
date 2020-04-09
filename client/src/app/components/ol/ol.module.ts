@@ -1,7 +1,9 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {LayerSwitcherComponent} from "./layer-switcher.component";
+import {LocationMapComponent} from "./location-map.component";
 import {MapClickService} from "./map-click.service";
 import {MapPositionService} from "./map-position.service";
 import {MapService} from "./map.service";
@@ -16,7 +18,8 @@ import {TileLoadProgressService} from "./tile-load-progress.service";
 @NgModule({
   imports: [
     CommonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule
   ],
   declarations: [
     NodeMapComponent,
@@ -24,14 +27,16 @@ import {TileLoadProgressService} from "./tile-load-progress.service";
     RouteMapComponent,
     SubsetMapComponent,
     LayerSwitcherComponent,
-    RouteChangeMapComponent
+    RouteChangeMapComponent,
+    LocationMapComponent
   ],
   exports: [
     NodeMapComponent,
     NodeMovedMapComponent,
     RouteMapComponent,
     SubsetMapComponent,
-    RouteChangeMapComponent
+    RouteChangeMapComponent,
+    LocationMapComponent
   ],
   providers: [
     MapService,

@@ -83,6 +83,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
 
+    // TODO can remove lastKnownSidebarOpen ??
     this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
 
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {

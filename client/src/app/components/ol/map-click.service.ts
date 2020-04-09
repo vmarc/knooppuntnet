@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {MapBrowserEvent} from "ol";
+import {platformModifierKeyOnly} from "ol/events/condition";
 import {FeatureLike} from "ol/Feature";
 import Interaction from "ol/interaction/Interaction";
 import PointerInteraction from "ol/interaction/Pointer";
@@ -29,13 +30,16 @@ export class MapClickService {
   private handleDownEvent(evt: MapBrowserEvent): boolean {
     const features = this.getFeatures(evt);
     const nodeFeature = this.findFeature(features, this.isNode);
+    const openNewTab = platformModifierKeyOnly(evt);
+
+
     if (nodeFeature) {
-      this.handleNodeClicked(nodeFeature);
+      this.handleNodeClicked(nodeFeature, openNewTab);
       return true;
     }
     const routeFeature = this.findFeature(features, this.isRoute);
     if (routeFeature) {
-      this.handleRouteClicked(routeFeature);
+      this.handleRouteClicked(routeFeature, openNewTab);
       return true;
     }
     return false;
@@ -63,17 +67,27 @@ export class MapClickService {
     return null;
   }
 
-  private handleRouteClicked(feature: FeatureLike): void {
+  private handleRouteClicked(feature: FeatureLike, openNewTab: boolean): void {
     const featureId = feature.get("id");
     const routeName = feature.get("name");
     const routeId = featureId.substring(0, featureId.indexOf("-"));
-    this.router.navigateByUrl(`/analysis/route/${routeId}`, {state: {routeName: routeName}});
+    const url = `/analysis/route/${routeId}`;
+    if (openNewTab) {
+      window.open(url);
+    } else {
+      this.router.navigateByUrl(url, {state: {routeName: routeName}});
+    }
   }
 
-  private handleNodeClicked(feature: FeatureLike): void {
+  private handleNodeClicked(feature: FeatureLike, openNewTab: boolean): void {
     const nodeId = feature.get("id");
     const nodeName = feature.get("name");
-    this.router.navigateByUrl(`/analysis/node/${nodeId}`, {state: {nodeName: nodeName}});
+    const url = `/analysis/node/${nodeId}`;
+    if (openNewTab) {
+      window.open(url);
+    } else {
+      this.router.navigateByUrl(url, {state: {nodeName: nodeName}});
+    }
   }
 
   private isHooveringOverNodeOrRoute(evt: MapBrowserEvent): boolean {
