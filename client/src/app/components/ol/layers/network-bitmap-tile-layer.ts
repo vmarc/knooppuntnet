@@ -1,8 +1,7 @@
 import TileLayer from "ol/layer/Tile";
 import XYZ from "ol/source/XYZ";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
-
-import {ZoomLevel} from "./zoom-level";
+import {ZoomLevel} from "../domain/zoom-level";
 
 export class NetworkBitmapTileLayer {
 

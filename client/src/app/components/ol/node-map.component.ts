@@ -3,16 +3,13 @@ import {AfterViewInit, Component, Input} from "@angular/core";
 import {List} from "immutable";
 import BaseLayer from "ol/layer/Base";
 import LayerGroup from "ol/layer/Group";
-import VectorLayer from "ol/layer/Vector";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
-import VectorSource from "ol/source/Vector";
 import View from "ol/View";
 import {I18nService} from "../../i18n/i18n.service";
 import {NodeMapInfo} from "../../kpn/api/common/node-map-info";
 import {Util} from "../shared/util";
-import {Marker} from "./domain/marker";
-import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
+import {NetworkVectorTileLayer} from "./layers/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapControls} from "./layers/map-controls";
@@ -83,7 +80,7 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
     const layerArray: Array<BaseLayer> = [];
     layerArray.push(this.mapLayerService.osmLayer());
     this.buildNetworkLayers().forEach(layer => layerArray.push(layer));
-    layerArray.push(this.buildMarkerLayer());
+    layerArray.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
     return List(layerArray);
   }
 
@@ -95,24 +92,6 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
       layer.set("mapStyle", "nodeMapStyle");
       return layer;
     }).toArray();
-  }
-
-  private buildMarkerLayer(): BaseLayer {
-
-    const coordinate = Util.toCoordinate(this.nodeMapInfo.latitude, this.nodeMapInfo.longitude);
-    const marker = Marker.create("blue", coordinate);
-
-    const source = new VectorSource();
-    const layer = new VectorLayer({
-      source: source
-    });
-
-    source.addFeature(marker);
-
-    const layerName = this.i18nService.translation("@@map.layer.node");
-    layer.set("name", layerName);
-
-    return layer;
   }
 
 }

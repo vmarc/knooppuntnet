@@ -3,7 +3,7 @@ import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {ZoomLevel} from "./zoom-level";
+import {ZoomLevel} from "../domain/zoom-level";
 
 export class NetworkVectorTileLayer {
 

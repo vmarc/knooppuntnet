@@ -22,7 +22,7 @@ import {RouteNetworkNodeInfo} from "../../kpn/api/common/route/route-network-nod
 import {Util} from "../shared/util";
 import {MainMapStyle} from "./domain/main-map-style";
 import {Marker} from "./domain/marker";
-import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
+import {NetworkVectorTileLayer} from "./layers/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapControls} from "./layers/map-controls";
