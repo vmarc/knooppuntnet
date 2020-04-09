@@ -3,9 +3,6 @@ import {Input} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {Color} from "ol/color";
-import {defaults as defaultControls} from "ol/control";
-import {Attribution} from "ol/control";
-import {FullScreen} from "ol/control";
 import {boundingExtent} from "ol/extent";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
@@ -25,8 +22,8 @@ import {PointSegment} from "../../kpn/api/common/route/point-segment";
 import {UniqueId} from "../../kpn/common/unique-id";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
-import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapLayerService} from "./map-layer.service";
 
 @Component({
   selector: "kpn-route-change-map",
@@ -57,7 +54,8 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
   mapId = UniqueId.get();
   layers: List<BaseLayer> = List();
 
-  constructor(private i18nService: I18nService) {
+  constructor(private mapLayerService: MapLayerService,
+              private i18nService: I18nService) {
   }
 
   ngOnInit(): void {
@@ -73,15 +71,10 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
 
   buildMap(): void {
 
-    const fullScreen = new FullScreen();
-    const attribution = new Attribution({
-      collapsible: true
-    });
-
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),
-      controls: defaultControls({attribution: false}).extend([fullScreen, attribution]),
+      controls: this.mapLayerService.controls(),
       view: new View({
         minZoom: ZoomLevel.vectorTileMinZoom,
         maxZoom: ZoomLevel.maxZoom
@@ -93,15 +86,12 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
 
   private buildLayers(): List<BaseLayer> {
 
-    const osmLayer = OsmLayer.build();
-    osmLayer.set("name", this.i18nService.translation("@@map.layer.osm"));
-
     const unchanged = this.segmentLayer("@@map.layer.unchanged", this.geometryDiff.common, 5, [0, 0, 255]);
     const added = this.segmentLayer("@@map.layer.added", this.geometryDiff.after, 12, [0, 255, 0]);
     const deleted = this.segmentLayer("@@map.layer.deleted", this.geometryDiff.before, 3, [255, 0, 0]);
 
     return List([
-      osmLayer,
+      this.mapLayerService.osmLayer(),
       unchanged,
       added,
       deleted,

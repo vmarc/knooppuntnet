@@ -1,6 +1,4 @@
 import {AfterViewInit, Component, Input} from "@angular/core";
-import {FullScreen} from "ol/control";
-import {Attribution, defaults as defaultControls} from "ol/control";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
 import VectorLayer from "ol/layer/Vector";
@@ -13,8 +11,8 @@ import {NodeMoved} from "../../kpn/api/common/diff/node/node-moved";
 import {UniqueId} from "../../kpn/common/unique-id";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
-import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapLayerService} from "./map-layer.service";
 
 @Component({
   selector: "kpn-node-moved-map",
@@ -40,6 +38,9 @@ export class NodeMovedMapComponent implements AfterViewInit {
   map: Map;
   mapId = UniqueId.get();
 
+  constructor(private mapLayerService: MapLayerService) {
+  }
+
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.buildMap();
@@ -48,20 +49,15 @@ export class NodeMovedMapComponent implements AfterViewInit {
 
   buildMap(): void {
 
-    const fullScreen = new FullScreen();
-    const attribution = new Attribution({
-      collapsible: true
-    });
-
     const center = Util.latLonToCoordinate(this.nodeMoved.after);
 
     this.map = new Map({
       target: this.mapId,
       layers: [
-        OsmLayer.build(),
+        this.mapLayerService.osmLayer(),
         this.buildDetailLayer()
       ],
-      controls: defaultControls({attribution: false}).extend([fullScreen, attribution]),
+      controls: this.mapLayerService.controls(),
       view: new View({
         center: center,
         minZoom: ZoomLevel.minZoom,

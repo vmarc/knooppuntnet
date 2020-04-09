@@ -1,9 +1,6 @@
 import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, Input} from "@angular/core";
 import {List} from "immutable";
-import {ScaleLine} from "ol/control";
-import {FullScreen} from "ol/control";
-import {Attribution, defaults as defaultControls} from "ol/control";
 import BaseLayer from "ol/layer/Base";
 import LayerGroup from "ol/layer/Group";
 import VectorLayer from "ol/layer/Vector";
@@ -17,9 +14,9 @@ import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
-import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapClickService} from "./map-click.service";
+import {MapLayerService} from "./map-layer.service";
 
 @Component({
   selector: "kpn-node-map",
@@ -48,6 +45,7 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
   layers: List<BaseLayer> = List();
 
   constructor(private mapClickService: MapClickService,
+              private mapLayerService: MapLayerService,
               private i18nService: I18nService) {
   }
 
@@ -57,18 +55,12 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    const fullScreen = new FullScreen();
-    const scaleLine = new ScaleLine();
-    const attribution = new Attribution({
-      collapsible: false
-    });
-
     const center = Util.toCoordinate(this.nodeMapInfo.latitude, this.nodeMapInfo.longitude);
 
     this.map = new Map({
       target: "node-map",
       layers: this.layers.toArray(),
-      controls: defaultControls({attribution: false}).extend([fullScreen, scaleLine, attribution]),
+      controls: this.mapLayerService.controls(),
       view: new View({
         center: center,
         minZoom: ZoomLevel.vectorTileMinZoom,
@@ -88,17 +80,10 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
 
   private buildLayers(): List<BaseLayer> {
     const layerArray: Array<BaseLayer> = [];
-    layerArray.push(this.buildOsmLayer());
+    layerArray.push(this.mapLayerService.osmLayer());
     this.buildNetworkLayers().forEach(layer => layerArray.push(layer));
     layerArray.push(this.buildMarkerLayer());
     return List(layerArray);
-  }
-
-  private buildOsmLayer(): BaseLayer {
-    const osmLayerName = this.i18nService.translation("@@map.layer.osm");
-    const osmLayer = OsmLayer.build();
-    osmLayer.set("name", osmLayerName);
-    return osmLayer;
   }
 
   private buildNetworkLayers(): Array<BaseLayer> {

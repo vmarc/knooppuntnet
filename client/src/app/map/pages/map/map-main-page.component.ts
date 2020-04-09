@@ -1,8 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {ScaleLine} from "ol/control";
-import {FullScreen} from "ol/control";
-import {Attribution, defaults as defaultControls} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
@@ -15,8 +12,8 @@ import {MainMapStyle} from "../../../components/ol/domain/main-map-style";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
-import {OsmLayer} from "../../../components/ol/domain/osm-layer";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
+import {MapLayerService} from "../../../components/ol/map-layer.service";
 import {MapPositionService} from "../../../components/ol/map-position.service";
 import {MapService} from "../../../components/ol/map.service";
 import {PoiTileLayerService} from "../../../components/ol/poi-tile-layer.service";
@@ -67,11 +64,11 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   overlay: Overlay;
 
   private readonly subscriptions = new Subscriptions();
-  private lastKnownSidebarOpen = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private pageService: PageService,
               private mapService: MapService,
+              private mapLayerService: MapLayerService,
               private poiService: PoiService,
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
@@ -82,9 +79,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-
-    // TODO can remove lastKnownSidebarOpen ??
-    this.lastKnownSidebarOpen = this.pageService.sidebarOpen.value;
 
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       const networkTypeName = params["networkType"];
@@ -116,23 +110,17 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.poiTileLayer = this.poiTileLayerService.buildLayer();
     this.poiTileLayer.setVisible(false);
 
-    const fullScreen = new FullScreen();
-    const scaleLine = new ScaleLine();
-    const attribution = new Attribution({
-      collapsible: false
-    });
-
     this.map = new Map({
       target: "main-map",
       layers: [
-        OsmLayer.build(),
+        this.mapLayerService.osmLayer(),
         // DebugLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,
         this.vectorTileLayer
       ],
       overlays: [this.overlay],
-      controls: defaultControls({attribution: false}).extend([fullScreen, scaleLine, attribution]),
+      controls: this.mapLayerService.controls(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.vectorTileMaxOverZoom

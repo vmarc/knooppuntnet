@@ -1,9 +1,6 @@
 import {AfterViewInit, Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {Color} from "ol/color";
-import {ScaleLine} from "ol/control";
-import {FullScreen} from "ol/control";
-import {Attribution, defaults as defaultControls} from "ol/control";
 import {Extent} from "ol/extent";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
@@ -27,9 +24,9 @@ import {MainMapStyle} from "./domain/main-map-style";
 import {Marker} from "./domain/marker";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
-import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapClickService} from "./map-click.service";
+import {MapLayerService} from "./map-layer.service";
 import {MapService} from "./map.service";
 
 @Component({
@@ -61,6 +58,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
   constructor(private mapClickService: MapClickService,
               private mapService: MapService,
+              private mapLayerService: MapLayerService,
               private i18nService: I18nService) {
   }
 
@@ -70,16 +68,10 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    const fullScreen = new FullScreen();
-    const scaleLine = new ScaleLine();
-    const attribution = new Attribution({
-      collapsible: false
-    });
-
     this.map = new Map({
       target: "route-map",
       layers: this.layers.toArray(),
-      controls: defaultControls({attribution: false}).extend([fullScreen, scaleLine, attribution]),
+      controls: this.mapLayerService.controls(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.maxZoom
@@ -103,15 +95,12 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
   private buildLayers(): List<BaseLayer> {
 
-    const osmLayer = OsmLayer.build();
-    osmLayer.set("name", this.i18nService.translation("@@map.layer.osm"));
-
     this.vectorTileLayer = this.buildVectorTileLayer();
     this.vectorTileLayer.set("name", this.i18nService.translation("@@map.layer.other-routes"));
     this.vectorTileLayer.setStyle(new MainMapStyle(this.map, this.mapService).styleFunction());
 
     return List([
-      osmLayer,
+      this.mapLayerService.osmLayer(),
       this.vectorTileLayer,
       this.buildMarkerLayer(),
       this.buildForwardLayer(),

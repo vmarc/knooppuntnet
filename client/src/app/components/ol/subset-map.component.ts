@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {List} from "immutable";
 import {MapBrowserEvent} from "ol";
-import {Attribution, defaults as defaultControls} from "ol/control";
 import {Coordinate} from "ol/coordinate";
 import {Extent} from "ol/extent";
 import {FeatureLike} from "ol/Feature";
@@ -15,8 +14,8 @@ import View from "ol/View";
 import {NetworkAttributes} from "../../kpn/api/common/network/network-attributes";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
-import {OsmLayer} from "./domain/osm-layer";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapLayerService} from "./map-layer.service";
 
 @Component({
   selector: "kpn-subset-map",
@@ -45,19 +44,18 @@ export class SubsetMapComponent implements AfterViewInit {
   private readonly layer = "layer";
   private readonly networkMarker = "network-marker";
 
-  ngAfterViewInit(): void {
+  constructor(private mapLayerService: MapLayerService) {
+  }
 
-    const attribution = new Attribution({
-      collapsible: false
-    });
+  ngAfterViewInit(): void {
 
     this.map = new Map({
       target: "subset-map",
       layers: [
-        OsmLayer.build(),
+        this.mapLayerService.osmLayer(),
         this.buildMarkerLayer()
       ],
-      controls: defaultControls({attribution: false}).extend([attribution]),
+      controls: this.mapLayerService.controls(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.maxZoom
