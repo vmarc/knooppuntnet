@@ -13,6 +13,7 @@ import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {NetworkBitmapTileLayer} from "../../../components/ol/domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "../../../components/ol/domain/network-vector-tile-layer";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
+import {MapControls} from "../../../components/ol/layers/map-controls";
 import {MapLayerService} from "../../../components/ol/map-layer.service";
 import {MapPositionService} from "../../../components/ol/map-position.service";
 import {MapService} from "../../../components/ol/map.service";
@@ -120,7 +121,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.vectorTileLayer
       ],
       overlays: [this.overlay],
-      controls: this.mapLayerService.controls(),
+      controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.vectorTileMaxOverZoom

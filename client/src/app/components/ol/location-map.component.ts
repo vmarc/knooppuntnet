@@ -21,6 +21,7 @@ import {MainMapStyle} from "./domain/main-map-style";
 import {NetworkBitmapTileLayer} from "./domain/network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapControls} from "./layers/map-controls";
 import {MapClickService} from "./map-click.service";
 import {MapLayerService} from "./map-layer.service";
 import {MapService} from "./map.service";
@@ -81,7 +82,7 @@ export class LocationMapComponent {
     this.map = new Map({
       target: "location-map",
       layers: this.layers.toArray(),
-      controls: this.mapLayerService.controls(),
+      controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.vectorTileMaxOverZoom

@@ -12,6 +12,7 @@ import {UniqueId} from "../../kpn/common/unique-id";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapControls} from "./layers/map-controls";
 import {MapLayerService} from "./map-layer.service";
 
 @Component({
@@ -57,7 +58,7 @@ export class NodeMovedMapComponent implements AfterViewInit {
         this.mapLayerService.osmLayer(),
         this.buildDetailLayer()
       ],
-      controls: this.mapLayerService.controls(),
+      controls: MapControls.build(),
       view: new View({
         center: center,
         minZoom: ZoomLevel.minZoom,

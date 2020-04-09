@@ -25,6 +25,7 @@ import {Marker} from "./domain/marker";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapControls} from "./layers/map-controls";
 import {MapClickService} from "./map-click.service";
 import {MapLayerService} from "./map-layer.service";
 import {MapService} from "./map.service";
@@ -71,7 +72,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     this.map = new Map({
       target: "route-map",
       layers: this.layers.toArray(),
-      controls: this.mapLayerService.controls(),
+      controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.maxZoom

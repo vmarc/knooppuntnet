@@ -15,6 +15,7 @@ import {Marker} from "./domain/marker";
 import {NetworkVectorTileLayer} from "./domain/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapControls} from "./layers/map-controls";
 import {MapClickService} from "./map-click.service";
 import {MapLayerService} from "./map-layer.service";
 
@@ -60,7 +61,7 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
     this.map = new Map({
       target: "node-map",
       layers: this.layers.toArray(),
-      controls: this.mapLayerService.controls(),
+      controls: MapControls.build(),
       view: new View({
         center: center,
         minZoom: ZoomLevel.vectorTileMinZoom,

@@ -23,6 +23,7 @@ import {UniqueId} from "../../kpn/common/unique-id";
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapControls} from "./layers/map-controls";
 import {MapLayerService} from "./map-layer.service";
 
 @Component({
@@ -74,7 +75,7 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),
-      controls: this.mapLayerService.controls(),
+      controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.vectorTileMinZoom,
         maxZoom: ZoomLevel.maxZoom

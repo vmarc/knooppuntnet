@@ -15,6 +15,7 @@ import {NetworkAttributes} from "../../kpn/api/common/network/network-attributes
 import {Util} from "../shared/util";
 import {Marker} from "./domain/marker";
 import {ZoomLevel} from "./domain/zoom-level";
+import {MapControls} from "./layers/map-controls";
 import {MapLayerService} from "./map-layer.service";
 
 @Component({
@@ -55,7 +56,7 @@ export class SubsetMapComponent implements AfterViewInit {
         this.mapLayerService.osmLayer(),
         this.buildMarkerLayer()
       ],
-      controls: this.mapLayerService.controls(),
+      controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
         maxZoom: ZoomLevel.maxZoom

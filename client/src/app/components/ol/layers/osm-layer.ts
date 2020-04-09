@@ -1,14 +1,18 @@
-import stylefunction from "ol-mapbox-style/dist/stylefunction";
 import MVT from "ol/format/MVT";
 import BaseLayer from "ol/layer/Base";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
-import {osmStyle} from "./style";
+import {I18nService} from "../../../i18n/i18n.service";
+import {osmStyle} from "../domain/style";
+import stylefunction from "ol-mapbox-style/dist/stylefunction";
 
 export class OsmLayer {
 
-  public static build(): BaseLayer {
+  constructor(private i18nService: I18nService) {
+  }
+
+  build(): BaseLayer {
 
     const tileGrid = createXYZ({
       tileSize: 512,
@@ -31,7 +35,8 @@ export class OsmLayer {
     });
 
     stylefunction(layer, osmStyle, "openmaptiles");
-
+    const osmLayerName = this.i18nService.translation("@@map.layer.osm");
+    layer.set("name", osmLayerName);
     return layer;
   }
 
