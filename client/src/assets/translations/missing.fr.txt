@@ -1,4 +1,4 @@
-# 2020-04-12 09:02:15 Missing 'fr' translations: 786 of 866
+# 2020-04-12 13:38:07 Missing 'fr' translations: 786 of 866
 [LOGIN] login
 [LINK.LOGOUT] logout
 [LINKS.EDIT] edit
