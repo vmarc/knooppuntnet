@@ -1,0 +1,868 @@
+# 2020-04-12 09:02:15 Translations: 866
+Nr	Translated	Id	Translation	English
+1	Y	analysis-page.changes	Wijzigingen	Changes
+2	Y	analysis-page.overview	Overzicht in cijfers	Overview
+3	Y	analysis-page.title	Analyse	Analysis
+4	Y	analysis.by-location	Analyse per gebied	Explore by location
+5	Y	analysis.by-network	Analyse per netwerk	Explore by network
+6	Y	analysis.location.search-by-name	Zoek op naam	Search by name
+7	Y	analysis.location.select-from-tree	Selecteer uit boomstructuur	Select from tree
+8	Y	authenticate-page.title	Aanmelden...	Logging in...
+9	Y	breadcrumb.analysis	Analyse	Analysis
+10	Y	breadcrumb.changes	Wijzigingen	Changes
+11	Y	breadcrumb.home	Start	Home
+12	Y	breadcrumb.map	Kaart	Map
+13	Y	breadcrumb.network	Netwerk	Network
+14	Y	breadcrumb.node	Knooppunt	Node
+15	Y	breadcrumb.node-changes	Knooppunt wijzigingen	Node changes
+16	Y	breadcrumb.node-map	Knooppunt kaart	Node map
+17	Y	breadcrumb.overview	Overzicht in cijfers	Overview
+18	Y	breadcrumb.replication	Replicatie	Replication
+19	Y	breadcrumb.route-changes	Route wijzigingen	Route changes
+20	Y	breadcrumb.route-details	Route details	Route details
+21	Y	breadcrumb.route-map	Route kaart	Route map
+22	Y	breadcrumb.status	Status	Status
+23	Y	breadcrumb.system	Systeem	System
+24	Y	change-filter.legend	impact / alle	impacted / all
+25	Y	change-filter.title	Filter	Filter
+26	Y	change-set.header.achavi	achavi	achavi
+27	Y	change-set.header.analysis	Analyse	Analysis
+28	Y	change-set.header.analysis.happy	Er zijn verbeteringen in deze changeset.	This changeset brought improvements.
+29	Y	change-set.header.analysis.investigate	Misschien is het de moeite om deze changeset eens na te kijken.	Maybe this changeset is worth a closer look.
+30	Y	change-set.header.analysis.no-impact	De aanpassingen in deze changeset hebben geen impact op de analyse resultaten.	The changes do not seem to have an impact on the analysis result.
+31	Y	change-set.header.change-set	Wijzigingenset	Changeset
+32	Y	change-set.header.comment	Commentaar	Comment
+33	Y	change-set.header.replication-number	Replicatie nummer	Minute diff
+34	Y	change-set.network-changes.added-nodes	Toegevoegde punten die geen knooppunten zijn	Added non-network nodes
+35	Y	change-set.network-changes.added-relations	Toegevoegde relaties die geen route relatie zijn	Added non-route relations
+36	Y	change-set.network-changes.added-ways	Toegevoegde wegen	Added ways
+37	Y	change-set.network-changes.network	Netwerk	Network
+38	Y	change-set.network-changes.orphan-nodes-introduced	Volgende knooppunten maakten tot nu toe deel uit van dit netwerk, maar zijn knooppunt wees geworden	Following nodes that used to be part of this network have become orphan
+39	Y	change-set.network-changes.orphan-routes-introduced	Volgende routes maakten deel uit van dit netwerk, maar zijn nu route wees geworden	Orphan routes added to this network
+40	Y	change-set.network-changes.removed-nodes	Verwijderde punten die geen knooppunten zijn	Removed non-network nodes
+41	Y	change-set.network-changes.removed-relations	Verwijderde relaties die geen route relatie zijn	Removed non-route relations
+42	Y	change-set.network-changes.removed-ways	Verwijderde wegen	Removed ways
+43	Y	change-set.network-changes.updated-nodes	Geweiziged punten die geen knooppunten zijn	Updated non-network nodes
+44	Y	change-set.network-changes.updated-relations	Gewijzigde relaties die geen route relatie zijn	Updated non-route relations
+45	Y	change-set.network-changes.updated-ways	Gewijzigde wegen	Updated ways
+46	Y	change-set.network-diffs.network-created	Nieuw netwerk	Network created
+47	Y	change-set.network-diffs.network-deleted	Netwerk verwijderd	Network deleted
+48	Y	change-set.network-diffs.orphan-nodes-resolved	Knooppuntwezen toegevoegd aan dit netwerk	Orphan nodes added to this network
+49	Y	change-set.orphan-nodes	Knooppuntwezen	Orphan node(s)
+50	Y	change-set.orphan-nodes.title	Knooppuntwezen	Orphan nodes
+51	Y	change-set.orphan-routes	Route wezen	Orphan route(s)
+52	Y	change-set.orphan-routes.title	Routewezen	Orphan routes
+53	Y	change-set.title	Wijzigingenset	Changeset
+54	Y	changes-page.login-required	De details van de wijzigingshistoriek zijn enkel beschikbaar voor OpenStreetMap leden, na .	The details of the changes history are available to registered OpenStreetMap contributors only, after .
+55	Y	changes-page.title	Wijzigingen	Changes
+56	Y	changes.impact	Impact	Impact
+57	Y	changes.no-changes	Geen wijzigingen	No changes
+58	Y	country.at	Oostenrijk	Austria
+59	Y	country.be	België	Belgium
+60	Y	country.de	Duitsland	Germany
+61	Y	country.fr	Frankrijk	France
+62	Y	country.nl	Nederland	The Netherlands
+63	Y	country.unsupported	Niet België, Nederland, Duitsland, Frankrijk of Oostenrijk	Unsupported (not Belgium, The Netherlands, Germany, France or Austria)
+64	Y	doc-link.go-to-documentation	Ga naar de documentatie	Go to documentation
+65	Y	export.cancel	Annuleren	Cancel
+66	Y	export.default-pdf	Document (pdf)	Print (pdf)
+67	Y	export.gpx	GPX bestand	GPX file
+68	Y	export.navigation-instructions-pdf	Navigatie instructies (pdf)	Navigation instructions (pdf)
+69	Y	export.node-strip-pdf	Knooppuntenstrip (pdf)	Node strip (pdf)
+70	Y	export.ok	OK	OK
+71	Y	export.title	Resultaat	Export
+72	Y	fact-diffs.introduced-fact	Nieuw feit	Introduced fact
+73	Y	fact-diffs.introduced-facts	Nieuwe feiten	Introduced facts
+74	Y	fact-diffs.remaining-fact	Overblijvend feit	Remaining fact
+75	Y	fact-diffs.remaining-facts	Overblijvende feiten	Remaining facts
+76	Y	fact-diffs.resolved-fact	Opgelost feit	Resolved fact
+77	Y	fact-diffs.resolved-facts	Opgeloste feiten	Resolved facts
+78	Y	fact-page.title	Alle feiten	All facts
+79	Y	fact.description-missing	beschrijving ontbreekt!!	description missing!!
+80	Y	fact.description.added	Toegevoegd aan de analyse.	Added to the analysis.
+81	Y	fact.description.become-orphan	Wees geworden.	Has become orphan.
+82	Y	fact.description.deleted	Verwijderd uit de OpenStreetMap database.	Deleted from the OpenStreetMap database.
+83	Y	fact.description.integrity-check	Dit knooppunt heeft een tag die het aantal verwachte routes dat aankomt/vertrekt op dit knooppunt weergeeft.	This network node has a tag that indicates the expected number of routes that arrive/depart in this node.
+84	Y	fact.description.integrity-check-failed	Het aantal routes die in het knooppunt aankomen of vertrekken is niet het verwachte aantal. Routes met tag "state" gelijk aan "connection" of "alternate" worden niet meegeteld.	The actual number of routes does not match the expected number of routes. Routes with tag "state" equal to "connection" or "alternate" are not counted.
+85	Y	fact.description.lost-bicycle-node-tag	Dit punt is niet langer een geldig fietsnetwerk knooppunt omdat de rcn_ref tag verwijderd is.	This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.
+86	Y	fact.description.lost-canoe-node-tag	Dit punt is niet langer een geldig kano netwerk knooppunt omdat de rpn_ref tag verwijderd is.	This node is no longer a valid canoenetwork node because the rpn_ref tag has been removed.
+87	Y	fact.description.lost-hiking-node-tag	Dit punt is niet langer een geldig wandelnetwerk knooppunt omdat de rwn_ref tag verwijderd is.	This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
+88	Y	fact.description.lost-horse-riding-node-tag	Dit punt is niet langer een geldig ruiternetwerk knooppunt omdat de rhn_ref tag verwijderd is.	This node is no longer a valid horse riding network node because the rhn_ref tag has been removed.
+89	Y	fact.description.lost-inline-skate-node-tag	Dit punt is niet langer een geldig inline skating netwerk knooppunt omdat de rin_ref tag verwijderd is.	This node is no longer a valid inline skating network node because the rin_ref tag has been removed.
+90	Y	fact.description.lost-motorboat-node-tag	Dit punt is niet langer een geldig motorboot netwerk knooppunt omdat de rmn_ref tag verwijderd is.	This node is no longer a valid motorboatnetwork node because the rmn_ref tag has been removed.
+91	Y	fact.description.lost-route-tags	Deze relatie is niet langer een geldige netwerk route omdat een benodigde tag verwijderd is.	This relation is no longer a valid network route because a required tag has been removed.
+92	Y	fact.description.name-missing	De netwerk relatie bevat niet de verplichte tag met sleutel "name".	The network relation does not contain the mandatory tag with key "name".
+93	Y	fact.description.network-extra-member-node	De netwerk relatie bevat 1 of meerdere onverwachte knopen (we verwachten enkel knopen die ook echt een knooppunt definitie zijn, of een netwerk kaart).	The network relation contains members of type _"node"_ that are unexpected (we expect only network nodes or information maps as members in the network relation).
+94	Y	fact.description.network-extra-member-relation	De netwerk relatie bevat overwachte relaties. In network relaties verwachten we enkel route relaties of knooppunten, geen relaties die geen route relaties zijn.	The network relation contains members of type _"relation"_ that are unexpected (expect only valid route relations or network nodes as members in the node network relation).
+95	Y	fact.description.network-extra-member-way	De netwerk relatie bevat overwachte wegen (in network relaties verwachten we enkel route relaties of knooppunten, geen wegen).	The network relation contains members of type _"way"_ (expect only route relations or network nodes as members in the node network relation).
+96	Y	fact.description.node-member-missing	Het knooppunt is niet opgenomen als lid in de netwerk relatie.	The node is not member of the network relation.
+97	Y	fact.description.orphan-node	Op zichzelf staande knooppunt (niet teruggevonden in een netwerk). Dit knooppunt werd niet teruggevonden als deel van een geldige netwerk relatie, of als deel van een geldige route relatie (dit kan een route relatie zijn die deel uitmaakt van een network relatie, maar ook een op zichzelf staande route relatie die geen deel uitmaakt van een network relatie).	This node does not belong to a network. The node was not added as a member to a valid network relation, and also not added as a member to valid route relation (that itself was added as a member to a valid network relation or is an orphan route).
+98	Y	fact.description.orphan-route	Deze route maakt geen deel uit van een netwerk. Deze route wordt niet teruggevonden in een geldige netwerk relatie.	This route does not belong to a network. The route was not added as a member to a valid network relation.
+99	Y	fact.description.route-analysis-failed	Er heeft zich een probleem voorgedaan tijdens de route analyse. De route is mogelijk te complex.	The route could not be analyzed (too complex?).
+100	Y	fact.description.route-broken	TODO	TODO
+101	Y	fact.description.route-fixmetodo	Er is nog werk aan deze route (heeft tag _"fixmetodo"_).	Route definition needs work (has tag _"fixmetodo"_).
+102	Y	fact.description.route-incomplete	De route is onvolledig. De routes zijn uitdrukkelijk gemarkeerd als onvolledig door het |toevoegen van een tag met sleutel _"fixme"_ en waarde _"incomplete"_ in de route relatie.	The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+103	Y	fact.description.route-incomplete-ok	De routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van een tag met sleutel _"fixme"_ en waarde _"incomplete"_ in de route relatie, maar na analyse lijkt de route ok.	The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation. But after analysis, the route seems to be ok.
+104	Y	fact.description.route-invalid-sorting-order	De wegen in deze route zijn volledig maar de volgorde is door elkaar gehaald.	The route is valid, but the sorting order of the ways is incorrect.
+105	Y	fact.description.route-name-missing	De route relatie bevat geen _"note"_ tag met de route naam.	The route relation does not have a _"note"_ tag with the route name.
+106	Y	fact.description.route-node-missing-in-ways	Begin en/of eind knooppunt(en) komen niet voor in een van de wegen van deze route.	The end node and/or the begin node is not found in any of the ways of this route.
+107	Y	fact.description.route-node-name-mismatch	De route naam in de _"note"_ tag in de route relatie is anders dan wat we verwachten op basis van de start en eind knooppunten van de route.	The route name in the _note_ tag in the route relation does not match the expected name as derived from the start and end node of the route.
+108	Y	fact.description.route-not-backward	Er is geen verbinding van het eindknooppunt naar het startknooppunt (terug weg).	There is no path in the backward direction (from end node to start node).
+109	Y	fact.description.route-not-continious	De route is onderbroken: de begin- en eindknooppunten van deze route kunnen niet door wegen verbonden worden in de heen en/of terug richting.	The route is broken: the begin- and end-networknodes cannot be connected through ways either in the forward direction or the backward direction or both.
+110	Y	fact.description.route-not-forward	Er is geen verbinding van het startknooppunt naar het eindknooppunt (heen weg).	There is no path in the forward direction (from start node to end node).
+111	Y	fact.description.route-not-one-way	De route is getagged als bruikbaar in slechts 1 richting, maar de analyse logica heeft zowel een heenweg als een terugweg gevonden.	The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.
+112	Y	fact.description.route-one-way	De route is getagged als bruikbaar in slechts 1 richting. Dit is OK.	The route is tagged as useable in one direction only. This is OK.
+113	Y	fact.description.route-overlapping-ways	Er is geen gedetailleerde route analyse gedaan omdat er overlappende wegen zijn in de route.	No detailed route analysis is performed because the route contains overlapping ways.
+114	Y	fact.description.route-redundant-nodes	Naast de begin en eind knooppunten bevinden er zich nog bijkomende knooppunten in de wegen van deze route.	The ways of this route contain extra nodes other than the start and end nodes.
+115	Y	fact.description.route-suspicious-ways	Route met rare wegen (bijvoorbeeld wegen met slechts 1 punt).	Route with funny ways (for example ways with only 1 node).
+116	Y	fact.description.route-tag-invalid	De verplichte _"route"_ tag heeft een ongeldige waarde. Een fietsnetwerk route relatie moet minimaal een tag met sleutel _"route"_ en waarde _"bicycle"_ hebben. Een wandelnetwerk route relatie moet minimaal een tag met sleutel _"route"_ en waarde _"foot"_, _"hiking"_ of _"walking"_ hebben. De waarde _"walking"_ wordt ook vaak gevonden en door de analyse logica aanvaard, al is deze waarde niet gedocumenteerd in de OSM wiki paginas.	Invalid value in required tag _"route"_ in route relation. A bicycle route relation needs to have value _"bicycle"_ in its _"route"_ tag. A hiking route relation needs to have one of the following values in its _"route"_ tag: _"foot"_, _"hiking"_, or _"walking"_. Note that _"walking"_ is a value that is frequently found, but not actually documented as a valid value in the OSM wiki pages.
+117	Y	fact.description.route-tag-missing	De verplichte _"route"_ tag ontbreekt in de routerelatie.	Routerelation does not contain the required _route_ tag.
+118	Y	fact.description.route-unaccessible	Een deel van de route lijkt niet[toegankelijk](/nl/docs/nl.html#_accessible).	Part of the route does not seem [accessible](/en/docs/en.html#_accessible).
+119	Y	fact.description.route-unexpected-node	De route relatie bevat 1 of meerdere onverwachte knopen	The route relation contains 1 or more unexpected nodes
+120	Y	fact.description.route-unexpected-relation	De route relatie bevat 1 of meer overwachte relaties. In route relaties verwachten we enkel onderdelen van het type _"way"_, of onderdelen van het type _"node"_ met een tag met sleutel _"rwn_ref"_ of _"rcn_ref"_.	The route relation contains one or more unexpected relation members. In route relations we expect only members of type _"way"_, or members of type _"node"_ with a tag _"rwn_ref"_ or _"rcn_ref"_.
+121	Y	fact.description.route-unused-segments	Er zijn wegen of delen van wegen in de route definitie die niet passen in de verbindingen tussen de knooppunten.	The route contains ways or part of ways that are not used in the connection between the end nodes.
+122	Y	fact.description.route-without-ways	De route bevat geen enkele weg (we verwachten ten minste 1 weg).	The route does not contain any ways (we expect the route to contain at least 1 way).
+123	Y	fact.description.was-orphan	Niet langer een wees.	No longer an orphan.
+124	Y	fact.name.added	Toegevoegd	Added
+125	Y	fact.name.become-orphan	WeesGeworden	BecomeOrphan
+126	Y	fact.name.deleted	Verwijderd	Deleted
+127	Y	fact.name.integrity-check	RouteAantal	IntegrityCheck
+128	Y	fact.name.integrity-check-failed	OnverwachtRouteAantal	IntegrityCheckFailed
+129	Y	fact.name.lost-bicycle-node-tag	GeenFietsKnooppuntMeer	LostBicycleNodeTag
+130	Y	fact.name.lost-hiking-node-tag	GeenWandelKnooppuntMeer	LostHikingNodeTag
+131	Y	fact.name.lost-route-tags	GeenRouteMeer	LostRouteTags
+132	Y	fact.name.name-missing	NetwerkZonderNaam	NameMissing
+133	Y	fact.name.network-extra-member-node	OnverwachteKnoop	NetworkExtraMemberNode
+134	Y	fact.name.network-extra-member-relation	OnverwachteRelatie	NetworkExtraMemberRelation
+135	Y	fact.name.network-extra-member-way	OnverwachteWeg	NetworkExtraMemberWay
+136	Y	fact.name.node-member-missing	OntbrekendKnooppuntLid	NodeMemberMissing
+137	Y	fact.name.orphan-node	KnooppuntWees	OrphanNode
+138	Y	fact.name.orphan-route	RouteWees	OrphanRoute
+139	Y	fact.name.route-analysis-failed	RouteAnalyseFout	RouteAnalysisFailed
+140	Y	fact.name.route-broken	RouteFout	RouteBroken
+141	Y	fact.name.route-fixmetodo	Fixmetodo	RouteFixmetodo
+142	Y	fact.name.route-incomplete	OnvolledigeRoute	RouteIncomplete
+143	Y	fact.name.route-incomplete-ok	OnvolledigeRouteOk	RouteIncompleteOk
+144	Y	fact.name.route-invalid-sorting-order	SorteerFout	RouteInvalidSortingOrder
+145	Y	fact.name.route-name-missing	RouteZonderNaam	RouteNameMissing
+146	Y	fact.name.route-node-missing-in-ways	OntbrekendKnoopunt	RouteNodeMissingInWays
+147	Y	fact.name.route-node-name-mismatch	OnverwachteNaam	RouteNodeNameMismatch
+148	Y	fact.name.route-not-backward	GeenTerugWeg	RouteNotBackward
+149	Y	fact.name.route-not-continious	OnderBroken	RouteNotContinious
+150	Y	fact.name.route-not-forward	GeenHeenWeg	RouteNotForward
+151	Y	fact.name.route-not-one-way	RouteNietEnkeleRichting	RouteNotOneWay
+152	Y	fact.name.route-one-way	RouteEnkeleRichting	RouteOneWay
+153	Y	fact.name.route-overlapping-ways	OverlappendeWegen	RouteOverlappingWays
+154	Y	fact.name.route-redundant-nodes	BijkomendKnooppunt	RouteRedundantNodes
+155	Y	fact.name.route-reversed	OmgekeerdeVolgorde	RouteReversed
+156	Y	fact.name.route-suspicious-ways	RouteVerdachteWegen	RouteSuspiciousWays
+157	Y	fact.name.route-tag-invalid	TagFout	RouteTagInvalid
+158	Y	fact.name.route-tag-missing	OntbrekendeTag	RouteTagMissing
+159	Y	fact.name.route-unaccessible	Ontoegankelijk	RouteUnaccessible
+160	Y	fact.name.route-unexpected-node	OnverwachteKnoopInRoute	RouteUnexpectedNode
+161	Y	fact.name.route-unexpected-relation	OnverwachteRelatieInRoute	RouteUnexpectedRelation
+162	Y	fact.name.route-unused-segments	OngebruikteSegmenten	RouteUnusedSegments
+163	Y	fact.name.route-without-ways	ZonderWegen	RouteWithoutWays
+164	Y	fact.name.was-orphan	WasWees	WasOrphan
+165	Y	facts.none	Geen	None
+166	Y	filter.title	Filter	Filter
+167	Y	footer.contact	contact	contact
+168	Y	footer.documentation	documentatie	documentation
+169	Y	footer.issues	problemen	issues
+170	Y	footer.status	status	status
+171	Y	history-incomplete.warning	Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank gaat niet verder terug dan 2012-09-12 ( Licentie aanpassing ).	Older changes cannot be shown. The history in the analysis database does not go beyond 2012-09-12 ( License change ).
+172	Y	home.analysis	Analyse	Analysis
+173	Y	home.map	Kaart	Map
+174	Y	home.page-title	Knooppunt netwerken	Node networks
+175	Y	integrity-indicator.gray.text	Dit knooppunt heeft geen _""_ tag. Dit is OK omdat het gebruik van deze tag optioneel is.	This network node does not have an _""_ tag. This is OK because the use of this tag is optional.
+176	Y	integrity-indicator.gray.title	OK - verwacht aantal routes ontbreekt	OK - expected route count missing
+177	Y	integrity-indicator.green.text	Het aantal routes gevonden in dit knooppunt () komt overeen met het verwachte aantal routes () zoals gedefinieerd in de tag op het knooppunt. Dit is wat we verwachten.	The number of routes found in this network node () does match the expected number of routes () as defined in the _""_ tag on this node. This is what we expect.
+178	Y	integrity-indicator.green.title	OK - verwacht aantal routes	OK - expected route count
+179	Y	integrity-indicator.letter	E	E
+180	Y	integrity-indicator.red.text	Het aantal routes gevonden in dit knooppunt () komt niet overeen met het verwachte aantal routes () zoals gedefinieerd in de _""_ tag op het knooppunt.	The number of routes found in this network node () does not match the expected number of routes () as defined in the _""_ tag on this node.
+181	Y	integrity-indicator.red.title	NOK - onverwacht aantal routes	NOK - unexpected route count
+182	Y	link.logout	afmelden	logout
+183	Y	links.edit	aanpassen	edit
+184	Y	location-changes.title	Wijzigingen	Changes
+185	Y	location-facts.none	Geen	None
+186	Y	location-facts.title	Feiten	Facts
+187	Y	location-map.title	Kaart	Map
+188	Y	location-nodes.no-nodes	Knooppunten	No nodes
+189	Y	location-nodes.no-routes	geen routes	no routes
+190	Y	location-nodes.table.analysis	Analyse	Analysis
+191	Y	location-nodes.table.last-edit	Meest recente aanpassing	Last edit
+192	Y	location-nodes.table.node	Knooppunt	Node
+193	Y	location-nodes.table.nr	Nr	Nr
+194	Y	location-nodes.table.routes	Routes	Routes
+195	Y	location-nodes.title	Knooppunten	Nodes
+196	Y	location-page.header	in	in
+197	Y	location-page.menu.changes	Wijzigingen	Changes
+198	Y	location-page.menu.facts	Feiten	Facts
+199	Y	location-page.menu.map	Kaart	Map
+200	Y	location-page.menu.nodes	Knooppunten	Nodes
+201	Y	location-page.menu.routes	Routes	Routes
+202	Y	location-routes.no-routes	Geen routes	No routes
+203	Y	location-routes.table.broken	Onderbroken	Broken
+204	Y	location-routes.table.distance	Afstand	Distance
+205	Y	location-routes.table.distance.value	m	m
+206	Y	location-routes.table.last-edit	Laatst bewerkt	Last edit
+207	Y	location-routes.table.nr	Nr	Nr
+208	Y	location-routes.table.route	Route	Route
+209	Y	location-routes.title	Routes	Routes
+210	Y	location.location-not-found	Gebied niet gevonden	Location not found
+211	Y	location.selector.button	Locatie overzicht	Location overview
+212	Y	location.selector.input.place-holder	gemeente of ander administratief gebied	enter municipality or other administrative boundary name
+213	Y	location.tree.all	Alle	All
+214	Y	location.tree.collapse-all	Alles inklappen	Collapse all
+215	Y	location.tree.expand-all	Alles openvouwen	Expand all
+216	Y	location.tree.in-use-only	Enkel met knooppunten	In use only
+217	Y	login	aanmelden	login
+218	Y	login.note.1	Na het aanmelden krijgt u toegang to extra informatie: wijzigingset details, netwerk historiek, route historiek en knooppunt historiek.	Login allows you to view extra information, such as changeset details, network history, route history and node history.
+219	Y	login.note.2	Deze informatie is enkel beschikbaar voor geregistreerde OpenStreetMap leden.	This information is available to registered OpenStreetMap users only.
+220	Y	login.note.3	Na het klikken op de "aanmelden" knop hieronder, wordt u (eventueel via het aanmeldenscherm van OpenStreetMap zelf) naar de OpenStreetMap pagina "Geef toegang tot uw account" gebracht. Hier klikt u op de knop "Toegang verlenen" (laat hierbij de optie "uw gebruikersvoorkeuren lezen" aangevinkt).	After clicking the "login" button below, you will be directed (via the OpenStreetMap login page if you are not logged in to OpenStreetMap yet) to the OpenStreetMap page "Authorize access to your account". Click the button "Grant access" (leave the option "read your user preferences" checked).
+221	Y	login.note.4	De knooppuntnet toepassing leest enkel uw gebruikersnaam uit uw gebruikervoorkeuren om vast te stellen dat u een registreerde OpenStreetMap gebruiker bent. De andere informatie in uw gebruikervoorkeuren wordt niet gebruikt en niet opgeslagen in knooppuntnet.	The knooppuntnet application only reads your username from the user preferences to establish that you are a registered OpenStreetMap user. All other user preferences are ignored, and not stored in knooppuntnet.
+222	Y	login.note.5	Deze aanmeld procedure loopt via OpenStreetMap, en op geen enkel moment heeft knooppuntnet toegang tot uw paswoord.	This login procedure uses OpenStreetMap security. Knooppuntnet does not have access to your password at any moment.
+223	Y	login.note.6	U blijft aangemeld bij knooppuntnet (ook na het afsluiten van uw browser) tot u zich uitdrukkelijk afmeld via het afmelden scherm. Om daarna opnieuw aan te melden dient u opnieuw dezelfde procedure door te lopen.	You remain logged in (also after closing you browser), until you explicitly logout through the logout page. To login again after logout you will have to use the same login procedure again.
+224	Y	login.submit	Aanmelden	Login
+225	Y	login.title	Aanmelden	Login
+226	Y	logout.logged-in	U bent momenteel aangemeld als .	You are currently logged in as .
+227	Y	logout.login-comment	Ga naaraanmelden om toegang te krijgen tot extra informatie die enkel beschikbaar is voor gebruikers.	You can login to view extra information that is available to users only.
+228	Y	logout.not-logged-in	U bent niet aangemeld.	You are not logged in.
+229	Y	logout.note.1	Dit laat u toe om extra informatie te raadplegen die enkel beschikbaar is voor geregistreerde OpenStreetMap gebruikers.	This allows you to view extra information that is available to OpenStreetMap users only.
+230	Y	logout.note.2	Na het uitloggen kan u de website verder gebruiken, maar extra informatie zoals wijzigingset details, netwerk historiek, route historiek en knooppunt historiek zijn niet meer raadpleegbaar. In uw persoonlijke zal knooppuntnet nog wel voorkomen. U kunt deze autorisatie intrekken. De autorisatie zal niet meer gebruikt worden. Een nieuwe autorisatie zal aangemaakt worden bij opnieuw aanmelden.	After logging out you can continue to use this website. However, the additional information such as changesets, network changes, route changes and node changes will not be visible anymore. Your personal OpenStreetMap will still contain this application. The application can safely be revoked. The authorization will not be used anymore. A new authorization will be created when logging in again.
+231	Y	logout.submit	Afmelden	Logout
+232	Y	logout.title	Afmelden	Logout
+233	Y	map.end-node	Eind knooppunt	End node
+234	Y	map.end-tentacle-node	Eind tentakel knooppunt	End tentacle node
+235	Y	map.layer.added	Toegevoegd	Added
+236	Y	map.layer.backward-route	Terug weg	Backward route
+237	Y	map.layer.boundary	Locatie grenzen	Boundary
+238	Y	map.layer.canoe	Kano	Canoe
+239	Y	map.layer.cycling	OpenStreetMap	Cycling
+240	Y	map.layer.deleted	Verwijderd	Deleted
+241	Y	map.layer.end-tentacle	Eind tentakel	End tentacle
+242	Y	map.layer.forward-route	Heen weg	Forward route
+243	Y	map.layer.hiking	Wandelen	Hiking
+244	Y	map.layer.horse-riding	Ruiter	Horse riding
+245	Y	map.layer.inline-skating	Inline Skating	Inline Skating
+246	Y	map.layer.motorboat	Motorboot	Motorboat
+247	Y	map.layer.node	Knooppunt	Node
+248	Y	map.layer.nodes	Knooppunten	Nodes
+249	Y	map.layer.nodes-and-routes	Knooppunten en routes	Nodes and routes
+250	Y	map.layer.osm	OpenStreetMap	OpenStreetMap
+251	Y	map.layer.other-routes	Andere routes	Other routes
+252	Y	map.layer.start-tentacle	Start tentakel	Start tentacle
+253	Y	map.layer.unchanged	Onveranderd	Unchanged
+254	Y	map.layer.unused	Ongebruikt	Unused
+255	Y	map.node-popup.more-details	Meer details	More details
+256	Y	map.node-popup.network	Netwerk	Network
+257	Y	map.node-popup.networks	Netwerken	Networks
+258	Y	map.node-popup.no-networks	Geen	None
+259	Y	map.node-popup.routes	Routes	Routes
+260	Y	map.node-popup.routes.none	Geen	None
+261	Y	map.node-popup.title	Knooppunt	Node
+262	Y	map.redundant-node	Bijkomend knooppunt	Redundant node
+263	Y	map.route-popup.more-details	Meer details	More details
+264	Y	map.route-popup.network	Netwerk	Network
+265	Y	map.route-popup.networks	Netwerken	Networks
+266	Y	map.route-popup.no-networks	Geen	None
+267	Y	map.route-popup.title	Route	Route
+268	Y	map.start-node	Start knooppunt	Start node
+269	Y	map.start-tentacle-node	Start tentakel knooppunt	Start tentacle node
+270	Y	network-changes.login-required	De details van netwerk wijzigingshistoriek zijn enkel beschikbaar voor geregistreerde OpenStreetMap leden, na	The details of network changes history are available to registered OpenStreetMap contributors only, after .
+271	Y	network-changes.network-created	Netwerk nieuw aangemaakt	Network created
+272	Y	network-changes.network-deleted	Netwerk verwijderd	Network deleted
+273	Y	network-changes.network-nodes.added	Toegevoegde knooppunten	Added node(s)
+274	Y	network-changes.network-nodes.removed	Network knooppunt(en) verwijderd	Removed network node(s)
+275	Y	network-changes.network-nodes.updated	Knooppunt(en) aangepast	Updated network node(s)
+276	Y	network-changes.network-not-found	Netwerk niet gevonden	Network not found
+277	Y	network-changes.network-relation-updated	Netwerk relatie aangepast	Updated network relation
+278	Y	network-changes.nodes.added	Niet-network-knooppunt(en) toegevoegd in netwerk relatie	Added non-network node member(s) in network relation
+279	Y	network-changes.nodes.removed	Knooppunt dat geen networkknooppunt is verwijderd uit netwerk relatie	Removed non-network node member(s) from network relation
+280	Y	network-changes.nodes.updated	Niet-netwerk-knooppunt(en) aangepast	Updated non-network node(s)
+281	Y	network-changes.relations.added	Niet-route relatie(s) toegevoegd in netwerk relatie	Added non-route relation(s) in network relation
+282	Y	network-changes.relations.removed	Niet-route relatie(s) verwijderd uit netwerk relatie	Removed non-route relation(s) from network relation
+283	Y	network-changes.relations.updated	Niet-route relatie aangepast	Updated non-route relation(s)
+284	Y	network-changes.routes.added	Toegevoegde route(s)	Added route(s)
+285	Y	network-changes.routes.removed	Verwijderde route(s)	Removed route(s)
+286	Y	network-changes.routes.updated	Route(s) aangepast	Updated route(s)
+287	Y	network-changes.title	Wijzigingen	Changes
+288	Y	network-changes.ways.added	Weg(en) toegevoegd in netwerk relatie	Added way member(s) in network relation
+289	Y	network-changes.ways.removed	Weg(en) verwijderd uit netwerk relatie	Removed way member(s) from network relation
+290	Y	network-changes.ways.updated	Weg(en) aangepast	Updated way member(s)
+291	Y	network-details.contains-broken-routes	Dit network bevat verbindingen die niet geheel aaneensluitend zijn.	This network contains broken (non-continuous) routes.
+292	Y	network-details.country	Land	Country
+293	Y	network-details.last-updated	Laatst bewerkt	Last updated
+294	Y	network-details.network-not-found	Netwerk niet gevonden	Network not found
+295	Y	network-details.nodes	knooppunten	nodes
+296	Y	network-details.not-active	Dit netwerk is niet meer actief.	This network is not active anymore.
+297	Y	network-details.relation-last-updated	Relatie laatst bewerkt	Relation last updated
+298	Y	network-details.routes	routes	routes
+299	Y	network-details.situation-on	Situatie op	Situation on
+300	Y	network-details.summary	Samenvatting	Summary
+301	Y	network-details.tags	Tags	Tags
+302	Y	network-details.title	Details	Details
+303	Y	network-facts.checks-table.actual	Gevonden	Actual
+304	Y	network-facts.checks-table.expected	Verwacht	Expected
+305	Y	network-facts.checks-table.node	Knooppunt	Node
+306	Y	network-facts.checks-table.title	integriteits controle resultaten	node integrity check failures
+307	Y	network-facts.network-not-found	Netwerk niet gevonden	Network not found
+308	Y	network-facts.no-facts	Geen feiten	No facts
+309	Y	network-facts.node	Knooppunt:	Node:
+310	Y	network-facts.nodes	Knooppunten:	Nodes:
+311	Y	network-facts.route	Route:	Route:
+312	Y	network-facts.routes	Routes:	Routes:
+313	Y	network-facts.title	Feiten	Facts
+314	Y	network-indicator.gray.text	Dit knooppunt is niet opgenomen als lid in de netwerk relatie. Dit is OK. Dit knooppunt moet behoren tot een ander netwerk, want alle routes naar dit knooppunt binnen dit netwerk hebben de rol "connection" in de netwerk relatie.	This node is not included as a member in the network relation. This is OK. This node must belong to a different network, because all routes to this node within this network have the role "connection" in the network relation.
+315	Y	network-indicator.gray.title	OK - Niet opgenomen in netwerk relatie	OK - Not defined in network relation
+316	Y	network-indicator.green.text	Dit knooppunt is opgenomen als lid in een netwerk relatie. Dit is wat we verwachten.	This node is included as a member in the network relation. This is what we expect.
+317	Y	network-indicator.green.title	OK - Opgenomen in netwerk relatie	OK - Defined in network relation
+318	Y	network-indicator.letter	N	N
+319	Y	network-indicator.orange.text	Dit knooppunt is opgenomen als lid in een netwerk relatie. Dit is onverwacht omdat alle routes naar deze node de rol "connection" hebben. Dit zou betekenen dat dit knooppunt deel uitmaakt van een ander netwerk. We verwachten dat het knooppunt niet opgenomen wordt in de netwerk relatie, behalve wanneer het ook de rol "connection" meekrijgt.	This node is included as a member in the network relation. We did not expect this, because all routes to this node have role "connection". This would mean that the node is part of another network. We expect that the node is not included in the network relation, unless it receives the role "connection".
+320	Y	network-indicator.orange.title	Overwacht - Opgenomen in netwerk relatie	Unexpected - Defined in network relation
+321	Y	network-indicator.red.text	Dit knooppunt is niet opgenomen als lid in een netwerk relatie. Dit is niet OK. De conventie is om elk knooppunt op te nemen in een netwerk relatie. Een uitzondering is wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt hebben de rol "connection" in de netwerk relatie), dan hoeft het knooppunt niet als lid in de netwerk relatie te worden toegevoegd. Het knooppunt kan wel toegevoegd worden, maar moet dan rol "connection" krijgen.	This node is not included as a member in the network relation. This is not OK. The convention is to include each node in the network relation. An exception is when the node belongs to another network (all routes to this node have role "connection" in the network relation), then the node does not have to be included as member in the network relation. The node can be added the network relation, but should get the role "connection" in that case.
+322	Y	network-indicator.red.title	NOK - Niet opgenomen in netwerk relatie	NOK - Not defined in network relation
+323	Y	network-map.title	Kaart	Map
+324	Y	network-nodes.network-not-found	Netwerk niet gevonden	Network not found
+325	Y	network-nodes.no-nodes	Geen netwerk knooppunten in netwerk	No network nodes in network
+326	Y	network-nodes.no-routes	in geen enkele route	no routes
+327	Y	network-nodes.table.analysis	Analyse	Analysis
+328	Y	network-nodes.table.last-edit	Laatst bewerkt	Last edit
+329	Y	network-nodes.table.node	Knooppunt	Node
+330	Y	network-nodes.table.nr	Nr	Nr
+331	Y	network-nodes.table.routes	Routes	Routes
+332	Y	network-nodes.title	Knooppunten	Nodes
+333	Y	network-page.menu.changes	Wijzigingen	Changes
+334	Y	network-page.menu.details	Details	Details
+335	Y	network-page.menu.facts	Feiten	Facts
+336	Y	network-page.menu.map	Kaart	Map
+337	Y	network-page.menu.nodes	Knooppunten	Nodes
+338	Y	network-page.menu.routes	Routes	Routes
+339	Y	network-routes.network-not-found	Netwerk niet gevonden	Network not found
+340	Y	network-routes.no-routes	Geen netwerk routes in netwerk	No network routes in network
+341	Y	network-routes.table.analysis	Analyse	Analysis
+342	Y	network-routes.table.last-edit	Meest recent wijziging	Last edit
+343	Y	network-routes.table.node	Route	Route
+344	Y	network-routes.table.nr	Nr	Nr
+345	Y	network-routes.title	Routes	Routes
+346	Y	network-type.canoe	Kano	Canoe
+347	Y	network-type.cycling	Fietsen	Cycling
+348	Y	network-type.hiking	Wandelen	Hiking
+349	Y	network-type.horse-riding	Ruiter	Horse riding
+350	Y	network-type.inline-skating	Inline Skating	Inline Skating
+351	Y	network-type.motorboat	Motorboot	Motorboat
+352	Y	node-change.added-to-network	Toegevoegd aan netwerk	Added to network
+353	Y	node-change.added-to-network-relation	Toegevoegd aan netwerkrelatie	Added to network relation
+354	Y	node-change.added-to-route	Toegevoegd aan route	Added to route
+355	Y	node-change.belongs-to-another-network	Dit knooppunt behoort tot een ander netwerk	This node belongs to another network
+356	Y	node-change.lost-role-connection-in-network-relation	Dit knooppunt heeft niet langer de rol "connection" in de netwerk relatie	This node no longer has role "connection" in the network relation
+357	Y	node-change.moved.less-than-1-meter	Het knooppunt is minder dan 1 meter verplaatst.	The node has moved less than 1 meter.
+358	Y	node-change.moved.meters	Het knooppunt is meter verplaatst.	The node has moved meters.
+359	Y	node-change.moved.note.1	Noot: De knooppunt positie wordt getoond zoals die was op	Note: Node position is shown as it was at
+360	Y	node-change.moved.note.2	, de kaart achtergrond toont de toestand van vandaag.	, while the map background is shown as it is today.
+361	Y	node-change.no-longer-belongs-to-another-network	Dit knooppunt behoort niet langer tot een ander netwerk	This node no longer belongs to another network
+362	Y	node-change.received-role-connection-in-network-relation	Dit knooppunt kreeg rol "connection" in de netwerk relatie	This node received role "connection" in the network relation
+363	Y	node-change.removed-from-network	Verwijderd uit netwerk	Removed from network
+364	Y	node-change.removed-from-network-relation	Verwijderd uit netwerkrelatie van	Removed from network relation
+365	Y	node-change.removed-from-route	Verwijderd uit route	Removed from route
+366	Y	node-connection-indicator.blue.text	Dit knooppunt is een verbinding naar een ander netwerk. Alle routes naar dit knooppunt hebben de rol "connection" in de netwerkrelatie.	This node is a connection to another network. All routes to this node have the role "connection" in the network relation.
+367	Y	node-connection-indicator.blue.title	OK - Verbinding	OK - Connection
+368	Y	node-connection-indicator.gray.text	Dit knooppunt is geen verbinding naar een ander netwerk. Het knooppunt zou beschouwd worden als een verbinding naar een ander netwerk indien alle routes naar dit knooppunt de rol "connection" zouden hebben in de netwerk relatie.	This node is not a connection to another network. The node would have been considered as a connection to another network if all routes to this node within the network had role "connection" in the network relation.
+369	Y	node-connection-indicator.gray.title	OK - Geen verbinding	OK - No connection
+370	Y	node-connection-indicator.letter	V	C
+371	Y	node-diffs-added.change-set-created	Nieuw in deze changeset.	Created in this changeset.
+372	Y	node-diffs-added.change-set-existing	Bestaand knooppunt	Existing node
+373	Y	node-diffs-added.change-set-updated	Aangepast in deze changeset.	Updated in this changeset.
+374	Y	node-diffs-added.title	Toegevoegde knooppunten	Added network nodes
+375	Y	node-diffs-removed.title	Verwijderde knooppunten	Removed network nodes
+376	Y	node-diffs-updated.existing-node	Bestaand knooppunt	Existing node
+377	Y	node-diffs-updated.node-changed	Knooppunt veranderd naar	Node change to
+378	Y	node-diffs-updated.title	Gewijzigde knooppunten	Updated network nodes
+379	Y	node.details-sidebar.tip	TIP: klik op de knooppunten en routes in de kaart om naar hun detail pagina te gaan.	TIP: click on other nodes or routes in the map to go to the details of these nodes or routes.
+380	Y	node.facts	Feiten	Facts
+381	Y	node.inactive	Dit knooppunt is niet meer actief.	This network node is not active anymore.
+382	Y	node.last-updated	Laatst bewerkt	Last updated
+383	Y	node.location	Locatie	Location
+384	Y	node.location.none	Geen	None
+385	Y	node.login-required	De details van de knooppunt wijzigingshistoriek zijn enkel beschikbaar voor OpenStreetMap leden, na .	The details of the node changes history is available to registered OpenStreetMap contributors only, after .
+386	Y	node.menu.changes	Wijzigingen	Changes
+387	Y	node.menu.details	Details	Details
+388	Y	node.menu.map	Kaart	Map
+389	Y	node.network-references.none	Geen	None
+390	Y	node.network.integrity-check-failed	Onverwacht aantal routes (), verwacht:.	Integritycheck failed: expected routes, but found .
+391	Y	node.network.integrity-check-ok	Verwacht aantal routes () klopt.	Expected number of routes () matches the number of routes found.
+392	Y	node.network.network-member	Dit knooppunt is opgenomen in de netwerkrelatie.	This node is included as member in the networkrelation.
+393	Y	node.network.not-network-member	Dit knooppunt is niet opgenomen in de netwerkrelatie.	This node is not included as member in the networkrelation.
+394	Y	node.network.not-network-member-invalid	Dit knooppunt is niet opgenomen in de netwerkrelatie: de _""_ tag is niet van toepassing voor dit netwerk.	This node is not included as member in the networkrelation: the _""_ tag does not apply to this netwerk.
+395	Y	node.network.role-connection	Dit knooppunt heeft de rol _"connection"_ in de netwerkrelatie.	This node has the role _"connection"_ in the networkrelation.
+396	Y	node.networks	Netwerken	Networks
+397	Y	node.node	netwerk knooppunt	network node
+398	Y	node.node-not-found	Niet gevonden	Node not found
+399	Y	node.orphan	Dit knooppunt behoort niet tot een knooppuntnetwerk (wees).	This network node does not belong to a known node network (orphan).
+400	Y	node.orphan-route-references.none	Geen	None
+401	Y	node.orphan-routes	Route wezen	Orphan routes
+402	Y	node.situation-on	Situatie op	Situation on
+403	Y	node.summary	Samenvatting	Summary
+404	Y	node.tags	Tags	Tags
+405	Y	node.title	Knooppunt	Node
+406	Y	node.unchanged	(Niet gewijzigd)	(Unchanged)
+407	Y	node.version	Versie	Version
+408	Y	not-found.title	Niet gevonden	Not found
+409	Y	osm-link.oath-clients	lijst van geauthoriseerde toepassingen	list of authorised applications
+410	Y	overview-page.title	Overzicht in cijfers	Overview
+411	Y	overview-table.comment	Commentaar	Comment
+412	Y	overview-table.detail	Detail	Detail
+413	Y	overview-table.total	Totaal	Total
+414	Y	overview.total	Totaal	Total
+415	Y	paginator.first-page-label	Eerste pagina	First page
+416	Y	paginator.from	van	of
+417	Y	paginator.items-per-page-label	Items per pagina	Items per page
+418	Y	paginator.last-page-label	Laatste pagina	Last page
+419	Y	paginator.next-page-label	Volgende pagina	Next page
+420	Y	paginator.previous-page-label	Vorige pagina	Previous page
+421	Y	plan.command.continue	Rechtdoor	Continue
+422	Y	plan.command.continue.street	Rechtdoor op	Continue on
+423	Y	plan.command.turn-left	Ga links af	Turn left
+424	Y	plan.command.turn-left.street	Ga linksaf naar	Turn left onto
+425	Y	plan.command.turn-right	Ga rechtsaf	Turn right
+426	Y	plan.command.turn-right.street	Ga rechtsaf naar	Turn right onto
+427	Y	plan.command.turn-sharp-left	Scherp linksaf	Sharp left
+428	Y	plan.command.turn-sharp-left.street	Scherp linksaf naar	Sharp left onto
+429	Y	plan.command.turn-sharp-right	Scherp rechtsaf	Sharp right
+430	Y	plan.command.turn-sharp-right.street	Scherp rechtsaf naar	Sharp right onto
+431	Y	plan.command.turn-slight-left	Houd links aan	Slight left
+432	Y	plan.command.turn-slight-left.street	Houd links aan naar	Slight left onto
+433	Y	plan.command.turn-slight-right	Houd rechts aan	Slight right
+434	Y	plan.command.turn-slight-right.street	Houd rechts aan naar	Slight right onto
+435	Y	plan.distance	Afstand	Distance
+436	Y	plan.head	Ga richting	Head
+437	Y	plan.heading.east	oost	east
+438	Y	plan.heading.north	noord	north
+439	Y	plan.heading.north-east	noord-oost	north-east
+440	Y	plan.heading.north-west	noord-west	north-west
+441	Y	plan.heading.south	zuiden	south
+442	Y	plan.heading.south-east	zuid-oost	south-east
+443	Y	plan.heading.south-west	zuid-westen	south-west
+444	Y	plan.heading.west	westen	west
+445	Y	plan.onto	naar	onto
+446	Y	planner.appearance-options	Kaart opties	Map appearance options
+447	Y	planner.compact	Compact	Compact
+448	Y	planner.detailed	Detail	Detailed
+449	Y	planner.export	Exporteren	Export
+450	Y	planner.instructions	Instructies	Instructions
+451	Y	planner.legend	Legende	Legend
+452	Y	planner.map	Kaart	Map
+453	Y	planner.pois.default	Standaard	Default
+454	Y	planner.pois.enabled	Toon interessante punten	Show points of interest on the map
+455	Y	planner.pois.enabled-disabled	(Aan/Uit)	(Enabled/Disabled)
+456	Y	planner.pois.hide-all	Verberg alle	Hide all
+457	Y	planner.pois.reset	Herstel standaard configuratie	Reset configuration to default
+458	Y	planner.pois.show-all	Toon alle	Show all
+459	Y	planner.pois.title	Interessante punten	Points of interest
+460	Y	planner.pois.zoom-in	Zoem in om de icoontjes op de kaart te zien	Zoom in to see the icons on the map.
+461	Y	planner.quality	Knooppunt en route kwaliteit	Node and route quality status
+462	Y	planner.redo	Opnieuw doen	Redo
+463	Y	planner.surface	Oppervlakte	Surface
+464	Y	planner.survey	Datum laatste survey	Date last survey
+465	Y	planner.title	Route planner	Route planner
+466	Y	planner.undo	Ongedaan maken	Undo
+467	Y	poi.alcohol	Alcohol	Alcohol
+468	Y	poi.alpine-hut	Alpine hut	Alpine hut
+469	Y	poi.american-football	Amerikaans voetbal	American football
+470	Y	poi.apartment	Apartement	Apartment
+471	Y	poi.arts-centre	Kunstencentrum	Arts centre
+472	Y	poi.artwork	Kunstwerk	Artwork
+473	Y	poi.atm	Geldautomaat	Atm
+474	Y	poi.attraction	Attractie	Attraction
+475	Y	poi.bakery	Bakkerij	Bakery
+476	Y	poi.bank	Bank	Bank
+477	Y	poi.bar	Bar	Bar
+478	Y	poi.baseball	Baseball	Baseball
+479	Y	poi.basketball	Basketbal	Basketball
+480	Y	poi.bbq	BBQ	BBQ
+481	Y	poi.beauty	Beauty	Beauty
+482	Y	poi.bench	Zitbank	Bench
+483	Y	poi.beverages	Dranken	Beverages
+484	Y	poi.bicycle	Fietsen	Bicycle
+485	Y	poi.bicycle-parking	Fietsparking	Bicycle parking
+486	Y	poi.bicycle-rental	Fietsverhuur	Bicycle rental
+487	Y	poi.biergarten	Biergarten	Biergarten
+488	Y	poi.books-stationary	Papier en boekhandel	Books/stationary
+489	Y	poi.buddhist-temple	Boeddhistische tempel	Buddhist temple
+490	Y	poi.busstop	Bushalte	Bus stop
+491	Y	poi.butcher	Slager	Butcher
+492	Y	poi.cafe	Café	Cafe
+493	Y	poi.campsite	Kampeerterrein	Camp site
+494	Y	poi.car	Auto	Car
+495	Y	poi.casino	Casino	Casino
+496	Y	poi.castle	Kasteel	Castle
+497	Y	poi.cemetery	Begraafplaats	Cemetery
+498	Y	poi.chalet	Chalet	Chalet
+499	Y	poi.cheese	Kaas	Cheese
+500	Y	poi.chemist	Apotheker	Chemist
+501	Y	poi.chocolate	Chocolade	Chocolate
+502	Y	poi.church	Kerk	Church
+503	Y	poi.cinema	Bioscoop	Cinema
+504	Y	poi.clinic	Ziekenhuis	Clinic
+505	Y	poi.clothes	Kledij	Clothes
+506	Y	poi.coffee	Koffie	Coffee
+507	Y	poi.confectionery	Snoep	Confectionery
+508	Y	poi.copyshop	Kopieer winkel	Copyshop
+509	Y	poi.cosmetics	Cosmetica	Cosmetics
+510	Y	poi.cycling	Fietsen	Cycling
+511	Y	poi.dairy	Zuivel	Dairy
+512	Y	poi.defibrillator	Defibrillator	Defibrillator
+513	Y	poi.deli	Deli	Deli
+514	Y	poi.departmentstore	Warenhuis	Department store
+515	Y	poi.detail.email	E-mail	E-mail
+516	Y	poi.detail.facebook	Facebook	Facebook
+517	Y	poi.detail.fax	Fax	Fax
+518	Y	poi.detail.hollandsche-molen-database	Hollandsche Molen database	Hollandsche Molen database
+519	Y	poi.detail.image	Afbeelding	Image
+520	Y	poi.detail.mapillary	Mapillary	Mapillary
+521	Y	poi.detail.molen-database	Molen database	Molen database
+522	Y	poi.detail.none	Geen details beschikbaar	No details available
+523	Y	poi.detail.onroerendErfgoed	Onroerend Erfgoed	Onroerend Erfgoed
+524	Y	poi.detail.opengingHours	Openingsuren	Opening hours
+525	Y	poi.detail.phone	Telefoon	Phone
+526	Y	poi.detail.serviceHours	Diensten	Service times
+527	Y	poi.detail.website	Web	Website
+528	Y	poi.detail.wheelchair	Rolstoel	Wheelchair
+529	Y	poi.detail.wikidata	Wikidata	Wikidata
+530	Y	poi.detail.wikipedia	Wikipedia	Wikipedia
+531	Y	poi.diy-hardware	Doe-het-zelf	DIY hardware
+532	Y	poi.drinking-water	Drinkbaar water	Drinking water
+533	Y	poi.ebike-charging	Ebike oplaadpunt	Ebike charging
+534	Y	poi.embassy	Ambassade	Embassy
+535	Y	poi.fastfood	Fast food	Fast food
+536	Y	poi.firestation	Brandweer	Firestation
+537	Y	poi.foodcourt	Eetgelegenheid	Food court
+538	Y	poi.fuel	Tankstation	Fuel
+539	Y	poi.gallery	Gallerij	Gallery
+540	Y	poi.garden-centre	Tuincentrum	Garden centre
+541	Y	poi.general	Algemeen	General
+542	Y	poi.gift	Cadeau	Gift
+543	Y	poi.golf	Golf	Golf
+544	Y	poi.grocery	Kruidenierswinkel	Grocery
+545	Y	poi.group.amenity	Voorziening	Amenity
+546	Y	poi.group.foodshops	Voeding	Foodshops
+547	Y	poi.group.hiking-biking	Wandelen/fietsen	Hiking/biking
+548	Y	poi.group.landmarks	Herkenningspunten	Landmarks
+549	Y	poi.group.places-to-stay	Verblijf	Places to stay
+550	Y	poi.group.restaurants	Restaurants	Restaurants
+551	Y	poi.group.shops	Winkels	Shops
+552	Y	poi.group.sports	Sport	Sports
+553	Y	poi.group.tourism	Tourisme	Tourism
+554	Y	poi.guesthouse	Pension	Guest house
+555	Y	poi.gymnastics	Gymnastiek	Gymnastics
+556	Y	poi.hairdresser	Kapper	Hairdresser
+557	Y	poi.heritage	Historisch erfgoed	Heritage
+558	Y	poi.hindu-temple	Hindoe tempel	Hindu temple
+559	Y	poi.historic	Historische bezienwaardigheid	Historic
+560	Y	poi.hockey	Hockey	Hockey
+561	Y	poi.horseracing	Paardenrennen	Horse racing
+562	Y	poi.hospital	Hospitaal	Hospital
+563	Y	poi.hostel	Herberg	Hostel
+564	Y	poi.hotel	Hotel	Hotel
+565	Y	poi.ice-cream	Ijs	Ice cream
+566	Y	poi.icehockey	Ijshockey	Ice hockey
+567	Y	poi.information	Informatie	Information
+568	Y	poi.jewelry	Juwelen	Jewelry
+569	Y	poi.kiosk	Kiosk	Kiosk
+570	Y	poi.leather	Leder	Leather
+571	Y	poi.library	Bibliotheek	Library
+572	Y	poi.marketplace	Markt	Marketplace
+573	Y	poi.monument-memorial	Monument	Monument
+574	Y	poi.monumental-tree	Monumentale boom	Monumental tree
+575	Y	poi.mosque	Moskee	Mosque
+576	Y	poi.motel	Motel	Motel
+577	Y	poi.museum	Museum	Museum
+578	Y	poi.musical-instrument	Muziekinstrumenten	Musical instrument
+579	Y	poi.musicschool	Muziekschool	Music school
+580	Y	poi.optician	Optiek	Optician
+581	Y	poi.organic	Biologisch	Organic
+582	Y	poi.parking	Parkeerplaats	Parking
+583	Y	poi.pets	Huisdieren	Pets
+584	Y	poi.pharmacy	Apotheek	Pharmacy
+585	Y	poi.phone	Telefoon	Phone
+586	Y	poi.photo	Foto	Photo
+587	Y	poi.picnic	Picnic	Picnic
+588	Y	poi.place-of-worship	Gebedshuis	Place of worship
+589	Y	poi.police	Politie	Police
+590	Y	poi.postbox	Brievenbus	Post box
+591	Y	poi.postoffice	Postkantoor	Post office
+592	Y	poi.pub	Kroeg	Pub
+593	Y	poi.restaurant	Restaurant	Restaurant
+594	Y	poi.sauna	Sauna	Sauna
+595	Y	poi.seafood	Zeevruchten	Seafood
+596	Y	poi.shoes	Schoenen	Shoes
+597	Y	poi.shoppingcentre	Shopping centrum	Shopping centre
+598	Y	poi.soccer	Voetbal	Soccer
+599	Y	poi.sportscentre	Sportcentrum	Sports centre
+600	Y	poi.statue	Standbeeld	Statue
+601	Y	poi.supermarket	Supermarkt	Supermarket
+602	Y	poi.surfing	Surfen	Surfing
+603	Y	poi.swimming	Zwemmen	Swimming
+604	Y	poi.synagogue	Synagoge	Synagogue
+605	Y	poi.taxi	Taxi	Taxi
+606	Y	poi.tennis	Tennis	Tennis
+607	Y	poi.textiles	Stoffen	Textiles
+608	Y	poi.theatre	Theater	Theatre
+609	Y	poi.themepark	Pretpark	Themepark
+610	Y	poi.toilets	Toilet	Toilets
+611	Y	poi.tourism	Tourisme	Tourism
+612	Y	poi.toys	Speelgoed	Toys
+613	Y	poi.travelagency	Reisbureau	Travelagency
+614	Y	poi.university	Universiteit	University
+615	Y	poi.viewpoint	Uitzichtpunt	Viewpoint
+616	Y	poi.vineyard	Wijngaard	Vineyard
+617	Y	poi.volleyball	Volleybal	Volleyball
+618	Y	poi.watermill	Watermolen	Watermill
+619	Y	poi.windmill	Windmolen	Windmill
+620	Y	poi.wine	Wijn	Wine
+621	Y	poi.zoo	Zoo	Zoo
+622	Y	role-connection-indicator.blue.text	Dit knooppunt is een verbinding naar een ander netwerk. Het knooppunt heeft rol "connection" in de netwerkrelatie.	This node is a connection to another network. This node has role "connection" in the network relation.
+623	Y	role-connection-indicator.blue.title	OK - Verbinding	OK - Connection
+624	Y	role-connection-indicator.gray.text	Dit knooppunt heeft niet de rol "connection" in de netwerk relatie.	This node does not have role "connection" in het network relation.
+625	Y	role-connection-indicator.gray.title	OK - Geen verbinding rol	OK - No connection role
+626	Y	role-connection-indicator.letter	V	C
+627	Y	route-accessible-indicator.gray.text	Toegankelijkheidsinformatie is niet beschikbaar voor dit type route.	Accessibility information is unknown for this type of route.
+628	Y	route-accessible-indicator.gray.title	OK - Toegankelijkheid onbekend	OK - Accessibility unknown
+629	Y	route-accessible-indicator.green.text.canoe	Deze route is volledig toegankelijk voor kano.	This route is completely accessible for canoe.
+630	Y	route-accessible-indicator.green.text.cycling	Deze route is volledig toegankelijk voor fietsen.	This route is completely accessible for bicycle.
+631	Y	route-accessible-indicator.green.text.hiking	Deze route is volledig toegankelijk voor wandelen.	This route is completely accessible for hiking.
+632	Y	route-accessible-indicator.green.text.motorboat	Deze route is volledig toegankelijk voor motorboot.	This route is completely accessible for motorboat.
+633	Y	route-accessible-indicator.green.title	OK - Toegankelijk	OK - Accessible
+634	Y	route-accessible-indicator.letter	T	A
+635	Y	route-accessible-indicator.red.text.canoe	Deze route is niet volledig toegankelijk voor kano.	This route is not completely accessible for canoe.
+636	Y	route-accessible-indicator.red.text.cycling	Deze route is niet volledig toegankelijk voor fietsen.	This route is not completely accessible for bicycle.
+637	Y	route-accessible-indicator.red.text.hiking	Deze route is niet volledig toegankelijk voor wandelen.	This route is not completely accessible for hiking.
+638	Y	route-accessible-indicator.red.text.motorboat	Deze rout is niet volledig toegankelijk voor motorboot.	This route is not completely accessible for motorboat.
+639	Y	route-accessible-indicator.red.title	Niet toegankelijk	NOK - Not Accessible
+640	Y	route-change.no-geometry-diff	Geometrie niet veranderd	No geometry change
+641	Y	route-change.unchanged	Niet gewijzigd	(Unchanged)
+642	Y	route-change.version	Versie	Version
+643	Y	route-change.way-added.this-changeset	deze wijzigingset	this changeset
+644	Y	route-change.way-added.title	Toegevoegde weg	Added way
+645	Y	route-change.way-removed.title	Verwijderde weg	Removed way
+646	Y	route-change.way-update.added-nodes	Toegevoegde punten	Added node(s)
+647	Y	route-change.way-update.changed-to	Veranderd naar v.	Changed to v.
+648	Y	route-change.way-update.direction-reversed	Wegrichting omgekeerd	Direction reversed
+649	Y	route-change.way-update.removed-nodes	Verwijderde punten	Removed node(s)
+650	Y	route-change.way-update.title	Gewijzigde weg	Updated way
+651	Y	route-change.way-update.updated-nodes	Gewijzigde punten	Updated node(s)
+652	Y	route-change.way-update.version-unchanged	Versie niet veranderd	Way version unchanged
+653	Y	route-changes.login-required	De details van de route wijzigingshistoriek zijn enkel beschikbaar voor OpenStreetMap leden, na .	The details of the route changes history is available to registered OpenStreetMap contributors only, after .
+654	Y	route-changes.node-diff.added	toegevoegd	added
+655	Y	route-changes.node-diff.end-nodes	Eind knooppunten	End nodes
+656	Y	route-changes.node-diff.end-tentacle-nodes	Eind tentakel knooppunten	End tentacle nodes
+657	Y	route-changes.node-diff.removed	verwijderd	removed
+658	Y	route-changes.node-diff.start-nodes	Start knooppunten	Start nodes
+659	Y	route-changes.node-diff.start-tentacle-nodes	Start tentakel knooppunten	Start tentacle nodes
+660	Y	route-changes.route-diff.member-order-changed	Volgorde in route relatie gewijzigd.	Member order changed.
+661	Y	route-changes.route-diff.name-diff	Route naam gewijzigd van "" naar " <x id="INTERPOLATION_1"	Route name changed from "" to "".
+662	Y	route-changes.route-diff.role-added	Route rol "" toegevoegd in netwerkrelatie.	Route role "" added to networkrelation.
+663	Y	route-changes.route-diff.role-deleted	Route rol "" verwijderd uit netwerk relatie.	Route role "" removed from networkrelation.
+664	Y	route-changes.route-diff.role-updated	Route rol in netwerkrelatie gewijzigd van "" naar "".	Route role in networkrelation changed from "" to "".
+665	Y	route-changes.route-not-found	Route niet gevonden	Route not found
+666	Y	route-connection-indicator.blue.text	Deze route is een verbinding naar een ander netwerk.	This route is a connection to another network.
+667	Y	route-connection-indicator.blue.title	OK - Verbinding	OK - Connection
+668	Y	route-connection-indicator.gray.text	Deze route is geen verbinding met een ander netwerk.	This route is not a connection to another network.
+669	Y	route-connection-indicator.gray.title	OK - Geen verbinding	OK - No connection
+670	Y	route-connection-indicator.letter	V	C
+671	Y	route-connection.indicator.letter	V	C
+672	Y	route-diffs-added.existing-relation	Bestaande relatie	Existing relation
+673	Y	route-diffs-added.new-relation	Nieuwe relatie	New relation
+674	Y	route-diffs-added.title	Toegevoegde wegen	Added routes
+675	Y	route-diffs-added.updated-relation	Relatie aangepast in deze wijzigingenset v	Relation updated in this changeset v
+676	Y	route-diffs-removed.title	Verwijderde routes	Removed routes
+677	Y	route-diffs-updated.title	Gewijzigde routes	Updated routes
+678	Y	route-indicator.gray.text	Dit knooppunt is in geen enkele routerelatie opgenomen. Dit is OK want het opnemen van de knooppunten als lid van route relaties is optioneel.	This node is not included as a member in any route relations. This is OK as including the node as member in the route relations is optional.
+679	Y	route-indicator.gray.title	OK - Niet opgenomen in route relatie	OK - Not defined in route relation
+680	Y	route-indicator.green.text	Dit knooppunt is opgenomen als lid in een of meerdere route relaties.	This node is included as a member in one or more route relations.
+681	Y	route-indicator.green.title	OK - Opgenomen in route relatie	OK - Defined in route relation
+682	Y	route-indicator.letter	R	R
+683	Y	route-investigate-indicator.green.text	Geen problemen gevonden tijdens route analyse.	No issues found during route analysis.
+684	Y	route-investigate-indicator.green.title	OK - Geen feiten	OK - No facts
+685	Y	route-investigate-indicator.letter	F	F
+686	Y	route-investigate-indicator.red.text	Er is iets mis met deze route.	Something is wrong with this route.
+687	Y	route-investigate-indicator.red.title	NOK - Onderzoek feiten	NOK - Investigate facts
+688	Y	route-map-page.route-not-found	Route niet gevonden	Route not found
+689	Y	route.broken	Er lijkt iets mis met deze route.	This route seems broken.
+690	Y	route.end-node	Eind knooppunt	End node
+691	Y	route.facts	Feiten	Facts
+692	Y	route.incomplete	De route definitie is onvolledig (heeft tag _"fixme=incomplete"_).	Route definition is incomplete (has tag _"fixme=incomplete"_).
+693	Y	route.last-updated	Aangepast	Last updated
+694	Y	route.location	Locatie	Location
+695	Y	route.location.none	Geen	None
+696	Y	route.members.none	Geen	None
+697	Y	route.members.table.id	Id	Id
+698	Y	route.members.table.length	Lengte	Length
+699	Y	route.members.table.name	Naam	Name
+700	Y	route.members.table.node	Knoop	Node
+701	Y	route.members.table.node-count	#Knopen	#Nodes
+702	Y	route.members.table.nodes	Knooppunten	Nodes
+703	Y	route.members.table.one-way	Enkele richting	One Way
+704	Y	route.members.table.one-way.reverse	Omgekeerd	Reverse
+705	Y	route.members.table.one-way.yes	Ja	Yes
+706	Y	route.members.table.role	Rol	Role
+707	Y	route.members.table.unaccessible	Ontoegankelijk	Unaccessible
+708	Y	route.members.title	Route onderdelen	Route Members
+709	Y	route.menu.changes	Wijzigingen	Changes
+710	Y	route.menu.details	Details	Details
+711	Y	route.menu.map	Kaart	Map
+712	Y	route.meters	m	m
+713	Y	route.network	Netwerk	Network
+714	Y	route.no-network-references	Geen	None
+715	Y	route.not-active	This route is not active anymore.	This route is not active anymore.
+716	Y	route.number-of-ways	Aantal wegen	Number of ways
+717	Y	route.redundant-node	Bijkomend knooppunt	Redundant node
+718	Y	route.relation-last-updated	Relatie aangepast	Relation last updated
+719	Y	route.route-not-found	Route niet gevonden	Route not found
+720	Y	route.situation-on	Situatie op	Situation on
+721	Y	route.start-node	Start knooppunt	Start node
+722	Y	route.structure	Structuur	Structure
+723	Y	route.summary	Samenvatting	Summary
+724	Y	route.tags	Tags	Tags
+725	Y	route.title	Route	Route
+726	Y	sidebar.back	Terug	back
+727	Y	situation-on	Situatie op	Situation on
+728	Y	stats.integrity-check-coverage.comment	Dekkingsgraad van de integriteitscontroles (percentage van knooppunten met integriteitscontrole informatie).	Integrity check coverage (percentage of nodes that do have integrity check information).
+729	Y	stats.integrity-check-coverage.name	Dekkingsgraad	IntegrityCheckCoverage
+730	Y	stats.integrity-check-failed.comment	Aantal falende integriteitscontroles.	Number of failed integrity checks.
+731	Y	stats.integrity-check-failed.name	IntegrityCheckFailed	IntegrityCheckFailed
+732	Y	stats.integrity-check-network-count.comment	Aantal netwerken met integriteitscontroles.	Number of networks that include integrity check.
+733	Y	stats.integrity-check-network-count.name	IntegrityCheck	IntegrityCheck
+734	Y	stats.integrity-check-pass-rate.comment	Slaagpercentage van de integriteitscontroles.	Integrity check pass rate (percentage of ok checks).
+735	Y	stats.integrity-check-pass-rate.name	Slaagpercentage	IntegrityCheckPassRate
+736	Y	stats.integrity-check.comment	Aantal knooppunten met integriteitscontrole.	Number of nodes with integrity check.
+737	Y	stats.integrity-check.name	IntegrityCheck	IntegrityCheck
+738	Y	stats.km.comment	Totale lengte in kilometer.	Total length in kilometers.
+739	Y	stats.km.name	Lengte (km)	Length (km)
+740	Y	stats.name-missing.comment	Aantal netwerken zonder tag met sleutel _"name"_ in de netwerk relatie.	Number of networks without _"name"_ tag in the network relation.
+741	Y	stats.name-missing.name	NetwerkOntbrekendeNaam	NameMissing
+742	Y	stats.network-count.comment	Aantal netwerken.	Number of networks.
+743	Y	stats.network-count.name	Aantal netwerken	NetworkCount
+744	Y	stats.network-extra-member-node.comment	Aantal onverwachte knopen in netwerkrelaties (we verwachten enkel knopen dit ook echt een [knooppunt](glossary#node) definitie zijn, of [informatie kaarten](glossary#info-map) in de netwerk relatie).	Number of network relation members of type _"node"_ that are unexpected (expect only [network nodes](glossary#node) or [information maps](glossary#info-map) as members in the network relation).
+745	Y	stats.network-extra-member-node.name	NetwerkExtraKnoop	NetworkExtraMemberNode
+746	Y	stats.network-extra-member-relation.comment	Aantal overwachte relaties in network relaties. In network relaties verwachten we enkel route relaties of knooppunten, geen relaties anders dan route relaties.	Number of network relation members of type _"relation"_ that are unexpected (expect only valid route relations or network nodes as members in the node network relation).
+747	Y	stats.network-extra-member-relation.name	NetworkOnverwachteRelatie	NetworkExtraMemberRelation
+748	Y	stats.network-extra-member-way.comment	Overwachte wegen _("ways")_ in netwerk relaties (in network relaties verwachten we enkel route relaties of knooppunten, geen wegen).	Number of network relation members of type _"way"_ (expect only route relations or network nodes as members in the node network relation).
+749	Y	stats.network-extra-member-way.name	NetworkOverwachteWegen	NetworkExtraMemberWay
+750	Y	stats.node-count.comment	Aantal knooppunten.	Number of network nodes.
+751	Y	stats.node-count.name	Aantal knooppunten	Node count
+752	Y	stats.node-member-missing.comment	Aantal knooppunten dat niet is opgenomen als lid in een netwerk relatie.	Number of nodes that are not included in the network relation
+753	Y	stats.node-member-missing.name	OntbrekendKnooppunt	NodeMemberMissing
+754	Y	stats.orphan-node-count.comment	Aantal op zichzelf staande knooppunten (niet teruggevonden in een netwerk). Deze [knooppunten](glossary#node) werden niet teruggevonden als deel van een geldige [netwerk relatie](network-relation), of als deel van een geldige [route relatie](glossary#route-relation) (dit kan een route relatie zijn die deel uitmaakt van een network relatie, maar ook een op zichzelf staande route relatie die geen deel uitmaakt van een network relatie).	Number of network nodes that do not belong to a network.\ The [node](glossary#node) was not added as a member to a valid [network relation](glossary#network-relation) and also not added as a member to a valid [route relation](glossary#route-relation) (that itself was added as a member to a valid network relation or is an orphan route).
+755	Y	stats.orphan-node-count.name	Knooppunt wezen	Orphan nodes
+756	Y	stats.orphan-route-count.comment	Aantal routes die niet tot een netwerk behoren.\ Deze routes worden niet teruggevonden in een geldige [netwerk relatie](glossary#network-relation).	Number of network routes that do not belong to a network.\ The route was not added as a member to a valid [network relation](glossary#network-relation).
+757	Y	stats.orphan-route-count.name	Route wezen	Orphan routes
+758	Y	stats.orphan-route-km.comment	Totale lengte (km) van de route wezen (deze worden niet meegeteld in de netwerk lengte hierboven).	Total length (km) of the orphan routes (not included in network length above).
+759	Y	stats.orphan-route-km.name	Route wezen lengte (km)	Orphan route length (km)
+760	Y	stats.route-broken-count.comment	Aantal routes met opmerkingen.	Number of routes with issues.
+761	Y	stats.route-broken-count.name	TeOnderzoekenRouteAantal	RouteBrokenCount
+762	Y	stats.route-broken-network-count.comment	Aantal netwerken met routes met opmerkingen.	Number of networks containing routes with issues.
+763	Y	stats.route-broken-network-count.name	RouteBrokenNetworkCount	RouteBrokenNetworkCount
+764	Y	stats.route-broken-percentage.comment	Percentage routes met opmerkingen.	Percentage of routes with issues.
+765	Y	stats.route-broken-percentage.name	TeOnderzoekenRoutePercentage	RouteBrokenPercentage
+766	Y	stats.route-count.comment	Aantal routes (verbindingen tussen knooppunten).	Number of routes.
+767	Y	stats.route-count.name	Aantal routes	Route count
+768	Y	stats.route-fixmetodo.comment	Aantal routes gemarkeerd met _"fixmetodo"_.	Number of routes that are marked with _"fixmetodo"_.
+769	Y	stats.route-fixmetodo.name	RouteFixmetodo	RouteFixmetodo
+770	Y	stats.route-incomplete-ok.comment	Aantal routes die gemarkeerd zijn als onvolledig, maar die na analyse ok lijken te zijn.\ Deze routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van een tag met sleutel _"fixme"_ en waarde _"incomplete"_ in de route relatie.	Number of routes that are marked as having an incomplete definition, but that look ok after analysis.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+771	Y	stats.route-incomplete-ok.name	RouteIncompleteOk	RouteIncompleteOk
+772	Y	stats.route-incomplete.comment	Aantal onvolledige routes.\ Deze routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van een tag met sleutel _"fixme"_ en waarde _"incomplete"_ in de route relatie.	Number of routes that are marked as having an incomplete definition.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+773	Y	stats.route-incomplete.name	RouteIncomplete	RouteIncomplete
+774	Y	stats.route-invalid-sorting-order.comment	Aantal routes met wegen in verkeerde volgorde.	Number of routes with ways in wrong sorting order.
+775	Y	stats.route-invalid-sorting-order.name	RouteVolgorde	RouteInvalidSortingOrder
+776	Y	stats.route-name-missing.comment	Aantal routes zonder tag met sleutel _"note"_ met de route naam in de route relatie.	Routes without a _"note"_ tag with the route name.
+777	Y	stats.route-name-missing.name	RouteZonderNaam	RouteNameMissing
+778	Y	stats.route-node-missing-in-ways.comment	Aantal routes waarvan de begin en/of eind knooppunten niet voorkomen in een van de wegen van deze route.	Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
+779	Y	stats.route-node-missing-in-ways.name	RouteZonderKnooppunten	RouteNodeMissingInWays
+780	Y	stats.route-node-name-mismatch.comment	Aantal routes waarvan de route naam niet overeenkomt met de namen van de start en eind nodes. We verwachten dat de route naam de namen van de start en eindknooppunten bevat, gescheiden door een koppelteken. Het knooppunt met het laagste nummer verwachten we vooraan.	Routes where the route name does not match with the names of the start node and the end node. The route name is expected to contain the start node name and the end node name, separated by a dash. The start node is expected to have a lower number than the end node.
+781	Y	stats.route-node-name-mismatch.name	OverwachteRouteNaam	RouteNodeNameMismatch
+782	Y	stats.route-not-continious-network-count.comment	Aantal netwerken met onderbroken routes.	Number of networks with broken routes.
+783	Y	stats.route-not-continious-network-count.name	RouteNotContiniousNetworkCount	RouteNotContiniousNetworkCount
+784	Y	stats.route-not-continious-percentage.comment	Percentage onderbroken routes.	Percentage of broken routes.
+785	Y	stats.route-not-continious-percentage.name	OnderbrokenRoutePercentage	RouteNotContiniousPercentage
+786	Y	stats.route-not-continious.comment	Aantal onderbroken routes.	Number of broken routes.
+787	Y	stats.route-not-continious.name	RouteNotContinious	RouteNotContinious
+788	Y	stats.route-redundant-nodes.comment	Aantal routes waarin er zich naast de begin en eind knooppunten nog andere vreemde knooppunten bevinden in de wegen van de route.	Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
+789	Y	stats.route-redundant-nodes.name	RouteTeVeelKnooppunten	RouteRedundantNodes
+790	Y	stats.route-tag-invalid.comment	De waarde in de _"route"_ tag in de route relatie is onverwacht.	The value in the _"route"_ tag in the route relation is unexpected.
+791	Y	stats.route-tag-invalid.name	RouteTagOnverwacht	RouteTagInvalid
+792	Y	stats.route-tag-missing.comment	De _"route"_ tag ontbreekt in de route relatie.	The route relation does not contain a _"route"_ tag.
+793	Y	stats.route-tag-missing.name	RouteTagOntbreekt	RouteTagMissing
+794	Y	stats.route-unaccessible.comment	Aantal [ontoegangkelijke](glossary#accessible) routes.	Number of [unaccessible](glossary#accessible) routes.
+795	Y	stats.route-unaccessible.name	RouteOntoegankelijk	RouteUnaccessible
+796	Y	stats.route-unexpected-node.comment	Aantal routes met 1 of meer overwachte knopen.\ In route relaties verwachten we enkel knopen met een tag met sleutel _"rwn_ref"_ of _"rcn_ref"_.	Number of routes with one or more unexpected node members.\ In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
+797	Y	stats.route-unexpected-node.name	RouteOnverwachteKnoop	RouteUnexpectedNode
+798	Y	stats.route-unexpected-relation.comment	Aantal routes met 1 of meer overwachte relaties.\In route relaties verwachten we enkel onderdelen van het type _"way"_, of onderdelen van het type _"node"_ met een tag met sleutel _"rwn_ref"_ of _"rcn_ref"_.	Number of routes with one or more unexpected members.\In route relations we expect only members of type _"way"_, or members of type _"node"_ with a tag _"rwn_ref"_ or _"rcn_ref"_.
+799	Y	stats.route-unexpected-relation.name	RouteOnverwachteRelatie	RouteUnexpectedRelation
+800	Y	stats.route-unused-segments.comment	Aantal routes waarbij niet alle wegen (of stukken van wegen) gebruikt worden in de heen of terugweg of in een van de tentakels.	Number of routes where one or more of the ways (or part of ways) are not used in the forward or backward path or in one of the tentacles.
+801	Y	stats.route-unused-segments.name	RouteMetOngebruikteSegmenten	RouteUnusedSegments
+802	Y	stats.route-without-ways.comment	Aantal routes zonder wegen. We verwachten tenmiste 1 weg _("way")_.	Routes without ways (a route is expected to have at least 1 way).
+803	Y	stats.route-without-ways.name	RouteZonderWegen	RouteWithoutWays
+804	Y	subset-changes.login-required	De details van de wijzigingshistoriek zijn enkel beschikbaar voor OpenStreetMap leden, na .]	This details of the changes history are available to registered OpenStreetMap contributors only, after .
+805	Y	subset-changes.title	Wijzigingen	Changes
+806	Y	subset-facts.in-networks	{VAR_PLURAL, plural, one {in 1 netwerk} other {in netwerken} }	{VAR_PLURAL, plural, one {in 1 network} other {in networks} }
+807	Y	subset-facts.no-facts	Geen feiten	No facts
+808	Y	subset-facts.node-refs	{VAR_PLURAL, plural, one {knooppunt} other {knooppunten} }	{VAR_PLURAL, plural, one {node} other {nodes} }
+809	Y	subset-facts.orphan-routes	Route wezen	Orphan routes
+810	Y	subset-facts.osm-node-refs	{VAR_PLURAL, plural, one {knooppunt} other {knooppunten} }	{VAR_PLURAL, plural, one {node} other {nodes} }
+811	Y	subset-facts.osm-relation-refs	{VAR_PLURAL, plural, one {relatie} other {relaties} }	{VAR_PLURAL, plural, one {relation} other {relations} }
+812	Y	subset-facts.osm-way-refs	{VAR_PLURAL, plural, one {weg} other {wegen} }	{VAR_PLURAL, plural, one {way} other {ways} }
+813	Y	subset-facts.route-refs	{VAR_PLURAL, plural, one {route} other {routes} }	{VAR_PLURAL, plural, one {route} other {routes} }
+814	Y	subset-facts.routes	{VAR_PLURAL, plural, one {1 route} other { routes} }	{VAR_PLURAL, plural, one {1 route} other { routes} }
+815	Y	subset-facts.title	Feiten	Facts
+816	Y	subset-map.dialog.close	Sluiten	Close
+817	Y	subset-map.dialog.nodeCount	knooppunten	nodes
+818	Y	subset-map.dialog.routeCount	routes	routes
+819	Y	subset-map.dialog.show-network-details	Ga naar netwerk details	Show network details
+820	Y	subset-map.title	Kaart	Map
+821	Y	subset-network.summary	km, nodes, routes	km, nodes, routes
+822	Y	subset-networks.no-networks	Geen netwerken	No networks
+823	Y	subset-networks.summary	_Er zijn ____ netwerken, met in totaal ____ knooppunten en ____ routes met een totale lengte van ____ km._	_There are ____ networks, with a total of ____ nodes and ____ routes with an overall length of ____ km._
+824	Y	subset-networks.table.broken	Onderbroken	Broken
+825	Y	subset-networks.table.connections	Verbindingen	Connections
+826	Y	subset-networks.table.integrity	Integriteit	Integrity
+827	Y	subset-networks.table.integrity-nodes	Knooppunten	Nodes
+828	Y	subset-networks.table.length	Lengte	Length
+829	Y	subset-networks.table.network	Netwerk	Network
+830	Y	subset-networks.table.nodes	Knooppunten	Nodes
+831	Y	subset-networks.table.ok	OK	OK
+832	Y	subset-networks.table.routes	Routes	Routes
+833	Y	subset-networks.title	Netwerken	Networks
+834	Y	subset-orphan-nodes.extra-tags	Extra tags:	Extra tags:
+835	Y	subset-orphan-nodes.no-routes	Geen knooppuntwezen	No orphan nodes
+836	Y	subset-orphan-nodes.title	Routewezen	Orphan nodes
+837	Y	subset-orphan-routes.extra-tags	Extra tags	Extra tags:
+838	Y	subset-orphan-routes.no-routes	Geen routewezen	No orphan routes
+839	Y	subset-orphan-routes.route-is-broken	Er is iets mis met de route	route is broken
+840	Y	subset-orphan-routes.title	Routewezen	Orphan routes
+841	Y	subset-page.menu.changes	Wijzigingen	Changes
+842	Y	subset-page.menu.facts	Feiten	Facts
+843	Y	subset-page.menu.map	Kaart	Map
+844	Y	subset-page.menu.networks	Netwerken	Networks
+845	Y	subset-page.menu.orphan-nodes	Knooppuntwezen	Orphan nodes
+846	Y	subset-page.menu.orphan-routes	Routewezen	Orphan routes
+847	Y	subset.in	in	in
+848	Y	tag-diffs.added-tag	Toegevoegde tag	Added tag
+849	Y	tag-diffs.added-tags	Toegevoegde tags	Added tags
+850	Y	tag-diffs.after	Na	After
+851	Y	tag-diffs.before	Voor	Before
+852	Y	tag-diffs.deleted-tag	Verwijderde tag	Deleted tag
+853	Y	tag-diffs.deleted-tags	Verwijderde tags	Deleted tags
+854	Y	tag-diffs.key	Sleutel	Key
+855	Y	tag-diffs.same-tag	Ongewijzigde tag	Same tag
+856	Y	tag-diffs.same-tags	Ongewijzigde tags	Same tags
+857	Y	tag-diffs.table	Tag wijziginen	Tag differences
+858	Y	tag-diffs.updated-tag	Gewijzigde tag	Updated tag
+859	Y	tag-diffs.updated-tags	Gewijzigde tags	Updated tags
+860	Y	tag-diffs.value	Waarde	Value
+861	Y	tags.key	Sleutel	Key
+862	Y	tags.no-tags	Geen tags	No tags
+863	Y	tags.value	Waarde	Value
+864	Y	toolbar.title	knooppuntnet	knooppuntnet
+865	Y	version-change.relation-changed-to	Relatie veranderd naar v	Relation changed to v
+866	Y	version-change.relation-unchanged	Relatie onveranderd.	Relation unchanged.

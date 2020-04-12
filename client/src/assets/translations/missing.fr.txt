@@ -1,0 +1,787 @@
+# 2020-04-12 09:02:15 Missing 'fr' translations: 786 of 866
+[LOGIN] login
+[LINK.LOGOUT] logout
+[LINKS.EDIT] edit
+[OSM-LINK.OATH-CLIENTS] list of authorised applications
+[COUNTRY.UNSUPPORTED] Unsupported (not Belgium, The Netherlands, Germany, France or Austria)
+[NETWORK-TYPE.HIKING] Hiking
+[NETWORK-TYPE.HORSE-RIDING] Horse riding
+[NETWORK-TYPE.MOTORBOAT] Motorboat
+[NETWORK-TYPE.CANOE] Canoe
+[NETWORK-TYPE.INLINE-SKATING] Inline Skating
+[SUBSET.IN] in
+[MAP.START-NODE] Start node
+[MAP.END-NODE] End node
+[MAP.START-TENTACLE-NODE] Start tentacle node
+[MAP.END-TENTACLE-NODE] End tentacle node
+[MAP.REDUNDANT-NODE] Redundant node
+[MAP.LAYER.FORWARD-ROUTE] Forward route
+[MAP.LAYER.BACKWARD-ROUTE] Backward route
+[MAP.LAYER.START-TENTACLE] Start tentacle
+[MAP.LAYER.END-TENTACLE] End tentacle
+[MAP.LAYER.UNUSED] Unused
+[MAP.LAYER.NODES] Nodes
+[MAP.LAYER.UNCHANGED] Unchanged
+[MAP.LAYER.ADDED] Added
+[MAP.LAYER.DELETED] Deleted
+[MAP.LAYER.OSM] OpenStreetMap
+[MAP.LAYER.OTHER-ROUTES] Other routes
+[MAP.LAYER.NODE] Node
+[MAP.LAYER.HIKING] Hiking
+[MAP.LAYER.HORSE-RIDING] Horse riding
+[MAP.LAYER.MOTORBOAT] Motorboat
+[MAP.LAYER.CANOE] Canoe
+[MAP.LAYER.INLINE-SKATING] Inline Skating
+[MAP.LAYER.NODES-AND-ROUTES] Nodes and routes
+[MAP.LAYER.BOUNDARY] Boundary
+[PAGINATOR.ITEMS-PER-PAGE-LABEL] Items per page
+[PAGINATOR.NEXT-PAGE-LABEL] Next page
+[PAGINATOR.PREVIOUS-PAGE-LABEL] Previous page
+[PAGINATOR.FIRST-PAGE-LABEL] First page
+[PAGINATOR.LAST-PAGE-LABEL] Last page
+[PAGINATOR.FROM] of
+[FACT.NAME.ADDED] Added
+[FACT.NAME.BECOME-ORPHAN] BecomeOrphan
+[FACT.NAME.DELETED] Deleted
+[FACT.NAME.INTEGRITY-CHECK] IntegrityCheck
+[FACT.NAME.INTEGRITY-CHECK-FAILED] IntegrityCheckFailed
+[FACT.NAME.LOST-BICYCLE-NODE-TAG] LostBicycleNodeTag
+[FACT.NAME.LOST-HIKING-NODE-TAG] LostHikingNodeTag
+[FACT.NAME.LOST-ROUTE-TAGS] LostRouteTags
+[FACT.NAME.NAME-MISSING] NameMissing
+[FACT.NAME.NETWORK-EXTRA-MEMBER-NODE] NetworkExtraMemberNode
+[FACT.NAME.NETWORK-EXTRA-MEMBER-RELATION] NetworkExtraMemberRelation
+[FACT.NAME.NETWORK-EXTRA-MEMBER-WAY] NetworkExtraMemberWay
+[FACT.NAME.NODE-MEMBER-MISSING] NodeMemberMissing
+[FACT.NAME.ORPHAN-NODE] OrphanNode
+[FACT.NAME.ORPHAN-ROUTE] OrphanRoute
+[FACT.NAME.ROUTE-ANALYSIS-FAILED] RouteAnalysisFailed
+[FACT.NAME.ROUTE-BROKEN] RouteBroken
+[FACT.NAME.ROUTE-FIXMETODO] RouteFixmetodo
+[FACT.NAME.ROUTE-INCOMPLETE] RouteIncomplete
+[FACT.NAME.ROUTE-INCOMPLETE-OK] RouteIncompleteOk
+[FACT.NAME.ROUTE-INVALID-SORTING-ORDER] RouteInvalidSortingOrder
+[FACT.NAME.ROUTE-NAME-MISSING] RouteNameMissing
+[FACT.NAME.ROUTE-NODE-MISSING-IN-WAYS] RouteNodeMissingInWays
+[FACT.NAME.ROUTE-NODE-NAME-MISMATCH] RouteNodeNameMismatch
+[FACT.NAME.ROUTE-NOT-BACKWARD] RouteNotBackward
+[FACT.NAME.ROUTE-NOT-CONTINIOUS] RouteNotContinious
+[FACT.NAME.ROUTE-NOT-FORWARD] RouteNotForward
+[FACT.NAME.ROUTE-NOT-ONE-WAY] RouteNotOneWay
+[FACT.NAME.ROUTE-ONE-WAY] RouteOneWay
+[FACT.NAME.ROUTE-OVERLAPPING-WAYS] RouteOverlappingWays
+[FACT.NAME.ROUTE-REDUNDANT-NODES] RouteRedundantNodes
+[FACT.NAME.ROUTE-REVERSED] RouteReversed
+[FACT.NAME.ROUTE-SUSPICIOUS-WAYS] RouteSuspiciousWays
+[FACT.NAME.ROUTE-TAG-INVALID] RouteTagInvalid
+[FACT.NAME.ROUTE-TAG-MISSING] RouteTagMissing
+[FACT.NAME.ROUTE-UNACCESSIBLE] RouteUnaccessible
+[FACT.NAME.ROUTE-UNEXPECTED-NODE] RouteUnexpectedNode
+[FACT.NAME.ROUTE-UNEXPECTED-RELATION] RouteUnexpectedRelation
+[FACT.NAME.ROUTE-UNUSED-SEGMENTS] RouteUnusedSegments
+[FACT.NAME.ROUTE-WITHOUT-WAYS] RouteWithoutWays
+[FACT.NAME.WAS-ORPHAN] WasOrphan
+[FACT.DESCRIPTION-MISSING] description missing!!
+[FACT.DESCRIPTION.ROUTE-NOT-CONTINIOUS] The route is broken: the begin- and end-networknodes cannot be connected through ways either in the forward direction or the backward direction or both.
+[FACT.DESCRIPTION.ROUTE-UNUSED-SEGMENTS] The route contains ways or part of ways that are not used in the connection between the end nodes.
+[FACT.DESCRIPTION.ROUTE-NODE-MISSING-IN-WAYS] The end node and/or the begin node is not found in any of the ways of this route.
+[FACT.DESCRIPTION.ROUTE-REDUNDANT-NODES] The ways of this route contain extra nodes other than the start and end nodes.
+[FACT.DESCRIPTION.ROUTE-WITHOUT-WAYS] The route does not contain any ways (we expect the route to contain at least 1 way).
+[FACT.DESCRIPTION.ROUTE-FIXMETODO] Route definition needs work (has tag _"fixmetodo"_).
+[FACT.DESCRIPTION.ROUTE-NAME-MISSING] The route relation does not have a _"note"_ tag with the route name.
+[FACT.DESCRIPTION.ROUTE-TAG-MISSING] Routerelation does not contain the required _route_ tag.
+[FACT.DESCRIPTION.ROUTE-TAG-INVALID] Invalid value in required tag _"route"_ in route relation. A bicycle route relation needs to have value _"bicycle"_ in its _"route"_ tag. A hiking route relation needs to have one of the following values in its _"route"_ tag: _"foot"_, _"hiking"_, or _"walking"_. Note that _"walking"_ is a value that is frequently found, but not actually documented as a valid value in the OSM wiki pages.
+[FACT.DESCRIPTION.ROUTE-UNEXPECTED-NODE] The route relation contains 1 or more unexpected nodes
+[FACT.DESCRIPTION.ROUTE-UNEXPECTED-RELATION] The route relation contains one or more unexpected relation members. In route relations we expect only members of type _"way"_, or members of type _"node"_ with a tag _"rwn_ref"_ or _"rcn_ref"_.
+[FACT.DESCRIPTION.NETWORK-EXTRA-MEMBER-NODE] The network relation contains members of type _"node"_ that are unexpected (we expect only network nodes or information maps as members in the network relation).
+[FACT.DESCRIPTION.NETWORK-EXTRA-MEMBER-WAY] The network relation contains members of type _"way"_ (expect only route relations or network nodes as members in the node network relation).
+[FACT.DESCRIPTION.NETWORK-EXTRA-MEMBER-RELATION] The network relation contains members of type _"relation"_ that are unexpected (expect only valid route relations or network nodes as members in the node network relation).
+[FACT.DESCRIPTION.NODE-MEMBER-MISSING] The node is not member of the network relation.
+[FACT.DESCRIPTION.INTEGRITY-CHECK-FAILED] The actual number of routes does not match the expected number of routes. Routes with tag "state" equal to "connection" or "alternate" are not counted.
+[FACT.DESCRIPTION.ORPHAN-ROUTE] This route does not belong to a network. The route was not added as a member to a valid network relation.
+[FACT.DESCRIPTION.ROUTE-INCOMPLETE] The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+[FACT.DESCRIPTION.ROUTE-INCOMPLETE-OK] The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation. But after analysis, the route seems to be ok.
+[FACT.DESCRIPTION.ROUTE-UNACCESSIBLE] Part of the route does not seem [accessible](/en/docs/en.html#_accessible).
+[FACT.DESCRIPTION.ROUTE-INVALID-SORTING-ORDER] The route is valid, but the sorting order of the ways is incorrect.
+[FACT.DESCRIPTION.ROUTE-NODE-NAME-MISMATCH] The route name in the _note_ tag in the route relation does not match the expected name as derived from the start and end node of the route.
+[FACT.DESCRIPTION.ROUTE-NOT-FORWARD] There is no path in the forward direction (from start node to end node).
+[FACT.DESCRIPTION.ROUTE-NOT-BACKWARD] There is no path in the backward direction (from end node to start node).
+[FACT.DESCRIPTION.ROUTE-ANALYSIS-FAILED] The route could not be analyzed (too complex?).
+[FACT.DESCRIPTION.ROUTE-OVERLAPPING-WAYS] No detailed route analysis is performed because the route contains overlapping ways.
+[FACT.DESCRIPTION.ROUTE-SUSPICIOUS-WAYS] Route with funny ways (for example ways with only 1 node).
+[FACT.DESCRIPTION.ROUTE-BROKEN] TODO
+[FACT.DESCRIPTION.ROUTE-ONE-WAY] The route is tagged as useable in one direction only. This is OK.
+[FACT.DESCRIPTION.ROUTE-NOT-ONE-WAY] The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.
+[FACT.DESCRIPTION.NAME-MISSING] The network relation does not contain the mandatory tag with key "name".
+[FACT.DESCRIPTION.ADDED] Added to the analysis.
+[FACT.DESCRIPTION.BECOME-ORPHAN] Has become orphan.
+[FACT.DESCRIPTION.DELETED] Deleted from the OpenStreetMap database.
+[FACT.DESCRIPTION.INTEGRITY-CHECK] This network node has a tag that indicates the expected number of routes that arrive/depart in this node.
+[FACT.DESCRIPTION.LOST-BICYCLE-NODE-TAG] This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.
+[FACT.DESCRIPTION.LOST-HIKING-NODE-TAG] This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
+[FACT.DESCRIPTION.LOST-HORSE-RIDING-NODE-TAG] This node is no longer a valid horse riding network node because the rhn_ref tag has been removed.
+[FACT.DESCRIPTION.LOST-MOTORBOAT-NODE-TAG] This node is no longer a valid motorboatnetwork node because the rmn_ref tag has been removed.
+[FACT.DESCRIPTION.LOST-CANOE-NODE-TAG] This node is no longer a valid canoenetwork node because the rpn_ref tag has been removed.
+[FACT.DESCRIPTION.LOST-ROUTE-TAGS] This relation is no longer a valid network route because a required tag has been removed.
+[FACT.DESCRIPTION.LOST-INLINE-SKATE-NODE-TAG] This node is no longer a valid inline skating network node because the rin_ref tag has been removed.
+[FACT.DESCRIPTION.WAS-ORPHAN] No longer an orphan.
+[NETWORK-INDICATOR.ORANGE.TITLE] Unexpected - Defined in network relation
+[NETWORK-INDICATOR.ORANGE.TEXT] This node is included as a member in the network relation. We did not expect this, because all routes to this node have role "connection". This would mean that the node is part of another network. We expect that the node is not included in the network relation, unless it receives the role "connection".
+[NETWORK-INDICATOR.GREEN.TITLE] OK - Defined in network relation
+[NETWORK-INDICATOR.GREEN.TEXT] This node is included as a member in the network relation. This is what we expect.
+[NETWORK-INDICATOR.GRAY.TITLE] OK - Not defined in network relation
+[NETWORK-INDICATOR.GRAY.TEXT] This node is not included as a member in the network relation. This is OK. This node must belong to a different network, because all routes to this node within this network have the role "connection" in the network relation.
+[NETWORK-INDICATOR.RED.TITLE] NOK - Not defined in network relation
+[NETWORK-INDICATOR.RED.TEXT] This node is not included as a member in the network relation. This is not OK. The convention is to include each node in the network relation. An exception is when the node belongs to another network (all routes to this node have role "connection" in the network relation), then the node does not have to be included as member in the network relation. The node can be added the network relation, but should get the role "connection" in that case.
+[NETWORK-INDICATOR.LETTER] N
+[NODE-CONNECTION-INDICATOR.BLUE.TITLE] OK - Connection
+[NODE-CONNECTION-INDICATOR.BLUE.TEXT] This node is a connection to another network. All routes to this node have the role "connection" in the network relation.
+[NODE-CONNECTION-INDICATOR.GRAY.TITLE] OK - No connection
+[NODE-CONNECTION-INDICATOR.GRAY.TEXT] This node is not a connection to another network. The node would have been considered as a connection to another network if all routes to this node within the network had role "connection" in the network relation.
+[NODE-CONNECTION-INDICATOR.LETTER] C
+[INTEGRITY-INDICATOR.GRAY.TITLE] OK - expected route count missing
+[INTEGRITY-INDICATOR.GRAY.TEXT] This network node does not have an _""_ tag. This is OK because the use of this tag is optional.
+[INTEGRITY-INDICATOR.GREEN.TITLE] OK - expected route count
+[INTEGRITY-INDICATOR.GREEN.TEXT] The number of routes found in this network node () does match the expected number of routes () as defined in the _""_ tag on this node. This is what we expect.
+[INTEGRITY-INDICATOR.RED.TITLE] NOK - unexpected route count
+[INTEGRITY-INDICATOR.RED.TEXT] The number of routes found in this network node () does not match the expected number of routes () as defined in the _""_ tag on this node.
+[INTEGRITY-INDICATOR.LETTER] E
+[ROLE-CONNECTION-INDICATOR.BLUE.TITLE] OK - Connection
+[ROLE-CONNECTION-INDICATOR.BLUE.TEXT] This node is a connection to another network. This node has role "connection" in the network relation.
+[ROLE-CONNECTION-INDICATOR.GRAY.TITLE] OK - No connection role
+[ROLE-CONNECTION-INDICATOR.GRAY.TEXT] This node does not have role "connection" in het network relation.
+[ROLE-CONNECTION-INDICATOR.LETTER] C
+[ROUTE-INDICATOR.GREEN.TITLE] OK - Defined in route relation
+[ROUTE-INDICATOR.GREEN.TEXT] This node is included as a member in one or more route relations.
+[ROUTE-INDICATOR.GRAY.TITLE] OK - Not defined in route relation
+[ROUTE-INDICATOR.GRAY.TEXT] This node is not included as a member in any route relations. This is OK as including the node as member in the route relations is optional.
+[ROUTE-INDICATOR.LETTER] R
+[BREADCRUMB.NETWORK] Network
+[NETWORK-PAGE.MENU.DETAILS] Details
+[NETWORK-PAGE.MENU.FACTS] Facts
+[NETWORK-PAGE.MENU.NODES] Nodes
+[NETWORK-PAGE.MENU.ROUTES] Routes
+[NETWORK-PAGE.MENU.MAP] Map
+[NETWORK-PAGE.MENU.CHANGES] Changes
+[SUBSET-PAGE.MENU.NETWORKS] Networks
+[SUBSET-PAGE.MENU.FACTS] Facts
+[SUBSET-PAGE.MENU.ORPHAN-NODES] Orphan nodes
+[SUBSET-PAGE.MENU.ORPHAN-ROUTES] Orphan routes
+[SUBSET-PAGE.MENU.MAP] Map
+[SUBSET-PAGE.MENU.CHANGES] Changes
+[AUTHENTICATE-PAGE.TITLE] Logging in...
+[SUBSET-MAP.TITLE] Map
+[HISTORY-INCOMPLETE.WARNING] Older changes cannot be shown. The history in the analysis database does not go beyond 2012-09-12 ( License change ).
+[ROUTE-CHANGES.ROUTE-DIFF.NAME-DIFF] Route name changed from "" to "".
+[ROUTE-CHANGES.ROUTE-DIFF.ROLE-ADDED] Route role "" added to networkrelation.
+[ROUTE-CHANGES.ROUTE-DIFF.ROLE-DELETED] Route role "" removed from networkrelation.
+[ROUTE-CHANGES.ROUTE-DIFF.ROLE-UPDATED] Route role in networkrelation changed from "" to "".
+[ROUTE-CHANGES.ROUTE-DIFF.MEMBER-ORDER-CHANGED] Member order changed.
+[ROUTE-CHANGES.NODE-DIFF.START-NODES] Start nodes
+[ROUTE-CHANGES.NODE-DIFF.END-NODES] End nodes
+[ROUTE-CHANGES.NODE-DIFF.START-TENTACLE-NODES] Start tentacle nodes
+[ROUTE-CHANGES.NODE-DIFF.END-TENTACLE-NODES] End tentacle nodes
+[ROUTE-CHANGES.NODE-DIFF.ADDED] added
+[ROUTE-CHANGES.NODE-DIFF.REMOVED] removed
+[ROUTE-CHANGE.WAY-UPDATE.TITLE] Updated way
+[ROUTE-CHANGE.WAY-UPDATE.CHANGED-TO] Changed to v.
+[ROUTE-CHANGE.WAY-UPDATE.VERSION-UNCHANGED] Way version unchanged
+[ROUTE-CHANGE.WAY-UPDATE.DIRECTION-REVERSED] Direction reversed
+[ROUTE-CHANGE.WAY-UPDATE.REMOVED-NODES] Removed node(s)
+[ROUTE-CHANGE.WAY-UPDATE.ADDED-NODES] Added node(s)
+[ROUTE-CHANGE.WAY-UPDATE.UPDATED-NODES] Updated node(s)
+[ROUTE-CHANGE.WAY-ADDED.TITLE] Added way
+[ROUTE-CHANGE.WAY-ADDED.THIS-CHANGESET] this changeset
+[ROUTE-CHANGE.WAY-REMOVED.TITLE] Removed way
+[TAG-DIFFS.KEY] Key
+[TAG-DIFFS.BEFORE] Before
+[TAG-DIFFS.AFTER] After
+[TAG-DIFFS.TABLE] Tag differences
+[TAG-DIFFS.DELETED-TAG] Deleted tag
+[TAG-DIFFS.DELETED-TAGS] Deleted tags
+[TAG-DIFFS.VALUE] Value
+[TAG-DIFFS.ADDED-TAG] Added tag
+[TAG-DIFFS.ADDED-TAGS] Added tags
+[TAG-DIFFS.UPDATED-TAG] Updated tag
+[TAG-DIFFS.UPDATED-TAGS] Updated tags
+[TAG-DIFFS.SAME-TAG] Same tag
+[TAG-DIFFS.SAME-TAGS] Same tags
+[FACT-DIFFS.RESOLVED-FACT] Resolved fact
+[FACT-DIFFS.RESOLVED-FACTS] Resolved facts
+[FACT-DIFFS.INTRODUCED-FACT] Introduced fact
+[FACT-DIFFS.INTRODUCED-FACTS] Introduced facts
+[FACT-DIFFS.REMAINING-FACT] Remaining fact
+[FACT-DIFFS.REMAINING-FACTS] Remaining facts
+[FILTER.TITLE] Filter
+[CHANGES.NO-CHANGES] No changes
+[CHANGE-FILTER.TITLE] Filter
+[CHANGE-FILTER.LEGEND] impacted / all
+[CHANGES.IMPACT] Impact
+[NETWORK-CHANGES.NETWORK-CREATED] Network created
+[NETWORK-CHANGES.NETWORK-DELETED] Network deleted
+[NETWORK-CHANGES.NETWORK-NODES.ADDED] Added node(s)
+[NETWORK-CHANGES.ROUTES.ADDED] Added route(s)
+[NETWORK-CHANGES.NODES.ADDED] Added non-network node member(s) in network relation
+[NETWORK-CHANGES.WAYS.ADDED] Added way member(s) in network relation
+[NETWORK-CHANGES.RELATIONS.ADDED] Added non-route relation(s) in network relation
+[NETWORK-CHANGES.NETWORK-RELATION-UPDATED] Updated network relation
+[NETWORK-CHANGES.NETWORK-NODES.UPDATED] Updated network node(s)
+[NETWORK-CHANGES.ROUTES.UPDATED] Updated route(s)
+[NETWORK-CHANGES.NODES.UPDATED] Updated non-network node(s)
+[NETWORK-CHANGES.WAYS.UPDATED] Updated way member(s)
+[NETWORK-CHANGES.RELATIONS.UPDATED] Updated non-route relation(s)
+[NETWORK-CHANGES.NETWORK-NODES.REMOVED] Removed network node(s)
+[NETWORK-CHANGES.ROUTES.REMOVED] Removed route(s)
+[NETWORK-CHANGES.NODES.REMOVED] Removed non-network node member(s) from network relation
+[NETWORK-CHANGES.WAYS.REMOVED] Removed way member(s) from network relation
+[NETWORK-CHANGES.RELATIONS.REMOVED] Removed non-route relation(s) from network relation
+[HOME.PAGE-TITLE] Node networks
+[HOME.MAP] Map
+[HOME.ANALYSIS] Analysis
+[LOGIN.TITLE] Login
+[LOGIN.NOTE.1] Login allows you to view extra information, such as changeset details, network history, route history and node history.
+[LOGIN.NOTE.2] This information is available to registered OpenStreetMap users only.
+[LOGIN.NOTE.3] After clicking the "login" button below, you will be directed (via the OpenStreetMap login page if you are not logged in to OpenStreetMap yet) to the OpenStreetMap page "Authorize access to your account". Click the button "Grant access" (leave the option "read your user preferences" checked).
+[LOGIN.NOTE.4] The knooppuntnet application only reads your username from the user preferences to establish that you are a registered OpenStreetMap user. All other user preferences are ignored, and not stored in knooppuntnet.
+[LOGIN.NOTE.5] This login procedure uses OpenStreetMap security. Knooppuntnet does not have access to your password at any moment.
+[LOGIN.NOTE.6] You remain logged in (also after closing you browser), until you explicitly logout through the logout page. To login again after logout you will have to use the same login procedure again.
+[LOGIN.SUBMIT] Login
+[LOGOUT.TITLE] Logout
+[LOGOUT.LOGGED-IN] You are currently logged in as .
+[LOGOUT.NOTE.1] This allows you to view extra information that is available to OpenStreetMap users only.
+[LOGOUT.NOTE.2] After logging out you can continue to use this website. However, the additional information such as changesets, network changes, route changes and node changes will not be visible anymore. Your personal OpenStreetMap will still contain this application. The application can safely be revoked. The authorization will not be used anymore. A new authorization will be created when logging in again.
+[LOGOUT.SUBMIT] Logout
+[LOGOUT.NOT-LOGGED-IN] You are not logged in.
+[LOGOUT.LOGIN-COMMENT] You can login to view extra information that is available to users only.
+[NOT-FOUND.TITLE] Not found
+[BREADCRUMB.MAP] Map
+[PLANNER.MAP] Map
+[PLANNER.TITLE] Route planner
+[PLANNER.LEGEND] Legend
+[PLANNER.APPEARANCE-OPTIONS] Map appearance options
+[PLANNER.SURFACE] Surface
+[PLANNER.QUALITY] Node and route quality status
+[PLANNER.SURVEY] Date last survey
+[PLANNER.POIS.TITLE] Points of interest
+[PLANNER.POIS.ENABLED-DISABLED] (Enabled/Disabled)
+[PLANNER.POIS.ENABLED] Show points of interest on the map
+[PLANNER.POIS.ZOOM-IN] Zoom in to see the icons on the map.
+[PLANNER.POIS.RESET] Reset configuration to default
+[MAP.NODE-POPUP.TITLE] Node
+[MAP.NODE-POPUP.NETWORK] Network
+[MAP.NODE-POPUP.NETWORKS] Networks
+[MAP.NODE-POPUP.NO-NETWORKS] None
+[MAP.NODE-POPUP.ROUTES] Routes
+[MAP.NODE-POPUP.ROUTES.NONE] None
+[MAP.NODE-POPUP.MORE-DETAILS] More details
+[MAP.ROUTE-POPUP.TITLE] Route
+[MAP.ROUTE-POPUP.NETWORK] Network
+[MAP.ROUTE-POPUP.NETWORKS] Networks
+[MAP.ROUTE-POPUP.NO-NETWORKS] None
+[MAP.ROUTE-POPUP.MORE-DETAILS] More details
+[PLANNER.POIS.SHOW-ALL] Show all
+[PLANNER.POIS.HIDE-ALL] Hide all
+[PLANNER.POIS.DEFAULT] Default
+[FACT.DESCRIPTION.ORPHAN-NODE] This node does not belong to a network. The node was not added as a member to a valid network relation, and also not added as a member to valid route relation (that itself was added as a member to a valid network relation or is an orphan route).
+[POI.ATM] Atm
+[POI.BANK] Bank
+[POI.BENCH] Bench
+[POI.CINEMA] Cinema
+[POI.CLINIC] Clinic
+[POI.EMBASSY] Embassy
+[POI.FASTFOOD] Fast food
+[POI.FIRESTATION] Firestation
+[POI.FOODCOURT] Food court
+[POI.FUEL] Fuel
+[POI.HOSPITAL] Hospital
+[POI.LIBRARY] Library
+[POI.PARKING] Parking
+[POI.PHARMACY] Pharmacy
+[POI.POLICE] Police
+[POI.POSTBOX] Post box
+[POI.POSTOFFICE] Post office
+[POI.TAXI] Taxi
+[POI.THEATRE] Theatre
+[POI.THEMEPARK] Themepark
+[POI.TOILETS] Toilets
+[POI.UNIVERSITY] University
+[POI.CHURCH] Church
+[POI.MOSQUE] Mosque
+[POI.SYNAGOGUE] Synagogue
+[POI.CEMETERY] Cemetery
+[POI.ARTWORK] Artwork
+[POI.ATTRACTION] Attraction
+[POI.CASINO] Casino
+[POI.GALLERY] Gallery
+[POI.GARDEN-CENTRE] Garden centre
+[POI.HERITAGE] Heritage
+[POI.HINDU-TEMPLE] Hindu temple
+[POI.HISTORIC] Historic
+[POI.CASTLE] Castle
+[POI.STATUE] Statue
+[POI.INFORMATION] Information
+[POI.MUSEUM] Museum
+[POI.MUSICAL-INSTRUMENT] Musical instrument
+[POI.MUSICSCHOOL] Music school
+[POI.PICNIC] Picnic
+[POI.PLACE-OF-WORSHIP] Place of worship
+[POI.VIEWPOINT] Viewpoint
+[POI.VINEYARD] Vineyard
+[POI.WINDMILL] Windmill
+[POI.WATERMILL] Watermill
+[POI.ZOO] Zoo
+[POI.DETAIL.NONE] No details available
+[POI.DETAIL.PHONE] Phone
+[POI.DETAIL.FAX] Fax
+[POI.DETAIL.EMAIL] E-mail
+[POI.DETAIL.FACEBOOK] Facebook
+[POI.DETAIL.WHEELCHAIR] Wheelchair
+[POI.DETAIL.OPENGINGHOURS] Opening hours
+[POI.DETAIL.SERVICEHOURS] Service times
+[POI.DETAIL.IMAGE] Image
+[POI.DETAIL.MAPILLARY] Mapillary
+[POI.DETAIL.ONROERENDERFGOED] Onroerend Erfgoed
+[POI.DETAIL.WEBSITE] Website
+[POI.DETAIL.WIKIDATA] Wikidata
+[POI.DETAIL.WIKIPEDIA] Wikipedia
+[POI.DETAIL.MOLEN-DATABASE] Molen database
+[POI.DETAIL.HOLLANDSCHE-MOLEN-DATABASE] Hollandsche Molen database
+[EXPORT.TITLE] Export
+[EXPORT.DEFAULT-PDF] Print (pdf)
+[EXPORT.NODE-STRIP-PDF] Node strip (pdf)
+[EXPORT.NAVIGATION-INSTRUCTIONS-PDF] Navigation instructions (pdf)
+[EXPORT.GPX] GPX file
+[EXPORT.CANCEL] Cancel
+[EXPORT.OK] OK
+[PLANNER.UNDO] Undo
+[PLANNER.REDO] Redo
+[PLANNER.EXPORT] Export
+[PLANNER.COMPACT] Compact
+[PLANNER.DETAILED] Detailed
+[PLANNER.INSTRUCTIONS] Instructions
+[PLAN.DISTANCE] Distance
+[PLAN.HEAD] Head
+[PLAN.ONTO] onto
+[PLAN.HEADING.NORTH] north
+[PLAN.HEADING.NORTH-EAST] north-east
+[PLAN.HEADING.EAST] east
+[PLAN.HEADING.SOUTH-EAST] south-east
+[PLAN.HEADING.SOUTH] south
+[PLAN.HEADING.SOUTH-WEST] south-west
+[PLAN.HEADING.WEST] west
+[PLAN.HEADING.NORTH-WEST] north-west
+[PLAN.COMMAND.CONTINUE] Continue
+[PLAN.COMMAND.CONTINUE.STREET] Continue on
+[PLAN.COMMAND.TURN-SLIGHT-LEFT] Slight left
+[PLAN.COMMAND.TURN-SLIGHT-LEFT.STREET] Slight left onto
+[PLAN.COMMAND.TURN-SLIGHT-RIGHT] Slight right
+[PLAN.COMMAND.TURN-SLIGHT-RIGHT.STREET] Slight right onto
+[PLAN.COMMAND.TURN-LEFT] Turn left
+[PLAN.COMMAND.TURN-LEFT.STREET] Turn left onto
+[PLAN.COMMAND.TURN-RIGHT] Turn right
+[PLAN.COMMAND.TURN-RIGHT.STREET] Turn right onto
+[PLAN.COMMAND.TURN-SHARP-LEFT] Sharp left
+[PLAN.COMMAND.TURN-SHARP-LEFT.STREET] Sharp left onto
+[PLAN.COMMAND.TURN-SHARP-RIGHT] Sharp right
+[PLAN.COMMAND.TURN-SHARP-RIGHT.STREET] Sharp right onto
+[BREADCRUMB.STATUS] Status
+[BREADCRUMB.REPLICATION] Replication
+[BREADCRUMB.SYSTEM] System
+[POI.BICYCLE-RENTAL] Bicycle rental
+[POI.DRINKING-WATER] Drinking water
+[POI.EBIKE-CHARGING] Ebike charging
+[POI.BOOKS-STATIONARY] Books/stationary
+[POI.DEFIBRILLATOR] Defibrillator
+[STATS.KM.COMMENT] Total length in kilometers.
+[STATS.KM.NAME] Length (km)
+[STATS.NETWORK-COUNT.COMMENT] Number of networks.
+[STATS.NETWORK-COUNT.NAME] NetworkCount
+[STATS.NODE-COUNT.COMMENT] Number of network nodes.
+[STATS.NODE-COUNT.NAME] Node count
+[STATS.ROUTE-COUNT.COMMENT] Number of routes.
+[STATS.ROUTE-COUNT.NAME] Route count
+[STATS.ROUTE-NOT-CONTINIOUS-NETWORK-COUNT.COMMENT] Number of networks with broken routes.
+[STATS.ROUTE-NOT-CONTINIOUS-NETWORK-COUNT.NAME] RouteNotContiniousNetworkCount
+[STATS.ROUTE-NOT-CONTINIOUS.COMMENT] Number of broken routes.
+[STATS.ROUTE-NOT-CONTINIOUS.NAME] RouteNotContinious
+[STATS.ROUTE-NOT-CONTINIOUS-PERCENTAGE.COMMENT] Percentage of broken routes.
+[STATS.ROUTE-NOT-CONTINIOUS-PERCENTAGE.NAME] RouteNotContiniousPercentage
+[STATS.ROUTE-BROKEN-NETWORK-COUNT.COMMENT] Number of networks containing routes with issues.
+[STATS.ROUTE-BROKEN-NETWORK-COUNT.NAME] RouteBrokenNetworkCount
+[STATS.ROUTE-BROKEN-COUNT.COMMENT] Number of routes with issues.
+[STATS.ROUTE-BROKEN-COUNT.NAME] RouteBrokenCount
+[STATS.ROUTE-BROKEN-PERCENTAGE.COMMENT] Percentage of routes with issues.
+[STATS.ROUTE-BROKEN-PERCENTAGE.NAME] RouteBrokenPercentage
+[STATS.ROUTE-INCOMPLETE.COMMENT] Number of routes that are marked as having an incomplete definition.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+[STATS.ROUTE-INCOMPLETE.NAME] RouteIncomplete
+[STATS.ROUTE-INCOMPLETE-OK.COMMENT] Number of routes that are marked as having an incomplete definition, but that look ok after analysis.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+[STATS.ROUTE-INCOMPLETE-OK.NAME] RouteIncompleteOk
+[STATS.ROUTE-FIXMETODO.COMMENT] Number of routes that are marked with _"fixmetodo"_.
+[STATS.ROUTE-FIXMETODO.NAME] RouteFixmetodo
+[STATS.ORPHAN-NODE-COUNT.NAME] Orphan nodes
+[STATS.ORPHAN-ROUTE-COUNT.COMMENT] Number of network routes that do not belong to a network.\ The route was not added as a member to a valid [network relation](glossary#network-relation).
+[STATS.ORPHAN-ROUTE-COUNT.NAME] Orphan routes
+[STATS.ORPHAN-ROUTE-KM.COMMENT] Total length (km) of the orphan routes (not included in network length above).
+[STATS.ORPHAN-ROUTE-KM.NAME] Orphan route length (km)
+[STATS.INTEGRITY-CHECK-NETWORK-COUNT.COMMENT] Number of networks that include integrity check.
+[STATS.INTEGRITY-CHECK-NETWORK-COUNT.NAME] IntegrityCheck
+[STATS.INTEGRITY-CHECK.COMMENT] Number of nodes with integrity check.
+[STATS.INTEGRITY-CHECK.NAME] IntegrityCheck
+[STATS.INTEGRITY-CHECK-FAILED.COMMENT] Number of failed integrity checks.
+[STATS.INTEGRITY-CHECK-FAILED.NAME] IntegrityCheckFailed
+[STATS.INTEGRITY-CHECK-PASS-RATE.COMMENT] Integrity check pass rate (percentage of ok checks).
+[STATS.INTEGRITY-CHECK-PASS-RATE.NAME] IntegrityCheckPassRate
+[STATS.INTEGRITY-CHECK-COVERAGE.COMMENT] Integrity check coverage (percentage of nodes that do have integrity check information).
+[STATS.INTEGRITY-CHECK-COVERAGE.NAME] IntegrityCheckCoverage
+[STATS.ROUTE-UNUSED-SEGMENTS.COMMENT] Number of routes where one or more of the ways (or part of ways) are not used in the forward or backward path or in one of the tentacles.
+[STATS.ROUTE-UNUSED-SEGMENTS.NAME] RouteUnusedSegments
+[STATS.ROUTE-NODE-MISSING-IN-WAYS.COMMENT] Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
+[STATS.ROUTE-NODE-MISSING-IN-WAYS.NAME] RouteNodeMissingInWays
+[STATS.ROUTE-REDUNDANT-NODES.COMMENT] Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
+[STATS.ROUTE-REDUNDANT-NODES.NAME] RouteRedundantNodes
+[STATS.ROUTE-WITHOUT-WAYS.COMMENT] Routes without ways (a route is expected to have at least 1 way).
+[STATS.ROUTE-WITHOUT-WAYS.NAME] RouteWithoutWays
+[STATS.ROUTE-NAME-MISSING.COMMENT] Routes without a _"note"_ tag with the route name.
+[STATS.ROUTE-NAME-MISSING.NAME] RouteNameMissing
+[STATS.ROUTE-TAG-MISSING.COMMENT] The route relation does not contain a _"route"_ tag.
+[STATS.ROUTE-TAG-MISSING.NAME] RouteTagMissing
+[STATS.ROUTE-TAG-INVALID.COMMENT] The value in the _"route"_ tag in the route relation is unexpected.
+[STATS.ROUTE-TAG-INVALID.NAME] RouteTagInvalid
+[STATS.ROUTE-UNEXPECTED-NODE.COMMENT] Number of routes with one or more unexpected node members.\ In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
+[STATS.ROUTE-UNEXPECTED-NODE.NAME] RouteUnexpectedNode
+[STATS.ROUTE-UNEXPECTED-RELATION.COMMENT] Number of routes with one or more unexpected members.\In route relations we expect only members of type _"way"_, or members of type _"node"_ with a tag _"rwn_ref"_ or _"rcn_ref"_.
+[STATS.ROUTE-UNEXPECTED-RELATION.NAME] RouteUnexpectedRelation
+[STATS.NETWORK-EXTRA-MEMBER-NODE.COMMENT] Number of network relation members of type _"node"_ that are unexpected (expect only [network nodes](glossary#node) or [information maps](glossary#info-map) as members in the network relation).
+[STATS.NETWORK-EXTRA-MEMBER-NODE.NAME] NetworkExtraMemberNode
+[STATS.NETWORK-EXTRA-MEMBER-WAY.COMMENT] Number of network relation members of type _"way"_ (expect only route relations or network nodes as members in the node network relation).
+[STATS.NETWORK-EXTRA-MEMBER-WAY.NAME] NetworkExtraMemberWay
+[STATS.NETWORK-EXTRA-MEMBER-RELATION.COMMENT] Number of network relation members of type _"relation"_ that are unexpected (expect only valid route relations or network nodes as members in the node network relation).
+[STATS.NETWORK-EXTRA-MEMBER-RELATION.NAME] NetworkExtraMemberRelation
+[STATS.NODE-MEMBER-MISSING.COMMENT] Number of nodes that are not included in the network relation
+[STATS.NODE-MEMBER-MISSING.NAME] NodeMemberMissing
+[STATS.NAME-MISSING.COMMENT] Number of networks without _"name"_ tag in the network relation.
+[STATS.NAME-MISSING.NAME] NameMissing
+[STATS.ROUTE-UNACCESSIBLE.COMMENT] Number of [unaccessible](glossary#accessible) routes.
+[STATS.ROUTE-UNACCESSIBLE.NAME] RouteUnaccessible
+[STATS.ROUTE-INVALID-SORTING-ORDER.COMMENT] Number of routes with ways in wrong sorting order.
+[STATS.ROUTE-INVALID-SORTING-ORDER.NAME] RouteInvalidSortingOrder
+[STATS.ROUTE-NODE-NAME-MISMATCH.COMMENT] Routes where the route name does not match with the names of the start node and the end node. The route name is expected to contain the start node name and the end node name, separated by a dash. The start node is expected to have a lower number than the end node.
+[STATS.ROUTE-NODE-NAME-MISMATCH.NAME] RouteNodeNameMismatch
+[LOCATION-PAGE.HEADER] in
+[LOCATION-PAGE.MENU.NODES] Nodes
+[LOCATION-PAGE.MENU.ROUTES] Routes
+[LOCATION-PAGE.MENU.FACTS] Facts
+[LOCATION-PAGE.MENU.MAP] Map
+[LOCATION-PAGE.MENU.CHANGES] Changes
+[LOCATION-NODES.TITLE] Nodes
+[LOCATION-NODES.NO-NODES] No nodes
+[LOCATION.LOCATION-NOT-FOUND] Location not found
+[LOCATION-FACTS.NONE] None
+[LOCATION-FACTS.TITLE] Facts
+[LOCATION-ROUTES.TITLE] Routes
+[LOCATION-ROUTES.NO-ROUTES] No routes
+[LOCATION-MAP.TITLE] Map
+[LOCATION-CHANGES.TITLE] Changes
+[LOCATION-NODES.TABLE.NR] Nr
+[LOCATION-NODES.TABLE.ANALYSIS] Analysis
+[LOCATION-NODES.TABLE.NODE] Node
+[LOCATION-NODES.TABLE.ROUTES] Routes
+[LOCATION-NODES.TABLE.LAST-EDIT] Last edit
+[LOCATION-NODES.NO-ROUTES] no routes
+[LOCATION-ROUTES.TABLE.NR] Nr
+[LOCATION-ROUTES.TABLE.ROUTE] Route
+[LOCATION-ROUTES.TABLE.DISTANCE] Distance
+[LOCATION-ROUTES.TABLE.DISTANCE.VALUE] m
+[LOCATION-ROUTES.TABLE.BROKEN] Broken
+[LOCATION-ROUTES.TABLE.LAST-EDIT] Last edit
+[ROUTE-CHANGES.LOGIN-REQUIRED] The details of the route changes history is available to registered OpenStreetMap contributors only, after .
+[ROUTE-CHANGES.ROUTE-NOT-FOUND] Route not found
+[BREADCRUMB.ROUTE-MAP] Route map
+[ROUTE.TITLE] Route
+[ROUTE.MENU.DETAILS] Details
+[ROUTE.MENU.MAP] Map
+[ROUTE.MENU.CHANGES] Changes
+[ROUTE.METERS] m
+[ROUTE.MEMBERS.TITLE] Route Members
+[ROUTE.MEMBERS.NONE] None
+[ROUTE.MEMBERS.TABLE.NODE] Node
+[ROUTE.MEMBERS.TABLE.ID] Id
+[ROUTE.MEMBERS.TABLE.NODES] Nodes
+[ROUTE.MEMBERS.TABLE.ROLE] Role
+[ROUTE.MEMBERS.TABLE.LENGTH] Length
+[ROUTE.MEMBERS.TABLE.NODE-COUNT] #Nodes
+[ROUTE.MEMBERS.TABLE.NAME] Name
+[ROUTE.MEMBERS.TABLE.UNACCESSIBLE] Unaccessible
+[ROUTE.MEMBERS.TABLE.ONE-WAY] One Way
+[ROUTE.MEMBERS.TABLE.ONE-WAY.YES] Yes
+[ROUTE.MEMBERS.TABLE.ONE-WAY.REVERSE] Reverse
+[ROUTE.BROKEN] This route seems broken.
+[ROUTE.INCOMPLETE] Route definition is incomplete (has tag _"fixme=incomplete"_).
+[ROUTE.NOT-ACTIVE] This route is not active anymore.
+[ROUTE.LOCATION.NONE] None
+[ROUTE.NO-NETWORK-REFERENCES] None
+[BREADCRUMB.ROUTE-DETAILS] Route details
+[ROUTE-CHANGE.VERSION] Version
+[ROUTE-CHANGE.UNCHANGED] (Unchanged)
+[BREADCRUMB.ROUTE-CHANGES] Route changes
+[ROUTE-CHANGE.NO-GEOMETRY-DIFF] No geometry change
+[FACTS.NONE] None
+[BREADCRUMB.NODE] Node
+[POI.GROUP.AMENITY] Amenity
+[POI.GROUP.FOODSHOPS] Foodshops
+[POI.GROUP.PLACES-TO-STAY] Places to stay
+[POI.GROUP.RESTAURANTS] Restaurants
+[POI.GROUP.SHOPS] Shops
+[POI.GROUP.SPORTS] Sports
+[POI.GROUP.TOURISM] Tourism
+[POI.GROUP.HIKING-BIKING] Hiking/biking
+[POI.GROUP.LANDMARKS] Landmarks
+[ROUTE.SUMMARY] Summary
+[ROUTE.SITUATION-ON] Situation on
+[ROUTE.LAST-UPDATED] Last updated
+[ROUTE.RELATION-LAST-UPDATED] Relation last updated
+[ROUTE.NETWORK] Network
+[ROUTE.START-NODE] Start node
+[ROUTE.END-NODE] End node
+[ROUTE.REDUNDANT-NODE] Redundant node
+[ROUTE.NUMBER-OF-WAYS] Number of ways
+[ROUTE.TAGS] Tags
+[ROUTE.LOCATION] Location
+[ROUTE.STRUCTURE] Structure
+[ROUTE.FACTS] Facts
+[ROUTE-MAP-PAGE.ROUTE-NOT-FOUND] Route not found
+[SUBSET-CHANGES.TITLE] Changes
+[SUBSET-CHANGES.LOGIN-REQUIRED] This details of the changes history are available to registered OpenStreetMap contributors only, after .
+[SUBSET-FACTS.TITLE] Facts
+[SUBSET-FACTS.NO-FACTS] No facts
+[SUBSET-FACTS.NODE-REFS] {VAR_PLURAL, plural, one {node} other {nodes} }
+[SUBSET-FACTS.ROUTE-REFS] {VAR_PLURAL, plural, one {route} other {routes} }
+[SUBSET-FACTS.OSM-NODE-REFS] {VAR_PLURAL, plural, one {node} other {nodes} }
+[SUBSET-FACTS.OSM-WAY-REFS] {VAR_PLURAL, plural, one {way} other {ways} }
+[SUBSET-FACTS.OSM-RELATION-REFS] {VAR_PLURAL, plural, one {relation} other {relations} }
+[SUBSET-FACTS.IN-NETWORKS] {VAR_PLURAL, plural, one {in 1 network} other {in networks} }
+[SUBSET-FACTS.ORPHAN-ROUTES] Orphan routes
+[SUBSET-FACTS.ROUTES] {VAR_PLURAL, plural, one {1 route} other { routes} }
+[SUBSET-MAP.DIALOG.NODECOUNT] nodes
+[SUBSET-MAP.DIALOG.ROUTECOUNT] routes
+[SUBSET-MAP.DIALOG.SHOW-NETWORK-DETAILS] Show network details
+[SUBSET-MAP.DIALOG.CLOSE] Close
+[SUBSET-NETWORKS.TITLE] Networks
+[SUBSET-NETWORKS.NO-NETWORKS] No networks
+[SUBSET-NETWORKS.SUMMARY] _There are ____ networks, with a total of ____ nodes and ____ routes with an overall length of ____ km._
+[SUBSET-ORPHAN-NODES.TITLE] Orphan nodes
+[SUBSET-ORPHAN-NODES.NO-ROUTES] No orphan nodes
+[SUBSET-ORPHAN-ROUTES.TITLE] Orphan routes
+[SUBSET-ORPHAN-ROUTES.NO-ROUTES] No orphan routes
+[SUBSET-NETWORKS.TABLE.NETWORK] Network
+[SUBSET-NETWORKS.TABLE.LENGTH] Length
+[SUBSET-NETWORKS.TABLE.NODES] Nodes
+[SUBSET-NETWORKS.TABLE.ROUTES] Routes
+[SUBSET-NETWORKS.TABLE.INTEGRITY] Integrity
+[SUBSET-NETWORKS.TABLE.CONNECTIONS] Connections
+[SUBSET-NETWORKS.TABLE.BROKEN] Broken
+[SUBSET-NETWORKS.TABLE.INTEGRITY-NODES] Nodes
+[SUBSET-NETWORKS.TABLE.OK] OK
+[SUBSET-NETWORK.SUMMARY] km, nodes, routes
+[SUBSET-ORPHAN-ROUTES.ROUTE-IS-BROKEN] route is broken
+[SUBSET-ORPHAN-ROUTES.EXTRA-TAGS] Extra tags:
+[SUBSET-ORPHAN-NODES.EXTRA-TAGS] Extra tags:
+[CHANGE-SET.HEADER.CHANGE-SET] Changeset
+[CHANGE-SET.HEADER.ACHAVI] achavi
+[CHANGE-SET.HEADER.REPLICATION-NUMBER] Minute diff
+[CHANGE-SET.HEADER.COMMENT] Comment
+[CHANGE-SET.HEADER.ANALYSIS] Analysis
+[CHANGE-SET.HEADER.ANALYSIS.HAPPY] This changeset brought improvements.
+[CHANGE-SET.HEADER.ANALYSIS.INVESTIGATE] Maybe this changeset is worth a closer look.
+[CHANGE-SET.HEADER.ANALYSIS.NO-IMPACT] The changes do not seem to have an impact on the analysis result.
+[CHANGE-SET.NETWORK-CHANGES.NETWORK] Network
+[CHANGE-SET.NETWORK-DIFFS.NETWORK-CREATED] Network created
+[CHANGE-SET.NETWORK-DIFFS.NETWORK-DELETED] Network deleted
+[CHANGE-SET.NETWORK-CHANGES.ORPHAN-ROUTES-INTRODUCED] Orphan routes added to this network
+[CHANGE-SET.NETWORK-DIFFS.ORPHAN-NODES-RESOLVED] Orphan nodes added to this network
+[CHANGE-SET.NETWORK-CHANGES.ORPHAN-NODES-INTRODUCED] Following nodes that used to be part of this network have become orphan
+[CHANGE-SET.NETWORK-CHANGES.ADDED-NODES] Added non-network nodes
+[CHANGE-SET.NETWORK-CHANGES.REMOVED-NODES] Removed non-network nodes
+[CHANGE-SET.NETWORK-CHANGES.UPDATED-NODES] Updated non-network nodes
+[CHANGE-SET.NETWORK-CHANGES.ADDED-WAYS] Added ways
+[CHANGE-SET.NETWORK-CHANGES.REMOVED-WAYS] Removed ways
+[CHANGE-SET.NETWORK-CHANGES.UPDATED-WAYS] Updated ways
+[CHANGE-SET.NETWORK-CHANGES.ADDED-RELATIONS] Added non-route relations
+[CHANGE-SET.NETWORK-CHANGES.UPDATED-RELATIONS] Updated non-route relations
+[CHANGE-SET.NETWORK-CHANGES.REMOVED-RELATIONS] Removed non-route relations
+[FACT-PAGE.TITLE] All facts
+[CHANGE-SET.ORPHAN-NODES.TITLE] Orphan nodes
+[CHANGE-SET.ORPHAN-ROUTES.TITLE] Orphan routes
+[NODE-DIFFS-REMOVED.TITLE] Removed network nodes
+[NODE-DIFFS-ADDED.TITLE] Added network nodes
+[NODE-DIFFS-ADDED.CHANGE-SET-CREATED] Created in this changeset.
+[NODE-DIFFS-ADDED.CHANGE-SET-UPDATED] Updated in this changeset.
+[NODE-DIFFS-ADDED.CHANGE-SET-EXISTING] Existing node
+[NODE-DIFFS-UPDATED.TITLE] Updated network nodes
+[NODE-DIFFS-UPDATED.EXISTING-NODE] Existing node
+[NODE-DIFFS-UPDATED.NODE-CHANGED] Node change to
+[ROUTE-DIFFS-ADDED.TITLE] Added routes
+[ROUTE-DIFFS-ADDED.NEW-RELATION] New relation
+[ROUTE-DIFFS-ADDED.UPDATED-RELATION] Relation updated in this changeset v
+[ROUTE-DIFFS-ADDED.EXISTING-RELATION] Existing relation
+[ROUTE-DIFFS-REMOVED.TITLE] Removed routes
+[ROUTE-DIFFS-UPDATED.TITLE] Updated routes
+[VERSION-CHANGE.RELATION-CHANGED-TO] Relation changed to v
+[VERSION-CHANGE.RELATION-UNCHANGED] Relation unchanged.
+[NODE-CHANGE.BELONGS-TO-ANOTHER-NETWORK] This node belongs to another network
+[NODE-CHANGE.NO-LONGER-BELONGS-TO-ANOTHER-NETWORK] This node no longer belongs to another network
+[NODE-CHANGE.RECEIVED-ROLE-CONNECTION-IN-NETWORK-RELATION] This node received role "connection" in the network relation
+[NODE-CHANGE.LOST-ROLE-CONNECTION-IN-NETWORK-RELATION] This node no longer has role "connection" in the network relation
+[NODE-CHANGE.ADDED-TO-NETWORK-RELATION] Added to network relation
+[NODE-CHANGE.REMOVED-FROM-NETWORK-RELATION] Removed from network relation
+[NODE-CHANGE.ADDED-TO-ROUTE] Added to route
+[NODE-CHANGE.ADDED-TO-NETWORK] Added to network
+[NODE-CHANGE.REMOVED-FROM-ROUTE] Removed from route
+[NODE-CHANGE.REMOVED-FROM-NETWORK] Removed from network
+[NODE-CHANGE.MOVED.METERS] The node has moved meters.
+[NODE-CHANGE.MOVED.LESS-THAN-1-METER] The node has moved less than 1 meter.
+[NODE-CHANGE.MOVED.NOTE.1] Note: Node position is shown as it was at
+[NODE-CHANGE.MOVED.NOTE.2] , while the map background is shown as it is today.
+[STATS.ORPHAN-NODE-COUNT.COMMENT] Number of network nodes that do not belong to a network.\ The [node](glossary#node) was not added as a member to a valid [network relation](glossary#network-relation) and also not added as a member to a valid [route relation](glossary#route-relation) (that itself was added as a member to a valid network relation or is an orphan route).
+[NODE.SUMMARY] Summary
+[NODE.SITUATION-ON] Situation on
+[NODE.LAST-UPDATED] Last updated
+[NODE.TAGS] Tags
+[NODE.LOCATION] Location
+[NODE.NETWORKS] Networks
+[NODE.ORPHAN-ROUTES] Orphan routes
+[NODE.FACTS] Facts
+[NODE.VERSION] Version
+[NODE.UNCHANGED] (Unchanged)
+[BREADCRUMB.OVERVIEW] Overview
+[OVERVIEW-PAGE.TITLE] Overview
+[OVERVIEW.TOTAL] Total
+[ROUTE.ROUTE-NOT-FOUND] Route not found
+[NODE.INACTIVE] This network node is not active anymore.
+[NODE.NODE] network node
+[NODE.ORPHAN] This network node does not belong to a known node network (orphan).
+[NODE.NETWORK-REFERENCES.NONE] None
+[NODE.NETWORK.INTEGRITY-CHECK-FAILED] Integritycheck failed: expected routes, but found .
+[NODE.NETWORK.INTEGRITY-CHECK-OK] Expected number of routes () matches the number of routes found.
+[NODE.NETWORK.ROLE-CONNECTION] This node has the role _"connection"_ in the networkrelation.
+[NODE.NETWORK.NETWORK-MEMBER] This node is included as member in the networkrelation.
+[NODE.NETWORK.NOT-NETWORK-MEMBER] This node is not included as member in the networkrelation.
+[NODE.NETWORK.NOT-NETWORK-MEMBER-INVALID] This node is not included as member in the networkrelation: the _""_ tag does not apply to this netwerk.
+[NODE.ORPHAN-ROUTE-REFERENCES.NONE] None
+[BREADCRUMB.NODE-CHANGES] Node changes
+[NODE.TITLE] Node
+[NODE.MENU.DETAILS] Details
+[NODE.MENU.MAP] Map
+[NODE.MENU.CHANGES] Changes
+[NODE.LOCATION.NONE] None
+[NODE.DETAILS-SIDEBAR.TIP] TIP: click on other nodes or routes in the map to go to the details of these nodes or routes.
+[OVERVIEW-TABLE.DETAIL] Detail
+[OVERVIEW-TABLE.TOTAL] Total
+[COUNTRY.FR] France
+[COUNTRY.AT] Austria
+[OVERVIEW-TABLE.COMMENT] Comment
+[COUNTRY.NL] The Netherlands
+[COUNTRY.BE] Belgium
+[COUNTRY.DE] Germany
+[SITUATION-ON] Situation on
+[TAGS.NO-TAGS] No tags
+[TAGS.KEY] Key
+[TAGS.VALUE] Value
+[FOOTER.DOCUMENTATION] documentation
+[FOOTER.CONTACT] contact
+[FOOTER.ISSUES] issues
+[FOOTER.STATUS] status
+[TOOLBAR.TITLE] knooppuntnet
+[SIDEBAR.BACK] back
+[DOC-LINK.GO-TO-DOCUMENTATION] Go to documentation
+[BREADCRUMB.HOME] Home
+[BREADCRUMB.ANALYSIS] Analysis
+[ANALYSIS-PAGE.TITLE] Analysis
+[ANALYSIS-PAGE.OVERVIEW] Overview
+[ANALYSIS-PAGE.CHANGES] Changes
+[ANALYSIS.BY-NETWORK] Explore by network
+[ANALYSIS.BY-LOCATION] Explore by location
+[ANALYSIS.LOCATION.SEARCH-BY-NAME] Search by name
+[ANALYSIS.LOCATION.SELECT-FROM-TREE] Select from tree
+[LOCATION.SELECTOR.INPUT.PLACE-HOLDER] enter municipality or other administrative boundary name
+[LOCATION.SELECTOR.BUTTON] Location overview
+[LOCATION.TREE.EXPAND-ALL] Expand all
+[LOCATION.TREE.COLLAPSE-ALL] Collapse all
+[LOCATION.TREE.ALL] All
+[LOCATION.TREE.IN-USE-ONLY] In use only
+[BREADCRUMB.CHANGES] Changes
+[CHANGES-PAGE.TITLE] Changes
+[CHANGES-PAGE.LOGIN-REQUIRED] The details of the changes history are available to registered OpenStreetMap contributors only, after .
+[CHANGE-SET.ORPHAN-NODES] Orphan node(s)
+[CHANGE-SET.ORPHAN-ROUTES] Orphan route(s)
+[CHANGE-SET.TITLE] Changeset
+[NETWORK-CHANGES.TITLE] Changes
+[NETWORK-CHANGES.LOGIN-REQUIRED] The details of network changes history are available to registered OpenStreetMap contributors only, after .
+[NETWORK-CHANGES.NETWORK-NOT-FOUND] Network not found
+[NETWORK-DETAILS.TITLE] Details
+[NETWORK-DETAILS.NETWORK-NOT-FOUND] Network not found
+[NETWORK-DETAILS.SITUATION-ON] Situation on
+[NETWORK-DETAILS.NODES] nodes
+[NETWORK-DETAILS.ROUTES] routes
+[NETWORK-DETAILS.CONTAINS-BROKEN-ROUTES] This network contains broken (non-continuous) routes.
+[NETWORK-DETAILS.NOT-ACTIVE] This network is not active anymore.
+[NETWORK-NODES.TABLE.NR] Nr
+[NETWORK-NODES.TABLE.ANALYSIS] Analysis
+[NETWORK-NODES.TABLE.NODE] Node
+[NETWORK-NODES.TABLE.ROUTES] Routes
+[NETWORK-NODES.TABLE.LAST-EDIT] Last edit
+[NETWORK-NODES.NO-ROUTES] no routes
+[NETWORK-ROUTES.TABLE.NR] Nr
+[NETWORK-ROUTES.TABLE.ANALYSIS] Analysis
+[NETWORK-ROUTES.TABLE.NODE] Route
+[NETWORK-ROUTES.TABLE.LAST-EDIT] Last edit
+[ROUTE-ACCESSIBLE-INDICATOR.GRAY.TITLE] OK - Accessibility unknown
+[ROUTE-ACCESSIBLE-INDICATOR.GRAY.TEXT] Accessibility information is unknown for this type of route.
+[ROUTE-ACCESSIBLE-INDICATOR.GREEN.TITLE] OK - Accessible
+[ROUTE-ACCESSIBLE-INDICATOR.GREEN.TEXT.CYCLING] This route is completely accessible for bicycle.
+[ROUTE-ACCESSIBLE-INDICATOR.GREEN.TEXT.HIKING] This route is completely accessible for hiking.
+[ROUTE-ACCESSIBLE-INDICATOR.GREEN.TEXT.MOTORBOAT] This route is completely accessible for motorboat.
+[ROUTE-ACCESSIBLE-INDICATOR.GREEN.TEXT.CANOE] This route is completely accessible for canoe.
+[ROUTE-ACCESSIBLE-INDICATOR.RED.TITLE] NOK - Not Accessible
+[ROUTE-ACCESSIBLE-INDICATOR.RED.TEXT.CYCLING] This route is not completely accessible for bicycle.
+[ROUTE-ACCESSIBLE-INDICATOR.RED.TEXT.HIKING] This route is not completely accessible for hiking.
+[ROUTE-ACCESSIBLE-INDICATOR.RED.TEXT.MOTORBOAT] This route is not completely accessible for motorboat.
+[ROUTE-ACCESSIBLE-INDICATOR.RED.TEXT.CANOE] This route is not completely accessible for canoe.
+[ROUTE-ACCESSIBLE-INDICATOR.LETTER] A
+[ROUTE-CONNECTION-INDICATOR.BLUE.TITLE] OK - Connection
+[ROUTE-CONNECTION-INDICATOR.BLUE.TEXT] This route is a connection to another network.
+[ROUTE-CONNECTION-INDICATOR.GRAY.TITLE] OK - No connection
+[ROUTE-CONNECTION-INDICATOR.GRAY.TEXT] This route is not a connection to another network.
+[ROUTE-CONNECTION.INDICATOR.LETTER] C
+[ROUTE-CONNECTION-INDICATOR.LETTER] C
+[ROUTE-INVESTIGATE-INDICATOR.GREEN.TITLE] OK - No facts
+[ROUTE-INVESTIGATE-INDICATOR.GREEN.TEXT] No issues found during route analysis.
+[ROUTE-INVESTIGATE-INDICATOR.RED.TITLE] NOK - Investigate facts
+[ROUTE-INVESTIGATE-INDICATOR.RED.TEXT] Something is wrong with this route.
+[ROUTE-INVESTIGATE-INDICATOR.LETTER] F
+[NETWORK-DETAILS.SUMMARY] Summary
+[NETWORK-DETAILS.COUNTRY] Country
+[NETWORK-DETAILS.LAST-UPDATED] Last updated
+[NETWORK-DETAILS.RELATION-LAST-UPDATED] Relation last updated
+[NETWORK-DETAILS.TAGS] Tags
+[NETWORK-FACTS.CHECKS-TABLE.NODE] Node
+[NETWORK-FACTS.CHECKS-TABLE.EXPECTED] Expected
+[NETWORK-FACTS.CHECKS-TABLE.ACTUAL] Actual
+[NETWORK-FACTS.CHECKS-TABLE.TITLE] node integrity check failures
+[NETWORK-FACTS.NODE] Node:
+[NETWORK-FACTS.NODES] Nodes:
+[NETWORK-FACTS.ROUTE] Route:
+[NETWORK-FACTS.ROUTES] Routes:
+[NETWORK-FACTS.TITLE] Facts
+[NETWORK-FACTS.NETWORK-NOT-FOUND] Network not found
+[NETWORK-FACTS.NO-FACTS] No facts
+[NETWORK-MAP.TITLE] Map
+[NETWORK-NODES.TITLE] Nodes
+[NETWORK-NODES.NETWORK-NOT-FOUND] Network not found
+[NETWORK-NODES.NO-NODES] No network nodes in network
+[NETWORK-ROUTES.TITLE] Routes
+[NETWORK-ROUTES.NETWORK-NOT-FOUND] Network not found
+[NETWORK-ROUTES.NO-ROUTES] No network routes in network
+[NODE.LOGIN-REQUIRED] The details of the node changes history is available to registered OpenStreetMap contributors only, after .
+[BREADCRUMB.NODE-MAP] Node map
+[NODE.NODE-NOT-FOUND] Node not found

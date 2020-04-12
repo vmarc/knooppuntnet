@@ -32,7 +32,7 @@ class TranslationFileReader {
     val id = (translationUnit \ "@id").text
     val source = (translationUnit \ "source").text
     val targetNode = translationUnit \ "target"
-    val target = targetNode.mkString
+    val target = targetNode.text
     val state = (targetNode \ "@state").text
     val locations = (translationUnit \\ "context-group").map(toTranslationLocation)
 
