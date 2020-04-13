@@ -1,3 +1,4 @@
+import {Color} from "ol/color";
 import {FeatureLike} from "ol/Feature";
 import CircleStyle from "ol/style/Circle";
 import Circle from "ol/style/Circle";
@@ -43,7 +44,7 @@ export class MainMapNodeStyle {
   }
 
   private determineNodeMainStyle(feature: FeatureLike, layer: string, enabled: boolean, large: boolean): Style {
-    let style: Style = null;
+    let style: Style;
     if (large) {
       style = this.determineLargeNodeStyle(feature, layer, enabled);
     } else {
@@ -78,7 +79,7 @@ export class MainMapNodeStyle {
     return this.smallNodeStyle;
   }
 
-  private nodeSelectedStyle(radius: number) {
+  private nodeSelectedStyle(radius: number): Style {
     return new Style({
       image: new Circle({
         radius: radius,
@@ -89,7 +90,7 @@ export class MainMapNodeStyle {
     });
   }
 
-  private nodeColor(layer: string, enabled: boolean) {
+  private nodeColor(layer: string, enabled: boolean): Color {
     let nodeColor = MainStyleColors.gray;
     if (enabled) {
       if ("error-node" === layer) {

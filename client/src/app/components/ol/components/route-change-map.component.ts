@@ -85,8 +85,8 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
       const latMax = lattitudes.max();
       const lonMax = longitudes.max();
 
-      const latDelta = (latMax - latMin) / 8;
-      const lonDelta = (lonMax - lonMin) / 8;
+      const latDelta = (latMax - latMin) * 0.05;
+      const lonDelta = (lonMax - lonMin) * 0.05;
 
       const southWest = fromLonLat([lonMin - lonDelta, latMin - latDelta]);
       const northEast = fromLonLat([lonMax + lonDelta, latMax + latDelta]);

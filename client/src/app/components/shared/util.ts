@@ -1,9 +1,12 @@
 import {Params, Route} from "@angular/router";
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
-import {toLonLat, fromLonLat} from "ol/proj";
-import {Country} from "../../kpn/api/custom/country";
+import {boundingExtent} from "ol/extent";
+import {Extent} from "ol/extent";
+import {fromLonLat, toLonLat} from "ol/proj";
+import {Bounds} from "../../kpn/api/common/bounds";
 import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
+import {Country} from "../../kpn/api/custom/country";
 import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Subset} from "../../kpn/api/custom/subset";
 
@@ -44,11 +47,6 @@ export class Util {
     return level1 + "/" + level2 + "/" + level3;
   }
 
-  private static format(level: number): string {
-    const integer = Math.floor(level);
-    return (integer + 1000).toString().substr(1, 3);
-  }
-
   public static safeGet<T>(getter: IPropertyGetter<T>, defaultValue?: T): T {
     try {
       const result: T = getter.apply(this);
@@ -80,4 +78,16 @@ export class Util {
     return list.reduce((prev, current) => prev + current);
   }
 
+  public static toExtent(bounds: Bounds, delta: number): Extent {
+    const latDelta = (bounds.maxLat - bounds.minLat) * delta;
+    const lonDelta = (bounds.maxLon - bounds.minLon) * delta;
+    const southWest = fromLonLat([bounds.minLon - lonDelta, bounds.minLat - latDelta]);
+    const northEast = fromLonLat([bounds.maxLon + lonDelta, bounds.maxLat + latDelta]);
+    return boundingExtent([southWest, northEast]);
+  }
+
+  private static format(level: number): string {
+    const integer = Math.floor(level);
+    return (integer + 1000).toString().substr(1, 3);
+  }
 }

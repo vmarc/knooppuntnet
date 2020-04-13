@@ -3,13 +3,12 @@ import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
-import {boundingExtent} from "ol/extent";
 import Map from "ol/Map";
-import {fromLonLat} from "ol/proj";
 import View from "ol/View";
 import {Bounds} from "../../../kpn/api/common/bounds";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PageService} from "../../shared/page.service";
+import {Util} from "../../shared/util";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
 import {MapLayer} from "../layers/map-layer";
@@ -71,9 +70,7 @@ export class LocationMapComponent {
       })
     });
 
-    const southWest = fromLonLat([this.bounds.minLon, this.bounds.minLat]);
-    const northEast = fromLonLat([this.bounds.maxLon, this.bounds.maxLat]);
-    this.map.getView().fit(boundingExtent([southWest, northEast]));
+    this.map.getView().fit(Util.toExtent(this.bounds, 0.05));
     this.layers.applyMap(this.map);
 
     this.mapClickService.installOn(this.map);
