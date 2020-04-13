@@ -7,13 +7,13 @@ import BaseLayer from "ol/layer/Base";
 import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
 import View from "ol/View";
-import {Bounds} from "../../kpn/api/common/bounds";
-import {RawNode} from "../../kpn/api/common/data/raw/raw-node";
-import {GeometryDiff} from "../../kpn/api/common/route/geometry-diff";
-import {UniqueId} from "../../kpn/common/unique-id";
-import {ZoomLevel} from "./domain/zoom-level";
-import {MapControls} from "./layers/map-controls";
-import {MapLayerService} from "./map-layer.service";
+import {Bounds} from "../../../kpn/api/common/bounds";
+import {RawNode} from "../../../kpn/api/common/data/raw/raw-node";
+import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
+import {UniqueId} from "../../../kpn/common/unique-id";
+import {ZoomLevel} from "../domain/zoom-level";
+import {MapControls} from "../layers/map-controls";
+import {MapLayerService} from "../services/map-layer.service";
 
 @Component({
   selector: "kpn-route-change-map",

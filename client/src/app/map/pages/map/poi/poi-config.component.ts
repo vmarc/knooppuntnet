@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {MatRadioChange} from "@angular/material/radio";
-import {MapService} from "../../../../components/ol/map.service";
+import {MapService} from "../../../../components/ol/services/map.service";
 import {PoiService} from "../../../../services/poi.service";
 import {Subscriptions} from "../../../../util/Subscriptions";
 

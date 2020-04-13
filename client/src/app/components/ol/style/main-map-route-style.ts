@@ -1,7 +1,7 @@
 import {FeatureLike} from "ol/Feature";
 import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
-import {MapService} from "../map.service";
+import {MapService} from "../services/map.service";
 import {MainStyleColors} from "./main-style-colors";
 import {RouteStyle} from "./route-style";
 

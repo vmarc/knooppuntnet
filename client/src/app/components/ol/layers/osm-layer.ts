@@ -1,11 +1,11 @@
+import stylefunction from "ol-mapbox-style/dist/stylefunction";
 import MVT from "ol/format/MVT";
 import BaseLayer from "ol/layer/Base";
 import VectorTileLayer from "ol/layer/VectorTile";
 import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 import {I18nService} from "../../../i18n/i18n.service";
-import {osmStyle} from "../domain/style";
-import stylefunction from "ol-mapbox-style/dist/stylefunction";
+import {osmStyle} from "../style/style";
 
 export class OsmLayer {
 

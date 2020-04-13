@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, Input} from "@angular/core";
 import Map from "ol/Map";
 import View from "ol/View";
-import {NodeMoved} from "../../kpn/api/common/diff/node/node-moved";
-import {UniqueId} from "../../kpn/common/unique-id";
-import {Util} from "../shared/util";
-import {ZoomLevel} from "./domain/zoom-level";
-import {MapControls} from "./layers/map-controls";
-import {MapLayerService} from "./map-layer.service";
+import {NodeMoved} from "../../../kpn/api/common/diff/node/node-moved";
+import {UniqueId} from "../../../kpn/common/unique-id";
+import {Util} from "../../shared/util";
+import {ZoomLevel} from "../domain/zoom-level";
+import {MapControls} from "../layers/map-controls";
+import {MapLayerService} from "../services/map-layer.service";
 
 @Component({
   selector: "kpn-node-moved-map",

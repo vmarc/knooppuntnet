@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import VectorTileLayer from "ol/layer/VectorTile";
 import {StyleFunction} from "ol/style/Style";
-import {PoiService} from "../../services/poi.service";
-import {PoiStyleMap} from "./domain/poi-style-map";
+import {PoiService} from "../../../services/poi.service";
+import {PoiStyleMap} from "../style/poi-style-map";
 import {MapLayerService} from "./map-layer.service";
 
 @Injectable()

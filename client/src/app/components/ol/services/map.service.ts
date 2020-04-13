@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {NetworkType} from "../../kpn/api/custom/network-type";
-import {NodeClick} from "./domain/node-click";
-import {PoiClick} from "./domain/poi-click";
-import {RouteClick} from "./domain/route-click";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {NodeClick} from "../domain/node-click";
+import {PoiClick} from "../domain/poi-click";
+import {RouteClick} from "../domain/route-click";
 
 @Injectable()
 export class MapService {

@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
-import View from "ol/View";
-import {Extent} from "ol/extent";
 import {Coordinate} from "ol/coordinate";
+import {Extent} from "ol/extent";
 import {fromLonLat} from "ol/proj";
-import {BrowserStorageService} from "../../services/browser-storage.service";
-import {MapPosition} from "./domain/map-position";
+import View from "ol/View";
+import {BrowserStorageService} from "../../../services/browser-storage.service";
+import {MapPosition} from "../domain/map-position";
 
 @Injectable()
 export class MapPositionService {

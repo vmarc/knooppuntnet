@@ -2,7 +2,7 @@ import {Map} from "immutable";
 import Icon from "ol/style/Icon";
 import IconAnchorUnits from "ol/style/IconAnchorUnits";
 import Style from "ol/style/Style";
-import {InterpretedPoiConfiguration} from "./interpreted-poi-configuration";
+import {InterpretedPoiConfiguration} from "../domain/interpreted-poi-configuration";
 
 export class PoiStyleMap {
 

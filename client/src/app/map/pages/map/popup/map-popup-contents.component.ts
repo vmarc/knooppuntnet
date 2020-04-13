@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {MapService} from "../../../../components/ol/map.service";
+import {MapService} from "../../../../components/ol/services/map.service";
 
 @Component({
   selector: "kpn-map-popup-contents",

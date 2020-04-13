@@ -5,7 +5,7 @@ import {switchMap} from "rxjs/operators";
 import {tap} from "rxjs/operators";
 import {filter} from "rxjs/operators";
 import {AppService} from "../../../../app.service";
-import {MapService} from "../../../../components/ol/map.service";
+import {MapService} from "../../../../components/ol/services/map.service";
 import {Util} from "../../../../components/shared/util";
 import {MapNodeDetail} from "../../../../kpn/api/common/node/map-node-detail";
 import {ApiResponse} from "../../../../kpn/api/custom/api-response";

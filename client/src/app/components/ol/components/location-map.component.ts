@@ -12,19 +12,19 @@ import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
 import {StyleFunction} from "ol/style/Style";
 import View from "ol/View";
-import {I18nService} from "../../i18n/i18n.service";
-import {Bounds} from "../../kpn/api/common/bounds";
-import {NetworkType} from "../../kpn/api/custom/network-type";
-import {Subscriptions} from "../../util/Subscriptions";
-import {PageService} from "../shared/page.service";
-import {MainMapStyle} from "./domain/main-map-style";
-import {ZoomLevel} from "./domain/zoom-level";
-import {MapControls} from "./layers/map-controls";
-import {NetworkBitmapTileLayer} from "./layers/network-bitmap-tile-layer";
-import {NetworkVectorTileLayer} from "./layers/network-vector-tile-layer";
-import {MapClickService} from "./map-click.service";
-import {MapLayerService} from "./map-layer.service";
-import {MapService} from "./map.service";
+import {I18nService} from "../../../i18n/i18n.service";
+import {Bounds} from "../../../kpn/api/common/bounds";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {Subscriptions} from "../../../util/Subscriptions";
+import {PageService} from "../../shared/page.service";
+import {ZoomLevel} from "../domain/zoom-level";
+import {MapControls} from "../layers/map-controls";
+import {NetworkBitmapTileLayer} from "../layers/network-bitmap-tile-layer";
+import {NetworkVectorTileLayer} from "../layers/network-vector-tile-layer";
+import {MapClickService} from "../services/map-click.service";
+import {MapLayerService} from "../services/map-layer.service";
+import {MapService} from "../services/map.service";
+import {MainMapStyle} from "../style/main-map-style";
 
 @Component({
   selector: "kpn-location-map",

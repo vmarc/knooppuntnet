@@ -1,6 +1,6 @@
 import Map from "ol/Map";
 import {StyleFunction} from "ol/style/Style";
-import {MapService} from "../map.service";
+import {MapService} from "../services/map.service";
 import {MainMapNodeStyle} from "./main-map-node-style";
 import {MainMapRouteStyle} from "./main-map-route-style";
 

@@ -4,7 +4,7 @@ import {ChangeDetectorRef, Component} from "@angular/core";
 import {filter, flatMap, tap} from "rxjs/operators";
 import {AppService} from "../../../../app.service";
 import {PoiClick} from "../../../../components/ol/domain/poi-click";
-import {MapService} from "../../../../components/ol/map.service";
+import {MapService} from "../../../../components/ol/services/map.service";
 import {InterpretedTags} from "../../../../components/shared/tags/interpreted-tags";
 import {PoiAnalysis} from "../../../../kpn/api/common/poi-analysis";
 import {PoiPage} from "../../../../kpn/api/common/poi-page";

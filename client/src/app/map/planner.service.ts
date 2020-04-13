@@ -12,7 +12,7 @@ import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
 import {PlanLegCache} from "./planner/plan/plan-leg-cache";
 import {PlannerOverlayImpl} from "./planner/context/planner-overlay-impl";
-import {MapService} from "../components/ol/map.service";
+import {MapService} from "../components/ol/services/map.service";
 
 @Injectable({
   providedIn: "root"

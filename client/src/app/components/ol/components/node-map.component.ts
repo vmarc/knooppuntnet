@@ -6,13 +6,13 @@ import LayerGroup from "ol/layer/Group";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import View from "ol/View";
-import {NodeMapInfo} from "../../kpn/api/common/node-map-info";
-import {Util} from "../shared/util";
-import {NodeMapStyle} from "./domain/node-map-style";
-import {ZoomLevel} from "./domain/zoom-level";
-import {MapControls} from "./layers/map-controls";
-import {MapClickService} from "./map-click.service";
-import {MapLayerService} from "./map-layer.service";
+import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
+import {Util} from "../../shared/util";
+import {ZoomLevel} from "../domain/zoom-level";
+import {MapControls} from "../layers/map-controls";
+import {MapClickService} from "../services/map-click.service";
+import {MapLayerService} from "../services/map-layer.service";
+import {NodeMapStyle} from "../style/node-map-style";
 
 @Component({
   selector: "kpn-node-map",

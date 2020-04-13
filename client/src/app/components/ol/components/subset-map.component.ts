@@ -9,11 +9,11 @@ import PointerInteraction from "ol/interaction/Pointer";
 import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
 import View from "ol/View";
-import {NetworkAttributes} from "../../kpn/api/common/network/network-attributes";
-import {ZoomLevel} from "./domain/zoom-level";
-import {MapControls} from "./layers/map-controls";
-import {NetworkMarkerLayer} from "./layers/network-marker-layer";
-import {MapLayerService} from "./map-layer.service";
+import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
+import {ZoomLevel} from "../domain/zoom-level";
+import {MapControls} from "../layers/map-controls";
+import {NetworkMarkerLayer} from "../layers/network-marker-layer";
+import {MapLayerService} from "../services/map-layer.service";
 
 @Component({
   selector: "kpn-subset-map",

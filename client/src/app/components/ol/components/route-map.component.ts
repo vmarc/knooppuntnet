@@ -5,17 +5,17 @@ import BaseLayer from "ol/layer/Base";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import View from "ol/View";
-import {I18nService} from "../../i18n/i18n.service";
-import {RouteInfo} from "../../kpn/api/common/route/route-info";
-import {Util} from "../shared/util";
-import {MainMapStyle} from "./domain/main-map-style";
-import {NodeMapStyle} from "./domain/node-map-style";
-import {ZoomLevel} from "./domain/zoom-level";
-import {MapControls} from "./layers/map-controls";
-import {NetworkVectorTileLayer} from "./layers/network-vector-tile-layer";
-import {MapClickService} from "./map-click.service";
-import {MapLayerService} from "./map-layer.service";
-import {MapService} from "./map.service";
+import {I18nService} from "../../../i18n/i18n.service";
+import {RouteInfo} from "../../../kpn/api/common/route/route-info";
+import {Util} from "../../shared/util";
+import {ZoomLevel} from "../domain/zoom-level";
+import {MapControls} from "../layers/map-controls";
+import {NetworkVectorTileLayer} from "../layers/network-vector-tile-layer";
+import {MapClickService} from "../services/map-click.service";
+import {MapLayerService} from "../services/map-layer.service";
+import {MapService} from "../services/map.service";
+import {MainMapStyle} from "../style/main-map-style";
+import {NodeMapStyle} from "../style/node-map-style";
 
 @Component({
   selector: "kpn-route-map",

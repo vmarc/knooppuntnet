@@ -1,11 +1,11 @@
+import {Coordinate} from "ol/coordinate";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
-import {Coordinate} from "ol/coordinate";
 import {NodeClick} from "../../../components/ol/domain/node-click";
-import {RouteClick} from "../../../components/ol/domain/route-click";
-import {PlannerOverlay} from "./planner-overlay";
-import {MapService} from "../../../components/ol/map.service";
 import {PoiClick} from "../../../components/ol/domain/poi-click";
+import {RouteClick} from "../../../components/ol/domain/route-click";
+import {MapService} from "../../../components/ol/services/map.service";
+import {PlannerOverlay} from "./planner-overlay";
 
 export class PlannerOverlayImpl implements PlannerOverlay {
 
