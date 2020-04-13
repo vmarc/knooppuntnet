@@ -38,6 +38,7 @@ import {SystemStatusPage} from "./kpn/api/common/status/system-status-page";
 import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
 import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
 import {SubsetFactsPage} from "./kpn/api/common/subset/subset-facts-page";
+import {SubsetMapPage} from "./kpn/api/common/subset/subset-map-page";
 import {SubsetNetworksPage} from "./kpn/api/common/subset/subset-networks-page";
 import {SubsetOrphanNodesPage} from "./kpn/api/common/subset/subset-orphan-nodes-page";
 import {SubsetOrphanRoutesPage} from "./kpn/api/common/subset/subset-orphan-routes-page";
@@ -100,6 +101,13 @@ export class AppService {
     const url = this.subsetUrl(subset, "orphan-routes");
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanRoutesPage.fromJSON))
+    );
+  }
+
+  public subsetMap(subset: Subset): Observable<ApiResponse<SubsetMapPage>> {
+    const url = this.subsetUrl(subset, "map");
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, SubsetMapPage.fromJSON))
     );
   }
 

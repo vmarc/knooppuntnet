@@ -2,15 +2,14 @@ import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {List} from "immutable";
 import {MapBrowserEvent} from "ol";
-import {Coordinate} from "ol/coordinate";
-import {Extent} from "ol/extent";
 import {FeatureLike} from "ol/Feature";
 import Interaction from "ol/interaction/Interaction";
 import PointerInteraction from "ol/interaction/Pointer";
 import Map from "ol/Map";
-import {fromLonLat} from "ol/proj";
 import View from "ol/View";
-import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
+import {Bounds} from "../../../kpn/api/common/bounds";
+import {SubsetMapNetwork} from "../../../kpn/api/common/subset/subset-map-network";
+import {Util} from "../../shared/util";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
 import {MapLayers} from "../layers/map-layers";
@@ -27,7 +26,8 @@ import {MapLayerService} from "../services/map-layer.service";
 })
 export class SubsetMapComponent implements OnInit, AfterViewInit {
 
-  @Input() networks: List<NetworkAttributes>;
+  @Input() bounds: Bounds;
+  @Input() networks: List<SubsetMapNetwork>;
   @Output() networkClicked = new EventEmitter<number>();
 
   layers: MapLayers;
@@ -54,21 +54,9 @@ export class SubsetMapComponent implements OnInit, AfterViewInit {
 
     this.layers.applyMap(this.map);
     const view = this.map.getView();
-    view.fit(this.buildExtent());
+    view.fit(Util.toExtent(this.bounds, 0.1));
 
     this.map.addInteraction(this.buildInteraction());
-  }
-
-  buildExtent(): Extent {
-    const latitudes = this.networks.map(network => +network.center.latitude);
-    const longitudes = this.networks.map(network => +network.center.longitude);
-    const latMin = latitudes.min();
-    const lonMin = longitudes.min();
-    const latMax = latitudes.max();
-    const lonMax = longitudes.max();
-    const a: Coordinate = fromLonLat([lonMin, latMin]);
-    const b: Coordinate = fromLonLat([lonMax, latMax]);
-    return [a[0], a[1], b[0], b[1]];
   }
 
   private buildLayers(): MapLayers {

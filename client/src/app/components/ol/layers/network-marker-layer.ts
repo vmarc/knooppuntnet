@@ -2,7 +2,7 @@ import {List} from "immutable";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import {I18nService} from "../../../i18n/i18n.service";
-import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
+import {SubsetMapNetwork} from "../../../kpn/api/common/subset/subset-map-network";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
 import {MapLayer} from "./map-layer";
@@ -16,7 +16,7 @@ export class NetworkMarkerLayer {
   constructor(private i18nService: I18nService) {
   }
 
-  build(networks: List<NetworkAttributes>): MapLayer {
+  build(networks: List<SubsetMapNetwork>): MapLayer {
 
     const markers = networks.map(network => {
       const coordinate = Util.toCoordinate(network.center.latitude, network.center.longitude);

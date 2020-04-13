@@ -7,8 +7,9 @@ import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
-import {SubsetNetworksPage} from "../../../kpn/api/common/subset/subset-networks-page";
+import {Bounds} from "../../../kpn/api/common/bounds";
+import {SubsetMapNetwork} from "../../../kpn/api/common/subset/subset-map-network";
+import {SubsetMapPage} from "../../../kpn/api/common/subset/subset-map-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {NetworkCacheService} from "../../../services/network-cache.service";
@@ -25,16 +26,21 @@ import {SubsetMapNetworkDialogComponent} from "./subset-map-network-dialog.compo
       i18n-pageTitle="@@subset-map.title">
     </kpn-subset-page-header-block>
     <div *ngIf="response$ | async">
-      <kpn-subset-map [networks]="networks" (networkClicked)="networkClicked($event)"></kpn-subset-map>
+      <kpn-subset-map
+        [bounds]="bounds"
+        [networks]="networks"
+        (networkClicked)="networkClicked($event)">
+      </kpn-subset-map>
     </div>
   `
 })
 export class SubsetMapPageComponent implements OnInit, OnDestroy {
 
   subset$: Observable<Subset>;
-  response$: Observable<ApiResponse<SubsetNetworksPage>>;
+  response$: Observable<ApiResponse<SubsetMapPage>>;
 
-  networks: List<NetworkAttributes>;
+  bounds: Bounds;
+  networks: List<SubsetMapNetwork>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -48,8 +54,9 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subset$ = this.activatedRoute.params.pipe(map(params => Util.subsetInRoute(params)));
     this.response$ = this.subset$.pipe(
-      flatMap(subset => this.appService.subsetNetworks(subset).pipe(
+      flatMap(subset => this.appService.subsetMap(subset).pipe(
         tap(response => {
+          this.bounds = response.result.bounds;
           this.networks = response.result.networks;
           this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
           response.result.networks.forEach(networkAttributes => {

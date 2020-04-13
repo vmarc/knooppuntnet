@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
+import {SubsetMapNetwork} from "../../../kpn/api/common/subset/subset-map-network";
 
 @Component({
   selector: "kpn-subset-map-network-dialog",
@@ -48,7 +48,7 @@ import {NetworkAttributes} from "../../../kpn/api/common/network/network-attribu
 export class SubsetMapNetworkDialogComponent {
 
   constructor(private dialogRef: MatDialogRef<SubsetMapNetworkDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public network: NetworkAttributes) {
+              @Inject(MAT_DIALOG_DATA) public network: SubsetMapNetwork) {
   }
 
   closeDialog(): void {

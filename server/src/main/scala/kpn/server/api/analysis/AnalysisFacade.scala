@@ -32,6 +32,7 @@ import kpn.api.common.route.RouteMapPage
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactsPage
+import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
@@ -67,6 +68,8 @@ trait AnalysisFacade {
   def subsetOrphanNodes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage]
 
   def subsetOrphanRoutes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanRoutesPage]
+
+  def subsetMap(user: Option[String], subset: Subset): ApiResponse[SubsetMapPage]
 
   def subsetChanges(user: Option[String], parameters: ChangesParameters): ApiResponse[SubsetChangesPage]
 

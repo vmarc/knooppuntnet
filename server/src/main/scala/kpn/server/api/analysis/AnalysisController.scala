@@ -32,6 +32,7 @@ import kpn.api.common.route.RouteMapPage
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactsPage
+import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
@@ -104,6 +105,15 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetOrphanRoutesPage] = {
     val subset = Subset.ofName(country, networkType)
     analysisFacade.subsetOrphanRoutes(user(), subset.get)
+  }
+
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
+  def subsetMap(
+    @PathVariable country: String,
+    @PathVariable networkType: String
+  ): ApiResponse[SubsetMapPage] = {
+    val subset = Subset.ofName(country, networkType)
+    analysisFacade.subsetMap(user(), subset.get)
   }
 
   @PostMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))

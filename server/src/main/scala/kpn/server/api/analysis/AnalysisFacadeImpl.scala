@@ -32,6 +32,7 @@ import kpn.api.common.route.RouteMapPage
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactsPage
+import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
@@ -74,6 +75,7 @@ import kpn.server.api.analysis.pages.route.RoutePageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetChangesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactDetailsPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactsPageBuilder
+import kpn.server.api.analysis.pages.subset.SubsetMapPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetNetworksPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
@@ -108,6 +110,7 @@ class AnalysisFacadeImpl(
   subsetChangesPageBuilder: SubsetChangesPageBuilder,
   subsetOrphanRoutesPageBuilder: SubsetOrphanRoutesPageBuilder,
   subsetOrphanNodesPageBuilder: SubsetOrphanNodesPageBuilder,
+  subsetMapPageBuilder: SubsetMapPageBuilder,
   changesPageBuilder: ChangesPageBuilder,
   changeSetPageBuilder: ChangeSetPageBuilder,
   networkChangesPageBuilder: NetworkChangesPageBuilder,
@@ -236,6 +239,12 @@ class AnalysisFacadeImpl(
   override def subsetOrphanNodes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage] = {
     execute(user, "subset-orphan-nodes", subset.string) {
       Some(subsetOrphanNodesPageBuilder.build(subset))
+    }
+  }
+
+  override def subsetMap(user: Option[String], subset: Subset): ApiResponse[SubsetMapPage] = {
+    execute(user, "subset-map", subset.string) {
+      Some(subsetMapPageBuilder.build(subset))
     }
   }
 
