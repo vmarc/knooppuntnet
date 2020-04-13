@@ -45,11 +45,10 @@ export class MapLayerService {
 
   networkLayers(networkTypes: List<NetworkType>): List<MapLayer> {
     return networkTypes.map(networkType => {
-      const layer: VectorTileLayer = NetworkVectorTileLayer.build(networkType);
+      const layer = NetworkVectorTileLayer.build(networkType);
       const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
-      layer.set("name", layerName);
-      layer.set("mapStyle", "nodeMapStyle");
-      return new MapLayer(layer);
+      layer.layer.set("name", layerName);
+      return layer;
     });
   }
 

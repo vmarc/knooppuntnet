@@ -96,7 +96,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
   }
 
   private buildVectorTileLayer(): VectorTileLayer {
-    return NetworkVectorTileLayer.build(this.routeInfo.summary.networkType);
+    return NetworkVectorTileLayer.oldBuild(this.routeInfo.summary.networkType);
   }
 
 }

@@ -143,7 +143,7 @@ export class LocationMapComponent {
   private buildLayers(): List<BaseLayer> {
 
     this.bitmapTileLayer = NetworkBitmapTileLayer.build(this.networkType);
-    this.vectorTileLayer = NetworkVectorTileLayer.build(this.networkType);
+    this.vectorTileLayer = NetworkVectorTileLayer.oldBuild(this.networkType);
 
     const layerGroup = new LayerGroup();
     layerGroup.setLayers(new Collection([this.bitmapTileLayer, this.vectorTileLayer]));

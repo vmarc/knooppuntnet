@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import BaseLayer from "ol/layer/Base";
 import Map from "ol/Map";
 import {MapLayer} from "./map-layer";
 
@@ -13,6 +14,10 @@ export class MapLayers {
         mapLayer.applyMap(map);
       }
     });
+  }
+
+  toArray(): Array<BaseLayer> {
+    return this.layers.map(layer => layer.layer).toArray();
   }
 
 }

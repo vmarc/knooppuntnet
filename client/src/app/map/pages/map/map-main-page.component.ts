@@ -107,7 +107,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.bitmapTileLayer = NetworkBitmapTileLayer.build(this.mapService.networkType.value);
-    this.vectorTileLayer = NetworkVectorTileLayer.build(this.mapService.networkType.value);
+    this.vectorTileLayer = NetworkVectorTileLayer.oldBuild(this.mapService.networkType.value);
     this.poiTileLayer = this.poiTileLayerService.buildLayer();
     this.poiTileLayer.setVisible(false);
 
