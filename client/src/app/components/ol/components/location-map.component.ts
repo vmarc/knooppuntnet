@@ -31,20 +31,10 @@ import {MainMapStyle} from "../style/main-map-style";
   selector: "kpn-location-map",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="location-map" class="map">
+    <div id="location-map" class="kpn-map">
       <kpn-layer-switcher [layers]="layers"></kpn-layer-switcher>
     </div>
-  `,
-  styles: [`
-    .map {
-      position: absolute;
-      top: 183px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: white;
-    }
-  `]
+  `
 })
 export class LocationMapComponent {
 

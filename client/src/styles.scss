@@ -328,3 +328,22 @@ ul.links li + li:before {
 .chart {
   height: 300px;
 }
+
+.kpn-map {
+  position: absolute;
+  top: 183px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+
+.kpn-embedded-map {
+  position: relative;
+  left: 0;
+  right: 20px;
+  height: 320px;
+  max-width: 640px;
+  border: 1px solid lightgray;
+  background-color: white;
+}

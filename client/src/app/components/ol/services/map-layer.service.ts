@@ -44,12 +44,14 @@ export class MapLayerService {
   }
 
   networkLayers(networkTypes: List<NetworkType>): List<MapLayer> {
-    return networkTypes.map(networkType => {
-      const layer = NetworkVectorTileLayer.build(networkType);
-      const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
-      layer.layer.set("name", layerName);
-      return layer;
-    });
+    return networkTypes.map(networkType => this.networkLayer(networkType));
+  }
+
+  networkLayer(networkType: NetworkType): MapLayer {
+    const layer = NetworkVectorTileLayer.build(networkType);
+    const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
+    layer.layer.set("name", layerName);
+    return layer;
   }
 
   routeNodeLayer(nodes: List<RawNode>): MapLayer {
@@ -65,7 +67,7 @@ export class MapLayerService {
   }
 
   networkMarkerLayer(networks: List<NetworkAttributes>): MapLayer {
-    return new NetworkMarkerLayer().build(networks);
+    return new NetworkMarkerLayer(this.i18nService).build(networks);
   }
 
   poiTileLayer(): VectorTileLayer {

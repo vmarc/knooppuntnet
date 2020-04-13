@@ -15,27 +15,17 @@ import {MapLayerService} from "../services/map-layer.service";
 @Component({
   selector: "kpn-node-map",
   template: `
-    <div id="node-map" class="map">
+    <div id="node-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
     </div>
-  `,
-  styles: [`
-    .map {
-      position: absolute;
-      top: 200px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: white;
-    }
-  `]
+  `
 })
 export class NodeMapComponent implements OnInit, AfterViewInit {
 
   @Input() nodeMapInfo: NodeMapInfo;
 
-  map: Map;
   layers: MapLayers;
+  private map: Map;
 
   constructor(private mapClickService: MapClickService,
               private mapLayerService: MapLayerService) {
@@ -67,11 +57,11 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
   }
 
   private buildLayers(): MapLayers {
-    let mapLayers: MapLayer[] = [];
-    mapLayers.push(this.mapLayerService.osmLayer());
+    let mapLayers: List<MapLayer> = List();
+    mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
     mapLayers = mapLayers.concat(this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes).toArray());
-    mapLayers.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
-    return new MapLayers(List(mapLayers));
+    mapLayers = mapLayers.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
+    return new MapLayers(mapLayers);
   }
 
 }

@@ -1,3 +1,4 @@
+import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {List} from "immutable";
 import {MapBrowserEvent} from "ol";
@@ -12,43 +13,38 @@ import View from "ol/View";
 import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
+import {MapLayers} from "../layers/map-layers";
 import {NetworkMarkerLayer} from "../layers/network-marker-layer";
 import {MapLayerService} from "../services/map-layer.service";
 
 @Component({
   selector: "kpn-subset-map",
   template: `
-    <div id="subset-map" class="map"></div>
-  `,
-  styles: [`
-    .map {
-      position: absolute;
-      top: 210px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: white;
-    }
-  `]
+    <div id="subset-map" class="kpn-map">
+      <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
+    </div>
+  `
 })
-export class SubsetMapComponent implements AfterViewInit {
+export class SubsetMapComponent implements OnInit, AfterViewInit {
 
   @Input() networks: List<NetworkAttributes>;
   @Output() networkClicked = new EventEmitter<number>();
 
-  map: Map;
+  layers: MapLayers;
+  private map: Map;
 
   constructor(private mapLayerService: MapLayerService) {
+  }
+
+  ngOnInit(): void {
+    this.layers = this.buildLayers();
   }
 
   ngAfterViewInit(): void {
 
     this.map = new Map({
       target: "subset-map",
-      layers: [
-        this.mapLayerService.osmLayer().layer,
-        this.mapLayerService.networkMarkerLayer(this.networks).layer
-      ],
+      layers: this.layers.toArray(),
       controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
@@ -56,6 +52,7 @@ export class SubsetMapComponent implements AfterViewInit {
       })
     });
 
+    this.layers.applyMap(this.map);
     const view = this.map.getView();
     view.fit(this.buildExtent());
 
@@ -72,6 +69,15 @@ export class SubsetMapComponent implements AfterViewInit {
     const a: Coordinate = fromLonLat([lonMin, latMin]);
     const b: Coordinate = fromLonLat([lonMax, latMax]);
     return [a[0], a[1], b[0], b[1]];
+  }
+
+  private buildLayers(): MapLayers {
+    return new MapLayers(
+      List([
+        this.mapLayerService.osmLayer(),
+        this.mapLayerService.networkMarkerLayer(this.networks)
+      ])
+    );
   }
 
   private buildInteraction(): Interaction {

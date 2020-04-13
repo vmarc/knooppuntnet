@@ -1,6 +1,7 @@
 import {List} from "immutable";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
+import {I18nService} from "../../../i18n/i18n.service";
 import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
@@ -11,6 +12,9 @@ export class NetworkMarkerLayer {
   static readonly networkId = "network-id";
   static readonly layer = "layer";
   static readonly networkMarker = "network-marker";
+
+  constructor(private i18nService: I18nService) {
+  }
 
   build(networks: List<NetworkAttributes>): MapLayer {
 
@@ -26,6 +30,8 @@ export class NetworkMarkerLayer {
     const layer = new VectorLayer({
       source: source
     });
+    const name = this.i18nService.translation("@@map.layer.networks");
+    layer.set("name", name);
 
     markers.forEach(marker => source.addFeature(marker));
     return new MapLayer(layer);
