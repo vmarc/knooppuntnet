@@ -1,4 +1,4 @@
-# 2020-04-12 13:38:07 Missing 'fr' translations: 786 of 866
+# 2020-04-13 15:26:12 Missing 'fr' translations: 789 of 869
 [LOGIN] login
 [LINK.LOGOUT] logout
 [LINKS.EDIT] edit
@@ -21,10 +21,13 @@
 [MAP.LAYER.END-TENTACLE] End tentacle
 [MAP.LAYER.UNUSED] Unused
 [MAP.LAYER.NODES] Nodes
+[MAP.LAYER.NETWORK] Network
+[MAP.LAYER.NETWORKS] Networks
 [MAP.LAYER.UNCHANGED] Unchanged
 [MAP.LAYER.ADDED] Added
 [MAP.LAYER.DELETED] Deleted
 [MAP.LAYER.OSM] OpenStreetMap
+[MAP.LAYER.TILE-NAMES] Tile names
 [MAP.LAYER.OTHER-ROUTES] Other routes
 [MAP.LAYER.NODE] Node
 [MAP.LAYER.HIKING] Hiking

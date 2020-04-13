@@ -1,4 +1,4 @@
-# 2020-04-12 13:38:07 Translations: 866
+# 2020-04-13 15:26:12 Translations: 869
 Nr	Translated	Id	Translation	English
 1	Y	analysis-page.changes	Änderungen	Changes
 2	Y	analysis-page.overview	Übersicht	Overview
@@ -226,7 +226,7 @@ Nr	Translated	Id	Translation	English
 224	Y	login.submit	Anmelden	Login
 225	Y	login.title	Anmelden	Login
 226	Y	logout.logged-in	Sie sind derzeit als angemeldet.	You are currently logged in as .
-227	Y	logout.login-comment	Sie können sich anmelden, um zusätzliche Informationen anzuzeigen, die nur Benutzern zur Verfügung stehen.	You canlogin to view extra information that is available to users only.
+227	Y	logout.login-comment	Sie können sich anmelden, um zusätzliche Informationen anzuzeigen, die nur Benutzern zur Verfügung stehen.	You can login to view extra information that is available to users only.
 228	Y	logout.not-logged-in	Sie sind nicht angemeldet.	You are not logged in.
 229	Y	logout.note.1	Hiermit können Sie zusätzliche Informationen anzeigen, die nur OpenStreetMap-Benutzern zur Verfügung stehen.	This allows you to view extra information that is available to OpenStreetMap users only.
 230	Y	logout.note.2	Nach dem Abmelden können Sie diese Website weiterhin nutzen. Die zusätzlichen Informationen wie Änderungssätze, Netzwerkänderungen, Routenänderungen und Knotenänderungen werden jedoch nicht mehr angezeigt. Ihre persönliche OpenStreetMap enthält diese Anwendung weiterhin. Die Anwendung kann sicher widerrufen werden. Die Autorisierung wird nicht mehr verwendet. Beim erneuten Anmelden wird eine neue Berechtigung erstellt.	After logging out you can continue to use this website. However, the additional information such as changesets, network changes, route changes and node changes will not be visible anymore. Your personal OpenStreetMap will still contain this application. The application can safely be revoked. The authorization will not be used anymore. A new authorization will be created when logging in again.
@@ -246,623 +246,626 @@ Nr	Translated	Id	Translation	English
 244	Y	map.layer.horse-riding	Reiten	Horse riding
 245	Y	map.layer.inline-skating	Inline-Skaten	Inline Skating
 246	Y	map.layer.motorboat	Motorboot	Motorboat
-247	Y	map.layer.node	Knoten	Node
-248	Y	map.layer.nodes	Knoten	Nodes
-249	Y	map.layer.nodes-and-routes	Knoten und Routen	Nodes and routes
-250	Y	map.layer.osm	OpenStreetMap	OpenStreetMap
-251	Y	map.layer.other-routes	Andere Routen	Other routes
-252	Y	map.layer.start-tentacle	Start Tentakel	Start tentacle
-253	Y	map.layer.unchanged	Unverändert	Unchanged
-254	Y	map.layer.unused	Nicht verwendet	Unused
-255	Y	map.node-popup.more-details	Weitere Details	More details
-256	Y	map.node-popup.network	Netzwerk	Network
-257	Y	map.node-popup.networks	Netzwerke	Networks
-258	Y	map.node-popup.no-networks	Keine	None
-259	Y	map.node-popup.routes	Routen	Routes
-260	Y	map.node-popup.routes.none	Keine	None
-261	Y	map.node-popup.title	Knoten	Node
-262	Y	map.redundant-node	Redundanter Knoten	Redundant node
-263	Y	map.route-popup.more-details	Weitere Details	More details
-264	Y	map.route-popup.network	Netzwerk	Network
-265	Y	map.route-popup.networks	Netzwerke	Networks
-266	Y	map.route-popup.no-networks	Keine	None
-267	Y	map.route-popup.title	Route	Route
-268	Y	map.start-node	Startknoten	Start node
-269	Y	map.start-tentacle-node	Start Tentakelknoten	Start tentacle node
-270	N	network-changes.login-required	[The network history is available to registered OpenStreetMap contributors only, after]	The details of network changes history are available to registered OpenStreetMap contributors only, after .
-271	N	network-changes.network-created	[Network created]	Network created
-272	N	network-changes.network-deleted	[Network deleted]	Network deleted
-273	N	network-changes.network-nodes.added	[Added node(s)]	Added node(s)
-274	N	network-changes.network-nodes.removed	[Removed network node(s)]	Removed network node(s)
-275	N	network-changes.network-nodes.updated	[Updated network node(s)]	Updated network node(s)
-276	Y	network-changes.network-not-found	Netzwerk nicht gefunden	Network not found
-277	N	network-changes.network-relation-updated	[Updated network relation]	Updated network relation
-278	N	network-changes.nodes.added	[Added non-network node member(s) in network relation]	Added non-network node member(s) in network relation
-279	N	network-changes.nodes.removed	[Removed non-network node member(s) from network relation]	Removed non-network node member(s) from network relation
-280	N	network-changes.nodes.updated	[Updated non-network node(s)]	Updated non-network node(s)
-281	N	network-changes.relations.added	[Added non-route relation(s) in network relation]	Added non-route relation(s) in network relation
-282	N	network-changes.relations.removed	[Removed non-route relation(s) from network relation]	Removed non-route relation(s) from network relation
-283	N	network-changes.relations.updated	[Updated non-route relation(s)]	Updated non-route relation(s)
-284	N	network-changes.routes.added	[Added route(s)]	Added route(s)
-285	N	network-changes.routes.removed	[Removed route(s)]	Removed route(s)
-286	N	network-changes.routes.updated	[Updated route(s)]	Updated route(s)
-287	N	network-changes.title	[Changes]	Changes
-288	N	network-changes.ways.added	[Added way member(s) in network relation]	Added way member(s) in network relation
-289	N	network-changes.ways.removed	[Removed way member(s) from network relation]	Removed way member(s) from network relation
-290	N	network-changes.ways.updated	[Updated way member(s)]	Updated way member(s)
-291	Y	network-details.contains-broken-routes	Dieses Netzwerk enthält unterbrochene (nicht kontinuierliche) Routen.	This network contains broken (non-continuous) routes.
-292	Y	network-details.country	Land	Country
-293	Y	network-details.last-updated	Zuletzt aktualisiert	Last updated
-294	Y	network-details.network-not-found	Netzwerk nicht gefunden	Network not found
-295	Y	network-details.nodes	Knoten	nodes
-296	Y	network-details.not-active	Dieses Netzwerk ist nicht mehr aktiv.	This network is not active anymore.
-297	Y	network-details.relation-last-updated	Beziehung zuletzt aktualisiert	Relation last updated
-298	Y	network-details.routes	Routen	routes
-299	Y	network-details.situation-on	Situation am	Situation on
-300	Y	network-details.summary	Zusammenfassung	Summary
-301	Y	network-details.tags	Tags	Tags
-302	Y	network-details.title	Details	Details
-303	Y	network-facts.checks-table.actual	Tatsächlich	Actual
-304	Y	network-facts.checks-table.expected	Erwartet	Expected
-305	Y	network-facts.checks-table.node	Knoten	Node
-306	Y	network-facts.checks-table.title	Fehler bei der Überprüfung der Knotenintegrität	node integrity check failures
-307	Y	network-facts.network-not-found	Netzwerk nicht gefunden	Network not found
-308	Y	network-facts.no-facts	Keine Fakten	No facts
-309	Y	network-facts.node	Knoten:	Node:
-310	Y	network-facts.nodes	Knoten:	Nodes:
-311	Y	network-facts.route	Route:	Route:
-312	Y	network-facts.routes	Routen	Routes:
-313	Y	network-facts.title	Fakten	Facts
-314	N	network-indicator.gray.text	[This node is not included as a member in the network relation. This is OK. This node must belong to a different network, because all routes to this node within this network have the role "connection" in the network relation.]	This node is not included as a member in the network relation. This is OK. This node must belong to a different network, because all routes to this node within this network have the role "connection" in the network relation.
-315	N	network-indicator.gray.title	[OK - Not defined in network relation]	OK - Not defined in network relation
-316	N	network-indicator.green.text	[This node is included as a member in the network relation. This is what we expect.]	This node is included as a member in the network relation. This is what we expect.
-317	N	network-indicator.green.title	[OK - Defined in network relation]	OK - Defined in network relation
-318	N	network-indicator.letter	[N]	N
-319	N	network-indicator.orange.text	[This node is included as a member in the network relation. We did not expect this, because all routes to this node have role "connection". This would mean that the node is part of another network. We expect that the node is not included in the network relation, unless it receives the role "connection".]	This node is included as a member in the network relation. We did not expect this, because all routes to this node have role "connection". This would mean that the node is part of another network. We expect that the node is not included in the network relation, unless it receives the role "connection".
-320	N	network-indicator.orange.title	[Unexpected - Defined in network relation]	Unexpected - Defined in network relation
-321	N	network-indicator.red.text	[This node is not included as a member in the network relation. This is not OK. The convention is to include each node in the network relation. An exception is when the node belongs to another network (all routes to this node have role "connection" in the network relation), then the node does not have to be included as member in the network relation. The node can be added the network relation, but should get the role "connection" in that case.]	This node is not included as a member in the network relation. This is not OK. The convention is to include each node in the network relation. An exception is when the node belongs to another network (all routes to this node have role "connection" in the network relation), then the node does not have to be included as member in the network relation. The node can be added the network relation, but should get the role "connection" in that case.
-322	N	network-indicator.red.title	[NOK - Not defined in network relation]	NOK - Not defined in network relation
-323	Y	network-map.title	Karte	Map
-324	Y	network-nodes.network-not-found	Netzwerk nicht gefunden	Network not found
-325	Y	network-nodes.no-nodes	Keine Netzwerkknoten im Netzwerk	No network nodes in network
-326	Y	network-nodes.no-routes	keine Routen	no routes
-327	Y	network-nodes.table.analysis	Analyse	Analysis
-328	Y	network-nodes.table.last-edit	Letzte Bearbeitung	Last edit
-329	Y	network-nodes.table.node	Knoten	Node
-330	Y	network-nodes.table.nr	Nr	Nr
-331	Y	network-nodes.table.routes	Routen	Routes
-332	Y	network-nodes.title	Knoten	Nodes
-333	Y	network-page.menu.changes	Änderungen	Changes
-334	Y	network-page.menu.details	Details	Details
-335	Y	network-page.menu.facts	Fakten	Facts
-336	Y	network-page.menu.map	Karte	Map
-337	Y	network-page.menu.nodes	Knoten	Nodes
-338	Y	network-page.menu.routes	Routen	Routes
-339	Y	network-routes.network-not-found	Netzwerk nicht gefunden	Network not found
-340	Y	network-routes.no-routes	Keine Netzwerkrouten im Netzwerk	No network routes in network
-341	Y	network-routes.table.analysis	Analyse	Analysis
-342	Y	network-routes.table.last-edit	Letzte Bearbeitung	Last edit
-343	Y	network-routes.table.node	Route	Route
-344	Y	network-routes.table.nr	Nr	Nr
-345	Y	network-routes.title	Routen	Routes
-346	Y	network-type.canoe	Kanu	Canoe
-347	Y	network-type.cycling	Radfahren	Cycling
-348	Y	network-type.hiking	Wandern	Hiking
-349	Y	network-type.horse-riding	Reiten	Horse riding
-350	Y	network-type.inline-skating	Inline-Skating	Inline Skating
-351	Y	network-type.motorboat	Motorboot	Motorboat
-352	N	node-change.added-to-network	[Added to network]	Added to network
-353	N	node-change.added-to-network-relation	[Added to network relation]	Added to network relation
-354	N	node-change.added-to-route	[Added to route]	Added to route
-355	N	node-change.belongs-to-another-network	[This node belongs to another network]	This node belongs to another network
-356	N	node-change.lost-role-connection-in-network-relation	[This node no longer has role "connection" in the network relation]	This node no longer has role "connection" in the network relation
-357	N	node-change.moved.less-than-1-meter	[The node has moved less than 1 meter.]	The node has moved less than 1 meter.
-358	N	node-change.moved.meters	[The node has moved meters.]	The node has moved meters.
-359	N	node-change.moved.note.1	[Note: Node position is shown as it was at]	Note: Node position is shown as it was at
-360	N	node-change.moved.note.2	[while the map background is shown as it is today.]	, while the map background is shown as it is today.
-361	N	node-change.no-longer-belongs-to-another-network	[This node no longer belongs to another network]	This node no longer belongs to another network
-362	N	node-change.received-role-connection-in-network-relation	[This node received role "connection" in the network relation]	This node received role "connection" in the network relation
-363	N	node-change.removed-from-network	[Removed from network]	Removed from network
-364	N	node-change.removed-from-network-relation	[Removed from network relation]	Removed from network relation
-365	N	node-change.removed-from-route	[Removed from route]	Removed from route
-366	N	node-connection-indicator.blue.text	[This node is a connection to another network. All routes to this node have the role "connection" in the network relation.]	This node is a connection to another network. All routes to this node have the role "connection" in the network relation.
-367	N	node-connection-indicator.blue.title	[OK - Connection]	OK - Connection
-368	N	node-connection-indicator.gray.text	[This node is not a connection to another network. The node would have been considered as a connection to another network if all routes to this node within the network had role "connection" in the network relation.]	This node is not a connection to another network. The node would have been considered as a connection to another network if all routes to this node within the network had role "connection" in the network relation.
-369	N	node-connection-indicator.gray.title	[OK - No connection]	OK - No connection
-370	N	node-connection-indicator.letter	[C]	C
-371	N	node-diffs-added.change-set-created	[Created in this changeset.]	Created in this changeset.
-372	N	node-diffs-added.change-set-existing	[Existing node]	Existing node
-373	N	node-diffs-added.change-set-updated	[Updated in this changeset.]	Updated in this changeset.
-374	N	node-diffs-added.title	[Added network nodes]	Added network nodes
-375	N	node-diffs-removed.title	[Removed network nodes]	Removed network nodes
-376	N	node-diffs-updated.existing-node	[Existing node]	Existing node
-377	N	node-diffs-updated.node-changed	[Node change to]	Node change to
-378	N	node-diffs-updated.title	[Updated network nodes]	Updated network nodes
-379	Y	node.details-sidebar.tip	TIPP: Klicken Sie auf andere Knoten oder Routen in der Karte, um zu den Details dieser Knoten oder Routen zu gelangen.	TIP: click on other nodes or routes in the map to go to the details of these nodes or routes.
-380	Y	node.facts	Fakten	Facts
-381	Y	node.inactive	Dieser Netzwerkknoten ist nicht mehr aktiv.	This network node is not active anymore.
-382	Y	node.last-updated	Zuletzt aktualisiert	Last updated
-383	Y	node.location	Ort	Location
-384	N	node.location.none	[None]	None
-385	N	node.login-required	Die Details der Knotenänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach .	The details of the node changes history is available to registered OpenStreetMap contributors only, after .
-386	Y	node.menu.changes	Änderungen	Changes
-387	Y	node.menu.details	Details	Details
-388	Y	node.menu.map	Karte	Map
-389	Y	node.network-references.none	Keine	None
-390	Y	node.network.integrity-check-failed	Integritätsprüfung fehlgeschlagen: erwartete Routen, aber gefunden.	Integritycheck failed: expected routes, but found.
-391	Y	node.network.integrity-check-ok	Die erwartete Anzahl von Routen () entspricht der Anzahl der gefundenen Routen.	Expected number of routes () matches the number of routes found.
-392	Y	node.network.network-member	Dieser Knoten ist als Mitglied in der Netzwerkbeziehung enthalten.	This node is included as member in the networkrelation.
-393	Y	node.network.not-network-member	Dieser Knoten ist nicht als Mitglied in der Netzwerkrelation enthalten.	This node is not included as member in the networkrelation.
-394	Y	node.network.not-network-member-invalid	Dieser Knoten ist nicht als Mitglied in der Netzwerkbeziehung enthalten: Das Tag _""_ gilt nicht für dieses Netzwerk.	This node is not included as member in the networkrelation: the _""_ tag does not apply to this netwerk.
-395	Y	node.network.role-connection	Dieser Knoten hat die Rolle _"connection"_ in der Netzwerkrelation.	This node has the role _"connection"_ in the networkrelation.
-396	Y	node.networks	Netzwerke	Networks
-397	Y	node.node	Netzwerkknoten	network node
-398	N	node.node-not-found	[Node not found]	Node not found
-399	Y	node.orphan	Dieser Netzwerkknoten gehört nicht zu einem bekannten Knotennetzwerk (verwaist).	This network node does not belong to a known node network (orphan).
-400	Y	node.orphan-route-references.none	Keine	None
-401	Y	node.orphan-routes	Verwaiste Routen	Orphan routes
-402	Y	node.situation-on	Situation am	Situation on
-403	Y	node.summary	Zusammenfassung	Summary
-404	Y	node.tags	Tags	Tags
-405	Y	node.title	Knoten	Node
-406	Y	node.unchanged	(unverändert)	(Unchanged)
-407	Y	node.version	Version	Version
-408	Y	not-found.title	Nicht gefunden	Not found
-409	Y	osm-link.oath-clients	Liste der autorisierten Anwendungen	list of authorised applications
-410	Y	overview-page.title	Übersicht	Overview
-411	Y	overview-table.comment	Kommentar	Comment
-412	Y	overview-table.detail	Detail	Detail
-413	Y	overview-table.total	Insgesamt	Total
-414	Y	overview.total	Insgesamt	Total
-415	Y	paginator.first-page-label	Erste Seite	First page
-416	Y	paginator.from	von	of
-417	Y	paginator.items-per-page-label	Elemente pro Seite	Items per page
-418	Y	paginator.last-page-label	Letzte Seite	Last page
-419	Y	paginator.next-page-label	Nächste Seite	Next page
-420	Y	paginator.previous-page-label	Vorherige Seite	Previous page
-421	Y	plan.command.continue	Weiter	Continue
-422	Y	plan.command.continue.street	Weiter auf	Continue on
-423	Y	plan.command.turn-left	Biegen Sie links ab	Turn left
-424	Y	plan.command.turn-left.street	Biegen Sie links ab auf	Turn left onto
-425	Y	plan.command.turn-right	Biegen Sie rechts ab	Turn right
-426	Y	plan.command.turn-right.street	Biegen Sie rechts ab auf	Turn right onto
-427	Y	plan.command.turn-sharp-left	Scharf nach links	Sharp left
-428	Y	plan.command.turn-sharp-left.street	Scharf links auf	Sharp left onto
-429	Y	plan.command.turn-sharp-right	Scharf rechts	Sharp right
-430	Y	plan.command.turn-sharp-right.street	Scharf nach rechts auf	Sharp right onto
-431	Y	plan.command.turn-slight-left	Leicht nach links	Slight left
-432	Y	plan.command.turn-slight-left.street	Leicht links auf	Slight left onto
-433	Y	plan.command.turn-slight-right	Leicht rechts	Slight right
-434	Y	plan.command.turn-slight-right.street	Leicht rechts auf	Slight right onto
-435	Y	plan.distance	Entfernung	Distance
-436	Y	plan.head	Gehe	Head
-437	Y	plan.heading.east	Osten	east
-438	Y	plan.heading.north	Norden	north
-439	Y	plan.heading.north-east	Nordosten	north-east
-440	Y	plan.heading.north-west	Nordwesten	north-west
-441	Y	plan.heading.south	Süden	south
-442	Y	plan.heading.south-east	Südosten	south-east
-443	Y	plan.heading.south-west	Südwesten	south-west
-444	Y	plan.heading.west	West	west
-445	Y	plan.onto	auf	onto
-446	Y	planner.appearance-options	Optionen für das Erscheinungsbild der Karte	Map appearance options
-447	Y	planner.compact	Kompakt	Compact
-448	Y	planner.detailed	Detailliert	Detailed
-449	Y	planner.export	Exportieren	Export
-450	Y	planner.instructions	Anweisungen	Instructions
-451	Y	planner.legend	Legende	Legend
-452	Y	planner.map	Karte	Map
-453	Y	planner.pois.default	Standard	Default
-454	Y	planner.pois.enabled	Punkte von Interesse auf der Karte anzeigen	Show points of interest on the map
-455	Y	planner.pois.enabled-disabled	(Aktiviert/Deaktiviert)	(Enabled/Disabled)
-456	Y	planner.pois.hide-all	Alle verstecken	Hide all
-457	Y	planner.pois.reset	Konfiguration auf Standard zurücksetzen	Reset configuration to default
-458	Y	planner.pois.show-all	Alle anzeigen	Show all
-459	Y	planner.pois.title	Punkte von Interesse	Points of interest
-460	Y	planner.pois.zoom-in	Vergrößern Sie die Ansicht, um die Symbole auf der Karte anzuzeigen.	Zoom in to see the icons on the map.
-461	Y	planner.quality	Status der Knoten- und Routenqualität	Node and route quality status
-462	Y	planner.redo	Wiederholen	Redo
-463	Y	planner.surface	Oberfläche	Surface
-464	Y	planner.survey	Datum der letzten Vermessung	Date last survey
-465	Y	planner.title	Routenplanner	Route planner
-466	Y	planner.undo	Rückgängig machen	Undo
-467	Y	poi.alcohol	Alkohol	Alcohol
-468	Y	poi.alpine-hut	Almhütte	Alpine hut
-469	Y	poi.american-football	Amerikanischer Fußball	American football
-470	Y	poi.apartment	Wohnung	Apartment
-471	Y	poi.arts-centre	Kunstzentrum	Arts centre
-472	Y	poi.artwork	Grafik	Artwork
-473	Y	poi.atm	Geldautomat	Atm
-474	Y	poi.attraction	Sehenswürdigkeit	Attraction
-475	Y	poi.bakery	Bäckerei	Bakery
-476	Y	poi.bank	Bank	Bank
-477	Y	poi.bar	Bar	Bar
-478	Y	poi.baseball	Baseball	Baseball
-479	Y	poi.basketball	Basketball	Basketball
-480	Y	poi.bbq	BBQ	BBQ
-481	Y	poi.beauty	Schönheitssalon	Beauty
-482	Y	poi.bench	Sitzbank	Bench
-483	Y	poi.beverages	Getränke	Beverages
-484	Y	poi.bicycle	Fahrradladen	Bicycle
-485	Y	poi.bicycle-parking	Fahrradparkplatz	Bicycle parking
-486	Y	poi.bicycle-rental	Fahrradverleih	Bicycle rental
-487	Y	poi.biergarten	Biergarten	Biergarten
-488	Y	poi.books-stationary	Bücher/Schreibwaren	Books/stationary
-489	Y	poi.buddhist-temple	Buddhistischer Tempel	Buddhist temple
-490	Y	poi.busstop	Bushaltestelle	Bus stop
-491	Y	poi.butcher	Metzger	Butcher
-492	Y	poi.cafe	Cafe	Cafe
-493	Y	poi.campsite	Campingplatz	Camp site
-494	Y	poi.car	Wagen	Car
-495	Y	poi.casino	Casino	Casino
-496	Y	poi.castle	Schloss	Castle
-497	Y	poi.cemetery	Friedhof	Cemetery
-498	Y	poi.chalet	Chalet	Chalet
-499	Y	poi.cheese	Käse	Cheese
-500	Y	poi.chemist	Drogist	Chemist
-501	Y	poi.chocolate	Schokolade	Chocolate
-502	Y	poi.church	Kirche	Church
-503	Y	poi.cinema	Kino	Cinema
-504	Y	poi.clinic	Klinik	Clinic
-505	Y	poi.clothes	Kleidung	Clothes
-506	Y	poi.coffee	Kaffee	Coffee
-507	Y	poi.confectionery	Süßwaren	Confectionery
-508	Y	poi.copyshop	Kopierladen	Copyshop
-509	Y	poi.cosmetics	Kosmetik	Cosmetics
-510	Y	poi.cycling	Radfahren	Cycling
-511	Y	poi.dairy	Molkerei	Dairy
-512	Y	poi.defibrillator	Defibrillator	Defibrillator
-513	Y	poi.deli	Deli	Deli
-514	Y	poi.departmentstore	Kaufhaus	Department store
-515	Y	poi.detail.email	E-Mail	E-mail
-516	Y	poi.detail.facebook	Facebook	Facebook
-517	Y	poi.detail.fax	Fax	Fax
-518	Y	poi.detail.hollandsche-molen-database	Hollandsche Molen Datenbank	Hollandsche Molen database
-519	Y	poi.detail.image	Bild	Image
-520	Y	poi.detail.mapillary	Mapillary	Mapillary
-521	Y	poi.detail.molen-database	Molen-Datenbank	Molen database
-522	Y	poi.detail.none	Keine Details verfügbar	No details available
-523	Y	poi.detail.onroerendErfgoed	Onroerend Erfgoed	Onroerend Erfgoed
-524	Y	poi.detail.opengingHours	Öffnungszeiten	Opening hours
-525	Y	poi.detail.phone	Telefon	Phone
-526	Y	poi.detail.serviceHours	Servicezeiten	Service times
-527	Y	poi.detail.website	Webseite	Website
-528	Y	poi.detail.wheelchair	Rollstuhl	Wheelchair
-529	Y	poi.detail.wikidata	Wikidata	Wikidata
-530	Y	poi.detail.wikipedia	Wikipedia	Wikipedia
-531	Y	poi.diy-hardware	DIY hardware	DIY hardware
-532	Y	poi.drinking-water	Trinkwasser	Drinking water
-533	Y	poi.ebike-charging	Ladestation für Fahrräder	Ebike charging
-534	Y	poi.embassy	Botschaft	Embassy
-535	Y	poi.fastfood	Fast food	Fast food
-536	Y	poi.firestation	Feuerwehr	Firestation
-537	Y	poi.foodcourt	Fressmeile	Food court
-538	Y	poi.fuel	Kraftstoff	Fuel
-539	Y	poi.gallery	Galerie	Gallery
-540	Y	poi.garden-centre	Gartencenter	Garden centre
-541	Y	poi.general	Allgemein	General
-542	Y	poi.gift	Geschenk	Gift
-543	Y	poi.golf	Golf	Golf
-544	Y	poi.grocery	Lebensmittelgeschäft	Grocery
-545	N	poi.group.amenity	[Amenity]	Amenity
-546	N	poi.group.foodshops	[Foodshops]	Foodshops
-547	N	poi.group.hiking-biking	[Hiking/biking]	Hiking/biking
-548	N	poi.group.landmarks	[Landmarks]	Landmarks
-549	N	poi.group.places-to-stay	[Places to stay]	Places to stay
-550	N	poi.group.restaurants	[Restaurants]	Restaurants
-551	N	poi.group.shops	[Shops]	Shops
-552	N	poi.group.sports	[Sports]	Sports
-553	N	poi.group.tourism	[Tourism]	Tourism
-554	Y	poi.guesthouse	Gästehaus	Guest house
-555	Y	poi.gymnastics	Gymnastik	Gymnastics
-556	Y	poi.hairdresser	Friseur	Hairdresser
-557	Y	poi.heritage	Kulturerbestätten	Heritage
-558	Y	poi.hindu-temple	Hindu-Tempel	Hindu temple
-559	Y	poi.historic	Historisch	Historic
-560	Y	poi.hockey	Hockey	Hockey
-561	Y	poi.horseracing	Pferderennen	Horse racing
-562	Y	poi.hospital	Krankenhaus	Hospital
-563	Y	poi.hostel	Herberge	Hostel
-564	Y	poi.hotel	Hotel	Hotel
-565	Y	poi.ice-cream	Eis	Ice cream
-566	Y	poi.icehockey	Eishockey	Ice hockey
-567	Y	poi.information	Information	Information
-568	Y	poi.jewelry	Schmuck	Jewelry
-569	Y	poi.kiosk	Kiosk	Kiosk
-570	Y	poi.leather	Leder	Leather
-571	Y	poi.library	Bibliothek	Library
-572	Y	poi.marketplace	Marktplatz	Marketplace
-573	Y	poi.monument-memorial	Denkmal	Monument
-574	Y	poi.monumental-tree	Monumentaler Baum	Monumental tree
-575	Y	poi.mosque	Moschee	Mosque
-576	Y	poi.motel	Motel	Motel
-577	Y	poi.museum	Museum	Museum
-578	Y	poi.musical-instrument	Musikinstrument	Musical instrument
-579	Y	poi.musicschool	Musikschule	Music school
-580	Y	poi.optician	Optiker	Optician
-581	Y	poi.organic	Bio	Organic
-582	Y	poi.parking	Parkplatz	Parking
-583	Y	poi.pets	Haustiere	Pets
-584	Y	poi.pharmacy	Apotheke	Pharmacy
-585	Y	poi.phone	Telefon	Phone
-586	Y	poi.photo	Foto	Photo
-587	Y	poi.picnic	Picknick	Picnic
-588	Y	poi.place-of-worship	Ort der Anbetung	Place of worship
-589	Y	poi.police	Polizei	Police
-590	Y	poi.postbox	Briefkasten	Post box
-591	Y	poi.postoffice	Post	Post office
-592	Y	poi.pub	Kneipe	Pub
-593	Y	poi.restaurant	Restaurant	Restaurant
-594	Y	poi.sauna	Sauna	Sauna
-595	Y	poi.seafood	Meeresfrüchte	Seafood
-596	Y	poi.shoes	Schuhe	Shoes
-597	Y	poi.shoppingcentre	Einkaufszentrum	Shopping centre
-598	Y	poi.soccer	Fußball	Soccer
-599	Y	poi.sportscentre	Sportzentrum	Sports centre
-600	Y	poi.statue	Statue	Statue
-601	Y	poi.supermarket	Supermarkt	Supermarket
-602	Y	poi.surfing	Surfen	Surfing
-603	Y	poi.swimming	Schwimmen	Swimming
-604	Y	poi.synagogue	Synagoge	Synagogue
-605	Y	poi.taxi	Taxi	Taxi
-606	Y	poi.tennis	Tennis	Tennis
-607	Y	poi.textiles	Textilien	Textiles
-608	Y	poi.theatre	Theater	Theatre
-609	Y	poi.themepark	Themenpark	Themepark
-610	Y	poi.toilets	Toiletten	Toilets
-611	Y	poi.tourism	Tourismus	Tourism
-612	Y	poi.toys	Spielzeug	Toys
-613	Y	poi.travelagency	Reisebüro	Travelagency
-614	Y	poi.university	Universität	University
-615	Y	poi.viewpoint	Aussichtspunkt	Viewpoint
-616	Y	poi.vineyard	Weinberg	Vineyard
-617	Y	poi.volleyball	Volleyball	Volleyball
-618	Y	poi.watermill	Wassermühle	Watermill
-619	Y	poi.windmill	Windmühle	Windmill
-620	Y	poi.wine	Wein	Wine
-621	Y	poi.zoo	Zoo	Zoo
-622	N	role-connection-indicator.blue.text	[This node is a connection to another network. This node has role "connection" in the network relation.]	This node is a connection to another network. This node has role "connection" in the network relation.
-623	N	role-connection-indicator.blue.title	[OK - Connection]	OK - Connection
-624	N	role-connection-indicator.gray.text	[This node does not have role "connection" in het network relation.]	This node does not have role "connection" in het network relation.
-625	N	role-connection-indicator.gray.title	[OK - No connection role]	OK - No connection role
-626	N	role-connection-indicator.letter	[C]	C
-627	N	route-accessible-indicator.gray.text	[Accessibility information is unknown for this type of route.]	Accessibility information is unknown for this type of route.
-628	N	route-accessible-indicator.gray.title	[OK - Accessibility unknown]	OK - Accessibility unknown
-629	N	route-accessible-indicator.green.text.canoe	[This route is completely accessible for canoe.]	This route is completely accessible for canoe.
-630	N	route-accessible-indicator.green.text.cycling	[This route is completely accessible for bicycle.]	This route is completely accessible for bicycle.
-631	N	route-accessible-indicator.green.text.hiking	[This route is completely accessible for hiking.]	This route is completely accessible for hiking.
-632	N	route-accessible-indicator.green.text.motorboat	[This route is completely accessible for motorboat.]	This route is completely accessible for motorboat.
-633	N	route-accessible-indicator.green.title	[OK - Accessible]	OK - Accessible
-634	N	route-accessible-indicator.letter	[A]	A
-635	N	route-accessible-indicator.red.text.canoe	[This route is not completely accessible for canoe.]	This route is not completely accessible for canoe.
-636	N	route-accessible-indicator.red.text.cycling	[This route is not completely accessible for bicycle.]	This route is not completely accessible for bicycle.
-637	N	route-accessible-indicator.red.text.hiking	[This route is not completely accessible for hiking.]	This route is not completely accessible for hiking.
-638	N	route-accessible-indicator.red.text.motorboat	[This route is not completely accessible for motorboat.]	This route is not completely accessible for motorboat.
-639	N	route-accessible-indicator.red.title	[NOK - Not Accessible]	NOK - Not Accessible
-640	N	route-change.no-geometry-diff	[No geometry change]	No geometry change
-641	N	route-change.unchanged	[(Unchanged)]	(Unchanged)
-642	N	route-change.version	[Version]	Version
-643	N	route-change.way-added.this-changeset	[this changeset]	this changeset
-644	N	route-change.way-added.title	[Added way]	Added way
-645	N	route-change.way-removed.title	[Removed way]	Removed way
-646	N	route-change.way-update.added-nodes	[Added node(s)]	Added node(s)
-647	N	route-change.way-update.changed-to	[Changed to]	Changed to v.
-648	N	route-change.way-update.direction-reversed	[Direction reversed]	Direction reversed
-649	N	route-change.way-update.removed-nodes	[Removed node(s)]	Removed node(s)
-650	N	route-change.way-update.title	[Updated way]	Updated way
-651	N	route-change.way-update.updated-nodes	[Updated node(s)]	Updated node(s)
-652	N	route-change.way-update.version-unchanged	[Way version unchanged]	Way version unchanged
-653	N	route-changes.login-required	[The route history is available to registered OpenStreetMap contributors only, after]	The details of the route changes history is available to registered OpenStreetMap contributors only, after .
-654	N	route-changes.node-diff.added	[added]	added
-655	N	route-changes.node-diff.end-nodes	[End nodes]	End nodes
-656	N	route-changes.node-diff.end-tentacle-nodes	[End tentacle nodes]	End tentacle nodes
-657	N	route-changes.node-diff.removed	[removed]	removed
-658	N	route-changes.node-diff.start-nodes	[Start nodes]	Start nodes
-659	N	route-changes.node-diff.start-tentacle-nodes	[Start tentacle nodes]	Start tentacle nodes
-660	N	route-changes.route-diff.member-order-changed	[Member order changed.]	Member order changed.
-661	N	route-changes.route-diff.name-diff	[Route name changed from "" to "".]	Route name changed from "" to "".
-662	N	route-changes.route-diff.role-added	[Route role "" added to networkrelation.]	Route role "" added to networkrelation.
-663	N	route-changes.route-diff.role-deleted	[Route role "" removed from networkrelation.]	Route role "" removed from networkrelation.
-664	N	route-changes.route-diff.role-updated	[Route role in networkrelation changed from "" to "".]	Route role in networkrelation changed from "" to "".
-665	N	route-changes.route-not-found	[Route not found]	Route not found
-666	N	route-connection-indicator.blue.text	[This route is a connection to another network.]	This route is a connection to another network.
-667	N	route-connection-indicator.blue.title	[OK - Connection]	OK - Connection
-668	N	route-connection-indicator.gray.text	[This route is not a connection to another network.]	This route is not a connection to another network.
-669	N	route-connection-indicator.gray.title	[OK - No connection]	OK - No connection
-670	N	route-connection-indicator.letter	[C]	C
-671	N	route-connection.indicator.letter	[C]	C
-672	N	route-diffs-added.existing-relation	[Existing relation]	Existing relation
-673	N	route-diffs-added.new-relation	[New relation]	New relation
-674	N	route-diffs-added.title	[Added routes]	Added routes
-675	N	route-diffs-added.updated-relation	[Relation updated in this changeset]	Relation updated in this changeset v
-676	N	route-diffs-removed.title	[Removed routes]	Removed routes
-677	N	route-diffs-updated.title	[Updated routes]	Updated routes
-678	N	route-indicator.gray.text	[This node is not included as a member in any route relations. This is OK as including de node as member in the route relations is optional.]	This node is not included as a member in any route relations. This is OK as including the node as member in the route relations is optional.
-679	N	route-indicator.gray.title	[OK - Not defined in route relation]	OK - Not defined in route relation
-680	N	route-indicator.green.text	[This node is included as a member in one or more route relations.]	This node is included as a member in one or more route relations.
-681	N	route-indicator.green.title	[OK - Defined in route relation]	OK - Defined in route relation
-682	N	route-indicator.letter	[R]	R
-683	N	route-investigate-indicator.green.text	[No issues found during route analysis.]	No issues found during route analysis.
-684	N	route-investigate-indicator.green.title	[OK - No facts]	OK - No facts
-685	N	route-investigate-indicator.letter	[F]	F
-686	N	route-investigate-indicator.red.text	[Something is wrong with this route.]	Something is wrong with this route.
-687	N	route-investigate-indicator.red.title	[NOK - Investigate facts]	NOK - Investigate facts
-688	Y	route-map-page.route-not-found	Route nicht gefunden	Route not found
-689	N	route.broken	[This route seems broken.]	This route seems broken.
-690	Y	route.end-node	Endknoten	End node
-691	Y	route.facts	Fakten	Facts
-692	N	route.incomplete	[Route definition is incomplete (has tag _"fixme=incomplete"_).]	Route definition is incomplete (has tag _"fixme=incomplete"_).
-693	Y	route.last-updated	Zuletzt aktualisiert	Last updated
-694	Y	route.location	Ort	Location
-695	N	route.location.none	[None]	None
-696	N	route.members.none	[None]	None
-697	N	route.members.table.id	[Id]	Id
-698	N	route.members.table.length	[Length]	Length
-699	N	route.members.table.name	[Name]	Name
-700	N	route.members.table.node	[Node]	Node
-701	N	route.members.table.node-count	[#Nodes]	#Nodes
-702	N	route.members.table.nodes	[Nodes]	Nodes
-703	N	route.members.table.one-way	[One Way]	One Way
-704	N	route.members.table.one-way.reverse	[Reverse]	Reverse
-705	N	route.members.table.one-way.yes	[Yes]	Yes
-706	N	route.members.table.role	[Role]	Role
-707	N	route.members.table.unaccessible	[Unaccessible]	Unaccessible
-708	N	route.members.title	[Route Members]	Route Members
-709	Y	route.menu.changes	Änderungen	Changes
-710	Y	route.menu.details	Details	Details
-711	Y	route.menu.map	Karte	Map
-712	N	route.meters	[m]	m
-713	Y	route.network	Netzwerk	Network
-714	N	route.no-network-references	[Geen]	None
-715	N	route.not-active	[This route is not active anymore.]	This route is not active anymore.
-716	Y	route.number-of-ways	Anzahl der Wegen	Number of ways
-717	Y	route.redundant-node	Redundanter Knoten	Redundant node
-718	Y	route.relation-last-updated	Relation zuletzt aktualisiert	Relation last updated
-719	Y	route.route-not-found	Route nicht gefunden	Route not found
-720	Y	route.situation-on	Situation am	Situation on
-721	Y	route.start-node	Startknoten	Start node
-722	Y	route.structure	Struktur	Structure
-723	Y	route.summary	Zusammenfassung	Summary
-724	Y	route.tags	Tags	Tags
-725	N	route.title	[Route]	Route
-726	Y	sidebar.back	zurück	back
-727	Y	situation-on	Situation am	Situation on
-728	Y	stats.integrity-check-coverage.comment	Abdeckung der Integritätsprüfung (Prozentsatz der Knoten, die Informationen zur Integritätsprüfung enthalten).	Integrity check coverage (percentage of nodes that do have integrity check information).
-729	Y	stats.integrity-check-coverage.name	IntegrityCheckCoverage	IntegrityCheckCoverage
-730	Y	stats.integrity-check-failed.comment	Anzahl der fehlgeschlagenen Integritätsprüfungen.	Number of failed integrity checks.
-731	Y	stats.integrity-check-failed.name	IntegrityCheckFailed	IntegrityCheckFailed
-732	Y	stats.integrity-check-network-count.comment	Anzahl der Netzwerke, die eine Integritätsprüfung enthalten.	Number of networks that include integrity check.
-733	Y	stats.integrity-check-network-count.name	IntegrityCheck	IntegrityCheck
-734	Y	stats.integrity-check-pass-rate.comment	Integritätsprüfungs-Erfolgsquote (Prozentsatz der OK-Prüfungen).	Integrity check pass rate (percentage of ok checks).
-735	Y	stats.integrity-check-pass-rate.name	IntegrityCheckPassRate	IntegrityCheckPassRate
-736	Y	stats.integrity-check.comment	Anzahl der Knoten mit Integritätsprüfung.	Number of nodes with integrity check.
-737	Y	stats.integrity-check.name	IntegrityCheck	IntegrityCheck
-738	Y	stats.km.comment	Gesamtlänge in Kilometern.	Total length in kilometers.
-739	Y	stats.km.name	Länge (km)	Length (km)
-740	Y	stats.name-missing.comment	Anzahl der Netzwerke ohne _"name"_ -Tag in der Netzwerkrelation.	Number of networks without _"name"_ tag in the network relation.
-741	Y	stats.name-missing.name	NameMissing	NameMissing
-742	Y	stats.network-count.comment	Anzahl der Netzwerke.	Number of networks.
-743	Y	stats.network-count.name	NetworkCount	NetworkCount
-744	Y	stats.network-extra-member-node.comment	Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _"node"_ (wir erwarten nur [Netzwerkknoten](glossary#node) oder [Informationskarten](glossary#info-map) als Mitglieder).	Number of network relation members of type _"node"_ that are unexpected (expect only [network nodes](glossary#node) or [information maps](glossary#info-map) as members in the network relation).
-745	Y	stats.network-extra-member-node.name	NetworkExtraMemberNode	NetworkExtraMemberNode
-746	Y	stats.network-extra-member-relation.comment	Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _"Relation"_ (wir erwarten nur gültige Routenrelationen oder Netzwerkknoten als Mitglieder in der Knotennetzwerkrelation).	Number of network relation members of type _"relation"_ that are unexpected (expect only valid route relations or network nodes as members in the node network relation).
-747	Y	stats.network-extra-member-relation.name	NetworkExtraMemberRelation	NetworkExtraMemberRelation
-748	Y	stats.network-extra-member-way.comment	Anzahl der Netzwerkbeziehungsmitglieder vom Typ _"way"_ (wir erwarten nur Routenrelationen oder Netzwerkknoten als Mitglieder in der Knotennetzwerkrelation).	Number of network relation members of type _"way"_ (expect only route relations or network nodes as members in the node network relation).
-749	Y	stats.network-extra-member-way.name	NetworkExtraMemberWay	NetworkExtraMemberWay
-750	Y	stats.node-count.comment	Anzahl der Netzwerkknoten.	Number of network nodes.
-751	Y	stats.node-count.name	Knotenanzahl	Node count
-752	Y	stats.node-member-missing.comment	Anzahl der Knoten, die nicht in der Netzwerkrelation enthalten sind	Number of nodes that are not included in the network relation
-753	Y	stats.node-member-missing.name	NodeMemberMissing	NodeMemberMissing
-754	Y	stats.orphan-node-count.comment	Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](glossary#node) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](glossary#network-relation) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](glossary#route-relation) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine verwaiste Route ist).	Number of network nodes that do not belong to a network.\ The [node](glossary#node) was not added as a member to a valid [network relation](glossary#network-relation) and also not added as a member to a valid [route relation](glossary#route-relation) (that itself was added as a member to a valid network relation or is an orphan route).
-755	Y	stats.orphan-node-count.name	Verwaiste Knoten	Orphan nodes
-756	Y	stats.orphan-route-count.comment	Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](glossary#network-relation) hinzugefügt.	Number of network routes that do not belong to a network.\ The route was not added as a member to a valid [network relation](glossary#network-relation).
-757	Y	stats.orphan-route-count.name	Verwaiste Routen	Orphan routes
-758	Y	stats.orphan-route-km.comment	Gesamtlänge (km) der verwaisten Routen (nicht in der obigen Netzlänge enthalten).	Total length (km) of the orphan routes (not included in network length above).
-759	Y	stats.orphan-route-km.name	Länge der verwaisten Routen (km)	Orphan route length (km)
-760	Y	stats.route-broken-count.comment	Anzahl der Routen mit Problemen.	Number of routes with issues.
-761	Y	stats.route-broken-count.name	RouteBrokenCount	RouteBrokenCount
-762	Y	stats.route-broken-network-count.comment	Anzahl der Netzwerke, die Routen mit Problemen enthalten.	Number of networks containing routes with issues.
-763	Y	stats.route-broken-network-count.name	RouteBrokenNetworkCount	RouteBrokenNetworkCount
-764	Y	stats.route-broken-percentage.comment	Prozentsatz der Routen mit Problemen.	Percentage of routes with issues.
-765	Y	stats.route-broken-percentage.name	RouteBrokenPercentage	RouteBrokenPercentage
-766	Y	stats.route-count.comment	Anzahl der Routen.	Number of routes.
-767	Y	stats.route-count.name	Routenanzahl	Route count
-768	Y	stats.route-fixmetodo.comment	Anzahl der Routen, die mit _"fixmetodo"_ gekennzeichnet sind.	Number of routes that are marked with _"fixmetodo"_.
-769	Y	stats.route-fixmetodo.name	RouteFixmetodo	RouteFixmetodo
-770	Y	stats.route-incomplete-ok.comment	Anzahl der Routen, die als unvollständig definiert sind, aber nach der Analyse in Ordnung aussehen. \ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _"fixme"_ mit dem Wert _"incomplete"_ hinzugefügt wird in der Routenrelation.	Number of routes that are marked as having an incomplete definition, but that look ok after analysis.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
-771	Y	stats.route-incomplete-ok.name	RouteIncompleteOk	RouteIncompleteOk
-772	Y	stats.route-incomplete.comment	Anzahl der Routen, die als unvollständig definiert sind.\ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _"fixme"_ mit dem Wert _"unvollständig"_ in die Routenrelation eingefügt wird.	Number of routes that are marked as having an incomplete definition.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
-773	Y	stats.route-incomplete.name	RouteIncomplete	RouteIncomplete
-774	Y	stats.route-invalid-sorting-order.comment	Anzahl der Routen mit Wegen in falscher Sortierreihenfolge.	Number of routes with ways in wrong sorting order.
-775	Y	stats.route-invalid-sorting-order.name	RouteInvalidSortingOrder	RouteInvalidSortingOrder
-776	Y	stats.route-name-missing.comment	Routen ohne _"note"_ -Tag mit dem Routennamen.	Routes without a _"note"_ tag with the route name.
-777	Y	stats.route-name-missing.name	RouteNameMissing	RouteNameMissing
-778	Y	stats.route-node-missing-in-ways.comment	Anzahl der Routen, für die der Endknoten und / oder der Startknoten auf keiner der Routen gefunden wurde.	Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
-779	Y	stats.route-node-missing-in-ways.name	RouteNodeMissingInWays	RouteNodeMissingInWays
-780	Y	stats.route-node-name-mismatch.comment	Routen, bei denen der Routenname nicht mit den Namen des Startknotens und des Endknotens übereinstimmt. Es wird erwartet, dass der Routenname den Startknotennamen und den Endknotennamen enthält, die durch einen Bindestrich getrennt sind. Es wird erwartet, dass der Startknoten eine niedrigere Nummer als der Endknoten hat.	Routes where the route name does not match with the names of the start node and the end node. The route name is expected to contain the start node name and the end node name, separated by a dash. The start node is expected to have a lower number than the end node.
-781	Y	stats.route-node-name-mismatch.name	RouteNodeNameMismatch	RouteNodeNameMismatch
-782	Y	stats.route-not-continious-network-count.comment	Anzahl der Netzwerke mit unterbrochenen Routen.	Number of networks with broken routes.
-783	Y	stats.route-not-continious-network-count.name	RouteNotContiniousNetworkCount	RouteNotContiniousNetworkCount
-784	Y	stats.route-not-continious-percentage.comment	Prozentsatz der unterbrochenen Routen.	Percentage of broken routes.
-785	Y	stats.route-not-continious-percentage.name	RouteNotContiniousPercentage	RouteNotContiniousPercentage
-786	Y	stats.route-not-continious.comment	Anzahl der unterbrochenen Routen.	Number of broken routes.
-787	Y	stats.route-not-continious.name	RouteNotContinious	RouteNotContinious
-788	Y	stats.route-redundant-nodes.comment	Anzahl der Routen, auf denen die Routenwege zusätzliche Knoten außer den Start- und Endknoten enthalten.	Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
-789	Y	stats.route-redundant-nodes.name	RouteRedundantNodes	RouteRedundantNodes
-790	Y	stats.route-tag-invalid.comment	Der Wert im Tag _"route"_ in der Routenrelation ist unerwartet.	The value in the _"route"_ tag in the route relation is unexpected.
-791	Y	stats.route-tag-invalid.name	RouteTagInvalid	RouteTagInvalid
-792	Y	stats.route-tag-missing.comment	Die Routenrelation enthält kein _ "route" _ -Tag.	The route relation does not contain a _"route"_ tag.
-793	Y	stats.route-tag-missing.name	RouteTagMissing	RouteTagMissing
-794	Y	stats.route-unaccessible.comment	Anzahl der [nicht zugänglichen](glossary#accessible) Routen.	Number of [unaccessible](glossary#accessible) routes.
-795	Y	stats.route-unaccessible.name	RouteUnaccessible	RouteUnaccessible
-796	Y	stats.route-unexpected-node.comment	Anzahl der Routen mit einem oder mehreren unerwarteten Knotenmitgliedern. \ In Routenrelationen erwarten wir nur Knoten mit dem Tag _"rwn_ref"_ oder _"rcn_ref"_.	Number of routes with one or more unexpected node members.\ In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
-797	Y	stats.route-unexpected-node.name	RouteUnexpectedNode	RouteUnexpectedNode
-798	Y	stats.route-unexpected-relation.comment	Anzahl der Routen mit einem oder mehreren unerwarteten Mitgliedern. \ In Routenrelationen erwarten wir nur Mitglieder vom Typ _"way"_ oder Mitglieder vom Typ _"node"_ mit einem Tag _"rwn_ref"_ oder _"rcn_ref"_.	Number of routes with one or more unexpected members.\In route relations we expect only members of type _"way"_, or members of type _"node"_ with a tag _"rwn_ref"_ or _"rcn_ref"_.
-799	Y	stats.route-unexpected-relation.name	RouteUnexpectedRelation	RouteUnexpectedRelation
-800	Y	stats.route-unused-segments.comment	Anzahl der Routen, auf denen einer oder mehrere der Wege (oder ein Teil der Wege) nicht im Vorwärts- oder Rückwärtspfad oder in einem der Tentakel verwendet werden.	Number of routes where one or more of the ways (or part of ways) are not used in the forward or backward path or in one of the tentacles.
-801	Y	stats.route-unused-segments.name	RouteUnusedSegments	RouteUnusedSegments
-802	Y	stats.route-without-ways.comment	Routen ohne Wege (für eine Route wird mindestens ein Weg erwartet).	Routes without ways (a route is expected to have at least 1 way).
-803	Y	stats.route-without-ways.name	RouteWithoutWays	RouteWithoutWays
-804	Y	subset-changes.login-required	Diese Details der Änderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach .]	This details of the changes history are available to registered OpenStreetMap contributors only, after .
-805	Y	subset-changes.title	Änderungen	Changes
-806	Y	subset-facts.in-networks	{VAR_PLURAL, plural, one {in 1 Netwerk} other {in Netwerken} }	{VAR_PLURAL, plural, one {in 1 network} other {in networks} }
-807	Y	subset-facts.no-facts	Keine Fakten	No facts
-808	Y	subset-facts.node-refs	{VAR_PLURAL, plural, one {Knoten} other {Knoten} }	{VAR_PLURAL, plural, one {node} other {nodes} }
-809	Y	subset-facts.orphan-routes	Verwaiste Routen	Orphan routes
-810	Y	subset-facts.osm-node-refs	{VAR_PLURAL, plural, one {Knoten} other {Knoten} }	{VAR_PLURAL, plural, one {node} other {nodes} }
-811	Y	subset-facts.osm-relation-refs	{VAR_PLURAL, plural, one {Relation} other {Relationen} }	{VAR_PLURAL, plural, one {relation} other {relations} }
-812	Y	subset-facts.osm-way-refs	{VAR_PLURAL, plural, one {Weg} other {Wege} }	{VAR_PLURAL, plural, one {way} other {ways} }
-813	Y	subset-facts.route-refs	{VAR_PLURAL, plural, one {Route} other {Routen} }	{VAR_PLURAL, plural, one {route} other {routes} }
-814	Y	subset-facts.routes	{VAR_PLURAL, plural, one {1 Route} other { Routen} }	{VAR_PLURAL, plural, one {1 route} other { routes} }
-815	Y	subset-facts.title	Fakten	Facts
-816	Y	subset-map.dialog.close	Schließen	Close
-817	Y	subset-map.dialog.nodeCount	Knoten	nodes
-818	Y	subset-map.dialog.routeCount	Routen	routes
-819	Y	subset-map.dialog.show-network-details	Netzwerkdetails anzeigen	Show network details
-820	Y	subset-map.title	Karte	Map
-821	Y	subset-network.summary	km, Knoten, Routen	km, nodes, routes
-822	Y	subset-networks.no-networks	Keine Netzwerke	No networks
-823	Y	subset-networks.summary	_Es gibt ____ Netzwerke mit insgesamt ____ Knoten und ____ Routen mit einer Gesamtlänge von ____ km._	_There are ____ networks, with a total of ____ nodes and ____ routes with an overall length of ____ km._
-824	Y	subset-networks.table.broken	Unterbrochen	Broken
-825	Y	subset-networks.table.connections	Verbindungen	Connections
-826	Y	subset-networks.table.integrity	Integrität	Integrity
-827	Y	subset-networks.table.integrity-nodes	Knoten	Nodes
-828	Y	subset-networks.table.length	Länge	Length
-829	Y	subset-networks.table.network	Netzwerk	Network
-830	Y	subset-networks.table.nodes	Knoten	Nodes
-831	Y	subset-networks.table.ok	OK	OK
-832	Y	subset-networks.table.routes	Routen	Routes
-833	Y	subset-networks.title	Netzwerke	Networks
-834	Y	subset-orphan-nodes.extra-tags	Zusätzliche Tags:	Extra tags:
-835	Y	subset-orphan-nodes.no-routes	Keine verwaisten Knoten	No orphan nodes
-836	Y	subset-orphan-nodes.title	Verwaiste Knoten	Orphan nodes
-837	Y	subset-orphan-routes.extra-tags	Zusätzliche Tags:	Extra tags:
-838	Y	subset-orphan-routes.no-routes	Keine verwaisten Routen	No orphan routes
-839	Y	subset-orphan-routes.route-is-broken	Die Route ist unterbrochen	route is broken
-840	Y	subset-orphan-routes.title	Verwaiste Routen	Orphan routes
-841	Y	subset-page.menu.changes	Änderungen	Changes
-842	Y	subset-page.menu.facts	Fakten	Facts
-843	Y	subset-page.menu.map	Karte	Map
-844	Y	subset-page.menu.networks	Netzwerke	Networks
-845	Y	subset-page.menu.orphan-nodes	Verwaiste Knoten	Orphan nodes
-846	Y	subset-page.menu.orphan-routes	Verwaiste Routen	Orphan routes
-847	Y	subset.in	in	in
-848	N	tag-diffs.added-tag	[Added tag]	Added tag
-849	N	tag-diffs.added-tags	[Added tags]	Added tags
-850	N	tag-diffs.after	[After]	After
-851	N	tag-diffs.before	[Before]	Before
-852	N	tag-diffs.deleted-tag	[Deleted tag]	Deleted tag
-853	N	tag-diffs.deleted-tags	[Deleted tags]	Deleted tags
-854	N	tag-diffs.key	[Key]	Key
-855	N	tag-diffs.same-tag	[Same tag]	Same tag
-856	N	tag-diffs.same-tags	[Same tags]	Same tags
-857	N	tag-diffs.table	[Tag differences]	Tag differences
-858	N	tag-diffs.updated-tag	[Updated tag]	Updated tag
-859	N	tag-diffs.updated-tags	[Updated tags]	Updated tags
-860	N	tag-diffs.value	[Value]	Value
-861	Y	tags.key	Schlüssel	Key
-862	Y	tags.no-tags	Keine Tags	No tags
-863	Y	tags.value	Wert	Value
-864	Y	toolbar.title	knooppuntnet	knooppuntnet
-865	N	version-change.relation-changed-to	[Relation changed to]	Relation changed to v
-866	N	version-change.relation-unchanged	[Relation unchanged]	Relation unchanged.
+247	N	map.layer.network	[Network]	Network
+248	N	map.layer.networks	[Networks]	Networks
+249	Y	map.layer.node	Knoten	Node
+250	Y	map.layer.nodes	Knoten	Nodes
+251	Y	map.layer.nodes-and-routes	Knoten und Routen	Nodes and routes
+252	Y	map.layer.osm	OpenStreetMap	OpenStreetMap
+253	Y	map.layer.other-routes	Andere Routen	Other routes
+254	Y	map.layer.start-tentacle	Start Tentakel	Start tentacle
+255	N	map.layer.tile-names	[Tile names]	Tile names
+256	Y	map.layer.unchanged	Unverändert	Unchanged
+257	Y	map.layer.unused	Nicht verwendet	Unused
+258	Y	map.node-popup.more-details	Weitere Details	More details
+259	Y	map.node-popup.network	Netzwerk	Network
+260	Y	map.node-popup.networks	Netzwerke	Networks
+261	Y	map.node-popup.no-networks	Keine	None
+262	Y	map.node-popup.routes	Routen	Routes
+263	Y	map.node-popup.routes.none	Keine	None
+264	Y	map.node-popup.title	Knoten	Node
+265	Y	map.redundant-node	Redundanter Knoten	Redundant node
+266	Y	map.route-popup.more-details	Weitere Details	More details
+267	Y	map.route-popup.network	Netzwerk	Network
+268	Y	map.route-popup.networks	Netzwerke	Networks
+269	Y	map.route-popup.no-networks	Keine	None
+270	Y	map.route-popup.title	Route	Route
+271	Y	map.start-node	Startknoten	Start node
+272	Y	map.start-tentacle-node	Start Tentakelknoten	Start tentacle node
+273	N	network-changes.login-required	[The network history is available to registered OpenStreetMap contributors only, after]	The details of network changes history are available to registered OpenStreetMap contributors only, after .
+274	N	network-changes.network-created	[Network created]	Network created
+275	N	network-changes.network-deleted	[Network deleted]	Network deleted
+276	N	network-changes.network-nodes.added	[Added node(s)]	Added node(s)
+277	N	network-changes.network-nodes.removed	[Removed network node(s)]	Removed network node(s)
+278	N	network-changes.network-nodes.updated	[Updated network node(s)]	Updated network node(s)
+279	Y	network-changes.network-not-found	Netzwerk nicht gefunden	Network not found
+280	N	network-changes.network-relation-updated	[Updated network relation]	Updated network relation
+281	N	network-changes.nodes.added	[Added non-network node member(s) in network relation]	Added non-network node member(s) in network relation
+282	N	network-changes.nodes.removed	[Removed non-network node member(s) from network relation]	Removed non-network node member(s) from network relation
+283	N	network-changes.nodes.updated	[Updated non-network node(s)]	Updated non-network node(s)
+284	N	network-changes.relations.added	[Added non-route relation(s) in network relation]	Added non-route relation(s) in network relation
+285	N	network-changes.relations.removed	[Removed non-route relation(s) from network relation]	Removed non-route relation(s) from network relation
+286	N	network-changes.relations.updated	[Updated non-route relation(s)]	Updated non-route relation(s)
+287	N	network-changes.routes.added	[Added route(s)]	Added route(s)
+288	N	network-changes.routes.removed	[Removed route(s)]	Removed route(s)
+289	N	network-changes.routes.updated	[Updated route(s)]	Updated route(s)
+290	N	network-changes.title	[Changes]	Changes
+291	N	network-changes.ways.added	[Added way member(s) in network relation]	Added way member(s) in network relation
+292	N	network-changes.ways.removed	[Removed way member(s) from network relation]	Removed way member(s) from network relation
+293	N	network-changes.ways.updated	[Updated way member(s)]	Updated way member(s)
+294	Y	network-details.contains-broken-routes	Dieses Netzwerk enthält unterbrochene (nicht kontinuierliche) Routen.	This network contains broken (non-continuous) routes.
+295	Y	network-details.country	Land	Country
+296	Y	network-details.last-updated	Zuletzt aktualisiert	Last updated
+297	Y	network-details.network-not-found	Netzwerk nicht gefunden	Network not found
+298	Y	network-details.nodes	Knoten	nodes
+299	Y	network-details.not-active	Dieses Netzwerk ist nicht mehr aktiv.	This network is not active anymore.
+300	Y	network-details.relation-last-updated	Beziehung zuletzt aktualisiert	Relation last updated
+301	Y	network-details.routes	Routen	routes
+302	Y	network-details.situation-on	Situation am	Situation on
+303	Y	network-details.summary	Zusammenfassung	Summary
+304	Y	network-details.tags	Tags	Tags
+305	Y	network-details.title	Details	Details
+306	Y	network-facts.checks-table.actual	Tatsächlich	Actual
+307	Y	network-facts.checks-table.expected	Erwartet	Expected
+308	Y	network-facts.checks-table.node	Knoten	Node
+309	Y	network-facts.checks-table.title	Fehler bei der Überprüfung der Knotenintegrität	node integrity check failures
+310	Y	network-facts.network-not-found	Netzwerk nicht gefunden	Network not found
+311	Y	network-facts.no-facts	Keine Fakten	No facts
+312	Y	network-facts.node	Knoten:	Node:
+313	Y	network-facts.nodes	Knoten:	Nodes:
+314	Y	network-facts.route	Route:	Route:
+315	Y	network-facts.routes	Routen	Routes:
+316	Y	network-facts.title	Fakten	Facts
+317	N	network-indicator.gray.text	[This node is not included as a member in the network relation. This is OK. This node must belong to a different network, because all routes to this node within this network have the role "connection" in the network relation.]	This node is not included as a member in the network relation. This is OK. This node must belong to a different network, because all routes to this node within this network have the role "connection" in the network relation.
+318	N	network-indicator.gray.title	[OK - Not defined in network relation]	OK - Not defined in network relation
+319	N	network-indicator.green.text	[This node is included as a member in the network relation. This is what we expect.]	This node is included as a member in the network relation. This is what we expect.
+320	N	network-indicator.green.title	[OK - Defined in network relation]	OK - Defined in network relation
+321	N	network-indicator.letter	[N]	N
+322	N	network-indicator.orange.text	[This node is included as a member in the network relation. We did not expect this, because all routes to this node have role "connection". This would mean that the node is part of another network. We expect that the node is not included in the network relation, unless it receives the role "connection".]	This node is included as a member in the network relation. We did not expect this, because all routes to this node have role "connection". This would mean that the node is part of another network. We expect that the node is not included in the network relation, unless it receives the role "connection".
+323	N	network-indicator.orange.title	[Unexpected - Defined in network relation]	Unexpected - Defined in network relation
+324	N	network-indicator.red.text	[This node is not included as a member in the network relation. This is not OK. The convention is to include each node in the network relation. An exception is when the node belongs to another network (all routes to this node have role "connection" in the network relation), then the node does not have to be included as member in the network relation. The node can be added the network relation, but should get the role "connection" in that case.]	This node is not included as a member in the network relation. This is not OK. The convention is to include each node in the network relation. An exception is when the node belongs to another network (all routes to this node have role "connection" in the network relation), then the node does not have to be included as member in the network relation. The node can be added the network relation, but should get the role "connection" in that case.
+325	N	network-indicator.red.title	[NOK - Not defined in network relation]	NOK - Not defined in network relation
+326	Y	network-map.title	Karte	Map
+327	Y	network-nodes.network-not-found	Netzwerk nicht gefunden	Network not found
+328	Y	network-nodes.no-nodes	Keine Netzwerkknoten im Netzwerk	No network nodes in network
+329	Y	network-nodes.no-routes	keine Routen	no routes
+330	Y	network-nodes.table.analysis	Analyse	Analysis
+331	Y	network-nodes.table.last-edit	Letzte Bearbeitung	Last edit
+332	Y	network-nodes.table.node	Knoten	Node
+333	Y	network-nodes.table.nr	Nr	Nr
+334	Y	network-nodes.table.routes	Routen	Routes
+335	Y	network-nodes.title	Knoten	Nodes
+336	Y	network-page.menu.changes	Änderungen	Changes
+337	Y	network-page.menu.details	Details	Details
+338	Y	network-page.menu.facts	Fakten	Facts
+339	Y	network-page.menu.map	Karte	Map
+340	Y	network-page.menu.nodes	Knoten	Nodes
+341	Y	network-page.menu.routes	Routen	Routes
+342	Y	network-routes.network-not-found	Netzwerk nicht gefunden	Network not found
+343	Y	network-routes.no-routes	Keine Netzwerkrouten im Netzwerk	No network routes in network
+344	Y	network-routes.table.analysis	Analyse	Analysis
+345	Y	network-routes.table.last-edit	Letzte Bearbeitung	Last edit
+346	Y	network-routes.table.node	Route	Route
+347	Y	network-routes.table.nr	Nr	Nr
+348	Y	network-routes.title	Routen	Routes
+349	Y	network-type.canoe	Kanu	Canoe
+350	Y	network-type.cycling	Radfahren	Cycling
+351	Y	network-type.hiking	Wandern	Hiking
+352	Y	network-type.horse-riding	Reiten	Horse riding
+353	Y	network-type.inline-skating	Inline-Skating	Inline Skating
+354	Y	network-type.motorboat	Motorboot	Motorboat
+355	N	node-change.added-to-network	[Added to network]	Added to network
+356	N	node-change.added-to-network-relation	[Added to network relation]	Added to network relation
+357	N	node-change.added-to-route	[Added to route]	Added to route
+358	N	node-change.belongs-to-another-network	[This node belongs to another network]	This node belongs to another network
+359	N	node-change.lost-role-connection-in-network-relation	[This node no longer has role "connection" in the network relation]	This node no longer has role "connection" in the network relation
+360	N	node-change.moved.less-than-1-meter	[The node has moved less than 1 meter.]	The node has moved less than 1 meter.
+361	N	node-change.moved.meters	[The node has moved meters.]	The node has moved meters.
+362	N	node-change.moved.note.1	[Note: Node position is shown as it was at]	Note: Node position is shown as it was at
+363	N	node-change.moved.note.2	[while the map background is shown as it is today.]	, while the map background is shown as it is today.
+364	N	node-change.no-longer-belongs-to-another-network	[This node no longer belongs to another network]	This node no longer belongs to another network
+365	N	node-change.received-role-connection-in-network-relation	[This node received role "connection" in the network relation]	This node received role "connection" in the network relation
+366	N	node-change.removed-from-network	[Removed from network]	Removed from network
+367	N	node-change.removed-from-network-relation	[Removed from network relation]	Removed from network relation
+368	N	node-change.removed-from-route	[Removed from route]	Removed from route
+369	N	node-connection-indicator.blue.text	[This node is a connection to another network. All routes to this node have the role "connection" in the network relation.]	This node is a connection to another network. All routes to this node have the role "connection" in the network relation.
+370	N	node-connection-indicator.blue.title	[OK - Connection]	OK - Connection
+371	N	node-connection-indicator.gray.text	[This node is not a connection to another network. The node would have been considered as a connection to another network if all routes to this node within the network had role "connection" in the network relation.]	This node is not a connection to another network. The node would have been considered as a connection to another network if all routes to this node within the network had role "connection" in the network relation.
+372	N	node-connection-indicator.gray.title	[OK - No connection]	OK - No connection
+373	N	node-connection-indicator.letter	[C]	C
+374	N	node-diffs-added.change-set-created	[Created in this changeset.]	Created in this changeset.
+375	N	node-diffs-added.change-set-existing	[Existing node]	Existing node
+376	N	node-diffs-added.change-set-updated	[Updated in this changeset.]	Updated in this changeset.
+377	N	node-diffs-added.title	[Added network nodes]	Added network nodes
+378	N	node-diffs-removed.title	[Removed network nodes]	Removed network nodes
+379	N	node-diffs-updated.existing-node	[Existing node]	Existing node
+380	N	node-diffs-updated.node-changed	[Node change to]	Node change to
+381	N	node-diffs-updated.title	[Updated network nodes]	Updated network nodes
+382	Y	node.details-sidebar.tip	TIPP: Klicken Sie auf andere Knoten oder Routen in der Karte, um zu den Details dieser Knoten oder Routen zu gelangen.	TIP: click on other nodes or routes in the map to go to the details of these nodes or routes.
+383	Y	node.facts	Fakten	Facts
+384	Y	node.inactive	Dieser Netzwerkknoten ist nicht mehr aktiv.	This network node is not active anymore.
+385	Y	node.last-updated	Zuletzt aktualisiert	Last updated
+386	Y	node.location	Ort	Location
+387	N	node.location.none	[None]	None
+388	N	node.login-required	Die Details der Knotenänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach .	The details of the node changes history is available to registered OpenStreetMap contributors only, after .
+389	Y	node.menu.changes	Änderungen	Changes
+390	Y	node.menu.details	Details	Details
+391	Y	node.menu.map	Karte	Map
+392	Y	node.network-references.none	Keine	None
+393	Y	node.network.integrity-check-failed	Integritätsprüfung fehlgeschlagen: erwartete Routen, aber gefunden.	Integritycheck failed: expected routes, but found .
+394	Y	node.network.integrity-check-ok	Die erwartete Anzahl von Routen () entspricht der Anzahl der gefundenen Routen.	Expected number of routes () matches the number of routes found.
+395	Y	node.network.network-member	Dieser Knoten ist als Mitglied in der Netzwerkbeziehung enthalten.	This node is included as member in the networkrelation.
+396	Y	node.network.not-network-member	Dieser Knoten ist nicht als Mitglied in der Netzwerkrelation enthalten.	This node is not included as member in the networkrelation.
+397	Y	node.network.not-network-member-invalid	Dieser Knoten ist nicht als Mitglied in der Netzwerkbeziehung enthalten: Das Tag _""_ gilt nicht für dieses Netzwerk.	This node is not included as member in the networkrelation: the _""_ tag does not apply to this netwerk.
+398	Y	node.network.role-connection	Dieser Knoten hat die Rolle _"connection"_ in der Netzwerkrelation.	This node has the role _"connection"_ in the networkrelation.
+399	Y	node.networks	Netzwerke	Networks
+400	Y	node.node	Netzwerkknoten	network node
+401	N	node.node-not-found	[Node not found]	Node not found
+402	Y	node.orphan	Dieser Netzwerkknoten gehört nicht zu einem bekannten Knotennetzwerk (verwaist).	This network node does not belong to a known node network (orphan).
+403	Y	node.orphan-route-references.none	Keine	None
+404	Y	node.orphan-routes	Verwaiste Routen	Orphan routes
+405	Y	node.situation-on	Situation am	Situation on
+406	Y	node.summary	Zusammenfassung	Summary
+407	Y	node.tags	Tags	Tags
+408	Y	node.title	Knoten	Node
+409	Y	node.unchanged	(unverändert)	(Unchanged)
+410	Y	node.version	Version	Version
+411	Y	not-found.title	Nicht gefunden	Not found
+412	Y	osm-link.oath-clients	Liste der autorisierten Anwendungen	list of authorised applications
+413	Y	overview-page.title	Übersicht	Overview
+414	Y	overview-table.comment	Kommentar	Comment
+415	Y	overview-table.detail	Detail	Detail
+416	Y	overview-table.total	Insgesamt	Total
+417	Y	overview.total	Insgesamt	Total
+418	Y	paginator.first-page-label	Erste Seite	First page
+419	Y	paginator.from	von	of
+420	Y	paginator.items-per-page-label	Elemente pro Seite	Items per page
+421	Y	paginator.last-page-label	Letzte Seite	Last page
+422	Y	paginator.next-page-label	Nächste Seite	Next page
+423	Y	paginator.previous-page-label	Vorherige Seite	Previous page
+424	Y	plan.command.continue	Weiter	Continue
+425	Y	plan.command.continue.street	Weiter auf	Continue on
+426	Y	plan.command.turn-left	Biegen Sie links ab	Turn left
+427	Y	plan.command.turn-left.street	Biegen Sie links ab auf	Turn left onto
+428	Y	plan.command.turn-right	Biegen Sie rechts ab	Turn right
+429	Y	plan.command.turn-right.street	Biegen Sie rechts ab auf	Turn right onto
+430	Y	plan.command.turn-sharp-left	Scharf nach links	Sharp left
+431	Y	plan.command.turn-sharp-left.street	Scharf links auf	Sharp left onto
+432	Y	plan.command.turn-sharp-right	Scharf rechts	Sharp right
+433	Y	plan.command.turn-sharp-right.street	Scharf nach rechts auf	Sharp right onto
+434	Y	plan.command.turn-slight-left	Leicht nach links	Slight left
+435	Y	plan.command.turn-slight-left.street	Leicht links auf	Slight left onto
+436	Y	plan.command.turn-slight-right	Leicht rechts	Slight right
+437	Y	plan.command.turn-slight-right.street	Leicht rechts auf	Slight right onto
+438	Y	plan.distance	Entfernung	Distance
+439	Y	plan.head	Gehe	Head
+440	Y	plan.heading.east	Osten	east
+441	Y	plan.heading.north	Norden	north
+442	Y	plan.heading.north-east	Nordosten	north-east
+443	Y	plan.heading.north-west	Nordwesten	north-west
+444	Y	plan.heading.south	Süden	south
+445	Y	plan.heading.south-east	Südosten	south-east
+446	Y	plan.heading.south-west	Südwesten	south-west
+447	Y	plan.heading.west	West	west
+448	Y	plan.onto	auf	onto
+449	Y	planner.appearance-options	Optionen für das Erscheinungsbild der Karte	Map appearance options
+450	Y	planner.compact	Kompakt	Compact
+451	Y	planner.detailed	Detailliert	Detailed
+452	Y	planner.export	Exportieren	Export
+453	Y	planner.instructions	Anweisungen	Instructions
+454	Y	planner.legend	Legende	Legend
+455	Y	planner.map	Karte	Map
+456	Y	planner.pois.default	Standard	Default
+457	Y	planner.pois.enabled	Punkte von Interesse auf der Karte anzeigen	Show points of interest on the map
+458	Y	planner.pois.enabled-disabled	(Aktiviert/Deaktiviert)	(Enabled/Disabled)
+459	Y	planner.pois.hide-all	Alle verstecken	Hide all
+460	Y	planner.pois.reset	Konfiguration auf Standard zurücksetzen	Reset configuration to default
+461	Y	planner.pois.show-all	Alle anzeigen	Show all
+462	Y	planner.pois.title	Punkte von Interesse	Points of interest
+463	Y	planner.pois.zoom-in	Vergrößern Sie die Ansicht, um die Symbole auf der Karte anzuzeigen.	Zoom in to see the icons on the map.
+464	Y	planner.quality	Status der Knoten- und Routenqualität	Node and route quality status
+465	Y	planner.redo	Wiederholen	Redo
+466	Y	planner.surface	Oberfläche	Surface
+467	Y	planner.survey	Datum der letzten Vermessung	Date last survey
+468	Y	planner.title	Routenplanner	Route planner
+469	Y	planner.undo	Rückgängig machen	Undo
+470	Y	poi.alcohol	Alkohol	Alcohol
+471	Y	poi.alpine-hut	Almhütte	Alpine hut
+472	Y	poi.american-football	Amerikanischer Fußball	American football
+473	Y	poi.apartment	Wohnung	Apartment
+474	Y	poi.arts-centre	Kunstzentrum	Arts centre
+475	Y	poi.artwork	Grafik	Artwork
+476	Y	poi.atm	Geldautomat	Atm
+477	Y	poi.attraction	Sehenswürdigkeit	Attraction
+478	Y	poi.bakery	Bäckerei	Bakery
+479	Y	poi.bank	Bank	Bank
+480	Y	poi.bar	Bar	Bar
+481	Y	poi.baseball	Baseball	Baseball
+482	Y	poi.basketball	Basketball	Basketball
+483	Y	poi.bbq	BBQ	BBQ
+484	Y	poi.beauty	Schönheitssalon	Beauty
+485	Y	poi.bench	Sitzbank	Bench
+486	Y	poi.beverages	Getränke	Beverages
+487	Y	poi.bicycle	Fahrradladen	Bicycle
+488	Y	poi.bicycle-parking	Fahrradparkplatz	Bicycle parking
+489	Y	poi.bicycle-rental	Fahrradverleih	Bicycle rental
+490	Y	poi.biergarten	Biergarten	Biergarten
+491	Y	poi.books-stationary	Bücher/Schreibwaren	Books/stationary
+492	Y	poi.buddhist-temple	Buddhistischer Tempel	Buddhist temple
+493	Y	poi.busstop	Bushaltestelle	Bus stop
+494	Y	poi.butcher	Metzger	Butcher
+495	Y	poi.cafe	Cafe	Cafe
+496	Y	poi.campsite	Campingplatz	Camp site
+497	Y	poi.car	Wagen	Car
+498	Y	poi.casino	Casino	Casino
+499	Y	poi.castle	Schloss	Castle
+500	Y	poi.cemetery	Friedhof	Cemetery
+501	Y	poi.chalet	Chalet	Chalet
+502	Y	poi.cheese	Käse	Cheese
+503	Y	poi.chemist	Drogist	Chemist
+504	Y	poi.chocolate	Schokolade	Chocolate
+505	Y	poi.church	Kirche	Church
+506	Y	poi.cinema	Kino	Cinema
+507	Y	poi.clinic	Klinik	Clinic
+508	Y	poi.clothes	Kleidung	Clothes
+509	Y	poi.coffee	Kaffee	Coffee
+510	Y	poi.confectionery	Süßwaren	Confectionery
+511	Y	poi.copyshop	Kopierladen	Copyshop
+512	Y	poi.cosmetics	Kosmetik	Cosmetics
+513	Y	poi.cycling	Radfahren	Cycling
+514	Y	poi.dairy	Molkerei	Dairy
+515	Y	poi.defibrillator	Defibrillator	Defibrillator
+516	Y	poi.deli	Deli	Deli
+517	Y	poi.departmentstore	Kaufhaus	Department store
+518	Y	poi.detail.email	E-Mail	E-mail
+519	Y	poi.detail.facebook	Facebook	Facebook
+520	Y	poi.detail.fax	Fax	Fax
+521	Y	poi.detail.hollandsche-molen-database	Hollandsche Molen Datenbank	Hollandsche Molen database
+522	Y	poi.detail.image	Bild	Image
+523	Y	poi.detail.mapillary	Mapillary	Mapillary
+524	Y	poi.detail.molen-database	Molen-Datenbank	Molen database
+525	Y	poi.detail.none	Keine Details verfügbar	No details available
+526	Y	poi.detail.onroerendErfgoed	Onroerend Erfgoed	Onroerend Erfgoed
+527	Y	poi.detail.opengingHours	Öffnungszeiten	Opening hours
+528	Y	poi.detail.phone	Telefon	Phone
+529	Y	poi.detail.serviceHours	Servicezeiten	Service times
+530	Y	poi.detail.website	Webseite	Website
+531	Y	poi.detail.wheelchair	Rollstuhl	Wheelchair
+532	Y	poi.detail.wikidata	Wikidata	Wikidata
+533	Y	poi.detail.wikipedia	Wikipedia	Wikipedia
+534	Y	poi.diy-hardware	DIY hardware	DIY hardware
+535	Y	poi.drinking-water	Trinkwasser	Drinking water
+536	Y	poi.ebike-charging	Ladestation für Fahrräder	Ebike charging
+537	Y	poi.embassy	Botschaft	Embassy
+538	Y	poi.fastfood	Fast food	Fast food
+539	Y	poi.firestation	Feuerwehr	Firestation
+540	Y	poi.foodcourt	Fressmeile	Food court
+541	Y	poi.fuel	Kraftstoff	Fuel
+542	Y	poi.gallery	Galerie	Gallery
+543	Y	poi.garden-centre	Gartencenter	Garden centre
+544	Y	poi.general	Allgemein	General
+545	Y	poi.gift	Geschenk	Gift
+546	Y	poi.golf	Golf	Golf
+547	Y	poi.grocery	Lebensmittelgeschäft	Grocery
+548	N	poi.group.amenity	[Amenity]	Amenity
+549	N	poi.group.foodshops	[Foodshops]	Foodshops
+550	N	poi.group.hiking-biking	[Hiking/biking]	Hiking/biking
+551	N	poi.group.landmarks	[Landmarks]	Landmarks
+552	N	poi.group.places-to-stay	[Places to stay]	Places to stay
+553	N	poi.group.restaurants	[Restaurants]	Restaurants
+554	N	poi.group.shops	[Shops]	Shops
+555	N	poi.group.sports	[Sports]	Sports
+556	N	poi.group.tourism	[Tourism]	Tourism
+557	Y	poi.guesthouse	Gästehaus	Guest house
+558	Y	poi.gymnastics	Gymnastik	Gymnastics
+559	Y	poi.hairdresser	Friseur	Hairdresser
+560	Y	poi.heritage	Kulturerbestätten	Heritage
+561	Y	poi.hindu-temple	Hindu-Tempel	Hindu temple
+562	Y	poi.historic	Historisch	Historic
+563	Y	poi.hockey	Hockey	Hockey
+564	Y	poi.horseracing	Pferderennen	Horse racing
+565	Y	poi.hospital	Krankenhaus	Hospital
+566	Y	poi.hostel	Herberge	Hostel
+567	Y	poi.hotel	Hotel	Hotel
+568	Y	poi.ice-cream	Eis	Ice cream
+569	Y	poi.icehockey	Eishockey	Ice hockey
+570	Y	poi.information	Information	Information
+571	Y	poi.jewelry	Schmuck	Jewelry
+572	Y	poi.kiosk	Kiosk	Kiosk
+573	Y	poi.leather	Leder	Leather
+574	Y	poi.library	Bibliothek	Library
+575	Y	poi.marketplace	Marktplatz	Marketplace
+576	Y	poi.monument-memorial	Denkmal	Monument
+577	Y	poi.monumental-tree	Monumentaler Baum	Monumental tree
+578	Y	poi.mosque	Moschee	Mosque
+579	Y	poi.motel	Motel	Motel
+580	Y	poi.museum	Museum	Museum
+581	Y	poi.musical-instrument	Musikinstrument	Musical instrument
+582	Y	poi.musicschool	Musikschule	Music school
+583	Y	poi.optician	Optiker	Optician
+584	Y	poi.organic	Bio	Organic
+585	Y	poi.parking	Parkplatz	Parking
+586	Y	poi.pets	Haustiere	Pets
+587	Y	poi.pharmacy	Apotheke	Pharmacy
+588	Y	poi.phone	Telefon	Phone
+589	Y	poi.photo	Foto	Photo
+590	Y	poi.picnic	Picknick	Picnic
+591	Y	poi.place-of-worship	Ort der Anbetung	Place of worship
+592	Y	poi.police	Polizei	Police
+593	Y	poi.postbox	Briefkasten	Post box
+594	Y	poi.postoffice	Post	Post office
+595	Y	poi.pub	Kneipe	Pub
+596	Y	poi.restaurant	Restaurant	Restaurant
+597	Y	poi.sauna	Sauna	Sauna
+598	Y	poi.seafood	Meeresfrüchte	Seafood
+599	Y	poi.shoes	Schuhe	Shoes
+600	Y	poi.shoppingcentre	Einkaufszentrum	Shopping centre
+601	Y	poi.soccer	Fußball	Soccer
+602	Y	poi.sportscentre	Sportzentrum	Sports centre
+603	Y	poi.statue	Statue	Statue
+604	Y	poi.supermarket	Supermarkt	Supermarket
+605	Y	poi.surfing	Surfen	Surfing
+606	Y	poi.swimming	Schwimmen	Swimming
+607	Y	poi.synagogue	Synagoge	Synagogue
+608	Y	poi.taxi	Taxi	Taxi
+609	Y	poi.tennis	Tennis	Tennis
+610	Y	poi.textiles	Textilien	Textiles
+611	Y	poi.theatre	Theater	Theatre
+612	Y	poi.themepark	Themenpark	Themepark
+613	Y	poi.toilets	Toiletten	Toilets
+614	Y	poi.tourism	Tourismus	Tourism
+615	Y	poi.toys	Spielzeug	Toys
+616	Y	poi.travelagency	Reisebüro	Travelagency
+617	Y	poi.university	Universität	University
+618	Y	poi.viewpoint	Aussichtspunkt	Viewpoint
+619	Y	poi.vineyard	Weinberg	Vineyard
+620	Y	poi.volleyball	Volleyball	Volleyball
+621	Y	poi.watermill	Wassermühle	Watermill
+622	Y	poi.windmill	Windmühle	Windmill
+623	Y	poi.wine	Wein	Wine
+624	Y	poi.zoo	Zoo	Zoo
+625	N	role-connection-indicator.blue.text	[This node is a connection to another network. This node has role "connection" in the network relation.]	This node is a connection to another network. This node has role "connection" in the network relation.
+626	N	role-connection-indicator.blue.title	[OK - Connection]	OK - Connection
+627	N	role-connection-indicator.gray.text	[This node does not have role "connection" in het network relation.]	This node does not have role "connection" in het network relation.
+628	N	role-connection-indicator.gray.title	[OK - No connection role]	OK - No connection role
+629	N	role-connection-indicator.letter	[C]	C
+630	N	route-accessible-indicator.gray.text	[Accessibility information is unknown for this type of route.]	Accessibility information is unknown for this type of route.
+631	N	route-accessible-indicator.gray.title	[OK - Accessibility unknown]	OK - Accessibility unknown
+632	N	route-accessible-indicator.green.text.canoe	[This route is completely accessible for canoe.]	This route is completely accessible for canoe.
+633	N	route-accessible-indicator.green.text.cycling	[This route is completely accessible for bicycle.]	This route is completely accessible for bicycle.
+634	N	route-accessible-indicator.green.text.hiking	[This route is completely accessible for hiking.]	This route is completely accessible for hiking.
+635	N	route-accessible-indicator.green.text.motorboat	[This route is completely accessible for motorboat.]	This route is completely accessible for motorboat.
+636	N	route-accessible-indicator.green.title	[OK - Accessible]	OK - Accessible
+637	N	route-accessible-indicator.letter	[A]	A
+638	N	route-accessible-indicator.red.text.canoe	[This route is not completely accessible for canoe.]	This route is not completely accessible for canoe.
+639	N	route-accessible-indicator.red.text.cycling	[This route is not completely accessible for bicycle.]	This route is not completely accessible for bicycle.
+640	N	route-accessible-indicator.red.text.hiking	[This route is not completely accessible for hiking.]	This route is not completely accessible for hiking.
+641	N	route-accessible-indicator.red.text.motorboat	[This route is not completely accessible for motorboat.]	This route is not completely accessible for motorboat.
+642	N	route-accessible-indicator.red.title	[NOK - Not Accessible]	NOK - Not Accessible
+643	N	route-change.no-geometry-diff	[No geometry change]	No geometry change
+644	N	route-change.unchanged	[(Unchanged)]	(Unchanged)
+645	N	route-change.version	[Version]	Version
+646	N	route-change.way-added.this-changeset	[this changeset]	this changeset
+647	N	route-change.way-added.title	[Added way]	Added way
+648	N	route-change.way-removed.title	[Removed way]	Removed way
+649	N	route-change.way-update.added-nodes	[Added node(s)]	Added node(s)
+650	N	route-change.way-update.changed-to	[Changed to]	Changed to v.
+651	N	route-change.way-update.direction-reversed	[Direction reversed]	Direction reversed
+652	N	route-change.way-update.removed-nodes	[Removed node(s)]	Removed node(s)
+653	N	route-change.way-update.title	[Updated way]	Updated way
+654	N	route-change.way-update.updated-nodes	[Updated node(s)]	Updated node(s)
+655	N	route-change.way-update.version-unchanged	[Way version unchanged]	Way version unchanged
+656	N	route-changes.login-required	[The route history is available to registered OpenStreetMap contributors only, after]	The details of the route changes history is available to registered OpenStreetMap contributors only, after .
+657	N	route-changes.node-diff.added	[added]	added
+658	N	route-changes.node-diff.end-nodes	[End nodes]	End nodes
+659	N	route-changes.node-diff.end-tentacle-nodes	[End tentacle nodes]	End tentacle nodes
+660	N	route-changes.node-diff.removed	[removed]	removed
+661	N	route-changes.node-diff.start-nodes	[Start nodes]	Start nodes
+662	N	route-changes.node-diff.start-tentacle-nodes	[Start tentacle nodes]	Start tentacle nodes
+663	N	route-changes.route-diff.member-order-changed	[Member order changed.]	Member order changed.
+664	N	route-changes.route-diff.name-diff	[Route name changed from "" to "".]	Route name changed from "" to "".
+665	N	route-changes.route-diff.role-added	[Route role "" added to networkrelation.]	Route role "" added to networkrelation.
+666	N	route-changes.route-diff.role-deleted	[Route role "" removed from networkrelation.]	Route role "" removed from networkrelation.
+667	N	route-changes.route-diff.role-updated	[Route role in networkrelation changed from "" to "".]	Route role in networkrelation changed from "" to "".
+668	N	route-changes.route-not-found	[Route not found]	Route not found
+669	N	route-connection-indicator.blue.text	[This route is a connection to another network.]	This route is a connection to another network.
+670	N	route-connection-indicator.blue.title	[OK - Connection]	OK - Connection
+671	N	route-connection-indicator.gray.text	[This route is not a connection to another network.]	This route is not a connection to another network.
+672	N	route-connection-indicator.gray.title	[OK - No connection]	OK - No connection
+673	N	route-connection-indicator.letter	[C]	C
+674	N	route-connection.indicator.letter	[C]	C
+675	N	route-diffs-added.existing-relation	[Existing relation]	Existing relation
+676	N	route-diffs-added.new-relation	[New relation]	New relation
+677	N	route-diffs-added.title	[Added routes]	Added routes
+678	N	route-diffs-added.updated-relation	[Relation updated in this changeset]	Relation updated in this changeset v
+679	N	route-diffs-removed.title	[Removed routes]	Removed routes
+680	N	route-diffs-updated.title	[Updated routes]	Updated routes
+681	N	route-indicator.gray.text	[This node is not included as a member in any route relations. This is OK as including de node as member in the route relations is optional.]	This node is not included as a member in any route relations. This is OK as including the node as member in the route relations is optional.
+682	N	route-indicator.gray.title	[OK - Not defined in route relation]	OK - Not defined in route relation
+683	N	route-indicator.green.text	[This node is included as a member in one or more route relations.]	This node is included as a member in one or more route relations.
+684	N	route-indicator.green.title	[OK - Defined in route relation]	OK - Defined in route relation
+685	N	route-indicator.letter	[R]	R
+686	N	route-investigate-indicator.green.text	[No issues found during route analysis.]	No issues found during route analysis.
+687	N	route-investigate-indicator.green.title	[OK - No facts]	OK - No facts
+688	N	route-investigate-indicator.letter	[F]	F
+689	N	route-investigate-indicator.red.text	[Something is wrong with this route.]	Something is wrong with this route.
+690	N	route-investigate-indicator.red.title	[NOK - Investigate facts]	NOK - Investigate facts
+691	Y	route-map-page.route-not-found	Route nicht gefunden	Route not found
+692	N	route.broken	[This route seems broken.]	This route seems broken.
+693	Y	route.end-node	Endknoten	End node
+694	Y	route.facts	Fakten	Facts
+695	N	route.incomplete	[Route definition is incomplete (has tag _"fixme=incomplete"_).]	Route definition is incomplete (has tag _"fixme=incomplete"_).
+696	Y	route.last-updated	Zuletzt aktualisiert	Last updated
+697	Y	route.location	Ort	Location
+698	N	route.location.none	[None]	None
+699	N	route.members.none	[None]	None
+700	N	route.members.table.id	[Id]	Id
+701	N	route.members.table.length	[Length]	Length
+702	N	route.members.table.name	[Name]	Name
+703	N	route.members.table.node	[Node]	Node
+704	N	route.members.table.node-count	[#Nodes]	#Nodes
+705	N	route.members.table.nodes	[Nodes]	Nodes
+706	N	route.members.table.one-way	[One Way]	One Way
+707	N	route.members.table.one-way.reverse	[Reverse]	Reverse
+708	N	route.members.table.one-way.yes	[Yes]	Yes
+709	N	route.members.table.role	[Role]	Role
+710	N	route.members.table.unaccessible	[Unaccessible]	Unaccessible
+711	N	route.members.title	[Route Members]	Route Members
+712	Y	route.menu.changes	Änderungen	Changes
+713	Y	route.menu.details	Details	Details
+714	Y	route.menu.map	Karte	Map
+715	N	route.meters	[m]	m
+716	Y	route.network	Netzwerk	Network
+717	N	route.no-network-references	[Geen]	None
+718	N	route.not-active	[This route is not active anymore.]	This route is not active anymore.
+719	Y	route.number-of-ways	Anzahl der Wegen	Number of ways
+720	Y	route.redundant-node	Redundanter Knoten	Redundant node
+721	Y	route.relation-last-updated	Relation zuletzt aktualisiert	Relation last updated
+722	Y	route.route-not-found	Route nicht gefunden	Route not found
+723	Y	route.situation-on	Situation am	Situation on
+724	Y	route.start-node	Startknoten	Start node
+725	Y	route.structure	Struktur	Structure
+726	Y	route.summary	Zusammenfassung	Summary
+727	Y	route.tags	Tags	Tags
+728	N	route.title	[Route]	Route
+729	Y	sidebar.back	zurück	back
+730	Y	situation-on	Situation am	Situation on
+731	Y	stats.integrity-check-coverage.comment	Abdeckung der Integritätsprüfung (Prozentsatz der Knoten, die Informationen zur Integritätsprüfung enthalten).	Integrity check coverage (percentage of nodes that do have integrity check information).
+732	Y	stats.integrity-check-coverage.name	IntegrityCheckCoverage	IntegrityCheckCoverage
+733	Y	stats.integrity-check-failed.comment	Anzahl der fehlgeschlagenen Integritätsprüfungen.	Number of failed integrity checks.
+734	Y	stats.integrity-check-failed.name	IntegrityCheckFailed	IntegrityCheckFailed
+735	Y	stats.integrity-check-network-count.comment	Anzahl der Netzwerke, die eine Integritätsprüfung enthalten.	Number of networks that include integrity check.
+736	Y	stats.integrity-check-network-count.name	IntegrityCheck	IntegrityCheck
+737	Y	stats.integrity-check-pass-rate.comment	Integritätsprüfungs-Erfolgsquote (Prozentsatz der OK-Prüfungen).	Integrity check pass rate (percentage of ok checks).
+738	Y	stats.integrity-check-pass-rate.name	IntegrityCheckPassRate	IntegrityCheckPassRate
+739	Y	stats.integrity-check.comment	Anzahl der Knoten mit Integritätsprüfung.	Number of nodes with integrity check.
+740	Y	stats.integrity-check.name	IntegrityCheck	IntegrityCheck
+741	Y	stats.km.comment	Gesamtlänge in Kilometern.	Total length in kilometers.
+742	Y	stats.km.name	Länge (km)	Length (km)
+743	Y	stats.name-missing.comment	Anzahl der Netzwerke ohne _"name"_ -Tag in der Netzwerkrelation.	Number of networks without _"name"_ tag in the network relation.
+744	Y	stats.name-missing.name	NameMissing	NameMissing
+745	Y	stats.network-count.comment	Anzahl der Netzwerke.	Number of networks.
+746	Y	stats.network-count.name	NetworkCount	NetworkCount
+747	Y	stats.network-extra-member-node.comment	Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _"node"_ (wir erwarten nur [Netzwerkknoten](glossary#node) oder [Informationskarten](glossary#info-map) als Mitglieder).	Number of network relation members of type _"node"_ that are unexpected (expect only [network nodes](glossary#node) or [information maps](glossary#info-map) as members in the network relation).
+748	Y	stats.network-extra-member-node.name	NetworkExtraMemberNode	NetworkExtraMemberNode
+749	Y	stats.network-extra-member-relation.comment	Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _"Relation"_ (wir erwarten nur gültige Routenrelationen oder Netzwerkknoten als Mitglieder in der Knotennetzwerkrelation).	Number of network relation members of type _"relation"_ that are unexpected (expect only valid route relations or network nodes as members in the node network relation).
+750	Y	stats.network-extra-member-relation.name	NetworkExtraMemberRelation	NetworkExtraMemberRelation
+751	Y	stats.network-extra-member-way.comment	Anzahl der Netzwerkbeziehungsmitglieder vom Typ _"way"_ (wir erwarten nur Routenrelationen oder Netzwerkknoten als Mitglieder in der Knotennetzwerkrelation).	Number of network relation members of type _"way"_ (expect only route relations or network nodes as members in the node network relation).
+752	Y	stats.network-extra-member-way.name	NetworkExtraMemberWay	NetworkExtraMemberWay
+753	Y	stats.node-count.comment	Anzahl der Netzwerkknoten.	Number of network nodes.
+754	Y	stats.node-count.name	Knotenanzahl	Node count
+755	Y	stats.node-member-missing.comment	Anzahl der Knoten, die nicht in der Netzwerkrelation enthalten sind	Number of nodes that are not included in the network relation
+756	Y	stats.node-member-missing.name	NodeMemberMissing	NodeMemberMissing
+757	Y	stats.orphan-node-count.comment	Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](glossary#node) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](glossary#network-relation) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](glossary#route-relation) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine verwaiste Route ist).	Number of network nodes that do not belong to a network.\ The [node](glossary#node) was not added as a member to a valid [network relation](glossary#network-relation) and also not added as a member to a valid [route relation](glossary#route-relation) (that itself was added as a member to a valid network relation or is an orphan route).
+758	Y	stats.orphan-node-count.name	Verwaiste Knoten	Orphan nodes
+759	Y	stats.orphan-route-count.comment	Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](glossary#network-relation) hinzugefügt.	Number of network routes that do not belong to a network.\ The route was not added as a member to a valid [network relation](glossary#network-relation).
+760	Y	stats.orphan-route-count.name	Verwaiste Routen	Orphan routes
+761	Y	stats.orphan-route-km.comment	Gesamtlänge (km) der verwaisten Routen (nicht in der obigen Netzlänge enthalten).	Total length (km) of the orphan routes (not included in network length above).
+762	Y	stats.orphan-route-km.name	Länge der verwaisten Routen (km)	Orphan route length (km)
+763	Y	stats.route-broken-count.comment	Anzahl der Routen mit Problemen.	Number of routes with issues.
+764	Y	stats.route-broken-count.name	RouteBrokenCount	RouteBrokenCount
+765	Y	stats.route-broken-network-count.comment	Anzahl der Netzwerke, die Routen mit Problemen enthalten.	Number of networks containing routes with issues.
+766	Y	stats.route-broken-network-count.name	RouteBrokenNetworkCount	RouteBrokenNetworkCount
+767	Y	stats.route-broken-percentage.comment	Prozentsatz der Routen mit Problemen.	Percentage of routes with issues.
+768	Y	stats.route-broken-percentage.name	RouteBrokenPercentage	RouteBrokenPercentage
+769	Y	stats.route-count.comment	Anzahl der Routen.	Number of routes.
+770	Y	stats.route-count.name	Routenanzahl	Route count
+771	Y	stats.route-fixmetodo.comment	Anzahl der Routen, die mit _"fixmetodo"_ gekennzeichnet sind.	Number of routes that are marked with _"fixmetodo"_.
+772	Y	stats.route-fixmetodo.name	RouteFixmetodo	RouteFixmetodo
+773	Y	stats.route-incomplete-ok.comment	Anzahl der Routen, die als unvollständig definiert sind, aber nach der Analyse in Ordnung aussehen. \ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _"fixme"_ mit dem Wert _"incomplete"_ hinzugefügt wird in der Routenrelation.	Number of routes that are marked as having an incomplete definition, but that look ok after analysis.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+774	Y	stats.route-incomplete-ok.name	RouteIncompleteOk	RouteIncompleteOk
+775	Y	stats.route-incomplete.comment	Anzahl der Routen, die als unvollständig definiert sind.\ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _"fixme"_ mit dem Wert _"unvollständig"_ in die Routenrelation eingefügt wird.	Number of routes that are marked as having an incomplete definition.\ A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with value _"incomplete"_ in the route relation.
+776	Y	stats.route-incomplete.name	RouteIncomplete	RouteIncomplete
+777	Y	stats.route-invalid-sorting-order.comment	Anzahl der Routen mit Wegen in falscher Sortierreihenfolge.	Number of routes with ways in wrong sorting order.
+778	Y	stats.route-invalid-sorting-order.name	RouteInvalidSortingOrder	RouteInvalidSortingOrder
+779	Y	stats.route-name-missing.comment	Routen ohne _"note"_ -Tag mit dem Routennamen.	Routes without a _"note"_ tag with the route name.
+780	Y	stats.route-name-missing.name	RouteNameMissing	RouteNameMissing
+781	Y	stats.route-node-missing-in-ways.comment	Anzahl der Routen, für die der Endknoten und / oder der Startknoten auf keiner der Routen gefunden wurde.	Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.
+782	Y	stats.route-node-missing-in-ways.name	RouteNodeMissingInWays	RouteNodeMissingInWays
+783	Y	stats.route-node-name-mismatch.comment	Routen, bei denen der Routenname nicht mit den Namen des Startknotens und des Endknotens übereinstimmt. Es wird erwartet, dass der Routenname den Startknotennamen und den Endknotennamen enthält, die durch einen Bindestrich getrennt sind. Es wird erwartet, dass der Startknoten eine niedrigere Nummer als der Endknoten hat.	Routes where the route name does not match with the names of the start node and the end node. The route name is expected to contain the start node name and the end node name, separated by a dash. The start node is expected to have a lower number than the end node.
+784	Y	stats.route-node-name-mismatch.name	RouteNodeNameMismatch	RouteNodeNameMismatch
+785	Y	stats.route-not-continious-network-count.comment	Anzahl der Netzwerke mit unterbrochenen Routen.	Number of networks with broken routes.
+786	Y	stats.route-not-continious-network-count.name	RouteNotContiniousNetworkCount	RouteNotContiniousNetworkCount
+787	Y	stats.route-not-continious-percentage.comment	Prozentsatz der unterbrochenen Routen.	Percentage of broken routes.
+788	Y	stats.route-not-continious-percentage.name	RouteNotContiniousPercentage	RouteNotContiniousPercentage
+789	Y	stats.route-not-continious.comment	Anzahl der unterbrochenen Routen.	Number of broken routes.
+790	Y	stats.route-not-continious.name	RouteNotContinious	RouteNotContinious
+791	Y	stats.route-redundant-nodes.comment	Anzahl der Routen, auf denen die Routenwege zusätzliche Knoten außer den Start- und Endknoten enthalten.	Number of routes where the ways of the route contain extra nodes other than the start and end nodes.
+792	Y	stats.route-redundant-nodes.name	RouteRedundantNodes	RouteRedundantNodes
+793	Y	stats.route-tag-invalid.comment	Der Wert im Tag _"route"_ in der Routenrelation ist unerwartet.	The value in the _"route"_ tag in the route relation is unexpected.
+794	Y	stats.route-tag-invalid.name	RouteTagInvalid	RouteTagInvalid
+795	Y	stats.route-tag-missing.comment	Die Routenrelation enthält kein _ "route" _ -Tag.	The route relation does not contain a _"route"_ tag.
+796	Y	stats.route-tag-missing.name	RouteTagMissing	RouteTagMissing
+797	Y	stats.route-unaccessible.comment	Anzahl der [nicht zugänglichen](glossary#accessible) Routen.	Number of [unaccessible](glossary#accessible) routes.
+798	Y	stats.route-unaccessible.name	RouteUnaccessible	RouteUnaccessible
+799	Y	stats.route-unexpected-node.comment	Anzahl der Routen mit einem oder mehreren unerwarteten Knotenmitgliedern. \ In Routenrelationen erwarten wir nur Knoten mit dem Tag _"rwn_ref"_ oder _"rcn_ref"_.	Number of routes with one or more unexpected node members.\ In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.
+800	Y	stats.route-unexpected-node.name	RouteUnexpectedNode	RouteUnexpectedNode
+801	Y	stats.route-unexpected-relation.comment	Anzahl der Routen mit einem oder mehreren unerwarteten Mitgliedern. \ In Routenrelationen erwarten wir nur Mitglieder vom Typ _"way"_ oder Mitglieder vom Typ _"node"_ mit einem Tag _"rwn_ref"_ oder _"rcn_ref"_.	Number of routes with one or more unexpected members.\In route relations we expect only members of type _"way"_, or members of type _"node"_ with a tag _"rwn_ref"_ or _"rcn_ref"_.
+802	Y	stats.route-unexpected-relation.name	RouteUnexpectedRelation	RouteUnexpectedRelation
+803	Y	stats.route-unused-segments.comment	Anzahl der Routen, auf denen einer oder mehrere der Wege (oder ein Teil der Wege) nicht im Vorwärts- oder Rückwärtspfad oder in einem der Tentakel verwendet werden.	Number of routes where one or more of the ways (or part of ways) are not used in the forward or backward path or in one of the tentacles.
+804	Y	stats.route-unused-segments.name	RouteUnusedSegments	RouteUnusedSegments
+805	Y	stats.route-without-ways.comment	Routen ohne Wege (für eine Route wird mindestens ein Weg erwartet).	Routes without ways (a route is expected to have at least 1 way).
+806	Y	stats.route-without-ways.name	RouteWithoutWays	RouteWithoutWays
+807	Y	subset-changes.login-required	Diese Details der Änderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach .]	This details of the changes history are available to registered OpenStreetMap contributors only, after .
+808	Y	subset-changes.title	Änderungen	Changes
+809	Y	subset-facts.in-networks	{VAR_PLURAL, plural, one {in 1 Netwerk} other {in Netwerken} }	{VAR_PLURAL, plural, one {in 1 network} other {in networks} }
+810	Y	subset-facts.no-facts	Keine Fakten	No facts
+811	Y	subset-facts.node-refs	{VAR_PLURAL, plural, one {Knoten} other {Knoten} }	{VAR_PLURAL, plural, one {node} other {nodes} }
+812	Y	subset-facts.orphan-routes	Verwaiste Routen	Orphan routes
+813	Y	subset-facts.osm-node-refs	{VAR_PLURAL, plural, one {Knoten} other {Knoten} }	{VAR_PLURAL, plural, one {node} other {nodes} }
+814	Y	subset-facts.osm-relation-refs	{VAR_PLURAL, plural, one {Relation} other {Relationen} }	{VAR_PLURAL, plural, one {relation} other {relations} }
+815	Y	subset-facts.osm-way-refs	{VAR_PLURAL, plural, one {Weg} other {Wege} }	{VAR_PLURAL, plural, one {way} other {ways} }
+816	Y	subset-facts.route-refs	{VAR_PLURAL, plural, one {Route} other {Routen} }	{VAR_PLURAL, plural, one {route} other {routes} }
+817	Y	subset-facts.routes	{VAR_PLURAL, plural, one {1 Route} other { Routen} }	{VAR_PLURAL, plural, one {1 route} other { routes} }
+818	Y	subset-facts.title	Fakten	Facts
+819	Y	subset-map.dialog.close	Schließen	Close
+820	Y	subset-map.dialog.nodeCount	Knoten	nodes
+821	Y	subset-map.dialog.routeCount	Routen	routes
+822	Y	subset-map.dialog.show-network-details	Netzwerkdetails anzeigen	Show network details
+823	Y	subset-map.title	Karte	Map
+824	Y	subset-network.summary	km, Knoten, Routen	km, nodes, routes
+825	Y	subset-networks.no-networks	Keine Netzwerke	No networks
+826	Y	subset-networks.summary	_Es gibt ____ Netzwerke mit insgesamt ____ Knoten und ____ Routen mit einer Gesamtlänge von ____ km._	_There are ____ networks, with a total of ____ nodes and ____ routes with an overall length of ____ km._
+827	Y	subset-networks.table.broken	Unterbrochen	Broken
+828	Y	subset-networks.table.connections	Verbindungen	Connections
+829	Y	subset-networks.table.integrity	Integrität	Integrity
+830	Y	subset-networks.table.integrity-nodes	Knoten	Nodes
+831	Y	subset-networks.table.length	Länge	Length
+832	Y	subset-networks.table.network	Netzwerk	Network
+833	Y	subset-networks.table.nodes	Knoten	Nodes
+834	Y	subset-networks.table.ok	OK	OK
+835	Y	subset-networks.table.routes	Routen	Routes
+836	Y	subset-networks.title	Netzwerke	Networks
+837	Y	subset-orphan-nodes.extra-tags	Zusätzliche Tags:	Extra tags:
+838	Y	subset-orphan-nodes.no-routes	Keine verwaisten Knoten	No orphan nodes
+839	Y	subset-orphan-nodes.title	Verwaiste Knoten	Orphan nodes
+840	Y	subset-orphan-routes.extra-tags	Zusätzliche Tags:	Extra tags:
+841	Y	subset-orphan-routes.no-routes	Keine verwaisten Routen	No orphan routes
+842	Y	subset-orphan-routes.route-is-broken	Die Route ist unterbrochen	route is broken
+843	Y	subset-orphan-routes.title	Verwaiste Routen	Orphan routes
+844	Y	subset-page.menu.changes	Änderungen	Changes
+845	Y	subset-page.menu.facts	Fakten	Facts
+846	Y	subset-page.menu.map	Karte	Map
+847	Y	subset-page.menu.networks	Netzwerke	Networks
+848	Y	subset-page.menu.orphan-nodes	Verwaiste Knoten	Orphan nodes
+849	Y	subset-page.menu.orphan-routes	Verwaiste Routen	Orphan routes
+850	Y	subset.in	in	in
+851	N	tag-diffs.added-tag	[Added tag]	Added tag
+852	N	tag-diffs.added-tags	[Added tags]	Added tags
+853	N	tag-diffs.after	[After]	After
+854	N	tag-diffs.before	[Before]	Before
+855	N	tag-diffs.deleted-tag	[Deleted tag]	Deleted tag
+856	N	tag-diffs.deleted-tags	[Deleted tags]	Deleted tags
+857	N	tag-diffs.key	[Key]	Key
+858	N	tag-diffs.same-tag	[Same tag]	Same tag
+859	N	tag-diffs.same-tags	[Same tags]	Same tags
+860	N	tag-diffs.table	[Tag differences]	Tag differences
+861	N	tag-diffs.updated-tag	[Updated tag]	Updated tag
+862	N	tag-diffs.updated-tags	[Updated tags]	Updated tags
+863	N	tag-diffs.value	[Value]	Value
+864	Y	tags.key	Schlüssel	Key
+865	Y	tags.no-tags	Keine Tags	No tags
+866	Y	tags.value	Wert	Value
+867	Y	toolbar.title	knooppuntnet	knooppuntnet
+868	N	version-change.relation-changed-to	[Relation changed to]	Relation changed to v
+869	N	version-change.relation-unchanged	[Relation unchanged]	Relation unchanged.

@@ -1,4 +1,7 @@
-# 2020-04-12 13:38:07 Missing 'de' translations: 240 of 866
+# 2020-04-13 15:26:12 Missing 'de' translations: 243 of 869
+[MAP.LAYER.NETWORK] Network
+[MAP.LAYER.NETWORKS] Networks
+[MAP.LAYER.TILE-NAMES] Tile names
 [NETWORK-INDICATOR.ORANGE.TITLE] Unexpected - Defined in network relation
 [NETWORK-INDICATOR.ORANGE.TEXT] This node is included as a member in the network relation. We did not expect this, because all routes to this node have role "connection". This would mean that the node is part of another network. We expect that the node is not included in the network relation, unless it receives the role "connection".
 [NETWORK-INDICATOR.GREEN.TITLE] OK - Defined in network relation
