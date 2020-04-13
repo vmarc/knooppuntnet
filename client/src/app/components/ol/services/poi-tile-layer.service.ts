@@ -1,7 +1,10 @@
 import {Injectable} from "@angular/core";
-import VectorTileLayer from "ol/layer/VectorTile";
+import BaseLayer from "ol/layer/Base";
+import Map from "ol/Map";
 import {StyleFunction} from "ol/style/Style";
 import {PoiService} from "../../../services/poi.service";
+import {ZoomLevel} from "../domain/zoom-level";
+import {MapLayer} from "../layers/map-layer";
 import {PoiStyleMap} from "../style/poi-style-map";
 import {MapLayerService} from "./map-layer.service";
 
@@ -19,12 +22,32 @@ export class PoiTileLayerService {
     });
   }
 
-  public buildLayer(): VectorTileLayer {
+  public buildLayer(): MapLayer {
     const layer = this.mapLayerService.poiTileLayer();
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changed.subscribe(() => layer.changed());
-    return layer;
+    layer.setVisible(false);
+    return new MapLayer(layer, this.applyMap(layer));
   }
+
+  private applyMap(layer: BaseLayer) {
+    return (map: Map) => {
+      map.getView().on("change:resolution", () => this.zoom(layer, map.getView().getZoom()));
+      this.updateLayerVisibility(layer, map.getView().getZoom());
+    };
+  }
+
+  private zoom(layer: BaseLayer, zoomLevel: number) {
+    this.poiService.updateZoomLevel(zoomLevel);
+    this.updateLayerVisibility(layer, zoomLevel);
+    return true;
+  }
+
+  private updateLayerVisibility(layer: BaseLayer, zoomLevel: number) {
+    const zoom = Math.round(zoomLevel);
+    layer.setVisible(zoom >= ZoomLevel.poiTileMinZoom);
+  }
+
 
   private poiStyleFunction(): StyleFunction {
     return (feature, resolution) => {

@@ -37,7 +37,8 @@ import {TileLoadProgressService} from "./services/tile-load-progress.service";
     RouteMapComponent,
     SubsetMapComponent,
     RouteChangeMapComponent,
-    LocationMapComponent
+    LocationMapComponent,
+    LayerSwitcherComponent
   ],
   providers: [
     MapService,

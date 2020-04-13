@@ -10,6 +10,7 @@ import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
 import {RouteMap} from "../../../kpn/api/common/route/route-map";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {LocationBoundaryLayer} from "../layers/location-boundary-layer";
+import {MainMapLayer} from "../layers/main-map-layer";
 import {MapLayer} from "../layers/map-layer";
 import {NetworkMarkerLayer} from "../layers/network-marker-layer";
 import {NetworkVectorTileLayer} from "../layers/network-vector-tile-layer";
@@ -20,15 +21,26 @@ import {PoiTileLayer} from "../layers/poi-tile-layer";
 import {RouteChangeLayers} from "../layers/route-change-layers";
 import {RouteLayers} from "../layers/route-layers";
 import {RouteNodesLayer} from "../layers/route-nodes-layer";
+import {TileNameLayer} from "../layers/tile-name-layer";
+import {MapService} from "./map.service";
 
 @Injectable()
 export class MapLayerService {
 
-  constructor(private i18nService: I18nService) {
+  constructor(private i18nService: I18nService,
+              private mapService: MapService) {
   }
 
   osmLayer(): MapLayer {
     return new OsmLayer(this.i18nService).build();
+  }
+
+  tileNameLayer(): MapLayer {
+    return new TileNameLayer(this.i18nService).build();
+  }
+
+  mainMapLayer(): MapLayer {
+    return new MainMapLayer(this.mapService, this.i18nService).build();
   }
 
   locationBoundaryLayer(geoJson: string): MapLayer {
