@@ -6,16 +6,13 @@ import {Extent} from "ol/extent";
 import {FeatureLike} from "ol/Feature";
 import Interaction from "ol/interaction/Interaction";
 import PointerInteraction from "ol/interaction/Pointer";
-import VectorLayer from "ol/layer/Vector";
 import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
-import VectorSource from "ol/source/Vector";
 import View from "ol/View";
 import {NetworkAttributes} from "../../kpn/api/common/network/network-attributes";
-import {Util} from "../shared/util";
-import {Marker} from "./domain/marker";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapControls} from "./layers/map-controls";
+import {NetworkMarkerLayer} from "./layers/network-marker-layer";
 import {MapLayerService} from "./map-layer.service";
 
 @Component({
@@ -41,10 +38,6 @@ export class SubsetMapComponent implements AfterViewInit {
 
   map: Map;
 
-  private readonly networkId = "network-id";
-  private readonly layer = "layer";
-  private readonly networkMarker = "network-marker";
-
   constructor(private mapLayerService: MapLayerService) {
   }
 
@@ -54,7 +47,7 @@ export class SubsetMapComponent implements AfterViewInit {
       target: "subset-map",
       layers: [
         this.mapLayerService.osmLayer(),
-        this.buildMarkerLayer()
+        this.mapLayerService.networkMarkerLayer(this.networks)
       ],
       controls: MapControls.build(),
       view: new View({
@@ -69,12 +62,6 @@ export class SubsetMapComponent implements AfterViewInit {
     this.map.addInteraction(this.buildInteraction());
   }
 
-  updateSize() {
-    if (this.map != null) {
-      this.map.updateSize();
-    }
-  }
-
   buildExtent(): Extent {
     const latitudes = this.networks.map(network => +network.center.latitude);
     const longitudes = this.networks.map(network => +network.center.longitude);
@@ -87,33 +74,14 @@ export class SubsetMapComponent implements AfterViewInit {
     return [a[0], a[1], b[0], b[1]];
   }
 
-  private buildMarkerLayer() {
-
-    const markers = this.networks.map(network => {
-      const coordinate = Util.toCoordinate(network.center.latitude, network.center.longitude);
-      const marker = Marker.create("blue", coordinate);
-      marker.set(this.networkId, network.id.toString());
-      marker.set(this.layer, this.networkMarker);
-      return marker;
-    });
-
-    const source = new VectorSource();
-    const layer = new VectorLayer({
-      source: source
-    });
-
-    markers.forEach(marker => source.addFeature(marker));
-    return layer;
-  }
-
   private buildInteraction(): Interaction {
     return new PointerInteraction({
       handleDownEvent: (evt: MapBrowserEvent) => {
         const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
         if (features) {
-          const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
+          const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
           if (index >= 0) {
-            const networkId = features[index].get(this.networkId);
+            const networkId = features[index].get(NetworkMarkerLayer.networkId);
             this.networkClicked.emit(+networkId);
             return true;
           }
@@ -123,7 +91,7 @@ export class SubsetMapComponent implements AfterViewInit {
       handleMoveEvent: (evt: MapBrowserEvent) => {
         const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
         if (features) {
-          const index = features.findIndex(feature => this.networkMarker === feature.get(this.layer));
+          const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
           evt.map.getTargetElement().style.cursor = index >= 0 ? "pointer" : "default";
         }
         return false;

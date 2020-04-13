@@ -6,10 +6,8 @@ import LayerGroup from "ol/layer/Group";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import View from "ol/View";
-import {I18nService} from "../../i18n/i18n.service";
 import {NodeMapInfo} from "../../kpn/api/common/node-map-info";
 import {Util} from "../shared/util";
-import {NetworkVectorTileLayer} from "./layers/network-vector-tile-layer";
 import {NodeMapStyle} from "./domain/node-map-style";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapControls} from "./layers/map-controls";
@@ -39,12 +37,10 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
   @Input() nodeMapInfo: NodeMapInfo;
 
   map: Map;
-
   layers: List<BaseLayer> = List();
 
   constructor(private mapClickService: MapClickService,
-              private mapLayerService: MapLayerService,
-              private i18nService: I18nService) {
+              private mapLayerService: MapLayerService) {
   }
 
   ngOnInit(): void {
@@ -77,21 +73,9 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
   }
 
   private buildLayers(): List<BaseLayer> {
-    const layerArray: Array<BaseLayer> = [];
-    layerArray.push(this.mapLayerService.osmLayer());
-    this.buildNetworkLayers().forEach(layer => layerArray.push(layer));
-    layerArray.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
-    return List(layerArray);
-  }
-
-  private buildNetworkLayers(): Array<BaseLayer> {
-    return this.nodeMapInfo.networkTypes.map(networkType => {
-      const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
-      const layer: VectorTileLayer = NetworkVectorTileLayer.build(networkType);
-      layer.set("name", layerName);
-      layer.set("mapStyle", "nodeMapStyle");
-      return layer;
-    }).toArray();
+    return List([this.mapLayerService.osmLayer()])
+      .concat(this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes))
+      .concat(List([this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo)]));
   }
 
 }

@@ -2,26 +2,15 @@ import {AfterViewInit} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {List} from "immutable";
-import {Color} from "ol/color";
 import {boundingExtent} from "ol/extent";
-import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
 import BaseLayer from "ol/layer/Base";
-import VectorLayer from "ol/layer/Vector";
 import Map from "ol/Map";
 import {fromLonLat} from "ol/proj";
-import VectorSource from "ol/source/Vector";
-import {Stroke} from "ol/style";
-import {Style} from "ol/style";
 import View from "ol/View";
-import {I18nService} from "../../i18n/i18n.service";
 import {Bounds} from "../../kpn/api/common/bounds";
 import {RawNode} from "../../kpn/api/common/data/raw/raw-node";
 import {GeometryDiff} from "../../kpn/api/common/route/geometry-diff";
-import {PointSegment} from "../../kpn/api/common/route/point-segment";
 import {UniqueId} from "../../kpn/common/unique-id";
-import {Util} from "../shared/util";
-import {Marker} from "./domain/marker";
 import {ZoomLevel} from "./domain/zoom-level";
 import {MapControls} from "./layers/map-controls";
 import {MapLayerService} from "./map-layer.service";
@@ -55,19 +44,15 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
   mapId = UniqueId.get();
   layers: List<BaseLayer> = List();
 
-  constructor(private mapLayerService: MapLayerService,
-              private i18nService: I18nService) {
+  constructor(private mapLayerService: MapLayerService) {
   }
 
   ngOnInit(): void {
     this.layers = this.buildLayers();
   }
 
-
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.buildMap();
-    }, 100);
+    setTimeout(() => this.buildMap(), 100);
   }
 
   buildMap(): void {
@@ -86,65 +71,12 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
   }
 
   private buildLayers(): List<BaseLayer> {
-
-    const unchanged = this.segmentLayer("@@map.layer.unchanged", this.geometryDiff.common, 5, [0, 0, 255]);
-    const added = this.segmentLayer("@@map.layer.added", this.geometryDiff.after, 12, [0, 255, 0]);
-    const deleted = this.segmentLayer("@@map.layer.deleted", this.geometryDiff.before, 3, [255, 0, 0]);
-
     return List([
       this.mapLayerService.osmLayer(),
-      unchanged,
-      added,
-      deleted,
-      this.nodeLayer()
-    ]).filter(layer => layer !== null);
-  }
-
-  private segmentLayer(name: string, segments: List<PointSegment>, width: number, color: Color): BaseLayer {
-    if (segments.isEmpty()) {
-      return null;
-    }
-
-    const style = new Style({
-      stroke: new Stroke({
-        color: color,
-        width: width
-      })
-    });
-
-    const source = new VectorSource();
-    segments.forEach(segment => {
-      const p1 = Util.latLonToCoordinate(segment.p1);
-      const p2 = Util.latLonToCoordinate(segment.p2);
-      const feature = new Feature(new LineString([p1, p2]));
-      feature.setStyle(style);
-      source.addFeature(feature);
-    });
-
-    const layer = new VectorLayer({
-      source: source
-    });
-    layer.set("name", this.i18nService.translation(name));
-    return layer;
-  }
-
-  private nodeLayer(): BaseLayer {
-
-    if (this.nodes.isEmpty()) {
-      return null;
-    }
-
-    const source = new VectorSource();
-    this.nodes.forEach(node => {
-      const after = Util.latLonToCoordinate(node);
-      const nodeMarker = Marker.create("blue", after);
-      source.addFeature(nodeMarker);
-    });
-    const layer = new VectorLayer({
-      source: source
-    });
-    layer.set("name", this.i18nService.translation("@@map.layer.nodes"));
-    return layer;
+      this.mapLayerService.routeNodeLayer(this.nodes)
+    ])
+      .concat(this.mapLayerService.routeChangeLayers(this.geometryDiff))
+      .filter(layer => layer !== null);
   }
 
   private fitBounds(): void {
