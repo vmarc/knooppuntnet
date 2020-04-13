@@ -2,14 +2,13 @@ import {AfterViewInit} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {List} from "immutable";
-import {boundingExtent} from "ol/extent";
 import Map from "ol/Map";
-import {fromLonLat} from "ol/proj";
 import View from "ol/View";
 import {Bounds} from "../../../kpn/api/common/bounds";
 import {RawNode} from "../../../kpn/api/common/data/raw/raw-node";
 import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
 import {UniqueId} from "../../../kpn/common/unique-id";
+import {Util} from "../../shared/util";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
 import {MapLayer} from "../layers/map-layer";
@@ -56,7 +55,7 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
       })
     });
     this.layers.applyMap(this.map);
-    this.fitBounds();
+    this.map.getView().fit(Util.toExtent(this.bounds, 0.1));
   }
 
   private buildLayers(): MapLayers {
@@ -65,33 +64,5 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
     mapLayers = mapLayers.push(this.mapLayerService.routeNodeLayer(this.nodes));
     mapLayers = mapLayers.concat(this.mapLayerService.routeChangeLayers(this.geometryDiff));
     return new MapLayers(mapLayers.filter(layer => layer !== null));
-  }
-
-  private fitBounds(): void {
-
-    // note that the 'common' points are not taken into account here, so that we zoom in on the actual changes
-    const points = this.geometryDiff.before.concat(this.geometryDiff.after);
-
-    if (points.isEmpty()) {
-      const southWest = fromLonLat([this.bounds.minLon, this.bounds.minLat]);
-      const northEast = fromLonLat([this.bounds.maxLon, this.bounds.maxLat]);
-      this.map.getView().fit(boundingExtent([southWest, northEast]));
-    } else {
-      const lattitudes = points.flatMap(s => List([s.p1.latitude, s.p2.latitude])).map(l => +l);
-      const longitudes = points.flatMap(s => List([s.p1.longitude, s.p2.longitude])).map(l => +l);
-
-      const latMin = lattitudes.min();
-      const lonMin = longitudes.min();
-      const latMax = lattitudes.max();
-      const lonMax = longitudes.max();
-
-      const latDelta = (latMax - latMin) * 0.05;
-      const lonDelta = (lonMax - lonMin) * 0.05;
-
-      const southWest = fromLonLat([lonMin - lonDelta, latMin - latDelta]);
-      const northEast = fromLonLat([lonMax + lonDelta, latMax + latDelta]);
-
-      this.map.getView().fit(boundingExtent([southWest, northEast]));
-    }
   }
 }

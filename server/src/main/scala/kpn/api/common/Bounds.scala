@@ -2,7 +2,7 @@ package kpn.api.common
 
 object Bounds {
 
-  def from(latLons: Seq[LatLon]): Bounds = {
+  def from(latLons: Seq[LatLon], gap: Double = 0): Bounds = {
 
     if (latLons.isEmpty) {
       Bounds()
@@ -16,8 +16,8 @@ object Bounds {
       val latMax = lattitudes.max
       val lonMax = longitudes.max
 
-      val latDelta = (latMax - latMin) / 8
-      val lonDelta = (lonMax - lonMin) / 8
+      val latDelta = (latMax - latMin) * gap
+      val lonDelta = (lonMax - lonMin) * gap
 
       Bounds(
         minLat = latMin - latDelta,
