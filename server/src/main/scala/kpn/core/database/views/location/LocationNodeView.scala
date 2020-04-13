@@ -85,7 +85,6 @@ object LocationNodeView extends View {
     }
   }
 
-
   def countryLocations(database: Database, networkType: NetworkType, country: Country, stale: Boolean): Seq[LocationNodeCount] = {
 
     val query = Query(LocationDesign, LocationNodeView, classOf[CountryViewResult])

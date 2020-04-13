@@ -5,6 +5,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {LayerSwitcherComponent} from "./layer-switcher.component";
 import {LocationMapComponent} from "./location-map.component";
 import {MapClickService} from "./map-click.service";
+import {MapLayerService} from "./map-layer.service";
 import {MapPositionService} from "./map-position.service";
 import {MapService} from "./map.service";
 import {NodeMapComponent} from "./node-map.component";
@@ -40,6 +41,7 @@ import {TileLoadProgressService} from "./tile-load-progress.service";
   ],
   providers: [
     MapService,
+    MapLayerService,
     MapClickService,
     PoiTileLayerService,
     TileLoadProgressService,

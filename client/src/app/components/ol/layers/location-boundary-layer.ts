@@ -21,15 +21,14 @@ export class LocationBoundaryLayer {
     });
 
     const locationStyle = new Style({
-        stroke: new Stroke({
-          color: "rgba(255, 0, 0, 0.9)",
-          width: 3
-        }),
-        fill: new Fill({
-          color: "rgba(255, 0, 0, 0.05)"
-        })
-      }
-    );
+      stroke: new Stroke({
+        color: "rgba(255, 0, 0, 0.9)",
+        width: 3
+      }),
+      fill: new Fill({
+        color: "rgba(255, 0, 0, 0.05)"
+      })
+    });
 
     const styleFunction = function (feature) {
       return locationStyle;
@@ -40,8 +39,8 @@ export class LocationBoundaryLayer {
       style: styleFunction
     });
 
-    const geoJsonLayerName = this.i18nService.translation("@@map.layer.boundary");
-    layer.set("name", geoJsonLayerName);
+    const layerName = this.i18nService.translation("@@map.layer.boundary");
+    layer.set("name", layerName);
     return layer;
   }
 }

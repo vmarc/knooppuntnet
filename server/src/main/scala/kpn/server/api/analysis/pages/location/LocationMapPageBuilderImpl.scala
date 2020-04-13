@@ -1,5 +1,16 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.Bounds
+import kpn.api.common.location.LocationMapPage
+import kpn.api.custom.Country
+import kpn.api.custom.LocationKey
+import kpn.api.custom.NetworkType
+import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
+import kpn.server.analyzer.engine.analysis.location.LocationDefinition
+import kpn.server.repository.LocationRepository
+import org.locationtech.jts.io.geojson.GeoJsonWriter
+import org.springframework.stereotype.Component
+
 @Component
 class LocationMapPageBuilderImpl(
   locationRepository: LocationRepository,
