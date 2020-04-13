@@ -4,6 +4,7 @@ import VectorSource from "ol/source/Vector";
 import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
+import {MapLayer} from "./map-layer";
 
 export class NetworkMarkerLayer {
 
@@ -11,7 +12,7 @@ export class NetworkMarkerLayer {
   static readonly layer = "layer";
   static readonly networkMarker = "network-marker";
 
-  build(networks: List<NetworkAttributes>) {
+  build(networks: List<NetworkAttributes>): MapLayer {
 
     const markers = networks.map(network => {
       const coordinate = Util.toCoordinate(network.center.latitude, network.center.longitude);
@@ -27,7 +28,7 @@ export class NetworkMarkerLayer {
     });
 
     markers.forEach(marker => source.addFeature(marker));
-    return layer;
+    return new MapLayer(layer);
   }
 
 }

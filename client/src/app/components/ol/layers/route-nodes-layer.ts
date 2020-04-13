@@ -6,13 +6,14 @@ import {I18nService} from "../../../i18n/i18n.service";
 import {RawNode} from "../../../kpn/api/common/data/raw/raw-node";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
+import {MapLayer} from "./map-layer";
 
 export class RouteNodesLayer {
 
   constructor(private i18nService: I18nService) {
   }
 
-  build(nodes: List<RawNode>): BaseLayer {
+  build(nodes: List<RawNode>): MapLayer {
 
     if (nodes.isEmpty()) {
       return null;
@@ -28,7 +29,7 @@ export class RouteNodesLayer {
       source: source
     });
     layer.set("name", this.i18nService.translation("@@map.layer.nodes"));
-    return layer;
+    return new MapLayer(layer);
   }
 
 }

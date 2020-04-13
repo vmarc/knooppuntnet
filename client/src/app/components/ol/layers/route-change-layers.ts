@@ -11,13 +11,14 @@ import {I18nService} from "../../../i18n/i18n.service";
 import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
 import {PointSegment} from "../../../kpn/api/common/route/point-segment";
 import {Util} from "../../shared/util";
+import {MapLayer} from "./map-layer";
 
 export class RouteChangeLayers {
 
   constructor(private i18nService: I18nService) {
   }
 
-  build(geometryDiff: GeometryDiff): List<BaseLayer> {
+  build(geometryDiff: GeometryDiff): List<MapLayer> {
 
     const unchanged = this.segmentLayer("@@map.layer.unchanged", geometryDiff.common, 5, [0, 0, 255]);
     const added = this.segmentLayer("@@map.layer.added", geometryDiff.after, 12, [0, 255, 0]);
@@ -30,7 +31,7 @@ export class RouteChangeLayers {
     ]).filter(layer => layer !== null);
   }
 
-  private segmentLayer(name: string, segments: List<PointSegment>, width: number, color: Color): BaseLayer {
+  private segmentLayer(name: string, segments: List<PointSegment>, width: number, color: Color): MapLayer {
     if (segments.isEmpty()) {
       return null;
     }
@@ -55,7 +56,7 @@ export class RouteChangeLayers {
       source: source
     });
     layer.set("name", this.i18nService.translation(name));
-    return layer;
+    return new MapLayer(layer);
   }
 
 }

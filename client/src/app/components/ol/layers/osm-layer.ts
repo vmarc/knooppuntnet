@@ -6,13 +6,14 @@ import VectorTile from "ol/source/VectorTile";
 import {createXYZ} from "ol/tilegrid";
 import {I18nService} from "../../../i18n/i18n.service";
 import {osmStyle} from "../style/style";
+import {MapLayer} from "./map-layer";
 
 export class OsmLayer {
 
   constructor(private i18nService: I18nService) {
   }
 
-  build(): BaseLayer {
+  build(): MapLayer {
 
     const tileGrid = createXYZ({
       tileSize: 512,
@@ -37,7 +38,7 @@ export class OsmLayer {
     stylefunction(layer, osmStyle, "openmaptiles");
     const osmLayerName = this.i18nService.translation("@@map.layer.osm");
     layer.set("name", osmLayerName);
-    return layer;
+    return new MapLayer(layer);
   }
 
 }

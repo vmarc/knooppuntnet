@@ -46,8 +46,8 @@ export class NodeMovedMapComponent implements AfterViewInit {
     this.map = new Map({
       target: this.mapId,
       layers: [
-        this.mapLayerService.osmLayer(),
-        this.mapLayerService.nodeMovedLayer(this.nodeMoved)
+        this.mapLayerService.osmLayer().layer,
+        this.mapLayerService.nodeMovedLayer(this.nodeMoved).layer
       ],
       controls: MapControls.build(),
       view: new View({

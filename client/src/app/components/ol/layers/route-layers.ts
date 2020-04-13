@@ -16,13 +16,14 @@ import {RouteMap} from "../../../kpn/api/common/route/route-map";
 import {RouteNetworkNodeInfo} from "../../../kpn/api/common/route/route-network-node-info";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
+import {MapLayer} from "./map-layer";
 
 export class RouteLayers {
 
   constructor(private i18nService: I18nService, private routeMap: RouteMap) {
   }
 
-  build(): List<BaseLayer> {
+  build(): List<MapLayer> {
     return List([
       this.buildMarkerLayer(),
       this.buildForwardLayer(),
@@ -33,7 +34,7 @@ export class RouteLayers {
     ]).filter(layer => layer !== null);
   }
 
-  private buildForwardLayer(): Layer {
+  private buildForwardLayer(): MapLayer {
     const path = this.routeMap.forwardPath;
     if (path && !path.segments.isEmpty()) {
       const title = this.i18nService.translation("@@map.layer.forward-route");
@@ -43,12 +44,12 @@ export class RouteLayers {
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set("name", title);
-      return layer;
+      return new MapLayer(layer);
     }
     return null;
   }
 
-  private buildBackwardLayer(): Layer {
+  private buildBackwardLayer(): MapLayer {
     const path = this.routeMap.backwardPath;
     if (path) {
       const title = this.i18nService.translation("@@map.layer.backward-route");
@@ -58,12 +59,12 @@ export class RouteLayers {
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set("name", title);
-      return layer;
+      return new MapLayer(layer);
     }
     return null;
   }
 
-  private buildStartTentaclesLayer(): Layer {
+  private buildStartTentaclesLayer(): MapLayer {
     const paths = this.routeMap.startTentaclePaths;
     if (paths && !paths.isEmpty()) {
       const title = this.i18nService.translation("@@map.layer.start-tentacle");
@@ -75,12 +76,12 @@ export class RouteLayers {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set("name", title);
-      return layer;
+      return new MapLayer(layer);
     }
     return null;
   }
 
-  private buildEndTentaclesLayer(): Layer {
+  private buildEndTentaclesLayer(): MapLayer {
     const paths = this.routeMap.endTentaclePaths;
     if (paths && !paths.isEmpty()) {
       const title = this.i18nService.translation("@@map.layer.end-tentacle");
@@ -92,12 +93,12 @@ export class RouteLayers {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set("name", title);
-      return layer;
+      return new MapLayer(layer);
     }
     return null;
   }
 
-  private buildUnusedSegmentsLayer(): Layer {
+  private buildUnusedSegmentsLayer(): MapLayer {
     const segments = this.routeMap.unusedSegments;
     if (segments && !segments.isEmpty()) {
       const title = this.i18nService.translation("@@map.layer.unused");
@@ -109,12 +110,12 @@ export class RouteLayers {
         source.addFeature(this.segmentToFeature(title, [255, 0, 0, 0.3], segment));
       });
       layer.set("name", title);
-      return layer;
+      return new MapLayer(layer);
     }
     return null;
   }
 
-  private buildMarkerLayer(): Layer {
+  private buildMarkerLayer(): MapLayer {
     const startNodeMarkers = this.buildMarkers(this.routeMap.startNodes, "green", "@@map.start-node");
     const endNodeMarkers = this.buildMarkers(this.routeMap.endNodes, "red", "@@map.end-node");
     const startTentacleNodeMarkers = this.buildMarkers(this.routeMap.startTentacleNodes, "orange", "@@map.start-tentacle-node");
@@ -133,7 +134,7 @@ export class RouteLayers {
     source.addFeatures(markers.toArray());
     const layerName = this.i18nService.translation("@@map.layer.nodes");
     layer.set("name", layerName);
-    return layer;
+    return new MapLayer(layer);
   }
 
   private buildMarkers(nodes: List<RouteNetworkNodeInfo>, color: string, nodeType: string): List<Feature> {

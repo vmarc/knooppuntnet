@@ -1,7 +1,6 @@
 import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, Input} from "@angular/core";
 import {List} from "immutable";
-import BaseLayer from "ol/layer/Base";
 import LayerGroup from "ol/layer/Group";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
@@ -10,6 +9,7 @@ import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
 import {Util} from "../../shared/util";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
+import {MapLayers} from "../layers/map-layers";
 import {MapClickService} from "../services/map-click.service";
 import {MapLayerService} from "../services/map-layer.service";
 import {NodeMapStyle} from "../style/node-map-style";
@@ -18,7 +18,7 @@ import {NodeMapStyle} from "../style/node-map-style";
   selector: "kpn-node-map",
   template: `
     <div id="node-map" class="map">
-      <kpn-layer-switcher [layers]="layers"></kpn-layer-switcher>
+      <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
     </div>
   `,
   styles: [`
@@ -37,23 +37,28 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
   @Input() nodeMapInfo: NodeMapInfo;
 
   map: Map;
-  layers: List<BaseLayer> = List();
+  layers: MapLayers;
 
   constructor(private mapClickService: MapClickService,
               private mapLayerService: MapLayerService) {
   }
 
   ngOnInit(): void {
+
+    console.log("NodeMapComponent.ngOnInit()");
+
     this.layers = this.buildLayers();
   }
 
   ngAfterViewInit(): void {
 
+    console.log("NodeMapComponent.ngAfterViewInit()");
+
     const center = Util.toCoordinate(this.nodeMapInfo.latitude, this.nodeMapInfo.longitude);
 
     this.map = new Map({
       target: "node-map",
-      layers: this.layers.toArray(),
+      layers: this.layers.layers.map(l => l.layer).toArray(),
       controls: MapControls.build(),
       view: new View({
         center: center,
@@ -64,18 +69,18 @@ export class NodeMapComponent implements OnInit, AfterViewInit {
     });
 
     const nodeMapStyle = new NodeMapStyle(this.map).styleFunction();
-    this.layers.filter(layer => layer instanceof VectorTileLayer && layer.get("mapStyle") === "nodeMapStyle").forEach(layer => {
+    this.layers.layers.map(l => l.layer).filter(layer => layer instanceof VectorTileLayer && layer.get("mapStyle") === "nodeMapStyle").forEach(layer => {
       (layer as VectorTileLayer).setStyle(nodeMapStyle);
     });
 
-    this.map.setLayerGroup(new LayerGroup({layers: this.layers.toArray()}));
+    this.map.setLayerGroup(new LayerGroup({layers: this.layers.layers.map(l => l.layer).toArray()}));
     this.mapClickService.installOn(this.map);
   }
 
-  private buildLayers(): List<BaseLayer> {
-    return List([this.mapLayerService.osmLayer()])
+  private buildLayers(): MapLayers {
+    return new MapLayers(List([this.mapLayerService.osmLayer()])
       .concat(this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes))
-      .concat(List([this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo)]));
+      .concat(List([this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo)])));
   }
 
 }

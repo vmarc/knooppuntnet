@@ -7,10 +7,11 @@ import Style from "ol/style/Style";
 import {NodeMoved} from "../../../kpn/api/common/diff/node/node-moved";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
+import {MapLayer} from "./map-layer";
 
 export class NodeMovedLayer {
 
-  public static build(nodeMoved: NodeMoved) {
+  public static build(nodeMoved: NodeMoved): MapLayer {
 
     const before = Util.latLonToCoordinate(nodeMoved.before);
     const after = Util.latLonToCoordinate(nodeMoved.after);
@@ -27,9 +28,11 @@ export class NodeMovedLayer {
     const source = new VectorSource();
     source.addFeature(displacement);
     source.addFeature(nodeMarker);
-    return new VectorLayer({
+    const layer = new VectorLayer({
       source: source
     });
+
+    return new MapLayer(layer);
   }
 
 }

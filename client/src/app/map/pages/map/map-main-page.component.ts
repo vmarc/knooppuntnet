@@ -114,7 +114,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.map = new Map({
       target: "main-map",
       layers: [
-        this.mapLayerService.osmLayer(),
+        this.mapLayerService.osmLayer().layer,
         // DebugLayer.build(),
         this.poiTileLayer,
         this.bitmapTileLayer,

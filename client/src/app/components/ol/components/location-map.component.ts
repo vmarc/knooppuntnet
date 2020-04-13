@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
@@ -28,6 +29,7 @@ import {MainMapStyle} from "../style/main-map-style";
 
 @Component({
   selector: "kpn-location-map",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="location-map" class="map">
       <kpn-layer-switcher [layers]="layers"></kpn-layer-switcher>
@@ -69,15 +71,22 @@ export class LocationMapComponent {
   }
 
   ngOnInit(): void {
+
+    console.log("LocationMapComponent.ngOnInit()");
+
     this.layers = this.buildLayers();
     this.subscriptions.add(this.pageService.sidebarOpen.subscribe(state => {
       if (this.map) {
-        setTimeout(() => this.map.updateSize(), 250);
+        setTimeout(() => {
+          this.map.updateSize();
+        }, 250);
       }
     }));
   }
 
   ngAfterViewInit(): void {
+
+    console.log("LocationMapComponent.ngAfterViewInit()");
 
     this.map = new Map({
       target: "location-map",
@@ -88,6 +97,11 @@ export class LocationMapComponent {
         maxZoom: ZoomLevel.vectorTileMaxOverZoom
       })
     });
+    // const group = new LayerGroup({
+    //   layers: this.layers.toArray()
+    // });
+    // this.map.setLayerGroup(group);
+
 
     this.mainMapStyle = new MainMapStyle(this.map, this.mapService).styleFunction();
 
@@ -137,9 +151,9 @@ export class LocationMapComponent {
     layerGroup.set("name", layerGroupName);
 
     const layerArray: Array<BaseLayer> = [];
-    layerArray.push(this.mapLayerService.osmLayer());
+    layerArray.push(this.mapLayerService.osmLayer().layer);
     layerArray.push(layerGroup);
-    layerArray.push(this.mapLayerService.locationBoundaryLayer(this.geoJson));
+    layerArray.push(this.mapLayerService.locationBoundaryLayer(this.geoJson).layer);
     return List(layerArray);
   }
 }

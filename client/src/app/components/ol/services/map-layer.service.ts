@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {List} from "immutable";
-import BaseLayer from "ol/layer/Base";
 import VectorTileLayer from "ol/layer/VectorTile";
 import {I18nService} from "../../../i18n/i18n.service";
 import {RawNode} from "../../../kpn/api/common/data/raw/raw-node";
@@ -11,6 +10,7 @@ import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
 import {RouteMap} from "../../../kpn/api/common/route/route-map";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {LocationBoundaryLayer} from "../layers/location-boundary-layer";
+import {MapLayer} from "../layers/map-layer";
 import {NetworkMarkerLayer} from "../layers/network-marker-layer";
 import {NetworkVectorTileLayer} from "../layers/network-vector-tile-layer";
 import {NodeMarkerLayer} from "../layers/node-marker-layer";
@@ -27,45 +27,45 @@ export class MapLayerService {
   constructor(private i18nService: I18nService) {
   }
 
-  osmLayer(): BaseLayer {
+  osmLayer(): MapLayer {
     return new OsmLayer(this.i18nService).build();
   }
 
-  locationBoundaryLayer(geoJson: string): BaseLayer {
+  locationBoundaryLayer(geoJson: string): MapLayer {
     return new LocationBoundaryLayer(this.i18nService).build(geoJson);
   }
 
-  nodeMarkerLayer(nodeMapInfo: NodeMapInfo): BaseLayer {
+  nodeMarkerLayer(nodeMapInfo: NodeMapInfo): MapLayer {
     return new NodeMarkerLayer(this.i18nService).build(nodeMapInfo);
   }
 
-  nodeMovedLayer(nodeMoved: NodeMoved): BaseLayer {
+  nodeMovedLayer(nodeMoved: NodeMoved): MapLayer {
     return NodeMovedLayer.build(nodeMoved);
   }
 
-  networkLayers(networkTypes: List<NetworkType>): List<BaseLayer> {
+  networkLayers(networkTypes: List<NetworkType>): List<MapLayer> {
     return networkTypes.map(networkType => {
       const layer: VectorTileLayer = NetworkVectorTileLayer.build(networkType);
       const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
       layer.set("name", layerName);
       layer.set("mapStyle", "nodeMapStyle");
-      return layer;
+      return new MapLayer(layer);
     });
   }
 
-  routeNodeLayer(nodes: List<RawNode>): BaseLayer {
+  routeNodeLayer(nodes: List<RawNode>): MapLayer {
     return new RouteNodesLayer(this.i18nService).build(nodes);
   }
 
-  routeChangeLayers(geometryDiff: GeometryDiff): List<BaseLayer> {
+  routeChangeLayers(geometryDiff: GeometryDiff): List<MapLayer> {
     return new RouteChangeLayers(this.i18nService).build(geometryDiff);
   }
 
-  routeLayers(routeMap: RouteMap): List<BaseLayer> {
+  routeLayers(routeMap: RouteMap): List<MapLayer> {
     return new RouteLayers(this.i18nService, routeMap).build();
   }
 
-  networkMarkerLayer(networks: List<NetworkAttributes>): BaseLayer {
+  networkMarkerLayer(networks: List<NetworkAttributes>): MapLayer {
     return new NetworkMarkerLayer().build(networks);
   }
 

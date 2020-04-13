@@ -82,10 +82,10 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     this.vectorTileLayer.setStyle(new MainMapStyle(this.map, this.mapService).styleFunction());
 
     return List([
-      this.mapLayerService.osmLayer(),
+      this.mapLayerService.osmLayer().layer,
       this.vectorTileLayer
     ])
-      .concat(this.mapLayerService.routeLayers(this.routeInfo.analysis.map));
+      .concat(this.mapLayerService.routeLayers(this.routeInfo.analysis.map).map(l => l.layer));
   }
 
   private buildExtent(): Extent {

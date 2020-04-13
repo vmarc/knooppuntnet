@@ -72,10 +72,10 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
 
   private buildLayers(): List<BaseLayer> {
     return List([
-      this.mapLayerService.osmLayer(),
-      this.mapLayerService.routeNodeLayer(this.nodes)
+      this.mapLayerService.osmLayer().layer,
+      this.mapLayerService.routeNodeLayer(this.nodes).layer
     ])
-      .concat(this.mapLayerService.routeChangeLayers(this.geometryDiff))
+      .concat(this.mapLayerService.routeChangeLayers(this.geometryDiff).map(l => l.layer))
       .filter(layer => layer !== null);
   }
 

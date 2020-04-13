@@ -46,8 +46,8 @@ export class SubsetMapComponent implements AfterViewInit {
     this.map = new Map({
       target: "subset-map",
       layers: [
-        this.mapLayerService.osmLayer(),
-        this.mapLayerService.networkMarkerLayer(this.networks)
+        this.mapLayerService.osmLayer().layer,
+        this.mapLayerService.networkMarkerLayer(this.networks).layer
       ],
       controls: MapControls.build(),
       view: new View({
