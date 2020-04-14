@@ -15,7 +15,7 @@ import {UserService} from "../../../services/user.service";
       </ul>
 
       <p class="version">
-        v3.0.0-alpha-10
+        v3.0.0-alpha-11
       </p>
 
       <p *ngIf="isLoggedIn()">

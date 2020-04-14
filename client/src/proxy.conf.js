@@ -10,6 +10,10 @@ PROXY_CONFIG = {
   "/tiles/**": {
     "target": "https://experimental.knooppuntnet.nl",
     "secure": false
+  },
+  "/images/**": {
+    "target": "https://experimental.knooppuntnet.nl",
+    "secure": true
   }
 };
 

@@ -1,5 +1,7 @@
 package kpn.server.api.analysis.pages.poi.analyzers
 
+import java.io.File
+
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 import kpn.server.api.analysis.pages.poi.PoiAnalyzer
 import org.apache.commons.codec.digest.DigestUtils
@@ -27,6 +29,18 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
       case None => context
       case Some(tagValue) =>
 
+        val imageThumbnail = {
+          val id = context.poi.elementId.toString
+          val dir = s"/images/${id.charAt(id.length - 2)}/${id.charAt(id.length - 1)}"
+          val cachedFileName = s"$dir/${context.poi.elementType}-$id.jpg"
+          if (new File("/kpn" + cachedFileName).exists()) {
+            Some(cachedFileName)
+          }
+          else {
+            None
+          }
+        }
+
         val fileName = PoiImageAnalyzer.imagePrefixes.flatMap { imagePrefix =>
           if (tagValue.startsWith(imagePrefix)) {
             Some(tagValue.substring(imagePrefix.length))
@@ -39,19 +53,28 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
         if (fileName.nonEmpty) {
           val image = s"https://upload.wikimedia.org/wikipedia/commons/${md5HexUrl(fileName.head)}"
           context.copy(
-            analysis = context.analysis.copy(image = Some(image)),
+            analysis = context.analysis.copy(
+              image = Some(image),
+              imageThumbnail = imageThumbnail
+            ),
             processedTagKeys = context.processedTagKeys :+ "image"
           )
         }
         else if (isImage(tagValue)) {
           context.copy(
-            analysis = context.analysis.copy(image = Some(tagValue)),
+            analysis = context.analysis.copy(
+              image = Some(tagValue),
+              imageThumbnail = imageThumbnail
+            ),
             processedTagKeys = context.processedTagKeys :+ "image"
           )
         }
         else {
           context.copy(
-            analysis = context.analysis.copy(imageLink = Some(tagValue)),
+            analysis = context.analysis.copy(
+              imageLink = Some(tagValue),
+              imageThumbnail = imageThumbnail
+            ),
             processedTagKeys = context.processedTagKeys :+ "image"
           )
         }

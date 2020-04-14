@@ -69,7 +69,7 @@ import {PlannerService} from "../../../planner.service";
 
       <div *ngIf="poi.image" class="item">
         <a [href]="poi.image" target="_blank">
-          <img [src]="poi.image" width="inherit" height="100px" alt="image" class="image"/>
+          <img [src]="thumbnailImage(poi.image)" width="inherit" height="100px" alt="image" class="image"/>
         </a>
       </div>
 
@@ -185,5 +185,12 @@ export class MapPopupPoiComponent implements OnInit, OnDestroy {
 
   emailLink(): string {
     return "mailto:" + this.poi.email;
+  }
+
+  thumbnailImage(uncached: string): string {
+    if (this.poi.imageThumbnail) {
+      return /*window.location.origin +*/ this.poi.imageThumbnail;
+    }
+    return uncached;
   }
 }
