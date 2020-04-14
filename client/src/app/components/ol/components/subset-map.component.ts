@@ -1,3 +1,4 @@
+import {OnDestroy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {List} from "immutable";
@@ -9,6 +10,8 @@ import Map from "ol/Map";
 import View from "ol/View";
 import {Bounds} from "../../../kpn/api/common/bounds";
 import {SubsetMapNetwork} from "../../../kpn/api/common/subset/subset-map-network";
+import {Subscriptions} from "../../../util/Subscriptions";
+import {PageService} from "../../shared/page.service";
 import {Util} from "../../shared/util";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
@@ -24,7 +27,7 @@ import {MapLayerService} from "../services/map-layer.service";
     </div>
   `
 })
-export class SubsetMapComponent implements OnInit, AfterViewInit {
+export class SubsetMapComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() bounds: Bounds;
   @Input() networks: List<SubsetMapNetwork>;
@@ -33,11 +36,25 @@ export class SubsetMapComponent implements OnInit, AfterViewInit {
   layers: MapLayers;
   private map: Map;
 
-  constructor(private mapLayerService: MapLayerService) {
+  private readonly subscriptions = new Subscriptions();
+
+  constructor(private mapLayerService: MapLayerService,
+              private pageService: PageService) {
   }
 
   ngOnInit(): void {
     this.layers = this.buildLayers();
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   ngAfterViewInit(): void {

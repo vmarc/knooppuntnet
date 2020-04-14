@@ -4,6 +4,8 @@ import {Extent} from "ol/extent";
 import Map from "ol/Map";
 import View from "ol/View";
 import {RouteInfo} from "../../../kpn/api/common/route/route-info";
+import {Subscriptions} from "../../../util/Subscriptions";
+import {PageService} from "../../shared/page.service";
 import {Util} from "../../shared/util";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
@@ -28,13 +30,27 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
   layers: MapLayers;
   private map: Map;
 
+  private readonly subscriptions = new Subscriptions();
+
   constructor(private mapService: MapService,
               private mapClickService: MapClickService,
-              private mapLayerService: MapLayerService) {
+              private mapLayerService: MapLayerService,
+              private pageService: PageService) {
   }
 
   ngOnInit(): void {
     this.layers = this.buildLayers();
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   ngAfterViewInit(): void {

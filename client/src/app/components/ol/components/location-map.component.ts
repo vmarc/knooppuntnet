@@ -48,9 +48,7 @@ export class LocationMapComponent {
     this.layers = this.buildLayers();
     this.subscriptions.add(this.pageService.sidebarOpen.subscribe(state => {
       if (this.map) {
-        setTimeout(() => {
-          this.map.updateSize();
-        }, 250);
+        setTimeout(() => this.map.updateSize(), 250);
       }
     }));
   }

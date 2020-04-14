@@ -1,9 +1,12 @@
+import {OnDestroy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, Input} from "@angular/core";
 import {List} from "immutable";
 import Map from "ol/Map";
 import View from "ol/View";
 import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
+import {Subscriptions} from "../../../util/Subscriptions";
+import {PageService} from "../../shared/page.service";
 import {Util} from "../../shared/util";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapControls} from "../layers/map-controls";
@@ -20,19 +23,33 @@ import {MapLayerService} from "../services/map-layer.service";
     </div>
   `
 })
-export class NodeMapComponent implements OnInit, AfterViewInit {
+export class NodeMapComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() nodeMapInfo: NodeMapInfo;
 
   layers: MapLayers;
   private map: Map;
 
+  private readonly subscriptions = new Subscriptions();
+
   constructor(private mapClickService: MapClickService,
-              private mapLayerService: MapLayerService) {
+              private mapLayerService: MapLayerService,
+              private pageService: PageService) {
   }
 
   ngOnInit(): void {
     this.layers = this.buildLayers();
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   ngAfterViewInit(): void {
