@@ -33,6 +33,7 @@
         <target>
           Liste der autorisierten Anwendungen
         </target>
+        <note priority="1" from="description">this is an example comment</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/osm-link-user-aoth-clients.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8740,7 +8741,6 @@
       TEST
 
     </source>
-        <target>test</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/sidebar/sidebar.component.ts</context>
           <context context-type="linenumber">2</context>
