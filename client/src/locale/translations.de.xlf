@@ -8737,7 +8737,6 @@
       </trans-unit>
       <trans-unit id="test-1" datatype="html">
         <source>TEST1</source>
-        <target state="new">[TEST1xx]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/sidebar/sidebar.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8745,7 +8744,6 @@
       </trans-unit>
       <trans-unit id="test-2" datatype="html">
         <source>TEST2</source>
-        <target state="new">[TEST2xx]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/sidebar/sidebar.component.ts</context>
           <context context-type="linenumber">7</context>
