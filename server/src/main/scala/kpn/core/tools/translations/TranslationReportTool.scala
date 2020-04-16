@@ -1,4 +1,4 @@
-package kpn.core.tools.translation
+package kpn.core.tools.translations
 
 import java.io.File
 import java.io.PrintWriter
@@ -33,7 +33,7 @@ class TranslationReportTool(root: String) {
     val filename = s"$root/assets/translations/missing.$language.txt"
     val out = new PrintWriter(new File(filename))
     val missingTranslations = translationFile.translationUnits.filter(_.state.contains("new"))
-    out.println(s"# ${Time.now.yyyymmddhhmmss} Missing '$language' translations: ${missingTranslations.size} of ${translationFile.translationUnits.size}")
+    out.println(s"# Missing '$language' translations: ${missingTranslations.size} of ${translationFile.translationUnits.size}")
     // note that we retain the order of the translation units in the source file, to help when manual editing targets
     missingTranslations.foreach { translationUnit =>
       out.println(s"[${translationUnit.id.toUpperCase}] ${Trim.trim(translationUnit.source)}")
@@ -44,7 +44,7 @@ class TranslationReportTool(root: String) {
   private def reportTranslations(language: String, translationFile: TranslationFile): Unit = {
     val filename = s"$root/assets/translations/$language.tsv"
     val out = new PrintWriter(new File(filename))
-    out.println(s"# ${Time.now.yyyymmddhhmmss} Translations: ${translationFile.translationUnits.size}")
+    out.println(s"# Translations: ${translationFile.translationUnits.size}")
     out.println(s"Nr\tTranslated\tId\tTranslation\tEnglish")
     translationFile.translationUnits.sortBy(_.id).zipWithIndex.foreach { case (translationUnit, index) =>
       val translated = if (translationUnit.state.contains("new")) "N" else "Y"

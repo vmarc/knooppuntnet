@@ -1,4 +1,4 @@
-package kpn.core.tools.translation
+package kpn.core.tools.translations
 
 object TranslationReportToolOptions {
 
