@@ -3,7 +3,6 @@ package kpn.core.tools.translations
 import java.io.File
 import java.io.PrintWriter
 
-import kpn.core.common.Time
 import kpn.core.tools.translations.domain.TranslationFile
 import kpn.core.tools.translations.domain.TranslationFileReader
 import kpn.core.tools.translations.domain.Trim
@@ -32,10 +31,9 @@ class TranslationReportTool(root: String) {
   private def reportMissingTranslations(language: String, translationFile: TranslationFile): Unit = {
     val filename = s"$root/assets/translations/missing.$language.txt"
     val out = new PrintWriter(new File(filename))
-    val missingTranslations = translationFile.translationUnits.filter(_.state.contains("new"))
+    val missingTranslations = translationFile.translationUnits.filter(tu => tu.source == tu.target)
     out.println(s"# Missing '$language' translations: ${missingTranslations.size} of ${translationFile.translationUnits.size}")
-    // note that we retain the order of the translation units in the source file, to help when manual editing targets
-    missingTranslations.foreach { translationUnit =>
+    missingTranslations.sortBy(_.id).foreach { translationUnit =>
       out.println(s"[${translationUnit.id.toUpperCase}] ${Trim.trim(translationUnit.source)}")
     }
     out.close()
