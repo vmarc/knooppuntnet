@@ -71,7 +71,7 @@ class TranslationTrimTool(root: String) {
     val writer = new StringWriter
     transformer.transform(new DOMSource(doc), new StreamResult(writer))
     val xmlString = writer.getBuffer.toString
-    val file = new File(s"$root/locale/translations.prod.xlf")
+    val file = new File(s"$root/locale/translations.en.xlf")
     FileUtils.writeStringToFile(file, xmlString, "UTF-8");
   }
 }
