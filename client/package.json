@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "3.0.0-alpha-11",
+  "version": "3.0.0-alpha-12",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -9,19 +9,13 @@
     "lint": "ng lint",
     "extract-i18n": "ng xi18n --output-path locale && xliffmerge --profile xliffmerge.json",
     "start": "node --max_old_space_size=8192 ./node_modules/.bin/ng serve --open --proxy-config src/proxy-dev.conf.js --host 0.0.0.0 --disable-host-check",
-    "start:en": "node --max_old_space_size=8192 ./node_modules/.bin/ng serve --configuration=en --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "start:nl": "node --max_old_space_size=8192 ./node_modules/.bin/ng serve --configuration=nl --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "start:de": "node --max_old_space_size=8192 ./node_modules/.bin/ng serve --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "start:fr": "node --max_old_space_size=8192 ./node_modules/.bin/ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "test-no-watch": "ng test --single-run",
-    "build-dev": "ng build --progress --output-path ./dist",
-    "build-prod": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./dist/${npm_package_name}-${npm_package_version}/en;cd dist/${npm_package_name}-${npm_package_version}/en; gzip --keep *.js *.json *.css",
-    "build-prod:nl": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --base-href /nl/ --configuration=production-nl --extract-css --progress --prod --aot --output-path ./dist/${npm_package_name}-${npm_package_version}/nl;cd dist/${npm_package_name}-${npm_package_version}/nl; gzip --keep *.js *.json *.css",
-    "build-prod:de": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --base-href /de/ --configuration=production-de --extract-css --progress --prod --aot --output-path ./dist/${npm_package_name}-${npm_package_version}/de;cd dist/${npm_package_name}-${npm_package_version}/de; gzip --keep *.js *.json *.css",
-    "build-prod:fr": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --base-href /fr/ --configuration=production-fr --extract-css --progress --prod --aot --output-path ./dist/${npm_package_name}-${npm_package_version}/fr;cd dist/${npm_package_name}-${npm_package_version}/fr; gzip --keep *.js *.json *.css",
-    "build-map": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --base-href /en/ --extract-css --progress --prod --aot --output-path ./map --stats-json --source-map",
+    "build-prod": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --prod --progress --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*.js */*.json */*.css",
     "zip": "cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
-    "dist": "run-s build-prod build-prod:nl build-prod:de build-prod:fr zip"
+    "dist": "run-s build-prod zip"
   },
   "private": true,
   "dependencies": {

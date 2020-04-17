@@ -5,18 +5,16 @@
   "projects": {
     "knooppuntnet": {
       "i18n": {
+        "sourceLocale": "en",
         "locales": {
           "nl": {
-            "translation": "src/locale/translations.nl.xlf",
-            "baseHref": ""
+            "translation": "src/locale/translations.nl.xlf"
           },
           "fr": {
-            "translation": "src/locale/translations.fr.xlf",
-            "baseHref": ""
+            "translation": "src/locale/translations.fr.xlf"
           },
           "de": {
-            "translation": "src/locale/translations.de.xlf",
-            "baseHref": ""
+            "translation": "src/locale/translations.de.xlf"
           }
         }
       },
@@ -77,6 +75,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "localize": true,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
@@ -87,87 +86,6 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "serviceWorker": true
-            },
-            "production-nl": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "extractCss": true,
-              "namedChunks": true,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "outputPath": "dist/kpn-nl/",
-              "i18nFile": "src/locale/translations.nl.xlf",
-              "i18nLocale": "nl",
-              "i18nMissingTranslation": "error"
-            },
-            "production-fr": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "extractCss": true,
-              "namedChunks": true,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "outputPath": "dist/kpn-fr/",
-              "i18nFile": "src/locale/translations.fr.xlf",
-              "i18nLocale": "fr",
-              "i18nMissingTranslation": "error"
-            },
-            "production-de": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "extractCss": true,
-              "namedChunks": true,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "outputPath": "dist/kpn-de/",
-              "i18nFile": "src/locale/translations.de.xlf",
-              "i18nLocale": "de",
-              "i18nMissingTranslation": "error"
             },
             "nl": {
               "aot": true,
