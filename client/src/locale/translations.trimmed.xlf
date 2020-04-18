@@ -3557,21 +3557,21 @@
         <source>New relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-diffs-added.updated-relation">
-        <source>Relation updated in this changeset v<x equiv-text="{{routeChangeInfo.after.version}}" id="INTERPOLATION"/></source>
+        <source>Relation updated in this changeset v<x equiv-text="{{ref.routeChangeInfo.after.version}}" id="INTERPOLATION"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-diffs-added.existing-relation">
         <source>Existing relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-diffs-removed.title">
