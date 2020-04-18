@@ -74,7 +74,6 @@ export class TranslationsLoadComponent {
   }
 
   loadMessages(): void {
-    console.log("load messages from github for language " + this.language.value);
     this.translationsService.loadTranslationFile(this.language.value).subscribe(translationFile => {
       console.log(`${translationFile.translationUnits.size} translations loaded (language=${this.language.value})`);
       this.translationFile.emit(translationFile);
@@ -82,7 +81,6 @@ export class TranslationsLoadComponent {
   }
 
   loadLocalFile(): void {
-    console.log("load local file");
     document.getElementById("selectedFile").click();
   }
 

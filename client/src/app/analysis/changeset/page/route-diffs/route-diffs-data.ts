@@ -13,7 +13,7 @@ export class RouteDiffsData {
   }
 
   findRouteChangeInfo(ref: Ref) {
-    return this.routeChangeInfos.filter(r => r.id === ref.id);
+    return this.routeChangeInfos.find(r => r.id === ref.id);
   }
 
 }

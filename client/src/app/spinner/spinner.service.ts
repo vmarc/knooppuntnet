@@ -10,8 +10,6 @@ export class SpinnerService {
   private readonly _spinnerState = new BehaviorSubject<boolean>(false);
   private activeActions: List<string> = List();
 
-  private counter = 0;
-
   spinnerState() {
     return this._spinnerState;
   }

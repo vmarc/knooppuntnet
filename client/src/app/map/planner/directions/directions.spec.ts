@@ -5,7 +5,6 @@ describe("directions", () => {
 
   it("translate plan into directions", () => {
     const plan = DirectionsTestSetup.examplePlan();
-    // console.log("DEBUG plan\n" + JSON.stringify(plan, null, 2));
 
     const instructions = new DirectionsAnalyzer().analyze(plan);
     instructions.forEach(instruction => {

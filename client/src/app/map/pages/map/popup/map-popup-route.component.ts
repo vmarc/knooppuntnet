@@ -52,14 +52,12 @@ export class MapPopupRouteComponent {
               private plannerService: PlannerService,
               private cdr: ChangeDetectorRef) {
     this.response$ = this.mapService.routeClicked.pipe(
-      tap(() => console.log("route clicked")),
       filter(routeClick => routeClick !== null),
       switchMap(routeClick =>
         this.appService.mapRouteDetail(routeClick.route.routeId).pipe(
-          tap(xx => console.log("route info received")),
           tap(response => {
-            this.cdr.detectChanges();
             this.plannerService.context.overlay.setPosition(routeClick.coordinate, 0);
+            this.cdr.detectChanges();
           })
         )
       )

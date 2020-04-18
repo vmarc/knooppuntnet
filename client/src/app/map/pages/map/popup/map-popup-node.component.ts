@@ -72,15 +72,13 @@ export class MapPopupNodeComponent {
               private cdr: ChangeDetectorRef) {
 
     this.response$ = this.mapService.nodeClicked.pipe(
-      tap(xx => console.log("node clicked")),
       filter(nodeClick => nodeClick !== null),
       switchMap(nodeClick =>
         this.appService.mapNodeDetail(this.mapService.networkType.value, nodeClick.node.nodeId).pipe(
-          tap(xx => console.log("route info received")),
           tap(response => {
-            this.cdr.detectChanges();
             const coordinate = Util.toCoordinate(response.result.latitude, response.result.longitude);
             this.plannerService.context.overlay.setPosition(coordinate, -10);
+            this.cdr.detectChanges();
           })
         )
       )

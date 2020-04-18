@@ -1,4 +1,3 @@
-import {AfterViewInit} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {List} from "immutable";
@@ -25,7 +24,6 @@ import {MapLayers} from "../layers/map-layers";
     </div>
   `,
   styles: [`
-
     .switcher {
       position: absolute;
       top: 50px;
@@ -38,14 +36,9 @@ import {MapLayers} from "../layers/map-layers";
       border-width: 1px;
       border-radius: 5px;
     }
-
-    .switcher-panel {
-      width: 180px;
-    }
-
   `]
 })
-export class LayerSwitcherComponent implements OnInit, AfterViewInit {
+export class LayerSwitcherComponent implements OnInit {
 
   @Input() layers: List<BaseLayer>;
   @Input() mapLayers: MapLayers;
@@ -55,20 +48,12 @@ export class LayerSwitcherComponent implements OnInit, AfterViewInit {
   open = false;
 
   ngOnInit() {
-
-    console.log("LayerSwitcherComponent.ngOnInit()");
-
     if (this.mapLayers) {
       this.namedLayers = this.mapLayers.layers.map(ml => ml.layer).filter(layer => layer.get("name"));
     }
-
     if (this.layers) {
       this.namedLayers = this.layers.filter(layer => layer.get("name"));
     }
-  }
-
-  ngAfterViewInit(): void {
-    console.log("LayerSwitcherComponent.ngAfterViewInit()");
   }
 
   openPanel(): void {
