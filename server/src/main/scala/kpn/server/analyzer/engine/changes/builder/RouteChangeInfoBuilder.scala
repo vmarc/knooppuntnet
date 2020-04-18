@@ -26,20 +26,21 @@ class RouteChangeInfoBuilder {
       val comment = changeSetInfo.flatMap(_.tags("comment"))
 
       val bounds = {
-        geometryDiff match {
+        val latLons = geometryDiff match {
           case Some(diff) =>
             // note that the 'common' points are not taken into account here, so that we zoom in on the actual changes
             val segments = diff.before ++ diff.after
             if (segments.nonEmpty) {
-              val latLons = segments.flatMap(s => Seq(s.p1, s.p2))
-              Bounds.from(latLons)
+              segments.flatMap(s => Seq(s.p1, s.p2))
             }
             else {
-              Bounds()
+              val allSegments = diff.before ++ diff.after ++ diff.common
+              allSegments.flatMap(s => Seq(s.p1, s.p2))
             }
           case None =>
-            Bounds()
+            Seq()
         }
+        Bounds.from(latLons)
       }
 
       RouteChangeInfo(
@@ -88,7 +89,7 @@ class RouteChangeInfoBuilder {
         routeChange.updatedWays,
 
         routeChange.diffs,
-        routeData.nodes,
+        routeData.networkNodes,
         changeSetInfo,
         geometryDiff = geometryDiff,
         bounds = bounds,
@@ -121,9 +122,10 @@ class RouteChangeInfoBuilder {
         routeChange.addedWays.map(w => WayInfo(w.id, w.version, w.changeSetId, w.timestamp, w.tags)),
         routeChange.updatedWays,
         routeChange.diffs,
-        routeData.nodes,
+        routeData.networkNodes,
         changeSetInfo,
         geometryDiff = geometryDiff,
+        bounds = bounds,
         happy = routeChange.happy,
         investigate = routeChange.investigate
       )
