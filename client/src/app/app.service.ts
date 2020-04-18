@@ -58,7 +58,7 @@ export class AppService {
               markdownService: MarkdownService,
               private browserStorageService: BrowserStorageService) {
     markdownService.renderer.link = (href: string, title: string, text: string) => {
-      return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
+      return `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
     };
   }
 

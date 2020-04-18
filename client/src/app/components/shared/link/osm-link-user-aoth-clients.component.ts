@@ -7,7 +7,7 @@ import {UserService} from "../../../services/user.service";
     <a
       class="external"
       href="https://www.openstreetmap.org/user/{{currentUser()}}/oauth_clients"
-      rel="nofollow"
+      rel="nofollow noreferrer"
       target="_blank" i18n="@@osm-link.oath-clients">
       list of authorised applications
     </a>

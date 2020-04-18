@@ -18,6 +18,7 @@ import {Component} from "@angular/core";
           href="https://www.openstreetmap.org/message/new/vmarc"
           class="external"
           target="_blank"
+          rel="nofollow noreferrer"
           i18n="@@footer.contact">
           contact
         </a>
@@ -27,6 +28,7 @@ import {Component} from "@angular/core";
           href="https://github.com/vmarc/knooppuntnet/issues"
           class="external"
           target="_blank"
+          rel="nofollow noreferrer"
           i18n="@@footer.issues">
           issues
         </a>

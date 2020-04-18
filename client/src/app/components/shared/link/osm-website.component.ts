@@ -6,8 +6,7 @@ import {Component} from "@angular/core";
   template: `
     <a
       class="external"
-      rel="nofollow"
-      target="_blank"
+      rel="nofollow noreferrer"
       href="https://www.openstreetmap.org">
       OpenStreetMap
     </a>
