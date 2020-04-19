@@ -137,6 +137,12 @@ table.kpn-bordered-table {
   }
 }
 
+.kpn-separated {
+  > :not(:last-child) {
+    padding-right: 0.8em;
+  }
+}
+
 .kpn-detail {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
@@ -257,7 +263,6 @@ table.kpn-bordered-table {
 
 .kpn-space-separated {
   display: inline-block;
-
   :not(:last-child):after {
     content: " ";
   }
@@ -346,4 +351,32 @@ ul.links li + li:before {
   max-width: 640px;
   border: 1px solid lightgray;
   background-color: white;
+}
+
+table.mat-table {
+  border-top: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+}
+
+table.mat-table > thead > tr.mat-header-row,
+table.mat-table > tbody > tr.mat-row,
+table.mat-table > tfoot > tr.mat-footer-row
+{
+  height: 2.5rem;
+}
+
+table.mat-table > thead > tr.mat-header-row > th.mat-header-cell,
+table.mat-table > thead > tr.mat-header-row > th.mat-header-cell:first-of-type,
+table.mat-table > tbody > tr.mat-row > td.mat-cell,
+table.mat-table > tbody > tr.mat-row > td.mat-cell:first-of-type {
+  font-size: 14px;
+  text-align: left;
+  border-right: 1px solid lightgray;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+table.mat-table > thead > tr.mat-header-row > th.mat-header-cell {
+  vertical-align: top;
+  padding-top: 0.5rem;
 }

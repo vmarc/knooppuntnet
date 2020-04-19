@@ -11,7 +11,6 @@ import {MarkdownModule} from "ngx-markdown";
 import {SharedModule} from "../../components/shared/shared.module";
 import {AnalysisComponentsModule} from "../components/analysis-components.module";
 import {FactModule} from "../fact/fact.module";
-import {NetworkRoutingModule} from "./network-routing.module";
 import {NetworkChangesPageComponent} from "./changes/_network-changes-page.component";
 import {NetworkChangeSetComponent} from "./changes/network-change-set.component";
 import {NetworkChangeComponent} from "./changes/network-change.component";
@@ -31,6 +30,7 @@ import {NetworkFactRoutesComponent} from "./facts/network-fact-routes.component"
 import {NetworkFactWayIdsComponent} from "./facts/network-fact-way-ids.component";
 import {NetworkFactComponent} from "./facts/network-fact.component";
 import {NetworkMapPageComponent} from "./map/_network-map-page.component";
+import {NetworkRoutingModule} from "./network-routing.module";
 import {NetworkNodesPageComponent} from "./nodes/_network-nodes-page.component";
 import {IntegrityIndicatorDialogComponent} from "./nodes/indicators/integrity-indicator-dialog.component";
 import {IntegrityIndicatorComponent} from "./nodes/indicators/integrity-indicator.component";

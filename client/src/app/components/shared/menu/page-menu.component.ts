@@ -10,10 +10,6 @@ import {Component} from "@angular/core";
   `,
   styles: [`
 
-    mat-divider {
-      margin-bottom: 30px;
-    }
-
     .menu {
       line-height: 30px;
     }

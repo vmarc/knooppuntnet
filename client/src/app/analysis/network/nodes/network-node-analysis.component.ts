@@ -5,12 +5,19 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 @Component({
   selector: "kpn-network-node-analysis",
   template: `
-    <kpn-network-indicator [node]="node"></kpn-network-indicator>
-    <kpn-route-indicator [node]="node"></kpn-route-indicator>
-    <kpn-node-connection-indicator [node]="node"></kpn-node-connection-indicator>
-    <kpn-role-connection-indicator [node]="node"></kpn-role-connection-indicator>
-    <kpn-integrity-indicator [node]="node" [networkType]="networkType"></kpn-integrity-indicator>
-  `
+    <div class="analysis">
+      <kpn-network-indicator [node]="node"></kpn-network-indicator>
+      <kpn-route-indicator [node]="node"></kpn-route-indicator>
+      <kpn-node-connection-indicator [node]="node"></kpn-node-connection-indicator>
+      <kpn-role-connection-indicator [node]="node"></kpn-role-connection-indicator>
+      <kpn-integrity-indicator [node]="node" [networkType]="networkType"></kpn-integrity-indicator>
+    </div>
+  `,
+  styles: [`
+    .analysis {
+      display: flex;
+    }
+  `]
 })
 export class NetworkNodeAnalysisComponent {
 

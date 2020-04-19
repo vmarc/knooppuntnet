@@ -15,83 +15,76 @@ import {NetworkNodesService} from "./network-nodes.service";
   selector: "kpn-network-node-table",
   template: `
     <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" [showFirstLastButtons]="true"></kpn-paginator>
-    <mat-divider></mat-divider>
 
-    <mat-table matSort [dataSource]="dataSource">
+    <table mat-table matSort [dataSource]="dataSource">
 
       <ng-container matColumnDef="nr">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</mat-cell>
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.nr">Nr</th>
+        <td mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
-        <mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.analysis">Analysis</mat-header-cell>
-        <mat-cell *matCellDef="let node">
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.analysis">Analysis</th>
+        <td mat-cell *matCellDef="let node">
           <kpn-network-node-analysis [node]="node" [networkType]="networkType"></kpn-network-node-analysis>
-        </mat-cell>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="node">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.node">Node</mat-header-cell>
-        <mat-cell *matCellDef="let node">
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.node">Node</th>
+        <td mat-cell *matCellDef="let node">
           <kpn-link-node [nodeId]="node.id" [nodeName]="node.name"></kpn-link-node>
-        </mat-cell>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.name">Name</th>
+        <td mat-cell *matCellDef="let node">
+          {{name(node)}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="routes-expected">
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.expected">Expected</th>
+        <td mat-cell *matCellDef="let node">
+          {{expectedRouteCount(node)}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="routes-actual">
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.actual">Actual</th>
+        <td mat-cell *matCellDef="let node">
+          <network-node-routes [node]="node"></network-node-routes>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="routes">
-        <mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes">Routes</mat-header-cell>
-        <mat-cell *matCellDef="let node">
-          <network-node-routes [node]="node"></network-node-routes>
-        </mat-cell>
+        <th [attr.colspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes">Routes</th>
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-edit">Last edit</mat-header-cell>
-        <mat-cell *matCellDef="let node" class="kpn-line">
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-edit">Last edit</th>
+        <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.timestamp"></kpn-day>
           <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
           <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
-        </mat-cell>
+        </td>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns()"></mat-header-row>
-      <mat-row *matRowDef="let node; columns: displayedColumns();"></mat-row>
-    </mat-table>
+      <tr mat-header-row *matHeaderRowDef="headerColumns1()"></tr>
+      <tr mat-header-row *matHeaderRowDef="headerColumns2()"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns()"></tr>
+
+    </table>
   `,
   styles: [`
 
-    .mat-header-cell {
-      margin-right: 10px;
-    }
-
-    .mat-cell {
-      margin-right: 10px;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 45px;
-      vertical-align: middle;
-    }
-
     .mat-column-nr {
-      flex: 0 0 30px;
+      width: 3rem;
     }
 
-    .mat-column-analysis {
-      flex: 0 0 200px;
-    }
-
-    .mat-column-node {
-      flex: 1 0 60px;
-    }
-
-    .mat-column-routes {
-      flex: 2 0 200px;
-    }
-
-    .mat-column-lastEdit {
-      flex: 0 0 200px;
+    .mat-column-routes-actual {
+      width: 10rem;
     }
 
   `]
@@ -124,7 +117,19 @@ export class NetworkNodeTableComponent implements OnInit {
 
   displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "node", "routes", "lastEdit"];
+      return ["nr", "analysis", "node", "name", "routes-expected", "routes-actual", "lastEdit"];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ["nr", "analysis", "node", "routes-expected", "routes-actual"];
+    }
+
+    return ["nr", "analysis", "node"];
+  }
+
+  headerColumns1() {
+    if (this.pageWidthService.isVeryLarge()) {
+      return ["nr", "analysis", "node", "name", "routes", "lastEdit"];
     }
 
     if (this.pageWidthService.isLarge()) {
@@ -134,7 +139,35 @@ export class NetworkNodeTableComponent implements OnInit {
     return ["nr", "analysis", "node"];
   }
 
+  headerColumns2() {
+    if (this.pageWidthService.isVeryLarge() || this.pageWidthService.isLarge()) {
+      return ["routes-expected", "routes-actual"];
+    }
+
+    return [];
+  }
+
+
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
   }
+
+  expectedRouteCount(node: NetworkNodeInfo2): string {
+    if (node.integrityCheck && node.integrityCheck.expected) {
+      return node.integrityCheck.expected.toString();
+    }
+    return "-";
+  }
+
+  name(node: NetworkNodeInfo2): string {
+    const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
+    if (node.tags) {
+      const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
+      if (nameTag) {
+        return nameTag.value;
+      }
+    }
+    return "-";
+  }
+
 }
