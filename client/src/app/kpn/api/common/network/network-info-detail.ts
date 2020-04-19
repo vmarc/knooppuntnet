@@ -2,14 +2,14 @@
 
 import {List} from "immutable";
 import {NetworkFacts} from "../network-facts";
-import {NetworkNodeInfo2} from "./network-node-info2";
-import {NetworkRouteInfo} from "./network-route-info";
+import {NetworkInfoNode} from "./network-info-node";
+import {NetworkInfoRoute} from "./network-info-route";
 import {NetworkShape} from "./network-shape";
 
 export class NetworkInfoDetail {
 
-  constructor(readonly nodes: List<NetworkNodeInfo2>,
-              readonly routes: List<NetworkRouteInfo>,
+  constructor(readonly nodes: List<NetworkInfoNode>,
+              readonly routes: List<NetworkInfoRoute>,
               readonly networkFacts: NetworkFacts,
               readonly shape: NetworkShape) {
   }
@@ -19,8 +19,8 @@ export class NetworkInfoDetail {
       return undefined;
     }
     return new NetworkInfoDetail(
-      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => NetworkNodeInfo2.fromJSON(json))) : List(),
-      jsonObject.routes ? List(jsonObject.routes.map((json: any) => NetworkRouteInfo.fromJSON(json))) : List(),
+      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => NetworkInfoNode.fromJSON(json))) : List(),
+      jsonObject.routes ? List(jsonObject.routes.map((json: any) => NetworkInfoRoute.fromJSON(json))) : List(),
       NetworkFacts.fromJSON(jsonObject.networkFacts),
       NetworkShape.fromJSON(jsonObject.shape)
     );

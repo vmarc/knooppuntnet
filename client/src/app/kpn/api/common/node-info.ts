@@ -2,6 +2,7 @@
 
 import {List} from "immutable";
 import {Country} from "../custom/country";
+import {Day} from "./common/day";
 import {Fact} from "../custom/fact";
 import {Location} from "./location/location";
 import {NodeName} from "./node-name";
@@ -19,6 +20,7 @@ export class NodeInfo {
               readonly latitude: string,
               readonly longitude: string,
               readonly lastUpdated: Timestamp,
+              readonly lastSurvey: Day,
               readonly tags: Tags,
               readonly facts: List<Fact>,
               readonly location: Location,
@@ -39,6 +41,7 @@ export class NodeInfo {
       jsonObject.latitude,
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),
+      Day.fromJSON(jsonObject.lastSurvey),
       Tags.fromJSON(jsonObject.tags),
       jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       Location.fromJSON(jsonObject.location),

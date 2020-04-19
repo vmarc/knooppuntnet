@@ -1,6 +1,7 @@
 // this class is generated, please do not modify
 
 import {List} from "immutable";
+import {Day} from "../common/day";
 import {Fact} from "../../custom/fact";
 import {RouteInfoAnalysis} from "./route-info-analysis";
 import {RouteSummary} from "../route-summary";
@@ -15,6 +16,7 @@ export class RouteInfo {
               readonly version: number,
               readonly changeSetId: number,
               readonly lastUpdated: Timestamp,
+              readonly lastSurvey: Day,
               readonly tags: Tags,
               readonly facts: List<Fact>,
               readonly analysis: RouteInfoAnalysis,
@@ -32,6 +34,7 @@ export class RouteInfo {
       jsonObject.version,
       jsonObject.changeSetId,
       Timestamp.fromJSON(jsonObject.lastUpdated),
+      Day.fromJSON(jsonObject.lastSurvey),
       Tags.fromJSON(jsonObject.tags),
       jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       RouteInfoAnalysis.fromJSON(jsonObject.analysis),

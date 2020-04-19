@@ -11,7 +11,7 @@ export class NetworkRouteRow {
               readonly investigate: boolean,
               readonly accessible: boolean,
               readonly roleConnection: boolean,
-              readonly relationLastUpdated: Timestamp) {
+              readonly lastUpdated: Timestamp) {
   }
 
   public static fromJSON(jsonObject: any): NetworkRouteRow {
@@ -26,7 +26,7 @@ export class NetworkRouteRow {
       jsonObject.investigate,
       jsonObject.accessible,
       jsonObject.roleConnection,
-      Timestamp.fromJSON(jsonObject.relationLastUpdated)
+      Timestamp.fromJSON(jsonObject.lastUpdated)
     );
   }
 }

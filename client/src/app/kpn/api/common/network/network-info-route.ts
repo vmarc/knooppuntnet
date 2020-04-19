@@ -1,10 +1,11 @@
 // this class is generated, please do not modify
 
 import {List} from "immutable";
+import {Day} from "../common/day";
 import {Fact} from "../../custom/fact";
 import {Timestamp} from "../../custom/timestamp";
 
-export class NetworkRouteInfo {
+export class NetworkInfoRoute {
 
   constructor(readonly id: number,
               readonly name: string,
@@ -13,14 +14,15 @@ export class NetworkRouteInfo {
               readonly role: string,
               readonly relationLastUpdated: Timestamp,
               readonly lastUpdated: Timestamp,
+              readonly lastSurvey: Day,
               readonly facts: List<Fact>) {
   }
 
-  public static fromJSON(jsonObject: any): NetworkRouteInfo {
+  public static fromJSON(jsonObject: any): NetworkInfoRoute {
     if (!jsonObject) {
       return undefined;
     }
-    return new NetworkRouteInfo(
+    return new NetworkInfoRoute(
       jsonObject.id,
       jsonObject.name,
       jsonObject.wayCount,
@@ -28,6 +30,7 @@ export class NetworkRouteInfo {
       jsonObject.role,
       Timestamp.fromJSON(jsonObject.relationLastUpdated),
       Timestamp.fromJSON(jsonObject.lastUpdated),
+      Day.fromJSON(jsonObject.lastSurvey),
       jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List()
     );
   }
