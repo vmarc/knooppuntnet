@@ -19,72 +19,45 @@ import {NetworkRoutesService} from "./network-routes.service";
       [pageSizeOptions]="[5, 10, 20, 50, 1000]"
       [length]="routes?.size" [showFirstLastButtons]="true">
     </kpn-paginator>
-    <mat-divider></mat-divider>
 
-    <mat-table matSort [dataSource]="dataSource">
+    <table mat-table matSort [dataSource]="dataSource" class="kpn-spacer-above">
 
       <ng-container matColumnDef="nr">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let route; let i = index">{{rowNumber(i)}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.nr">Nr</th>
+        <td mat-cell *matCellDef="let route; let i = index">{{rowNumber(i)}}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
-        <mat-header-cell *matHeaderCellDef i18n="@@network-routes.table.analysis">Analysis</mat-header-cell>
-        <mat-cell *matCellDef="let route">
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-routes.table.analysis">Analysis</th>
+        <td mat-cell *matCellDef="let route">
           <kpn-network-route-analysis [route]="route" [networkType]="networkType"></kpn-network-route-analysis>
-        </mat-cell>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="route">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.node">Route</mat-header-cell>
-        <mat-cell *matCellDef="let route">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.node">Route</th>
+        <td mat-cell *matCellDef="let route">
           <kpn-link-route [routeId]="route.id" [title]="route.name"></kpn-link-route>
-        </mat-cell>
+        </td>
       </ng-container>
 
-      <ng-container matColumnDef="lastEdit">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.last-edit">Last edit</mat-header-cell>
-        <mat-cell *matCellDef="let route" class="kpn-line">
-          <kpn-day [timestamp]="route.timestamp"></kpn-day>
+      <ng-container matColumnDef="last-edit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.last-edit">Last edit</th>
+        <td mat-cell *matCellDef="let route" class="kpn-separated">
+          <kpn-day [timestamp]="route.relationLastUpdated"></kpn-day>
           <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
           <kpn-osm-link-relation [relationId]="route.id"></kpn-osm-link-relation>
-        </mat-cell>
+        </td>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns()"></mat-header-row>
-      <mat-row *matRowDef="let route; columns: displayedColumns();"></mat-row>
-    </mat-table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns();"></tr>
+    </table>
   `,
   styles: [`
 
-    .mat-header-cell {
-      margin-right: 10px;
-    }
-
-    .mat-cell {
-      margin-right: 10px;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 45px;
-      vertical-align: middle;
-    }
-
     .mat-column-nr {
-      flex: 0 0 30px;
-    }
-
-    .mat-column-analysis {
-      flex: 0 0 200px;
-    }
-
-    .mat-column-route {
-      flex: 1 0 60px;
-    }
-
-    .mat-column-lastEdit {
-      flex: 0 0 200px;
+      width: 3rem;
     }
 
   `]
@@ -117,11 +90,7 @@ export class NetworkRouteTableComponent implements OnInit {
 
   displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "route", "lastEdit"];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ["nr", "analysis", "route"];
+      return ["nr", "analysis", "route", "last-edit"];
     }
 
     return ["nr", "analysis", "route"];

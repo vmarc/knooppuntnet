@@ -16,7 +16,7 @@ import {NetworkNodesService} from "./network-nodes.service";
   template: `
     <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" [showFirstLastButtons]="true"></kpn-paginator>
 
-    <table mat-table matSort [dataSource]="dataSource">
+    <table mat-table matSort [dataSource]="dataSource" class="kpn-spacer-above">
 
       <ng-container matColumnDef="nr">
         <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.nr">Nr</th>
@@ -62,7 +62,14 @@ import {NetworkNodesService} from "./network-nodes.service";
         <th [attr.colspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes">Routes</th>
       </ng-container>
 
-      <ng-container matColumnDef="lastEdit">
+      <ng-container matColumnDef="last-survey">
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-survey">Last survey</th>
+        <td mat-cell *matCellDef="let node">
+          {{lastSurvey(node)}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="last-edit">
         <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-edit">Last edit</th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.timestamp"></kpn-day>
@@ -117,7 +124,7 @@ export class NetworkNodeTableComponent implements OnInit {
 
   displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "node", "name", "routes-expected", "routes-actual", "lastEdit"];
+      return ["nr", "analysis", "node", "name", "routes-expected", "routes-actual", "last-survey", "last-edit"];
     }
 
     if (this.pageWidthService.isLarge()) {
@@ -129,7 +136,7 @@ export class NetworkNodeTableComponent implements OnInit {
 
   headerColumns1() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "node", "name", "routes", "lastEdit"];
+      return ["nr", "analysis", "node", "name", "routes", "last-survey", "last-edit"];
     }
 
     if (this.pageWidthService.isLarge()) {
@@ -147,7 +154,6 @@ export class NetworkNodeTableComponent implements OnInit {
     return [];
   }
 
-
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
   }
@@ -163,6 +169,16 @@ export class NetworkNodeTableComponent implements OnInit {
     const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
     if (node.tags) {
       const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
+      if (nameTag) {
+        return nameTag.value;
+      }
+    }
+    return "-";
+  }
+
+  lastSurvey(node: NetworkNodeInfo2): string {
+    if (node.tags) {
+      const nameTag = node.tags.tags.find(tag => tag.key === "survey:date");
       if (nameTag) {
         return nameTag.value;
       }

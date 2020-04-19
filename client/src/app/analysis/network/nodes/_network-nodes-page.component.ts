@@ -19,11 +19,11 @@ import {Subscriptions} from "../../../util/Subscriptions";
     </kpn-network-page-header>
 
     <div *ngIf="response">
-      <div *ngIf="!page">
+      <div *ngIf="!page" class="kpn-spacer-above">
         <p i18n="@@network-nodes.network-not-found">Network not found</p>
       </div>
       <div *ngIf="page">
-        <div *ngIf="page.nodes.isEmpty()" i18n="@@network-nodes.no-nodes">
+        <div *ngIf="page.nodes.isEmpty()" class="kpn-spacer-above" i18n="@@network-nodes.no-nodes">
           No network nodes in network
         </div>
         <kpn-network-node-table
