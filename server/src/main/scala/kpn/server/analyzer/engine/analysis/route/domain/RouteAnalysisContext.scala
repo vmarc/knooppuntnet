@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
+import kpn.api.common.common.Day
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteMap
-import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNode

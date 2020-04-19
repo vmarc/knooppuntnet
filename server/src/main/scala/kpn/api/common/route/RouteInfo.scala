@@ -1,10 +1,10 @@
 package kpn.api.common.route
 
 import kpn.api.common.RouteSummary
+import kpn.api.common.common.Day
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Tagable
-import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp

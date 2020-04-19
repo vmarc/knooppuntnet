@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.common
 
-import kpn.api.custom.Day
+import kpn.api.common.common.Day
 import kpn.api.custom.Tags
 
 import scala.util.Failure

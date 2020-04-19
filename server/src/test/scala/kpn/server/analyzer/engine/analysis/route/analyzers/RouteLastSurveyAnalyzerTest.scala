@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Day
+import kpn.api.common.common.Day
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
