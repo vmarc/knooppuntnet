@@ -41,10 +41,31 @@ import {NetworkRoutesService} from "./network-routes.service";
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="distance">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.distance">Distance</th>
+        <td mat-cell *matCellDef="let route">
+          {{route.length + "m"}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.role">Role</th>
+        <td mat-cell *matCellDef="let route">
+          {{route.role ? route.role : "-"}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="last-survey">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.last-survey">Last survey</th>
+        <td mat-cell *matCellDef="let route">
+          {{route.lastSurvey ? route.lastSurvey : "-"}}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="last-edit">
         <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.last-edit">Last edit</th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
-          <kpn-day [timestamp]="route.relationLastUpdated"></kpn-day>
+          <kpn-day [timestamp]="route.lastUpdated"></kpn-day>
           <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
           <kpn-osm-link-relation [relationId]="route.id"></kpn-osm-link-relation>
         </td>
@@ -55,11 +76,9 @@ import {NetworkRoutesService} from "./network-routes.service";
     </table>
   `,
   styles: [`
-
     .mat-column-nr {
       width: 3rem;
     }
-
   `]
 })
 export class NetworkRouteTableComponent implements OnInit {
@@ -90,7 +109,11 @@ export class NetworkRouteTableComponent implements OnInit {
 
   displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "route", "last-edit"];
+      return ["nr", "analysis", "route", "distance", "role", "last-survey", "last-edit"];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ["nr", "analysis", "route", "distance", "role"];
     }
 
     return ["nr", "analysis", "route"];

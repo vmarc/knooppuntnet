@@ -45,6 +45,8 @@ import {Component, Input} from "@angular/core";
       <ng-container i18n="@@fact.name.route-unused-segments" *ngSwitchCase="'RouteUnusedSegments'">RouteUnusedSegments</ng-container>
       <ng-container i18n="@@fact.name.route-without-ways" *ngSwitchCase="'RouteWithoutWays'">RouteWithoutWays</ng-container>
       <ng-container i18n="@@fact.name.was-orphan" *ngSwitchCase="'WasOrphan'">WasOrphan</ng-container>
+      <ng-container i18n="@@fact.name.node-invalid-survey-date" *ngSwitchCase="'NodeInvalidSurveyDate'">NodeInvalidSurveyDate</ng-container>
+      <ng-container i18n="@@fact.name.route-invalid-survey-date" *ngSwitchCase="'RouteInvalidSurveyDate'">RouteInvalidSurveyDate</ng-container>
       <ng-container *ngSwitchDefault>?{{factName}}?</ng-container>
     </ng-container>
   `

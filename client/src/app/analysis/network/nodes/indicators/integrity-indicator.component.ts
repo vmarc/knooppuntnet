@@ -1,9 +1,10 @@
+import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
-import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.component";
-import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-info2";
+import {NetworkInfoNode} from "../../../../kpn/api/common/network/network-info-node";
 import {NetworkType} from "../../../../kpn/api/custom/network-type";
 import {IntegrityIndicatorData} from "./integrity-indicator-data";
+import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.component";
 
 @Component({
   selector: "kpn-integrity-indicator",
@@ -11,22 +12,27 @@ import {IntegrityIndicatorData} from "./integrity-indicator-data";
     <kpn-indicator
       letter="E"
       i18n-letter="@@integrity-indicator.letter"
-      [color]="color()"
+      [color]="color"
       (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `
 })
-export class IntegrityIndicatorComponent {
+export class IntegrityIndicatorComponent implements OnInit {
 
   @Input() networkType: NetworkType;
-  @Input() node: NetworkNodeInfo2;
+  @Input() node: NetworkInfoNode;
+  color: string;
 
   constructor(private dialog: MatDialog) {
   }
 
+  ngOnInit(): void {
+    this.color = this.determineColor();
+  }
+
   onOpenDialog() {
     const indicatorData = new IntegrityIndicatorData(
-      this.color(),
+      this.color,
       this.networkType,
       this.node.integrityCheck ? this.node.integrityCheck.actual : 0,
       this.node.integrityCheck ? this.node.integrityCheck.expected : 0
@@ -34,8 +40,8 @@ export class IntegrityIndicatorComponent {
     this.dialog.open(IntegrityIndicatorDialogComponent, {data: indicatorData});
   }
 
-  color() {
-    let color = "gray";
+  private determineColor() {
+    let color;
     if (this.node.integrityCheck) {
       if (this.node.integrityCheck.failed) {
         color = "red";
@@ -47,5 +53,4 @@ export class IntegrityIndicatorComponent {
     }
     return color;
   }
-
 }

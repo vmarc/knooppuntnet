@@ -1,22 +1,17 @@
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
-import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-info2";
-import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
-import {BehaviorSubject} from "rxjs";
-import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
-import {Filters} from "../../../kpn/filter/filters";
 import {List} from "immutable";
-import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
+import {BehaviorSubject} from "rxjs";
+import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
+import {TimeInfo} from "../../../kpn/api/common/time-info";
+import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
+import {Filters} from "../../../kpn/filter/filters";
+import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
+import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
+import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
 
 export class NetworkNodeFilter {
 
-  constructor(private readonly timeInfo: TimeInfo,
-              private readonly criteria: NetworkNodeFilterCriteria,
-              private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria>) {
-  }
-
-  private readonly definedInNetworkRelationFilter = new BooleanFilter<NetworkNodeInfo2>(
+  private readonly definedInNetworkRelationFilter = new BooleanFilter<NetworkInfoNode>(
     "definedInNetworkRelation",
     this.criteria.definedInNetworkRelation,
     (row) => row.definedInRelation,
@@ -24,8 +19,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, definedInNetworkRelation: true}),
     this.update({...this.criteria, definedInNetworkRelation: false})
   );
-
-  private readonly definedInRouteRelationFilter = new BooleanFilter<NetworkNodeInfo2>(
+  private readonly definedInRouteRelationFilter = new BooleanFilter<NetworkInfoNode>(
     "definedInRouteRelation",
     this.criteria.definedInRouteRelation,
     (row) => row.definedInRoute,
@@ -33,8 +27,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, definedInRouteRelation: true}),
     this.update({...this.criteria, definedInRouteRelation: false})
   );
-
-  private readonly referencedInRouteFilter = new BooleanFilter<NetworkNodeInfo2>(
+  private readonly referencedInRouteFilter = new BooleanFilter<NetworkInfoNode>(
     "referencedInRoute",
     this.criteria.referencedInRoute,
     (row) => !row.routeReferences.isEmpty(),
@@ -42,8 +35,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, referencedInRoute: true}),
     this.update({...this.criteria, referencedInRoute: false})
   );
-
-  private readonly connectionFilter = new BooleanFilter<NetworkNodeInfo2>(
+  private readonly connectionFilter = new BooleanFilter<NetworkInfoNode>(
     "connection",
     this.criteria.connection,
     (row) => row.connection,
@@ -51,8 +43,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, connection: true}),
     this.update({...this.criteria, connection: false})
   );
-
-  private readonly roleConnectionFilter = new BooleanFilter<NetworkNodeInfo2>(
+  private readonly roleConnectionFilter = new BooleanFilter<NetworkInfoNode>(
     "roleConnection",
     this.criteria.roleConnection,
     (row) => row.roleConnection,
@@ -60,8 +51,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, roleConnection: true}),
     this.update({...this.criteria, roleConnection: false})
   );
-
-  private readonly integrityCheckFilter = new BooleanFilter<NetworkNodeInfo2>(
+  private readonly integrityCheckFilter = new BooleanFilter<NetworkInfoNode>(
     "integrityCheck",
     this.criteria.integrityCheck,
     (row) => row.integrityCheck !== null,
@@ -69,8 +59,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, integrityCheck: true}),
     this.update({...this.criteria, integrityCheck: false})
   );
-
-  private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkNodeInfo2>(
+  private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkInfoNode>(
     "integrityCheckFailed",
     this.criteria.integrityCheckFailed,
     (row) => row.integrityCheck !== null ? !row.integrityCheck.failed : false,
@@ -78,8 +67,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, integrityCheckFailed: true}),
     this.update({...this.criteria, integrityCheckFailed: false})
   );
-
-  private readonly lastUpdatedFilter = new TimestampFilter<NetworkNodeInfo2>(
+  private readonly lastUpdatedFilter = new TimestampFilter<NetworkInfoNode>(
     this.criteria.lastUpdated,
     (row) => row.timestamp,
     this.timeInfo,
@@ -89,8 +77,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, lastUpdated: TimestampFilterKind.LAST_YEAR}),
     this.update({...this.criteria, lastUpdated: TimestampFilterKind.OLDER})
   );
-
-  private readonly allFilters = new Filters<NetworkNodeInfo2>(
+  private readonly allFilters = new Filters<NetworkInfoNode>(
     this.definedInNetworkRelationFilter,
     this.definedInRouteRelationFilter,
     this.referencedInRouteFilter,
@@ -101,11 +88,16 @@ export class NetworkNodeFilter {
     this.lastUpdatedFilter
   );
 
-  filter(nodes: List<NetworkNodeInfo2>): List<NetworkNodeInfo2> {
+  constructor(private readonly timeInfo: TimeInfo,
+              private readonly criteria: NetworkNodeFilterCriteria,
+              private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria>) {
+  }
+
+  filter(nodes: List<NetworkInfoNode>): List<NetworkInfoNode> {
     return nodes.filter(node => this.allFilters.passes(node));
   }
 
-  filterOptions(nodes: List<NetworkNodeInfo2>): FilterOptions {
+  filterOptions(nodes: List<NetworkInfoNode>): FilterOptions {
 
     const totalCount = nodes.size;
     const filteredCount = nodes.count(node => this.allFilters.passes(node));

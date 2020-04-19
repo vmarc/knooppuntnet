@@ -48,6 +48,8 @@ import {Component, Input} from "@angular/core";
       <kpn-fact-route-unused-segments *ngSwitchCase="'RouteUnusedSegments'"></kpn-fact-route-unused-segments>
       <kpn-fact-route-without-ways *ngSwitchCase="'RouteWithoutWays'"></kpn-fact-route-without-ways>
       <kpn-fact-was-orphan *ngSwitchCase="'WasOrphan'"></kpn-fact-was-orphan>
+      <kpn-fact-node-invalid-survey-date *ngSwitchCase="'NodeInvalidSurveyDate'"></kpn-fact-node-invalid-survey-date>
+      <kpn-fact-route-invalid-survey-date *ngSwitchCase="'RouteInvalidSurveyDate'"></kpn-fact-route-invalid-survey-date>
       <p *ngSwitchDefault i18n="@@fact.description-missing">{{factName}} description missing!!</p>
     </ng-container>
   `

@@ -4,7 +4,7 @@ import {List} from "immutable";
 import {BehaviorSubject} from "rxjs";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
-import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-info2";
+import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {NetworkNodeFilter} from "./network-node-filter";
@@ -100,9 +100,9 @@ export class NetworkNodeTableComponent implements OnInit {
 
   @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
-  @Input() nodes: List<NetworkNodeInfo2> = List();
+  @Input() nodes: List<NetworkInfoNode> = List();
 
-  dataSource: MatTableDataSource<NetworkNodeInfo2>;
+  dataSource: MatTableDataSource<NetworkInfoNode>;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
@@ -113,7 +113,7 @@ export class NetworkNodeTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<NetworkNodeInfo2>();
+    this.dataSource = new MatTableDataSource<NetworkInfoNode>();
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);
@@ -158,14 +158,14 @@ export class NetworkNodeTableComponent implements OnInit {
     return this.paginator.rowNumber(index);
   }
 
-  expectedRouteCount(node: NetworkNodeInfo2): string {
+  expectedRouteCount(node: NetworkInfoNode): string {
     if (node.integrityCheck && node.integrityCheck.expected) {
       return node.integrityCheck.expected.toString();
     }
     return "-";
   }
 
-  name(node: NetworkNodeInfo2): string {
+  name(node: NetworkInfoNode): string {
     const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
     if (node.tags) {
       const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
@@ -176,7 +176,7 @@ export class NetworkNodeTableComponent implements OnInit {
     return "-";
   }
 
-  lastSurvey(node: NetworkNodeInfo2): string {
+  lastSurvey(node: NetworkInfoNode): string {
     if (node.tags) {
       const nameTag = node.tags.tags.find(tag => tag.key === "survey:date");
       if (nameTag) {

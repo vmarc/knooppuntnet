@@ -6,5 +6,4 @@ export class IntegrityIndicatorData {
               readonly actual: number,
               readonly expected: number) {
   }
-
 }

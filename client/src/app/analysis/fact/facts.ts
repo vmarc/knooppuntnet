@@ -53,7 +53,9 @@ export class Facts {
     new FactDefinition("RouteUnexpectedRelation", FactLevel.error),
     new FactDefinition("RouteUnusedSegments", FactLevel.error),
     new FactDefinition("RouteWithoutWays", FactLevel.error),
-    new FactDefinition("WasOrphan", FactLevel.other)
+    new FactDefinition("WasOrphan", FactLevel.other),
+    new FactDefinition("NodeInvalidSurveyDate", FactLevel.error),
+    new FactDefinition("RouteInvalidSurveyDate", FactLevel.error),
   ]);
 
   private static readonly keyValues: List<[string, FactLevel]> = Facts.facts.map(f => {

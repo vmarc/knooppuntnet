@@ -1,7 +1,8 @@
+import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
+import {NetworkInfoNode} from "../../../../kpn/api/common/network/network-info-node";
 import {NetworkIndicatorDialogComponent} from "./network-indicator-dialog.component";
-import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-info2";
 
 @Component({
   selector: "kpn-network-indicator",
@@ -14,15 +15,24 @@ import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-
     </kpn-indicator>
   `
 })
-export class NetworkIndicatorComponent {
+export class NetworkIndicatorComponent implements OnInit {
 
-  @Input() node: NetworkNodeInfo2;
+  @Input() node: NetworkInfoNode;
+  color: string;
 
   constructor(private dialog: MatDialog) {
   }
 
-  get color() {
-    let color = "";
+  ngOnInit(): void {
+    this.color = this.determineColor();
+  }
+
+  onOpenDialog() {
+    this.dialog.open(NetworkIndicatorDialogComponent, {data: this.color});
+  }
+
+  private determineColor() {
+    let color;
     if (this.node.definedInRelation) {
       if (this.node.connection && !this.node.roleConnection) {
         color = "orange";
@@ -38,9 +48,4 @@ export class NetworkIndicatorComponent {
     }
     return color;
   }
-
-  onOpenDialog() {
-    this.dialog.open(NetworkIndicatorDialogComponent, {data: this.color});
-  }
-
 }

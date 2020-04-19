@@ -1,7 +1,8 @@
+import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
+import {NetworkInfoNode} from "../../../../kpn/api/common/network/network-info-node";
 import {RouteIndicatorDialogComponent} from "./route-indicator-dialog.component";
-import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-info2";
 
 @Component({
   selector: "kpn-route-indicator",
@@ -9,24 +10,24 @@ import {NetworkNodeInfo2} from "../../../../kpn/api/common/network/network-node-
     <kpn-indicator
       letter="R"
       i18n-letter="@@route-indicator.letter"
-      [color]="color()"
+      [color]="color"
       (openDialog)="onOpenDialog()">
     </kpn-indicator>
   `
 })
-export class RouteIndicatorComponent {
+export class RouteIndicatorComponent implements OnInit {
 
-  @Input() node: NetworkNodeInfo2;
+  @Input() node: NetworkInfoNode;
+  color: string;
 
   constructor(private dialog: MatDialog) {
   }
 
+  ngOnInit(): void {
+    this.color = this.node.definedInRoute ? "green" : "gray";
+  }
+
   onOpenDialog() {
-    this.dialog.open(RouteIndicatorDialogComponent, {data: this.color()});
+    this.dialog.open(RouteIndicatorDialogComponent, {data: this.color});
   }
-
-  color() {
-    return this.node.definedInRoute ? "green" : "gray";
-  }
-
 }

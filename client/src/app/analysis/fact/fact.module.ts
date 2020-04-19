@@ -59,6 +59,8 @@ import {FactDescriptionComponent} from "./fact-description.component";
 import {FactLevelComponent} from "./fact-level.component";
 import {FactNameComponent} from "./fact-name.component";
 import {FactsComponent} from "./facts.component";
+import { FactNodeInvalidSurveyDateComponent } from './descriptions/fact-node-invalid-survey-date.component';
+import { FactRouteInvalidSurveyDateComponent } from './descriptions/fact-route-invalid-survey-date.component';
 
 @NgModule({
   imports: [
@@ -124,7 +126,9 @@ import {FactsComponent} from "./facts.component";
     FactLostRouteTagsComponent,
     FactLostInlineSkateNodeTagComponent,
     FactWasOrphanComponent,
-    FactDescriptionComponent
+    FactDescriptionComponent,
+    FactNodeInvalidSurveyDateComponent,
+    FactRouteInvalidSurveyDateComponent
   ],
   exports: [
     FactNameComponent,

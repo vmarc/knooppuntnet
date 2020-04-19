@@ -1,12 +1,12 @@
+import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
-import {RouteConnectionIndicatorDialogComponent} from "./route-connection-indicator-dialog.component";
 import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-row";
+import {RouteConnectionIndicatorDialogComponent} from "./route-connection-indicator-dialog.component";
 
 @Component({
   selector: "kpn-route-connection-indicator",
   template: `
-    <!--@@ letter V -->
     <kpn-indicator
       letter="C"
       i18n-letter="@@route-connection-indicator.letter"
@@ -15,19 +15,19 @@ import {NetworkRouteRow} from "../../../../kpn/api/common/network/network-route-
     </kpn-indicator>
   `
 })
-export class RouteConnectionIndicatorComponent {
+export class RouteConnectionIndicatorComponent implements OnInit {
 
   @Input() route: NetworkRouteRow;
+  color: string;
 
   constructor(private dialog: MatDialog) {
   }
 
-  get color() {
-    return this.route.roleConnection ? "blue" : "gray";
+  ngOnInit(): void {
+    this.color = this.route.roleConnection ? "blue" : "gray";
   }
 
   onOpenDialog() {
     this.dialog.open(RouteConnectionIndicatorDialogComponent, {data: this.color});
   }
-
 }

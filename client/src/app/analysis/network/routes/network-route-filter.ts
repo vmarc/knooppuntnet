@@ -45,7 +45,7 @@ export class NetworkRouteFilter {
 
   private readonly lastUpdatedFilter = new TimestampFilter<NetworkRouteRow>(
     this.criteria.relationLastUpdated,
-    (row) => row.relationLastUpdated,
+    (row) => row.lastUpdated,
     this.timeInfo,
     this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.ALL}),
     this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.LAST_WEEK}),

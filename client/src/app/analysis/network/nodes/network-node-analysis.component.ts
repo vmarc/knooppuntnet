@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NetworkNodeInfo2} from "../../../kpn/api/common/network/network-node-info2";
+import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 
 @Component({
@@ -21,7 +21,7 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 })
 export class NetworkNodeAnalysisComponent {
 
-  @Input() node: NetworkNodeInfo2;
+  @Input() node: NetworkInfoNode;
   @Input() networkType: NetworkType;
 
 }
