@@ -1,11 +1,11 @@
 package kpn.server.repository
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.node.NodeNetworkReference
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.node.NodeNetworkReference
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -112,14 +112,20 @@ class NodeRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
     withDatabase { database =>
 
       new NetworkRepositoryImpl(database).save(
-        newNetwork(
-          2,
-          name = "network-2",
-          nodes = Seq(
-            newNetworkNodeInfo2(
-              1001,
-              "01",
-              definedInRelation = true
+        newNetworkInfo(
+          newNetworkAttributes(
+            2,
+            name = "network-2"
+          ),
+          detail = Some(
+            newNetworkInfoDetail(
+              nodes = Seq(
+                newNetworkInfoNode(
+                  1001,
+                  "01",
+                  definedInRelation = true
+                )
+              )
             )
           )
         )

@@ -4,7 +4,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
@@ -12,8 +11,6 @@ import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
 class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
-
-  private val timeout = Couch.uiTimeout
 
   test("view keys and  values") {
 
@@ -49,15 +46,21 @@ class ReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 
       val networkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(
-        newNetwork(
-          1,
-          name = "network-name",
-          nodes = Seq(
-            newNetworkNodeInfo2(1001, "01"),
-            newNetworkNodeInfo2(1002, "02")
+        newNetworkInfo(
+          newNetworkAttributes(
+            1,
+            name = "network-name"
           ),
-          routes = Seq(
-            newNetworkRouteInfo(10, "route-name")
+          detail = Some(
+            newNetworkInfoDetail(
+              nodes = Seq(
+                newNetworkInfoNode(1001, "01"),
+                newNetworkInfoNode(1002, "02")
+              ),
+              routes = Seq(
+                newNetworkInfoRoute(10, "route-name")
+              )
+            )
           )
         )
       )

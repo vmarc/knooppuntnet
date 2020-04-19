@@ -2,7 +2,7 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.common.Ref
-import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.network.NetworkInfoNode
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
@@ -22,8 +22,8 @@ object NetworkNodesPageExample {
     routeIds = Seq(1L, 2L, 3L)
   )
 
-  private def node1(): NetworkNodeInfo2 = {
-    NetworkNodeInfo2(
+  private def node1(): NetworkInfoNode = {
+    NetworkInfoNode(
       1,
       "01 nummer die heel lang is",
       "1",
@@ -58,8 +58,8 @@ object NetworkNodesPageExample {
     )
   }
 
-  private def node2(): NetworkNodeInfo2 = {
-    NetworkNodeInfo2(
+  private def node2(): NetworkInfoNode = {
+    NetworkInfoNode(
       2,
       "02",
       "2",

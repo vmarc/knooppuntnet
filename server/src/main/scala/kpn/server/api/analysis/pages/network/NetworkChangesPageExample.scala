@@ -6,8 +6,6 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
-import kpn.api.common.network.NetworkNodeInfo2
-import kpn.api.common.network.NetworkRouteInfo
 import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Tags
 
@@ -25,8 +23,8 @@ object NetworkChangesPageExample {
       tags = Tags.empty,
       detail = Some(
         NetworkInfoDetail(
-          nodes = Seq[NetworkNodeInfo2](),
-          routes = Seq[NetworkRouteInfo](),
+          nodes = Seq.empty,
+          routes = Seq.empty,
           networkFacts = NetworkFacts(),
           shape = Some(NetworkShape())
         )

@@ -39,11 +39,16 @@ class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects 
     withDatabase { database =>
 
       new NetworkRepositoryImpl(database).save(
-        newNetwork(
-          1,
-          name = "network-name",
-          routes = Seq(
-            newNetworkRouteInfo(10, "01-02")
+        newNetworkInfo(
+          newNetworkAttributes(1,
+            name = "network-name"
+          ),
+          detail = Some(
+            newNetworkInfoDetail(
+              routes = Seq(
+                newNetworkInfoRoute(10, "01-02")
+              )
+            )
           )
         )
       )

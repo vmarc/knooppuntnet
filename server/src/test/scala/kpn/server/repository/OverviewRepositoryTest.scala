@@ -1,12 +1,12 @@
 package kpn.server.repository
 
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.app.stats.Figure
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -18,13 +18,19 @@ class OverviewRepositoryTest extends FunSuite with Matchers with SharedTestObjec
 
       val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(
-        newNetwork(
-          1,
-          Some(Country.be),
-          NetworkType.hiking,
-          nodes = Seq(
-            newNetworkNodeInfo2(101, "01"),
-            newNetworkNodeInfo2(102, "02")
+        newNetworkInfo(
+          newNetworkAttributes(
+            1,
+            Some(Country.be),
+            NetworkType.hiking
+          ),
+          detail = Some(
+            newNetworkInfoDetail(
+              nodes = Seq(
+                newNetworkInfoNode(101, "01"),
+                newNetworkInfoNode(102, "02")
+              )
+            )
           )
         )
       )

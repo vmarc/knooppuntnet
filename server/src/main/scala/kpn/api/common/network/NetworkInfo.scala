@@ -35,14 +35,14 @@ case class NetworkInfo(
     }
   }
 
-  def nodesWithFact(fact: Fact): Seq[NetworkNodeInfo2] = {
+  def nodesWithFact(fact: Fact): Seq[NetworkInfoNode] = {
     detail match {
       case Some(d) => d.nodes.filter(_.facts.contains(fact))
       case None => Seq.empty
     }
   }
 
-  def routesWithFact(fact: Fact): Seq[NetworkRouteInfo] = {
+  def routesWithFact(fact: Fact): Seq[NetworkInfoRoute] = {
     detail match {
       case Some(d) => d.routes.filter(_.facts.contains(fact))
       case None => Seq.empty

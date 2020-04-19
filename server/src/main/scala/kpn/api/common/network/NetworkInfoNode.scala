@@ -8,7 +8,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
-case class NetworkNodeInfo2(
+case class NetworkInfoNode(
   id: Long,
   name: String,
   number: String,

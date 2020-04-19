@@ -4,7 +4,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
 
-case class NetworkRouteInfo(
+case class NetworkInfoRoute(
   id: Long,
   name: String,
   wayCount: Long,

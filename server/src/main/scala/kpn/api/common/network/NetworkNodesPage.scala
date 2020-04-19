@@ -7,6 +7,6 @@ case class NetworkNodesPage(
   timeInfo: TimeInfo,
   networkSummary: NetworkSummary,
   networkType: NetworkType,
-  nodes: Seq[NetworkNodeInfo2],
+  nodes: Seq[NetworkInfoNode],
   routeIds: Seq[Long]
 )

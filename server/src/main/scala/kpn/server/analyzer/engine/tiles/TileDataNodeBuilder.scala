@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.NodeInfo
-import kpn.api.common.network.NetworkNodeInfo2
+import kpn.api.common.network.NetworkInfoNode
 import kpn.api.custom.Fact
 import kpn.api.custom.FactLevel
 import kpn.api.custom.NetworkType
@@ -19,7 +19,7 @@ class TileDataNodeBuilder {
     )
   }
 
-  def build(node: NetworkNodeInfo2): TileDataNode = {
+  def build(node: NetworkInfoNode): TileDataNode = {
     TileDataNode(
       node.id,
       node.name,
@@ -46,7 +46,7 @@ class TileDataNodeBuilder {
     }
   }
 
-  private def isOrphan(node: NetworkNodeInfo2): Boolean = {
+  private def isOrphan(node: NetworkInfoNode): Boolean = {
     !node.definedInRelation && node.routeReferences.isEmpty
   }
 

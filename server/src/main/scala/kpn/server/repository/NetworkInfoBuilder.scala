@@ -5,8 +5,8 @@ import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
-import kpn.api.common.network.NetworkNodeInfo2
-import kpn.api.common.network.NetworkRouteInfo
+import kpn.api.common.network.NetworkInfoNode
+import kpn.api.common.network.NetworkInfoRoute
 import kpn.core.analysis.Network
 
 class NetworkInfoBuilder {
@@ -28,7 +28,7 @@ class NetworkInfoBuilder {
 
       val routeReferences = info.referencedInRoutes.map(route => Ref(route.id, route.summary.name))
 
-      NetworkNodeInfo2(
+      NetworkInfoNode(
         info.networkNode.node.id,
         info.networkNode.name,
         numberString,
@@ -49,7 +49,7 @@ class NetworkInfoBuilder {
 
     val routes = network.routes.map { member =>
       val route = member.routeAnalysis.route
-      NetworkRouteInfo(
+      NetworkInfoRoute(
         route.id,
         route.summary.name,
         member.routeAnalysis.ways.size,

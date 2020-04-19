@@ -1,20 +1,20 @@
 package kpn.server.repository
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.core.db.couch.Couch
-import kpn.core.test.TestSupport.withDatabase
-import kpn.api.custom.Fact.RouteNodeMissingInWays
-import kpn.api.custom.Fact.RouteRedundantNodes
-import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkIntegrityCheckFailed
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteNodeMissingInWays
+import kpn.api.custom.Fact.RouteRedundantNodes
+import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.core.db.couch.Couch
+import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -26,26 +26,32 @@ class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
       val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(
-        newNetwork(
-          1,
-          Some(Country.be),
-          NetworkType.hiking,
-          "network-1",
-          routes = Seq(
-            newNetworkRouteInfo(
-              11,
-              "01-02",
-              facts = Seq(
-                RouteRedundantNodes,
-                RouteUnusedSegments
-              )
-            ),
-            newNetworkRouteInfo(
-              12,
-              "02-03",
-              facts = Seq(
-                RouteNodeMissingInWays,
-                RouteUnusedSegments
+        newNetworkInfo(
+          newNetworkAttributes(
+            1,
+            Some(Country.be),
+            NetworkType.hiking,
+            "network-1"
+          ),
+          detail = Some(
+            newNetworkInfoDetail(
+              routes = Seq(
+                newNetworkInfoRoute(
+                  11,
+                  "01-02",
+                  facts = Seq(
+                    RouteRedundantNodes,
+                    RouteUnusedSegments
+                  )
+                ),
+                newNetworkInfoRoute(
+                  12,
+                  "02-03",
+                  facts = Seq(
+                    RouteNodeMissingInWays,
+                    RouteUnusedSegments
+                  )
+                )
               )
             )
           )
@@ -53,17 +59,23 @@ class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
       )
 
       networkRepository.save(
-        newNetwork(
-          2,
-          Some(Country.be),
-          NetworkType.hiking,
-          "network-2",
-          routes = Seq(
-            newNetworkRouteInfo(
-              13,
-              "03-04",
-              facts = Seq(
-                RouteUnusedSegments
+        newNetworkInfo(
+          newNetworkAttributes(
+            2,
+            Some(Country.be),
+            NetworkType.hiking,
+            "network-2"
+          ),
+          detail = Some(
+            newNetworkInfoDetail(
+              routes = Seq(
+                newNetworkInfoRoute(
+                  13,
+                  "03-04",
+                  facts = Seq(
+                    RouteUnusedSegments
+                  )
+                )
               )
             )
           )
@@ -99,29 +111,35 @@ class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
 
       val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(
-        newNetwork(
-          1,
-          Some(Country.be),
-          NetworkType.hiking,
-          "network-1",
-          networkFacts = NetworkFacts(
-            integrityCheckFailed = Some(
-              NetworkIntegrityCheckFailed(
-                2,
-                checks = Seq(
-                  NodeIntegrityCheck(
-                    nodeName = "01",
-                    nodeId = 1001,
-                    actual = 2,
-                    expected = 3,
-                    failed = true
-                  ),
-                  NodeIntegrityCheck(
-                    nodeName = "02",
-                    nodeId = 1002,
-                    actual = 2,
-                    expected = 3,
-                    failed = true
+        newNetworkInfo(
+          newNetworkAttributes(
+            1,
+            Some(Country.be),
+            NetworkType.hiking,
+            "network-1"
+          ),
+          detail = Some(
+            newNetworkInfoDetail(
+              networkFacts = NetworkFacts(
+                integrityCheckFailed = Some(
+                  NetworkIntegrityCheckFailed(
+                    2,
+                    checks = Seq(
+                      NodeIntegrityCheck(
+                        nodeName = "01",
+                        nodeId = 1001,
+                        actual = 2,
+                        expected = 3,
+                        failed = true
+                      ),
+                      NodeIntegrityCheck(
+                        nodeName = "02",
+                        nodeId = 1002,
+                        actual = 2,
+                        expected = 3,
+                        failed = true
+                      )
+                    )
                   )
                 )
               )

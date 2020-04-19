@@ -30,8 +30,9 @@ import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
-import kpn.api.common.network.NetworkNodeInfo2
-import kpn.api.common.network.NetworkRouteInfo
+import kpn.api.common.network.NetworkInfoNode
+import kpn.api.common.network.NetworkInfoRoute
+import kpn.api.common.network.NetworkShape
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
@@ -314,66 +315,14 @@ trait SharedTestObjects extends MockFactory {
       summary,
       active,
       orphan,
-      version = 0,
-      changeSetId = 0,
+      version = 0L,
+      changeSetId = 0L,
       lastUpdated,
       None,
       Tags.empty,
       facts,
       Some(analysis),
       tiles
-    )
-  }
-
-  def newNetwork(
-    id: Long,
-    country: Option[Country] = None,
-    networkType: NetworkType = NetworkType.hiking,
-    name: String = "",
-    active: Boolean = true,
-    facts: Seq[Fact] = Seq.empty,
-    networkFacts: NetworkFacts = NetworkFacts(),
-    detail: Option[NetworkInfoDetail] = None,
-    nodes: Seq[NetworkNodeInfo2] = Seq.empty,
-    routes: Seq[NetworkRouteInfo] = Seq.empty,
-    tags: Tags = Tags.empty
-  ): NetworkInfo = {
-
-    val attributes = NetworkAttributes(
-      id,
-      country,
-      networkType,
-      name,
-      km = 0,
-      meters = 0,
-      nodeCount = nodes.size,
-      routeCount = routes.size,
-      brokenRouteCount = 0,
-      brokenRoutePercentage = "",
-      integrity = newIntegrity(),
-      unaccessibleRouteCount = 0,
-      connectionCount = 0,
-      Timestamp(2015, 8, 11),
-      Timestamp(2015, 8, 11),
-      center = None
-    )
-
-    NetworkInfo(
-      attributes,
-      active = active,
-      Seq(),
-      Seq(),
-      Seq(),
-      facts,
-      tags,
-      Some(
-        NetworkInfoDetail(
-          nodes = nodes,
-          routes = routes,
-          networkFacts = networkFacts,
-          shape = None
-        )
-      )
     )
   }
 
@@ -414,6 +363,20 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
+  def newNetworkInfoDetail(
+    nodes: Seq[NetworkInfoNode] = Seq.empty,
+    routes: Seq[NetworkInfoRoute] = Seq.empty,
+    networkFacts: NetworkFacts = NetworkFacts(),
+    shape: Option[NetworkShape] = None
+  ): NetworkInfoDetail = {
+    NetworkInfoDetail(
+      nodes,
+      routes,
+      networkFacts,
+      shape
+    )
+  }
+
   def newIntegrity(
     isOk: Boolean = true,
     hasChecks: Boolean = false,
@@ -436,7 +399,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNetworkNodeInfo2(
+  def newNetworkInfoNode(
     id: Long,
     title: String,
     number: String = "",
@@ -451,8 +414,8 @@ trait SharedTestObjects extends MockFactory {
     integrityCheck: Option[NodeIntegrityCheck] = None,
     facts: Seq[Fact] = Seq.empty,
     tags: Tags = Tags.empty
-  ): NetworkNodeInfo2 = {
-    NetworkNodeInfo2(
+  ): NetworkInfoNode = {
+    NetworkInfoNode(
       id,
       title,
       number,
@@ -471,7 +434,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNetworkRouteInfo(
+  def newNetworkInfoRoute(
     id: Long,
     name: String,
     wayCount: Int = 0,
@@ -480,8 +443,8 @@ trait SharedTestObjects extends MockFactory {
     relationLastUpdated: Timestamp = defaultTimestamp,
     lastUpdated: Timestamp = defaultTimestamp,
     facts: Seq[Fact] = Seq.empty
-  ): NetworkRouteInfo = {
-    NetworkRouteInfo(
+  ): NetworkInfoRoute = {
+    NetworkInfoRoute(
       id,
       name,
       wayCount,
@@ -501,9 +464,7 @@ trait SharedTestObjects extends MockFactory {
     endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
-    tags: Tags = Tags.empty,
     expectedName: String = "",
-    facts: Seq[String] = Seq.empty,
     map: RouteMap = RouteMap(),
     structureStrings: Seq[String] = Seq.empty,
     geometryDigest: String = "",

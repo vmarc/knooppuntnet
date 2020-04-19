@@ -25,7 +25,7 @@ class FactViewTest extends FunSuite with Matchers {
         val detail = Some(
           networkInfoDetail(
             nodes = Seq(
-              newNetworkNodeInfo2(
+              newNetworkInfoNode(
                 1001L,
                 "01",
                 facts = Seq(

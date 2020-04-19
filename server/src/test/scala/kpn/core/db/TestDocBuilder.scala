@@ -18,8 +18,8 @@ import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
-import kpn.api.common.network.NetworkNodeInfo2
-import kpn.api.common.network.NetworkRouteInfo
+import kpn.api.common.network.NetworkInfoNode
+import kpn.api.common.network.NetworkInfoRoute
 import kpn.api.common.network.NetworkShape
 import kpn.api.common.route.RouteNetworkNodeInfo
 
@@ -30,8 +30,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
   private val routeRepository: RouteRepository = newRouteRepository(database)
 
   def networkInfoDetail(
-    nodes: Seq[NetworkNodeInfo2] = Seq.empty,
-    routes: Seq[NetworkRouteInfo] = Seq.empty,
+    nodes: Seq[NetworkInfoNode] = Seq.empty,
+    routes: Seq[NetworkInfoRoute] = Seq.empty,
     networkFacts: NetworkFacts = NetworkFacts(),
     shape: Option[NetworkShape] = None
   ): NetworkInfoDetail = {
@@ -44,8 +44,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     )
   }
 
-  def networkRouteInfo(id: Long, name: String = "name", facts: Seq[Fact] = Seq.empty): NetworkRouteInfo = {
-    NetworkRouteInfo(
+  def networkRouteInfo(id: Long, name: String = "name", facts: Seq[Fact] = Seq.empty): NetworkInfoRoute = {
+    NetworkInfoRoute(
       id,
       name = name,
       wayCount = 0,

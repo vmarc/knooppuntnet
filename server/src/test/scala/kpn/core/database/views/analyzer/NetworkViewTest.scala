@@ -19,10 +19,10 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(database)
 
       // sorting order different from 'by network name'
-      repository.save(newNetwork(1, Some(Country.nl), cycling, "nl-rcn-2"))
-      repository.save(newNetwork(2, Some(Country.be), hiking, "be-rwn-2"))
-      repository.save(newNetwork(3, Some(Country.be), hiking, "be-rwn-1"))
-      repository.save(newNetwork(4, Some(Country.nl), cycling, "nl-rcn-1"))
+      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, "nl-rcn-2")))
+      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, "be-rwn-2")))
+      repository.save(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), hiking, "be-rwn-1")))
+      repository.save(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), cycling, "nl-rcn-1")))
 
       NetworkView.query(database, Subset.beHiking, stale = false) should equal(
         Seq(
@@ -47,8 +47,8 @@ class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(database)
 
       // sorting order different from 'by network name'
-      repository.save(newNetwork(1, Some(Country.nl), cycling, "nl-rcn-2"))
-      repository.save(newNetwork(2, Some(Country.be), hiking, "be-rwn-2", active = false))
+      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, "nl-rcn-2")))
+      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, "be-rwn-2"), active = false))
 
       NetworkView.query(database, Subset.nlBicycle, stale = false) should equal(
         Seq(

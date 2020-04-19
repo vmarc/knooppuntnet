@@ -1,10 +1,5 @@
 package kpn.core.database.views.analyzer
 
-import kpn.api.custom.NetworkType
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
-import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.NetworkRepositoryImpl
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
@@ -12,12 +7,14 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.common.node.NodeNetworkIntegrityCheck
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeNetworkRouteReference
+import kpn.api.custom.NetworkType
+import kpn.core.database.Database
+import kpn.core.test.TestSupport.withDatabase
+import kpn.server.repository.NetworkRepositoryImpl
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
 class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
-
-  private val timeout = Couch.uiTimeout
 
   test("node network reference") {
 
@@ -103,68 +100,86 @@ class NodeNetworkReferenceViewTest extends FunSuite with Matchers with SharedTes
   }
 
   private def buildNetworkWithNode1001and1002(): NetworkInfo = {
-    newNetwork(
-      1,
-      name = "network-1",
-      nodes = Seq(
-        newNetworkNodeInfo2(
-          1001,
-          "01",
-          definedInRelation = true,
-          connection = true,
-          roleConnection = true,
-          routeReferences = Seq(Ref(10, "01-02"))
-        ),
-        newNetworkNodeInfo2(
-          1002,
-          "02",
-          definedInRelation = true,
-          routeReferences = Seq(Ref(10, "01-02")),
-          integrityCheck = Some(
-            NodeIntegrityCheck(
-              nodeName = "02",
-              nodeId = 1002,
-              actual = 1,
-              expected = 3,
-              failed = true
+    newNetworkInfo(
+      newNetworkAttributes(
+        1,
+        name = "network-1"
+      ),
+      detail = Some(
+        newNetworkInfoDetail(
+          nodes = Seq(
+            newNetworkInfoNode(
+              1001,
+              "01",
+              definedInRelation = true,
+              connection = true,
+              roleConnection = true,
+              routeReferences = Seq(Ref(10, "01-02"))
+            ),
+            newNetworkInfoNode(
+              1002,
+              "02",
+              definedInRelation = true,
+              routeReferences = Seq(Ref(10, "01-02")),
+              integrityCheck = Some(
+                NodeIntegrityCheck(
+                  nodeName = "02",
+                  nodeId = 1002,
+                  actual = 1,
+                  expected = 3,
+                  failed = true
+                )
+              )
+            )
+          ),
+          routes = Seq(
+            newNetworkInfoRoute(
+              10,
+              "01-02",
+              role = Some("connection")
             )
           )
-        )
-      ),
-      routes = Seq(
-        newNetworkRouteInfo(
-          10,
-          "01-02",
-          role = Some("connection")
         )
       )
     )
   }
 
   private def buildNetworkWithNode1001(): NetworkInfo = {
-    newNetwork(
-      2,
-      name = "network-2",
-      nodes = Seq(
-        newNetworkNodeInfo2(
-          1001,
-          "01",
-          definedInRelation = true
+    newNetworkInfo(
+      newNetworkAttributes(
+        2,
+        name = "network-2"
+      ),
+      detail = Some(
+        newNetworkInfoDetail(
+          nodes = Seq(
+            newNetworkInfoNode(
+              1001,
+              "01",
+              definedInRelation = true
+            )
+          )
         )
       )
     )
   }
 
   private def buildInactiveNetwork(): NetworkInfo = {
-    newNetwork(
-      3,
-      name = "network-3",
+    newNetworkInfo(
+      newNetworkAttributes(
+        3,
+        name = "network-3"
+      ),
       active = false,
-      nodes = Seq(
-        newNetworkNodeInfo2(
-          1001,
-          "01",
-          definedInRelation = true
+      detail = Some(
+        newNetworkInfoDetail(
+          nodes = Seq(
+            newNetworkInfoNode(
+              1001,
+              "01",
+              definedInRelation = true
+            )
+          )
         )
       )
     )
