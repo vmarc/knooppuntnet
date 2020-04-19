@@ -803,7 +803,7 @@
         <target><x equiv-text="{{factName}}" id="INTERPOLATION"/> beschrijving ontbreekt!!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
@@ -6569,7 +6569,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>contact</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footer.issues" datatype="html">
@@ -6577,7 +6577,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>problemen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footer.status" datatype="html">
@@ -6585,7 +6585,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
@@ -7037,7 +7037,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.analysis" datatype="html">
@@ -7045,7 +7045,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.node" datatype="html">
@@ -7053,7 +7053,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes" datatype="html">
@@ -7061,7 +7061,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-edit" datatype="html">
@@ -7069,7 +7069,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Laatst bewerkt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.no-routes" datatype="html">
@@ -7077,7 +7077,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>in geen enkele route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-routes.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.nr" datatype="html">
@@ -7085,7 +7085,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.analysis" datatype="html">
@@ -7093,7 +7093,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.node" datatype="html">
@@ -7101,7 +7101,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-edit" datatype="html">
@@ -7109,7 +7109,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Meest recent wijziging</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.title" datatype="html">
@@ -7265,7 +7265,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>V</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
@@ -7309,7 +7309,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.summary" datatype="html">
@@ -7529,6 +7529,96 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/map/_node-map-page.component.ts</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.node-invalid-survey-date" datatype="html">
+        <source>NodeInvalidSurveyDate</source>
+        <target>KnooppuntOngeldigeSurveyDatum</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-invalid-survey-date" datatype="html">
+        <source>RouteInvalidSurveyDate</source>
+        <target>RouteOngeldigeSurveyDatum</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.node-invalid-survey-date" datatype="html">
+        <source>The node survey date (in the _&quot;survey:date&quot;_ or _&quot;source:date&quot;_ tag) has an
+      unexpected format (valid format: YYYY-MM-DD or YYYY-MM).</source>
+        <target>De datum van de meest recente survey van deze node (in de _&quot;survey:date&quot;_ of _&quot;source:date&quot;_ tag) heeft een onverwacht formaat (geldig formaat: JJJJ-MM-DD or YYYY-MM).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-invalid-survey-date.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-invalid-survey-date" datatype="html">
+        <source>The route survey date (in the _&quot;survey:date&quot;_ or _&quot;source:date&quot;_ tag) has an
+      unexpected format (valid format: YYYY-MM-DD or YYYY-MM).</source>
+        <target>De datum van de meest recente survey van deze route (in de _&quot;survey:date&quot;_ of _&quot;source:date&quot;_ tag) heeft een onverwacht formaat (geldig formaat: JJJJ-MM-DD or YYYY-MM).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-invalid-survey-date.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.name" datatype="html">
+        <source>Name</source>
+        <target>Naam</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.routes.expected" datatype="html">
+        <source>Expected</source>
+        <target>Verwacht</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.routes.actual" datatype="html">
+        <source>Actual</source>
+        <target>Aantal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.last-survey" datatype="html">
+        <source>Last survey</source>
+        <target>Recentste survey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.distance" datatype="html">
+        <source>Distance</source>
+        <target>Afstand</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.role" datatype="html">
+        <source>Role</source>
+        <target>Rol</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.last-survey" datatype="html">
+        <source>Last survey</source>
+        <target>Recentste survey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
     </body>
