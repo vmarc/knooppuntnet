@@ -10,5 +10,5 @@ case class NetworkRouteRow(
   investigate: Boolean,
   accessible: Boolean,
   roleConnection: Boolean,
-  relationLastUpdated: Timestamp
+  lastUpdated: Timestamp
 )

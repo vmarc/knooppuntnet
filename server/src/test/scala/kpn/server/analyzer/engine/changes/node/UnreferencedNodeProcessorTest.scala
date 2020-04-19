@@ -736,6 +736,7 @@ class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFact
         definedInRoute = false,
         referencedInRoutes = Seq.empty,
         integrityCheck = None,
+        lastSurvey = None,
         facts = Seq.empty
       )
     }

@@ -39,6 +39,7 @@ class NetworkInfoBuilder {
         info.definedInRelation,
         info.definedInRoute,
         info.networkNode.node.timestamp,
+        info.lastSurvey,
         routeReferences,
         info.integrityCheck,
         info.facts,
@@ -56,6 +57,7 @@ class NetworkInfoBuilder {
         member.role,
         route.summary.timestamp,
         route.lastUpdated,
+        route.lastSurvey,
         route.facts
       )
     }

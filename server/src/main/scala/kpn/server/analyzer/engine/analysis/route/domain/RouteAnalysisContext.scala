@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.domain
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteMap
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNode
@@ -35,7 +36,8 @@ case class RouteAnalysisContext(
   ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
   streets: Option[Seq[String]] = None,
-  geometryDigest: Option[String] = None
+  geometryDigest: Option[String] = None,
+  lastSurvey: Option[Day] = None
 ) {
 
   def networkType: NetworkType = loadedRoute.networkType

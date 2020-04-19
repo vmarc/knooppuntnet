@@ -53,6 +53,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
       role = None,
       relationLastUpdated = Timestamp(11, 8, 2015),
       lastUpdated = Timestamp(11, 8, 2015),
+      lastSurvey = None,
       facts = facts
     )
   }

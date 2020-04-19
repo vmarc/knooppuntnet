@@ -3,6 +3,7 @@ package kpn.api.common.network
 import kpn.api.common.LatLon
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.common.Ref
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -18,6 +19,7 @@ case class NetworkNodeInfo2(
   definedInRelation: Boolean,
   definedInRoute: Boolean,
   timestamp: Timestamp,
+  lastSurvey: Option[Day],
   routeReferences: Seq[Ref],
   integrityCheck: Option[NodeIntegrityCheck],
   facts: Seq[Fact],

@@ -52,6 +52,7 @@ class RouteUpdateTest extends FunSuite with Matchers {
         version = 1,
         changeSetId = 1,
         lastUpdated = Timestamp(2015, 8, 11),
+        lastSurvey = None,
         tags = Tags.empty,
         facts = Seq.empty,
         analysis = None,

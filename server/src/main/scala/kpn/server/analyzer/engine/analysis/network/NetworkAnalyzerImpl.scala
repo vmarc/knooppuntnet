@@ -13,6 +13,7 @@ import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
+import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
@@ -23,6 +24,9 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
+
+import scala.util.Failure
+import scala.util.Success
 
 @Component
 class NetworkAnalyzerImpl(
@@ -164,6 +168,17 @@ class NetworkAnalyzerImpl(
           Seq()
         }
 
+        val surveyDateTry = SurveyDateAnalyzer.analyze(networkNode.node.tags)
+        val lastSurveyDate = surveyDateTry match {
+          case Success(v) => v
+          case Failure(_) => None
+        }
+
+        val updatedFacts = surveyDateTry match {
+          case Success(v) => facts
+          case Failure(_) => facts :+ Fact.NodeInvalidSurveyDate
+        }
+
         NetworkNodeInfo(
           networkNode,
           connection,
@@ -172,7 +187,8 @@ class NetworkAnalyzerImpl(
           definedInRoute,
           referencedInRoutes,
           integrityCheck,
-          facts
+          lastSurveyDate,
+          updatedFacts
         )
 
       }.toSeq

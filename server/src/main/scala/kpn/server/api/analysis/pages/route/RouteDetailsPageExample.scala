@@ -10,6 +10,7 @@ import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteReferences
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
@@ -53,6 +54,7 @@ object RouteDetailsPageExample {
       version = 1,
       changeSetId = 1,
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),
+      lastSurvey = Some(Day(2020, 11, Some(8))),
       tags = Tags.from(
         "key1" -> "value1",
         "key2" -> "value2",
@@ -66,7 +68,8 @@ object RouteDetailsPageExample {
         Fact.RouteNotBackward,
         Fact.RouteUnusedSegments,
         Fact.RouteBroken,
-        Fact.RouteIncomplete
+        Fact.RouteIncomplete,
+        Fact.RouteInvalidSurveyDate
       ),
       analysis = Some(
         RouteInfoAnalysis(

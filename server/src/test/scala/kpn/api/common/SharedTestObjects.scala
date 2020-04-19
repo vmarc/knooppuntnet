@@ -272,6 +272,7 @@ trait SharedTestObjects extends MockFactory {
       latitude,
       longitude,
       lastUpdated,
+      None,
       tags,
       facts,
       location,
@@ -316,6 +317,7 @@ trait SharedTestObjects extends MockFactory {
       version = 0,
       changeSetId = 0,
       lastUpdated,
+      None,
       Tags.empty,
       facts,
       Some(analysis),
@@ -461,6 +463,7 @@ trait SharedTestObjects extends MockFactory {
       definedInRelation,
       definedInRoute,
       timestamp,
+      None,
       routeReferences,
       integrityCheck,
       facts,
@@ -486,6 +489,7 @@ trait SharedTestObjects extends MockFactory {
       role,
       relationLastUpdated,
       lastUpdated: Timestamp,
+      None,
       facts
     )
   }
@@ -776,6 +780,7 @@ trait SharedTestObjects extends MockFactory {
       version,
       changeSetId,
       lastUpdated,
+      None,
       tags,
       facts,
       analysis,

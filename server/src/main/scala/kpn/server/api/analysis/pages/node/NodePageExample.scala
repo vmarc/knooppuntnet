@@ -24,6 +24,7 @@ import kpn.api.common.node.NodeNetworkRouteReference
 import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.api.common.node.NodeReferences
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
@@ -82,6 +83,7 @@ object NodePageExample {
       latitude = "51.5291600",
       longitude = "4.297800",
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),
+      lastSurvey = Some(Day(2020, 11, Some(8))),
       tags = Tags.from(
         "rwn_ref" -> "01",
         "rcn_ref" -> "02",
@@ -89,6 +91,7 @@ object NodePageExample {
         "note" -> "this is a test network node for trying out the node page"
       ),
       facts = Seq(
+        Fact.NodeInvalidSurveyDate,
         Fact.IntegrityCheckFailed,
         Fact.WasOrphan,
         Fact.Deleted

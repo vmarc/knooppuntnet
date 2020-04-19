@@ -1,6 +1,5 @@
 package kpn.core.database.views.planner
 
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.common._
 import kpn.api.common.route.RouteInfo
@@ -12,9 +11,6 @@ import kpn.core.TestObjects
 import kpn.core.database.Database
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.test.TestSupport.withDatabase
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
-import kpn.server.repository.RouteRepositoryImpl
-import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -105,6 +101,7 @@ class GraphEdgesViewTest extends FunSuite with Matchers with TestObjects {
       version = 1,
       changeSetId = 1,
       lastUpdated = Timestamp(2018, 8, 11),
+      lastSurvey = None,
       tags = Tags.empty,
       facts = Seq(),
       analysis = Some(

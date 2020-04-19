@@ -159,7 +159,6 @@ class RouteAnalysisBuilder(
       context.loadedRoute.relation.tags
     )
 
-
     val routeInfo = RouteInfo(
       summary,
       active = true,
@@ -167,6 +166,7 @@ class RouteAnalysisBuilder(
       context.loadedRoute.relation.version,
       context.loadedRoute.relation.changeSetId,
       lastUpdated,
+      context.lastSurvey,
       context.loadedRoute.relation.tags,
       facts,
       Some(routeAnalysis),

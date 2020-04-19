@@ -53,6 +53,7 @@ class OrphanNodeTest03 extends AbstractTest {
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
+            None,
             newNodeTags("01"),
             Seq(Fact.Deleted),
             None,

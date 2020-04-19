@@ -2,6 +2,7 @@ package kpn.core.analysis
 
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 
 case class NetworkNodeInfo(
@@ -12,6 +13,7 @@ case class NetworkNodeInfo(
   definedInRoute: Boolean,
   referencedInRoutes: Seq[RouteInfo],
   integrityCheck: Option[NodeIntegrityCheck],
+  lastSurvey: Option[Day],
   facts: Seq[Fact]
 ) {
 

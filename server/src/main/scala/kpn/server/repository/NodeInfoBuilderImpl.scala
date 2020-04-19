@@ -9,11 +9,15 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.NetworkNodeInfo
+import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.stereotype.Component
+
+import scala.util.Failure
+import scala.util.Success
 
 @Component
 class NodeInfoBuilderImpl(
@@ -48,6 +52,17 @@ class NodeInfoBuilderImpl(
       }
     }
 
+    val surveyDateTry = SurveyDateAnalyzer.analyze(tags)
+    val surveyDate = surveyDateTry match {
+      case Success(v) => v
+      case Failure(_) => None
+    }
+
+    val updatedFacts = surveyDateTry match {
+      case Success(v) => facts
+      case Failure(_) => facts :+ Fact.NodeInvalidSurveyDate
+    }
+
     NodeInfo(
       id,
       active,
@@ -58,8 +73,9 @@ class NodeInfoBuilderImpl(
       latitude,
       longitude,
       lastUpdated,
+      surveyDate,
       tags,
-      facts,
+      updatedFacts,
       location,
       tiles
     )

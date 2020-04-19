@@ -58,6 +58,7 @@ class OrphanNodeTest02 extends AbstractTest {
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
+            None,
             Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "tag" -> "after"),
             Seq(),
             None,

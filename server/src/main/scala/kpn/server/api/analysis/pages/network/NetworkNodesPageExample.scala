@@ -34,6 +34,7 @@ object NetworkNodesPageExample {
       definedInRelation = true,
       definedInRoute = true,
       timestamp = Timestamp(2020, 1, 1),
+      lastSurvey = None,
       routeReferences = Seq(
         Ref(11, "01-02"),
         Ref(12, "01-03"),
@@ -69,6 +70,7 @@ object NetworkNodesPageExample {
       definedInRelation = false,
       definedInRoute = false,
       timestamp = Timestamp(2020, 1, 1),
+      lastSurvey = None,
       routeReferences = Seq(
         Ref(11, "01-02"),
         Ref(12, "01-03"),
