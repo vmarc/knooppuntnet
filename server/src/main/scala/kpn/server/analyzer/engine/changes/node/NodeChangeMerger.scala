@@ -154,7 +154,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
   }
 
   private def mergedFacts(): Seq[Fact] = {
-    (left.facts ++ right.facts).distinct.sortBy(_.id)
+    (left.facts ++ right.facts).distinct.sortBy(_.name)
   }
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {

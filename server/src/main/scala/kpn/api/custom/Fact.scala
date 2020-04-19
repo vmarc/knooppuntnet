@@ -4,7 +4,8 @@ import scala.collection.mutable.ListBuffer
 
 case class SimpleFact()
 
-case class Fact(id: Long, name: String, nlName: String, level: FactLevel) {
+case class Fact(name: String, level: FactLevel) {
+
   def isError: Boolean = level == FactLevel.ERROR
 
   def isInfo: Boolean = level == FactLevel.INFO
@@ -19,8 +20,20 @@ class FactFactory() {
 
   private val facts = ListBuffer[Fact]()
 
-  def fact(id: Long, name: String, nlName: String, level: FactLevel): Fact = {
-    val newFact = Fact(id, name, nlName, level)
+  def info(name: String): Fact = {
+    fact(name, FactLevel.INFO)
+  }
+
+  def error(name: String): Fact = {
+    fact(name, FactLevel.ERROR)
+  }
+
+  def other(name: String): Fact = {
+    fact(name, FactLevel.OTHER)
+  }
+
+  private def fact(name: String, level: FactLevel): Fact = {
+    val newFact = Fact(name, level)
     facts += newFact
     newFact
   }
@@ -33,68 +46,68 @@ object Fact {
   private val f = new FactFactory()
 
   // errors
-  val RouteNotContinious: Fact = f.fact(101, "RouteNotContinious", "OnderBroken", FactLevel.ERROR)
-  val RouteNotForward: Fact = f.fact(301, "RouteNotForward", "GeenHeenWeg", FactLevel.ERROR)
-  val RouteNotBackward: Fact = f.fact(302, "RouteNotBackward", "GeenTerugWeg", FactLevel.ERROR)
-  val RouteUnusedSegments: Fact = f.fact(102, "RouteUnusedSegments", "OngebruikteSegmenten", FactLevel.ERROR)
+  val RouteNotContinious: Fact = f.error("RouteNotContinious")
+  val RouteNotForward: Fact = f.error("RouteNotForward")
+  val RouteNotBackward: Fact = f.error("RouteNotBackward")
+  val RouteUnusedSegments: Fact = f.error("RouteUnusedSegments")
 
-  val RouteNodeMissingInWays: Fact = f.fact(103, "RouteNodeMissingInWays", "OntbrekendKnoopunt", FactLevel.ERROR)
-  val RouteRedundantNodes: Fact = f.fact(104, "RouteRedundantNodes", "BijkomendKnooppunt", FactLevel.ERROR)
-  val RouteWithoutWays: Fact = f.fact(105, "RouteWithoutWays", "ZonderWegen", FactLevel.ERROR)
+  val RouteNodeMissingInWays: Fact = f.error("RouteNodeMissingInWays")
+  val RouteRedundantNodes: Fact = f.error("RouteRedundantNodes")
+  val RouteWithoutWays: Fact = f.error("RouteWithoutWays")
 
-  val RouteFixmetodo: Fact = f.fact(106, "RouteFixmetodo", "Fixmetodo", FactLevel.ERROR)
+  val RouteFixmetodo: Fact = f.error("RouteFixmetodo")
 
-  val RouteNameMissing: Fact = f.fact(109, "RouteNameMissing", "RouteZonderNaam", FactLevel.ERROR)
+  val RouteNameMissing: Fact = f.error("RouteNameMissing")
 
-  val RouteTagMissing: Fact = f.fact(113, "RouteTagMissing", "OntbrekendeTag", FactLevel.ERROR)
-  val RouteTagInvalid: Fact = f.fact(114, "RouteTagInvalid", "TagFout", FactLevel.ERROR)
+  val RouteTagMissing: Fact = f.error("RouteTagMissing")
+  val RouteTagInvalid: Fact = f.error("RouteTagInvalid")
 
-  val RouteUnexpectedNode: Fact = f.fact(115, "RouteUnexpectedNode", "OnverwachteKnoopInRoute", FactLevel.ERROR)
-  val RouteUnexpectedRelation: Fact = f.fact(116, "RouteUnexpectedRelation", "OnverwachteRelatieInRoute", FactLevel.ERROR)
+  val RouteUnexpectedNode: Fact = f.error("RouteUnexpectedNode")
+  val RouteUnexpectedRelation: Fact = f.error("RouteUnexpectedRelation")
 
-  val NetworkExtraMemberNode: Fact = f.fact(117, "NetworkExtraMemberNode", "OnverwachteKnoop", FactLevel.ERROR)
-  val NetworkExtraMemberWay: Fact = f.fact(118, "NetworkExtraMemberWay", "OnverwachteWeg", FactLevel.ERROR)
-  val NetworkExtraMemberRelation: Fact = f.fact(119, "NetworkExtraMemberRelation", "OnverwachteRelatie", FactLevel.ERROR)
-  val NodeMemberMissing: Fact = f.fact(120, "NodeMemberMissing", "OntbrekendKnooppuntLid", FactLevel.INFO)
-  val IntegrityCheckFailed: Fact = f.fact(121, "IntegrityCheckFailed", "OnverwachtRouteAantal", FactLevel.ERROR)
-  val NameMissing: Fact = f.fact(122, "NameMissing", "NetwerkZonderNaam", FactLevel.ERROR)
-  val OrphanRoute: Fact = f.fact(123, "OrphanRoute", "RouteWees", FactLevel.OTHER)
-  val OrphanNode: Fact = f.fact(124, "OrphanNode", "KnooppuntWees", FactLevel.OTHER)
+  val NetworkExtraMemberNode: Fact = f.error("NetworkExtraMemberNode")
+  val NetworkExtraMemberWay: Fact = f.error("NetworkExtraMemberWay")
+  val NetworkExtraMemberRelation: Fact = f.error("NetworkExtraMemberRelation")
+  val NodeMemberMissing: Fact = f.info("NodeMemberMissing")
+  val IntegrityCheckFailed: Fact = f.error("IntegrityCheckFailed")
+  val NameMissing: Fact = f.error("NameMissing")
+  val OrphanRoute: Fact = f.other("OrphanRoute")
+  val OrphanNode: Fact = f.other("OrphanNode")
 
-  val RouteOverlappingWays: Fact = f.fact(125, "RouteOverlappingWays", "OverlappendeWegen", FactLevel.ERROR)
-  val RouteSuspiciousWays: Fact = f.fact(126, "RouteSuspiciousWays", "RouteVerdachteWegen", FactLevel.ERROR)
-  val RouteAnalysisFailed: Fact = f.fact(127, "RouteAnalysisFailed", "RouteAnalyseFout", FactLevel.ERROR)
+  val RouteOverlappingWays: Fact = f.error("RouteOverlappingWays")
+  val RouteSuspiciousWays: Fact = f.error("RouteSuspiciousWays")
+  val RouteAnalysisFailed: Fact = f.error("RouteAnalysisFailed")
 
   // informational
-  val RouteIncomplete: Fact = f.fact(201, "RouteIncomplete", "OnvolledigeRoute", FactLevel.INFO)
-  val RouteUnaccessible: Fact = f.fact(202, "RouteUnaccessible", "Ontoegankelijk", FactLevel.INFO)
-  val RouteInvalidSortingOrder: Fact = f.fact(203, "RouteInvalidSortingOrder", "SorteerFout", FactLevel.INFO)
+  val RouteIncomplete: Fact = f.info("RouteIncomplete")
+  val RouteUnaccessible: Fact = f.info("RouteUnaccessible")
+  val RouteInvalidSortingOrder: Fact = f.info("RouteInvalidSortingOrder")
 
-  val RouteNodeNameMismatch: Fact = f.fact(205, "RouteNodeNameMismatch", "OnverwachteNaam", FactLevel.INFO)
-  val RouteOneWay: Fact = f.fact(206, "RouteOneWay", "RouteEnkeleRichting", FactLevel.INFO)
-  val RouteNotOneWay: Fact = f.fact(207, "RouteNotOneWay", "RouteNietEnkeleRichting", FactLevel.INFO)
-  val RouteIncompleteOk: Fact = f.fact(208, "RouteIncompleteOk", "OnvolledigeRouteOk", FactLevel.INFO)
+  val RouteNodeNameMismatch: Fact = f.info("RouteNodeNameMismatch")
+  val RouteOneWay: Fact = f.info("RouteOneWay")
+  val RouteNotOneWay: Fact = f.info("RouteNotOneWay")
+  val RouteIncompleteOk: Fact = f.info("RouteIncompleteOk")
 
   // other
-  val RouteBroken: Fact = f.fact(303, "RouteBroken", "RouteFout", FactLevel.OTHER)
+  val RouteBroken: Fact = f.other("RouteBroken")
 
-  val IntegrityCheck: Fact = f.fact(304, "IntegrityCheck", "RouteAantal", FactLevel.OTHER)
+  val IntegrityCheck: Fact = f.other("IntegrityCheck")
 
-  val Added: Fact = f.fact(401, "Added", "Toegevoegd", FactLevel.OTHER)
-  val Deleted: Fact = f.fact(402, "Deleted", "Verwijderd", FactLevel.OTHER)
-  val LostHikingNodeTag: Fact = f.fact(403, "LostHikingNodeTag", "GeenWandelKnooppuntMeer", FactLevel.OTHER)
-  val LostBicycleNodeTag: Fact = f.fact(404, "LostBicycleNodeTag", "GeenFietsKnooppuntMeer", FactLevel.OTHER)
-  val BecomeOrphan: Fact = f.fact(405, "BecomeOrphan", "WeesGeworden", FactLevel.OTHER)
-  val WasOrphan: Fact = f.fact(406, "WasOrphan", "WasWees", FactLevel.OTHER)
-  val LostRouteTags: Fact = f.fact(409, "LostRouteTags", "GeenRouteMeer", FactLevel.OTHER)
+  val Added: Fact = f.other("Added")
+  val Deleted: Fact = f.other("Deleted")
+  val LostHikingNodeTag: Fact = f.other("LostHikingNodeTag")
+  val LostBicycleNodeTag: Fact = f.other("LostBicycleNodeTag")
+  val BecomeOrphan: Fact = f.other("BecomeOrphan")
+  val WasOrphan: Fact = f.other("WasOrphan")
+  val LostRouteTags: Fact = f.other("LostRouteTags")
 
-  val LostHorseNodeTag: Fact = f.fact(410, "LostHorseNodeTag", "GeenRuiterKnooppuntMeer", FactLevel.OTHER)
-  val LostMotorboatNodeTag: Fact = f.fact(411, "LostMotorboatNodeTag", "GeenMotorbootKnooppuntMeer", FactLevel.OTHER)
-  val LostCanoeNodeTag: Fact = f.fact(412, "LostCanoeNodeTag", "GeenKanoKnooppuntMeer", FactLevel.OTHER)
-  val LostInlineSkateNodeTag: Fact = f.fact(413, "LostInlineSkateNodeTag", "GeenInlineSkateKnooppuntMeer", FactLevel.OTHER)
+  val LostHorseNodeTag: Fact = f.other("LostHorseNodeTag")
+  val LostMotorboatNodeTag: Fact = f.other("LostMotorboatNodeTag")
+  val LostCanoeNodeTag: Fact = f.other("LostCanoeNodeTag")
+  val LostInlineSkateNodeTag: Fact = f.other("LostInlineSkateNodeTag")
 
-  val NodeInvalidSurveyDate: Fact = f.fact(414, "NodeInvalidSurveyDate", "NodeInvalidSurveyDate", FactLevel.ERROR)
-  val RouteInvalidSurveyDate: Fact = f.fact(415, "RouteInvalidSurveyDate", "RouteInvalidSurveyDate", FactLevel.ERROR)
+  val NodeInvalidSurveyDate: Fact = f.error("NodeInvalidSurveyDate")
+  val RouteInvalidSurveyDate: Fact = f.error("RouteInvalidSurveyDate")
 
   val all: Seq[Fact] = f.all
 

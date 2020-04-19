@@ -30,7 +30,7 @@ class RouteChangeMerger(left: RouteChange, right: RouteChange) {
           addedWays = left.addedWays, // TODO CHANGE
           updatedWays = left.updatedWays, // TODO CHANGE
           diffs = left.diffs, // TODO CHANGE
-          facts = (left.facts ++ right.facts).distinct.sortBy(_.id)
+          facts = (left.facts ++ right.facts).distinct.sortBy(_.name)
         )
       )
     }
