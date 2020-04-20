@@ -3,6 +3,7 @@ package kpn.core.tools.analysis
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
 import kpn.core.db.couch.Couch
+import kpn.core.replicate.Oper
 import kpn.core.tools.config._
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
@@ -67,14 +68,14 @@ class ChangeSetInfoTool(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) {
 
+  private val oper = new Oper()
   private val log = Log(classOf[ChangeSetInfoTool])
 
   def loop(): Unit = {
-    while (true) {
+    while (oper.isActive) {
       val taskIds = taskRepository.all(TaskRepository.changeSetInfoTask)
       if (taskIds.isEmpty) {
-        log.debug("Nothing to process, sleep")
-        Thread.sleep(30000)
+        oper.sleep(30000)
       }
       else {
         process(taskIds)
@@ -112,4 +113,5 @@ class ChangeSetInfoTool(
       throw new RuntimeException("Unexpected taskId: " + taskId)
     }
   }
+
 }

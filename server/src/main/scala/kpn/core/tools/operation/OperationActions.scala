@@ -48,6 +48,18 @@ class OperationActions {
     Process("/kpn/scripts/analyzer-3.sh").!!
   }
 
+  def startServer(): String = {
+    Process("/kpn/scripts/server.sh").!!
+  }
+
+  def startChangeSetInfoTool(): String = {
+    Process("/kpn/scripts/change-set-info-tool.sh").!!
+  }
+
+  def startChangeSetInfoTool2(): String = {
+    Process("/kpn/scripts/change-set-info-tool-2.sh").!!
+  }
+
   def stopMainDispatcher(): String = {
     Process("/kpn/overpass/bin/dispatcher --terminate --osm-base").!!
   }
@@ -80,4 +92,20 @@ class OperationActions {
     new Stop().stop("5203")
     ""
   }
+
+  def stopServer(): String = {
+    Process("curl --silent -X POST http://localhost:9005/actuator/shutdown").!!
+    ""
+  }
+
+  def stopChangeSetInfoTool(): String = {
+    new Stop().stop("5204")
+    ""
+  }
+
+  def stopChangeSetInfoTool2(): String = {
+    new Stop().stop("5244")
+    ""
+  }
+
 }

@@ -30,7 +30,10 @@ class OperationTool {
       "updater",
       "analyzer1",
       "analyzer2",
-      "analyzer3"
+      "analyzer3",
+      "server",
+      "change-set-info-tool",
+      "change-set-info-tool-2",
     )
     new ConsoleReader {
       setPrompt("kpn> ")
@@ -75,6 +78,9 @@ class OperationTool {
       case "start analyzer1" => actions.startAnalyzer1()
       case "start analyzer2" => actions.startAnalyzer2()
       case "start analyzer3" => actions.startAnalyzer3()
+      case "start server" => actions.startServer()
+      case "start change-set-info-tool" => actions.startChangeSetInfoTool()
+      case "start change-set-info-tool-2" => actions.startChangeSetInfoTool2()
       case "stop main-dispatcher" => actions.stopMainDispatcher()
       case "stop areas-dispatcher" => actions.stopAreasDispatcher()
       case "stop replicator" => actions.stopReplicator()
@@ -82,6 +88,9 @@ class OperationTool {
       case "stop analyzer1" => actions.stopAnalyzer1()
       case "stop analyzer2" => actions.stopAnalyzer2()
       case "stop analyzer3" => actions.stopAnalyzer3()
+      case "stop server" => actions.stopServer()
+      case "stop change-set-info-tool" => actions.stopChangeSetInfoTool()
+      case "stop change-set-info-tool-2" => actions.stopChangeSetInfoTool2()
       case _ => "Unknown command"
     }
   }
