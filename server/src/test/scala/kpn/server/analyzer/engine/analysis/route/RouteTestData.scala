@@ -65,11 +65,11 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
     missingNodeIds.foreach(id => node(id))
   }
 
-  def nodes: Seq[RawNode] = nodeBuffer
+  def nodes: Seq[RawNode] = nodeBuffer.toSeq
 
-  def ways: Seq[RawWay] = wayBuffer
+  def ways: Seq[RawWay] = wayBuffer.toSeq
 
-  def members: Seq[RawMember] = memberBuffer
+  def members: Seq[RawMember] = memberBuffer.toSeq
 
   def data: Data = {
     val standardRouteTags = Tags.from(
@@ -80,8 +80,8 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
       "network:type" -> "node_network"
     )
     val allRouteTags = Tags(routeTags.tags ++ standardRouteTags.tags)
-    val relation = newRawRelation(routeRelationId, members = memberBuffer, tags = allRouteTags)
-    val rawData = RawData(None, nodeBuffer, wayBuffer, Seq(relation))
+    val relation = newRawRelation(routeRelationId, members = memberBuffer.toSeq, tags = allRouteTags)
+    val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
     new DataBuilder(rawData).data
   }
 }

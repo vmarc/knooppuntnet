@@ -7,7 +7,7 @@ import kpn.api.custom.Tags
 class PoiQueryResultParser {
 
   def parse(layer: String, xml: scala.xml.Node): Seq[Poi] = {
-    xml.child.flatMap { element =>
+    xml.child.toSeq.flatMap { element =>
       element.label match {
         case "node" => Some(node(layer, element))
         case "way" => Some(way(layer, element))

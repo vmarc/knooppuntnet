@@ -26,7 +26,7 @@ class GpxRoute() {
         val nodes = if (way.nodes.last.id == lastNode.id) way.nodes.reverse else way.nodes
         if (lastNode.id != nodes.head.id) {
           val trackPoints = segmentNodes.map(toTrackPoint)
-          trackSegments += GpxSegment(trackPoints)
+          trackSegments += GpxSegment(trackPoints.toSeq)
           segmentNodes.clear()
           segmentNodes ++= nodes
         }
@@ -37,9 +37,9 @@ class GpxRoute() {
 
       if (segmentNodes.nonEmpty) {
         val trackPoints = segmentNodes.map(toTrackPoint)
-        trackSegments += GpxSegment(trackPoints)
+        trackSegments += GpxSegment(trackPoints.toSeq)
       }
-      trackSegments
+      trackSegments.toSeq
     }
   }
 

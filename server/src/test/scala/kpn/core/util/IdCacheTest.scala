@@ -1,11 +1,11 @@
 package kpn.core.util
 
-import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
-class IdCacheTest extends FunSuite with Matchers {
+class IdCacheTest extends AnyFunSuite with Matchers {
 
   test("LinkedHashMap stores values in access order, and automatically removes oldest entries") {
 
@@ -15,19 +15,19 @@ class IdCacheTest extends FunSuite with Matchers {
       }
     }
 
-    map.put(1, Unit)
-    map.put(2, Unit)
-    map.put(3, Unit)
-    map.put(4, Unit)
+    map.put(1, ())
+    map.put(2, ())
+    map.put(3, ())
+    map.put(4, ())
 
     map.keySet().asScala should equal(Set(2, 3, 4))
 
-    map.put(5, Unit)
+    map.put(5, ())
     map.keySet().asScala should equal(Set(3, 4, 5))
 
     map.get(3L)
 
-    map.put(6, Unit)
+    map.put(6, ())
     map.keySet().asScala should equal(Set(3, 5, 6))
   }
 

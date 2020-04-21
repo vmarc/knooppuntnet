@@ -8,7 +8,7 @@ object TranslationTrimToolOptions {
 
   private def optionParser: scopt.OptionParser[TranslationTrimToolOptions] = {
     new scopt.OptionParser[TranslationTrimToolOptions]("TranslationTrimTool") {
-      opt[String]('r', "root") required() valueName "<directory>" action { (x, c) =>
+      opt[String]('r', "root").required() valueName "<directory>" action { (x, c) =>
         c.copy(root = x)
       } text "knooppuntnet client source root directory name"
     }

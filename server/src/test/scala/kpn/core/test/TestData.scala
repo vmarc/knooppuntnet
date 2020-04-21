@@ -72,7 +72,7 @@ class TestData() extends SharedTestObjects {
   }
 
   def rawData: RawData = {
-    RawData(Some(defaultTimestamp), nodes, ways, relations)
+    RawData(Some(defaultTimestamp), nodes.toSeq, ways.toSeq, relations.toSeq)
   }
 
   def data: Data = {

@@ -35,7 +35,7 @@ class UnusedSegmentAnalyzerTest extends FunSuite with Matchers with SharedTestOb
     val segment1 = Segment("", Seq(f1, f2))
     val usedSegments = Seq(segment1)
 
-    analyze(usedSegments, b.fragments) should equal(Set(Seq(3, 4, 5), Seq(6, 7, 8)))
+    analyze(usedSegments, b.fragments.toSeq) should equal(Set(Seq(3, 4, 5), Seq(6, 7, 8)))
   }
 
   test("if one roundabout fragment is used, then entire roundabout is considered used") {
@@ -55,7 +55,7 @@ class UnusedSegmentAnalyzerTest extends FunSuite with Matchers with SharedTestOb
     val segment1 = Segment("", Seq(f1, f2))
     val usedSegments = Seq(segment1)
 
-    analyze(usedSegments, b.fragments) should equal(Set(Seq(4, 5), Seq(6, 7, 8)))
+    analyze(usedSegments, b.fragments.toSeq) should equal(Set(Seq(4, 5), Seq(6, 7, 8)))
   }
 
   test("if one fragment of a closed loop is used, then entire loop is considered used") {
@@ -73,7 +73,7 @@ class UnusedSegmentAnalyzerTest extends FunSuite with Matchers with SharedTestOb
     val segment1 = Segment("", Seq(f1, f2))
     val usedSegments = Seq(segment1)
 
-    analyze(usedSegments, b.fragments) should equal(Set(Seq(4, 5, 6)))
+    analyze(usedSegments, b.fragments.toSeq) should equal(Set(Seq(4, 5, 6)))
   }
 
   private def analyze(usedSegments: Seq[Segment], fragments: Seq[Fragment]): Set[Seq[Long]] = {

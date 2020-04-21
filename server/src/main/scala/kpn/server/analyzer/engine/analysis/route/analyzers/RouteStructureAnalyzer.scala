@@ -37,7 +37,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
     val structure = analyzeStructure(context.routeNodeAnalysis.get, context.fragments.get)
     analyzeStructure2(context.routeNodeAnalysis.get, structure, context.fragments.get)
-    context.copy(structure = Some(structure), facts = facts)
+    context.copy(structure = Some(structure), facts = facts.toSeq)
   }
 
   private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis, fragments: Seq[Fragment]): RouteStructure = {

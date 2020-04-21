@@ -54,7 +54,7 @@ class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
       elements.nodeChanges.map(_.key.replicationNumber) ++
       elements.routeChanges.map(_.key.replicationNumber) ++
       elements.summaries.map(_.key.replicationNumber)
-    replicationNumbers.distinct.sorted
+    replicationNumbers.distinct.sorted.toSeq
   }
 
   private def processRow(jsonParser: JsonParser, elements: ChangeSetElements, doc: JsonNode): Unit = {
@@ -95,9 +95,9 @@ class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
 
     ChangeSetData(
       changeSetSummaries.head,
-      Seq(networkChanges: _*),
-      Seq(routeChanges: _*),
-      Seq(nodeChanges: _*)
+      networkChanges.toSeq,
+      routeChanges.toSeq,
+      nodeChanges.toSeq
     )
   }
 

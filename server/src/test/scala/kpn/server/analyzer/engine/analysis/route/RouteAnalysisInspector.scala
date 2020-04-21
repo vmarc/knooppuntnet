@@ -89,15 +89,15 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       Seq(
         evaluateMissingFacts,
         evaluateUnexpectedFacts,
-        evaluate("Start node", startNodeIdBuffer, ra.startNodes.map(_.id)),
-        evaluate("End node", endNodeIdBuffer, analysis.route.analysis.get.endNodes.map(_.id)),
-        evaluate("Start tentacle node", startTentacleNodeIdBuffer, analysis.route.analysis.get.startTentacleNodes.map(_.id)),
-        evaluate("End tentacle node", endTentacleNodeIdBuffer, analysis.route.analysis.get.endTentacleNodes.map(_.id)),
-        evaluate("Unexpected node", unexpectedNodeIdBuffer, analysis.route.analysis.get.unexpectedNodeIds),
-        evaluate("Forward nodes", forwardNodeIdBuffer, analysis.structure.forwardNodeIds),
-        evaluate("Backward nodes", backwardNodeIdBuffer, analysis.structure.backwardNodeIds),
+        evaluate("Start node", startNodeIdBuffer.toSeq, ra.startNodes.map(_.id)),
+        evaluate("End node", endNodeIdBuffer.toSeq, analysis.route.analysis.get.endNodes.map(_.id)),
+        evaluate("Start tentacle node", startTentacleNodeIdBuffer.toSeq, analysis.route.analysis.get.startTentacleNodes.map(_.id)),
+        evaluate("End tentacle node", endTentacleNodeIdBuffer.toSeq, analysis.route.analysis.get.endTentacleNodes.map(_.id)),
+        evaluate("Unexpected node", unexpectedNodeIdBuffer.toSeq, analysis.route.analysis.get.unexpectedNodeIds),
+        evaluate("Forward nodes", forwardNodeIdBuffer.toSeq, analysis.structure.forwardNodeIds),
+        evaluate("Backward nodes", backwardNodeIdBuffer.toSeq, analysis.structure.backwardNodeIds),
         evaluateTentacles,
-        evaluateLong("Structure", structureBuffer, analysis.route.analysis.get.structureStrings)
+        evaluateLong("Structure", structureBuffer.toSeq, analysis.route.analysis.get.structureStrings)
         // TODO add tests for breakpoints (forward and backward) ?
 
       ).flatten.map(s => "  - " + s).mkString("\n")

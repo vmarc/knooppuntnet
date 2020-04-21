@@ -106,7 +106,7 @@ class CommandEncoder {
     }
     if (closePathAtEnd) r.add(commandAndLength(ClosePath, 1))
     import scala.collection.JavaConverters._
-    r.asScala.map(_.toInt)
+    r.asScala.toSeq.map(_.toInt)
   }
 
   private def commandAndLength(command: Int, repeat: Int): Int = {
@@ -150,7 +150,7 @@ class CommandEncoder {
         i - 1
       }
     }
-    Seq(commands: _*)
+    commands.toSeq
   }
 
 }

@@ -31,7 +31,7 @@ object ZipFile {
         entries += ZipFileEntry(entry.getName, contents)
         entry = in.getNextEntry
       }
-      entries
+      entries.toSeq
     }
     finally {
       in.close()

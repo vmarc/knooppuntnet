@@ -17,7 +17,7 @@ object StopOptions {
 
   private def optionParser: scopt.OptionParser[StopOptions] = {
     new scopt.OptionParser[StopOptions]("stop") {
-      opt[String]("port") required() valueName "port" action { (x, c) =>
+      opt[String]("port").required() valueName "port" action { (x, c) =>
         c.copy(port = x)
       } text "jmx rmi port"
     }

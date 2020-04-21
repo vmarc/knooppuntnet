@@ -70,7 +70,7 @@ class BoundaryBuilder {
           case _ =>
         }
       }
-      Seq(sorted:_*)
+      sorted.toSeq
     }
   }
 

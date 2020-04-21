@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.poi.image
 
-import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileWriter
 import java.io.PrintWriter
 import java.nio.charset.Charset
 
-import com.sksamuel.scrimage.Image
+import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.nio.JpegWriter
 import kpn.api.common.PoiAnalysis
 import kpn.core.db.couch.Couch
@@ -18,7 +17,6 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.ByteArrayHttpMessageConverter
 import org.springframework.http.converter.HttpMessageConverter
@@ -162,18 +160,18 @@ class PoiImageRetrieverImpl {
       }
       else {
         val bytes = response.getBody
-        val image = Image.fromStream(new ByteArrayInputStream(bytes))
+        val image = ImmutableImage.loader().fromBytes(bytes)
 
         val thumbnail = image.max(100, 100)
-        print(s"poi=${poiRef.elementType}/${poiRef.elementId}, image=${image.dimensions._1}x${image.dimensions._2}, ")
-        println(s"thumbnail=${thumbnail.dimensions._1}x${thumbnail.dimensions._2}")
+        print(s"poi=${poiRef.elementType}/${poiRef.elementId}, image=${image.dimensions.getX}x${image.dimensions.getY}, ")
+        println(s"thumbnail=${thumbnail.dimensions.getX}x${thumbnail.dimensions.getY}")
 
         val s = poiRef.elementId.toString
         val dir = s"/kpn/images/${s(s.length - 2)}/${s(s.length - 1)}"
         new File(dir).mkdirs()
         val file = new File(dir, s"${poiRef.elementType}-${poiRef.elementId}.jpg")
 
-        thumbnail.output(file)(JpegWriter.Default)
+        thumbnail.output(JpegWriter.Default, file)
       }
     }
     catch {

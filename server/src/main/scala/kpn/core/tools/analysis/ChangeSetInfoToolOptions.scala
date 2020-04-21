@@ -10,11 +10,11 @@ object ChangeSetInfoToolOptions {
     new scopt.OptionParser[ChangeSetInfoToolOptions]("ChangeSetInfoTool") {
       head("ChangeSetInfoTool")
 
-      opt[String]('c', "changesets") required() valueName "<change-sets-database>" action { (x, c) =>
+      opt[String]('c', "changesets").required() valueName "<change-sets-database>" action { (x, c) =>
         c.copy(changeSetsDatabaseName = x)
       } text "changesets database name"
 
-      opt[String]('t', "tasks") required() valueName "<tasks-database>" action { (x, c) =>
+      opt[String]('t', "tasks").required() valueName "<tasks-database>" action { (x, c) =>
         c.copy(tasksDatabaseName = x)
       } text "tasks database name"
 

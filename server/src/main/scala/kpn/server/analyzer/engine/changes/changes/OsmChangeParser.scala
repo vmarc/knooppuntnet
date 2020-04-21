@@ -15,13 +15,13 @@ class OsmChangeParser {
 
   def parse(xml: scala.xml.Node): OsmChange = {
 
-    val actions = xml.child.filter(isAction).map { actionXml =>
+    val actions = xml.child.toSeq.filter(isAction).map { actionXml =>
       val action = actionXml.label match {
         case "create" => ChangeAction.Create
         case "modify" => ChangeAction.Modify
         case "delete" => ChangeAction.Delete
       }
-      val elements = actionXml.child.filter(isElement).map { element =>
+      val elements = actionXml.child.toSeq.filter(isElement).map { element =>
         element.label match {
           case "node" => node(element)
           case "way" => way(element)

@@ -75,7 +75,7 @@ object Log {
   }
 
   def contextMessages: Seq[String] = {
-    ThreadContext.getImmutableStack.asList.asScala
+    ThreadContext.getImmutableStack.asList.asScala.toSeq
   }
 
   def contextString: String = {
@@ -186,7 +186,7 @@ class MockLog() extends Log {
 
   private val messageBuffer = ListBuffer[String]()
 
-  def messages: Seq[String] = Seq(messageBuffer: _*)
+  def messages: Seq[String] = messageBuffer.toSeq
 
   def isDebugEnabled = true
 
@@ -202,7 +202,7 @@ class MockLog() extends Log {
 
   def debug(message: String): Unit = {
 
-    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala
+    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala.toSeq
     val stack = if (stackMessages.isEmpty) {
       ""
     }
@@ -215,7 +215,7 @@ class MockLog() extends Log {
 
   def debug(message: String, throwable: Throwable): Unit = {
 
-    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala
+    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala.toSeq
     val stack = if (stackMessages.isEmpty) {
       ""
     }
@@ -234,7 +234,7 @@ class MockLog() extends Log {
 
   def trace(message: String): Unit = {
 
-    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala
+    val stackMessages: Seq[String] = ThreadContext.getImmutableStack.asList().asScala.toSeq
     val stack = if (stackMessages.isEmpty) {
       ""
     }

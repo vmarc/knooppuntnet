@@ -38,7 +38,7 @@ class FactFactory() {
     newFact
   }
 
-  def all: Seq[Fact] = facts
+  def all: Seq[Fact] = facts.toSeq
 }
 
 object Fact {

@@ -163,7 +163,7 @@ class IOThreadHandler(pid: String, name: String, latch: CountDownLatch, inputStr
     finally {
       scanner.close()
     }
-    output = out
+    output = out.toSeq
     log.debug(s"pid=$pid $name closed: ${output.size} lines")
     latch.countDown()
   }

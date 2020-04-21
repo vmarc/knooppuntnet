@@ -20,7 +20,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
     //    }
     //    val nodeMap = list.zipWithIndex.map{case(id, index)=> id-> (index + 1).toString}.toMap
 
-    con.zipWithIndex.map { case (c, index) =>
+    con.toSeq.zipWithIndex.map { case (c, index) =>
       val linkType = c.direction match {
         case Direction.FORWARD => LinkType.FORWARD
         case Direction.BACKWARD => LinkType.BACKWARD

@@ -9,11 +9,11 @@ object TileToolOptions {
     new scopt.OptionParser[TileToolOptions]("TileTool") {
       head("TileTool")
 
-      opt[String]('t', "tileDir") required() valueName "<tile-root-directory>" action { (x, c) =>
+      opt[String]('t', "tileDir").required() valueName "<tile-root-directory>" action { (x, c) =>
         c.copy(tileDir = x)
       } text "tile directory"
 
-      opt[String]('a', "analysis") required() valueName "<analysis-database>" action { (x, c) =>
+      opt[String]('a', "analysis").required() valueName "<analysis-database>" action { (x, c) =>
         c.copy(analysisDatabaseName = x)
       } text "analysis database name"
     }

@@ -21,7 +21,7 @@ class OrphanNodesData {
   def ids: Iterable[Long] = orphanNodeIds.keys
 
   def add(nodeId: Long): Unit = {
-    orphanNodeIds += (nodeId -> Unit)
+    orphanNodeIds += (nodeId -> ())
   }
 
   def delete(nodeId: Long): Unit = {
