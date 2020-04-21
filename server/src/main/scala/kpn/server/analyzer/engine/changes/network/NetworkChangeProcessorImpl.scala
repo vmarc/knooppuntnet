@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.changes.network
 
+import java.util.concurrent.CompletableFuture.allOf
+
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
@@ -8,11 +10,6 @@ import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
 import org.springframework.stereotype.Component
-
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import scala.concurrent.duration.Duration
 
 @Component
 class NetworkChangeProcessorImpl(
@@ -34,19 +31,14 @@ class NetworkChangeProcessorImpl(
       val updateFutures = networkChanges.updates.map(id => updateProcessor.process(context, id))
       val deleteFutures = networkChanges.deletes.map(id => deleteProcessor.process(context, id))
 
-      val creates = awaitResult(createFutures)
-      val updates = awaitResult(updateFutures)
-      val deletes = awaitResult(deleteFutures)
-      val sources = creates ++ updates ++ deletes
+      val futures = createFutures ++ updateFutures ++ deleteFutures
 
-      val changes = merge(sources: _*)
+      allOf(futures: _*).join()
 
-      val message = s"actions=${networkChanges.actionCount}, creates=${creates.size}, updates=${updates.size}, deletes=${deletes.size}"
-      (message, changes)
+      val changes = futures.map(s => s.get())
+      val changeSetChanges = merge(changes: _*)
+      val message = s"actions=${networkChanges.actionCount}, creates=${createFutures.size}, updates=${updateFutures.size}, deletes=${deleteFutures.size}"
+      (message, changeSetChanges)
     }
-  }
-
-  private def awaitResult(futures: Seq[Future[ChangeSetChanges]]): Seq[ChangeSetChanges] = {
-    Await.result(Future.sequence(futures), Duration.Inf)
   }
 }

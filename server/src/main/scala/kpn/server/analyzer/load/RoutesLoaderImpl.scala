@@ -1,48 +1,21 @@
 package kpn.server.analyzer.load
 
-import akka.actor.Actor
-import akka.actor.ActorSystem
-import akka.actor.Props
-import akka.pattern.ask
-import akka.routing.BalancingPool
-import akka.util.Timeout
+import java.util.concurrent.CompletableFuture.allOf
+import java.util.concurrent.CompletableFuture.supplyAsync
+import java.util.concurrent.Executor
+
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.concurrent.duration.Duration
-import scala.concurrent.duration._
-
 @Component
 class RoutesLoaderImpl(
-  system: ActorSystem,
+  executor: Executor,
   routeLoader: RouteLoader
 ) extends RoutesLoader {
 
-  private implicit val askTimeout: Timeout = Timeout(2.hours)
-  private implicit val executionContext: ExecutionContext = system.dispatcher
-
   private val log = Log(classOf[RoutesLoaderImpl])
-
-  case class Load(messages: Seq[String], timestamp: Timestamp, routeId: Long)
-
-  class WorkerActor extends Actor {
-    def receive: Actor.Receive = {
-      case Load(messages, timestamp, routeId) =>
-        Log.context(messages) {
-          sender() ! routeLoader.loadRoute(timestamp, routeId)
-        }
-    }
-  }
-
-  private val workerPool = {
-    val props = Props(classOf[WorkerActor], this)
-    system.actorOf(BalancingPool(3).props(props), "routes-loader")
-  }
 
   override def load(timestamp: Timestamp, routeIds: Seq[Long]): Seq[Option[LoadedRoute]] = {
     if (routeIds.isEmpty) {
@@ -51,13 +24,18 @@ class RoutesLoaderImpl(
     else {
       log.debugElapsed {
         val futures = routeIds.zipWithIndex.map { case (routeId, index) =>
-          Log.context(s"${index + 1}/${routeIds.size}") {
-            Log.context(s"route=$routeId") {
-              ask(workerPool, Load(Log.contextMessages, timestamp, routeId)).mapTo[Option[LoadedRoute]]
+          val context = Log.contextAnd(s"${index + 1}/${routeIds.size}, route=$routeId")
+          supplyAsync(() => Log.context(context)(routeLoader.loadRoute(timestamp, routeId)), executor).exceptionally { ex =>
+            val message = "Exception while loading route"
+            Log.context(context) {
+              log.error(message, ex)
             }
+            throw new RuntimeException(s"[$context] $message")
           }
         }
-        val loadedRoutes = Await.result(Future.sequence(futures), Duration.Inf)
+
+        allOf(futures: _*).join()
+        val loadedRoutes = futures.map(s => s.get())
         (s"Processed ${routeIds.size} routes", loadedRoutes)
       }
     }

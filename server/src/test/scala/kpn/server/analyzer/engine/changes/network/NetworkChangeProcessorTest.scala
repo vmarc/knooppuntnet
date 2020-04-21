@@ -1,21 +1,20 @@
 package kpn.server.analyzer.engine.changes.network
 
+import java.util.concurrent.CompletableFuture.completedFuture
+
+import kpn.api.common.ReplicationId
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeSet
+import kpn.api.common.changes.details.ChangeType
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
-import kpn.api.common.ReplicationId
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.changes.ChangeSet
-import kpn.api.common.changes.details.ChangeType
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 class NetworkChangeProcessorTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
 
@@ -67,7 +66,7 @@ class NetworkChangeProcessorTest extends FunSuite with Matchers with MockFactory
 
     val changeSet: ChangeSet = newChangeSet()
 
-    val context = ChangeSetContext(
+    val context: ChangeSetContext = ChangeSetContext(
       replicationId = ReplicationId(1),
       changeSet
     )
@@ -77,21 +76,21 @@ class NetworkChangeProcessorTest extends FunSuite with Matchers with MockFactory
     val updateProcessor: NetworkUpdateProcessor = stub[NetworkUpdateProcessor]
     val deleteProcessor: NetworkDeleteProcessor = stub[NetworkDeleteProcessor]
 
-    val createChangeSetChanges = ChangeSetChanges(
+    val createChangeSetChanges: ChangeSetChanges = ChangeSetChanges(
       networkChanges = Seq(newNetworkChange(newChangeKey(elementId = createdNetworkId), ChangeType.Create))
     )
 
-    val updateChangeSetChanges = ChangeSetChanges(
+    val updateChangeSetChanges: ChangeSetChanges = ChangeSetChanges(
       networkChanges = Seq(newNetworkChange(newChangeKey(elementId = updatedNetworkId), ChangeType.Update))
     )
 
-    val deleteChangeSetChanges = ChangeSetChanges(
+    val deleteChangeSetChanges: ChangeSetChanges = ChangeSetChanges(
       networkChanges = Seq(newNetworkChange(newChangeKey(elementId = deletedNetworkId), ChangeType.Delete))
     )
 
-    (createProcessor.process _).when(context, createdNetworkId).returns(Future(createChangeSetChanges))
-    (updateProcessor.process _).when(context, updatedNetworkId).returns(Future(updateChangeSetChanges))
-    (deleteProcessor.process _).when(context, deletedNetworkId).returns(Future(deleteChangeSetChanges))
+    (createProcessor.process _).when(context, createdNetworkId).returns(completedFuture(createChangeSetChanges))
+    (updateProcessor.process _).when(context, updatedNetworkId).returns(completedFuture(updateChangeSetChanges))
+    (deleteProcessor.process _).when(context, deletedNetworkId).returns(completedFuture(deleteChangeSetChanges))
 
     val processor = new NetworkChangeProcessorImpl(
       changeAnalyzer,

@@ -1,15 +1,16 @@
 package kpn.server.analyzer.engine.changes.network.create
 
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletableFuture.completedFuture
+
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-
-import scala.concurrent.Future
 
 class NetworkCreateProcessorSyncImpl(
   worker: NetworkCreateProcessorWorker
 ) extends NetworkCreateProcessor {
 
-  override def process(context: ChangeSetContext, networkId: Long): Future[ChangeSetChanges] = {
-    Future.successful(worker.process(context, networkId))
+  override def process(context: ChangeSetContext, networkId: Long): CompletableFuture[ChangeSetChanges] = {
+    completedFuture(worker.process(context, networkId))
   }
 }

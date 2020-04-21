@@ -1,6 +1,7 @@
 package kpn.core.tools.analysis
 
-import akka.actor.ActorSystem
+import java.util.concurrent.Executor
+
 import kpn.core.database.Database
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -45,7 +46,7 @@ import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
 class AnalyzerStartToolConfiguration(
-  system: ActorSystem,
+  executor: Executor,
   analysisDatabase: Database,
   changeDatabase: Database,
   poiDatabase: Database
@@ -126,20 +127,15 @@ class AnalyzerStartToolConfiguration(
   )
 
   val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
-    system,
+    executor,
     analysisContext,
-    dirs.cache,
     nonCachingExecutor,
-    cachingExecutor,
     orphanRepository,
     analysisRepository,
-    factRepository,
     blackListRepository,
-    changeSetInfoUpdater,
     relationAnalyzer,
     countryAnalyzer,
     nodeLoader,
-    nodeLocationAnalyzer,
     analysisDatabaseIndexer
   ).analysisDataLoader
 

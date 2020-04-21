@@ -1,7 +1,7 @@
 package kpn.server.analyzer.load
 
-import scala.concurrent.Future
+import kpn.api.custom.Timestamp
 
 trait NetworkInitialLoaderWorker {
-  def load(command: NetworkInitialLoad): Future[Unit]
+  def load(timestamp: Timestamp, networkId: Long): Unit
 }

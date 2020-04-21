@@ -5,6 +5,7 @@ import javax.management.ObjectName
 import javax.management.remote.JMXConnectorFactory
 import javax.management.remote.JMXServiceURL
 import kpn.core.replicate.OperMBean
+import org.springframework.boot.admin.SpringApplicationAdminMXBean
 
 case class StopOptions(port: String = "")
 
@@ -51,6 +52,20 @@ class Stop() {
       val mbeanName: ObjectName = new ObjectName("kpn:type=Oper")
       val mbeanProxy: OperMBean = JMX.newMBeanProxy(connection, mbeanName, classOf[OperMBean], true)
       mbeanProxy.stop()
+    }
+    finally {
+      connector.close()
+    }
+  }
+
+  def stopServer(port: String): Unit = {
+    val url = new JMXServiceURL(s"service:jmx:rmi:///jndi/rmi://:$port/jmxrmi")
+    val connector = JMXConnectorFactory.connect(url)
+    try {
+      val connection = connector.getMBeanServerConnection
+      val mbeanName: ObjectName = new ObjectName("org.springframework.boot:type=Admin,name=SpringApplication")
+      val mbeanProxy: SpringApplicationAdminMXBean = JMX.newMBeanProxy(connection, mbeanName, classOf[SpringApplicationAdminMXBean], true)
+      mbeanProxy.shutdown()
     }
     finally {
       connector.close()

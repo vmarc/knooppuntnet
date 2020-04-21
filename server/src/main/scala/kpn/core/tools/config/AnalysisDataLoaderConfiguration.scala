@@ -1,13 +1,10 @@
 package kpn.core.tools.config
 
-import java.io.File
+import java.util.concurrent.Executor
 
-import akka.actor.ActorSystem
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.server.analyzer.engine.DatabaseIndexer
-import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
@@ -32,25 +29,19 @@ import kpn.server.analyzer.load.orphan.route.RouteIdsLoader
 import kpn.server.analyzer.load.orphan.route.RouteIdsLoaderImpl
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
-import kpn.server.repository.FactRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.OrphanRepository
 
 class AnalysisDataLoaderConfiguration(
-  system: ActorSystem,
+  executor: Executor,
   analysisContext: AnalysisContext,
-  cacheRootDir: File,
-  nonCachingExecutor: OverpassQueryExecutor,
   cachingExecutor: OverpassQueryExecutor,
   orphanRepository: OrphanRepository,
   analysisRepository: AnalysisRepository,
-  factRepository: FactRepository,
   blackListRepository: BlackListRepository,
-  changeSetInfoUpdater: ChangeSetInfoUpdater,
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
   nodeLoader: NodeLoader,
-  nodeLocationAnalyzer: NodeLocationAnalyzer,
   databaseIndexer: DatabaseIndexer
 ) {
 
@@ -93,10 +84,9 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val orphanRoutesLoader = new OrphanRoutesLoaderImpl(
-    system,
+    executor,
     analysisContext,
     routeIdsLoader,
-    orphanRepository,
     blackListRepository,
     databaseIndexer,
     orphanRoutesLoaderWorker
@@ -145,7 +135,7 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val networkInitialLoader: NetworkInitialLoader = new NetworkInitialLoaderImpl(
-    system: ActorSystem,
+    executor,
     networkInitialLoaderWorker
   )
 

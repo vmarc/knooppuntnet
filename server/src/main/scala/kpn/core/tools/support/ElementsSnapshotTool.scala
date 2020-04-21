@@ -22,10 +22,10 @@ import kpn.server.json.Json
 */
 object ElementsSnapshotTool {
   def main(args: Array[String]): Unit = {
-    val executor = new OverpassQueryExecutorImpl()
-    val networkIdsLoader = new NetworkIdsLoaderImpl(executor)
-    val nodeIdsLoader = new NodeIdsLoaderImpl(executor: OverpassQueryExecutor)
-    val routeIdsLoader = new RouteIdsLoaderImpl(executor)
+    val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+    val networkIdsLoader = new NetworkIdsLoaderImpl(overpassQueryExecutor)
+    val nodeIdsLoader = new NodeIdsLoaderImpl(overpassQueryExecutor)
+    val routeIdsLoader = new RouteIdsLoaderImpl(overpassQueryExecutor)
     new ElementsSnapshotTool(networkIdsLoader, nodeIdsLoader, routeIdsLoader).run()
   }
 }

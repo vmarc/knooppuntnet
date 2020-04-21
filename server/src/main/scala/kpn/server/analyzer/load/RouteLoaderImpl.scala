@@ -15,7 +15,7 @@ import scala.xml.XML
 
 @Component
 class RouteLoaderImpl(
-  executor: OverpassQueryExecutor,
+  overpassQueryExecutor: OverpassQueryExecutor,
   countryAnalyzer: CountryAnalyzer
 ) extends RouteLoader {
 
@@ -24,7 +24,7 @@ class RouteLoaderImpl(
   override def loadRoute(timestamp: Timestamp, routeId: Long): Option[LoadedRoute] = {
 
     val xmlString: String = log.elapsed {
-      val xml = executor.executeQuery(Some(timestamp), QueryRelation(routeId))
+      val xml = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(routeId))
       (s"Load route $routeId at ${timestamp.iso}", xml)
     }
 

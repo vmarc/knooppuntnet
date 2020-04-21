@@ -1,6 +1,8 @@
 package kpn.core.tools.analysis
 
-import akka.actor.ActorSystem
+import java.util.concurrent.Executor
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeType
@@ -14,7 +16,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.Network
-import kpn.core.app.ActorSystemConfig
 import kpn.core.common.TimestampUtil
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
@@ -27,9 +28,7 @@ import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.json.Json
-
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 /*
   Loads the initial state of the analysis and changes database with the oldest information that is
@@ -48,13 +47,13 @@ object AnalyzerStartTool {
     val exit = AnalyzerStartToolOptions.parse(args) match {
       case Some(options) =>
 
-        val system = ActorSystemConfig.actorSystem()
+        val executor = buildExecutor()
         try {
-          val configuration = buildConfiguration(system, options)
+          val configuration = buildConfiguration(executor, options)
           new AnalyzerStartTool(configuration).analyze()
         }
         finally {
-          Await.result(system.terminate(), Duration.Inf)
+          executor.shutdown()
           log.info(s"Done")
           ()
         }
@@ -69,17 +68,27 @@ object AnalyzerStartTool {
     System.exit(exit)
   }
 
-  private def buildConfiguration(system: ActorSystem, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
+  private def buildConfiguration(executor: Executor, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
     val couchConfig = Couch.config
     val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.analysisDatabaseName))
     val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.changeDatabaseName))
     val poiDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.poiDatabaseName))
     new AnalyzerStartToolConfiguration(
-      system,
+      executor,
       analysisDatabase,
       changeDatabase,
       poiDatabase
     )
+  }
+
+  private def buildExecutor(): ThreadPoolTaskExecutor = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(4)
+    executor.setMaxPoolSize(4)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setThreadNamePrefix("analyzer-start-")
+    executor.initialize()
+    executor
   }
 }
 

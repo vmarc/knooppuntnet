@@ -13,5 +13,5 @@ object ServerApplication {
 
 @SpringBootApplication
 @EnableScheduling
-class ServerApplication {
+class ServerApplication() {
 }

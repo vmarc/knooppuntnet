@@ -7,12 +7,12 @@ import kpn.core.common.TimestampUtil
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 
-class CachingOverpassQueryExecutor(cacheRootDir: File, val executor: OverpassQueryExecutor) extends OverpassQueryExecutor {
+class CachingOverpassQueryExecutor(cacheRootDir: File, val overpassQueryExecutor: OverpassQueryExecutor) extends OverpassQueryExecutor {
 
   private val log = Log(classOf[CachingOverpassQueryExecutor])
 
   override def execute(queryString: String): String = {
-    executor.execute(queryString)
+    overpassQueryExecutor.execute(queryString)
   }
 
   override def executeQuery(timestamp: Option[Timestamp], query: OverpassQuery): String = {

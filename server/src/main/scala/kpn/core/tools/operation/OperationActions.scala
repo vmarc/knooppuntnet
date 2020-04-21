@@ -94,7 +94,7 @@ class OperationActions {
   }
 
   def stopServer(): String = {
-    Process("curl --silent -X POST http://localhost:9005/actuator/shutdown").!!
+    new Stop().stopServer("5101")
     ""
   }
 

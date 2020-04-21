@@ -99,7 +99,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock(relationAnalyzer)
-    val executor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
+    val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
 
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val networkRepository: NetworkRepository = stub[NetworkRepository]
@@ -111,9 +111,9 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     private val blackListRepository: BlackListRepository = stub[BlackListRepository]
     (blackListRepository.get _).when().returns(BlackList())
 
-    private val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
-    private val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
-    private val networkLoader: NetworkLoader = new NetworkLoaderImpl(executor)
+    private val nodeLoader = new NodeLoaderImpl(overpassQueryExecutor, overpassQueryExecutor, countryAnalyzer)
+    private val routeLoader = new RouteLoaderImpl(overpassQueryExecutor, countryAnalyzer)
+    private val networkLoader: NetworkLoader = new NetworkLoaderImpl(overpassQueryExecutor)
     private val tileCalculator = new TileCalculatorImpl()
     private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
     private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
@@ -375,7 +375,7 @@ abstract class AbstractTest extends FunSuite with Matchers with MockFactory with
     }
 
     private def overpassQuery(timestamp: Timestamp, query: OverpassQuery, xml: String): Unit = {
-      (executor.executeQuery _).when(Some(timestamp), query).returns(xml).anyNumberOfTimes()
+      (overpassQueryExecutor.executeQuery _).when(Some(timestamp), query).returns(xml).anyNumberOfTimes()
       ()
     }
 

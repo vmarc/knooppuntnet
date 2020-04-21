@@ -22,7 +22,7 @@ class CouchConfiguration(
   @Value("${couch.database.pois:pois}") poiDatabaseName: String,
   @Value("${couch.database.tasks:tasks}") taskDatabaseName: String,
   @Value("${couch.database.backend-actions:backend-actions}") backendActionsDatabaseName: String,
-  @Value("${couch.database.backend-actions:frontend-actions}") frontendActionsDatabaseName: String
+  @Value("${couch.database.frontend-actions:frontend-actions}") frontendActionsDatabaseName: String
 ) {
 
   @Bean

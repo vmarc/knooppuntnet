@@ -1,8 +1,9 @@
 package kpn.server.analyzer.load
 
-import akka.actor.ActorSystem
+import java.util.concurrent.Executor
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+
 import kpn.api.custom.Timestamp
-import kpn.core.app.ActorSystemConfig
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
 import kpn.core.db.couch.Couch
@@ -10,67 +11,71 @@ import kpn.core.db.couch.CouchConfig
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.AnalysisRepositoryConfiguration
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepositoryImpl
-import kpn.server.repository.ChangeSetInfoRepositoryImpl
-import kpn.server.repository.TaskRepositoryImpl
-
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 object NetworksLoaderDemo {
 
   def main(args: Array[String]): Unit = {
-    val system = ActorSystemConfig.actorSystem()
+
+    val log = Log(classOf[NetworksLoaderDemo])
+    val executor = buildExecutor()
     try {
-      new NetworksLoaderDemo(system).run()
+      new NetworksLoaderDemo(executor).run()
+    }
+    catch {
+      case e: Exception => log.error("aborted", e)
     }
     finally {
-      Await.result(system.terminate(), Duration.Inf)
+      executor.shutdown()
+      log.info("Done")
     }
+  }
+
+  private def buildExecutor(): ThreadPoolTaskExecutor = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(4)
+    executor.setMaxPoolSize(4)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setThreadNamePrefix("kpn-")
+    executor.initialize()
+    executor
   }
 }
 
 /**
  * Try out loading of networks with different settings for parallelization.
  */
-class NetworksLoaderDemo(system: ActorSystem) {
+class NetworksLoaderDemo(executor: Executor) {
 
-  val log = Log(classOf[NetworksLoaderDemo])
+  private val log = Log(classOf[NetworksLoaderDemo])
 
-  val couchConfig: CouchConfig = Couch.config
-  val database = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, "test"))
-  val analysisRepository: AnalysisRepository = new AnalysisRepositoryConfiguration(database).analysisRepository
-  val executor = new OverpassQueryExecutorImpl()
-  val analysisData = AnalysisData()
-  val analysisContext = new AnalysisContext()
-  val networkIdsLoader = new NetworkIdsLoaderImpl(executor)
-  val networkLoader = new NetworkLoaderImpl(executor)
-  val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-  val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
-  val tileCalculator = new TileCalculatorImpl()
-  val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-  val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
-  val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
-  val nodeLoader = new NodeLoaderImpl(executor, executor, countryAnalyzer)
-  val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
-  val taskRepository = new TaskRepositoryImpl(database)
-  val changeSetInfoUpdater = new ChangeSetInfoUpdaterImpl(changeSetInfoRepository, taskRepository)
-  val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
-  val blackListRepository = new BlackListRepositoryImpl(database)
+  private val couchConfig: CouchConfig = Couch.config
+  private val database = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, "master5"))
+  private val analysisRepository: AnalysisRepository = new AnalysisRepositoryConfiguration(database).analysisRepository
+  private val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+  private val analysisContext = new AnalysisContext()
+  private val networkIdsLoader = new NetworkIdsLoaderImpl(overpassQueryExecutor)
+  private val networkLoader = new NetworkLoaderImpl(overpassQueryExecutor)
+  private val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+  private val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+  private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+  private val tileCalculator = new TileCalculatorImpl()
+  private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
+  private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
+  private val blackListRepository = new BlackListRepositoryImpl(database)
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
     analysisContext,
@@ -82,7 +87,7 @@ class NetworksLoaderDemo(system: ActorSystem) {
   )
 
   private val networkInitialLoader: NetworkInitialLoader = new NetworkInitialLoaderImpl(
-    system: ActorSystem,
+    executor,
     networkInitialLoaderWorker
   )
 

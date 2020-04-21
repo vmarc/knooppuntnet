@@ -28,7 +28,7 @@ object DeactivateZombiesTool {
   }
 }
 
-class DeactivateZombiesTool(database: Database, executor: OverpassQueryExecutor) {
+class DeactivateZombiesTool(database: Database, overpassQueryExecutor: OverpassQueryExecutor) {
 
   def run(): Unit = {
 
@@ -66,14 +66,14 @@ class DeactivateZombiesTool(database: Database, executor: OverpassQueryExecutor)
     println(s"read overpass nodes ${scopedNetworkType.key}")
     //    val xmlString = FileUtils.readFileToString(new File(s"/kpn/tmp/${networkType.name}.xml"))
     val query = QueryNodeIds(scopedNetworkType)
-    val xmlString = executor.executeQuery(None, query)
+    val xmlString = overpassQueryExecutor.executeQuery(None, query)
     val xml = XML.loadString(xmlString)
     (xml \ "node").map { n => (n \ "@id").text.toLong }.toSet
   }
 
   private def readOverpassNode(nodeId: Long): Unit = {
     val query = QueryNode(nodeId)
-    val xmlString = executor.executeQuery(None, query)
+    val xmlString = overpassQueryExecutor.executeQuery(None, query)
     println(xmlString)
   }
 

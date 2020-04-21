@@ -1,30 +1,32 @@
 package kpn.server.analyzer.load
 
-import akka.actor.ActorSystem
+import java.util.concurrent.CompletableFuture.allOf
+import java.util.concurrent.CompletableFuture.supplyAsync
+import java.util.concurrent.Executor
+
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.concurrent.duration._
-
 @Component
 class NetworkInitialLoaderImpl(
-  system: ActorSystem,
+  executor: Executor,
   worker: NetworkInitialLoaderWorker
 ) extends NetworkInitialLoader {
 
-  val pool = new Pool[NetworkInitialLoad, Unit](system, "network-initial-loader")(worker.load)
+  private val log = Log(classOf[NetworkInitialLoaderWorkerImpl])
 
   def load(timestamp: Timestamp, networkIds: Seq[Long]): Unit = {
-    implicit val executionContext: ExecutionContext = system.dispatcher
     val futures = networkIds.zipWithIndex.map { case (networkId, index) =>
-      Log.context(s"${index + 1}/${networkIds.size}") {
-        pool.execute(NetworkInitialLoad(timestamp, networkId))
+      val context = Log.contextAnd(s"${index + 1}/${networkIds.size}, network=$networkId")
+      supplyAsync(() => Log.context(context)(worker.load(timestamp, networkId)), executor).exceptionally { ex =>
+        val message = "Exception during initial network load"
+        Log.context(context) {
+          log.error(message, ex)
+        }
+        throw new RuntimeException(s"[$context] $message")
       }
     }
-    Await.result(Future.sequence(futures), Duration.Inf)
+    allOf(futures: _*).join()
   }
 }

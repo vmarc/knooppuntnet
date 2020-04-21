@@ -1,5 +1,6 @@
 package kpn.server.analyzer.load
 
+import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
@@ -8,8 +9,6 @@ import kpn.server.analyzer.load.data.LoadedNetwork
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepository
 import org.springframework.stereotype.Component
-
-import scala.concurrent.Future
 
 @Component
 class NetworkInitialLoaderWorkerImpl(
@@ -23,26 +22,21 @@ class NetworkInitialLoaderWorkerImpl(
 
   private val log = Log(classOf[NetworkInitialLoaderWorkerImpl])
 
-  def load(command: NetworkInitialLoad): Future[Unit] = {
-
-    Log.context(s"network=${command.networkId}") {
-      log.unitElapsed {
-        if (blackListRepository.get.containsNetwork(command.networkId)) {
-          s"Ignored blacklisted network ${command.networkId}"
-        }
-        else {
-          networkLoader.load(Some(command.timestamp), command.networkId) match {
-            case Some(loadedNetwork) =>
-              processNetwork(loadedNetwork)
-              loadedNetwork.name
-
-            case None =>
-              s"Failed to load network ${command.networkId}"
-          }
+  def load(timestamp: Timestamp, networkId: Long): Unit = {
+    log.unitElapsed {
+      if (blackListRepository.get.containsNetwork(networkId)) {
+        s"Ignored blacklisted network ${networkId}"
+      }
+      else {
+        networkLoader.load(Some(timestamp), networkId) match {
+          case Some(loadedNetwork) =>
+            processNetwork(loadedNetwork)
+            loadedNetwork.name
+          case None =>
+            s"Failed to load network ${networkId}"
         }
       }
     }
-    Future.successful(Unit)
   }
 
   private def processNetwork(loadedNetwork: LoadedNetwork): Unit = {

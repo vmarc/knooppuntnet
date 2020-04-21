@@ -7,7 +7,7 @@ import org.xml.sax.SAXParseException
 
 import scala.xml.XML
 
-class PoiLoaderImpl(executor: OverpassQueryExecutor) extends PoiLoader {
+class PoiLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) extends PoiLoader {
 
   private val log = Log(classOf[PoiLoaderImpl])
 
@@ -18,7 +18,7 @@ class PoiLoaderImpl(executor: OverpassQueryExecutor) extends PoiLoader {
 
     log.elapsed {
       val query = PoiQuery(elementType, layer, bbox, condition)
-      val xmlString = executor.executeQuery(None, query)
+      val xmlString = overpassQueryExecutor.executeQuery(None, query)
 
       val xml = try {
         XML.loadString(xmlString)

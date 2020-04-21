@@ -1,62 +1,28 @@
 package kpn.server.analyzer.load.orphan.route
 
-import akka.actor.Actor
-import akka.actor.ActorSystem
-import akka.actor.Props
-import akka.pattern.ask
-import akka.routing.BalancingPool
-import akka.util.Timeout
+import java.util.concurrent.CompletableFuture.allOf
+import java.util.concurrent.CompletableFuture.runAsync
+import java.util.concurrent.Executor
+
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoaderImpl.LoadRoute
 import kpn.server.repository.BlackListRepository
-import kpn.server.repository.OrphanRepository
 import org.springframework.stereotype.Component
-
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.concurrent.duration.Duration
-import scala.concurrent.duration._
-
-object OrphanRoutesLoaderImpl {
-
-  case class LoadRoute(messages: Seq[String], timestamp: Timestamp, routeId: Long)
-
-}
 
 @Component
 class OrphanRoutesLoaderImpl(
-  system: ActorSystem,
+  executor: Executor,
   analysisContext: AnalysisContext,
   routeIdsLoader: RouteIdsLoader,
-  orphanRepository: OrphanRepository,
   blackListRepository: BlackListRepository,
   databaseIndexer: DatabaseIndexer,
   worker: OrphanRoutesLoaderWorker
 ) extends OrphanRoutesLoader {
 
   private val log = Log(classOf[OrphanRoutesLoaderImpl])
-
-  private implicit val askTimeout: Timeout = Timeout(32.hour)
-  private implicit val executionContext: ExecutionContext = system.dispatcher
-
-  class WorkerActor extends Actor {
-    def receive: Actor.Receive = {
-      case LoadRoute(messages, timestamp, routeId) =>
-        Log.context(messages) {
-          sender() ! worker.process(timestamp, routeId)
-        }
-    }
-  }
-
-  private val workerPool = {
-    val props = Props(classOf[WorkerActor], this)
-    system.actorOf(BalancingPool(3).props(props), "orphan-routes-loader")
-  }
 
   def load(timestamp: Timestamp): Unit = {
     ScopedNetworkType.all.foreach { scopedNetworkType =>
@@ -68,13 +34,17 @@ class OrphanRoutesLoaderImpl(
 
         log.info(s"Found ${routeIds.size} routes, ${blackListedRouteIds.size} blacklisted routes, ${candidateOrphanRouteIds.size} candidate orphan routes (unreferenced)")
 
-        val futures = candidateOrphanRouteIds.zipWithIndex.map { case (routeIds, index) =>
-          Log.context(s"${index + 1}/${candidateOrphanRouteIds.size}") {
-            val messages = Log.contextMessages
-            workerPool ? LoadRoute(messages, timestamp, routeIds)
+        val futures = candidateOrphanRouteIds.zipWithIndex.map { case (routeId, index) =>
+          val context = Log.contextAnd(s"${index + 1}/${candidateOrphanRouteIds.size}")
+          runAsync(() => Log.context(context)(worker.process(timestamp, routeId)), executor).exceptionally { ex =>
+            val message = "Exception while loading orphan route"
+            Log.context(context) {
+              log.error(message, ex)
+            }
+            throw new RuntimeException(s"[$context] $message")
           }
         }
-        Await.result(Future.sequence(futures), Duration.Inf)
+        allOf(futures: _*).join()
       }
     }
   }

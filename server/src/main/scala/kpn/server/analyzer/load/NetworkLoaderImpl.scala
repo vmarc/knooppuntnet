@@ -23,14 +23,14 @@ import scala.xml.XML
    object format.
 */
 @Component
-class NetworkLoaderImpl(executor: OverpassQueryExecutor) extends NetworkLoader {
+class NetworkLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) extends NetworkLoader {
 
   private val log = Log(classOf[NetworkLoaderImpl])
 
   def load(timestamp: Option[Timestamp], networkId: Long): Option[LoadedNetwork] = {
 
     val xmlString: String = log.elapsed {
-      val xml = executor.executeQuery(timestamp, QueryRelation(networkId))
+      val xml = overpassQueryExecutor.executeQuery(timestamp, QueryRelation(networkId))
       ("Load at " + timestamp.getOrElse(Time.now).iso, xml)
     }
 
@@ -95,7 +95,5 @@ class NetworkLoaderImpl(executor: OverpassQueryExecutor) extends NetworkLoader {
       }
       xmlOption
     }
-
   }
-
 }

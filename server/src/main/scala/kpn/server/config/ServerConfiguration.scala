@@ -1,9 +1,10 @@
 package kpn.server.config
 
-import akka.actor.ActorSystem
+import java.util.concurrent.Executor
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
-import kpn.core.app.ActorSystemConfig
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileBuilder
@@ -12,13 +13,17 @@ import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
 import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
+import org.springframework.mail.javamail.JavaMailSender
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 @Configuration
-class ServerConfiguration {
+@Autowired
+class ServerConfiguration(emailSender: JavaMailSender) {
 
   @Bean
   @Primary
@@ -28,7 +33,17 @@ class ServerConfiguration {
   def threadMetrics = new JvmThreadMetrics
 
   @Bean
-  def system: ActorSystem = ActorSystemConfig.actorSystem()
+  def executor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(poolSize)
+    executor.setMaxPoolSize(poolSize)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setWaitForTasksToCompleteOnShutdown(true)
+    executor.setAwaitTerminationSeconds(60 * 5);
+    executor.setThreadNamePrefix("analyzer-")
+    executor.initialize()
+    executor
+  }
 
   @Bean
   def systemMetricsEnabled(@Value("${app.system-metrics-enabled:false}") value: Boolean): Boolean = {
@@ -84,4 +99,5 @@ class ServerConfiguration {
   def locationConfiguration: LocationConfiguration = {
     new LocationConfigurationReader().read()
   }
+
 }

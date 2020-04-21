@@ -1,51 +1,30 @@
 package kpn.server.analyzer.engine.changes.network.create
 
-import akka.actor.Actor
-import akka.actor.ActorSystem
-import akka.actor.Props
-import akka.pattern.ask
-import akka.routing.BalancingPool
-import akka.util.Timeout
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletableFuture.supplyAsync
+import java.util.concurrent.Executor
+
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import org.springframework.stereotype.Component
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.concurrent.duration._
-
 @Component
 class NetworkCreateProcessorImpl(
-  system: ActorSystem,
+  executor: Executor,
   worker: NetworkCreateProcessorWorker
 ) extends NetworkCreateProcessor {
 
-  /*
-   Processing a network create can take very long when the new network relation contains
-   a lot of already existing nodes and routes, because the logic will try to load all the nodes
-   and routes at the 'before' timestamp one by one. Example: network 6483947 in changeset 002/048/328.
-  */
-  private implicit val askTimeout: Timeout = Timeout(30.minutes)
-  private implicit val executionContext: ExecutionContext = system.dispatcher
+  def log: Log = Log(classOf[NetworkCreateProcessorImpl])
 
-  case class Load(messages: Seq[String], context: ChangeSetContext, networkId: Long)
-
-  class WorkerActor extends Actor {
-    def receive: Actor.Receive = {
-      case Load(messages, changeSetContext, networkId) =>
-        Log.context(messages) {
-          sender() ! worker.process(changeSetContext, networkId)
-        }
+  override def process(changeSetContext: ChangeSetContext, networkId: Long): CompletableFuture[ChangeSetChanges] = {
+    val context = s"network=$networkId"
+    supplyAsync(() => Log.context(context)(worker.process(changeSetContext, networkId)), executor).exceptionally { ex =>
+      val message = "Exception while processing network create"
+      Log.context(context) {
+        log.error(message, ex)
+        throw new RuntimeException(s"${Log.contextString} $message")
+      }
     }
-  }
-
-  private val workerPool = {
-    val props = Props(classOf[WorkerActor], this)
-    system.actorOf(BalancingPool(3).props(props), "network-create-processor")
-  }
-
-  override def process(context: ChangeSetContext, networkId: Long): Future[ChangeSetChanges] = {
-    ask(workerPool, Load(Log.contextMessages, context, networkId)).mapTo[ChangeSetChanges]
   }
 }

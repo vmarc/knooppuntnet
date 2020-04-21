@@ -1,6 +1,7 @@
 package kpn.core.tools.config
 
-import akka.actor.ActorSystem
+import java.util.concurrent.Executor
+
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
@@ -57,7 +58,7 @@ import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.TaskRepository
 
 class ChangeProcessorConfiguration(
-  system: ActorSystem,
+  executor: Executor,
   analysisContext: AnalysisContext,
   nonCachingExecutor: OverpassQueryExecutor,
   cachingExecutor: OverpassQueryExecutor,
@@ -107,7 +108,7 @@ class ChangeProcessorConfiguration(
   )
 
   private val routesLoader = new RoutesLoaderImpl(
-    system,
+    executor,
     routeLoader
   )
 
@@ -137,15 +138,13 @@ class ChangeProcessorConfiguration(
         changeBuilder
       )
 
-      val worker = new NetworkCreateProcessorWorkerImpl(
-        networkLoader,
-        networkRelationAnalyzer,
-        watchedProcessor
-      )
-
       new NetworkCreateProcessorImpl(
-        system,
-        worker
+        executor,
+        new NetworkCreateProcessorWorkerImpl(
+          networkLoader,
+          networkRelationAnalyzer,
+          watchedProcessor
+        )
       )
     }
 
@@ -159,33 +158,28 @@ class ChangeProcessorConfiguration(
         changeBuilder
       )
 
-      val worker = new NetworkUpdateProcessorWorkerImpl(
-        analysisRepository,
-        networkLoader,
-        networkRelationAnalyzer,
-        networkUpdateNetworkProcessor
-      )
-
       new NetworkUpdateProcessorImpl(
-        system,
-        worker
+        executor,
+        new NetworkUpdateProcessorWorkerImpl(
+          analysisRepository,
+          networkLoader,
+          networkRelationAnalyzer,
+          networkUpdateNetworkProcessor
+        )
       )
     }
 
     val networkDeleteProcessor = {
-
-      val worker = new NetworkDeleteProcessorWorkerImpl(
-        analysisContext,
-        networkRepository,
-        networkLoader,
-        networkRelationAnalyzer,
-        networkAnalyzer,
-        changeBuilder
-      )
-
       new NetworkDeleteProcessorImpl(
-        system,
-        worker
+        executor,
+        new NetworkDeleteProcessorWorkerImpl(
+          analysisContext,
+          networkRepository,
+          networkLoader,
+          networkRelationAnalyzer,
+          networkAnalyzer,
+          changeBuilder
+        )
       )
     }
 

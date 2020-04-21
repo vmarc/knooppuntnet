@@ -78,6 +78,14 @@ object Log {
     ThreadContext.getImmutableStack.asList.asScala
   }
 
+  def contextString: String = {
+    contextMessages.mkString("[", ", ", "]")
+  }
+
+  def contextAnd(message: String): String = {
+    contextMessages.mkString("", ", ", ", ") + message
+  }
+
   private class Log4j(name: String) extends Log {
 
     private val log = LogManager.getLogger(name)
