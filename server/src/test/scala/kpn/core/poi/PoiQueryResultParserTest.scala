@@ -3,7 +3,7 @@ package kpn.core.poi
 import kpn.api.custom.Tags
 import kpn.api.common.Poi
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import scala.xml.XML
 

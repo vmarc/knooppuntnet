@@ -4,7 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class GeometryDigestAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 

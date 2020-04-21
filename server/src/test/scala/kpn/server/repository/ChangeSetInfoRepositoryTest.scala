@@ -5,7 +5,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.api.common.changes.ChangeSetInfo
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ChangeSetInfoRepositoryTest extends FunSuite with Matchers {
 

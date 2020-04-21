@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ZigZagEncoderTest extends FunSuite with Matchers {
 

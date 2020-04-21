@@ -3,7 +3,7 @@ package kpn.core.gpx
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class GpxRouteTest extends FunSuite with Matchers with SharedTestObjects {
 

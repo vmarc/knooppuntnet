@@ -12,7 +12,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class LocationNodeViewTest extends FunSuite with Matchers with SharedTestObjects {
 

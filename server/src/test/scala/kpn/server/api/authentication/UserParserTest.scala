@@ -1,7 +1,7 @@
 package kpn.server.api.authentication
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import scala.xml.XML
 

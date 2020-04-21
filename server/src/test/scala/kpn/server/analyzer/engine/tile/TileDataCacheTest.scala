@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class TileDataCacheTest extends FunSuite with Matchers {
 

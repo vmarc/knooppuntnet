@@ -5,7 +5,7 @@ import kpn.api.common.LatLonImpl
 import kpn.server.analyzer.engine.tiles.TestTile
 import kpn.server.analyzer.engine.tiles.TestTileSetup
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeTileAnalyzerTest extends FunSuite with Matchers {
 

@@ -4,7 +4,7 @@ import org.locationtech.jts.algorithm.CGAlgorithms
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class CommandEncoderTest extends FunSuite with Matchers {
 

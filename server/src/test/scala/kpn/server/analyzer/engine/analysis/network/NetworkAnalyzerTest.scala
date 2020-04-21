@@ -17,7 +17,7 @@ import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NetworkAnalyzerTest extends FunSuite with Matchers with MockFactory {
 

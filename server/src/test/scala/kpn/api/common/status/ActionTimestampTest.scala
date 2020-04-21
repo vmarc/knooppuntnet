@@ -3,7 +3,7 @@ package kpn.api.common.status
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ActionTimestampTest extends FunSuite with Matchers {
 

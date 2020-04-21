@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.elevation
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class DistanceElevationMergerTest extends FunSuite with Matchers {
 

@@ -11,7 +11,7 @@ import kpn.core.database.views.analyzer.FactView.FactViewKey
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class FactViewTest extends FunSuite with Matchers {
 

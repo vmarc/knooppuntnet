@@ -7,7 +7,7 @@ import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.test.TestSupport.withEnvironment
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class DatabaseDeleteTest extends FunSuite with Matchers with TestObjects {
 

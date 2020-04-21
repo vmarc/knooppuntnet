@@ -9,7 +9,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeFragmentConnectionAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 

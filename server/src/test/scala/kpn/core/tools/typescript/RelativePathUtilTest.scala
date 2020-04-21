@@ -1,7 +1,7 @@
 package kpn.core.tools.typescript
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import kpn.core.tools.typescript.RelativePathUtil.dependencyRelativePath
 

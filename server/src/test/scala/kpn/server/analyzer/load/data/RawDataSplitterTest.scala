@@ -6,7 +6,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RawDataSplitterTest extends FunSuite with Matchers with SharedTestObjects {
 

@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class TaskRepositoryTest extends FunSuite with Matchers {
 

@@ -9,7 +9,7 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import scala.io.Source
 

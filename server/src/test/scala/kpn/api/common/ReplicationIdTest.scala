@@ -1,7 +1,7 @@
 package kpn.api.common
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ReplicationIdTest extends FunSuite with Matchers {
 

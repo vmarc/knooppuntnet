@@ -9,7 +9,7 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class WayDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 

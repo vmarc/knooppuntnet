@@ -1,7 +1,7 @@
 package kpn.core.poi.tags
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class TagExpressionFormatterTest extends FunSuite with Matchers {
 

@@ -1,7 +1,7 @@
 package kpn.core.util
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class GZipFileTest extends FunSuite with Matchers {
 

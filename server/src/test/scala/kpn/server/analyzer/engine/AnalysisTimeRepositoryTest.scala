@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine
 import java.io.File
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class AnalysisTimeRepositoryTest extends FunSuite with Matchers {
 

@@ -7,7 +7,7 @@ import kpn.core.util.GZipFile
 import org.apache.commons.io.FileUtils
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class CachingOverpassQueryExecutorTest extends FunSuite with Matchers with MockFactory {
 

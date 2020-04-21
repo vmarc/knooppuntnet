@@ -2,7 +2,7 @@ package kpn.api.custom
 
 import kpn.api.common.data.Tagable
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class TagsTest extends FunSuite with Matchers {
 

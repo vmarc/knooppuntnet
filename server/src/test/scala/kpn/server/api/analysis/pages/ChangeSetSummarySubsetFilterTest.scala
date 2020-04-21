@@ -9,7 +9,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.details.ChangeKey
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ChangeSetSummarySubsetFilterTest extends FunSuite with Matchers {
 

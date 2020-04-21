@@ -2,7 +2,7 @@ package kpn.core
 
 import kpn.api.common.common.ToStringBuilder
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ToStringBuilderTest extends FunSuite with Matchers {
 

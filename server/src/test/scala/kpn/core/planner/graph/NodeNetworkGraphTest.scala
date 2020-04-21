@@ -3,7 +3,7 @@ package kpn.core.planner.graph
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.TrackPathKey
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeNetworkGraphTest extends FunSuite with Matchers with SharedTestObjects {
 

@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.data.Way
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteStreetsAnalyzerTest extends FunSuite with Matchers {
 

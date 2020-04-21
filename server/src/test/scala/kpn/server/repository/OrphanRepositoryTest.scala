@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class OrphanRepositoryTest extends FunSuite with Matchers {
 

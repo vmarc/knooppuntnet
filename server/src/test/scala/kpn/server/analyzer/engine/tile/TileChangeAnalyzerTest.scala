@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class TileChangeAnalyzerTest extends FunSuite with Matchers with MockFactory with TestObjects {
 

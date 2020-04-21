@@ -5,7 +5,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteChangeTest extends FunSuite with Matchers with SharedTestObjects {
 

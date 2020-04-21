@@ -9,7 +9,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.RouteData
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteChangeMergerTest extends FunSuite with Matchers with SharedTestObjects {
 

@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeIntegrityAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 

@@ -6,7 +6,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeRouteReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
 

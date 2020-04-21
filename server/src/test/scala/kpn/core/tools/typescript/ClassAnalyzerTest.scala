@@ -3,7 +3,7 @@ package kpn.core.tools.typescript
 import kpn.api.custom.Timestamp
 import kpn.api.common.data.raw.RawNode
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import scala.reflect.runtime.universe._
 

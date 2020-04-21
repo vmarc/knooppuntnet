@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.repository.MockBlackListRepository
 import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class OrphanNodeChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 

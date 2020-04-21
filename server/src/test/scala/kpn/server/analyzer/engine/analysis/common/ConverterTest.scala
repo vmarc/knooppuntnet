@@ -6,7 +6,7 @@ import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.server.analyzer.engine.tiles.domain.Point
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ConverterTest extends FunSuite with Matchers {
 

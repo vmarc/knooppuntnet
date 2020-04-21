@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes
 import java.io.File
 import org.apache.commons.io.FileUtils
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import kpn.api.common.ReplicationId
 

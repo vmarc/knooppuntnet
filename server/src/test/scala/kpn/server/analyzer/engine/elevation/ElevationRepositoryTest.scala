@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.elevation
 import kpn.api.common.LatLonImpl
 import kpn.server.analyzer.engine.analysis.common.Converter
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ElevationRepositoryTest extends FunSuite with Matchers {
 

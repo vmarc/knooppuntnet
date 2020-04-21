@@ -5,7 +5,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawNode
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeChangeMergerTest extends FunSuite with Matchers with SharedTestObjects {
 

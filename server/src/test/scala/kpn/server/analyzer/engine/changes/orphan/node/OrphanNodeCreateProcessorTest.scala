@@ -13,7 +13,7 @@ import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFactory {
 

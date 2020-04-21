@@ -5,7 +5,7 @@ import kpn.core.database.DatabaseImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class DatabaseExistsTest extends FunSuite with Matchers {
 

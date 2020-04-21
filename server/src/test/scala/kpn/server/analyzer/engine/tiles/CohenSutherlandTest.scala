@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.tiles
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Rectangle
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class CohenSutherlandTest extends FunSuite with Matchers {
 

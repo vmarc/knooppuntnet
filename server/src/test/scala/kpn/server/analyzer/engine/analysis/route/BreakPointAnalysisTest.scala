@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.custom.Tags
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class BreakPointAnalysisTest extends FunSuite with Matchers {
 

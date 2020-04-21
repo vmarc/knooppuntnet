@@ -1,7 +1,7 @@
 package kpn.api.common.data.raw
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import kpn.core.test.TestData
 

@@ -1,7 +1,7 @@
 package kpn.api.custom
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ScopedNetworkTypeTest extends FunSuite with Matchers {
 

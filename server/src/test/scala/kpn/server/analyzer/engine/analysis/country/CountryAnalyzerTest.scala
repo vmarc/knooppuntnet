@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.LatLon
 import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class CountryAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 

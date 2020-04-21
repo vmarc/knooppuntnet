@@ -8,7 +8,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkShape
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NetworkShapeAnalyzerTest extends FunSuite with Matchers {
 

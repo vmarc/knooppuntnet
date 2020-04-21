@@ -4,7 +4,7 @@ import java.io.FileInputStream
 import java.util.zip.ZipInputStream
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ZipFileTest extends FunSuite with Matchers {
 

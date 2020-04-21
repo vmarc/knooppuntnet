@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine
 
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class FullAnalysisTriggerTest extends FunSuite with Matchers with MockFactory {
 

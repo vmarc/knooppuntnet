@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.changes
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.api.common.data.raw.RawNode
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.FunSuite
 import kpn.api.common.changes.ChangeAction._
 

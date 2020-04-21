@@ -9,7 +9,7 @@ import kpn.api.common.location.LocationCandidate
 import kpn.api.common.route.RouteInfo
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteLocatorTest extends FunSuite with Matchers with SharedTestObjects {
 

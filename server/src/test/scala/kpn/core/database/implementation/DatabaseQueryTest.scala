@@ -12,7 +12,7 @@ import kpn.core.db.couch.ViewResultRow
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.DesignRepositoryImpl
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class DatabaseQueryTest extends FunSuite with Matchers with TestObjects {
 

@@ -6,7 +6,7 @@ import kpn.core.poi.PoiInfo
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.PoiRepositoryImpl
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class PoiTileViewTest extends FunSuite with Matchers with SharedTestObjects {
 

@@ -5,7 +5,7 @@ import kpn.core.database.views.analyzer.DocumentView.DocumentCount
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class DocumentViewTest extends FunSuite with Matchers with TestObjects {
 

@@ -15,7 +15,7 @@ import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class LocationFactViewTest extends FunSuite with Matchers with SharedTestObjects {
 

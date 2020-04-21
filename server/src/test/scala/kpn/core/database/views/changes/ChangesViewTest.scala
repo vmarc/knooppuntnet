@@ -1,7 +1,7 @@
 package kpn.core.database.views.changes
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ChangesViewTest extends FunSuite with Matchers {
 

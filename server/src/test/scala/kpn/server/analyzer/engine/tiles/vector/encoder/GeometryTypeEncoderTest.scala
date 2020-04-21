@@ -4,7 +4,7 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import kpn.server.analyzer.engine.tiles.vector.ProtobufVectorTile
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class GeometryTypeEncoderTest extends FunSuite with Matchers {
 

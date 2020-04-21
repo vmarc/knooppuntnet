@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.tiles.vector.encoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import scala.collection.immutable.ListMap
 

@@ -3,7 +3,7 @@ package kpn.core.common
 import kpn.api.custom.Timestamp
 import kpn.api.common.SharedTestObjects
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class TimestampLocalTest extends FunSuite with Matchers with SharedTestObjects {
 

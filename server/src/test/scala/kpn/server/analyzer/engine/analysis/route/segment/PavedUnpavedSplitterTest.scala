@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.segment
 import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class PavedUnpavedSplitterTest extends FunSuite with Matchers {
 

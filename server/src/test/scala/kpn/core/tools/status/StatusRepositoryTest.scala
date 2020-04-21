@@ -1,7 +1,7 @@
 package kpn.core.tools.status
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 import java.io.File
 
 import kpn.core.tools.config.Dirs

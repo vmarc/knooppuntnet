@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.location.Location
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeLocationAnalyzerTest extends FunSuite with Matchers {
 

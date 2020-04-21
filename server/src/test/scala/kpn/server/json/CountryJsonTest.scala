@@ -3,7 +3,7 @@ package kpn.server.json
 import com.fasterxml.jackson.databind.JsonMappingException
 import kpn.api.custom.Country
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class CountryJsonTest extends FunSuite with Matchers {
 

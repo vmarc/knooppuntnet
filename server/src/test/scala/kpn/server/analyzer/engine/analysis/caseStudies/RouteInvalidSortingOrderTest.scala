@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteInvalidSortingOrderTest extends FunSuite with Matchers {
   test("route with roundabout which is split in multiple fragments: roundabout used only once when checking sorting order") {

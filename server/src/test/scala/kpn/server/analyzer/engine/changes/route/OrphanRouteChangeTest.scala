@@ -5,7 +5,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class OrphanRouteChangeTest extends FunSuite with Matchers with SharedTestObjects {
 

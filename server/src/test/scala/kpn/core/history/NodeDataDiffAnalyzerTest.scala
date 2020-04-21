@@ -11,7 +11,7 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.node.NodeMoved
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NodeDataDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
 

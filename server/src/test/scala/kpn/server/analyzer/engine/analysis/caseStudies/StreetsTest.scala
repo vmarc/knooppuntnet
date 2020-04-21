@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class StreetsTest extends FunSuite with Matchers {
 

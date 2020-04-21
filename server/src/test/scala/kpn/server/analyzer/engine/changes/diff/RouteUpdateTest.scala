@@ -11,7 +11,7 @@ import kpn.api.common.RouteSummary
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.route.RouteInfo
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteUpdateTest extends FunSuite with Matchers {
 

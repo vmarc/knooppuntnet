@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.elevation
 
 import kpn.server.analyzer.engine.tiles.domain.Point
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ElevationTileTest extends FunSuite with Matchers {
 

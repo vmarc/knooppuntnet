@@ -10,7 +10,7 @@ import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcesso
 import kpn.server.repository.ChangeSetRepository
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ChangeProcessorTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
 

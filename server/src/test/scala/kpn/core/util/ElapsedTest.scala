@@ -1,7 +1,7 @@
 package kpn.core.util
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 import scala.concurrent.duration.Duration
 import java.util.concurrent.TimeUnit
 

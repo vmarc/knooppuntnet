@@ -1,7 +1,7 @@
 package kpn.core.poi
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class PoiLocationTest extends FunSuite with Matchers {
 

@@ -5,7 +5,7 @@ import kpn.api.common.EN
 import kpn.api.common.FR
 import kpn.api.common.NL
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class LocationDefinitionReaderTest extends FunSuite with Matchers {
 

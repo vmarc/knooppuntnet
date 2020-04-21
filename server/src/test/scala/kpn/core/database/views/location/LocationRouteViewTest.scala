@@ -14,7 +14,7 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.RouteRepositoryImpl
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class LocationRouteViewTest extends FunSuite with Matchers with SharedTestObjects {
 

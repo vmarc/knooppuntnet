@@ -23,7 +23,7 @@ import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteDiffAnalyzerTest extends FunSuite with Matchers {
 

@@ -6,7 +6,7 @@ import kpn.core.tools.status.StatusRepository
 import kpn.api.common.ReplicationId
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class SystemStatusTest extends FunSuite with Matchers with MockFactory {
 

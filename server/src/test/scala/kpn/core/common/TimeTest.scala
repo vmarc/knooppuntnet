@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 import kpn.api.custom.Timestamp
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class TimeTest extends FunSuite with Matchers with BeforeAndAfterEach {
 

@@ -14,7 +14,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSet
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class NetworkCreateProcessorWorkerTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
 

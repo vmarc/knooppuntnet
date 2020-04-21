@@ -1,7 +1,7 @@
 package kpn.core.overpass
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class OverpassQueryExecutorImplTest extends FunSuite with Matchers {
 

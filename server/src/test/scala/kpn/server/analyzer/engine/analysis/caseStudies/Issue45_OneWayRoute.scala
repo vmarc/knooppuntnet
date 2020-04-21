@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class Issue45_OneWayRoute extends FunSuite with Matchers {
 

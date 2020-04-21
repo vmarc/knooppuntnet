@@ -10,7 +10,7 @@ import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.server.analyzer.engine.analysis.common.Converter
 import kpn.server.analyzer.engine.tiles.domain.Point
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class ElevationFacadeTest extends FunSuite with Matchers {
 

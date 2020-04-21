@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.changes.filter.ChangesParameters
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class QueryParametersTest extends FunSuite with Matchers {
 

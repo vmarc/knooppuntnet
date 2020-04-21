@@ -2,7 +2,7 @@ package kpn.core.directions
 
 import kpn.core.directions.DirectionAnalyzer._
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class DirectionAnalyzerTest extends FunSuite with Matchers {
 

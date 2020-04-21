@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 class RouteTileAnalyzerTest extends FunSuite with Matchers {
 
