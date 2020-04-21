@@ -7,7 +7,7 @@ import kpn.core.util.Log
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.filefilter.TrueFileFilter.TRUE
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRepository {
 

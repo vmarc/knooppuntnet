@@ -23,7 +23,7 @@ class NodeNetworkGraphImpl extends NodeNetworkGraph {
     try {
       val path = dijkstraShortestPath.getPath(sourceNodeId, sinkNodeId)
 
-      import scala.collection.JavaConverters._
+      import scala.jdk.CollectionConverters._
       val vertexList = path.getVertexList.asScala.toList
       val edgeList = path.getEdgeList.asScala.toList
 

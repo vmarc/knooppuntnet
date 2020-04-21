@@ -3,7 +3,7 @@ package kpn.core.util
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.ThreadContext
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.collection.mutable.ListBuffer
 
 trait Log {

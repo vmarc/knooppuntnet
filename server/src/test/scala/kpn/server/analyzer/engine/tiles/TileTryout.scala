@@ -26,7 +26,7 @@ object TileTryout {
       loadPbf("/kpn/tiles/osm-old/13/4197/2725.pbf")
     )
 
-    import scala.collection.JavaConverters._
+    import scala.jdk.CollectionConverters._
     val layers = tiles.flatMap(_.getLayers.asScala)
 
     val all = new JtsMvt(layers.asJava)

@@ -14,7 +14,7 @@ class TagsJsonDeserializer extends JsonDeserializer[Tags] {
     val treeNode: TreeNode = jsonParser.getCodec.readTree(jsonParser)
     val pairs: Seq[(String, String)] = treeNode match {
       case arrayNode: ArrayNode =>
-        import scala.collection.JavaConverters._
+        import scala.jdk.CollectionConverters._
         arrayNode.elements().asScala.map {
           case pairArrayNode: ArrayNode if pairArrayNode.size() == 2 =>
             val key = StringEscapeUtils.unescapeJson(pairArrayNode.get(0).textValue)

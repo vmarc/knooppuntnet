@@ -15,7 +15,7 @@ object XmlFile {
       }
       else if (fileName.endsWith(".zip")) {
         val rootzip = new java.util.zip.ZipFile(fileName)
-        import scala.collection.JavaConverters._
+        import scala.jdk.CollectionConverters._
         rootzip.entries.asScala.filter(_.getName.endsWith(".xml")).toSeq.map { e =>
           XML.load(rootzip.getInputStream(e))
         }

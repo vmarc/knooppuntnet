@@ -105,7 +105,7 @@ class CommandEncoder {
       r.set(lineToIndex, commandAndLength(LineTo, lineToLength))
     }
     if (closePathAtEnd) r.add(commandAndLength(ClosePath, 1))
-    import scala.collection.JavaConverters._
+    import scala.jdk.CollectionConverters._
     r.asScala.toSeq.map(_.toInt)
   }
 
