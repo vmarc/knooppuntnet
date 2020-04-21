@@ -1,10 +1,10 @@
 package kpn.api.custom
 
 import kpn.api.common.data.Tagable
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TagsTest extends FunSuite with Matchers {
+class TagsTest extends AnyFunSuite with Matchers {
 
   private case class TestObject(tags: Tags) extends Tagable
 

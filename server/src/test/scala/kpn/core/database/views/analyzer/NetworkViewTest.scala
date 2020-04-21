@@ -7,10 +7,10 @@ import kpn.server.repository.NetworkRepositoryImpl
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NetworkViewTest extends FunSuite with Matchers with SharedTestObjects {
+class NetworkViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("get subset network attributes") {
 

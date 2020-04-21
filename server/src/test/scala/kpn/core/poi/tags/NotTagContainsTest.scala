@@ -1,10 +1,10 @@
 package kpn.core.poi.tags
 
 import kpn.api.custom.Tags
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NotTagContainsTest extends FunSuite with Matchers {
+class NotTagContainsTest extends AnyFunSuite with Matchers {
 
   test("NotTagContains") {
 

@@ -10,10 +10,10 @@ import kpn.api.custom.Tags
 import kpn.core.database.views.analyzer.FactView.FactViewKey
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class FactViewTest extends FunSuite with Matchers {
+class FactViewTest extends AnyFunSuite with Matchers {
 
   test("rows") {
 

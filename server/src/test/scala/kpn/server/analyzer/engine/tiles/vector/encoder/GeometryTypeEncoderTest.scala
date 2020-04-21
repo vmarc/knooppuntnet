@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.tiles.vector.encoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import kpn.server.analyzer.engine.tiles.vector.ProtobufVectorTile
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class GeometryTypeEncoderTest extends FunSuite with Matchers {
+class GeometryTypeEncoderTest extends AnyFunSuite with Matchers {
 
   test("encode") {
     val cs = Array(

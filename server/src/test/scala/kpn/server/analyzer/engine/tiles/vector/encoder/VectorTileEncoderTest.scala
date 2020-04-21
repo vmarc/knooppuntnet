@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.tiles.vector.encoder
 
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.collection.immutable.ListMap
 
-class VectorTileEncoderTest extends FunSuite with Matchers {
+class VectorTileEncoderTest extends AnyFunSuite with Matchers {
 
   private val gf = new GeometryFactory()
 

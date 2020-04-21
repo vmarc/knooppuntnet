@@ -11,10 +11,10 @@ import kpn.core.db.couch.ViewResult
 import kpn.core.db.couch.ViewResultRow
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.DesignRepositoryImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DatabaseQueryTest extends FunSuite with Matchers with TestObjects {
+class DatabaseQueryTest extends AnyFunSuite with Matchers with TestObjects {
 
   test("query") {
     withDatabase(database => {

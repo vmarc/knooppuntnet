@@ -4,10 +4,10 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.common.NodeName
 import kpn.api.custom.ScopedNetworkType
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NodeAnalyzerTest extends FunSuite with Matchers {
+class NodeAnalyzerTest extends AnyFunSuite with Matchers {
 
   test("name - single name") {
     val tags = Tags.from("rwn_ref" -> "01")

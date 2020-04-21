@@ -13,10 +13,10 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.RouteRepositoryImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class LocationRouteViewTest extends FunSuite with Matchers with SharedTestObjects {
+class LocationRouteViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("route") {
     withDatabase { database =>

@@ -11,10 +11,10 @@ import kpn.core.TestObjects
 import kpn.core.database.Database
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class GraphEdgesViewTest extends FunSuite with Matchers with TestObjects {
+class GraphEdgesViewTest extends AnyFunSuite with Matchers with TestObjects {
 
   private val routeId = 10L
 

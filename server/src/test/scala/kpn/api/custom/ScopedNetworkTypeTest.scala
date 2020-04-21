@@ -1,9 +1,9 @@
 package kpn.api.custom
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ScopedNetworkTypeTest extends FunSuite with Matchers {
+class ScopedNetworkTypeTest extends AnyFunSuite with Matchers {
 
   test("all") {
     ScopedNetworkType.all should equal(

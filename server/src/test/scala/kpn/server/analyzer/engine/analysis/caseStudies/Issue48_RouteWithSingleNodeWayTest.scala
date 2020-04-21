@@ -13,13 +13,13 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.xml.InputSource
 import scala.xml.XML
 
-class Issue48_RouteWithSingleNodeWayTest extends FunSuite with Matchers {
+class Issue48_RouteWithSingleNodeWayTest extends AnyFunSuite with Matchers {
 
   test("ingore ways with less than 2 nodes in route analysis") {
     val loadedRoute = readRoute()

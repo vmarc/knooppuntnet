@@ -2,10 +2,10 @@ package kpn.core.db
 
 import kpn.api.custom.Tags
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NodeInfoTest extends FunSuite with Matchers with SharedTestObjects {
+class NodeInfoTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("name") {
     newNodeInfo(1, tags = Tags.from("rwn_ref" -> "01")).name should equal("01")

@@ -2,7 +2,7 @@ package kpn.core.tools.typescript
 
 import kpn.api.custom.Timestamp
 import kpn.api.common.data.raw.RawNode
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.reflect.runtime.universe._
@@ -21,7 +21,7 @@ case class TestClass(
   selfRef: TestClass
 )
 
-class ClassAnalyzerTest extends FunSuite with Matchers {
+class ClassAnalyzerTest extends AnyFunSuite with Matchers {
 
   private val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
 

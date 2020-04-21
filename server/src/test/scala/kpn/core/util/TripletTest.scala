@@ -1,9 +1,9 @@
 package kpn.core.util
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TripletTest extends FunSuite with Matchers {
+class TripletTest extends AnyFunSuite with Matchers {
 
   test("collection") {
 

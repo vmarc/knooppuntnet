@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class WayAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class WayAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("linear way is not self intersecting or closed loop") {
 

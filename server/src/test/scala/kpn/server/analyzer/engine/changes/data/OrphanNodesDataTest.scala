@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.data
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrphanNodesDataTest extends FunSuite with Matchers {
+class OrphanNodesDataTest extends AnyFunSuite with Matchers {
 
   test("test methods") {
 

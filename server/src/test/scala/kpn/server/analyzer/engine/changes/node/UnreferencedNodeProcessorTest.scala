@@ -23,10 +23,10 @@ import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class UnreferencedNodeProcessorTest extends FunSuite with Matchers with MockFactory with TestObjects {
+class UnreferencedNodeProcessorTest extends AnyFunSuite with Matchers with MockFactory with TestObjects {
 
   private val latLonBefore = LatLonImpl("51.5291500", "4.297700")
   private val latLonAfter = LatLonImpl("51.5291600", "4.297800")

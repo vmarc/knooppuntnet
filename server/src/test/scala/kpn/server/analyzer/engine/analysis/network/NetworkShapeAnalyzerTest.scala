@@ -7,10 +7,10 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.Bounds
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkShape
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NetworkShapeAnalyzerTest extends FunSuite with Matchers {
+class NetworkShapeAnalyzerTest extends AnyFunSuite with Matchers {
 
   ignore("shape") {
 

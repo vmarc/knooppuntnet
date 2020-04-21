@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.changes
 
 import java.io.File
 import org.apache.commons.io.FileUtils
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import kpn.api.common.ReplicationId
 
-class ReplicationStateReaderTest extends FunSuite with Matchers {
+class ReplicationStateReaderTest extends AnyFunSuite with Matchers {
 
   test("read timestamp") {
 

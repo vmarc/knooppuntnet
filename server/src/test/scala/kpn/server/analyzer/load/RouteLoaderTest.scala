@@ -8,12 +8,12 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.io.Source
 
-class RouteLoaderTest extends FunSuite with Matchers with MockFactory {
+class RouteLoaderTest extends AnyFunSuite with Matchers with MockFactory {
 
   test("loadRoutes - fetch multiple routes with a single OverpassAPI request") {
 

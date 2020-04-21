@@ -8,10 +8,10 @@ import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NodeFragmentConnectionAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class NodeFragmentConnectionAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   private val node1 = newNode(1)
   private val node2 = newNode(2)

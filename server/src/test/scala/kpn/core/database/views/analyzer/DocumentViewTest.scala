@@ -4,10 +4,10 @@ import kpn.core.TestObjects
 import kpn.core.database.views.analyzer.DocumentView.DocumentCount
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DocumentViewTest extends FunSuite with Matchers with TestObjects {
+class DocumentViewTest extends AnyFunSuite with Matchers with TestObjects {
 
   test("allNodeIds") {
 

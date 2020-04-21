@@ -5,10 +5,10 @@ import kpn.core.replicate.ReplicationStateRepository
 import kpn.core.tools.status.StatusRepository
 import kpn.api.common.ReplicationId
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class SystemStatusTest extends FunSuite with Matchers with MockFactory {
+class SystemStatusTest extends AnyFunSuite with Matchers with MockFactory {
 
   private val processLines =
     """UID        PID  PPID  C STIME TTY          TIME CMD

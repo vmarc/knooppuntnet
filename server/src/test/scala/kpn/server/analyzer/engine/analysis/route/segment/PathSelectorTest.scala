@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class PathSelectorTest extends FunSuite with Matchers with SharedTestObjects {
+class PathSelectorTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("select from empty collection of paths") {
     PathSelector.select(Seq()) should equal(None)

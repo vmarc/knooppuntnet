@@ -12,10 +12,10 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeCreateProcessorTest extends FunSuite with Matchers with MockFactory {
+class OrphanNodeCreateProcessorTest extends AnyFunSuite with Matchers with MockFactory {
 
   test("new orphan node is saved to database") {
 

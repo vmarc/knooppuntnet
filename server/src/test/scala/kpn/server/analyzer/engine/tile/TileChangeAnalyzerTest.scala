@@ -5,10 +5,10 @@ import kpn.core.TestObjects
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TileChangeAnalyzerTest extends FunSuite with Matchers with MockFactory with TestObjects {
+class TileChangeAnalyzerTest extends AnyFunSuite with Matchers with MockFactory with TestObjects {
 
   test("analyzeRoute") {
 

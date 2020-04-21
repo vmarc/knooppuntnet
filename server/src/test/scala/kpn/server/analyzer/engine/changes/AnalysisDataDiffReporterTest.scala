@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes
 
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.AnalysisData
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class AnalysisDataDiffReporterTest extends FunSuite with Matchers {
+class AnalysisDataDiffReporterTest extends AnyFunSuite with Matchers {
 
   test("No differences") {
     val left = AnalysisData()

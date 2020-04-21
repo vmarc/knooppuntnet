@@ -6,10 +6,10 @@ import kpn.api.common.route.RouteReferences
 import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
+class RouteRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("routeWithId") {
     withDatabase { database =>

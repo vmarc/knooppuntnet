@@ -9,10 +9,10 @@ import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ChangeProcessorTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
+class ChangeProcessorTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
 
   test("changeset not saved when there are no relevant changes") {
 

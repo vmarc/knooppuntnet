@@ -1,10 +1,10 @@
 package kpn.core.common
 
 import org.scalatest.BeforeAndAfterEach
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TimerTest extends FunSuite with Matchers with BeforeAndAfterEach {
+class TimerTest extends AnyFunSuite with Matchers with BeforeAndAfterEach {
 
   private val cpuStartTime = 100000L
   private val epochStartTime = 200000L

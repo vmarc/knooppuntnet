@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.poi
 import kpn.api.common.LatLonImpl
 import kpn.core.overpass.OverpassQueryExecutor
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class PoiQueryExecutorTest extends FunSuite with Matchers with MockFactory {
+class PoiQueryExecutorTest extends AnyFunSuite with Matchers with MockFactory {
 
   test("pick up way center") {
 

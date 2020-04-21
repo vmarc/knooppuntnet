@@ -1,10 +1,10 @@
 package kpn.server.json
 
 import kpn.api.custom.Subset
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class SubsetJsonTest extends FunSuite with Matchers {
+class SubsetJsonTest extends AnyFunSuite with Matchers {
 
   test("serializer") {
     Json.string(Subset.nlHiking) should equal(""""nl:hiking"""")

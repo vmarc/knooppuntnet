@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes.changes
 
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.context.AnalysisContext
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RelationAnalyzerTest extends FunSuite with Matchers {
+class RelationAnalyzerTest extends AnyFunSuite with Matchers {
 
   test("referenced nodes, ways and relations") {
 

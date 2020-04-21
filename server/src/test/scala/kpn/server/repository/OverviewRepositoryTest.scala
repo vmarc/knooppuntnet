@@ -7,10 +7,10 @@ import kpn.api.custom.Subset
 import kpn.core.app.stats.Figure
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OverviewRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
+class OverviewRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("figures") {
 

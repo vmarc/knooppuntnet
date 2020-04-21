@@ -79,10 +79,10 @@ import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-abstract class AbstractTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
+abstract class AbstractTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
 
   protected def node(data: Data, id: Long): RawNode = {
     data.raw.nodeWithId(id).get

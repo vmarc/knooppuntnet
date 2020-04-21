@@ -10,10 +10,10 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.route.RouteInfo
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteUpdateTest extends FunSuite with Matchers {
+class RouteUpdateTest extends AnyFunSuite with Matchers {
 
   test("subsets are derived from both the before and after situation") {
     RouteUpdate(routeAnalysis(None, NetworkType.hiking), routeAnalysis(None, NetworkType.hiking)).subsets should equal(Seq())

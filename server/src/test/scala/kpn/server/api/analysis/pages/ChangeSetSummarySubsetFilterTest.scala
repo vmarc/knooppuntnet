@@ -8,10 +8,10 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.details.ChangeKey
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ChangeSetSummarySubsetFilterTest extends FunSuite with Matchers {
+class ChangeSetSummarySubsetFilterTest extends AnyFunSuite with Matchers {
 
   test("filter information in ChangeSetSummary so that only information for given 'subset' remains") {
 

@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class SegmentTest extends FunSuite with Matchers with SharedTestObjects {
+class SegmentTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("nodes") {
     val segmentFragments = Seq(

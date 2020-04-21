@@ -7,12 +7,12 @@ import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawRelation
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.language.reflectiveCalls
 
-class NetworkChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class NetworkChangeAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   val d = new AnalysisTestData()
 

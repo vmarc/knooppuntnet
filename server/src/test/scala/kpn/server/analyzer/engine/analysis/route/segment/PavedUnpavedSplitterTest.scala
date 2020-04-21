@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.custom.Tags
 import kpn.core.test.TestData
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class PavedUnpavedSplitterTest extends FunSuite with Matchers {
+class PavedUnpavedSplitterTest extends AnyFunSuite with Matchers {
 
   test("split paved/unpaved segment fragments") {
 

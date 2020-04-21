@@ -11,10 +11,10 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.NodeRepositoryImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class LocationNodeViewTest extends FunSuite with Matchers with SharedTestObjects {
+class LocationNodeViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("node") {
 

@@ -21,10 +21,10 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NetworkDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class NetworkDiffAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("removed network node") {
 

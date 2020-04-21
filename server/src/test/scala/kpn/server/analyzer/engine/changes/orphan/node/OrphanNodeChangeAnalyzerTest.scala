@@ -5,10 +5,10 @@ import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.repository.MockBlackListRepository
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class OrphanNodeChangeAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   val d = new AnalysisTestData()
 

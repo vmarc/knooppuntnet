@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.tile
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TileDataCacheTest extends FunSuite with Matchers {
+class TileDataCacheTest extends AnyFunSuite with Matchers {
 
   test("cache") {
     val cache = new TileDataCache[String]()

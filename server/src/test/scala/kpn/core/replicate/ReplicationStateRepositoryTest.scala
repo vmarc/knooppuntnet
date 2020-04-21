@@ -4,10 +4,10 @@ import java.io.File
 
 import kpn.api.custom.Timestamp
 import kpn.api.common.ReplicationId
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ReplicationStateRepositoryTest extends FunSuite with Matchers {
+class ReplicationStateRepositoryTest extends AnyFunSuite with Matchers {
 
   test("write state file and read timestamp") {
 

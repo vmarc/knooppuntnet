@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.custom.NetworkType
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TileTaskTest extends FunSuite with Matchers {
+class TileTaskTest extends AnyFunSuite with Matchers {
 
   test("interprete task") {
 

@@ -5,10 +5,10 @@ import kpn.core.util.MockLog
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RawDataSplitterTest extends FunSuite with Matchers with SharedTestObjects {
+class RawDataSplitterTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("extract regular network relation") {
 

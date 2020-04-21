@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class LargeRouteTest extends FunSuite with Matchers {
+class LargeRouteTest extends AnyFunSuite with Matchers {
 
   ignore("Super large route") {
     val analysis = CaseStudy.routeAnalysis("222560")

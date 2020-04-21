@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteNotContinious
 
-class CycleWayOppositeTest extends FunSuite with Matchers {
+class CycleWayOppositeTest extends AnyFunSuite with Matchers {
 
   test("cycleway=opposite cancels oneway=true") {
 

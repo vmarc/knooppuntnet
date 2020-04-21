@@ -8,10 +8,10 @@ import kpn.core.database.DatabaseImpl
 import kpn.core.database.doc.NodeDoc
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DatabaseDeleteDocWithIdTest extends FunSuite with Matchers with TestObjects {
+class DatabaseDeleteDocWithIdTest extends AnyFunSuite with Matchers with TestObjects {
 
   test("delete document") {
 

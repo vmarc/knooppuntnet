@@ -8,10 +8,10 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteLastSurveyAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class RouteLastSurveyAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("no survey:date") {
     analyze(Tags.empty)

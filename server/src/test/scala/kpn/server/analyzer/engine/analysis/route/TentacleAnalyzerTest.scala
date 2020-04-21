@@ -7,10 +7,10 @@ import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinder
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TentacleAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class TentacleAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   private val n1 = newNode(1)
   private val n2 = newNode(2)

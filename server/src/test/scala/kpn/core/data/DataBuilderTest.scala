@@ -8,10 +8,10 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DataBuilderTest extends FunSuite with Matchers with SharedTestObjects {
+class DataBuilderTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("happy data build") {
 

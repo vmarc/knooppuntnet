@@ -2,12 +2,12 @@ package kpn.core.poi
 
 import kpn.api.custom.Tags
 import kpn.api.common.Poi
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.xml.XML
 
-class PoiQueryResultParserTest extends FunSuite with Matchers {
+class PoiQueryResultParserTest extends AnyFunSuite with Matchers {
 
   test("parse nodes") {
 

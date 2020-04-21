@@ -6,10 +6,10 @@ import kpn.server.analyzer.engine.analysis.route.segment.Segment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFragment
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RoutingSortingOrderAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class RoutingSortingOrderAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   private val (fragments, correctOrderPath, wrongOrderPath) = {
 

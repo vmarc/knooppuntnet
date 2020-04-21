@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import org.locationtech.jts.geom.Envelope
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class LocationDefinitionTest extends FunSuite with Matchers {
+class LocationDefinitionTest extends AnyFunSuite with Matchers {
 
   test("get") {
 

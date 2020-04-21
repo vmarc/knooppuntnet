@@ -19,7 +19,7 @@ import kpn.api.common.data.raw.RawWay
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 /*
@@ -74,7 +74,7 @@ class TData extends SharedTestObjects {
   val ways: Seq[RawWay] = Seq(way12, way23, way34, way21, way32, way43, closedWay, closedWay2)
 }
 
-class NetworkRouteBuilderTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
+class NetworkRouteBuilderTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
 
   //  test("contiguous route - without explicit start and end nodes") {
   //

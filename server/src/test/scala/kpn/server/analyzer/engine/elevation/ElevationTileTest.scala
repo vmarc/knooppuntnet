@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.elevation
 
 import kpn.server.analyzer.engine.tiles.domain.Point
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ElevationTileTest extends FunSuite with Matchers {
+class ElevationTileTest extends AnyFunSuite with Matchers {
 
   test("constructor") {
     ElevationTile(Point(51, 4)) should equal(ElevationTile(51, 4, 1201, 0))

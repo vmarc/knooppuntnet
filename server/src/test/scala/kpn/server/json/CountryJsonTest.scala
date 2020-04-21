@@ -2,10 +2,10 @@ package kpn.server.json
 
 import com.fasterxml.jackson.databind.JsonMappingException
 import kpn.api.custom.Country
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CountryJsonTest extends FunSuite with Matchers {
+class CountryJsonTest extends AnyFunSuite with Matchers {
 
   test("serializer") {
     Json.string(Country.be) should equal(""""be"""")

@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class StreetsTest extends FunSuite with Matchers {
+class StreetsTest extends AnyFunSuite with Matchers {
 
   test("find street names in ways") {
     val analysis = CaseStudy.routeAnalysis("1029885")

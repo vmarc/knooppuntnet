@@ -8,10 +8,10 @@ import kpn.api.custom.Tags
 import kpn.core.TestObjects
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeViewTest extends FunSuite with Matchers with TestObjects {
+class OrphanNodeViewTest extends AnyFunSuite with Matchers with TestObjects {
 
   test("orphan nodes are included in the view") {
     doOrphanNodeTest(Subset.nlBicycle)

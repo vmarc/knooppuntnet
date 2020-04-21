@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CodeMapTest extends FunSuite with Matchers {
+class CodeMapTest extends AnyFunSuite with Matchers {
 
   test("empty map") {
     val codeMap = new CodeMap()

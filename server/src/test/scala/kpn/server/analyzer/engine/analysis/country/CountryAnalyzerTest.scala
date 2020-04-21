@@ -5,10 +5,10 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.LatLon
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CountryAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class CountryAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   private val analyzer = {
     val analysisContext = new AnalysisContext()

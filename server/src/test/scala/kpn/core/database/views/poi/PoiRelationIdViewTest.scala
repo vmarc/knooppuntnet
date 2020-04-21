@@ -3,10 +3,10 @@ package kpn.core.database.views.poi
 import kpn.api.common.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.PoiRepositoryImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class PoiRelationIdViewTest extends FunSuite with Matchers with SharedTestObjects {
+class PoiRelationIdViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("all id's of pois of type 'relation'") {
 

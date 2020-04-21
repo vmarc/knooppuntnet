@@ -1,10 +1,10 @@
 package kpn.core.directions
 
 import kpn.core.directions.DirectionAnalyzer._
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DirectionAnalyzerTest extends FunSuite with Matchers {
+class DirectionAnalyzerTest extends AnyFunSuite with Matchers {
 
   val center = Latlon(51.22028773788435, 4.40149747542472)
 

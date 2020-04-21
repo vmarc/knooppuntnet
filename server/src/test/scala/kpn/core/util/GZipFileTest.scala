@@ -1,9 +1,9 @@
 package kpn.core.util
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class GZipFileTest extends FunSuite with Matchers {
+class GZipFileTest extends AnyFunSuite with Matchers {
 
   test("write/read gzip") {
     val input = "een\ntwee\ndrie"

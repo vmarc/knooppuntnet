@@ -1,9 +1,9 @@
 package kpn.server.json
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class JsonTest extends FunSuite with Matchers {
+class JsonTest extends AnyFunSuite with Matchers {
 
   test("case class json") {
     val example = JsonExample("John Doe", 123)

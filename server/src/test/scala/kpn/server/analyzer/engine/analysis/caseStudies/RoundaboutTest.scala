@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RoundaboutTest extends FunSuite with Matchers {
+class RoundaboutTest extends AnyFunSuite with Matchers {
 
   test("roundabout in the middle") {
     val analysis = CaseStudy.routeAnalysis("1193198")

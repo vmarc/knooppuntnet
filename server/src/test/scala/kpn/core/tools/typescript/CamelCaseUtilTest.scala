@@ -1,9 +1,9 @@
 package kpn.core.tools.typescript
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CamelCaseUtilTest extends FunSuite with Matchers {
+class CamelCaseUtilTest extends AnyFunSuite with Matchers {
 
   test("case class name") {
     CamelCaseUtil.toDashed("FunSuiteTest") should equal("fun-suite-test")

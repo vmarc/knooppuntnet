@@ -14,10 +14,10 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class LocationFactViewTest extends FunSuite with Matchers with SharedTestObjects {
+class LocationFactViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("node") {
 

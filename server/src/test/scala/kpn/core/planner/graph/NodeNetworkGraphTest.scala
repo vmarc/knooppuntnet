@@ -2,10 +2,10 @@ package kpn.core.planner.graph
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.TrackPathKey
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NodeNetworkGraphTest extends FunSuite with Matchers with SharedTestObjects {
+class NodeNetworkGraphTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("find shortest path when there are 2 paths with the same number of nodes") {
 

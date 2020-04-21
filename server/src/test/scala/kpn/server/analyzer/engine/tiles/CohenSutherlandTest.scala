@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.tiles
 
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Rectangle
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CohenSutherlandTest extends FunSuite with Matchers {
+class CohenSutherlandTest extends AnyFunSuite with Matchers {
 
   test("line completely inside rectangle") {
     clip(Line(2, 2, 8, 8), Some(Line(2, 2, 8, 8)))

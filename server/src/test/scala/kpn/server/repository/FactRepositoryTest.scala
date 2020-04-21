@@ -15,10 +15,10 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class FactRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
+class FactRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("routeFacts") {
 

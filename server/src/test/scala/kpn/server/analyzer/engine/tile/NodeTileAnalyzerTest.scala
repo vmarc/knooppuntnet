@@ -4,10 +4,10 @@ import kpn.api.common.LatLon
 import kpn.api.common.LatLonImpl
 import kpn.server.analyzer.engine.tiles.TestTile
 import kpn.server.analyzer.engine.tiles.TestTileSetup
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NodeTileAnalyzerTest extends FunSuite with Matchers {
+class NodeTileAnalyzerTest extends AnyFunSuite with Matchers {
 
   val t = new TestTileSetup()
 

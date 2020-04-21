@@ -5,10 +5,10 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.data.Way
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteStreetsAnalyzerTest extends FunSuite with Matchers {
+class RouteStreetsAnalyzerTest extends AnyFunSuite with Matchers {
 
   ignore("collect streets") {
 

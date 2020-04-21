@@ -6,10 +6,10 @@ import kpn.api.custom.Timestamp
 import kpn.core.util.GZipFile
 import org.apache.commons.io.FileUtils
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CachingOverpassQueryExecutorTest extends FunSuite with Matchers with MockFactory {
+class CachingOverpassQueryExecutorTest extends AnyFunSuite with Matchers with MockFactory {
 
   test("test caching") {
     val cacheRootDir = new File("/tmp/test-cache")

@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import kpn.api.custom.Fact.RouteNodeNameMismatch
 
-class RouteNodeNameMismatchTest extends FunSuite with Matchers {
+class RouteNodeNameMismatchTest extends AnyFunSuite with Matchers {
 
   test("2677068") {
     val route = CaseStudy.routeAnalysis("2677068").route

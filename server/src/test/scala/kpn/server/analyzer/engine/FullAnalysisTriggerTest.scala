@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine
 
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class FullAnalysisTriggerTest extends FunSuite with Matchers with MockFactory {
+class FullAnalysisTriggerTest extends AnyFunSuite with Matchers with MockFactory {
 
   // TODO these tests are ignored for now because they have a UTC versus local time problem
 

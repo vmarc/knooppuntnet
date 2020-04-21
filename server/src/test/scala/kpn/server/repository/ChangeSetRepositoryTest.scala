@@ -24,10 +24,10 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ChangeSetRepositoryTest extends FunSuite with Matchers {
+class ChangeSetRepositoryTest extends AnyFunSuite with Matchers {
 
   test("change set not found") {
     withChangeSetRepository { repository =>

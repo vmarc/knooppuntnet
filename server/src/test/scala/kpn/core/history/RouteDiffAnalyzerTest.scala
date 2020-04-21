@@ -22,10 +22,10 @@ import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteDiffAnalyzerTest extends FunSuite with Matchers {
+class RouteDiffAnalyzerTest extends AnyFunSuite with Matchers {
 
   test("removed way") {
 

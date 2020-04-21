@@ -12,10 +12,10 @@ import kpn.server.repository.MockTaskRepository
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class PoiChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObjects with MockFactory {
+class PoiChangeAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects with MockFactory {
 
   test("node poi add") {
 

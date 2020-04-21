@@ -4,12 +4,12 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.api.common.data.raw.RawNode
 import org.scalatest.matchers.should.Matchers
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import kpn.api.common.changes.ChangeAction._
 
 import scala.xml.XML
 
-class OsmChangeParserTest extends FunSuite with Matchers {
+class OsmChangeParserTest extends AnyFunSuite with Matchers {
 
   test("parse") {
 

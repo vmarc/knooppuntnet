@@ -5,10 +5,10 @@ import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteTileAnalyzerTest extends FunSuite with Matchers {
+class RouteTileAnalyzerTest extends AnyFunSuite with Matchers {
 
   val t = new TestTileSetup()
 

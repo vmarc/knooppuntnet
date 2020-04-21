@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class SegmentBuilderTest extends FunSuite with Matchers with SharedTestObjects {
+class SegmentBuilderTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("no fragments") {
     assertSegments(Seq())

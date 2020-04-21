@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.tiles.vector.encoder
 import org.locationtech.jts.algorithm.CGAlgorithms
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CommandEncoderTest extends FunSuite with Matchers {
+class CommandEncoderTest extends AnyFunSuite with Matchers {
 
   private val gf = new GeometryFactory()
 

@@ -4,10 +4,10 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.api.common.changes.ChangeSetInfo
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ChangeSetInfoRepositoryTest extends FunSuite with Matchers {
+class ChangeSetInfoRepositoryTest extends AnyFunSuite with Matchers {
 
   test("changeSetInfo not found") {
     withRepository { repository =>

@@ -8,10 +8,10 @@ import kpn.core.app.stats.Figure
 import kpn.core.database.Database
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OverviewTest extends FunSuite with Matchers {
+class OverviewTest extends AnyFunSuite with Matchers {
 
   test("network level counts") {
 

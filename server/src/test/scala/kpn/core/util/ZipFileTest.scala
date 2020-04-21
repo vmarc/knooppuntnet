@@ -3,10 +3,10 @@ package kpn.core.util
 import java.io.FileInputStream
 import java.util.zip.ZipInputStream
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ZipFileTest extends FunSuite with Matchers {
+class ZipFileTest extends AnyFunSuite with Matchers {
 
   test("write zip file") {
     val filename = "/tmp/test.zip"

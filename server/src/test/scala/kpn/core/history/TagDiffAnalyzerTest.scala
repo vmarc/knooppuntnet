@@ -5,10 +5,10 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TagDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class TagDiffAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("tag differences") {
 

@@ -1,9 +1,9 @@
 package kpn.core.tools.country
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RingBuilderTest extends FunSuite with Matchers {
+class RingBuilderTest extends AnyFunSuite with Matchers {
 
   test("no rings when no ways") {
     RingBuilder.findRings(Seq()) should equal(Seq())

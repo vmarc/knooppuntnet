@@ -4,10 +4,10 @@ import kpn.api.custom.Fact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrphanRouteChangeTest extends FunSuite with Matchers with SharedTestObjects {
+class OrphanRouteChangeTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("a regular route change is not an orphan route related change") {
     OrphanRouteChange.isOrphanRouteChange(newRouteChange()) should equal(false)

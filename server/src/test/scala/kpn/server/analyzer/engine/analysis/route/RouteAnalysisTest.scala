@@ -9,10 +9,10 @@ import kpn.api.custom.Fact.RouteNotContinious
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.Tags
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteAnalysisTest extends FunSuite with Matchers {
+class RouteAnalysisTest extends AnyFunSuite with Matchers {
 
   test("single way route") {
 

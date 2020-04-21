@@ -3,10 +3,10 @@ package kpn.core.database.implementation
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DatabaseDeleteDocsWithIdsTest extends FunSuite with Matchers with TestObjects {
+class DatabaseDeleteDocsWithIdsTest extends AnyFunSuite with Matchers with TestObjects {
 
   test("deleteDocsWithIds") {
     withDatabase(database => {

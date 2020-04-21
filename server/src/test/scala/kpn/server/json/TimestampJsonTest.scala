@@ -1,10 +1,10 @@
 package kpn.server.json
 
 import kpn.api.custom.Timestamp
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TimestampJsonTest extends FunSuite with Matchers {
+class TimestampJsonTest extends AnyFunSuite with Matchers {
 
   test("serializer") {
     val timestamp = Timestamp(2018, 8, 11, 12, 34, 56)

@@ -3,10 +3,10 @@ package kpn.server.repository
 import kpn.core.poi.PoiInfo
 import kpn.core.test.TestSupport.withDatabase
 import kpn.api.common.SharedTestObjects
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class PoiRepositoryTest extends FunSuite with Matchers with SharedTestObjects {
+class PoiRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("allPois") {
 

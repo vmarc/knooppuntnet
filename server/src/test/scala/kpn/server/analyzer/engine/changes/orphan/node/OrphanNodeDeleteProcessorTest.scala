@@ -17,10 +17,10 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeDeleteProcessorTest extends FunSuite with Matchers with MockFactory with TestObjects {
+class OrphanNodeDeleteProcessorTest extends AnyFunSuite with Matchers with MockFactory with TestObjects {
 
   test("deleted node is removed from analysis data watched orphan nodes, and set to non-active in the database") {
 

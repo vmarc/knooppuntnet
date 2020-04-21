@@ -1,9 +1,9 @@
 package kpn.api.common
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ReplicationIdTest extends FunSuite with Matchers {
+class ReplicationIdTest extends AnyFunSuite with Matchers {
 
   test("alternative constructors") {
     ReplicationId("001/002/003") should equal(ReplicationId(1, 2, 3))

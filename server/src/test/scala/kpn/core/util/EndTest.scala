@@ -1,9 +1,9 @@
 package kpn.core.util
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class EndTest extends FunSuite with Matchers {
+class EndTest extends AnyFunSuite with Matchers {
 
   case class Endable(name: String, end: Option[Boolean] = None)
 

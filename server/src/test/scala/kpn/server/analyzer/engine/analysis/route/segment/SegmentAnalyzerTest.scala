@@ -12,10 +12,10 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class SegmentAnalyzerTest extends FunSuite with Matchers {
+class SegmentAnalyzerTest extends AnyFunSuite with Matchers {
 
   test("single way route") {
 

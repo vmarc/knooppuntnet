@@ -4,10 +4,10 @@ import kpn.api.common.DE
 import kpn.api.common.EN
 import kpn.api.common.FR
 import kpn.api.common.NL
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class LocationDefinitionReaderTest extends FunSuite with Matchers {
+class LocationDefinitionReaderTest extends AnyFunSuite with Matchers {
 
   test("Essen") {
     val file = LocationConfigurationDefinition.file("be/Essen_964003_AL8")

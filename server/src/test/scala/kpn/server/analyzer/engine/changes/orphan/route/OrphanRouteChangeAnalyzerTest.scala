@@ -8,10 +8,10 @@ import kpn.core.test.TestData
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Change.modify
 import kpn.api.common.data.raw.RawRelation
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrphanRouteChangeAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class OrphanRouteChangeAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   val d = new AnalysisTestData()
 

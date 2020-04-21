@@ -5,13 +5,13 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.analysis.network.NetworkShapeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.xml.InputSource
 import scala.xml.XML
 
-class ConcaveHullTest extends FunSuite with Matchers {
+class ConcaveHullTest extends AnyFunSuite with Matchers {
 
   test("reproduce the problem with the concave hull calculation (currently commented out)") {
 

@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.elevation
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DistanceElevationMergerTest extends FunSuite with Matchers {
+class DistanceElevationMergerTest extends AnyFunSuite with Matchers {
 
   test("empty - nothing to merge") {
     DistanceElevationMerger.merge(Seq.empty) should equal(Seq.empty)

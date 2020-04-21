@@ -5,10 +5,10 @@ import kpn.core.data.Data
 import kpn.core.test.TestData2
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class AnalysisDataTest extends FunSuite with Matchers with SharedTestObjects {
+class AnalysisDataTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("isReferencedRoute") {
 

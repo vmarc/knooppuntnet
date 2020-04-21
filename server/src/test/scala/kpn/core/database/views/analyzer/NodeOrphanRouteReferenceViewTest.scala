@@ -6,10 +6,10 @@ import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NodeOrphanRouteReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
+class NodeOrphanRouteReferenceViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   private val timeout = Couch.uiTimeout
 

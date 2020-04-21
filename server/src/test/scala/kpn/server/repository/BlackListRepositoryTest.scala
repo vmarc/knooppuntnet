@@ -3,10 +3,10 @@ package kpn.server.repository
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class BlackListRepositoryTest extends FunSuite with Matchers {
+class BlackListRepositoryTest extends AnyFunSuite with Matchers {
 
   test("blacklist") {
     withDatabase { database =>

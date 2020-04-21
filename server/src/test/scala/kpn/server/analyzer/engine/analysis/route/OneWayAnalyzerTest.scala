@@ -6,10 +6,10 @@ import kpn.api.common.route.Backward
 import kpn.api.common.route.Both
 import kpn.api.common.route.Forward
 import kpn.api.common.route.WayDirection
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OneWayAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class OneWayAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("way without oneway related tags can be traveled in both directions in all networktypes") {
     oneway() should equal(Both)

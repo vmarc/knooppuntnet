@@ -5,10 +5,10 @@ import kpn.api.common.common.Ref
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NodeRouteReferenceViewTest extends FunSuite with Matchers with SharedTestObjects {
+class NodeRouteReferenceViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("node references in route") {
 

@@ -5,10 +5,10 @@ import kpn.core.database.Database
 import kpn.core.poi.PoiInfo
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.repository.PoiRepositoryImpl
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class PoiTileViewTest extends FunSuite with Matchers with SharedTestObjects {
+class PoiTileViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("allTiles") {
     withDatabase { database =>

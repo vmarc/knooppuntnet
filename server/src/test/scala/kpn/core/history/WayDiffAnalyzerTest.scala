@@ -8,10 +8,10 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class WayDiffAnalyzerTest extends FunSuite with Matchers with SharedTestObjects {
+class WayDiffAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
 
   test("node removed") {
     val before = newWay(101, version = 2, nodes = Seq(newNode(1001), newNode(1002)))

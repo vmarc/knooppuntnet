@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine
 
 import java.io.File
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class AnalysisTimeRepositoryTest extends FunSuite with Matchers {
+class AnalysisTimeRepositoryTest extends AnyFunSuite with Matchers {
 
   test("return None when no file exists") {
     withRepository { repo =>

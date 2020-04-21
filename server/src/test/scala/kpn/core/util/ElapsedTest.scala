@@ -1,11 +1,9 @@
 package kpn.core.util
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
-import scala.concurrent.duration.Duration
-import java.util.concurrent.TimeUnit
 
-class ElapsedTest extends FunSuite with Matchers {
+class ElapsedTest extends AnyFunSuite with Matchers {
 
   test("formatting elapsed time") {
     Elapsed(300) should equal("300ms")

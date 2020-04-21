@@ -6,10 +6,10 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class RouteNodeAnalyzerTest extends FunSuite with Matchers {
+class RouteNodeAnalyzerTest extends AnyFunSuite with Matchers {
 
   // TODO ROUTE add tests for facts
 

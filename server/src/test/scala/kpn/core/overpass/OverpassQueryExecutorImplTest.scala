@@ -1,9 +1,9 @@
 package kpn.core.overpass
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OverpassQueryExecutorImplTest extends FunSuite with Matchers {
+class OverpassQueryExecutorImplTest extends AnyFunSuite with Matchers {
 
   ignore("success: osm3s_query writes query result on stdout and exits with code 0") {
     val simulatedCommand = "echo prompt>/dev/stderr;echo one;echo two;echo three;exit 0"

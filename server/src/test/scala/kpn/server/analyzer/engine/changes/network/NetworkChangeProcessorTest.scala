@@ -13,10 +13,10 @@ import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class NetworkChangeProcessorTest extends FunSuite with Matchers with MockFactory with SharedTestObjects {
+class NetworkChangeProcessorTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
 
   test("network creates are processed by createProcessor") {
 
