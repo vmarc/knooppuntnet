@@ -803,7 +803,7 @@
         <target><x equiv-text="{{factName}}" id="INTERPOLATION"/> description missing!!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
@@ -1715,7 +1715,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Changed to v<x equiv-text="{{wayUpdate.after.version}}" id="INTERPOLATION"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.version-unchanged" datatype="html">
@@ -4286,8 +4286,8 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       <trans-unit id="stats.orphan-route-count.comment" datatype="html">
         <source>Number of network routes that do not belong to a network.\
         The route was not added as a member to a valid
-        [network relation](glossary#network-relation).</source>
-        <target>Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](glossary#network-relation) hinzugefügt.</target>
+        [network relation](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;).</source>
+        <target>Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](docs/en.html#glossary-network-relation &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">147</context>
@@ -4547,9 +4547,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
         <source>Number of network relation members of type _&quot;node&quot;_ that are unexpected (expect only
-        [network nodes](glossary#node) or [information maps](glossary#info-map) as members
+        [network nodes](docs/en.html#glossary-node &quot;node in glossary&quot;)
+        or [information maps](docs/en.html#glossary-info-map &quot;information maps in glossary&quot;) as members
         in the network relation).</source>
-        <target>Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _&quot;node&quot;_ (wir erwarten nur [Netzwerkknoten](glossary#node) oder [Informationskarten](glossary#info-map) als Mitglieder).</target>
+        <target>Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _&quot;node&quot;_ (wir erwarten nur [Netzwerkknoten](docs/en.html#glossary-node &quot;Netzwerkknoten im Glossar&quot;) oder [Informationskarten](docs/en.html#glossary-info-map &quot;Informationskarten im Glossar&quot;) als Mitglieder).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">310</context>
@@ -4569,7 +4570,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Anzahl der Netzwerkbeziehungsmitglieder vom Typ _&quot;way&quot;_ (wir erwarten nur Routenrelationen oder Netzwerkknoten als Mitglieder in der Knotennetzwerkrelation).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">323</context>
+          <context context-type="linenumber">324</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-way.name" datatype="html">
@@ -4577,7 +4578,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>NetworkExtraMemberWay</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">319</context>
+          <context context-type="linenumber">320</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-relation.comment" datatype="html">
@@ -4586,7 +4587,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _&quot;Relation&quot;_ (wir erwarten nur gültige Routenrelationen oder Netzwerkknoten als Mitglieder in der Knotennetzwerkrelation).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">335</context>
+          <context context-type="linenumber">336</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-relation.name" datatype="html">
@@ -4594,7 +4595,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>NetworkExtraMemberRelation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">331</context>
+          <context context-type="linenumber">332</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.node-member-missing.comment" datatype="html">
@@ -4602,7 +4603,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Anzahl der Knoten, die nicht in der Netzwerkrelation enthalten sind</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">346</context>
+          <context context-type="linenumber">347</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.node-member-missing.name" datatype="html">
@@ -4610,7 +4611,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>NodeMemberMissing</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">343</context>
+          <context context-type="linenumber">344</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.name-missing.comment" datatype="html">
@@ -4618,7 +4619,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Anzahl der Netzwerke ohne _&quot;name&quot;_ -Tag in der Netzwerkrelation.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">357</context>
+          <context context-type="linenumber">358</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.name-missing.name" datatype="html">
@@ -4626,15 +4627,15 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>NameMissing</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">353</context>
+          <context context-type="linenumber">354</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unaccessible.comment" datatype="html">
-        <source>Number of [unaccessible](glossary#accessible) routes.</source>
-        <target>Anzahl der [nicht zugänglichen](glossary#accessible) Routen.</target>
+        <source>Number of [unaccessible](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) routes.</source>
+        <target>Anzahl der [nicht zugänglichen](docs/en.html#glossary-accessible &quot;Zugänglichkeit im Glossar&quot;) Routen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">368</context>
+          <context context-type="linenumber">369</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-unaccessible.name" datatype="html">
@@ -4642,7 +4643,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>RouteUnaccessible</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">364</context>
+          <context context-type="linenumber">365</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-invalid-sorting-order.comment" datatype="html">
@@ -4650,7 +4651,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Anzahl der Routen mit Wegen in falscher Sortierreihenfolge.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">378</context>
+          <context context-type="linenumber">379</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-invalid-sorting-order.name" datatype="html">
@@ -4658,7 +4659,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>RouteInvalidSortingOrder</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">375</context>
+          <context context-type="linenumber">376</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-name-mismatch.comment" datatype="html">
@@ -4668,7 +4669,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Routen, bei denen der Routenname nicht mit den Namen des Startknotens und des Endknotens übereinstimmt. Es wird erwartet, dass der Routenname den Startknotennamen und den Endknotennamen enthält, die durch einen Bindestrich getrennt sind. Es wird erwartet, dass der Startknoten eine niedrigere Nummer als der Endknoten hat.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">388</context>
+          <context context-type="linenumber">389</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-name-mismatch.name" datatype="html">
@@ -4676,7 +4677,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>RouteNodeNameMismatch</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">385</context>
+          <context context-type="linenumber">386</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.header" datatype="html">
@@ -5717,7 +5718,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Network</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-network-changes.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.network-diffs.network-created" datatype="html">
@@ -5909,16 +5910,16 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         </context-group>
       </trans-unit>
       <trans-unit id="node-diffs-updated.existing-node" datatype="html">
-        <source>Existing node</source>
-        <target>Existing node</target>
+        <source>Existing node v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/>.</source>
+        <target>Existing node v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-diffs-updated.node-changed" datatype="html">
-        <source>Node change to</source>
-        <target>Node change to</target>
+        <source>Node changed to v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/>.</source>
+        <target>Node changed to v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -5973,11 +5974,11 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         </context-group>
       </trans-unit>
       <trans-unit id="version-change.relation-changed-to" datatype="html">
-        <source>Relation changed to v<x equiv-text="{{after.version}}" id="INTERPOLATION"/></source>
-        <target>Relation changed to v<x equiv-text="{{after.version}}" id="INTERPOLATION"/></target>
+        <source>Relation changed to v<x equiv-text="{{after.version}}" id="INTERPOLATION"/>.</source>
+        <target>Relation changed to v<x equiv-text="{{after.version}}" id="INTERPOLATION"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/version-change.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="version-change.relation-unchanged" datatype="html">
@@ -5985,7 +5986,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Relation unchanged.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/version-change.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.belongs-to-another-network" datatype="html">
@@ -6102,12 +6103,12 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.comment" datatype="html">
         <source>Number of network nodes that do not belong to a network.\
-        The [node](glossary#node) was not added as a member to a valid
-        [network relation](glossary#network-relation)
+        The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not added as a member to a valid
+        [network relation](docs/en.html#glossary-network-relation &quot;relation in glossary&quot;)
         and also not added as a member to a valid
-        [route relation](glossary#route-relation)
+        [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;)
         (that itself was added as a member to a valid network relation or is an orphan route).</source>
-        <target>Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](glossary#node) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](glossary#network-relation) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](glossary#route-relation) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine verwaiste Route ist).</target>
+        <target>Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](docs/en.html#glossary-node &quot;Knoten im Glossar&quot;) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](docs/en.html#glossary-network-relation &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](docs/en.html#glossary-route-relation &quot;Routerelation im Glossar&quot;) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine verwaiste Route ist).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">132</context>
@@ -6569,7 +6570,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Kontakt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footer.issues" datatype="html">
@@ -6577,7 +6578,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Probleme</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footer.status" datatype="html">
@@ -6585,7 +6586,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
@@ -7039,7 +7040,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.analysis" datatype="html">
@@ -7047,7 +7048,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.node" datatype="html">
@@ -7055,7 +7056,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes" datatype="html">
@@ -7063,7 +7064,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-edit" datatype="html">
@@ -7071,7 +7072,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Letzte Bearbeitung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.no-routes" datatype="html">
@@ -7079,7 +7080,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>keine Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-routes.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.nr" datatype="html">
@@ -7087,7 +7088,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.analysis" datatype="html">
@@ -7095,7 +7096,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.node" datatype="html">
@@ -7103,7 +7104,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-edit" datatype="html">
@@ -7111,7 +7112,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Letzte Bearbeitung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.title" datatype="html">
@@ -7267,7 +7268,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>C</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
@@ -7311,7 +7312,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.summary" datatype="html">
@@ -7531,6 +7532,98 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/map/_node-map-page.component.ts</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.node-invalid-survey-date" datatype="html">
+        <source>NodeInvalidSurveyDate</source>
+        <target>NodeInvalidSurveyDate</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-invalid-survey-date" datatype="html">
+        <source>RouteInvalidSurveyDate</source>
+        <target>RouteInvalidSurveyDate</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.node-invalid-survey-date" datatype="html">
+        <source>The node survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
+      The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</source>
+        <target>The node survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
+      The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-invalid-survey-date.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-invalid-survey-date" datatype="html">
+        <source>The route survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
+      The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</source>
+        <target>The route survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
+      The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-invalid-survey-date.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.name" datatype="html">
+        <source>Name</source>
+        <target>Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.routes.expected" datatype="html">
+        <source>Expected</source>
+        <target>Expected</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.routes.actual" datatype="html">
+        <source>Actual</source>
+        <target>Actual</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-nodes.table.last-survey" datatype="html">
+        <source>Last survey</source>
+        <target>Last survey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.distance" datatype="html">
+        <source>Distance</source>
+        <target>Distance</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.role" datatype="html">
+        <source>Role</source>
+        <target>Role</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.last-survey" datatype="html">
+        <source>Last survey</source>
+        <target>Last survey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
     </body>
