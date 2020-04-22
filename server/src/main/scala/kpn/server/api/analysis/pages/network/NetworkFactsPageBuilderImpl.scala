@@ -6,7 +6,6 @@ import kpn.api.common.common.Ref
 import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Fact
-import kpn.core.db.couch.Couch
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
@@ -27,7 +26,7 @@ class NetworkFactsPageBuilderImpl(
   }
 
   private def buildPage(networkId: Long): Option[NetworkFactsPage] = {
-    networkRepository.network(networkId, Couch.uiTimeout).map(buildPageContents)
+    networkRepository.network(networkId).map(buildPageContents)
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkFactsPage = {

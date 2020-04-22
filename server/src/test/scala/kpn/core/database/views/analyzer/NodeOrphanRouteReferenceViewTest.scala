@@ -4,14 +4,11 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class NodeOrphanRouteReferenceViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
-
-  private val timeout = Couch.uiTimeout
 
   test("node references in orphan route") {
 
@@ -24,28 +21,30 @@ class NodeOrphanRouteReferenceViewTest extends AnyFunSuite with Matchers with Sh
           networkType = NetworkType.hiking,
           name = "01-02",
           analysis = newRouteInfoAnalysis(
-            startNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1001,
-                name = "01"
-              )
-            ),
-            endNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1002,
-                name = "02"
-              )
-            ),
-            startTentacleNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1003,
-                name = "01"
-              )
-            ),
-            endTentacleNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1004,
-                name = "02"
+            map = newRouteMap(
+              startNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                )
+              ),
+              endNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1002,
+                  name = "02"
+                )
+              ),
+              startTentacleNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1003,
+                  name = "01"
+                )
+              ),
+              endTentacleNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1004,
+                  name = "02"
+                )
               )
             )
           )
@@ -80,10 +79,12 @@ class NodeOrphanRouteReferenceViewTest extends AnyFunSuite with Matchers with Sh
         newRoute( // not an orphan route
           id = 10,
           analysis = newRouteInfoAnalysis(
-            startNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1001,
-                name = "01"
+            map = newRouteMap(
+              startNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                )
               )
             )
           )
@@ -104,10 +105,12 @@ class NodeOrphanRouteReferenceViewTest extends AnyFunSuite with Matchers with Sh
           networkType = NetworkType.hiking,
           name = "01-02",
           analysis = newRouteInfoAnalysis(
-            startNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1001,
-                name = "01"
+            map = newRouteMap(
+              startNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                )
               )
             )
           )

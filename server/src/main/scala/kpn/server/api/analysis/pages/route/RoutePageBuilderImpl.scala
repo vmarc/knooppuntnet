@@ -24,9 +24,9 @@ class RoutePageBuilderImpl(
       Some(RouteDetailsPageExample.page)
     }
     else {
-      routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
+      routeRepository.routeWithId(routeId).map { route =>
         val changeCount = changeSetRepository.routeChangesCount(route.id)
-        val routeReferences = routeRepository.routeReferences(routeId, Couch.uiTimeout)
+        val routeReferences = routeRepository.routeReferences(routeId)
         RouteDetailsPage(route, routeReferences, changeCount)
       }
     }
@@ -37,7 +37,7 @@ class RoutePageBuilderImpl(
       Some(RouteMapPageExample.page)
     }
     else {
-      routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
+      routeRepository.routeWithId(routeId).map { route =>
         val changeCount = changeSetRepository.routeChangesCount(route.id)
         RouteMapPage(route, changeCount)
       }
@@ -49,7 +49,7 @@ class RoutePageBuilderImpl(
       Some(RouteChangesPageExample.page)
     }
     else {
-      routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
+      routeRepository.routeWithId(routeId).map { route =>
         val changeCount = changeSetRepository.routeChangesCount(route.id)
         val changesFilter = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
         val totalCount = changesFilter.currentItemCount(parameters.impact)

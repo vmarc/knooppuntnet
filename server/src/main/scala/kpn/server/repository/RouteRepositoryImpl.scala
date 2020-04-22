@@ -1,6 +1,5 @@
 package kpn.server.repository
 
-import akka.util.Timeout
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
 import kpn.core.database.Database
@@ -8,7 +7,6 @@ import kpn.core.database.doc.RouteDoc
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
-import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import org.springframework.stereotype.Component
@@ -190,16 +188,16 @@ class RouteRepositoryImpl(
     analysisDatabase.deleteDocsWithIds(routeDocIds)
   }
 
-  override def routeWithId(routeId: Long, timeout: Timeout = Couch.defaultTimeout): Option[RouteInfo] = {
+  override def routeWithId(routeId: Long): Option[RouteInfo] = {
     analysisDatabase.docWithId(docId(routeId), classOf[RouteDoc]).map(_.route)
   }
 
-  override def routesWithIds(routeIds: Seq[Long], timeout: Timeout): Seq[RouteInfo] = {
+  override def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo] = {
     val ids = routeIds.map(id => docId(id))
     analysisDatabase.docsWithIds(ids, classOf[RouteDocViewResult], stale = false).rows.flatMap(_.doc.map(_.route))
   }
 
-  override def routeReferences(routeId: Long, timeout: Timeout, stale: Boolean): RouteReferences = {
+  override def routeReferences(routeId: Long, stale: Boolean): RouteReferences = {
     val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale)
     val networkReferences = rows.filter(_.referrerType == "network").map(_.toReference).sorted
     RouteReferences(networkReferences)

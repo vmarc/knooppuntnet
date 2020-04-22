@@ -27,11 +27,13 @@ class ReferenceViewTest extends AnyFunSuite with Matchers with SharedTestObjects
           id = 10,
           name = "route-name",
           analysis = newRouteInfoAnalysis(
-            startNodes = Seq(
-              RouteNetworkNodeInfo(1001, "01")
-            ),
-            endNodes = Seq(
-              RouteNetworkNodeInfo(1002, "02")
+            map = newRouteMap(
+              startNodes = Seq(
+                RouteNetworkNodeInfo(1001, "01")
+              ),
+              endNodes = Seq(
+                RouteNetworkNodeInfo(1002, "02")
+              )
             )
           )
         )

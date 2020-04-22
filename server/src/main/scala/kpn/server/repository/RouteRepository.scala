@@ -1,9 +1,7 @@
 package kpn.server.repository
 
-import akka.util.Timeout
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
-import kpn.core.db.couch.Couch
 
 trait RouteRepository {
 
@@ -11,11 +9,11 @@ trait RouteRepository {
 
   def delete(routeIds: Seq[Long]): Unit
 
-  def routeWithId(routeId: Long, timeout: Timeout = Couch.defaultTimeout): Option[RouteInfo]
+  def routeWithId(routeId: Long): Option[RouteInfo]
 
-  def routesWithIds(routeIds: Seq[Long], timeout: Timeout): Seq[RouteInfo]
+  def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
 
-  def routeReferences(routeId: Long, timeout: Timeout, stale: Boolean = true): RouteReferences
+  def routeReferences(routeId: Long, stale: Boolean = true): RouteReferences
 
   def filterKnown(routeIds: Set[Long]): Set[Long]
 }

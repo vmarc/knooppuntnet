@@ -2,7 +2,6 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkNodesPage
-import kpn.core.db.couch.Couch
 import kpn.core.util.NaturalSorting
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.ChangeSetRepository
@@ -26,7 +25,7 @@ class NetworkNodesPageBuilderImpl(
   }
 
   private def buildPage(networkId: Long): Option[NetworkNodesPage] = {
-    networkRepository.network(networkId, Couch.uiTimeout).map(buildPageContents)
+    networkRepository.network(networkId).map(buildPageContents)
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkNodesPage = {

@@ -19,9 +19,9 @@ class RouteRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjec
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
 
-      routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10)))
-      routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20)))
-      routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
+      routeRepository.routeWithId(10) should equal(Some(newRoute(10)))
+      routeRepository.routeWithId(20) should equal(Some(newRoute(20)))
+      routeRepository.routeWithId(30) should equal(None)
     }
   }
 
@@ -30,7 +30,7 @@ class RouteRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjec
       val routeRepository = newRouteRepository(database)
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
-      routeRepository.routesWithIds(Seq(10, 20, 30), Couch.uiTimeout) should equal(Seq(newRoute(10), newRoute(20)))
+      routeRepository.routesWithIds(Seq(10, 20, 30)) should equal(Seq(newRoute(10), newRoute(20)))
     }
   }
 
@@ -54,7 +54,7 @@ class RouteRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjec
       )
 
       val routeRepository = newRouteRepository(database)
-      routeRepository.routeReferences(10, Couch.uiTimeout, stale = false) should equal(
+      routeRepository.routeReferences(10, stale = false) should equal(
         RouteReferences(
           Seq(Reference(1, "network-name", NetworkType.hiking))
         )
@@ -71,32 +71,32 @@ class RouteRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjec
       routeRepository.save(newRoute(10, name = "01-02"))
       routeRepository.save(newRoute(20, name = "02-03"))
 
-      routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02")))
-      routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-03")))
-      routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
+      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02")))
+      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-03")))
+      routeRepository.routeWithId(30) should equal(None)
 
       // save again without change
       routeRepository.save(newRoute(10, name = "01-02"))
       routeRepository.save(newRoute(20, name = "02-03"))
 
-      routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02")))
-      routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-03")))
-      routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
+      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02")))
+      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-03")))
+      routeRepository.routeWithId(30) should equal(None)
 
       // update
       routeRepository.save(newRoute(10, name = "01-02"))
       routeRepository.save(newRoute(20, name = "02-04"))
 
-      routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02")))
-      routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-04"))) // updated
-      routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
+      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02")))
+      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-04"))) // updated
+      routeRepository.routeWithId(30) should equal(None)
 
       // update
       routeRepository.save(newRoute(20, name = "02-05"))
 
-      routeRepository.routeWithId(10, Couch.uiTimeout) should equal(Some(newRoute(10, name = "01-02"))) // not deleted
-      routeRepository.routeWithId(20, Couch.uiTimeout) should equal(Some(newRoute(20, name = "02-05"))) // updated
-      routeRepository.routeWithId(30, Couch.uiTimeout) should equal(None)
+      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02"))) // not deleted
+      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-05"))) // updated
+      routeRepository.routeWithId(30) should equal(None)
     }
   }
 

@@ -4,7 +4,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.db.couch.Couch
 import kpn.core.gpx.GpxFile
 import kpn.core.test.TestSupport.withDatabase
 import org.scalatest.funsuite.AnyFunSuite
@@ -15,7 +14,7 @@ class NetworkRepositoryTest extends AnyFunSuite with Matchers with SharedTestObj
   test("network - get network by id") {
     withDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
-      repository.network(1, Couch.uiTimeout) should equal(None)
+      repository.network(1) should equal(None)
 
       val testNetwork = newNetworkInfo(
         newNetworkAttributes(
@@ -26,7 +25,7 @@ class NetworkRepositoryTest extends AnyFunSuite with Matchers with SharedTestObj
         )
       )
       repository.save(testNetwork)
-      repository.network(1, Couch.uiTimeout) should equal(Some(testNetwork))
+      repository.network(1) should equal(Some(testNetwork))
     }
   }
 
@@ -42,11 +41,11 @@ class NetworkRepositoryTest extends AnyFunSuite with Matchers with SharedTestObj
   test("gpx - get gpx file by network id") {
     withDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
-      repository.gpx(1, Couch.uiTimeout) should equal(None)
+      repository.gpx(1) should equal(None)
 
       val gpxFile = GpxFile(1, "filename", Seq(), Seq())
       repository.saveGpxFile(gpxFile)
-      repository.gpx(1, Couch.uiTimeout) should equal(Some(gpxFile))
+      repository.gpx(1) should equal(Some(gpxFile))
     }
   }
 
@@ -71,14 +70,14 @@ class NetworkRepositoryTest extends AnyFunSuite with Matchers with SharedTestObj
       repository.save(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), NetworkType.hiking, "be-rwn-1")))
       repository.save(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), NetworkType.cycling, "nl-rcn-1")))
 
-      repository.networks(Subset.nlBicycle, Couch.uiTimeout, stale = false) should equal(
+      repository.networks(Subset.nlBicycle, stale = false) should equal(
         Seq(
           newNetworkAttributes(4, Some(Country.nl), NetworkType.cycling, "nl-rcn-1"),
           newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, "nl-rcn-2")
         )
       )
 
-      repository.networks(Subset.beHiking, Couch.uiTimeout, stale = false) should equal(
+      repository.networks(Subset.beHiking, stale = false) should equal(
         Seq(
           newNetworkAttributes(3, Some(Country.be), NetworkType.hiking, "be-rwn-1"),
           newNetworkAttributes(2, Some(Country.be), NetworkType.hiking, "be-rwn-2")

@@ -21,8 +21,8 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
     routeName: summary.name
   };
 
-  emitRouteReferences(summary.networkType, routeReference, analysis.startNodes);
-  emitRouteReferences(summary.networkType, routeReference, analysis.startTentacleNodes);
-  emitRouteReferences(summary.networkType, routeReference, analysis.endNodes);
-  emitRouteReferences(summary.networkType, routeReference, analysis.endTentacleNodes);
+  emitRouteReferences(summary.networkType, routeReference, analysis.map.startNodes);
+  emitRouteReferences(summary.networkType, routeReference, analysis.map.startTentacleNodes);
+  emitRouteReferences(summary.networkType, routeReference, analysis.map.endNodes);
+  emitRouteReferences(summary.networkType, routeReference, analysis.map.endTentacleNodes);
 }

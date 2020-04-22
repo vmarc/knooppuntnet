@@ -21,10 +21,10 @@ class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
       nodeRepository.save(newNodeInfo(102))
       nodeRepository.save(newNodeInfo(103))
 
-      nodeRepository.nodeWithId(101, Couch.uiTimeout) should equal(Some(newNodeInfo(101)))
-      nodeRepository.nodeWithId(102, Couch.uiTimeout) should equal(Some(newNodeInfo(102)))
-      nodeRepository.nodeWithId(103, Couch.uiTimeout) should equal(Some(newNodeInfo(103)))
-      nodeRepository.nodeWithId(104, Couch.uiTimeout) should equal(None)
+      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101)))
+      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102)))
+      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103)))
+      nodeRepository.nodeWithId(104) should equal(None)
     }
   }
 
@@ -37,7 +37,7 @@ class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(102))
 
-      nodeRepository.nodesWithIds(Seq(101, 102, 103), Couch.uiTimeout, stale = false) should equal(Seq(newNodeInfo(101), newNodeInfo(102)))
+      nodeRepository.nodesWithIds(Seq(101, 102, 103), stale = false) should equal(Seq(newNodeInfo(101), newNodeInfo(102)))
     }
   }
 
@@ -53,10 +53,10 @@ class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
         newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))
       ) should equal(true)
 
-      nodeRepository.nodeWithId(101, Couch.uiTimeout) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
-      nodeRepository.nodeWithId(102, Couch.uiTimeout) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
-      nodeRepository.nodeWithId(103, Couch.uiTimeout) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))))
-      nodeRepository.nodeWithId(104, Couch.uiTimeout) should equal(None)
+      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
+      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
+      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))))
+      nodeRepository.nodeWithId(104) should equal(None)
 
       nodeRepository.save(
         newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")),
@@ -64,10 +64,10 @@ class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
         newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))
       ) should equal(false)
 
-      nodeRepository.nodeWithId(101, Couch.uiTimeout) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
-      nodeRepository.nodeWithId(102, Couch.uiTimeout) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
-      nodeRepository.nodeWithId(103, Couch.uiTimeout) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))))
-      nodeRepository.nodeWithId(104, Couch.uiTimeout) should equal(None)
+      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
+      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
+      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))))
+      nodeRepository.nodeWithId(104) should equal(None)
 
       nodeRepository.save(
         newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")),
@@ -75,10 +75,10 @@ class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
         newNodeInfo(103, tags = Tags.from("rwn_ref" -> "33"))
       ) should equal(true)
 
-      nodeRepository.nodeWithId(101, Couch.uiTimeout) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
-      nodeRepository.nodeWithId(102, Couch.uiTimeout) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
-      nodeRepository.nodeWithId(103, Couch.uiTimeout) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "33")))) // updated
-      nodeRepository.nodeWithId(104, Couch.uiTimeout) should equal(None)
+      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
+      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
+      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "33")))) // updated
+      nodeRepository.nodeWithId(104) should equal(None)
     }
   }
 
@@ -92,7 +92,7 @@ class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(101))
 
-      nodeRepository.nodeWithId(101, Couch.uiTimeout) should equal(Some(newNodeInfo(101)))
+      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101)))
     }
   }
 
@@ -132,7 +132,7 @@ class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
       )
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.nodeNetworkReferences(1001, Couch.uiTimeout, stale = false) should equal(
+      nodeRepository.nodeNetworkReferences(1001, stale = false) should equal(
         Seq(
           NodeNetworkReference(
             NetworkType.hiking,

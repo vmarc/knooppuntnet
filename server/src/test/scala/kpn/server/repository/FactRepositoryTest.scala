@@ -83,7 +83,7 @@ class FactRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
       )
 
       val repository: FactRepository = new FactRepositoryImpl(database)
-      repository.factsPerNetwork(Subset.beHiking, RouteUnusedSegments, Couch.uiTimeout, stale = false) should equal(
+      repository.factsPerNetwork(Subset.beHiking, RouteUnusedSegments, stale = false) should equal(
         Seq(
           NetworkFactRefs(
             1,
@@ -149,7 +149,7 @@ class FactRepositoryTest extends AnyFunSuite with Matchers with SharedTestObject
       )
 
       val repository: FactRepository = new FactRepositoryImpl(database)
-      repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed, Couch.uiTimeout, stale = false) should equal(
+      repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed, stale = false) should equal(
         Seq(
           NetworkFactRefs(
             1,

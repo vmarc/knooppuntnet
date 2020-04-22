@@ -1,8 +1,10 @@
 import {Component, Input} from "@angular/core";
 import {ChangeSetNetwork} from "../../../../kpn/api/common/change-set-network";
+import {ChangeKey} from "../../../../kpn/api/common/changes/details/change-key";
 
 export class ChangeSetNetworkAction {
-  constructor(readonly action: string,
+  constructor(readonly changeKey: ChangeKey,
+              readonly action: string,
               readonly network: ChangeSetNetwork) {
   }
 }
@@ -14,7 +16,9 @@ export class ChangeSetNetworkAction {
       <span>{{domain()}}</span>
       <kpn-network-type-icon [networkType]="changeSetNetworkAction.network.networkType"></kpn-network-type-icon>
       <span>{{changeSetNetworkAction.action}}</span>
-      <a>{{changeSetNetworkAction.network.networkName}}</a>
+      <a [routerLink]="link()" [fragment]="changeSetNetworkAction.network.networkId.toString()">
+        {{changeSetNetworkAction.network.networkName}}
+      </a>
     </div>
     <kpn-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()"></kpn-change-set-element-refs>
     <kpn-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()"></kpn-change-set-element-refs>
@@ -37,6 +41,12 @@ export class ChangesSetNetworkComponent {
 
   routeChanges() {
     return this.changeSetNetworkAction.network.routeChanges;
+  }
+
+  link(): string {
+    const changeSetId = this.changeSetNetworkAction.changeKey.changeSetId;
+    const replicationNumber = this.changeSetNetworkAction.changeKey.replicationNumber;
+    return `/analysis/changeset/${changeSetId}/${replicationNumber}`;
   }
 
 }

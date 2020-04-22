@@ -9,7 +9,6 @@ import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.node.NodeReferences
 import kpn.api.custom.Timestamp
-import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
@@ -28,7 +27,7 @@ class NodePageBuilderImpl(
       Some(NodePageExample.nodeDetailsPage)
     }
     else {
-      nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
+      nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
         buildNodeDetailsPage(user, nodeInfo)
       }
     }
@@ -39,7 +38,7 @@ class NodePageBuilderImpl(
       Some(NodePageExample.nodeMapPage)
     }
     else {
-      nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
+      nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
         buildNodeMapPage(user, nodeInfo)
       }
     }
@@ -50,7 +49,7 @@ class NodePageBuilderImpl(
       Some(NodePageExample.nodeChangesPage)
     }
     else {
-      nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
+      nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
         buildNodeChangesPage(user, nodeInfo, parameters)
       }
     }
@@ -96,8 +95,8 @@ class NodePageBuilderImpl(
   }
 
   private def buildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {
-    val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id, Couch.uiTimeout)
-    val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id, Couch.uiTimeout)
+    val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id)
+    val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id)
     NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
   }
 

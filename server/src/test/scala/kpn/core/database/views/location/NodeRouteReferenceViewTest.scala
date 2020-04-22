@@ -20,28 +20,30 @@ class NodeRouteReferenceViewTest extends AnyFunSuite with Matchers with SharedTe
           networkType = NetworkType.hiking,
           name = "01-02",
           analysis = newRouteInfoAnalysis(
-            startNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1001,
-                name = "01"
-              )
-            ),
-            endNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1002,
-                name = "02"
-              )
-            ),
-            startTentacleNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1003,
-                name = "01"
-              )
-            ),
-            endTentacleNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1004,
-                name = "02"
+            map = newRouteMap(
+              startNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                )
+              ),
+              endNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1002,
+                  name = "02"
+                )
+              ),
+              startTentacleNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1003,
+                  name = "01"
+                )
+              ),
+              endTentacleNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1004,
+                  name = "02"
+                )
               )
             )
           )
@@ -75,10 +77,12 @@ class NodeRouteReferenceViewTest extends AnyFunSuite with Matchers with SharedTe
           networkType = NetworkType.hiking,
           name = "01-02",
           analysis = newRouteInfoAnalysis(
-            startNodes = Seq(
-              newRouteNetworkNodeInfo(
-                id = 1001,
-                name = "01"
+            map = newRouteMap(
+              startNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                )
               )
             )
           )

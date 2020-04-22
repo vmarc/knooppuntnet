@@ -1,21 +1,15 @@
 package kpn.core.db.couch
 
 import java.io.File
+import java.io.FileReader
+import java.util.Properties
 
-import akka.util.Timeout
-import com.typesafe.config.ConfigFactory
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContext
 import kpn.server.json.Json
 
-import scala.concurrent.duration.DurationInt
-
 object Couch {
-
-  val uiTimeout: Timeout = Timeout(10.seconds)
-  val defaultTimeout: Timeout = Timeout(60.seconds)
-  val batchTimeout: Timeout = Timeout(5.minutes)
 
   def executeIn(databaseName: String)(action: Database => Unit): Unit = {
     executeIn("localhost", databaseName: String)(action: Database => Unit)
@@ -47,12 +41,15 @@ object Couch {
       }
     }
     try {
-      val config = ConfigFactory.parseFile(properties)
+
+      val config = new Properties()
+      config.load(new FileReader(properties))
+
       CouchConfig(
-        config.getString("couchdb.host"),
-        config.getInt("couchdb.port"),
-        config.getString("couchdb.user"),
-        config.getString("couchdb.password")
+        config.getProperty("couchdb.host"),
+        config.getProperty("couchdb.port").toInt,
+        config.getProperty("couchdb.user"),
+        config.getProperty("couchdb.password")
       )
     }
     catch {

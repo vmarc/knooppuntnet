@@ -5,10 +5,6 @@ import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.RouteMemberInfo
 
 case class RouteInfoAnalysis(
-  startNodes: Seq[RouteNetworkNodeInfo],
-  endNodes: Seq[RouteNetworkNodeInfo],
-  startTentacleNodes: Seq[RouteNetworkNodeInfo],
-  endTentacleNodes: Seq[RouteNetworkNodeInfo],
   unexpectedNodeIds: Seq[Long],
   members: Seq[RouteMemberInfo],
   expectedName: String,
@@ -19,10 +15,6 @@ case class RouteInfoAnalysis(
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("startNodes", startNodes).
-    field("endNodes", endNodes).
-    field("startTentacleNodes", startTentacleNodes).
-    field("endTentacleNodes", endTentacleNodes).
     field("unexpectedNodeIds", unexpectedNodeIds).
     field("members", members).
     field("expectedName", expectedName).

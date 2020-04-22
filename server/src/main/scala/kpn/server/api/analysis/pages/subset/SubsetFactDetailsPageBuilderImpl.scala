@@ -15,9 +15,9 @@ class SubsetFactDetailsPageBuilderImpl(
 ) extends SubsetFactDetailsPageBuilder {
 
   def build(subset: Subset, fact: Fact): SubsetFactDetailsPage = {
-    val figures = overviewRepository.figures(Couch.uiTimeout)
+    val figures = overviewRepository.figures()
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val networks = factRepository.factsPerNetwork(subset, fact, Couch.uiTimeout)
+    val networks = factRepository.factsPerNetwork(subset, fact)
 
     val postProcessedNetworks = networks.map { networkFactRefs =>
       if (networkFactRefs.networkName == "NodesInOrphanRoutes" || networkFactRefs.networkName == "OrphanNodes") {

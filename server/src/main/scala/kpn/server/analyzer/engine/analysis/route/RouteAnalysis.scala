@@ -16,7 +16,7 @@ case class RouteAnalysis(
   relation: Relation,
   route: RouteInfo,
   structure: RouteStructure = RouteStructure(),
-  routeNodes: RouteNodeAnalysis = RouteNodeAnalysis(),
+  routeNodeAnalysis: RouteNodeAnalysis = RouteNodeAnalysis(),
   routeMembers: Seq[RouteMember] = Seq.empty,
   ways: Seq[Way] = Seq.empty,
   startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
@@ -37,7 +37,7 @@ case class RouteAnalysis(
   def toRef: Ref = Ref(id, name)
 
   def containsNode(nodeId: Long): Boolean = {
-    routeNodes.routeNodes.exists(_.id == nodeId)
+    routeNodeAnalysis.routeNodes.exists(_.id == nodeId)
   }
 
   def toRouteData: RouteData = {
@@ -46,7 +46,7 @@ case class RouteAnalysis(
       route.summary.networkType,
       relation.raw,
       route.summary.name,
-      routeNodes.routeNodes.map(_.node.raw),
+      routeNodeAnalysis.routeNodes.map(_.node.raw),
       allWayNodes.map(_.raw),
       ways.map(_.raw),
       Seq[RawRelation](), // TODO CHANGE add unexpected relations

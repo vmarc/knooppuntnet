@@ -39,10 +39,10 @@ export class Stat {
 
     if (countryStatistic !== null) {
       if (subset.networkType === NetworkType.cycling) {
-        return countryStatistic.rwn;
+        return countryStatistic.rcn;
       }
       if (subset.networkType === NetworkType.hiking) {
-        return countryStatistic.rcn;
+        return countryStatistic.rwn;
       }
       if (subset.networkType === NetworkType.horseRiding) {
         return countryStatistic.rhn;

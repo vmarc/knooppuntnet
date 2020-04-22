@@ -1,5 +1,15 @@
 package kpn.core.db
 
+import kpn.api.common.NetworkFacts
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.network.Integrity
+import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkInfo
+import kpn.api.common.network.NetworkInfoDetail
+import kpn.api.common.network.NetworkInfoNode
+import kpn.api.common.network.NetworkInfoRoute
+import kpn.api.common.network.NetworkShape
+import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
@@ -11,17 +21,6 @@ import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
-import kpn.server.repository.RouteRepositoryImpl
-import kpn.api.common.NetworkFacts
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.network.Integrity
-import kpn.api.common.network.NetworkAttributes
-import kpn.api.common.network.NetworkInfo
-import kpn.api.common.network.NetworkInfoDetail
-import kpn.api.common.network.NetworkInfoNode
-import kpn.api.common.network.NetworkInfoRoute
-import kpn.api.common.network.NetworkShape
-import kpn.api.common.route.RouteNetworkNodeInfo
 
 class TestDocBuilder(database: Database) extends SharedTestObjects {
 
@@ -160,8 +159,10 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     val endNode = RouteNetworkNodeInfo(endNodeId, endNodeName, endNodeName)
 
     val routeAnalysis = newRouteInfoAnalysis(
-      startNodes = Seq(startNode),
-      endNodes = Seq(endNode)
+      map = newRouteMap(
+        startNodes = Seq(startNode),
+        endNodes = Seq(endNode)
+      )
     )
 
     routeRepository.save(

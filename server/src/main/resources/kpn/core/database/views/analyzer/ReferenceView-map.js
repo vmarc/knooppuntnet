@@ -16,17 +16,17 @@ var emitRef = function (elementType, elementId, referrerType, referrerId, networ
 if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   var s = doc.route.summary;
   var a = doc.route.analysis;
-  for (var i = 0; i < a.startNodes.length; i++) {
-    emitRef("node", a.startNodes[i].id, "route", s.id, s.networkType, s.name, "false");
+  for (var i = 0; i < a.map.startNodes.length; i++) {
+    emitRef("node", a.map.startNodes[i].id, "route", s.id, s.networkType, s.name, "false");
   }
-  for (var i = 0; i < a.endNodes.length; i++) {
-    emitRef("node", a.endNodes[i].id, "route", s.id, s.networkType, s.name, "false");
+  for (var i = 0; i < a.map.endNodes.length; i++) {
+    emitRef("node", a.map.endNodes[i].id, "route", s.id, s.networkType, s.name, "false");
   }
-  for (var i = 0; i < a.startTentacleNodes.length; i++) {
-    emitRef("node", a.startTentacleNodes[i].id, "route", s.id, s.networkType, s.name, "false");
+  for (var i = 0; i < a.map.startTentacleNodes.length; i++) {
+    emitRef("node", a.map.startTentacleNodes[i].id, "route", s.id, s.networkType, s.name, "false");
   }
-  for (var i = 0; i < a.endTentacleNodes.length; i++) {
-    emitRef("node", a.endTentacleNodes[i].id, "route", s.id, s.networkType, s.name, "false");
+  for (var i = 0; i < a.map.endTentacleNodes.length; i++) {
+    emitRef("node", a.map.endTentacleNodes[i].id, "route", s.id, s.networkType, s.name, "false");
   }
 }
 else if (doc && doc.network && doc.network.active === true) {

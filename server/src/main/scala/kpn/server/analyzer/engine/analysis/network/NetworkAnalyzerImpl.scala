@@ -109,8 +109,8 @@ class NetworkAnalyzerImpl(
 
     val networkNodesInRelation = nodeMembers.map(member => allNodes(member.node.id)).toSet
 
-    val networkNodesInRouteWays = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodes.routeNodes).filter(_.definedInWay).map(toNetworkNode).toSet
-    val networkNodesInRouteRelations = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodes.routeNodes).filter(_.definedInRelation).map(toNetworkNode).toSet
+    val networkNodesInRouteWays = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodeAnalysis.routeNodes).filter(_.definedInWay).map(toNetworkNode).toSet
+    val networkNodesInRouteRelations = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodeAnalysis.routeNodes).filter(_.definedInRelation).map(toNetworkNode).toSet
 
     val allNodesInNetwork: Set[NetworkNode] = networkNodesInRelation ++ networkNodesInRouteWays ++ networkNodesInRouteRelations
 
@@ -133,7 +133,7 @@ class NetworkAnalyzerImpl(
       val unsorted: Seq[NetworkNodeInfo] = analysis.allNodesInNetwork.map { networkNode =>
         val definedInRelation = analysis.networkNodesInRelation.contains(networkNode)
         val definedInRoute = analysis.networkNodesInRouteRelations.contains(networkNode)
-        val referencedInRouteMembers = analysis.routes.filter(_.routeAnalysis.routeNodes.nodesInWays.map(_.id).contains(networkNode.id))
+        val referencedInRouteMembers = analysis.routes.filter(_.routeAnalysis.routeNodeAnalysis.nodesInWays.map(_.id).contains(networkNode.id))
         val referencedInRoutes = referencedInRouteMembers.map(_.routeAnalysis.route)
         val roleConnection = nodeMembers.find(_.node.id == networkNode.id) match {
           case Some(member) => member.role.contains("connection")

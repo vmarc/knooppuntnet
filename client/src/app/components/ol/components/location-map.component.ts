@@ -46,11 +46,13 @@ export class LocationMapComponent {
 
   ngOnInit(): void {
     this.layers = this.buildLayers();
-    this.subscriptions.add(this.pageService.sidebarOpen.subscribe(state => {
-      if (this.map) {
-        setTimeout(() => this.map.updateSize(), 250);
-      }
-    }));
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
   }
 
   ngAfterViewInit(): void {

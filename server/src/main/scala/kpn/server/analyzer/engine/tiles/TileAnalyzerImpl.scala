@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.tiles
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.OrphanRepository
@@ -21,10 +20,10 @@ class TileAnalyzerImpl(
 
     val subsets = Subset.all.filter(_.networkType == networkType)
     val details = subsets.flatMap { subset =>
-      networkRepository.networks(subset, Couch.defaultTimeout, stale = false).flatMap { networkAttributes =>
+      networkRepository.networks(subset, stale = false).flatMap { networkAttributes =>
         //noinspection SideEffectsInMonadicTransformation
         log.info(s"network ${networkAttributes.name}")
-        networkRepository.network(networkAttributes.id, Couch.defaultTimeout).flatMap { network =>
+        networkRepository.network(networkAttributes.id).flatMap { network =>
           network.detail
         }
       }
@@ -61,7 +60,7 @@ class TileAnalyzerImpl(
         log.info(s"Load route ${index + 1}/${routeIds.size} $progress%")
         progress = currentProgress
       }
-      routeRepo.routeWithId(routeId, Couch.defaultTimeout)
+      routeRepo.routeWithId(routeId)
     }
   }
 

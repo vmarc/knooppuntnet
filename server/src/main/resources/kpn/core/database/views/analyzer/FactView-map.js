@@ -81,17 +81,17 @@ if (doc) {
       var a = doc.route.analysis;
       if (a) {
         var allNodes = [];
-        if (a.startNodes) {
-          allNodes = allNodes.concat(a.startNodes);
+        if (a.map.startNodes) {
+          allNodes = allNodes.concat(a.map.startNodes);
         }
-        if (a.endNodes) {
-          allNodes = allNodes.concat(a.endNodes);
+        if (a.map.endNodes) {
+          allNodes = allNodes.concat(a.map.endNodes);
         }
-        if (a.startTentacleNodes) {
-          allNodes = allNodes.concat(a.startTentacleNodes);
+        if (a.map.startTentacleNodes) {
+          allNodes = allNodes.concat(a.map.startTentacleNodes);
         }
-        if (a.endTentacleNodes) {
-          allNodes = allNodes.concat(a.endTentacleNodes);
+        if (a.map.endTentacleNodes) {
+          allNodes = allNodes.concat(a.map.endTentacleNodes);
         }
 
         for (var i = 0; i < allNodes.length; i++) {

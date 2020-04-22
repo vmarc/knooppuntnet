@@ -4,15 +4,16 @@ import javax.annotation.PostConstruct
 import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
-import kpn.core.database.views.metrics.BackendMetricsView
-import kpn.core.database.views.metrics.FrontendMetricsView
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.database.views.location.LocationView
+import kpn.core.database.views.metrics.BackendMetricsView
+import kpn.core.database.views.metrics.FrontendMetricsView
 import kpn.core.database.views.planner.GraphEdgesView
 import kpn.core.database.views.poi.PoiView
 import kpn.core.database.views.tile.TileView
 import kpn.core.util.Log
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpServerErrorException
 
@@ -33,31 +34,40 @@ class DatabaseIndexer(
   private val log = Log(classOf[DatabaseIndexer])
 
   @PostConstruct
-  def firstIndex(): Unit = {
-    index()
+  def firstIndexing(): Unit = {
+    index(verbose = true)
   }
 
-  def index(): Unit = {
+  @Scheduled(initialDelay = 60000, fixedDelay = 60000)
+  def repeatIndexing(): Unit = {
+    log.info("start")
+    val start = System.currentTimeMillis()
+    index(verbose = false)
+    val end = System.currentTimeMillis()
+    log.info(s"done (${end - start}ms)")
+  }
 
-    indexDatabase("analysis-database/analyzer-design", analysisAnalyzerQuery)
-    indexDatabase("analysis-database/location-design", analysisLocationQuery)
-    indexDatabase("analysis-database/planner-design", analysisPlannerQuery)
-    indexDatabase("analysis-database/tile-design", analysisTileQuery)
+  def index(verbose: Boolean): Unit = {
+
+    indexDatabase(verbose, "analysis-database/analyzer-design", analysisAnalyzerQuery)
+    indexDatabase(verbose, "analysis-database/location-design", analysisLocationQuery)
+    indexDatabase(verbose, "analysis-database/planner-design", analysisPlannerQuery)
+    indexDatabase(verbose, "analysis-database/tile-design", analysisTileQuery)
 
     if (changeDatabase != null) {
-      indexDatabase("changes-database", changeDatabaseQuery)
+      indexDatabase(verbose, "changes-database", changeDatabaseQuery)
     }
 
     if (poiDatabase != null) {
-      indexDatabase("poi-database", poiDatabaseQuery)
+      indexDatabase(verbose, "poi-database", poiDatabaseQuery)
     }
 
     if (backendActionsDatabase != null) {
-      indexDatabase("backend-actions-database", backendActionsDatabaseQuery)
+      indexDatabase(verbose, "backend-actions-database", backendActionsDatabaseQuery)
     }
 
     if (frontendActionsDatabase != null) {
-      indexDatabase("frontend-actions-database", frontendActionsDatabaseQuery)
+      indexDatabase(verbose, "frontend-actions-database", frontendActionsDatabaseQuery)
     }
   }
 
@@ -95,9 +105,11 @@ class DatabaseIndexer(
     FrontendMetricsView.query(frontendActionsDatabase, parameters, "action", average = false, stale = false)
   }
 
-  private def indexDatabase(databaseName: String, databaseQuery: () => Unit): Unit = {
+  private def indexDatabase(verbose: Boolean, databaseName: String, databaseQuery: () => Unit): Unit = {
 
-    log.info(s"$databaseName - Start waiting for indexing to finish")
+    if (verbose) {
+      log.info(s"$databaseName - Start waiting for indexing to finish")
+    }
 
     val start = System.currentTimeMillis()
     val timeoutMinutes = 120
@@ -109,7 +121,9 @@ class DatabaseIndexer(
       try {
         databaseQuery()
         val end = System.currentTimeMillis()
-        log.info(s"$databaseName database - indexing completed in ${end - start}ms")
+        if (verbose) {
+          log.info(s"$databaseName database - indexing completed in ${end - start}ms")
+        }
         retry = false
       }
       catch {
@@ -119,10 +133,14 @@ class DatabaseIndexer(
             throw new RuntimeException(s"$databaseName database - Maximum wait time ($timeoutMinutes mins) expired")
           }
           if (e.getResponseBodyAsString.contains(s"$databaseName database - The request could not be processed in a reasonable amount of time")) {
-            log.info(s"$databaseName database - Continue waiting for indexing to finish")
+            if (verbose) {
+              log.info(s"$databaseName database - Continue waiting for indexing to finish")
+            }
           }
           else {
-            log.info(s"$databaseName database - Continue waiting for indexing to finish (Exception) " + e.getMessage)
+            if (verbose) {
+              log.info(s"$databaseName database - Continue waiting for indexing to finish (Exception) " + e.getMessage)
+            }
           }
       }
     }

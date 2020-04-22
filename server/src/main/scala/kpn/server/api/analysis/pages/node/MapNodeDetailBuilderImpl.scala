@@ -17,7 +17,7 @@ class MapNodeDetailBuilderImpl(
 
   def build(user: Option[String], networkType: NetworkType, nodeId: Long): Option[MapNodeDetail] = {
 
-    nodeRepository.nodeWithId(nodeId, Couch.uiTimeout).map { nodeInfo =>
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
 
       val networkReferences = buildNetworkReferences(networkType, nodeInfo.id)
       val routeReferences = buildRouteReferences(networkReferences, networkType, nodeInfo.id)
@@ -35,7 +35,7 @@ class MapNodeDetailBuilderImpl(
   }
 
   private def buildNetworkReferences(networkType: NetworkType, nodeId: Long): Seq[NodeNetworkReference] = {
-    nodeRepository.nodeNetworkReferences(nodeId, Couch.uiTimeout)
+    nodeRepository.nodeNetworkReferences(nodeId)
       .filter(_.networkType == networkType)
       .filter(_.nodeConnection == false)
   }
@@ -47,7 +47,7 @@ class MapNodeDetailBuilderImpl(
   }
 
   private def retrieveOrphanRouteRefs(networkType: NetworkType, nodeId: Long): Seq[Ref] = {
-    nodeRepository.nodeOrphanRouteReferences(nodeId, Couch.uiTimeout)
+    nodeRepository.nodeOrphanRouteReferences(nodeId)
       .filter(_.networkType == networkType)
       .map(toRef)
   }

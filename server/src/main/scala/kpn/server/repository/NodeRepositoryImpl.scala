@@ -1,6 +1,5 @@
 package kpn.server.repository
 
-import akka.util.Timeout
 import kpn.api.common.NodeInfo
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeOrphanRouteReference
@@ -72,21 +71,21 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
     analysisDatabase.deleteDocWithId(docId(nodeId))
   }
 
-  override def nodeWithId(nodeId: Long, timeout: Timeout): Option[NodeInfo] = {
+  override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
     analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
   }
 
-  override def nodesWithIds(nodeIds: Seq[Long], timeout: Timeout, stale: Boolean): Seq[NodeInfo] = {
+  override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeInfo] = {
     val ids = nodeIds.map(id => docId(id))
     val nodeDocViewResult = analysisDatabase.docsWithIds(ids, classOf[NodeDocViewResult], stale)
     nodeDocViewResult.rows.flatMap(r => r.doc.map(_.node))
   }
 
-  override def nodeNetworkReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeNetworkReference] = {
+  override def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[NodeNetworkReference] = {
     NodeNetworkReferenceView.query(analysisDatabase, nodeId, stale)
   }
 
-  override def nodeOrphanRouteReferences(nodeId: Long, timeout: Timeout, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
+  override def nodeOrphanRouteReferences(nodeId: Long, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
     NodeOrphanRouteReferenceView.query(analysisDatabase, nodeId, stale)
   }
 

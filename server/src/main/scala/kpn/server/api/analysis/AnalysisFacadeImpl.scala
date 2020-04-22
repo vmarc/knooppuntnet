@@ -46,7 +46,6 @@ import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.core.app.stats.StatisticsBuilder
 import kpn.core.common.TimestampLocal
-import kpn.core.db.couch.Couch
 import kpn.core.gpx.GpxFile
 import kpn.core.poi.PoiConfiguration
 import kpn.core.util.Log
@@ -202,7 +201,7 @@ class AnalysisFacadeImpl(
 
   override def gpx(user: Option[String], networkId: Long): Option[GpxFile] = {
     api.execute(user, "gpx", s"$networkId") {
-      networkRepository.gpx(networkId, Couch.uiTimeout)
+      networkRepository.gpx(networkId)
     }
   }
 
@@ -251,7 +250,7 @@ class AnalysisFacadeImpl(
   override def overview(user: Option[String]): ApiResponse[Statistics] = {
     api.execute(user, "overview", "") {
       // TODO move into separate StaticsPageBuilder, and return StatisticsPage instead?
-      val figures = overviewRepository.figures(Couch.uiTimeout)
+      val figures = overviewRepository.figures()
       val page = StatisticsBuilder.build(figures)
       reply(Some(page))
     }

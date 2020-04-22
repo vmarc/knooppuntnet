@@ -6,6 +6,7 @@ import java.io.PrintStream
 import kpn.api.common.data.raw.RawNode
 import org.apache.commons.io.FileUtils
 
+import scala.jdk.CollectionConverters._
 import scala.reflect.runtime.universe._
 
 object TypescriptTool {
@@ -42,7 +43,6 @@ class TypescriptTool() {
   }
 
   private def scalaClassNames(): Seq[String] = {
-    import collection.JavaConverters._
     val files = FileUtils.listFiles(new File(root), Array("scala"), true).asScala.toSeq
     files.flatMap { file =>
       if (ignoredClasses.exists(n => file.getName.endsWith(n + ".scala"))) {

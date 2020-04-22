@@ -139,10 +139,10 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
         [markdownEnabled]="true"
         [linkFunction]="orphanNodes">
         Number of network nodes that do not belong to a network.\\
-        The [node](glossary#node) was not added as a member to a valid
-        [network relation](glossary#network-relation)
+        The [node](docs/en.html#glossary-node "node in glossary") was not added as a member to a valid
+        [network relation](docs/en.html#glossary-network-relation "relation in glossary")
         and also not added as a member to a valid
-        [route relation](glossary#route-relation)
+        [route relation](docs/en.html#glossary-route-relation "route relation in glossary")
         (that itself was added as a member to a valid network relation or is an orphan route).
       </kpn-statistic-configuration>
 
@@ -155,7 +155,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
         [linkFunction]="orphanRoutes">
         Number of network routes that do not belong to a network.\\
         The route was not added as a member to a valid
-        [network relation](glossary#network-relation).
+        [network relation](docs/en.html#glossary-network-relation "network relation in glossary").
       </kpn-statistic-configuration>
 
       <kpn-statistic-configuration
@@ -317,7 +317,8 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
         [markdownEnabled]="true"
         [linkFunction]="factDetailCounts">
         Number of network relation members of type _"node"_ that are unexpected (expect only
-        [network nodes](glossary#node) or [information maps](glossary#info-map) as members
+        [network nodes](docs/en.html#glossary-node "node in glossary")
+        or [information maps](docs/en.html#glossary-info-map "information maps in glossary") as members
         in the network relation).
       </kpn-statistic-configuration>
 
@@ -374,7 +375,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
         i18n="@@stats.route-unaccessible.comment"
         [markdownEnabled]="true"
         [linkFunction]="factDetailCounts">
-        Number of [unaccessible](glossary#accessible) routes.
+        Number of [unaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.
       </kpn-statistic-configuration>
 
       <kpn-statistic-configuration
@@ -413,8 +414,8 @@ export class StatisticConfigurationsComponent implements AfterViewInit {
 
   readonly networks = (id: string, subset: Subset) => subset.key() + "/networks";
   readonly orphanNodes = (id: string, subset: Subset) => subset.key() + "/orphan-nodes";
-  readonly orphanRoutes = (id: string, subset: Subset) => subset.key() + "orphan-routes";
-  readonly factDetailCounts = (id: string, subset: Subset) => subset.key() + "/" + id;
+  readonly orphanRoutes = (id: string, subset: Subset) => subset.key() + "/orphan-routes";
+  readonly factDetailCounts = (id: string, subset: Subset) => subset.key() + "/facts/" + id;
 
   constructor(private overviewService: OverviewService,
               private cdr: ChangeDetectorRef) {

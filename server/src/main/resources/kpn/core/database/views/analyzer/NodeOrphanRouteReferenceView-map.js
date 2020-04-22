@@ -24,9 +24,9 @@ if (doc && doc.route && doc.route.active === true) {
       routeName: summary.name
     };
 
-    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.startNodes);
-    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.startTentacleNodes);
-    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.endNodes);
-    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.endTentacleNodes);
+    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.map.startNodes);
+    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.map.startTentacleNodes);
+    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.map.endNodes);
+    emitOrphanRouteReferences(summary.id, orphanRouteReference, analysis.map.endTentacleNodes);
   }
 }

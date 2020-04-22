@@ -27,7 +27,7 @@ class NetworkRoutesPageBuilderImpl(
   }
 
   private def buildPage(networkId: Long): Option[NetworkRoutesPage] = {
-    networkRepository.network(networkId, Couch.uiTimeout).map(buildPageContents)
+    networkRepository.network(networkId).map(buildPageContents)
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkRoutesPage = {

@@ -1,6 +1,5 @@
 package kpn.server.repository
 
-import akka.util.Timeout
 import kpn.api.common.Poi
 import kpn.core.database.Database
 import kpn.core.database.views.poi.PoiNodeIdView
@@ -9,7 +8,6 @@ import kpn.core.database.views.poi.PoiTileView
 import kpn.core.database.views.poi.PoiView
 import kpn.core.database.views.poi.PoiWayIdView
 import kpn.core.db.KeyPrefix
-import kpn.core.db.couch.Couch
 import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
@@ -46,7 +44,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     }
   }
 
-  override def allPois(timeout: Timeout, stale: Boolean = true): Seq[PoiInfo] = {
+  override def allPois(stale: Boolean = true): Seq[PoiInfo] = {
 
     val pageSize = 10000
 
@@ -77,15 +75,15 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     initialPois ++ remainingPois
   }
 
-  override def nodeIds(timeout: Timeout, stale: Boolean = true): Seq[Long] = {
+  override def nodeIds(stale: Boolean = true): Seq[Long] = {
     PoiNodeIdView.query(poiDatabase, stale)
   }
 
-  override def wayIds(timeout: Timeout, stale: Boolean = true): Seq[Long] = {
+  override def wayIds(stale: Boolean = true): Seq[Long] = {
     PoiWayIdView.query(poiDatabase, stale)
   }
 
-  override def relationIds(timeout: Timeout, stale: Boolean = true): Seq[Long] = {
+  override def relationIds(stale: Boolean = true): Seq[Long] = {
     PoiRelationIdView.query(poiDatabase, stale)
   }
 
@@ -99,7 +97,7 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
     poiDatabase.deleteDocWithId(id)
   }
 
-  override def allTiles(timeout: Timeout = Couch.batchTimeout, stale: Boolean): Seq[String] = {
+  override def allTiles(stale: Boolean): Seq[String] = {
     PoiTileView.allTiles(poiDatabase, stale)
   }
 

@@ -11,7 +11,7 @@ class MapRouteDetailBuilderImpl(
   routeRepository: RouteRepository
 ) extends MapRouteDetailBuilder {
   def build(user: Option[String], routeId: Long): Option[MapRouteDetail] = {
-    routeRepository.routeWithId(routeId, Couch.uiTimeout).map { route =>
+    routeRepository.routeWithId(routeId).map { route =>
       val networkReferences = buildNetworkReferences(routeId)
       MapRouteDetail(
         routeId,
@@ -22,7 +22,7 @@ class MapRouteDetailBuilderImpl(
   }
 
   private def buildNetworkReferences(routeId: Long): Seq[Ref] = {
-    routeRepository.routeReferences(routeId, Couch.uiTimeout).networkReferences.map(r => Ref(r.id, r.name))
+    routeRepository.routeReferences(routeId).networkReferences.map(r => Ref(r.id, r.name))
   }
 
 }

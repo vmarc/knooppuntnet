@@ -17,9 +17,9 @@ class SubsetMapPageBuilderImpl(
 
   override def build(subset: Subset): SubsetMapPage = {
 
-    val figures = overviewRepository.figures(Couch.uiTimeout)
+    val figures = overviewRepository.figures()
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val networks = networkRepository.networks(subset, Couch.uiTimeout)
+    val networks = networkRepository.networks(subset)
     val subsetMapNetworks = networks.flatMap { network =>
       network.center.map { center =>
         SubsetMapNetwork(

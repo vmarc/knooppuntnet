@@ -20,7 +20,7 @@ class SubsetChangesPageBuilderImpl(
 
   override def build(user: Option[String], parameters: ChangesParameters): Option[SubsetChangesPage] = {
     parameters.subset.map { subset =>
-      val figures = overviewRepository.figures(Couch.uiTimeout)
+      val figures = overviewRepository.figures()
       val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
       val filter = changeSetRepository.changesFilter(parameters.subset, parameters.year, parameters.month, parameters.day)
       val changeCount = filter.currentItemCount(parameters.impact)

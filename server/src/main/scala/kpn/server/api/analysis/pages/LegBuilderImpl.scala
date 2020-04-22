@@ -32,7 +32,7 @@ class LegBuilderImpl(
 
             val legRoutes: Seq[RouteLegRoute] = path.segments.flatMap { segment =>
               val routeId = segment.pathKey.routeId
-              routeRepository.routeWithId(routeId, Couch.uiTimeout) match {
+              routeRepository.routeWithId(routeId) match {
                 case None =>
                   log.error(s"route $routeId not found")
                   None

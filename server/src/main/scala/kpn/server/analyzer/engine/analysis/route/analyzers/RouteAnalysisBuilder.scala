@@ -37,7 +37,6 @@ class RouteAnalysisBuilder(
 
   def build: RouteAnalysis = {
 
-    // TODO ROUTE move to RouteNameAnalyzer ???
     val title: String = context.routeNameAnalysis.get.name match {
       case Some(routeName) => routeName
       case _ => "no-name"
@@ -58,7 +57,7 @@ class RouteAnalysisBuilder(
       context.loadedRoute.relation,
       route = route,
       structure = context.structure.get,
-      routeNodes = context.routeNodeAnalysis.get, // TODO ROUTE rename in RouteAnalysis
+      routeNodeAnalysis = context.routeNodeAnalysis.get,
       routeMembers = context.routeMembers.get,
       ways = context.ways.get,
       startNodes = context.routeMap.get.startNodes,
@@ -96,7 +95,7 @@ class RouteAnalysisBuilder(
         member.toNode.id,
         member.role.getOrElse(""),
         member.element.timestamp,
-        member.accessible, // TODO ROUTE rename
+        member.accessible,
         member.length,
         member.nodeCount,
         member.description,
@@ -123,11 +122,7 @@ class RouteAnalysisBuilder(
 
     val accessible: Boolean = ways.size == routeMemberWays.count(_.accessible)
 
-    val routeAnalysis = RouteInfoAnalysis( // TODO ROUTE include this information in Route
-      routeMap.startNodes, // TODO ROUTE duplication in routeMap member
-      routeMap.endNodes, // TODO ROUTE duplication in routeMap member
-      routeMap.startTentacleNodes, // TODO ROUTE duplication in routeMap member
-      routeMap.endTentacleNodes, // TODO ROUTE duplication in routeMap member
+    val routeAnalysis = RouteInfoAnalysis(
       unexpectedNodeIds,
       members,
       expectedName,
@@ -144,7 +139,7 @@ class RouteAnalysisBuilder(
 
     val lastUpdated: Timestamp = lastUpdatedElement.timestamp
 
-    val nodeNames = routeAnalysis.startNodes.map(_.name) ++ routeAnalysis.endNodes.map(_.name)
+    val nodeNames = routeAnalysis.map.startNodes.map(_.name) ++ routeAnalysis.map.endNodes.map(_.name)
 
     val summary = RouteSummary(
       context.loadedRoute.relation.id,

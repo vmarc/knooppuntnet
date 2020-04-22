@@ -11,7 +11,7 @@ class NetworkCenterCalculator {
     val latLons: Seq[LatLon] = {
       val nodeLatLons = network.nodes.map(_.networkNode.node)
       if (nodeLatLons.isEmpty) {
-        val routeNodeLatLons = network.routes.flatMap(route => route.routeAnalysis.routeNodes.routeNodes.map(_.node))
+        val routeNodeLatLons = network.routes.flatMap(route => route.routeAnalysis.routeNodeAnalysis.routeNodes.map(_.node))
         if (routeNodeLatLons.isEmpty) {
           network.routes.flatMap(route => route.routeAnalysis.allWayNodes)
         }

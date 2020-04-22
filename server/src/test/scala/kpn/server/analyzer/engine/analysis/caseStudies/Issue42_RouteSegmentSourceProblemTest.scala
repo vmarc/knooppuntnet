@@ -9,11 +9,11 @@ class Issue42_RouteSegmentSourceProblemTest extends AnyFunSuite with Matchers {
     val analysis = CaseStudy.routeAnalysis("9499242").route.analysis.get
 
     val forwardPath = analysis.map.forwardPath.get
-    analysis.startNodes.head.lat should equal(forwardPath.segments.head.source.lat)
-    analysis.startNodes.head.lon should equal(forwardPath.segments.head.source.lon)
+    analysis.map.startNodes.head.lat should equal(forwardPath.segments.head.source.lat)
+    analysis.map.startNodes.head.lon should equal(forwardPath.segments.head.source.lon)
 
     val backwardPath = analysis.map.backwardPath.get
-    analysis.endNodes.head.lat should equal(backwardPath.segments.head.source.lat)
-    analysis.endNodes.head.lon should equal(backwardPath.segments.head.source.lon)
+    analysis.map.endNodes.head.lat should equal(backwardPath.segments.head.source.lat)
+    analysis.map.endNodes.head.lon should equal(backwardPath.segments.head.source.lon)
   }
 }

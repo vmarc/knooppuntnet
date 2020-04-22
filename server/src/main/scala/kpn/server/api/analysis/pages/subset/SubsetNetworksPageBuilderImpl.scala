@@ -16,9 +16,9 @@ class SubsetNetworksPageBuilderImpl(
 
   override def build(subset: Subset): SubsetNetworksPage = {
 
-    val figures = overviewRepository.figures(Couch.uiTimeout)
+    val figures = overviewRepository.figures()
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val networks = networkRepository.networks(subset, Couch.uiTimeout)
+    val networks = networkRepository.networks(subset)
 
     val routeCount = networks.map(_.routeCount).sum
     val brokenRouteNetworkCount = networks.count(_.brokenRouteCount > 0)

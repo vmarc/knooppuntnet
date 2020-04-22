@@ -73,70 +73,6 @@ object RouteDetailsPageExample {
       ),
       analysis = Some(
         RouteInfoAnalysis(
-          startNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "1",
-              "1"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
-          endNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "1",
-              "1"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
-          startTentacleNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "2",
-              "2"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
-          endTentacleNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "1",
-              "1"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
           unexpectedNodeIds = Seq(
             1001
           ),
@@ -154,7 +90,7 @@ object RouteDetailsPageExample {
               toNodeId = 1,
               role = "connection",
               timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-              isAccessible = true,
+              accessible = true,
               length = "",
               nodeCount = "",
               description = "",
@@ -173,7 +109,7 @@ object RouteDetailsPageExample {
               toNodeId = 2,
               role = "",
               timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-              isAccessible = false,
+              accessible = false,
               length = "",
               nodeCount = "3",
               description = "description",
@@ -187,6 +123,70 @@ object RouteDetailsPageExample {
           ),
           expectedName = "01-02",
           map = RouteMap(
+            startNodes = Seq[RouteNetworkNodeInfo](
+              RouteNetworkNodeInfo(
+                1001,
+                "01",
+                "01.a",
+                "1",
+                "1"
+              ),
+              RouteNetworkNodeInfo(
+                1002,
+                "02",
+                "02.a",
+                "2",
+                "2"
+              )
+            ),
+            endNodes = Seq[RouteNetworkNodeInfo](
+              RouteNetworkNodeInfo(
+                1001,
+                "01",
+                "01.a",
+                "1",
+                "1"
+              ),
+              RouteNetworkNodeInfo(
+                1002,
+                "02",
+                "02.a",
+                "2",
+                "2"
+              )
+            ),
+            startTentacleNodes = Seq[RouteNetworkNodeInfo](
+              RouteNetworkNodeInfo(
+                1001,
+                "01",
+                "01.a",
+                "2",
+                "2"
+              ),
+              RouteNetworkNodeInfo(
+                1002,
+                "02",
+                "02.a",
+                "2",
+                "2"
+              )
+            ),
+            endTentacleNodes = Seq[RouteNetworkNodeInfo](
+              RouteNetworkNodeInfo(
+                1001,
+                "01",
+                "01.a",
+                "1",
+                "1"
+              ),
+              RouteNetworkNodeInfo(
+                1002,
+                "02",
+                "02.a",
+                "2",
+                "2"
+              )
+            ),
             redundantNodes = Seq(
               RouteNetworkNodeInfo(
                 1009,

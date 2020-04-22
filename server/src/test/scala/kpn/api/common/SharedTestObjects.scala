@@ -8,7 +8,11 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
+import kpn.api.common.common.TrackPath
+import kpn.api.common.common.TrackPoint
+import kpn.api.common.common.TrackSegment
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.data.raw.RawMember
@@ -458,10 +462,6 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newRouteInfoAnalysis(
-    startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
     expectedName: String = "",
@@ -471,10 +471,6 @@ trait SharedTestObjects extends MockFactory {
     locationAnalysis: Option[RouteLocationAnalysis] = Some(RouteLocationAnalysis())
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
-      startNodes,
-      endNodes,
-      startTentacleNodes,
-      endTentacleNodes,
       unexpectedNodeIds,
       members,
       expectedName,
@@ -508,6 +504,40 @@ trait SharedTestObjects extends MockFactory {
       timestamp,
       nodeNames,
       tags
+    )
+  }
+
+  def newRouteMap(
+    bounds: MapBounds = MapBounds(),
+    forwardPath: Option[TrackPath] = None,
+    backwardPath: Option[TrackPath] = None,
+    unusedSegments: Seq[TrackSegment] = Seq.empty,
+    startTentaclePaths: Seq[TrackPath] = Seq.empty,
+    endTentaclePaths: Seq[TrackPath] = Seq.empty,
+    forwardBreakPoint: Option[TrackPoint] = None,
+    backwardBreakPoint: Option[TrackPoint] = None,
+    startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    redundantNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
+    streets: Seq[String] = Seq()
+  ): RouteMap = {
+    RouteMap(
+      bounds,
+      forwardPath,
+      backwardPath,
+      unusedSegments,
+      startTentaclePaths,
+      endTentaclePaths,
+      forwardBreakPoint,
+      backwardBreakPoint,
+      startNodes,
+      endNodes,
+      startTentacleNodes,
+      endTentacleNodes,
+      redundantNodes,
+      streets
     )
   }
 

@@ -1757,7 +1757,7 @@
         <source>Changed to v<x equiv-text="{{wayUpdate.after.version}}" id="INTERPOLATION"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-change.way-update.version-unchanged">
@@ -2195,16 +2195,16 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.node-invalid-survey-date">
-        <source>The node survey date (in the _"survey:date"_ or _"source:date"_ tag) has an
-      unexpected format (valid format: YYYY-MM-DD or YYYY-MM).</source>
+        <source>The node survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
+      The survey date is defined in the _"survey:date"_ tag, or the _"source:date"_ tag if _"source=survey"_.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-invalid-survey-date.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-invalid-survey-date">
-        <source>The route survey date (in the _"survey:date"_ or _"source:date"_ tag) has an
-      unexpected format (valid format: YYYY-MM-DD or YYYY-MM).</source>
+        <source>The route survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
+      The survey date is defined in the _"survey:date"_ tag, or the _"source:date"_ tag if _"source=survey"_.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-invalid-survey-date.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -3552,7 +3552,7 @@
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-network-changes.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.orphan-nodes.title">
@@ -3612,14 +3612,14 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="node-diffs-updated.existing-node">
-        <source>Existing node</source>
+        <source>Existing node v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="node-diffs-updated.node-changed">
-        <source>Node change to</source>
+        <source>Node changed to v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -3668,17 +3668,17 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="version-change.relation-changed-to">
-        <source>Relation changed to v<x equiv-text="{{after.version}}" id="INTERPOLATION"/></source>
+        <source>Relation changed to v<x equiv-text="{{after.version}}" id="INTERPOLATION"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/version-change.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="version-change.relation-unchanged">
         <source>Relation unchanged.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/version-change.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-diffs.network-created">
@@ -4044,10 +4044,10 @@
       </trans-unit>
       <trans-unit datatype="html" id="stats.orphan-node-count.comment">
         <source>Number of network nodes that do not belong to a network.\
-        The [node](glossary#node) was not added as a member to a valid
-        [network relation](glossary#network-relation)
+        The [node](docs/en.html#glossary-node "node in glossary") was not added as a member to a valid
+        [network relation](docs/en.html#glossary-network-relation "relation in glossary")
         and also not added as a member to a valid
-        [route relation](glossary#route-relation)
+        [route relation](docs/en.html#glossary-route-relation "route relation in glossary")
         (that itself was added as a member to a valid network relation or is an orphan route).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
@@ -4064,7 +4064,7 @@
       <trans-unit datatype="html" id="stats.orphan-route-count.comment">
         <source>Number of network routes that do not belong to a network.\
         The route was not added as a member to a valid
-        [network relation](glossary#network-relation).</source>
+        [network relation](docs/en.html#glossary-network-relation "network relation in glossary").</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">147</context>
@@ -4293,7 +4293,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="stats.network-extra-member-node.comment">
         <source>Number of network relation members of type _"node"_ that are unexpected (expect only
-        [network nodes](glossary#node) or [information maps](glossary#info-map) as members
+        [network nodes](docs/en.html#glossary-node "node in glossary")
+        or [information maps](docs/en.html#glossary-info-map "information maps in glossary") as members
         in the network relation).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
@@ -4312,14 +4313,14 @@
         or network nodes as members in the node network relation).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">323</context>
+          <context context-type="linenumber">324</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.network-extra-member-way.name">
         <source>NetworkExtraMemberWay</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">319</context>
+          <context context-type="linenumber">320</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.network-extra-member-relation.comment">
@@ -4327,70 +4328,70 @@
         valid route relations or network nodes as members in the node network relation).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">335</context>
+          <context context-type="linenumber">336</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.network-extra-member-relation.name">
         <source>NetworkExtraMemberRelation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">331</context>
+          <context context-type="linenumber">332</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.node-member-missing.comment">
         <source>Number of nodes that are not included in the network relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">346</context>
+          <context context-type="linenumber">347</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.node-member-missing.name">
         <source>NodeMemberMissing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">343</context>
+          <context context-type="linenumber">344</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.name-missing.comment">
         <source>Number of networks without _"name"_ tag in the network relation.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">357</context>
+          <context context-type="linenumber">358</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.name-missing.name">
         <source>NameMissing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">353</context>
+          <context context-type="linenumber">354</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-unaccessible.comment">
-        <source>Number of [unaccessible](glossary#accessible) routes.</source>
+        <source>Number of [unaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">368</context>
+          <context context-type="linenumber">369</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-unaccessible.name">
         <source>RouteUnaccessible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">364</context>
+          <context context-type="linenumber">365</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-invalid-sorting-order.comment">
         <source>Number of routes with ways in wrong sorting order.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">378</context>
+          <context context-type="linenumber">379</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-invalid-sorting-order.name">
         <source>RouteInvalidSortingOrder</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">375</context>
+          <context context-type="linenumber">376</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-node-name-mismatch.comment">
@@ -4399,14 +4400,14 @@
         start node is expected to have a lower number than the end node.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">388</context>
+          <context context-type="linenumber">389</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-node-name-mismatch.name">
         <source>RouteNodeNameMismatch</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
-          <context context-type="linenumber">385</context>
+          <context context-type="linenumber">386</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-page.header">

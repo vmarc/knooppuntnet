@@ -56,7 +56,7 @@ export class ChangesSetComponent implements OnInit {
   }
 
   private toNetworkActions(action: string, networks: List<ChangeSetNetwork>) {
-    return networks.map(nc => new ChangeSetNetworkAction(action, nc));
+    return networks.map(nc => new ChangeSetNetworkAction(this.changeSet.summary.key, action, nc));
   }
 
 }

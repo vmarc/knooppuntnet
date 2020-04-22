@@ -44,7 +44,7 @@ class TagUsageTool(database: Database) {
       if ((index + 1) % 1000 == 0) {
         println(s"${index + 1}/${nodeIds.size}")
       }
-      repo.nodeWithId(nodeId, Couch.uiTimeout).foreach { nodeInfo =>
+      repo.nodeWithId(nodeId).foreach { nodeInfo =>
         nodeInfo.tags.keys.foreach { key =>
           counts.put(key, counts.getOrElse(key, 0) + 1)
           if ("survey:date" == key) {
@@ -69,7 +69,7 @@ class TagUsageTool(database: Database) {
       if ((index + 1) % 1000 == 0) {
         println(s"${index + 1}/${routeIds.size}")
       }
-      repo.routeWithId(routeId, Couch.uiTimeout).foreach { routeInfo =>
+      repo.routeWithId(routeId).foreach { routeInfo =>
         routeInfo.tags.keys.foreach { key =>
           counts.put(key, counts.getOrElse(key, 0) + 1)
           if ("survey:date" == key) {

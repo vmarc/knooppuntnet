@@ -141,7 +141,7 @@ class NodeIntegrityAnalyzerTest extends AnyFunSuite with Matchers with SharedTes
           ),
           tags = routeTags
         ),
-        routeNodes = RouteNodeAnalysis(
+        routeNodeAnalysis = RouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(
               nodeType = RouteNodeType.Start,

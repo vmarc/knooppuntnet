@@ -17,7 +17,7 @@ class ApiImpl(frontendActionsRepository: FrontendMetricsRepository) extends Api 
       f
     } finally {
       val t2 = System.nanoTime()
-      val elapsed: Long = (t2 - t1) / 1000
+      val elapsed: Long = (t2 - t1) / 1000000
       log.info(s"$user $action($args) (${elapsed}ms)")
 
       frontendActionsRepository.saveApiAction(

@@ -3,9 +3,6 @@ package kpn.core.tools.tile
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
-import kpn.core.mail.Mail
-import kpn.core.mail.MailConfigReader
-import kpn.core.mail.MailImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
@@ -34,11 +31,6 @@ object TileTool {
 
   def main(args: Array[String]): Unit = {
 
-    val mail: Mail = {
-      val config = new MailConfigReader().read()
-      new MailImpl(config)
-    }
-
     val exit: Int = try {
       TileToolOptions.parse(args) match {
         case Some(options) =>
@@ -53,7 +45,7 @@ object TileTool {
 
           Couch.executeIn(options.analysisDatabaseName) { analysisDatabase =>
 
-            new DatabaseIndexer(analysisDatabase, null, null, null, null).index()
+            new DatabaseIndexer(analysisDatabase, null, null, null, null).index(true)
 
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
@@ -76,19 +68,16 @@ object TileTool {
           }
 
           log.info("Done")
-          mail.send("TileTool done", "all ok")
 
           0
 
         case None =>
           // arguments are bad, error message will have been displayed
-          mail.send("TileTool alarm!", "Did not start")
           -1
       }
     }
     catch {
       case e: Throwable =>
-        mail.send("TileTool failed!", e.getMessage)
         log.error(e.getMessage)
         -1
     }

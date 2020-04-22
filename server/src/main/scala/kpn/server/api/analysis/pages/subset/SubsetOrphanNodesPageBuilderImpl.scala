@@ -15,9 +15,9 @@ class SubsetOrphanNodesPageBuilderImpl(
 ) extends SubsetOrphanNodesPageBuilder {
 
   override def build(subset: Subset): SubsetOrphanNodesPage = {
-    val figures = overviewRepository.figures(Couch.uiTimeout)
+    val figures = overviewRepository.figures()
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val nodes = orphanRepository.orphanNodes(subset, Couch.uiTimeout)
+    val nodes = orphanRepository.orphanNodes(subset)
     val sortedNodeInfos = nodes.sortWith { (a, b) =>
       a.name(subset.networkType) < b.name(subset.networkType)
     }

@@ -53,6 +53,6 @@ class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAn
   }
 
   private def hasNodeReference(memberRoute: NetworkMemberRoute): Boolean = {
-    memberRoute.routeAnalysis.routeNodes.nodesInWays.map(_.id).contains(networkNode.id)
+    memberRoute.routeAnalysis.routeNodeAnalysis.nodesInWays.map(_.id).contains(networkNode.id)
   }
 }

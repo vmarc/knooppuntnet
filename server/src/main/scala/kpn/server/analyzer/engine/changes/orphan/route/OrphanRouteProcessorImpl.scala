@@ -36,7 +36,7 @@ class OrphanRouteProcessorImpl(
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
 
-          analysis.routeNodes.routeNodes.foreach { routeNode =>
+          analysis.routeNodeAnalysis.routeNodes.foreach { routeNode =>
             val country = countryAnalyzer.country(Seq(routeNode.node))
             val loadedNode = LoadedNode.from(country, routeNode.node.raw)
             val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode)

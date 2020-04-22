@@ -33,7 +33,7 @@ class BoundaryBuilder {
 
   private def triangulate(): Unit = {
     val cmd = "/kpn/Triangle/triangle -e -E -N /tmp/boundary.node"
-    val contents = Process(cmd).lineStream.mkString("=== ", "\n=== ", "")
+    val contents = Process(cmd).lazyLines.mkString("=== ", "\n=== ", "")
     println("---")
     //    println(contents)
     //    println("---")

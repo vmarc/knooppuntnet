@@ -1,6 +1,5 @@
 package kpn.core.tools.backup
 
-import com.typesafe.config.ConfigFactory
 import kpn.core.files.FileSystem
 import kpn.core.files.FsUtils
 import kpn.core.files.FtpConfig
@@ -23,10 +22,13 @@ object BackupTool {
 
         val remoteFileSystem = {
           val ftpConfig = {
-            val config = ConfigFactory.load
-            val host = config.getString("kpn-server.backup.host")
-            val user = config.getString("kpn-server.backup.user")
-            val password = config.getString("kpn-server.backup.password")
+            // val config = ConfigFactory.load
+            // val host = config.getString("kpn-server.backup.host")
+            // val user = config.getString("kpn-server.backup.user")
+            // val password = config.getString("kpn-server.backup.password")
+            val host = "kpn-server.backup.host"
+            val user = "kpn-server.backup.user"
+            val password = "kpn-server.backup.password"
             FtpConfig(host, user, password)
           }
           new FtpFileSystem(ftpConfig, options.remoteRoot)

@@ -1,6 +1,5 @@
 package kpn.server.repository
 
-import akka.util.Timeout
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
@@ -18,7 +17,7 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
 
   private val log = Log(classOf[NetworkRepository])
 
-  override def network(networkId: Long, timeout: Timeout): Option[NetworkInfo] = {
+  override def network(networkId: Long): Option[NetworkInfo] = {
     analysisDatabase.docWithId(networkKey(networkId), classOf[NetworkDoc]).map(_.network)
   }
 
@@ -53,7 +52,7 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
 
   private def networkKey(networkId: Long): String = s"${KeyPrefix.Network}:$networkId"
 
-  override def gpx(networkId: Long, timeout: Timeout): Option[GpxFile] = {
+  override def gpx(networkId: Long): Option[GpxFile] = {
     analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)
   }
 
@@ -89,7 +88,7 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
 
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
 
-  override def networks(subset: Subset, timeout: Timeout, stale: Boolean): Seq[NetworkAttributes] = {
+  override def networks(subset: Subset, stale: Boolean): Seq[NetworkAttributes] = {
     NetworkView.query(analysisDatabase, subset, stale)
   }
 

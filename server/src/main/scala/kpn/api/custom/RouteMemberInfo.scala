@@ -15,7 +15,7 @@ case class RouteMemberInfo(
   toNodeId: Long,
   role: String,
   timestamp: Timestamp,
-  isAccessible: Boolean,
+  accessible: Boolean,
   length: String,
   nodeCount: String,
   description: String,

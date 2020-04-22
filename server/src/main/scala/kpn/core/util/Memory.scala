@@ -3,7 +3,7 @@ package kpn.core.util
 import java.lang.management.ManagementFactory
 
 import scala.annotation.tailrec
-import scala.collection.JavaConverters.asScalaBufferConverter
+import scala.jdk.CollectionConverters._
 //import scala.tools.nsc.io.timer
 
 /**
@@ -44,19 +44,19 @@ class MemoryLog(logPeriodInSeconds: Int) {
 
   @tailrec
   private def scheduleNextLog(): Unit = {
-//    timer(logPeriodInSeconds) {
+    //    timer(logPeriodInSeconds) {
     MemoryLog.LOG.info("AT THIS MOMENT THE TIMER FUNCTION DOES NOT WORK ANYMORE !!!")
 
-      logMemoryUsage()
-      scheduleNextLog()
-//    }
+    logMemoryUsage()
+    scheduleNextLog()
+    //    }
   }
 
   private def currentMemoryUsage(): Memory = {
     ManagementFactory.getMemoryPoolMXBeans.asScala.
       map(_.getPeakUsage).
       map(u => Memory(u.getInit, u.getUsed, u.getCommitted, u.getMax)).
-      reduceLeft (_ + _) // add up all memory pools
+      reduceLeft(_ + _) // add up all memory pools
   }
 
   private def toMb(nanos: Long): String = "%.0fMb".format(nanos / 1000000d)

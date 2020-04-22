@@ -2,7 +2,6 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkMapPage
-import kpn.core.db.couch.Couch
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
@@ -23,7 +22,7 @@ class NetworkMapPageBuilderImpl(
   }
 
   private def buildPage(networkId: Long): Option[NetworkMapPage] = {
-    networkRepository.network(networkId, Couch.uiTimeout).map(buildPageContents)
+    networkRepository.network(networkId).map(buildPageContents)
   }
 
   private def buildPageContents(networkInfo: NetworkInfo): NetworkMapPage = {

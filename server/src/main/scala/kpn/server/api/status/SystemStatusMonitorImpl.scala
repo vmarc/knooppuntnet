@@ -64,7 +64,7 @@ class SystemStatusMonitorImpl(
 
   private def systemStatusValues(command: String): Seq[SystemStatusValue] = {
     try {
-      val contents = Process(command).lineStream
+      val contents = Process(command).lazyLines
       contents.filterNot(_.startsWith("#")).map { line =>
         val splitted = line.split("=")
         SystemStatusValue(splitted.head, splitted(1).toLong)

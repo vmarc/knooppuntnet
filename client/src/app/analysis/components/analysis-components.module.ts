@@ -9,6 +9,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
+import {RouterModule} from "@angular/router";
 import {MarkdownModule} from "ngx-markdown";
 import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
@@ -61,7 +62,8 @@ import {FilterComponent} from "./filter/filter.component";
     MatCheckboxModule,
     MatSlideToggleModule,
     OlModule,
-    FactModule
+    FactModule,
+    RouterModule
   ],
   declarations: [
     ChangeHeaderComponent,

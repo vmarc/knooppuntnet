@@ -40,7 +40,7 @@ class AnalyzerImpl(
     statusRepository.analysisStatus2 match {
       case None => log.error("Could not start: failed to read analysis status " + dirs.analysisStatus2)
       case Some(replicationId) =>
-        databaseIndexer.index()
+        databaseIndexer.index(true)
         engine.load(replicationId)
     }
   }

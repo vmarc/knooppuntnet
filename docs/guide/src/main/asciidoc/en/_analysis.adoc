@@ -24,12 +24,13 @@ rpn
 
 rin
 
-
+[#glossary-node]
 ==== Node
 
 ...
 
 
+[#glossary-route-relation]
 ==== Route relation
 
 
@@ -131,6 +132,7 @@ A bicyle network route relation has the following required tags:
 
 
 
+[#glossary-network-relation]
 ==== Network relation
 
 Relation with node and route members.
@@ -174,6 +176,7 @@ A cycle network relation has the following required tags:
 |===
 
 
+[#glossary-orphan-nodes]
 ==== Orphan nodes
 
 An orphan node is a network node without a known network that is belongs to.
@@ -200,7 +203,7 @@ If there is something wrong the relation that the route is added to, then the ro
 also considered _"orphan"_.
 
 
-
+[#glossary-info-map]
 ==== Information map
 
 Information maps are situated along the network routes and provide an overview
@@ -220,6 +223,7 @@ on the node to recognize it as an information map:
 |===
 
 
+[#glossary-accessible]
 ==== Accessible
 
 The analyzer tries to determine whether the routes as defined in the network are actually

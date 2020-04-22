@@ -4,7 +4,6 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkInfo
-import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
@@ -29,7 +28,7 @@ class NetworkChangesPageBuilderImpl(
   }
 
   private def buildPage(user: Option[String], parameters: ChangesParameters, networkId: Long): Option[NetworkChangesPage] = {
-    networkRepository.network(networkId, Couch.uiTimeout).map { network =>
+    networkRepository.network(networkId).map { network =>
       buildPageContents(user, parameters, network)
     }
   }

@@ -5,11 +5,11 @@ import {MetaData} from "../../../kpn/api/common/data/meta-data";
   selector: "kpn-version-change",
   template: `
     <div class="kpn-thin">
-      <ng-container *ngIf="isNewVersion()">
-        <ng-container i18n="@@version-change.relation-changed-to">Relation changed to v{{after.version}}</ng-container>
+      <ng-container *ngIf="isNewVersion()" i18n="@@version-change.relation-changed-to">
+        Relation changed to v{{after.version}}.
       </ng-container>
-      <ng-container *ngIf="!isNewVersion()">
-        <ng-container i18n="@@version-change.relation-unchanged">Relation unchanged.</ng-container>
+      <ng-container *ngIf="!isNewVersion()" i18n="@@version-change.relation-unchanged">
+        Relation unchanged.
       </ng-container>
       <kpn-meta-data [metaData]="after"></kpn-meta-data>
     </div>

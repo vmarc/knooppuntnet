@@ -16,8 +16,8 @@ import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
       <div class="kpn-level-4-body">
         <div class="kpn-detail">
           <div class="kpn-thin">
-            <ng-container *ngIf="isNewVersion(wayUpdate)">
-              <ng-container i18n="@@route-change.way-update.changed-to">Changed to v{{wayUpdate.after.version}}.</ng-container>
+            <ng-container *ngIf="isNewVersion(wayUpdate)" i18n="@@route-change.way-update.changed-to">
+              Changed to v{{wayUpdate.after.version}}.
             </ng-container>
             <ng-container *ngIf="!isNewVersion(wayUpdate)" i18n="@@route-change.way-update.version-unchanged">
               Way version unchanged

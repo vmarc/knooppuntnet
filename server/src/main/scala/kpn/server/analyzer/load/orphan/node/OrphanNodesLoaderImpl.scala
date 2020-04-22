@@ -28,7 +28,7 @@ class OrphanNodesLoaderImpl(
   override def load(timestamp: Timestamp): Unit = {
 
     ScopedNetworkType.all.foreach { scopedNetworkType =>
-      databaseIndexer.index()
+      databaseIndexer.index(true)
       val nodeIds = nodeIdsLoader.load(timestamp, scopedNetworkType)
       val orphanNodeIds = nodeIds.filterNot(isReferenced).toSeq.sorted
       val loadedNodes = nodesLoader.load(timestamp, scopedNetworkType, orphanNodeIds)
