@@ -1,19 +1,17 @@
 package kpn.server.analyzer.load
 
-import kpn.api.custom.Country
-import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.core.overpass.OverpassQueryExecutor
 import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
+import kpn.api.custom.Country
+import kpn.core.overpass.OverpassQueryExecutor
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.load.data.LoadedRoute
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
 import scala.io.Source
 
-class RouteLoaderTest extends AnyFunSuite with Matchers with MockFactory {
+class RouteLoaderTest extends UnitTest with MockFactory {
 
   test("loadRoutes - fetch multiple routes with a single OverpassAPI request") {
 
@@ -27,11 +25,11 @@ class RouteLoaderTest extends AnyFunSuite with Matchers with MockFactory {
     (countryAnalyzer.relationCountry _).when(*).returns(Some(Country.nl))
 
     val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
-//    val loadedRoutes = routeLoader.loadRoutes(Timestamp(2020, 8, 11), routeIds)
-//
-//    assertRoute(loadedRoutes.head, 3148634L, "01-57", "01", "57")
-//    assertRoute(loadedRoutes(1), 3148630L, "01-58", "01", "58")
-//    assertRoute(loadedRoutes(2), 3144115L, "01-68", "01", "68")
+    //    val loadedRoutes = routeLoader.loadRoutes(Timestamp(2020, 8, 11), routeIds)
+    //
+    //    assertRoute(loadedRoutes.head, 3148634L, "01-57", "01", "57")
+    //    assertRoute(loadedRoutes(1), 3148630L, "01-58", "01", "58")
+    //    assertRoute(loadedRoutes(2), 3144115L, "01-68", "01", "68")
   }
 
   private def assertRoute(loadedRoute: LoadedRoute, id: Long, name: String, startNodeName: String, endNodeName: String): Unit = {

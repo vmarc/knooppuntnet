@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.custom.Tags
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class BreakPointAnalysisTest extends AnyFunSuite with Matchers {
+class BreakPointAnalysisTest extends UnitTest {
 
   test("continuous") {
 

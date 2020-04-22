@@ -1,10 +1,9 @@
 package kpn.core
 
 import kpn.api.common.common.ToStringBuilder
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class ToStringBuilderTest extends AnyFunSuite with Matchers {
+class ToStringBuilderTest extends UnitTest {
 
   case class Example(a: String, b: String) {
     override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

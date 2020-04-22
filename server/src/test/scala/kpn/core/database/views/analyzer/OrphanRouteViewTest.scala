@@ -7,10 +7,9 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class OrphanRouteViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("orphan routes are included in the view") {
     withDatabase { database =>

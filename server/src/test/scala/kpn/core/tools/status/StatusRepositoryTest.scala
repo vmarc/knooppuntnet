@@ -1,13 +1,12 @@
 package kpn.core.tools.status
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 import java.io.File
 
-import kpn.core.tools.config.Dirs
 import kpn.api.common.ReplicationId
+import kpn.core.tools.config.Dirs
+import kpn.core.util.UnitTest
 
-class StatusRepositoryTest extends AnyFunSuite with Matchers {
+class StatusRepositoryTest extends UnitTest {
 
   test("write and read status") {
     val file = new File("/tmp/kpn")

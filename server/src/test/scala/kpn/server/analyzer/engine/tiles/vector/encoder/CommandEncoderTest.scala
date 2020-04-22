@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
+import kpn.core.util.UnitTest
 import org.locationtech.jts.algorithm.CGAlgorithms
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class CommandEncoderTest extends AnyFunSuite with Matchers {
+class CommandEncoderTest extends UnitTest {
 
   private val gf = new GeometryFactory()
 

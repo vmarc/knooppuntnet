@@ -9,10 +9,9 @@ import kpn.core.database.doc.NodeDoc
 import kpn.core.database.doc.StringValueDoc
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class DatabaseSaveTest extends AnyFunSuite with Matchers with TestObjects {
+class DatabaseSaveTest extends UnitTest with TestObjects {
 
   test("save") {
 

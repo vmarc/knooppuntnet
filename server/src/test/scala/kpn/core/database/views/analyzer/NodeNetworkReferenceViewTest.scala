@@ -10,11 +10,10 @@ import kpn.api.common.node.NodeNetworkRouteReference
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class NodeNetworkReferenceViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node network reference") {
 

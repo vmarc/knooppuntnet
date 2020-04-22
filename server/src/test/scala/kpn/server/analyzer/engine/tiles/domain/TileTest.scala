@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.LatLonImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class TileTest extends AnyFunSuite with Matchers {
+class TileTest extends UnitTest {
 
   test("Tile") {
 

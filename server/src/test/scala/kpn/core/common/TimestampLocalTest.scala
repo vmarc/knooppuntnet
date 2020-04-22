@@ -1,11 +1,10 @@
 package kpn.core.common
 
-import kpn.api.custom.Timestamp
 import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Timestamp
+import kpn.core.util.UnitTest
 
-class TimestampLocalTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class TimestampLocalTest extends UnitTest with SharedTestObjects {
 
   private val rm = scala.reflect.runtime.currentMirror
 

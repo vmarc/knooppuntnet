@@ -5,12 +5,11 @@ import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class ReferenceViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class ReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("view keys and  values") {
 

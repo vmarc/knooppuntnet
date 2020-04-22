@@ -1,10 +1,9 @@
 package kpn.server.repository
 
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class TaskRepositoryTest extends AnyFunSuite with Matchers {
+class TaskRepositoryTest extends UnitTest {
 
   test("add, list and delete tasks") {
     withRepository { repository =>

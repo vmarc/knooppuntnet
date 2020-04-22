@@ -1,10 +1,9 @@
 package kpn.server.json
 
 import kpn.api.custom.NetworkType
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class NetworkTypeJsonTest extends AnyFunSuite with Matchers {
+class NetworkTypeJsonTest extends UnitTest {
 
   test("serializer") {
     Json.string(NetworkType.cycling) should equal(""""cycling"""")

@@ -1,14 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.data.Way
 import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.api.common.data.Way
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RouteStreetsAnalyzerTest extends AnyFunSuite with Matchers {
+class RouteStreetsAnalyzerTest extends UnitTest {
 
   ignore("collect streets") {
 

@@ -1,17 +1,16 @@
 package kpn.server.api.analysis.pages
 
-import kpn.api.custom.Subset
-import kpn.api.custom.Timestamp
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.details.ChangeKey
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
+import kpn.core.util.UnitTest
 
-class ChangeSetSummarySubsetFilterTest extends AnyFunSuite with Matchers {
+class ChangeSetSummarySubsetFilterTest extends UnitTest {
 
   test("filter information in ChangeSetSummary so that only information for given 'subset' remains") {
 

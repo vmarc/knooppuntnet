@@ -7,11 +7,10 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.route.RouteInfo
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RouteLocatorTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class RouteLocatorTest extends UnitTest with SharedTestObjects {
 
   private val essen = Location(Seq("Belgium", "Flanders", "Antwerp province", "Antwerp", "Essen"))
   private val kalmthout = Location(Seq("Belgium", "Flanders", "Antwerp province", "Antwerp", "Kalmthout"))

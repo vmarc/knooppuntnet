@@ -1,12 +1,11 @@
 package kpn.core.tools.country
 
-import kpn.api.custom.Country
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 import kpn.api.common.data.raw.RawMember
+import kpn.api.custom.Country
+import kpn.core.util.UnitTest
 import org.locationtech.jts.geom.Coordinate
 
-class PolygonBuilderTest extends AnyFunSuite with Matchers {
+class PolygonBuilderTest extends UnitTest {
 
   test("build polygon with 1 outer ring and 1 inner ring") {
 

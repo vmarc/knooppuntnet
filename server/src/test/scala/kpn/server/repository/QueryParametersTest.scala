@@ -1,10 +1,9 @@
 package kpn.server.repository
 
 import kpn.api.common.changes.filter.ChangesParameters
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class QueryParametersTest extends AnyFunSuite with Matchers {
+class QueryParametersTest extends UnitTest {
 
   test("changes all") {
 

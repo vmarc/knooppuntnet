@@ -1,14 +1,12 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotContinious
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteRedundantNodes
+import kpn.core.util.UnitTest
 
-class RedundantNodeTest extends AnyFunSuite with Matchers {
+class RedundantNodeTest extends UnitTest {
 
   test("redundant node in the middle should not prevent forward and backward path calculation") {
 

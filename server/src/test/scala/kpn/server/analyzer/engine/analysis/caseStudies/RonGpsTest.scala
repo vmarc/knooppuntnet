@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
 /**
  * Verifies a problem reported by RonGps.
@@ -14,7 +13,7 @@ import org.scalatest.matchers.should.Matchers
  * The original logic reported 'RouteBroken' for 'RonGpsOriginal', the current logic does
  * no longer see a problem with the route.
  */
-class RonGpsTest extends AnyFunSuite with Matchers {
+class RonGpsTest extends UnitTest {
 
   test("RonGps original definition is reported to be broken") {
     val route = CaseStudy.routeAnalysis("RonGpsOriginal").route

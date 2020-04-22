@@ -6,6 +6,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeType
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
@@ -13,10 +14,8 @@ import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class NetworkChangeProcessorTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
+class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("network creates are processed by createProcessor") {
 

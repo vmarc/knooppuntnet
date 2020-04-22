@@ -1,9 +1,8 @@
 package kpn.core.poi
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class PoiLocationTest extends AnyFunSuite with Matchers {
+class PoiLocationTest extends UnitTest {
 
   test("bounding boxes") {
     PoiLocation.boundingBoxStrings should equal(

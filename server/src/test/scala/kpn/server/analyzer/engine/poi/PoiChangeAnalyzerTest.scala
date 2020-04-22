@@ -5,6 +5,7 @@ import kpn.api.common.Poi
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.tile.TileCalculator
 import kpn.server.analyzer.engine.tiles.domain.Tile
@@ -12,10 +13,8 @@ import kpn.server.repository.MockTaskRepository
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class PoiChangeAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects with MockFactory {
+class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects with MockFactory {
 
   test("node poi add") {
 

@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.changes.node
 
-import kpn.api.custom.Subset
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawNode
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Subset
+import kpn.core.util.UnitTest
 
-class NodeChangeMergerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
 
   test("mergedSubsets") {
     def assertMerged(left: Seq[Subset], right: Seq[Subset], expected: Seq[Subset]): Unit = {

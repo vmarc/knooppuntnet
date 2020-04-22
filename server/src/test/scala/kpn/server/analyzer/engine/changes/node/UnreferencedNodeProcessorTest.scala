@@ -12,6 +12,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.TestObjects
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -26,7 +27,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class UnreferencedNodeProcessorTest extends AnyFunSuite with Matchers with MockFactory with TestObjects {
+class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestObjects {
 
   private val latLonBefore = LatLonImpl("51.5291500", "4.297700")
   private val latLonAfter = LatLonImpl("51.5291600", "4.297800")

@@ -4,10 +4,9 @@ import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class DatabaseExistsTest extends AnyFunSuite with Matchers {
+class DatabaseExistsTest extends UnitTest {
 
   test("exists - database exists") {
     withDatabase { database =>

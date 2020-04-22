@@ -1,11 +1,8 @@
 package kpn.core.util
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
 import scala.jdk.CollectionConverters._
 
-class IdCacheTest extends AnyFunSuite with Matchers {
+class IdCacheTest extends UnitTest {
 
   test("LinkedHashMap stores values in access order, and automatically removes oldest entries") {
 

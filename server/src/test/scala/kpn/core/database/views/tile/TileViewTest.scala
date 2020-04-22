@@ -2,11 +2,10 @@ package kpn.core.database.views.tile
 
 import kpn.core.TestObjects
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class TileViewTest extends AnyFunSuite with Matchers with TestObjects {
+class TileViewTest extends UnitTest with TestObjects {
 
   test("nodeIds") {
 

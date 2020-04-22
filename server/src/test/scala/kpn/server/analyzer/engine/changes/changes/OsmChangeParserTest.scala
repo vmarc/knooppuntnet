@@ -1,15 +1,14 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.common.changes.ChangeAction._
+import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.api.common.data.raw.RawNode
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.funsuite.AnyFunSuite
-import kpn.api.common.changes.ChangeAction._
+import kpn.core.util.UnitTest
 
 import scala.xml.XML
 
-class OsmChangeParserTest extends AnyFunSuite with Matchers {
+class OsmChangeParserTest extends UnitTest {
 
   test("parse") {
 

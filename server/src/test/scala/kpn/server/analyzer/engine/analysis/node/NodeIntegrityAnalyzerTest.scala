@@ -1,21 +1,20 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
-import kpn.api.common.NodeIntegrityCheck
-import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class NodeIntegrityAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("integrity check success") {
 

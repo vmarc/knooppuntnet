@@ -1,16 +1,15 @@
 package kpn.server.analyzer.engine.analysis.network
 
-import kpn.api.custom.Relation
-import kpn.core.test.TestData
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.Bounds
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkShape
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Relation
+import kpn.core.test.TestData
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
 
-class NetworkShapeAnalyzerTest extends AnyFunSuite with Matchers {
+class NetworkShapeAnalyzerTest extends UnitTest {
 
   ignore("shape") {
 

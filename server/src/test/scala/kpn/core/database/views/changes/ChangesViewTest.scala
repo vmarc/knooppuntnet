@@ -1,9 +1,8 @@
 package kpn.core.database.views.changes
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class ChangesViewTest extends AnyFunSuite with Matchers {
+class ChangesViewTest extends UnitTest {
 
   test("view") {
     // tests are in ChangeSetRepositoryTest, move to here?

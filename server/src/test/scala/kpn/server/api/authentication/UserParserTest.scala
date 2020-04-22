@@ -1,11 +1,10 @@
 package kpn.server.api.authentication
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
 import scala.xml.XML
 
-class UserParserTest extends AnyFunSuite with Matchers {
+class UserParserTest extends UnitTest {
 
   test("parse") {
 

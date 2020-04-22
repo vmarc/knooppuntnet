@@ -1,14 +1,13 @@
 package kpn.core.history
 
-import kpn.api.custom.Tags
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 
-class TagDiffAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("tag differences") {
 

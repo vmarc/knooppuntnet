@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.analysis.node
 
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 
-class NodeUtilTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeUtilTest extends UnitTest with SharedTestObjects {
 
   private val util = new NodeUtil(NetworkType.hiking)
 

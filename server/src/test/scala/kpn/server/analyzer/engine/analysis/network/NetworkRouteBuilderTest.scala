@@ -1,26 +1,25 @@
 package kpn.server.analyzer.engine.analysis.network
 
-import kpn.api.custom.NetworkType
-import kpn.core.analysis.NetworkNode
-import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.api.custom.Fact._
-import kpn.api.custom.Tags
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.Fact._
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.core.analysis.NetworkNode
+import kpn.core.data.DataBuilder
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.load.data.LoadedRoute
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
 /*
 
@@ -74,7 +73,7 @@ class TData extends SharedTestObjects {
   val ways: Seq[RawWay] = Seq(way12, way23, way34, way21, way32, way43, closedWay, closedWay2)
 }
 
-class NetworkRouteBuilderTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
+class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   //  test("contiguous route - without explicit start and end nodes") {
   //

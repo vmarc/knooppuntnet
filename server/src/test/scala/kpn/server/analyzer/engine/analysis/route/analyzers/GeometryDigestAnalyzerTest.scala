@@ -2,11 +2,10 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class GeometryDigestAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("calculate digest") {
 

@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.custom.Tags
-import kpn.server.analyzer.engine.analysis.route.UnusedSegmentAnalyzer
 import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.UnusedSegmentAnalyzer
 
-class UnusedSegmentAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class UnusedSegmentAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private val n1 = newNode(1)
   private val n2 = newNode(2)

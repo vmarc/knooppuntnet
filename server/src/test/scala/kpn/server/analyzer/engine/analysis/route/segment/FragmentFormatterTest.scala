@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.SharedTestObjects
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
-import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class FragmentFormatterTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class FragmentFormatterTest extends UnitTest with SharedTestObjects {
 
   test("fragment without nodes") {
     val fragment = Fragment(None, None, newWay(10), Seq(), None)

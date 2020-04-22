@@ -1,10 +1,9 @@
 package kpn.server.json
 
 import kpn.api.custom.Fact
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class FactJsonTest extends AnyFunSuite with Matchers {
+class FactJsonTest extends UnitTest {
 
   test("serializer") {
     Json.string(Fact.Added) should equal(""""Added"""")

@@ -3,15 +3,14 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.api.custom.NetworkType
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RouteAnalyzerRouteWithoutWaysTest extends AnyFunSuite with Matchers {
+class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
 
   test("RouteNotForward and RouteNotBackward should not be reported for routes without ways") {
 

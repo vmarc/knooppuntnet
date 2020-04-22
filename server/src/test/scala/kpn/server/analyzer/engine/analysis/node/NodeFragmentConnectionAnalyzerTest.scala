@@ -1,17 +1,16 @@
 package kpn.server.analyzer.engine.analysis.node
 
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
-import kpn.server.analyzer.engine.analysis.route.segment.Fragment
-import kpn.server.analyzer.engine.analysis.route.segment.NodeFragmentConnectionAnalyzer
-import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.segment.Fragment
+import kpn.server.analyzer.engine.analysis.route.segment.NodeFragmentConnectionAnalyzer
+import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection
 
-class NodeFragmentConnectionAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private val node1 = newNode(1)
   private val node2 = newNode(2)

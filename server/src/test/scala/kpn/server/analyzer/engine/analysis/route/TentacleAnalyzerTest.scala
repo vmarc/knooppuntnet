@@ -1,16 +1,15 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.Node
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinder
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.data.Node
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class TentacleAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private val n1 = newNode(1)
   private val n2 = newNode(2)

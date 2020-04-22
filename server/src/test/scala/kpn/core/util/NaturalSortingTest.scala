@@ -1,9 +1,6 @@
 package kpn.core.util
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
-class NaturalSortingTest extends AnyFunSuite with Matchers {
+class NaturalSortingTest extends UnitTest {
 
   test("0 Sorting node names") {
     performTest(

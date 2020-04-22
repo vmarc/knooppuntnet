@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class Issue45_OneWayRoute extends AnyFunSuite with Matchers {
+class Issue45_OneWayRoute extends UnitTest {
 
   test("route 60-61") {
     val route = CaseStudy.routeAnalysis("7328339").route

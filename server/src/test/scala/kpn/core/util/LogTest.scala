@@ -1,9 +1,6 @@
 package kpn.core.util
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
-class LogTest extends AnyFunSuite with Matchers {
+class LogTest extends UnitTest {
 
   test("mock log messages") {
 

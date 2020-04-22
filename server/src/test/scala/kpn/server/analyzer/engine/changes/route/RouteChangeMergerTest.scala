@@ -1,17 +1,16 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.RouteData
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.util.UnitTest
 
-class RouteChangeMergerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class RouteChangeMergerTest extends UnitTest with SharedTestObjects {
 
   test("merge addedToNetwork") {
 

@@ -1,14 +1,13 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Change
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.repository.MockBlackListRepository
-import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeChangeAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class OrphanNodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   val d = new AnalysisTestData()
 

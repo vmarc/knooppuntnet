@@ -1,11 +1,10 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import kpn.core.test.TestData
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.context.AnalysisContext
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RelationAnalyzerTest extends AnyFunSuite with Matchers {
+class RelationAnalyzerTest extends UnitTest {
 
   test("referenced nodes, ways and relations") {
 

@@ -1,17 +1,16 @@
 package kpn.core.data
 
-import kpn.api.custom.Tags
-import kpn.core.util.Log
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Tags
+import kpn.core.util.Log
+import kpn.core.util.UnitTest
 
-class DataBuilderTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class DataBuilderTest extends UnitTest with SharedTestObjects {
 
   test("happy data build") {
 

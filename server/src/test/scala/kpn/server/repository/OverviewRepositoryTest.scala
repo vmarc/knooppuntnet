@@ -5,12 +5,10 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.app.stats.Figure
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class OverviewRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class OverviewRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("figures") {
 

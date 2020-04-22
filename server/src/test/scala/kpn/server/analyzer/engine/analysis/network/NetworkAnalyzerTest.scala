@@ -7,6 +7,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.analysis.Network
 import kpn.core.test.TestData
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
@@ -16,10 +17,8 @@ import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class NetworkAnalyzerTest extends AnyFunSuite with Matchers with MockFactory {
+class NetworkAnalyzerTest extends UnitTest with MockFactory {
 
   test("relation without members") {
     val d = new TestData() {

@@ -11,10 +11,9 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.db.TestDocBuilder
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class FactsPerNetworkViewTest extends AnyFunSuite with Matchers {
+class FactsPerNetworkViewTest extends UnitTest {
 
   test("query") {
 

@@ -2,10 +2,9 @@ package kpn.api.common.status
 
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class ActionTimestampTest extends AnyFunSuite with Matchers {
+class ActionTimestampTest extends UnitTest {
 
   test("week numbers") {
     calculateWeek(Timestamp(2019, 12, 30, 12, 0, 0)) should equal(2020, 1, 1)

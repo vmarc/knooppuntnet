@@ -4,12 +4,10 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class NodeRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("nodeWithId") {
 

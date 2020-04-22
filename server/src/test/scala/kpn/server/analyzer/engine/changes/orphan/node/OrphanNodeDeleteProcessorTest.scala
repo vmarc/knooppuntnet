@@ -8,6 +8,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.TestObjects
 import kpn.core.test.TestData
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -17,10 +18,8 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeDeleteProcessorTest extends AnyFunSuite with Matchers with MockFactory with TestObjects {
+class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestObjects {
 
   test("deleted node is removed from analysis data watched orphan nodes, and set to non-active in the database") {
 

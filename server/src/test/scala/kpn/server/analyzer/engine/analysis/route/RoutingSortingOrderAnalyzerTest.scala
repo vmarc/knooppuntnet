@@ -1,15 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.Node
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFragment
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.data.Node
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RoutingSortingOrderAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class RoutingSortingOrderAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private val (fragments, correctOrderPath, wrongOrderPath) = {
 

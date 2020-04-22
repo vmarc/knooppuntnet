@@ -1,16 +1,15 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
-import kpn.api.custom.Subset
-import kpn.core.test.TestSupport.withDatabase
-import kpn.server.repository.NetworkRepositoryImpl
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
-import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Subset
+import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
+import kpn.server.repository.NetworkRepositoryImpl
 
-class NetworkViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NetworkViewTest extends UnitTest with SharedTestObjects {
 
   test("get subset network attributes") {
 

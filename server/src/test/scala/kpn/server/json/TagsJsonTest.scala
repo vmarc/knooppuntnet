@@ -1,10 +1,9 @@
 package kpn.server.json
 
 import kpn.api.custom.Tags
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class TagsJsonTest extends AnyFunSuite with Matchers {
+class TagsJsonTest extends UnitTest {
 
   test("serializer") {
     val tags = Tags.from("key1" -> "value1", "key2" -> "value2", "key3" -> "value3")

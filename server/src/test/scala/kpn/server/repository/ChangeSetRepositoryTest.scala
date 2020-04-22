@@ -1,10 +1,5 @@
 package kpn.server.repository
 
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Timestamp
-import kpn.core.test.TestSupport.withDatabase
 import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
@@ -24,10 +19,14 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
 
-class ChangeSetRepositoryTest extends AnyFunSuite with Matchers {
+class ChangeSetRepositoryTest extends UnitTest {
 
   test("change set not found") {
     withChangeSetRepository { repository =>

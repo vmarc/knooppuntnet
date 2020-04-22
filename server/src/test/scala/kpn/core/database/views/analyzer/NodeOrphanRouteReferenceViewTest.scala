@@ -5,10 +5,9 @@ import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class NodeOrphanRouteReferenceViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in orphan route") {
 

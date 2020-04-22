@@ -1,11 +1,10 @@
 package kpn.server.api
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 import org.springframework.util.AntPathMatcher
 import org.springframework.util.PathMatcher
 
-class PathMatcherTest extends AnyFunSuite with Matchers {
+class PathMatcherTest extends UnitTest {
 
   test("subset") {
 

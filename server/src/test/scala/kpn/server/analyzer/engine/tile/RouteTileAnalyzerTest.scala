@@ -1,14 +1,13 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TestTileSetup
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RouteTileAnalyzerTest extends AnyFunSuite with Matchers {
+class RouteTileAnalyzerTest extends UnitTest {
 
   val t = new TestTileSetup()
 

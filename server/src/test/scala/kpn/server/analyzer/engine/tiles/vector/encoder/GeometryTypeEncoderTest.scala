@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.tiles.vector.ProtobufVectorTile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import kpn.server.analyzer.engine.tiles.vector.ProtobufVectorTile
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class GeometryTypeEncoderTest extends AnyFunSuite with Matchers {
+class GeometryTypeEncoderTest extends UnitTest {
 
   test("encode") {
     val cs = Array(

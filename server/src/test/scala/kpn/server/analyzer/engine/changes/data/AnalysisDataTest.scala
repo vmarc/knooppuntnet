@@ -3,12 +3,11 @@ package kpn.server.analyzer.engine.changes.data
 import kpn.api.common.SharedTestObjects
 import kpn.core.data.Data
 import kpn.core.test.TestData2
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class AnalysisDataTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class AnalysisDataTest extends UnitTest with SharedTestObjects {
 
   test("isReferencedRoute") {
 

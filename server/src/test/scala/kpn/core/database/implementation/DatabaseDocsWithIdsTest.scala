@@ -4,10 +4,9 @@ import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
 import kpn.core.db.NodeDocViewResult
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class DatabaseDocsWithIdsTest extends AnyFunSuite with Matchers with TestObjects {
+class DatabaseDocsWithIdsTest extends UnitTest with TestObjects {
 
   test("docsWithIds") {
     withDatabase(database => {

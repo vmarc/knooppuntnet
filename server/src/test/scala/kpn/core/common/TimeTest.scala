@@ -4,11 +4,10 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 import kpn.api.custom.Timestamp
+import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class TimeTest extends AnyFunSuite with Matchers with BeforeAndAfterEach {
+class TimeTest extends UnitTest with BeforeAndAfterEach {
 
   override def afterEach(): Unit = {
     Time.clear()

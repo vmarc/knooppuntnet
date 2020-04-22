@@ -15,13 +15,12 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.repository.ChangeSetRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class ChangeSaverTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
+class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("nothing to save") {
 

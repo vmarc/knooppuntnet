@@ -1,18 +1,17 @@
 package kpn.server.analyzer.engine.changes.network
 
-import kpn.api.custom.Change
-import kpn.server.repository.MockBlackListRepository
-import kpn.core.test.TestData
-import kpn.server.analyzer.engine.changes.AnalysisTestData
-import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawRelation
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Change
+import kpn.core.test.TestData
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.changes.AnalysisTestData
+import kpn.server.analyzer.engine.changes.ElementChanges
+import kpn.server.repository.MockBlackListRepository
 
 import scala.language.reflectiveCalls
 
-class NetworkChangeAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   val d = new AnalysisTestData()
 

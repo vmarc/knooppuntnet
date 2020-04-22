@@ -1,9 +1,8 @@
 package kpn.server.repository
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class OrphanRepositoryTest extends AnyFunSuite with Matchers {
+class OrphanRepositoryTest extends UnitTest {
 
   test("orphanNodes") {
     pending

@@ -1,9 +1,8 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class Issue42_RouteSegmentSourceProblemTest extends AnyFunSuite with Matchers {
+class Issue42_RouteSegmentSourceProblemTest extends UnitTest {
 
   test("segment problem") {
     val analysis = CaseStudy.routeAnalysis("9499242").route.analysis.get

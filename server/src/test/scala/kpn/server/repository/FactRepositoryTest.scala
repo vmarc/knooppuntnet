@@ -13,12 +13,10 @@ import kpn.api.custom.Fact.RouteRedundantNodes
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.db.couch.Couch
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class FactRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class FactRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("routeFacts") {
 

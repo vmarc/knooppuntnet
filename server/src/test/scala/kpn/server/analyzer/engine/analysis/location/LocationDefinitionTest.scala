@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import kpn.core.util.UnitTest
 import org.locationtech.jts.geom.Envelope
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class LocationDefinitionTest extends AnyFunSuite with Matchers {
+class LocationDefinitionTest extends UnitTest {
 
   test("get") {
 
@@ -15,8 +14,8 @@ class LocationDefinitionTest extends AnyFunSuite with Matchers {
           "1",
           Seq(
             locationDefinition("11", Seq.empty),
-              locationDefinition("12", Seq.empty),
-              locationDefinition("13", Seq.empty)
+            locationDefinition("12", Seq.empty),
+            locationDefinition("13", Seq.empty)
           )
         ),
         locationDefinition(

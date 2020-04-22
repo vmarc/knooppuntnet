@@ -2,12 +2,11 @@ package kpn.core.replicate
 
 import java.io.File
 
-import kpn.api.custom.Timestamp
 import kpn.api.common.ReplicationId
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Timestamp
+import kpn.core.util.UnitTest
 
-class ReplicationStateRepositoryTest extends AnyFunSuite with Matchers {
+class ReplicationStateRepositoryTest extends UnitTest {
 
   test("write state file and read timestamp") {
 

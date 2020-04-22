@@ -1,11 +1,10 @@
 package kpn.server.analyzer.engine.elevation
 
 import kpn.api.common.LatLonImpl
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.common.Converter
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class ElevationRepositoryTest extends AnyFunSuite with Matchers {
+class ElevationRepositoryTest extends UnitTest {
 
   private val repo = new ElevationRepositoryImpl()
 

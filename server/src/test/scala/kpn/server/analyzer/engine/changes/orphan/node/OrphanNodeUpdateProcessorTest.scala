@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
+import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeUpdateProcessorTest extends AnyFunSuite with Matchers with MockFactory {
+class OrphanNodeUpdateProcessorTest extends UnitTest with MockFactory {
   test("todo") {
     pending
   }

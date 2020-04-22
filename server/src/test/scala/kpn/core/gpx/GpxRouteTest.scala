@@ -2,10 +2,9 @@ package kpn.core.gpx
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class GpxRouteTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class GpxRouteTest extends UnitTest with SharedTestObjects {
 
   test("test contiguous route") {
 

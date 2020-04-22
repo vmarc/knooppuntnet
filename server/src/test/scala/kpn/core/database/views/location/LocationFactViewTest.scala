@@ -11,13 +11,12 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class LocationFactViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
   test("node") {
 

@@ -1,14 +1,13 @@
 package kpn.core.tools.operation
 
+import kpn.api.common.ReplicationId
 import kpn.api.custom.Timestamp
 import kpn.core.replicate.ReplicationStateRepository
 import kpn.core.tools.status.StatusRepository
-import kpn.api.common.ReplicationId
+import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class SystemStatusTest extends AnyFunSuite with Matchers with MockFactory {
+class SystemStatusTest extends UnitTest with MockFactory {
 
   private val processLines =
     """UID        PID  PPID  C STIME TTY          TIME CMD

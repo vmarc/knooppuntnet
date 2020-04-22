@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.location.Location
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class NodeLocationAnalyzerTest extends AnyFunSuite with Matchers {
+class NodeLocationAnalyzerTest extends UnitTest {
 
   test("NodeLocationAnalyzer") {
 

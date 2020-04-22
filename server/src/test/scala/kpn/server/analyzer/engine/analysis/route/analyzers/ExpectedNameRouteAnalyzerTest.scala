@@ -1,7 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -10,11 +12,8 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class ExpectedNameRouteAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("RouteNameAnalysis is prerequisite for 'expected name analysis'") {
     intercept[IllegalStateException] {

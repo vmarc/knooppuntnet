@@ -1,9 +1,8 @@
 package kpn.server.analyzer.engine.tiles.domain
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class RectangleTest extends AnyFunSuite with Matchers {
+class RectangleTest extends UnitTest {
 
   test("center") {
     val rectangle = Rectangle(0, 10, 0, 20)

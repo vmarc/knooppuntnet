@@ -18,6 +18,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNode
 import kpn.core.overpass.QueryNodes
 import kpn.core.overpass.QueryRelation
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
@@ -79,10 +80,8 @@ import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-abstract class AbstractTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
+abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObjects {
 
   protected def node(data: Data, id: Long): RawNode = {
     data.raw.nodeWithId(id).get

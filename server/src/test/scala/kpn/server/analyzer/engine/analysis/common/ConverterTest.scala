@@ -4,11 +4,10 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.domain.Point
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class ConverterTest extends AnyFunSuite with Matchers {
+class ConverterTest extends UnitTest {
 
   test("trackPathToPoints - single segment") {
     val trackPath = buildTrackPath(

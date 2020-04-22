@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
-import kpn.api.custom.Fact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Fact
+import kpn.core.util.UnitTest
 
-class OrphanNodeChangeTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class OrphanNodeChangeTest extends UnitTest with SharedTestObjects {
 
   test("a regular node change is not an orphan node related change") {
     OrphanNodeChange.isOrphanNodeChange(newNodeChange()) should equal(false)

@@ -1,17 +1,16 @@
 package kpn.core.history
 
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.util.UnitTest
 
-class WayDiffAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("node removed") {
     val before = newWay(101, version = 2, nodes = Seq(newNode(1001), newNode(1002)))

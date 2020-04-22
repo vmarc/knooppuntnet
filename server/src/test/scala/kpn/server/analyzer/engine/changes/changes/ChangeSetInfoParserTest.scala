@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.custom.Timestamp
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
 import scala.xml.XML
 
-class ChangeSetInfoParserTest extends AnyFunSuite with Matchers {
+class ChangeSetInfoParserTest extends UnitTest {
 
   test("parse") {
 

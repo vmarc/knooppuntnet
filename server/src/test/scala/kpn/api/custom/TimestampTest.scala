@@ -1,9 +1,8 @@
 package kpn.api.custom
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class TimestampTest extends AnyFunSuite with Matchers {
+class TimestampTest extends UnitTest {
 
   test("<") {
     Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2016, 5, 5, 5, 5, 5) should equal(true)

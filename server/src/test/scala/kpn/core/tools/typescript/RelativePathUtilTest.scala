@@ -1,11 +1,9 @@
 package kpn.core.tools.typescript
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
 import kpn.core.tools.typescript.RelativePathUtil.dependencyRelativePath
+import kpn.core.util.UnitTest
 
-class RelativePathUtilTest extends AnyFunSuite with Matchers {
+class RelativePathUtilTest extends UnitTest {
 
   test("dependencyRelativePath") {
     dependencyRelativePath("/a/b", "/a/b") should equal(".")

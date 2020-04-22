@@ -10,11 +10,10 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class LocationNodeViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class LocationNodeViewTest extends UnitTest with SharedTestObjects {
 
   test("node") {
 

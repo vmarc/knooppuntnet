@@ -6,6 +6,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
@@ -13,13 +14,11 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
 import scala.xml.InputSource
 import scala.xml.XML
 
-class Issue48_RouteWithSingleNodeWayTest extends AnyFunSuite with Matchers {
+class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
 
   test("ingore ways with less than 2 nodes in route analysis") {
     val loadedRoute = readRoute()

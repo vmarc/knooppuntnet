@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.analysis.node
 
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
 import kpn.api.common.NodeName
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 
-class NodeAnalyzerTest extends AnyFunSuite with Matchers {
+class NodeAnalyzerTest extends UnitTest {
 
   test("name - single name") {
     val tags = Tags.from("rwn_ref" -> "01")

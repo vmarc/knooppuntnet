@@ -1,10 +1,9 @@
 package kpn.server.json
 
 import kpn.api.custom.NetworkScope
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class NetworkScopeJsonTest extends AnyFunSuite with Matchers {
+class NetworkScopeJsonTest extends UnitTest {
 
   test("serializer") {
     Json.string(NetworkScope.regional) should equal(""""regional"""")

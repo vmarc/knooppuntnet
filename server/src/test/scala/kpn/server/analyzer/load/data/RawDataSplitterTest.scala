@@ -1,14 +1,13 @@
 package kpn.server.analyzer.load.data
 
-import kpn.core.test.TestData
-import kpn.core.util.MockLog
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.test.TestData
+import kpn.core.util.MockLog
+import kpn.core.util.UnitTest
 
-class RawDataSplitterTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class RawDataSplitterTest extends UnitTest with SharedTestObjects {
 
   test("extract regular network relation") {
 

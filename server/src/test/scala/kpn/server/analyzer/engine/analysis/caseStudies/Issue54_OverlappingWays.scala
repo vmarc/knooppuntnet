@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class Issue54_OverlappingWays extends AnyFunSuite with Matchers {
+class Issue54_OverlappingWays extends UnitTest {
 
   test("fact overlapping ways is disabled") {
 

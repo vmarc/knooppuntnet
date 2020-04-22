@@ -1,9 +1,6 @@
 package kpn.core.util
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
-class FormatterTest extends AnyFunSuite with Matchers {
+class FormatterTest extends UnitTest {
 
   test("percentage") {
     Formatter.percentage(0, 0) should equal("-")

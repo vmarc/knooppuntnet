@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
+import kpn.core.util.UnitTest
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
 import scala.collection.immutable.ListMap
 
-class VectorTileEncoderTest extends AnyFunSuite with Matchers {
+class VectorTileEncoderTest extends UnitTest {
 
   private val gf = new GeometryFactory()
 

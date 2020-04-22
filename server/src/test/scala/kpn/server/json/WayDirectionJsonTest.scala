@@ -2,10 +2,9 @@ package kpn.server.json
 
 import kpn.api.common.route.Both
 import kpn.api.common.route.WayDirection
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class WayDirectionJsonTest extends AnyFunSuite with Matchers {
+class WayDirectionJsonTest extends UnitTest {
 
   test("serializer") {
     Json.string(Both) should equal(""""Both"""")

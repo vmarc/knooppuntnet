@@ -6,10 +6,9 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
 import kpn.core.test.TestSupport.withDatabase
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class NetworkRepositoryTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("network - get network by id") {
     withDatabase { database =>

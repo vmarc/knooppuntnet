@@ -6,13 +6,12 @@ import kpn.core.gpx.GpxSegment
 import kpn.core.gpx.GpxWriter
 import kpn.core.gpx.WayPoint
 import kpn.core.util.Haversine
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.server.analyzer.engine.analysis.common.Converter
 import kpn.server.analyzer.engine.tiles.domain.Point
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class ElevationFacadeTest extends AnyFunSuite with Matchers {
+class ElevationFacadeTest extends UnitTest {
 
   test("route elevation profile") {
 

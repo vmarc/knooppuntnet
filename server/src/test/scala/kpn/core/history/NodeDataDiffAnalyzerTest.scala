@@ -1,7 +1,5 @@
 package kpn.core.history
 
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.api.common.LatLonImpl
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.NodeData
@@ -10,10 +8,11 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.node.NodeMoved
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.util.UnitTest
 
-class NodeDataDiffAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no change") {
     val n1 = nodeData(1, "51.5291500", "4.297700", 3, Timestamp(2015, 8, 11, 0, 0, 0), 100, Tags.from("a" -> "1"))

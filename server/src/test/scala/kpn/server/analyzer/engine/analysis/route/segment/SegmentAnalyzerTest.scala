@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
@@ -12,10 +13,8 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class SegmentAnalyzerTest extends AnyFunSuite with Matchers {
+class SegmentAnalyzerTest extends UnitTest {
 
   test("single way route") {
 

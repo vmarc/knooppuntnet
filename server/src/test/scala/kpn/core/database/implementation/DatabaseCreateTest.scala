@@ -7,10 +7,9 @@ import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class DatabaseCreateTest extends AnyFunSuite with Matchers with TestObjects {
+class DatabaseCreateTest extends UnitTest with TestObjects {
 
   test("create") {
     withDatabase(database => {

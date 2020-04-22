@@ -1,11 +1,9 @@
 package kpn.api.common.data.raw
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
 import kpn.core.test.TestData
+import kpn.core.util.UnitTest
 
-class RawDataTest extends AnyFunSuite with Matchers {
+class RawDataTest extends UnitTest {
 
   test("nodes that appear multiple times should be included only once in the merged data") {
 

@@ -1,15 +1,12 @@
 package kpn.core.util
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
-
-class UtilTest extends AnyFunSuite with Matchers {
+class UtilTest extends UnitTest {
 
   test("split") {
 
-    Util.split(0, Seq(1, 2, 0, 3, 4, 5, 6, 0, 7, 8)) should equal (Seq(Seq(1, 2), Seq(3, 4, 5, 6), Seq(7, 8)))
+    Util.split(0, Seq(1, 2, 0, 3, 4, 5, 6, 0, 7, 8)) should equal(Seq(Seq(1, 2), Seq(3, 4, 5, 6), Seq(7, 8)))
     //Util.split(0, Seq(1, 2, 0, 3, 4, 5, 6, 0, 7, 8, 0)) should equal (Seq(Seq(1, 2), Seq(3, 4, 5, 6), Seq(7, 8)))
-    Util.split(0, Seq(1, 2, 0, 0, 3, 4)) should equal (Seq(Seq(1, 2), Seq(), Seq(3, 4)))
+    Util.split(0, Seq(1, 2, 0, 0, 3, 4)) should equal(Seq(Seq(1, 2), Seq(), Seq(3, 4)))
   }
 
   test("withoutSuccessiveDuplicates") {

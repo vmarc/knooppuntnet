@@ -8,13 +8,12 @@ import kpn.api.common.location.LocationCandidate
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class LocationViewTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class LocationViewTest extends UnitTest with SharedTestObjects {
 
   test("node location") {
     withDatabase { database =>

@@ -1,18 +1,5 @@
 package kpn.core.history
 
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.core.test.TestData
-import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
@@ -20,12 +7,24 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.common.diff.route.RouteRoleDiff
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestData
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.server.analyzer.load.data.LoadedNetwork
 
-class RouteDiffAnalyzerTest extends AnyFunSuite with Matchers {
+class RouteDiffAnalyzerTest extends UnitTest {
 
   test("removed way") {
 

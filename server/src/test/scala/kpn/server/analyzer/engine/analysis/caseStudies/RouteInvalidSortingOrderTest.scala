@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class RouteInvalidSortingOrderTest extends AnyFunSuite with Matchers {
+class RouteInvalidSortingOrderTest extends UnitTest {
   test("route with roundabout which is split in multiple fragments: roundabout used only once when checking sorting order") {
     val route = CaseStudy.routeAnalysis("10779").route
     route.facts should equal(Seq())

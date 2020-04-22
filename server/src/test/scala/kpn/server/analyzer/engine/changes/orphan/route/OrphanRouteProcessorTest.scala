@@ -1,9 +1,8 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class OrphanRouteProcessorTest extends AnyFunSuite with Matchers {
+class OrphanRouteProcessorTest extends UnitTest {
 
   test("todo") {
     pending

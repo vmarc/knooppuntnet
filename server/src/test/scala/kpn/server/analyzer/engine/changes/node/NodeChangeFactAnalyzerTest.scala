@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.AnalysisData
-import kpn.api.common.SharedTestObjects
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class NodeChangeFactAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no facts") {
     val analysisData = AnalysisData()

@@ -1,9 +1,8 @@
 package kpn.core.poi.tags
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class TagExpressionFormatterTest extends AnyFunSuite with Matchers {
+class TagExpressionFormatterTest extends UnitTest {
 
   test("HasTag(key)") {
     assertExpression(HasTag("key"), Seq("[key]"))

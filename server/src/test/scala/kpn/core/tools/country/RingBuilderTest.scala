@@ -1,9 +1,8 @@
 package kpn.core.tools.country
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class RingBuilderTest extends AnyFunSuite with Matchers {
+class RingBuilderTest extends UnitTest {
 
   test("no rings when no ways") {
     RingBuilder.findRings(Seq()) should equal(Seq())
@@ -22,7 +21,7 @@ class RingBuilderTest extends AnyFunSuite with Matchers {
     )
 
     val rings = RingBuilder.findRings(ways)
-    rings.map(_.ways.map(_.id)) should equal(Seq(Seq(1,2,3,4), Seq(5,6,7,8)))
+    rings.map(_.ways.map(_.id)) should equal(Seq(Seq(1, 2, 3, 4), Seq(5, 6, 7, 8)))
   }
 
   test("two rings, each consisting of a single way") {

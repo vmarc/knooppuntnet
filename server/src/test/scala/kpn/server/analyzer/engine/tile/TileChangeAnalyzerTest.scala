@@ -2,13 +2,12 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class TileChangeAnalyzerTest extends AnyFunSuite with Matchers with MockFactory with TestObjects {
+class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects {
 
   test("analyzeRoute") {
 

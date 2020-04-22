@@ -4,14 +4,13 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Day
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RouteLastSurveyAnalyzerTest extends AnyFunSuite with Matchers with SharedTestObjects {
+class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no survey:date") {
     analyze(Tags.empty)

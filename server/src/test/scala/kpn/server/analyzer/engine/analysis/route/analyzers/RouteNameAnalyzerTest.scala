@@ -2,15 +2,14 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class RouteNameAnalyzerTest extends AnyFunSuite with Matchers {
+class RouteNameAnalyzerTest extends UnitTest {
 
   test("regular route name") {
 

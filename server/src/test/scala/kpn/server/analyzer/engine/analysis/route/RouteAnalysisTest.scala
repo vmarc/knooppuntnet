@@ -1,18 +1,17 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteNotBackward
-import kpn.api.custom.Fact.RouteOneWay
-import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteNotContinious
 import kpn.api.custom.Fact.RouteNotForward
+import kpn.api.custom.Fact.RouteNotOneWay
+import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class RouteAnalysisTest extends AnyFunSuite with Matchers {
+class RouteAnalysisTest extends UnitTest {
 
   test("single way route") {
 

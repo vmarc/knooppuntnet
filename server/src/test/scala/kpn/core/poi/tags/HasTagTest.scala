@@ -1,10 +1,9 @@
 package kpn.core.poi.tags
 
 import kpn.api.custom.Tags
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import kpn.core.util.UnitTest
 
-class HasTagTest extends AnyFunSuite with Matchers {
+class HasTagTest extends UnitTest {
 
   test("HasTag") {
 

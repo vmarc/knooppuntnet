@@ -1,22 +1,21 @@
 package kpn.server.analyzer.engine.changes.network.create
 
+import kpn.api.common.ReplicationId
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.NetworkType
+import kpn.core.test.TestData
+import kpn.core.util.Log
+import kpn.core.util.MockLog
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.core.test.TestData
-import kpn.core.util.Log
-import kpn.core.util.MockLog
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
-import kpn.api.common.ReplicationId
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.changes.ChangeSet
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class NetworkCreateProcessorWorkerTest extends AnyFunSuite with Matchers with MockFactory with SharedTestObjects {
+class NetworkCreateProcessorWorkerTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("network create - network 'after' situation cannot be loaded") {
 

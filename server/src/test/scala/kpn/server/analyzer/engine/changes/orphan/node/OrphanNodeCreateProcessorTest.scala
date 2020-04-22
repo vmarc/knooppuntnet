@@ -4,6 +4,7 @@ import kpn.api.common.NodeInfo
 import kpn.api.common.data.Node
 import kpn.api.custom.Country
 import kpn.core.test.TestData
+import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
@@ -12,10 +13,8 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
-class OrphanNodeCreateProcessorTest extends AnyFunSuite with Matchers with MockFactory {
+class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
   test("new orphan node is saved to database") {
 
