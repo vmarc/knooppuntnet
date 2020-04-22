@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class OrphanRoutesLoaderImpl(
-  executor: Executor,
+  analysisExecutor: Executor,
   analysisContext: AnalysisContext,
   routeIdsLoader: RouteIdsLoader,
   blackListRepository: BlackListRepository,
@@ -36,7 +36,7 @@ class OrphanRoutesLoaderImpl(
 
         val futures = candidateOrphanRouteIds.zipWithIndex.map { case (routeId, index) =>
           val context = Log.contextAnd(s"${index + 1}/${candidateOrphanRouteIds.size}")
-          runAsync(() => Log.context(context)(worker.process(timestamp, routeId)), executor).exceptionally { ex =>
+          runAsync(() => Log.context(context)(worker.process(timestamp, routeId)), analysisExecutor).exceptionally { ex =>
             val message = "Exception while loading orphan route"
             Log.context(context) {
               log.error(message, ex)

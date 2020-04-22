@@ -57,7 +57,7 @@ object NetworksLoaderDemo {
 /**
  * Try out loading of networks with different settings for parallelization.
  */
-class NetworksLoaderDemo(executor: Executor) {
+class NetworksLoaderDemo(analysisExecutor: Executor) {
 
   private val log = Log(classOf[NetworksLoaderDemo])
 
@@ -87,7 +87,7 @@ class NetworksLoaderDemo(executor: Executor) {
   )
 
   private val networkInitialLoader: NetworkInitialLoader = new NetworkInitialLoaderImpl(
-    executor,
+    analysisExecutor,
     networkInitialLoaderWorker
   )
 

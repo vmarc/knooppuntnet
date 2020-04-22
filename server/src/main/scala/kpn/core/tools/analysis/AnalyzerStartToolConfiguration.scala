@@ -46,7 +46,7 @@ import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
 class AnalyzerStartToolConfiguration(
-  executor: Executor,
+  analysisExecutor: Executor,
   analysisDatabase: Database,
   changeDatabase: Database,
   poiDatabase: Database
@@ -127,7 +127,7 @@ class AnalyzerStartToolConfiguration(
   )
 
   val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
-    executor,
+    analysisExecutor,
     analysisContext,
     nonCachingExecutor,
     orphanRepository,

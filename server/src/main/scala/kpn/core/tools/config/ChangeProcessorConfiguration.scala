@@ -58,7 +58,7 @@ import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.TaskRepository
 
 class ChangeProcessorConfiguration(
-  executor: Executor,
+  analysisExecutor: Executor,
   analysisContext: AnalysisContext,
   nonCachingExecutor: OverpassQueryExecutor,
   cachingExecutor: OverpassQueryExecutor,
@@ -108,7 +108,7 @@ class ChangeProcessorConfiguration(
   )
 
   private val routesLoader = new RoutesLoaderImpl(
-    executor,
+    analysisExecutor,
     routeLoader
   )
 
@@ -139,7 +139,7 @@ class ChangeProcessorConfiguration(
       )
 
       new NetworkCreateProcessorImpl(
-        executor,
+        analysisExecutor,
         new NetworkCreateProcessorWorkerImpl(
           networkLoader,
           networkRelationAnalyzer,
@@ -159,7 +159,7 @@ class ChangeProcessorConfiguration(
       )
 
       new NetworkUpdateProcessorImpl(
-        executor,
+        analysisExecutor,
         new NetworkUpdateProcessorWorkerImpl(
           analysisRepository,
           networkLoader,
@@ -171,7 +171,7 @@ class ChangeProcessorConfiguration(
 
     val networkDeleteProcessor = {
       new NetworkDeleteProcessorImpl(
-        executor,
+        analysisExecutor,
         new NetworkDeleteProcessorWorkerImpl(
           analysisContext,
           networkRepository,

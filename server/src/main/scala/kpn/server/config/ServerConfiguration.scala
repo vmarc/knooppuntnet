@@ -33,7 +33,7 @@ class ServerConfiguration(emailSender: JavaMailSender) {
   def threadMetrics = new JvmThreadMetrics
 
   @Bean
-  def executor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
+  def analysisExecutor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
     val executor = new ThreadPoolTaskExecutor
     executor.setCorePoolSize(poolSize)
     executor.setMaxPoolSize(poolSize)

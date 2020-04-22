@@ -68,13 +68,13 @@ object AnalyzerStartTool {
     System.exit(exit)
   }
 
-  private def buildConfiguration(executor: Executor, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
+  private def buildConfiguration(analysisExecutor: Executor, options: AnalyzerStartToolOptions): AnalyzerStartToolConfiguration = {
     val couchConfig = Couch.config
     val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.analysisDatabaseName))
     val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.changeDatabaseName))
     val poiDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.poiDatabaseName))
     new AnalyzerStartToolConfiguration(
-      executor,
+      analysisExecutor,
       analysisDatabase,
       changeDatabase,
       poiDatabase

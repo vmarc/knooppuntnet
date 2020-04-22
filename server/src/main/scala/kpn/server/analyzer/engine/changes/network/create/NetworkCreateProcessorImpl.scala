@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkCreateProcessorImpl(
-  executor: Executor,
+  analysisExecutor: Executor,
   worker: NetworkCreateProcessorWorker
 ) extends NetworkCreateProcessor {
 
@@ -19,7 +19,7 @@ class NetworkCreateProcessorImpl(
 
   override def process(changeSetContext: ChangeSetContext, networkId: Long): CompletableFuture[ChangeSetChanges] = {
     val context = s"network=$networkId"
-    supplyAsync(() => Log.context(context)(worker.process(changeSetContext, networkId)), executor).exceptionally { ex =>
+    supplyAsync(() => Log.context(context)(worker.process(changeSetContext, networkId)), analysisExecutor).exceptionally { ex =>
       val message = "Exception while processing network create"
       Log.context(context) {
         log.error(message, ex)

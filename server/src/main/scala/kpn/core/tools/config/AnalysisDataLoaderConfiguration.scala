@@ -33,7 +33,7 @@ import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.OrphanRepository
 
 class AnalysisDataLoaderConfiguration(
-  executor: Executor,
+  analysisExecutor: Executor,
   analysisContext: AnalysisContext,
   cachingExecutor: OverpassQueryExecutor,
   orphanRepository: OrphanRepository,
@@ -84,7 +84,7 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val orphanRoutesLoader = new OrphanRoutesLoaderImpl(
-    executor,
+    analysisExecutor,
     analysisContext,
     routeIdsLoader,
     blackListRepository,
@@ -135,7 +135,7 @@ class AnalysisDataLoaderConfiguration(
   )
 
   private val networkInitialLoader: NetworkInitialLoader = new NetworkInitialLoaderImpl(
-    executor,
+    analysisExecutor,
     networkInitialLoaderWorker
   )
 

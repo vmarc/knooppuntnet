@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkUpdateProcessorImpl(
-  executor: Executor,
+  analysisExecutor: Executor,
   worker: NetworkUpdateProcessorWorker
 ) extends NetworkUpdateProcessor {
 
@@ -19,7 +19,7 @@ class NetworkUpdateProcessorImpl(
 
   override def process(changeSetContext: ChangeSetContext, networkId: Long): CompletableFuture[ChangeSetChanges] = {
     val context = Log.contextAnd(s"network=$networkId")
-    supplyAsync(() => Log.context(context)(worker.process(changeSetContext, networkId)), executor).exceptionally { ex =>
+    supplyAsync(() => Log.context(context)(worker.process(changeSetContext, networkId)), analysisExecutor).exceptionally { ex =>
       val message = "Exception while processing network update"
       Log.context(context) {
         log.error(message, ex)

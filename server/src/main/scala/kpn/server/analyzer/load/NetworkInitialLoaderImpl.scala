@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkInitialLoaderImpl(
-  executor: Executor,
+  analysisExecutor: Executor,
   worker: NetworkInitialLoaderWorker
 ) extends NetworkInitialLoader {
 
@@ -19,7 +19,7 @@ class NetworkInitialLoaderImpl(
   def load(timestamp: Timestamp, networkIds: Seq[Long]): Unit = {
     val futures = networkIds.zipWithIndex.map { case (networkId, index) =>
       val context = Log.contextAnd(s"${index + 1}/${networkIds.size}, network=$networkId")
-      supplyAsync(() => Log.context(context)(worker.load(timestamp, networkId)), executor).exceptionally { ex =>
+      supplyAsync(() => Log.context(context)(worker.load(timestamp, networkId)), analysisExecutor).exceptionally { ex =>
         val message = "Exception during initial network load"
         Log.context(context) {
           log.error(message, ex)

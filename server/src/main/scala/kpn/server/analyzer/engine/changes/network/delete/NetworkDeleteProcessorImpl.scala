@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkDeleteProcessorImpl(
-  executor: Executor,
+  analysisExecutor: Executor,
   worker: NetworkDeleteProcessorWorker
 ) extends NetworkDeleteProcessor {
 
@@ -19,7 +19,7 @@ class NetworkDeleteProcessorImpl(
 
   override def process(changeSetContext: ChangeSetContext, networkId: Long): CompletableFuture[ChangeSetChanges] = {
     val context = Log.contextAnd(s"network=$networkId")
-    supplyAsync(() => Log.context(context)(worker.process(changeSetContext, networkId)), executor).exceptionally { ex =>
+    supplyAsync(() => Log.context(context)(worker.process(changeSetContext, networkId)), analysisExecutor).exceptionally { ex =>
       val message = "Exception while processing network delete"
       Log.context(context) {
         log.error(message, ex)
