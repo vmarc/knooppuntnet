@@ -5,11 +5,11 @@ import {RouteInfoAnalysis} from "../../../kpn/api/common/route/route-info-analys
 @Component({
   selector: "kpn-route-start-nodes",
   template: `
-    <p *ngIf="analysis.startNodes.isEmpty()">?</p>
-    <p *ngFor="let node of analysis.startNodes">
+    <p *ngIf="analysis.map.startNodes.isEmpty()">?</p>
+    <p *ngFor="let node of analysis.map.startNodes">
       <kpn-route-node [node]="node" title="marker-icon-green-small.png"></kpn-route-node>
     </p>
-    <p *ngFor="let node of analysis.startTentacleNodes">
+    <p *ngFor="let node of analysis.map.startTentacleNodes">
       <kpn-route-node [node]="node" title="marker-icon-orange-small.png"></kpn-route-node>
     </p>
   `

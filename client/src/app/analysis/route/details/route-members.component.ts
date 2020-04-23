@@ -68,7 +68,7 @@ import {RouteMemberInfo} from "../../../kpn/api/custom/route-member-info";
               {{member.description}}
             </td>
             <td>
-              <div *ngIf="!member.isAccessible">
+              <div *ngIf="!member.accessible">
                 <mat-icon svgIcon="warning"></mat-icon>
               </div>
             </td>

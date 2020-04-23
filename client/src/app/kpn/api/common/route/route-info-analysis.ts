@@ -4,15 +4,10 @@ import {List} from "immutable";
 import {RouteLocationAnalysis} from "../route-location-analysis";
 import {RouteMap} from "./route-map";
 import {RouteMemberInfo} from "../../custom/route-member-info";
-import {RouteNetworkNodeInfo} from "./route-network-node-info";
 
 export class RouteInfoAnalysis {
 
-  constructor(readonly startNodes: List<RouteNetworkNodeInfo>,
-              readonly endNodes: List<RouteNetworkNodeInfo>,
-              readonly startTentacleNodes: List<RouteNetworkNodeInfo>,
-              readonly endTentacleNodes: List<RouteNetworkNodeInfo>,
-              readonly unexpectedNodeIds: List<number>,
+  constructor(readonly unexpectedNodeIds: List<number>,
               readonly members: List<RouteMemberInfo>,
               readonly expectedName: string,
               readonly map: RouteMap,
@@ -26,10 +21,6 @@ export class RouteInfoAnalysis {
       return undefined;
     }
     return new RouteInfoAnalysis(
-      jsonObject.startNodes ? List(jsonObject.startNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.endNodes ? List(jsonObject.endNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.startTentacleNodes ? List(jsonObject.startTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
-      jsonObject.endTentacleNodes ? List(jsonObject.endTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json))) : List(),
       jsonObject.unexpectedNodeIds ? List(jsonObject.unexpectedNodeIds) : List(),
       jsonObject.members ? List(jsonObject.members.map((json: any) => RouteMemberInfo.fromJSON(json))) : List(),
       jsonObject.expectedName,
