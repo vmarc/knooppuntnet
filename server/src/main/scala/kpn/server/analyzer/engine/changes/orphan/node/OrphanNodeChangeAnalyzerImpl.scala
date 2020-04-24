@@ -71,7 +71,7 @@ class OrphanNodeChangeAnalyzerImpl(
 
   private def networkNodeIds(nodesById: Map[Long, RawNode]): Set[Long] = {
     nodesById.values.
-      filter(analysisContext.isNetworkNode).
+      filter(analysisContext.isValidNetworkNode).
       filterNot(isBlackListed).
       map(_.id).
       toSet

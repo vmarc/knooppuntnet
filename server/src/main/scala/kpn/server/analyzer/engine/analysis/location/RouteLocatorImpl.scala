@@ -78,13 +78,18 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
     route.analysis match {
       case None => Seq()
       case Some(analysis) =>
-        toSegments(analysis).map { segment: TrackSegment =>
+        toSegments(analysis).flatMap { segment: TrackSegment =>
           val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
             val lat = trackPoint.lat.toDouble
             val lon = trackPoint.lon.toDouble
             new Coordinate(lon, lat)
           }
-          geomFactory.createLineString(coordinates.toArray)
+          if (coordinates.size > 1) {
+            Some(geomFactory.createLineString(coordinates.toArray))
+          }
+          else {
+            None
+          }
         }
     }
   }

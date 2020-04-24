@@ -45,7 +45,7 @@ class NetworkAnalyzerImpl(
     val allRouteAnalyses: Map[Long, RouteAnalysis] = {
 
       val routeRelations = loadedNetwork.data.relations.values.filter { rel =>
-        analysisContext.isRouteRelation(loadedNetwork.networkType, rel.raw)
+        analysisContext.isReferencedRouteRelation(loadedNetwork.networkType, rel.raw)
       }
 
       val routeAnalyses = routeRelations.flatMap { routeRelation =>

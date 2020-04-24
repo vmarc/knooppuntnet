@@ -5,6 +5,7 @@ import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.core.database.Database
 import kpn.core.database.doc.NodeDoc
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NodeNetworkReferenceView
 import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
 import kpn.core.db.KeyPrefix
@@ -16,6 +17,10 @@ import org.springframework.stereotype.Component
 class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
 
   private val log = Log(classOf[NodeRepository])
+
+  override def allNodeIds(): Seq[Long] = {
+    DocumentView.allNodeIds(analysisDatabase)
+  }
 
   override def save(nodes: NodeInfo*): Boolean = {
 

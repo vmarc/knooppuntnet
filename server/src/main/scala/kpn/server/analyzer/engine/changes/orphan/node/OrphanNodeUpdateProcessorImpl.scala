@@ -41,7 +41,7 @@ class OrphanNodeUpdateProcessorImpl(
       }
     }
 
-    val isNetworkNodeX = analysisContext.isNetworkNode(loadedNodeChange.after.node.raw)
+    val isNetworkNodeX = analysisContext.isValidNetworkNode(loadedNodeChange.after.node.raw)
 
     if (!isNetworkNodeX) {
       analysisContext.data.orphanNodes.watched.delete(loadedNodeChange.id)
@@ -102,8 +102,8 @@ class OrphanNodeUpdateProcessorImpl(
   }
 
   private def lostNodeTag(networkType: NetworkType, loadedNodeChange: LoadedNodeChange, fact: Fact): Option[Fact] = {
-    if (analysisContext.isNetworkNode(networkType, loadedNodeChange.before.node.raw) &&
-      !analysisContext.isNetworkNode(networkType, loadedNodeChange.after.node.raw)) {
+    if (analysisContext.isValidNetworkNode(networkType, loadedNodeChange.before.node.raw) &&
+      !analysisContext.isValidNetworkNode(networkType, loadedNodeChange.after.node.raw)) {
       Some(fact)
     }
     else {

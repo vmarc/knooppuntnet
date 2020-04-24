@@ -54,14 +54,14 @@ class OrphanRouteChangeAnalyzer(
 
   private def routeRelationIds(relationsById: Map[Long, RawRelation]): Set[Long] = {
     relationsById.values.
-      filter(analysisContext.isRouteRelation).
+      filter(analysisContext.isValidRouteRelation).
       filterNot(isBlackListed).
       map(_.id).
       toSet
   }
 
   private def isKnownOrphanRouteWithRequiredTagsMissing(relation: RawRelation): Boolean = {
-    isKnownOrphanRoute(relation.id) && !analysisContext.isRouteRelation(relation)
+    isKnownOrphanRoute(relation.id) && !analysisContext.isValidRouteRelation(relation)
   }
 
   private def isKnownRoute(routeId: Long): Boolean = {

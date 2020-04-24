@@ -4,6 +4,7 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
 import kpn.core.database.Database
 import kpn.core.database.doc.RouteDoc
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
@@ -20,15 +21,37 @@ class RouteRepositoryImpl(
   private val groupSize = 20
   private val log = Log(classOf[RouteRepository])
 
+  override def allRouteIds(): Seq[Long] = {
+    DocumentView.allRouteIds(analysisDatabase)
+  }
+
   override def save(routeInfo: RouteInfo): Unit = {
     log.debugElapsed {
-      val comment = analysisDatabase.docWithId(docId(routeInfo.id), classOf[RouteDoc]) match {
-        case Some(oldRouteDoc) =>
-          updateRoute(oldRouteDoc, routeInfo)
-        case None =>
-          saveNewRoute(routeInfo)
+
+      var retry = true
+      var retryCount = 0
+
+      while (retry && retryCount < 3) {
+        try {
+          val comment = analysisDatabase.docWithId(docId(routeInfo.id), classOf[RouteDoc]) match {
+            case Some(oldRouteDoc) =>
+              updateRoute(oldRouteDoc, routeInfo)
+            case None =>
+              saveNewRoute(routeInfo)
+          }
+          retry = false
+        }
+        catch {
+          case e: IllegalStateException =>
+            if (e.getMessage.contains("_rev mismatch")) {
+              retryCount = retryCount + 1
+            }
+            else {
+              retry = false
+            }
+        }
       }
-      (s"Save route ${routeInfo.id} $comment", ())
+      (s"Save route ${routeInfo.id}", ())
     }
   }
 

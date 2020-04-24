@@ -5,6 +5,8 @@ import kpn.api.common.route.RouteReferences
 
 trait RouteRepository {
 
+  def allRouteIds(): Seq[Long]
+
   def save(routes: RouteInfo): Unit
 
   def delete(routeIds: Seq[Long]): Unit

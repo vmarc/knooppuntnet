@@ -119,7 +119,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     val countryAnalyzer = stub[CountryAnalyzer]
     (countryAnalyzer.country _).when(*).returns(None)
     (countryAnalyzer.relationCountry _).when(*).returns(None)
-    val analysisContext = new AnalysisContext(oldTagging)
+    val analysisContext = new AnalysisContext(oldTagging = oldTagging)
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)

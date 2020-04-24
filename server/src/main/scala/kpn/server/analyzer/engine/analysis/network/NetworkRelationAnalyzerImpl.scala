@@ -22,7 +22,7 @@ class NetworkRelationAnalyzerImpl(
     val routeRefs = routeRelations.map(_.id)
     val networkRefs = networkRelations.map(_.id)
 
-    val country = if (nodes.isEmpty) {
+    val country = if (nodes.nonEmpty) {
       countryAnalyzer.country(nodes)
     }
     else {

@@ -1,11 +1,11 @@
 package kpn.core.tools.analysis
 
+import java.io.File
 import java.util.concurrent.Executor
 
 import kpn.core.database.Database
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.tools.config.AnalysisDataLoaderConfiguration
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
@@ -25,14 +25,20 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.context.Elements
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.AnalysisDataLoader
+import kpn.server.analyzer.load.NetworkInitialLoader
+import kpn.server.analyzer.load.NetworkInitialLoaderImpl
+import kpn.server.analyzer.load.NetworkInitialLoaderWorker
+import kpn.server.analyzer.load.NetworkInitialLoaderWorkerImpl
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl
 import kpn.server.analyzer.load.RouteLoader
 import kpn.server.analyzer.load.RouteLoaderImpl
+import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoaderWorkerImpl
+import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.BlackListRepositoryImpl
@@ -44,27 +50,32 @@ import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
+import org.apache.commons.io.FileUtils
 
 class AnalyzerStartToolConfiguration(
   analysisExecutor: Executor,
   analysisDatabase: Database,
-  changeDatabase: Database,
-  poiDatabase: Database
+  changeDatabase: Database
 ) {
 
   val dirs: Dirs = Dirs()
+
+  private val snapshotKnownElements = {
+    val string = FileUtils.readFileToString(new File(AnalysisContext.networkTypeTaggingStartSnapshotFilename), "UTF-8")
+    Json.value(string, classOf[Elements])
+  }
 
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
   private val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
   private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
-  private val routeRepository = new RouteRepositoryImpl(analysisDatabase, routeLocator)
-  private val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
+  val routeRepository = new RouteRepositoryImpl(analysisDatabase, routeLocator)
+  val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-  private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
+  val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
   private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
@@ -85,11 +96,11 @@ class AnalyzerStartToolConfiguration(
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val analysisDatabaseIndexer: DatabaseIndexer = new DatabaseIndexer(analysisDatabase, changeDatabase, poiDatabase, null, null)
+  val analysisDatabaseIndexer: DatabaseIndexer = new DatabaseIndexer(analysisDatabase, changeDatabase, null, null, null)
 
   val analysisData: AnalysisData = AnalysisData()
 
-  val analysisContext = new AnalysisContext()
+  val analysisContext = new AnalysisContext(snapshotKnownElements, beforeNetworkTypeTaggingStart = true)
 
   val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 
@@ -126,21 +137,32 @@ class AnalyzerStartToolConfiguration(
     routeTileAnalyzer
   )
 
-  val analysisDataLoader: AnalysisDataLoader = new AnalysisDataLoaderConfiguration(
-    analysisExecutor,
-    analysisContext,
-    nonCachingExecutor,
-    orphanRepository,
-    analysisRepository,
-    blackListRepository,
-    relationAnalyzer,
-    countryAnalyzer,
-    nodeLoader,
-    analysisDatabaseIndexer
-  ).analysisDataLoader
-
   val networkLoader = new NetworkLoaderImpl(cachingExecutor)
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
   val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
+
+  private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
+    analysisContext,
+    analysisRepository,
+    networkLoader,
+    networkRelationAnalyzer,
+    networkAnalyzer,
+    blackListRepository
+  )
+
+  val networkInitialLoader: NetworkInitialLoader = new NetworkInitialLoaderImpl(
+    analysisExecutor,
+    networkInitialLoaderWorker
+  )
+
+  val orphanRoutesLoaderWorker = new OrphanRoutesLoaderWorkerImpl(
+    analysisContext,
+    routeLoader,
+    routeAnalyzer,
+    relationAnalyzer,
+    countryAnalyzer,
+    analysisRepository,
+    nodeInfoBuilder
+  )
 
 }

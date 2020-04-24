@@ -3,8 +3,8 @@ package kpn.core.tools.support
 import java.io.PrintWriter
 
 import kpn.api.custom.ScopedNetworkType
-import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.Elements
 import kpn.server.analyzer.load.NetworkIdsLoader
@@ -36,32 +36,35 @@ class ElementsSnapshotTool(
   routeIdsLoader: RouteIdsLoader
 ) {
 
+  private val log = Log(classOf[ElementsSnapshotTool])
+
   def run(): Unit = {
     val elements: Elements = readElements()
     writeElements(elements)
+    log.info("done")
   }
 
   private def readElements(): Elements = {
-    val networkIds: Seq[Long] = readNetworkIds
-    val routeIds: Seq[Long] = readRouteIds
-    val nodeIds: _root_.scala.collection.Seq[Long] = readNodeIds
-    val elements = Elements(networkIds.toSet, routeIds.toSet, nodeIds.toSet)
+    val nodeIds = readNodeIds
+    val routeIds = readRouteIds
+    val networkIds = readNetworkIds
+    val elements = Elements(nodeIds.toSet, routeIds.toSet, networkIds.toSet)
     elements
   }
 
-  private def readNodeIds = {
+  private def readNodeIds: Seq[Long] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
       nodeIdsLoader.load(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
     }
   }
 
-  private def readRouteIds = {
+  private def readRouteIds: Seq[Long] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
       routeIdsLoader.load(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
     }
   }
 
-  private def readNetworkIds = {
+  private def readNetworkIds: Seq[Long] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
       networkIdsLoader.load(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
     }

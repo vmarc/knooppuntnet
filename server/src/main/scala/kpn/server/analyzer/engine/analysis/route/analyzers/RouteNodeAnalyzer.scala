@@ -54,7 +54,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     val nodes = findNodes()
 
-    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter(node => context.analysisContext.isNetworkNode(node.raw))
+    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter(node => context.analysisContext.isReferencedNetworkNode(node.raw))
 
     val nodesInWays = findNodesInWays()
 
@@ -161,7 +161,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private def findNodesInWays(): Seq[Node] = {
     val ways = context.loadedRoute.relation.wayMembers.map(member => member.way)
     val nodes = ways.flatMap(_.nodes)
-    nodes.filter(node => context.analysisContext.isNetworkNode(node.raw))
+    nodes.filter(node => context.analysisContext.isReferencedNetworkNode(node.raw))
   }
 
   private def findNodes(): Seq[Node] = {
@@ -170,7 +170,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       case wayMember: WayMember => wayMember.way.nodes
       case _ => Seq()
     }
-    Unique.filter(nodes).filter(n => context.analysisContext.isNetworkNode(context.networkType, n.raw))
+    Unique.filter(nodes).filter(n => context.analysisContext.isReferencedNetworkNode(context.networkType, n.raw))
   }
 
   private def isEquivalent(nodeName1: String, nodeName2: String): Boolean = {

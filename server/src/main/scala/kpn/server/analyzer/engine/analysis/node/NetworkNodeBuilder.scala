@@ -10,7 +10,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 class NetworkNodeBuilder(analysisContext: AnalysisContext, data: Data, networkType: NetworkType, countryAnalyzer: CountryAnalyzer) {
 
   def networkNodes: Map[Long, NetworkNode] = {
-    val nodes = data.nodes.values.toSeq.filter(node => analysisContext.isNetworkNode(networkType, node.raw))
+    val nodes = data.nodes.values.toSeq.filter(node => analysisContext.isReferencedNetworkNode(networkType, node.raw))
     nodes.map(buildNode).map(n => (n.node.id, n)).toMap
   }
 

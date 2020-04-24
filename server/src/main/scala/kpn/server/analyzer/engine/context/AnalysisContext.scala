@@ -18,10 +18,13 @@ object AnalysisContext {
   val networkTypeTaggingStartSnapshotFilename: String = "/kpn/conf/snapshot.json"
 }
 
-class AnalysisContext(oldTagging: Boolean = false, beforeNetworkTypeTaggingStart: Boolean = false) {
+class AnalysisContext(
+  val snapshotKnownElements: Elements = Elements(), // nodes:routes/networks known on 2019-11-01
+  val oldTagging: Boolean = false,
+  val beforeNetworkTypeTaggingStart: Boolean = false
+) {
 
   val data: AnalysisData = AnalysisData()
-  val snapshotKnownElements: Elements = Elements()
   var knownElements: Elements = Elements()
 
   def addKnownNode(nodeId: Long): Unit = {
@@ -74,18 +77,35 @@ class AnalysisContext(oldTagging: Boolean = false, beforeNetworkTypeTaggingStart
     }
   }
 
-  def isNetworkNode(node: RawNode): Boolean = {
-    NetworkType.all.exists(networkType => isNetworkNode(networkType, node))
+  def isValidNetworkNode(node: RawNode): Boolean = {
+    NetworkType.all.exists(networkType => isValidNetworkNode(networkType, node))
   }
 
-  def isNetworkNode(networkType: NetworkType, member: Member): Boolean = {
-    member match {
-      case nodeMember: NodeMember => isNetworkNode(networkType, nodeMember.node.raw)
-      case _ => false
+  def isReferencedNetworkNode(node: RawNode): Boolean = {
+    NetworkType.all.exists(networkType => isReferencedNetworkNode(networkType, node))
+  }
+
+  /*
+     Returns true is given node matches the conditions to be considered a node network node. Use
+     this method when checking a node that is a member of a network or route relation.
+   */
+  def isReferencedNetworkNode(networkType: NetworkType, node: RawNode): Boolean = {
+    if (oldTagging || beforeNetworkTypeTaggingStart) {
+      isNodeNetworkType(networkType, node)
+    }
+    else {
+      isNodeNetworkType(networkType, node) && hasNetworkTypeTag(node)
     }
   }
 
-  def isNetworkNode(networkType: NetworkType, node: RawNode): Boolean = {
+  /*
+     Returns true is given node matches the conditions to be considered a node network node. Use
+     this method when checking a 'standalone' node (not member of a network or route relation).
+
+     If the node is not part of a known network or route relation, than we want it to be a known
+     node.
+   */
+  def isValidNetworkNode(networkType: NetworkType, node: RawNode): Boolean = {
     if (oldTagging) {
       isNodeNetworkType(networkType, node)
     }
@@ -97,18 +117,41 @@ class AnalysisContext(oldTagging: Boolean = false, beforeNetworkTypeTaggingStart
     }
   }
 
-  def isRouteRelation(relation: RawRelation): Boolean = {
-    NetworkType.all.exists(networkType => isRouteRelation(networkType, relation))
+  def isValidRouteRelation(relation: RawRelation): Boolean = {
+    NetworkType.all.exists(networkType => isValidRouteRelation(networkType, relation))
   }
 
-  def isRouteRelation(networkType: NetworkType, member: Member): Boolean = {
+  def isValidRouteRelation(networkType: NetworkType, member: Member): Boolean = {
     member match {
-      case relationMember: RelationMember => isRouteRelation(networkType, relationMember.relation.raw)
+      case relationMember: RelationMember => isValidRouteRelation(networkType, relationMember.relation.raw)
       case _ => false
     }
   }
 
-  def isRouteRelation(networkType: NetworkType, relation: RawRelation): Boolean = {
+  def isReferencedRouteRelation(relation: RawRelation): Boolean = {
+    NetworkType.all.exists(networkType => isReferencedRouteRelation(networkType, relation))
+  }
+
+  def isReferencedRouteRelation(networkType: NetworkType, member: Member): Boolean = {
+    member match {
+      case relationMember: RelationMember => isReferencedRouteRelation(networkType, relationMember.relation.raw)
+      case _ => false
+    }
+  }
+
+  def isReferencedRouteRelation(networkType: NetworkType, relation: RawRelation): Boolean = {
+    if (oldTagging || beforeNetworkTypeTaggingStart) {
+      hasNetworkTag(networkType, relation) &&
+        relation.tags.has("type", "route")
+    }
+    else {
+      hasNetworkTag(networkType, relation) &&
+        relation.tags.has("type", "route") &&
+        hasNetworkTypeTag(relation)
+    }
+  }
+
+  def isValidRouteRelation(networkType: NetworkType, relation: RawRelation): Boolean = {
     if (oldTagging) {
       hasNetworkTag(networkType, relation) &&
         relation.tags.has("type", "route")
@@ -126,11 +169,15 @@ class AnalysisContext(oldTagging: Boolean = false, beforeNetworkTypeTaggingStart
   }
 
   def isValidNetworkMember(networkType: NetworkType, member: Member): Boolean = { // TODO this method does not belong here???
-    member.isWay || isNetworkNode(networkType, member)
+    val isNodeMember = member match {
+      case nodeMember: NodeMember => isReferencedNetworkNode(networkType, nodeMember.node.raw)
+      case _ => false
+    }
+    member.isWay || isNodeMember
   }
 
-  def isUnexpectedNode(networkType: NetworkType, node: Node): Boolean = { // TODO this method does not belong here???
-    !isNetworkNode(networkType, node.raw) && !isMap(node)
+  def isUnexpectedNode(networkType: NetworkType, node: Node): Boolean = {
+    !isReferencedNetworkNode(networkType, node.raw) && !isMap(node)
   }
 
   private def isMap(node: Node): Boolean = {

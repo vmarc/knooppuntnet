@@ -6,6 +6,8 @@ import kpn.api.common.node.NodeOrphanRouteReference
 
 trait NodeRepository {
 
+  def allNodeIds(): Seq[Long]
+
   def save(nodes: NodeInfo*): Boolean
 
   def delete(nodeId: Long): Unit
