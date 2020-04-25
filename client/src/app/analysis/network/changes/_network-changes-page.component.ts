@@ -20,32 +20,32 @@ import {NetworkChangesService} from "./network-changes.service";
       i18n-pageTitle="@@network-changes.title">
     </kpn-network-page-header>
 
-    <div *ngIf="!isLoggedIn()" i18n="@@network-changes.login-required">
-      The details of network changes history are available to registered OpenStreetMap contributors only, after
-      <kpn-link-login></kpn-link-login>
-      .
-    </div>
-
-    <div *ngIf="response">
-      <div *ngIf="!page" i18n="@@network-changes.network-not-found">
-        Network not found
+    <div class="kpn-spacer-above">
+      <div *ngIf="!isLoggedIn()" i18n="@@network-changes.login-required">
+        The details of network changes history are available to registered OpenStreetMap contributors only, after
+        <kpn-link-login></kpn-link-login>
+        .
       </div>
-      <div *ngIf="page">
 
-        <p>
-          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-        </p>
+      <div *ngIf="response">
+        <div *ngIf="!page" i18n="@@network-changes.network-not-found">
+          Network not found
+        </div>
+        <div *ngIf="page">
+          <p>
+            <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+          </p>
+          <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
+            <kpn-items>
+              <kpn-item *ngFor="let networkChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
+                <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
+              </kpn-item>
+            </kpn-items>
+          </kpn-changes>
 
-        <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
-          <kpn-items>
-            <kpn-item *ngFor="let networkChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
-              <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
-            </kpn-item>
-          </kpn-items>
-        </kpn-changes>
-
+        </div>
+        <kpn-json [object]="response"></kpn-json>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

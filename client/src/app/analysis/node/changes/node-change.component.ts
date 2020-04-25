@@ -12,6 +12,13 @@ import {NodeChangeInfo} from "../../../kpn/api/common/node/node-change-info";
       [comment]="nodeChangeInfo.comment">
     </kpn-change-header>
 
+    <div *ngIf="nodeChangeInfo.changeKey.changeSetId === 0">
+      <p i18n="@@node.initial-value">
+        Oldest known state of node (at date of
+        <a class="external" href="https://wiki.openstreetmap.org/wiki/NL:Open_Database_License" target="_blank" rel="nofollow noreferrer">license change</a>).
+      </p>
+    </div>
+
     <kpn-change-set-tags [changeSetTags]="nodeChangeInfo.changeTags"></kpn-change-set-tags>
 
     <div class="kpn-detail">

@@ -25,14 +25,14 @@ import {Facts} from "../../fact/facts";
       i18n-pageTitle="@@subset-facts.title">
     </kpn-subset-page-header-block>
 
-    <div *ngIf="response$ | async as response">
-      <div>
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+      <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      </div>
-      <div *ngIf="!hasFacts">
+      </p>
+      <p *ngIf="!hasFacts" class="kpn-line">
         <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-facts.no-facts">No facts</span>
-      </div>
+      </p>
       <div *ngIf="hasFacts" class="kpn-line">
         <kpn-items>
           <kpn-item *ngFor="let factCount of response.result.factCounts; let i=index" [index]="i">

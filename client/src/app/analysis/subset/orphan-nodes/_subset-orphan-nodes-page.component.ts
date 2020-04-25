@@ -22,14 +22,14 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
       i18n-pageTitle="@@subset-orphan-nodes.title">
     </kpn-subset-page-header-block>
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
-      <div *ngIf="nodes.isEmpty()" class="kpn-line">
+      <p *ngIf="nodes.isEmpty()" class="kpn-line">
         <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
-      </div>
+      </p>
       <div *ngIf="!nodes.isEmpty()">
         <kpn-subset-orphan-nodes-table
           [timeInfo]="response.result.timeInfo"

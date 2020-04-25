@@ -2,33 +2,6 @@ package kpn.core.tools.analysis
 
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 
-import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
-import kpn.api.common.changes.details.NodeChange
-import kpn.api.common.changes.details.RefChanges
-import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.common.Ref
-import kpn.api.common.diff.IdDiffs
-import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.diff.route.RouteDiff
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.core.analysis.Network
-import kpn.core.data.DataBuilder
-import kpn.core.loadOld.Parser
-import kpn.core.overpass.QueryNode
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
-import kpn.server.analyzer.load.data.LoadedNode
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
-
-import scala.xml.XML
-
 /*
   Loads the initial state of the analysis and changes database with the oldest information that is
   available in the overpass database (2016-08-11 10:04:03 --> 1 second before the first changeset
@@ -172,6 +145,9 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
   }
 
   private def buildNetworkChange(network: Network): Unit = {
+
+    val nodeRefs = network.nodes.map(node => Ref(node.id, node.networkNode.name))
+    val routeRefs = network.routes.map(route => Ref(route.id, route.routeAnalysis.name))
     config.changeSetRepository.saveNetworkChange(
       NetworkChange(
         key = config.changeSetContext.buildChangeKey(network.id),
@@ -183,8 +159,8 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         orphanRoutes = RefChanges(),
         orphanNodes = RefChanges(),
         networkDataUpdate = None,
-        networkNodes = RefDiffs(),
-        routes = RefDiffs(),
+        networkNodes = RefDiffs(added = nodeRefs),
+        routes = RefDiffs(added = routeRefs),
         nodes = IdDiffs(),
         ways = IdDiffs(),
         relations = IdDiffs(),
@@ -196,20 +172,34 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
   private def buildNetworkRouteChanges(network: Network): Unit = {
     network.routes.foreach { route =>
+
+      val factDiffs = if (route.routeAnalysis.route.facts.nonEmpty) {
+        Some(
+          FactDiffs(
+            remaining = route.routeAnalysis.route.facts.toSet
+          )
+        )
+      }
+      else {
+        None
+      }
+
       config.changeSetRepository.saveRouteChange(
         analyzed(
           RouteChange(
             key = config.changeSetContext.buildChangeKey(route.id),
             changeType = ChangeType.InitialValue,
             name = route.routeAnalysis.route.summary.name,
-            addedToNetwork = Seq(Ref(network.id, network.name)),
+            addedToNetwork = Seq.empty,
             removedFromNetwork = Seq.empty,
             before = None,
             after = Some(route.routeAnalysis.toRouteData),
             removedWays = Seq.empty,
             addedWays = Seq.empty,
             updatedWays = Seq.empty,
-            diffs = RouteDiff(),
+            diffs = RouteDiff(
+              factDiffs = factDiffs
+            ),
             facts = route.routeAnalysis.route.facts
           )
         )
@@ -239,7 +229,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         removedFromRoute = Seq.empty,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
-        factDiffs = FactDiffs(),
+        factDiffs = FactDiffs(remaining = node.facts.toSet),
         facts = node.facts
       )
       config.changeSetRepository.saveNodeChange(analyzed(nodeChange))
@@ -278,7 +268,13 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                     removedWays = Seq.empty,
                     addedWays = Seq.empty,
                     updatedWays = Seq.empty,
-                    diffs = RouteDiff(),
+                    diffs = RouteDiff(
+                      factDiffs = Some(
+                        FactDiffs(
+                          remaining = facts.toSet
+                        )
+                      )
+                    ),
                     facts = facts
                   )
                 )

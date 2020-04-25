@@ -25,7 +25,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
       i18n-pageTitle="@@subset-networks.title">
     </kpn-subset-page-header-block>
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="networks.isEmpty()" i18n="@@subset-networks.no-networks">
         No networks
       </div>

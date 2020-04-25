@@ -25,29 +25,28 @@ import {SubsetChangesService} from "./subset-changes.service";
       i18n-pageTitle="@@subset-changes.title">
     </kpn-subset-page-header-block>
 
-    <div *ngIf="!isLoggedIn()" i18n="@@subset-changes.login-required">
-      This details of the changes history are available to registered OpenStreetMap contributors only, after
-      <kpn-link-login></kpn-link-login>
-      .
-    </div>
-
-    <div *ngIf="response">
-      <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      </p>
-
-      <kpn-changes
-        [(parameters)]="parameters"
-        [totalCount]="page.changeCount"
-        [changeCount]="page.changes.size"
-        [showFirstLastButtons]="false">
-        <kpn-items>
-          <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
-            <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
-          </kpn-item>
-        </kpn-items>
-      </kpn-changes>
-
+    <div class="kpn-spacer-above">
+      <div *ngIf="!isLoggedIn()" i18n="@@subset-changes.login-required">
+        This details of the changes history are available to registered OpenStreetMap contributors only, after
+        <kpn-link-login></kpn-link-login>
+        .
+      </div>
+      <div *ngIf="response">
+        <p>
+          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        </p>
+        <kpn-changes
+          [(parameters)]="parameters"
+          [totalCount]="page.changeCount"
+          [changeCount]="page.changes.size"
+          [showFirstLastButtons]="false">
+          <kpn-items>
+            <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
+              <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
+            </kpn-item>
+          </kpn-items>
+        </kpn-changes>
+      </div>
     </div>
   `
 })

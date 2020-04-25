@@ -34,28 +34,30 @@ import {RouteChangesService} from "./route-changes.service";
       [changeCount]="changeCount">
     </kpn-route-page-header>
 
-    <div *ngIf="!isLoggedIn()" i18n="@@route-changes.login-required">
-      The details of the route changes history is available to registered OpenStreetMap contributors only, after
-      <kpn-link-login></kpn-link-login>
-      .
-    </div>
-
-    <div *ngIf="response$ | async as response">
-
-      <div *ngIf="!page" i18n="@@route-changes.route-not-found">
-        Route not found
+    <div class="kpn-spacer-above">
+      <div *ngIf="!isLoggedIn()" i18n="@@route-changes.login-required">
+        The details of the route changes history is available to registered OpenStreetMap contributors only, after
+        <kpn-link-login></kpn-link-login>
+        .
       </div>
 
-      <div *ngIf="page">
-        <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
-          <kpn-items>
-            <kpn-item *ngFor="let routeChangeInfo of page.changes; let i=index" [index]="i">
-              <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
-            </kpn-item>
-          </kpn-items>
-        </kpn-changes>
-        <div *ngIf="page.incompleteWarning">
-          <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
+      <div *ngIf="response$ | async as response">
+
+        <div *ngIf="!page" i18n="@@route-changes.route-not-found">
+          Route not found
+        </div>
+
+        <div *ngIf="page">
+          <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
+            <kpn-items>
+              <kpn-item *ngFor="let routeChangeInfo of page.changes; let i=index" [index]="i">
+                <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
+              </kpn-item>
+            </kpn-items>
+          </kpn-changes>
+          <div *ngIf="page.incompleteWarning">
+            <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
+          </div>
         </div>
       </div>
     </div>

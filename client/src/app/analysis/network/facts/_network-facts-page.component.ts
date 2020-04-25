@@ -18,7 +18,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
       i18n-pageTitle="@@network-facts.title">
     </kpn-network-page-header>
 
-    <div *ngIf="response">
+    <div *ngIf="response" class="kpn-spacer-above">
       <div *ngIf="!page" i18n="@@network-facts.network-not-found">
         Network not found
       </div>

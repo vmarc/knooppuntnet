@@ -19,7 +19,6 @@ import {SubsetOrphanNodesService} from "./subset-orphan-nodes.service";
       [pageSizeOptions]="[25, 50, 100, 250, 1000]">
     </kpn-paginator>
 
-    <mat-divider></mat-divider>
     <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
 
       <ng-container matColumnDef="rowNumber">
