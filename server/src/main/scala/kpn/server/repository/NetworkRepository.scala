@@ -7,6 +7,8 @@ import kpn.core.gpx.GpxFile
 
 trait NetworkRepository {
 
+  def allNetworkIds(): Seq[Long]
+
   def network(networkId: Long): Option[NetworkInfo]
 
   def save(network: NetworkInfo): Boolean

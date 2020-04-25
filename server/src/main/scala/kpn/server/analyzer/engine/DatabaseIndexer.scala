@@ -4,7 +4,9 @@ import javax.annotation.PostConstruct
 import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
+import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.analyzer.DocumentView
+import kpn.core.database.views.changes.ChangeDocumentView
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.database.views.location.LocationView
 import kpn.core.database.views.metrics.BackendMetricsView
@@ -55,7 +57,8 @@ class DatabaseIndexer(
     indexDatabase(verbose, "analysis-database/tile-design", analysisTileQuery)
 
     if (changeDatabase != null) {
-      indexDatabase(verbose, "changes-database", changeDatabaseQuery)
+      indexDatabase(verbose, "changes/changes", changeDatabaseQuery)
+      indexDatabase(verbose, "changes/documents", changeDocumentsQuery)
     }
 
     if (poiDatabase != null) {
@@ -72,7 +75,7 @@ class DatabaseIndexer(
   }
 
   private def analysisAnalyzerQuery(): Unit = {
-    DocumentView.counts(analysisDatabase)
+    DocumentView.counts(analysisDatabase, AnalyzerDesign)
   }
 
   private def analysisLocationQuery(): Unit = {
@@ -89,6 +92,10 @@ class DatabaseIndexer(
 
   private def changeDatabaseQuery(): Unit = {
     ChangesView.queryChangeCount(changeDatabase, "node", 0, stale = false) // Long
+  }
+
+  private def changeDocumentsQuery(): Unit = {
+    ChangeDocumentView.allIds(changeDatabase, "dummy")
   }
 
   private def poiDatabaseQuery(): Unit = {

@@ -10,8 +10,13 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 
-
 trait ChangeSetRepository {
+
+  def allNetworkIds(): Seq[Long]
+
+  def allRouteIds(): Seq[Long]
+
+  def allNodeIds(): Seq[Long]
 
   def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit
 

@@ -6,6 +6,7 @@ import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.doc.GpxDoc
 import kpn.core.database.doc.NetworkDoc
+import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
 import kpn.core.gpx.GpxFile
@@ -16,6 +17,10 @@ import org.springframework.stereotype.Component
 class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepository {
 
   private val log = Log(classOf[NetworkRepository])
+
+  override def allNetworkIds(): Seq[Long] = {
+    DocumentView.allNetworkIds(analysisDatabase)
+  }
 
   override def network(networkId: Long): Option[NetworkInfo] = {
     analysisDatabase.docWithId(networkKey(networkId), classOf[NetworkDoc]).map(_.network)

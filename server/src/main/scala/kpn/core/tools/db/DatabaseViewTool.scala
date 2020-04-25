@@ -4,6 +4,7 @@ import kpn.core.database.Database
 import kpn.core.database.doc.DesignDoc
 import kpn.core.database.doc.ViewDoc
 import kpn.core.database.views.analyzer.AnalyzerDesign
+import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.database.views.changes.ChangesDesign
 import kpn.core.database.views.common.Design
 import kpn.core.database.views.location.LocationDesign
@@ -41,6 +42,7 @@ object DatabaseViewTool {
 
     Couch.executeIn(host, changesDbName) { database =>
       updateView(database, ChangesDesign)
+      updateView(database, ChangeDocumentsDesign)
     }
 
     Couch.executeIn(host, poisDbName) { database =>

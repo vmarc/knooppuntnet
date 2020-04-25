@@ -2,6 +2,7 @@ package kpn.core.database.views.analyzer
 
 import kpn.core.database.Database
 import kpn.core.database.query.Query
+import kpn.core.database.views.common.Design
 import kpn.core.database.views.common.View
 
 object DocumentView extends View {
@@ -24,6 +25,10 @@ object DocumentView extends View {
     allIds(database: Database, "route")
   }
 
+  def allNetworkIds(database: Database): Seq[Long] = {
+    allIds(database: Database, "network")
+  }
+
   private def allIds(database: Database, elementType: String): Seq[Long] = {
     val query = Query(AnalyzerDesign, DocumentView, classOf[ViewResult])
       .startKey(s""""$elementType"""")
@@ -31,13 +36,18 @@ object DocumentView extends View {
       .reduce(false)
       .stale(false)
     val result = database.execute(query)
-    result.rows.map { row =>
-      row.id.drop(s"$elementType:".length).toLong
+    result.rows.flatMap { row =>
+      if (!row.id.startsWith("network-gpx")) {
+        Some(row.id.drop(s"$elementType:".length).toLong)
+      }
+      else {
+        None
+      }
     }
   }
 
-  def counts(database: Database): Seq[DocumentCount] = {
-    val query = Query(AnalyzerDesign, DocumentView, classOf[ViewResultCount])
+  def counts(database: Database, design: Design): Seq[DocumentCount] = {
+    val query = Query(design, DocumentView, classOf[ViewResultCount])
       .groupLevel(1)
       .stale(false)
     val result = database.execute(query)

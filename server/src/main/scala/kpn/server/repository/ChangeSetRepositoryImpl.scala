@@ -18,13 +18,25 @@ import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.doc.ChangeSetDatas
 import kpn.core.database.query.Query
+import kpn.core.database.views.changes.ChangeDocumentView
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.db.couch.ViewResult2
-import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 @Component
 class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetRepository {
+
+  override def allNetworkIds(): Seq[Long] = {
+    ChangeDocumentView.allNetworkIds(changeDatabase)
+  }
+
+  override def allRouteIds(): Seq[Long] = {
+    ChangeDocumentView.allRouteIds(changeDatabase)
+  }
+
+  override def allNodeIds(): Seq[Long] = {
+    ChangeDocumentView.allNodeIds(changeDatabase)
+  }
 
   override def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit = {
     val id = docId("summary", changeSetSummary.key)

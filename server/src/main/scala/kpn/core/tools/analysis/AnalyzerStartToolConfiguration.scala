@@ -3,7 +3,13 @@ package kpn.core.tools.analysis
 import java.io.File
 import java.util.concurrent.Executor
 
-import kpn.core.database.Database
+import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSet
+import kpn.api.custom.Timestamp
+import kpn.core.common.TimestampUtil
+import kpn.core.database.DatabaseImpl
+import kpn.core.database.implementation.DatabaseContext
+import kpn.core.db.couch.Couch
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs
@@ -19,6 +25,7 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
@@ -42,7 +49,6 @@ import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.BlackListRepositoryImpl
-import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.FactRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
@@ -52,13 +58,13 @@ import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 
-class AnalyzerStartToolConfiguration(
-  analysisExecutor: Executor,
-  analysisDatabase: Database,
-  changeDatabase: Database
-) {
+class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: AnalyzerStartToolOptions) {
 
   val dirs: Dirs = Dirs()
+
+  private val couchConfig = Couch.config
+  private val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.analysisDatabaseName))
+  private val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.changeDatabaseName))
 
   private val snapshotKnownElements = {
     val string = FileUtils.readFileToString(new File(AnalysisContext.networkTypeTaggingStartSnapshotFilename), "UTF-8")
@@ -69,7 +75,7 @@ class AnalyzerStartToolConfiguration(
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
   private val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
-  private val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
+  val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
   val routeRepository = new RouteRepositoryImpl(analysisDatabase, routeLocator)
   val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
 
@@ -106,9 +112,7 @@ class AnalyzerStartToolConfiguration(
 
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
 
-  val changeSetRepository = new ChangeSetRepositoryImpl(analysisDatabase)
-
-  val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(analysisDatabase)
+  val changeSetRepository = new ChangeSetRepositoryImpl(changeDatabase)
 
   private val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
 
@@ -163,6 +167,23 @@ class AnalyzerStartToolConfiguration(
     countryAnalyzer,
     analysisRepository,
     nodeInfoBuilder
+  )
+
+  val replicationId: ReplicationId = ReplicationId(1)
+  private val beginOsmChange = osmChangeRepository.get(replicationId)
+  val timestamp: Timestamp = TimestampUtil.relativeSeconds(beginOsmChange.timestampUntil.get, -1)
+
+  val changeSetContext: ChangeSetContext = ChangeSetContext(
+    replicationId,
+    ChangeSet(
+      0,
+      timestamp,
+      timestamp,
+      timestamp,
+      timestamp,
+      timestamp,
+      Seq()
+    )
   )
 
 }

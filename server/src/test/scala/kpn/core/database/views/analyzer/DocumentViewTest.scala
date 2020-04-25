@@ -4,6 +4,7 @@ import kpn.core.TestObjects
 import kpn.core.database.views.analyzer.DocumentView.DocumentCount
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
 
 class DocumentViewTest extends UnitTest with TestObjects {
@@ -32,6 +33,18 @@ class DocumentViewTest extends UnitTest with TestObjects {
     }
   }
 
+  test("allNetworkIds") {
+
+    withDatabase { database =>
+      val repo = new NetworkRepositoryImpl(database)
+      repo.save(newNetworkInfo(newNetworkAttributes(1)))
+      repo.save(newNetworkInfo(newNetworkAttributes(2)))
+      repo.save(newNetworkInfo(newNetworkAttributes(3)))
+
+      DocumentView.allNetworkIds(database) should equal(Seq(1, 2, 3))
+    }
+  }
+
   test("counts") {
 
     withDatabase { database =>
@@ -45,7 +58,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))
 
-      DocumentView.counts(database) should equal(Seq(DocumentCount("node", 2), DocumentCount("route", 3)))
+      DocumentView.counts(database, AnalyzerDesign) should equal(Seq(DocumentCount("node", 2), DocumentCount("route", 3)))
     }
   }
 
