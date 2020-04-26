@@ -164,7 +164,8 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
     NetworkNode(
       node = node,
       name = "01",
-      country = Some(Country.nl)
+      country = Some(Country.nl),
+      None
     )
   }
 

@@ -265,6 +265,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 newChangeKey(elementId = 1002),
                 ChangeType.Update,
                 Seq(Subset.nlHiking),
+                locations = Seq.empty, // TODO LOC
                 "02",
                 before = Some(
                   newRawNodeWithName(1002, "02")
@@ -285,6 +286,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 newChangeKey(elementId = 1003),
                 ChangeType.Delete,
                 Seq(Subset.nlHiking),
+                locations = Seq.empty, // TODO LOC
                 "03",
                 before = Some(
                   newRawNodeWithName(1003, "03")

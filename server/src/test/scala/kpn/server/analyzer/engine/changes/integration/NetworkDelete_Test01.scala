@@ -40,7 +40,7 @@ class NetworkDelete_Test01 extends AbstractTest {
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
         changeSetSummary should equal(
-          ChangeSetSummary(
+          newChangeSetSummary(
             key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
             subsets = Seq.empty,
             timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
@@ -59,9 +59,6 @@ class NetworkDelete_Test01 extends AbstractTest {
                 )
               )
             ),
-            orphanRouteChanges = Seq.empty,
-            orphanNodeChanges = Seq.empty,
-            happy = false,
             investigate = true
           )
         )

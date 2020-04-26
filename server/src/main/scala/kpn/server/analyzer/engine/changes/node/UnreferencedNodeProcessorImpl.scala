@@ -99,6 +99,7 @@ class UnreferencedNodeProcessorImpl(
             key = context.buildChangeKey(nodeBefore.id),
             changeType = ChangeType.Update,
             subsets = subsets,
+            locations = Seq.empty, // TODO LOC
             name = nodeBefore.networkNode.name,
             before = Some(nodeBefore.networkNode.node.raw),
             after = Some(nodeAfter.node.raw),
@@ -136,6 +137,7 @@ class UnreferencedNodeProcessorImpl(
           key = context.buildChangeKey(nodeBefore.id),
           changeType = ChangeType.Delete,
           subsets = subsets,
+          locations = Seq.empty, // TODO LOC
           name = nodeBefore.networkNode.name,
           before = Some(nodeBefore.networkNode.node.raw),
           after = None,
@@ -173,6 +175,7 @@ class UnreferencedNodeProcessorImpl(
           key = context.buildChangeKey(nodeBefore.id),
           changeType = ChangeType.Update,
           subsets = nodeAfter.subsets,
+          locations = Seq.empty, // TODO LOC
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),

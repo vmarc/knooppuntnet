@@ -227,6 +227,6 @@ class NetworkAnalyzerImpl(
 
   private def toNetworkNode(rn: kpn.server.analyzer.engine.analysis.route.RouteNode): NetworkNode = {
     val country = countryAnalyzer.country(Seq(rn.node))
-    NetworkNode(rn.node, rn.name, country)
+    NetworkNode(rn.node, rn.name, country, None /* TODO LOC */)
   }
 }

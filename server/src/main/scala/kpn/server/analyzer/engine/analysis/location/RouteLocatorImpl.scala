@@ -3,8 +3,7 @@ package kpn.server.analyzer.engine.analysis.location
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.location.LocationCandidate
-import kpn.api.common.route.RouteInfo
-import kpn.api.common.route.RouteInfoAnalysis
+import kpn.api.common.route.RouteMap
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -17,9 +16,9 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
 
   private val geomFactory = new GeometryFactory
 
-  def locate(route: RouteInfo): RouteLocationAnalysis = {
+  def locate(routeMap: RouteMap): RouteLocationAnalysis = {
 
-    val routeGeometries: Seq[Geometry] = toGeometries(route)
+    val routeGeometries: Seq[Geometry] = toGeometries(routeMap)
 
     val candidates: Seq[LocationSelector] = locationConfiguration.locations.flatMap { location =>
       doLocate(routeGeometries, Seq(), location)
@@ -74,23 +73,19 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
     routeGeometries.exists(location.geometry.intersects)
   }
 
-  private def toGeometries(route: RouteInfo): Seq[Geometry] = {
-    route.analysis match {
-      case None => Seq()
-      case Some(analysis) =>
-        toSegments(analysis).flatMap { segment: TrackSegment =>
-          val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
-            val lat = trackPoint.lat.toDouble
-            val lon = trackPoint.lon.toDouble
-            new Coordinate(lon, lat)
-          }
-          if (coordinates.size > 1) {
-            Some(geomFactory.createLineString(coordinates.toArray))
-          }
-          else {
-            None
-          }
-        }
+  private def toGeometries(routeMap: RouteMap): Seq[Geometry] = {
+    toSegments(routeMap).flatMap { segment: TrackSegment =>
+      val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
+        val lat = trackPoint.lat.toDouble
+        val lon = trackPoint.lon.toDouble
+        new Coordinate(lon, lat)
+      }
+      if (coordinates.size > 1) {
+        Some(geomFactory.createLineString(coordinates.toArray))
+      }
+      else {
+        None
+      }
     }
   }
 
@@ -102,13 +97,13 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
     }
   }
 
-  private def toSegments(analysis: RouteInfoAnalysis): Seq[TrackSegment] = {
+  private def toSegments(routeMap: RouteMap): Seq[TrackSegment] = {
     Seq(
-      analysis.map.forwardPath.toSeq.flatMap(_.segments),
-      analysis.map.backwardPath.toSeq.flatMap(_.segments),
-      analysis.map.unusedSegments,
-      analysis.map.startTentaclePaths.flatMap(_.segments),
-      analysis.map.endTentaclePaths.flatMap(_.segments)
+      routeMap.forwardPath.toSeq.flatMap(_.segments),
+      routeMap.backwardPath.toSeq.flatMap(_.segments),
+      routeMap.unusedSegments,
+      routeMap.startTentaclePaths.flatMap(_.segments),
+      routeMap.endTentaclePaths.flatMap(_.segments)
     ).flatten
   }
 

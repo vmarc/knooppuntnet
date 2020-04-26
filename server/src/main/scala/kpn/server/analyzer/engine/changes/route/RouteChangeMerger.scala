@@ -22,6 +22,7 @@ class RouteChangeMerger(left: RouteChange, right: RouteChange) {
           left.key,
           mergedChangeType(),
           left.name,
+          locations = Seq.empty, // TODO LOC
           mergedRefs(left.addedToNetwork, right.addedToNetwork),
           mergedRefs(left.removedFromNetwork, right.removedFromNetwork),
           before = mergedRouteData(left.before, right.before),

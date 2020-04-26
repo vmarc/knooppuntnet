@@ -25,6 +25,7 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
@@ -135,8 +136,14 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
     countryAnalyzer
   )
 
+  val routeLocationAnalyzer = new RouteLocationAnalyzer(
+    routeRepository,
+    routeLocator
+  )
+
   val routeAnalyzer = new MasterRouteAnalyzerImpl(
     analysisContext,
+    routeLocationAnalyzer,
     new AccessibilityAnalyzerImpl(),
     routeTileAnalyzer
   )

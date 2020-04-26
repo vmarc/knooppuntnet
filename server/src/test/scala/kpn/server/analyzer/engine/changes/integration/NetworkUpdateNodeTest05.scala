@@ -169,6 +169,7 @@ class NetworkUpdateNodeTest05 extends AbstractTest {
             newChangeKey(elementId = 1002),
             ChangeType.Update,
             Seq(Subset.nlHiking),
+            locations = Seq.empty, // TODO LOC
             "02",
             before = Some(
               newRawNodeWithName(1002, "02")

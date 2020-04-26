@@ -1,6 +1,7 @@
 package kpn.api.common
 
 import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.common.LocationAnalysis
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
@@ -46,6 +47,7 @@ object ChangeSetSummary {
       orphanRouteChanges,
       orphanNodeChanges,
       subsetAnalyses,
+      Seq.empty, // TODO LOC set locationAnalyses !!!
       happy,
       investigate
     )
@@ -61,9 +63,10 @@ case class ChangeSetSummary(
   networkChanges: NetworkChanges,
   orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
   orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
-  subsetAnalyses: Seq[ChangeSetSubsetAnalysis] = Seq(),
-  happy: Boolean = false,
-  investigate: Boolean = false
+  subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
+  locationAnalyses: Seq[LocationAnalysis],
+  happy: Boolean,
+  investigate: Boolean
 ) {
 
   def noImpact: Boolean = !(happy || investigate)

@@ -19,6 +19,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteFragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLastSurveyAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
@@ -41,6 +42,7 @@ import scala.annotation.tailrec
 @Component
 class MasterRouteAnalyzerImpl(
   analysisContext: AnalysisContext,
+  routeLocationAnalyzer: RouteLocationAnalyzer,
   accessibilityAnalyzer: AccessibilityAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer
 ) extends MasterRouteAnalyzer {
@@ -73,6 +75,7 @@ class MasterRouteAnalyzerImpl(
         RouteStreetsAnalyzer,
         RouteMapAnalyzer,
         GeometryDigestAnalyzer,
+        routeLocationAnalyzer,
         IncompleteOkRouteAnalyzer,
         FactCombinationAnalyzer,
         RouteLastSurveyAnalyzer

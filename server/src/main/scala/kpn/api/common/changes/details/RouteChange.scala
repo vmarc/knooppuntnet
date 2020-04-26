@@ -17,6 +17,7 @@ case class RouteChange(
   key: ChangeKey,
   changeType: ChangeType,
   name: String,
+  locations: Seq[String],
   addedToNetwork: Seq[Ref],
   removedFromNetwork: Seq[Ref],
   before: Option[RouteData],

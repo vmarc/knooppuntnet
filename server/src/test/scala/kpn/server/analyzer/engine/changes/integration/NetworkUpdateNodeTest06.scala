@@ -170,6 +170,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
             newChangeKey(elementId = 1002),
             ChangeType.Update,
             Seq(Subset.nlHiking),
+            locations = Seq.empty, // TODO LOC
             "03",
             before = Some(
               newRawNode(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))

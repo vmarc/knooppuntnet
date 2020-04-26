@@ -89,6 +89,7 @@ class NodeChangeBuilderImpl(
               key = context.changeSetContext.buildChangeKey(nodeAfter.id),
               changeType = ChangeType.Create,
               subsets = subsets,
+              locations= Seq.empty, // TODO LOC
               name = nodeAfter.networkNode.name,
               before = None,
               after = Some(nodeAfter.networkNode.node.raw),
@@ -124,6 +125,7 @@ class NodeChangeBuilderImpl(
               key = context.changeSetContext.buildChangeKey(nodeAfter.id),
               changeType = ChangeType.Update,
               subsets = subsets,
+              locations= Seq.empty, // TODO LOC
               name = nodeAfter.networkNode.name,
               before = Some(nodeBefore.node.raw),
               after = Some(nodeAfter.networkNode.node.raw),
@@ -185,6 +187,7 @@ class NodeChangeBuilderImpl(
               key = context.changeSetContext.buildChangeKey(nodeId),
               changeType = ChangeType.Delete,
               subsets = subsets,
+              locations = Seq.empty, // TODO LOC
               name = nodeBefore.networkNode.name,
               before = Some(nodeBefore.networkNode.node.raw),
               after = None,
@@ -242,6 +245,7 @@ class NodeChangeBuilderImpl(
                 key = context.changeSetContext.buildChangeKey(nodeId),
                 changeType = ChangeType.Update,
                 subsets = subsets,
+                locations= Seq.empty, // TODO LOC
                 name = name,
                 before = Some(before),
                 after = Some(after),
@@ -277,6 +281,7 @@ class NodeChangeBuilderImpl(
                 key = context.changeSetContext.buildChangeKey(nodeId),
                 changeType = ChangeType.Update,
                 subsets = subsets,
+                locations= Seq.empty, // TODO LOC
                 name = nodeBefore.networkNode.name,
                 before = Some(before),
                 after = Some(after),
@@ -374,6 +379,7 @@ class NodeChangeBuilderImpl(
           key = context.changeSetContext.buildChangeKey(nodeId),
           changeType = ChangeType.Update,
           subsets = subsets,
+          locations = Seq.empty, // TODO LOC
           name = nodeAfter.networkNode.name,
           before = Some(before),
           after = Some(after),

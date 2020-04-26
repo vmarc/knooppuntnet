@@ -13,15 +13,19 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
+import kpn.server.repository.RouteRepository
 
 class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -407,7 +411,15 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
+    val routeRepository: RouteRepository = null // TODO LOC
+    val routeLocator: RouteLocator = null // TODO LOC
+    val routeLocationAnalyzer = new RouteLocationAnalyzer(routeRepository, routeLocator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(
+      analysisContext,
+      routeLocationAnalyzer,
+      new AccessibilityAnalyzerImpl(),
+      routeTileAnalyzer
+    )
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
     val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))

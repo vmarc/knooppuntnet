@@ -64,6 +64,7 @@ class OrphanRouteChangeProcessorImpl(
           key = context.buildChangeKey(routeData.id),
           changeType = ChangeType.Create,
           name = routeData.name,
+          locations = Seq.empty, // TODO LOC
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
           before = None,
@@ -120,6 +121,7 @@ class OrphanRouteChangeProcessorImpl(
                 key = context.buildChangeKey(routeUpdate.after.id),
                 changeType = ChangeType.Update,
                 name = routeUpdate.after.name,
+                locations = Seq.empty, // TODO LOC
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(routeUpdate.before.toRouteData),
@@ -165,6 +167,7 @@ class OrphanRouteChangeProcessorImpl(
                 key = context.buildChangeKey(route.id),
                 changeType = ChangeType.Delete,
                 name = route.summary.name,
+                locations = Seq.empty, // TODO LOC
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(routeAnalysis.toRouteData),

@@ -16,6 +16,7 @@ case class NodeChange(
   key: ChangeKey,
   changeType: ChangeType,
   subsets: Seq[Subset],
+  locations: Seq[String],
   name: String,
   before: Option[RawNode],
   after: Option[RawNode],

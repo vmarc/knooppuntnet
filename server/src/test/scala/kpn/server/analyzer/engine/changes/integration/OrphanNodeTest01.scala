@@ -86,6 +86,7 @@ class OrphanNodeTest01 extends AbstractTest {
             newChangeKey(elementId = 1001),
             ChangeType.Create,
             Seq(Subset.nlHiking),
+            locations = Seq.empty, // TODO LOC
             "01",
             after = Some(
               newRawNodeWithName(1001, "01")

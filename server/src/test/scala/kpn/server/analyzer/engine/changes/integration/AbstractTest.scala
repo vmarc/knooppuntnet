@@ -23,10 +23,12 @@ import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -78,6 +80,7 @@ import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepository
+import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -116,7 +119,15 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val tileCalculator = new TileCalculatorImpl()
     private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
     private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-    private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
+    private val routeRepository: RouteRepository = null // TODO LOC
+    private val routeLocator: RouteLocator = null // TODO LOC
+    private val routeLocationAnalyzer = new RouteLocationAnalyzer(routeRepository, routeLocator)
+    private val routeAnalyzer = new MasterRouteAnalyzerImpl(
+      analysisContext,
+      routeLocationAnalyzer,
+      new AccessibilityAnalyzerImpl(),
+      routeTileAnalyzer
+    )
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
     private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]

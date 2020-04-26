@@ -381,6 +381,8 @@ object ChangeSetPageExample {
           )
         )
       ),
+      subsetAnalyses = Seq.empty,
+      locationAnalyses = Seq.empty,
       happy = true,
       investigate = true
     )

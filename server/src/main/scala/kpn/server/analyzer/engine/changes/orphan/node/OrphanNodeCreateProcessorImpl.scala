@@ -30,6 +30,7 @@ class OrphanNodeCreateProcessorImpl(
           key = context.buildChangeKey(loadedNode.id),
           changeType = ChangeType.Create,
           loadedNode.subsets,
+          locations = Seq.empty, // TODO LOC
           loadedNode.name,
           before = None,
           after = Some(loadedNode.node.raw),

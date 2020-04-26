@@ -64,7 +64,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
       )
 
       val routeLocator: RouteLocator = stub[RouteLocator]
-      (routeLocator.locate _).when(route1).returns(
+      (routeLocator.locate _).when(route1.analysis.get.map).returns(
         RouteLocationAnalysis(
           location = Some(Location(Seq("country", "province2", "municipality3"))),
           candidates = Seq(
@@ -82,7 +82,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
           )
         )
       )
-      (routeLocator.locate _).when(route2).returns(
+      (routeLocator.locate _).when(route2.analysis.get.map).returns(
         RouteLocationAnalysis(
           location = Some(Location(Seq("country", "province1", "municipality1"))),
           candidates = Seq(

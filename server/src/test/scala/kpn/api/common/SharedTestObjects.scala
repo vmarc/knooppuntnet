@@ -8,6 +8,7 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.LocationAnalysis
 import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
 import kpn.api.common.common.TrackPath
@@ -163,6 +164,7 @@ trait SharedTestObjects extends MockFactory {
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Create,
     name: String = "",
+    locations: Seq[String] = Seq.empty,
     addedToNetwork: Seq[Ref] = Seq.empty,
     removedFromNetwork: Seq[Ref] = Seq.empty,
     before: Option[RouteData] = None,
@@ -179,6 +181,7 @@ trait SharedTestObjects extends MockFactory {
       key,
       changeType,
       name,
+      locations,
       addedToNetwork,
       removedFromNetwork,
       before,
@@ -581,6 +584,7 @@ trait SharedTestObjects extends MockFactory {
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
     subsets: Seq[Subset] = Seq.empty,
+    locations: Seq[String] = Seq.empty,
     name: String = "",
     before: Option[RawNode] = None,
     after: Option[RawNode] = None,
@@ -602,6 +606,7 @@ trait SharedTestObjects extends MockFactory {
       key,
       changeType,
       subsets,
+      locations,
       name,
       before,
       after,
@@ -678,6 +683,7 @@ trait SharedTestObjects extends MockFactory {
     orphanRouteChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     orphanNodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     subsetAnalyses: Seq[ChangeSetSubsetAnalysis] = Seq.empty,
+    locationAnalyses: Seq[LocationAnalysis] = Seq.empty, // TODO LOC
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetSummary = {
@@ -690,6 +696,7 @@ trait SharedTestObjects extends MockFactory {
       orphanRouteChanges,
       orphanNodeChanges,
       subsetAnalyses,
+      locationAnalyses,
       happy,
       investigate
     )

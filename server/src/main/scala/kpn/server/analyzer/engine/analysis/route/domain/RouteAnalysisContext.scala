@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
+import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.Day
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
@@ -37,6 +38,7 @@ case class RouteAnalysisContext(
   allWayNodes: Option[Seq[Node]] = None,
   streets: Option[Seq[String]] = None,
   geometryDigest: Option[String] = None,
+  locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None
 ) {
 

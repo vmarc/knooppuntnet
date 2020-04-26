@@ -113,6 +113,7 @@ class NetworkDeleteNodeTest03 extends AbstractTest {
             newChangeKey(elementId = 1001),
             ChangeType.Update,
             Seq(Subset.nlHiking),
+            locations = Seq.empty, // TODO LOC
             "01",
             before = Some(
               newRawNodeWithName(1001, "01")

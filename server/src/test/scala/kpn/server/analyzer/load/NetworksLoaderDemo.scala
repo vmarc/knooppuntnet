@@ -12,10 +12,12 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.AnalysisRepositoryConfiguration
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
@@ -23,6 +25,7 @@ import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.BlackListRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 object NetworksLoaderDemo {
@@ -73,7 +76,15 @@ class NetworksLoaderDemo(analysisExecutor: Executor) {
   private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
   private val tileCalculator = new TileCalculatorImpl()
   private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-  private val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
+  private val routeLocator: RouteLocator = null // TODO LOC
+  private val routeRepository = new RouteRepositoryImpl(database, routeLocator)
+  private val routeLocationAnalyzer = new RouteLocationAnalyzer(routeRepository, routeLocator)
+  private val routeAnalyzer = new MasterRouteAnalyzerImpl(
+    analysisContext,
+    routeLocationAnalyzer,
+    new AccessibilityAnalyzerImpl(),
+    routeTileAnalyzer
+  )
   private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
   private val blackListRepository = new BlackListRepositoryImpl(database)
 

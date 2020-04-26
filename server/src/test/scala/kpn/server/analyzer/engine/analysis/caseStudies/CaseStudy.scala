@@ -7,14 +7,17 @@ import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
+import kpn.server.repository.RouteRepository
 
 import scala.xml.InputSource
 import scala.xml.XML
@@ -30,7 +33,15 @@ object CaseStudy {
     val networkNodes = new NetworkNodeBuilder(analysisContext, data, networkType, countryAnalyzer).networkNodes
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(analysisContext, new AccessibilityAnalyzerImpl(), routeTileAnalyzer)
+    val routeRepository: RouteRepository = null // TODO LOC
+    val routeLocator: RouteLocator = null // TODO LOC
+    val routeLocationAnalyzer = new RouteLocationAnalyzer(routeRepository, routeLocator)
+    val routeAnalyzer = new MasterRouteAnalyzerImpl(
+      analysisContext,
+      routeLocationAnalyzer,
+      new AccessibilityAnalyzerImpl(),
+      routeTileAnalyzer
+    )
     routeAnalyzer.analyze(networkNodes, LoadedRoute(Some(Country.nl), networkType, "", data, routeRelation), orphan = false)
   }
 

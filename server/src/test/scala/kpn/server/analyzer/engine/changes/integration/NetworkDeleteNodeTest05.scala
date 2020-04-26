@@ -115,6 +115,7 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
             newChangeKey(elementId = 1001),
             ChangeType.Update,
             Seq(Subset.nlHiking),
+            locations = Seq.empty, // TODO LOC
             "02",
             before = Some(
               newRawNode(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))

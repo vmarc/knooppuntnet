@@ -5,6 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
+import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.ChangeType
@@ -17,8 +18,6 @@ import kpn.api.common.changes.filter.ChangesFilterPeriod
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -26,7 +25,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
-class ChangeSetRepositoryTest extends UnitTest {
+class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("change set not found") {
     withChangeSetRepository { repository =>
@@ -422,7 +421,7 @@ class ChangeSetRepositoryTest extends UnitTest {
     networkChangesCreates: Seq[ChangeSetNetwork] = Seq.empty
   ): ChangeSetSummary = {
 
-    ChangeSetSummary(
+    newChangeSetSummary(
       ChangeKey(
         replicationNumber,
         timestamp,
@@ -433,10 +432,8 @@ class ChangeSetRepositoryTest extends UnitTest {
       timestampFrom = timestamp,
       timestampUntil = timestamp,
       NetworkChanges(creates = networkChangesCreates),
-      Seq(),
-      Seq(),
-      subsets.map(subset => ChangeSetSubsetAnalysis(subset, happy)),
-      happy
+      subsetAnalyses = subsets.map(subset => ChangeSetSubsetAnalysis(subset, happy)),
+      happy = happy
     )
   }
 
@@ -480,7 +477,7 @@ class ChangeSetRepositoryTest extends UnitTest {
     name: String = "name"
   ): RouteChange = {
 
-    RouteChange(
+    newRouteChange(
       ChangeKey(
         replicationNumber,
         timestamp,
@@ -488,16 +485,7 @@ class ChangeSetRepositoryTest extends UnitTest {
         routeId
       ),
       ChangeType.Update,
-      name = name,
-      addedToNetwork = Seq.empty,
-      removedFromNetwork = Seq.empty,
-      before = None,
-      after = None,
-      removedWays = Seq.empty,
-      addedWays = Seq.empty,
-      updatedWays = Seq.empty,
-      diffs = RouteDiff(),
-      facts = Seq.empty
+      name = name
     )
   }
 
@@ -509,7 +497,7 @@ class ChangeSetRepositoryTest extends UnitTest {
     name: String = "name"
   ): NodeChange = {
 
-    NodeChange(
+    newNodeChange(
       ChangeKey(
         replicationNumber,
         timestamp,
@@ -517,21 +505,7 @@ class ChangeSetRepositoryTest extends UnitTest {
         nodeId
       ),
       ChangeType.Update,
-      subsets = Seq.empty,
-      name = name,
-      before = None,
-      after = None,
-      connectionChanges = Seq.empty,
-      roleConnectionChanges = Seq.empty,
-      definedInNetworkChanges = Seq.empty,
-      tagDiffs = None,
-      nodeMoved = None,
-      addedToRoute = Seq.empty,
-      removedFromRoute = Seq.empty,
-      addedToNetwork = Seq.empty,
-      removedFromNetwork = Seq.empty,
-      factDiffs = FactDiffs(),
-      facts = Seq.empty
+      name = name
     )
   }
 

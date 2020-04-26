@@ -2,6 +2,33 @@ package kpn.core.tools.analysis
 
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 
+import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RefChanges
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.Ref
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.core.analysis.Network
+import kpn.core.data.DataBuilder
+import kpn.core.loadOld.Parser
+import kpn.core.overpass.QueryNode
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.load.data.LoadedNode
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+
+import scala.xml.XML
+
 /*
   Loads the initial state of the analysis and changes database with the oldest information that is
   available in the overpass database (2016-08-11 10:04:03 --> 1 second before the first changeset
@@ -40,7 +67,6 @@ object AnalyzerStartTool {
 
     System.exit(exit)
   }
-
 
   private def buildExecutor(): ThreadPoolTaskExecutor = {
     val executor = new ThreadPoolTaskExecutor
@@ -184,12 +210,22 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         None
       }
 
+      val locations = route.routeAnalysis.route.analysis match {
+        case Some(analysis) =>
+          analysis.locationAnalysis match {
+            case Some(locationAnalysis) => locationAnalysis.locationNames
+            case _ => throw new IllegalStateException(s"location analysis missing in route ${route.id}")
+          }
+        case _ => throw new IllegalStateException(s"analysis missing in route ${route.id}")
+      }
+
       config.changeSetRepository.saveRouteChange(
         analyzed(
           RouteChange(
             key = config.changeSetContext.buildChangeKey(route.id),
             changeType = ChangeType.InitialValue,
             name = route.routeAnalysis.route.summary.name,
+            locations = locations,
             addedToNetwork = Seq.empty,
             removedFromNetwork = Seq.empty,
             before = None,
@@ -213,10 +249,17 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
       val subsets: Seq[Subset] = node.networkNode.country.toSeq.flatMap {
         c => networkTypes.flatMap(n => Subset.of(c, n))
       }
+
+      val locations = node.networkNode.location match {
+        case Some(location) => location.names
+        case None => throw new IllegalStateException("location ")
+      }
+
       val nodeChange = NodeChange(
         key = config.changeSetContext.buildChangeKey(node.id),
         changeType = ChangeType.InitialValue,
         subsets = subsets,
+        locations = locations,
         name = node.networkNode.name,
         before = None,
         after = Some(node.networkNode.node.raw),
@@ -261,6 +304,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                     key = config.changeSetContext.buildChangeKey(analysis.route.id),
                     changeType = ChangeType.InitialValue,
                     name = analysis.route.summary.name,
+                    locations = Seq.empty,
                     addedToNetwork = Seq.empty,
                     removedFromNetwork = Seq.empty,
                     before = None,
@@ -313,6 +357,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         key = config.changeSetContext.buildChangeKey(loadedNode.id),
         changeType = ChangeType.InitialValue,
         subsets = loadedNode.subsets,
+        locations = Seq.empty, // TODO LOC set locations !!!
         name = loadedNode.name,
         before = None,
         after = Some(loadedNode.node.raw),
