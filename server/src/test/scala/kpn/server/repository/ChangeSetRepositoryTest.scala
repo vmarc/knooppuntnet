@@ -116,8 +116,8 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         repository.changes(parameters, stale = false).map(_.key.changeSetId)
       }
 
-      changes(ChangesParameters(Some(Subset.nlHiking))) should equal(Seq(2, 1))
-      changes(ChangesParameters(Some(Subset.beHiking))) should equal(Seq(3))
+      changes(ChangesParameters(subset = Some(Subset.nlHiking))) should equal(Seq(2, 1))
+      changes(ChangesParameters(subset = Some(Subset.beHiking))) should equal(Seq(3))
     }
   }
 
@@ -431,7 +431,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       subsets = subsets,
       timestampFrom = timestamp,
       timestampUntil = timestamp,
-      NetworkChanges(creates = networkChangesCreates),
+      networkChanges = NetworkChanges(creates = networkChangesCreates),
       subsetAnalyses = subsets.map(subset => ChangeSetSubsetAnalysis(subset, happy)),
       happy = happy
     )

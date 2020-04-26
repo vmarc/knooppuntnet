@@ -8,22 +8,32 @@ import kpn.api.custom.Subset
 object QueryParameters {
 
   def from(parameters: ChangesParameters): Map[String, String] = {
-    parameters.subset match {
-      case Some(subset) => subsetParametersFrom(subset, parameters)
+    parameters.location match {
+      case Some(location) => locationParametersFrom(location, parameters)
       case None =>
-        parameters.networkId match {
-          case Some(networkId) => networkParametersFrom(networkId, parameters)
+        parameters.subset match {
+          case Some(subset) => subsetParametersFrom(subset, parameters)
           case None =>
-            parameters.routeId match {
-              case Some(routeId) => routeParametersFrom(routeId, parameters)
+            parameters.networkId match {
+              case Some(networkId) => networkParametersFrom(networkId, parameters)
               case None =>
-                parameters.nodeId match {
-                  case Some(nodeId) => nodeParametersFrom(nodeId, parameters)
-                  case None => parametersFrom(parameters)
+                parameters.routeId match {
+                  case Some(routeId) => routeParametersFrom(routeId, parameters)
+                  case None =>
+                    parameters.nodeId match {
+                      case Some(nodeId) => nodeParametersFrom(nodeId, parameters)
+                      case None => parametersFrom(parameters)
+                    }
                 }
             }
         }
     }
+  }
+
+  private def locationParametersFrom(location: String, parameters: ChangesParameters): Map[String, String] = {
+    val impacted = if (parameters.impact) "impacted:" else ""
+    val prefix = Seq(s"${impacted}location", location)
+    fromX(prefix, parameters)
   }
 
   private def subsetParametersFrom(subset: Subset, parameters: ChangesParameters): Map[String, String] = {

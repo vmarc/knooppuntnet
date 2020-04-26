@@ -1,7 +1,6 @@
 package kpn.api.common
 
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.common.LocationAnalysis
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
@@ -43,11 +42,11 @@ object ChangeSetSummary {
       subsets,
       timestampFrom,
       timestampUntil,
+      Seq.empty, // TODO LOC
       networkChanges,
       orphanRouteChanges,
       orphanNodeChanges,
       subsetAnalyses,
-      Seq.empty, // TODO LOC set locationAnalyses !!!
       happy,
       investigate
     )
@@ -60,11 +59,11 @@ case class ChangeSetSummary(
   subsets: Seq[Subset],
   timestampFrom: Timestamp,
   timestampUntil: Timestamp,
+  locationChanges: Seq[ChangeSetLocation],
   networkChanges: NetworkChanges,
   orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
   orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
   subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
-  locationAnalyses: Seq[LocationAnalysis],
   happy: Boolean,
   investigate: Boolean
 ) {

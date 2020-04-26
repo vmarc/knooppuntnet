@@ -34,6 +34,28 @@ if (doc._id.indexOf("change:") === 0) {
       }
     }
   }
+  else if (doc.locationChange) {
+    var key = doc.locationChange.key;
+    var timestamp = key.timestamp;
+    var year = timestamp.substring(0, 4);
+    var month = timestamp.substring(5, 7);
+    var day = timestamp.substring(8, 10);
+    var time = timestamp.substring(11, 19);
+
+    var impacted = 0;
+    if (doc.locationChange.happy === true || doc.locationChange.investigate === true) {
+      impacted = 1;
+    }
+
+    var locationName = doc.locationChange.locationName;
+    var changeSetId = key.changeSetId.toString();
+    var replicationNumber = key.replicationNumber.toString();
+
+    emit(["location", locationName, year, month, day, time, changeSetId, replicationNumber], [1, impacted]);
+    if (impacted === 1) {
+      emit(["impacted:location", locationName, year, month, day, time, changeSetId, replicationNumber], [1, 1]);
+    }
+  }
   else if (doc.networkChange) {
     var key = doc.networkChange.key;
     var timestamp = key.timestamp;

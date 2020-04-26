@@ -4,6 +4,7 @@ import kpn.api.custom.Subset
 
 case class ChangesParameters(
 
+  location: Option[String] = None,
   subset: Option[Subset] = None,
   networkId: Option[Long] = None,
   routeId: Option[Long] = None,
@@ -19,6 +20,7 @@ case class ChangesParameters(
 
   def toDisplayString: String = {
     Seq(
+      locationString,
       subsetString,
       networkString,
       routeString,
@@ -31,6 +33,8 @@ case class ChangesParameters(
       impactString
     ).flatten.mkString
   }
+
+  private def locationString = location.map(loc => s"location=$loc, ")
 
   private def subsetString = subset.map(s => s"subset=${s.name}, ")
 

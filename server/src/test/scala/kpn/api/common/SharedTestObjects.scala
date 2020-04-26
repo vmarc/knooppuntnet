@@ -8,7 +8,6 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.common.LocationAnalysis
 import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
 import kpn.api.common.common.TrackPath
@@ -679,11 +678,11 @@ trait SharedTestObjects extends MockFactory {
     subsets: Seq[Subset] = Seq.empty,
     timestampFrom: Timestamp = timestampFromValue,
     timestampUntil: Timestamp = timestampUntilValue,
+    locationChanges: Seq[ChangeSetLocation] = Seq.empty,
     networkChanges: NetworkChanges = NetworkChanges(),
     orphanRouteChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     orphanNodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     subsetAnalyses: Seq[ChangeSetSubsetAnalysis] = Seq.empty,
-    locationAnalyses: Seq[LocationAnalysis] = Seq.empty, // TODO LOC
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetSummary = {
@@ -692,11 +691,11 @@ trait SharedTestObjects extends MockFactory {
       subsets,
       timestampFrom,
       timestampUntil,
+      locationChanges,
       networkChanges,
       orphanRouteChanges,
       orphanNodeChanges,
       subsetAnalyses,
-      locationAnalyses,
       happy,
       investigate
     )
