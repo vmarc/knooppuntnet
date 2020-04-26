@@ -103,9 +103,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       lastSurvey = None,
       tags = Tags.empty,
       facts = Seq(),
-      analysis = Some(
-        newRouteInfoAnalysis(map = routeMap)
-      ),
+      analysis = newRouteInfoAnalysis(map = routeMap),
       Seq()
     )
   }

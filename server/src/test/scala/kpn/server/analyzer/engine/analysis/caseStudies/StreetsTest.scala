@@ -6,6 +6,6 @@ class StreetsTest extends UnitTest {
 
   test("find street names in ways") {
     val analysis = CaseStudy.routeAnalysis("1029885")
-    analysis.route.analysis.get.map.streets should equal(Seq("Laagheideweg", "Lorbaan"))
+    analysis.route.analysis.map.streets should equal(Seq("Laagheideweg", "Lorbaan"))
   }
 }

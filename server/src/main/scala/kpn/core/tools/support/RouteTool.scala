@@ -48,14 +48,10 @@ class RouteTool(database: Database) {
       routeRepository.routeWithId(routeId) match {
         case None => println(s"route $routeId not in database")
         case Some(route) =>
-          route.analysis match {
-            case None => println(s"route $routeId does not have route analysis")
-            case Some(analysis) =>
-              val redundantNodeCount = analysis.map.redundantNodes.size
-              val uniqueRedundantNodeCount = analysis.map.redundantNodes.map(_.name).toSet.size
-              val km = route.summary.meters / 1000
-              println(s"route $routeId redundant nodes size = $redundantNodeCount ($uniqueRedundantNodeCount) $km")
-          }
+          val redundantNodeCount = route.analysis.map.redundantNodes.size
+          val uniqueRedundantNodeCount = route.analysis.map.redundantNodes.map(_.name).toSet.size
+          val km = route.summary.meters / 1000
+          println(s"route $routeId redundant nodes size = $redundantNodeCount ($uniqueRedundantNodeCount) $km")
       }
     }
   }

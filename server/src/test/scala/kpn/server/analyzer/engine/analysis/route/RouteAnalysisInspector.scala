@@ -95,20 +95,20 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
   private class RouteAnalysisReport(analysis: RouteAnalysis) {
 
     def report: String = {
-      val ra = analysis.route.analysis.get
+      val ra = analysis.route.analysis
 
       Seq(
         evaluateMissingFacts,
         evaluateUnexpectedFacts,
         evaluate("Start node", startNodeIdBuffer.toSeq, ra.map.startNodes.map(_.id)),
-        evaluate("End node", endNodeIdBuffer.toSeq, analysis.route.analysis.get.map.endNodes.map(_.id)),
-        evaluate("Start tentacle node", startTentacleNodeIdBuffer.toSeq, analysis.route.analysis.get.map.startTentacleNodes.map(_.id)),
-        evaluate("End tentacle node", endTentacleNodeIdBuffer.toSeq, analysis.route.analysis.get.map.endTentacleNodes.map(_.id)),
-        evaluate("Unexpected node", unexpectedNodeIdBuffer.toSeq, analysis.route.analysis.get.unexpectedNodeIds),
+        evaluate("End node", endNodeIdBuffer.toSeq, analysis.route.analysis.map.endNodes.map(_.id)),
+        evaluate("Start tentacle node", startTentacleNodeIdBuffer.toSeq, analysis.route.analysis.map.startTentacleNodes.map(_.id)),
+        evaluate("End tentacle node", endTentacleNodeIdBuffer.toSeq, analysis.route.analysis.map.endTentacleNodes.map(_.id)),
+        evaluate("Unexpected node", unexpectedNodeIdBuffer.toSeq, analysis.route.analysis.unexpectedNodeIds),
         evaluate("Forward nodes", forwardNodeIdBuffer.toSeq, analysis.structure.forwardNodeIds),
         evaluate("Backward nodes", backwardNodeIdBuffer.toSeq, analysis.structure.backwardNodeIds),
         evaluateTentacles,
-        evaluateLong("Structure", structureBuffer.toSeq, analysis.route.analysis.get.structureStrings)
+        evaluateLong("Structure", structureBuffer.toSeq, analysis.route.analysis.structureStrings)
         // TODO add tests for breakpoints (forward and backward) ?
 
       ).flatten.map(s => "  - " + s).mkString("\n")

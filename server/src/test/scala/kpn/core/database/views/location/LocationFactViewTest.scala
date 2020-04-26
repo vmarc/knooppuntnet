@@ -83,8 +83,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
           facts = Seq(
             Fact.RouteNotBackward,
             Fact.RouteNotForward
-          ),
-          analysis = Some(newRouteInfoAnalysis())
+          )
         )
       )
 

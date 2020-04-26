@@ -4,7 +4,6 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
@@ -113,83 +112,80 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
             ),
             orphan = true,
             tags = newRouteTags("01-02"),
-            analysis = Some(
-              newRouteInfoAnalysis(
-                members = Seq(
-                  kpn.api.custom.RouteMemberInfo(
-                    101,
-                    "way",
-                    isWay = true,
-                    Seq(
-                      RouteNetworkNodeInfo(1001, "01", "01", "0", "0"),
-                      RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
-                    ),
-                    "wn003",
-                    "1",
-                    1002,
-                    "2",
-                    1001,
-                    "",
-                    Timestamp(2015, 8, 11, 0, 0, 0),
-                    accessible = true,
-                    "0 m",
-                    "2",
-                    "",
-                    Both,
-                    Tags.empty
-                  )
-                ),
-                expectedName = "01-02",
-                map = newRouteMap(
-                  bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
-                  forwardPath = Some(
-                    TrackPath(
-                      1001,
-                      1002,
-                      0,
-                      Seq(
-                        TrackSegment(
-                          "paved",
-                          TrackPoint("0", "0"),
-                          Seq(TrackSegmentFragment(TrackPoint("0", "0"),
-                            0,
-                            90,
-                            None)
-                          )
-                        )
-                      )
-                    )
-                  ),
-                  backwardPath = Some(
-                    TrackPath(
-                      1002,
-                      1001,
-                      0,
-                      Seq(
-                        TrackSegment(
-                          "paved",
-                          TrackPoint("0", "0"),
-                          Seq(
-                            TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)
-                          )
-                        )
-                      )
-                    )
-                  ),
-                  startNodes = Seq(
-                    RouteNetworkNodeInfo(1001, "01", "01", "0", "0")
-                  ),
-                  endNodes = Seq(
+            analysis = newRouteInfoAnalysis(
+              members = Seq(
+                kpn.api.custom.RouteMemberInfo(
+                  101,
+                  "way",
+                  isWay = true,
+                  Seq(
+                    RouteNetworkNodeInfo(1001, "01", "01", "0", "0"),
                     RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
+                  ),
+                  "wn003",
+                  "1",
+                  1002,
+                  "2",
+                  1001,
+                  "",
+                  Timestamp(2015, 8, 11, 0, 0, 0),
+                  accessible = true,
+                  "0 m",
+                  "2",
+                  "",
+                  Both,
+                  Tags.empty
+                )
+              ),
+              expectedName = "01-02",
+              map = newRouteMap(
+                bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
+                forwardPath = Some(
+                  TrackPath(
+                    1001,
+                    1002,
+                    0,
+                    Seq(
+                      TrackSegment(
+                        "paved",
+                        TrackPoint("0", "0"),
+                        Seq(TrackSegmentFragment(TrackPoint("0", "0"),
+                          0,
+                          90,
+                          None)
+                        )
+                      )
+                    )
                   )
                 ),
-                structureStrings = Seq(
-                  "forward=(01-02 via +<01-02 101>)",
-                  "backward=(02-01 via -<01-02 101>)"
+                backwardPath = Some(
+                  TrackPath(
+                    1002,
+                    1001,
+                    0,
+                    Seq(
+                      TrackSegment(
+                        "paved",
+                        TrackPoint("0", "0"),
+                        Seq(
+                          TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)
+                        )
+                      )
+                    )
+                  )
                 ),
-                geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43",
-                locationAnalysis = None
-              )
+                startNodes = Seq(
+                  RouteNetworkNodeInfo(1001, "01", "01", "0", "0")
+                ),
+                endNodes = Seq(
+                  RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
+                )
+              ),
+              structureStrings = Seq(
+                "forward=(01-02 via +<01-02 101>)",
+                "backward=(02-01 via -<01-02 101>)"
+              ),
+              geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43"
             )
           )
         )

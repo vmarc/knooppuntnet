@@ -327,7 +327,7 @@ trait SharedTestObjects extends MockFactory {
       None,
       Tags.empty,
       facts,
-      Some(analysis),
+      analysis,
       tiles
     )
   }
@@ -768,7 +768,7 @@ trait SharedTestObjects extends MockFactory {
     lastUpdated: Timestamp = defaultTimestamp,
     tags: Tags = Tags.empty,
     facts: Seq[Fact] = Seq.empty,
-    analysis: Option[RouteInfoAnalysis] = None
+    analysis: RouteInfoAnalysis = newRouteInfoAnalysis()
   ): RouteInfo = {
     RouteInfo(
       summary,

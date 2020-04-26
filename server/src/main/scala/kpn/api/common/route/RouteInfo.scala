@@ -19,7 +19,7 @@ case class RouteInfo(
   lastSurvey: Option[Day],
   tags: Tags,
   facts: Seq[Fact],
-  analysis: Option[RouteInfoAnalysis],
+  analysis: RouteInfoAnalysis,
   tiles: Seq[String]
 ) extends Tagable {
   def id: Long = summary.id

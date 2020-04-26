@@ -144,7 +144,6 @@ class RouteChangeBuilderImpl(
 
           val routeInfo = analysisBefore.route.copy(
             active = false,
-            analysis = None,
             lastUpdated = context.changeSetContext.changeSet.timestamp
           )
 

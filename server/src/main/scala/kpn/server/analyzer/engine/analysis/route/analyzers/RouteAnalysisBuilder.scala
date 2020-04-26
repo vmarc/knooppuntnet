@@ -164,7 +164,7 @@ class RouteAnalysisBuilder(
       context.lastSurvey,
       context.loadedRoute.relation.tags,
       facts.toSeq,
-      Some(routeAnalysis),
+      routeAnalysis,
       Seq()
     )
 

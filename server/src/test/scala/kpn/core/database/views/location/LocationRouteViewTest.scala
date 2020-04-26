@@ -28,7 +28,7 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
       )
 
       val routeLocator: RouteLocator = stub[RouteLocator]
-      (routeLocator.locate _).when(route.analysis.get.map).returns(
+      (routeLocator.locate _).when(route.analysis.map).returns(
         RouteLocationAnalysis(
           Some(Location(Seq("country", "province", "municipality"))),
           candidates = Seq(

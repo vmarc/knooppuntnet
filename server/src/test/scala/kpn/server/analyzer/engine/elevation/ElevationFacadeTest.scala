@@ -61,7 +61,7 @@ class ElevationFacadeTest extends UnitTest {
   }
 
   private def loadForwardPath(routeId: String): Seq[Point] = {
-    val forwardPath = CaseStudy.routeAnalysis(routeId).route.analysis.get.map.forwardPath.get
+    val forwardPath = CaseStudy.routeAnalysis(routeId).route.analysis.map.forwardPath.get
     println("forwardPatch distance=" + forwardPath.segments.flatMap(_.fragments.map(_.meters)).sum)
     val points = Converter.trackPathToPoints(forwardPath)
     println("points distance=" + points.sliding(2).map { case Seq(p1, p2) => Haversine.distance(p1, p2) }.sum)

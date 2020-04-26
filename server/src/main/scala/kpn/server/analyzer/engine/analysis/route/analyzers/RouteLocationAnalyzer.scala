@@ -19,8 +19,8 @@ class RouteLocationAnalyzer(routeRepository: RouteRepository, routeLocator: Rout
           case Some(routeMap) =>
             routeRepository.routeWithId(context.loadedRoute.id) match {
               case Some(route) =>
-                if (route.analysis.get.geometryDigest == geometryDigest) {
-                  context.copy(locationAnalysis = route.analysis.get.locationAnalysis)
+                if (route.analysis.geometryDigest == geometryDigest) {
+                  context.copy(locationAnalysis = route.analysis.locationAnalysis)
                 }
                 else {
                   val routeLocationAnalysis = routeLocator.locate(routeMap)
