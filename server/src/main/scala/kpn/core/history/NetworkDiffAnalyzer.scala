@@ -66,8 +66,7 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
       nodeBefore(nodeId).map { nodeInfo =>
         NetworkNodeData(
           nodeInfo.networkNode.node.raw, // TODO CHANGE was: nodeInfo.networkNode.name,
-          nodeInfo.networkNode.name,
-          nodeInfo.networkNode.country
+          nodeInfo.networkNode.name
         ) // TODO CHANGE add facts (add refs?)
       }
     }.toSeq.sortBy(_.name)
@@ -84,8 +83,7 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
         // ).flatten
         NetworkNodeData(
           after.data.nodes(nodeId).raw,
-          nodeInfo.networkNode.name,
-          nodeInfo.networkNode.country
+          nodeInfo.networkNode.name
         ) // TODO CHANGE add facts (add refs?)
       }
     }.toSeq.sortBy(_.name)
@@ -102,13 +100,11 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
             NetworkNodeUpdate(
               NetworkNodeData(
                 before.data.nodes(nodeId).raw,
-                nb.get.networkNode.name,
-                nb.get.networkNode.country
+                nb.get.networkNode.name
               ),
               NetworkNodeData(
                 after.data.nodes(nodeId).raw,
-                na.get.networkNode.name,
-                na.get.networkNode.country
+                na.get.networkNode.name
               ),
               diffs
               // TODO CHANGE add Option[NodeMoved] here

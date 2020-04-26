@@ -43,8 +43,7 @@ class NetworkCreateWatchedProcessorImpl(
       networkAfter.nodes.map { networkNodeInfo =>
         NetworkNodeData(
           networkNodeInfo.networkNode.node.raw,
-          networkNodeInfo.networkNode.name,
-          networkNodeInfo.networkNode.country
+          networkNodeInfo.networkNode.name
         )
       }.sortBy(_.name)
     }

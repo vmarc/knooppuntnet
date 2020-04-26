@@ -45,8 +45,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NetworkNodeData(
           newRawNodeWithName(1002, "02"),
-          "02",
-          None
+          "02"
         )
       )
     )
@@ -72,8 +71,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NetworkNodeData(
           newRawNodeWithName(1002, "02"),
-          "02",
-          None
+          "02"
         )
       )
     )
@@ -98,13 +96,11 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
         NetworkNodeUpdate(
           before = NetworkNodeData(
             newNode(1001, tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "key" -> "value1")).raw,
-            "01",
-            None
+            "01"
           ),
           after = NetworkNodeData(
             newNode(1001, tags = Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "key" -> "value2")).raw,
-            "01",
-            None
+            "01"
           ),
           diffs = NetworkNodeDiff(
             tagDiffs = Some(
