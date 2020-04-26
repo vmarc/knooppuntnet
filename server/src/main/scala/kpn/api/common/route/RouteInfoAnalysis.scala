@@ -11,7 +11,7 @@ case class RouteInfoAnalysis(
   map: RouteMap,
   structureStrings: Seq[String],
   geometryDigest: String,
-  locationAnalysis: Option[RouteLocationAnalysis]
+  locationAnalysis: RouteLocationAnalysis
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

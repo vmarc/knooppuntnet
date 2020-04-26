@@ -30,6 +30,7 @@ import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
+import kpn.api.common.location.LocationCandidate
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
@@ -463,6 +464,18 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
+  def newRouteLocationAnalysis(
+    location: Option[Location] = None,
+    candidates: Seq[LocationCandidate] = Seq.empty,
+    locationNames: Seq[String] = Seq.empty
+  ): RouteLocationAnalysis = {
+    RouteLocationAnalysis(
+      location,
+      candidates,
+      locationNames
+    )
+  }
+
   def newRouteInfoAnalysis(
     unexpectedNodeIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
@@ -470,7 +483,7 @@ trait SharedTestObjects extends MockFactory {
     map: RouteMap = RouteMap(),
     structureStrings: Seq[String] = Seq.empty,
     geometryDigest: String = "",
-    locationAnalysis: Option[RouteLocationAnalysis] = Some(RouteLocationAnalysis())
+    locationAnalysis: RouteLocationAnalysis = newRouteLocationAnalysis()
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
       unexpectedNodeIds,
@@ -819,7 +832,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteRepository(database: Database): RouteRepository = {
     val routeLocator: RouteLocator = stub[RouteLocator]
-    (routeLocator.locate _).when(*).returns(RouteLocationAnalysis())
+    (routeLocator.locate _).when(*).returns(newRouteLocationAnalysis())
     new RouteRepositoryImpl(database, routeLocator)
   }
 }

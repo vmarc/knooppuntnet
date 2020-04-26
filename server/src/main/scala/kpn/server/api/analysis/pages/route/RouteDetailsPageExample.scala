@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.route
 
+import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Day
 import kpn.api.common.common.Reference
@@ -13,6 +14,7 @@ import kpn.api.common.route.RouteReferences
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
+import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
@@ -77,7 +79,7 @@ object RouteDetailsPageExample {
         ),
         members = Seq(
 
-          kpn.api.custom.RouteMemberInfo(
+          RouteMemberInfo(
             id = 1L,
             memberType = "node",
             isWay = false,
@@ -96,7 +98,7 @@ object RouteDetailsPageExample {
             oneWay = Both,
             oneWayTags = Tags.empty
           ),
-          kpn.api.custom.RouteMemberInfo(
+          RouteMemberInfo(
             id = 1L,
             memberType = "way",
             isWay = true,
@@ -202,7 +204,11 @@ object RouteDetailsPageExample {
           "three"
         ),
         "",
-        locationAnalysis = None
+        locationAnalysis = RouteLocationAnalysis(
+          None,
+          Seq.empty,
+          Seq.empty
+        )
       ),
       Seq()
     )

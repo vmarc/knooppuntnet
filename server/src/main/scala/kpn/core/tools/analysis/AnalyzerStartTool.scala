@@ -210,10 +210,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         None
       }
 
-      val locations = route.routeAnalysis.route.analysis.locationAnalysis match {
-        case Some(locationAnalysis) => locationAnalysis.locationNames
-        case _ => throw new IllegalStateException(s"location analysis missing in route ${route.id}")
-      }
+      val locations = route.routeAnalysis.route.analysis.locationAnalysis.locationNames
 
       config.changeSetRepository.saveRouteChange(
         analyzed(

@@ -129,7 +129,7 @@ class RouteAnalysisBuilder(
       routeMap,
       new RouteStructureFormatter(structure).strings,
       context.geometryDigest.get,
-      context.locationAnalysis
+      context.locationAnalysis.get
     )
 
     val lastUpdatedElement: Element = {

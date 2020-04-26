@@ -30,7 +30,7 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
     }
 
     if (locationSelectorCandidates.isEmpty) {
-      RouteLocationAnalysis()
+      RouteLocationAnalysis(None, Seq.empty, Seq.empty)
     }
     else {
       val sorted = locationSelectorCandidates.sortBy(_.distance).reverse
