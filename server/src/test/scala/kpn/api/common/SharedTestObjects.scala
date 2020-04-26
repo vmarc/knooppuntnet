@@ -50,11 +50,7 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.database.Database
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.repository.RouteRepository
-import kpn.server.repository.RouteRepositoryImpl
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
@@ -828,11 +824,5 @@ trait SharedTestObjects extends MockFactory {
       tags,
       tiles
     )
-  }
-
-  def newRouteRepository(database: Database): RouteRepository = {
-    val routeLocator: RouteLocator = stub[RouteLocator]
-    (routeLocator.locate _).when(*).returns(newRouteLocationAnalysis())
-    new RouteRepositoryImpl(database, routeLocator)
   }
 }

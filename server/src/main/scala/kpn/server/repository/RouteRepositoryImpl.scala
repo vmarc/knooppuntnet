@@ -9,13 +9,11 @@ import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import org.springframework.stereotype.Component
 
 @Component
 class RouteRepositoryImpl(
-  analysisDatabase: Database,
-  routeLocator: RouteLocator
+  analysisDatabase: Database
 ) extends RouteRepository {
 
   private val groupSize = 20

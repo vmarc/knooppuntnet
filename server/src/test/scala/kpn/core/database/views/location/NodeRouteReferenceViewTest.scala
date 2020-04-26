@@ -6,13 +6,14 @@ import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.repository.RouteRepositoryImpl
 
 class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in route") {
 
     withDatabase { database =>
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -68,7 +69,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in non-active routes are ignored") {
     withDatabase { database =>
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
           id = 10,

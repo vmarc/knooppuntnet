@@ -22,6 +22,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
       repo.save(
         newNodeInfo(
           id = 1001,
+          country = Some(Country.nl),
           latitude = "1",
           longitude = "2",
           lastUpdated = Timestamp(2019, 8, 11, 12, 34, 56),

@@ -9,16 +9,14 @@ import kpn.core.analysis.Network
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
 class NetworkAnalyzerTest extends UnitTest with MockFactory {
@@ -126,9 +124,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-    val routeRepository: RouteRepository = null // TODO LOC
-    val routeLocator: RouteLocator = null // TODO LOC
-    val routeLocationAnalyzer = new RouteLocationAnalyzer(routeRepository, routeLocator)
+    val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,

@@ -1,6 +1,5 @@
 package kpn.core.database.views.location
 
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.location.Location
@@ -12,7 +11,6 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -59,17 +57,9 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
   test("route") {
 
-    withDatabase(true) { database =>
+    withDatabase() { database =>
 
-      val routeLocationAnalysis = RouteLocationAnalysis(
-        location = None,
-        candidates = Seq.empty,
-        locationNames = Seq("nl", "province", "municipality")
-      )
-      val routeLocator: RouteLocator = stub[RouteLocator]
-      (routeLocator.locate _).when(*).returns(routeLocationAnalysis)
-
-      val repo = new RouteRepositoryImpl(database, routeLocator)
+      val repo = new RouteRepositoryImpl(database)
       repo.save(
         newRouteInfo(
           summary = newRouteSummary(
@@ -83,6 +73,11 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
           facts = Seq(
             Fact.RouteNotBackward,
             Fact.RouteNotForward
+          ),
+          analysis = newRouteInfoAnalysis(
+            locationAnalysis = newRouteLocationAnalysis(
+              locationNames = Seq("nl", "province", "municipality")
+            )
           )
         )
       )

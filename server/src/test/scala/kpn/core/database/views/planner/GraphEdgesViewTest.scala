@@ -12,6 +12,7 @@ import kpn.core.database.Database
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.repository.RouteRepositoryImpl
 
 class GraphEdgesViewTest extends UnitTest with TestObjects {
 
@@ -73,7 +74,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   }
 
   private def doTest(database: Database, routeMap: RouteMap): Seq[GraphEdge] = {
-    val routeRepository = newRouteRepository(database)
+    val routeRepository = new RouteRepositoryImpl(database)
     val routeInfo = buildRoute(routeMap)
     routeRepository.save(routeInfo)
     GraphEdgesView.query(database, NetworkType.hiking, stale = false)

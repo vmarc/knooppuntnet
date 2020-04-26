@@ -12,16 +12,14 @@ import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkNode
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
-import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
 /*
@@ -358,9 +356,7 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
     val analysisContext = new AnalysisContext()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-    val routeRepository: RouteRepository = null // TODO LOC
-    val routeLocator: RouteLocator = null // TODO LOC
-    val routeLocationAnalyzer = new RouteLocationAnalyzer(routeRepository, routeLocator)
+    val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,

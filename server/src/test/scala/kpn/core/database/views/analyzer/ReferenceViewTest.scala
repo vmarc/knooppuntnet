@@ -8,6 +8,7 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 class ReferenceViewTest extends UnitTest with SharedTestObjects {
 
@@ -20,7 +21,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeInfo(1002, tags = Tags.from("rwn_ref" -> "02")))
       nodeRepository.save(newNodeInfo(1003, tags = Tags.from("rwn_ref" -> "03"))) // orphan node
 
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
           id = 10,

@@ -12,7 +12,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.RouteRepositoryImpl
 
 class LocationRouteViewTest extends UnitTest with SharedTestObjects {
@@ -24,21 +23,19 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
         id = 11,
         name = "01-02",
         meters = 123,
-        lastUpdated = Timestamp(2018, 11, 8)
-      )
-
-      val routeLocator: RouteLocator = stub[RouteLocator]
-      (routeLocator.locate _).when(route.analysis.map).returns(
-        RouteLocationAnalysis(
-          Some(Location(Seq("country", "province", "municipality"))),
-          candidates = Seq(
-            LocationCandidate(Location(Seq("country", "province", "municipality")), 100),
-          ),
-          locationNames = Seq("country", "province", "municipality")
+        lastUpdated = Timestamp(2018, 11, 8),
+        analysis = newRouteInfoAnalysis(
+          locationAnalysis = RouteLocationAnalysis(
+            Some(Location(Seq("country", "province", "municipality"))),
+            candidates = Seq(
+              LocationCandidate(Location(Seq("country", "province", "municipality")), 100),
+            ),
+            locationNames = Seq("country", "province", "municipality")
+          )
         )
       )
 
-      val routeRepository = new RouteRepositoryImpl(database, routeLocator)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(route)
 
       def query(locationName: String): Seq[LocationRouteInfo] = {

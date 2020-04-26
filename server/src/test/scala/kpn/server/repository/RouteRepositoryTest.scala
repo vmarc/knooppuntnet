@@ -12,7 +12,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("routeWithId") {
     withDatabase { database =>
 
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -25,7 +25,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("routesWithIds") {
     withDatabase { database =>
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
       routeRepository.routesWithIds(Seq(10, 20, 30)) should equal(Seq(newRoute(10), newRoute(20)))
@@ -51,7 +51,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.routeReferences(10, stale = false) should equal(
         RouteReferences(
           Seq(Reference(1, "network-name", NetworkType.hiking))
@@ -63,7 +63,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("save") {
     withDatabase { database =>
 
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
 
       // first save
       routeRepository.save(newRoute(10, name = "01-02"))
@@ -101,7 +101,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("filterKnown") {
     withDatabase { database =>
 
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))

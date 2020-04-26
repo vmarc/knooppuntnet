@@ -8,6 +8,7 @@ import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.repository.RouteRepositoryImpl
 
 class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
 
@@ -42,7 +43,7 @@ class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
       networkType = NetworkType.hiking
     )
 
-    val routeRepository = newRouteRepository(database)
+    val routeRepository = new RouteRepositoryImpl(database)
     routeRepository.save(routeInfo)
 
     OrphanRouteView.query(database, Subset.nlHiking, stale = false)

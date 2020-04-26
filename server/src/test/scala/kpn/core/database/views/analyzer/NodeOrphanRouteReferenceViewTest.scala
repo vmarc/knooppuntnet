@@ -6,13 +6,14 @@ import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.repository.RouteRepositoryImpl
 
 class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in orphan route") {
 
     withDatabase { database =>
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -73,7 +74,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in non-orphan routes are ignored") {
     withDatabase { database =>
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute( // not an orphan route
           id = 10,
@@ -95,7 +96,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in non-active orphan routes are ignored") {
     withDatabase { database =>
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
           id = 10,

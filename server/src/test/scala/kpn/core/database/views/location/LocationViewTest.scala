@@ -54,45 +54,41 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
       val route1 = newRoute(
         id = 11,
         name = "01-02",
-        analysis = newRouteInfoAnalysis()
+        analysis = newRouteInfoAnalysis(
+          locationAnalysis = RouteLocationAnalysis(
+            location = Some(Location(Seq("country", "province2", "municipality3"))),
+            candidates = Seq(
+              LocationCandidate(Location(Seq("country", "province1", "municipality1")), 20),
+              LocationCandidate(Location(Seq("country", "province2", "municipality2")), 30),
+              LocationCandidate(Location(Seq("country", "province2", "municipality3")), 50),
+            ),
+            locationNames = Seq(
+              "country",
+              "province1",
+              "province2",
+              "municipality1",
+              "municipality2",
+              "municipality3"
+            )
+          )
+        )
       )
 
       val route2 = newRoute(
         id = 12,
         name = "02-03",
-        analysis = newRouteInfoAnalysis()
-      )
-
-      val routeLocator: RouteLocator = stub[RouteLocator]
-      (routeLocator.locate _).when(route1.analysis.map).returns(
-        RouteLocationAnalysis(
-          location = Some(Location(Seq("country", "province2", "municipality3"))),
-          candidates = Seq(
-            LocationCandidate(Location(Seq("country", "province1", "municipality1")), 20),
-            LocationCandidate(Location(Seq("country", "province2", "municipality2")), 30),
-            LocationCandidate(Location(Seq("country", "province2", "municipality3")), 50),
-          ),
-          locationNames = Seq(
-            "country",
-            "province1",
-            "province2",
-            "municipality1",
-            "municipality2",
-            "municipality3"
+        analysis = newRouteInfoAnalysis(
+          locationAnalysis = RouteLocationAnalysis(
+            location = Some(Location(Seq("country", "province1", "municipality1"))),
+            candidates = Seq(
+              LocationCandidate(Location(Seq("country", "province1", "municipality1")), 100)
+            ),
+            locationNames = Seq("country", "province1", "municipality1")
           )
         )
       )
-      (routeLocator.locate _).when(route2.analysis.map).returns(
-        RouteLocationAnalysis(
-          location = Some(Location(Seq("country", "province1", "municipality1"))),
-          candidates = Seq(
-            LocationCandidate(Location(Seq("country", "province1", "municipality1")), 100)
-          ),
-          locationNames = Seq("country", "province1", "municipality1")
-        )
-      )
 
-      val routeRepository = new RouteRepositoryImpl(database, routeLocator)
+      val routeRepository = new RouteRepositoryImpl(database)
 
       routeRepository.save(route1)
       routeRepository.save(route2)

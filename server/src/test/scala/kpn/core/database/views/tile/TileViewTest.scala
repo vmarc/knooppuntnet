@@ -4,6 +4,7 @@ import kpn.core.TestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 class TileViewTest extends UnitTest with TestObjects {
 
@@ -44,7 +45,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
       routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001")))
 
@@ -62,7 +63,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = newRouteRepository(database)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001")))
       routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001"), active = false))
 

@@ -21,12 +21,13 @@ import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteRepositoryImpl
 
 class TestDocBuilder(database: Database) extends SharedTestObjects {
 
   private val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   private val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-  private val routeRepository: RouteRepository = newRouteRepository(database)
+  private val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
 
   def networkInfoDetail(
     nodes: Seq[NetworkInfoNode] = Seq.empty,

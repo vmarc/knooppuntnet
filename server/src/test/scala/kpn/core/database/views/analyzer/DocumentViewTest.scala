@@ -6,6 +6,7 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 class DocumentViewTest extends UnitTest with TestObjects {
 
@@ -24,7 +25,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
   test("allRouteIds") {
 
     withDatabase { database =>
-      val repo = newRouteRepository(database)
+      val repo = new RouteRepositoryImpl(database)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))
@@ -53,7 +54,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
       nodeRepository.save(newNodeInfo(1001))
       nodeRepository.save(newNodeInfo(1002))
 
-      val repo = newRouteRepository(database)
+      val repo = new RouteRepositoryImpl(database)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))

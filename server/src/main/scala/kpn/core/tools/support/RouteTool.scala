@@ -20,7 +20,7 @@ object RouteTool {
 class RouteTool(database: Database) {
 
   def blackListedRoutesThatAreInTheDatabase(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database, null)
+    val routeRepository = new RouteRepositoryImpl(database)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
     blackListedRouteIds.foreach { routeId =>
@@ -40,7 +40,7 @@ class RouteTool(database: Database) {
   }
 
   def blackListedRoutesThatWouldBeExcludedByTheNewRules(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database, null)
+    val routeRepository = new RouteRepositoryImpl(database)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
 
@@ -58,7 +58,7 @@ class RouteTool(database: Database) {
 
   def printLongestGermanBicycleRoutes(): Unit = {
     val orphanRepository = new OrphanRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database, null)
+    val routeRepository = new RouteRepositoryImpl(database)
 
     val routes = orphanRepository.orphanRoutes(Subset.deBicycle)
 
@@ -91,7 +91,7 @@ class RouteTool(database: Database) {
   def removeBlacklistedNetworksAndRoutes(): Unit = {
     val blackListRepository = new BlackListRepositoryImpl(database)
     val networkRepository = new NetworkRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database, null)
+    val routeRepository = new RouteRepositoryImpl(database)
 
     val blackList = blackListRepository.get
 

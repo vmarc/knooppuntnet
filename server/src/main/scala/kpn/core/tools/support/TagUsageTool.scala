@@ -64,7 +64,7 @@ class TagUsageTool(database: Database) {
     val routeIds = DocumentView.allRouteIds(database)
     println(s"Collecting tag information from ${routeIds.size} route definitions")
 
-    val repo = new RouteRepositoryImpl(database, null)
+    val repo = new RouteRepositoryImpl(database)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if ((index + 1) % 1000 == 0) {
         println(s"${index + 1}/${routeIds.size}")
