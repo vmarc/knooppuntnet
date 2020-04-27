@@ -24,7 +24,10 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -125,9 +128,41 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       routeTileAnalyzer
     )
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
-    private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, null /*TODO LOC*/, null /*TODO LOC*/)
+
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
     (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+
+    val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
+      countryAnalyzer,
+      nodeLocationAnalyzer
+    )
+
+    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
+      mainNodeAnalyzer,
+      analysisContext
+    )
+    val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
+      analysisContext,
+      routeLocationAnalyzer,
+      new AccessibilityAnalyzerImpl(),
+      routeTileAnalyzer
+    )
+
+    val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
+      analysisContext,
+      countryAnalyzer,
+      relationAnalyzer,
+      masterRouteAnalyzer
+    )
+
+    private val networkAnalyzer = new NetworkAnalyzerImpl(
+      analysisContext,
+      relationAnalyzer,
+      countryAnalyzer,
+      networkNodeAnalyzer,
+      networkRouteAnalyzer
+    )
+
     private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(

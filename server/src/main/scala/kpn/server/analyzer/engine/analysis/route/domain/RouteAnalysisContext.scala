@@ -7,7 +7,6 @@ import kpn.api.common.data.Way
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
-import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.RouteMember
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -19,7 +18,6 @@ import kpn.server.analyzer.load.data.LoadedRoute
 
 case class RouteAnalysisContext(
   analysisContext: AnalysisContext,
-  networkNodes: Map[Long, NetworkNode],
   loadedRoute: LoadedRoute,
   orphan: Boolean,
   facts: Seq[Fact] = Seq.empty,

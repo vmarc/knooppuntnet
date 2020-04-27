@@ -31,11 +31,11 @@ class OrphanRoutesLoaderWorkerImpl(
       loadedRouteOption match {
         case Some(loadedRoute) =>
 
-          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
-          val analysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
+          val analysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
 
+          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
           allNodes.values.foreach { networkNode =>
             analysisRepository.saveNode(
               nodeInfoBuilder.build(

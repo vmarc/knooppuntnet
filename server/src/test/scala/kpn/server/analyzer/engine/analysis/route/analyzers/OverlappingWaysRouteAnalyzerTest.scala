@@ -106,7 +106,6 @@ class OverlappingWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val context = RouteAnalysisContext(
       analysisContext,
-      networkNodes = Map.empty,
       loadedRoute,
       orphan = false
     )

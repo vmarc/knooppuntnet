@@ -33,7 +33,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
       new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
-    val routeAnalysis = routeAnalyzer.analyze(Map(), loadedRoute, orphan = false)
+    val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
     routeAnalysis.route.facts.contains(Fact.RouteSuspiciousWays) should equal(true)
   }
 

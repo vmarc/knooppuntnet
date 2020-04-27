@@ -44,8 +44,7 @@ class NetworkAnalyzerImpl(
 
     val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, loadedNetwork.data, loadedNetwork.networkType, countryAnalyzer).networkNodes
 
-    val allRouteAnalyses: Map[Long, RouteAnalysis] = networkRouteAnalyzer.analyze(allNodes, networkRelationAnalysis,
-      loadedNetwork)
+    val allRouteAnalyses: Map[Long, RouteAnalysis] = networkRouteAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
 
 
     val extraWayMembers = loadedNetwork.relation.wayMembers

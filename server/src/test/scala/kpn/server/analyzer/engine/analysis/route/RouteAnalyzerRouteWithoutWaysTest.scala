@@ -40,7 +40,7 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
       new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
-    val routeAnalysis = routeAnalyzer.analyze(Map(), loadedRoute, orphan = false)
+    val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
     routeAnalysis.route.facts should equal(Seq(RouteWithoutWays, RouteBroken))
   }
 }

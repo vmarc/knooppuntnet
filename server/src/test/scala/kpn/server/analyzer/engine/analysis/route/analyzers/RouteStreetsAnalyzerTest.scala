@@ -26,7 +26,6 @@ class RouteStreetsAnalyzerTest extends UnitTest {
 
     val context = RouteAnalysisContext(
       analysisContext,
-      networkNodes = Map(),
       loadedRoute = null,
       orphan = false,
       ways = Some(ways)

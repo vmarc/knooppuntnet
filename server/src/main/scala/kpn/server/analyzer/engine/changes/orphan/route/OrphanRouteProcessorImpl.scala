@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.orphan.route
 
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -31,8 +30,7 @@ class OrphanRouteProcessorImpl(
     Log.context(s"route=${loadedRoute.id}") {
       log.elapsed {
         try {
-          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
-          val analysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
+          val analysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
 

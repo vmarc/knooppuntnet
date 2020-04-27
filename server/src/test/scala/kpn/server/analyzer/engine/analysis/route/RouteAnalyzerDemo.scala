@@ -32,7 +32,7 @@ object RouteAnalyzerDemo {
           new AccessibilityAnalyzerImpl(),
           routeTileAnalyzer
         )
-        val routeAnalysis = routeAnalyzer.analyze(Map(), loadedRoute, orphan = true)
+        val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
         println("facts=" + routeAnalysis.route.facts)
       case None => println("could not load route")
     }

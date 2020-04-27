@@ -21,7 +21,7 @@ class NetworkRouteAnalyzerImpl(
 
   private val log = Log(classOf[NetworkRouteAnalyzerImpl])
 
-  override def analyze(allNodes: Map[Long, NetworkNode], networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Map[Long, RouteAnalysis] = {
+  override def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Map[Long, RouteAnalysis] = {
 
     val routeRelations = loadedNetwork.data.relations.values.filter { rel =>
       analysisContext.isReferencedRouteRelation(loadedNetwork.networkType, rel.raw)
@@ -39,7 +39,7 @@ class NetworkRouteAnalyzerImpl(
           if (loadedNetwork.networkType == routeNetworkType) {
             val name = relationAnalyzer.routeName(routeRelation)
             val loadedRoute = LoadedRoute(country, routeNetworkType, name, loadedNetwork.data, routeRelation)
-            val routeAnalysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = false)
+            val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
             Some(routeAnalysis)
           }
           else {

@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.builder
 
 import kpn.core.analysis.Network
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -53,8 +52,7 @@ class ChangeBuilderImpl(
   private def collectRouteAnalysesAfter(context: ChangeSetContext, networkAfter: Option[Network], removedRouteIds: Seq[Long]) = {
     val extraLoadedRoutesAfter: Seq[LoadedRoute] = routesLoader.load(context.timestampAfter, removedRouteIds).flatten
     val extraAnalysesAfter = extraLoadedRoutesAfter.map { loadedRoute =>
-      val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
-      routeAnalyzer.analyze(allNodes, loadedRoute, orphan = false)
+      routeAnalyzer.analyze(loadedRoute, orphan = false)
     }
     networkAfter.toSeq.flatMap(_.routes.map(_.routeAnalysis)) ++ extraAnalysesAfter
   }
@@ -63,8 +61,7 @@ class ChangeBuilderImpl(
     val extraLoadedRoutesBefore: Seq[LoadedRoute] = routesLoader.load(context.timestampBefore, addedRouteIds).flatten
     val extraAnalysesBefore = extraLoadedRoutesBefore.map { loadedRoute =>
       val orphan = analysisContext.data.orphanRoutes.contains(loadedRoute.id)
-      val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
-      routeAnalyzer.analyze(allNodes, loadedRoute, orphan)
+      routeAnalyzer.analyze(loadedRoute, orphan)
     }
     networkBefore.toSeq.flatMap(_.routes.map(_.routeAnalysis)) ++ extraAnalysesBefore
   }

@@ -509,7 +509,6 @@ class SegmentAnalyzerTest extends UnitTest {
     val analysisContext = new AnalysisContext()
     val context1 = RouteAnalysisContext(
       analysisContext,
-      networkNodes = Map.empty,
       loadedRoute = LoadedRoute(
         country = None,
         networkType = d.networkType,

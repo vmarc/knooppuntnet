@@ -109,7 +109,6 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
     RouteAnalysisContext(
       analysisContext,
-      networkNodes = Map.empty,
       loadedRoute,
       orphan = false
     )

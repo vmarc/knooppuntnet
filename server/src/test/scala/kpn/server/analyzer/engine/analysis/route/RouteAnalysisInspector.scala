@@ -8,9 +8,6 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -68,10 +65,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     val data = new DataBuilder(rawData).data
     val relation = data.relations(rr.id)
 
-    val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerNoop()
-
     val analysisContext = new AnalysisContext()
-    val networkNodes = new NetworkNodeBuilder(analysisContext, data, d.networkType, countryAnalyzer).networkNodes
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
     val routeLocationAnalyzer: RouteLocationAnalyzer = new RouteLocationAnalyzerMock()
@@ -81,7 +75,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
-    val analysis = routeAnalyzer.analyze(networkNodes, LoadedRoute(None, d.networkType, "", data, relation), orphan = false)
+    val analysis = routeAnalyzer.analyze(LoadedRoute(None, d.networkType, "", data, relation), orphan = false)
 
     val report = new RouteAnalysisReport(analysis).report
     if (report.nonEmpty) {

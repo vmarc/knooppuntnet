@@ -47,12 +47,11 @@ class MasterRouteAnalyzerImpl(
   routeTileAnalyzer: RouteTileAnalyzer
 ) extends MasterRouteAnalyzer {
 
-  override def analyze(networkNodes: Map[Long, NetworkNode], loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis = {
+  override def analyze(loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis = {
     Log.context("route=%07d".format(loadedRoute.id)) {
 
       val context = RouteAnalysisContext(
         analysisContext,
-        networkNodes,
         loadedRoute,
         orphan
       )

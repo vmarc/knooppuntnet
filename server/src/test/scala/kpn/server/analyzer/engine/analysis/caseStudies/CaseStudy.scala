@@ -6,8 +6,6 @@ import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
@@ -22,13 +20,10 @@ import scala.xml.XML
 
 object CaseStudy {
 
-  private val countryAnalyzer = new CountryAnalyzerNoop()
-
   def routeAnalysis(name: String): RouteAnalysis = {
     val filename = s"/case-studies/$name.xml"
     val (data, networkType, routeRelation) = load(filename)
     val analysisContext = new AnalysisContext(oldTagging = true)
-    val networkNodes = new NetworkNodeBuilder(analysisContext, data, networkType, countryAnalyzer).networkNodes
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
@@ -38,7 +33,7 @@ object CaseStudy {
       new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(networkNodes, LoadedRoute(Some(Country.nl), networkType, "", data, routeRelation), orphan = false)
+    routeAnalyzer.analyze(LoadedRoute(Some(Country.nl), networkType, "", data, routeRelation), orphan = false)
   }
 
   private def load(filename: String): (Data, NetworkType, Relation) = {

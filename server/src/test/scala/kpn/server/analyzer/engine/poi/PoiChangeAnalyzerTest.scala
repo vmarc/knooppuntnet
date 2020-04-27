@@ -14,7 +14,7 @@ import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
 
-class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects with MockFactory {
+class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("node poi add") {
 

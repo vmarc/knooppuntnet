@@ -20,7 +20,6 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.QueryNode
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
@@ -287,8 +286,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           config.routeLoader.loadRoute(config.timestamp, routeId) match {
             case None => log.warn("Could not load route")
             case Some(loadedRoute) =>
-              val allNodes = new NetworkNodeBuilder(config.analysisContext, loadedRoute.data, loadedRoute.networkType, config.countryAnalyzer).networkNodes
-              val analysis = config.routeAnalyzer.analyze(allNodes, loadedRoute, orphan = true)
+              val analysis = config.routeAnalyzer.analyze(loadedRoute, orphan = true)
               val facts = analysis.route.facts :+ Fact.OrphanRoute
 
               config.changeSetRepository.saveRouteChange(
@@ -297,7 +295,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                     key = config.changeSetContext.buildChangeKey(analysis.route.id),
                     changeType = ChangeType.InitialValue,
                     name = analysis.route.summary.name,
-                    locations = Seq.empty,
+                    locations = analysis.route.analysis.locationAnalysis.locationNames,
                     addedToNetwork = Seq.empty,
                     removedFromNetwork = Seq.empty,
                     before = None,

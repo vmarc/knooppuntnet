@@ -9,7 +9,6 @@ import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Fact._
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import kpn.core.analysis.NetworkNode
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
@@ -338,21 +337,6 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
     }
     val routeRelation = data.relations(rawRouteRelation.id)
 
-    val networkNodes: Map[Long, NetworkNode] = data.nodes.values
-      .filter { node =>
-        node.tags.has("rwn_ref")
-      }
-      .map { node =>
-        NetworkNode(
-          node,
-          node.tags("rwn_ref").getOrElse(""),
-          None,
-          None
-        )
-      }
-      .map(n => n.id -> n)
-      .toMap
-
     val analysisContext = new AnalysisContext()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
@@ -363,6 +347,6 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
       new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(networkNodes, LoadedRoute(None, NetworkType.hiking, "", data, routeRelation), orphan = false)
+    routeAnalyzer.analyze(LoadedRoute(None, NetworkType.hiking, "", data, routeRelation), orphan = false)
   }
 }

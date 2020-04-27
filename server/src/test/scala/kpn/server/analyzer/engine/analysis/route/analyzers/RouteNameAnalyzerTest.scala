@@ -125,7 +125,6 @@ class RouteNameAnalyzerTest extends UnitTest {
 
     val context = RouteAnalysisContext(
       analysisContext,
-      networkNodes = Map.empty,
       loadedRoute,
       orphan = false
     )
@@ -152,7 +151,6 @@ class RouteNameAnalyzerTest extends UnitTest {
 
     val context = RouteAnalysisContext(
       analysisContext,
-      networkNodes = Map.empty,
       loadedRoute,
       orphan = false
     )
