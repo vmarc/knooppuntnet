@@ -9,6 +9,7 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.obsolete.OldLinkBuilder
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
@@ -55,10 +56,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
         val node = nodeMember.node
 
-        val name = context.networkNodes.get(node.id) match {
-          case Some(networkNode) => networkNode.name
-          case None => ""
-        }
+        val name = NodeAnalyzer.name(context.loadedRoute.networkType, node.tags)
 
         val number = if (nodeMap.isDefinedAt(node.id)) {
           nodeMap(node.id)

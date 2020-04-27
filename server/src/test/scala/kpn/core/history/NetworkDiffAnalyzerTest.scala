@@ -412,7 +412,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       routeTileAnalyzer
     )
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
-    val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
+    val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, null /*TODO LOC*/, null /*TODO LOC*/)
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))
     val loadedNetwork = LoadedNetwork(1, NetworkType.hiking, "name", data, data.relations(1))
     val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)

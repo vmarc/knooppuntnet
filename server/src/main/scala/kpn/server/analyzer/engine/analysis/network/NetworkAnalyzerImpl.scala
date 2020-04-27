@@ -17,13 +17,11 @@ import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
 import scala.util.Failure
@@ -34,54 +32,21 @@ class NetworkAnalyzerImpl(
   analysisContext: AnalysisContext,
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
-  routeAnalyzer: MasterRouteAnalyzer
+  networkNodeAnalyzer: NetworkNodeAnalyzer,
+  networkRouteAnalyzer: NetworkRouteAnalyzer
 ) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkAnalyzerImpl])
 
   def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Network = {
 
+    val allNodeAnalyses = networkNodeAnalyzer.analyze(loadedNetwork.networkType, loadedNetwork.data)
+
     val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, loadedNetwork.data, loadedNetwork.networkType, countryAnalyzer).networkNodes
 
-    val allRouteAnalyses: Map[Long, RouteAnalysis] = {
+    val allRouteAnalyses: Map[Long, RouteAnalysis] = networkRouteAnalyzer.analyze(allNodes, networkRelationAnalysis,
+      loadedNetwork)
 
-      val routeRelations = loadedNetwork.data.relations.values.filter { rel =>
-        analysisContext.isReferencedRouteRelation(loadedNetwork.networkType, rel.raw)
-      }
-
-      val routeAnalyses = routeRelations.flatMap { routeRelation =>
-
-        val country = countryAnalyzer.relationCountry(routeRelation) match {
-          case None => networkRelationAnalysis.country
-          case Some(e) => Some(e)
-        }
-
-        RelationAnalyzer.networkType(routeRelation.raw) match {
-          case Some(routeNetworkType) =>
-            if (loadedNetwork.networkType == routeNetworkType) {
-              val name = relationAnalyzer.routeName(routeRelation)
-              val loadedRoute = LoadedRoute(country, routeNetworkType, name, loadedNetwork.data, routeRelation)
-              val routeAnalysis = routeAnalyzer.analyze(allNodes, loadedRoute, orphan = false)
-              Some(routeAnalysis)
-            }
-            else {
-              val msg = s"Route networkType (${routeNetworkType.name}) does not match the network relation networkType ${loadedNetwork.name}."
-              val programmingError = "This is an unexpected programming error."
-              //noinspection SideEffectsInMonadicTransformation
-              log.error(s"$msg $programmingError")
-              None
-            }
-
-          case None =>
-            val msg = s"Could not determing networkType in route relation."
-            val programmingError = "This is an unexpected programming error."
-            //noinspection SideEffectsInMonadicTransformation
-            log.error(s"$msg $programmingError")
-            None
-        }
-      }
-      routeAnalyses.map(a => (a.route.id, a)).toMap
-    }
 
     val extraWayMembers = loadedNetwork.relation.wayMembers
     val (nodeMembers, extraNodeMembers) = loadedNetwork.relation.nodeMembers.partition(member => allNodes.contains(member.node.id))

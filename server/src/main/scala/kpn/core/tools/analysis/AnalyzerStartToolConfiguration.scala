@@ -150,7 +150,7 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
 
   val networkLoader = new NetworkLoaderImpl(cachingExecutor)
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
-  val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, routeAnalyzer)
+  val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, null /*TODO LOC*/, null /*TODO LOC*/)
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
     analysisContext,
