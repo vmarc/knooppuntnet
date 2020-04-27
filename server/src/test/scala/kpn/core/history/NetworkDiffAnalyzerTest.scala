@@ -437,9 +437,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val networkAnalyzer = new NetworkAnalyzerImpl(
-      analysisContext,
       relationAnalyzer,
-      countryAnalyzer,
       networkNodeAnalyzer,
       networkRouteAnalyzer
     )

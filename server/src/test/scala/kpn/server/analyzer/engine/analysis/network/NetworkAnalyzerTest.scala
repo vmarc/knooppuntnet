@@ -156,9 +156,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     )
 
     val analyzer = new NetworkAnalyzerImpl(
-      analysisContext,
       relationAnalyzer,
-      countryAnalyzer,
       networkNodeAnalyzer,
       networkRouteAnalyzer
     )

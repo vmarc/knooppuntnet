@@ -87,7 +87,7 @@ class NetworksLoaderDemo(analysisExecutor: Executor) {
     new AccessibilityAnalyzerImpl(),
     routeTileAnalyzer
   )
-  private val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, null /*TODO LOC*/, null /*TODO LOC*/)
+  private val networkAnalyzer = new NetworkAnalyzerImpl(relationAnalyzer, null /*TODO LOC*/ , null /*TODO LOC*/)
   private val blackListRepository = new BlackListRepositoryImpl(database)
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(

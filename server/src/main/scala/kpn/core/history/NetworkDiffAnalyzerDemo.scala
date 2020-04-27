@@ -39,7 +39,11 @@ object NetworkDiffAnalyzerDemo {
       new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
-    val networkAnalyzer = new NetworkAnalyzerImpl(analysisContext, relationAnalyzer, countryAnalyzer, null /*TODO LOC*/ , null /*TODO LOC*/)
+    val networkAnalyzer = new NetworkAnalyzerImpl(
+      relationAnalyzer,
+      null /*TODO LOC*/,
+      null /*TODO LOC*/
+    )
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
 
     val networkLoader = {

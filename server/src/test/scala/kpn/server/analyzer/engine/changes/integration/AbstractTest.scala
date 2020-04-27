@@ -156,9 +156,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     )
 
     private val networkAnalyzer = new NetworkAnalyzerImpl(
-      analysisContext,
       relationAnalyzer,
-      countryAnalyzer,
       networkNodeAnalyzer,
       networkRouteAnalyzer
     )

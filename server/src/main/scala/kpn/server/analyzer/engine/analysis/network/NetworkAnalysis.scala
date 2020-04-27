@@ -8,7 +8,6 @@ import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 
 case class NetworkAnalysis(
-  allNodes: Map[Long, NetworkNode] = Map.empty,
   networkExtraMemberWay: Seq[NetworkExtraMemberWay] = Seq.empty,
   networkExtraMemberNode: Seq[NetworkExtraMemberNode] = Seq.empty,
   networkExtraMemberRelation: Seq[NetworkExtraMemberRelation] = Seq.empty,

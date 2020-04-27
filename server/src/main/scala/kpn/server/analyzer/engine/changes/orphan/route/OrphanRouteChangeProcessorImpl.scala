@@ -8,7 +8,6 @@ import kpn.api.custom.Fact
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges

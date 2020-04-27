@@ -3,7 +3,7 @@ package kpn.server.analyzer.load.orphan.route
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
+import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -18,9 +18,9 @@ class OrphanRoutesLoaderWorkerImpl(
   routeLoader: RouteLoader,
   routeAnalyzer: MasterRouteAnalyzer,
   relationAnalyzer: RelationAnalyzer,
-  countryAnalyzer: CountryAnalyzer,
   analysisRepository: AnalysisRepository,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeInfoBuilder: NodeInfoBuilder,
+  networkNodeAnalyzer: NetworkNodeAnalyzer
 ) extends OrphanRoutesLoaderWorker {
 
   private val log = Log(classOf[OrphanRoutesLoaderWorkerImpl])
@@ -35,7 +35,8 @@ class OrphanRoutesLoaderWorkerImpl(
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
 
-          val allNodes = new NetworkNodeBuilder(analysisContext, loadedRoute.data, loadedRoute.networkType, countryAnalyzer).networkNodes
+          val allNodes = networkNodeAnalyzer.analyze(loadedRoute.networkType, loadedRoute.data)
+
           allNodes.values.foreach { networkNode =>
             analysisRepository.saveNode(
               nodeInfoBuilder.build(

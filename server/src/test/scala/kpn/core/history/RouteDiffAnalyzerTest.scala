@@ -11,12 +11,10 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.replicate.ReplicationStateRepository
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
@@ -475,9 +473,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     )
 
     val networkAnalyzer = new NetworkAnalyzerImpl(
-      analysisContext,
       relationAnalyzer,
-      countryAnalyzer,
       networkNodeAnalyzer,
       networkRouteAnalyzer
     )

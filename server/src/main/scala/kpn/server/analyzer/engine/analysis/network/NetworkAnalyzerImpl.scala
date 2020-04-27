@@ -14,13 +14,9 @@ import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.springframework.stereotype.Component
 
@@ -29,9 +25,7 @@ import scala.util.Success
 
 @Component
 class NetworkAnalyzerImpl(
-  analysisContext: AnalysisContext,
   relationAnalyzer: RelationAnalyzer,
-  countryAnalyzer: CountryAnalyzer,
   networkNodeAnalyzer: NetworkNodeAnalyzer,
   networkRouteAnalyzer: NetworkRouteAnalyzer
 ) extends NetworkAnalyzer {
@@ -40,12 +34,8 @@ class NetworkAnalyzerImpl(
 
   def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Network = {
 
-    val allNodeAnalyses = networkNodeAnalyzer.analyze(loadedNetwork.networkType, loadedNetwork.data)
-
-    val allNodes: Map[Long, NetworkNode] = new NetworkNodeBuilder(analysisContext, loadedNetwork.data, loadedNetwork.networkType, countryAnalyzer).networkNodes
-
+    val allNodes = networkNodeAnalyzer.analyze(loadedNetwork.networkType, loadedNetwork.data)
     val allRouteAnalyses: Map[Long, RouteAnalysis] = networkRouteAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
-
 
     val extraWayMembers = loadedNetwork.relation.wayMembers
     val (nodeMembers, extraNodeMembers) = loadedNetwork.relation.nodeMembers.partition(member => allNodes.contains(member.node.id))
@@ -74,15 +64,15 @@ class NetworkAnalyzerImpl(
 
     val networkNodesInRelation = nodeMembers.map(member => allNodes(member.node.id)).toSet
 
-    val networkNodesInRouteWays = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodeAnalysis.routeNodes).filter(_.definedInWay).map(toNetworkNode).toSet
-    val networkNodesInRouteRelations = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodeAnalysis.routeNodes).filter(_.definedInRelation).map(toNetworkNode).toSet
+    val routeNodes = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodeAnalysis.routeNodes)
+    val networkNodesInRouteWays = routeNodes.filter(_.definedInWay).map(routeNode => allNodes(routeNode.id)).toSet
+    val networkNodesInRouteRelations = routeNodes.filter(_.definedInRelation).map(routeNode => allNodes(routeNode.id)).toSet
 
     val allNodesInNetwork: Set[NetworkNode] = networkNodesInRelation ++ networkNodesInRouteWays ++ networkNodesInRouteRelations
 
     val shape = new NetworkShapeAnalyzer(relationAnalyzer, loadedNetwork.relation).shape
 
     val analysis = NetworkAnalysis(
-      allNodes = allNodes,
       networkExtraMemberWay = networkExtraMemberWay,
       networkExtraMemberNode = networkExtraMemberNode,
       networkExtraMemberRelation = networkExtraMemberRelation,
@@ -154,7 +144,6 @@ class NetworkAnalyzerImpl(
           integrityCheck,
           lastSurveyDate,
           updatedFacts
-          // TODO LOC add location here??
         )
 
       }.toSeq
@@ -189,10 +178,5 @@ class NetworkAnalyzerImpl(
 
   private def networkNameMissing(networkRelation: Relation): Option[NetworkNameMissing] = {
     if (networkRelation.tags.has("name")) None else Some(NetworkNameMissing())
-  }
-
-  private def toNetworkNode(rn: RouteNode): NetworkNode = {
-    val country = countryAnalyzer.country(Seq(rn.node))
-    NetworkNode(rn.node, rn.name, country, None /* TODO LOC */)
   }
 }
