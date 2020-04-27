@@ -72,13 +72,19 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
     Json.value(string, classOf[Elements])
   }
 
+  val analysisContext = new AnalysisContext(snapshotKnownElements, beforeNetworkTypeTaggingStart = true)
+
+  val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
+  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
   private val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
   val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
   val routeRepository = new RouteRepositoryImpl(analysisDatabase)
   val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
+
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
@@ -106,12 +112,6 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
   val analysisDatabaseIndexer: DatabaseIndexer = new DatabaseIndexer(analysisDatabase, changeDatabase, null, null, null)
 
   val analysisData: AnalysisData = AnalysisData()
-
-  val analysisContext = new AnalysisContext(snapshotKnownElements, beforeNetworkTypeTaggingStart = true)
-
-  val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-
-  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
 
   val changeSetRepository = new ChangeSetRepositoryImpl(changeDatabase)
 

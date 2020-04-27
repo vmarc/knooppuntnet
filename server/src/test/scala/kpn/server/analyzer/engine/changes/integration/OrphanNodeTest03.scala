@@ -1,13 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Timestamp
-import kpn.core.test.TestData
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
@@ -17,7 +9,15 @@ import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestData
+import kpn.core.test.TestData2
 
 class OrphanNodeTest03 extends AbstractTest {
 
@@ -93,11 +93,10 @@ class OrphanNodeTest03 extends AbstractTest {
       where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
-            newChangeKey(elementId = 1001),
-            ChangeType.Delete,
-            Seq(Subset.nlHiking),
-            locations = Seq.empty, // TODO LOC
-            "01",
+            key = newChangeKey(elementId = 1001),
+            changeType = ChangeType.Delete,
+            subsets = Seq(Subset.nlHiking),
+            name = "01",
             before = Some(
               newRawNodeWithName(1001, "01")
             ),

@@ -31,6 +31,13 @@ case class NodeInfo(
     names.filter(_.scopedNetworkType.networkType == networkType).map(_.name).mkString(" / ")
   }
 
+  def locations: Seq[String] = {
+    location match {
+      case Some(location) => location.names
+      case None => Seq.empty
+    }
+  }
+
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("id", id).
     field("active", active).

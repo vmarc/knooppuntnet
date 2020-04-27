@@ -95,11 +95,10 @@ class OrphanNodeTest05 extends AbstractTest {
       where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
-            newChangeKey(elementId = 1001),
-            ChangeType.Update,
-            Seq(Subset.nlHiking),
-            locations = Seq.empty, // TODO LOC
-            "01",
+            key = newChangeKey(elementId = 1001),
+            changeType = ChangeType.Update,
+            subsets = Seq(Subset.nlHiking),
+            name = "01",
             before = Some(
               newRawNodeWithName(1001, "01")
             ),

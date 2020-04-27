@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.orphan.route
 
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Fact
 import kpn.core.history.RouteDiffAnalyzer
@@ -56,23 +57,35 @@ class OrphanRouteChangeProcessorImpl(
     val routeAnalyses = loadedRoutes.flatMap(loadedRoute => orphanRouteProcessor.process(context, loadedRoute))
     routeAnalyses.foreach(tileChangeAnalyzer.analyzeRoute)
 
-    val creates = routeAnalyses.map(_.toRouteData)
+    routeAnalyses.map { routeAnalysis =>
 
-    creates.map { routeData =>
+      val factDiffs = if (routeAnalysis.route.facts.nonEmpty) {
+        Some(
+          FactDiffs(
+            introduced = routeAnalysis.route.facts.toSet
+          )
+        )
+      }
+      else {
+        None
+      }
+
       analyzed(
         RouteChange(
-          key = context.buildChangeKey(routeData.id),
+          key = context.buildChangeKey(routeAnalysis.id),
           changeType = ChangeType.Create,
-          name = routeData.name,
-          locations = Seq.empty, // TODO LOC
+          name = routeAnalysis.name,
+          locations = routeAnalysis.route.analysis.locationAnalysis.locationNames,
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
           before = None,
-          after = Some(routeData),
+          after = Some(routeAnalysis.toRouteData),
           removedWays = Seq.empty,
           addedWays = Seq.empty,
           updatedWays = Seq.empty,
-          diffs = RouteDiff(),
+          diffs = RouteDiff(
+            factDiffs = factDiffs
+          ),
           facts = Seq(Fact.OrphanRoute)
         )
       )
@@ -121,7 +134,7 @@ class OrphanRouteChangeProcessorImpl(
                 key = context.buildChangeKey(routeUpdate.after.id),
                 changeType = ChangeType.Update,
                 name = routeUpdate.after.name,
-                locations = Seq.empty, // TODO LOC
+                locations = afterRouteAnalysis.route.analysis.locationAnalysis.locationNames,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(routeUpdate.before.toRouteData),
@@ -167,7 +180,7 @@ class OrphanRouteChangeProcessorImpl(
                 key = context.buildChangeKey(route.id),
                 changeType = ChangeType.Delete,
                 name = route.summary.name,
-                locations = Seq.empty, // TODO LOC
+                locations = routeAnalysis.route.analysis.locationAnalysis.locationNames,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(routeAnalysis.toRouteData),

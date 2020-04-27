@@ -83,8 +83,8 @@ class AnalysisRepositoryImpl(
         active = true,
         orphan = false,
         node.networkNode.country,
-        node.networkNode.node.latitude.toString,
-        node.networkNode.node.longitude.toString,
+        node.networkNode.node.latitude,
+        node.networkNode.node.longitude,
         node.networkNode.node.timestamp,
         node.networkNode.node.tags,
         facts

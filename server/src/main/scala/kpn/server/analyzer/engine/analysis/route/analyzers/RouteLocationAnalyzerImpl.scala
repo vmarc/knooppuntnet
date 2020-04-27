@@ -5,6 +5,10 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
+/*
+  Calculates the route location (re-uses the previous route location (read from database) if the geometry
+  of the route did not change (same geometry digest)).
+*/
 @Component
 class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: RouteLocator) extends RouteLocationAnalyzer {
 

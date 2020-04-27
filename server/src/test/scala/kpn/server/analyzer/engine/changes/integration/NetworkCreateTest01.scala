@@ -1,12 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.analysis.Network
-import kpn.core.test.TestData
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
@@ -21,6 +14,13 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.analysis.Network
+import kpn.core.test.TestData
+import kpn.core.test.TestData2
 
 class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
 
@@ -194,11 +194,10 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
           case 1001 =>
             nodeChange should equal(
               newNodeChange(
-                newChangeKey(elementId = 1001),
-                ChangeType.Update,
-                Seq(Subset.nlHiking),
-                locations = Seq.empty, // TODO LOC
-                "01",
+                key = newChangeKey(elementId = 1001),
+                changeType = ChangeType.Update,
+                subsets = Seq(Subset.nlHiking),
+                name = "01",
                 before = Some(
                   newRawNodeWithName(1001, "01")
                 ),
@@ -216,11 +215,10 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
           case 1002 =>
             nodeChange should equal(
               newNodeChange(
-                newChangeKey(elementId = 1002),
-                ChangeType.Update,
-                Seq(Subset.nlHiking),
-                locations = Seq.empty, // TODO LOC
-                "02",
+                key = newChangeKey(elementId = 1002),
+                changeType = ChangeType.Update,
+                subsets = Seq(Subset.nlHiking),
+                name = "02",
                 before = Some(
                   newRawNodeWithName(1002, "02")
                 ),

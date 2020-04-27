@@ -80,8 +80,7 @@ class NodeChangeBuilderImpl(
           assertNodeVersion1(nodeAfter.networkNode.node.raw)
 
           val subsets: Seq[Subset] = context.networkAfter.flatMap { networkAfter =>
-            nodeAfter.networkNode.country.flatMap(c => Subset.of(c,
-              networkAfter.networkType))
+            nodeAfter.networkNode.country.flatMap(c => Subset.of(c, networkAfter.networkType))
           }.toSeq
 
           analyzed(
@@ -89,7 +88,7 @@ class NodeChangeBuilderImpl(
               key = context.changeSetContext.buildChangeKey(nodeAfter.id),
               changeType = ChangeType.Create,
               subsets = subsets,
-              locations= Seq.empty, // TODO LOC
+              locations = nodeAfter.locations,
               name = nodeAfter.networkNode.name,
               before = None,
               after = Some(nodeAfter.networkNode.node.raw),
@@ -125,7 +124,7 @@ class NodeChangeBuilderImpl(
               key = context.changeSetContext.buildChangeKey(nodeAfter.id),
               changeType = ChangeType.Update,
               subsets = subsets,
-              locations= Seq.empty, // TODO LOC
+              locations = nodeAfter.locations,
               name = nodeAfter.networkNode.name,
               before = Some(nodeBefore.node.raw),
               after = Some(nodeAfter.networkNode.node.raw),
@@ -187,7 +186,7 @@ class NodeChangeBuilderImpl(
               key = context.changeSetContext.buildChangeKey(nodeId),
               changeType = ChangeType.Delete,
               subsets = subsets,
-              locations = Seq.empty, // TODO LOC
+              locations = nodeBefore.locations,
               name = nodeBefore.networkNode.name,
               before = Some(nodeBefore.networkNode.node.raw),
               after = None,
@@ -245,7 +244,7 @@ class NodeChangeBuilderImpl(
                 key = context.changeSetContext.buildChangeKey(nodeId),
                 changeType = ChangeType.Update,
                 subsets = subsets,
-                locations= Seq.empty, // TODO LOC
+                locations = nodeInfo.locations,
                 name = name,
                 before = Some(before),
                 after = Some(after),
@@ -281,7 +280,7 @@ class NodeChangeBuilderImpl(
                 key = context.changeSetContext.buildChangeKey(nodeId),
                 changeType = ChangeType.Update,
                 subsets = subsets,
-                locations= Seq.empty, // TODO LOC
+                locations = nodeBefore.locations,
                 name = nodeBefore.networkNode.name,
                 before = Some(before),
                 after = Some(after),
@@ -379,7 +378,7 @@ class NodeChangeBuilderImpl(
           key = context.changeSetContext.buildChangeKey(nodeId),
           changeType = ChangeType.Update,
           subsets = subsets,
-          locations = Seq.empty, // TODO LOC
+          locations = nodeAfter.locations,
           name = nodeAfter.networkNode.name,
           before = Some(before),
           after = Some(after),

@@ -78,7 +78,7 @@ class OrphanNodeUpdateProcessorImpl(
           key = context.buildChangeKey(loadedNodeChange.after.node.id),
           changeType = ChangeType.Update,
           subsets = subsets,
-          locations = Seq.empty, // TODO LOC
+          locations = nodeInfo.locations,
           name = name,
           before = Some(loadedNodeChange.before.node.raw),
           after = Some(loadedNodeChange.after.node.raw),

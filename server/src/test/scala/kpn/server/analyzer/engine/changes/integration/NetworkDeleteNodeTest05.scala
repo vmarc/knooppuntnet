@@ -1,11 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
@@ -19,6 +13,12 @@ import kpn.api.common.diff.TagDetailType.Delete
 import kpn.api.common.diff.TagDetailType.Same
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.network.NetworkInfo
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.test.TestData2
 
 class NetworkDeleteNodeTest05 extends AbstractTest {
 
@@ -112,11 +112,10 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
       where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
-            newChangeKey(elementId = 1001),
-            ChangeType.Update,
-            Seq(Subset.nlHiking),
-            locations = Seq.empty, // TODO LOC
-            "02",
+            key = newChangeKey(elementId = 1001),
+            changeType = ChangeType.Update,
+            subsets = Seq(Subset.nlHiking),
+            name = "02",
             before = Some(
               newRawNode(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
             ),

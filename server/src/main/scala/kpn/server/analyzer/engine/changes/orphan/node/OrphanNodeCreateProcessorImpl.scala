@@ -24,13 +24,14 @@ class OrphanNodeCreateProcessorImpl(
     val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
     analysisRepository.saveNode(nodeInfo)
 
+
     optionalContext.map { context =>
       analyzed(
         NodeChange(
           key = context.buildChangeKey(loadedNode.id),
           changeType = ChangeType.Create,
           loadedNode.subsets,
-          locations = Seq.empty, // TODO LOC
+          locations = nodeInfo.locations,
           loadedNode.name,
           before = None,
           after = Some(loadedNode.node.raw),

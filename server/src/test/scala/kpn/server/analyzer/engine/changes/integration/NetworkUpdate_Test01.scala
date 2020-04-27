@@ -1,12 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
@@ -29,6 +22,13 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestData2
 
 class NetworkUpdate_Test01 extends AbstractTest {
 
@@ -238,11 +238,10 @@ class NetworkUpdate_Test01 extends AbstractTest {
       where { nodeChange: NodeChange =>
         nodeChange should equal(
           newNodeChange(
-            newChangeKey(elementId = 1002),
-            ChangeType.Update,
-            Seq(Subset.nlHiking),
-            locations = Seq.empty, // TODO LOC
-            "02-changed",
+            key = newChangeKey(elementId = 1002),
+            changeType = ChangeType.Update,
+            subsets = Seq(Subset.nlHiking),
+            name = "02-changed",
             before = Some(
               newRawNodeWithName(1002, "02")
             ),

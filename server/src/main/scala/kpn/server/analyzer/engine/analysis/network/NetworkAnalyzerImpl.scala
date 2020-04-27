@@ -19,6 +19,7 @@ import kpn.server.analyzer.engine.analysis.node.NetworkNodeBuilder
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
@@ -189,6 +190,7 @@ class NetworkAnalyzerImpl(
           integrityCheck,
           lastSurveyDate,
           updatedFacts
+          // TODO LOC add location here??
         )
 
       }.toSeq
@@ -225,7 +227,7 @@ class NetworkAnalyzerImpl(
     if (networkRelation.tags.has("name")) None else Some(NetworkNameMissing())
   }
 
-  private def toNetworkNode(rn: kpn.server.analyzer.engine.analysis.route.RouteNode): NetworkNode = {
+  private def toNetworkNode(rn: RouteNode): NetworkNode = {
     val country = countryAnalyzer.country(Seq(rn.node))
     NetworkNode(rn.node, rn.name, country, None /* TODO LOC */)
   }
