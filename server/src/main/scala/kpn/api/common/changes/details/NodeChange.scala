@@ -6,6 +6,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
+import kpn.api.common.location.Location
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 
@@ -16,7 +17,7 @@ case class NodeChange(
   key: ChangeKey,
   changeType: ChangeType,
   subsets: Seq[Subset],
-  locations: Seq[String],
+  location: Option[Location],
   name: String,
   before: Option[RawNode],
   after: Option[RawNode],
@@ -31,8 +32,11 @@ case class NodeChange(
   removedFromNetwork: Seq[Ref],
   factDiffs: FactDiffs,
   facts: Seq[Fact],
+  // following values are filled in by NodeChangeAnalyzer.analyzed
   happy: Boolean = false,
-  investigate: Boolean = false
+  investigate: Boolean = false,
+  locationHappy: Boolean = false,
+  locationInvestigate: Boolean = false
 ) {
 
   def id: Long = key.elementId

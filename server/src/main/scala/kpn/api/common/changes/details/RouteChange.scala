@@ -1,5 +1,6 @@
 package kpn.api.common.changes.details
 
+import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.common.ToStringBuilder
@@ -17,7 +18,7 @@ case class RouteChange(
   key: ChangeKey,
   changeType: ChangeType,
   name: String,
-  locations: Seq[String],
+  locationAnalysis: RouteLocationAnalysis,
   addedToNetwork: Seq[Ref],
   removedFromNetwork: Seq[Ref],
   before: Option[RouteData],
@@ -27,8 +28,11 @@ case class RouteChange(
   updatedWays: Seq[WayUpdate],
   diffs: RouteDiff,
   facts: Seq[Fact],
+  // following values are filled in by RouteChangeAnalyzer.analyzed
   happy: Boolean = false,
-  investigate: Boolean = false
+  investigate: Boolean = false,
+  locationHappy: Boolean = false,
+  locationInvestigate: Boolean = false
 ) {
 
   def id: Long = key.elementId
@@ -59,6 +63,7 @@ case class RouteChange(
     field("key", key).
     field("changeType", changeType).
     field("name", name).
+    field("locationAnalysis", locationAnalysis).
     field("addedToNetwork", addedToNetwork).
     field("removedFromNetwork", removedFromNetwork).
     field("before", before).
@@ -70,5 +75,7 @@ case class RouteChange(
     field("facts", facts).
     field("happy", happy).
     field("investigate", investigate).
+    field("locationHappy", happy).
+    field("locationInvestigate", investigate).
     build
 }

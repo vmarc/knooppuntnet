@@ -258,7 +258,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
         i18n="@@stats.route-name-missing.comment"
         [markdownEnabled]="true"
         [linkFunction]="factDetailCounts">
-        Routes without a _"note"_ tag with the route name.
+        Routes without a _"note"_ or _"ref"_ tag with the route name.
       </kpn-statistic-configuration>
 
       <kpn-statistic-configuration

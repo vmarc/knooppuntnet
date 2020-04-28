@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.node
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.location.Location
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.analysis.NetworkNodeInfo
@@ -99,7 +100,7 @@ class UnreferencedNodeProcessorImpl(
             key = context.buildChangeKey(nodeBefore.id),
             changeType = ChangeType.Update,
             subsets = subsets,
-            locations = nodeBefore.locations,
+            location = nodeBefore.networkNode.location,
             name = nodeBefore.networkNode.name,
             before = Some(nodeBefore.networkNode.node.raw),
             after = Some(nodeAfter.node.raw),
@@ -137,7 +138,7 @@ class UnreferencedNodeProcessorImpl(
           key = context.buildChangeKey(nodeBefore.id),
           changeType = ChangeType.Delete,
           subsets = subsets,
-          locations = nodeBefore.locations,
+          location = nodeBefore.networkNode.location,
           name = nodeBefore.networkNode.name,
           before = Some(nodeBefore.networkNode.node.raw),
           after = None,
@@ -175,7 +176,7 @@ class UnreferencedNodeProcessorImpl(
           key = context.buildChangeKey(nodeBefore.id),
           changeType = ChangeType.Update,
           subsets = nodeAfter.subsets,
-          locations = Seq.empty, // TODO LOC
+          location = Some(Location(Seq.empty)), // TODO LOC
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),

@@ -43,7 +43,7 @@ class OrphanNodeDeleteProcessorImpl(
                 key = context.buildChangeKey(loadedNodeDelete.id),
                 changeType = ChangeType.Delete,
                 subsets = subsets,
-                locations = nodeInfo.locations,
+                location = nodeInfo.location,
                 name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
                 before = loadedNodeDelete.loadedNode.map(_.node.raw),
                 after = None,

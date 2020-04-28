@@ -70,7 +70,6 @@ object ChangeSetPageExample {
       subsets = Subset.all,
       timestampFrom = Timestamp(2015, 1, 2),
       timestampUntil = Timestamp(2015, 1, 2),
-      locationChanges = Seq.empty,
       networkChanges = NetworkChanges(), // TODO this is not used by the application; can be left out???
       //        networkChanges = NetworkChanges(
       //          creates = Seq(

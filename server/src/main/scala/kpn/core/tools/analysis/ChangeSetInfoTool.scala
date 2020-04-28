@@ -75,7 +75,7 @@ class ChangeSetInfoTool(
     while (oper.isActive) {
       val taskIds = taskRepository.all(TaskRepository.changeSetInfoTask)
       if (taskIds.isEmpty) {
-        oper.sleep(30000)
+        oper.sleep(30)
       }
       else {
         process(taskIds)

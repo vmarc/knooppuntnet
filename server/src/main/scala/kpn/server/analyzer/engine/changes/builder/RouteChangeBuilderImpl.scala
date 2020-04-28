@@ -7,7 +7,6 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Fact
-import kpn.api.custom.RouteMemberInfo
 import kpn.core.analysis.Network
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
@@ -80,12 +79,12 @@ class RouteChangeBuilderImpl(
 
           tileChangeAnalyzer.analyzeRoute(analysisAfter)
 
-          analyzed(
+          RouteChangeAnalyzer.analyzed(
             RouteChange(
               key = context.changeSetContext.buildChangeKey(analysisAfter.id),
               changeType = ChangeType.Create,
               name = analysisAfter.name,
-              locations = analysisAfter.route.analysis.locationAnalysis.locationNames,
+              locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
               addedToNetwork = context.networkAfter.map(_.toRef).toSeq,
               removedFromNetwork = Seq.empty,
               before = None,
@@ -104,12 +103,12 @@ class RouteChangeBuilderImpl(
 
           tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
-          analyzed(
+          RouteChangeAnalyzer.analyzed(
             RouteChange(
               key = context.changeSetContext.buildChangeKey(routeId),
               changeType = ChangeType.Update,
               name = analysisAfter.name,
-              locations = analysisAfter.route.analysis.locationAnalysis.locationNames,
+              locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
               addedToNetwork = context.networkAfter.map(_.toRef).toSeq,
               removedFromNetwork = Seq.empty,
               before = Some(analysisBefore.toRouteData),
@@ -164,12 +163,12 @@ class RouteChangeBuilderImpl(
           tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
           Some(
-            analyzed(
+            RouteChangeAnalyzer.analyzed(
               RouteChange(
                 key = context.changeSetContext.buildChangeKey(routeId),
                 changeType = ChangeType.Delete,
                 name = analysisBefore.name,
-                locations = analysisBefore.route.analysis.locationAnalysis.locationNames,
+                locationAnalysis = analysisBefore.route.analysis.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
                 before = Some(analysisBefore.toRouteData),
@@ -198,12 +197,12 @@ class RouteChangeBuilderImpl(
 
     if (analysisContext.data.networks.isReferencingRelation(routeId)) {
       Some(
-        analyzed(
+        RouteChangeAnalyzer.analyzed(
           RouteChange(
             key = context.changeSetContext.buildChangeKey(routeId),
             changeType = ChangeType.Update,
             name = analysisAfter.name,
-            locations = analysisAfter.route.analysis.locationAnalysis.locationNames,
+            locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
             addedToNetwork = Seq.empty,
             removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
             before = Some(analysisBefore.toRouteData),
@@ -236,12 +235,12 @@ class RouteChangeBuilderImpl(
       tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
       Some(
-        analyzed(
+        RouteChangeAnalyzer.analyzed(
           RouteChange(
             key = context.changeSetContext.buildChangeKey(routeId),
             changeType = ChangeType.Update,
             name = analysisAfter.name,
-            locations = analysisAfter.route.analysis.locationAnalysis.locationNames,
+            locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
             addedToNetwork = Seq.empty,
             removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
             before = Some(analysisBefore.toRouteData),
@@ -275,12 +274,12 @@ class RouteChangeBuilderImpl(
           tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
           Some(
-            analyzed(
+            RouteChangeAnalyzer.analyzed(
               RouteChange(
                 key = context.changeSetContext.buildChangeKey(routeId),
                 changeType = ChangeType.Update,
                 name = analysisAfter.name,
-                locations = analysisAfter.route.analysis.locationAnalysis.locationNames,
+                locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(analysisBefore.toRouteData),
@@ -308,9 +307,4 @@ class RouteChangeBuilderImpl(
   private def routeAnalysesIn(network: Option[Network], routeIds: Set[Long]): Seq[RouteAnalysis] = {
     network.toSeq.flatMap(_.routes.filter(route => routeIds.contains(route.id))).map(_.routeAnalysis)
   }
-
-  private def analyzed(routeChange: RouteChange): RouteChange = {
-    new RouteChangeAnalyzer(routeChange).analyzed()
-  }
-
 }

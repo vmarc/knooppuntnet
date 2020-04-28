@@ -69,12 +69,12 @@ class OrphanRouteChangeProcessorImpl(
         None
       }
 
-      analyzed(
+      RouteChangeAnalyzer.analyzed(
         RouteChange(
           key = context.buildChangeKey(routeAnalysis.id),
           changeType = ChangeType.Create,
           name = routeAnalysis.name,
-          locations = routeAnalysis.route.analysis.locationAnalysis.locationNames,
+          locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
           before = None,
@@ -127,12 +127,12 @@ class OrphanRouteChangeProcessorImpl(
           }
 
           Some(
-            analyzed(
+            RouteChangeAnalyzer.analyzed(
               RouteChange(
                 key = context.buildChangeKey(routeUpdate.after.id),
                 changeType = ChangeType.Update,
                 name = routeUpdate.after.name,
-                locations = afterRouteAnalysis.route.analysis.locationAnalysis.locationNames,
+                locationAnalysis = afterRouteAnalysis.route.analysis.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(routeUpdate.before.toRouteData),
@@ -172,12 +172,12 @@ class OrphanRouteChangeProcessorImpl(
           tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
           Some(
-            analyzed(
+            RouteChangeAnalyzer.analyzed(
               RouteChange(
                 key = context.buildChangeKey(route.id),
                 changeType = ChangeType.Delete,
                 name = route.summary.name,
-                locations = routeAnalysis.route.analysis.locationAnalysis.locationNames,
+                locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(routeAnalysis.toRouteData),
@@ -193,9 +193,4 @@ class OrphanRouteChangeProcessorImpl(
       }
     }
   }
-
-  private def analyzed(routeChange: RouteChange): RouteChange = {
-    new RouteChangeAnalyzer(routeChange).analyzed()
-  }
-
 }

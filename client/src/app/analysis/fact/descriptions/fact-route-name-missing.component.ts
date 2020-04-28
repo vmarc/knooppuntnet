@@ -4,7 +4,7 @@ import {Component} from "@angular/core";
   selector: "kpn-fact-route-name-missing",
   template: `
     <markdown i18n="@@fact.description.route-name-missing">
-      The route relation does not have a _"note"_ tag with the route name.
+      The route relation does not have a _"note"_ or _"ref"_ tag with the route name.
     </markdown>
   `
 })

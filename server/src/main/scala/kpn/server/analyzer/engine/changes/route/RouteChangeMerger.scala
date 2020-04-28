@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.route
 
+import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
@@ -17,12 +18,12 @@ class RouteChangeMerger(left: RouteChange, right: RouteChange) {
     else {
 
       assertFixedFields(left, right)
-      analyzed(
+      RouteChangeAnalyzer.analyzed(
         RouteChange(
           left.key,
           mergedChangeType(),
           left.name,
-          locations = Seq.empty, // TODO LOC
+          locationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty), // TODO LOC
           mergedRefs(left.addedToNetwork, right.addedToNetwork),
           mergedRefs(left.removedFromNetwork, right.removedFromNetwork),
           before = mergedRouteData(left.before, right.before),
@@ -103,9 +104,4 @@ class RouteChangeMerger(left: RouteChange, right: RouteChange) {
       (leftRefs ++ rightRefs).distinct.sortBy(_.id)
     }
   }
-
-  private def analyzed(routeChange: RouteChange): RouteChange = {
-    new RouteChangeAnalyzer(routeChange).analyzed()
-  }
-
 }

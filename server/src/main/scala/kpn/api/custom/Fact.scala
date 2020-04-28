@@ -111,6 +111,44 @@ object Fact {
 
   val all: Seq[Fact] = f.all
 
+  val locationFacts = Seq(
+    RouteNotContinious,
+    RouteNotForward,
+    RouteNotBackward,
+    RouteUnusedSegments,
+    RouteNodeMissingInWays,
+    RouteRedundantNodes,
+    RouteFixmetodo,
+    RouteWithoutWays,
+    RouteNameMissing,
+    RouteTagMissing,
+    RouteTagInvalid,
+    RouteUnexpectedNode,
+    RouteUnexpectedRelation,
+    RouteOverlappingWays,
+    RouteSuspiciousWays,
+    RouteAnalysisFailed,
+    RouteIncomplete,
+    RouteUnaccessible,
+    RouteInvalidSortingOrder, //
+    RouteNodeNameMismatch,
+    RouteOneWay,
+    RouteNotOneWay,
+    RouteIncompleteOk,
+    RouteBroken,
+    Added,
+    Deleted,
+    LostHikingNodeTag,
+    LostBicycleNodeTag,
+    LostRouteTags,
+    LostHorseNodeTag,
+    LostMotorboatNodeTag,
+    LostCanoeNodeTag,
+    LostInlineSkateNodeTag,
+    NodeInvalidSurveyDate,
+    RouteInvalidSurveyDate,
+  )
+
   val routeDetailFacts: Seq[Fact] = all.filterNot(f => f == RouteBroken || f == RouteNotContinious)
 
   def withName(factName: String): Option[Fact] = {

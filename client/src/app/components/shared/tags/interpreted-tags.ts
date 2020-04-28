@@ -21,6 +21,7 @@ export class InterpretedTags {
 
   static routeTags(tags: Tags): InterpretedTags {
     const standardTagKeys = List([
+      "ref",
       "note",
       "network",
       "type",

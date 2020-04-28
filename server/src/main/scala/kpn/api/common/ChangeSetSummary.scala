@@ -42,7 +42,6 @@ object ChangeSetSummary {
       subsets,
       timestampFrom,
       timestampUntil,
-      Seq.empty, // TODO LOC
       networkChanges,
       orphanRouteChanges,
       orphanNodeChanges,
@@ -51,7 +50,6 @@ object ChangeSetSummary {
       investigate
     )
   }
-
 }
 
 case class ChangeSetSummary(
@@ -59,7 +57,6 @@ case class ChangeSetSummary(
   subsets: Seq[Subset],
   timestampFrom: Timestamp,
   timestampUntil: Timestamp,
-  locationChanges: Seq[ChangeSetLocation],
   networkChanges: NetworkChanges,
   orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
   orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
@@ -67,8 +64,6 @@ case class ChangeSetSummary(
   happy: Boolean,
   investigate: Boolean
 ) {
-
-  def noImpact: Boolean = !(happy || investigate)
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("key", key).
