@@ -189,7 +189,8 @@ class NetworkCreateTest02 extends AbstractTest {
               )
             ),
             facts = Seq(Fact.WasOrphan),
-            happy = true
+            happy = true,
+            locationHappy = true
           )
         )
         true

@@ -171,7 +171,9 @@ trait SharedTestObjects extends MockFactory {
     diffs: RouteDiff = RouteDiff(),
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
-    investigate: Boolean = false
+    investigate: Boolean = false,
+    locationHappy: Boolean = false,
+    locationInvestigate: Boolean = false
   ): RouteChange = {
     RouteChange(
       key,
@@ -188,7 +190,9 @@ trait SharedTestObjects extends MockFactory {
       diffs,
       facts,
       happy,
-      investigate
+      investigate,
+      locationHappy,
+      locationInvestigate
     )
   }
 
@@ -608,7 +612,9 @@ trait SharedTestObjects extends MockFactory {
     factDiffs: FactDiffs = FactDiffs(),
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
-    investigate: Boolean = false
+    investigate: Boolean = false,
+    locationHappy: Boolean = false,
+    locationInvestigate: Boolean = false
   ): NodeChange = {
     NodeChange(
       key,
@@ -630,7 +636,9 @@ trait SharedTestObjects extends MockFactory {
       factDiffs,
       facts,
       happy,
-      investigate
+      investigate,
+      locationHappy,
+      locationInvestigate
     )
   }
 

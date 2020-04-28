@@ -77,5 +77,7 @@ case class NodeChange(
     field("facts", facts).
     field("happy", happy).
     field("investigate", investigate).
+    field("locationHappy", locationHappy).
+    field("locationInvestigate", locationInvestigate).
     build
 }

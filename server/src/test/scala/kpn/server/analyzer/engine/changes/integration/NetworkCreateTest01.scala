@@ -181,7 +181,8 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
                 )
               )
             ),
-            happy = true
+            happy = true,
+            locationHappy = true
           )
         )
         true

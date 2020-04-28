@@ -111,7 +111,8 @@ class OrphanRouteTest03 extends AbstractTest {
               )
             ),
             facts = Seq(Fact.WasOrphan, Fact.Deleted),
-            investigate = true
+            investigate = true,
+            locationInvestigate = true
           )
         )
         true

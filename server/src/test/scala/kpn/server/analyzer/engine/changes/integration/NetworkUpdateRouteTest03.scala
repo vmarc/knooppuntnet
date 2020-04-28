@@ -246,7 +246,8 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
               )
             ),
             facts = Seq(Fact.Deleted),
-            investigate = true
+            investigate = true,
+            locationInvestigate = true
           )
         )
         true
@@ -273,7 +274,8 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                   newRawNodeWithName(1002, "02")
                 ),
                 removedFromRoute = Seq(Ref(12, "02-03")),
-                investigate = true
+                investigate = true,
+                locationInvestigate = true
               )
             )
             true
@@ -293,7 +295,8 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 removedFromRoute = Seq(Ref(12, "02-03")),
                 removedFromNetwork = Seq(Ref(1, "name")),
                 facts = Seq(Fact.Deleted),
-                investigate = true
+                investigate = true,
+                locationInvestigate = true
               )
             )
             true

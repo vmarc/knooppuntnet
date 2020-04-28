@@ -134,7 +134,8 @@ class OrphanRouteTest01 extends AbstractTest {
               )
             ),
             facts = Seq(Fact.OrphanRoute),
-            happy = true
+            happy = true,
+            locationHappy = true
           )
         )
         true

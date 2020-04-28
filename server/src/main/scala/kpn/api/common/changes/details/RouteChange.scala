@@ -75,7 +75,7 @@ case class RouteChange(
     field("facts", facts).
     field("happy", happy).
     field("investigate", investigate).
-    field("locationHappy", happy).
-    field("locationInvestigate", investigate).
+    field("locationHappy", locationHappy).
+    field("locationInvestigate", locationInvestigate).
     build
 }

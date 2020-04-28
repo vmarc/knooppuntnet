@@ -193,7 +193,8 @@ class OrphanRouteTest05 extends AbstractTest {
               )
             ),
             facts = Seq(Fact.WasOrphan, Fact.LostRouteTags),
-            investigate = true
+            investigate = true,
+            locationInvestigate = true
           )
         )
         true

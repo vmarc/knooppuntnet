@@ -101,7 +101,8 @@ class OrphanNodeTest03 extends AbstractTest {
               newRawNodeWithName(1001, "01")
             ),
             facts = Seq(Fact.WasOrphan, Fact.Deleted),
-            investigate = true
+            investigate = true,
+            locationInvestigate = true
           )
         )
         true

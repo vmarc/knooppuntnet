@@ -153,7 +153,8 @@ class NetworkCreateTest06 extends AbstractTest {
                 )
               )
             ),
-            happy = true
+            happy = true,
+            locationHappy = true
           )
         )
         true
