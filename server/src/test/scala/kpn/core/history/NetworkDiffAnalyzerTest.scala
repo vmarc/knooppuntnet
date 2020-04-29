@@ -424,10 +424,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       nodeLocationAnalyzer
     )
 
-    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
-      mainNodeAnalyzer,
-      analysisContext
-    )
+    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer)
 
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
       analysisContext,

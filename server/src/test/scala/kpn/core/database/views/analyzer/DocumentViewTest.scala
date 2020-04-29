@@ -2,6 +2,7 @@ package kpn.core.database.views.analyzer
 
 import kpn.core.TestObjects
 import kpn.core.database.views.analyzer.DocumentView.DocumentCount
+import kpn.core.gpx.GpxFile
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
@@ -41,6 +42,8 @@ class DocumentViewTest extends UnitTest with TestObjects {
       repo.save(newNetworkInfo(newNetworkAttributes(1)))
       repo.save(newNetworkInfo(newNetworkAttributes(2)))
       repo.save(newNetworkInfo(newNetworkAttributes(3)))
+      repo.saveGpxFile(GpxFile(4, "4", Seq.empty, Seq.empty))
+      repo.saveGpxFile(GpxFile(5, "4", Seq.empty, Seq.empty))
 
       DocumentView.allNetworkIds(database) should equal(Seq(1, 2, 3))
     }

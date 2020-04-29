@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkNodeAnalyzerImpl(
-  mainNodeAnalyzer: MainNodeAnalyzer,
-  analysisContext: AnalysisContext
+  analysisContext: AnalysisContext,
+  mainNodeAnalyzer: MainNodeAnalyzer
 ) extends NetworkNodeAnalyzer {
 
   override def analyze(networkType: NetworkType, data: Data): Map[Long, NetworkNode] = {

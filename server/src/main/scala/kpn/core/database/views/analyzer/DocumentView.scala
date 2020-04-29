@@ -32,17 +32,12 @@ object DocumentView extends View {
   private def allIds(database: Database, elementType: String): Seq[Long] = {
     val query = Query(AnalyzerDesign, DocumentView, classOf[ViewResult])
       .startKey(s""""$elementType"""")
-      .endKey(s""""$elementType:a"""")
+      .endKey(s""""$elementType-"""")
       .reduce(false)
       .stale(false)
     val result = database.execute(query)
     result.rows.flatMap { row =>
-      if (!row.id.startsWith("network-gpx")) {
-        Some(row.id.drop(s"$elementType:".length).toLong)
-      }
-      else {
-        None
-      }
+      Some(row.id.drop(s"$elementType:".length).toLong)
     }
   }
 

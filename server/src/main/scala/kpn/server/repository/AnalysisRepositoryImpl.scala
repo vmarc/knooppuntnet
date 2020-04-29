@@ -1,7 +1,9 @@
 package kpn.server.repository
 
 import kpn.api.common.NodeInfo
+import kpn.api.common.network.NetworkElements
 import kpn.api.common.network.NetworkInfo
+import kpn.api.common.route.RouteElements
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
@@ -11,6 +13,7 @@ import kpn.core.database.doc.TimestampDoc
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import org.springframework.stereotype.Component
 
 @Component
@@ -19,7 +22,8 @@ class AnalysisRepositoryImpl(
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
   nodeRepository: NodeRepository,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeInfoBuilder: NodeInfoBuilder,
+  relationAnalyzer: RelationAnalyzer
 ) extends AnalysisRepository {
 
   private val lastUpdatedDocumentKey = "analysis"
@@ -31,8 +35,8 @@ class AnalysisRepositoryImpl(
     buildGpxDoc(network)
   }
 
-  override def saveIgnoredNetwork(network: NetworkInfo): Unit = {
-    networkRepository.save(network)
+  override def saveIgnoredNetwork(networkInfo: NetworkInfo): Unit = {
+    networkRepository.save(networkInfo)
   }
 
   override def saveRoute(route: RouteInfo): Unit = {
@@ -55,12 +59,24 @@ class AnalysisRepositoryImpl(
   private def buildNetworkDoc(network: Network): Unit = {
     val networkInfo = new NetworkInfoBuilder().build(network)
     networkRepository.save(networkInfo)
+    networkRepository.saveElements(
+      NetworkElements(
+        network.id,
+        relationAnalyzer.toElementIds(network.relation)
+      )
+    )
   }
 
   private def buildRouteDocs(network: Network): Unit = {
-    val routes: Seq[RouteInfo] = network.routes.map(_.routeAnalysis.route)
-    // routeRepository.oldSave(routes: _*)
-    routes.foreach(routeRepository.save)
+    network.routes.foreach { networkMemberRoute =>
+      routeRepository.save(networkMemberRoute.routeAnalysis.route)
+      routeRepository.saveElements(
+        RouteElements(
+          networkMemberRoute.id,
+          relationAnalyzer.toElementIds(networkMemberRoute.routeAnalysis.relation)
+        )
+      )
+    }
   }
 
   private def buildNodeDocs(network: Network): Unit = {

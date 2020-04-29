@@ -33,6 +33,9 @@ class ChangeSaverImpl(
 
       val changeSetSummary = new ChangeSetSummaryBuilder().build(replicationId, changeSet, changes)
       changeSetRepository.saveChangeSetSummary(changeSetSummary)
+
+      val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(replicationId, changeSet, changes)
+      changeSetRepository.saveLocationChangeSetSummary(locationChangeSetSummary)
     }
   }
 }

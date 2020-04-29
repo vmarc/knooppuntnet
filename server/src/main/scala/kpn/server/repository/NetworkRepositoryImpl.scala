@@ -1,11 +1,13 @@
 package kpn.server.repository
 
 import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkElements
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.doc.GpxDoc
 import kpn.core.database.doc.NetworkDoc
+import kpn.core.database.doc.NetworkElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
@@ -24,6 +26,35 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
 
   override def network(networkId: Long): Option[NetworkInfo] = {
     analysisDatabase.docWithId(networkKey(networkId), classOf[NetworkDoc]).map(_.network)
+  }
+
+  override def elements(networkId: Long): Option[NetworkElements] = {
+    analysisDatabase.docWithId(networkElementsKey(networkId), classOf[NetworkElementsDoc]).map(_.networkElements)
+  }
+
+  override def saveElements(networkElements: NetworkElements): Boolean = {
+
+    val key = networkElementsKey(networkElements.networkId)
+
+    analysisDatabase.docWithId(key, classOf[NetworkElementsDoc]) match {
+      case Some(doc) =>
+        if (networkElements == doc.networkElements) {
+          log.info(s"""Network elements "${networkElements.networkId}" not saved (no change)""")
+          false
+        }
+        else {
+          log.infoElapsed(s"""Network elements "${networkElements.networkId}" update""") {
+            analysisDatabase.save(NetworkElementsDoc(key, networkElements, doc._rev))
+            true
+          }
+        }
+
+      case None =>
+        log.infoElapsed(s"""Network elements "${networkElements.networkId}" saved""") {
+          analysisDatabase.save(NetworkElementsDoc(key, networkElements))
+          true
+        }
+    }
   }
 
   override def save(network: NetworkInfo): Boolean = {
@@ -53,9 +84,12 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
 
   override def delete(networkId: Long): Unit = {
     analysisDatabase.deleteDocWithId(networkKey(networkId))
+    analysisDatabase.deleteDocWithId(networkElementsKey(networkId))
   }
 
   private def networkKey(networkId: Long): String = s"${KeyPrefix.Network}:$networkId"
+
+  private def networkElementsKey(networkId: Long): String = s"${KeyPrefix.NetworkElements}:$networkId"
 
   override def gpx(networkId: Long): Option[GpxFile] = {
     analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)

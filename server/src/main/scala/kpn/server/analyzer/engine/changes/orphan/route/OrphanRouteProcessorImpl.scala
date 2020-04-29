@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
+import kpn.api.common.route.RouteElements
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
@@ -11,6 +12,7 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -19,6 +21,7 @@ class OrphanRouteProcessorImpl(
   analysisRepository: AnalysisRepository,
   relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer,
+  routeRepository: RouteRepository,
   routeAnalyzer: MasterRouteAnalyzer,
   nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanRouteProcessor {
@@ -33,7 +36,12 @@ class OrphanRouteProcessorImpl(
           val analysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
-
+          routeRepository.saveElements(
+            RouteElements(
+              loadedRoute.id,
+              relationAnalyzer.toElementIds(analysis.relation)
+            )
+          )
           analysis.routeNodeAnalysis.routeNodes.foreach { routeNode =>
             val country = countryAnalyzer.country(Seq(routeNode.node))
             val loadedNode = LoadedNode.from(country, routeNode.node.raw)

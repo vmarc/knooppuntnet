@@ -5,12 +5,21 @@ import java.io.File
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
@@ -39,12 +48,41 @@ object NetworkDiffAnalyzerDemo {
       new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
+
+    val locationConfiguration: LocationConfiguration = new LocationConfigurationReader().read()
+
+    val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(
+      locationConfiguration,
+      analyzerEnabled = true
+    )
+
+    val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
+      countryAnalyzer,
+      nodeLocationAnalyzer
+    )
+
+    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
+      analysisContext,
+      mainNodeAnalyzer
+    )
+
+    val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
+      analysisContext,
+      countryAnalyzer,
+      relationAnalyzer,
+      routeAnalyzer
+    )
+
     val networkAnalyzer = new NetworkAnalyzerImpl(
       relationAnalyzer,
-      null /*TODO LOC*/,
-      null /*TODO LOC*/
+      networkNodeAnalyzer,
+      networkRouteAnalyzer
     )
-    val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+
+    val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(
+      relationAnalyzer,
+      countryAnalyzer
+    )
 
     val networkLoader = {
       val executor = new OverpassQueryExecutorImpl()

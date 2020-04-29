@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.api.common.route.RouteElements
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
 
@@ -9,9 +10,13 @@ trait RouteRepository {
 
   def save(routes: RouteInfo): Unit
 
+  def saveElements(routeElements: RouteElements): Unit
+
   def delete(routeIds: Seq[Long]): Unit
 
   def routeWithId(routeId: Long): Option[RouteInfo]
+
+  def routeElementsWithId(routeId: Long): Option[RouteElements]
 
   def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
 

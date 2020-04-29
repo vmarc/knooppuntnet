@@ -1,8 +1,8 @@
 package kpn.server.analyzer.load.orphan.route
 
+import kpn.api.common.route.RouteElements
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
@@ -10,12 +10,14 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RouteLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class OrphanRoutesLoaderWorkerImpl(
   analysisContext: AnalysisContext,
   routeLoader: RouteLoader,
+  routeRepository: RouteRepository,
   routeAnalyzer: MasterRouteAnalyzer,
   relationAnalyzer: RelationAnalyzer,
   analysisRepository: AnalysisRepository,
@@ -34,6 +36,12 @@ class OrphanRoutesLoaderWorkerImpl(
           val analysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
           analysisRepository.saveRoute(route)
+          routeRepository.saveElements(
+            RouteElements(
+              loadedRoute.id,
+              relationAnalyzer.toElementIds(analysis.relation)
+            )
+          )
 
           val allNodes = networkNodeAnalyzer.analyze(loadedRoute.networkType, loadedRoute.data)
 

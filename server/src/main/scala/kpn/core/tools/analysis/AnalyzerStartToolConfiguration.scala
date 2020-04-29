@@ -82,12 +82,11 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-  private val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
+  val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
   val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
   val routeRepository = new RouteRepositoryImpl(analysisDatabase)
   val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
-
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
@@ -99,7 +98,8 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
     networkRepository,
     routeRepository,
     nodeRepository,
-    nodeInfoBuilder
+    nodeInfoBuilder,
+    relationAnalyzer
   )
 
   val statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
@@ -159,10 +159,7 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
     nodeLocationAnalyzer
   )
 
-  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
-    mainNodeAnalyzer,
-    analysisContext
-  )
+  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer)
 
   val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
     analysisContext,
@@ -191,6 +188,7 @@ class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: Analyz
   val orphanRoutesLoaderWorker = new OrphanRoutesLoaderWorkerImpl(
     analysisContext,
     routeLoader,
+    routeRepository,
     routeAnalyzer,
     relationAnalyzer,
     analysisRepository,

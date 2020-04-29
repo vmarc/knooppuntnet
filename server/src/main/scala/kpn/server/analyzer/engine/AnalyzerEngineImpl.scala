@@ -10,6 +10,7 @@ import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiTileUpdater
 import kpn.server.analyzer.engine.tile.TileUpdater
+import kpn.server.analyzer.load.AnalysisDataInitializer
 import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
@@ -17,12 +18,14 @@ import org.springframework.stereotype.Component
 @Component
 class AnalyzerEngineImpl(
   osmChangeRepository: OsmChangeRepository,
+  analysisDataInitializer: AnalysisDataInitializer,
   analysisDataLoader: AnalysisDataLoader,
   changeProcessor: ChangeProcessor,
   analysisRepository: AnalysisRepository,
   tileUpdater: TileUpdater,
   poiChangeAnalyzer: PoiChangeAnalyzer,
-  poiTileUpdater: PoiTileUpdater
+  poiTileUpdater: PoiTileUpdater,
+  analyzerReload: Boolean
 ) extends AnalyzerEngine {
 
   private val log = Log(classOf[AnalyzerEngineImpl])
@@ -30,7 +33,12 @@ class AnalyzerEngineImpl(
   def load(replicationId: ReplicationId): Unit = {
     val beginOsmChange = osmChangeRepository.get(replicationId)
     val timestampAfter = TimestampUtil.relativeSeconds(beginOsmChange.timestampUntil.get, 1)
-    analysisDataLoader.load(timestampAfter)
+    if (analyzerReload) {
+      analysisDataLoader.load(timestampAfter)
+    }
+    else {
+      analysisDataInitializer.load()
+    }
   }
 
   def process(replicationId: ReplicationId): Unit = {

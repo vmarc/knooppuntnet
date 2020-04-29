@@ -12,7 +12,6 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.common.location.Location
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -27,6 +26,7 @@ import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
+import scala.io.Source
 import scala.xml.XML
 
 /*
@@ -83,6 +83,13 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
   private val log = AnalyzerStartTool.log
 
+  private val tempBlacklistedRouteIds = { // TODO remove this temporary code
+    val source = Source.fromFile("/kpn/conf/temp-blacklist.txt")
+    val res = source.getLines().map(_.toLong).toSet
+    source.close()
+    res
+  }
+
   def analyze(): Unit = {
 
     loadNetworks()
@@ -99,7 +106,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
       val networkIds = config.analysisContext.snapshotKnownElements.networkIds.toSeq.sorted
       log.info(s"Trying to load a maximum of ${networkIds.size} networks (using networkIds in snapshot)")
       config.networkInitialLoader.load(config.timestamp, networkIds)
-      log.info(s"${config.analysisContext.data.networks.watched} networks loaded")
+      log.info(s"${config.analysisContext.data.networks.watched.size} networks loaded")
     }
   }
 
@@ -107,7 +114,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     config.analysisDatabaseIndexer.index(true)
     Log.context("orphan-routes") {
       val allRouteIds = config.routeRepository.allRouteIds()
-      val orphanRouteIds = config.analysisContext.snapshotKnownElements.routeIds -- allRouteIds.toSet
+      val orphanRouteIds = config.analysisContext.snapshotKnownElements.routeIds -- allRouteIds.toSet -- tempBlacklistedRouteIds
       log.info(s"Trying to load a maximum of ${orphanRouteIds.size} orphan routes")
       orphanRouteIds.toSeq.sorted.zipWithIndex.foreach { case (routeId, index) =>
         Log.context(s"${index + 1}/${orphanRouteIds.size}") {
@@ -243,7 +250,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         c => networkTypes.flatMap(n => Subset.of(c, n))
       }
 
-      val nodeChange = analyzed(
+      val nodeChange = NodeChangeAnalyzer.analyzed(
         NodeChange(
           key = config.changeSetContext.buildChangeKey(node.id),
           changeType = ChangeType.InitialValue,
@@ -265,7 +272,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           facts = node.facts,
         )
       )
-      config.changeSetRepository.saveNodeChange(analyzed(nodeChange))
+      config.changeSetRepository.saveNodeChange(NodeChangeAnalyzer.analyzed(nodeChange))
     }
   }
 
@@ -342,34 +349,31 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
   private def buildNodeChanges(loadedNodes: Seq[LoadedNode]): Unit = {
     loadedNodes.foreach { loadedNode =>
-      val nodeChange = analyzed(
-        NodeChange(
-          key = config.changeSetContext.buildChangeKey(loadedNode.id),
-          changeType = ChangeType.InitialValue,
-          subsets = loadedNode.subsets,
-          location = Some(Location(Seq.empty)), // TODO LOC set locations !!!
-          name = loadedNode.name,
-          before = None,
-          after = Some(loadedNode.node.raw),
-          connectionChanges = Seq.empty,
-          roleConnectionChanges = Seq.empty,
-          definedInNetworkChanges = Seq.empty,
-          tagDiffs = None,
-          nodeMoved = None,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
-          facts = Seq.empty
+      val location = config.nodeLocationAnalyzer.locate(loadedNode.node.latitude, loadedNode.node.longitude)
+      config.changeSetRepository.saveNodeChange(
+        NodeChangeAnalyzer.analyzed(
+          NodeChange(
+            key = config.changeSetContext.buildChangeKey(loadedNode.id),
+            changeType = ChangeType.InitialValue,
+            subsets = loadedNode.subsets,
+            location = location,
+            name = loadedNode.name,
+            before = None,
+            after = Some(loadedNode.node.raw),
+            connectionChanges = Seq.empty,
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
+            tagDiffs = None,
+            nodeMoved = None,
+            addedToRoute = Seq.empty,
+            removedFromRoute = Seq.empty,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = Seq.empty,
+            factDiffs = FactDiffs(),
+            facts = Seq.empty
+          )
         )
       )
-      config.changeSetRepository.saveNodeChange(nodeChange)
     }
   }
-
-  private def analyzed(nodeChange: NodeChange): NodeChange = {
-    new NodeChangeAnalyzer(nodeChange).analyzed()
-  }
-
 }

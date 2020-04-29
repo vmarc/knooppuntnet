@@ -3,13 +3,13 @@ package kpn.server.analyzer.engine.changes.node
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.location.Location
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -29,7 +29,8 @@ class UnreferencedNodeProcessorImpl(
   analysisRepository: AnalysisRepository,
   nodeLoader: NodeLoader,
   countryAnalyzer: CountryAnalyzer,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeInfoBuilder: NodeInfoBuilder,
+  nodeLocationAnalyzer: NodeLocationAnalyzer
 ) extends UnreferencedNodeProcessor {
 
   override def process(context: ChangeSetContext, candidateUnreferencedNodes: Seq[NetworkNodeInfo]): Seq[NodeChange] = {
@@ -170,13 +171,15 @@ class UnreferencedNodeProcessorImpl(
     val tagDiffs = new NodeTagDiffAnalyzer(rawNodeBefore, rawNodeAfter).diffs
     val nodeMoved = new NodeMovedAnalyzer(rawNodeBefore, rawNodeAfter).analysis
 
+    val location = nodeLocationAnalyzer.locate(nodeAfter.node.latitude, nodeAfter.node.longitude)
+
     Some(
       analyzed(
         NodeChange(
           key = context.buildChangeKey(nodeBefore.id),
           changeType = ChangeType.Update,
           subsets = nodeAfter.subsets,
-          location = Some(Location(Seq.empty)), // TODO LOC
+          location = location,
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),

@@ -7,6 +7,7 @@ import kpn.api.common.location.Location
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
@@ -29,6 +30,13 @@ case class NodeInfo(
 
   def name(networkType: NetworkType): String = {
     names.filter(_.scopedNetworkType.networkType == networkType).map(_.name).mkString(" / ")
+  }
+
+  def subsets: Seq[Subset] = {
+    country match {
+      case Some(c) => names.map(_.scopedNetworkType.networkType).map(networkType => Subset(c, networkType))
+      case None => Seq()
+    }
   }
 
   def locations: Seq[String] = {

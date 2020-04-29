@@ -160,7 +160,7 @@ trait SharedTestObjects extends MockFactory {
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Create,
     name: String = "",
-    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty), // TODO LOC
+    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     addedToNetwork: Seq[Ref] = Seq.empty,
     removedFromNetwork: Seq[Ref] = Seq.empty,
     before: Option[RouteData] = None,

@@ -82,6 +82,7 @@ import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepository
+import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -110,6 +111,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     val nodeRepository: NodeRepository = stub[NodeRepository]
     val changeSetInfoRepository: ChangeSetInfoRepository = stub[ChangeSetInfoRepository]
     private val taskRepository: TaskRepository = stub[TaskRepository]
+    private val routeRepository: RouteRepository = stub[RouteRepository]
 
     private val blackListRepository: BlackListRepository = stub[BlackListRepository]
     (blackListRepository.get _).when().returns(BlackList())
@@ -137,10 +139,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       nodeLocationAnalyzer
     )
 
-    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
-      mainNodeAnalyzer,
-      analysisContext
-    )
+    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer)
     val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
@@ -176,9 +175,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       analysisContext,
       analysisRepository,
       relationAnalyzer,
-      countryAnalyzer,
-      routeAnalyzer,
-      routeLoader,
+      routeRepository,
       tileChangeAnalyzer
     )
 
@@ -253,7 +250,8 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
           networkLoader,
           networkRelationAnalyzer,
           networkAnalyzer,
-          changeBuilder
+          changeBuilder,
+          relationAnalyzer
         )
 
         new NetworkDeleteProcessorSyncImpl(
@@ -280,9 +278,11 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         analysisRepository,
         relationAnalyzer,
         countryAnalyzer,
+        routeRepository,
         routeAnalyzer,
         nodeInfoBuilder
       )
+
       val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
         analysisContext,
         blackListRepository
@@ -294,7 +294,8 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         orphanRouteProcessor,
         routesLoader,
         routeAnalyzer,
-        countryAnalyzer,
+        routeRepository,
+        relationAnalyzer,
         tileChangeAnalyzer
       )
     }

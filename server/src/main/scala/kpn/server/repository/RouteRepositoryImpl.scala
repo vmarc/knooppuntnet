@@ -1,9 +1,11 @@
 package kpn.server.repository
 
+import kpn.api.common.route.RouteElements
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
 import kpn.core.database.Database
 import kpn.core.database.doc.RouteDoc
+import kpn.core.database.doc.RouteElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
@@ -24,6 +26,7 @@ class RouteRepositoryImpl(
   }
 
   override def save(routeInfo: RouteInfo): Unit = {
+
     log.debugElapsed {
 
       var retry = true
@@ -53,14 +56,61 @@ class RouteRepositoryImpl(
     }
   }
 
+  override def saveElements(routeElements: RouteElements): Unit = {
+
+    log.debugElapsed {
+
+      var retry = true
+      var retryCount = 0
+
+      while (retry && retryCount < 3) {
+        try {
+          val comment = analysisDatabase.docWithId(elementsDocId(routeElements.routeId), classOf[RouteElementsDoc]) match {
+            case Some(oldRouteDoc) =>
+              updateRouteElements(oldRouteDoc, routeElements)
+            case None =>
+              saveNewRouteElements(routeElements)
+          }
+          retry = false
+        }
+        catch {
+          case e: IllegalStateException =>
+            if (e.getMessage.contains("_rev mismatch")) {
+              retryCount = retryCount + 1
+            }
+            else {
+              retry = false
+            }
+        }
+      }
+      (s"Save route elements ${routeElements.routeId}", ())
+    }
+  }
+
   private def saveNewRoute(routeInfo: RouteInfo): Unit = {
     val doc = RouteDoc(docId(routeInfo.id), routeInfo)
+    analysisDatabase.save(doc)
+  }
+
+  private def saveNewRouteElements(routeElements: RouteElements): Unit = {
+    val doc = RouteElementsDoc(docId(routeElements.routeId), routeElements)
     analysisDatabase.save(doc)
   }
 
   private def updateRoute(oldRouteDoc: RouteDoc, newRouteInfo: RouteInfo): String = {
     if (newRouteInfo != oldRouteDoc.route) {
       val doc = RouteDoc(docId(newRouteInfo.id), newRouteInfo, oldRouteDoc._rev)
+      analysisDatabase.save(doc)
+      " (changed)"
+    }
+    else {
+      " (no change)"
+    }
+  }
+
+  private def updateRouteElements(oldDoc: RouteElementsDoc, newRouteElements: RouteElements): String = {
+    if (newRouteElements != oldDoc.routeElements) {
+      val doc = RouteElementsDoc(elementsDocId(newRouteElements.routeId), newRouteElements, oldDoc._rev)
       analysisDatabase.save(doc)
       " (changed)"
     }
@@ -156,10 +206,16 @@ class RouteRepositoryImpl(
   override def delete(routeIds: Seq[Long]): Unit = {
     val routeDocIds = routeIds.map(docId)
     analysisDatabase.deleteDocsWithIds(routeDocIds)
+    val routeElementsDocIds = routeIds.map(elementsDocId)
+    analysisDatabase.deleteDocsWithIds(routeElementsDocIds)
   }
 
   override def routeWithId(routeId: Long): Option[RouteInfo] = {
     analysisDatabase.docWithId(docId(routeId), classOf[RouteDoc]).map(_.route)
+  }
+
+  override def routeElementsWithId(routeId: Long): Option[RouteElements] = {
+    analysisDatabase.docWithId(elementsDocId(routeId), classOf[RouteElementsDoc]).map(_.routeElements)
   }
 
   override def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo] = {
@@ -193,5 +249,9 @@ class RouteRepositoryImpl(
 
   private def docId(routeId: Long): String = {
     s"${KeyPrefix.Route}:$routeId"
+  }
+
+  private def elementsDocId(routeId: Long): String = {
+    s"${KeyPrefix.RouteElements}:$routeId"
   }
 }

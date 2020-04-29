@@ -143,10 +143,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
       nodeLocationAnalyzer
     )
 
-    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
-      mainNodeAnalyzer,
-      analysisContext
-    )
+    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer)
 
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
       analysisContext,

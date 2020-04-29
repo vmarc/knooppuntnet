@@ -2,6 +2,8 @@ package kpn.server.repository
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeSetSummaryDoc
+import kpn.api.common.LocationChangeSetSummary
+import kpn.api.common.LocationChangeSetSummaryDoc
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.ChangeKey
@@ -48,6 +50,21 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
       case Some(doc) =>
         if (doc.changeSetSummary != changeSetSummary) {
           val newDoc = ChangeSetSummaryDoc(id, changeSetSummary, doc._rev)
+          changeDatabase.save(newDoc)
+        }
+    }
+  }
+
+  override def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit = {
+    val id = docId("location-summary", locationChangeSetSummary.key)
+    val existingDoc = changeDatabase.docWithId(id, classOf[LocationChangeSetSummaryDoc])
+    existingDoc match {
+      case None =>
+        val doc = LocationChangeSetSummaryDoc(id, locationChangeSetSummary)
+        changeDatabase.save(doc)
+      case Some(doc) =>
+        if (doc.locationChangeSetSummary != locationChangeSetSummary) {
+          val newDoc = LocationChangeSetSummaryDoc(id, locationChangeSetSummary, doc._rev)
           changeDatabase.save(newDoc)
         }
     }

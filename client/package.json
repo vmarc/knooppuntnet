@@ -13,7 +13,7 @@
     "start:de": "node --max_old_space_size=8192 ./node_modules/.bin/ng serve --configuration=de --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "start:fr": "node --max_old_space_size=8192 ./node_modules/.bin/ng serve --configuration=fr --open --proxy-config src/proxy.conf.js --host 0.0.0.0 --disable-host-check",
     "test-no-watch": "ng test --single-run",
-    "build-prod": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --prod --progress --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*.js */*.json */*.css",
+    "build-prod": "node --max_old_space_size=8192 ./node_modules/.bin/ng build --prod --build-optimizer --progress --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*.js */*.json */*.css",
     "zip": "cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
     "dist": "run-s build-prod zip"
   },

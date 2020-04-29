@@ -61,6 +61,11 @@ class ServerConfiguration(emailSender: JavaMailSender) {
   }
 
   @Bean
+  def analyzerReload(@Value("${app.analyzer-reload:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def rasterTileBuilder: TileBuilder = {
     new RasterTileBuilder()
   }

@@ -4,14 +4,13 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.route.RouteElements
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Fact
 import kpn.core.analysis.Network
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
@@ -19,8 +18,8 @@ import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
-import kpn.server.analyzer.load.RouteLoader
 import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -28,9 +27,7 @@ class RouteChangeBuilderImpl(
   analysisContext: AnalysisContext,
   analysisRepository: AnalysisRepository,
   relationAnalyzer: RelationAnalyzer,
-  countryAnalyzer: CountryAnalyzer,
-  routeAnalyzer: MasterRouteAnalyzer,
-  routeLoader: RouteLoader,
+  routeRepository: RouteRepository,
   tileChangeAnalyzer: TileChangeAnalyzer
 ) extends RouteChangeBuilder {
 
@@ -159,6 +156,13 @@ class RouteChangeBuilderImpl(
             lastUpdated = context.changeSetContext.changeSet.timestamp
           )
 
+          routeRepository.saveElements(
+            RouteElements(
+              analysisBefore.route.id,
+              relationAnalyzer.toElementIds(analysisBefore.relation)
+            )
+          )
+
           analysisRepository.saveRoute(routeInfo)
           tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
@@ -222,6 +226,14 @@ class RouteChangeBuilderImpl(
       analysisContext.data.orphanRoutes.watched.add(routeId, elementIds)
 
       analysisRepository.saveRoute(analysisAfter.route.copy(orphan = true))
+
+      routeRepository.saveElements(
+        RouteElements(
+          analysisBefore.route.id,
+          relationAnalyzer.toElementIds(analysisAfter.relation)
+        )
+      )
+
 
       //        analysisAfter.routeNodes.routeNodes.foreach { routeNode =>
       //          val country = countryAnalyzer.country(Seq(routeNode.node))

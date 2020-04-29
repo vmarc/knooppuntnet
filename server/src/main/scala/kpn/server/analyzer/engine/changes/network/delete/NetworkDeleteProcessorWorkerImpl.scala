@@ -7,6 +7,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkElements
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
@@ -16,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -30,7 +32,8 @@ class NetworkDeleteProcessorWorkerImpl(
   networkLoader: NetworkLoader,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
-  changeBuilder: ChangeBuilder
+  changeBuilder: ChangeBuilder,
+  relationAnalyzer: RelationAnalyzer
 ) extends NetworkDeleteProcessorWorker {
 
   private val log = Log(classOf[NetworkDeleteProcessorWorkerImpl])
@@ -94,6 +97,13 @@ class NetworkDeleteProcessorWorkerImpl(
   }
 
   private def saveDeletedNetworkInfo(context: ChangeSetContext, networkBefore: Network): Unit = {
+
+    networkRepository.saveElements(
+      NetworkElements(
+        networkBefore.id,
+        relationAnalyzer.toElementIds(networkBefore.relation)
+      )
+    )
 
     networkRepository.save(
       NetworkInfo(

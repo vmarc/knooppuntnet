@@ -703,7 +703,8 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
       analysisRepository,
       nodeLoader,
       countryAnalyzer,
-      nodeInfoBuilder
+      nodeInfoBuilder,
+      nodeLocationAnalyzer
     )
 
     val context: ChangeSetContext = newChangeSetContext()
@@ -730,7 +731,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
           node = Node(rawNode(nodeId, tags = tags, latLonBefore)),
           name = name,
           country = Some(Country.nl),
-          None // TODO LOC
+          None
         ),
         connection = false,
         roleConnection = false,
@@ -743,5 +744,4 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
       )
     }
   }
-
 }

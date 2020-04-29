@@ -4,18 +4,20 @@ import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.route.RouteElements
 import kpn.api.custom.Fact
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
 import kpn.server.analyzer.load.RoutesLoader
 import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -26,7 +28,8 @@ class OrphanRouteChangeProcessorImpl(
   orphanRouteProcessor: OrphanRouteProcessor,
   routesLoader: RoutesLoader,
   routeAnalyzer: MasterRouteAnalyzer,
-  countryAnalyzer: CountryAnalyzer,
+  routeRepository: RouteRepository,
+  relationAnalyzer: RelationAnalyzer,
   tileChangeAnalyzer: TileChangeAnalyzer
 ) extends OrphanRouteChangeProcessor {
 
@@ -169,6 +172,12 @@ class OrphanRouteChangeProcessorImpl(
 
           val route = routeAnalysis.route.copy(orphan = true, active = false)
           analysisRepository.saveRoute(route)
+          routeRepository.saveElements(
+            RouteElements(
+              loadedRoute.id,
+              relationAnalyzer.toElementIds(routeAnalysis.relation)
+            )
+          )
           tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
           Some(
