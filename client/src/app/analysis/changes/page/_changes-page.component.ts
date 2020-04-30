@@ -21,13 +21,13 @@ import {ChangesService} from "../../components/changes/filter/changes.service";
 
     <kpn-page-header subject="changes-page" i18n="@@changes-page.title">Changes</kpn-page-header>
 
-    <div *ngIf="!isLoggedIn()" i18n="@@changes-page.login-required">
+    <div *ngIf="!isLoggedIn()" i18n="@@changes-page.login-required" class="kpn-spacer-above">
       The details of the changes history are available to registered OpenStreetMap contributors only, after
       <kpn-link-login></kpn-link-login>
       .
     </div>
 
-    <div *ngIf="response">
+    <div *ngIf="response" class="kpn-spacer-above">
 
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>

@@ -35,13 +35,13 @@ import {NodeChangesService} from "./node-changes.service";
       [changeCount]="changeCount">
     </kpn-node-page-header>
 
-    <div *ngIf="!isLoggedIn()" i18n="@@node.login-required">
+    <div *ngIf="!isLoggedIn()" i18n="@@node.login-required" class="kpn-spacer-above">
       The details of the node changes history is available to registered OpenStreetMap contributors only, after
       <kpn-link-login></kpn-link-login>
       .
     </div>
 
-    <div *ngIf="isLoggedIn() && response$ | async as response">
+    <div *ngIf="isLoggedIn() && response$ | async as response" class="kpn-spacer-above">
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>

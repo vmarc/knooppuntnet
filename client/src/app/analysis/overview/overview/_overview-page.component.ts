@@ -19,7 +19,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
     <kpn-statistic-configurations></kpn-statistic-configurations>
 
-    <div *ngIf="response">
+    <div *ngIf="response" class="kpn-spacer-above">
       <div class="situation-on">
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </div>
