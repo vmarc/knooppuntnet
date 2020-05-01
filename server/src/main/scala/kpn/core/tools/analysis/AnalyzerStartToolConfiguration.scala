@@ -62,7 +62,7 @@ import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 
-class AnalyzerStartToolConfiguration(analysisExecutor: Executor, options: AnalyzerStartToolOptions) {
+class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: AnalyzerStartToolOptions) {
 
   val dirs: Dirs = Dirs()
 
