@@ -13,7 +13,7 @@ import {ChangesService} from "../../components/changes/filter/changes.service";
 
 @Component({
   selector: "kpn-changes-page",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO PUSH changeDetection: ChangeDetectionStrategy.OnPush, see NodeChangesPageComponent
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

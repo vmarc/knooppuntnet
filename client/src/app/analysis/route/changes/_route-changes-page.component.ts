@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {ReplaySubject} from "rxjs";
 import {combineLatest} from "rxjs";
 import {Observable} from "rxjs";
+import {flatMap} from "rxjs/operators";
 import {switchMap} from "rxjs/operators";
-import {shareReplay} from "rxjs/operators";
 import {tap} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
@@ -29,11 +30,10 @@ import {RouteChangesService} from "./route-changes.service";
     </ul>
 
     <kpn-route-page-header
-      *ngIf="routeId$ | async as routeId"
       pageName="changes"
-      [routeId]="routeId"
-      [routeName]="routeName"
-      [changeCount]="changeCount">
+      [routeId]="routeId$ | async"
+      [routeName]="routeName$ | async"
+      [changeCount]="changeCount$ | async">
     </kpn-route-page-header>
 
     <div class="kpn-spacer-above">
@@ -67,11 +67,11 @@ import {RouteChangesService} from "./route-changes.service";
 })
 export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
-  routeId$: Observable<string>;
   response$: Observable<ApiResponse<RouteChangesPage>>;
 
-  routeName: string;
-  changeCount = 0;
+  routeId$ = new ReplaySubject<string>(1);
+  routeName$ = new ReplaySubject<string>(1);
+  changeCount$ = new ReplaySubject<number>(1);
 
   page: RouteChangesPage;
   route: RouteInfo;
@@ -94,38 +94,37 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.routeName = history.state.routeName;
-    this.changeCount = history.state.changeCount;
-    this.routeId$ = this.activatedRoute.params.pipe(
+    this.routeName$.next(history.state.routeName);
+    this.changeCount$.next(history.state.changeCount);
+    this.response$ = this.activatedRoute.params.pipe(
       map(params => params["routeId"]),
+      tap(routeId => this.routeId$.next(routeId)),
       tap(routeId => this.updateParameters(routeId)),
-      shareReplay()
+      flatMap(routeId =>
+        combineLatest([this.routeId$, this.routeChangesService.parameters$]).pipe(
+          switchMap(([nodeId, changeParameters]) =>
+            this.appService.routeChanges(nodeId, changeParameters).pipe(
+              tap(response => {
+                this.page = Util.safeGet(() => response.result);
+                this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
+                this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
+                this.routeChangesService.filterOptions$.next(
+                  ChangeFilterOptions.from(
+                    this.parameters,
+                    response.result.filter,
+                    (parameters: ChangesParameters) => this.parameters = parameters
+                  )
+                );
+              })
+            )
+          )
+        )
+      )
     );
   }
 
   ngOnDestroy(): void {
     this.routeChangesService.resetFilterOptions();
-  }
-
-  ngAfterViewInit(): void {
-    this.response$ = combineLatest([this.routeId$, this.routeChangesService.parameters$]).pipe(
-      switchMap(([nodeId, changeParameters]) =>
-        this.appService.routeChanges(nodeId, changeParameters).pipe(
-          tap(response => {
-            this.page = Util.safeGet(() => response.result);
-            this.routeName = Util.safeGet(() => response.result.route.summary.name);
-            this.changeCount = Util.safeGet(() => response.result.changeCount);
-            this.routeChangesService.filterOptions$.next(
-              ChangeFilterOptions.from(
-                this.parameters,
-                response.result.filter,
-                (parameters: ChangesParameters) => this.parameters = parameters
-              )
-            );
-          })
-        )
-      )
-    );
   }
 
   isLoggedIn(): boolean {

@@ -1,13 +1,14 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
+import {Observable} from "rxjs";
+import {tap} from "rxjs/operators";
+import {flatMap, map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {flatMap, map} from "rxjs/operators";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 
 class ChangeSetKey {
   constructor(readonly changeSetId: string,
@@ -19,25 +20,24 @@ class ChangeSetKey {
   selector: "kpn-change-set-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-      <h1>
-          <ng-container i18n="@@change-set.title">Changeset</ng-container>
-          {{changeSetTitle()}}
-      </h1>
+    <h1>
+      <ng-container i18n="@@change-set.title">Changeset</ng-container>
+      {{changeSetTitle}}
+    </h1>
 
-      <div *ngIf="response">
-          <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
-          <kpn-change-set-network-changes [page]="response.result"></kpn-change-set-network-changes>
-          <kpn-change-set-orphan-node-changes [page]="response.result"></kpn-change-set-orphan-node-changes>
-          <kpn-change-set-orphan-route-changes [page]="response.result"></kpn-change-set-orphan-route-changes>
-          <kpn-json [object]="response"></kpn-json>
-      </div>
+    <div *ngIf="response$ | async as response">
+      <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
+      <kpn-change-set-network-changes [page]="response.result"></kpn-change-set-network-changes>
+      <kpn-change-set-orphan-node-changes [page]="response.result"></kpn-change-set-orphan-node-changes>
+      <kpn-change-set-orphan-route-changes [page]="response.result"></kpn-change-set-orphan-route-changes>
+      <kpn-json [object]="response"></kpn-json>
+    </div>
   `
 })
-export class ChangeSetPageComponent implements OnInit, OnDestroy {
+export class ChangeSetPageComponent implements OnInit {
 
-  private readonly subscriptions = new Subscriptions();
-
-  response: ApiResponse<ChangeSetPage>;
+  response$: Observable<ApiResponse<ChangeSetPage>>;
+  changeSetTitle = "";
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -46,25 +46,15 @@ export class ChangeSetPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => this.interpreteParams(params)),
-        flatMap(key => this.appService.changeSet(key.changeSetId, key.replicationNumber))
-      ).subscribe(response => this.response = response)
+    this.response$ = this.activatedRoute.params.pipe(
+      map(params => this.interpreteParams(params)),
+      flatMap(key => this.appService.changeSet(key.changeSetId, key.replicationNumber)),
+      tap(response => {
+        const a = response.result.summary.key.changeSetId;
+        const b = Util.replicationName(response.result.summary.key.replicationNumber);
+        this.changeSetTitle = a + " " + b;
+      })
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  changeSetTitle() {
-    if (this.response) {
-      const a = this.response.result.summary.key.changeSetId;
-      const b = Util.replicationName(this.response.result.summary.key.replicationNumber);
-      return a + " " + b;
-    }
-    return "";
   }
 
   private interpreteParams(params: Params): ChangeSetKey {

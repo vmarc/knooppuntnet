@@ -15,7 +15,7 @@ import {LocationNodesPageService} from "./location-nodes-page.service";
       i18n-pageTitle="@@location-nodes.title">
     </kpn-location-page-header>
 
-    <div *ngIf="service.response | async as response">
+    <div *ngIf="service.response | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-nodes [page]="response.result"></kpn-location-nodes>
       </kpn-location-response>

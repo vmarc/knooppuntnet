@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-details-page";
+import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {NetworkCacheService} from "../../../services/network-cache.service";
-import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-network-details-page",
@@ -20,23 +20,21 @@ import {Subscriptions} from "../../../util/Subscriptions";
       i18n-pageTitle="@@network-details.title">
     </kpn-network-page-header>
 
-    <div *ngIf="response" class="kpn-spacer-above">
-      <div *ngIf="!page">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+      <div *ngIf="!response.result">
         <p i18n="@@network-details.network-not-found">Network not found</p>
       </div>
-      <div *ngIf="page">
+      <div *ngIf="response.result">
         <kpn-network-details [response]="response"></kpn-network-details>
       </div>
       <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
-export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
-
-  private readonly subscriptions = new Subscriptions();
+export class NetworkDetailsPageComponent implements OnInit {
 
   networkId: number;
-  response: ApiResponse<NetworkDetailsPage>;
+  response$: Observable<ApiResponse<NetworkDetailsPage>>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -44,29 +42,16 @@ export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.activatedRoute.params.pipe(
-        map(params => +params["networkId"]),
-        tap(networkId => this.networkId = networkId),
-        flatMap(networkId => this.appService.networkDetails(networkId))
-      ).subscribe(response => this.processResponse(response))
+    this.response$ = this.activatedRoute.params.pipe(
+      map(params => +params["networkId"]),
+      tap(networkId => this.networkId = networkId),
+      flatMap(networkId => this.appService.networkDetails(networkId)),
+      tap(response => {
+        if (response.result) {
+          this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
+          this.networkCacheService.setNetworkName(this.networkId, response.result.networkSummary.name);
+        }
+      })
     );
   }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  get page(): NetworkDetailsPage {
-    return this.response.result;
-  }
-
-  private processResponse(response: ApiResponse<NetworkDetailsPage>) {
-    this.response = response;
-    if (this.page) {
-      this.networkCacheService.setNetworkSummary(this.networkId, this.page.networkSummary);
-      this.networkCacheService.setNetworkName(this.networkId, this.page.networkSummary.name);
-    }
-  }
-
 }

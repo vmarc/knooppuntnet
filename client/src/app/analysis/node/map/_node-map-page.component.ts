@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
@@ -22,11 +21,10 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
     </ul>
 
     <kpn-node-page-header
-      *ngIf="nodeId$ | async as nodeId"
       pageName="map"
-      [nodeId]="nodeId"
-      [nodeName]="nodeName"
-      [changeCount]="changeCount">
+      [nodeId]="nodeId$ | async"
+      [nodeName]="nodeName$ | async"
+      [changeCount]="changeCount$ | async">
     </kpn-node-page-header>
 
     <div *ngIf="response$ | async as response">
@@ -39,13 +37,14 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
     </div>
   `
 })
-export class NodeMapPageComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NodeMapPageComponent implements OnInit, OnDestroy {
 
-  nodeId$: Observable<string>;
   response$: Observable<ApiResponse<NodeMapPage>>;
 
-  nodeName: string;
-  changeCount = 0;
+  nodeId$ = new Subject<string>();
+  nodeName$ = new Subject<string>();
+  changeCount$ = new Subject<number>();
+
   nodeMapInfo: NodeMapInfo;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -55,21 +54,16 @@ export class NodeMapPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.nodeName = history.state.nodeName;
-    this.changeCount = history.state.changeCount;
-    this.nodeId$ = this.activatedRoute.params.pipe(
+    this.nodeName$.next(history.state.nodeName);
+    this.changeCount$.next(history.state.changeCount);
+    this.response$ = this.activatedRoute.params.pipe(
       map(params => params["nodeId"]),
-      shareReplay()
-    );
-  }
-
-  ngAfterViewInit(): void {
-    this.response$ = this.nodeId$.pipe(
+      tap(nodeId => this.nodeId$.next(nodeId)),
       flatMap(nodeId => this.appService.nodeMap(nodeId).pipe(
         tap(response => {
           this.nodeMapInfo = response.result.nodeMapInfo;
-          this.nodeName = response.result.nodeMapInfo.name;
-          this.changeCount = response.result.changeCount;
+          this.nodeName$.next(response.result.nodeMapInfo.name);
+          this.changeCount$.next(response.result.changeCount);
         })
       ))
     );
@@ -78,5 +72,4 @@ export class NodeMapPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
   }
-
 }

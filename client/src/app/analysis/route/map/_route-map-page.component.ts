@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
@@ -21,11 +20,10 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
     </ul>
 
     <kpn-route-page-header
-      *ngIf="routeId$ | async as routeId"
       pageName="map"
-      [routeId]="routeId"
-      [routeName]="routeName"
-      [changeCount]="changeCount">
+      [routeId]="routeId$ | async"
+      [routeName]="routeName$ | async"
+      [changeCount]="changeCount$ | async">
     </kpn-route-page-header>
 
     <div *ngIf="response$ | async as response">
@@ -38,13 +36,13 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
     </div>
   `
 })
-export class RouteMapPageComponent implements OnInit, OnDestroy, AfterViewInit {
+export class RouteMapPageComponent implements OnInit, OnDestroy {
 
-  routeId$: Observable<string>;
   response$: Observable<ApiResponse<RouteMapPage>>;
 
-  routeName: string;
-  changeCount = 0;
+  routeId$ = new Subject<string>();
+  routeName$ = new Subject<string>();
+  changeCount$ = new Subject<number>();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -53,20 +51,15 @@ export class RouteMapPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.routeName = history.state.routeName;
-    this.changeCount = history.state.changeCount;
-    this.routeId$ = this.activatedRoute.params.pipe(
+    this.routeName$.next(history.state.routeName);
+    this.changeCount$.next(history.state.changeCount);
+    this.response$ = this.activatedRoute.params.pipe(
       map(params => params["routeId"]),
-      shareReplay()
-    );
-  }
-
-  ngAfterViewInit(): void {
-    this.response$ = this.routeId$.pipe(
+      tap(routeId => this.routeId$.next(routeId)),
       flatMap(routeId => this.appService.routeMap(routeId).pipe(
         tap(response => {
-          this.routeName = response.result.route.summary.name;
-          this.changeCount = response.result.changeCount;
+          this.routeName$.next(response.result.route.summary.name);
+          this.changeCount$.next(response.result.changeCount);
         })
       ))
     );

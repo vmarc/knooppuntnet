@@ -1,4 +1,3 @@
-import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
@@ -13,7 +12,7 @@ import {NetworkChangesService} from "./network-changes.service";
 
 @Component({
   selector: "kpn-network-changes-page",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO PUSH changeDetection: ChangeDetectionStrategy.OnPush, see NodeChangesPageComponent
   template: `
     <kpn-network-page-header
       [networkId]="networkId"

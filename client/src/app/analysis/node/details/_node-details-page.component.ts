@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
+import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
@@ -28,11 +27,10 @@ import {FactInfo} from "../../fact/fact-info";
     </ul>
 
     <kpn-node-page-header
-      *ngIf="nodeId$ | async as nodeId"
       pageName="details"
-      [nodeId]="nodeId"
-      [nodeName]="nodeName"
-      [changeCount]="changeCount">
+      [nodeId]="nodeId$ | async"
+      [nodeName]="nodeName$ | async"
+      [changeCount]="changeCount$ | async">
     </kpn-node-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
@@ -77,13 +75,13 @@ import {FactInfo} from "../../fact/fact-info";
     </div>
   `
 })
-export class NodeDetailsPageComponent implements OnInit, AfterViewInit {
+export class NodeDetailsPageComponent implements OnInit {
 
-  nodeId$: Observable<string>;
   response$: Observable<ApiResponse<NodeDetailsPage>>;
 
-  nodeName: string;
-  changeCount = 0;
+  nodeId$ = new Subject<string>();
+  nodeName$ = new Subject<string>();
+  changeCount$ = new Subject<number>();
 
   tags: InterpretedTags;
   nodeInfo: NodeInfo;
@@ -96,25 +94,20 @@ export class NodeDetailsPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.nodeName = history.state.nodeName;
-    this.changeCount = history.state.changeCount;
+    this.nodeName$.next(history.state.nodeName);
+    this.changeCount$.next(history.state.changeCount);
     this.pageService.showFooter = true;
-    this.nodeId$ = this.activatedRoute.params.pipe(
+    this.response$ = this.activatedRoute.params.pipe(
       map(params => params["nodeId"]),
-      shareReplay()
-    );
-  }
-
-  ngAfterViewInit(): void {
-    this.response$ = this.nodeId$.pipe(
+      tap(nodeId => this.nodeId$.next(nodeId)),
       flatMap(nodeId => this.appService.nodeDetails(nodeId).pipe(
         tap(response => {
-          this.nodeName = response.result.nodeInfo.name;
+          this.nodeName$.next(response.result.nodeInfo.name);
+          this.changeCount$.next(response.result.changeCount);
           this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
           this.factInfos = this.buildFactInfos(response.result);
           this.nodeInfo = response.result.nodeInfo;
           this.references = response.result.references;
-          this.changeCount = response.result.changeCount;
         })
       ))
     );

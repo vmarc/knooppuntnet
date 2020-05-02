@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs";
+import {tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Statistics} from "../../../kpn/api/custom/statistics";
-import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-overview-page",
@@ -21,7 +22,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
     <kpn-statistic-configurations></kpn-statistic-configurations>
 
-    <div *ngIf="response" class="kpn-spacer-above">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div class="situation-on">
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </div>
@@ -38,11 +39,10 @@ import {Subscriptions} from "../../../util/Subscriptions";
     }
   `]
 })
-export class OverviewPageComponent implements OnInit, OnDestroy {
+export class OverviewPageComponent implements OnInit {
 
-  response: ApiResponse<Statistics>;
+  response$: Observable<ApiResponse<Statistics>>;
   stats: Statistics;
-  private readonly subscriptions = new Subscriptions();
 
   constructor(private appService: AppService,
               private pageService: PageService,
@@ -51,20 +51,12 @@ export class OverviewPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageService.defaultMenu();
-    this.subscriptions.add(
-      this.appService.overview().subscribe(response => {
-        this.response = response;
-        this.stats = response.result;
-      })
+    this.response$ = this.appService.overview().pipe(
+      tap(response => this.stats = response.result)
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   isVeryLarge(): boolean {
     return this.pageWidthService.isVeryLarge();
-
   }
 }

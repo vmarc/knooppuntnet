@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {OnDestroy} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs";
 import {combineLatest} from "rxjs";
 import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
 import {switchMap} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {tap} from "rxjs/operators";
@@ -30,11 +29,10 @@ import {NodeChangesService} from "./node-changes.service";
     </ul>
 
     <kpn-node-page-header
-      *ngIf="nodeId$ | async as nodeId"
       pageName="changes"
-      [nodeId]="nodeId"
-      [nodeName]="nodeName"
-      [changeCount]="changeCount">
+      [nodeId]="nodeId$ | async"
+      [nodeName]="nodeName$ | async"
+      [changeCount]="changeCount$ | async">
     </kpn-node-page-header>
 
     <div *ngIf="!isLoggedIn()" i18n="@@node.login-required" class="kpn-spacer-above">
@@ -67,13 +65,14 @@ import {NodeChangesService} from "./node-changes.service";
     </div>
   `
 })
-export class NodeChangesPageComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NodeChangesPageComponent implements OnInit, OnDestroy {
 
   nodeId$: Observable<string>;
   response$: Observable<ApiResponse<NodeChangesPage>>;
 
-  nodeName: string;
-  changeCount = 0;
+  nodeName$ = new Subject<string>();
+  changeCount$ = new Subject<number>();
+
   page: NodeChangesPage;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -94,27 +93,20 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
-    this.nodeName = history.state.nodeName;
-    this.changeCount = history.state.changeCount;
+    this.nodeName$.next(history.state.nodeName);
+    this.changeCount$.next(history.state.changeCount);
+
     this.nodeId$ = this.activatedRoute.params.pipe(
       map(params => params["nodeId"]),
-      tap(nodeId => this.updateParameters(nodeId)),
-      shareReplay()
+      tap(nodeId => this.updateParameters(nodeId))
     );
-  }
-
-  ngOnDestroy(): void {
-    this.nodeChangesService.resetFilterOptions();
-  }
-
-  ngAfterViewInit(): void {
     this.response$ = combineLatest([this.nodeId$, this.nodeChangesService.parameters$]).pipe(
       switchMap(([nodeId, changeParameters]) =>
         this.appService.nodeChanges(nodeId, changeParameters).pipe(
           tap(response => {
             this.page = Util.safeGet(() => response.result);
-            this.nodeName = Util.safeGet(() => response.result.nodeInfo.name);
-            this.changeCount = Util.safeGet(() => response.result.changeCount);
+            this.nodeName$.next(Util.safeGet(() => response.result.nodeInfo.name));
+            this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
             this.nodeChangesService.filterOptions$.next(
               ChangeFilterOptions.from(
                 this.parameters,
@@ -126,6 +118,10 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy, AfterViewIni
         )
       )
     );
+  }
+
+  ngOnDestroy(): void {
+    this.nodeChangesService.resetFilterOptions();
   }
 
   isLoggedIn(): boolean {

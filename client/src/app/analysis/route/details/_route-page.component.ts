@@ -1,10 +1,9 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
+import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
@@ -26,11 +25,10 @@ import {FactInfo} from "../../fact/fact-info";
     </ul>
 
     <kpn-route-page-header
-      *ngIf="routeId$ | async as routeId"
       pageName="details"
-      [routeId]="routeId"
-      [routeName]="routeName"
-      [changeCount]="changeCount">
+      [routeId]="routeId$ | async"
+      [routeName]="routeName$ | async"
+      [changeCount]="changeCount$ | async">
     </kpn-route-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
@@ -107,13 +105,13 @@ import {FactInfo} from "../../fact/fact-info";
     </div>
   `
 })
-export class RoutePageComponent implements OnInit, AfterViewInit {
+export class RoutePageComponent implements OnInit {
 
-  routeId$: Observable<string>;
   response$: Observable<ApiResponse<RouteDetailsPage>>;
 
-  routeName: string;
-  changeCount = 0;
+  routeId$ = new Subject<string>();
+  routeName$ = new Subject<string>();
+  changeCount$ = new Subject<number>();
   route: RouteInfo;
   tags: InterpretedTags;
   factInfos: List<FactInfo>;
@@ -125,30 +123,23 @@ export class RoutePageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.routeName = history.state.routeName;
-    this.changeCount = history.state.changeCount;
-    this.routeId$ = this.activatedRoute.params.pipe(
+    this.routeName$.next(history.state.routeName);
+    this.changeCount$.next(history.state.changeCount);
+    this.response$ = this.activatedRoute.params.pipe(
       map(params => params["routeId"]),
-      shareReplay()
-    );
-  }
-
-  ngAfterViewInit(): void {
-    this.response$ = this.routeId$.pipe(
-      flatMap(routeId => this.appService.routeDetails(routeId).pipe(
-        tap(response => {
-          this.route = response.result.route;
-          this.routeName = this.route.summary.name;
-          this.changeCount = response.result.changeCount;
-          this.tags = InterpretedTags.routeTags(this.route.tags);
-          this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
-        })
-      ))
+      tap(routeId => this.routeId$.next(routeId)),
+      flatMap(routeId => this.appService.routeDetails(routeId)),
+      tap(response => {
+        this.route = response.result.route;
+        this.routeName$.next(this.route.summary.name);
+        this.changeCount$.next(response.result.changeCount);
+        this.tags = InterpretedTags.routeTags(this.route.tags);
+        this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
+      })
     );
   }
 
   isPageSmall(): boolean {
     return this.pageWidthService.isSmall();
   }
-
 }
