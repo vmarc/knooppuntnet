@@ -5,4 +5,6 @@ case class DesignDoc(
   _rev: Option[String],
   language: String,
   views: Map[String, ViewDoc] = Map.empty
-) extends Doc
+) extends Doc {
+  def withRev(_newRev: Option[String]): Doc = this.copy(_rev = _newRev)
+}

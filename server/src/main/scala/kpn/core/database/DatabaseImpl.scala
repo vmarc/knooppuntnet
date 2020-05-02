@@ -42,6 +42,10 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
     new DatabaseSave(context).save(doc)
   }
 
+  override def newSave[T](doc: Doc, docType: Class[T]): Unit = {
+    new DatabaseSave(context).newSave(doc, docType)
+  }
+
   override def bulkSave[T](docs: Seq[Doc]): Unit = {
     new DatabaseBulkSave(context).bulkSave[T](docs)
   }

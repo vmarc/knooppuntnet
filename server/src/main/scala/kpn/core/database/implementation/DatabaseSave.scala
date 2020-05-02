@@ -36,4 +36,85 @@ class DatabaseSave(context: DatabaseContext) {
         throw new IllegalStateException(s"Could not save '$url'", e)
     }
   }
+
+  def newSave[T](doc: Doc, docType: Class[T]): Unit = {
+
+    var retry = true
+    var retryCount = 0
+    val url = s"${context.databaseUrl}/${doc._id}"
+
+    while (retry && retryCount < 3) {
+
+      val oldDoc = readOldDoc(url, docType)
+
+      val newDoc = oldDoc match {
+        case None => doc
+        case Some(oldDoc: Doc) =>
+          if (doc != oldDoc.withRev(None)) {
+            doc.withRev(oldDoc._rev)
+          }
+          else {
+            doc
+          }
+
+      }
+
+      if (writeDoc(url, newDoc)) {
+        retry = false
+      }
+      else {
+        retryCount = retryCount + 1
+      }
+    }
+
+    if (retryCount >= 3) {
+      throw new IllegalStateException(s"Could not save '$url' after 3 retries")
+    }
+  }
+
+  private def readOldDoc[T](url: String, docType: Class[T]) = {
+    try {
+      val response = context.restTemplate.getForObject(url, classOf[String])
+      Some(context.objectMapper.readValue(response, docType))
+    }
+    catch {
+      case e: ResourceAccessException =>
+        throw new IllegalStateException(s"Could not get document '${context.databaseUrl}' (invalid user/password?)", e)
+
+      case e: HttpClientErrorException =>
+        if (HttpStatus.NOT_FOUND.equals(e.getStatusCode)) {
+          None
+        }
+        else {
+          throw e
+        }
+    }
+  }
+
+  private def writeDoc(url: String, newDoc: Doc): Boolean = {
+    val json = context.objectMapper.writeValueAsString(newDoc)
+    try {
+      val entity = new HttpEntity[String](json)
+      val response: ResponseEntity[String] = context.authenticatedRestTemplate.exchange(url, HttpMethod.PUT, entity, classOf[String])
+      if (!HttpStatus.CREATED.equals(response.getStatusCode)) {
+        throw new IllegalStateException(s"Could not save '$url' (unexpected status code ${response.getStatusCode.name()})")
+      }
+      true
+    }
+    catch {
+      case e: ResourceAccessException =>
+        throw new IllegalStateException(s"Could not save '$url' (invalid user/password?)", e)
+
+      case e: HttpClientErrorException =>
+        if (HttpStatus.CONFLICT.equals(e.getStatusCode)) {
+          false
+        }
+        else {
+          if (HttpStatus.UNAUTHORIZED.equals(e.getStatusCode)) {
+            throw new IllegalStateException(s"Could not save '$url' (invalid user/password?)", e)
+          }
+          throw new IllegalStateException(s"Could not save '$url'", e)
+        }
+    }
+  }
 }
