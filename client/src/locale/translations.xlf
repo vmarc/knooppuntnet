@@ -841,6 +841,15 @@
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="change-header.start" datatype="html">
+        <source>
+          Start
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/change-set/change-header.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="change-set.orphan-nodes" datatype="html">
         <source>Orphan node(s)</source>
         <context-group purpose="location">
@@ -1532,85 +1541,95 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.summary" datatype="html">
         <source>Summary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.situation-on" datatype="html">
         <source>Situation on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.last-updated" datatype="html">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.tags" datatype="html">
         <source>Tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.location" datatype="html">
         <source>Location</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.networks" datatype="html">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
         <source>Orphan routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.facts" datatype="html">
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.initial-value" datatype="html">
+        <source>
+        Oldest known state of node (at date of
+        <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>).
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/changes/node-change.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.version" datatype="html">
         <source>Version</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/node-change.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.unchanged" datatype="html">
         <source>(Unchanged)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/node-change.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.inactive" datatype="html">
@@ -1732,7 +1751,7 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.node-map" datatype="html">
@@ -2011,7 +2030,7 @@
       </trans-unit>
       <trans-unit id="fact.description.route-name-missing" datatype="html">
         <source>
-      The route relation does not have a _&quot;note&quot;_ tag with the route name.
+      The route relation does not have a _&quot;note&quot;_ or _&quot;ref&quot;_ tag with the route name.
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-name-missing.component.ts</context>
@@ -2174,7 +2193,7 @@
       </trans-unit>
       <trans-unit id="fact.description.route-node-name-mismatch" datatype="html">
         <source>
-      The route name in the _note_ tag in the route relation does not match the expected name as
+      The route name in the _note_ or _ref_ tag in the route relation does not match the expected name as
       derived from the start and end node of the route.
     </source>
         <context-group purpose="location">
@@ -2391,18 +2410,28 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="route-change.initial-value" datatype="html">
+        <source>
+        Oldest known state of route (at date of
+        <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>).
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/route/changes/route-change.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="route-change.version" datatype="html">
         <source>Version</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.unchanged" datatype="html">
         <source>(Unchanged)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.route-changes" datatype="html">
@@ -2414,10 +2443,10 @@
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
         <source>
-      The details of the route changes history is available to registered OpenStreetMap contributors only, after
-      <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
-      .
-    </source>
+        The details of the route changes history is available to registered OpenStreetMap contributors only, after
+        <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
+        .
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/_route-changes-page.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -2425,8 +2454,8 @@
       </trans-unit>
       <trans-unit id="route-changes.route-not-found" datatype="html">
         <source>
-        Route not found
-      </source>
+          Route not found
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/_route-changes-page.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -2445,7 +2474,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.members.title" datatype="html">
@@ -2559,98 +2588,98 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.summary" datatype="html">
         <source>Summary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.situation-on" datatype="html">
         <source>Situation on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.last-updated" datatype="html">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.relation-last-updated" datatype="html">
         <source>Relation last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.network" datatype="html">
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.start-node" datatype="html">
         <source>Start node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.end-node" datatype="html">
         <source>End node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.redundant-node" datatype="html">
         <source>Redundant node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.number-of-ways" datatype="html">
         <source>Number of ways</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.tags" datatype="html">
         <source>Tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.location" datatype="html">
         <source>Location</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.structure" datatype="html">
         <source>Structure</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.facts" datatype="html">
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.title" datatype="html">
@@ -2737,22 +2766,22 @@
       </trans-unit>
       <trans-unit id="network-changes.login-required" datatype="html">
         <source>
-      The details of network changes history are available to registered OpenStreetMap contributors only, after
-      <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
-      .
-    </source>
+        The details of network changes history are available to registered OpenStreetMap contributors only, after
+        <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
+        .
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-not-found" datatype="html">
         <source>
-        Network not found
-      </source>
+          Network not found
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.title" datatype="html">
@@ -3077,18 +3106,28 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="network-changes.network-initial-value" datatype="html">
+        <source>
+        Oldest known state of network (at date of
+        <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>).
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="network-changes.network-nodes.added" datatype="html">
         <source>Added node(s)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.routes.added" datatype="html">
         <source>Added route(s)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.nodes.added" datatype="html">
@@ -3097,7 +3136,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.ways.added" datatype="html">
@@ -3106,7 +3145,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.relations.added" datatype="html">
@@ -3115,7 +3154,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-relation-updated" datatype="html">
@@ -3124,7 +3163,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-nodes.updated" datatype="html">
@@ -3133,7 +3172,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.routes.updated" datatype="html">
@@ -3142,7 +3181,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.nodes.updated" datatype="html">
@@ -3151,7 +3190,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.ways.updated" datatype="html">
@@ -3160,7 +3199,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.relations.updated" datatype="html">
@@ -3169,7 +3208,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-nodes.removed" datatype="html">
@@ -3178,7 +3217,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.routes.removed" datatype="html">
@@ -3187,7 +3226,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.nodes.removed" datatype="html">
@@ -3196,7 +3235,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.ways.removed" datatype="html">
@@ -3205,7 +3244,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.relations.removed" datatype="html">
@@ -3214,7 +3253,7 @@
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
-          <context context-type="linenumber">148</context>
+          <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.gray.title" datatype="html">
@@ -3871,13 +3910,22 @@
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="change-set.header.timestamp" datatype="html">
+        <source>
+          Timestamp
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="change-set.header.replication-number" datatype="html">
         <source>
           Minute diff
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.comment" datatype="html">
@@ -3886,7 +3934,7 @@
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.analysis" datatype="html">
@@ -3895,7 +3943,7 @@
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.analysis.happy" datatype="html">
@@ -4675,7 +4723,7 @@
       </trans-unit>
       <trans-unit id="stats.route-name-missing.comment" datatype="html">
         <source>
-        Routes without a _&quot;note&quot;_ tag with the route name.
+        Routes without a _&quot;note&quot;_ or _&quot;ref&quot;_ tag with the route name.
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
@@ -5183,13 +5231,13 @@
       </trans-unit>
       <trans-unit id="subset-changes.login-required" datatype="html">
         <source>
-      This details of the changes history are available to registered OpenStreetMap contributors only, after
-      <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
-      .
-    </source>
+        This details of the changes history are available to registered OpenStreetMap contributors only, after
+        <x id="START_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;"/><x id="CLOSE_TAG_KPN-LINK-LOGIN" ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;"/>
+        .
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/changes/_subset-changes-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.title" datatype="html">
