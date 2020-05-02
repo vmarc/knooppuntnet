@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.poi.PoiRef
 
 trait PoiRepository {
 
-  def save(poi: Poi): Boolean
+  def save(poi: Poi): Unit
 
   def allPois(stale: Boolean = true): Seq[PoiInfo]
 

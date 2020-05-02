@@ -18,6 +18,9 @@ class DatabaseDeleteDocWithId(context: DatabaseContext) {
         throw new IllegalStateException(s"Could not delete doc '$url' (invalid user/password?)", e)
 
       case e: HttpClientErrorException =>
+        if (HttpStatus.UNAUTHORIZED.equals(e.getStatusCode)) {
+          throw new IllegalStateException(s"Could not delete doc '$url' (invalid user/password?)", e)
+        }
         if (HttpStatus.NOT_FOUND.equals(e.getStatusCode)) {
           // ignore: document does not exist anymore in the mean while, perhaps deleted from other thread?
         }

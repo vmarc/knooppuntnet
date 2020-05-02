@@ -45,17 +45,17 @@ object DatabaseViewTool {
       updateView(database, ChangeDocumentsDesign)
     }
 
-//    Couch.executeIn(host, poisDbName) { database =>
-//      updateView(database, PoiDesign)
-//    }
-//
-//    Couch.executeIn(host, backendDbName) { database =>
-//      updateView(database, BackendMetricsDesign)
-//    }
-//
-//    Couch.executeIn(host, frontendDbName) { database =>
-//      updateView(database, FrontendMetricsDesign)
-//    }
+    //    Couch.executeIn(host, poisDbName) { database =>
+    //      updateView(database, PoiDesign)
+    //    }
+    //
+    //    Couch.executeIn(host, backendDbName) { database =>
+    //      updateView(database, BackendMetricsDesign)
+    //    }
+    //
+    //    Couch.executeIn(host, frontendDbName) { database =>
+    //      updateView(database, FrontendMetricsDesign)
+    //    }
 
     println("Ready")
   }
@@ -63,8 +63,6 @@ object DatabaseViewTool {
   private def updateView(database: Database, design: Design): Unit = {
     val views = design.views.map(v => v.name -> ViewDoc(v.map, v.reduce)).toMap
     val id = "_design/" + Util.classNameOf(design)
-    val rev = database.revision(id)
-    val designDoc = DesignDoc(id, rev, "javascript", views)
-    database.save(designDoc)
+    database.save(DesignDoc(id, "javascript", views))
   }
 }

@@ -18,7 +18,6 @@ class ChangeSetInfoRepositoryImpl(changesetDatabase: Database) extends ChangeSet
 
   override def save(changeSetInfo: ChangeSetInfo): Unit = {
     val id = docId(changeSetInfo.id)
-    changesetDatabase.deleteDocWithId(id)
     changesetDatabase.save(ChangeSetInfoDoc(id, changeSetInfo))
   }
 

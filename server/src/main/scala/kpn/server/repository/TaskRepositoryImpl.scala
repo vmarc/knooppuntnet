@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component
 class TaskRepositoryImpl(taskDatabase: Database) extends TaskRepository {
 
   override def add(id: String): Unit = {
-    taskDatabase.revision(id) match {
-      case None => taskDatabase.save(StringValueDoc(id, ""))
-      case Some(revision) => // do nothing
-    }
+    taskDatabase.save(StringValueDoc(id, ""))
   }
 
   override def delete(id: String): Unit = {

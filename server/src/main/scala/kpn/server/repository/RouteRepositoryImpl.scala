@@ -26,102 +26,22 @@ class RouteRepositoryImpl(
   }
 
   override def save(routeInfo: RouteInfo): Unit = {
-
     log.debugElapsed {
-
-      var retry = true
-      var retryCount = 0
-
-      while (retry && retryCount < 3) {
-        try {
-          val comment = analysisDatabase.docWithId(docId(routeInfo.id), classOf[RouteDoc]) match {
-            case Some(oldRouteDoc) =>
-              updateRoute(oldRouteDoc, routeInfo)
-            case None =>
-              saveNewRoute(routeInfo)
-          }
-          retry = false
-        }
-        catch {
-          case e: IllegalStateException =>
-            if (e.getMessage.contains("_rev mismatch")) {
-              retryCount = retryCount + 1
-            }
-            else {
-              retry = false
-            }
-        }
-      }
+      analysisDatabase.save(RouteDoc(docId(routeInfo.id), routeInfo))
       (s"Save route ${routeInfo.id}", ())
     }
   }
 
   override def saveElements(routeElements: RouteElements): Unit = {
-
     log.debugElapsed {
-
-      var retry = true
-      var retryCount = 0
-
-      while (retry && retryCount < 3) {
-        try {
-          val comment = analysisDatabase.docWithId(elementsDocId(routeElements.routeId), classOf[RouteElementsDoc]) match {
-            case Some(oldRouteDoc) =>
-              updateRouteElements(oldRouteDoc, routeElements)
-            case None =>
-              saveNewRouteElements(routeElements)
-          }
-          retry = false
-        }
-        catch {
-          case e: IllegalStateException =>
-            if (e.getMessage.contains("_rev mismatch")) {
-              retryCount = retryCount + 1
-            }
-            else {
-              retry = false
-            }
-        }
-      }
+      analysisDatabase.save(RouteElementsDoc(docId(routeElements.routeId), routeElements))
       (s"Save route elements ${routeElements.routeId}", ())
-    }
-  }
-
-  private def saveNewRoute(routeInfo: RouteInfo): Unit = {
-    val doc = RouteDoc(docId(routeInfo.id), routeInfo)
-    analysisDatabase.save(doc)
-  }
-
-  private def saveNewRouteElements(routeElements: RouteElements): Unit = {
-    val doc = RouteElementsDoc(docId(routeElements.routeId), routeElements)
-    analysisDatabase.save(doc)
-  }
-
-  private def updateRoute(oldRouteDoc: RouteDoc, newRouteInfo: RouteInfo): String = {
-    if (newRouteInfo != oldRouteDoc.route) {
-      val doc = RouteDoc(docId(newRouteInfo.id), newRouteInfo, oldRouteDoc._rev)
-      analysisDatabase.save(doc)
-      " (changed)"
-    }
-    else {
-      " (no change)"
-    }
-  }
-
-  private def updateRouteElements(oldDoc: RouteElementsDoc, newRouteElements: RouteElements): String = {
-    if (newRouteElements != oldDoc.routeElements) {
-      val doc = RouteElementsDoc(elementsDocId(newRouteElements.routeId), newRouteElements, oldDoc._rev)
-      analysisDatabase.save(doc)
-      " (changed)"
-    }
-    else {
-      " (no change)"
     }
   }
 
   def oldSave(routes: Seq[RouteInfo]): Unit = {
     log.debugElapsed {
-      routes.toSeq.sliding(groupSize, groupSize).toSeq.foreach { groupRoutes =>
+      routes.sliding(groupSize, groupSize).toSeq.foreach { groupRoutes =>
         saveRoutes(groupRoutes)
       }
       (s"Saved ${routes.size} routes overall", ())

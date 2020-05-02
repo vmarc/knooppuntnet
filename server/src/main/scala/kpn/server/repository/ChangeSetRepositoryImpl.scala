@@ -42,97 +42,27 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
 
   override def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit = {
     val id = docId("summary", changeSetSummary.key)
-    val existingDoc = changeDatabase.docWithId(id, classOf[ChangeSetSummaryDoc])
-    existingDoc match {
-      case None =>
-        val doc = ChangeSetSummaryDoc(id, changeSetSummary)
-        changeDatabase.save(doc)
-      case Some(doc) =>
-        if (doc.changeSetSummary != changeSetSummary) {
-          val newDoc = ChangeSetSummaryDoc(id, changeSetSummary, doc._rev)
-          changeDatabase.save(newDoc)
-        }
-    }
+    changeDatabase.save(ChangeSetSummaryDoc(id, changeSetSummary))
   }
 
   override def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit = {
     val id = docId("location-summary", locationChangeSetSummary.key)
-    val existingDoc = changeDatabase.docWithId(id, classOf[LocationChangeSetSummaryDoc])
-    existingDoc match {
-      case None =>
-        val doc = LocationChangeSetSummaryDoc(id, locationChangeSetSummary)
-        changeDatabase.save(doc)
-      case Some(doc) =>
-        if (doc.locationChangeSetSummary != locationChangeSetSummary) {
-          val newDoc = LocationChangeSetSummaryDoc(id, locationChangeSetSummary, doc._rev)
-          changeDatabase.save(newDoc)
-        }
-    }
+    changeDatabase.save(LocationChangeSetSummaryDoc(id, locationChangeSetSummary))
   }
 
   override def saveNetworkChange(networkChange: NetworkChange): Unit = {
     val id = docId("network", networkChange.key)
-    val existingDoc = changeDatabase.docWithId(id, classOf[NetworkChangeDoc])
-    existingDoc match {
-      case None =>
-        val doc = NetworkChangeDoc(id, networkChange)
-        changeDatabase.save(doc)
-      case Some(doc) =>
-        if (doc.networkChange != networkChange) {
-          val newDoc = NetworkChangeDoc(id, networkChange, doc._rev)
-          changeDatabase.save(newDoc)
-        }
-    }
+    changeDatabase.save(NetworkChangeDoc(id, networkChange))
   }
 
   override def saveRouteChange(routeChange: RouteChange): Unit = {
     val id = docId("route", routeChange.key)
-    val existingDoc = changeDatabase.docWithId(id, classOf[RouteChangeDoc])
-    existingDoc match {
-      case None =>
-        val doc = RouteChangeDoc(id, routeChange)
-        changeDatabase.save(doc)
-      case Some(doc) =>
-        if (doc.routeChange != routeChange) {
-          val newDoc = RouteChangeDoc(id, routeChange, doc._rev)
-          changeDatabase.save(newDoc)
-        }
-    }
+    changeDatabase.save(RouteChangeDoc(id, routeChange))
   }
 
   override def saveNodeChange(nodeChange: NodeChange): Unit = {
-    var retry = true
-    var retryCount = 0
-    while (retry && retryCount < 3) {
-      try {
-        doSaveNodeChange(nodeChange)
-        retry = false
-      }
-      catch {
-        case e: Exception =>
-          if (e.getMessage.contains("_rev mismatch")) {
-            retryCount = retryCount + 1
-          }
-          else {
-            throw new IllegalStateException(e)
-          }
-      }
-    }
-  }
-
-  private def doSaveNodeChange(nodeChange: NodeChange): Unit = {
     val id = docId("node", nodeChange.key)
-    val existingDoc = changeDatabase.docWithId(id, classOf[NodeChangeDoc])
-    existingDoc match {
-      case None =>
-        val doc = NodeChangeDoc(id, nodeChange)
-        changeDatabase.save(doc)
-      case Some(doc) =>
-        if (doc.nodeChange != nodeChange) {
-          val newDoc = NodeChangeDoc(id, nodeChange, doc._rev)
-          changeDatabase.save(newDoc)
-        }
-    }
+    changeDatabase.save(NodeChangeDoc(id, nodeChange))
   }
 
   private def docId(elementType: String, key: ChangeKey): String = {

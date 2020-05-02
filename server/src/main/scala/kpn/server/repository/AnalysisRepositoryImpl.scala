@@ -52,8 +52,7 @@ class AnalysisRepositoryImpl(
   }
 
   override def saveLastUpdated(timestamp: Timestamp): Unit = {
-    val rev = analysisDatabase.revision(lastUpdatedDocumentKey)
-    analysisDatabase.save(TimestampDoc(lastUpdatedDocumentKey, timestamp, rev))
+    analysisDatabase.save(TimestampDoc(lastUpdatedDocumentKey, timestamp))
   }
 
   private def buildNetworkDoc(network: Network): Unit = {

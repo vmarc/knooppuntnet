@@ -15,12 +15,13 @@ class DatabaseCreate(context: DatabaseContext) {
         throw new IllegalStateException(s"Could not create database '${context.databaseUrl}' (invalid user/password?)", e)
 
       case e: HttpClientErrorException =>
+        if (HttpStatus.UNAUTHORIZED.equals(e.getStatusCode)) {
+          throw new IllegalStateException(s"Could not create database '${context.databaseUrl}' (invalid user/password?)", e)
+        }
         if (HttpStatus.PRECONDITION_FAILED.equals(e.getStatusCode)) {
           throw new IllegalStateException(s"Could not create database '${context.databaseUrl}' (already exists?)", e)
         }
-        else {
-          throw e
-        }
+        throw e
     }
   }
 

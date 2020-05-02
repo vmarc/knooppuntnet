@@ -12,15 +12,15 @@ trait NetworkRepository {
 
   def network(networkId: Long): Option[NetworkInfo]
 
-  def save(network: NetworkInfo): Boolean
+  def save(network: NetworkInfo): Unit
 
   def elements(networkId: Long): Option[NetworkElements]
 
-  def saveElements(networkElements: NetworkElements): Boolean
+  def saveElements(networkElements: NetworkElements): Unit
 
   def gpx(networkId: Long): Option[GpxFile]
 
-  def saveGpxFile(gpxFile: GpxFile): Boolean
+  def saveGpxFile(gpxFile: GpxFile): Unit
 
   def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes]
 

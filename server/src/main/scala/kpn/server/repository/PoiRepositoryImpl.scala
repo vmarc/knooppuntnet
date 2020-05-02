@@ -19,29 +19,9 @@ class PoiRepositoryImpl(poiDatabase: Database) extends PoiRepository {
 
   private val log = Log(classOf[PoiRepositoryImpl])
 
-  override def save(poi: Poi): Boolean = {
-
+  override def save(poi: Poi): Unit = {
     val id = poiDocId(poi)
-
-    poiDatabase.docWithId(id, classOf[PoiDoc]) match {
-      case Some(doc) =>
-        if (poi == doc.poi) {
-          log.info(s"""Poi ${poi.layers} "$id" not saved (no change)""")
-          false
-        }
-        else {
-          log.infoElapsed(s"""Poi ${poi.layers} "$id" update""") {
-            poiDatabase.save(PoiDoc(id, poi, doc._rev))
-            true
-          }
-        }
-
-      case None =>
-        log.infoElapsed(s"""Poi ${poi.layers} "$id" saved""") {
-          poiDatabase.save(PoiDoc(id, poi))
-          true
-        }
-    }
+    poiDatabase.save(PoiDoc(id, poi))
   }
 
   override def allPois(stale: Boolean = true): Seq[PoiInfo] = {

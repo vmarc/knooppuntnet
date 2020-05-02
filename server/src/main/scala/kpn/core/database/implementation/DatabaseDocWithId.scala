@@ -17,6 +17,9 @@ class DatabaseDocWithId(context: DatabaseContext) {
         throw new IllegalStateException(s"Could not get document '${context.databaseUrl}' (invalid user/password?)", e)
 
       case e: HttpClientErrorException =>
+        if (HttpStatus.UNAUTHORIZED.equals(e.getStatusCode)) {
+          throw new IllegalStateException(s"Could not get document '${context.databaseUrl}' (invalid user/password?)", e)
+        }
         if (HttpStatus.NOT_FOUND.equals(e.getStatusCode)) {
           None
         }

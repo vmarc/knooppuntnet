@@ -28,15 +28,6 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("save network - returns false if saving same network without change") {
-    withDatabase { database =>
-      val repository = new NetworkRepositoryImpl(database)
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, "name"))) should equal(true)
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, "name"))) should equal(false)
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, "changed-name"))) should equal(true)
-    }
-  }
-
   test("gpx - get gpx file by network id") {
     withDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
@@ -45,15 +36,6 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
       val gpxFile = GpxFile(1, "filename", Seq(), Seq())
       repository.saveGpxFile(gpxFile)
       repository.gpx(1) should equal(Some(gpxFile))
-    }
-  }
-
-  test("save gpxFile - returns false if saving same gpxFile without change") {
-    withDatabase { database =>
-      val repository = new NetworkRepositoryImpl(database)
-      repository.saveGpxFile(GpxFile(1, "filename1", Seq(), Seq())) should equal(true)
-      repository.saveGpxFile(GpxFile(1, "filename1", Seq(), Seq())) should equal(false)
-      repository.saveGpxFile(GpxFile(1, "filename2", Seq(), Seq())) should equal(true)
     }
   }
 

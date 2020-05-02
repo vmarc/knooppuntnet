@@ -11,8 +11,6 @@ class DesignRepositoryImpl(database: Database) extends DesignRepository {
   def save(design: Design): Unit = {
     val views = design.views.map(v => v.name -> ViewDoc(v.map, v.reduce)).toMap
     val id = "_design/" + Util.classNameOf(design)
-    val rev = database.revision(id)
-    val designDoc = DesignDoc(id, rev, "javascript", views)
-    database.save(designDoc)
+    database.save(DesignDoc(id, "javascript", views))
   }
 }

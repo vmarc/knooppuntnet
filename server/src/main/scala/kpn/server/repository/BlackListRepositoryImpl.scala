@@ -28,7 +28,6 @@ class BlackListRepositoryImpl(analysisDatabase: Database) extends BlackListRepos
   }
 
   def save(blackList: BlackList): Unit = {
-    val rev = analysisDatabase.revision(docId)
-    analysisDatabase.save(BlackListDoc(docId, blackList, rev))
+    analysisDatabase.save(BlackListDoc(docId, blackList))
   }
 }

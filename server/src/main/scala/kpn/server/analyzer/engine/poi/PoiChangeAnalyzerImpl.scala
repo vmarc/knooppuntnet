@@ -95,11 +95,10 @@ class PoiChangeAnalyzerImpl(
       newTileNames
     )
 
-    if (poiRepository.save(poi)) {
-      allTileNames.foreach(tileName => taskRepository.add(PoiTileTask.withTileName(tileName)))
-      knownPoiCache.add(poiRef)
-      logPoi(poi, "add")
-    }
+    poiRepository.save(poi)
+    allTileNames.foreach(tileName => taskRepository.add(PoiTileTask.withTileName(tileName)))
+    knownPoiCache.add(poiRef)
+    logPoi(poi, "add")
   }
 
   private def findMatchingPoiDefinitions(tags: Tags): Seq[PoiDefinition] = {

@@ -32,54 +32,14 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
     analysisDatabase.docWithId(networkElementsKey(networkId), classOf[NetworkElementsDoc]).map(_.networkElements)
   }
 
-  override def saveElements(networkElements: NetworkElements): Boolean = {
-
+  override def saveElements(networkElements: NetworkElements): Unit = {
     val key = networkElementsKey(networkElements.networkId)
-
-    analysisDatabase.docWithId(key, classOf[NetworkElementsDoc]) match {
-      case Some(doc) =>
-        if (networkElements == doc.networkElements) {
-          log.info(s"""Network elements "${networkElements.networkId}" not saved (no change)""")
-          false
-        }
-        else {
-          log.infoElapsed(s"""Network elements "${networkElements.networkId}" update""") {
-            analysisDatabase.save(NetworkElementsDoc(key, networkElements, doc._rev))
-            true
-          }
-        }
-
-      case None =>
-        log.infoElapsed(s"""Network elements "${networkElements.networkId}" saved""") {
-          analysisDatabase.save(NetworkElementsDoc(key, networkElements))
-          true
-        }
-    }
+    analysisDatabase.save(NetworkElementsDoc(key, networkElements))
   }
 
-  override def save(network: NetworkInfo): Boolean = {
-
+  override def save(network: NetworkInfo): Unit = {
     val key = networkKey(network.id)
-
-    analysisDatabase.docWithId(key, classOf[NetworkDoc]) match {
-      case Some(doc) =>
-        if (network == doc.network) {
-          log.info(s"""Network "${network.id}" not saved (no change)""")
-          false
-        }
-        else {
-          log.infoElapsed(s"""Network "${network.id}" update""") {
-            analysisDatabase.save(NetworkDoc(key, network, doc._rev))
-            true
-          }
-        }
-
-      case None =>
-        log.infoElapsed(s"""Network "${network.id}" saved""") {
-          analysisDatabase.save(NetworkDoc(key, network))
-          true
-        }
-    }
+    analysisDatabase.save(NetworkDoc(key, network))
   }
 
   override def delete(networkId: Long): Unit = {
@@ -95,34 +55,9 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
     analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)
   }
 
-  override def saveGpxFile(gpxFile: GpxFile): Boolean = {
+  override def saveGpxFile(gpxFile: GpxFile): Unit = {
     val key = gpxKey(gpxFile.networkId)
-
-    def doSave(): Unit = {
-      log.info(s"""Save gpx file "${gpxFile.networkId}"""")
-      analysisDatabase.save(GpxDoc(key, gpxFile))
-    }
-
-    analysisDatabase.docWithId(key, classOf[GpxDoc]) match {
-      case Some(doc) =>
-        if (gpxFile == doc.file) {
-          log.info(s"""Network "${gpxFile.networkId}" gpx not saved (no change)""")
-          false
-        }
-        else {
-          log.infoElapsed(s"""Network "${gpxFile.networkId}" gpx update""") {
-            analysisDatabase.deleteDocWithId(key)
-            doSave()
-            true
-          }
-        }
-
-      case None =>
-        log.infoElapsed(s"""Network "${gpxFile.networkId}" gpx saved""") {
-          doSave()
-          true
-        }
-    }
+    analysisDatabase.save(GpxDoc(key, gpxFile))
   }
 
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
