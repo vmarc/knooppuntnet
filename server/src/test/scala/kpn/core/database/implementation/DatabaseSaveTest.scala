@@ -22,7 +22,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
 
       database.docWithId(doc._id, classOf[NodeDoc]) should equal(None)
 
-      database.save(doc)
+      database.newSave(doc)
 
       database.docWithId(doc._id, classOf[NodeDoc]) match {
         case Some(result) => result.node should equal(nodeInfo)
@@ -42,7 +42,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
         try {
           val nodeInfo = newNodeInfo(123)
           val nodeDoc = NodeDoc("123", nodeInfo, None)
-          database.save(nodeDoc)
+          database.newSave(nodeDoc)
           fail("Expected exception not thrown")
         }
         catch {
@@ -66,28 +66,20 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
 
       database.docWithId(doc._id, classOf[NodeDoc]) should equal(None)
 
-      database.save(doc)
-
-      try {
-        database.save(doc)
-      }
-      catch {
-        case e: IllegalStateException =>
-          e.getMessage should include("Could not save")
-          e.getMessage should include("(_rev mismatch)")
-      }
+      database.newSave(doc)
+      database.newSave(doc) // without retries, this would result in update conflict
     }
   }
 
   test("save same document multiple times") {
     withDatabase { database =>
 
-      database.save(StringValueDoc("id1", "value1"))
+      database.newSave(StringValueDoc("id1", "value1"))
 
       val doc1 = database.docWithId("id1", classOf[StringValueDoc])
       doc1.map(_.value) should equal(Some("value1"))
 
-      database.save(StringValueDoc("id1", "value2", doc1.get._rev))
+      database.newSave(StringValueDoc("id1", "value2", doc1.get._rev))
       val doc2 = database.docWithId("id1", classOf[StringValueDoc])
       doc2.map(_.value) should equal(Some("value2"))
 

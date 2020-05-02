@@ -37,7 +37,7 @@ class DatabaseSave(context: DatabaseContext) {
     }
   }
 
-  def newSave[T](doc: Doc, docType: Class[T]): Unit = {
+  def newSave[T](doc: Doc): Unit = {
 
     var retry = true
     var retryCount = 0
@@ -45,12 +45,12 @@ class DatabaseSave(context: DatabaseContext) {
 
     while (retry && retryCount < 3) {
 
-      val oldDoc = readOldDoc(url, docType)
+      val oldDoc = readOldDoc(url, doc.getClass)
 
       val newDoc = oldDoc match {
         case None => doc
         case Some(oldDoc: Doc) =>
-          if (doc != oldDoc.withRev(None)) {
+          if (doc.equals(oldDoc.withRev(None))) {
             doc.withRev(oldDoc._rev)
           }
           else {
@@ -72,7 +72,7 @@ class DatabaseSave(context: DatabaseContext) {
     }
   }
 
-  private def readOldDoc[T](url: String, docType: Class[T]) = {
+  private def readOldDoc[T](url: String, docType: Class[T]): Option[T] = {
     try {
       val response = context.restTemplate.getForObject(url, classOf[String])
       Some(context.objectMapper.readValue(response, docType))

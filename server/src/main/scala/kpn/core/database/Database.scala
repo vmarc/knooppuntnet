@@ -13,7 +13,7 @@ trait Database {
 
   def save[T](doc: Doc): Unit
 
-  def newSave[T](doc: Doc, docType: Class[T]): Unit
+  def newSave[T](doc: Doc): Unit
 
   def bulkSave[T](docs: Seq[Doc]): Unit
 
