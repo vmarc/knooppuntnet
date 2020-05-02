@@ -18,7 +18,6 @@ import kpn.api.common.route.RouteElements
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.api.custom.Timestamp
 import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkNode
 import kpn.core.data.DataBuilder
@@ -108,25 +107,33 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
       log.info(s"Trying to load a maximum of ${networkIds.size} networks (using networkIds in snapshot)")
       val futures = networkIds.zipWithIndex.map { case (networkId, index) =>
         val context = Log.contextAnd(s"${index + 1}/${networkIds.size}, network=$networkId")
-        supplyAsync(() => Log.context(context)(loadNetwork(config.timestamp, networkId)), config.analysisExecutor)
+        supplyAsync(() => Log.context(context)(loadNetwork(networkId)), config.analysisExecutor)
       }
       allOf(futures: _*).join()
       log.info(s"${config.analysisContext.data.networks.watched.size} networks loaded")
     }
   }
 
-  private def loadNetwork(timestamp: Timestamp, networkId: Long): Unit = {
-    config.networkLoader.load(Some(config.timestamp), networkId) match {
-      case None => log.error("Failed to load network $networkId")
-      case Some(loadedNetwork) =>
-        log.info(s"""Analyze "${loadedNetwork.name}"""")
-        val networkRelationAnalysis = config.networkRelationAnalyzer.analyze(loadedNetwork.relation)
-        val network = config.networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
-        config.analysisRepository.saveNetwork(network)
-        config.analysisContext.data.networks.watched.add(loadedNetwork.networkId, networkRelationAnalysis.elementIds)
-        loadNetworkChange(network)
-        loadNetworkRouteChanges(network)
-        loadNetworkNodeChanges(network)
+  private def loadNetwork(networkId: Long): Unit = {
+    try {
+      config.networkLoader.load(Some(config.timestamp), networkId) match {
+        case None => log.error("Failed to load network $networkId")
+        case Some(loadedNetwork) =>
+          log.info(s"""Analyze "${loadedNetwork.name}"""")
+          val networkRelationAnalysis = config.networkRelationAnalyzer.analyze(loadedNetwork.relation)
+          val network = config.networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
+          config.analysisRepository.saveNetwork(network)
+          config.analysisContext.data.networks.watched.add(loadedNetwork.networkId, networkRelationAnalysis.elementIds)
+          loadNetworkChange(network)
+          loadNetworkRouteChanges(network)
+          loadNetworkNodeChanges(network)
+      }
+    }
+    catch {
+      case e: Exception =>
+        val message = s"Could not load network $networkId"
+        log.error(message, e)
+        throw new RuntimeException(message, e)
     }
   }
 

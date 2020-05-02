@@ -29,6 +29,7 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
                   val routeLocationAnalysis = routeLocator.locate(routeMap)
                   context.copy(locationAnalysis = Some(routeLocationAnalysis))
                 }
+
               case None =>
                 val routeLocationAnalysis = routeLocator.locate(routeMap)
                 context.copy(locationAnalysis = Some(routeLocationAnalysis))

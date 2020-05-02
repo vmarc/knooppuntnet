@@ -34,7 +34,7 @@ class RouteRepositoryImpl(
 
   override def saveElements(routeElements: RouteElements): Unit = {
     log.debugElapsed {
-      analysisDatabase.save(RouteElementsDoc(docId(routeElements.routeId), routeElements))
+      analysisDatabase.save(RouteElementsDoc(elementsDocId(routeElements.routeId), routeElements))
       (s"Save route elements ${routeElements.routeId}", ())
     }
   }
