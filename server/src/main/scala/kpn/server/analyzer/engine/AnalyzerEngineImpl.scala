@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component
 @Component
 class AnalyzerEngineImpl(
   analysisContext: AnalysisContext,
+  analyzerHistory: Boolean,
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
   analysisDataLoader: AnalysisDataLoader,
@@ -58,9 +59,11 @@ class AnalyzerEngineImpl(
           }
         }
 
-        tileUpdater.update(12)
-        poiChangeAnalyzer.analyze(osmChange)
-        poiTileUpdater.update()
+        if (!analyzerHistory) {
+          tileUpdater.update(12)
+          poiChangeAnalyzer.analyze(osmChange)
+          poiTileUpdater.update()
+        }
 
         analysisRepository.saveLastUpdated(timestamp)
         (osmChange.timestampFrom.map(_.iso).getOrElse(""), ())

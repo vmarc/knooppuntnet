@@ -12,6 +12,7 @@ import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
+import org.springframework.web.client.HttpServerErrorException
 
 @Component
 class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
@@ -23,7 +24,29 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
   }
 
   override def save(nodes: NodeInfo*): Boolean = {
+    var result = false
+    var retry = true
+    var retryCount = 0
 
+    while (retry && retryCount < 3) {
+      try {
+        result = doSave(nodes)
+        retry = false
+      }
+      catch {
+        case e: HttpServerErrorException =>
+          if (e.getStatusCode.value() == 404) {
+            retryCount = retryCount + 1
+          }
+          else {
+            throw new IllegalStateException(e)
+          }
+      }
+    }
+    result
+  }
+
+  private def doSave(nodes: Seq[NodeInfo]): Boolean= {
     log.debugElapsed {
 
       val nodeIds = nodes.map(node => docId(node.id))

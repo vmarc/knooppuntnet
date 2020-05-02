@@ -101,6 +101,26 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   }
 
   override def saveNodeChange(nodeChange: NodeChange): Unit = {
+    var retry = true
+    var retryCount = 0
+    while (retry && retryCount < 3) {
+      try {
+        doSaveNodeChange(nodeChange)
+        retry = false
+      }
+      catch {
+        case e: Exception =>
+          if (e.getMessage.contains("_rev mismatch")) {
+            retryCount = retryCount + 1
+          }
+          else {
+            throw new IllegalStateException(e)
+          }
+      }
+    }
+  }
+
+  private def doSaveNodeChange(nodeChange: NodeChange): Unit = {
     val id = docId("node", nodeChange.key)
     val existingDoc = changeDatabase.docWithId(id, classOf[NodeChangeDoc])
     existingDoc match {

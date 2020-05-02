@@ -36,5 +36,4 @@ class DatabaseSave(context: DatabaseContext) {
         throw new IllegalStateException(s"Could not save '$url'", e)
     }
   }
-
 }

@@ -61,6 +61,11 @@ class ServerConfiguration(emailSender: JavaMailSender) {
   }
 
   @Bean
+  def analyzerHistory(@Value("${app.analyzer-history:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def analyzerReload(@Value("${app.analyzer-reload:false}") value: Boolean): Boolean = {
     value
   }
