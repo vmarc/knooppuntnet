@@ -115,7 +115,6 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
     val changeSaver: ChangeSaver = stub[ChangeSaver]
 
     val changeProcessor = new ChangeProcessor(
-      changeSetRepository,
       networkChangeProcessor,
       orphanRouteChangeProcessor,
       orphanNodeChangeProcessor,

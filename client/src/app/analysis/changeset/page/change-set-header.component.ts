@@ -26,6 +26,14 @@ import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
         </td>
       </tr>
       <tr>
+        <td i18n="@@change-set.header.timestamp">
+          Timestamp
+        </td>
+        <td>
+          <kpn-timestamp [timestamp]="page.summary.key.timestamp"></kpn-timestamp>
+        </td>
+      </tr>
+      <tr>
         <td i18n="@@change-set.header.replication-number">
           Minute diff
         </td>

@@ -21,7 +21,7 @@ object AnalysisContext {
 class AnalysisContext(
   val snapshotKnownElements: Elements = Elements(), // nodes:routes/networks known on 2019-11-01
   val oldTagging: Boolean = false,
-  val beforeNetworkTypeTaggingStart: Boolean = false
+  var beforeNetworkTypeTaggingStart: Boolean = false
 ) {
 
   val data: AnalysisData = AnalysisData()

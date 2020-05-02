@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component
  */
 @Component
 class ChangeProcessor(
-  changeSetRepository: ChangeSetRepository,
   networkChangeProcessor: NetworkChangeProcessor,
   orphanRouteChangeProcessor: OrphanRouteChangeProcessor,
   orphanNodeChangeProcessor: OrphanNodeChangeProcessor,

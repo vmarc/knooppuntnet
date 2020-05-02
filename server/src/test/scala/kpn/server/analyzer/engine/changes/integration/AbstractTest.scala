@@ -341,7 +341,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         changeSetRepository
       )
       new ChangeProcessor(
-        changeSetRepository,
         networkChangeProcessor,
         orphanRouteChangeProcessor,
         orphanNodeChangeProcessor,

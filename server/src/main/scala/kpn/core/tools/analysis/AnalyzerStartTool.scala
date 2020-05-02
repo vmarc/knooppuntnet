@@ -106,7 +106,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     Log.context("networks") {
       val networkIds = config.analysisContext.snapshotKnownElements.networkIds.toSeq.sorted
       log.info(s"Trying to load a maximum of ${networkIds.size} networks (using networkIds in snapshot)")
-      val futures = networkIds.take(1 /*TODO clean up*/).zipWithIndex.map { case (networkId, index) =>
+      val futures = networkIds.zipWithIndex.map { case (networkId, index) =>
         val context = Log.contextAnd(s"${index + 1}/${networkIds.size}, network=$networkId")
         supplyAsync(() => Log.context(context)(loadNetwork(config.timestamp, networkId)), config.analysisExecutor)
       }
@@ -136,7 +136,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
       val allRouteIds = config.routeRepository.allRouteIds()
       val orphanRouteIds = config.analysisContext.snapshotKnownElements.routeIds -- allRouteIds.toSet -- tempBlacklistedRouteIds
       log.info(s"Trying to load a maximum of ${orphanRouteIds.size} orphan routes")
-      val futures = orphanRouteIds.toSeq.take(1 /*TODO clean up*/).sorted.zipWithIndex.map { case (routeId, index) =>
+      val futures = orphanRouteIds.toSeq.sorted.zipWithIndex.map { case (routeId, index) =>
         val context = Log.contextAnd(s"${index + 1}/${orphanRouteIds.size}, route=$routeId")
         supplyAsync(() => Log.context(context)(loadOrphanRoute(routeId)), config.analysisExecutor)
       }
@@ -193,7 +193,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     val orphanNodeIds = config.analysisContext.snapshotKnownElements.nodeIds -- allNodeIds
     Log.context("orphan-nodes") {
       log.info(s"Trying to load a maximum of ${orphanNodeIds.size} orphan nodes")
-      orphanNodeIds.toSeq.sorted.take(1 /*TODO clean up*/).zipWithIndex.foreach { case (nodeId, index) =>
+      orphanNodeIds.toSeq.sorted.zipWithIndex.foreach { case (nodeId, index) =>
         Log.context(s"${index + 1}/${orphanNodeIds.size}, node=$nodeId") {
           val xmlString = config.nonCachingExecutor.executeQuery(Some(config.timestamp), QueryNode(nodeId))
           val xml = XML.loadString(xmlString)
