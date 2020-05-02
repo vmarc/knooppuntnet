@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-map-sidebar-appearance",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel>
       <mat-expansion-panel-header i18n="@@planner.appearance-options">

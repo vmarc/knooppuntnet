@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {NodeInfo} from "../../../kpn/api/common/node-info";
@@ -5,6 +6,7 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 
 @Component({
   selector: "kpn-node-summary",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
 

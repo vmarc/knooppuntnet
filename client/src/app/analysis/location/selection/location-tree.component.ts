@@ -1,4 +1,5 @@
 import {FlatTreeControl} from "@angular/cdk/tree";
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {AppService} from "../../../app.service";
@@ -10,6 +11,7 @@ import {LocationFlatNode} from "./location-flat-node";
 
 @Component({
   selector: "kpn-location-tree",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="buttons">
       <button mat-stroked-button class="location-button" (click)="expandAll()" i18n="@@location.tree.expand-all">Expand all</button>

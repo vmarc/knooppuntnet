@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {Extent} from "ol/extent";
@@ -17,6 +18,7 @@ import {MapService} from "../services/map.service";
 
 @Component({
   selector: "kpn-route-map",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="route-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {RefRouteChangeInfo} from "./ref-route-change-info";
@@ -5,6 +6,7 @@ import {RouteDiffsData} from "./route-diffs-data";
 
 @Component({
   selector: "kpn-route-diffs-added",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="refs.length > 0" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">

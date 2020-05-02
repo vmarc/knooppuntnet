@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, Component, ElementRef, Input} from "@angular/core";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {StatisticConfiguration} from "./statistic-configuration";
 
 @Component({
   selector: "kpn-statistic-configuration",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-content></ng-content>
   `

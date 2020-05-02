@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {SimpleChanges} from "@angular/core";
 import {ViewChild} from "@angular/core";
 import {EventEmitter} from "@angular/core";
@@ -16,6 +17,7 @@ import {BrowserStorageService} from "../../../services/browser-storage.service";
 
 @Component({
   selector: "kpn-location-route-table",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
       (page)="page.emit($event)"

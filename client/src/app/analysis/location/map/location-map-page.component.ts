@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs/operators";
@@ -7,6 +8,7 @@ import {LocationMapPageService} from "./location-map-page.service";
 
 @Component({
   selector: "kpn-location-map-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-location-page-header
       pageName="map"

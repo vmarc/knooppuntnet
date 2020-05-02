@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {OverviewService} from "./overview.service";
@@ -6,6 +7,7 @@ import {Statistics} from "../../../kpn/api/custom/statistics";
 
 @Component({
   selector: "kpn-overview-list",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let stat of stats">
       <kpn-overview-list-stat [stat]="stat"></kpn-overview-list-stat>

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {List} from "immutable";
@@ -6,6 +7,7 @@ import {MapLayers} from "../layers/map-layers";
 
 @Component({
   selector: "kpn-layer-switcher",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="switcher">
       <div *ngIf="open" (mouseleave)="closePanel()">

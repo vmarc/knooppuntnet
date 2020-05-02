@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {ChangeSetElementRef} from "../../../../kpn/api/common/change-set-element-ref";
@@ -6,6 +7,7 @@ import {ChangeSetElement} from "./change-set-element-ref.component";
 
 @Component({
   selector: "kpn-change-set-element-refs",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <kpn-change-set-element-ref

@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {MapService} from "../../../../components/ol/services/map.service";
 
 @Component({
   selector: "kpn-map-popup-contents",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [ngClass]="{hidden: !isPoi()}">
       <kpn-map-popup-poi></kpn-map-popup-poi>

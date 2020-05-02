@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {TranslationFile} from "./domain/translation-file";
 
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translations",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1>Translations</h1>
     <kpn-translations-load *ngIf="!loaded" (translationFile)="translationFileLoaded($event)"></kpn-translations-load>

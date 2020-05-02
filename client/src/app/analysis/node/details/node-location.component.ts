@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {List} from "immutable";
@@ -5,6 +6,7 @@ import {Location} from "../../../kpn/api/common/location/location";
 
 @Component({
   selector: "kpn-node-location",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p *ngIf="!hasLocation()" i18n="@@node.location.none">None</p>
     <div class="kpn-comma-list">

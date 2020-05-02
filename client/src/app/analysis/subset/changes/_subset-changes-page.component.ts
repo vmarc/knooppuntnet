@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
@@ -16,6 +17,7 @@ import {SubsetChangesService} from "./subset-changes.service";
 
 @Component({
   selector: "kpn-subset-changes-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-subset-page-header-block

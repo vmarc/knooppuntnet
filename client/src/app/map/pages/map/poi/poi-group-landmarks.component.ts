@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-poi-group-landmarks",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-poi-group name="landmarks" title="Landmarks" i18n-title="@@poi.group.landmarks">
       <kpn-poi-config poiId="windmill"></kpn-poi-config>

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Subscriptions} from "../../../../util/Subscriptions";
 import {ChangeFilterOptions} from "./change-filter-options";
@@ -5,6 +6,7 @@ import {ChangesService} from "./changes.service";
 
 @Component({
   selector: "kpn-changes-sidebar",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
       <kpn-change-filter [filterOptions]="filterOptions"></kpn-change-filter>

@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {PageService} from "../../../components/shared/page.service";
 import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: "kpn-login-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-page-header subject="login-page" i18n="@@login.title">Login</kpn-page-header>

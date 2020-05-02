@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {flatMap, map, tap} from "rxjs/operators";
@@ -10,6 +11,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-network-map-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-network-page-header

@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {RouteChangeInfo} from "../../../../kpn/api/common/route/route-change-info";
 
 @Component({
   selector: "kpn-route-change-detail",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-route-diff [diffs]="routeChangeInfo.diffs"></kpn-route-diff>

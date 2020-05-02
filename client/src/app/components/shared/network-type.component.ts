@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkType} from "../../kpn/api/custom/network-type";
 
 @Component({
   selector: "kpn-network-type",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="network-type">
       <kpn-network-type-icon [networkType]="networkType"></kpn-network-type-icon>

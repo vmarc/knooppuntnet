@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
 import {TagDetail} from "../../../kpn/api/common/diff/tag-detail";
@@ -5,6 +6,7 @@ import {List} from "immutable";
 
 @Component({
   selector: "kpn-tag-diffs-text",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="!deletedTagDetails.isEmpty()">

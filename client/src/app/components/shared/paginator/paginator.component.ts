@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {Input} from "@angular/core";
 import {Output} from "@angular/core";
@@ -12,6 +13,7 @@ import {PaginatorService} from "./paginator.service";
 
 @Component({
   selector: "kpn-paginator",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="!isTranslationsUpdated()">

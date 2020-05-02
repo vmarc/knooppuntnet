@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {TagDetailType} from "../../../kpn/api/common/diff/tag-detail-type";
 
 @Component({
   selector: "kpn-tag-diff-action",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-icon *ngIf="isAdd()" svgIcon="add"></mat-icon>
     <mat-icon *ngIf="isUpdate()" svgIcon="update"></mat-icon>

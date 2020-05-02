@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NodeDiffsData} from "./node-diffs-data";
 
 @Component({
   selector: "kpn-node-diffs-updated",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">

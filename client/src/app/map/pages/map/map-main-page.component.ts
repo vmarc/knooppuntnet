@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
@@ -25,6 +26,7 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
 
 @Component({
   selector: "kpn-map-main-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-map-popup></kpn-map-popup>
     <mat-progress-bar class="progress" mode="determinate" [value]="progress | async"></mat-progress-bar>

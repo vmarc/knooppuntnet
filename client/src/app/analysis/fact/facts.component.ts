@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {FactInfo} from "./fact-info";
@@ -6,6 +7,7 @@ import {Facts} from "./facts";
 
 @Component({
   selector: "kpn-facts",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="filteredFactInfos.isEmpty()" i18n="@@facts.none">

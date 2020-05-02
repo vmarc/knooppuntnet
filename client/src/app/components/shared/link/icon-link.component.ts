@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {Reference} from "../../../kpn/api/common/common/reference";
 
 @Component({
   selector: "kpn-icon-link",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-network-type-icon [networkType]="reference.networkType"></kpn-network-type-icon>
     <a class="text" [routerLink]="url">{{reference.name}}</a>

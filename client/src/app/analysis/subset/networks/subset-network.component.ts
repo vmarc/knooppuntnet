@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
 
 @Component({
   selector: "kpn-subset-network",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="title">
       <kpn-link-network-details [networkId]="network.id" [title]="network.name"></kpn-link-network-details>

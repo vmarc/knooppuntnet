@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 
 @Component({
   selector: "kpn-indicator",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="indicator" (click)="onOpenDialog()">
       <kpn-indicator-icon [letter]="letter" [color]="color"></kpn-indicator-icon>

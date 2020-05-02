@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {MatRadioChange} from "@angular/material/radio";
 
 @Component({
   selector: "kpn-export-dialog",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2 mat-dialog-title i18n="@@export.title">Export</h2>
     <mat-dialog-content>

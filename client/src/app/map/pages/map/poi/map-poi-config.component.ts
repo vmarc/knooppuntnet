@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-map-poi-config",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-poi-names></kpn-poi-names>
     <kpn-poi-group-hiking-biking></kpn-poi-group-hiking-biking>

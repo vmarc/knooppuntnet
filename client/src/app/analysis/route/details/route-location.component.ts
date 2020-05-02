@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {List} from "immutable";
@@ -7,6 +8,7 @@ import {RouteLocationAnalysis} from "../../../kpn/api/common/route-location-anal
 
 @Component({
   selector: "kpn-route-location",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p *ngIf="!hasLocations()" i18n="@@route.location.none">None</p>
     <div *ngIf="hasLocations()">

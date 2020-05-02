@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
@@ -11,6 +12,7 @@ import {SubsetOrphanNodesService} from "./subset-orphan-nodes.service";
 
 @Component({
   selector: "kpn-subset-orphan-nodes-table",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
       [length]="dataSource.data.length"

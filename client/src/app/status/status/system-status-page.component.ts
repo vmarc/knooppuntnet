@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {Params} from "@angular/router";
@@ -14,6 +15,7 @@ import {StatusLinks} from "./status-links";
 /* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-system-status-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

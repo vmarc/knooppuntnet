@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {MapService} from "../../../components/ol/services/map.service";
 
 @Component({
   selector: "kpn-map-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

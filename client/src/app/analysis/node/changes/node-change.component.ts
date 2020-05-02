@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NodeChangeInfo} from "../../../kpn/api/common/node/node-change-info";
 
 @Component({
   selector: "kpn-node-change",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-change-header

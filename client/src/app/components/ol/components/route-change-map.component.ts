@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
@@ -17,6 +18,7 @@ import {MapLayerService} from "../services/map-layer.service";
 
 @Component({
   selector: "kpn-route-change-map",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapId" class="kpn-embedded-map">
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>

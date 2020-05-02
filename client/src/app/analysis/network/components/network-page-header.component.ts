@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkSummary} from "../../../kpn/api/common/network/network-summary";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 
 @Component({
   selector: "kpn-network-page-header",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

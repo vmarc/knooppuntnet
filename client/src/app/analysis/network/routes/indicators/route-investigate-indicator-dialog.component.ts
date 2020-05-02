@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: "kpn-route-investigate-indicator-dialog",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator-dialog
       letter="F"

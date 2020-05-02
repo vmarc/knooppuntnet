@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 
 @Component({
   selector: "kpn-location-response",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response">
       <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>

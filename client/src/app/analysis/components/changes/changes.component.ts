@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
@@ -5,6 +6,7 @@ import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-
 
 @Component({
   selector: "kpn-changes",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <mat-slide-toggle [checked]="parameters.impact" (change)="impactChanged($event)" i18n="@@changes.impact">Impact</mat-slide-toggle>

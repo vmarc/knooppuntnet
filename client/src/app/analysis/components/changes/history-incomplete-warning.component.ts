@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-history-incomplete-warning",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="note" i18n="@@history-incomplete.warning">
       Older changes cannot be shown. The history in the analysis database

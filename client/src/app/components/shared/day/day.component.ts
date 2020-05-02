@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {Timestamp} from "../../../kpn/api/custom/timestamp";
 
 @Component({
   selector: "kpn-day",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     {{formattedTimestamp()}}
   `

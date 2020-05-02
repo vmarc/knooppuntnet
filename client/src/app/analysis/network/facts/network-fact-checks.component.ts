@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {Check} from "../../../kpn/api/common/check";
 
 @Component({
   selector: "kpn-network-fact-checks",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <table title="node integrity check failures" i18n-title="@@network-facts.checks-table.title" class="kpn-table">

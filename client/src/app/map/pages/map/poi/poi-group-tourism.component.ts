@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-poi-group-tourism",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-poi-group name="tourism" title="Tourism" i18n-title="@@poi.group.tourism">
       <kpn-poi-config poiId="arts-centre"></kpn-poi-config>

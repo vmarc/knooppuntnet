@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-details-page";
 
 @Component({
   selector: "kpn-network-summary",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p  class="kpn-km">
       {{page.attributes.km}}

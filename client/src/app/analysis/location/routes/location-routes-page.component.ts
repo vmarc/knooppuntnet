@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
@@ -6,6 +7,7 @@ import {LocationRoutesPageService} from "./location-routes-page.service";
 
 @Component({
   selector: "kpn-location-routes-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-location-page-header
       pageName="routes"

@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 
 @Component({
   selector: "kpn-fact-description",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container [ngSwitch]="factName">
       <kpn-fact-added *ngSwitchCase="'Added'"></kpn-fact-added>

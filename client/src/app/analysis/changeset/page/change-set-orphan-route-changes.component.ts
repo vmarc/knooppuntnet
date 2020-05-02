@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {ChangeSetElementRef} from "../../../kpn/api/common/change-set-element-ref";
@@ -9,6 +10,7 @@ import {RouteDiffsData} from "./route-diffs/route-diffs-data";
 
 @Component({
   selector: "kpn-change-set-orphan-route-changes",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let refs of page.summary.orphanRouteChanges" class="kpn-level-1">
       <div class="kpn-level-1-header kpn-line">

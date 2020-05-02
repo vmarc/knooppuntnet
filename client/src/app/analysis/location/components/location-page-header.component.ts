@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {LocationSummary} from "../../../kpn/api/common/location/location-summary";
@@ -5,6 +6,7 @@ import {LocationService} from "../location.service";
 
 @Component({
   selector: "kpn-location-page-header",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="service.locationKey | async as locationKey">
 

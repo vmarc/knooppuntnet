@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {Stat} from "../domain/stat";
 
 @Component({
   selector: "kpn-overview-list-stat",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div class="item">

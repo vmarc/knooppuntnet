@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 
 @Component({
   selector: "kpn-network-node-analysis",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="analysis">
       <kpn-network-indicator [node]="node"></kpn-network-indicator>

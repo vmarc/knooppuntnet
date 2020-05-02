@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {FilterOptionGroup} from "../../../kpn/filter/filter-option-group";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 
 @Component({
   selector: "kpn-filter-checkbox-group",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <div class="group-name">{{group.name}}</div>

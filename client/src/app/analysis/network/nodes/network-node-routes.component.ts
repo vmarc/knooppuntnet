@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
 
 @Component({
   selector: "network-node-routes",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <span *ngIf="node.routeReferences.isEmpty()" class="no-routes" i18n="@@network-nodes.no-routes">

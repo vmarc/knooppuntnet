@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {Observable} from "rxjs";
 import {AnalysisModeService} from "./analysis-mode.service";
 
 @Component({
   selector: "kpn-analysis-horse-riding-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

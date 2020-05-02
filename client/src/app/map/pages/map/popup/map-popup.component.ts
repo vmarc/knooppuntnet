@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {PlannerService} from "../../../planner.service";
 
 @Component({
   selector: "kpn-map-popup",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="popup" class="ol-popup">
       <a href="#" (click)="closePopup()" id="popup-closer" class="ol-popup-closer"></a>

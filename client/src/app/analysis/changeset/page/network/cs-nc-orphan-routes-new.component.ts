@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/network-change-info";
@@ -6,6 +7,7 @@ import {Ref} from "../../../../kpn/api/common/common/ref";
 
 @Component({
   selector: "kpn-cs-nc-orphan-routes-new",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-detail kpn-line">
       <span i18n="@@change-set.network-changes.orphan-routes-introduced" class="kpn-label">

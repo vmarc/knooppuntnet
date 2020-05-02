@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-json",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <br/>
     <br/>

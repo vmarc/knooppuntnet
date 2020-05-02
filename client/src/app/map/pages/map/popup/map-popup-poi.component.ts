@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnDestroy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {ChangeDetectorRef, Component} from "@angular/core";
@@ -15,6 +16,7 @@ import {PlannerService} from "../../../planner.service";
 
 @Component({
   selector: "kpn-map-popup-poi",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="poi == null" class="item" i18n="@@poi.detail.none">No details available</div>

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
 import {Component} from "@angular/core";
@@ -18,6 +19,7 @@ import {FactInfo} from "../../fact/fact-info";
 
 @Component({
   selector: "kpn-node-details-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

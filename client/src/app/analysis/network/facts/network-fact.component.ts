@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkFact} from "../../../kpn/api/common/network-fact";
 
 @Component({
   selector: "kpn-network-fact",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-network-fact-header [fact]="fact"></kpn-network-fact-header>
 

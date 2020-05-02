@@ -24,6 +24,7 @@
       "prefix": "kpn",
       "schematics": {
         "@schematics/angular:component": {
+          "changeDetection": "OnPush",
           "style": "scss",
           "inlineStyle": true,
           "inlineTemplate": true,

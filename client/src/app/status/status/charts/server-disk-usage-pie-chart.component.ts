@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {List} from "immutable";
@@ -5,6 +6,7 @@ import {NameValue} from "../../../kpn/api/common/status/name-value";
 
 @Component({
   selector: "kpn-server-disk-usage-pie-chart",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="server">
       <span>{{title}}</span>

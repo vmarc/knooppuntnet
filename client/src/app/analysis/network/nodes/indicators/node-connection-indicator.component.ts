@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
@@ -6,6 +7,7 @@ import {NodeConnectionIndicatorDialogComponent} from "./node-connection-indicato
 
 @Component({
   selector: "kpn-node-connection-indicator",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
       letter="C"

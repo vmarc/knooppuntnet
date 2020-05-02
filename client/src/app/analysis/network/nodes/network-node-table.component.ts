@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
@@ -13,6 +14,7 @@ import {NetworkNodesService} from "./network-nodes.service";
 
 @Component({
   selector: "kpn-network-node-table",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" [showFirstLastButtons]="true"></kpn-paginator>
 

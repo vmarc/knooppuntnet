@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
@@ -16,6 +17,7 @@ import {Facts} from "../../fact/facts";
 
 @Component({
   selector: "kpn-subset-facts-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-subset-page-header-block

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {StatusLinks} from "./status-links";
@@ -5,6 +6,7 @@ import {StatusLinks} from "./status-links";
 /* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-status-page-menu",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-menu>
       <kpn-page-menu-option [link]="links.hour" [active]="periodType === 'hour'">Hour</kpn-page-menu-option>

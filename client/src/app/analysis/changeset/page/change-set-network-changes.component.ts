@@ -1,4 +1,5 @@
 import {DOCUMENT} from "@angular/common";
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Inject} from "@angular/core";
 import {OnDestroy} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
@@ -9,6 +10,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-change-set-network-changes",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let networkChangeInfo of page.networkChanges" class="kpn-level-1">
       <a [id]="networkChangeInfo.networkId"></a>

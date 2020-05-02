@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {PageService} from "../page.service";
 
 @Component({
   selector: "kpn-toolbar",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-toolbar>
       <button mat-icon-button (click)="toggleSidebarOpen()">

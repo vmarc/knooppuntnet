@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
@@ -16,6 +17,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
 @Component({
   selector: "kpn-subset-networks-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-subset-page-header-block

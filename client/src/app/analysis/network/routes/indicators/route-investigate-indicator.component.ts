@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
@@ -6,6 +7,7 @@ import {RouteInvestigateIndicatorDialogComponent} from "./route-investigate-indi
 
 @Component({
   selector: "kpn-route-investigate-indicator",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
       letter="F"

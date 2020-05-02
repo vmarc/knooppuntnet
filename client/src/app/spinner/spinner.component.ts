@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {debounceTime} from "rxjs/operators";
 import {Subscriptions} from "../util/Subscriptions";
@@ -5,6 +6,7 @@ import {SpinnerService} from "./spinner.service";
 
 @Component({
   selector: "kpn-spinner",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-spinner *ngIf="showSpinner" diameter="40"></mat-spinner>
   `

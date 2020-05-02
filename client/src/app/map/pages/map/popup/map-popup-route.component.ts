@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {ChangeDetectorRef} from "@angular/core";
 import {Component} from "@angular/core";
 import {Observable} from "rxjs";
@@ -12,6 +13,7 @@ import {PlannerService} from "../../../planner.service";
 
 @Component({
   selector: "kpn-map-popup-route",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response$ | async as response">
       <h2>

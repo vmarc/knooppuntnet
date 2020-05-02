@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {List} from "immutable";
 import {ChangeSetNetwork} from "../../../kpn/api/common/change-set-network";
@@ -6,6 +7,7 @@ import {ChangeSetNetworkAction} from "./components/change-set-network.component"
 
 @Component({
   selector: "kpn-change-set",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div class="change-set">

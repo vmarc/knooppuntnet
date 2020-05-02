@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {Facts} from "../fact/facts";
 
 @Component({
   selector: "kpn-facts-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1 i18n="@@fact-page.title">
       All facts

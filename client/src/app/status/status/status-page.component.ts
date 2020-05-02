@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {Observable} from "rxjs";
@@ -10,6 +11,7 @@ import {StatusLinks} from "./status-links";
 /* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-status-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response$ | async as response">
       <p>

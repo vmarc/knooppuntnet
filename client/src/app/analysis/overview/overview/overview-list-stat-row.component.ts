@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {Country} from "../../../kpn/api/custom/country";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
@@ -6,6 +7,7 @@ import {Stat} from "../domain/stat";
 
 @Component({
   selector: "kpn-overview-list-stat-row",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <tr>
       <td *ngIf="rowspan" [rowSpan]="rowspan">

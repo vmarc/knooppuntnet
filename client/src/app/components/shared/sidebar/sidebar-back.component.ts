@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {PageService} from "../page.service";
 
 @Component({
   selector: "kpn-sidebar-back",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-nav-list>
       <mat-list-item (click)="back()">

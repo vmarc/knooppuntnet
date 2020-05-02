@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
@@ -12,6 +13,7 @@ import {LocationSelectionService} from "./location-selection.service";
 
 @Component({
   selector: "kpn-location-selection-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="locationNode$ | async as locationNode">
 

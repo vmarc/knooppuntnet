@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";
@@ -18,6 +19,7 @@ class SubsetFact {
 
 @Component({
   selector: "kpn-subset-fact-details-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="subsetFact$ | async as subsetFact">

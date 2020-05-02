@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {Ref} from "../../../../kpn/api/common/common/ref";
 
 @Component({
   selector: "kpn-route-node-diff",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span *ngIf="title === 'startNodes'" i18n="@@route-changes.node-diff.start-nodes">
         Start nodes

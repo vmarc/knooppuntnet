@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from "@angular/core";
 import {TranslationUnit} from "./domain/translation-unit";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
@@ -7,6 +8,7 @@ import {List} from "immutable";
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translation-unit",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="translationUnit">

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {saveAs} from "file-saver";
 import {TranslationFile} from "./domain/translation-file";
@@ -8,6 +9,7 @@ import {List} from "immutable";
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translations-edit",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div class="top">

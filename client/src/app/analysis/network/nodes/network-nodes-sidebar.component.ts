@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -5,6 +6,7 @@ import {NetworkNodesService} from "./network-nodes.service";
 
 @Component({
   selector: "kpn-network-nodes-sidebar",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
       <kpn-filter [filterOptions]="filterOptions"></kpn-filter>

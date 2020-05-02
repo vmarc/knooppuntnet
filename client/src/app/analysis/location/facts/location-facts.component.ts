@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {List} from "immutable";
@@ -8,6 +9,7 @@ import {Facts} from "../../fact/facts";
 
 @Component({
   selector: "kpn-location-facts",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="locationFacts.isEmpty()" i18n="@@location-facts.none" class="none">

@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from "@angular/core";
 import {PoiService} from "../../../../services/poi.service";
 
 @Component({
   selector: "kpn-poi-names",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!isRegistryUpdated()">
       <span id="alcohol" i18n="@@poi.alcohol">Alcohol</span>

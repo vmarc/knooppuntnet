@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {ChangeFilterOptions} from "./change-filter-options";
 
 @Component({
   selector: "kpn-change-filter",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!filterOptions.options.isEmpty()" class="filter">
       <div class="title" i18n="@@change-filter.title">Filter</div>

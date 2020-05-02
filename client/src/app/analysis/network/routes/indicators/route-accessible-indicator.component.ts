@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
@@ -8,6 +9,7 @@ import {RouteAccessibleIndicatorDialogComponent} from "./route-accessible-indica
 
 @Component({
   selector: "kpn-route-accessible-indicator",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
       letter="A"

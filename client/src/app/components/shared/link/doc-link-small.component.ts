@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-doc-link-small",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [href]="href()"
        target="knooppuntnet-documentation"

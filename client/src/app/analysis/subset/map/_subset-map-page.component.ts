@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
@@ -18,6 +19,7 @@ import {SubsetMapNetworkDialogComponent} from "./subset-map-network-dialog.compo
 
 @Component({
   selector: "kpn-subset-map-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-subset-page-header-block
       [subset]="subset$ | async"

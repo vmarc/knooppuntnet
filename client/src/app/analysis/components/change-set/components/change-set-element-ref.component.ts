@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {ChangeSetElementRef} from "../../../../kpn/api/common/change-set-element-ref";
 
@@ -10,6 +11,7 @@ export class ChangeSetElement {
 
 @Component({
   selector: "kpn-change-set-element-ref",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [ngClass]="['ref-block', borderStyle()]">
       <div [ngClass]="['icon', element.action]">

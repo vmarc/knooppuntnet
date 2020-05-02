@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -5,6 +6,7 @@ import {SubsetOrphanRoutesService} from "./subset-orphan-routes.service";
 
 @Component({
   selector: "kpn-subset-orphan-routes-sidebar",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
       <kpn-filter [filterOptions]="filterOptions"></kpn-filter>

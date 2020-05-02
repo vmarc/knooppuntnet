@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {BarChart} from "../../../../kpn/api/common/status/bar-chart";
@@ -5,6 +6,7 @@ import {BarChart} from "../../../../kpn/api/common/status/bar-chart";
 /* tslint:disable:template-i18n english only */
 @Component({
   selector: "kpn-disk-space-overpass-chart",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2>
       Disk space overpass

@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit} from "@angular/core";
 import {KnownElements} from "../../../kpn/api/common/common/known-elements";
 import {Ref} from "../../../kpn/api/common/common/ref";
 
 @Component({
   selector: "kpn-link-route-ref",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-link-route *ngIf="known" [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
     <kpn-osm-link-relation *ngIf="!known" [relationId]="ref.id" [title]="ref.name"></kpn-osm-link-relation>

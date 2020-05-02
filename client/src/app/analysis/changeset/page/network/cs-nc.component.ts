@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {ChangeSetPage} from "../../../../kpn/api/common/changes/change-set-page";
 import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/network-change-info";
@@ -6,6 +7,7 @@ import {RouteDiffsData} from "../route-diffs/route-diffs-data";
 
 @Component({
   selector: "kpn-cs-nc-component",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-cs-nc-type [networkChangeInfo]="networkChangeInfo"></kpn-cs-nc-type>

@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {FactDiffs} from "../../../kpn/api/common/diff/common/fact-diffs";
 
 @Component({
   selector: "kpn-fact-diffs",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!!factDiffs">
 

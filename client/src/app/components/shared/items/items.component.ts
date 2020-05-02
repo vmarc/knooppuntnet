@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-items",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="items">
       <ng-content></ng-content>

@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 
 @Component({
   selector: "kpn-josm-link",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a rel="nofollow" [href]="href()" i18n="@@links.edit">edit</a>
   `

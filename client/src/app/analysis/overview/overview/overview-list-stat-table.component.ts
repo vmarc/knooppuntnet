@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {Countries} from "../../../kpn/common/countries";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
@@ -5,6 +6,7 @@ import {Stat} from "../domain/stat";
 
 @Component({
   selector: "kpn-overview-list-stat-table",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table class="kpn-table">
       <tbody>

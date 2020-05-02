@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnDestroy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
@@ -21,6 +22,7 @@ import {MapLayerService} from "../services/map-layer.service";
 
 @Component({
   selector: "kpn-subset-map",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="subset-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>

@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {FilterOptionGroup} from "../../../kpn/filter/filter-option-group";
 import {MatRadioChange} from "@angular/material/radio";
 
 @Component({
   selector: "kpn-filter-radio-group",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <div class="group-name">{{group.name}}</div>

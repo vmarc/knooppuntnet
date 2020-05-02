@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {Tags} from "../../../kpn/api/custom/tags";
 
 @Component({
   selector: "kpn-tags-text",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="tags.isEmpty()" i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
 

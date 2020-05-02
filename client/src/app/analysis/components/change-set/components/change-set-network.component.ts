@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {ChangeSetNetwork} from "../../../../kpn/api/common/change-set-network";
 import {ChangeKey} from "../../../../kpn/api/common/changes/details/change-key";
@@ -11,6 +12,7 @@ export class ChangeSetNetworkAction {
 
 @Component({
   selector: "kpn-change-set-network",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
       <span>{{domain()}}</span>

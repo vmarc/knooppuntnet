@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
@@ -8,6 +9,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-overview-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

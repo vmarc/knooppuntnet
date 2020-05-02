@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
 
 @Component({
   selector: "kpn-subset-network-table",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <table class="kpn-table">

@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MetaData} from "../../../kpn/api/common/data/meta-data";
 
 @Component({
   selector: "kpn-version-change",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-thin">
       <ng-container *ngIf="isNewVersion()" i18n="@@version-change.relation-changed-to">

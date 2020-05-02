@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from "@angular/core";
 import {PageService} from "../page.service";
 
 @Component({
   selector: "kpn-page-header",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="header">
       <h1 #title>

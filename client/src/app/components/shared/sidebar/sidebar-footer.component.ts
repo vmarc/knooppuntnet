@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
@@ -5,6 +6,7 @@ import {UserService} from "../../../services/user.service";
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-sidebar-footer",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="footer">
       <ul class="links">

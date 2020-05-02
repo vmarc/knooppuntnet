@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {List} from "immutable";
@@ -9,6 +10,7 @@ import {LocationOption} from "./location-option";
 
 @Component({
   selector: "kpn-location-selector",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form class="selector-form" [formGroup]="formGroup" (submit)="select()">
       <mat-form-field class="selector-full-width">

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {Util} from "../../../components/shared/util";
 import {I18nService} from "../../../i18n/i18n.service";
@@ -7,6 +8,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
 @Component({
   selector: "kpn-subset-page-header-block",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <ul class="breadcrumb">

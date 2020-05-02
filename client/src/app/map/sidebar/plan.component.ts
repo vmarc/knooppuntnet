@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {PdfService} from "../../pdf/pdf.service";
@@ -9,6 +10,7 @@ import {ExportDialogComponent} from "./export-dialog.component";
 
 @Component({
   selector: "kpn-plan",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-plan-translations></kpn-plan-translations>

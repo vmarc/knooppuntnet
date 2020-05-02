@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NodeNetworkReference} from "../../../kpn/api/common/node/node-network-reference";
 import {Reference} from "../../../kpn/api/common/common/reference";
@@ -6,6 +7,7 @@ import {NodeNetworkRouteReference} from "../../../kpn/api/common/node/node-netwo
 
 @Component({
   selector: "kpn-node-network-reference",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <kpn-icon-network-link [reference]="toReference(reference)"></kpn-icon-network-link>

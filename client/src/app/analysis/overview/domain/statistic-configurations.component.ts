@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, ChangeDetectorRef, Component, ViewChildren} from "@angular/core";
 import {List} from "immutable";
 import {Subset} from "src/app/kpn/api/custom/subset";
@@ -6,6 +7,7 @@ import {StatisticConfigurationComponent} from "./statistic-configuration.compone
 
 @Component({
   selector: "kpn-statistic-configurations",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div *ngIf="!isRegistryUpdated()">

@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
 import {ElementRef} from "@angular/core";
 import {ViewChild} from "@angular/core";
@@ -5,6 +6,7 @@ import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-elevation-profile",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <canvas #profile width="200" height="100"></canvas>
     <mat-divider></mat-divider>

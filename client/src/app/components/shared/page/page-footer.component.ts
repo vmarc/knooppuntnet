@@ -1,7 +1,9 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-page-footer",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="footer links">
       <li>

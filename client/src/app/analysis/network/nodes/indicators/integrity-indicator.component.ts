@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
@@ -8,6 +9,7 @@ import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.co
 
 @Component({
   selector: "kpn-integrity-indicator",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
       letter="E"

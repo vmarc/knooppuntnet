@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AppService} from "../../../app.service";
@@ -16,6 +17,7 @@ class ChangeSetKey {
 
 @Component({
   selector: "kpn-change-set-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
       <h1>
           <ng-container i18n="@@change-set.title">Changeset</ng-container>

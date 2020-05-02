@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network-change-info";
 
 @Component({
   selector: "kpn-network-change",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <!-- changeType -->

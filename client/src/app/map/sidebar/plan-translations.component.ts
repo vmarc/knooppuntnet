@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from "@angular/core";
 import {PlannerService} from "../planner.service";
 
 @Component({
   selector: "kpn-plan-translations",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!isRegistryUpdated()">
 

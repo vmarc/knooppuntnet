@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
 import {LocationNodeInfo} from "../../../kpn/api/common/location/location-node-info";
 
 @Component({
   selector: "kpn-location-node-routes",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span *ngIf="node.routeReferences.isEmpty()" class="no-routes" i18n="@@location-nodes.no-routes">
       no routes

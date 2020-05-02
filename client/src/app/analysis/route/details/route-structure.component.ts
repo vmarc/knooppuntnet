@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {List} from "immutable";
 
 @Component({
   selector: "kpn-route-structure",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table class="kpn-table">
       <tbody>

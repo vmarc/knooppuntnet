@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {OnDestroy} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
@@ -20,6 +21,7 @@ import {NodeChangesService} from "./node-changes.service";
 
 @Component({
   selector: "kpn-node-changes-page",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

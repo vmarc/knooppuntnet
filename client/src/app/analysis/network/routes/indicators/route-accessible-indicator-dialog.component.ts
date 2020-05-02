@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {NetworkType} from "../../../../kpn/api/custom/network-type";
@@ -5,6 +6,7 @@ import {RouteAccessibleData} from "./route-accessible-data";
 
 @Component({
   selector: "kpn-route-acccessible-indicator-dialog",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator-dialog
       letter="A"

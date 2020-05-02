@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {OverviewService} from "./overview.service";
@@ -6,6 +7,7 @@ import {Statistics} from "../../../kpn/api/custom/statistics";
 
 @Component({
   selector: "kpn-overview-table",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table title="overview" class="kpn-table">
       <kpn-overview-table-header></kpn-overview-table-header>

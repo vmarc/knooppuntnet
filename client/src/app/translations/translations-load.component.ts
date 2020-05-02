@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, EventEmitter, Output} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TranslationsService} from "./translations.service";
@@ -8,6 +9,7 @@ import {TranslationFile} from "./domain/translation-file";
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translations-load",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <div class="section-title">

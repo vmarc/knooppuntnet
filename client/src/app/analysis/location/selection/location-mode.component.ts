@@ -1,9 +1,11 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {MatRadioChange} from "@angular/material/radio";
 import {LocationModeService} from "./location-mode.service";
 
 @Component({
   selector: "kpn-location-mode",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-radio-group [value]="mode()" (change)="modeChanged($event)">
       <mat-radio-button

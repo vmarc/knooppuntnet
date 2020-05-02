@@ -1,3 +1,4 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {TranslationLocation} from "./domain/translation-location";
@@ -5,6 +6,7 @@ import {TranslationLocation} from "./domain/translation-location";
 /* tslint:disable:template-i18n */
 @Component({
   selector: "kpn-translation-locations",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="locations">
       <mat-checkbox [checked]="showLocations" (change)="toggleShowLocations()">

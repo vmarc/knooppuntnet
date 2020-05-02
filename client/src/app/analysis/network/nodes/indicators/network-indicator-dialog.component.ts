@@ -1,8 +1,10 @@
+import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: "kpn-network-indicator-dialog",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-indicator-dialog
