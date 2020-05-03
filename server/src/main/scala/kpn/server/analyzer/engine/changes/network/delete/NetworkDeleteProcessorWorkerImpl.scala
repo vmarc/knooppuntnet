@@ -47,52 +47,58 @@ class NetworkDeleteProcessorWorkerImpl(
   }
 
   private def doProcess(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
+    try {
+      analysisContext.data.networks.watched.delete(networkId)
+      networkLoader.load(Some(context.timestampBefore), networkId) match {
+        case None =>
+          log.error(
+            s"Processing network delete from changeset ${context.replicationId.name}\n" +
+              s"Could not load 'before' network with id $networkId at ${context.timestampBefore.yyyymmddhhmmss}.\n" +
+              "Continue processing changeset without this network."
+          )
+          ChangeSetChanges()
 
-    analysisContext.data.networks.watched.delete(networkId)
+        case Some(loadedNetwork) =>
 
-    networkLoader.load(Some(context.timestampBefore), networkId) match {
-      case None =>
-        log.error(
-          s"Processing network delete from changeset ${context.replicationId.name}\n" +
-            s"Could not load 'before' network with id $networkId at ${context.timestampBefore.yyyymmddhhmmss}.\n" +
-            "Continue processing changeset without this network."
-        )
-        ChangeSetChanges()
+          val networkBefore = {
+            val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
+            networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
+          }
 
-      case Some(loadedNetwork) =>
+          saveDeletedNetworkInfo(context, networkBefore)
 
-        val networkBefore = {
-          val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
-          networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
-        }
+          val nodeAndRouteChanges = changeBuilder.build(context, Some(networkBefore), None)
 
-        saveDeletedNetworkInfo(context, networkBefore)
+          val newOrphanRoutes = nodeAndRouteChanges.routeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
+          val newOrphanNodes = nodeAndRouteChanges.nodeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
 
-        val nodeAndRouteChanges = changeBuilder.build(context, Some(networkBefore), None)
+          val networkChange = NetworkChange(
+            key = context.buildChangeKey(networkId),
+            changeType = ChangeType.Delete,
+            orphanRoutes = RefChanges(newRefs = newOrphanRoutes),
+            orphanNodes = RefChanges(newRefs = newOrphanNodes),
+            country = networkBefore.country,
+            networkType = networkBefore.networkType,
+            networkId = networkId,
+            networkName = networkBefore.name,
+            networkDataUpdate = None,
+            networkNodes = RefDiffs.empty,
+            routes = RefDiffs.empty,
+            nodes = IdDiffs.empty,
+            ways = IdDiffs.empty,
+            relations = IdDiffs.empty,
+            happy = false,
+            investigate = true
+          )
 
-        val newOrphanRoutes = nodeAndRouteChanges.routeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
-        val newOrphanNodes = nodeAndRouteChanges.nodeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
-
-        val networkChange = NetworkChange(
-          key = context.buildChangeKey(networkId),
-          changeType = ChangeType.Delete,
-          orphanRoutes = RefChanges(newRefs = newOrphanRoutes),
-          orphanNodes = RefChanges(newRefs = newOrphanNodes),
-          country = networkBefore.country,
-          networkType = networkBefore.networkType,
-          networkId = networkId,
-          networkName = networkBefore.name,
-          networkDataUpdate = None,
-          networkNodes = RefDiffs.empty,
-          routes = RefDiffs.empty,
-          nodes = IdDiffs.empty,
-          ways = IdDiffs.empty,
-          relations = IdDiffs.empty,
-          happy = false,
-          investigate = true
-        )
-
-        merge(ChangeSetChanges(networkChanges = Seq(networkChange)), nodeAndRouteChanges)
+          merge(ChangeSetChanges(networkChanges = Seq(networkChange)), nodeAndRouteChanges)
+      }
+    }
+    catch {
+      case e: Throwable =>
+        val message = s"Exception while processing network delete (networkId=$networkId) at ${context.timestampAfter.yyyymmddhhmmss} in changeset ${context.replicationId.name}."
+        log.error(message, e)
+        throw e
     }
   }
 

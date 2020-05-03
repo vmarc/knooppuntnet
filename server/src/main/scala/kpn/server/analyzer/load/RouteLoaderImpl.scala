@@ -22,6 +22,19 @@ class RouteLoaderImpl(
   private val log = Log(classOf[RouteLoaderImpl])
 
   override def loadRoute(timestamp: Timestamp, routeId: Long): Option[LoadedRoute] = {
+    log.info("Load route " + routeId)
+    try {
+      doLoadRoute(timestamp, routeId)
+    }
+    catch {
+      case e: Throwable =>
+        val message = s"Exception loading route (routeId=$routeId)"
+        log.error(message, e)
+        throw e
+    }
+  }
+
+  private def doLoadRoute(timestamp: Timestamp, routeId: Long): Option[LoadedRoute] = {
 
     val xmlString: String = log.elapsed {
       val xml = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(routeId))
@@ -62,5 +75,4 @@ class RouteLoaderImpl(
       }
     }
   }
-
 }

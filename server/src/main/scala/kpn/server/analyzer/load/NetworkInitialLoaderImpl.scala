@@ -24,7 +24,7 @@ class NetworkInitialLoaderImpl(
         Log.context(context) {
           log.error(message, ex)
         }
-        throw new RuntimeException(s"[$context] $message")
+        throw new RuntimeException(s"[$context] $message", ex)
       }
     }
     allOf(futures: _*).join()

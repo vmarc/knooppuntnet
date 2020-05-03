@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class RoutesLoaderImpl(
-  analysisExecutor: Executor,
+  routeLoaderExecutor: Executor,
   routeLoader: RouteLoader
 ) extends RoutesLoader {
 
@@ -25,12 +25,12 @@ class RoutesLoaderImpl(
       log.debugElapsed {
         val futures = routeIds.zipWithIndex.map { case (routeId, index) =>
           val context = Log.contextAnd(s"${index + 1}/${routeIds.size}, route=$routeId")
-          supplyAsync(() => Log.context(context)(routeLoader.loadRoute(timestamp, routeId)), analysisExecutor).exceptionally { ex =>
+          supplyAsync(() => Log.context(context)(routeLoader.loadRoute(timestamp, routeId)), routeLoaderExecutor).exceptionally { ex =>
             val message = "Exception while loading route"
             Log.context(context) {
               log.error(message, ex)
             }
-            throw new RuntimeException(s"[$context] $message")
+            throw new RuntimeException(s"[$context] $message", ex)
           }
         }
 

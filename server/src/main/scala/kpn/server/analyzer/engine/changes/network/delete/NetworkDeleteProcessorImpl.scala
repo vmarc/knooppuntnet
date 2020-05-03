@@ -23,7 +23,7 @@ class NetworkDeleteProcessorImpl(
       val message = "Exception while processing network delete"
       Log.context(context) {
         log.error(message, ex)
-        throw new RuntimeException(s"${Log.contextString} $message")
+        throw new RuntimeException(s"${Log.contextString} $message", ex)
       }
     }
   }

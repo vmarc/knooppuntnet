@@ -13,17 +13,14 @@ import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
 import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
-import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 @Configuration
-@Autowired
-class ServerConfiguration(emailSender: JavaMailSender) {
+class ServerConfiguration() {
 
   @Bean
   @Primary
@@ -37,10 +34,25 @@ class ServerConfiguration(emailSender: JavaMailSender) {
     val executor = new ThreadPoolTaskExecutor
     executor.setCorePoolSize(poolSize)
     executor.setMaxPoolSize(poolSize)
+    executor.setKeepAliveSeconds(0)
     executor.setRejectedExecutionHandler(new CallerRunsPolicy)
     executor.setWaitForTasksToCompleteOnShutdown(true)
-    executor.setAwaitTerminationSeconds(60 * 5);
+    executor.setAwaitTerminationSeconds(60 * 5)
     executor.setThreadNamePrefix("analyzer-")
+    executor.initialize()
+    executor
+  }
+
+  @Bean
+  def routeLoaderExecutor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(poolSize)
+    executor.setMaxPoolSize(poolSize)
+    executor.setKeepAliveSeconds(0)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setWaitForTasksToCompleteOnShutdown(true)
+    executor.setAwaitTerminationSeconds(60 * 5)
+    executor.setThreadNamePrefix("route-loader-")
     executor.initialize()
     executor
   }

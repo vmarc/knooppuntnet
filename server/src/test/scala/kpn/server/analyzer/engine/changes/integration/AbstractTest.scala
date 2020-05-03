@@ -186,7 +186,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     val changeBuilder: ChangeBuilder = new ChangeBuilderImpl(
       analysisContext,
       routesLoader,
-      countryAnalyzer,
       routeAnalyzer,
       routeChangeBuilder,
       nodeChangeBuilder

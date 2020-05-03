@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.changes.builder
 
 import kpn.core.analysis.Network
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component
 class ChangeBuilderImpl(
   analysisContext: AnalysisContext,
   routesLoader: RoutesLoader,
-  countryAnalyzer: CountryAnalyzer,
   routeAnalyzer: MasterRouteAnalyzer,
   routeChangeBuilder: RouteChangeBuilder,
   nodeChangeBuilder: NodeChangeBuilder

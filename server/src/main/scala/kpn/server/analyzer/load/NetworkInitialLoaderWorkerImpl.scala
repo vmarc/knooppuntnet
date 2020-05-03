@@ -23,19 +23,27 @@ class NetworkInitialLoaderWorkerImpl(
   private val log = Log(classOf[NetworkInitialLoaderWorkerImpl])
 
   def load(timestamp: Timestamp, networkId: Long): Unit = {
-    log.unitElapsed {
-      if (blackListRepository.get.containsNetwork(networkId)) {
-        s"Ignored blacklisted network ${networkId}"
-      }
-      else {
-        networkLoader.load(Some(timestamp), networkId) match {
-          case Some(loadedNetwork) =>
-            processNetwork(loadedNetwork)
-            loadedNetwork.name
-          case None =>
-            s"Failed to load network ${networkId}"
+    try {
+      log.unitElapsed {
+        if (blackListRepository.get.containsNetwork(networkId)) {
+          s"Ignored blacklisted network ${networkId}"
+        }
+        else {
+          networkLoader.load(Some(timestamp), networkId) match {
+            case Some(loadedNetwork) =>
+              processNetwork(loadedNetwork)
+              loadedNetwork.name
+            case None =>
+              s"Failed to load network ${networkId}"
+          }
         }
       }
+    }
+    catch {
+      case e: Throwable =>
+        val message = s"Exception during initial network load (networkId=$networkId)"
+        log.error(message, e)
+        throw e
     }
   }
 
