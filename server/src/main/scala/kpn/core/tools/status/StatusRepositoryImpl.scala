@@ -32,7 +32,7 @@ class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
 
   def writeChangesStatus(replicationId: ReplicationId): Unit = write(dirs.changesStatus, replicationId)
 
-  private def read(file: File): Option[ReplicationId] = {
+  override def read(file: File): Option[ReplicationId] = {
     if (file.exists()) {
       try {
         Some(ReplicationId(FileUtils.readFileToString(file, "UTF-8").replaceAll("\n", "").toInt))
@@ -47,7 +47,7 @@ class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
     }
   }
 
-  private def write(file: File, replicationId: ReplicationId): Unit = {
+  override def write(file: File, replicationId: ReplicationId): Unit = {
     val tempFile = new File(file.getAbsolutePath + ".tmp")
     FileUtils.writeStringToFile(tempFile, s"${replicationId.number}\n", "UTF-8")
     tempFile.renameTo(file)

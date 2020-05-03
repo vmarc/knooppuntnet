@@ -1,5 +1,7 @@
 package kpn.server.analyzer
 
+import java.io.File
+
 import javax.annotation.PreDestroy
 import kpn.api.common.ReplicationId
 import kpn.core.tools.config.Dirs
@@ -13,6 +15,7 @@ import scala.annotation.tailrec
 
 @Component
 class AnalyzerImpl(
+  analyzerStatusFile: String,
   statusRepository: StatusRepository,
   databaseIndexer: DatabaseIndexer,
   engine: AnalyzerEngine,
@@ -37,8 +40,8 @@ class AnalyzerImpl(
   }
 
   def load(): Unit = {
-    statusRepository.analysisStatus2 match {
-      case None => log.error("Could not start: failed to read analysis status " + dirs.analysisStatus2)
+    readStatus() match {
+      case None => log.error(s"Could not start: failed to read analysis status $analyzerStatusFile")
       case Some(replicationId) =>
         databaseIndexer.index(true)
         engine.load(replicationId)
@@ -48,8 +51,8 @@ class AnalyzerImpl(
   def process(): Unit = {
     try {
       active = true
-      statusRepository.analysisStatus2 match {
-        case None => log.error("Could not start: failed to read analysis status")
+      readStatus() match {
+        case None => log.error(s"Could not start: failed to read analysis status $analyzerStatusFile")
         case Some(replicationId) => processLoop(replicationId)
       }
     }
@@ -71,7 +74,7 @@ class AnalyzerImpl(
         return
       }
       engine.process(replicationId)
-      statusRepository.writeAnalysisStatus2(replicationId)
+      writeStatus(replicationId)
       processLoop(replicationId)
     }
   }
@@ -84,5 +87,13 @@ class AnalyzerImpl(
         log.error(message)
         throw new RuntimeException(message)
     }
+  }
+
+  private def readStatus(): Option[ReplicationId] = {
+    statusRepository.read(new File(analyzerStatusFile))
+  }
+
+  private def writeStatus(replicationId: ReplicationId): Unit = {
+    statusRepository.write(new File(analyzerStatusFile), replicationId)
   }
 }
