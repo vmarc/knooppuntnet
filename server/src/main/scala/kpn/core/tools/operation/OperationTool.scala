@@ -32,6 +32,7 @@ class OperationTool {
       "analyzer2",
       "analyzer3",
       "server",
+      "server-history",
       "change-set-info-tool",
       "change-set-info-tool-2",
     )
@@ -79,6 +80,7 @@ class OperationTool {
       case "start analyzer2" => actions.startAnalyzer2()
       case "start analyzer3" => actions.startAnalyzer3()
       case "start server" => actions.startServer()
+      case "start server-history" => actions.startServer()
       case "start change-set-info-tool" => actions.startChangeSetInfoTool()
       case "start change-set-info-tool-2" => actions.startChangeSetInfoTool2()
       case "stop main-dispatcher" => actions.stopMainDispatcher()
@@ -89,6 +91,7 @@ class OperationTool {
       case "stop analyzer2" => actions.stopAnalyzer2()
       case "stop analyzer3" => actions.stopAnalyzer3()
       case "stop server" => actions.stopServer()
+      case "stop server-history" => actions.stopServerHistory()
       case "stop change-set-info-tool" => actions.stopChangeSetInfoTool()
       case "stop change-set-info-tool-2" => actions.stopChangeSetInfoTool2()
       case _ => "Unknown command"

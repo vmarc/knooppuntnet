@@ -52,6 +52,10 @@ class OperationActions {
     Process("/kpn/scripts/server.sh").!!
   }
 
+  def startServerHistory(): String = {
+    Process("/kpn/scripts/server-history.sh").!!
+  }
+
   def startChangeSetInfoTool(): String = {
     Process("/kpn/scripts/change-set-info-tool.sh").!!
   }
@@ -95,6 +99,11 @@ class OperationActions {
 
   def stopServer(): String = {
     new Stop().stopServer("5101")
+    ""
+  }
+
+  def stopServerHistory(): String = {
+    new Stop().stopServer("5111")
     ""
   }
 
