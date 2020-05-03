@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class Mailer(
   emailSender: JavaMailSender,
+  applicationName: String,
   @Value("${mail.from}") mailFrom: String,
   @Value("${mail.to}") mailTo: String
 ) {
@@ -24,6 +25,6 @@ class Mailer(
 
   @PreDestroy
   def onExit(): Unit = {
-    send("Server stopped", "ok?")
+    send("$applicationName - Server stopped", "ok?")
   }
 }

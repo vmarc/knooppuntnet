@@ -4,7 +4,7 @@ import kpn.core.util.Log
 import kpn.server.config.Mailer
 import org.springframework.scheduling.annotation.Scheduled
 
-class AnalyzerJob(analyzer: Analyzer, mailer: Mailer) {
+class AnalyzerJob(applicationName: String, analyzer: Analyzer, mailer: Mailer) {
 
   private val log = Log(classOf[AnalyzerJob])
 
@@ -32,7 +32,7 @@ class AnalyzerJob(analyzer: Analyzer, mailer: Mailer) {
     catch {
       case e: Exception =>
         log.error("Aborted during initial load", e)
-        mailer.send("Analyzer aborted during initial load", e.getStackTrace.mkString("\n"))
+        mailer.send(s"$applicationName analyzer aborted during initial load", e.getStackTrace.mkString("\n"))
         aborted = true
     }
     init = true
@@ -45,7 +45,7 @@ class AnalyzerJob(analyzer: Analyzer, mailer: Mailer) {
     catch {
       case e: Exception =>
         log.error("Aborted", e)
-        mailer.send("Analyzer aborted", e.getStackTrace.mkString("\n"))
+        mailer.send(s"$applicationName analyzer aborted", e.getStackTrace.mkString("\n"))
         aborted = true
     }
   }

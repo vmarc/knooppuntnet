@@ -30,31 +30,23 @@ class ServerConfiguration() {
   def threadMetrics = new JvmThreadMetrics
 
   @Bean
+  def applicationName(@Value("${app.name:server}") value: String): String = {
+    value
+  }
+
+  @Bean
+  def analyzerStatusFile(@Value("${app.analyzer-status:/kpn/status/status}") value: String): String = {
+    value
+  }
+
+  @Bean
   def analysisExecutor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
-    val executor = new ThreadPoolTaskExecutor
-    executor.setCorePoolSize(poolSize)
-    executor.setMaxPoolSize(poolSize)
-    executor.setKeepAliveSeconds(0)
-    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
-    executor.setWaitForTasksToCompleteOnShutdown(true)
-    executor.setAwaitTerminationSeconds(60 * 5)
-    executor.setThreadNamePrefix("analyzer-")
-    executor.initialize()
-    executor
+    buildExecutor("analyzer", poolSize)
   }
 
   @Bean
   def routeLoaderExecutor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
-    val executor = new ThreadPoolTaskExecutor
-    executor.setCorePoolSize(poolSize)
-    executor.setMaxPoolSize(poolSize)
-    executor.setKeepAliveSeconds(0)
-    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
-    executor.setWaitForTasksToCompleteOnShutdown(true)
-    executor.setAwaitTerminationSeconds(60 * 5)
-    executor.setThreadNamePrefix("route-loader-")
-    executor.initialize()
-    executor
+    buildExecutor("route-loader", poolSize)
   }
 
   @Bean
@@ -122,4 +114,16 @@ class ServerConfiguration() {
     new LocationConfigurationReader().read()
   }
 
+  private def buildExecutor(name: String, poolSize: Int): Executor = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(poolSize)
+    executor.setMaxPoolSize(poolSize)
+    executor.setKeepAliveSeconds(0)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setWaitForTasksToCompleteOnShutdown(true)
+    executor.setAwaitTerminationSeconds(60 * 5)
+    executor.setThreadNamePrefix(name + "-")
+    executor.initialize()
+    executor
+  }
 }
