@@ -412,7 +412,6 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)

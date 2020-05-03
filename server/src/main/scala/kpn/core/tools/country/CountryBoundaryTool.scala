@@ -30,7 +30,7 @@ object CountryBoundaryTool {
 
   private def load(country: Country): SkeletonData = {
     println(s"Collecting boundary information for ${country.domain}")
-    val loader = new CountryBoundaryLoader(country)
+    val loader = new CountryBoundaryLoader()
     val id = loader.countryId(country)
     val data = {
       val countryData = loader.countryData(country, id)

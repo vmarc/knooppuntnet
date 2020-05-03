@@ -8,7 +8,6 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -72,7 +71,6 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
     val analysis = routeAnalyzer.analyze(LoadedRoute(None, d.networkType, "", data, relation), orphan = false)

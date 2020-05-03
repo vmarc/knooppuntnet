@@ -4,7 +4,6 @@ import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.api.custom.NetworkType
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
@@ -37,7 +36,6 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
     val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)

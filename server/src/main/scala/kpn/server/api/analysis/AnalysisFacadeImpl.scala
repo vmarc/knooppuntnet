@@ -48,7 +48,6 @@ import kpn.core.app.stats.StatisticsBuilder
 import kpn.core.common.TimestampLocal
 import kpn.core.gpx.GpxFile
 import kpn.core.poi.PoiConfiguration
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.Api
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
@@ -79,21 +78,15 @@ import kpn.server.api.analysis.pages.subset.SubsetNetworksPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.FactRepository
 import kpn.server.repository.NetworkRepository
-import kpn.server.repository.NodeRepository
 import kpn.server.repository.OverviewRepository
-import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class AnalysisFacadeImpl(
   api: Api,
-  nodeRepository: NodeRepository,
-  routeRepository: RouteRepository,
   networkRepository: NetworkRepository,
   overviewRepository: OverviewRepository,
-  factRepository: FactRepository,
   analysisRepository: AnalysisRepository,
   // ---
   nodePageBuilder: NodePageBuilder,
@@ -124,8 +117,6 @@ class AnalysisFacadeImpl(
   locationMapPageBuilder: LocationMapPageBuilder,
   locationChangesPageBuilder: LocationChangesPageBuilder
 ) extends AnalysisFacade {
-
-  private val log = Log(classOf[AnalysisFacadeImpl])
 
   override def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage] = {
     execute(user, "node-details", s"$nodeId") {

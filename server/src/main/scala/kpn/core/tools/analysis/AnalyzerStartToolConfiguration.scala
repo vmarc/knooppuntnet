@@ -16,7 +16,6 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.server.analyzer.engine.DatabaseIndexer
-import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
@@ -27,7 +26,6 @@ import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
@@ -120,17 +118,12 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   private val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
 
-  private val changeSetInfoUpdater = new ChangeSetInfoUpdater {
-    override def changeSetInfo(changeSetId: Long): Unit = {}
-  }
-
   val orphanRepository = new OrphanRepositoryImpl(analysisDatabase)
 
   val factRepository = new FactRepositoryImpl(analysisDatabase)
 
   val nodeLoader = new NodeLoaderImpl(
     nonCachingExecutor,
-    cachingExecutor,
     countryAnalyzer
   )
 
@@ -147,7 +140,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val routeAnalyzer = new MasterRouteAnalyzerImpl(
     analysisContext,
     routeLocationAnalyzer,
-    new AccessibilityAnalyzerImpl(),
     routeTileAnalyzer
   )
 

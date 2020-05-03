@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component
 @Component
 class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepository {
 
-  private val log = Log(classOf[NetworkRepository])
-
   override def allNetworkIds(): Seq[Long] = {
     DocumentView.allNetworkIds(analysisDatabase)
   }

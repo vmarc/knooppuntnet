@@ -20,7 +20,6 @@ import scala.xml.XML
 @Component
 class NodeLoaderImpl(
   nonCachingExecutor: OverpassQueryExecutor,
-  cachingExecutor: OverpassQueryExecutor,
   countryAnalyzer: CountryAnalyzer
 ) extends NodeLoader {
 

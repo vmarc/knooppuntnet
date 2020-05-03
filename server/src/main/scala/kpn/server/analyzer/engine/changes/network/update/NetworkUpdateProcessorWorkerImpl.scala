@@ -1,18 +1,14 @@
 package kpn.server.analyzer.engine.changes.network.update
 
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.load.NetworkLoader
-import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkUpdateProcessorWorkerImpl(
-  analysisRepository: AnalysisRepository,
   networkLoader: NetworkLoader,
-  networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkProcessor: NetworkUpdateNetworkProcessor
 ) extends NetworkUpdateProcessorWorker {
 

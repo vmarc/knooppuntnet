@@ -7,7 +7,6 @@ import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
-import kpn.server.repository.OrphanRepository
 import org.springframework.stereotype.Component
 
 /*
@@ -18,7 +17,6 @@ class OrphanNodesLoaderImpl(
   analysisContext: AnalysisContext,
   nodeIdsLoader: NodeIdsLoader,
   nodesLoader: NodeLoader,
-  orphanRepository: OrphanRepository,
   createProcessor: OrphanNodeCreateProcessor,
   databaseIndexer: DatabaseIndexer
 ) extends OrphanNodesLoader {

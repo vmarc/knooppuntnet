@@ -2,9 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.data.Way
 import kpn.api.custom.NetworkType
-import org.springframework.stereotype.Component
 
-@Component
 class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
 
   def accessible(networkType: NetworkType, way: Way): Boolean = {

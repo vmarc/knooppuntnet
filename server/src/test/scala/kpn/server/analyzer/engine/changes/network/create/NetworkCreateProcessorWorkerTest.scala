@@ -101,7 +101,6 @@ class NetworkCreateProcessorWorkerTest extends UnitTest with MockFactory with Sh
 
     val networkCreateProcessor: NetworkCreateProcessorWorkerImpl = new NetworkCreateProcessorWorkerImpl(
       networkLoader,
-      networkRelationAnalyzer,
       watchedProcessor
     ) {
       override val log: Log = mockLog

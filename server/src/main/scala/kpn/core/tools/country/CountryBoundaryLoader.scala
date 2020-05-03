@@ -9,7 +9,7 @@ import org.xml.sax.SAXParseException
 
 import scala.xml.XML
 
-class CountryBoundaryLoader(country: Country) {
+class CountryBoundaryLoader() {
 
   private val executor = new OverpassQueryExecutorImpl()
 

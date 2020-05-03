@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -29,7 +28,6 @@ object RouteAnalyzerDemo {
         val routeAnalyzer = new MasterRouteAnalyzerImpl(
           analysisContext,
           routeLocationAnalyzer,
-          new AccessibilityAnalyzerImpl(),
           routeTileAnalyzer
         )
         val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = true)

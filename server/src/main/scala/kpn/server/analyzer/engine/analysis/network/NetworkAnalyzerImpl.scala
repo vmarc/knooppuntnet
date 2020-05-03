@@ -30,8 +30,6 @@ class NetworkAnalyzerImpl(
   networkRouteAnalyzer: NetworkRouteAnalyzer
 ) extends NetworkAnalyzer {
 
-  private val log = Log(classOf[NetworkAnalyzerImpl])
-
   def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Network = {
 
     val allNodes = networkNodeAnalyzer.analyze(loadedNetwork.networkType, loadedNetwork.data)

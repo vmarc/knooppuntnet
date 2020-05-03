@@ -13,7 +13,6 @@ import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
@@ -344,7 +343,6 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      new AccessibilityAnalyzerImpl(),
       routeTileAnalyzer
     )
     routeAnalyzer.analyze(LoadedRoute(None, NetworkType.hiking, "", data, routeRelation), orphan = false)
