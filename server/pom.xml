@@ -198,6 +198,24 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>bson</artifactId>
+			<version>4.1.0-beta1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-core</artifactId>
+			<version>4.1.0-beta1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-sync</artifactId>
+			<version>4.1.0-beta1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.sksamuel.scrimage</groupId>
 			<artifactId>scrimage-core</artifactId>
 			<version>4.0.3</version>
