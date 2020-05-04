@@ -117,7 +117,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
   private def loadNetwork(networkId: Long): Unit = {
     try {
       config.networkLoader.load(Some(config.timestamp), networkId) match {
-        case None => log.error("Failed to load network $networkId")
+        case None => log.error(s"Failed to load network $networkId")
         case Some(loadedNetwork) =>
           log.info(s"""Analyze "${loadedNetwork.name}"""")
           val networkRelationAnalysis = config.networkRelationAnalyzer.analyze(loadedNetwork.relation)

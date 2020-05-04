@@ -45,17 +45,17 @@ object DatabaseViewTool {
       updateView(database, ChangeDocumentsDesign)
     }
 
-    //    Couch.executeIn(host, poisDbName) { database =>
-    //      updateView(database, PoiDesign)
-    //    }
-    //
-    //    Couch.executeIn(host, backendDbName) { database =>
-    //      updateView(database, BackendMetricsDesign)
-    //    }
-    //
-    //    Couch.executeIn(host, frontendDbName) { database =>
-    //      updateView(database, FrontendMetricsDesign)
-    //    }
+    Couch.executeIn(host, poisDbName) { database =>
+      updateView(database, PoiDesign)
+    }
+
+    Couch.executeIn(host, backendDbName) { database =>
+      updateView(database, BackendMetricsDesign)
+    }
+
+    Couch.executeIn(host, frontendDbName) { database =>
+      updateView(database, FrontendMetricsDesign)
+    }
 
     println("Ready")
   }
