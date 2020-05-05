@@ -6,6 +6,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
+import org.apache.commons.io.FileUtils
 
 class CachingOverpassQueryExecutor(cacheRootDir: File, val overpassQueryExecutor: OverpassQueryExecutor) extends OverpassQueryExecutor {
 
@@ -19,9 +20,25 @@ class CachingOverpassQueryExecutor(cacheRootDir: File, val overpassQueryExecutor
     timestamp match {
       case None => super.executeQuery(None, query)
       case Some(t) =>
+
         val cacheDir = new File(cacheRootDir, TimestampUtil.cacheDir(t))
         cacheDir.mkdirs()
         val cacheFile = new File(cacheDir, query.name + ".xml.gz")
+
+        // temp code
+        if (!cacheFile.exists()) {
+          val oldCacheDir = new File("/kpn/cache-old/", TimestampUtil.cacheDir(t))
+          val oldCacheFile = new File(oldCacheDir, query.name + ".xml.gz")
+          if (oldCacheFile.exists()) {
+            log.info(s"Re-using request result ${query.name}.xml.gz")
+            FileUtils.copyFile(oldCacheFile, cacheFile)
+          }
+          else {
+            log.info(s"Not found in old cache: ${oldCacheFile.getAbsolutePath}")
+          }
+        }
+        // temp code until here
+
         if (cacheFile.exists()) {
           GZipFile.read(cacheFile.getAbsolutePath)
         }

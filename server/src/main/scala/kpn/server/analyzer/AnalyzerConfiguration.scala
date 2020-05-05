@@ -1,5 +1,8 @@
 package kpn.server.analyzer
 
+import java.io.File
+
+import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs
@@ -23,7 +26,10 @@ class AnalyzerConfiguration {
 
   @Bean
   def overpassQueryExecutor: OverpassQueryExecutor = {
-    new OverpassQueryExecutorImpl()
+    new CachingOverpassQueryExecutor(
+      new File("/kpn/cache"),
+      new OverpassQueryExecutorImpl()
+    )
   }
 
   @Bean
