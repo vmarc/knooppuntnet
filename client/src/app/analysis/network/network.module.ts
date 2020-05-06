@@ -15,7 +15,6 @@ import {NetworkChangesPageComponent} from "./changes/_network-changes-page.compo
 import {NetworkChangeSetComponent} from "./changes/network-change-set.component";
 import {NetworkChangeComponent} from "./changes/network-change.component";
 import {NetworkChangesSidebarComponent} from "./changes/network-changes-sidebar.component";
-import {NetworkChangesService} from "./changes/network-changes.service";
 import {NetworkPageHeaderComponent} from "./components/network-page-header.component";
 import {NetworkDetailsPageComponent} from "./details/_network-details-page.component";
 import {NetworkDetailsComponent} from "./details/network-details.component";
@@ -46,7 +45,6 @@ import {NetworkNodeAnalysisComponent} from "./nodes/network-node-analysis.compon
 import {NetworkNodeRoutesComponent} from "./nodes/network-node-routes.component";
 import {NetworkNodeTableComponent} from "./nodes/network-node-table.component";
 import {NetworkNodesSidebarComponent} from "./nodes/network-nodes-sidebar.component";
-import {NetworkNodesService} from "./nodes/network-nodes.service";
 import {NetworkRoutesPageComponent} from "./routes/_network-routes-page.component";
 import {RouteAccessibleIndicatorDialogComponent} from "./routes/indicators/route-accessible-indicator-dialog.component";
 import {RouteAccessibleIndicatorComponent} from "./routes/indicators/route-accessible-indicator.component";
@@ -57,7 +55,6 @@ import {RouteInvestigateIndicatorComponent} from "./routes/indicators/route-inve
 import {NetworkRouteAnalysisComponent} from "./routes/network-route-analysis.component";
 import {NetworkRouteTableComponent} from "./routes/network-route-table.component";
 import {NetworkRoutesSidebarComponent} from "./routes/network-routes-sidebar.component";
-import {NetworkRoutesService} from "./routes/network-routes.service";
 
 @NgModule({
   imports: [
@@ -119,11 +116,6 @@ import {NetworkRoutesService} from "./routes/network-routes.service";
     NetworkFactRoutesComponent,
     NetworkFactComponent,
     NetworkChangesSidebarComponent
-  ],
-  providers: [
-    NetworkChangesService,
-    NetworkNodesService,
-    NetworkRoutesService
   ]
 })
 export class NetworkModule {

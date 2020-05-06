@@ -1,21 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
+import {combineLatest} from "rxjs";
+import {shareReplay} from "rxjs/operators";
+import {switchMap} from "rxjs/operators";
+import {tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {NetworkChangesPage} from "../../../kpn/api/common/network/network-changes-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {UserService} from "../../../services/user.service";
-import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
+import {NetworkService} from "../network.service";
 import {NetworkChangesService} from "./network-changes.service";
 
 @Component({
   selector: "kpn-network-changes-page",
-  // TODO PUSH changeDetection: ChangeDetectionStrategy.OnPush, see NodeChangesPageComponent
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-network-page-header
-      [networkId]="networkId"
+      [networkId]="networkId$ | async"
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@network-changes.title">
@@ -28,17 +35,17 @@ import {NetworkChangesService} from "./network-changes.service";
         .
       </div>
 
-      <div *ngIf="response">
-        <div *ngIf="!page" i18n="@@network-changes.network-not-found">
+      <div *ngIf="isLoggedIn() && response$ | async as response">
+        <div *ngIf="!response.result" i18n="@@network-changes.network-not-found">
           Network not found
         </div>
-        <div *ngIf="page">
+        <div *ngIf="response.result">
           <p>
             <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
           </p>
-          <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
+          <kpn-changes [(parameters)]="parameters" [totalCount]="response.result.totalCount" [changeCount]="response.result.changes.size">
             <kpn-items>
-              <kpn-item *ngFor="let networkChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
+              <kpn-item *ngFor="let networkChangeInfo of response.result.changes; let i=index" [index]="rowIndex(i)">
                 <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
               </kpn-item>
             </kpn-items>
@@ -50,53 +57,55 @@ import {NetworkChangesService} from "./network-changes.service";
     </div>
   `
 })
-export class NetworkChangesPageComponent implements OnInit, OnDestroy {
+export class NetworkChangesPageComponent implements OnInit {
 
-  networkId: number;
-  response: ApiResponse<NetworkChangesPage>;
-
-  private readonly subscriptions = new Subscriptions();
+  networkId$: Observable<number>;
+  response$: Observable<ApiResponse<NetworkChangesPage>>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private networkChangesService: NetworkChangesService,
+              private networkService: NetworkService,
               private networkCacheService: NetworkCacheService,
               private userService: UserService) {
-    const initialParameters = new ChangesParameters(null, null, null, null, null, null, null, 0, 0, false);
-    this._parameters = appService.changesParameters(initialParameters);
   }
 
-  private _parameters: ChangesParameters;
-
   get parameters(): ChangesParameters {
-    return this._parameters;
+    return this.networkChangesService.parameters$.value;
   }
 
   set parameters(parameters: ChangesParameters) {
-    this.appService.storeChangesParameters(parameters);
-    this._parameters = parameters;
-    if (this.isLoggedIn()) {
-      this.reload();
-    } else {
-      this.networkChangesService.resetFilterOptions();
-    }
-  }
-
-  get page(): NetworkChangesPage {
-    return this.response.result;
+    this.networkChangesService.updateParameters(parameters);
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.activatedRoute.params.subscribe(params => {
-        this.networkId = +params["networkId"];
-        this.parameters = {...this.parameters, networkId: this.networkId};
-      })
-    );
-  }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.networkChangesService.resetFilterOptions();
+
+    this.networkId$ = this.activatedRoute.params.pipe(
+      map(params => +params["networkId"]),
+      tap(networkId => this.networkService.init(networkId)),
+      shareReplay()
+    );
+
+    this.response$ = combineLatest([this.networkId$, this.networkChangesService.parameters$]).pipe(
+      switchMap(([networkId, changeParameters]) =>
+        this.appService.networkChanges(networkId, changeParameters).pipe(
+          tap(response => {
+            if (response.result) {
+              this.networkService.update(networkId, response.result.network);
+              this.networkChangesService.filterOptions$.next(
+                ChangeFilterOptions.from(
+                  this.parameters,
+                  response.result.filter,
+                  (parameters: ChangesParameters) => this.parameters = parameters
+                )
+              );
+            }
+          })
+        )
+      )
+    );
   }
 
   isLoggedIn(): boolean {
@@ -107,25 +116,18 @@ export class NetworkChangesPageComponent implements OnInit, OnDestroy {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
   }
 
-  private reload() {
-    this.appService.networkChanges(this.networkId, this.parameters).subscribe(response => {
-      this.processResponse(response);
-    });
+  private updateParameters(networkId: string) {
+    this.parameters = new ChangesParameters(
+      null,
+      +networkId,
+      null,
+      null,
+      this.parameters.year,
+      this.parameters.month,
+      this.parameters.day,
+      this.parameters.itemsPerPage,
+      this.parameters.pageIndex,
+      this.parameters.impact
+    );
   }
-
-  private processResponse(response: ApiResponse<NetworkChangesPage>) {
-    this.response = response;
-    if (this.page) {
-      this.networkCacheService.setNetworkSummary(this.networkId, this.page.network);
-      this.networkCacheService.setNetworkName(this.networkId, this.page.network.name);
-      this.networkChangesService.filterOptions.next(
-        ChangeFilterOptions.from(
-          this.parameters,
-          this.response.result.filter,
-          (parameters: ChangesParameters) => this.parameters = parameters
-        )
-      );
-    }
-  }
-
 }

@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
-import {NetworkSummary} from "../../../kpn/api/common/network/network-summary";
-import {NetworkCacheService} from "../../../services/network-cache.service";
+import {NetworkService} from "../network.service";
 
 @Component({
   selector: "kpn-network-page-header",
@@ -13,9 +12,14 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
       <li i18n="@@breadcrumb.network">Network</li>
     </ul>
 
-    <kpn-page-header [pageTitle]="networkPageTitle()" subject="network-page">{{networkName()}}</kpn-page-header>
+    <kpn-page-header
+      *ngIf="networkService.networkName$ | async as networkName"
+      [pageTitle]="networkPageTitle(networkName)"
+      subject="network-page">
+      {{networkService.networkName$ | async}}
+    </kpn-page-header>
 
-    <kpn-page-menu>
+    <kpn-page-menu *ngIf="networkService.networkSummary$ | async as summary">
       <kpn-page-menu-option
         [link]="'/analysis/network/' + networkId"
         [active]="pageName === 'details'"
@@ -71,19 +75,10 @@ export class NetworkPageHeaderComponent {
   @Input() networkId: number;
   @Input() pageTitle: string;
 
-  constructor(private networkCacheService: NetworkCacheService) {
+  constructor(public networkService: NetworkService) {
   }
 
-  get summary(): NetworkSummary {
-    return this.networkCacheService.getNetworkSummary(this.networkId);
-  }
-
-  networkName(): string {
-    return this.networkCacheService.getNetworkName(this.networkId);
-  }
-
-  networkPageTitle(): string {
-    const networkName = this.networkCacheService.getNetworkName(this.networkId);
+  networkPageTitle(networkName: string): string {
     if (networkName) {
       return `${networkName} | ${this.pageTitle}`;
     }

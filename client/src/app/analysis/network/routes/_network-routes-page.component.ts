@@ -2,11 +2,12 @@ import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
+import {shareReplay} from "rxjs/operators";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {NetworkRoutesPage} from "../../../kpn/api/common/network/network-routes-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {NetworkCacheService} from "../../../services/network-cache.service";
+import {NetworkService} from "../network.service";
 
 @Component({
   selector: "kpn-network-routes-page",
@@ -14,7 +15,7 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
   template: `
 
     <kpn-network-page-header
-      [networkId]="networkId"
+      [networkId]="networkId$ | async"
       pageName="routes"
       pageTitle="Routes"
       i18n-pageTitle="@@network-routes.title">
@@ -41,25 +42,32 @@ import {NetworkCacheService} from "../../../services/network-cache.service";
 })
 export class NetworkRoutesPageComponent implements OnInit {
 
-  networkId: number;
+  networkId$: Observable<number>;
   response$: Observable<ApiResponse<NetworkRoutesPage>>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private networkCacheService: NetworkCacheService) {
+              private networkService: NetworkService) {
   }
 
   ngOnInit(): void {
-    this.response$ = this.activatedRoute.params.pipe(
+
+    this.networkId$ = this.activatedRoute.params.pipe(
       map(params => +params["networkId"]),
-      tap(networkId => this.networkId = networkId),
-      flatMap(networkId => this.appService.networkRoutes(networkId)),
-      tap(response => {
-        if (response.result) {
-          this.networkCacheService.setNetworkSummary(this.networkId, response.result.networkSummary);
-          this.networkCacheService.setNetworkName(this.networkId, response.result.networkSummary.name);
-        }
-      })
+      tap(networkId => this.networkService.init(networkId)),
+      shareReplay()
+    );
+
+    this.response$ = this.networkId$.pipe(
+      flatMap(networkId =>
+        this.appService.networkRoutes(networkId).pipe(
+          tap(response => {
+            if (response.result) {
+              this.networkService.update(networkId, response.result.networkSummary);
+            }
+          })
+        )
+      )
     );
   }
 }

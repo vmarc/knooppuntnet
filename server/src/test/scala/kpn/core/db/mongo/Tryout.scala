@@ -15,7 +15,7 @@ object Tryout {
 
   def main(args: Array[String]): Unit = {
 
-    // populateDatabase()
+    //populateDatabase()
 
     val codecRegistry = CodecRegistries.fromProviders(new JacksonCodecProvider())
     val mongoClient = MongoClient()
@@ -44,7 +44,7 @@ object Tryout {
     Couch.executeIn("localhost", "attic-analysis") { couchDatabase =>
       val repo = new NetworkRepositoryImpl(couchDatabase)
       val networkIds = repo.allNetworkIds()
-      val networkInfos = networkIds.take(50).flatMap(repo.network)
+      val networkInfos = networkIds.flatMap(repo.network)
       val networkDocs = networkInfos.map(n => NetworkDoc(s"network:${n.id}", n))
 
       val codecRegistry = CodecRegistries.fromProviders(new JacksonCodecProvider())
