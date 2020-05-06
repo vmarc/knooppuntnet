@@ -21,12 +21,15 @@ import {NetworkService} from "../network.service";
       i18n-pageTitle="@@network-nodes.title">
     </kpn-network-page-header>
 
-    <div *ngIf="response$ | async as response">
-      <div *ngIf="!response.result" class="kpn-spacer-above">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+      <div *ngIf="!response.result">
         <p i18n="@@network-nodes.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
-        <div *ngIf="response.result.nodes.isEmpty()" class="kpn-spacer-above" i18n="@@network-nodes.no-nodes">
+        <p>
+          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        </p>
+        <div *ngIf="response.result.nodes.isEmpty()" i18n="@@network-nodes.no-nodes">
           No network nodes in network
         </div>
         <kpn-network-node-table

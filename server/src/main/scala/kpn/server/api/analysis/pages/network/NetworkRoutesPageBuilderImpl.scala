@@ -48,7 +48,8 @@ class NetworkRoutesPageBuilderImpl(
         investigate = route.facts.contains(Fact.RouteBroken),
         accessible = !route.facts.contains(Fact.RouteUnaccessible),
         roleConnection = route.role.contains("connection"),
-        lastUpdated = route.lastUpdated
+        lastUpdated = route.lastUpdated,
+        lastSurvey = route.lastSurvey
       )
     }
 

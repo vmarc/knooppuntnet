@@ -5,6 +5,7 @@ import {ChangeKey} from "./change-key";
 import {ChangeType} from "./change-type";
 import {Fact} from "../../../custom/fact";
 import {FactDiffs} from "../../diff/common/fact-diffs";
+import {Location} from "../../location/location";
 import {NodeMoved} from "../../diff/node/node-moved";
 import {RawNode} from "../../data/raw/raw-node";
 import {Ref} from "../../common/ref";
@@ -17,6 +18,7 @@ export class NodeChange {
   constructor(readonly key: ChangeKey,
               readonly changeType: ChangeType,
               readonly subsets: List<Subset>,
+              readonly location: Location,
               readonly name: string,
               readonly before: RawNode,
               readonly after: RawNode,
@@ -32,7 +34,9 @@ export class NodeChange {
               readonly factDiffs: FactDiffs,
               readonly facts: List<Fact>,
               readonly happy: boolean,
-              readonly investigate: boolean) {
+              readonly investigate: boolean,
+              readonly locationHappy: boolean,
+              readonly locationInvestigate: boolean) {
   }
 
   public static fromJSON(jsonObject: any): NodeChange {
@@ -43,6 +47,7 @@ export class NodeChange {
       ChangeKey.fromJSON(jsonObject.key),
       ChangeType.fromJSON(jsonObject.changeType),
       jsonObject.subsets ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : List(),
+      Location.fromJSON(jsonObject.location),
       jsonObject.name,
       RawNode.fromJSON(jsonObject.before),
       RawNode.fromJSON(jsonObject.after),
@@ -58,7 +63,9 @@ export class NodeChange {
       FactDiffs.fromJSON(jsonObject.factDiffs),
       jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       jsonObject.happy,
-      jsonObject.investigate
+      jsonObject.investigate,
+      jsonObject.locationHappy,
+      jsonObject.locationInvestigate
     );
   }
 }

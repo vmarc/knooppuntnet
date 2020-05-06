@@ -1,5 +1,6 @@
 package kpn.api.common.network
 
+import kpn.api.common.common.Day
 import kpn.api.custom.Timestamp
 
 case class NetworkRouteRow(
@@ -10,5 +11,6 @@ case class NetworkRouteRow(
   investigate: Boolean,
   accessible: Boolean,
   roleConnection: Boolean,
-  lastUpdated: Timestamp
+  lastUpdated: Timestamp,
+  lastSurvey: Option[Day]
 )

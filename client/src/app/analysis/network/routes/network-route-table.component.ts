@@ -1,13 +1,20 @@
+import {OnDestroy} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
 import {BehaviorSubject} from "rxjs";
+import {tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
+import {delay} from "rxjs/operators";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {FilterOptions} from "../../../kpn/filter/filter-options";
+import {BrowserStorageService} from "../../../services/browser-storage.service";
 import {NetworkRouteFilter} from "./network-route-filter";
 import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
 import {NetworkRoutesService} from "./network-routes.service";
@@ -18,8 +25,11 @@ import {NetworkRoutesService} from "./network-routes.service";
   template: `
 
     <kpn-paginator
+      [pageSize]="itemsPerPage"
+      (page)="pageChanged($event)"
       [pageSizeOptions]="[5, 10, 20, 50, 1000]"
-      [length]="routes?.size" [showFirstLastButtons]="true">
+      [length]="routes?.size"
+      [showFirstLastButtons]="true">
     </kpn-paginator>
 
     <table mat-table matSort [dataSource]="dataSource" class="kpn-spacer-above">
@@ -60,7 +70,7 @@ import {NetworkRoutesService} from "./network-routes.service";
       <ng-container matColumnDef="last-survey">
         <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.last-survey">Last survey</th>
         <td mat-cell *matCellDef="let route">
-          {{route.lastSurvey ? route.lastSurvey : "-"}}
+          {{route.lastSurvey | day}}
         </td>
       </ng-container>
 
@@ -83,30 +93,39 @@ import {NetworkRoutesService} from "./network-routes.service";
     }
   `]
 })
-export class NetworkRouteTableComponent implements OnInit {
+export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   @Input() timeInfo: TimeInfo;
   @Input() networkType: NetworkType;
   @Input() routes: List<NetworkRouteRow>;
 
+  itemsPerPage: number;
   dataSource: MatTableDataSource<NetworkRouteRow>;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
-  private readonly filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(new NetworkRouteFilterCriteria());
+  private readonly filterCriteria$: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(new NetworkRouteFilterCriteria());
 
   constructor(private pageWidthService: PageWidthService,
-              private networkRoutesService: NetworkRoutesService) {
+              private networkRoutesService: NetworkRoutesService,
+              private browserStorageService: BrowserStorageService) {
   }
 
   ngOnInit(): void {
+    this.itemsPerPage = this.browserStorageService.itemsPerPage;
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.matPaginator;
-    this.filterCriteria.subscribe(criteria => {
-      const filter = new NetworkRouteFilter(this.timeInfo, criteria, this.filterCriteria);
-      this.dataSource.data = filter.filter(this.routes).toArray();
-      this.networkRoutesService.filterOptions.next(filter.filterOptions(this.routes));
+    this.filterCriteria$.pipe(
+      map(criteria => new NetworkRouteFilter(this.timeInfo, criteria, this.filterCriteria$)),
+      tap(filter => this.dataSource.data = filter.filter(this.routes).toArray()),
+      delay(0)
+    ).subscribe(filter => {
+      this.networkRoutesService.filterOptions$.next(filter.filterOptions(this.routes));
     });
+  }
+
+  ngOnDestroy() {
+    this.networkRoutesService.filterOptions$.next(FilterOptions.empty());
   }
 
   displayedColumns() {
@@ -123,5 +142,9 @@ export class NetworkRouteTableComponent implements OnInit {
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
+  }
+
+  pageChanged(event: PageEvent): void {
+    this.browserStorageService.itemsPerPage = event.pageSize;
   }
 }

@@ -1,19 +1,21 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
-import {FilterOptionGroup} from "../../../kpn/filter/filter-option-group";
 import {MatRadioChange} from "@angular/material/radio";
+import {I18nService} from "../../../i18n/i18n.service";
+import {FilterOption} from "../../../kpn/filter/filter-option";
+import {FilterOptionGroup} from "../../../kpn/filter/filter-option-group";
 
 @Component({
   selector: "kpn-filter-radio-group",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <div class="group-name">{{group.name}}</div>
+      <div class="group-name">{{groupName()}}</div>
       <mat-radio-group [value]="selection()" (change)="selectionChanged($event)">
         <mat-radio-button
           *ngFor="let option of group.options"
           [value]="option.name">
-          <span class="option-name">{{option.name}}</span>
+          <span class="option-name">{{optionName(option)}}</span>
           <span class="option-count">{{option.count}}</span>
         </mat-radio-button>
       </mat-radio-group>
@@ -24,6 +26,9 @@ import {MatRadioChange} from "@angular/material/radio";
 export class FilterRadioGroupComponent {
 
   @Input() group: FilterOptionGroup;
+
+  constructor(private i18nService: I18nService) {
+  }
 
   selection() {
     const selectedOption = this.group.options.find(option => option.selected);
@@ -37,4 +42,11 @@ export class FilterRadioGroupComponent {
     }
   }
 
+  groupName(): string {
+    return this.i18nService.translation(`@@filter.${this.group.name}`);
+  }
+
+  optionName(option: FilterOption): string {
+    return this.i18nService.translation(`@@filter.${option.name}`);
+  }
 }

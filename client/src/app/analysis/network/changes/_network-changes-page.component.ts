@@ -55,7 +55,10 @@ import {NetworkChangesService} from "./network-changes.service";
         <kpn-json [object]="response"></kpn-json>
       </div>
     </div>
-  `
+  `,
+  providers: [
+    NetworkChangesService
+  ]
 })
 export class NetworkChangesPageComponent implements OnInit {
 
@@ -79,8 +82,6 @@ export class NetworkChangesPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.networkChangesService.resetFilterOptions();
 
     this.networkId$ = this.activatedRoute.params.pipe(
       map(params => +params["networkId"]),
@@ -118,6 +119,7 @@ export class NetworkChangesPageComponent implements OnInit {
 
   private updateParameters(networkId: string) {
     this.parameters = new ChangesParameters(
+      null,
       null,
       +networkId,
       null,

@@ -1,5 +1,6 @@
 // this class is generated, please do not modify
 
+import {Day} from "../common/day";
 import {Timestamp} from "../../custom/timestamp";
 
 export class NetworkRouteRow {
@@ -11,7 +12,8 @@ export class NetworkRouteRow {
               readonly investigate: boolean,
               readonly accessible: boolean,
               readonly roleConnection: boolean,
-              readonly lastUpdated: Timestamp) {
+              readonly lastUpdated: Timestamp,
+              readonly lastSurvey: Day) {
   }
 
   public static fromJSON(jsonObject: any): NetworkRouteRow {
@@ -26,7 +28,8 @@ export class NetworkRouteRow {
       jsonObject.investigate,
       jsonObject.accessible,
       jsonObject.roleConnection,
-      Timestamp.fromJSON(jsonObject.lastUpdated)
+      Timestamp.fromJSON(jsonObject.lastUpdated),
+      Day.fromJSON(jsonObject.lastSurvey)
     );
   }
 }

@@ -4,7 +4,8 @@ import {Subset} from "../../../custom/subset";
 
 export class ChangesParameters {
 
-  constructor(readonly subset: Subset,
+  constructor(readonly location: string,
+              readonly subset: Subset,
               readonly networkId: number,
               readonly routeId: number,
               readonly nodeId: number,
@@ -21,6 +22,7 @@ export class ChangesParameters {
       return undefined;
     }
     return new ChangesParameters(
+      jsonObject.location,
       Subset.fromJSON(jsonObject.subset),
       jsonObject.networkId,
       jsonObject.routeId,

@@ -6,5 +6,5 @@ import {FilterOptions} from "../../../kpn/filter/filter-options";
   providedIn: "root",
 })
 export class NetworkRoutesService {
-  readonly filterOptions: BehaviorSubject<FilterOptions> = new BehaviorSubject(FilterOptions.empty());
+  readonly filterOptions$: BehaviorSubject<FilterOptions> = new BehaviorSubject(FilterOptions.empty());
 }

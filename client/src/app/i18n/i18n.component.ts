@@ -55,6 +55,20 @@ import {I18nService} from "./i18n.service";
       <span id="@@map.layer.nodes-and-routes" i18n="@@map.layer.nodes-and-routes">Nodes and routes</span>
       <span id="@@map.layer.boundary" i18n="@@map.layer.boundary">Boundary</span>
 
+      <span id="@@filter.all" i18n="@@filter.all">all</span>
+      <span id="@@filter.yes" i18n="@@filter.yes">yes</span>
+      <span id="@@filter.no" i18n="@@filter.no">no</span>
+      <span id="@@filter.definedInNetworkRelation" i18n="@@filter.definedInNetworkRelation">Defined in network relation</span>
+      <span id="@@filter.definedInRouteRelation" i18n="@@filter.definedInRouteRelation">Defined in route relation</span>
+      <span id="@@filter.referencedInRoute" i18n="@@filter.referencedInRoute">Referenced in route</span>
+      <span id="@@filter.connection" i18n="@@filter.connection">Connection</span>
+      <span id="@@filter.lastUpdated" i18n="@@filter.lastUpdated">Last updated</span>
+      <span id="@@filter.lastWeek" i18n="@@filter.lastWeek">last week</span>
+      <span id="@@filter.lastMonth" i18n="@@filter.lastMonth">last month</span>
+      <span id="@@filter.lastYear" i18n="@@filter.lastYear">last year</span>
+      <span id="@@filter.older" i18n="@@filter.older">older</span>
+      <span id="@@filter.roleConnection" i18n="@@filter.roleConnection">Role connection</span>
+
     </div>
   `,
   styles: [`

@@ -1,13 +1,20 @@
+import {OnDestroy} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
 import {BehaviorSubject} from "rxjs";
+import {tap} from "rxjs/operators";
+import {delay} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {FilterOptions} from "../../../kpn/filter/filter-options";
+import {BrowserStorageService} from "../../../services/browser-storage.service";
 import {NetworkNodeFilter} from "./network-node-filter";
 import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
 import {NetworkNodesService} from "./network-nodes.service";
@@ -16,7 +23,13 @@ import {NetworkNodesService} from "./network-nodes.service";
   selector: "kpn-network-node-table",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator [pageSizeOptions]="[5, 10, 20, 50, 1000]" [length]="nodes?.size" [showFirstLastButtons]="true"></kpn-paginator>
+    <kpn-paginator
+      [pageSize]="itemsPerPage"
+      (page)="pageChanged($event)"
+      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
+      [length]="nodes?.size"
+      [showFirstLastButtons]="true">
+    </kpn-paginator>
 
     <table mat-table matSort [dataSource]="dataSource" class="kpn-spacer-above">
 
@@ -98,30 +111,39 @@ import {NetworkNodesService} from "./network-nodes.service";
 
   `]
 })
-export class NetworkNodeTableComponent implements OnInit {
+export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
   @Input() nodes: List<NetworkInfoNode> = List();
 
   dataSource: MatTableDataSource<NetworkInfoNode>;
+  itemsPerPage: number;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> = new BehaviorSubject(new NetworkNodeFilterCriteria());
 
   constructor(private pageWidthService: PageWidthService,
-              private networkNodesService: NetworkNodesService) {
+              private networkNodesService: NetworkNodesService,
+              private browserStorageService: BrowserStorageService) {
   }
 
   ngOnInit(): void {
+    this.itemsPerPage = this.browserStorageService.itemsPerPage;
     this.dataSource = new MatTableDataSource<NetworkInfoNode>();
     this.dataSource.paginator = this.paginator.matPaginator;
-    this.filterCriteria.subscribe(criteria => {
-      const filter = new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria);
-      this.dataSource.data = filter.filter(this.nodes).toArray();
-      this.networkNodesService.filterOptions.next(filter.filterOptions(this.nodes));
+    this.filterCriteria.pipe(
+      map(criteria => new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria)),
+      tap(filter => this.dataSource.data = filter.filter(this.nodes).toArray()),
+      delay(0)
+    ).subscribe(filter => {
+      this.networkNodesService.filterOptions$.next(filter.filterOptions(this.nodes));
     });
+  }
+
+  ngOnDestroy() {
+    this.networkNodesService.filterOptions$.next(FilterOptions.empty());
   }
 
   displayedColumns() {
@@ -188,4 +210,7 @@ export class NetworkNodeTableComponent implements OnInit {
     return "-";
   }
 
+  pageChanged(event: PageEvent): void {
+    this.browserStorageService.itemsPerPage = event.pageSize;
+  }
 }

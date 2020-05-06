@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
-import {Subscriptions} from "../../../util/Subscriptions";
+import {Component} from "@angular/core";
 import {NetworkRoutesService} from "./network-routes.service";
 
 @Component({
@@ -9,26 +7,11 @@ import {NetworkRoutesService} from "./network-routes.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
+      <kpn-filter [filterOptions]="networkRoutesService.filterOptions$ | async"></kpn-filter>
     </kpn-sidebar>
   `
 })
-export class NetworkRoutesSidebarComponent implements OnInit, OnDestroy {
-
-  filterOptions: FilterOptions;
-  private readonly subscriptions = new Subscriptions();
-
-  constructor(private networkRoutesService: NetworkRoutesService) {
+export class NetworkRoutesSidebarComponent {
+  constructor(public networkRoutesService: NetworkRoutesService) {
   }
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.networkRoutesService.filterOptions.subscribe(filterOptions => this.filterOptions = filterOptions)
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
 }

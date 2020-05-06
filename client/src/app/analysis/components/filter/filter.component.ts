@@ -6,7 +6,7 @@ import {FilterOptions} from "../../../kpn/filter/filter-options";
   selector: "kpn-filter",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="filter">
+    <div class="filter" *ngIf="!filterOptions.isEmpty()">
       <kpn-filter-title [filterOptions]="filterOptions"></kpn-filter-title>
       <div *ngFor="let group of filterOptions.groups">
         <kpn-filter-checkbox-group *ngIf="group.name === 'role'"></kpn-filter-checkbox-group>

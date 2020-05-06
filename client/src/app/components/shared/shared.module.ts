@@ -69,6 +69,7 @@ import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
 import { BracketsComponent } from "./link/brackets.component";
+import { DayPipe } from './format/day.pipe';
 
 @NgModule({
   imports: [
@@ -143,7 +144,8 @@ import { BracketsComponent } from "./link/brackets.component";
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
-    BracketsComponent
+    BracketsComponent,
+    DayPipe
   ],
   exports: [
     LinkChangesetComponent,
@@ -205,7 +207,8 @@ import { BracketsComponent } from "./link/brackets.component";
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
-    BracketsComponent
+    BracketsComponent,
+    DayPipe
   ]
 })
 export class SharedModule {

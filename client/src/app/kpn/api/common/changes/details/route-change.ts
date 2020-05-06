@@ -8,6 +8,7 @@ import {RawWay} from "../../data/raw/raw-way";
 import {Ref} from "../../common/ref";
 import {RouteData} from "../../diff/route-data";
 import {RouteDiff} from "../../diff/route/route-diff";
+import {RouteLocationAnalysis} from "../../route-location-analysis";
 import {WayUpdate} from "../../diff/way-update";
 
 export class RouteChange {
@@ -15,6 +16,7 @@ export class RouteChange {
   constructor(readonly key: ChangeKey,
               readonly changeType: ChangeType,
               readonly name: string,
+              readonly locationAnalysis: RouteLocationAnalysis,
               readonly addedToNetwork: List<Ref>,
               readonly removedFromNetwork: List<Ref>,
               readonly before: RouteData,
@@ -25,7 +27,9 @@ export class RouteChange {
               readonly diffs: RouteDiff,
               readonly facts: List<Fact>,
               readonly happy: boolean,
-              readonly investigate: boolean) {
+              readonly investigate: boolean,
+              readonly locationHappy: boolean,
+              readonly locationInvestigate: boolean) {
   }
 
   public static fromJSON(jsonObject: any): RouteChange {
@@ -36,6 +40,7 @@ export class RouteChange {
       ChangeKey.fromJSON(jsonObject.key),
       ChangeType.fromJSON(jsonObject.changeType),
       jsonObject.name,
+      RouteLocationAnalysis.fromJSON(jsonObject.locationAnalysis),
       jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
       jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
       RouteData.fromJSON(jsonObject.before),
@@ -46,7 +51,9 @@ export class RouteChange {
       RouteDiff.fromJSON(jsonObject.diffs),
       jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
       jsonObject.happy,
-      jsonObject.investigate
+      jsonObject.investigate,
+      jsonObject.locationHappy,
+      jsonObject.locationInvestigate
     );
   }
 }

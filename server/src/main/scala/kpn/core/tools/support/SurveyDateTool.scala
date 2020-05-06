@@ -7,7 +7,7 @@ import kpn.server.repository.RouteRepositoryImpl
 
 object SurveyDateTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("localhost", "master2b") { database =>
+    Couch.executeIn("kpn-database", "analysis") { database =>
       new SurveyDateTool(database).analyze()
     }
   }

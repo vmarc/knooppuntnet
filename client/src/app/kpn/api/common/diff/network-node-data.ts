@@ -1,13 +1,11 @@
 // this class is generated, please do not modify
 
-import {Country} from "../../custom/country";
 import {RawNode} from "../data/raw/raw-node";
 
 export class NetworkNodeData {
 
   constructor(readonly node: RawNode,
-              readonly name: string,
-              readonly country: Country) {
+              readonly name: string) {
   }
 
   public static fromJSON(jsonObject: any): NetworkNodeData {
@@ -16,8 +14,7 @@ export class NetworkNodeData {
     }
     return new NetworkNodeData(
       RawNode.fromJSON(jsonObject.node),
-      jsonObject.name,
-      Country.fromJSON(jsonObject.country)
+      jsonObject.name
     );
   }
 }

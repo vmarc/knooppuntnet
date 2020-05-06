@@ -1,5 +1,5 @@
-import {FilterOptionGroup} from "./filter-option-group";
 import {List} from "immutable";
+import {FilterOptionGroup} from "./filter-option-group";
 
 export class FilterOptions {
 
@@ -10,5 +10,9 @@ export class FilterOptions {
 
   static empty(): FilterOptions {
     return new FilterOptions(0, 0, List());
+  }
+
+  isEmpty(): boolean {
+    return this.totalCount === 0;
   }
 }

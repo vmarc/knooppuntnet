@@ -26,6 +26,9 @@ import {NetworkService} from "../network.service";
         <p i18n="@@network-routes.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
+        <p>
+          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        </p>
         <div *ngIf="response.result.routes.isEmpty()" i18n="@@network-routes.no-routes">
           No network routes in network
         </div>
