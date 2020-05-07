@@ -1,20 +1,18 @@
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
-import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
-import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
-import {Filters} from "../../../kpn/filter/filters";
 import {List} from "immutable";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
 import {BehaviorSubject} from "rxjs";
+import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
+import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
+import {TimeInfo} from "../../../kpn/api/common/time-info";
+import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
+import {FilterOptions} from "../../../kpn/filter/filter-options";
+import {Filters} from "../../../kpn/filter/filters";
+import {SurveyDateFilter} from "../../../kpn/filter/survey-date-filter";
+import {SurveyDateFilterKind} from "../../../kpn/filter/survey-date-filter-kind";
 import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
 import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
+import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
 
 export class NetworkRouteFilter {
-
-  constructor(private timeInfo: TimeInfo,
-              private criteria: NetworkRouteFilterCriteria,
-              private filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria>) {
-  }
 
   private readonly investigateFilter = new BooleanFilter<NetworkRouteRow>(
     "investigate",
@@ -43,6 +41,19 @@ export class NetworkRouteFilter {
     this.update({...this.criteria, roleConnection: false})
   );
 
+  private readonly lastSurveyFilter = new SurveyDateFilter<NetworkRouteRow>(
+    this.criteria.lastSurvey,
+    (row) => row.lastSurvey,
+    this.surveyDateInfo,
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.ALL}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.UNKNOWN}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_MONTH}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_HALF_YEAR}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_YEAR}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_TWO_YEARS}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.OLDER})
+  );
+
   private readonly lastUpdatedFilter = new TimestampFilter<NetworkRouteRow>(
     this.criteria.relationLastUpdated,
     (row) => row.lastUpdated,
@@ -58,8 +69,15 @@ export class NetworkRouteFilter {
     this.investigateFilter,
     this.accessibleFilter,
     this.roleConnectionFilter,
+    this.lastSurveyFilter,
     this.lastUpdatedFilter
   );
+
+  constructor(private timeInfo: TimeInfo,
+              private surveyDateInfo: SurveyDateInfo,
+              private criteria: NetworkRouteFilterCriteria,
+              private filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria>) {
+  }
 
   filter(routes: List<NetworkRouteRow>): List<NetworkRouteRow> {
     return routes.filter(r => this.allFilters.passes(r));
@@ -73,12 +91,14 @@ export class NetworkRouteFilter {
     const investigate = this.investigateFilter.filterOptions(this.allFilters, routes);
     const accessible = this.accessibleFilter.filterOptions(this.allFilters, routes);
     const roleConnection = this.roleConnectionFilter.filterOptions(this.allFilters, routes);
+    const lastSurvey = this.lastSurveyFilter.filterOptions(this.allFilters, routes);
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);
 
     const groups = List([
       investigate,
       accessible,
       roleConnection,
+      lastSurvey,
       lastUpdated
     ]).filter(g => g !== null);
 

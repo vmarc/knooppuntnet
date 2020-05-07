@@ -25,6 +25,6 @@ class Mailer(
 
   @PreDestroy
   def onExit(): Unit = {
-    send("$applicationName - Server stopped", "ok?")
+    send(s"$applicationName - Server stopped", "ok?")
   }
 }

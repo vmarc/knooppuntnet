@@ -135,6 +135,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
     this.parameters = new ChangesParameters(
       null,
       null,
+      null,
       +routeId,
       null,
       this.parameters.year,

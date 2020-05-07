@@ -1,7 +1,7 @@
 import {List} from "immutable";
 import {BehaviorSubject} from "rxjs";
 import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
-import {SurveyDateTimeInfo} from "../../../kpn/api/common/survey-date-time-info";
+import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
@@ -91,7 +91,7 @@ export class NetworkNodeFilter {
   private readonly lastSurveyFilter = new SurveyDateFilter<NetworkInfoNode>(
     this.criteria.lastSurvey,
     (row) => row.lastSurvey,
-    this.surveyDateTimeInfo,
+    this.surveyDateInfo,
     this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.ALL}),
     this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.UNKNOWN}),
     this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_MONTH}),
@@ -114,7 +114,7 @@ export class NetworkNodeFilter {
   );
 
   constructor(private readonly timeInfo: TimeInfo,
-              private readonly surveyDateTimeInfo: SurveyDateTimeInfo,
+              private readonly surveyDateInfo: SurveyDateInfo,
               private readonly criteria: NetworkNodeFilterCriteria,
               private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria>) {
   }
@@ -176,6 +176,7 @@ export class NetworkNodeFilter {
     //   }
     // }
 
+    const lastSurvey = this.lastSurveyFilter.filterOptions(this.allFilters, nodes);
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);
 
     const groups = List([
@@ -186,6 +187,7 @@ export class NetworkNodeFilter {
       roleConnection,
       integrityCheck,
       // integrityCheckResult,
+      lastSurvey,
       lastUpdated
     ]).filter(g => g !== null);
 

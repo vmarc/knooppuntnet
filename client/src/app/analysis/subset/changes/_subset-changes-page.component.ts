@@ -90,7 +90,7 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.subset = Util.subsetInRoute(params);
-      const initialParameters = new ChangesParameters(null, null, null, null, null, null, null, 0, 0, false);
+      const initialParameters = Util.defaultChangesParameters();
       this.parameters = this.appService.changesParameters(initialParameters);
     });
   }

@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
+import {Util} from "../../../components/shared/util";
 import {ChangesPage} from "../../../kpn/api/common/changes-page";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
@@ -61,7 +61,7 @@ export class ChangesPageComponent implements OnInit {
               private changesService: ChangesService,
               private pageService: PageService,
               private userService: UserService) {
-    const initialParameters = new ChangesParameters(null, null, null, null, null, null, null, 0, 0, false);
+    const initialParameters = Util.defaultChangesParameters();
     this._parameters = appService.changesParameters(initialParameters);
   }
 

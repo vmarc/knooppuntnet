@@ -133,6 +133,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
       null,
       null,
       null,
+      null,
       +nodeId,
       this.parameters.year,
       this.parameters.month,

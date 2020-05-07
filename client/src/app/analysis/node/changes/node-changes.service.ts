@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {AppService} from "../../../app.service";
+import {Util} from "../../../components/shared/util";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 
@@ -24,7 +25,7 @@ export class NodeChangesService {
   }
 
   private initialParameters(): ChangesParameters {
-    const initialParameters = new ChangesParameters(null, null, null, null, null, null, null, 0, 0, false);
+    const initialParameters = Util.defaultChangesParameters();
     return this.appService.changesParameters(initialParameters);
   }
 

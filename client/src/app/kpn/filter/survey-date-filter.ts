@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {SurveyDateTimeInfo} from "../api/common/survey-date-time-info";
+import {SurveyDateInfo} from "../api/common/survey-date-info";
 import {Day} from "../api/custom/day";
 import {Filter} from "./filter";
 import {FilterOption} from "./filter-option";
@@ -11,7 +11,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
 
   constructor(private readonly kind: SurveyDateFilterKind,
               private readonly getter: (arg: T) => Day,
-              private readonly timeInfo: SurveyDateTimeInfo,
+              private readonly surveyDateInfo: SurveyDateInfo,
               private readonly selectAll: () => void,
               private readonly selectUnknown: () => void,
               private readonly selectLastMonth: () => void,
@@ -19,30 +19,32 @@ export class SurveyDateFilter<T> extends Filter<T> {
               private readonly selectLastYear: () => void,
               private readonly selectLastTwoYears: () => void,
               private readonly selectOlder: () => void) {
-    super("lastSurveyDate");
+    super("lastSurvey");
   }
 
   passes(element: T): boolean {
+
     if (this.isAll()) {
       return true;
     }
+
     if (this.isUnknown()) {
       return !this.getter(element);
     }
     if (this.isLastMonth()) {
-      return this.getter(element).sameAsOrYoungerThan(this.timeInfo.lastMonthStart);
+      return this.sameAsOrYoungerThan(element, this.surveyDateInfo.lastMonthStart);
     }
     if (this.isLastHalfYear()) {
-      return this.getter(element).sameAsOrYoungerThan(this.timeInfo.lastHalfYearStart);
+      return this.isBetween(element, this.surveyDateInfo.lastMonthStart, this.surveyDateInfo.lastHalfYearStart);
     }
     if (this.isLastYear()) {
-      return this.getter(element).sameAsOrYoungerThan(this.timeInfo.lastYearStart);
+      return this.isBetween(element, this.surveyDateInfo.lastHalfYearStart, this.surveyDateInfo.lastYearStart);
     }
     if (this.isLastTwoYears()) {
-      return this.getter(element).sameAsOrYoungerThan(this.timeInfo.lastTwoYearsStart);
+      return this.isBetween(element, this.surveyDateInfo.lastYearStart, this.surveyDateInfo.lastTwoYearsStart);
     }
     if (this.isOlder()) {
-      return this.getter(element).olderThan(this.timeInfo.lastTwoYearsStart);
+      return this.olderThan(element, this.surveyDateInfo.lastTwoYearsStart);
     }
     return false;
   }
@@ -56,11 +58,11 @@ export class SurveyDateFilter<T> extends Filter<T> {
 
     const allCount = filteredElements.size;
     const unknownCount = filteredElements.count(e => !this.getter(e));
-    const lastMonthCount = filteredElements.count(e => this.getter(e).sameAsOrYoungerThan(this.timeInfo.lastMonthStart));
-    const lastHalfYearCount = filteredElements.count(e => this.getter(e).sameAsOrYoungerThan(this.timeInfo.lastHalfYearStart));
-    const lastYearCount = filteredElements.count(e => this.getter(e).sameAsOrYoungerThan(this.timeInfo.lastYearStart));
-    const lastTwoYearsCount = filteredElements.count(e => this.getter(e).sameAsOrYoungerThan(this.timeInfo.lastTwoYearsStart));
-    const olderCount = filteredElements.count(e => this.getter(e).olderThan(this.timeInfo.lastYearStart));
+    const lastMonthCount = filteredElements.count(e => this.sameAsOrYoungerThan(e, this.surveyDateInfo.lastMonthStart));
+    const lastHalfYearCount = filteredElements.count(e => this.isBetween(e, this.surveyDateInfo.lastMonthStart, this.surveyDateInfo.lastHalfYearStart));
+    const lastYearCount = filteredElements.count(e => this.isBetween(e, this.surveyDateInfo.lastHalfYearStart, this.surveyDateInfo.lastYearStart));
+    const lastTwoYearsCount = filteredElements.count(e => this.isBetween(e, this.surveyDateInfo.lastYearStart, this.surveyDateInfo.lastTwoYearsStart));
+    const olderCount = filteredElements.count(e => !!this.getter(e) && this.getter(e).olderThan(this.surveyDateInfo.lastTwoYearsStart));
 
     const all = new FilterOption("all", allCount, this.isAll(), this.selectAll);
     const unknown = new FilterOption("unknown", unknownCount, this.isUnknown(), this.selectUnknown);
@@ -80,6 +82,30 @@ export class SurveyDateFilter<T> extends Filter<T> {
       lastTwoYears,
       older
     );
+  }
+
+  private sameAsOrYoungerThan(element: T, day: Day): boolean {
+    const value = this.getter(element);
+    if (!value) {
+      return false;
+    }
+    return value.sameAsOrYoungerThan(day);
+  }
+
+  private isBetween(element: T, from: Day, to: Day): boolean {
+    const value = this.getter(element);
+    if (!value) {
+      return false;
+    }
+    return value.olderThan(from) && value.sameAsOrYoungerThan(to);
+  }
+
+  private olderThan(element: T, day: Day): boolean {
+    const value = this.getter(element);
+    if (!value) {
+      return false;
+    }
+    return value.olderThan(day);
   }
 
   private isAll(): boolean {

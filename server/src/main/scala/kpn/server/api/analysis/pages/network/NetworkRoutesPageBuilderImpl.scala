@@ -6,6 +6,7 @@ import kpn.api.common.network.NetworkRoutesPage
 import kpn.api.custom.Fact
 import kpn.core.db.couch.Couch
 import kpn.core.util.NaturalSorting
+import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
@@ -55,6 +56,7 @@ class NetworkRoutesPageBuilderImpl(
 
     NetworkRoutesPage(
       TimeInfoBuilder.timeInfo,
+      SurveyDateInfoBuilder.dateInfo,
       networkInfo.attributes.networkType,
       NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       routes

@@ -35,6 +35,7 @@ import {NetworkService} from "../network.service";
         <kpn-network-route-table
           *ngIf="!response.result.routes.isEmpty()"
           [timeInfo]="response.result.timeInfo"
+          [surveyDateInfo]="response.result.surveyDateInfo"
           [networkType]="response.result.networkType"
           [routes]="response.result.routes">
         </kpn-network-route-table>

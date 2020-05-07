@@ -2,7 +2,7 @@
 
 import {Day} from "../custom/day";
 
-export class SurveyDateTimeInfo {
+export class SurveyDateInfo {
 
   constructor(readonly now: Day,
               readonly lastMonthStart: Day,
@@ -11,11 +11,11 @@ export class SurveyDateTimeInfo {
               readonly lastTwoYearsStart: Day) {
   }
 
-  public static fromJSON(jsonObject: any): SurveyDateTimeInfo {
+  public static fromJSON(jsonObject: any): SurveyDateInfo {
     if (!jsonObject) {
       return undefined;
     }
-    return new SurveyDateTimeInfo(
+    return new SurveyDateInfo(
       Day.fromJSON(jsonObject.now),
       Day.fromJSON(jsonObject.lastMonthStart),
       Day.fromJSON(jsonObject.lastHalfYearStart),

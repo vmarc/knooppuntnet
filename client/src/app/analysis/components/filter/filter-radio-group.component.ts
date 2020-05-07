@@ -14,7 +14,8 @@ import {FilterOptionGroup} from "../../../kpn/filter/filter-option-group";
       <mat-radio-group [value]="selection()" (change)="selectionChanged($event)">
         <mat-radio-button
           *ngFor="let option of group.options"
-          [value]="option.name">
+          [value]="option.name"
+          [disabled]="option.count === 0">
           <span class="option-name">{{optionName(option)}}</span>
           <span class="option-count">{{option.count}}</span>
         </mat-radio-button>

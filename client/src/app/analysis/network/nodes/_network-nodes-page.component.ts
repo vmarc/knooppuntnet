@@ -36,6 +36,7 @@ import {NetworkService} from "../network.service";
           *ngIf="!response.result.nodes.isEmpty()"
           [networkType]="response.result.networkType"
           [timeInfo]="response.result.timeInfo"
+          [surveyDateInfo]="response.result.surveyDateInfo"
           [nodes]="response.result.nodes">
         </kpn-network-node-table>
       </div>

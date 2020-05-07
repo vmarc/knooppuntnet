@@ -11,6 +11,7 @@ import {delay} from "rxjs/operators";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
+import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
@@ -96,6 +97,7 @@ import {NetworkRoutesService} from "./network-routes.service";
 export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   @Input() timeInfo: TimeInfo;
+  @Input() surveyDateInfo: SurveyDateInfo;
   @Input() networkType: NetworkType;
   @Input() routes: List<NetworkRouteRow>;
 
@@ -116,7 +118,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria$.pipe(
-      map(criteria => new NetworkRouteFilter(this.timeInfo, criteria, this.filterCriteria$)),
+      map(criteria => new NetworkRouteFilter(this.timeInfo, this.surveyDateInfo, criteria, this.filterCriteria$)),
       tap(filter => this.dataSource.data = filter.filter(this.routes).toArray()),
       delay(0)
     ).subscribe(filter => {

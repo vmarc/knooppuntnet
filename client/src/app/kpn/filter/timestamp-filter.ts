@@ -1,11 +1,11 @@
-import {Filter} from "./filter";
-import {TimestampFilterKind} from "./timestamp-filter-kind";
-import {Timestamp} from "../api/custom/timestamp";
-import {TimeInfo} from "../api/common/time-info";
-import {Filters} from "./filters";
-import {FilterOptionGroup} from "./filter-option-group";
 import {List} from "immutable";
+import {TimeInfo} from "../api/common/time-info";
+import {Timestamp} from "../api/custom/timestamp";
+import {Filter} from "./filter";
 import {FilterOption} from "./filter-option";
+import {FilterOptionGroup} from "./filter-option-group";
+import {Filters} from "./filters";
+import {TimestampFilterKind} from "./timestamp-filter-kind";
 
 export class TimestampFilter<T> extends Filter<T> {
 
@@ -25,16 +25,16 @@ export class TimestampFilter<T> extends Filter<T> {
       return true;
     }
     if (this.isLastWeek()) {
-      return this.getter(element).sameAsOrYoungerThan(this.timeInfo.lastWeekStart);
+      return this.sameAsOrYoungerThan(element, this.timeInfo.lastWeekStart);
     }
     if (this.isLastMonth()) {
-      return this.getter(element).sameAsOrYoungerThan(this.timeInfo.lastMonthStart);
+      return this.isBetween(element, this.timeInfo.lastWeekStart, this.timeInfo.lastMonthStart);
     }
     if (this.isLastYear()) {
-      return this.getter(element).sameAsOrYoungerThan(this.timeInfo.lastYearStart);
+      return this.isBetween(element, this.timeInfo.lastMonthStart, this.timeInfo.lastYearStart);
     }
     if (this.isOlder()) {
-      return this.getter(element).olderThan(this.timeInfo.lastYearStart);
+      return this.olderThan(element, this.timeInfo.lastYearStart);
     }
     return false;
   }
@@ -47,9 +47,9 @@ export class TimestampFilter<T> extends Filter<T> {
     const filteredElements = allFilters.filterExcept(elements, this);
 
     const allCount = filteredElements.size;
-    const lastWeekCount = filteredElements.count(e => this.getter(e).sameAsOrYoungerThan(this.timeInfo.lastWeekStart));
-    const lastMonthCount = filteredElements.count(e => this.getter(e).sameAsOrYoungerThan(this.timeInfo.lastMonthStart));
-    const lastYearCount = filteredElements.count(e => this.getter(e).sameAsOrYoungerThan(this.timeInfo.lastYearStart));
+    const lastWeekCount = filteredElements.count(e => this.sameAsOrYoungerThan(e, this.timeInfo.lastWeekStart));
+    const lastMonthCount = filteredElements.count(e => this.isBetween(e, this.timeInfo.lastWeekStart, this.timeInfo.lastMonthStart));
+    const lastYearCount = filteredElements.count(e => this.isBetween(e, this.timeInfo.lastMonthStart, this.timeInfo.lastYearStart));
     const olderCount = filteredElements.count(e => this.getter(e).olderThan(this.timeInfo.lastYearStart));
 
     const all = new FilterOption("all", allCount, this.isAll(), this.selectAll);
@@ -59,6 +59,19 @@ export class TimestampFilter<T> extends Filter<T> {
     const older = new FilterOption("older", olderCount, this.isOlder(), this.selectOlder);
 
     return new FilterOptionGroup(this.name, all, lastWeek, lastMonth, lastYear, older);
+  }
+
+  private sameAsOrYoungerThan(element: T, timestamp: Timestamp): boolean {
+    return this.getter(element).sameAsOrYoungerThan(timestamp);
+  }
+
+  private isBetween(element: T, from: Timestamp, to: Timestamp): boolean {
+    const value = this.getter(element);
+    return value.olderThan(from) && value.sameAsOrYoungerThan(to);
+  }
+
+  private olderThan(element: T, timestamp: Timestamp): boolean {
+    return this.getter(element).olderThan(timestamp);
   }
 
   private isAll(): boolean {

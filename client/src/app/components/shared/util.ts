@@ -5,6 +5,7 @@ import {boundingExtent} from "ol/extent";
 import {Extent} from "ol/extent";
 import {fromLonLat, toLonLat} from "ol/proj";
 import {Bounds} from "../../kpn/api/common/bounds";
+import {ChangesParameters} from "../../kpn/api/common/changes/filter/changes-parameters";
 import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
 import {Country} from "../../kpn/api/custom/country";
 import {NetworkType} from "../../kpn/api/custom/network-type";
@@ -76,6 +77,10 @@ export class Util {
 
   public static sum(list: List<number>): number {
     return list.reduce((prev, current) => prev + current);
+  }
+
+  public static defaultChangesParameters(): ChangesParameters {
+    return new ChangesParameters(null, null, null, null, null, null, null, null, 0, 0, false);
   }
 
   public static toExtent(bounds: Bounds, delta: number): Extent {

@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkNodesPage
 import kpn.core.util.NaturalSorting
+import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
@@ -36,6 +37,7 @@ class NetworkNodesPageBuilderImpl(
     }
     NetworkNodesPage(
       TimeInfoBuilder.timeInfo,
+      SurveyDateInfoBuilder.dateInfo,
       NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       networkInfo.attributes.networkType,
       nodes,

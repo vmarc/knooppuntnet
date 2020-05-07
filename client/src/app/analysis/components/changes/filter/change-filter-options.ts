@@ -75,6 +75,7 @@ export class ChangeFilterOptions {
     day: string = null
   ): ChangesParameters {
     return new ChangesParameters(
+      parameters.location,
       parameters.subset,
       parameters.networkId,
       parameters.routeId,

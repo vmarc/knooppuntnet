@@ -21,44 +21,6 @@ export class Timestamp {
     );
   }
 
-  /*
-    def >(other: Timestamp): Boolean = {
-    if (year > other.year) {
-      true
-    }
-    else if (year < other.year) {
-      false
-    }
-    else if (month > other.month) {
-      true
-    }
-    else if (month < other.month) {
-      false
-    }
-    else if (day > other.day) {
-      true
-    }
-    else if (day < other.day) {
-      false
-    }
-    else if (hour > other.hour) {
-      true
-    }
-    else if (hour < other.hour) {
-      false
-    }
-    else if (minute > other.minute) {
-      true
-    }
-    else if (minute < other.minute) {
-      false
-    }
-    else {
-      second > other.second
-    }
-  }
-
-   */
   youngerThan(other: Timestamp): boolean {
     if (this.year > other.year) {
       return true;

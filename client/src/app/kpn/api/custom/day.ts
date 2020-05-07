@@ -17,6 +17,7 @@ export class Day {
   }
 
   youngerThan(other: Day): boolean {
+
     if (this.year > other.year) {
       return true;
     }
@@ -33,11 +34,19 @@ export class Day {
       return false;
     }
 
-    if (this.day > other.day) {
+    if (this.day === null && other.day === null) {
+      return false;
+    }
+
+    if (this.day === null && other.day !== null) {
+      return false;
+    }
+
+    if (this.day !== null && other.day === null) {
       return true;
     }
 
-    return this.day < other.day;
+    return this.day > other.day;
   }
 
   sameAs(other: Day): boolean {

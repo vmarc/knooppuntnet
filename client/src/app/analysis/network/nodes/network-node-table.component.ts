@@ -11,6 +11,7 @@ import {map} from "rxjs/operators";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
+import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
@@ -80,7 +81,7 @@ import {NetworkNodesService} from "./network-nodes.service";
       <ng-container matColumnDef="last-survey">
         <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-survey">Last survey</th>
         <td mat-cell *matCellDef="let node">
-          {{lastSurvey(node)}}
+          {{node.lastSurvey | day}}
         </td>
       </ng-container>
 
@@ -115,6 +116,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
+  @Input() surveyDateInfo: SurveyDateInfo;
   @Input() nodes: List<NetworkInfoNode> = List();
 
   dataSource: MatTableDataSource<NetworkInfoNode>;
@@ -134,7 +136,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource<NetworkInfoNode>();
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.pipe(
-      map(criteria => new NetworkNodeFilter(this.timeInfo, criteria, this.filterCriteria)),
+      map(criteria => new NetworkNodeFilter(this.timeInfo, this.surveyDateInfo, criteria, this.filterCriteria)),
       tap(filter => this.dataSource.data = filter.filter(this.nodes).toArray()),
       delay(0)
     ).subscribe(filter => {
@@ -193,16 +195,6 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
     if (node.tags) {
       const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
-      if (nameTag) {
-        return nameTag.value;
-      }
-    }
-    return "-";
-  }
-
-  lastSurvey(node: NetworkInfoNode): string {
-    if (node.tags) {
-      const nameTag = node.tags.tags.find(tag => tag.key === "survey:date");
       if (nameTag) {
         return nameTag.value;
       }
