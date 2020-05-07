@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
 import {List} from "immutable";
-import {Day} from "../common/day";
+import {Day} from "../../custom/day";
 import {Fact} from "../../custom/fact";
 import {RouteInfoAnalysis} from "./route-info-analysis";
 import {RouteSummary} from "../route-summary";

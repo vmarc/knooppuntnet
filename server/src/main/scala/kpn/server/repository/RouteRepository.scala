@@ -1,8 +1,8 @@
 package kpn.server.repository
 
-import kpn.api.common.route.RouteElements
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
+import kpn.server.analyzer.engine.changes.changes.RouteElements
 
 trait RouteRepository {
 

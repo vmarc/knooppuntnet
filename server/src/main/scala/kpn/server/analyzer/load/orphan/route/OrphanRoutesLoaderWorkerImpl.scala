@@ -1,11 +1,11 @@
 package kpn.server.analyzer.load.orphan.route
 
-import kpn.api.common.route.RouteElements
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RouteLoader
 import kpn.server.repository.AnalysisRepository

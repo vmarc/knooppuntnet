@@ -1,9 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.NodeInfo
-import kpn.api.common.network.NetworkElements
 import kpn.api.common.network.NetworkInfo
-import kpn.api.common.route.RouteElements
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
@@ -13,7 +11,9 @@ import kpn.core.database.doc.TimestampDoc
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
+import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.springframework.stereotype.Component
 
 @Component

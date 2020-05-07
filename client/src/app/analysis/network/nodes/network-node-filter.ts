@@ -1,10 +1,13 @@
 import {List} from "immutable";
 import {BehaviorSubject} from "rxjs";
 import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
+import {SurveyDateTimeInfo} from "../../../kpn/api/common/survey-date-time-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
 import {FilterOptions} from "../../../kpn/filter/filter-options";
 import {Filters} from "../../../kpn/filter/filters";
+import {SurveyDateFilter} from "../../../kpn/filter/survey-date-filter";
+import {SurveyDateFilterKind} from "../../../kpn/filter/survey-date-filter-kind";
 import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
 import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
 import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
@@ -19,6 +22,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, definedInNetworkRelation: true}),
     this.update({...this.criteria, definedInNetworkRelation: false})
   );
+
   private readonly definedInRouteRelationFilter = new BooleanFilter<NetworkInfoNode>(
     "definedInRouteRelation",
     this.criteria.definedInRouteRelation,
@@ -27,6 +31,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, definedInRouteRelation: true}),
     this.update({...this.criteria, definedInRouteRelation: false})
   );
+
   private readonly referencedInRouteFilter = new BooleanFilter<NetworkInfoNode>(
     "referencedInRoute",
     this.criteria.referencedInRoute,
@@ -35,6 +40,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, referencedInRoute: true}),
     this.update({...this.criteria, referencedInRoute: false})
   );
+
   private readonly connectionFilter = new BooleanFilter<NetworkInfoNode>(
     "connection",
     this.criteria.connection,
@@ -43,6 +49,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, connection: true}),
     this.update({...this.criteria, connection: false})
   );
+
   private readonly roleConnectionFilter = new BooleanFilter<NetworkInfoNode>(
     "roleConnection",
     this.criteria.roleConnection,
@@ -51,6 +58,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, roleConnection: true}),
     this.update({...this.criteria, roleConnection: false})
   );
+
   private readonly integrityCheckFilter = new BooleanFilter<NetworkInfoNode>(
     "integrityCheck",
     this.criteria.integrityCheck,
@@ -59,6 +67,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, integrityCheck: true}),
     this.update({...this.criteria, integrityCheck: false})
   );
+
   private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkInfoNode>(
     "integrityCheckFailed",
     this.criteria.integrityCheckFailed,
@@ -67,6 +76,7 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, integrityCheckFailed: true}),
     this.update({...this.criteria, integrityCheckFailed: false})
   );
+
   private readonly lastUpdatedFilter = new TimestampFilter<NetworkInfoNode>(
     this.criteria.lastUpdated,
     (row) => row.timestamp,
@@ -77,6 +87,20 @@ export class NetworkNodeFilter {
     this.update({...this.criteria, lastUpdated: TimestampFilterKind.LAST_YEAR}),
     this.update({...this.criteria, lastUpdated: TimestampFilterKind.OLDER})
   );
+
+  private readonly lastSurveyFilter = new SurveyDateFilter<NetworkInfoNode>(
+    this.criteria.lastSurvey,
+    (row) => row.lastSurvey,
+    this.surveyDateTimeInfo,
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.ALL}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.UNKNOWN}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_MONTH}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_HALF_YEAR}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_YEAR}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_TWO_YEARS}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.OLDER})
+  );
+
   private readonly allFilters = new Filters<NetworkInfoNode>(
     this.definedInNetworkRelationFilter,
     this.definedInRouteRelationFilter,
@@ -85,10 +109,12 @@ export class NetworkNodeFilter {
     this.roleConnectionFilter,
     this.integrityCheckFilter,
     this.integrityCheckFailedFilter,
-    this.lastUpdatedFilter
+    this.lastUpdatedFilter,
+    this.lastSurveyFilter
   );
 
   constructor(private readonly timeInfo: TimeInfo,
+              private readonly surveyDateTimeInfo: SurveyDateTimeInfo,
               private readonly criteria: NetworkNodeFilterCriteria,
               private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria>) {
   }

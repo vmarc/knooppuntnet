@@ -1,7 +1,6 @@
 package kpn.server.repository
 
 import kpn.api.common.network.NetworkAttributes
-import kpn.api.common.network.NetworkElements
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
 import kpn.core.database.Database
@@ -13,6 +12,7 @@ import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
 import kpn.core.gpx.GpxFile
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import org.springframework.stereotype.Component
 
 @Component

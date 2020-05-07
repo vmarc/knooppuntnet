@@ -2,7 +2,7 @@
 
 import {List} from "immutable";
 import {Country} from "../custom/country";
-import {Day} from "./common/day";
+import {Day} from "../custom/day";
 import {Fact} from "../custom/fact";
 import {Location} from "./location/location";
 import {NodeName} from "./node-name";

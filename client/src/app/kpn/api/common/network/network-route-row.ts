@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Day} from "../common/day";
+import {Day} from "../../custom/day";
 import {Timestamp} from "../../custom/timestamp";
 
 export class NetworkRouteRow {

@@ -2,7 +2,6 @@ package kpn.server.api.analysis.pages.route
 
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
-import kpn.api.common.common.Day
 import kpn.api.common.common.Reference
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteDetailsPage
@@ -12,6 +11,7 @@ import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteReferences
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo

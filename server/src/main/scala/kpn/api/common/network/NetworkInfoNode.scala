@@ -2,8 +2,8 @@ package kpn.api.common.network
 
 import kpn.api.common.LatLon
 import kpn.api.common.NodeIntegrityCheck
-import kpn.api.common.common.Day
 import kpn.api.common.common.Ref
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp

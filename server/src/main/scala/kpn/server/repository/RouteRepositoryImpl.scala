@@ -1,6 +1,5 @@
 package kpn.server.repository
 
-import kpn.api.common.route.RouteElements
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
 import kpn.core.database.Database
@@ -11,6 +10,7 @@ import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.springframework.stereotype.Component
 
 @Component

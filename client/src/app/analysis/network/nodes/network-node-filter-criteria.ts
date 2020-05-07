@@ -1,3 +1,4 @@
+import {SurveyDateFilterKind} from "../../../kpn/filter/survey-date-filter-kind";
 import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
 
 export class NetworkNodeFilterCriteria {
@@ -9,7 +10,8 @@ export class NetworkNodeFilterCriteria {
               readonly roleConnection: boolean = null,
               readonly integrityCheck: boolean = null,
               readonly integrityCheckFailed: boolean = null,
-              readonly lastUpdated: TimestampFilterKind = TimestampFilterKind.ALL) {
+              readonly lastUpdated: TimestampFilterKind = TimestampFilterKind.ALL,
+              readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.ALL) {
   }
 
 }

@@ -1,10 +1,10 @@
 package kpn.api.common
 
-import kpn.api.common.common.Day
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Tagable
 import kpn.api.common.location.Location
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset

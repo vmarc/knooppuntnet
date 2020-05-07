@@ -1,6 +1,6 @@
 package kpn.api.common.network
 
-import kpn.api.common.common.Day
+import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class NetworkRouteRow(

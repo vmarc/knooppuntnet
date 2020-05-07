@@ -1,10 +1,10 @@
 package kpn.server.repository
 
 import kpn.api.common.network.NetworkAttributes
-import kpn.api.common.network.NetworkElements
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
+import kpn.server.analyzer.engine.changes.changes.NetworkElements
 
 trait NetworkRepository {
 

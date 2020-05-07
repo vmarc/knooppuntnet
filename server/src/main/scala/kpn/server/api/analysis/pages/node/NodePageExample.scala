@@ -7,7 +7,6 @@ import kpn.api.common.NodeName
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.filter.ChangesFilter
-import kpn.api.common.common.Day
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
@@ -25,6 +24,7 @@ import kpn.api.common.node.NodeNetworkRouteReference
 import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.api.common.node.NodeReferences
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
