@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkMapPage
 import kpn.server.repository.ChangeSetRepository
@@ -28,11 +29,13 @@ class NetworkMapPageBuilderImpl(
   private def buildPageContents(networkInfo: NetworkInfo): NetworkMapPage = {
     val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
     val nodes = networkInfo.detail.toSeq.flatMap(_.nodes)
+    val bounds = Bounds.from(nodes)
     NetworkMapPage(
       NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       nodes,
       networkInfo.nodeRefs,
-      networkInfo.routeRefs
+      networkInfo.routeRefs,
+      bounds
     )
   }
 }

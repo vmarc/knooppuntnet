@@ -4,6 +4,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {LayerSwitcherComponent} from "./components/layer-switcher.component";
 import {LocationMapComponent} from "./components/location-map.component";
+import {NetworkMapComponent} from "./components/network-map.component";
 import {NodeMapComponent} from "./components/node-map.component";
 import {NodeMovedMapComponent} from "./components/node-moved-map.component";
 import {RouteChangeMapComponent} from "./components/route-change-map.component";
@@ -29,7 +30,8 @@ import {TileLoadProgressService} from "./services/tile-load-progress.service";
     SubsetMapComponent,
     LayerSwitcherComponent,
     RouteChangeMapComponent,
-    LocationMapComponent
+    LocationMapComponent,
+    NetworkMapComponent
   ],
   exports: [
     NodeMapComponent,
@@ -38,7 +40,8 @@ import {TileLoadProgressService} from "./services/tile-load-progress.service";
     SubsetMapComponent,
     RouteChangeMapComponent,
     LocationMapComponent,
-    LayerSwitcherComponent
+    LayerSwitcherComponent,
+    NetworkMapComponent
   ],
   providers: [
     MapService,

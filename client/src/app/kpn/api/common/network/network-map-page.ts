@@ -1,6 +1,7 @@
 // this class is generated, please do not modify
 
 import {List} from "immutable";
+import {Bounds} from "../bounds";
 import {NetworkInfoNode} from "./network-info-node";
 import {NetworkSummary} from "./network-summary";
 
@@ -9,7 +10,8 @@ export class NetworkMapPage {
   constructor(readonly networkSummary: NetworkSummary,
               readonly nodes: List<NetworkInfoNode>,
               readonly nodeIds: List<number>,
-              readonly routeIds: List<number>) {
+              readonly routeIds: List<number>,
+              readonly bounds: Bounds) {
   }
 
   public static fromJSON(jsonObject: any): NetworkMapPage {
@@ -20,7 +22,8 @@ export class NetworkMapPage {
       NetworkSummary.fromJSON(jsonObject.networkSummary),
       jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => NetworkInfoNode.fromJSON(json))) : List(),
       jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
-      jsonObject.routeIds ? List(jsonObject.routeIds) : List()
+      jsonObject.routeIds ? List(jsonObject.routeIds) : List(),
+      Bounds.fromJSON(jsonObject.bounds)
     );
   }
 }

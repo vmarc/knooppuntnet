@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkInfoNode
 import kpn.api.common.network.NetworkMapPage
 
@@ -15,7 +16,8 @@ object NetworkMapPageExample {
       NetworkDetailsPageExample.networkSummary(),
       nodes,
       nodeIds,
-      routeIds
+      routeIds,
+      Bounds()
     )
   }
 }

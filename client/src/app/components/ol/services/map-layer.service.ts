@@ -4,6 +4,7 @@ import VectorTileLayer from "ol/layer/VectorTile";
 import {I18nService} from "../../../i18n/i18n.service";
 import {RawNode} from "../../../kpn/api/common/data/raw/raw-node";
 import {NodeMoved} from "../../../kpn/api/common/diff/node/node-moved";
+import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
 import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
 import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
 import {RouteMap} from "../../../kpn/api/common/route/route-map";
@@ -13,6 +14,8 @@ import {LocationBoundaryLayer} from "../layers/location-boundary-layer";
 import {MainMapLayer} from "../layers/main-map-layer";
 import {MapLayer} from "../layers/map-layer";
 import {NetworkMarkerLayer} from "../layers/network-marker-layer";
+import {NetworkNodesMarkerLayer} from "../layers/network-nodes-marker-layer";
+import {NetworkNodesTileLayer} from "../layers/network-nodes-tile-layer";
 import {NetworkVectorTileLayer} from "../layers/network-vector-tile-layer";
 import {NodeMarkerLayer} from "../layers/node-marker-layer";
 import {NodeMovedLayer} from "../layers/node-moved-layer";
@@ -80,6 +83,17 @@ export class MapLayerService {
 
   networkMarkerLayer(networks: List<SubsetMapNetwork>): MapLayer {
     return new NetworkMarkerLayer(this.i18nService).build(networks);
+  }
+
+  networkNodesMarkerLayer(nodes: List<NetworkInfoNode>): MapLayer {
+    return new NetworkNodesMarkerLayer(this.i18nService).build(nodes);
+  }
+
+  networkNodesTileLayer(networkType: NetworkType, nodeIds: List<number>, routeIds: List<number>): MapLayer {
+    const layer = NetworkNodesTileLayer.build(networkType, nodeIds, routeIds);
+    const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
+    layer.layer.set("name", layerName);
+    return layer;
   }
 
   poiTileLayer(): VectorTileLayer {

@@ -8,6 +8,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MarkdownModule} from "ngx-markdown";
+import {OlModule} from "../../components/ol/ol.module";
 import {SharedModule} from "../../components/shared/shared.module";
 import {AnalysisComponentsModule} from "../components/analysis-components.module";
 import {FactModule} from "../fact/fact.module";
@@ -70,7 +71,8 @@ import {NetworkRoutesSidebarComponent} from "./routes/network-routes-sidebar.com
     AnalysisComponentsModule,
     NetworkRoutingModule,
     MatSlideToggleModule,
-    FactModule
+    FactModule,
+    OlModule
   ],
   declarations: [
     NetworkChangesPageComponent,

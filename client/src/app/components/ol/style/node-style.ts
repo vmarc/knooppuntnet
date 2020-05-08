@@ -1,3 +1,4 @@
+import {Color} from "ol/color";
 import Circle from "ol/style/Circle";
 import Fill from "ol/style/Fill";
 import Stroke from "ol/style/Stroke";
@@ -8,6 +9,22 @@ import {MainStyleColors} from "./main-style-colors";
 export class NodeStyle {
 
   public static smallNodeStyle(): Style {
+    return this.buildSmallNodeStyle(MainStyleColors.green);
+  }
+
+  public static smallNodeStyleGray(): Style {
+    return this.buildSmallNodeStyle(MainStyleColors.gray);
+  }
+
+  public static largeNodeStyle(): Style {
+    return this.buildLargeNodeStyleGray(MainStyleColors.green);
+  }
+
+  public static largeNodeStyleGray(): Style {
+    return this.buildLargeNodeStyleGray(MainStyleColors.gray);
+  }
+
+  private static buildSmallNodeStyle(color: Color): Style {
     return new Style({
       image: new Circle({
         radius: 3,
@@ -15,14 +32,14 @@ export class NodeStyle {
           color: MainStyleColors.white
         }),
         stroke: new Stroke({
-          color: MainStyleColors.green,
+          color: color,
           width: 2
         })
       })
     });
   }
 
-  public static largeNodeStyle(): Style {
+  private static buildLargeNodeStyleGray(color: Color): Style {
     return new Style({
       image: new Circle({
         radius: 14,
@@ -30,7 +47,7 @@ export class NodeStyle {
           color: MainStyleColors.white
         }),
         stroke: new Stroke({
-          color: MainStyleColors.green,
+          color: color,
           width: 3
         })
       }),
@@ -46,5 +63,4 @@ export class NodeStyle {
       })
     });
   }
-
 }

@@ -23,6 +23,7 @@ import {NetworkService} from "../network.service";
     </kpn-network-page-header>
 
     <div *ngIf="response$ | async as response">
+      <kpn-network-map [page]="response.result"></kpn-network-map>
       <kpn-json [object]="response"></kpn-json>
     </div>
   `
