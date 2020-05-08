@@ -7,25 +7,23 @@ import {BehaviorSubject} from "rxjs";
 })
 export class SpinnerService {
 
-  private readonly _spinnerState = new BehaviorSubject<boolean>(false);
+  private readonly _spinnerState$ = new BehaviorSubject<boolean>(false);
   private activeActions: List<string> = List();
 
-  spinnerState() {
-    return this._spinnerState;
-  }
+  readonly spinnerState$ = this._spinnerState$.asObservable();
 
   start(action: string): void {
     this.activeActions = this.activeActions.push(action);
-    if (this._spinnerState.value !== true) {
-      this._spinnerState.next(true);
+    if (this._spinnerState$.value !== true) {
+      this._spinnerState$.next(true);
     }
     // console.log(`spinner start ${action} - activeActions = ${this.activeActions}, spinnerState=${this._spinnerState}`);
   }
 
   end(action: string): void {
     this.activeActions = this.activeActions.filter(a => a !== action);
-    if (this.activeActions.isEmpty() && this._spinnerState.value !== false) {
-      this._spinnerState.next(false);
+    if (this.activeActions.isEmpty() && this._spinnerState$.value !== false) {
+      this._spinnerState$.next(false);
     }
     // console.log(`spinner end ${action} - activeActions = ${this.activeActions}, spinnerState=${this._spinnerState}`);
   }

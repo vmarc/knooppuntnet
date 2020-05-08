@@ -1,33 +1,27 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs";
 import {debounceTime} from "rxjs/operators";
-import {Subscriptions} from "../util/Subscriptions";
 import {SpinnerService} from "./spinner.service";
 
 @Component({
   selector: "kpn-spinner",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-spinner *ngIf="showSpinner" diameter="40"></mat-spinner>
+    <mat-spinner *ngIf="showSpinner$ | async" diameter="40"></mat-spinner>
   `
 })
-export class SpinnerComponent implements OnDestroy, OnInit {
+export class SpinnerComponent implements OnInit {
 
-  private readonly subscriptions = new Subscriptions();
-
-  showSpinner = false;
+  showSpinner$: Observable<boolean>;
 
   constructor(private spinnerService: SpinnerService) {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.spinnerService.spinnerState().pipe(debounceTime(300)).subscribe(show => {
-      this.showSpinner = show;
-    }));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.showSpinner$ = this.spinnerService.spinnerState$.pipe(
+      debounceTime(300)
+    );
   }
 
 }
