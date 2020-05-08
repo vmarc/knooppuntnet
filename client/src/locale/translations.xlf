@@ -611,74 +611,102 @@
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="filter.unknown" datatype="html">
+        <source>unknown</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="filter.definedInNetworkRelation" datatype="html">
         <source>Defined in network relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.definedInRouteRelation" datatype="html">
         <source>Defined in route relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.referencedInRoute" datatype="html">
         <source>Referenced in route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.connection" datatype="html">
         <source>Connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastUpdated" datatype="html">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastSurvey" datatype="html">
+        <source>Last survey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
         <source>last week</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
         <source>last month</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
         <source>last year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastHalfYear" datatype="html">
+        <source>last half year</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastTwoYears" datatype="html">
+        <source>last two years</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
         <source>older</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
         <source>Role connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
@@ -2978,63 +3006,63 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.analysis" datatype="html">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.node" datatype="html">
         <source>Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.name" datatype="html">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes.expected" datatype="html">
         <source>Expected</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes.actual" datatype="html">
         <source>Actual</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes" datatype="html">
         <source>Routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-survey" datatype="html">
         <source>Last survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-edit" datatype="html">
         <source>Last edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.no-routes" datatype="html">
@@ -3073,49 +3101,49 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.analysis" datatype="html">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.node" datatype="html">
         <source>Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.distance" datatype="html">
         <source>Distance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.role" datatype="html">
         <source>Role</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-survey" datatype="html">
         <source>Last survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-edit" datatype="html">
         <source>Last edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.network" datatype="html">
@@ -3974,6 +4002,47 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-routes.component.ts</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.tip-zoom-in" datatype="html">
+        <source>
+          Zoom in for node or route details.
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.part-of-network" datatype="html">
+        <source>Part of network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.not-part-of-network" datatype="html">
+        <source>Not part of network</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.tip1" datatype="html">
+        <source>
+            Click on node or route to go to detail page.
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.tip2" datatype="html">
+        <source>
+            Use ctrl-click to open the detail page in another browser tab.
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.title" datatype="html">
