@@ -15,6 +15,7 @@ import {MapLayer} from "../layers/map-layer";
 import {MapLayers} from "../layers/map-layers";
 import {MapClickService} from "../services/map-click.service";
 import {MapLayerService} from "../services/map-layer.service";
+import {MapZoomService} from "../services/map-zoom.service";
 
 @Component({
   selector: "kpn-network-map",
@@ -36,6 +37,7 @@ export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private mapLayerService: MapLayerService,
               private mapClickService: MapClickService,
+              private mapZoomService: MapZoomService,
               private pageService: PageService) {
   }
 
@@ -51,6 +53,7 @@ export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    this.map.dispose();
     this.subscriptions.unsubscribe();
   }
 
@@ -69,6 +72,7 @@ export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.layers.applyMap(this.map);
     const view = this.map.getView();
     view.fit(Util.toExtent(this.page.bounds, 0.1));
+    view.on("change:resolution", () => this.mapZoomService.updateZoomLevel(view.getZoom()));
     this.mapClickService.installOn(this.map);
   }
 

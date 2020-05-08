@@ -388,3 +388,15 @@ table.mat-table > thead > tr.mat-header-row > th.mat-header-cell {
 .kpn-spacer-below {
   margin-bottom: 2rem;
 }
+
+.kpn-tip {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: gray;
+  font-style: italic;
+}
+
+.kpn-tip > li {
+  color: gray;
+  margin: 1rem;
+}

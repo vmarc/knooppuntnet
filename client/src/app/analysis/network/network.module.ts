@@ -30,6 +30,8 @@ import {NetworkFactRoutesComponent} from "./facts/network-fact-routes.component"
 import {NetworkFactWayIdsComponent} from "./facts/network-fact-way-ids.component";
 import {NetworkFactComponent} from "./facts/network-fact.component";
 import {NetworkMapPageComponent} from "./map/_network-map-page.component";
+import {NetworkMapLegendIconComponent} from "./map/network-map-legend-icon.component";
+import {NetworkMapSidebarComponent} from "./map/network-map-sidebar.component";
 import {NetworkRoutingModule} from "./network-routing.module";
 import {NetworkNodesPageComponent} from "./nodes/_network-nodes-page.component";
 import {IntegrityIndicatorDialogComponent} from "./nodes/indicators/integrity-indicator-dialog.component";
@@ -117,7 +119,9 @@ import {NetworkRoutesSidebarComponent} from "./routes/network-routes-sidebar.com
     NetworkFactNodesComponent,
     NetworkFactRoutesComponent,
     NetworkFactComponent,
-    NetworkChangesSidebarComponent
+    NetworkChangesSidebarComponent,
+    NetworkMapSidebarComponent,
+    NetworkMapLegendIconComponent
   ]
 })
 export class NetworkModule {

@@ -9,10 +9,6 @@ import {MapLayer} from "./map-layer";
 
 export class NetworkNodesMarkerLayer {
 
-  static readonly nodeId = "node-id";
-  static readonly layer = "layer";
-  static readonly nodeMarker = "node-marker";
-
   constructor(private i18nService: I18nService) {
   }
 
@@ -22,8 +18,9 @@ export class NetworkNodesMarkerLayer {
       const color = node.roleConnection ? "green" : "blue";
       const coordinate = Util.toCoordinate(node.latitude, node.longitude);
       const marker = Marker.create(color, coordinate);
-      marker.set(NetworkNodesMarkerLayer.nodeId, node.id.toString());
-      marker.set(NetworkNodesMarkerLayer.layer, NetworkNodesMarkerLayer.nodeMarker);
+      marker.set("id", node.id.toString());
+      marker.set("name", node.name);
+      marker.set("layer", "node-marker");
       return marker;
     });
 

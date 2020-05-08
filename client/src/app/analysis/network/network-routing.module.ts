@@ -7,6 +7,7 @@ import {NetworkChangesSidebarComponent} from "./changes/network-changes-sidebar.
 import {NetworkDetailsPageComponent} from "./details/_network-details-page.component";
 import {NetworkFactsPageComponent} from "./facts/_network-facts-page.component";
 import {NetworkMapPageComponent} from "./map/_network-map-page.component";
+import {NetworkMapSidebarComponent} from "./map/network-map-sidebar.component";
 import {NetworkNodesPageComponent} from "./nodes/_network-nodes-page.component";
 import {NetworkNodesSidebarComponent} from "./nodes/network-nodes-sidebar.component";
 import {NetworkRoutesPageComponent} from "./routes/_network-routes-page.component";
@@ -17,7 +18,7 @@ const routes: Routes = [
   Util.routePath(":networkId/facts", NetworkFactsPageComponent, AnalysisSidebarComponent),
   Util.routePath(":networkId/nodes", NetworkNodesPageComponent, NetworkNodesSidebarComponent),
   Util.routePath(":networkId/routes", NetworkRoutesPageComponent, NetworkRoutesSidebarComponent),
-  Util.routePath(":networkId/map", NetworkMapPageComponent, AnalysisSidebarComponent),
+  Util.routePath(":networkId/map", NetworkMapPageComponent, NetworkMapSidebarComponent),
   Util.routePath(":networkId/changes", NetworkChangesPageComponent, NetworkChangesSidebarComponent)
 ];
 

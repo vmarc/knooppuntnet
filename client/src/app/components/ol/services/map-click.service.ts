@@ -13,11 +13,17 @@ import Map from "ol/Map";
 @Injectable()
 export class MapClickService {
 
+  private interaction: Interaction = this.buildInteraction();
+
   constructor(private router: Router) {
   }
 
   installOn(map: Map): void {
-    map.addInteraction(this.buildInteraction());
+    map.addInteraction(this.interaction);
+  }
+
+  onDestroy(map: Map): void {
+    map.removeInteraction(this.interaction);
   }
 
   private buildInteraction(): Interaction {
@@ -31,11 +37,9 @@ export class MapClickService {
     const features = this.getFeatures(evt);
     const nodeFeature = this.findFeature(features, this.isNode);
     const openNewTab = platformModifierKeyOnly(evt);
-
-
     if (nodeFeature) {
       this.handleNodeClicked(nodeFeature, openNewTab);
-      return true;
+      return false;
     }
     const routeFeature = this.findFeature(features, this.isRoute);
     if (routeFeature) {
@@ -75,7 +79,8 @@ export class MapClickService {
     if (openNewTab) {
       window.open(url);
     } else {
-      this.router.navigateByUrl(url, {state: {routeName: routeName}});
+      this.interaction.getMap().removeInteraction(this.interaction);
+      setTimeout(() => this.router.navigateByUrl(url, {state: {routeName: routeName}}), 250);
     }
   }
 
@@ -86,7 +91,8 @@ export class MapClickService {
     if (openNewTab) {
       window.open(url);
     } else {
-      this.router.navigateByUrl(url, {state: {nodeName: nodeName}});
+      this.interaction.getMap().removeInteraction(this.interaction);
+      setTimeout(() => this.router.navigateByUrl(url, {state: {nodeName: nodeName}}), 250);
     }
   }
 
@@ -104,7 +110,7 @@ export class MapClickService {
 
   private isNode(feature: FeatureLike): boolean {
     const layer = feature.get("layer");
-    return layer && layer.endsWith("node");
+    return layer && (layer.endsWith("node") || layer === "node-marker");
   }
 
   private isRoute(feature: FeatureLike): boolean {
