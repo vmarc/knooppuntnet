@@ -400,3 +400,7 @@ table.mat-table > thead > tr.mat-header-row > th.mat-header-cell {
   color: gray;
   margin: 1rem;
 }
+
+markdown > p > em:after {
+  content: '\0000a0';
+}
