@@ -29,8 +29,9 @@ import {NetworkService} from "../network.service";
 
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
 
-        <p *ngIf="response.result.facts.isEmpty()" i18n="@@network-facts.no-facts">
-          No facts
+        <p *ngIf="response.result.facts.isEmpty()" class="kpn-line">
+          <span i18n="@@network-facts.no-facts">No facts</span>
+          <kpn-icon-happy></kpn-icon-happy>
         </p>
 
         <kpn-items *ngIf="!response.result.facts.isEmpty()">
@@ -39,7 +40,6 @@ import {NetworkService} from "../network.service";
           </kpn-item>
         </kpn-items>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

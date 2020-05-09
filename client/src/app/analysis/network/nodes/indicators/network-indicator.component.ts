@@ -30,7 +30,7 @@ export class NetworkIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    this.dialog.open(NetworkIndicatorDialogComponent, {data: this.color});
+    this.dialog.open(NetworkIndicatorDialogComponent, {data: this.color, maxWidth: 600});
   }
 
   private determineColor() {

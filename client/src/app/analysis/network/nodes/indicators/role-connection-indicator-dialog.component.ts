@@ -15,17 +15,17 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
       <span dialog-title *ngIf="isBlue()" i18n="@@role-connection-indicator.blue.title">
         OK - Connection
       </span>
-      <div dialog-body *ngIf="isBlue()" i18n="@@role-connection-indicator.blue.text">
+      <markdown dialog-body *ngIf="isBlue()" i18n="@@role-connection-indicator.blue.text">
         This node is a connection to another network.
-        This node has role "connection" in the network relation.
-      </div>
+        This node has role _"connection"_ in the network relation.
+      </markdown>
 
       <span dialog-title *ngIf="isGray()" i18n="@@role-connection-indicator.gray.title">
         OK - No connection role
       </span>
-      <div dialog-body *ngIf="isGray()" i18n="@@role-connection-indicator.gray.text">
-        This node does not have role "connection" in het network relation.
-      </div>
+      <markdown dialog-body *ngIf="isGray()" i18n="@@role-connection-indicator.gray.text">
+        This node does not have role _"connection"_ in het network relation.
+      </markdown>
 
     </kpn-indicator-dialog>
   `

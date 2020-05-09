@@ -30,6 +30,6 @@ export class RoleConnectionIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    this.dialog.open(RoleConnectionIndicatorDialogComponent, {data: this.color});
+    this.dialog.open(RoleConnectionIndicatorDialogComponent, {data: this.color, maxWidth: 600});
   }
 }

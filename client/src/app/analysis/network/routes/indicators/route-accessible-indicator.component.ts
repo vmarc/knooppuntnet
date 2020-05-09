@@ -34,7 +34,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
 
   onOpenDialog() {
     const data = new RouteAccessibleData(this.networkType, this.route.accessible, this.color);
-    this.dialog.open(RouteAccessibleIndicatorDialogComponent, {data: data});
+    this.dialog.open(RouteAccessibleIndicatorDialogComponent, {data: data, maxWidth: 600});
   }
 
   private determineColor() {

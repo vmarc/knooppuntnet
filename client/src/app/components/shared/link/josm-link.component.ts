@@ -8,7 +8,7 @@ import {TimeoutComponent} from "./timeout.component";
   selector: "kpn-josm-link",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a rel="nofollow" (click)="edit()" title="Open in editor (like Josm)" i18n="@@links.edit">edit</a>
+    <a rel="nofollow" (click)="edit()" title="Open in editor (like JOSM)" i18n="@@links.edit">edit</a>
   `
 })
 export class JosmLinkComponent {

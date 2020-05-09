@@ -40,7 +40,6 @@ import {NetworkService} from "../network.service";
           [nodes]="response.result.nodes">
         </kpn-network-node-table>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

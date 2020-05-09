@@ -107,7 +107,7 @@ import {NetworkNodesService} from "./network-nodes.service";
     }
 
     .mat-column-routes-actual {
-      width: 10rem;
+      width: 12rem;
     }
 
   `]

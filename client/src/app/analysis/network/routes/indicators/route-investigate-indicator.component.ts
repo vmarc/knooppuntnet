@@ -30,7 +30,7 @@ export class RouteInvestigateIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    this.dialog.open(RouteInvestigateIndicatorDialogComponent, {data: this.color});
+    this.dialog.open(RouteInvestigateIndicatorDialogComponent, {data: this.color, maxWidth: 600});
   }
 
 }

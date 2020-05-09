@@ -39,7 +39,7 @@ export class IntegrityIndicatorComponent implements OnInit {
       this.node.integrityCheck ? this.node.integrityCheck.actual : 0,
       this.node.integrityCheck ? this.node.integrityCheck.expected : 0
     );
-    this.dialog.open(IntegrityIndicatorDialogComponent, {data: indicatorData});
+    this.dialog.open(IntegrityIndicatorDialogComponent, {data: indicatorData, maxWidth: 600});
   }
 
   private determineColor() {

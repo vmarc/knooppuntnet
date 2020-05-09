@@ -16,12 +16,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
       <span dialog-title *ngIf="isOrange()" i18n="@@network-indicator.orange.title">
         Unexpected - Defined in network relation
       </span>
-      <div dialog-body *ngIf="isOrange()" i18n="@@network-indicator.orange.text">
+      <markdown dialog-body *ngIf="isOrange()" i18n="@@network-indicator.orange.text">
         This node is included as a member in the network relation. We did not expect this,
-        because all routes to this node have role "connection". This would mean that the
+        because all routes to this node have role _"connection"_. This would mean that the
         node is part of another network. We expect that the node is not included in the
         network relation, unless it receives the role "connection".
-      </div>
+      </markdown>
 
       <span dialog-title *ngIf="isGreen()" i18n="@@network-indicator.green.title">
         OK - Defined in network relation
@@ -33,23 +33,23 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
       <span dialog-title *ngIf="isGray()" i18n="@@network-indicator.gray.title">
         OK - Not defined in network relation
       </span>
-      <div dialog-body *ngIf="isGray()" i18n="@@network-indicator.gray.text">
+      <markdown dialog-body *ngIf="isGray()" i18n="@@network-indicator.gray.text">
         This node is not included as a member in the network relation. This is OK. This node
         must belong to a different network, because all routes to this node within this network
-        have the role "connection" in the network relation.
-      </div>
+        have the role _"connection"_ in the network relation.
+      </markdown>
 
       <span dialog-title *ngIf="isRed()" i18n="@@network-indicator.red.title">
         NOK - Not defined in network relation
       </span>
-      <div dialog-body *ngIf="isRed()" i18n="@@network-indicator.red.text">
+      <markdown dialog-body *ngIf="isRed()" i18n="@@network-indicator.red.text">
         This node is not included as a member in the network relation. This is not OK. The
         convention is to include each node in the network relation. An exception is when the node
-        belongs to another network (all routes to this node have role "connection" in
+        belongs to another network (all routes to this node have role _"connection"_ in
         the network relation), then the node does not have to be included as member in
         the network relation. The node can be added the network relation, but should get
-        the role "connection" in that case.
-      </div>
+        the role _"connection"_ in that case.
+      </markdown>
 
     </kpn-indicator-dialog>
   `
