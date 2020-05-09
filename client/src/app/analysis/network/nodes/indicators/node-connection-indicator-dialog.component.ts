@@ -1,16 +1,12 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: "kpn-connection-indicator-dialog",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
-      letter="C"
-      i18n-letter="@@node-connection-indicator.letter"
-      [color]="color"
-      (closeDialog)="onCloseDialog()">
+    <kpn-indicator-dialog letter="C" i18n-letter="@@node-connection-indicator.letter" [color]="color">
 
       <span dialog-title *ngIf="isBlue()" i18n="@@node-connection-indicator.blue.title">
         OK - Connection
@@ -34,12 +30,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class NodeConnectionIndicatorDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<NodeConnectionIndicatorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public color: string) {
-  }
-
-  onCloseDialog(): void {
-    this.dialogRef.close();
+  constructor(@Inject(MAT_DIALOG_DATA) public color: string) {
   }
 
   isBlue() {

@@ -1,17 +1,13 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {IntegrityIndicatorData} from "./integrity-indicator-data";
 
 @Component({
   selector: "kpn-integrity-indicator-dialog",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
-      letter="E"
-      i18n-letter="@@integrity-indicator.letter"
-      [color]="color"
-      (closeDialog)="onCloseDialog()">
+    <kpn-indicator-dialog letter="E" i18n-letter="@@integrity-indicator.letter" [color]="color">
 
       <span dialog-title *ngIf="isGray()" i18n="@@integrity-indicator.gray.title">
         OK - expected route count missing
@@ -42,8 +38,7 @@ import {IntegrityIndicatorData} from "./integrity-indicator-data";
 })
 export class IntegrityIndicatorDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<IntegrityIndicatorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private indicatorData: IntegrityIndicatorData) {
+  constructor(@Inject(MAT_DIALOG_DATA) private indicatorData: IntegrityIndicatorData) {
   }
 
   get color() {
@@ -60,10 +55,6 @@ export class IntegrityIndicatorDialogComponent {
 
   get expected() {
     return this.indicatorData.expected;
-  }
-
-  onCloseDialog(): void {
-    this.dialogRef.close();
   }
 
   isGray() {

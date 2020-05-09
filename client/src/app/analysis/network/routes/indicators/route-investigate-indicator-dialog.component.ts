@@ -1,16 +1,13 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: "kpn-route-investigate-indicator-dialog",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
-      letter="F"
-      i18n-letter="@@route-investigate-indicator.letter"
-      [color]="color"
-      (closeDialog)="onCloseDialog()">
+
+    <kpn-indicator-dialog letter="F" i18n-letter="@@route-investigate-indicator.letter" [color]="color">
 
       <span dialog-title *ngIf="isGreen()" i18n="@@route-investigate-indicator.green.title">
         OK - No facts
@@ -31,12 +28,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class RouteInvestigateIndicatorDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<RouteInvestigateIndicatorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public color: string) {
-  }
-
-  onCloseDialog(): void {
-    this.dialogRef.close();
+  constructor(@Inject(MAT_DIALOG_DATA) public color: string) {
   }
 
   isGreen() {

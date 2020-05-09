@@ -1,17 +1,13 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: "kpn-network-indicator-dialog",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <kpn-indicator-dialog
-      letter="N"
-      i18n-letter="@@network-indicator.letter"
-      [color]="color"
-      (closeDialog)="onCloseDialog()">
+    <kpn-indicator-dialog letter="N" i18n-letter="@@network-indicator.letter" [color]="color">
 
       <span dialog-title *ngIf="isOrange()" i18n="@@network-indicator.orange.title">
         Unexpected - Defined in network relation
@@ -20,7 +16,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
         This node is included as a member in the network relation. We did not expect this,
         because all routes to this node have role _"connection"_. This would mean that the
         node is part of another network. We expect that the node is not included in the
-        network relation, unless it receives the role "connection".
+        network relation, unless it receives the role _"connection"_.
       </markdown>
 
       <span dialog-title *ngIf="isGreen()" i18n="@@network-indicator.green.title">
@@ -56,12 +52,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class NetworkIndicatorDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<NetworkIndicatorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public color: string) {
-  }
-
-  onCloseDialog(): void {
-    this.dialogRef.close();
+  constructor(@Inject(MAT_DIALOG_DATA) public color: string) {
   }
 
   isOrange() {

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {NetworkType} from "../../../../kpn/api/custom/network-type";
 import {RouteAccessibleData} from "./route-accessible-data";
 
@@ -8,11 +8,8 @@ import {RouteAccessibleData} from "./route-accessible-data";
   selector: "kpn-route-acccessible-indicator-dialog",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
-      letter="A"
-      i18n-letter="@@route-accessible-indicator.letter"
-      [color]="color"
-      (closeDialog)="onCloseDialog()">
+
+    <kpn-indicator-dialog letter="A" i18n-letter="@@route-accessible-indicator.letter" [color]="color">
 
       <span dialog-title *ngIf="isGray()" i18n="@@route-accessible-indicator.gray.title">
         OK - Accessibility unknown
@@ -68,16 +65,11 @@ import {RouteAccessibleData} from "./route-accessible-data";
 })
 export class RouteAccessibleIndicatorDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<RouteAccessibleIndicatorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: RouteAccessibleData) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: RouteAccessibleData) {
   }
 
   get color() {
     return this.data.color;
-  }
-
-  onCloseDialog(): void {
-    this.dialogRef.close();
   }
 
   isGray() {
