@@ -62,7 +62,7 @@ export class NetworkNodeFilter {
   private readonly integrityCheckFilter = new BooleanFilter<NetworkInfoNode>(
     "integrityCheck",
     this.criteria.integrityCheck,
-    (row) => row.integrityCheck !== null,
+    (row) => row.integrityCheck !== undefined,
     this.update({...this.criteria, integrityCheck: null}),
     this.update({...this.criteria, integrityCheck: true}),
     this.update({...this.criteria, integrityCheck: false})
@@ -71,7 +71,7 @@ export class NetworkNodeFilter {
   private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkInfoNode>(
     "integrityCheckFailed",
     this.criteria.integrityCheckFailed,
-    (row) => row.integrityCheck !== null ? !row.integrityCheck.failed : false,
+    (row) => row.integrityCheck === undefined ? false : row.integrityCheck.failed,
     this.update({...this.criteria, integrityCheckFailed: null}),
     this.update({...this.criteria, integrityCheckFailed: true}),
     this.update({...this.criteria, integrityCheckFailed: false})
@@ -134,48 +134,7 @@ export class NetworkNodeFilter {
     const connection = this.connectionFilter.filterOptions(this.allFilters, nodes);
     const roleConnection = this.roleConnectionFilter.filterOptions(this.allFilters, nodes);
     const integrityCheck = this.integrityCheckFilter.filterOptions(this.allFilters, nodes);
-
-    // const integrityCheckResult = {
-    //   // TODO move into separate class ???
-    //
-    //   const filteredElements = this.allFilters.filterExcept(nodes, this.integrityCheckFailedFilter).filter(node => node.integrityCheck);
-    //   val (yesElements, noElements) = filteredElements.partition(integrityCheckFailedFilter.booleanPropertyAccessor)
-    //   const active = filteredElements.nonEmpty && yesElements.nonEmpty && noElements.nonEmpty
-    //
-    //   if (active) {
-    //     const all = newFilterOption(
-    //       "all",
-    //       filteredElements.size,
-    //       criteria.integrityCheckFailed.isEmpty,
-    //       CallbackTo {
-    //       updateCriteria(criteria.copy(integrityCheckFailed = None))
-    //     }
-    //   )
-    //
-    //     const yes = FilterOption(
-    //       "yes",
-    //       yesElements.size,
-    //       criteria.integrityCheckFailed.contains(true),
-    //       CallbackTo {
-    //       updateCriteria(criteria.copy(integrityCheckFailed = Some(true)))
-    //     }
-    //   )
-    //
-    //     const no = FilterOption(
-    //       "no",
-    //       noElements.size,
-    //       criteria.integrityCheckFailed.contains(false),
-    //       CallbackTo {
-    //       updateCriteria(criteria.copy(integrityCheckFailed = Some(false)))
-    //     }
-    //   )
-    //     Some(FilterOptionGroup(integrityCheckFailedFilter.name, all, yes, no))
-    //   }
-    //   else {
-    //     None
-    //   }
-    // }
-
+    const integrityCheckFailed = this.integrityCheckFailedFilter.filterOptions(this.allFilters, nodes);
     const lastSurvey = this.lastSurveyFilter.filterOptions(this.allFilters, nodes);
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);
 
@@ -186,7 +145,7 @@ export class NetworkNodeFilter {
       connection,
       roleConnection,
       integrityCheck,
-      // integrityCheckResult,
+      integrityCheckFailed,
       lastSurvey,
       lastUpdated
     ]).filter(g => g !== null);

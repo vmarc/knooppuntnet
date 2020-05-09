@@ -62,6 +62,8 @@ import {I18nService} from "./i18n.service";
       <span id="@@filter.definedInNetworkRelation" i18n="@@filter.definedInNetworkRelation">Defined in network relation</span>
       <span id="@@filter.definedInRouteRelation" i18n="@@filter.definedInRouteRelation">Defined in route relation</span>
       <span id="@@filter.referencedInRoute" i18n="@@filter.referencedInRoute">Referenced in route</span>
+      <span id="@@filter.integrityCheck" i18n="@@filter.integrityCheck">Integrity check</span>
+      <span id="@@filter.integrityCheckFailed" i18n="@@filter.integrityCheckFailed">Integrity check failed</span>
       <span id="@@filter.connection" i18n="@@filter.connection">Connection</span>
       <span id="@@filter.lastUpdated" i18n="@@filter.lastUpdated">Last updated</span>
       <span id="@@filter.lastSurvey" i18n="@@filter.lastSurvey">Last survey</span>
