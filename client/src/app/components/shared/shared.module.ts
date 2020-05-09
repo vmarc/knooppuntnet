@@ -13,6 +13,7 @@ import {SpinnerModule} from "../../spinner/spinner.module";
 import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
+import {DayPipe} from "./format/day.pipe";
 import {IntegerFormatPipe} from "./format/integer-format.pipe";
 import {IconButtonComponent} from "./icon/icon-button.component";
 import {IconHappyComponent} from "./icon/icon-happy.component";
@@ -23,6 +24,7 @@ import {IndicatorComponent} from "./indicator/indicator.component";
 import {ItemComponent} from "./items/item.component";
 import {ItemsComponent} from "./items/items.component";
 import {JsonComponent} from "./json/json.component";
+import {BracketsComponent} from "./link/brackets.component";
 import {DocLinkSmallComponent} from "./link/doc-link-small.component";
 import {DocLinkComponent} from "./link/doc-link.component";
 import {IconLinkComponent} from "./link/icon-link.component";
@@ -50,6 +52,7 @@ import {OsmLinkUserComponent} from "./link/osm-link-user.component";
 import {OsmLinkWayComponent} from "./link/osm-link-way.component";
 import {OsmLinkComponent} from "./link/osm-link.component";
 import {OsmWebsiteComponent} from "./link/osm-website.component";
+import {TimeoutComponent} from "./link/timeout.component";
 import {PageMenuOptionComponent} from "./menu/page-menu-option.component";
 import {PageMenuComponent} from "./menu/page-menu.component";
 import {MetaDataComponent} from "./meta-data.component";
@@ -68,8 +71,6 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
-import { BracketsComponent } from "./link/brackets.component";
-import { DayPipe } from './format/day.pipe';
 
 @NgModule({
   imports: [
@@ -145,7 +146,8 @@ import { DayPipe } from './format/day.pipe';
     PaginatorComponent,
     IntegerFormatPipe,
     BracketsComponent,
-    DayPipe
+    DayPipe,
+    TimeoutComponent
   ],
   exports: [
     LinkChangesetComponent,

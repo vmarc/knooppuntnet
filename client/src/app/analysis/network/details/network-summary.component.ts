@@ -20,7 +20,7 @@ import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-detail
     <p>
       <kpn-network-type [networkType]="page.attributes.networkType"></kpn-network-type>
     </p>
-    <p>
+    <p class="kpn-line">
       <kpn-osm-link-relation [relationId]="page.attributes.id"></kpn-osm-link-relation>
       <kpn-josm-relation [relationId]="page.attributes.id"></kpn-josm-relation>
     </p>

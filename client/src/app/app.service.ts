@@ -1,7 +1,10 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {MarkdownService} from "ngx-markdown";
+import {of} from "rxjs";
 import {Observable} from "rxjs";
+import {catchError} from "rxjs/operators";
+import {timeout} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {ChangesPage} from "./kpn/api/common/changes-page";
 import {ChangeSetPage} from "./kpn/api/common/changes/change-set-page";
@@ -60,6 +63,13 @@ export class AppService {
     markdownService.renderer.link = (href: string, title: string, text: string) => {
       return `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
     };
+  }
+
+  public edit(url: string): Observable<Object> {
+    return this.http.get(url, {responseType: "text"}).pipe(
+      timeout(5000),
+      catchError(() => of("Timeout"))
+    );
   }
 
   public overview(): Observable<ApiResponse<Statistics>> {

@@ -16,6 +16,50 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="timeout.close" datatype="html">
+        <source>close</source>
+        <target state="final">[close]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="timeout.message-1" datatype="html">
+        <source>
+      Sorry.
+    </source>
+        <target state="final">[
+      Sorry.
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="timeout.message-2" datatype="html">
+        <source>
+      No response from editor within 5 seconds.
+    </source>
+        <target state="final">[
+      No response from editor within 5 seconds.
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="timeout.message-3" datatype="html">
+        <source>
+      Has the editor (JOSM) been started? Has remote control been enabled within the browser?
+    </source>
+        <target state="final">[
+      Has the editor (JOSM) been started? Has remote control been enabled within the browser?
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="links.edit">
         <source>edit</source>
         <context-group purpose="location">

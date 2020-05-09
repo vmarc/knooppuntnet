@@ -80,6 +80,7 @@ export class NodeMapComponent implements OnInit, OnDestroy, AfterViewInit {
     mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
     mapLayers = mapLayers.concat(this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes).toArray());
     mapLayers = mapLayers.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
+    mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
     return new MapLayers(mapLayers);
   }
 

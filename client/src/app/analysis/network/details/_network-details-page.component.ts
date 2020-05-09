@@ -28,7 +28,6 @@ import {NetworkService} from "../network.service";
       <div *ngIf="response.result">
         <kpn-network-details [response]="response"></kpn-network-details>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })
