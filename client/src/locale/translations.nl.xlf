@@ -1177,18 +1177,18 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Overwacht - Opgenomen in netwerk relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.text" datatype="html">
         <source>This node is included as a member in the network relation. We did not expect this,
-        because all routes to this node have role &quot;connection&quot;. This would mean that the
+        because all routes to this node have role _&quot;connection&quot;_. This would mean that the
         node is part of another network. We expect that the node is not included in the
-        network relation, unless it receives the role &quot;connection&quot;.</source>
-        <target>Dit knooppunt is opgenomen als lid in een netwerk relatie. Dit is onverwacht omdat alle routes naar deze node de rol &quot;connection&quot; hebben. Dit zou betekenen dat dit knooppunt deel uitmaakt van een ander netwerk. We verwachten dat het knooppunt niet opgenomen wordt in de netwerk relatie, behalve wanneer het ook de rol &quot;connection&quot; meekrijgt.</target>
+        network relation, unless it receives the role _&quot;connection&quot;_.</source>
+        <target>Dit knooppunt is opgenomen als lid in een netwerk relatie. Dit is onverwacht omdat alle routes naar deze node de rol _&quot;connection&quot;_ hebben. Dit zou betekenen dat dit knooppunt deel uitmaakt van een ander netwerk. We verwachten dat het knooppunt niet opgenomen wordt in de netwerk relatie, behalve wanneer het ook de rol _&quot;connection&quot;_ meekrijgt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.green.title" datatype="html">
@@ -1196,7 +1196,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Opgenomen in netwerk relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.green.text" datatype="html">
@@ -1204,7 +1204,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Dit knooppunt is opgenomen als lid in een netwerk relatie. Dit is wat we verwachten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.gray.title" datatype="html">
@@ -1212,17 +1212,17 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Niet opgenomen in netwerk relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.gray.text" datatype="html">
         <source>This node is not included as a member in the network relation. This is OK. This node
         must belong to a different network, because all routes to this node within this network
-        have the role &quot;connection&quot; in the network relation.</source>
-        <target>Dit knooppunt is niet opgenomen als lid in de netwerk relatie. Dit is OK. Dit knooppunt moet behoren tot een ander netwerk, want alle routes naar dit knooppunt binnen dit netwerk hebben de rol &quot;connection&quot; in de netwerk relatie.</target>
+        have the role _&quot;connection&quot;_ in the network relation.</source>
+        <target>Dit knooppunt is niet opgenomen als lid in de netwerk relatie. Dit is OK. Dit knooppunt moet behoren tot een ander netwerk, want alle routes naar dit knooppunt binnen dit netwerk hebben de rol _&quot;connection&quot;_ in de netwerk relatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
@@ -1230,20 +1230,20 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>NOK - Niet opgenomen in netwerk relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.red.text" datatype="html">
         <source>This node is not included as a member in the network relation. This is not OK. The
         convention is to include each node in the network relation. An exception is when the node
-        belongs to another network (all routes to this node have role &quot;connection&quot; in
+        belongs to another network (all routes to this node have role _&quot;connection&quot;_ in
         the network relation), then the node does not have to be included as member in
         the network relation. The node can be added the network relation, but should get
-        the role &quot;connection&quot; in that case.</source>
-        <target>Dit knooppunt is niet opgenomen als lid in een netwerk relatie. Dit is niet OK. De conventie is om elk knooppunt op te nemen in een netwerk relatie. Een uitzondering is wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt hebben de rol &quot;connection&quot; in de netwerk relatie), dan hoeft het knooppunt niet als lid in de netwerk relatie te worden toegevoegd. Het knooppunt kan wel toegevoegd worden, maar moet dan rol &quot;connection&quot; krijgen.</target>
+        the role _&quot;connection&quot;_ in that case.</source>
+        <target>Dit knooppunt is niet opgenomen als lid in een netwerk relatie. Dit is niet OK. De conventie is om elk knooppunt op te nemen in een netwerk relatie. Een uitzondering is wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt hebben de rol _&quot;connection&quot;_ in de netwerk relatie), dan hoeft het knooppunt niet als lid in de netwerk relatie te worden toegevoegd. Het knooppunt kan wel toegevoegd worden, maar moet dan rol _&quot;connection&quot;_ krijgen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.letter" datatype="html">
@@ -1251,7 +1251,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>N</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator.component.ts</context>
@@ -1263,16 +1263,16 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-connection-indicator.blue.text" datatype="html">
         <source>This node is a connection to another network. All routes to this
-        node have the role &quot;connection&quot; in the network relation.</source>
-        <target>Dit knooppunt is een verbinding naar een ander netwerk. Alle routes naar dit knooppunt hebben de rol &quot;connection&quot; in de netwerkrelatie.</target>
+        node have the role _&quot;connection&quot;_ in the network relation.</source>
+        <target>Dit knooppunt is een verbinding naar een ander netwerk. Alle routes naar dit knooppunt hebben de rol _&quot;connection&quot;_ in de netwerkrelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-connection-indicator.gray.title" datatype="html">
@@ -1280,17 +1280,17 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Geen verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-connection-indicator.gray.text" datatype="html">
         <source>This node is not a connection to another network. The node would have been considered
         as a connection to another network if all routes to this node within the network had
-        role &quot;connection&quot; in the network relation.</source>
-        <target>Dit knooppunt is geen verbinding naar een ander netwerk. Het knooppunt zou beschouwd worden als een verbinding naar een ander netwerk indien alle routes naar dit knooppunt de rol &quot;connection&quot; zouden hebben in de netwerk relatie.</target>
+        role _&quot;connection&quot;_ in the network relation.</source>
+        <target>Dit knooppunt is geen verbinding naar een ander netwerk. Het knooppunt zou beschouwd worden als een verbinding naar een ander netwerk indien alle routes naar dit knooppunt de rol _&quot;connection&quot;_ zouden hebben in de netwerk relatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-connection-indicator.letter" datatype="html">
@@ -1298,7 +1298,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>V</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator.component.ts</context>
@@ -1310,7 +1310,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - verwacht aantal routes ontbreekt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.gray.text" datatype="html">
@@ -1319,7 +1319,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Dit knooppunt heeft geen _&quot;<x equiv-text="{{tag}}" id="INTERPOLATION"/>&quot;_ tag. Dit is OK omdat het gebruik van deze tag optioneel is.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.green.title" datatype="html">
@@ -1327,7 +1327,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - verwacht aantal routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.green.text" datatype="html">
@@ -1336,7 +1336,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Het aantal routes gevonden in dit knooppunt (<x equiv-text="{{actual}}" id="INTERPOLATION"/>) komt overeen met het verwachte aantal routes (<x equiv-text="{{expected}}" id="INTERPOLATION_1"/>) zoals gedefinieerd in de <x equiv-text="{{tag}}" id="INTERPOLATION_2"/> tag op het knooppunt. Dit is wat we verwachten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
@@ -1344,7 +1344,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>NOK - onverwacht aantal routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.red.text" datatype="html">
@@ -1353,7 +1353,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Het aantal routes gevonden in dit knooppunt (<x equiv-text="{{actual}}" id="INTERPOLATION"/>) komt niet overeen met het verwachte aantal routes (<x equiv-text="{{expected}}" id="INTERPOLATION_1"/>) zoals gedefinieerd in de _&quot;<x equiv-text="{{tag}}" id="INTERPOLATION_2"/>&quot;_ tag op het knooppunt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.letter" datatype="html">
@@ -1361,7 +1361,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>E</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">2</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator.component.ts</context>
@@ -1373,16 +1373,16 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.text" datatype="html">
         <source>This node is a connection to another network.
-        This node has role &quot;connection&quot; in the network relation.</source>
-        <target>Dit knooppunt is een verbinding naar een ander netwerk. Het knooppunt heeft rol &quot;connection&quot; in de netwerkrelatie.</target>
+        This node has role _&quot;connection&quot;_ in the network relation.</source>
+        <target>Dit knooppunt is een verbinding naar een ander netwerk. Het knooppunt heeft rol _&quot;connection&quot;_ in de netwerkrelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="role-connection-indicator.gray.title" datatype="html">
@@ -1390,15 +1390,15 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Geen verbinding rol</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="role-connection-indicator.gray.text" datatype="html">
-        <source>This node does not have role &quot;connection&quot; in het network relation.</source>
-        <target>Dit knooppunt heeft niet de rol &quot;connection&quot; in de netwerk relatie.</target>
+        <source>This node does not have role _&quot;connection&quot;_ in het network relation.</source>
+        <target>Dit knooppunt heeft niet de rol _&quot;connection&quot;_ in de netwerk relatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="role-connection-indicator.letter" datatype="html">
@@ -1418,7 +1418,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Opgenomen in route relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-indicator.green.text" datatype="html">
@@ -1426,7 +1426,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Dit knooppunt is opgenomen als lid in een of meerdere route relaties.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-indicator.gray.title" datatype="html">
@@ -1434,7 +1434,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Niet opgenomen in route relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-indicator.gray.text" datatype="html">
@@ -1443,7 +1443,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Dit knooppunt is in geen enkele routerelatie opgenomen. Dit is OK want het opnemen van de knooppunten als lid van route relaties is optioneel.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-indicator.letter" datatype="html">
@@ -1471,7 +1471,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.facts" datatype="html">
@@ -1479,7 +1479,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.nodes" datatype="html">
@@ -1487,7 +1487,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Knooppunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.routes" datatype="html">
@@ -1495,7 +1495,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.map" datatype="html">
@@ -1503,7 +1503,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Kaart</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.menu.changes" datatype="html">
@@ -1511,7 +1511,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Wijzigingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.networks" datatype="html">
@@ -7038,7 +7038,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.analysis" datatype="html">
@@ -7046,7 +7046,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.node" datatype="html">
@@ -7054,7 +7054,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes" datatype="html">
@@ -7062,7 +7062,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-edit" datatype="html">
@@ -7070,7 +7070,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Laatst bewerkt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.no-routes" datatype="html">
@@ -7086,7 +7086,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.analysis" datatype="html">
@@ -7094,7 +7094,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.node" datatype="html">
@@ -7102,7 +7102,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-edit" datatype="html">
@@ -7110,7 +7110,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Meest recent wijziging</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.title" datatype="html">
@@ -7118,7 +7118,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Toegankelijkheid onbekend</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.text" datatype="html">
@@ -7126,7 +7126,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Toegankelijkheidsinformatie is niet beschikbaar voor dit type route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.title" datatype="html">
@@ -7134,7 +7134,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.cycling" datatype="html">
@@ -7142,7 +7142,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is volledig toegankelijk voor fietsen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.hiking" datatype="html">
@@ -7150,7 +7150,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is volledig toegankelijk voor wandelen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.motorboat" datatype="html">
@@ -7158,7 +7158,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is volledig toegankelijk voor motorboot.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.canoe" datatype="html">
@@ -7166,7 +7166,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is volledig toegankelijk voor kano.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
@@ -7174,7 +7174,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Niet toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.cycling" datatype="html">
@@ -7182,7 +7182,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is niet volledig toegankelijk voor fietsen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.hiking" datatype="html">
@@ -7190,7 +7190,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is niet volledig toegankelijk voor wandelen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.motorboat" datatype="html">
@@ -7198,7 +7198,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze rout is niet volledig toegankelijk voor motorboot.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.canoe" datatype="html">
@@ -7206,7 +7206,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is niet volledig toegankelijk voor kano.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.letter" datatype="html">
@@ -7226,7 +7226,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.text" datatype="html">
@@ -7234,7 +7234,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is een verbinding naar een ander netwerk.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.gray.title" datatype="html">
@@ -7242,7 +7242,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Geen verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.gray.text" datatype="html">
@@ -7250,7 +7250,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Deze route is geen verbinding met een ander netwerk.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection.indicator.letter" datatype="html">
@@ -7258,7 +7258,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>V</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-connection-indicator.letter" datatype="html">
@@ -7274,7 +7274,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>OK - Geen feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.text" datatype="html">
@@ -7282,7 +7282,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Geen problemen gevonden tijdens route analyse.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.title" datatype="html">
@@ -7290,7 +7290,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>NOK - Onderzoek feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.text" datatype="html">
@@ -7298,7 +7298,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Er is iets mis met deze route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.letter" datatype="html">
@@ -7438,7 +7438,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Geen feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/_network-facts-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.title" datatype="html">
@@ -7470,7 +7470,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Geen netwerk knooppunten in netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.title" datatype="html">
@@ -7494,7 +7494,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Geen netwerk routes in netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.login-required" datatype="html">
@@ -7571,7 +7571,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Naam</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes.expected" datatype="html">
@@ -7579,7 +7579,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Verwacht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes.actual" datatype="html">
@@ -7587,7 +7587,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Aantal</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-survey" datatype="html">
@@ -7595,7 +7595,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Recentste survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.distance" datatype="html">
@@ -7603,7 +7603,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Afstand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.role" datatype="html">
@@ -7611,7 +7611,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Rol</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-survey" datatype="html">
@@ -7619,7 +7619,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Recentste survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-header.start" datatype="html">
@@ -7663,6 +7663,230 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="timeout.message-1" datatype="html">
+        <source>Sorry.</source>
+        <target>Sorry.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="timeout.message-2" datatype="html">
+        <source>No response from editor within 5 seconds.</source>
+        <target>Geen antwoord van de editor binnen de vijf seconden.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="timeout.message-3" datatype="html">
+        <source>Has the editor (JOSM) been started? Has remote control been enabled within the browser?</source>
+        <target>Is de editor (JOSM) gestart? Is &quot;remote control&quot; ingesteld in de editor?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.all" datatype="html">
+        <source>all</source>
+        <target>alle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.yes" datatype="html">
+        <source>yes</source>
+        <target>ja</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.no" datatype="html">
+        <source>no</source>
+        <target>nee</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.unknown" datatype="html">
+        <source>unknown</source>
+        <target>ongekend</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.definedInNetworkRelation" datatype="html">
+        <source>Defined in network relation</source>
+        <target>Opgenomen in netwerk relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.definedInRouteRelation" datatype="html">
+        <source>Defined in route relation</source>
+        <target>Opgenomen in route relatie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.referencedInRoute" datatype="html">
+        <source>Referenced in route</source>
+        <target>Verwijzing in route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.integrityCheck" datatype="html">
+        <source>Integrity check</source>
+        <target>Integriteits controle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.integrityCheckFailed" datatype="html">
+        <source>Integrity check failed</source>
+        <target>Integriteits controle faalt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.connection" datatype="html">
+        <source>Connection</source>
+        <target>Verbinding</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastUpdated" datatype="html">
+        <source>Last updated</source>
+        <target>Recentste aanpassing</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastSurvey" datatype="html">
+        <source>Last survey</source>
+        <target>Recentste survey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastWeek" datatype="html">
+        <source>last week</source>
+        <target>voorbije week</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastMonth" datatype="html">
+        <source>last month</source>
+        <target>voorbije maand</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastYear" datatype="html">
+        <source>last year</source>
+        <target>voorbije jaar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastHalfYear" datatype="html">
+        <source>last half year</source>
+        <target>voorbije half jaar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.lastTwoYears" datatype="html">
+        <source>last two years</source>
+        <target>voorbije twee jaar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.older" datatype="html">
+        <source>older</source>
+        <target>ouder</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.roleConnection" datatype="html">
+        <source>Role connection</source>
+        <target>Rol &quot;connection&quot;</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dialog.close" datatype="html">
+        <source>close</source>
+        <target>sluiten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/dialog/dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.tip-zoom-in" datatype="html">
+        <source>Zoom in for node or route details.</source>
+        <target>Zoom in voor details van knooppunten en routes.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.part-of-network" datatype="html">
+        <source>Part of network</source>
+        <target>Deel van het netwerk</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.not-part-of-network" datatype="html">
+        <source>Not part of network</source>
+        <target>Geen deel van het netwerk</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.tip1" datatype="html">
+        <source>Click on node or route to go to detail page.</source>
+        <target>Klik op knooppunt of route om naar de detail pagina te gaan.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.tip2" datatype="html">
+        <source>Use ctrl-click to open the detail page in another browser tab.</source>
+        <target>Gebruik ctrl-klik om de detail pagina in een andere browser tab te openen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
     </body>
