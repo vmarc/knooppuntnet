@@ -30,7 +30,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="timeout.message-3">
-        <source>Has the editor (JOSM) been started? Has remote control been enabled within the browser?</source>
+        <source>Has the editor (JOSM) been started? Has remote control been enabled in the editor?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -668,67 +668,81 @@
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="filter.investigate">
+        <source>Investigate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.accessible">
+        <source>Accessible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="filter.lastUpdated">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastSurvey">
         <source>Last survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastWeek">
         <source>last week</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastMonth">
         <source>last month</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastYear">
         <source>last year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastHalfYear">
         <source>last half year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastTwoYears">
         <source>last two years</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.older">
         <source>older</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.roleConnection">
         <source>Role connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="paginator.items-per-page-label">

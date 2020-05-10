@@ -12,7 +12,7 @@ import {ChangeDetectionStrategy, Component} from "@angular/core";
         No response from editor within 5 seconds.
       </p>
       <p i18n="@@timeout.message-3">
-        Has the editor (JOSM) been started? Has remote control been enabled within the browser?
+        Has the editor (JOSM) been started? Has remote control been enabled in the editor?
       </p>
     </kpn-dialog>
   `

@@ -52,7 +52,6 @@ import {NetworkChangesService} from "./network-changes.service";
           </kpn-changes>
 
         </div>
-        <kpn-json [object]="response"></kpn-json>
       </div>
     </div>
   `,

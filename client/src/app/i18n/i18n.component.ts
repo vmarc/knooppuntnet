@@ -65,6 +65,8 @@ import {I18nService} from "./i18n.service";
       <span id="@@filter.integrityCheck" i18n="@@filter.integrityCheck">Integrity check</span>
       <span id="@@filter.integrityCheckFailed" i18n="@@filter.integrityCheckFailed">Integrity check failed</span>
       <span id="@@filter.connection" i18n="@@filter.connection">Connection</span>
+      <span id="@@filter.investigate" i18n="@@filter.investigate">Investigate</span>
+      <span id="@@filter.accessible" i18n="@@filter.accessible">Accessible</span>
       <span id="@@filter.lastUpdated" i18n="@@filter.lastUpdated">Last updated</span>
       <span id="@@filter.lastSurvey" i18n="@@filter.lastSurvey">Last survey</span>
       <span id="@@filter.lastWeek" i18n="@@filter.lastWeek">last week</span>

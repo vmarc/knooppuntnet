@@ -20,15 +20,15 @@ import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network
     </div>
 
     <div *ngIf="networkChangeInfo.changeType.name === 'InitialValue'">
-      <p i18n="@@network-changes.network-initial-value">
+      <span i18n="@@network-changes.network-initial-value">
         Oldest known state of network (at date of
         <a class="external" href="https://wiki.openstreetmap.org/wiki/NL:Open_Database_License" target="_blank" rel="nofollow noreferrer">license change</a>).
-      </p>
+      </span>
     </div>
 
     <!-- networkNodesAdded -->
-    <div *ngIf="!networkChangeInfo.networkNodes.added.isEmpty()">
-      <p class="kpn-label" i18n="@@network-changes.network-nodes.added">Added node(s)</p>
+    <div *ngIf="!networkChangeInfo.networkNodes.added.isEmpty()" class="kpn-line">
+      <span class="kpn-label" i18n="@@network-changes.network-nodes.added">Added node(s)</span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.added">
           <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
@@ -37,8 +37,8 @@ import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network
     </div>
 
     <!-- routesAdded -->
-    <div *ngIf="!networkChangeInfo.routes.added.isEmpty()">
-      <p class="kpn-label" i18n="@@network-changes.routes.added">Added route(s)</p>
+    <div *ngIf="!networkChangeInfo.routes.added.isEmpty()" class="kpn-line">
+      <span class="kpn-label" i18n="@@network-changes.routes.added">Added route(s)</span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.added">
           <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
@@ -75,10 +75,10 @@ import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network
     </div>
 
     <!-- networkNodesUpdated -->
-    <div *ngIf="!networkChangeInfo.networkNodes.updated.isEmpty()">
-      <p class="kpn-label" i18n="@@network-changes.network-nodes.updated">
+    <div *ngIf="!networkChangeInfo.networkNodes.updated.isEmpty()" class="kpn-line">
+      <span class="kpn-label" i18n="@@network-changes.network-nodes.updated">
         Updated network node(s)
-      </p>
+      </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.updated">
           <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
@@ -87,10 +87,10 @@ import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network
     </div>
 
     <!-- routesUpdated -->
-    <div *ngIf="!networkChangeInfo.routes.updated.isEmpty()">
-      <p class="kpn-label" i18n="@@network-changes.routes.updated">
+    <div *ngIf="!networkChangeInfo.routes.updated.isEmpty()" class="kpn-line">
+      <span class="kpn-label" i18n="@@network-changes.routes.updated">
         Updated route(s)
-      </p>
+      </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.updated">
           <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
@@ -120,10 +120,10 @@ import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network
     </div>
 
     <!-- networkNodesRemoved -->
-    <div *ngIf="!networkChangeInfo.networkNodes.removed.isEmpty()">
-      <p class="kpn-label" i18n="@@network-changes.network-nodes.removed">
+    <div *ngIf="!networkChangeInfo.networkNodes.removed.isEmpty()" class="kpn-line">
+      <span class="kpn-label" i18n="@@network-changes.network-nodes.removed">
         Removed network node(s)
-      </p>
+      </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.removed">
           <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
@@ -132,10 +132,10 @@ import {NetworkChangeInfo} from "../../../kpn/api/common/changes/details/network
     </div>
 
     <!-- routesRemoved -->
-    <div *ngIf="!networkChangeInfo.routes.removed.isEmpty()">
-      <p class="kpn-label" i18n="@@network-changes.routes.removed">
+    <div *ngIf="!networkChangeInfo.routes.removed.isEmpty()" class="kpn-line">
+      <span class="kpn-label" i18n="@@network-changes.routes.removed">
         Removed route(s)
-      </p>
+      </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.removed">
           <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>

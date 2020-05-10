@@ -40,7 +40,6 @@ import {NetworkService} from "../network.service";
           [routes]="response.result.routes">
         </kpn-network-route-table>
       </div>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

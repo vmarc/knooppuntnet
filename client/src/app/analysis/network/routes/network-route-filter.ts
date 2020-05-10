@@ -33,7 +33,7 @@ export class NetworkRouteFilter {
   );
 
   private readonly roleConnectionFilter = new BooleanFilter<NetworkRouteRow>(
-    "roleConnection",
+    "connection",
     this.criteria.roleConnection,
     (row) => row.roleConnection,
     this.update({...this.criteria, roleConnection: null}),
