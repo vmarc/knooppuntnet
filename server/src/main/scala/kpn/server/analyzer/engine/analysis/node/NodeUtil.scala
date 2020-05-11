@@ -42,7 +42,7 @@ class NodeUtil(networkType: NetworkType) {
       Map()
     }
     else {
-      val suffixes = "abcdefghijklmnopqrstuvwxyz"
+      val suffixes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
       if (nodes.size > suffixes.length) {
         throw new IllegalArgumentException(s"Number of nodes (${nodes.size}) exceeds the expected maximum number of nodes (${suffixes.length})")
       }

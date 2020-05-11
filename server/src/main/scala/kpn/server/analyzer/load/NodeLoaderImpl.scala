@@ -19,7 +19,7 @@ import scala.xml.XML
 
 @Component
 class NodeLoaderImpl(
-  nonCachingExecutor: OverpassQueryExecutor,
+  nonCachingOverpassQueryExecutor: OverpassQueryExecutor,
   countryAnalyzer: CountryAnalyzer
 ) extends NodeLoader {
 
@@ -59,7 +59,7 @@ class NodeLoaderImpl(
   private def doLoad(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): RawData = {
 
     val xmlString: String = log.elapsed {
-      val xml = nonCachingExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
+      val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
       (s"${timestamp.iso} Load ${scopedNetworkType.key} ${nodeIds.size}", xml)
     }
 
@@ -82,7 +82,7 @@ class NodeLoaderImpl(
   private def doLoad(timestamp: Timestamp, nodeIds: Seq[Long]): RawData = {
 
     val xmlString: String = log.elapsed {
-      val xml = nonCachingExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
+      val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
       (s"${timestamp.iso} Load ${nodeIds.size} nodes", xml)
     }
 

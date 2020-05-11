@@ -25,10 +25,15 @@ class AnalyzerConfiguration {
   def statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
 
   @Bean
-  def overpassQueryExecutor: OverpassQueryExecutor = {
+  def nonCachingOverpassQueryExecutor: OverpassQueryExecutor = {
+    new OverpassQueryExecutorImpl()
+  }
+
+  @Bean
+  def cachingOverpassQueryExecutor: OverpassQueryExecutor = {
     new CachingOverpassQueryExecutor(
       new File("/kpn/cache"),
-      new OverpassQueryExecutorImpl()
+      nonCachingOverpassQueryExecutor
     )
   }
 

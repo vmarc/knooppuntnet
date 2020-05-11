@@ -11,7 +11,7 @@ import org.xml.sax.SAXParseException
 import scala.xml.XML
 
 @Component
-class NodeIdsLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) extends NodeIdsLoader {
+class NodeIdsLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) extends NodeIdsLoader {
 
   override def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType): Set[Long] = {
     val overpassQuery = QueryNodeIds(scopedNetworkType)
@@ -19,7 +19,7 @@ class NodeIdsLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) extends No
   }
 
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Set[Long] = {
-    parseIds(elementTag, overpassQueryExecutor.executeQuery(Some(timestamp), query))
+    parseIds(elementTag, cachingOverpassQueryExecutor.executeQuery(Some(timestamp), query))
   }
 
   private def parseIds(elementTag: String, xmlString: String): Set[Long] = {

@@ -63,7 +63,7 @@ class RouteNameAnalyzerTest extends UnitTest {
 
   test("route name without node separator") {
 
-    val analysis = analyze("UNEXPECTED")
+    val analysis = analyzeNameInRefTag("UNEXPECTED", "")
 
     analysis.name should equal(Some("UNEXPECTED"))
     analysis.startNodeName should equal(None)
@@ -102,7 +102,15 @@ class RouteNameAnalyzerTest extends UnitTest {
   }
 
   test("route name in ref tag") {
-    val analysis = analyzeNameInRefTag("01-02")
+    val analysis = analyzeNameInRefTag("01-02", "this is note for the note tag")
+    analysis.name should equal(Some("01-02"))
+    analysis.startNodeName should equal(Some("01"))
+    analysis.endNodeName should equal(Some("02"))
+    analysis.reversed should equal(false)
+  }
+
+  test("prefer ref tag over note tag to detemine the route name") {
+    val analysis = analyzeNameInRefTag("01-02", "03-04")
     analysis.name should equal(Some("01-02"))
     analysis.startNodeName should equal(Some("01"))
     analysis.endNodeName should equal(Some("02"))
@@ -135,14 +143,14 @@ class RouteNameAnalyzerTest extends UnitTest {
 
   }
 
-  private def analyzeNameInRefTag(name: String): RouteNameAnalysis = {
+  private def analyzeNameInRefTag(ref: String, note: String): RouteNameAnalysis = {
 
-    val data = new RouteTestData("this is note for the note tag", routeTags = Tags.from("ref" -> name)).data
+    val data = new RouteTestData(note, routeTags = Tags.from("ref" -> ref)).data
 
     val loadedRoute = LoadedRoute(
       country = None,
       networkType = NetworkType.hiking,
-      name,
+      ref,
       data,
       data.relations(1L)
     )

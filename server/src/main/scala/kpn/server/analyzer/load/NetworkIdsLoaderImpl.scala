@@ -12,13 +12,13 @@ import scala.xml.XML
 
 @Component
 class NetworkIdsLoaderImpl(
-  overpassQueryExecutor: OverpassQueryExecutor
+  cachingOverpassQueryExecutor: OverpassQueryExecutor
 ) extends NetworkIdsLoader {
 
   private val log = Log(classOf[NetworkIdsLoaderImpl])
 
   override def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType): Seq[Long] = {
-    val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), QueryNetworkIds(scopedNetworkType))
+    val xmlString = cachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryNetworkIds(scopedNetworkType))
     val xml = try {
       XML.loadString(xmlString)
     }
