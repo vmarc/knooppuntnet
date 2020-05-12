@@ -7680,7 +7680,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         </context-group>
       </trans-unit>
       <trans-unit id="timeout.message-3" datatype="html">
-        <source>Has the editor (JOSM) been started? Has remote control been enabled within the browser?</source>
+        <source>Has the editor (JOSM) been started? Has remote control been enabled in the editor?</source>
         <target>Wurde der Editor (JOSM) gestartet? Wurde die Fernbedienung im Editor aktiviert?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
@@ -7772,7 +7772,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
@@ -7780,7 +7780,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Letzte Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
@@ -7788,7 +7788,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>letzte Woche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
@@ -7796,7 +7796,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>letzten Monat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
@@ -7804,7 +7804,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>letztes Jahr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastHalfYear" datatype="html">
@@ -7812,7 +7812,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>letztes halbes Jahr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastTwoYears" datatype="html">
@@ -7820,7 +7820,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>letzte zwei Jahre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
@@ -7828,7 +7828,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>älter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
@@ -7836,7 +7836,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Rolle &quot;connection&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dialog.close" datatype="html">
@@ -7885,6 +7885,22 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.investigate" datatype="html">
+        <source>Investigate</source>
+        <target>Untersuchen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.accessible" datatype="html">
+        <source>Accessible</source>
+        <target>Zugänglich</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
     </body>
