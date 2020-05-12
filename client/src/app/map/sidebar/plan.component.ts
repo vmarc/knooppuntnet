@@ -10,7 +10,7 @@ import {ExportDialogComponent} from "./export-dialog.component";
 
 @Component({
   selector: "kpn-plan",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
     <kpn-plan-translations></kpn-plan-translations>

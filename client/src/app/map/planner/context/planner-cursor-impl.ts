@@ -9,8 +9,12 @@ export class PlannerCursorImpl implements PlannerCursor {
     this.viewPort = map.getViewport();
   }
 
-  setStyleMove(): void {
-    this.setStyle("move");
+  setStyleGrab(): void {
+    this.setStyle("grab");
+  }
+
+  setStyleGrabbing(): void {
+    this.setStyle("grabbing");
   }
 
   setStylePointer(): void {

@@ -3,7 +3,7 @@ import {Component} from "@angular/core";
 
 @Component({
   selector: "kpn-map-sidebar",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-map-sidebar-planner></kpn-map-sidebar-planner>
     <mat-divider></mat-divider>

@@ -93,7 +93,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const flagFeature = this.findFlag(features);
     if (!!flagFeature) {
-      this.context.cursor.setStyleMove();
+      this.context.cursor.setStyleGrab();
       return true;
     }
 
@@ -105,7 +105,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const leg = this.findLeg(features);
     if (leg != null) {
-      this.context.cursor.setStyleMove();
+      this.context.cursor.setStyleGrabbing();
       return true;
     }
 

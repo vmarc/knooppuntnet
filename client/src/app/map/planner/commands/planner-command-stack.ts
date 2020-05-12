@@ -23,11 +23,9 @@ import {PlannerCommand} from "./planner-command";
 */
 export class PlannerCommandStack {
 
-  private _commandCount = 0;
   private _commands: List<PlannerCommand> = List();
 
-  private _canUndo = false;
-  private _canRedo = false;
+  private _commandCount = 0;
 
   /*
     Number of commands in the command stack, NOT including that commands
@@ -35,6 +33,18 @@ export class PlannerCommandStack {
   */
   get commandCount(): number {
     return this._commandCount;
+  }
+
+  private _canUndo = false;
+
+  get canUndo(): boolean {
+    return this._canUndo;
+  }
+
+  private _canRedo = false;
+
+  get canRedo(): boolean {
+    return this._canRedo;
   }
 
   /*
@@ -84,14 +94,6 @@ export class PlannerCommandStack {
 
   last(): PlannerCommand {
     return this._commands.get(this.commandCount - 1);
-  }
-
-  get canUndo(): boolean {
-    return this._canUndo;
-  }
-
-  get canRedo(): boolean {
-    return this._canRedo;
   }
 
   private updateCanUndoRedo() {

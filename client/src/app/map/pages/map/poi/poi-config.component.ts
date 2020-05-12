@@ -7,7 +7,7 @@ import {Subscriptions} from "../../../../util/Subscriptions";
 
 @Component({
   selector: "kpn-poi-config",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="poi-config">
 
