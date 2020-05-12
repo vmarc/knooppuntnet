@@ -4465,7 +4465,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
       </trans-unit>
       <trans-unit id="stats.route-name-missing.comment" datatype="html">
         <source>Routes without a _&quot;note&quot;_ or _&quot;ref&quot;_ tag with the route name.</source>
-        <target>Aantal routes zonder tag met sleutel _&quot;note&quot;_ of_&quot;ref&quot;_ met de route naam in de route relatie.</target>
+        <target>Aantal routes zonder tag met sleutel _&quot;note&quot;_ of _&quot;ref&quot;_ met de route naam in de route relatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">252</context>
@@ -7682,7 +7682,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         </context-group>
       </trans-unit>
       <trans-unit id="timeout.message-3" datatype="html">
-        <source>Has the editor (JOSM) been started? Has remote control been enabled within the browser?</source>
+        <source>Has the editor (JOSM) been started? Has remote control been enabled in the editor?</source>
         <target>Is de editor (JOSM) gestart? Is &quot;remote control&quot; ingesteld in de editor?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
@@ -7774,7 +7774,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Recentste aanpassing</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
@@ -7782,7 +7782,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Recentste survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
@@ -7790,7 +7790,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>voorbije week</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
@@ -7798,7 +7798,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>voorbije maand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
@@ -7806,7 +7806,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>voorbije jaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastHalfYear" datatype="html">
@@ -7814,7 +7814,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>voorbije half jaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastTwoYears" datatype="html">
@@ -7822,7 +7822,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>voorbije twee jaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
@@ -7830,7 +7830,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>ouder</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
@@ -7838,7 +7838,7 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <target>Rol &quot;connection&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dialog.close" datatype="html">
@@ -7887,6 +7887,22 @@ Een wandelnetwerk route relatie moet minimaal een tag met sleutel _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.investigate" datatype="html">
+        <source>Investigate</source>
+        <target>Onderzoek</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="filter.accessible" datatype="html">
+        <source>Accessible</source>
+        <target>Toegankelijk</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
     </body>
