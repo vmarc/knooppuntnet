@@ -18,8 +18,57 @@ Here are a number of ways of how to contribute to the project:
 - application code
 
 
-For application translation and documentation, it is best to install the application locally.
+[#translations]
+=== Help translating the application to different languages
 
+The intention is to have _knooppuntnet_ available in four languages: English, Dutch, German and French.
+
+Your help in translating the application to a language that is not fully translated yet, or
+to fix wrong translations, is very welcome.
+
+The base language for the application is English. Support for translation to the other languages
+is kindly provided free of charge by https://poeditor.com[POEditor]. POEditor supports
+open source. Many thanks!!!
+
+Follow this https://poeditor.com/join/project/Bfvs2fvcYI[link] to join the knooppuntnet translation project.
+
+From the project start page you can select the language. In the _"Translations"_ tab you can review all translations
+(select _"Show: translated"_), or bring up the list with all texts that still need translation (select _"Show: Untranslated"_).
+From these lists the translated texts can be entered and/or changed. Click the text to start editing.
+
+All the translations you make here will appear in the knooppuntnet website in the next release.
+
+The above is sufficient to help out with the translations.
+
+A bit more advanced: if you like to review your translation changes without waiting for the next release,
+you can follow the instructions in the section _"Install application locatlly"_ below.
+
+In the POEditor page for your language, you can go to the _"Export"_ tab.  Select _"Show Advanced Options"_.
+Select _"Export: All"_ and _"Filename: translations.XX.xlf"_ where XX is the 2 letter code for given language:
+
+|===
+|Language|Command
+
+|Dutch
+|translations.nl.xlf
+
+|German
+|translations.de.xlf
+
+|French
+|translations.fr.xlf
+|===
+
+Klik _"Export"_ and save the file in the _"locale"_ directory in your git clone:
+
+	knooppuntnet/client/src/locale
+
+To see your translations in action, restart the application in development for given
+language, for example:
+
+	yarn run start:de
+
+Note: changes to the English texts have to be done directly in the application code.
 
 [#install-application-locally]
 === Install application locally
@@ -80,107 +129,10 @@ Use one of the following commands to start the application in another language:
 |===
 
 
-When starting the application in a language other than English, the texts that are not translated yet are surrounded by square brackets.
-
-Example (untranslated home page):
-
-image::home-page.png[]
+When starting the application in a language other than English, the texts that are not translated yet are shown in English.
 
 
-
-=== Translate application to different language
-
-Your help to translate the application to a language that is not fully translated yet is very welcome.
-To avoid duplication of effort, it is probably a good idea to first contact
-https://www.openstreetmap.org/message/new/vmarc[vmarc] to make sure that
-the translation that you want to do has not started yet by somebody else.
-
-
-The translations of texts in the application can be found in the _"locale"_ directory:
-
-
-	knooppuntnet/client/src/locale
-
-
-On that directory, you will find following files:
-
-|===
-|Language|Command
-
-|English
-|translations.xlf
-
-|Dutch
-|translations.nl.xlf
-
-|German
-|translations.de.xlf
-
-|French
-|translations.fr.xlf
-|===
-
-
-These files can be edited manually.
-You would look for entries with _state="new"_ to find texts that have not been translated yet.
-You can see the English version of the text in de _"source"_ field, and supply the translated
-value in the _"target"_ field.
-After the text is translated the _state="new"_ entry in the _"target"_ tag should be removed.
-
-Instead of manually editing the translations files, you can also use the application to do this:
-
-Go to https://experimental.knooppuntnet.be/en/translations.
-
-image::translations-load.png[]
-
-When you select a language in the top part of the page and click _"Load from github"_,
-the translations will be loaded from the translation file on
-https://github.com/vmarc/knooppuntnet/tree/master/client/src/locale[github].
-Use this option if you are starting to translate.
-
-When using the bottom button _"Load from file"_, you can load translations from a file
-on your local computer. Use this option if you continue translating from a file
-that you saved earlier.
-
-The translation page will present you with untranslated texts.
-You can enter the translation in the textarea on the right, and hit the control and
-enter key simultaniously to go to the next text to translate
-(alternatively you can click the _"Save & next"_ button).
-
-All translations you make are in memory and do not get saved to file until you use
-the _"Save to file"_ button.
-
-Use the _"filter"_ field to focus the list of translations to a given subject.
-For instance enter _"poi."_ in the _"filter"_ field to limit the list to the
-points of interest translations.
-The text that you use for the filter is checked against the contents of
-each of the columns in the translations table (message id, source, target, source file).
-
-Click the checkbox _"Show translated"_ to see all translations.
-
-Click the checkbox _"Show source code usage locations"_ to see extracts of the code
-(read from github) of where the translation text is used.
-
-Save the translations file to the locale directory. For example for German, save to:
-
-	knooppuntnet/client/src/locale/translations.de.xlf
-
-To see your translations in action, restart the application in development for given
-language, for example:
-
-	yarn run start:de
-
-The translated texts should appear in the application now.
-The untranslated texts are still surrounded by square brackets.
-
-Options to get the translation in the actual application:
-
-- send osm message with translations file contents pasted in a message
-to https://www.openstreetmap.org/message/new/vmarc[vmarc]
-- create pull request (https://gist.github.com/Chaser324/ce0505fbed06b947d962[GitHub Standard Fork & Pull Request Workflow])
-- git commit access
-
-
+[#update-documentation]
 === Update documentation
 
 The documentation is written in https://asciidoctor.org/docs/[asciidoc], maven is used for installing the
@@ -191,17 +143,26 @@ required software and building the documentation.
 Follow instructions on http://maven.apache.org/ to download and install maven.
 
 
-==== Build documentation
+==== Get the source code
+
+Go to https://git-scm.com/downloads[git downloads] and follow the installation instructions (see also above).
+
+Get the source code:
+
+	git clone https://github.com/vmarc/knooppuntnet.git
+
+
+==== Build the documentation
 
 To build the documentation, run the following commands:
 
-	cd knooppuntnet/docs
+	cd knooppuntnet/docs/guide
 	mvn compile
 
 After running these commands, you can find the html and pdf documentation in following directories:
 
-	knooppuntnet/docs/target/html
-	knooppuntnet/docs/target/pdf
+	knooppuntnet/docs/guide/target/html
+	knooppuntnet/docs/guide/target/pdf
 
 The sources for the documentation can be found here:
 
@@ -212,3 +173,6 @@ After updating the documentation sources, you can rebuild the documentation:
 	cd knooppuntnet/docs
 	mvn compile
 
+Commit your changes to git. The updated documentation will appear on the web-site with the next release.
+Until we have a better publishing mechanism, send a message to https://www.openstreetmap.org/user/vmarc[vmarc]
+to ask for deploying a new release of the documentation.

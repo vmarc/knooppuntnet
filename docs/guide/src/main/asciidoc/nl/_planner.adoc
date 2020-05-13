@@ -1,1 +1,155 @@
 == Route planner
+
+=== Functie lijst
+
+==== Route plannen
+
+- klik op knooppunt om startknooppunt te kiezen
+
+- klik op knooppunt om tussenknooppunt te kiezen (wordt gevolgd door route-herberekening)
+
+- klik op knooppunt om eindknooppunt te kiezen (wordt gevolgd door route-herberekening)
+
+- klik/sleep om startknooppunt te verschuiven (wordt gevolgd door route-herberekening)
+
+- klik/sleep om tussenknooppunt te verschuiven (wordt gevolgd door route-herberekening)
+
+- klik/sleep om eindknooppunt te verschuiven (wordt gevolgd door route-herberekening)
+
+- klik/sleep route lijn om nieuw tussenknooppunt tussen te voegen
+
+- "Ongedaan maken" knop (undo): meest recente actie ongedaan maken (kan meerdere keren na elkaar gedaan worden)
+
+- "Opnieuw doen" knop (redo): ongedaangemaakte actie opnieuw uitvoeren (kan meerdere keren na elkaar gedaan worden)
+
+- Performantie test: in fiets route planner, kies een startknooppunt in het zuiden van België, en kies
+dan een eindknooppunt in het noorden van Nederland. Exporteer resultaten naar verschillende pdf documenten.
+
+==== Kaart navigatie
+
+- Vergrootglas knop: ga naar locatie waarvan je de naam ingeeft (gebruikt dienst van photon.komoot.de)
+
+- klik/sleep waar geen knooppunt/route/poi is om kaart links/rechts/boven/onder te verschuiven
+
+- dubbel klik op een punt in de kaart waar geen knooppunt/route/poi is om de kaart rond dat punt
+te centreren, en 1 niveau in te zoomen
+
+- shift toets naar beneden, en dan klik/sleep om een rechthoek te tekenen rond het gebied waarop je wil inzoomen
+
+- muis wiel voor inzoomen en uitzoomen
+
+- "plus" en "min" knoppen links boven aan om 1 niveau in te zoomen of uit te zoomen
+
+- op telefoon: zoom- en draaibewegingen met vingers
+
+- klikt icoontje rechts boven om het volledige scherm te laten innemen door de kaart (gebruik
+de ESC toets of klik kruisje rechts boven om dit ongedaan te maken)
+
+- vinkjes achter kaartlagen icoon rechts boven om kaartlagen aan/uit te schakelen
+
+==== "Interessante punten" instellen
+
+- "Toon interessante punten" aan/uit (vinkje)
+
+- "Interessante punten groep" tonen aan/uit (vinkje per groep)
+
+- Individueel interessant punt zoom level instellen vanaf wanneer dit type getoond wordt. Klik meest linkse
+bol om punt type niet te tonen op de kaart. Klik bol rechts: hoe meer naar rechts hoe verder je moet
+inzoomen om dit type punt te zien op de kaart. Als de bol grijs is, dan is die informatie niet zichtbaar
+om dat zoomlevel. Het huidige zoomlevel van de kaart kun je momenteel alleen zien wanneer de "Tegel namen"
+layer aanstaat.
+
+- De instellingen van de gebruiker worden in de browser local storage bijgehouden, zodat de instellingen
+behouden worden tussen verschillende browser sessies. De "Standaard" knop brengt maakt alle
+instellingen van de gebruiker ongedaan, en maakt de originele instellingen terug actief.
+
+==== Route output
+
+===== Scherm weergave
+
+- Afstand: de totale afstand van de gekozen route wordt getoond op het scherm.
+
+- Compact: toont alle knooppunten die door de geplande route worden aangedaan. De knooppunten die
+door de gebruiker zelf werden bepaald worden in het vet weergegeven, de knooppunten die niet in
+het vet worden weergegeven werden door de routeplanner zelf bepaald.
+
+- Detail: toont alle knooppunten die door de geplande route worden aangedaan, en de afstand tussen
+die punten onderling (hier zou eventueel ook de cumulatieve afstand kunnen getoond worden). De knooppunten die
+door de gebruiker zelf werden bepaald krijgen een iets dikkere cirkel.
+
+- Instructies: overzicht knooppunten van de geplande route en navigatie instructies om van knooppunt
+naar knooppunt te gaan.  De instructies zijn mogelijk nog maar beperkt bruikbaar. De instructies
+zijn enkel gebaseerd op de ways die in de route zijn opgenomen. Zo zijn er momenteel bijvoorbeeld
+geen instructies om een kruispunt rechtdoor over te steken.  Mogelijke verbetering hier: meer compact tonen
+van de instructies, en highlighten van het relevante stukje van de kaart bij hooveren over instructie
+(zoals in openstreetmap.org).
+
+===== Exporteren
+
+- Document: pdf met weergave van de knooppunten in de geplande route. De afstand tussen de knooppunten
+wordt weergegeven tussen de knooppunten. De cumulatieve afstand wordt weergegeven onder de knooppunten.
+Onder het laatste knooppunt vind je dus de totale afstand van de geplande route.
+
+- Knooppuntenstrip: pdf met zelfde inhoud als hierboven, maar in een vorm waarbij er eventueel strookjes
+kunnen geknipt worden met de lijst van de knooppunten in de route.
+
+- Navigatie intstructies: afdrukbaar document met navigatie instructies zoals deze ook op het scherm
+getoond kunnen worden.
+
+
+==== Nog te bouwen of verder af te werken functies
+
+===== Rondleiding door de route planner
+
+- Zoiets als in https://monitor.ioer.de/ (kies "Hilfe" -> "Monitor Tour").
+
+===== Kaart weergave
+
+- Momenteel worden knooppunten en routes weergegeven op de kaart zoals in de analyse schermen.
+Groen (alles ok), donkergroen (wees), rood (fout), donkerrood (wees met fout) of blauw (knooppunt fout).
+
+- Gebruiker kan kiezen om in plaats van analyse resultaat kleuren, verschillende kleuren te zien voor verhard
+en onverhard (dat zou de default moeten zijn).
+
+- Gebruiker kan kiezen om knooppunten en routes in te kleuren naargelang de waarde van de survey:date
+tag (als hulp om survey route te plannen).
+* Groen: recente survey
+* Oranje: survey al even geleden, zou nieuwe survey kunnen gebruiken
+* Grijs: geen survey:date informatie gekend, zou survey kunnen gebruiken
+
+===== Hoogte profiel
+
+- grafiek met hoogte verloop van de geplande route
+
+- totaal stijgende meters
+
+- totaal dalende meters
+
+===== Pois verder verfijnen
+
+Aan de points of interest kan nog veel verbeterd worden, bijvoorbeeld.
+
+- Opstappunten zouden hun eigen icoontje moeten krijgen (highway=trailhead).
+
+- Grenspalen worden momenteel veel te prominent getoond.
+
+- Fietsverhuur zoals bijvoorbeeld Velo in Antwerpen pas op hoger zoomlevel tonen.
+
+- Molens worden momenteel niet altijd als zodanig herkend (bijvoorbeeld in combinatie met tourism=attraction)
+
+- Mappilary links mooi tonen
+
+- en honderd andere dingen
+
+- pois momenteel enkel in België en Nederland (uitbreiden naar Duitsland, Frankrijk en Oostenrijk wanneer alles meer op punt staat)
+
+===== Verbeteren foutafhandeling
+
+- duidelijk bericht aan de gebruiker indien geen weg gevonden kan worden tussen de
+door de gebruiker gekozen knooppunten
+
+- duidelijk bericht aan de gebruiker indien server tijdelijk even niet werkt
+
+===== Route instructie lijst
+
+- nog verder te testen en uit te breiden (momenteel links en rechts nog omgewisseld?)

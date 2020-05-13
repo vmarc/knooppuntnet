@@ -74,7 +74,6 @@ above a portion of the map without nodes and the mouse cursor still looks like t
 // TODO screenshot crosshair? ...
 // TODO add wikipedia link? or link on OSM site? or openlayers site?
 
-  - https://subscription.packtpub.com/book/hardware_and_creative/9781847197504/2/ch02lvl1sec17/how-to-use-the-slippy-map
   - https://wiki.openstreetmap.org/wiki/Browsing
 
 
