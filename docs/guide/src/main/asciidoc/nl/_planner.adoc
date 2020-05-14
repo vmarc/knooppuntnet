@@ -16,36 +16,36 @@
 
 - klik/sleep om eindknooppunt te verschuiven (wordt gevolgd door route-herberekening)
 
-- klik/sleep route lijn om nieuw tussenknooppunt tussen te voegen
+- klik/sleep routelijn om nieuw tussenknooppunt tussen te voegen
 
 - "Ongedaan maken" knop (undo): meest recente actie ongedaan maken (kan meerdere keren na elkaar gedaan worden)
 
 - "Opnieuw doen" knop (redo): ongedaangemaakte actie opnieuw uitvoeren (kan meerdere keren na elkaar gedaan worden)
 
-- Performantie test: in fiets route planner, kies een startknooppunt in het zuiden van België, en kies
+- Performantietest: in fietsrouteplanner, kies een startknooppunt in het zuiden van België, en kies
 dan een eindknooppunt in het noorden van Nederland. Exporteer resultaten naar verschillende pdf documenten.
 
-==== Kaart navigatie
+==== Kaartnavigatie
 
-- Vergrootglas knop: ga naar locatie waarvan je de naam ingeeft (gebruikt dienst van photon.komoot.de)
+- Vergrootglasknop: ga naar locatie waarvan je de naam ingeeft (gebruikt dienst van photon.komoot.de)
 
 - klik/sleep waar geen knooppunt/route/poi is om kaart links/rechts/boven/onder te verschuiven
 
-- dubbel klik op een punt in de kaart waar geen knooppunt/route/poi is om de kaart rond dat punt
+- dubbelklik op een punt op de kaart waar geen knooppunt/route/poi is om de kaart rond dat punt
 te centreren, en 1 niveau in te zoomen
 
-- shift toets naar beneden, en dan klik/sleep om een rechthoek te tekenen rond het gebied waarop je wil inzoomen
+- shift toets ingedrukt houden, en dan klik/sleep om een rechthoek te tekenen rond het gebied waarop je wil inzoomen
 
-- muis wiel voor inzoomen en uitzoomen
+- muiswiel voor inzoomen en uitzoomen
 
-- "plus" en "min" knoppen links boven aan om 1 niveau in te zoomen of uit te zoomen
+- "plus" en "min" knoppen links bovenaan om 1 niveau in te zoomen of uit te zoomen
 
 - op telefoon: zoom- en draaibewegingen met vingers
 
-- klikt icoontje rechts boven om het volledige scherm te laten innemen door de kaart (gebruik
-de ESC toets of klik kruisje rechts boven om dit ongedaan te maken)
+- klik 't icoontje rechts boven om het volledige scherm te laten innemen door de kaart (gebruik
+de ESC toets of klik kruisje rechtsboven om dit ongedaan te maken)
 
-- vinkjes achter kaartlagen icoon rechts boven om kaartlagen aan/uit te schakelen
+- vinkjes achter kaartlagen icoon rechtsboven om kaartlagen aan/uit te schakelen
 
 ==== "Interessante punten" instellen
 
@@ -56,11 +56,11 @@ de ESC toets of klik kruisje rechts boven om dit ongedaan te maken)
 - Individueel interessant punt zoom level instellen vanaf wanneer dit type getoond wordt. Klik meest linkse
 bol om punt type niet te tonen op de kaart. Klik bol rechts: hoe meer naar rechts hoe verder je moet
 inzoomen om dit type punt te zien op de kaart. Als de bol grijs is, dan is die informatie niet zichtbaar
-om dat zoomlevel. Het huidige zoomlevel van de kaart kun je momenteel alleen zien wanneer de "Tegel namen"
+op dat zoomlevel. Het huidige zoomlevel van de kaart kun je momenteel alleen zien wanneer de "Tegelnamen"
 layer aanstaat.
 
 - De instellingen van de gebruiker worden in de browser local storage bijgehouden, zodat de instellingen
-behouden worden tussen verschillende browser sessies. De "Standaard" knop brengt maakt alle
+behouden worden tussen verschillende browsersessies. De "Standaard" knop maakt alle
 instellingen van de gebruiker ongedaan, en maakt de originele instellingen terug actief.
 
 ==== Route output
