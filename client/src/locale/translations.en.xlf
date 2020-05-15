@@ -568,7 +568,8 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.tile-names">
-        <source>Tile names</source>
+        <source>Tilenames</source>
+        <target state="final">Tilenames</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">39</context>
@@ -6967,12 +6968,20 @@
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-amenity.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.foodshops">
         <source>Foodshops</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-foodshops.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.places-to-stay">
@@ -6981,12 +6990,20 @@
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-places-to-stay.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.restaurants">
         <source>Restaurants</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-restaurants.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.shops">
@@ -6995,12 +7012,20 @@
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-shops.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.sports">
         <source>Sports</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-sports.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.tourism">
@@ -7009,6 +7034,10 @@
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-tourism.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.hiking-biking">
         <source>Hiking/biking</source>
@@ -7016,12 +7045,20 @@
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-hiking-biking.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.group.landmarks">
         <source>Landmarks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.alcohol">
@@ -8350,6 +8387,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.menu.pois" datatype="html">
+        <source>
+      Points of interest
+    </source>
+        <target state="final">[
+      Points of interest
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.status">
