@@ -335,7 +335,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-names" datatype="html">
-        <source>Tile names</source>
+        <source>Tilenames</source>
         <target>Kachelnamen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
@@ -2389,7 +2389,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
         <source>Points of interest</source>
-        <target>Punkte von Interesse</target>
+        <target>Points of interest</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -5171,6 +5171,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-amenity.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.foodshops" datatype="html">
         <source>Foodshops</source>
@@ -5178,6 +5182,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-foodshops.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.places-to-stay" datatype="html">
@@ -5187,6 +5195,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-places-to-stay.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.restaurants" datatype="html">
         <source>Restaurants</source>
@@ -5194,6 +5206,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-restaurants.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.shops" datatype="html">
@@ -5203,6 +5219,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-shops.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.sports" datatype="html">
         <source>Sports</source>
@@ -5210,6 +5230,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-sports.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.tourism" datatype="html">
@@ -5219,6 +5243,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-tourism.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.hiking-biking" datatype="html">
         <source>Hiking/biking</source>
@@ -5227,6 +5255,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-hiking-biking.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.landmarks" datatype="html">
         <source>Landmarks</source>
@@ -5234,6 +5266,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.summary" datatype="html">
@@ -7901,6 +7937,14 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.menu.pois" datatype="html">
+        <source>Points of interest</source>
+        <target>Points of interest</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
     </body>
