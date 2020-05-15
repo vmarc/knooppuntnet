@@ -232,7 +232,7 @@
       </trans-unit>
       <trans-unit id="map.redundant-node" datatype="html">
         <source>Redundant node</source>
-        <target>Bijkomend knooppunt</target>
+        <target>Overtollig knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -335,7 +335,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-names" datatype="html">
-        <source>Tile names</source>
+        <source>Tilenames</source>
         <target>Tegelnamen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
@@ -712,7 +712,7 @@
       </trans-unit>
       <trans-unit id="fact.name.route-redundant-nodes" datatype="html">
         <source>RouteRedundantNodes</source>
-        <target>BijkomendKnooppunt</target>
+        <target>OvertolligKnooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -809,7 +809,7 @@
       <trans-unit id="fact.description.route-not-continious" datatype="html">
         <source>The route is broken: the begin- and end-networknodes cannot be connected through ways either
       in the forward direction or the backward direction or both.</source>
-        <target>De route is onderbroken: de begin- en eindknooppunten van deze route kunnen niet via de wegen verbonden worden in de heen en/of terug richting.</target>
+        <target>De route is onderbroken: de begin- en eindknooppunten van deze route kunnen niet via de wegen verbonden worden in de heen- en/of terugrichting.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-continious.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -881,9 +881,11 @@
       but not actually documented as a valid value in the OSM wiki pages.</source>
         <target>De verplichte _&quot;route&quot;_ tag heeft een ongeldige waarde.
 
-Een fietsnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en waarde _&quot;bicycle&quot;_ hebben.
+Een fietsnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en waarde _&quot;bicycle&quot;_ hebben. 
 
-Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en waarde _&quot;foot&quot;_, _&quot;hiking&quot;_ of _&quot;walking&quot;_ hebben. De waarde _&quot;walking&quot;_ wordt vaak gevonden en door de analyse aanvaard, al is deze waarde niet gedocumenteerd in de OSM wiki-pagina&apos;s.</target>
+Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en waarde _&quot;foot&quot;_, _&quot;hiking&quot;_ of _&quot;walking&quot;_ hebben. De waarde _&quot;walking&quot;_ wordt vaak gevonden en door de analyse aanvaard, al is deze waarde niet gedocumenteerd in de OSM wiki-pagina&apos;s.
+
+Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot;boat&quot;_ , _&quot;canoe&quot;_ , _&quot;inline_skates&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -910,7 +912,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="fact.description.network-extra-member-node" datatype="html">
         <source>The network relation contains members of type _&quot;node&quot;_ that are unexpected (we expect
       only network nodes or information maps as members in the network relation).</source>
-        <target>De netwerkrelatie bevat een of meer onverwachte knopen (we verwachten enkel knopen die ook echt een knooppuntdefinitie zijn, of een netwerkkaart).</target>
+        <target>De netwerkrelatie bevat een of meer onverwachte knopen (we verwachten enkel knopen die ook echt een knooppuntdefinitie zijn, of een kaart van het netwerk aangeven).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-network-extra-member-node.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -963,7 +965,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="fact.description.route-incomplete" datatype="html">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely
       marked incomplete by adding a tag _&quot;fixme&quot;_ with value _&quot;incomplete&quot;_ in the route relation.</source>
-        <target>De route is onvolledig. De routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de routerelatie.</target>
+        <target>De route is onvolledig. De routes zijn uitdrukkelijk aangemerkt als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de routerelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -973,7 +975,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <source>The route is marked as having an incomplete definition. A route definition is explicitely
       marked incomplete by adding a tag _&quot;fixme&quot;_ with value _&quot;incomplete&quot;_ in the route relation. But
       after analysis, the route seems to be ok.</source>
-        <target>De routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de routerelatie, maar na analyse lijkt de route ok.</target>
+        <target>De route is uitdrukkelijk aangemerkt als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de routerelatie, maar na analyse lijkt de route ok.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete-ok.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -981,7 +983,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="fact.description.route-unaccessible" datatype="html">
         <source>Part of the route does not seem [accessible](/en/docs/en.html#_accessible).</source>
-        <target>Een deel van de route lijkt niet[toegankelijk](/nl/docs/nl.html#_accessible).</target>
+        <target>Een deel van de route lijkt niet [toegankelijk](/nl/docs/nl.html#_accessible).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unaccessible.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1086,7 +1088,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="fact.description.become-orphan" datatype="html">
         <source>Has become orphan.</source>
-        <target>Wees geworden.</target>
+        <target>Is een wees geworden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-become-orphan.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1102,7 +1104,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="fact.description.integrity-check" datatype="html">
         <source>This network node has a tag that indicates the expected number of routes that arrive/depart in this node.</source>
-        <target>Dit knooppunt heeft een tag die het aantal verwachte routes dat aankomt/vertrekt op dit knooppunt weergeeft.</target>
+        <target>Dit knooppunt heeft een tag die het verwachte aantal routes dat aankomt/vertrekt op dit knooppunt aangeeft.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-integrity-check.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1185,7 +1187,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         because all routes to this node have role _&quot;connection&quot;_. This would mean that the
         node is part of another network. We expect that the node is not included in the
         network relation, unless it receives the role _&quot;connection&quot;_.</source>
-        <target>Dit knooppunt is opgenomen als lid in een netwerkrelatie. Dit is onverwacht omdat alle routes naar deze node de rol _&quot;connection&quot;_ hebben. Dit zou betekenen dat dit knooppunt deel uitmaakt van een ander netwerk. We verwachten dat het knooppunt niet opgenomen wordt in de netwerkrelatie, behalve wanneer het ook de rol _&quot;connection&quot;_ meekrijgt.</target>
+        <target>Dit knooppunt is opgenomen als lid in een netwerkrelatie. Dit is onverwacht omdat alle routes naar dit knooppunt de rol _&quot;connection&quot;_ hebben. Dit zou betekenen dat dit knooppunt deel uitmaakt van een ander netwerk. We verwachten dat het knooppunt niet opgenomen wordt in de netwerkrelatie, behalve wanneer het zelf ook de rol _&quot;connection&quot;_ meekrijgt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -1240,7 +1242,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         the network relation), then the node does not have to be included as member in
         the network relation. The node can be added the network relation, but should get
         the role _&quot;connection&quot;_ in that case.</source>
-        <target>Dit knooppunt is niet opgenomen als lid in een netwerkrelatie. Dit is niet OK. De conventie is om elk knooppunt op te nemeen netwerkrelatie. Een uitzondering is wannen in eer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt hebben de rol _&quot;connection&quot;_ in de netwerkrelatie), dan hoeft het knooppunt niet als lid in de netwerk relatie te worden toegevoegd. Het knooppunt kan wel toegevoegd worden, maar moet dan rol _&quot;connection&quot;_ krijgen.</target>
+        <target>Dit knooppunt is niet opgenomen als lid in een netwerkrelatie. Dit is niet OK. De conventie is om elk knooppunt op te nemen in een netwerkrelatie. Een uitzondering is wanneer het knooppunt tot een ander netwerk behoort (alle routes naar dit knooppunt hebben de rol _&quot;connection&quot;_ in de netwerkrelatie), dan hoeft het knooppunt niet als lid in de netwerk relatie te worden toegevoegd. Het knooppunt kan wel toegevoegd worden, maar moet dan rol _&quot;connection&quot;_ krijgen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -1423,7 +1425,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route-indicator.green.text" datatype="html">
         <source>This node is included as a member in one or more route relations.</source>
-        <target>Dit knooppunt is opgenomen als lid in een of meerdere routerelaties.</target>
+        <target>Dit knooppunt is opgenomen als lid in een of meer routerelaties.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/route-indicator-dialog.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -1608,7 +1610,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>
         License change
       <x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</source>
-        <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analyse databank gaat niet verder terug dan 2012-09-12 (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/> Licentie aanpassing <x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
+        <target>Oudere wijzigingen kunnen niet getoond worden. De geschiedenis in de knooppuntnet analysedatabank gaat niet verder terug dan 2012-09-12 (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/> Licentie aanpassing <x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/history-incomplete-warning.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1672,7 +1674,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route-changes.node-diff.start-tentacle-nodes" datatype="html">
         <source>Start tentacle nodes</source>
-        <target>Start tentakel knooppunten</target>
+        <target>Start tentakel-knooppunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -1680,7 +1682,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route-changes.node-diff.end-tentacle-nodes" datatype="html">
         <source>End tentacle nodes</source>
-        <target>Eind tentakel knooppunten</target>
+        <target>Eind tentakel-knooppunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -1840,7 +1842,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="tag-diffs.table" datatype="html">
         <source>Tag differences</source>
-        <target>Tag wijziginen</target>
+        <target>Tag-verschillen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -2012,7 +2014,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.network-created" datatype="html">
         <source>Network created</source>
-        <target>Netwerk nieuw aangemaakt</target>
+        <target>Netwerk aangemaakt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -2044,7 +2046,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.nodes.added" datatype="html">
         <source>Added non-network node member(s) in network relation</source>
-        <target>Niet-network-knooppunt(en) toegevoegd in netwerk relatie</target>
+        <target>Niet-netwerk-knooppunt(en) toegevoegd aan netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">44</context>
@@ -2052,7 +2054,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.ways.added" datatype="html">
         <source>Added way member(s) in network relation</source>
-        <target>Weg(en) toegevoegd in netwerk relatie</target>
+        <target>Weg(en) toegevoegd aan netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -2060,7 +2062,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.relations.added" datatype="html">
         <source>Added non-route relation(s) in network relation</source>
-        <target>Niet-route relatie(s) toegevoegd in netwerk relatie</target>
+        <target>Niet-route-relatie(s) toegevoegd aan netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">58</context>
@@ -2068,7 +2070,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.network-relation-updated" datatype="html">
         <source>Updated network relation</source>
-        <target>Netwerk relatie aangepast</target>
+        <target>Netwerkrelatie aangepast</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">65</context>
@@ -2108,7 +2110,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.relations.updated" datatype="html">
         <source>Updated non-route relation(s)</source>
-        <target>Niet-route relatie aangepast</target>
+        <target>Niet-route-relatie aangepast</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">110</context>
@@ -2116,7 +2118,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.network-nodes.removed" datatype="html">
         <source>Removed network node(s)</source>
-        <target>Network knooppunt(en) verwijderd</target>
+        <target>Netwerkknooppunt(en) verwijderd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">117</context>
@@ -2132,7 +2134,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.nodes.removed" datatype="html">
         <source>Removed non-network node member(s) from network relation</source>
-        <target>Knooppunt dat geen networkknooppunt is verwijderd uit netwerk relatie</target>
+        <target>Knooppunt dat geen netwerkknooppunt is verwijderd uit netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">141</context>
@@ -2140,7 +2142,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.ways.removed" datatype="html">
         <source>Removed way member(s) from network relation</source>
-        <target>Weg(en) verwijderd uit netwerk relatie</target>
+        <target>Weg(en) verwijderd uit netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">148</context>
@@ -2148,7 +2150,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-changes.relations.removed" datatype="html">
         <source>Removed non-route relation(s) from network relation</source>
-        <target>Niet-route relatie(s) verwijderd uit netwerk relatie</target>
+        <target>Niet-route relatie(s) verwijderd uit netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">155</context>
@@ -2156,7 +2158,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="home.page-title" datatype="html">
         <source>Node networks</source>
-        <target>Knooppunt netwerken</target>
+        <target>Knooppuntnetwerken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -2218,7 +2220,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <source>The knooppuntnet application only reads your username from the user preferences to establish that
         you are a registered OpenStreetMap user. All other user preferences are ignored,
         and not stored in knooppuntnet.</source>
-        <target>De knooppuntnet toepassing leest enkel uw gebruikersnaam uit uw gebruikervoorkeuren om vast te stellen dat u een registreerde OpenStreetMap gebruiker bent. De andere informatie in uw gebruikervoorkeuren wordt niet gebruikt en niet opgeslagen in knooppuntnet.</target>
+        <target>De knooppuntnet-toepassing leest enkel uw gebruikersnaam uit uw gebruikervoorkeuren om vast te stellen dat u een registreerde OpenStreetMap gebruiker bent. De andere informatie in uw gebruikervoorkeuren wordt niet gebruikt en niet opgeslagen in knooppuntnet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -2227,7 +2229,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="login.note.5" datatype="html">
         <source>This login procedure uses OpenStreetMap security.
         Knooppuntnet does not have access to your password at any moment.</source>
-        <target>Deze aanmeld procedure loopt via OpenStreetMap, en op geen enkel moment heeft knooppuntnet toegang tot uw paswoord.</target>
+        <target>Deze aanmeldprocedure loopt via OpenStreetMap. Op geen enkel moment heeft knooppuntnet toegang tot uw paswoord.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -2236,7 +2238,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="login.note.6" datatype="html">
         <source>You remain logged in (also after closing you browser), until you explicitly logout through the logout page.
         To login again after logout you will have to use the same login procedure again.</source>
-        <target>U blijft aangemeld bij knooppuntnet (ook na het afsluiten van uw browser) tot u zich uitdrukkelijk afmeld via het afmelden scherm. Om daarna opnieuw aan te melden dient u opnieuw dezelfde procedure door te lopen.</target>
+        <target>U blijft aangemeld bij knooppuntnet (ook na het afsluiten van uw browser) tot u zich afmeldt via het afmelden scherm. Om daarna opnieuw aan te melden dient u opnieuw dezelfde procedure door te lopen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -2284,7 +2286,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
           <x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/><x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/>
           will still contain this application. The application can safely be revoked.
           The authorization will not be used anymore. A new authorization will be created when logging in again.</source>
-        <target>Na het uitloggen kan u de website verder gebruiken, maar extra informatie zoals wijzigingset details, netwerk historiek, route historiek en knooppunt historiek zijn niet meer raadpleegbaar. In uw persoonlijke <x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/><x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/> zal knooppuntnet nog wel voorkomen. U kunt deze autorisatie intrekken. De autorisatie zal niet meer gebruikt worden. Een nieuwe autorisatie zal aangemaakt worden bij opnieuw aanmelden.</target>
+        <target>Na het uitloggen kan u de website verder gebruiken, maar extra informatie zoals wijzigingset-details, netwerk-historiek, route-historiek en knooppunt-historiek zijn niet meer raadpleegbaar. In uw persoonlijke <x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/><x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/> zal knooppuntnet nog wel voorkomen. U kunt deze autorisatie intrekken. De autorisatie zal niet meer gebruikt worden. Een nieuwe autorisatie zal aangemaakt worden bij opnieuw aanmelden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -2342,7 +2344,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.title" datatype="html">
         <source>Route planner</source>
-        <target>Route planner</target>
+        <target>Routeplanner</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-planner.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -2350,7 +2352,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.legend" datatype="html">
         <source>Legend</source>
-        <target>Legende</target>
+        <target>Legenda</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -2358,7 +2360,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.appearance-options" datatype="html">
         <source>Map appearance options</source>
-        <target>Kaart opties</target>
+        <target>Kaartopties</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -2374,7 +2376,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.quality" datatype="html">
         <source>Node and route quality status</source>
-        <target>Knooppunt en route kwaliteit</target>
+        <target>Knooppunt- en routekwaliteit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -2390,7 +2392,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
         <source>Points of interest</source>
-        <target>Interessante punten</target>
+        <target>Interessepunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -2406,7 +2408,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.pois.enabled" datatype="html">
         <source>Show points of interest on the map</source>
-        <target>Toon interessante punten</target>
+        <target>Toon interessepunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -2414,7 +2416,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.pois.zoom-in" datatype="html">
         <source>Zoom in to see the icons on the map.</source>
-        <target>Zoem in om de icoontjes op de kaart te zien</target>
+        <target>Zoom in om de icoontjes op de kaart te zien</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -2422,7 +2424,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="planner.pois.reset" datatype="html">
         <source>Reset configuration to default</source>
-        <target>Herstel standaard configuratie</target>
+        <target>Herstel standaardconfiguratie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -2557,7 +2559,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       The node was not added as a member to a valid network relation, and also not added
       as a member to valid route relation (that itself was added as a member to a valid
       network relation or is an orphan route).</source>
-        <target>Op zichzelf staande knooppunt (niet teruggevonden in een netwerk). Dit knooppunt werd niet teruggevonden als deel van een geldige netwerk relatie, of als deel van een geldige route relatie (dit kan een route relatie zijn die deel uitmaakt van een network relatie, maar ook een op zichzelf staande route relatie die geen deel uitmaakt van een network relatie).</target>
+        <target>Losstaand knooppunt. Dit knooppunt werd niet teruggevonden als deel van een geldige netwerkrelatie, of als deel van een geldige routerelatie (die zelf al of niet in een netwerkrelatie voorkomt).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-orphan-node.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -2885,7 +2887,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.picnic" datatype="html">
         <source>Picnic</source>
-        <target>Picnic</target>
+        <target>Picknick</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">98</context>
@@ -3053,7 +3055,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.detail.molen-database" datatype="html">
         <source>Molen database</source>
-        <target>Molen database</target>
+        <target>Molendatabase</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">78</context>
@@ -3061,7 +3063,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.detail.hollandsche-molen-database" datatype="html">
         <source>Hollandsche Molen database</source>
-        <target>Hollandsche Molen database</target>
+        <target>Hollandsche Molendatabase</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">82</context>
@@ -3093,7 +3095,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="export.navigation-instructions-pdf" datatype="html">
         <source>Navigation instructions (pdf)</source>
-        <target>Navigatie instructies (pdf)</target>
+        <target>Navigatie-instructies (pdf)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -3101,7 +3103,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="export.gpx" datatype="html">
         <source>GPX file</source>
-        <target>GPX bestand</target>
+        <target>GPX-bestand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -3309,7 +3311,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="plan.command.turn-left" datatype="html">
         <source>Turn left</source>
-        <target>Ga links af</target>
+        <target>Ga linksaf</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -3401,7 +3403,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.tourism" datatype="html">
         <source>Tourism</source>
-        <target>Tourisme</target>
+        <target>Toerisme</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">122</context>
@@ -3409,7 +3411,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.apartment" datatype="html">
         <source>Apartment</source>
-        <target>Apartement</target>
+        <target>Appartement</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -3449,7 +3451,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.ice-cream" datatype="html">
         <source>Ice cream</source>
-        <target>Ijs</target>
+        <target>IJs</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">76</context>
@@ -3457,7 +3459,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.icehockey" datatype="html">
         <source>Ice hockey</source>
-        <target>Ijshockey</target>
+        <target>IJshockey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">77</context>
@@ -3481,7 +3483,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.baseball" datatype="html">
         <source>Baseball</source>
-        <target>Baseball</target>
+        <target>Honkbal</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -3601,7 +3603,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.bicycle-parking" datatype="html">
         <source>Bicycle parking</source>
-        <target>Fietsparking</target>
+        <target>Fietsparkeerplaats</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -3633,7 +3635,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.clothes" datatype="html">
         <source>Clothes</source>
-        <target>Kledij</target>
+        <target>Kleding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">41</context>
@@ -3641,7 +3643,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.copyshop" datatype="html">
         <source>Copyshop</source>
-        <target>Kopieer winkel</target>
+        <target>Copyshop</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">44</context>
@@ -3769,7 +3771,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.shoppingcentre" datatype="html">
         <source>Shopping centre</source>
-        <target>Shopping centrum</target>
+        <target>Winkelcentrum</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">108</context>
@@ -3809,7 +3811,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.alpine-hut" datatype="html">
         <source>Alpine hut</source>
-        <target>Alpine hut</target>
+        <target>Berghut</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -3889,7 +3891,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.deli" datatype="html">
         <source>Deli</source>
-        <target>Deli</target>
+        <target>Delicatessen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">49</context>
@@ -3985,7 +3987,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.bbq" datatype="html">
         <source>BBQ</source>
-        <target>BBQ</target>
+        <target>Barbecue</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -4001,7 +4003,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="poi.books-stationary" datatype="html">
         <source>Books/stationary</source>
-        <target>Papier en boekhandel</target>
+        <target>Papier- en boekhandel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -4065,7 +4067,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.km.comment" datatype="html">
         <source>Total length in kilometers.</source>
-        <target>Totale lengte in kilometer.</target>
+        <target>Totale lengte in kilometers.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -4153,7 +4155,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.route-not-continious.name" datatype="html">
         <source>RouteNotContinious</source>
-        <target>RouteNotContinious</target>
+        <target>RouteNotContinuous</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">49</context>
@@ -4227,7 +4229,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <source>Number of routes that are marked as having an incomplete definition.\
         A route definition is explicitely marked incomplete by adding a tag _&quot;fixme&quot;_ with
         value _&quot;incomplete&quot;_ in the route relation.</source>
-        <target>Aantal onvolledige routes.\Deze routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de route relatie.</target>
+        <target>Aantal onvolledige routes.\Deze routes zijn aangemerkt als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de routerelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">95</context>
@@ -4246,7 +4248,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         that look ok after analysis.\
         A route definition is explicitely marked incomplete by adding a tag _&quot;fixme&quot;_ with
         value _&quot;incomplete&quot;_ in the route relation.</source>
-        <target>Aantal routes die gemarkeerd zijn als onvolledig, maar die na analyse ok lijken te zijn.\Deze routes zijn uitdrukkelijk gemarkeerd als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de route relatie.</target>
+        <target>Aantal routes die aangemerkt zijn als onvolledig, maar die na analyse ok lijken te zijn.\Deze routes zijn aangemerkt als onvolledig door het toevoegen van een tag met sleutel _&quot;fixme&quot;_ en waarde _&quot;incomplete&quot;_ in de route relatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">108</context>
@@ -4278,7 +4280,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.name" datatype="html">
         <source>Orphan nodes</source>
-        <target>Knooppunt wezen</target>
+        <target>Knooppunt-wezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">128</context>
@@ -4296,7 +4298,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.orphan-route-count.name" datatype="html">
         <source>Orphan routes</source>
-        <target>Route wezen</target>
+        <target>Route-wezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">143</context>
@@ -4304,7 +4306,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.orphan-route-km.comment" datatype="html">
         <source>Total length (km) of the orphan routes (not included in network length above).</source>
-        <target>Totale lengte (km) van de route wezen (deze worden niet meegeteld in de netwerk lengte hierboven).</target>
+        <target>Totale lengte (km) van de route-wezen (deze worden niet meegeteld in de netwerklengte hierboven).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">157</context>
@@ -4312,7 +4314,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.orphan-route-km.name" datatype="html">
         <source>Orphan route length (km)</source>
-        <target>Route wezen lengte (km)</target>
+        <target>Route-wezen lengte (km)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">155</context>
@@ -4401,7 +4403,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="stats.route-unused-segments.comment" datatype="html">
         <source>Number of routes where one or more of the ways (or part of ways) are not used in the
         forward or backward path or in one of the tentacles.</source>
-        <target>Aantal routes waarbij niet alle wegen (of stukken van wegen) gebruikt worden in de heen of terugweg of in een van de tentakels.</target>
+        <target>Aantal routes waarbij niet alle wegen (of stukken van wegen) gebruikt worden in de heen- of terugweg of in een van de tentakels.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">209</context>
@@ -4417,7 +4419,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.route-node-missing-in-ways.comment" datatype="html">
         <source>Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.</source>
-        <target>Aantal routes waarvan de begin en/of eind knooppunten niet voorkomen in een van de wegen van deze route.</target>
+        <target>Aantal routes waarvan het begin- en/of eindknooppunten niet voorkomt in een van de wegen van deze route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">220</context>
@@ -4433,7 +4435,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.route-redundant-nodes.comment" datatype="html">
         <source>Number of routes where the ways of the route contain extra nodes other than the start and end nodes.</source>
-        <target>Aantal routes waarin er zich naast de begin en eind knooppunten nog andere vreemde knooppunten bevinden in de wegen van de route.</target>
+        <target>Aantal routes waarin zich naast de begin- en eindknooppunten nog andere knooppunten bevinden in de wegen van de route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">230</context>
@@ -4465,7 +4467,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.route-name-missing.comment" datatype="html">
         <source>Routes without a _&quot;note&quot;_ or _&quot;ref&quot;_ tag with the route name.</source>
-        <target>Aantal routes zonder tag met sleutel _&quot;note&quot;_ of _&quot;ref&quot;_ met de route naam in de route relatie.</target>
+        <target>Aantal routes zonder tag met sleutel _&quot;note&quot;_ of _&quot;ref&quot;_ met de routenaam in de routerelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">252</context>
@@ -4481,7 +4483,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.route-tag-missing.comment" datatype="html">
         <source>The route relation does not contain a _&quot;route&quot;_ tag.</source>
-        <target>De _&quot;route&quot;_ tag ontbreekt in de route relatie.</target>
+        <target>De _&quot;route&quot;_ tag ontbreekt in de routerelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">263</context>
@@ -4497,7 +4499,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.route-tag-invalid.comment" datatype="html">
         <source>The value in the _&quot;route&quot;_ tag in the route relation is unexpected.</source>
-        <target>De waarde in de _&quot;route&quot;_ tag in de route relatie is onverwacht.</target>
+        <target>De waarde in de _&quot;route&quot;_ tag van de routerelatie is onverwacht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">274</context>
@@ -4514,7 +4516,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="stats.route-unexpected-node.comment" datatype="html">
         <source>Number of routes with one or more unexpected node members.\
         In route relations we expect only nodes with tag _&quot;rwn_ref&quot;_ or _&quot;rcn_ref&quot;_.</source>
-        <target>Aantal routes met 1 of meer overwachte knopen.\In route relaties verwachten we enkel knopen met een tag met sleutel _&quot;rwn_ref&quot;_ of _&quot;rcn_ref&quot;_.</target>
+        <target>Aantal routes met 1 of meer onverwachte knopen.\In routerelaties verwachten we enkel knopen met een tag met sleutel _&quot;rwn_ref&quot;_ of _&quot;rcn_ref&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">285</context>
@@ -4532,7 +4534,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <source>Number of routes with one or more unexpected members.\In route relations we expect
         only members of type _&quot;way&quot;_, or members of type _&quot;node&quot;_ with a
         tag _&quot;rwn_ref&quot;_ or _&quot;rcn_ref&quot;_.</source>
-        <target>Aantal routes met 1 of meer overwachte relaties.\In route relaties verwachten we enkel onderdelen van het type _&quot;way&quot;_, of onderdelen van het type _&quot;node&quot;_ met een tag met sleutel _&quot;rwn_ref&quot;_ of _&quot;rcn_ref&quot;_.</target>
+        <target>Aantal routes met 1 of meer onverwachte onderdelen.\In routerelaties verwachten we enkel onderdelen van het type _&quot;way&quot;_ en onderdelen van het type _&quot;node&quot;_ met een tag met sleutel _&quot;rwn_ref&quot;_ of _&quot;rcn_ref&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">297</context>
@@ -4551,7 +4553,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         [network nodes](docs/en.html#glossary-node &quot;node in glossary&quot;)
         or [information maps](docs/en.html#glossary-info-map &quot;information maps in glossary&quot;) as members
         in the network relation).</source>
-        <target>Aantal onverwachte knopen in netwerkrelaties (we verwachten enkel knopen dit ook echt een [knooppunt](docs/en.html#glossary-node &quot;knooppunt in woordenlijst&quot;) definitie zijn, of [informatie kaarten](docs/en.html#glossary-info-map &quot;informatie kaarten in woordenlijst&quot;) in de netwerk relatie).</target>
+        <target>Aantal onverwachte knopen in netwerkrelaties (we verwachten enkel knopen die ook echt een [knooppunt](docs/en.html#glossary-node &quot;knooppunt in woordenlijst&quot;) definitie zijn, of [informatie kaarten](docs/en.html#glossary-info-map &quot;informatie kaarten in woordenlijst&quot;) in de netwerkrelatie).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">310</context>
@@ -4568,7 +4570,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="stats.network-extra-member-way.comment" datatype="html">
         <source>Number of network relation members of type _&quot;way&quot;_ (expect only route relations
         or network nodes as members in the node network relation).</source>
-        <target>Overwachte wegen _(&quot;ways&quot;)_ in netwerk relaties (in network relaties verwachten we enkel route relaties of knooppunten, geen wegen).</target>
+        <target>Onverwachte wegen _(&quot;ways&quot;)_ in netwerkrelaties (in netwerkrelaties verwachten we enkel routerelaties en knooppunten, geen wegen).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">324</context>
@@ -4576,7 +4578,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.network-extra-member-way.name" datatype="html">
         <source>NetworkExtraMemberWay</source>
-        <target>NetworkOverwachteWegen</target>
+        <target>NetwerkOnverwachteWegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">320</context>
@@ -4585,7 +4587,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="stats.network-extra-member-relation.comment" datatype="html">
         <source>Number of network relation members of type _&quot;relation&quot;_ that are unexpected (expect only
         valid route relations or network nodes as members in the node network relation).</source>
-        <target>Aantal overwachte relaties in network relaties. In network relaties verwachten we enkel route relaties of knooppunten, geen relaties anders dan route relaties.</target>
+        <target>Aantal onverwachte relaties in netwerkrelaties. In netwerkrelaties verwachten we enkel routerelaties en knooppunten, geen relaties anders dan routerelaties.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">336</context>
@@ -4601,7 +4603,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.node-member-missing.comment" datatype="html">
         <source>Number of nodes that are not included in the network relation</source>
-        <target>Aantal knooppunten dat niet is opgenomen als lid in een netwerk relatie.</target>
+        <target>Aantal knooppunten dat niet is opgenomen als lid in een netwerkrelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">347</context>
@@ -4617,7 +4619,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="stats.name-missing.comment" datatype="html">
         <source>Number of networks without _&quot;name&quot;_ tag in the network relation.</source>
-        <target>Aantal netwerken zonder tag met sleutel _&quot;name&quot;_ in de netwerk relatie.</target>
+        <target>Aantal netwerken zonder tag met sleutel _&quot;name&quot;_ in de netwerkrelatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">358</context>
@@ -4667,7 +4669,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <source>Routes where the route name does not match with the names of the start node and the end node. The
         route name is expected to contain the start node name and the end node name, separated by a dash. The
         start node is expected to have a lower number than the end node.</source>
-        <target>Aantal routes waarvan de route naam niet overeenkomt met de namen van de start en eind nodes. We verwachten dat de route naam de namen van de start en eindknooppunten bevat, gescheiden door een koppelteken. Het knooppunt met het laagste nummer verwachten we vooraan.</target>
+        <target>Aantal routes waarvan de routenaam niet overeenkomt met de namen van de start- en eindknooppunten. We verwachten dat de routenaam de namen van de start- en eindknooppunten bevat, gescheiden door een koppelteken. Het knooppunt met het laagste nummer verwachten we vooraan.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">389</context>
@@ -4920,7 +4922,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="breadcrumb.route-map" datatype="html">
         <source>Route map</source>
-        <target>Route kaart</target>
+        <target>Routekaart</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/map/_route-map-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -4968,7 +4970,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route.members.title" datatype="html">
         <source>Route Members</source>
-        <target>Route onderdelen</target>
+        <target>Route-onderdelen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -5048,7 +5050,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route.members.table.one-way" datatype="html">
         <source>One Way</source>
-        <target>Enkele richting</target>
+        <target>Eenrichting</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -5080,7 +5082,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route.incomplete" datatype="html">
         <source>Route definition is incomplete (has tag _&quot;fixme=incomplete&quot;_).</source>
-        <target>De route definitie is onvolledig (heeft tag _&quot;fixme=incomplete&quot;_).</target>
+        <target>De routedefinitie is onvolledig (heeft tag _&quot;fixme=incomplete&quot;_).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -5088,7 +5090,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route.not-active" datatype="html">
         <source>This route is not active anymore.</source>
-        <target>This route is not active anymore.</target>
+        <target>Deze route is niet meer actief.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -5112,7 +5114,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="breadcrumb.route-details" datatype="html">
         <source>Route details</source>
-        <target>Route details</target>
+        <target>Route-details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5136,7 +5138,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="breadcrumb.route-changes" datatype="html">
         <source>Route changes</source>
-        <target>Route wijzigingen</target>
+        <target>Route-wijzigingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/_route-changes-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5173,6 +5175,10 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-amenity.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.foodshops" datatype="html">
         <source>Foodshops</source>
@@ -5180,6 +5186,10 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-foodshops.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.places-to-stay" datatype="html">
@@ -5189,6 +5199,10 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-places-to-stay.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.restaurants" datatype="html">
         <source>Restaurants</source>
@@ -5196,6 +5210,10 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-restaurants.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.shops" datatype="html">
@@ -5205,6 +5223,10 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-shops.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.sports" datatype="html">
         <source>Sports</source>
@@ -5213,13 +5235,21 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-sports.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.tourism" datatype="html">
         <source>Tourism</source>
-        <target>Tourisme</target>
+        <target>Toerisme</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-tourism.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.hiking-biking" datatype="html">
@@ -5229,6 +5259,10 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-hiking-biking.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="poi.group.landmarks" datatype="html">
         <source>Landmarks</source>
@@ -5236,6 +5270,10 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.summary" datatype="html">
@@ -5280,7 +5318,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route.start-node" datatype="html">
         <source>Start node</source>
-        <target>Start knooppunt</target>
+        <target>Startknooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">45</context>
@@ -5288,7 +5326,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route.end-node" datatype="html">
         <source>End node</source>
-        <target>Eind knooppunt</target>
+        <target>Eindknooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">49</context>
@@ -5296,7 +5334,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route.redundant-node" datatype="html">
         <source>Redundant node</source>
-        <target>Bijkomend knooppunt</target>
+        <target>Overtollig knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -5442,7 +5480,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="subset-facts.orphan-routes" datatype="html">
         <source>Orphan routes</source>
-        <target>Route wezen</target>
+        <target>Route-wezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">37</context>
@@ -5474,7 +5512,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="subset-map.dialog.show-network-details" datatype="html">
         <source>Show network details</source>
-        <target>Ga naar netwerk details</target>
+        <target>Ga naar netwerkdetails</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/map/subset-map-network-dialog.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -5667,7 +5705,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.header.replication-number" datatype="html">
         <source>Minute diff</source>
-        <target>Replicatie nummer</target>
+        <target>Replicatie-nummer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -5691,7 +5729,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.header.analysis.happy" datatype="html">
         <source>This changeset brought improvements.</source>
-        <target>Er zijn verbeteringen in deze changeset.</target>
+        <target>Er zijn verbeteringen in deze wijzigingenset.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5707,7 +5745,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.header.analysis.no-impact" datatype="html">
         <source>The changes do not seem to have an impact on the analysis result.</source>
-        <target>De aanpassingen in deze changeset hebben geen impact op de analyse resultaten.</target>
+        <target>De aanpassingen in deze changeset hebben geen gevolgen voor de analyseresultaten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -5739,7 +5777,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.network-changes.orphan-routes-introduced" datatype="html">
         <source>Orphan routes added to this network</source>
-        <target>Volgende routes maakten deel uit van dit netwerk, maar zijn nu route wees geworden</target>
+        <target>De volgende routes maakten deel uit van dit netwerk, maar zijn nu route-wees geworden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-orphan-routes-old.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -5759,7 +5797,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.network-changes.orphan-nodes-introduced" datatype="html">
         <source>Following nodes that used to be part of this network have become orphan</source>
-        <target>Volgende knooppunten maakten tot nu toe deel uit van dit netwerk, maar zijn knooppunt wees geworden</target>
+        <target>De volgende knooppunten maakten tot nu toe deel uit van dit netwerk, maar zijn nu knooppunt-wees geworden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-orphan-nodes-new.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -5783,7 +5821,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.network-changes.updated-nodes" datatype="html">
         <source>Updated non-network nodes</source>
-        <target>Geweiziged punten die geen knooppunten zijn</target>
+        <target>Gewijzigde punten die geen knooppunten zijn</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-updated.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5815,7 +5853,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.network-changes.added-relations" datatype="html">
         <source>Added non-route relations</source>
-        <target>Toegevoegde relaties die geen route relatie zijn</target>
+        <target>Toegevoegde relaties die geen routerelatie zijn</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-added.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5823,7 +5861,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.network-changes.updated-relations" datatype="html">
         <source>Updated non-route relations</source>
-        <target>Gewijzigde relaties die geen route relatie zijn</target>
+        <target>Gewijzigde relaties die geen routerelatie zijn</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-updated.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5831,7 +5869,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.network-changes.removed-relations" datatype="html">
         <source>Removed non-route relations</source>
-        <target>Verwijderde relaties die geen route relatie zijn</target>
+        <target>Verwijderde relaties die geen routerelatie zijn</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-removed.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -6087,7 +6125,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="node-change.moved.note.1" datatype="html">
         <source>Note: Node position is shown as it was at</source>
-        <target>Noot: De knooppunt positie wordt getoond zoals die was op</target>
+        <target>Noot: De knooppuntpositie wordt getoond zoals die was op</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -6095,7 +6133,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="node-change.moved.note.2" datatype="html">
         <source>, while the map background is shown as it is today.</source>
-        <target>, de kaart achtergrond toont de toestand van vandaag.</target>
+        <target>, de kaartachtergrond toont de toestand van vandaag.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -6236,7 +6274,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="node.node" datatype="html">
         <source>network node</source>
-        <target>netwerk knooppunt</target>
+        <target>netwerkknooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -6327,7 +6365,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="breadcrumb.node-changes" datatype="html">
         <source>Node changes</source>
-        <target>Knooppunt wijzigingen</target>
+        <target>Knooppunt-wijzigingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -6375,7 +6413,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="node.details-sidebar.tip" datatype="html">
         <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes.</source>
-        <target>TIP: klik op de knooppunten en routes in de kaart om naar hun detail pagina te gaan.</target>
+        <target>TIP: klik op de knooppunten en routes in de kaart om naar hun detailpagina te gaan.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-details-sidebar.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -6855,7 +6893,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="location.selector.button" datatype="html">
         <source>Location overview</source>
-        <target>Locatie overzicht</target>
+        <target>Locatie-overzicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-selector.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -6937,7 +6975,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="change-set.orphan-routes" datatype="html">
         <source>Orphan route(s)</source>
-        <target>Route wezen</target>
+        <target>Routewezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/change-set/components/change-set-orphan-routes.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7019,7 +7057,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-details.contains-broken-routes" datatype="html">
         <source>This network contains broken (non-continuous) routes.</source>
-        <target>Dit network bevat verbindingen die niet geheel aaneensluitend zijn.</target>
+        <target>Dit netwerk bevat verbindingen die niet geheel aaneensluitend zijn.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-summary.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -7279,7 +7317,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.text" datatype="html">
         <source>No issues found during route analysis.</source>
-        <target>Geen problemen gevonden tijdens route analyse.</target>
+        <target>Geen problemen gevonden tijdens route-analyse.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -7379,7 +7417,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-facts.checks-table.title" datatype="html">
         <source>node integrity check failures</source>
-        <target>integriteits controle resultaten</target>
+        <target>integriteitscontrole-resultaten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-checks.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -7467,7 +7505,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-nodes.no-nodes" datatype="html">
         <source>No network nodes in network</source>
-        <target>Geen netwerk knooppunten in netwerk</target>
+        <target>Geen netwerkknooppunten in netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -7491,7 +7529,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-routes.no-routes" datatype="html">
         <source>No network routes in network</source>
-        <target>Geen netwerk routes in netwerk</target>
+        <target>Geen netwerkroutes in netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -7510,7 +7548,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="breadcrumb.node-map" datatype="html">
         <source>Node map</source>
-        <target>Knooppunt kaart</target>
+        <target>Knooppuntenkaart</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/map/_node-map-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7551,7 +7589,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="fact.description.node-invalid-survey-date" datatype="html">
         <source>The node survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
       The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</source>
-        <target>De datum van de meest recente survey van deze node heeft een onverwacht formaat (geldig formaat: JJJJ-MM-DD or YYYY-MM). De survey datum wordt gevonden in de _&quot;survey:date&quot;_ tag of de _&quot;source:date&quot;_ tag indien er ook een _&quot;source=survey&quot;_ tag is.</target>
+        <target>De datum van de meest recente survey van deze node heeft een onverwacht formaat (geldig formaat: JJJJ-MM-DD or JJJJ-MM). De surveydatum wordt gevonden in de _&quot;survey:date&quot;_ tag, of in de _&quot;source:date&quot;_ tag indien er ook een _&quot;source=survey&quot;_ tag is.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-invalid-survey-date.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -7560,7 +7598,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       <trans-unit id="fact.description.route-invalid-survey-date" datatype="html">
         <source>The route survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
       The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</source>
-        <target>De datum van de meest recente survey van deze route heeft een onverwacht formaat (geldig formaat: JJJJ-MM-DD or YYYY-MM). De survey datum wordt gevonden in de _&quot;survey:date&quot;_ tag of de _&quot;source:date&quot;_ tag indien er ook een _&quot;source=survey&quot;_ tag is.</target>
+        <target>De datum van de meest recente survey van deze route heeft een onverwacht formaat (geldig formaat: JJJJ-MM-DD of JJJJ-MM). De surveydatum wordt gevonden in de _&quot;survey:date&quot;_ tag, of in de _&quot;source:date&quot;_ tag indien er ook een _&quot;source=survey&quot;_ tag is.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-invalid-survey-date.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -7675,7 +7713,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="timeout.message-2" datatype="html">
         <source>No response from editor within 5 seconds.</source>
-        <target>Geen antwoord van de editor binnen de vijf seconden.</target>
+        <target>De editor heeft niet binnen de vijf seconden geantwoord.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7723,7 +7761,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="filter.definedInNetworkRelation" datatype="html">
         <source>Defined in network relation</source>
-        <target>Opgenomen in netwerk relatie</target>
+        <target>Opgenomen in netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">55</context>
@@ -7731,7 +7769,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="filter.definedInRouteRelation" datatype="html">
         <source>Defined in route relation</source>
-        <target>Opgenomen in route relatie</target>
+        <target>Opgenomen in routerelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -7747,7 +7785,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="filter.integrityCheck" datatype="html">
         <source>Integrity check</source>
-        <target>Integriteits controle</target>
+        <target>Integriteitscontrole</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">58</context>
@@ -7755,7 +7793,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="filter.integrityCheckFailed" datatype="html">
         <source>Integrity check failed</source>
-        <target>Integriteits controle faalt</target>
+        <target>Integriteitscontrole faalt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">59</context>
@@ -7875,7 +7913,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip1" datatype="html">
         <source>Click on node or route to go to detail page.</source>
-        <target>Klik op knooppunt of route om naar de detail pagina te gaan.</target>
+        <target>Klik op knooppunt of route om naar de detailpagina te gaan.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -7883,7 +7921,7 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip2" datatype="html">
         <source>Use ctrl-click to open the detail page in another browser tab.</source>
-        <target>Gebruik ctrl-klik om de detail pagina in een andere browser tab te openen.</target>
+        <target>Gebruik ctrl-klik om de detailpagina in een andere browser tab te openen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -7903,6 +7941,14 @@ Een wandelnetwerk-routerelatie moet een tag met sleutel _&quot;route&quot;_ en w
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi.menu.pois" datatype="html">
+        <source>Points of interest</source>
+        <target>Interessepunten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
     </body>
