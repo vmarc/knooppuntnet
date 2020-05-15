@@ -15,6 +15,8 @@ import {PdfModule} from "../pdf/pdf.module";
 import {MapRoutingModule} from "./map-routing.module";
 import {MapPageComponent} from "./pages/map/_map-page.component";
 import {MapMainPageComponent} from "./pages/map/map-main-page.component";
+import {PoiMenuOptionComponent} from "./pages/map/poi-menu-option.component";
+import {PoiMenuComponent} from "./pages/map/poi-menu.component";
 import {MapPoiConfigComponent} from "./pages/map/poi/map-poi-config.component";
 import {PoiConfigComponent} from "./pages/map/poi/poi-config.component";
 import {PoiGroupAmenityComponent} from "./pages/map/poi/poi-group-amenity.component";
@@ -102,7 +104,9 @@ import {PlanComponent} from "./sidebar/plan.component";
     PlanTranslationsComponent,
     MapPopupComponent,
     ElevationProfileComponent,
-    MapPopupContentsComponent
+    MapPopupContentsComponent,
+    PoiMenuComponent,
+    PoiMenuOptionComponent
   ],
   exports: [
     MapPageComponent

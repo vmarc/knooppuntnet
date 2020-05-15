@@ -86,7 +86,7 @@ object PoiConfiguration {
     ),
     PoiGroupDefinition(
       "amenity",
-      true,
+      false,
       PoiDefinition("atm", "atm-2.png", 14, 15, HasTag("amenity", "atm").or(HasTag("amenity", "bank").and(HasTag("atm")).and(NotHasTag("atm", "no")))),
       PoiDefinition("bank", "bank.png", 14, 15, HasTag("amenity", "bank")),
       PoiDefinition("cinema", "cinema.png", 14, 15, HasTag("amenity", "cinema")),

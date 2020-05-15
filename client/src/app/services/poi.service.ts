@@ -3,6 +3,7 @@ import {Map} from "immutable";
 import {BehaviorSubject} from "rxjs";
 import {AppService} from "../app.service";
 import {InterpretedPoiConfiguration} from "../components/ol/domain/interpreted-poi-configuration";
+import {BrowserStorageService} from "./browser-storage.service";
 import {PoiGroupPreference, PoiPreference, PoiPreferences} from "./poi-preferences";
 
 @Injectable()
@@ -16,7 +17,8 @@ export class PoiService {
   private poiPreferences: PoiPreferences;
   private poiNames: Map<string, string> = null;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService,
+              private browserStorageService: BrowserStorageService) {
     this.loadPoiConfiguration();
   }
 
@@ -167,25 +169,27 @@ export class PoiService {
   }
 
   private initPoiConfig() {
-
-    // TODO read from localstorage; only create new one from poiConfiguration if nothing in localstorage yet
-
-    const groupEntries: Array<[string, PoiGroupPreference]> = [];
-    this.poiConfiguration.value.getGroupDefinitions().forEach(groupDefinition => {
-      const poiEntries: Array<[string, PoiPreference]> = [];
-      groupDefinition.poiDefinitions.forEach(poiDefinition => {
-        poiEntries.push([poiDefinition.name, new PoiPreference(poiDefinition.defaultLevel)]);
+    const json = this.browserStorageService.get("poi-config");
+    if (json !== null) {
+      this.poiPreferences = PoiPreferences.fromJSON(JSON.parse(json));
+      console.log(["POI READ", this.poiPreferences]);
+      // TODO make sure that changes to poi and poi group definitions are taken into account (work with configuration versions?)
+    } else {
+      const groupEntries: Array<[string, PoiGroupPreference]> = [];
+      this.poiConfiguration.value.getGroupDefinitions().forEach(groupDefinition => {
+        const poiEntries: Array<[string, PoiPreference]> = [];
+        groupDefinition.poiDefinitions.forEach(poiDefinition => {
+          poiEntries.push([poiDefinition.name, new PoiPreference(poiDefinition.defaultLevel)]);
+        });
+        const pois = Map<string, PoiPreference>(poiEntries);
+        groupEntries.push([groupDefinition.name, new PoiGroupPreference(groupDefinition.enabledDefault, pois)]);
       });
-      const pois = Map<string, PoiPreference>(poiEntries);
-      groupEntries.push([groupDefinition.name, new PoiGroupPreference(true /*introduce enabledDefault*/, pois)]);
-    });
-    const groups = Map<string, PoiGroupPreference>(groupEntries);
-    this.poiPreferences = new PoiPreferences(groups, true);
+      const groups = Map<string, PoiGroupPreference>(groupEntries);
+      this.poiPreferences = new PoiPreferences(groups, false);
+    }
   }
 
   private savePoiConfig() {
-    // TODO write this.poiConfig to localstorage
-    console.log("DEBUG PoiService savePoiConfig " + JSON.stringify(this.poiPreferences, null, 2));
+    this.browserStorageService.set("poi-config", JSON.stringify(this.poiPreferences));
   }
-
 }

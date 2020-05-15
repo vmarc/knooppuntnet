@@ -1,12 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
 import View from "ol/View";
-import {asyncScheduler, Observable} from "rxjs";
-import {throttleTime} from "rxjs/operators";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapControls} from "../../../components/ol/layers/map-controls";
@@ -16,7 +13,6 @@ import {MapLayerService} from "../../../components/ol/services/map-layer.service
 import {MapPositionService} from "../../../components/ol/services/map-position.service";
 import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
-import {TileLoadProgressService} from "../../../components/ol/services/tile-load-progress.service";
 import {PageService} from "../../../components/shared/page.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
@@ -26,37 +22,29 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
 
 @Component({
   selector: "kpn-map-main-page",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-map-popup></kpn-map-popup>
-    <mat-progress-bar class="progress" mode="determinate" [value]="progress | async"></mat-progress-bar>
     <div id="main-map" class="map">
-      <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
+      <kpn-layer-switcher [mapLayers]="layers">
+        <kpn-poi-menu></kpn-poi-menu>
+      </kpn-layer-switcher>
     </div>
   `,
   styles: [`
-    .progress {
-      position: absolute;
-      top: 48px;
-      left: 0;
-      right: 0;
-    }
-
     .map {
       position: absolute;
-      top: 52px;
+      top: 48px;
       left: 0;
       right: 0;
       bottom: 0;
       background-color: white;
     }
-
   `]
 })
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   layers: MapLayers;
-  progress: Observable<number>;
   interaction = new PlannerInteraction(this.plannerService.engine);
   overlay: Overlay;
   private map: Map;
@@ -69,10 +57,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private poiService: PoiService,
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
-              private tileLoadProgressService: TileLoadProgressService,
               private mapPositionService: MapPositionService) {
     this.pageService.showFooter = false;
-    this.progress = tileLoadProgressService.progress.pipe(throttleTime(200, asyncScheduler, {trailing: true}));
   }
 
   ngOnInit(): void {
@@ -119,7 +105,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.interaction.addToMap(this.map);
 
     const view = this.map.getView();
-    // TODO this.tileLoadProgressService.install(this.bitmapTileLayer, this.vectorTileLayer, this.poiTileLayer);
     this.mapPositionService.install(view);
     this.poiService.updateZoomLevel(view.getZoom());
 
@@ -134,7 +119,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
-    mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
+    // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
     mapLayers = mapLayers.push(this.poiTileLayerService.buildLayer());
     mapLayers = mapLayers.push(this.mapLayerService.mainMapLayer());
     return new MapLayers(mapLayers);

@@ -7,7 +7,7 @@ import {MapLayers} from "../layers/map-layers";
 
 @Component({
   selector: "kpn-layer-switcher",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="switcher">
       <div *ngIf="open" (mouseleave)="closePanel()">
@@ -19,6 +19,7 @@ import {MapLayers} from "../layers/map-layers";
             {{layerName(layer)}}
           </mat-checkbox>
         </div>
+        <ng-content></ng-content>
       </div>
       <div *ngIf="!open" (mouseenter)="openPanel()" (mouseleave)="closePanel()">
         <img [src]="'/assets/images/layers.png'" alt="layers">

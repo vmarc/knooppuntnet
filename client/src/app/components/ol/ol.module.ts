@@ -15,7 +15,6 @@ import {MapLayerService} from "./services/map-layer.service";
 import {MapPositionService} from "./services/map-position.service";
 import {MapService} from "./services/map.service";
 import {PoiTileLayerService} from "./services/poi-tile-layer.service";
-import {TileLoadProgressService} from "./services/tile-load-progress.service";
 
 @NgModule({
   imports: [
@@ -48,7 +47,6 @@ import {TileLoadProgressService} from "./services/tile-load-progress.service";
     MapLayerService,
     MapClickService,
     PoiTileLayerService,
-    TileLoadProgressService,
     MapPositionService
   ]
 })
