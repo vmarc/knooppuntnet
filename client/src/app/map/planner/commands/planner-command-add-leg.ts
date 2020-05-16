@@ -10,10 +10,14 @@ export class PlannerCommandAddLeg implements PlannerCommand {
 
   public do(context: PlannerContext) {
     const leg = context.legs.getById(this.legId);
-    context.routeLayer.addFlag(PlanFlag.fromViaNode(leg.sink));
-    context.routeLayer.addRouteLeg(leg);
     const newLegs = context.plan.legs.push(leg);
     const newPlan = Plan.create(context.plan.source, newLegs);
+    if (newLegs.size > 1) {
+      context.routeLayer.removeFlag(leg.source.featureId);
+      context.routeLayer.addFlag(PlanFlag.fromViaNode(leg.source));
+    }
+    context.routeLayer.addFlag(PlanFlag.fromEndNode(leg.sink));
+    context.routeLayer.addRouteLeg(leg);
     context.updatePlan(newPlan);
   }
 
@@ -24,6 +28,10 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     context.updatePlan(newPlan);
     context.routeLayer.removeRouteLeg(this.legId);
     context.routeLayer.removeFlag(leg.sink.featureId);
+    if (!newLegs.isEmpty()) {
+      context.routeLayer.removeFlag(leg.source.featureId);
+      context.routeLayer.addFlag(PlanFlag.fromEndNode(leg.source));
+    }
   }
 
 }

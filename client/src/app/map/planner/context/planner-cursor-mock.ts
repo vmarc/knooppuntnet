@@ -2,8 +2,12 @@ export class PlannerCursorMock {
 
   style = "default";
 
-  setStyleMove(): void {
-    this.setStyle("move");
+  setStyleGrab(): void {
+    this.setStyle("grab");
+  }
+
+  setStyleGrabbing(): void {
+    this.setStyle("grabbing");
   }
 
   setStylePointer(): void {

@@ -37,8 +37,10 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
   }
 
   addFlag(flag: PlanFlag): void {
-    let markerColor = "green";
-    if (flag.flagType === PlanFlagType.Via) {
+    let markerColor = "blue";
+    if (flag.flagType === PlanFlagType.End) {
+      markerColor = "green";
+    } else if (flag.flagType === PlanFlagType.Via) {
       markerColor = "orange";
     }
     const marker = Marker.create(markerColor, flag.coordinate);

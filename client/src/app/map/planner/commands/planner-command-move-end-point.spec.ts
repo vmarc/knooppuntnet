@@ -29,7 +29,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node3.featureId, [3, 3]);
+    setup.routeLayer.expectFlagExists(PlanFlagType.End, node3.featureId, [3, 3]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 
@@ -42,7 +42,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     command.undo(setup.context);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node2.featureId, [2, 2]);
+    setup.routeLayer.expectFlagExists(PlanFlagType.End, node2.featureId, [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);
 
