@@ -71,7 +71,7 @@ describe("PlannerEngine", () => {
       expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
 
       setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, setup.context.plan.legs.get(0).sink.featureId, [2, 2]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.End, setup.context.plan.legs.get(0).sink.featureId, [2, 2]);
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
     });
@@ -350,7 +350,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.source.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, newLeg.sink.featureId, [3, 3]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.End, newLeg.sink.featureId, [3, 3]);
 
       setup.elasticBand.expectVisible(false);
 
