@@ -6,14 +6,16 @@ import {MapService} from "../../../../components/ol/services/map.service";
   selector: "kpn-map-popup-contents",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div [ngClass]="{hidden: !isPoi()}">
-      <kpn-map-popup-poi></kpn-map-popup-poi>
-    </div>
-    <div [ngClass]="{hidden: !isNode()}">
-      <kpn-map-popup-node></kpn-map-popup-node>
-    </div>
-    <div [ngClass]="{hidden: !isRoute()}">
-      <kpn-map-popup-route></kpn-map-popup-route>
+    <div *ngIf="mapService.popupType$ | async as popupType">
+      <div [ngClass]="{hidden: popupType !== 'poi'}">
+        <kpn-map-popup-poi></kpn-map-popup-poi>
+      </div>
+      <div [ngClass]="{hidden: popupType !== 'node'}">
+        <kpn-map-popup-node></kpn-map-popup-node>
+      </div>
+      <div [ngClass]="{hidden: popupType !== 'route'}">
+        <kpn-map-popup-route></kpn-map-popup-route>
+      </div>
     </div>
   `,
   styles: [`
@@ -23,19 +25,6 @@ import {MapService} from "../../../../components/ol/services/map.service";
   `]
 })
 export class MapPopupContentsComponent {
-
-  constructor(private mapService: MapService) {
-  }
-
-  isPoi() {
-    return this.mapService.popupType === "poi";
-  }
-
-  isNode() {
-    return this.mapService.popupType === "node";
-  }
-
-  isRoute() {
-    return this.mapService.popupType === "route";
+  constructor(public mapService: MapService) {
   }
 }

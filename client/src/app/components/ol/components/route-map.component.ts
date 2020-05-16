@@ -79,7 +79,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
     mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
     mapLayers = mapLayers.push(this.mapLayerService.networkLayer(this.routeInfo.summary.networkType));
     mapLayers = mapLayers.concat(this.mapLayerService.routeLayers(this.routeInfo.analysis.map));
-    mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
+    // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
     return new MapLayers(mapLayers);
   }
 

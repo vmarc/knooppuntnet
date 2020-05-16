@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {ReplaySubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {NodeClick} from "../domain/node-click";
 import {PoiClick} from "../domain/poi-click";
@@ -13,36 +14,38 @@ export class MapService {
   selectedRouteId: string;
   selectedNodeId: string;
 
-  networkType: BehaviorSubject<NetworkType | null> = new BehaviorSubject(null);
-  popupType = "poi";
+  networkType$: BehaviorSubject<NetworkType | null> = new BehaviorSubject(null);
 
-  poiClicked: Observable<PoiClick>;
-  nodeClicked: Observable<NodeClick>;
-  routeClicked: Observable<RouteClick>;
+  popupType$: Observable<string>;
+  poiClicked$: Observable<PoiClick>;
+  nodeClicked$: Observable<NodeClick>;
+  routeClicked$: Observable<RouteClick>;
 
-  private _poiClicked: Subject<PoiClick> = new Subject();
-  private _nodeClicked: Subject<NodeClick> = new Subject();
-  private _routeClicked: Subject<RouteClick> = new Subject();
+  private _popupType$ =  new BehaviorSubject<string>("");
+  private _poiClicked$ = new ReplaySubject<PoiClick>(1);
+  private _nodeClicked$ = new ReplaySubject<NodeClick>(1);
+  private _routeClicked$ = new ReplaySubject<RouteClick>(1);
 
   constructor() {
-    this.poiClicked = this._poiClicked.asObservable();
-    this.nodeClicked = this._nodeClicked.asObservable();
-    this.routeClicked = this._routeClicked.asObservable();
+    this.popupType$ = this._popupType$.asObservable();
+    this.poiClicked$ = this._poiClicked$.asObservable();
+    this.nodeClicked$ = this._nodeClicked$.asObservable();
+    this.routeClicked$ = this._routeClicked$.asObservable();
   }
 
   nextPoiClick(poiClick: PoiClick) {
-    this.popupType = "poi";
-    this._poiClicked.next(poiClick);
+    this._popupType$.next("poi");
+    this._poiClicked$.next(poiClick);
   }
 
   nextNodeClick(nodeClick: NodeClick) {
-    this.popupType = "node";
-    this._nodeClicked.next(nodeClick);
+    this._popupType$.next("node");
+    this._nodeClicked$.next(nodeClick);
   }
 
   nextRouteClick(routeClick: RouteClick) {
-    this.popupType = "route";
-    this._routeClicked.next(routeClick);
+    this._popupType$.next("route");
+    this._routeClicked$.next(routeClick);
   }
 
 }

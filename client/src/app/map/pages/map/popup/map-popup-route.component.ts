@@ -1,6 +1,7 @@
+import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
-import {ChangeDetectorRef} from "@angular/core";
 import {Component} from "@angular/core";
+import {Coordinate} from "ol/coordinate";
 import {Observable} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {filter} from "rxjs/operators";
@@ -45,24 +46,29 @@ import {PlannerService} from "../../../planner.service";
     }
   `]
 })
-export class MapPopupRouteComponent {
+export class MapPopupRouteComponent implements OnInit {
 
-  readonly response$: Observable<ApiResponse<MapRouteDetail>>;
+  response$: Observable<ApiResponse<MapRouteDetail>>;
 
   constructor(private appService: AppService,
               private mapService: MapService,
-              private plannerService: PlannerService,
-              private cdr: ChangeDetectorRef) {
-    this.response$ = this.mapService.routeClicked.pipe(
+              private plannerService: PlannerService) {
+  }
+
+  ngOnInit(): void {
+    this.response$ = this.mapService.routeClicked$.pipe(
       filter(routeClick => routeClick !== null),
       switchMap(routeClick =>
         this.appService.mapRouteDetail(routeClick.route.routeId).pipe(
-          tap(response => {
-            this.plannerService.context.overlay.setPosition(routeClick.coordinate, 0);
-            this.cdr.detectChanges();
-          })
+          tap(response => this.openPopup(routeClick.coordinate))
         )
       )
     );
   }
+
+  private openPopup(coordinate: Coordinate): void {
+    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, 0), 0);
+  }
+
 }
+

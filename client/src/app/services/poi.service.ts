@@ -172,7 +172,6 @@ export class PoiService {
     const json = this.browserStorageService.get("poi-config");
     if (json !== null) {
       this.poiPreferences = PoiPreferences.fromJSON(JSON.parse(json));
-      console.log(["POI READ", this.poiPreferences]);
       // TODO make sure that changes to poi and poi group definitions are taken into account (work with configuration versions?)
     } else {
       const groupEntries: Array<[string, PoiGroupPreference]> = [];

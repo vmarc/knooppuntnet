@@ -66,7 +66,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
       const networkTypeName = params["networkType"];
       const networkType = NetworkType.withName(networkTypeName);
-      this.mapService.networkType.next(networkType);
+      this.mapService.networkType$.next(networkType);
       this.layers = this.buildLayers();
     }));
 
@@ -101,7 +101,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.layers.applyMap(this.map);
 
     this.plannerService.init(this.map);
-    this.plannerService.context.setNetworkType(this.mapService.networkType.value);
+    this.plannerService.context.setNetworkType(this.mapService.networkType$.value);
     this.interaction.addToMap(this.map);
 
     const view = this.map.getView();

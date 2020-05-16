@@ -1,6 +1,7 @@
+import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
-import {ChangeDetectorRef} from "@angular/core";
 import {Component} from "@angular/core";
+import {Coordinate} from "ol/coordinate";
 import {Observable} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {tap} from "rxjs/operators";
@@ -64,26 +65,30 @@ import {PlannerService} from "../../../planner.service";
     }
   `]
 })
-export class MapPopupNodeComponent {
+export class MapPopupNodeComponent implements OnInit {
 
-  readonly response$: Observable<ApiResponse<MapNodeDetail>>;
+  response$: Observable<ApiResponse<MapNodeDetail>>;
 
   constructor(private appService: AppService,
               private mapService: MapService,
-              private plannerService: PlannerService,
-              private cdr: ChangeDetectorRef) {
+              private plannerService: PlannerService) {
+  }
 
-    this.response$ = this.mapService.nodeClicked.pipe(
+  ngOnInit(): void {
+    this.response$ = this.mapService.nodeClicked$.pipe(
       filter(nodeClick => nodeClick !== null),
       switchMap(nodeClick =>
-        this.appService.mapNodeDetail(this.mapService.networkType.value, nodeClick.node.nodeId).pipe(
+        this.appService.mapNodeDetail(this.mapService.networkType$.value, nodeClick.node.nodeId).pipe(
           tap(response => {
             const coordinate = Util.toCoordinate(response.result.latitude, response.result.longitude);
-            this.plannerService.context.overlay.setPosition(coordinate, -10);
-            this.cdr.detectChanges();
+            this.openPopup(coordinate);
           })
         )
       )
     );
+  }
+
+  private openPopup(coordinate: Coordinate): void {
+    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -10), 0);
   }
 }

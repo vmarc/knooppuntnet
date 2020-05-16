@@ -44,7 +44,7 @@ export class MapPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mapService.networkType.next(null);
+    this.mapService.networkType$.next(null);
   }
 
 }

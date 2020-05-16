@@ -21,7 +21,7 @@ export class MainMapLayer {
   }
 
   build(): MapLayer {
-    const networkType = this.mapService.networkType.value;
+    const networkType = this.mapService.networkType$.value;
     this.bitmapTileLayer = NetworkBitmapTileLayer.build(networkType);
     this.vectorTileLayer = NetworkVectorTileLayer.oldBuild(networkType);
 

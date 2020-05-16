@@ -81,7 +81,7 @@ export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
     mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesTileLayer(this.page.networkSummary.networkType, this.page.nodeIds, this.page.routeIds));
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesMarkerLayer(this.page.nodes));
-    mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
+    // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
     return new MapLayers(mapLayers);
   }
 }
