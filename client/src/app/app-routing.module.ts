@@ -11,10 +11,6 @@ export const routes: Routes = [
     loadChildren: () => import("./map/map.module").then(m => m.MapModule)
   },
   {
-    path: "translations",
-    loadChildren: () => import("./translations/translations.module").then(m => m.TranslationsModule)
-  },
-  {
     path: "status",
     loadChildren: () => import("./status/status.module").then(m => m.StatusModule)
   },
