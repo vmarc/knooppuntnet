@@ -6,13 +6,18 @@ import {Plan} from "../planner/plan/plan";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="meters > 0" class="distance">
-      <span i18n="@@plan.distance">Distance</span>: {{distance()}}
+      <span i18n="@@plan.distance" class="kpn-label">Distance</span>{{distance()}}
+      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span>{{unpaved()}}(TODO)
     </div>
   `,
   styles: [`
     .distance {
       margin-bottom: 10px;
       color: gray;
+    }
+
+    .distance :last-child {
+      padding-left: 20px;
     }
   `]
 })
@@ -32,6 +37,10 @@ export class PlanDistanceComponent implements OnChanges {
       return `${km} km`;
     }
     return `${this.meters} m`;
+  }
+
+  unpaved(): string {
+    return `0%`;
   }
 
 }

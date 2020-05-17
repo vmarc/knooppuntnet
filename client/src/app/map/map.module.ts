@@ -9,6 +9,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatStepperModule} from "@angular/material/stepper";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
 import {PdfModule} from "../pdf/pdf.module";
@@ -43,12 +44,19 @@ import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.c
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
 import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
 import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
+import {PlanActionsComponent} from "./sidebar/plan-actions.component";
 import {PlanCompactComponent} from "./sidebar/plan-compact.component";
 import {PlanDetailedComponent} from "./sidebar/plan-detailed.component";
 import {PlanDistanceComponent} from "./sidebar/plan-distance.component";
 import {PlanInstructionCommandComponent} from "./sidebar/plan-instruction-command.component";
 import {PlanInstructionComponent} from "./sidebar/plan-instruction.component";
 import {PlanInstructionsComponent} from "./sidebar/plan-instructions.component";
+import {PlanResultMenuComponent} from "./sidebar/plan-result-menu.component";
+import {PlanResultComponent} from "./sidebar/plan-result.component";
+import {PlanStepOutputComponent} from "./sidebar/plan-step-output.component";
+import {PlanStepRouteComponent} from "./sidebar/plan-step-route.component";
+import {PlanStepStartComponent} from "./sidebar/plan-step-start.component";
+import {PlanStepsComponent} from "./sidebar/plan-steps.component";
 import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
 
@@ -67,7 +75,8 @@ import {PlanComponent} from "./sidebar/plan.component";
     SharedModule,
     OlModule,
     PdfModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatStepperModule
   ],
   declarations: [
     MapPageComponent,
@@ -106,7 +115,14 @@ import {PlanComponent} from "./sidebar/plan.component";
     ElevationProfileComponent,
     MapPopupContentsComponent,
     PoiMenuComponent,
-    PoiMenuOptionComponent
+    PoiMenuOptionComponent,
+    PlanStepsComponent,
+    PlanStepStartComponent,
+    PlanStepRouteComponent,
+    PlanStepOutputComponent,
+    PlanResultMenuComponent,
+    PlanResultComponent,
+    PlanActionsComponent
   ],
   exports: [
     MapPageComponent

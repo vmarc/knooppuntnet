@@ -14,6 +14,7 @@ import {CountryNameComponent} from "./country-name.component";
 import {DataComponent} from "./data/data.component";
 import {DayComponent} from "./day/day.component";
 import {DialogComponent} from "./dialog/dialog.component";
+import {WarningDialogComponent} from "./dialog/warning-dialog.component";
 import {DayPipe} from "./format/day.pipe";
 import {IntegerFormatPipe} from "./format/integer-format.pipe";
 import {IconButtonComponent} from "./icon/icon-button.component";
@@ -149,7 +150,8 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     BracketsComponent,
     DayPipe,
     TimeoutComponent,
-    DialogComponent
+    DialogComponent,
+    WarningDialogComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -213,7 +215,8 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     IntegerFormatPipe,
     BracketsComponent,
     DayPipe,
-    DialogComponent
+    DialogComponent,
+    WarningDialogComponent
   ]
 })
 export class SharedModule {
