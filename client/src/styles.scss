@@ -127,6 +127,24 @@ table.kpn-bordered-table {
   height: 32px;
 }
 
+
+.kpn-stepper .mat-vertical-stepper-header {
+  padding: 10px;
+}
+
+.kpn-stepper .mat-vertical-content {
+  padding: 0;
+}
+
+.kpn-stepper .mat-stepper-vertical-line::before {
+  top: 0;
+  bottom: 0;
+}
+
+.kpn-stepper .mat-vertical-content-container {
+  margin-left: 22px;
+}
+
 .kpn-line {
   display: flex;
   justify-content: flex-start;

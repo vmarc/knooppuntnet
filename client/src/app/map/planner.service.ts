@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Map as TranslationMap} from "immutable";
 import Map from "ol/Map";
+import {BehaviorSubject} from "rxjs";
 import {AppService} from "../app.service";
 import {PlannerCommandStack} from "./planner/commands/planner-command-stack";
 import {PlannerContext} from "./planner/context/planner-context";
@@ -37,6 +38,7 @@ export class PlannerService {
     this.overlay
   );
   engine: PlannerEngine = new PlannerEngineImpl(this.context);
+  resultMode$ = new BehaviorSubject<string>("compact");
 
   constructor(private appService: AppService,
               private mapService: MapService) {

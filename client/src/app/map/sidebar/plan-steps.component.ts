@@ -6,7 +6,7 @@ import {ChangeDetectionStrategy, Component} from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-vertical-stepper>
-      <mat-step [completed]="false" label="Start">
+      <mat-step [completed]="false" label="Select route start">
         <kpn-plan-step-start></kpn-plan-step-start>
       </mat-step>
       <mat-step [completed]="false" label="Complete route">
@@ -16,9 +16,7 @@ import {ChangeDetectionStrategy, Component} from "@angular/core";
         <kpn-plan-step-output></kpn-plan-step-output>
       </mat-step>
     </mat-vertical-stepper>
-  `,
-  styles: [`
-  `]
+  `
 })
 export class PlanStepsComponent {
 }

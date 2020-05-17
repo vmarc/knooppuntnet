@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
 
@@ -9,24 +10,27 @@ import {Plan} from "../planner/plan/plan";
   template: `
     <div *ngIf="plan$ | async as plan">
       <kpn-plan-distance [plan]="plan"></kpn-plan-distance>
-      <kpn-plan-compact *ngIf="mode == 'compact'" [plan]="plan"></kpn-plan-compact>
-      <kpn-plan-detailed *ngIf="mode == 'detailed'" [plan]="plan"></kpn-plan-detailed>
-      <kpn-plan-instructions *ngIf="mode == 'instructions'" [plan]="plan"></kpn-plan-instructions>
+      <kpn-plan-compact *ngIf="compact$ | async" [plan]="plan"></kpn-plan-compact>
+      <kpn-plan-detailed *ngIf="detailed$ | async" [plan]="plan"></kpn-plan-detailed>
+      <kpn-plan-instructions *ngIf="instructions$ | async" [plan]="plan"></kpn-plan-instructions>
     </div>
-  `,
-  styles: []
+  `
 })
 
 export class PlanResultComponent implements OnInit {
 
-  mode = "compact";
-
+  compact$: Observable<boolean>;
+  detailed$: Observable<boolean>;
+  instructions$: Observable<boolean>;
   plan$: Observable<Plan>;
 
   constructor(private plannerService: PlannerService) {
   }
 
   ngOnInit(): void {
+    this.compact$ = this.plannerService.resultMode$.pipe(map(mode => mode === "compact"));
+    this.detailed$ = this.plannerService.resultMode$.pipe(map(mode => mode === "detailed"));
+    this.instructions$ = this.plannerService.resultMode$.pipe(map(mode => mode === "instructions"));
     this.plan$ = this.plannerService.context.planObserver;
   }
 }

@@ -15,59 +15,69 @@ import {PlannerService} from "../planner.service";
   selector: "kpn-plan-step-output",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button
-      mat-stroked-button
-      (click)="reverse()"
-      [disabled]="exportDisabled$ | async"
-      title="Reverse the route direction (startnode becomes endnode, and vice versa)"
-      i18n-title="@@planner.output.reverse.title"
-      i18n="@@planner.output.reverse">
-      Reverse route
-    </button>
+    <div class="buttons">
 
-    <div class="separator"></div>
+      <button
+        mat-stroked-button
+        (click)="reverse()"
+        [disabled]="exportDisabled$ | async"
+        title="Reverse the route direction (startnode becomes endnode, and vice versa)"
+        i18n-title="@@planner.output.reverse.title"
+        i18n="@@planner.output.reverse">
+        Reverse route
+      </button>
 
-    <button
-      mat-stroked-button
-      (click)="pdf1()"
-      [disabled]="exportDisabled$ | async"
-      title="Produce a route pdf file with compact node overview"
-      i18n-title="@@planner.output.compact-pdf.title"
-      i18n="@@planner.output.compact-pdf">
-      Compact print
-    </button>
+      <div class="separator"></div>
 
-    <button
-      mat-stroked-button
-      (click)="pdf2()"
-      [disabled]="exportDisabled$ | async"
-      title="Produce a route pdf file with nodes in 'strip' format"
-      i18n-title="@@planner.output.node-strip-pdf.title"
-      i18n="@@planner.output.node-strip-pdf">
-      Node strip
-    </button>
+      <button
+        mat-stroked-button
+        (click)="pdf1()"
+        [disabled]="exportDisabled$ | async"
+        title="Produce a route pdf file with compact node overview"
+        i18n-title="@@planner.output.compact-pdf.title"
+        i18n="@@planner.output.compact-pdf">
+        Compact print
+      </button>
 
-    <button
-      mat-stroked-button
-      (click)="pdf3()"
-      [disabled]="exportDisabled$ | async"
-      title="Produce a route pdf with navigation instructions"
-      i18n-title="@@planner.output.navigation-instructions-pdf.title"
-      i18n="@@planner.output.navigation-instructions-pdf">
-      Navigation instructions
-    </button>
+      <button
+        mat-stroked-button
+        (click)="pdf2()"
+        [disabled]="exportDisabled$ | async"
+        title="Produce a route pdf file with nodes in 'strip' format"
+        i18n-title="@@planner.output.node-strip-pdf.title"
+        i18n="@@planner.output.node-strip-pdf">
+        Node strip
+      </button>
 
-    <button
-      mat-stroked-button
-      (click)="gpx()"
-      [disabled]="exportDisabled$ | async"
-      title="Produce a route file that can be used in a gps-device"
-      i18n-title="@@planner.output.gpx.title"
-      i18n="@@planner.output.gpx">
-      GPX
-    </button>
+      <button
+        mat-stroked-button
+        (click)="pdf3()"
+        [disabled]="exportDisabled$ | async"
+        title="Produce a route pdf with navigation instructions"
+        i18n-title="@@planner.output.navigation-instructions-pdf.title"
+        i18n="@@planner.output.navigation-instructions-pdf">
+        Navigation instructions
+      </button>
+
+      <button
+        mat-stroked-button
+        (click)="gpx()"
+        [disabled]="exportDisabled$ | async"
+        title="Produce a route file that can be used in a gps-device"
+        i18n-title="@@planner.output.gpx.title"
+        i18n="@@planner.output.gpx">
+        GPX
+      </button>
+    </div>
   `,
   styles: [`
+    .buttons {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 22px;
+      border-left: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
     button {
       width: 100%;
       margin-bottom: 5px;
