@@ -115,7 +115,7 @@ export class IconService {
       require("!svg-inline-loader!src/assets/images/icons/menu-button.svg")));
 
     this.iconRegistry.addSvgIconLiteral("help", this.domSanitizer.bypassSecurityTrustHtml(
-      require("!svg-inline-loader!src/assets/images/icons/info.svg")));
+      require("!svg-inline-loader!src/assets/images/icons/information.svg")));
 
     this.iconRegistry.addSvgIconLiteral("expand", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/expand-arrow.svg")));

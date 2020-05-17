@@ -10,17 +10,29 @@ import {Component} from "@angular/core";
       <mat-expansion-panel-header i18n="@@planner.legend">
         Legend
       </mat-expansion-panel-header>
-      <pre>
-          -----
 
-          +++++
+      <div class="legend">
+        <div>
+          <kpn-legend-icon color="rgb(0,200,0)"></kpn-legend-icon>
+          <span>TODO</span>
+        </div>
+        <div>
+          <kpn-legend-icon color="rgb(150,0,0)"></kpn-legend-icon>
+          <span>TODO</span>
+        </div>
+        <div>
+          <span>etc.</span>
+        </div>
+      </div>
 
-          =====
-
-          -*-*-*
-        </pre>
     </mat-expansion-panel>
-  `
+  `,
+  styles: [`
+    .legend > div {
+      display: flex;
+      align-items: center;
+    }
+  `]
 })
 export class MapSidebarLegendComponent {
 }

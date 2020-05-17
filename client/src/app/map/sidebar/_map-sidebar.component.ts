@@ -5,11 +5,10 @@ import {Component} from "@angular/core";
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-map-sidebar-planner></kpn-map-sidebar-planner>
+    <kpn-map-sidebar-appearance></kpn-map-sidebar-appearance>
+    <kpn-map-sidebar-legend></kpn-map-sidebar-legend>
     <!--
-    <mat-divider></mat-divider>
       <kpn-elevation-profile></kpn-elevation-profile>
-      <kpn-map-sidebar-appearance></kpn-map-sidebar-appearance>
-      <kpn-map-sidebar-legend></kpn-map-sidebar-legend>
       <kpn-map-sidebar-poi-configuration></kpn-map-sidebar-poi-configuration>
     -->
   `

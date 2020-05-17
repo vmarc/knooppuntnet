@@ -7320,82 +7320,82 @@
       </trans-unit>
       <trans-unit id="planner.output.reverse" datatype="html">
         <source>
-      Reverse route
-    </source>
+        Reverse route
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.reverse.title" datatype="html">
         <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.compact-pdf" datatype="html">
         <source>
-      Compact print
-    </source>
+        Compact print
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.compact-pdf.title" datatype="html">
         <source>Produce a route pdf file with compact node overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.node-strip-pdf" datatype="html">
         <source>
-      Node strip
-    </source>
+        Node strip
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.node-strip-pdf.title" datatype="html">
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.navigation-instructions-pdf" datatype="html">
         <source>
-      Navigation instructions
-    </source>
+        Navigation instructions
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.navigation-instructions-pdf.title" datatype="html">
         <source>Produce a route pdf with navigation instructions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.gpx" datatype="html">
         <source>
-      GPX
-    </source>
+        GPX
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.output.gpx.title" datatype="html">
         <source>Produce a route file that can be used in a gps-device</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.compact" datatype="html">

@@ -11,6 +11,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatStepperModule} from "@angular/material/stepper";
+import {NetworkModule} from "../analysis/network/network.module";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
 import {PdfModule} from "../pdf/pdf.module";
@@ -40,6 +41,7 @@ import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {ElevationProfileComponent} from "./sidebar/elevation-profile.component";
+import {LegendIconComponent} from "./sidebar/legend-icon.component";
 import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
 import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
@@ -77,7 +79,8 @@ import {PlanComponent} from "./sidebar/plan.component";
     PdfModule,
     MatProgressBarModule,
     MatStepperModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NetworkModule
   ],
   declarations: [
     MapPageComponent,
@@ -122,7 +125,8 @@ import {PlanComponent} from "./sidebar/plan.component";
     PlanStepOutputComponent,
     PlanResultMenuComponent,
     PlanResultComponent,
-    PlanActionsComponent
+    PlanActionsComponent,
+    LegendIconComponent
   ],
   exports: [
     MapPageComponent

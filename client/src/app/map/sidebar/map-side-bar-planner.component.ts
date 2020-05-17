@@ -32,6 +32,7 @@ import {Component} from "@angular/core";
 
     .header {
       display: flex;
+      align-items: baseline;
       width: 100%;
     }
 
