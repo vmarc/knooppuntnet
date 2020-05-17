@@ -2943,7 +2943,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Keine Details verfügbar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.phone" datatype="html">
@@ -2951,7 +2951,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Telefon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.fax" datatype="html">
@@ -2959,7 +2959,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Fax</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.email" datatype="html">
@@ -2967,7 +2967,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>E-Mail</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.facebook" datatype="html">
@@ -2975,7 +2975,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Facebook</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wheelchair" datatype="html">
@@ -2983,7 +2983,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Rollstuhl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.opengingHours" datatype="html">
@@ -2991,7 +2991,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Öffnungszeiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.serviceHours" datatype="html">
@@ -2999,7 +2999,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Servicezeiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.image" datatype="html">
@@ -3007,7 +3007,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Bild</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.mapillary" datatype="html">
@@ -3015,7 +3015,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Mapillary</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.onroerendErfgoed" datatype="html">
@@ -3023,7 +3023,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Onroerend Erfgoed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.website" datatype="html">
@@ -3031,7 +3031,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Webseite</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikidata" datatype="html">
@@ -3039,7 +3039,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Wikidata</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikipedia" datatype="html">
@@ -3047,7 +3047,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Wikipedia</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.molen-database" datatype="html">
@@ -3055,7 +3055,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Molen-Datenbank</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.hollandsche-molen-database" datatype="html">
@@ -3063,111 +3063,47 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Hollandsche Molen Datenbank</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">82</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="export.title" datatype="html">
-        <source>Export</source>
-        <target>Exportieren</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="export.default-pdf" datatype="html">
-        <source>Print (pdf)</source>
-        <target>Drucken (pdf)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="export.node-strip-pdf" datatype="html">
-        <source>Node strip (pdf)</source>
-        <target>Knotenstreifen (pdf)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="export.navigation-instructions-pdf" datatype="html">
-        <source>Navigation instructions (pdf)</source>
-        <target>Navigationsanweisungen (pdf)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="export.gpx" datatype="html">
-        <source>GPX file</source>
-        <target>GPX-Datei</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="export.cancel" datatype="html">
-        <source>Cancel</source>
-        <target>Abbrechen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="export.ok" datatype="html">
-        <source>OK</source>
-        <target>OK</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.undo" datatype="html">
         <source>Undo</source>
         <target>Rückgängig machen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.redo" datatype="html">
         <source>Redo</source>
         <target>Wiederholen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.export" datatype="html">
-        <source>Export</source>
-        <target>Exportieren</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.compact" datatype="html">
         <source>Compact</source>
         <target>Kompakt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.detailed" datatype="html">
         <source>Detailed</source>
         <target>Detailliert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.instructions" datatype="html">
         <source>Instructions</source>
         <target>Anweisungen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.distance" datatype="html">
@@ -7945,6 +7881,102 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.unpaved" datatype="html">
+        <source>Unpaved</source>
+        <target>Unpaved</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.reverse" datatype="html">
+        <source>Reverse route</source>
+        <target>Reverse route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.reverse.title" datatype="html">
+        <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
+        <target>Reverse the route direction (startnode becomes endnode, and vice versa)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.compact-pdf" datatype="html">
+        <source>Compact print</source>
+        <target>Compact print</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.compact-pdf.title" datatype="html">
+        <source>Produce a route pdf file with compact node overview</source>
+        <target>Produce a route pdf file with compact node overview</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.node-strip-pdf" datatype="html">
+        <source>Node strip</source>
+        <target>Node strip</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.node-strip-pdf.title" datatype="html">
+        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
+        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.navigation-instructions-pdf" datatype="html">
+        <source>Navigation instructions</source>
+        <target>Navigation instructions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.navigation-instructions-pdf.title" datatype="html">
+        <source>Produce a route pdf with navigation instructions</source>
+        <target>Produce a route pdf with navigation instructions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.gpx" datatype="html">
+        <source>GPX</source>
+        <target>GPX</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.gpx.title" datatype="html">
+        <source>Produce a route file that can be used in a gps-device</source>
+        <target>Produce a route file that can be used in a gps-device</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.restart" datatype="html">
+        <source>Restart</source>
+        <target>Restart</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
     </body>
