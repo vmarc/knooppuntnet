@@ -8088,94 +8088,40 @@
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="export.title">
-        <source>Export</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="export.default-pdf">
-        <source>
-          Print (pdf)
-        </source>
-        <target state="final">
-          Print (pdf)
-        </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="export.node-strip-pdf">
-        <source>
-          Node strip (pdf)
-        </source>
-        <target state="final">
-          Node strip (pdf)
-        </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="export.navigation-instructions-pdf">
-        <source>
-          Navigation instructions (pdf)
-        </source>
-        <target state="final">
-          Navigation instructions (pdf)
-        </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="export.gpx">
-        <source>
-          GPX file
-        </source>
-        <target state="final">
-          GPX file
-        </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="export.cancel">
-        <source>Cancel</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="export.ok">
-        <source>OK</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/export-dialog.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
       <trans-unit datatype="html" id="planner.undo">
-        <source>Undo</source>
+        <source>
+        Undo
+      </source>
+        <target state="final">
+        Undo
+      </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="planner.redo">
-        <source>Redo</source>
+        <source>
+        Redo
+      </source>
+        <target state="final">
+        Redo
+      </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="planner.export">
-        <source>Export</source>
+      <trans-unit id="planner.restart" datatype="html">
+        <source>
+        Restart
+      </source>
+        <target state="final">[
+        Restart
+      ]</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="planner.compact">
@@ -8186,8 +8132,8 @@
           Compact
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="planner.detailed">
@@ -8198,8 +8144,8 @@
           Detailed
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="planner.instructions">
@@ -8210,8 +8156,8 @@
           Instructions
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="plan.distance">
@@ -8219,6 +8165,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-distance.component.ts</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.unpaved" datatype="html">
+        <source>Unpaved</source>
+        <target state="final">[Unpaved]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="plan.head">
@@ -8399,6 +8353,106 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.reverse" datatype="html">
+        <source>
+      Reverse route
+    </source>
+        <target state="final">[
+      Reverse route
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.reverse.title" datatype="html">
+        <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
+        <target state="final">[Reverse the route direction (startnode becomes endnode, and vice versa)]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.compact-pdf" datatype="html">
+        <source>
+      Compact print
+    </source>
+        <target state="final">[
+      Compact print
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.compact-pdf.title" datatype="html">
+        <source>Produce a route pdf file with compact node overview</source>
+        <target state="final">[Produce a route pdf file with compact node overview]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.node-strip-pdf" datatype="html">
+        <source>
+      Node strip
+    </source>
+        <target state="final">[
+      Node strip
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.node-strip-pdf.title" datatype="html">
+        <source>Produce a route pdf file with nodes in 'strip' format</source>
+        <target state="final">[Produce a route pdf file with nodes in 'strip' format]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.navigation-instructions-pdf" datatype="html">
+        <source>
+      Navigation instructions
+    </source>
+        <target state="final">[
+      Navigation instructions
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.navigation-instructions-pdf.title" datatype="html">
+        <source>Produce a route pdf with navigation instructions</source>
+        <target state="final">[Produce a route pdf with navigation instructions]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.gpx" datatype="html">
+        <source>
+      GPX
+    </source>
+        <target state="final">[
+      GPX
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.output.gpx.title" datatype="html">
+        <source>Produce a route file that can be used in a gps-device</source>
+        <target state="final">[Produce a route file that can be used in a gps-device]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.status">

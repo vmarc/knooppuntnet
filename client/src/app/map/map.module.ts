@@ -39,7 +39,6 @@ import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
 import {PlannerService} from "./planner.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {ElevationProfileComponent} from "./sidebar/elevation-profile.component";
-import {ExportDialogComponent} from "./sidebar/export-dialog.component";
 import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.component";
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
 import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
@@ -109,7 +108,6 @@ import {PlanComponent} from "./sidebar/plan.component";
     PlanCompactComponent,
     PlanDetailedComponent,
     PlanInstructionsComponent,
-    ExportDialogComponent,
     PlanTranslationsComponent,
     MapPopupComponent,
     ElevationProfileComponent,
