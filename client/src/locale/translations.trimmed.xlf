@@ -1935,6 +1935,11 @@
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="no-route-dialog.message">
+        <source>You clicked the button to zoom to fit the complete route on the map,
+        but there is no start- and endnode for the route defined yet. Please
+        plan a route first.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
