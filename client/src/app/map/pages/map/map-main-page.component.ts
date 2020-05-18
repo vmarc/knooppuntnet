@@ -1,9 +1,11 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
+import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
 import View from "ol/View";
+import {NoRouteDialogComponent} from "../../../components/ol/components/no-route-dialog.component";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapControls} from "../../../components/ol/layers/map-controls";
@@ -14,6 +16,7 @@ import {MapPositionService} from "../../../components/ol/services/map-position.s
 import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
+import {Util} from "../../../components/shared/util";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -26,6 +29,7 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
   template: `
     <kpn-map-popup></kpn-map-popup>
     <div id="main-map" class="map">
+      <kpn-route-control (action)="zoomInToRoute()"></kpn-route-control>
       <kpn-layer-switcher [mapLayers]="layers">
         <kpn-poi-menu></kpn-poi-menu>
       </kpn-layer-switcher>
@@ -57,7 +61,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private poiService: PoiService,
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
-              private mapPositionService: MapPositionService) {
+              private mapPositionService: MapPositionService,
+              private dialog: MatDialog) {
     this.pageService.showFooter = false;
   }
 
@@ -116,6 +121,18 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.unsubscribe();
   }
 
+  zoomInToRoute(): void {
+    if (this.plannerService.context.plan.legs.isEmpty()) {
+      this.dialog.open(NoRouteDialogComponent, {maxWidth: 600});
+    } else {
+      const bounds = this.plannerService.context.plan.bounds();
+      if (bounds !== null) {
+        const extent = Util.toExtent(bounds, 0.1);
+        this.map.getView().fit(extent);
+      }
+    }
+  }
+
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
@@ -124,5 +141,4 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     mapLayers = mapLayers.push(this.mapLayerService.mainMapLayer());
     return new MapLayers(mapLayers);
   }
-
 }

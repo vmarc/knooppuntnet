@@ -1,18 +1,12 @@
 import {List} from "immutable";
+import {Bounds} from "../../../kpn/api/common/bounds";
+import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {PlanLeg} from "./plan-leg";
 import {PlanNode} from "./plan-node";
 
 export class Plan {
 
   private static _empty: Plan = new Plan(null, List());
-
-  static empty(): Plan {
-    return Plan._empty;
-  }
-
-  static create(source: PlanNode, legs: List<PlanLeg>): Plan {
-    return new Plan(source, legs);
-  }
 
   private constructor(readonly source: PlanNode,
                       readonly legs: List<PlanLeg>) {
@@ -24,6 +18,14 @@ export class Plan {
       return lastLeg.sink;
     }
     return this.source;
+  }
+
+  static empty(): Plan {
+    return Plan._empty;
+  }
+
+  static create(source: PlanNode, legs: List<PlanLeg>): Plan {
+    return new Plan(source, legs);
   }
 
   meters(): number {
@@ -44,4 +46,17 @@ export class Plan {
     return kmString + " km";
   }
 
+  bounds(): Bounds {
+    if (this.source === null) {
+      return null;
+    }
+    const latLons: List<LatLonImpl> = List([this.source.latLon]).concat(this.legs.flatMap(leg => List([leg.source.latLon]).concat(leg.latLons())));
+    const lats = latLons.map(latLon => +latLon.latitude);
+    const lons = latLons.map(latLon => +latLon.longitude);
+    const minLat = lats.min();
+    const minLon = lons.min();
+    const maxLat = lats.max();
+    const maxLon = lons.max();
+    return new Bounds(minLat, minLon, maxLat, maxLon);
+  }
 }

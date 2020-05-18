@@ -181,7 +181,7 @@
         <source>Go to documentation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/doc-link.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/doc-link-small.component.ts</context>
@@ -1076,6 +1076,26 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/pages/analysis-mode.component.ts</context>
           <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-control.letter" datatype="html">
+        <source>
+        R
+      </source>
+        <target state="final">[
+        R
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/route-control.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-control.title" datatype="html">
+        <source>zoom to fit entire route</source>
+        <target state="final">[zoom to fit entire route]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/route-control.component.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-header.start" datatype="html">
@@ -2139,6 +2159,22 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-details-sidebar.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no-route-dialog.title" datatype="html">
+        <source>
+        No route
+      </source>
+        <target state="final">[
+        No route
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>

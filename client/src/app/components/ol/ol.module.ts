@@ -1,13 +1,17 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDialogModule} from "@angular/material/dialog";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {SharedModule} from "../shared/shared.module";
 import {LayerSwitcherComponent} from "./components/layer-switcher.component";
 import {LocationMapComponent} from "./components/location-map.component";
 import {NetworkMapComponent} from "./components/network-map.component";
+import {NoRouteDialogComponent} from "./components/no-route-dialog.component";
 import {NodeMapComponent} from "./components/node-map.component";
 import {NodeMovedMapComponent} from "./components/node-moved-map.component";
 import {RouteChangeMapComponent} from "./components/route-change-map.component";
+import {RouteControlComponent} from "./components/route-control.component";
 import {RouteMapComponent} from "./components/route-map.component";
 import {SubsetMapComponent} from "./components/subset-map.component";
 import {MapClickService} from "./services/map-click.service";
@@ -20,7 +24,9 @@ import {PoiTileLayerService} from "./services/poi-tile-layer.service";
   imports: [
     CommonModule,
     MatCheckboxModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    SharedModule,
+    MatDialogModule
   ],
   declarations: [
     NodeMapComponent,
@@ -30,7 +36,9 @@ import {PoiTileLayerService} from "./services/poi-tile-layer.service";
     LayerSwitcherComponent,
     RouteChangeMapComponent,
     LocationMapComponent,
-    NetworkMapComponent
+    NetworkMapComponent,
+    RouteControlComponent,
+    NoRouteDialogComponent
   ],
   exports: [
     NodeMapComponent,
@@ -40,7 +48,8 @@ import {PoiTileLayerService} from "./services/poi-tile-layer.service";
     RouteChangeMapComponent,
     LocationMapComponent,
     LayerSwitcherComponent,
-    NetworkMapComponent
+    NetworkMapComponent,
+    RouteControlComponent
   ],
   providers: [
     MapService,
