@@ -29,10 +29,9 @@ import {Component} from "@angular/core";
     </mat-expansion-panel>
   `,
   styles: [`
-
     .header {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       width: 100%;
     }
 
@@ -40,11 +39,6 @@ import {Component} from "@angular/core";
       flex: 1;
       display: inline-block;
     }
-
-    kpn-doc-link {
-      padding-top: 10px;
-    }
-
   `]
 })
 export class MapSidebarPlannerComponent {
