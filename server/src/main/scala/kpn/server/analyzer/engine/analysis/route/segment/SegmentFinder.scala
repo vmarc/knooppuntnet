@@ -24,7 +24,7 @@ case class SegmentFinderContext(
 class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], allNodes: Set[Node]) {
 
   private val maxSolutionCount = 1000
-  private val timeout = 2000L
+  private val timeout = 20000L
 
   private val log = Log(classOf[SegmentFinder])
 
