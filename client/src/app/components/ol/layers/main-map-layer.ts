@@ -6,7 +6,6 @@ import {I18nService} from "../../../i18n/i18n.service";
 import {ZoomLevel} from "../domain/zoom-level";
 import {MapService} from "../services/map.service";
 import {MainMapStyle} from "../style/main-map-style";
-import {NodeMapStyle} from "../style/node-map-style";
 import {MapLayer} from "./map-layer";
 import {NetworkBitmapTileLayer} from "./network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "./network-vector-tile-layer";
@@ -30,15 +29,17 @@ export class MainMapLayer {
     });
     const layerName = this.i18nService.translation("@@map.layer.network");
     layer.set("name", layerName);
+    // TODO need to unsubscribe
+    this.mapService.mapMode$.subscribe(() => this.vectorTileLayer.getSource().refresh());
     return new MapLayer(layer, this.applyMap());
   }
 
   private applyMap() {
     return (map: Map) => {
       const mainMapStyle = new MainMapStyle(map, this.mapService).styleFunction();
-      const nodeMapStyle = new NodeMapStyle(map).styleFunction();
       this.vectorTileLayer.setStyle(mainMapStyle);
       this.updateLayerVisibility(map.getView().getZoom());
+      // TODO need to unsubscribe
       map.getView().on("change:resolution", () => this.zoom(map.getView().getZoom()));
     };
   }

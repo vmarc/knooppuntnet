@@ -6,8 +6,8 @@ import {RouteStyle} from "./route-style";
 
 export class NodeMapStyle {
 
-  private readonly smallNodeStyle = NodeStyle.smallNodeStyle();
-  private readonly largeNodeStyle = NodeStyle.largeNodeStyle();
+  private readonly smallNodeStyle = NodeStyle.smallGreen;
+  private readonly largeNodeStyle = NodeStyle.largeGreen;
   private readonly routeStyle = new RouteStyle();
 
   constructor(private map: Map) {

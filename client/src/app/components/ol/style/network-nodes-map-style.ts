@@ -9,11 +9,11 @@ import {RouteStyle} from "./route-style";
 
 export class NetworkNodesMapStyle {
 
-  private readonly smallNodeStyle = NodeStyle.smallNodeStyle();
-  private readonly smallNodeStyleGray = NodeStyle.smallNodeStyleGray();
+  private readonly smallNodeStyle = NodeStyle.smallGreen;
+  private readonly smallNodeStyleGray = NodeStyle.smallGray;
 
-  private readonly largeNodeStyle = NodeStyle.largeNodeStyle();
-  private readonly largeNodeStyleGray = NodeStyle.largeNodeStyleGray();
+  private readonly largeNodeStyle = NodeStyle.largeGreen;
+  private readonly largeNodeStyleGray = NodeStyle.largeGray;
 
   private readonly routeStyle = new RouteStyle();
 

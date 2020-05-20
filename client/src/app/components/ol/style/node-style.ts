@@ -8,23 +8,19 @@ import {MainStyleColors} from "./main-style-colors";
 
 export class NodeStyle {
 
-  public static smallNodeStyle(): Style {
-    return this.buildSmallNodeStyle(MainStyleColors.green);
-  }
+  public static readonly smallLightGreen = NodeStyle.small(MainStyleColors.lightGreen);
+  public static readonly smallGreen = NodeStyle.small(MainStyleColors.green);
+  public static readonly smallDarkGreen = NodeStyle.small(MainStyleColors.darkGreen);
+  public static readonly smallVeryDarkGreen = NodeStyle.small(MainStyleColors.veryDarkGreen);
+  public static readonly smallDarkRed = NodeStyle.small(MainStyleColors.darkRed);
+  public static readonly smallGray = NodeStyle.small(MainStyleColors.gray);
+  public static readonly smallBlue = NodeStyle.small(MainStyleColors.blue);
+  public static readonly smallDarkBlue = NodeStyle.small(MainStyleColors.darkBlue);
 
-  public static smallNodeStyleGray(): Style {
-    return this.buildSmallNodeStyle(MainStyleColors.gray);
-  }
+  public static readonly largeGreen = NodeStyle.large(MainStyleColors.green);
+  public static readonly largeGray = NodeStyle.large(MainStyleColors.gray);
 
-  public static largeNodeStyle(): Style {
-    return this.buildLargeNodeStyleGray(MainStyleColors.green);
-  }
-
-  public static largeNodeStyleGray(): Style {
-    return this.buildLargeNodeStyleGray(MainStyleColors.gray);
-  }
-
-  private static buildSmallNodeStyle(color: Color): Style {
+  private static small(color: Color): Style {
     return new Style({
       image: new Circle({
         radius: 3,
@@ -39,7 +35,7 @@ export class NodeStyle {
     });
   }
 
-  private static buildLargeNodeStyleGray(color: Color): Style {
+  private static large(color: Color): Style {
     return new Style({
       image: new Circle({
         radius: 14,

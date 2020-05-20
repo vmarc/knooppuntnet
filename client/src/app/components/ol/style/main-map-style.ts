@@ -16,13 +16,12 @@ export class MainMapStyle {
 
   public styleFunction(): StyleFunction {
     return (feature, resolution) => {
-      const properties = feature.getProperties();
       const zoom = this.map.getView().getZoom();
       const layer = feature.get("layer");
       if (layer.includes("node")) {
-        return this.mainMapNodeStyle.nodeStyle(zoom, feature, true);
+        return this.mainMapNodeStyle.nodeStyle(zoom, feature);
       }
-      return this.mainMapRouteStyle.routeStyle(zoom, feature, layer, true);
+      return this.mainMapRouteStyle.routeStyle(zoom, feature);
     };
   }
 }

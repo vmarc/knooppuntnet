@@ -45,6 +45,7 @@ import {SubsetMapPage} from "./kpn/api/common/subset/subset-map-page";
 import {SubsetNetworksPage} from "./kpn/api/common/subset/subset-networks-page";
 import {SubsetOrphanNodesPage} from "./kpn/api/common/subset/subset-orphan-nodes-page";
 import {SubsetOrphanRoutesPage} from "./kpn/api/common/subset/subset-orphan-routes-page";
+import {SurveyDateInfo} from "./kpn/api/common/survey-date-info";
 import {ClientPoiConfiguration} from "./kpn/api/common/tiles/client-poi-configuration";
 import {ApiResponse} from "./kpn/api/custom/api-response";
 import {Country} from "./kpn/api/custom/country";
@@ -321,6 +322,13 @@ export class AppService {
     const url = "/json-api/status/system";
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, SystemStatusPage.fromJSON))
+    );
+  }
+
+  public surveyDateInfo(): Observable<ApiResponse<SurveyDateInfo>> {
+    const url = "/json-api/survey-date-info";
+    return this.http.get(url).pipe(
+      map(response => ApiResponse.fromJSON(response, SurveyDateInfo.fromJSON))
     );
   }
 

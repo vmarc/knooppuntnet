@@ -3,6 +3,7 @@ package kpn.server.api.analysis
 import kpn.api.common.ChangesPage
 import kpn.api.common.PoiPage
 import kpn.api.common.ReplicationId
+import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
@@ -45,6 +46,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.poi.PoiRef
+import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -270,6 +272,11 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable sinkNodeId: String
   ): ApiResponse[RouteLeg] = {
     analysisFacade.leg(user(), NetworkType.withName(networkType).get, legId, sourceNodeId, sinkNodeId)
+  }
+
+  @GetMapping(value = Array("/json-api/survey-date-info"))
+  def surveyDateInfo(): ApiResponse[SurveyDateInfo] = {
+    ApiResponse(None, 1, Some(SurveyDateInfoBuilder.dateInfo))
   }
 
   @GetMapping(value = Array("/json-api/locations/{networkType}/{country}"))

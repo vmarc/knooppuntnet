@@ -4,30 +4,29 @@ import CircleStyle from "ol/style/Circle";
 import Circle from "ol/style/Circle";
 import Fill from "ol/style/Fill";
 import Style from "ol/style/Style";
+import {MapMode} from "../services/map-mode";
 import {MapService} from "../services/map.service";
 import {MainStyleColors} from "./main-style-colors";
 import {NodeStyle} from "./node-style";
+import {SurveyDateStyle} from "./survey-date-style";
 
 export class MainMapNodeStyle {
 
   private readonly largeMinZoomLevel = 13;
   private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(8);
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
-  private readonly smallNodeStyle = NodeStyle.smallNodeStyle();
-  private readonly largeNodeStyle = NodeStyle.largeNodeStyle();
+  private readonly largeNodeStyle = NodeStyle.largeGreen;
+  private readonly surveyDateStyle: SurveyDateStyle;
 
   constructor(private mapService: MapService) {
+    this.surveyDateStyle = new SurveyDateStyle(mapService);
   }
 
-  public nodeStyle(zoom: number, feature: FeatureLike, enabled: boolean): Array<Style> {
-
+  public nodeStyle(zoom: number, feature: FeatureLike): Array<Style> {
     const featureId = feature.get("id");
-    const layer = feature.get("layer");
     const large = zoom >= this.largeMinZoomLevel;
-
     const selectedStyle = this.determineNodeSelectedStyle(featureId, large);
-    const style = this.determineNodeMainStyle(feature, layer, enabled, large);
-
+    const style = this.determineNodeMainStyle(feature, large);
     return selectedStyle ? [selectedStyle, style] : [style];
   }
 
@@ -43,19 +42,19 @@ export class MainMapNodeStyle {
     return style;
   }
 
-  private determineNodeMainStyle(feature: FeatureLike, layer: string, enabled: boolean, large: boolean): Style {
+  private determineNodeMainStyle(feature: FeatureLike, large: boolean): Style {
     let style: Style;
     if (large) {
-      style = this.determineLargeNodeStyle(feature, layer, enabled);
+      style = this.determineLargeNodeStyle(feature);
     } else {
-      style = this.determineSmallNodeStyle(layer, enabled);
+      style = this.determineSmallNodeStyle(feature);
     }
     return style;
   }
 
-  private determineLargeNodeStyle(feature: FeatureLike, layer: string, enabled: boolean): Style {
+  private determineLargeNodeStyle(feature: FeatureLike): Style {
 
-    const color = this.nodeColor(layer, enabled);
+    const color = this.nodeColor(feature);
 
     const circleStyle: CircleStyle = this.largeNodeStyle.getImage() as CircleStyle;
 
@@ -72,11 +71,16 @@ export class MainMapNodeStyle {
     return this.largeNodeStyle;
   }
 
-  private determineSmallNodeStyle(layer: string, enabled: boolean): Style {
-    const color = this.nodeColor(layer, enabled);
-    const circleStyle: CircleStyle = this.smallNodeStyle.getImage() as CircleStyle;
-    circleStyle.getStroke().setColor(color);
-    return this.smallNodeStyle;
+  private determineSmallNodeStyle(feature: FeatureLike): Style {
+    let style = NodeStyle.smallGray;
+    if (this.mapService.mapMode() === MapMode.surface) {
+      style = NodeStyle.smallGreen;
+    } else if (this.mapService.mapMode() === MapMode.survey) {
+      style = this.surveyDateStyle.smallNodeStyle(feature);
+    } else if (this.mapService.mapMode() === MapMode.analysis) {
+      style = this.smallNodeStyleAnalysis(feature);
+    }
+    return style;
   }
 
   private nodeSelectedStyle(radius: number): Style {
@@ -90,20 +94,45 @@ export class MainMapNodeStyle {
     });
   }
 
-  private nodeColor(layer: string, enabled: boolean): Color {
-    let nodeColor = MainStyleColors.gray;
-    if (enabled) {
-      if ("error-node" === layer) {
-        nodeColor = MainStyleColors.blue;
-      } else if ("orphan-node" === layer) {
-        nodeColor = MainStyleColors.darkGreen;
-      } else if ("error-orphan-node" === layer) {
-        nodeColor = MainStyleColors.darkBlue;
-      } else {
-        nodeColor = MainStyleColors.green;
-      }
+  private nodeColor(feature: FeatureLike): Color {
+    let color = MainStyleColors.gray;
+    if (this.mapService.mapMode() === MapMode.surface) {
+      color = MainStyleColors.green;
+    } else if (this.mapService.mapMode() === MapMode.survey) {
+      color = this.surveyDateStyle.surveyColor(feature);
+    } else if (this.mapService.mapMode() === MapMode.analysis) {
+      color = this.nodeColorAnalysis(feature);
+    }
+    return color;
+  }
+
+  private nodeColorAnalysis(feature: FeatureLike): Color {
+    const layer = feature.get("layer");
+    let nodeColor: Color;
+    if ("error-node" === layer) {
+      nodeColor = MainStyleColors.blue;
+    } else if ("orphan-node" === layer) {
+      nodeColor = MainStyleColors.darkGreen;
+    } else if ("error-orphan-node" === layer) {
+      nodeColor = MainStyleColors.darkBlue;
+    } else {
+      nodeColor = MainStyleColors.green;
     }
     return nodeColor;
   }
 
+  private smallNodeStyleAnalysis(feature: FeatureLike): Style {
+    const layer = feature.get("layer");
+    let style: Style;
+    if ("error-node" === layer) {
+      style = NodeStyle.smallBlue;
+    } else if ("orphan-node" === layer) {
+      style = NodeStyle.smallDarkGreen;
+    } else if ("error-orphan-node" === layer) {
+      style = NodeStyle.smallDarkBlue;
+    } else {
+      style = NodeStyle.smallGreen;
+    }
+    return style;
+  }
 }
