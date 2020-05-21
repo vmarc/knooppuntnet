@@ -17,8 +17,11 @@ import {PlannerEngine} from "./planner-engine";
 
 export class PlannerInteraction {
 
+  private downEventTime = 0;
+
   private interaction = new PointerInteraction({
     handleDownEvent: (evt: MapBrowserEvent) => {
+      this.downEventTime = new Date().getTime();
       return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate);
     },
     handleMoveEvent: (evt: MapBrowserEvent) => {
@@ -28,7 +31,10 @@ export class PlannerInteraction {
       return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate);
     },
     handleUpEvent: (evt: MapBrowserEvent) => {
-      return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate);
+      const upEventTime = new Date().getTime();
+      const timeSinceUp = upEventTime - this.downEventTime;
+      const singleClick = timeSinceUp < 800;
+      return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate, singleClick);
     }
   });
 

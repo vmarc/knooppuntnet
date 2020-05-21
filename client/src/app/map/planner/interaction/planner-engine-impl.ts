@@ -10,6 +10,7 @@ import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-p
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
+import {PlannerCommandRemoveViaPoint} from "../commands/planner-command-remove-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerContext} from "../context/planner-context";
 import {FeatureId} from "../features/feature-id";
@@ -159,12 +160,17 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean): boolean {
+
+    if (this.isViaFlagClicked(singleClick)) {
+      this.viaFlagClicked();
+      this.dragCancel();
+      return true;
+    }
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       this.context.cursor.setStyleDefault();
       this.context.elasticBand.setInvisible();
-
       const networkNode = this.findNetworkNode(features);
       if (networkNode != null) {
         if (this.isDraggingLeg()) {
@@ -184,6 +190,25 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     return false;
+  }
+
+  private viaFlagClicked(): void {
+
+    const legs = this.context.plan.legs;
+    const nextLegIndex = legs.findIndex(leg => leg.source.featureId === this.nodeDrag.oldNode.featureId);
+
+    const oldLeg1 = legs.get(nextLegIndex - 1);
+    const oldLeg2 = legs.get(nextLegIndex);
+
+    const newLeg: PlanLeg = this.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink);
+
+    const command = new PlannerCommandRemoveViaPoint(
+      nextLegIndex - 1,
+      oldLeg1.featureId,
+      oldLeg2.featureId,
+      newLeg.featureId
+    );
+    this.context.execute(command);
   }
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
@@ -229,6 +254,12 @@ export class PlannerEngineImpl implements PlannerEngine {
     return this.nodeDrag !== null;
   }
 
+  private isViaFlagClicked(singleClick: boolean): boolean {
+    return singleClick === true && this.nodeDrag !== null
+      && this.nodeDrag.oldNode.featureId !== this.context.plan.sink.featureId
+      && this.nodeDrag.oldNode.featureId !== this.context.plan.source.featureId;
+  }
+
   private endDragLeg(connection: PlanNode): void {
     if (this.legDrag !== null) {
       const oldLeg = this.context.legs.getById(this.legDrag.oldLegId);
@@ -253,8 +284,6 @@ export class PlannerEngineImpl implements PlannerEngine {
         const newFirstLeg: PlanLeg = this.buildLeg(FeatureId.next(), newNode, oldFirstLeg.sink);
         const command = new PlannerCommandMoveFirstLegSource(oldFirstLeg.featureId, newFirstLeg.featureId);
         this.context.execute(command);
-
-
       }
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan.legs.last();
@@ -263,6 +292,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         const command = new PlannerCommandMoveEndPoint(oldLastLeg.featureId, newLastLeg.featureId);
         this.context.execute(command);
       } else {
+
         const legs = this.context.plan.legs;
         const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
 

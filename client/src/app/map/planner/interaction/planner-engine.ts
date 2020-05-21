@@ -10,6 +10,6 @@ export interface PlannerEngine {
 
   handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
 
-  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
+  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean): boolean;
 
 }
