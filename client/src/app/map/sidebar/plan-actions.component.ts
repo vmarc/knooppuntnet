@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {Observable} from "rxjs";
-import {WarningDialogComponent} from "../../components/shared/dialog/warning-dialog.component";
 import {PlannerService} from "../planner.service";
+import {PlannerCommandReset} from "../planner/commands/planner-command-reset";
 import {Plan} from "../planner/plan/plan";
 
 @Component({
@@ -32,13 +32,12 @@ import {Plan} from "../planner/plan/plan";
         mat-stroked-button
         (click)="restart()"
         [disabled]="!restartEnabled()"
-        title="Wipe out route plan and restart route planning from scratch"
-        i18n="@@planner.restart">
-        Restart
+        title="Wipe out current route plan and restart route planning from scratch"
+        i18n="@@planner.reset">
+        Reset
       </button>
 
     </div>
-
   `,
   styles: [`
     .buttons {
@@ -72,16 +71,8 @@ export class PlanActionsComponent implements OnInit {
   }
 
   restart(): void {
-    this.dialog.open(
-      WarningDialogComponent,
-      {
-        width: "450px",
-        data: {
-          title: "Restart - not implemented yet",
-          message: "This action will wipe out all previous planning selections and start planning a new route from scratch. This action has not been implemented yet."
-        }
-      }
-    );
+    const command = new PlannerCommandReset();
+    this.plannerService.context.execute(command);
   }
 
   restartEnabled(): boolean {

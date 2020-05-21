@@ -6894,8 +6894,8 @@
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="planner.restart">
-        <source>Restart</source>
+      <trans-unit datatype="html" id="planner.reset">
+        <source>Reset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">26</context>
