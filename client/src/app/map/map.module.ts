@@ -10,7 +10,6 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
-import {MatStepperModule} from "@angular/material/stepper";
 import {NetworkModule} from "../analysis/network/network.module";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
@@ -46,6 +45,7 @@ import {MapSidebarAppearanceComponent} from "./sidebar/map-side-bar-appearance.c
 import {MapSidebarLegendComponent} from "./sidebar/map-side-bar-legend.component";
 import {MapSidebarPlannerComponent} from "./sidebar/map-side-bar-planner.component";
 import {MapSidebarPoiConfigurationComponent} from "./sidebar/map-side-bar-poi-configuration.component";
+import {MapToolbarComponent} from "./sidebar/map-toolbar.component";
 import {NetworkTypeSelectorComponent} from "./sidebar/network-type-selector.component";
 import {PlanActionsComponent} from "./sidebar/plan-actions.component";
 import {PlanCompactComponent} from "./sidebar/plan-compact.component";
@@ -59,7 +59,6 @@ import {PlanResultComponent} from "./sidebar/plan-result.component";
 import {PlanStepOutputComponent} from "./sidebar/plan-step-output.component";
 import {PlanStepRouteComponent} from "./sidebar/plan-step-route.component";
 import {PlanStepStartComponent} from "./sidebar/plan-step-start.component";
-import {PlanStepsComponent} from "./sidebar/plan-steps.component";
 import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
 
@@ -79,7 +78,6 @@ import {PlanComponent} from "./sidebar/plan.component";
     OlModule,
     PdfModule,
     MatProgressBarModule,
-    MatStepperModule,
     MatAutocompleteModule,
     NetworkModule
   ],
@@ -120,7 +118,6 @@ import {PlanComponent} from "./sidebar/plan.component";
     MapPopupContentsComponent,
     PoiMenuComponent,
     PoiMenuOptionComponent,
-    PlanStepsComponent,
     PlanStepStartComponent,
     PlanStepRouteComponent,
     PlanStepOutputComponent,
@@ -128,7 +125,8 @@ import {PlanComponent} from "./sidebar/plan.component";
     PlanResultComponent,
     PlanActionsComponent,
     LegendIconComponent,
-    NetworkTypeSelectorComponent
+    NetworkTypeSelectorComponent,
+    MapToolbarComponent
   ],
   exports: [
     MapPageComponent

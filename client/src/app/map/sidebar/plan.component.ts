@@ -5,10 +5,10 @@ import {Component} from "@angular/core";
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-poi-names></kpn-poi-names>
-    <kpn-network-type-selector></kpn-network-type-selector>
     <kpn-plan-translations></kpn-plan-translations>
-    <kpn-plan-actions></kpn-plan-actions>
-    <kpn-plan-steps></kpn-plan-steps>
+    <kpn-plan-step-start></kpn-plan-step-start>
+    <kpn-plan-step-route></kpn-plan-step-route>
+    <kpn-plan-step-output></kpn-plan-step-output>
   `
 })
 export class PlanComponent {

@@ -34,6 +34,28 @@ export class Util {
     };
   }
 
+  public static routePathWithToolbar(path: string, component: any, sidebarComponent: any, toolbarComponent: any): Route {
+    return {
+      path: path,
+      children: [
+        {
+          path: "",
+          component: component
+        },
+        {
+          path: "",
+          component: sidebarComponent,
+          outlet: "sidebar"
+        },
+        {
+          path: "",
+          component: toolbarComponent,
+          outlet: "toolbar"
+        }
+      ]
+    };
+  }
+
   public static subsetInRoute(params: Params): Subset {
     const country = params["country"];
     const networkType = params["networkType"];

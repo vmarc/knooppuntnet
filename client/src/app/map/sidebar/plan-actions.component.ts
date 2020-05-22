@@ -37,15 +37,24 @@ import {Plan} from "../planner/plan/plan";
         Reset
       </button>
 
+      <button
+        mat-stroked-button
+        (click)="reverse()"
+        [disabled]="!restartEnabled()"
+        title="Reverse the route direction (startnode becomes endnode, and vice versa)"
+        i18n="@@planner.reverse">
+        Reverse
+      </button>
+
     </div>
   `,
   styles: [`
     .buttons {
+      display: inline-block;
       padding-top: 15px;
       padding-bottom: 15px;
     }
-
-    .buttons :not(:last-child) {
+    .buttons button {
       margin-right: 10px;
     }
   `]
@@ -73,6 +82,9 @@ export class PlanActionsComponent implements OnInit {
   restart(): void {
     const command = new PlannerCommandReset();
     this.plannerService.context.execute(command);
+  }
+
+  reverse(): void {
   }
 
   restartEnabled(): boolean {

@@ -127,22 +127,8 @@ table.kpn-bordered-table {
   height: 32px;
 }
 
-
-.kpn-stepper .mat-vertical-stepper-header {
-  padding: 10px;
-}
-
-.kpn-stepper .mat-vertical-content {
-  padding: 0;
-}
-
-.kpn-stepper .mat-stepper-vertical-line::before {
-  top: 0;
-  bottom: 0;
-}
-
-.kpn-stepper .mat-vertical-content-container {
-  margin-left: 22px;
+.mat-stroked-button:not([disabled]) {
+  border-color: rgba(0, 0, 0, 0.9)
 }
 
 .kpn-line {
@@ -281,6 +267,7 @@ table.kpn-bordered-table {
 
 .kpn-space-separated {
   display: inline-block;
+
   :not(:last-child):after {
     content: " ";
   }
@@ -378,8 +365,7 @@ table.mat-table {
 
 table.mat-table > thead > tr.mat-header-row,
 table.mat-table > tbody > tr.mat-row,
-table.mat-table > tfoot > tr.mat-footer-row
-{
+table.mat-table > tfoot > tr.mat-footer-row {
   height: 2.5rem;
 }
 

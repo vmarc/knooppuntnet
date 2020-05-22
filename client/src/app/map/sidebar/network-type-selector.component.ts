@@ -9,30 +9,36 @@ import {WarningDialogComponent} from "../../components/shared/dialog/warning-dia
   selector: "kpn-network-type-selector",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
-      <mat-button-toggle-group [value]="'cycling'" (change)="networkTypeChanged($event)">
-        <mat-button-toggle value="cycling">
-          <mat-icon svgIcon="cycling"></mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="hiking">
-          <mat-icon svgIcon="hiking"></mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="horse riding">
-          <mat-icon svgIcon="horse-riding"></mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="motorboat">
-          <mat-icon svgIcon="motorboat"></mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="canoe">
-          <mat-icon svgIcon="canoe"></mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="inline skating">
-          <mat-icon svgIcon="inline-skating"></mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
+    <mat-button-toggle-group [value]="'cycling'" (change)="networkTypeChanged($event)">
+      <mat-button-toggle value="cycling">
+        <mat-icon svgIcon="cycling"></mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="hiking">
+        <mat-icon svgIcon="hiking"></mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="horse riding">
+        <mat-icon svgIcon="horse-riding"></mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="motorboat">
+        <mat-icon svgIcon="motorboat"></mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="canoe">
+        <mat-icon svgIcon="canoe"></mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="inline skating">
+        <mat-icon svgIcon="inline-skating"></mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
   `,
   styles: [`
+    mat-button-toggle-group {
+      top: 4px;
+      height: 40px;
+    }
+    mat-icon {
+      height: 15px;
+      width: 15px;
+    }
   `]
 })
 export class NetworkTypeSelectorComponent {
