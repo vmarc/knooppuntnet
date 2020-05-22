@@ -4,11 +4,11 @@
 
 ==== Route plannen
 
-- klik op knooppunt om startknooppunt te kiezen
+- klik op een knooppunt om startknooppunt te kiezen
 
-- klik op knooppunt om tussenknooppunt te kiezen (wordt gevolgd door route-herberekening)
+- klik op een knooppunt om tussenknooppunt te kiezen (wordt gevolgd door route-herberekening)
 
-- klik op knooppunt om eindknooppunt te kiezen (wordt gevolgd door route-herberekening)
+- klik op een knooppunt om eindknooppunt te kiezen (wordt gevolgd door route-herberekening)
 
 - klik/sleep om startknooppunt te verschuiven (wordt gevolgd door route-herberekening)
 
