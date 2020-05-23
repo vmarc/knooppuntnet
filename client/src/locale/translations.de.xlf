@@ -2376,7 +2376,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Status der Knoten- und Routenqualität</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.survey" datatype="html">
@@ -2384,7 +2384,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Datum der letzten Vermessung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
@@ -3064,22 +3064,6 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">84</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.undo" datatype="html">
-        <source>Undo</source>
-        <target>Rückgängig machen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.redo" datatype="html">
-        <source>Redo</source>
-        <target>Wiederholen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.compact" datatype="html">
@@ -7885,7 +7869,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="plan.unpaved" datatype="html">
         <source>Unpaved</source>
-        <target>Unpaved</target>
+        <target>Ungepflastert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-distance.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -7893,7 +7877,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.reverse" datatype="html">
         <source>Reverse route</source>
-        <target>Reverse route</target>
+        <target>Route umkehren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -7901,7 +7885,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.reverse.title" datatype="html">
         <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
-        <target>Reverse the route direction (startnode becomes endnode, and vice versa)</target>
+        <target>Die Routenrichtung umkehren (Startknoten wird Endknoten und umgekehrt)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -7909,7 +7893,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.compact-pdf" datatype="html">
         <source>Compact print</source>
-        <target>Compact print</target>
+        <target>Kompakt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -7917,7 +7901,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.compact-pdf.title" datatype="html">
         <source>Produce a route pdf file with compact node overview</source>
-        <target>Produce a route pdf file with compact node overview</target>
+        <target>Routen-PDF-Datei mit einer kompakten Knotenübersicht erstellen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -7925,7 +7909,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.node-strip-pdf" datatype="html">
         <source>Node strip</source>
-        <target>Node strip</target>
+        <target>Knotenstreifen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -7933,7 +7917,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.node-strip-pdf.title" datatype="html">
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+        <target>Eine Routen-PDF-Datei mit Knoten im Strip-Format erstellen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">30</context>
@@ -7941,7 +7925,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.navigation-instructions-pdf" datatype="html">
         <source>Navigation instructions</source>
-        <target>Navigation instructions</target>
+        <target>Anweisungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -7949,7 +7933,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.navigation-instructions-pdf.title" datatype="html">
         <source>Produce a route pdf with navigation instructions</source>
-        <target>Produce a route pdf with navigation instructions</target>
+        <target>Ein Routen-PDF mit Navigationsanweisungen erstellen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">40</context>
@@ -7965,18 +7949,10 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.output.gpx.title" datatype="html">
         <source>Produce a route file that can be used in a gps-device</source>
-        <target>Produce a route file that can be used in a gps-device</target>
+        <target>Eine Routendatei, die in einem GPS-Gerät verwendet werden kann erstellen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
           <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.restart" datatype="html">
-        <source>Restart</source>
-        <target>Restart</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-control.letter" datatype="html">
@@ -7989,7 +7965,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route-control.title" datatype="html">
         <source>zoom to fit entire route</source>
-        <target>zoom to fit entire route</target>
+        <target>Zoom auf die gesamte Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/route-control.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7997,7 +7973,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="no-route-dialog.title" datatype="html">
         <source>No route</source>
-        <target>No route</target>
+        <target>Keine Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8007,12 +7983,90 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <source>You clicked the button to zoom to fit the complete route on the map,
         but there is no start- and endnode for the route defined yet. Please
         plan a route first.</source>
-        <target>You clicked the button to zoom to fit the complete route on the map,
-        but there is no start- and endnode for the route defined yet. Please
-        plan a route first.</target>
+        <target>Sie haben auf die Schaltfläche geklickt, um die gesamte Route auf der Karte zu vergrößern. Es gibt jedoch noch keinen Start- und Endknoten für die definierte Route. Bitte Planen Sie zuerst eine Route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.undo" datatype="html">
+        <source>Undo</source>
+        <target>Rückgängig machen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.undo.title" datatype="html">
+        <source>Undo the previous action</source>
+        <target>Die vorherige Aktion rückgängig machen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.redo" datatype="html">
+        <source>Redo</source>
+        <target>Wiederholen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.redo.title" datatype="html">
+        <source>Redo the action that was previously undone</source>
+        <target>Wiederholen der zuvor rückgängig gemachte Aktion</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reset" datatype="html">
+        <source>Reset</source>
+        <target>Zurücksetzen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reset.title" datatype="html">
+        <source>Wipe out current route plan and restart route planning from scratch</source>
+        <target>Löschen der aktuellen Routenplan und start die Routenplanung von Grund auf neu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reverse" datatype="html">
+        <source>Reverse</source>
+        <target>Umkehren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reverse.title" datatype="html">
+        <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
+        <target>Die Routenrichtung umkehren (Startknoten wird Endknoten und umgekehrt)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.output" datatype="html">
+        <source>Output</source>
+        <target>Ausgabe</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.output.title" datatype="html">
+        <source>Output planned route</source>
+        <target>Geplante Route ausgeben</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
     </body>
