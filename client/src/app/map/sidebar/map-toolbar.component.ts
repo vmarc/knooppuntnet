@@ -1,21 +1,31 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {PageWidth} from "../../components/shared/page-width";
+import {PageWidthService} from "../../components/shared/page-width.service";
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-map-toolbar",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-plan-actions></kpn-plan-actions>
-    <kpn-network-type-selector></kpn-network-type-selector>
+    <div class="toolbar">
+      <kpn-plan-actions></kpn-plan-actions>
+      <kpn-network-type-selector *ngIf="showNetworkTypeSelector$ | async"></kpn-network-type-selector>
+    </div>
   `,
-  styles: [
-  ]
+  styles: [`
+    .toolbar {
+      display: flex;
+      align-items: center;
+    }
+  `]
 })
-export class MapToolbarComponent implements OnInit {
+export class MapToolbarComponent {
 
-  constructor() { }
+  showNetworkTypeSelector$: Observable<boolean>;
 
-  ngOnInit(): void {
+  constructor(private pageWidthService: PageWidthService) {
+    this.showNetworkTypeSelector$ = pageWidthService.current$.pipe(map(pageWidth => pageWidth === PageWidth.veryLarge));
   }
 
 }

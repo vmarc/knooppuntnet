@@ -16,7 +16,7 @@ import {WarningDialogComponent} from "../../components/shared/dialog/warning-dia
       <mat-button-toggle value="hiking">
         <mat-icon svgIcon="hiking"></mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle value="horse riding">
+      <mat-button-toggle value="horse-riding">
         <mat-icon svgIcon="horse-riding"></mat-icon>
       </mat-button-toggle>
       <mat-button-toggle value="motorboat">
@@ -25,19 +25,21 @@ import {WarningDialogComponent} from "../../components/shared/dialog/warning-dia
       <mat-button-toggle value="canoe">
         <mat-icon svgIcon="canoe"></mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle value="inline skating">
+      <mat-button-toggle value="inline-skating">
         <mat-icon svgIcon="inline-skating"></mat-icon>
       </mat-button-toggle>
     </mat-button-toggle-group>
   `,
   styles: [`
-    mat-button-toggle-group {
-      top: 4px;
-      height: 40px;
+    ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
+      width: 34px;
+      height: 34px;
     }
-    mat-icon {
-      height: 15px;
-      width: 15px;
+
+    ::ng-deep .mat-button-toggle > .mat-button-toggle-button > .mat-button-toggle-label-content {
+      line-height: 34px;
+      color: rgba(0, 0, 0, 0.8);
+      padding: 0;
     }
   `]
 })
@@ -49,7 +51,7 @@ export class NetworkTypeSelectorComponent {
 
   networkTypeChanged(event: MatButtonToggleChange) {
 
-    // this.router.navigate(["/map/" + event.value]);
+    // TODO this.router.navigate(["/map/" + event.value]);
 
     let message = `This action will switch the map to ${event.value}. `;
     message += `This action has not been implemented yet.`;

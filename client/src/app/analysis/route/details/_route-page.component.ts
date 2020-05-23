@@ -6,6 +6,7 @@ import {Subject} from "rxjs";
 import {Observable} from "rxjs";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
+import {PageWidth} from "../../../components/shared/page-width";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
@@ -88,7 +89,7 @@ import {FactInfo} from "../../fact/fact-info";
           <kpn-route-location [locationAnalysis]="route.analysis.locationAnalysis"></kpn-route-location>
         </kpn-data>
 
-        <div *ngIf="route.analysis && !isPageSmall()">
+        <div *ngIf="route.analysis && showRouteDetails$ | async">
           <kpn-data title="Structure" i18n-title="@@route.structure">
             <kpn-route-structure [structureStrings]="route.analysis.structureStrings"></kpn-route-structure>
           </kpn-data>
@@ -98,7 +99,7 @@ import {FactInfo} from "../../fact/fact-info";
           <kpn-facts [factInfos]="factInfos"></kpn-facts>
         </kpn-data>
 
-        <div *ngIf="!isPageSmall()">
+        <div *ngIf="showRouteDetails$ | async">
           <kpn-route-members [networkType]="route.summary.networkType" [members]="route.analysis.members"></kpn-route-members>
         </div>
       </div>
@@ -108,6 +109,7 @@ import {FactInfo} from "../../fact/fact-info";
 export class RoutePageComponent implements OnInit {
 
   response$: Observable<ApiResponse<RouteDetailsPage>>;
+  showRouteDetails$: Observable<boolean>;
 
   routeId$ = new Subject<string>();
   routeName$ = new Subject<string>();
@@ -123,6 +125,7 @@ export class RoutePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showRouteDetails$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.small && pageWidth !== PageWidth.verySmall));
     this.routeName$.next(history.state.routeName);
     this.changeCount$.next(history.state.changeCount);
     this.response$ = this.activatedRoute.params.pipe(
@@ -137,9 +140,5 @@ export class RoutePageComponent implements OnInit {
         this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
       })
     );
-  }
-
-  isPageSmall(): boolean {
-    return this.pageWidthService.isSmall();
   }
 }

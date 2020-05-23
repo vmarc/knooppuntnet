@@ -21,7 +21,7 @@ export class TagDiffsComponent {
   }
 
   isSmall(): boolean {
-    return this.pageWidthService.isSmall();
+    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall();
   }
 
 }

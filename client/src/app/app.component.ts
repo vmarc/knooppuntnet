@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component} from "@angular/core";
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
+import {PageWidthService} from "./components/shared/page-width.service";
 import {PageService} from "./components/shared/page.service";
 import {IconService} from "./services/icon.service";
 import {UserService} from "./services/user.service";
 import {SpinnerService} from "./spinner/spinner.service";
 import {Subscriptions} from "./util/Subscriptions";
-import {PageWidthService} from "./components/shared/page-width.service";
 
 @Component({
   selector: "app-root",
@@ -13,12 +13,12 @@ import {PageWidthService} from "./components/shared/page-width.service";
     <mat-sidenav-container>
 
       <mat-sidenav
-        [mode]="isSmall() ? 'over' : 'side'"
-        [fixedInViewport]="!isSmall()"
+        [mode]="isShowSidebar() ? 'over' : 'side'"
+        [fixedInViewport]="!isShowSidebar()"
         fixedTopGap="48"
         [opened]="isSidebarOpen()">
 
-        <kpn-sidebar-back *ngIf="isSmall()"></kpn-sidebar-back>
+        <kpn-sidebar-back *ngIf="isShowSidebar()"></kpn-sidebar-back>
         <router-outlet name="sidebar"></router-outlet>
 
       </mat-sidenav>
@@ -81,7 +81,7 @@ export class AppComponent {
               private spinnerService: SpinnerService,
               router: Router) {
 
-    this.subscriptions.add(this.pageWidthService.current.subscribe(() => changeDetectorRef.detectChanges()));
+    this.subscriptions.add(this.pageWidthService.current$.subscribe(() => changeDetectorRef.detectChanges()));
 
     this.subscriptions.add(router.events.subscribe(event => {
       if (event instanceof RouteConfigLoadStart) {
@@ -96,8 +96,8 @@ export class AppComponent {
     this.subscriptions.unsubscribe();
   }
 
-  isSmall(): boolean {
-    return this.pageWidthService.isSmall();
+  isShowSidebar(): boolean {
+    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall();
   }
 
   isSidebarOpen(): boolean {

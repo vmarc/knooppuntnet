@@ -16,7 +16,7 @@ export class PageService {
 
   constructor(private pageWidthService: PageWidthService,
               private titleService: Title) {
-    pageWidthService.current.subscribe(() => this.pageWidthChanged());
+    pageWidthService.current$.subscribe(() => this.pageWidthChanged());
   }
 
   defaultMenu() {
@@ -50,7 +50,7 @@ export class PageService {
   }
 
   private sidebarOpenInitialState(): boolean {
-    return !this.pageWidthService.isSmall();
+    return !(this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall());
   }
 
 }

@@ -17,18 +17,17 @@ import {ChangeKey} from "../../../kpn/api/common/changes/details/change-key";
         [replicationNumber]="changeKey.replicationNumber"
         class="kpn-thick">
       </kpn-link-changeset>
-      <kpn-timestamp *ngIf="!isSmall()" [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
+      <kpn-timestamp *ngIf="!isTimestampOnSeparateLine()" [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
       <kpn-icon-happy *ngIf="happy"></kpn-icon-happy>
       <kpn-icon-investigate *ngIf="investigate"></kpn-icon-investigate>
     </div>
-    <div *ngIf="isSmall()">
+    <div *ngIf="isTimestampOnSeparateLine()">
       <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
     </div>
 
     <div *ngIf="comment" class="comment">
       {{comment}}
     </div>
-
   `,
   styles: [`
     .comment {
@@ -48,8 +47,8 @@ export class ChangeHeaderComponent {
   constructor(private pageWidthService: PageWidthService) {
   }
 
-  isSmall() {
-    return this.pageWidthService.isSmall();
+  isTimestampOnSeparateLine() {
+    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall();
   }
 
 }
