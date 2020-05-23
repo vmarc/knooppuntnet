@@ -2429,7 +2429,7 @@
         <target>Node and route quality status</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.survey" datatype="html">
@@ -2437,7 +2437,7 @@
         <target>Date last survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
@@ -3120,22 +3120,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">84</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.undo" datatype="html">
-        <source>Undo</source>
-        <target>Undo</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.redo" datatype="html">
-        <source>Redo</source>
-        <target>Redo</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.compact" datatype="html">
@@ -8070,14 +8054,6 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="planner.restart" datatype="html">
-        <source>Restart</source>
-        <target>Restart</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="route-control.letter" datatype="html">
         <source>R</source>
         <target>R</target>
@@ -8112,6 +8088,86 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.undo" datatype="html">
+        <source>Undo</source>
+        <target>Undo</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.undo.title" datatype="html">
+        <source>Undo the previous action</source>
+        <target>Undo the previous action</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.redo" datatype="html">
+        <source>Redo</source>
+        <target>Redo</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.redo.title" datatype="html">
+        <source>Redo the action that was previously undone</source>
+        <target>Redo the action that was previously undone</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reset" datatype="html">
+        <source>Reset</source>
+        <target>Reset</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reset.title" datatype="html">
+        <source>Wipe out current route plan and restart route planning from scratch</source>
+        <target>Wipe out current route plan and restart route planning from scratch</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reverse" datatype="html">
+        <source>Reverse</source>
+        <target>Reverse</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reverse.title" datatype="html">
+        <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
+        <target>Reverse the route direction (startnode becomes endnode, and vice versa)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.output" datatype="html">
+        <source>Output</source>
+        <target>Output</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.output.title" datatype="html">
+        <source>Output planned route</source>
+        <target>Output planned route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
     </body>
