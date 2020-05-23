@@ -2379,7 +2379,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Knooppunt- en routekwaliteit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.survey" datatype="html">
@@ -2387,7 +2387,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Datum laatste survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
@@ -3067,22 +3067,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">84</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.undo" datatype="html">
-        <source>Undo</source>
-        <target>Ongedaan maken</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.redo" datatype="html">
-        <source>Redo</source>
-        <target>Opnieuw doen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.compact" datatype="html">
@@ -7975,14 +7959,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="planner.restart" datatype="html">
-        <source>Restart</source>
-        <target>Begin opnieuw</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="route-control.letter" datatype="html">
         <source>R</source>
         <target>R</target>
@@ -8011,12 +7987,90 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <source>You clicked the button to zoom to fit the complete route on the map,
         but there is no start- and endnode for the route defined yet. Please
         plan a route first.</source>
-        <target>You clicked the button to zoom to fit the complete route on the map,
-        but there is no start- and endnode for the route defined yet. Please
-        plan a route first.</target>
+        <target>Deze knop brengt de hele route in beeld, maar er is nog geen route. Maak eerst een route!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.undo" datatype="html">
+        <source>Undo</source>
+        <target>Ongedaan maken</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.undo.title" datatype="html">
+        <source>Undo the previous action</source>
+        <target>Maak de vorige actie ongedaan</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.redo" datatype="html">
+        <source>Redo</source>
+        <target>Opnieuw doen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.redo.title" datatype="html">
+        <source>Redo the action that was previously undone</source>
+        <target>Herhaal de actie die voorheen ongedaan gemaakt was</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reset" datatype="html">
+        <source>Reset</source>
+        <target>Herstart</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reset.title" datatype="html">
+        <source>Wipe out current route plan and restart route planning from scratch</source>
+        <target>Wis de huidig geplande route en start routeplanning opnieuw</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reverse" datatype="html">
+        <source>Reverse</source>
+        <target>Omkeren</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.reverse.title" datatype="html">
+        <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
+        <target>Keer de richting van de geplande route om (startpunt wordt eindpunt en omgekeerd)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.output" datatype="html">
+        <source>Output</source>
+        <target>Uitvoer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.action.output.title" datatype="html">
+        <source>Output planned route</source>
+        <target>Uitvoer van de geplande route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
     </body>
