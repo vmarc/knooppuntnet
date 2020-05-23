@@ -61,13 +61,13 @@ export class IconService {
   private registerNetworkTypeIcons() {
 
     this.iconRegistry.addSvgIconLiteral("cycling", this.domSanitizer.bypassSecurityTrustHtml(
-      require("!svg-inline-loader!src/assets/images/icons/man-cycling.svg")));
+      require("!svg-inline-loader!src/assets/images/icons/cycling.svg")));
 
     this.iconRegistry.addSvgIconLiteral("hiking", this.domSanitizer.bypassSecurityTrustHtml(
-      require("!svg-inline-loader!src/assets/images/icons/man-walking-to-right.svg")));
+      require("!svg-inline-loader!src/assets/images/icons/hiking.svg")));
 
     this.iconRegistry.addSvgIconLiteral("horse-riding", this.domSanitizer.bypassSecurityTrustHtml(
-      require("!svg-inline-loader!src/assets/images/icons/horseshoe-black.svg")));
+      require("!svg-inline-loader!src/assets/images/icons/horse-riding.svg")));
 
     this.iconRegistry.addSvgIconLiteral("motorboat", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/boat.svg")));
@@ -125,6 +125,22 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("back", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/left-arrow.svg")));
+
+
+    this.iconRegistry.addSvgIconLiteral("undo", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/undo.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("redo", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/redo.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("reset", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/reset.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("reverse", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/reverse.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("output", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/output.svg")));
   }
 
   private registerDirectionsIcons() {
