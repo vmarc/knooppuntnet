@@ -97,7 +97,7 @@ export class AppComponent {
   }
 
   isShowSidebar(): boolean {
-    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall();
+    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall() || this.pageWidthService.isVeryVerySmall();
   }
 
   isSidebarOpen(): boolean {

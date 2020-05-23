@@ -12,110 +12,61 @@ import {Plan} from "../planner/plan/plan";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="buttons" *ngIf="plan$ | async as plan">
-      <div *ngIf="showButtonText$ | async">
 
-        <button
-          mat-stroked-button
-          (click)="undo()"
-          [disabled]="!undoEnabled()"
-          title="Undo the previous action"
-          i18n-title="@@planner.action.undo.title">
-          <mat-icon svgIcon="undo"></mat-icon>
-          <span class="button-text" i18n="@@planner.action.undo">Undo</span>
-        </button>
+      <kpn-plan-action-button
+        *ngIf="showUndoButton$ | async"
+        (action)="undo()"
+        [enabled]="undoEnabled()"
+        icon="undo"
+        text="Undo"
+        i18n-text="@@planner.action.undo"
+        title="Undo the previous action"
+        i18n-title="@@planner.action.undo.title">
+      </kpn-plan-action-button>
 
-        <button
-          mat-stroked-button
-          (click)="redo()"
-          [disabled]="!redoEnabled()"
-          title="Redo the action that was previously undone"
-          i18n-title="@@planner.action.redo.title">
-          <mat-icon svgIcon="redo"></mat-icon>
-          <span class="button-text" i18n="@@planner.action.redo">Redo</span>
-        </button>
+      <kpn-plan-action-button
+        *ngIf="showRedoButton$ | async"
+        (action)="redo()"
+        [enabled]="redoEnabled()"
+        icon="redo"
+        text="Redo"
+        i18n-text="@@planner.action.redo"
+        title="Redo the action that was previously undone"
+        i18n-title="@@planner.action.redo.title">
+      </kpn-plan-action-button>
 
-        <button
-          mat-stroked-button
-          (click)="restart()"
-          [disabled]="!hasStartNode(plan)"
-          title="Wipe out current route plan and restart route planning from scratch"
-          i18n-title="@@planner.action.reset.title">
-          <mat-icon svgIcon="reset"></mat-icon>
-          <span class="button-text" i18n="@@planner.action.reset">Reset</span>
-        </button>
+      <kpn-plan-action-button
+        *ngIf="showResetButton$ | async"
+        (action)="reset()"
+        [enabled]="hasStartNode(plan)"
+        icon="reset"
+        text="Reset"
+        i18n-text="@@planner.action.reset"
+        title="Wipe out current route plan and restart route planning from scratch"
+        i18n-title="@@planner.action.reset.title">
+      </kpn-plan-action-button>
 
-        <button
-          mat-stroked-button
-          (click)="reverse()"
-          [disabled]="!hasRoute(plan)"
-          title="Reverse the route direction (startnode becomes endnode, and vice versa)"
-          i18n-title="@@planner.action.reverse.title">
-          <mat-icon svgIcon="reverse"></mat-icon>
-          <span class="button-text" i18n="@@planner.action.reverse">Reverse</span>
-        </button>
+      <kpn-plan-action-button
+        *ngIf="showReverseButton$ | async"
+        (action)="reverse()"
+        [enabled]="hasRoute(plan)"
+        icon="reverse"
+        text="Reverse"
+        i18n-text="@@planner.action.reverse"
+        title="Reverse the route direction (startnode becomes endnode, and vice versa)"
+        i18n-title="@@planner.action.reverse.title">
+      </kpn-plan-action-button>
 
-        <button
-          mat-stroked-button
-          (click)="output()"
-          [disabled]="!hasRoute(plan)"
-          title="Output planned route"
-          i18n-title="@@planner.action.output.title">
-          <mat-icon svgIcon="output"></mat-icon>
-          <span class="button-text" i18n="@@planner.action.output">Output</span>
-        </button>
+      <kpn-plan-action-button
+        (action)="output()"
+        [enabled]="hasRoute(plan)"
+        icon="output"
+        text="Output"
+        i18n-text="@@planner.action.output"
+        title="Output planned route"
+        i18n-title="@@planner.action.output.title">
+      </kpn-plan-action-button>
 
-      </div>
-
-      <div *ngIf="showButtonIcon$ | async">
-
-        <button
-          mat-icon-button
-          (click)="undo()"
-          [disabled]="!undoEnabled()"
-          title="Undo the previous action"
-          i18n-title="@@planner.action.undo.title">
-          <mat-icon svgIcon="undo"></mat-icon>
-        </button>
-
-        <button
-          mat-icon-button
-          (click)="redo()"
-          [disabled]="!redoEnabled()"
-          title="Redo the action that was previously undone"
-          i18n-title="@@planner.action.redo.title">
-          <mat-icon svgIcon="redo"></mat-icon>
-        </button>
-
-        <button
-          mat-icon-button
-          *ngIf="showRestartButton$ | async"
-          (click)="restart()"
-          [disabled]="!hasStartNode(plan)"
-          title="Wipe out current route plan and restart route planning from scratch"
-          i18n-title="@@planner.action.reset.title">
-          <mat-icon svgIcon="reset"></mat-icon>
-        </button>
-
-        <button
-          mat-icon-button
-          *ngIf="showReverseButton$ | async"
-          (click)="reverse()"
-          [disabled]="!hasRoute(plan)"
-          title="Reverse the route direction (startnode becomes endnode, and vice versa)"
-          i18n-title="@@planner.action.reverse.title">
-          <mat-icon svgIcon="reverse"></mat-icon>
-        </button>
-
-        <button
-          mat-icon-button
-          (click)="output()"
-          [disabled]="!hasRoute(plan)"
-          title="Output planned route"
-          i18n-title="@@planner.action.output.title">
-          <mat-icon svgIcon="output"></mat-icon>
-        </button>
-
-      </div>
     </div>
   `,
   styles: [`
@@ -124,21 +75,15 @@ import {Plan} from "../planner/plan/plan";
       padding-top: 15px;
       padding-bottom: 15px;
     }
-    .buttons button {
-      margin-right: 10px;
-    }
-    .button-text {
-      padding-left: 10px;
-    }
   `]
 })
 export class PlanActionsComponent implements OnInit {
 
   plan$: Observable<Plan>;
 
-  showButtonText$: Observable<boolean>;
-  showButtonIcon$: Observable<boolean>;
-  showRestartButton$: Observable<boolean>;
+  showUndoButton$: Observable<boolean>;
+  showRedoButton$: Observable<boolean>;
+  showResetButton$: Observable<boolean>;
   showReverseButton$: Observable<boolean>;
 
   constructor(private plannerService: PlannerService,
@@ -147,10 +92,10 @@ export class PlanActionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.plan$ = this.plannerService.context.planObserver;
-    this.showButtonText$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth === PageWidth.veryLarge || pageWidth === PageWidth.large));
-    this.showButtonIcon$ = this.showButtonText$.pipe(map(enabled => !enabled));
-    this.showRestartButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.verySmall));
-    this.showReverseButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.verySmall));
+    this.showUndoButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.veryVerySmall));
+    this.showRedoButton$ = this.showUndoButton$;
+    this.showResetButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall));
+    this.showReverseButton$ = this.showResetButton$;
   }
 
   undo(): void {
@@ -161,7 +106,7 @@ export class PlanActionsComponent implements OnInit {
     this.plannerService.context.redo();
   }
 
-  restart(): void {
+  reset(): void {
     const command = new PlannerCommandReset();
     this.plannerService.context.execute(command);
   }

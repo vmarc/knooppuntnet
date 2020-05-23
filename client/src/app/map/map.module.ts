@@ -61,6 +61,7 @@ import {PlanStepRouteComponent} from "./sidebar/plan-step-route.component";
 import {PlanStepStartComponent} from "./sidebar/plan-step-start.component";
 import {PlanTranslationsComponent} from "./sidebar/plan-translations.component";
 import {PlanComponent} from "./sidebar/plan.component";
+import { PlanActionButtonComponent } from './sidebar/plan-action-button.component';
 
 @NgModule({
   imports: [
@@ -126,7 +127,8 @@ import {PlanComponent} from "./sidebar/plan.component";
     PlanActionsComponent,
     LegendIconComponent,
     NetworkTypeSelectorComponent,
-    MapToolbarComponent
+    MapToolbarComponent,
+    PlanActionButtonComponent
   ],
   exports: [
     MapPageComponent

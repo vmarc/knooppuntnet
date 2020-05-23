@@ -50,7 +50,7 @@ export class PageService {
   }
 
   private sidebarOpenInitialState(): boolean {
-    return !(this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall());
+    return !(this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall() || this.pageWidthService.isVeryVerySmall());
   }
 
 }

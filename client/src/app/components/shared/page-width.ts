@@ -1,4 +1,5 @@
 export enum PageWidth {
+  veryVerySmall = "veryVerySmall",
   verySmall = "verySmall",
   small = "small",
   medium = "medium",

@@ -48,7 +48,7 @@ export class ChangeHeaderComponent {
   }
 
   isTimestampOnSeparateLine() {
-    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall();
+    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall() || this.pageWidthService.isVeryVerySmall();
   }
 
 }

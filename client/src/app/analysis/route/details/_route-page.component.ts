@@ -125,7 +125,9 @@ export class RoutePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showRouteDetails$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.small && pageWidth !== PageWidth.verySmall));
+    this.showRouteDetails$ = this.pageWidthService.current$.pipe(
+      map(pageWidth => pageWidth !== PageWidth.small && pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall)
+    );
     this.routeName$.next(history.state.routeName);
     this.changeCount$.next(history.state.changeCount);
     this.response$ = this.activatedRoute.params.pipe(
