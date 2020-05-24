@@ -7354,86 +7354,6 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="planner.output.reverse" datatype="html">
-        <source>
-        Reverse route
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.reverse.title" datatype="html">
-        <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.compact-pdf" datatype="html">
-        <source>
-        Compact print
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.compact-pdf.title" datatype="html">
-        <source>Produce a route pdf file with compact node overview</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.node-strip-pdf" datatype="html">
-        <source>
-        Node strip
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.node-strip-pdf.title" datatype="html">
-        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.navigation-instructions-pdf" datatype="html">
-        <source>
-        Navigation instructions
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.navigation-instructions-pdf.title" datatype="html">
-        <source>Produce a route pdf with navigation instructions</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.gpx" datatype="html">
-        <source>
-        GPX
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.output.gpx.title" datatype="html">
-        <source>Produce a route file that can be used in a gps-device</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-step-output.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="planner.compact" datatype="html">
         <source>
           Compact
@@ -7459,6 +7379,63 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.title" datatype="html">
+        <source>Output</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.compact-pdf" datatype="html">
+        <source>
+          Compact
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.node-strip-pdf" datatype="html">
+        <source>
+          Node strip
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
+        <source>
+          Navigation instructions
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.gpx" datatype="html">
+        <source>
+          GPX file
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.cancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.ok" datatype="html">
+        <source>OK</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.action.undo" datatype="html">
@@ -7529,6 +7506,52 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">
+        <source>
+        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> or use magnifying glass to find the startnode of your route.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner-tip.click-start-node" datatype="html">
+        <source>
+        Use zoom, pan or use magnifying glass to find and click the
+        startnode of your route.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner-tip.zoom-in-click-end-node" datatype="html">
+        <source>
+        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>  and click the endnode of your route.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner-tip.click-end-node" datatype="html">
+        <source>
+        Click the endnode of your route.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner-tip.extend-route" datatype="html">
+        <source>
+        Extend or adapt your route (<x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>read more<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>). Output when satisfied.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">

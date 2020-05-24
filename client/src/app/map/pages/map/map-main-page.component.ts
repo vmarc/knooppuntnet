@@ -13,6 +13,7 @@ import {MapLayer} from "../../../components/ol/layers/map-layer";
 import {MapLayers} from "../../../components/ol/layers/map-layers";
 import {MapLayerService} from "../../../components/ol/services/map-layer.service";
 import {MapPositionService} from "../../../components/ol/services/map-position.service";
+import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
 import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
@@ -62,6 +63,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
               private mapPositionService: MapPositionService,
+              private mapZoomService: MapZoomService,
               private dialog: MatDialog) {
     this.pageService.showFooter = false;
   }
@@ -112,6 +114,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     const view = this.map.getView();
     this.mapPositionService.install(view);
     this.poiService.updateZoomLevel(view.getZoom());
+    this.mapZoomService.install(view);
 
     MapGeocoder.install(this.map);
   }

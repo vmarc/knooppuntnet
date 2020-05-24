@@ -72,7 +72,7 @@ export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.layers.applyMap(this.map);
     const view = this.map.getView();
     view.fit(Util.toExtent(this.page.bounds, 0.1));
-    view.on("change:resolution", () => this.mapZoomService.updateZoomLevel(view.getZoom()));
+    this.mapZoomService.install(view);
     this.mapClickService.installOn(this.map);
   }
 
