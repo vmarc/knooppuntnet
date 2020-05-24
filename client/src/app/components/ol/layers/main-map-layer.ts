@@ -30,7 +30,7 @@ export class MainMapLayer {
     const layerName = this.i18nService.translation("@@map.layer.network");
     layer.set("name", layerName);
     // TODO need to unsubscribe
-    this.mapService.mapMode$.subscribe(() => this.vectorTileLayer.getSource().refresh());
+    this.mapService.mapMode$.subscribe(() => this.vectorTileLayer.getSource().changed());
     return new MapLayer(layer, this.applyMap());
   }
 

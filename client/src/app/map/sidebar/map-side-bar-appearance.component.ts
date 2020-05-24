@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {MatRadioChange} from "@angular/material/radio";
+import {MapMode} from "../../components/ol/services/map-mode";
 import {MapService} from "../../components/ol/services/map.service";
 
 @Component({
@@ -38,7 +39,7 @@ export class MapSidebarAppearanceComponent {
   constructor(private mapService: MapService) {
   }
 
-  mapMode(): string {
+  mapMode(): MapMode {
     return this.mapService.mapMode();
   }
 

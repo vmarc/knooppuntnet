@@ -20,14 +20,14 @@ export class MapService {
 
   networkType$: BehaviorSubject<NetworkType | null> = new BehaviorSubject(null);
 
-  mapMode$: Observable<string>;
+  mapMode$: Observable<MapMode>;
   surveyDateInfo$: Observable<SurveyDateValues>;
   popupType$: Observable<string>;
   poiClicked$: Observable<PoiClick>;
   nodeClicked$: Observable<NodeClick>;
   routeClicked$: Observable<RouteClick>;
 
-  private _mapMode$ = new BehaviorSubject<string>(MapMode.surface);
+  private _mapMode$ = new BehaviorSubject<MapMode>(MapMode.surface);
   private _surveyDateInfo$ = new BehaviorSubject<SurveyDateValues>(null);
   private _popupType$ = new BehaviorSubject<string>("");
   private _poiClicked$ = new ReplaySubject<PoiClick>(1);
@@ -46,7 +46,7 @@ export class MapService {
     this.routeClicked$ = this._routeClicked$.asObservable();
   }
 
-  mapMode(): string {
+  mapMode(): MapMode {
     return this._mapMode$.value;
   }
 
@@ -54,7 +54,7 @@ export class MapService {
     return this._surveyDateInfo$.value;
   }
 
-  nextMapMode(mapMode: string): void {
+  nextMapMode(mapMode: MapMode): void {
     this._mapMode$.next(mapMode);
   }
 

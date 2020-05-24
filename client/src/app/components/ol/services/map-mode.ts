@@ -1,5 +1,5 @@
-export class MapMode {
-  static readonly surface = "surface";
-  static readonly survey = "survey";
-  static readonly analysis = "analysis";
+export enum MapMode {
+  surface = "surface",
+  survey = "survey",
+  analysis = "analysis"
 }
