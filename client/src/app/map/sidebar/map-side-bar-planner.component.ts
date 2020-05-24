@@ -17,16 +17,6 @@ import {Component} from "@angular/core";
         <kpn-plan></kpn-plan>
       </ng-template>
     </mat-expansion-panel>
-    <mat-expansion-panel [expanded]="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <kpn-plan-result-menu></kpn-plan-result-menu>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <kpn-plan-result></kpn-plan-result>
-      </ng-template>
-    </mat-expansion-panel>
   `,
   styles: [`
     .header {

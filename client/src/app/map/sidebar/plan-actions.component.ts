@@ -1,11 +1,15 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
+import {MatDialog} from "@angular/material/dialog";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {PageWidth} from "../../components/shared/page-width";
 import {PageWidthService} from "../../components/shared/page-width.service";
+import {PdfService} from "../../pdf/pdf.service";
+import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {PlannerService} from "../planner.service";
 import {PlannerCommandReset} from "../planner/commands/planner-command-reset";
 import {Plan} from "../planner/plan/plan";
+import {PlanOutputDialogComponent} from "./plan-output-dialog.component";
 
 @Component({
   selector: "kpn-plan-actions",
@@ -87,7 +91,9 @@ export class PlanActionsComponent implements OnInit {
   showReverseButton$: Observable<boolean>;
 
   constructor(private plannerService: PlannerService,
-              private pageWidthService: PageWidthService) {
+              private pageWidthService: PageWidthService,
+              private pdfService: PdfService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -115,6 +121,18 @@ export class PlanActionsComponent implements OnInit {
   }
 
   output(): void {
+    const dialogRef = this.dialog.open(PlanOutputDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "pdf1") {
+        this.pdfService.printDocument(this.plannerService.context.plan);
+      } else if (result === "pdf2") {
+        this.pdfService.printStripDocument(this.plannerService.context.plan);
+      } else if (result === "pdf3") {
+        this.pdfService.printInstructions(this.plannerService.context.plan);
+      } else if (result === "gpx") {
+        new GpxWriter().write(this.plannerService.context.plan);
+      }
+    });
   }
 
   undoEnabled(): boolean {

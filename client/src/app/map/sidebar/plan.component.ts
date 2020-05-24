@@ -6,9 +6,9 @@ import {Component} from "@angular/core";
   template: `
     <kpn-poi-names></kpn-poi-names>
     <kpn-plan-translations></kpn-plan-translations>
-    <kpn-plan-step-start></kpn-plan-step-start>
-    <kpn-plan-step-route></kpn-plan-step-route>
-    <kpn-plan-step-output></kpn-plan-step-output>
+    <kpn-plan-tip></kpn-plan-tip>
+    <kpn-plan-result-menu></kpn-plan-result-menu>
+    <kpn-plan-result></kpn-plan-result>
   `
 })
 export class PlanComponent {
