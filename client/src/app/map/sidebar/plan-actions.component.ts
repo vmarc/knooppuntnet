@@ -8,6 +8,7 @@ import {PdfService} from "../../pdf/pdf.service";
 import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {PlannerService} from "../planner.service";
 import {PlannerCommandReset} from "../planner/commands/planner-command-reset";
+import {PlannerCommandReverse} from "../planner/commands/planner-command-reverse";
 import {Plan} from "../planner/plan/plan";
 import {PlanOutputDialogComponent} from "./plan-output-dialog.component";
 
@@ -118,6 +119,8 @@ export class PlanActionsComponent implements OnInit {
   }
 
   reverse(): void {
+    const command = new PlannerCommandReverse();
+    this.plannerService.context.execute(command);
   }
 
   output(): void {

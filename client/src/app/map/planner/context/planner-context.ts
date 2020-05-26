@@ -1,3 +1,4 @@
+import {List} from "immutable";
 import {BehaviorSubject, Observable} from "rxjs";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommand} from "../commands/planner-command";
@@ -5,12 +6,13 @@ import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
+import {PlanNode} from "../plan/plan-node";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerLegRepository} from "./planner-leg-repository";
 import {PlannerMode} from "./planner-mode";
-import {PlannerRouteLayer} from "./planner-route-layer";
 import {PlannerOverlay} from "./planner-overlay";
+import {PlannerRouteLayer} from "./planner-route-layer";
 
 export class PlannerContext {
 
@@ -84,4 +86,25 @@ export class PlannerContext {
     this.overlay.setPosition(undefined, 0);
   }
 
+
+  buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
+
+    const cachedLeg = this.legs.get(source.nodeId, sink.nodeId);
+    if (cachedLeg) {
+      const planLeg = new PlanLeg(legId, source, sink, cachedLeg.meters, cachedLeg.routes);
+      this.legs.add(planLeg);
+      return planLeg;
+    }
+
+    this.legRepository.planLeg(this.networkType.name, legId, source, sink).subscribe(planLeg => {
+      if (planLeg) {
+        this.legs.add(planLeg);
+        this.updatePlanLeg(planLeg);
+      }
+    });
+
+    const leg = new PlanLeg(legId, source, sink, 0, List());
+    this.legs.add(leg);
+    return leg;
+  }
 }

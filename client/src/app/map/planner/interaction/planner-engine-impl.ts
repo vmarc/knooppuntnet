@@ -200,7 +200,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     const oldLeg1 = legs.get(nextLegIndex - 1);
     const oldLeg2 = legs.get(nextLegIndex);
 
-    const newLeg: PlanLeg = this.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink);
+    const newLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink);
 
     const command = new PlannerCommandRemoveViaPoint(
       nextLegIndex - 1,
@@ -217,7 +217,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.context.execute(command);
     } else {
       const source: PlanNode = this.context.plan.sink;
-      const leg = this.buildLeg(FeatureId.next(), source, networkNode.node);
+      const leg = this.context.buildLeg(FeatureId.next(), source, networkNode.node);
       const command = new PlannerCommandAddLeg(leg.featureId);
       this.context.execute(command);
     }
@@ -264,8 +264,8 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.legDrag !== null) {
       const oldLeg = this.context.legs.getById(this.legDrag.oldLegId);
       if (oldLeg) {
-        const newLeg1 = this.buildLeg(FeatureId.next(), oldLeg.source, connection);
-        const newLeg2 = this.buildLeg(FeatureId.next(), connection, oldLeg.sink);
+        const newLeg1 = this.context.buildLeg(FeatureId.next(), oldLeg.source, connection);
+        const newLeg2 = this.context.buildLeg(FeatureId.next(), connection, oldLeg.sink);
         const command = new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId);
         this.context.execute(command);
       }
@@ -281,14 +281,14 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.execute(command);
       } else {
         const oldFirstLeg: PlanLeg = this.context.plan.legs.first();
-        const newFirstLeg: PlanLeg = this.buildLeg(FeatureId.next(), newNode, oldFirstLeg.sink);
+        const newFirstLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldFirstLeg.sink);
         const command = new PlannerCommandMoveFirstLegSource(oldFirstLeg.featureId, newFirstLeg.featureId);
         this.context.execute(command);
       }
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan.legs.last();
       if (this.nodeDrag.oldNode.featureId === oldLastLeg.sink.featureId) {
-        const newLastLeg: PlanLeg = this.buildLeg(FeatureId.next(), oldLastLeg.source, newNode);
+        const newLastLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLastLeg.source, newNode);
         const command = new PlannerCommandMoveEndPoint(oldLastLeg.featureId, newLastLeg.featureId);
         this.context.execute(command);
       } else {
@@ -299,8 +299,8 @@ export class PlannerEngineImpl implements PlannerEngine {
         const oldLeg1 = legs.get(nextLegIndex - 1);
         const oldLeg2 = legs.get(nextLegIndex);
 
-        const newLeg1: PlanLeg = this.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
-        const newLeg2: PlanLeg = this.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
+        const newLeg1: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
+        const newLeg2: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
 
         const command = new PlannerCommandMoveViaPoint(
           nextLegIndex,
@@ -326,31 +326,6 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.context.elasticBand.setInvisible();
       this.nodeDrag = null;
     }
-  }
-
-  private buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
-
-    const cachedLeg = this.context.legs.get(source.nodeId, sink.nodeId);
-    if (cachedLeg) {
-      const plan = new PlanLeg(legId, source, sink, cachedLeg.meters, cachedLeg.routes);
-      this.context.legs.add(plan);
-    }
-
-    this.context.legRepository.planLeg(this.context.networkType.name, legId, source, sink).subscribe(planLeg => {
-      if (planLeg) {
-        this.context.legs.add(planLeg);
-        this.context.updatePlanLeg(planLeg);
-      }
-    });
-
-    const cachedLeg2 = this.context.legs.get(source.nodeId, sink.nodeId);
-    if (cachedLeg2) {
-      return new PlanLeg(legId, source, sink, cachedLeg2.meters, cachedLeg2.routes);
-    }
-
-    const leg = new PlanLeg(legId, source, sink, 0, List());
-    this.context.legs.add(leg);
-    return leg;
   }
 
   private findFlag(features: List<MapFeature>): FlagFeature {

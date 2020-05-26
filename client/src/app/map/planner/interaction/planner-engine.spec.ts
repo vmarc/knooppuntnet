@@ -120,7 +120,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([1.5, 1.5]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newStartNodeFeature]), [2.1, 2.1]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newStartNodeFeature]), [2.1, 2.1], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeTruthy();
@@ -163,7 +163,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([1.1, 1.1]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [1.5, 1.5]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [1.5, 1.5], false);
 
       // assert - drag cancelled
       expect(eventIsNotFurtherPropagated3).toBeFalsy();
@@ -220,7 +220,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([1.5, 1.5]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newStartNodeFeature]), [3.1, 3.1]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newStartNodeFeature]), [3.1, 3.1], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeTruthy();
@@ -269,7 +269,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([1.1, 1.1]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [1.5, 1.5]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [1.5, 1.5], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeFalsy();
@@ -335,7 +335,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([2.5, 2.5]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newEndNodeFeature]), [3.1, 3.1]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newEndNodeFeature]), [3.1, 3.1], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeTruthy();
@@ -383,7 +383,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([2.1, 2.1]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [2.5, 2.5]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [2.5, 2.5], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeFalsy();
@@ -454,7 +454,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([2.5, 2.5]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newViaNodeFeature]), [4.1, 4.1]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newViaNodeFeature]), [4.1, 4.1], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeTruthy();
@@ -513,7 +513,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([2.1, 2.1]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [2.5, 2.5]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [2.5, 2.5], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeFalsy();
@@ -591,7 +591,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([1.7, 1.7]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newViaNodeFeature]), [3.1, 3.1]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List([newViaNodeFeature]), [3.1, 3.1], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeTruthy();
@@ -650,7 +650,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectPosition([1.5, 1.5]);
 
       // act - drag end
-      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [1.7, 1.7]);
+      const eventIsNotFurtherPropagated3 = engine.handleUpEvent(List(), [1.7, 1.7], false);
 
       // assert - drag end
       expect(eventIsNotFurtherPropagated3).toBeFalsy();
