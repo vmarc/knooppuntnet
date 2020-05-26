@@ -7,7 +7,7 @@ import {Plan} from "../planner/plan/plan";
   template: `
     <div *ngIf="meters > 0" class="distance">
       <span i18n="@@plan.distance" class="kpn-label">Distance</span>{{distance()}}
-      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span>{{unpaved()}}(TODO)
+      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span>{{unpaved()}}
     </div>
   `,
   styles: [`
@@ -40,7 +40,7 @@ export class PlanDistanceComponent implements OnChanges {
   }
 
   unpaved(): string {
-    return `0%`;
+    return this.plan.unpavedPercentage();
   }
 
 }

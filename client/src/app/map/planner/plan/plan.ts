@@ -59,4 +59,16 @@ export class Plan {
     const maxLon = lons.max();
     return new Bounds(minLat, minLon, maxLat, maxLon);
   }
+
+  unpavedPercentage(): string {
+    const distances: List<number> = this.legs.flatMap(leg => {
+      return leg.routes.flatMap(route => {
+        return route.segments.filter(segment => segment.surface === "unpaved").map(segment => segment.meters);
+      });
+    });
+    const unpavedMeters = distances.reduce((sum, current) => sum + current, 0);
+    const percentage = Math.round(100 * unpavedMeters / this.meters());
+    return `${percentage}%`;
+  }
+
 }
