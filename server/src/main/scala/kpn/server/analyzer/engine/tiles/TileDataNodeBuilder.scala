@@ -5,27 +5,46 @@ import kpn.api.common.network.NetworkInfoNode
 import kpn.api.custom.Fact
 import kpn.api.custom.FactLevel
 import kpn.api.custom.NetworkType
+import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
+
+import scala.util.Failure
+import scala.util.Success
 
 class TileDataNodeBuilder {
 
   def build(networkType: NetworkType, node: NodeInfo): TileDataNode = {
+
+    val surveyDateTry = SurveyDateAnalyzer.analyze(node.tags)
+    val surveyDate = surveyDateTry match {
+      case Success(surveyDate) => surveyDate
+      case Failure(_) => None
+    }
+
     TileDataNode(
       node.id,
       node.name(networkType),
       node.latitude,
       node.longitude,
-      layer(node.orphan, node.facts)
+      layer(node.orphan, node.facts),
+      surveyDate
     )
   }
 
   def build(node: NetworkInfoNode): TileDataNode = {
+    val surveyDateTry = SurveyDateAnalyzer.analyze(node.tags)
+    val surveyDate = surveyDateTry match {
+      case Success(surveyDate) => surveyDate
+      case Failure(_) => None
+    }
+
     TileDataNode(
       node.id,
       node.name,
       node.latitude,
       node.longitude,
-      layer(isOrphan(node), node.facts)
+      layer(isOrphan(node), node.facts),
+      surveyDate
     )
   }
 

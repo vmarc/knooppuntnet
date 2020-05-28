@@ -4,6 +4,7 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Fact
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.Tile
@@ -13,6 +14,9 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
+
+import scala.util.Failure
+import scala.util.Success
 
 class TileDataRouteBuilder(z: Int) {
 
@@ -27,15 +31,13 @@ class TileDataRouteBuilder(z: Int) {
 
   def build(routeInfo: RouteInfo): Option[TileDataRoute] = {
 
-    val surveyDate: Option[String] = routeInfo.tags("survey:date").flatMap { tagValue =>
-      log.info(s"route ${routeInfo.id} surveyDate=$tagValue")
-      if (tagValue.length >= "2020-08".length) {
-        Some(tagValue.substring(0, "2020-08".length))
-      }
-      else {
-        None
-      }
+    val surveyDateTry = SurveyDateAnalyzer.analyze(routeInfo.tags)
+    val surveyDate = surveyDateTry match {
+      case Success(surveyDate) => surveyDate
+      case Failure(_) => None
     }
+
+
 
     // TODO MAP add some logic here to eliminate double ways (e.g. ways that are both part of forward and backward)
     val segments = routeInfo.analysis.map.unusedSegments ++

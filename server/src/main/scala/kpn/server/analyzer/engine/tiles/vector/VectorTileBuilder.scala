@@ -52,7 +52,7 @@ class VectorTileBuilder() extends TileBuilder {
               "id" -> (tileRoute.routeId.toString + "-" + index),
               "name" -> tileRoute.routeName,
               "surface" -> segment.surface,
-              "survey" -> surveyDate
+              "survey" -> surveyDate.yyyymm
             )
           case None =>
             ListMap(
