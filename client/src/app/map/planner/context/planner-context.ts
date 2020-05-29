@@ -10,11 +10,13 @@ import {PlanNode} from "../plan/plan-node";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerLegRepository} from "./planner-leg-repository";
-import {PlannerMode} from "./planner-mode";
 import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
 export class PlannerContext {
+
+  private _plan$ = new BehaviorSubject<Plan>(Plan.empty());
+  plan$: Observable<Plan> = this._plan$.asObservable();
 
   constructor(readonly commandStack: PlannerCommandStack,
               readonly routeLayer: PlannerRouteLayer,
@@ -25,30 +27,18 @@ export class PlannerContext {
               readonly overlay: PlannerOverlay) {
   }
 
-  private _mode = new BehaviorSubject<PlannerMode>(PlannerMode.Idle);
-
-  get mode(): Observable<PlannerMode> {
-    return this._mode;
-  }
-
-  private _plan = new BehaviorSubject<Plan>(Plan.empty());
-
-  get plan(): Plan {
-    return this._plan.value;
-  }
-
-  private _networkType = new BehaviorSubject<NetworkType>(null);
+  private _networkType$ = new BehaviorSubject<NetworkType>(null);
 
   get networkType(): NetworkType {
-    return this._networkType.value;
+    return this._networkType$.value;
   }
 
-  get planObserver(): Observable<Plan> {
-    return this._plan;
+  get plan(): Plan {
+    return this._plan$.value;
   }
 
   setNetworkType(networkType: NetworkType): void {
-    this._networkType.next(networkType);
+    this._networkType$.next(networkType);
   }
 
   execute(command: PlannerCommand): void {
@@ -67,7 +57,7 @@ export class PlannerContext {
   }
 
   updatePlan(plan: Plan) {
-    this._plan.next(plan);
+    this._plan$.next(plan);
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
@@ -85,7 +75,6 @@ export class PlannerContext {
   closeOverlay(): void {
     this.overlay.setPosition(undefined, 0);
   }
-
 
   buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
 

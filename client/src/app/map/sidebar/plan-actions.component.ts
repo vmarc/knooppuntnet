@@ -98,7 +98,7 @@ export class PlanActionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.plan$ = this.plannerService.context.planObserver;
+    this.plan$ = this.plannerService.context.plan$;
     this.showUndoButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.veryVerySmall));
     this.showRedoButton$ = this.showUndoButton$;
     this.showResetButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall));

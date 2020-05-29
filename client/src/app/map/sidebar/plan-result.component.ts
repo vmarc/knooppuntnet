@@ -31,6 +31,6 @@ export class PlanResultComponent implements OnInit {
     this.compact$ = this.plannerService.resultMode$.pipe(map(mode => mode === "compact"));
     this.detailed$ = this.plannerService.resultMode$.pipe(map(mode => mode === "detailed"));
     this.instructions$ = this.plannerService.resultMode$.pipe(map(mode => mode === "instructions"));
-    this.plan$ = this.plannerService.context.planObserver;
+    this.plan$ = this.plannerService.context.plan$;
   }
 }

@@ -70,18 +70,22 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.subscriptions.add(this.activatedRoute.params.subscribe(params => {
-      const networkTypeName = params["networkType"];
-      const networkType = NetworkType.withName(networkTypeName);
-      this.mapService.networkType$.next(networkType);
-      this.layers = this.buildLayers();
-    }));
+    this.subscriptions.add(
+      this.activatedRoute.params.subscribe(params => {
+        const networkTypeName = params["networkType"];
+        const networkType = NetworkType.withName(networkTypeName);
+        this.mapService.networkType$.next(networkType);
+        this.layers = this.buildLayers();
+      })
+    );
 
-    this.subscriptions.add(this.pageService.sidebarOpen.subscribe(state => {
-      if (this.map) {
-        setTimeout(() => this.map.updateSize(), 250);
-      }
-    }));
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
   }
 
   ngAfterViewInit(): void {

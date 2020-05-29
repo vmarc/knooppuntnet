@@ -1,15 +1,16 @@
+import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
 import {MatButtonToggleChange} from "@angular/material/button-toggle";
-import {MatDialog} from "@angular/material/dialog";
+import {ActivatedRoute} from "@angular/router";
 import {Router} from "@angular/router";
-import {WarningDialogComponent} from "../../components/shared/dialog/warning-dialog.component";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: "kpn-network-type-selector",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-button-toggle-group [value]="'cycling'" (change)="networkTypeChanged($event)">
+    <mat-button-toggle-group [value]="networkType$ | async" (change)="networkTypeChanged($event)">
       <mat-button-toggle value="cycling">
         <mat-icon svgIcon="cycling"></mat-icon>
       </mat-button-toggle>
@@ -43,27 +44,20 @@ import {WarningDialogComponent} from "../../components/shared/dialog/warning-dia
     }
   `]
 })
-export class NetworkTypeSelectorComponent {
+export class NetworkTypeSelectorComponent implements OnInit {
 
-  constructor(private router: Router,
-              private dialog: MatDialog) {
+  networkType$: Observable<string>;
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    this.networkType$ = this.activatedRoute.params.pipe(
+      map(params => params["networkType"])
+    );
   }
 
   networkTypeChanged(event: MatButtonToggleChange) {
-
-    // TODO this.router.navigate(["/map/" + event.value]);
-
-    let message = `This action will switch the map to ${event.value}. `;
-    message += `This action has not been implemented yet.`;
-    this.dialog.open(
-      WarningDialogComponent,
-      {
-        width: "450px",
-        data: {
-          title: "Change network type",
-          message: message
-        }
-      }
-    );
+    this.router.navigate(["../../" + event.value], {relativeTo: this.activatedRoute});
   }
 }

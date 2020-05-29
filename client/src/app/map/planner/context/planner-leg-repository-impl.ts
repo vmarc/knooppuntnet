@@ -12,9 +12,9 @@ export class PlannerLegRepositoryImpl implements PlannerLegRepository {
   }
 
   planLeg(networkType: string, legId: string, source: PlanNode, sink: PlanNode): Observable<PlanLeg> {
-    return this.appService.routeLeg(networkType, legId, source.nodeId, sink.nodeId).pipe(map(response => {
-      return PlanLegBuilder.toPlanLeg(source, sink, response.result);
-    }));
+    return this.appService.routeLeg(networkType, legId, source.nodeId, sink.nodeId).pipe(
+      map(response => PlanLegBuilder.toPlanLeg(source, sink, response.result))
+    );
   }
 
 }

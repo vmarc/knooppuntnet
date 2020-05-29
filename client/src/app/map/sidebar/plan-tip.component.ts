@@ -25,7 +25,7 @@ import {PlanPhase} from "../planner/plan/plan-phase";
         startnode of your route.
       </p>
       <p *ngIf="planPhaseEnum.zoomInClickEndNode === planPhase" i18n="@@planner-tip.zoom-in-click-end-node">
-        <b>Zoom in</b>  and click the endnode of your route.
+        <b>Zoom in</b> and click the endnode of your route.
       </p>
       <p *ngIf="planPhaseEnum.clickEndNode === planPhase" i18n="@@planner-tip.click-end-node">
         Click the endnode of your route.
@@ -53,7 +53,10 @@ export class PlanTipComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.planPhase$ = combineLatest([this.mapZoomService.zoomLevel$, this.plannerService.context.planObserver]).pipe(
+    this.planPhase$ = combineLatest([
+      this.mapZoomService.zoomLevel$,
+      this.plannerService.context.plan$
+    ]).pipe(
       map(([zoomLevel, plan]) => this.determinePlanPhase(zoomLevel, plan)),
       delay(0)
     );
