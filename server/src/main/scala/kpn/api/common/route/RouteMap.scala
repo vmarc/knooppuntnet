@@ -23,6 +23,8 @@ case class RouteMap(
   streets: Seq[String] = Seq()
 ) {
 
+  def paths: Seq[TrackPath] = forwardPath.toSeq ++ backwardPath.toSeq ++ startTentaclePaths ++ endTentaclePaths
+
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("bounds", bounds).
     field("forwardPath", forwardPath).
