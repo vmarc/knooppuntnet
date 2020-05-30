@@ -126,7 +126,6 @@ export class IconService {
     this.iconRegistry.addSvgIconLiteral("back", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/left-arrow.svg")));
 
-
     this.iconRegistry.addSvgIconLiteral("undo", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/undo.svg")));
 
@@ -141,6 +140,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("output", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/output.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("location", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/location.svg")));
   }
 
   private registerDirectionsIcons() {

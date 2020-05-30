@@ -3,17 +3,16 @@ import {Output} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
 
 @Component({
-  selector: "kpn-route-control",
+  selector: "kpn-geolocation-control",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="control">
       <button
         class="button"
         (click)="action.emit()"
-        title="zoom to fit entire route"
-        i18n-title="@@route-control.title"
-        i18n="@@route-control.letter">
-        R
+        title="position the map on your current location"
+        i18n-title="@@geolocation-control.title">
+        <mat-icon svgIcon="location"></mat-icon>
       </button>
     </div>
   `,
@@ -21,7 +20,7 @@ import {ChangeDetectionStrategy, Component} from "@angular/core";
     .control {
       position: absolute;
       left: 8px;
-      top: 112px;
+      top: 146px;
       z-index: 100;
       height: 31px;
       width: 31px;
@@ -37,10 +36,15 @@ import {ChangeDetectionStrategy, Component} from "@angular/core";
       color: white;
       border: 0 none white;
       border-radius: 2px;
-      text-align: center;
-      line-height: 28.5px;
       height: 28.5px;
       width: 28.5px;
+      padding-left: 3px;
+      padding-top: 5px;
+    }
+
+    ::ng-deep mat-icon svg {
+      width: 18px;
+      height: 18px;
     }
 
     .button:hover {
@@ -48,6 +52,6 @@ import {ChangeDetectionStrategy, Component} from "@angular/core";
     }
   `]
 })
-export class RouteControlComponent {
+export class GeolocationControlComponent {
   @Output() action = new EventEmitter<void>();
 }
