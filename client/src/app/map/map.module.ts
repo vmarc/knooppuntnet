@@ -16,6 +16,11 @@ import {SharedModule} from "../components/shared/shared.module";
 import {PdfModule} from "../pdf/pdf.module";
 import {MapRoutingModule} from "./map-routing.module";
 import {MapPageComponent} from "./pages/map/_map-page.component";
+import {GeolocationControlComponent} from "./pages/map/geolocation/geolocation-control.component";
+import {GeolocationNotSupportedDialogComponent} from "./pages/map/geolocation/geolocation-not-supported-dialog.component";
+import {GeolocationPermissionDeniedDialogComponent} from "./pages/map/geolocation/geolocation-permission-denied-dialog.component";
+import {GeolocationTimeoutDialogComponent} from "./pages/map/geolocation/geolocation-timeout-dialog.component";
+import {GeolocationUnavailableDialogComponent} from "./pages/map/geolocation/geolocation-unavailable-dialog.component";
 import {MapMainPageComponent} from "./pages/map/map-main-page.component";
 import {PoiMenuOptionComponent} from "./pages/map/poi-menu-option.component";
 import {PoiMenuComponent} from "./pages/map/poi-menu.component";
@@ -127,7 +132,12 @@ import {PlanComponent} from "./sidebar/plan.component";
     MapToolbarComponent,
     PlanActionButtonComponent,
     PlanOutputDialogComponent,
-    PlanTipComponent
+    PlanTipComponent,
+    GeolocationUnavailableDialogComponent,
+    GeolocationTimeoutDialogComponent,
+    GeolocationPermissionDeniedDialogComponent,
+    GeolocationNotSupportedDialogComponent,
+    GeolocationControlComponent
   ],
   exports: [
     MapPageComponent

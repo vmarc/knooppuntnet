@@ -8352,11 +8352,11 @@
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-end-node" datatype="html">
         <source>
-        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>  and click the endnode of your route.
+        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> and click the endnode of your route.
       </source>
-        <target state="final">[
-        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/>  and click the endnode of your route.
-      ]</target>
+        <target state="final">
+        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> and click the endnode of your route.
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -8384,6 +8384,114 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.unavailable.title" datatype="html">
+        <source>
+        Unavailable
+      </source>
+        <target state="final">[
+        Unavailable
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.unavailable.message" datatype="html">
+        <source>
+        We cannot determine your location. Verify your settings to allow
+        this application to access you location.
+      </source>
+        <target state="final">[
+        We cannot determine your location. Verify your settings to allow
+        this application to access you location.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.timeout.title" datatype="html">
+        <source>
+        Timeout
+      </source>
+        <target state="final">[
+        Timeout
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.timeout.message" datatype="html">
+        <source>
+        We cannot determine your location.
+      </source>
+        <target state="final">[
+        We cannot determine your location.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.permission-denied.title" datatype="html">
+        <source>
+        Permission denied
+      </source>
+        <target state="final">[
+        Permission denied
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.permission-denied.message" datatype="html">
+        <source>
+        We cannot determine your location. Knooppuntnet does not have the
+        permission to access your location.
+      </source>
+        <target state="final">[
+        We cannot determine your location. Knooppuntnet does not have the
+        permission to access your location.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.not-supported.title" datatype="html">
+        <source>
+        Not supported
+      </source>
+        <target state="final">[
+        Not supported
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.not-supported.message" datatype="html">
+        <source>
+        We cannot determine your location. Your device does not seem to support this.
+      </source>
+        <target state="final">[
+        We cannot determine your location. Your device does not seem to support this.
+      ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-control.title" datatype="html">
+        <source>position the map on your current location</source>
+        <target state="final">[position the map on your current location]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-control.component.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="plan.distance">

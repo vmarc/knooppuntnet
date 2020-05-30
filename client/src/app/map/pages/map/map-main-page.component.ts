@@ -2,15 +2,12 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
+import {Coordinate} from "ol/coordinate";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
-import {fromLonLat} from "ol/proj";
 import View from "ol/View";
 import {Observable} from "rxjs";
 import {delay} from "rxjs/operators";
-import {GeolocationPermissionDeniedDialogComponent} from "../../../components/ol/components/geolocation-permission-denied-dialog.component";
-import {GeolocationTimeoutDialogComponent} from "../../../components/ol/components/geolocation-timeout-dialog.component";
-import {GeolocationUnavailableDialogComponent} from "../../../components/ol/components/geolocation-unavailable-dialog.component";
 import {NoRouteDialogComponent} from "../../../components/ol/components/no-route-dialog.component";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
@@ -38,7 +35,7 @@ import {PlannerLayerService} from "../../planner/services/planner-layer.service"
     <kpn-map-popup></kpn-map-popup>
     <div id="main-map" class="map">
       <kpn-route-control (action)="zoomInToRoute()"></kpn-route-control>
-      <kpn-geolocation-control (action)="geolocation()"></kpn-geolocation-control>
+      <kpn-geolocation-control (action)="geolocation($event)"></kpn-geolocation-control>
       <kpn-layer-switcher [mapLayers]="mapLayers$ | async">
         <kpn-poi-menu></kpn-poi-menu>
       </kpn-layer-switcher>
@@ -153,28 +150,13 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  geolocation(): void {
-    if (!navigator.geolocation) {
-      this.dialog.open(GeolocationUnavailableDialogComponent, {maxWidth: 600});
-    } else {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const center = fromLonLat([position.coords.longitude, position.coords.latitude]);
-        this.map.getView().setCenter(center);
-        this.map.getView().setZoom(13);
-      }, (positionError: PositionError) => {
-        if (positionError.code === 1) {
-          this.dialog.open(GeolocationPermissionDeniedDialogComponent, {maxWidth: 600});
-        } else if (positionError.code === 2) {
-          this.dialog.open(GeolocationUnavailableDialogComponent, {maxWidth: 600});
-        } else if (positionError.code === 3) {
-          this.dialog.open(GeolocationTimeoutDialogComponent, {maxWidth: 600});
-        } else {
-          this.dialog.open(GeolocationUnavailableDialogComponent, {maxWidth: 600});
-        }
-      }, {
-        enableHighAccuracy: true
-      });
+  geolocation(coordinate: Coordinate): void {
+    this.map.getView().setCenter(coordinate);
+    let zoomLevel = 15;
+    if (NetworkType.cycling === this.mapService.networkType()) {
+      zoomLevel = 13;
     }
+    this.map.getView().setZoom(zoomLevel);
   }
 
   private buildLayers(): MapLayers {

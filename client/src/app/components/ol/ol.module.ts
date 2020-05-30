@@ -1,15 +1,8 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import {MatDialogModule} from "@angular/material/dialog";
-import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {SharedModule} from "../shared/shared.module";
-import {GeolocationControlComponent} from "./components/geolocation-control.component";
-import {GeolocationNotSupportedDialogComponent} from "./components/geolocation-not-supported-dialog.component";
-import {GeolocationPermissionDeniedDialogComponent} from "./components/geolocation-permission-denied-dialog.component";
-import {GeolocationTimeoutDialogComponent} from "./components/geolocation-timeout-dialog.component";
-import {GeolocationUnavailableDialogComponent} from "./components/geolocation-unavailable-dialog.component";
 import {LayerSwitcherComponent} from "./components/layer-switcher.component";
 import {LocationMapComponent} from "./components/location-map.component";
 import {NetworkMapComponent} from "./components/network-map.component";
@@ -31,9 +24,7 @@ import {PoiTileLayerService} from "./services/poi-tile-layer.service";
     CommonModule,
     MatCheckboxModule,
     MatProgressBarModule,
-    SharedModule,
-    MatDialogModule,
-    MatIconModule
+    SharedModule
   ],
   declarations: [
     NodeMapComponent,
@@ -45,12 +36,7 @@ import {PoiTileLayerService} from "./services/poi-tile-layer.service";
     LocationMapComponent,
     NetworkMapComponent,
     RouteControlComponent,
-    NoRouteDialogComponent,
-    GeolocationControlComponent,
-    GeolocationUnavailableDialogComponent,
-    GeolocationTimeoutDialogComponent,
-    GeolocationPermissionDeniedDialogComponent,
-    GeolocationNotSupportedDialogComponent
+    NoRouteDialogComponent
   ],
   exports: [
     NodeMapComponent,
@@ -61,8 +47,7 @@ import {PoiTileLayerService} from "./services/poi-tile-layer.service";
     LocationMapComponent,
     LayerSwitcherComponent,
     NetworkMapComponent,
-    RouteControlComponent,
-    GeolocationControlComponent
+    RouteControlComponent
   ],
   providers: [
     MapService,

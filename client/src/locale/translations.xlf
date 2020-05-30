@@ -7529,7 +7529,7 @@
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-end-node" datatype="html">
         <source>
-        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>  and click the endnode of your route.
+        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> and click the endnode of your route.
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
@@ -7552,6 +7552,87 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.unavailable.title" datatype="html">
+        <source>
+        Unavailable
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.unavailable.message" datatype="html">
+        <source>
+        We cannot determine your location. Verify your settings to allow
+        this application to access you location.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.timeout.title" datatype="html">
+        <source>
+        Timeout
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.timeout.message" datatype="html">
+        <source>
+        We cannot determine your location.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.permission-denied.title" datatype="html">
+        <source>
+        Permission denied
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.permission-denied.message" datatype="html">
+        <source>
+        We cannot determine your location. Knooppuntnet does not have the
+        permission to access your location.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.not-supported.title" datatype="html">
+        <source>
+        Not supported
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.not-supported.message" datatype="html">
+        <source>
+        We cannot determine your location. Your device does not seem to support this.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-control.title" datatype="html">
+        <source>position the map on your current location</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-control.component.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
