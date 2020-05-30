@@ -50,14 +50,22 @@ export class PlannerContext {
   }
 
   nextNetworkType(networkType: NetworkType): void {
-    if (this._networkType$.value) {
-      const data = new NetworkTypeData(this._plan$.value, this._commandStack$.value);
-      this.networkTypeMap = this.networkTypeMap.set(this._networkType$.value, data);
+    const oldNetworkType = this._networkType$.value;
+    if (oldNetworkType) {
+      const oldPlan = this._plan$.value;
+      const oldCommandStack = this._commandStack$.value;
+      this.routeLayer.removePlan(oldPlan);
+      const data = new NetworkTypeData(oldPlan, oldCommandStack);
+      this.networkTypeMap = this.networkTypeMap.set(oldNetworkType, data);
     }
     const existingData = this.networkTypeMap.get(networkType);
     if (existingData) {
+      this.routeLayer.addPlan(existingData.plan);
       this._plan$.next(existingData.plan);
       this._commandStack$.next(existingData.commandStack);
+    } else {
+      this._plan$.next(Plan.empty());
+      this._commandStack$.next(new PlannerCommandStack());
     }
     this._networkType$.next(networkType);
   }

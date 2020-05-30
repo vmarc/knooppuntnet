@@ -4,9 +4,9 @@ import {TestSupport} from "../../../util/test-support";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
-import {PlannerRouteLayer} from "./planner-route-layer";
+import {PlannerRouteLayerBase} from "./planner-route-layer-base";
 
-export class PlannerRouteLayerMock implements PlannerRouteLayer {
+export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
 
   private flags: Map<string, PlanFlag> = Map();
   private routeLegs: Map<string, PlanLeg> = Map();

@@ -1,6 +1,7 @@
 import {Coordinate} from "ol/coordinate";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
+import Point from "ol/geom/Point";
 import VectorLayer from "ol/layer/Vector";
 import Map from "ol/Map";
 import VectorSource from "ol/source/Vector";
@@ -10,14 +11,13 @@ import {Marker} from "../../../components/ol/domain/marker";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
-import {PlannerRouteLayer} from "./planner-route-layer";
-import Point from "ol/geom/Point";
+import {PlannerRouteLayerBase} from "./planner-route-layer-base";
 
 /*
   - displays planned route
   - displays flags for the nodes in the route plan
  */
-export class PlannerRouteLayerImpl implements PlannerRouteLayer {
+export class PlannerRouteLayerImpl extends PlannerRouteLayerBase {
 
   private legStyle = new Style({
     stroke: new Stroke({
@@ -79,5 +79,4 @@ export class PlannerRouteLayerImpl implements PlannerRouteLayer {
       this.source.removeFeature(feature);
     }
   }
-
 }
