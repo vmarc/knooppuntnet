@@ -26,7 +26,7 @@ export class NodeMarkerLayer {
     const layerName = this.i18nService.translation("@@map.layer.node");
     layer.set("name", layerName);
 
-    return new MapLayer(layer);
+    return new MapLayer("node-marker-layer", layer);
   }
 
 }

@@ -1,4 +1,7 @@
+import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {Observable} from "rxjs";
+import {delay} from "rxjs/operators";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
 
@@ -7,7 +10,7 @@ import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <div *ngIf="mapZoomService.zoomLevel$ | async as zoomLevel" class="kpn-tip">
+      <div *ngIf="zoomLevel$ | async as zoomLevel" class="kpn-tip">
         <p *ngIf="zoomLevel < minZoom()" i18n="@@network-map.side-bar.tip-zoom-in">
           Zoom in for node or route details.
         </p>
@@ -43,9 +46,17 @@ import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
     }
   `]
 })
-export class NetworkMapSidebarComponent {
+export class NetworkMapSidebarComponent implements OnInit {
 
-  constructor(public mapZoomService: MapZoomService) {
+  zoomLevel$: Observable<number>;
+
+  constructor(private mapZoomService: MapZoomService) {
+  }
+
+  ngOnInit(): void {
+    this.zoomLevel$ = this.mapZoomService.zoomLevel$.pipe(
+      delay(0)
+    );
   }
 
   minZoom(): number {

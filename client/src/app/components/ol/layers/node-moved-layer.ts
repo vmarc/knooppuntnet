@@ -32,7 +32,7 @@ export class NodeMovedLayer {
       source: source
     });
 
-    return new MapLayer(layer);
+    return new MapLayer("node-moved-layer", layer);
   }
 
 }

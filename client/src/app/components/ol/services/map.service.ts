@@ -18,8 +18,7 @@ export class MapService {
   selectedRouteId: string;
   selectedNodeId: string;
 
-  networkType$: BehaviorSubject<NetworkType | null> = new BehaviorSubject(null);
-
+  networkType$: Observable<NetworkType>;
   mapMode$: Observable<MapMode>;
   surveyDateInfo$: Observable<SurveyDateValues>;
   popupType$: Observable<string>;
@@ -27,6 +26,7 @@ export class MapService {
   nodeClicked$: Observable<NodeClick>;
   routeClicked$: Observable<RouteClick>;
 
+  private _networkType$ = new BehaviorSubject<NetworkType | null>(null);
   private _mapMode$ = new BehaviorSubject<MapMode>(MapMode.surface);
   private _surveyDateInfo$ = new BehaviorSubject<SurveyDateValues>(null);
   private _popupType$ = new BehaviorSubject<string>("");
@@ -39,11 +39,20 @@ export class MapService {
       map(response => SurveyDateValues.from(response.result))
     ).subscribe(surveyDateValues => this._surveyDateInfo$.next(surveyDateValues));
 
+    this.networkType$ = this._networkType$.asObservable();
     this.mapMode$ = this._mapMode$.asObservable();
     this.popupType$ = this._popupType$.asObservable();
     this.poiClicked$ = this._poiClicked$.asObservable();
     this.nodeClicked$ = this._nodeClicked$.asObservable();
     this.routeClicked$ = this._routeClicked$.asObservable();
+  }
+
+  networkType(): NetworkType {
+    return this._networkType$.value;
+  }
+
+  nextNetworkType(networkType: NetworkType): void {
+    return this._networkType$.next(networkType);
   }
 
   mapMode(): MapMode {

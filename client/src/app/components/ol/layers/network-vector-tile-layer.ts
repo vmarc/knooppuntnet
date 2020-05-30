@@ -24,12 +24,10 @@ export class NetworkVectorTileLayer {
       url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.mvt"
     });
 
-    const layer = new VectorTileLayer({
+    return new VectorTileLayer({
       source: source,
       renderMode: "image"
     });
-
-    return layer;
   }
 
   public static build(networkType: NetworkType): MapLayer {
@@ -56,7 +54,7 @@ export class NetworkVectorTileLayer {
       layer.setStyle(nodeMapStyle);
     };
 
-    return new MapLayer(layer, applyMap);
+    return new MapLayer(`network-vector-tile-${networkType.name}-layer`, layer, applyMap);
   }
 
 }

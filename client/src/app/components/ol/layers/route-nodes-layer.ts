@@ -29,7 +29,7 @@ export class RouteNodesLayer {
       source: source
     });
     layer.set("name", this.i18nService.translation("@@map.layer.nodes"));
-    return new MapLayer(layer);
+    return new MapLayer("route-nodes-layer", layer);
   }
 
 }

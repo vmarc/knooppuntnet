@@ -78,7 +78,7 @@ export class MapPopupNodeComponent implements OnInit {
     this.response$ = this.mapService.nodeClicked$.pipe(
       filter(nodeClick => nodeClick !== null),
       switchMap(nodeClick =>
-        this.appService.mapNodeDetail(this.mapService.networkType$.value, nodeClick.node.nodeId).pipe(
+        this.appService.mapNodeDetail(this.mapService.networkType(), nodeClick.node.nodeId).pipe(
           tap(response => {
             const coordinate = Util.toCoordinate(response.result.latitude, response.result.longitude);
             this.openPopup(coordinate);

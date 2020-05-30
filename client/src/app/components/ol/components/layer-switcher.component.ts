@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {List} from "immutable";
 import BaseLayer from "ol/layer/Base";
@@ -7,15 +7,15 @@ import {MapLayers} from "../layers/map-layers";
 
 @Component({
   selector: "kpn-layer-switcher",
-  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="switcher">
       <div *ngIf="open" (mouseleave)="closePanel()">
-        <div *ngFor="let layer of namedLayers">
+        <div *ngFor="let layer of namedLayers()">
           <mat-checkbox
             (click)="$event.stopPropagation();"
-            [checked]="isVisible(layer)"
-            (change)="layerChanged(layer, $event)">
+            [checked]="isLayerVisible(layer)"
+            (change)="layerVisibleChanged(layer, $event)">
             {{layerName(layer)}}
           </mat-checkbox>
         </div>
@@ -41,22 +41,14 @@ import {MapLayers} from "../layers/map-layers";
     }
   `]
 })
-export class LayerSwitcherComponent implements OnInit {
+export class LayerSwitcherComponent {
 
-  @Input() layers: List<BaseLayer>;
   @Input() mapLayers: MapLayers;
-
-  namedLayers: List<BaseLayer>;
 
   open = false;
 
-  ngOnInit() {
-    if (this.mapLayers) {
-      this.namedLayers = this.mapLayers.layers.map(ml => ml.layer).filter(layer => layer.get("name"));
-    }
-    if (this.layers) {
-      this.namedLayers = this.layers.filter(layer => layer.get("name"));
-    }
+  namedLayers(): List<BaseLayer> {
+    return this.mapLayers.layers.map(ml => ml.layer).filter(layer => layer.get("name"));
   }
 
   openPanel(): void {
@@ -67,15 +59,11 @@ export class LayerSwitcherComponent implements OnInit {
     this.open = false;
   }
 
-  toggleOpen(): void {
-    this.open = !this.open;
-  }
-
-  isVisible(layer: BaseLayer): boolean {
+  isLayerVisible(layer: BaseLayer): boolean {
     return layer.getVisible();
   }
 
-  layerChanged(layer: BaseLayer, event: MatCheckboxChange): void {
+  layerVisibleChanged(layer: BaseLayer, event: MatCheckboxChange): void {
     layer.setVisible(event.checked);
   }
 

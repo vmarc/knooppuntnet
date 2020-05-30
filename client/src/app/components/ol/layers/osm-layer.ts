@@ -38,7 +38,7 @@ export class OsmLayer {
     stylefunction(layer, osmStyle, "openmaptiles");
     const osmLayerName = this.i18nService.translation("@@map.layer.osm");
     layer.set("name", osmLayerName);
-    return new MapLayer(layer);
+    return new MapLayer("osm-layer", layer);
   }
 
 }

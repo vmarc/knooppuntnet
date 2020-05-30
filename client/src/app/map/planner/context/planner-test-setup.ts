@@ -1,6 +1,5 @@
 import {List} from "immutable";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
@@ -18,7 +17,6 @@ import {PlannerRouteLayerMock} from "./planner-route-layer-mock";
 
 export class PlannerTestSetup {
 
-  readonly commandStack = new PlannerCommandStack();
   readonly routeLayer = new PlannerRouteLayerMock();
   readonly cursor = new PlannerCursorMock();
   readonly elasticBand = new PlannerElasticBandMock();
@@ -26,7 +24,6 @@ export class PlannerTestSetup {
   readonly legs = new PlanLegCache();
 
   readonly context = new PlannerContext(
-    this.commandStack,
     this.routeLayer,
     this.cursor,
     this.elasticBand,
@@ -41,7 +38,7 @@ export class PlannerTestSetup {
   readonly node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
 
   constructor() {
-    this.context.setNetworkType(NetworkType.hiking);
+    this.context.nextNetworkType(NetworkType.hiking);
   }
 
   createLeg(source: PlanNode, sink: PlanNode): PlanLeg {

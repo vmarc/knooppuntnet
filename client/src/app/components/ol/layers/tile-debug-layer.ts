@@ -4,7 +4,7 @@ import {createXYZ} from "ol/tilegrid";
 import {I18nService} from "../../../i18n/i18n.service";
 import {MapLayer} from "./map-layer";
 
-export class TileNameLayer {
+export class TileDebugLayer {
 
   constructor(private i18nService: I18nService) {
   }
@@ -26,7 +26,7 @@ export class TileNameLayer {
     const layerName = this.i18nService.translation("@@map.layer.tile-names");
     layer.set("name", layerName);
     layer.setVisible(false);
-    return new MapLayer(layer);
+    return new MapLayer("debug-layer", layer);
   }
 
 }

@@ -38,6 +38,7 @@ import {MapPopupPoiComponent} from "./pages/map/popup/map-popup-poi.component";
 import {MapPopupRouteComponent} from "./pages/map/popup/map-popup-route.component";
 import {MapPopupComponent} from "./pages/map/popup/map-popup.component";
 import {PlannerService} from "./planner.service";
+import {PlannerLayerService} from "./planner/services/planner-layer.service";
 import {MapSidebarComponent} from "./sidebar/_map-sidebar.component";
 import {ElevationProfileComponent} from "./sidebar/elevation-profile.component";
 import {LegendIconComponent} from "./sidebar/legend-icon.component";
@@ -132,7 +133,8 @@ import {PlanComponent} from "./sidebar/plan.component";
     MapPageComponent
   ],
   providers: [
-    PlannerService
+    PlannerService,
+    PlannerLayerService
   ]
 })
 export class MapModule {

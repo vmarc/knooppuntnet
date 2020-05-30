@@ -13,21 +13,29 @@ import {PlannerLegRepository} from "./planner-leg-repository";
 import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
+export class NetworkTypeData {
+  constructor(public plan: Plan,
+              public commandStack: PlannerCommandStack) {
+  }
+}
+
 export class PlannerContext {
 
+  private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
+
+  private _networkType$ = new BehaviorSubject<NetworkType>(null);
+  networkType$: Observable<NetworkType> = this._networkType$.asObservable();
   private _plan$ = new BehaviorSubject<Plan>(Plan.empty());
   plan$: Observable<Plan> = this._plan$.asObservable();
+  private _commandStack$ = new BehaviorSubject<PlannerCommandStack>(new PlannerCommandStack());
 
-  constructor(readonly commandStack: PlannerCommandStack,
-              readonly routeLayer: PlannerRouteLayer,
+  constructor(readonly routeLayer: PlannerRouteLayer,
               readonly cursor: PlannerCursor,
               readonly elasticBand: PlannerElasticBand,
               readonly legRepository: PlannerLegRepository,
               readonly legs: PlanLegCache,
               readonly overlay: PlannerOverlay) {
   }
-
-  private _networkType$ = new BehaviorSubject<NetworkType>(null);
 
   get networkType(): NetworkType {
     return this._networkType$.value;
@@ -37,7 +45,20 @@ export class PlannerContext {
     return this._plan$.value;
   }
 
-  setNetworkType(networkType: NetworkType): void {
+  get commandStack(): PlannerCommandStack {
+    return this._commandStack$.value;
+  }
+
+  nextNetworkType(networkType: NetworkType): void {
+    if (this._networkType$.value) {
+      const data = new NetworkTypeData(this._plan$.value, this._commandStack$.value);
+      this.networkTypeMap = this.networkTypeMap.set(this._networkType$.value, data);
+    }
+    const existingData = this.networkTypeMap.get(networkType);
+    if (existingData) {
+      this._plan$.next(existingData.plan);
+      this._commandStack$.next(existingData.commandStack);
+    }
     this._networkType$.next(networkType);
   }
 

@@ -44,7 +44,7 @@ export class RouteLayers {
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set("name", title);
-      return new MapLayer(layer);
+      return new MapLayer("route-forward-layer", layer);
     }
     return null;
   }
@@ -59,7 +59,7 @@ export class RouteLayers {
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set("name", title);
-      return new MapLayer(layer);
+      return new MapLayer("route-backward-layer", layer);
     }
     return null;
   }
@@ -76,7 +76,7 @@ export class RouteLayers {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set("name", title);
-      return new MapLayer(layer);
+      return new MapLayer("route-start-tentacle-layer", layer);
     }
     return null;
   }
@@ -93,7 +93,7 @@ export class RouteLayers {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set("name", title);
-      return new MapLayer(layer);
+      return new MapLayer("route-end-tentacles-layer", layer);
     }
     return null;
   }
@@ -110,7 +110,7 @@ export class RouteLayers {
         source.addFeature(this.segmentToFeature(title, [255, 0, 0, 0.3], segment));
       });
       layer.set("name", title);
-      return new MapLayer(layer);
+      return new MapLayer("route-unused-segment-layer", layer);
     }
     return null;
   }
@@ -134,7 +134,7 @@ export class RouteLayers {
     source.addFeatures(markers.toArray());
     const layerName = this.i18nService.translation("@@map.layer.nodes");
     layer.set("name", layerName);
-    return new MapLayer(layer);
+    return new MapLayer("route-marker-layer", layer);
   }
 
   private buildMarkers(nodes: List<RouteNetworkNodeInfo>, color: string, nodeType: string): List<Feature> {

@@ -5,6 +5,8 @@ import {List} from "immutable";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
 import View from "ol/View";
+import {Observable} from "rxjs";
+import {delay} from "rxjs/operators";
 import {NoRouteDialogComponent} from "../../../components/ol/components/no-route-dialog.component";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
@@ -23,6 +25,7 @@ import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
+import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
 @Component({
   selector: "kpn-map-main-page",
@@ -31,7 +34,7 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
     <kpn-map-popup></kpn-map-popup>
     <div id="main-map" class="map">
       <kpn-route-control (action)="zoomInToRoute()"></kpn-route-control>
-      <kpn-layer-switcher [mapLayers]="layers">
+      <kpn-layer-switcher [mapLayers]="mapLayers$ | async">
         <kpn-poi-menu></kpn-poi-menu>
       </kpn-layer-switcher>
     </div>
@@ -49,7 +52,7 @@ import {PlannerInteraction} from "../../planner/interaction/planner-interaction"
 })
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  layers: MapLayers;
+  mapLayers$: Observable<MapLayers>;
   interaction = new PlannerInteraction(this.plannerService.engine);
   overlay: Overlay;
   private map: Map;
@@ -64,18 +67,23 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private plannerService: PlannerService,
               private mapPositionService: MapPositionService,
               private mapZoomService: MapZoomService,
+              private plannerLayerService: PlannerLayerService,
               private dialog: MatDialog) {
     this.pageService.showFooter = false;
   }
 
   ngOnInit(): void {
 
+    this.mapLayers$ = this.plannerLayerService.mapLayers$.pipe(
+      delay(0)
+    );
+
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
         const networkTypeName = params["networkType"];
         const networkType = NetworkType.withName(networkTypeName);
-        this.mapService.networkType$.next(networkType);
-        this.layers = this.buildLayers();
+        this.mapService.nextNetworkType(networkType);
+        this.plannerService.context.nextNetworkType(networkType);
       })
     );
 
@@ -101,7 +109,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.map = new Map({
       target: "main-map",
-      layers: this.layers.toArray(),
+      layers: this.plannerLayerService.standardLayers.map(ml => ml.layer).toArray(),
       overlays: [this.overlay],
       controls: MapControls.build(),
       view: new View({
@@ -109,10 +117,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         maxZoom: ZoomLevel.vectorTileMaxOverZoom
       })
     });
-    this.layers.applyMap(this.map);
+
+    this.plannerLayerService.applyMap(this.map);
 
     this.plannerService.init(this.map);
-    this.plannerService.context.setNetworkType(this.mapService.networkType$.value);
     this.interaction.addToMap(this.map);
 
     const view = this.map.getView();

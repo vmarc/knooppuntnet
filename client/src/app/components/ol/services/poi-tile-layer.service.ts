@@ -27,7 +27,7 @@ export class PoiTileLayerService {
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changed.subscribe(() => layer.changed());
     layer.setVisible(false);
-    return new MapLayer(layer, this.applyMap(layer));
+    return new MapLayer("poi-tile-layer", layer, this.applyMap(layer));
   }
 
   private applyMap(layer: BaseLayer) {

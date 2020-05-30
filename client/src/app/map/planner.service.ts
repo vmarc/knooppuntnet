@@ -3,7 +3,6 @@ import {Map as TranslationMap} from "immutable";
 import Map from "ol/Map";
 import {BehaviorSubject} from "rxjs";
 import {AppService} from "../app.service";
-import {PlannerCommandStack} from "./planner/commands/planner-command-stack";
 import {PlannerContext} from "./planner/context/planner-context";
 import {PlannerCursorImpl} from "./planner/context/planner-cursor-impl";
 import {PlannerElasticBandImpl} from "./planner/context/planner-elastic-band-impl";
@@ -21,7 +20,6 @@ import {MapService} from "../components/ol/services/map.service";
 export class PlannerService {
 
   private translations: TranslationMap<string, string> = null;
-  private commandStack = new PlannerCommandStack();
   private routeLayer = new PlannerRouteLayerImpl();
   private cursor = new PlannerCursorImpl();
   private elasticBand = new PlannerElasticBandImpl();
@@ -29,7 +27,6 @@ export class PlannerService {
   private legCache: PlanLegCache = new PlanLegCache();
   private overlay = new PlannerOverlayImpl(this.mapService);
   context: PlannerContext = new PlannerContext(
-    this.commandStack,
     this.routeLayer,
     this.cursor,
     this.elasticBand,

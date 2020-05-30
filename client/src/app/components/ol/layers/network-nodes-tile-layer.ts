@@ -38,7 +38,7 @@ export class NetworkNodesTileLayer {
       layer.setStyle(nodeMapStyle);
     };
 
-    return new MapLayer(layer, applyMap);
+    return new MapLayer(`network-nodes-${networkType.name}-layer`, layer, applyMap);
   }
 
 }

@@ -13,6 +13,7 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {LocationBoundaryLayer} from "../layers/location-boundary-layer";
 import {MainMapLayer} from "../layers/main-map-layer";
 import {MapLayer} from "../layers/map-layer";
+import {NetworkBitmapTileLayer} from "../layers/network-bitmap-tile-layer";
 import {NetworkMarkerLayer} from "../layers/network-marker-layer";
 import {NetworkNodesMarkerLayer} from "../layers/network-nodes-marker-layer";
 import {NetworkNodesTileLayer} from "../layers/network-nodes-tile-layer";
@@ -24,7 +25,7 @@ import {PoiTileLayer} from "../layers/poi-tile-layer";
 import {RouteChangeLayers} from "../layers/route-change-layers";
 import {RouteLayers} from "../layers/route-layers";
 import {RouteNodesLayer} from "../layers/route-nodes-layer";
-import {TileNameLayer} from "../layers/tile-name-layer";
+import {TileDebugLayer} from "../layers/tile-debug-layer";
 import {MapService} from "./map.service";
 
 @Injectable()
@@ -39,7 +40,7 @@ export class MapLayerService {
   }
 
   tileNameLayer(): MapLayer {
-    return new TileNameLayer(this.i18nService).build();
+    return new TileDebugLayer(this.i18nService).build();
   }
 
   mainMapLayer(): MapLayer {
@@ -59,11 +60,18 @@ export class MapLayerService {
   }
 
   networkLayers(networkTypes: List<NetworkType>): List<MapLayer> {
-    return networkTypes.map(networkType => this.networkLayer(networkType));
+    return networkTypes.map(networkType => this.networkVectorTileLayer(networkType));
   }
 
-  networkLayer(networkType: NetworkType): MapLayer {
+  networkVectorTileLayer(networkType: NetworkType): MapLayer {
     const layer = NetworkVectorTileLayer.build(networkType);
+    const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
+    layer.layer.set("name", layerName);
+    return layer;
+  }
+
+  networkBitmapTileLayer(networkType: NetworkType): MapLayer {
+    const layer = NetworkBitmapTileLayer.build(networkType);
     const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
     layer.layer.set("name", layerName);
     return layer;

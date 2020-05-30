@@ -30,6 +30,9 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
   @Input() routeInfo: RouteInfo;
 
   layers: MapLayers;
+  private networkVectorTileLayer: MapLayer;
+  private networkVectorTileLayerActive = true;
+
   private map: Map;
 
   private readonly subscriptions = new Subscriptions();
@@ -43,7 +46,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.layers = this.buildLayers();
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(state => {
+      this.pageService.sidebarOpen.subscribe(() => {
         if (this.map) {
           setTimeout(() => this.map.updateSize(), 250);
         }
@@ -72,12 +75,27 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
 
     const view = this.map.getView();
     view.fit(this.buildExtent());
+    view.on("change:resolution", () => {
+      console.log("zoomLevel=" + view.getZoom());
+      if (view.getZoom() < ZoomLevel.vectorTileMinZoom) {
+        if (this.networkVectorTileLayerActive) {
+          this.map.removeLayer(this.networkVectorTileLayer.layer);
+          this.networkVectorTileLayerActive = false;
+        }
+      } else {
+        if (this.networkVectorTileLayerActive === false) {
+          this.map.getLayers().insertAt(1, this.networkVectorTileLayer.layer);
+          this.networkVectorTileLayerActive = true;
+        }
+      }
+    });
   }
 
   private buildLayers(): MapLayers {
+    this.networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(this.routeInfo.summary.networkType);
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
-    mapLayers = mapLayers.push(this.mapLayerService.networkLayer(this.routeInfo.summary.networkType));
+    mapLayers = mapLayers.push(this.networkVectorTileLayer);
     mapLayers = mapLayers.concat(this.mapLayerService.routeLayers(this.routeInfo.analysis.map));
     // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
     return new MapLayers(mapLayers);

@@ -56,7 +56,7 @@ export class RouteChangeLayers {
       source: source
     });
     layer.set("name", this.i18nService.translation(name));
-    return new MapLayer(layer);
+    return new MapLayer("route-change-layer", layer);
   }
 
 }

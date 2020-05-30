@@ -41,6 +41,6 @@ export class LocationBoundaryLayer {
 
     const layerName = this.i18nService.translation("@@map.layer.boundary");
     layer.set("name", layerName);
-    return new MapLayer(layer);
+    return new MapLayer("location-boundary-layer", layer);
   }
 }

@@ -18,7 +18,7 @@ export class LocationMapPageService {
   constructor(private locationService: LocationService, private appService: AppService, private mapService: MapService) {
     this.response$ = combineLatest([locationService.locationKey]).pipe(
       tap(([locationKey]) => {
-        this.mapService.networkType$.next(locationKey.networkType);
+        this.mapService.nextNetworkType(locationKey.networkType);
       }),
       switchMap(([locationKey]) =>
         this.appService.locationMap(locationKey).pipe(

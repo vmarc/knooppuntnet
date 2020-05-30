@@ -1,5 +1,4 @@
 import LayerGroup from "ol/layer/Group";
-import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import {I18nService} from "../../../i18n/i18n.service";
@@ -12,7 +11,7 @@ import {NetworkVectorTileLayer} from "./network-vector-tile-layer";
 
 export class MainMapLayer {
 
-  bitmapTileLayer: TileLayer;
+  bitmapTileLayer: MapLayer;
   vectorTileLayer: VectorTileLayer;
 
   constructor(private mapService: MapService,
@@ -20,18 +19,18 @@ export class MainMapLayer {
   }
 
   build(): MapLayer {
-    const networkType = this.mapService.networkType$.value;
+    const networkType = this.mapService.networkType();
     this.bitmapTileLayer = NetworkBitmapTileLayer.build(networkType);
     this.vectorTileLayer = NetworkVectorTileLayer.oldBuild(networkType);
 
     const layer = new LayerGroup({
-      layers: [this.bitmapTileLayer, this.vectorTileLayer]
+      layers: [this.bitmapTileLayer.layer, this.vectorTileLayer]
     });
     const layerName = this.i18nService.translation("@@map.layer.network");
     layer.set("name", layerName);
     // TODO need to unsubscribe
     this.mapService.mapMode$.subscribe(() => this.vectorTileLayer.getSource().changed());
-    return new MapLayer(layer, this.applyMap());
+    return new MapLayer(`network-${networkType.name}-layer`, layer, this.applyMap());
   }
 
   private applyMap() {
@@ -52,10 +51,10 @@ export class MainMapLayer {
   private updateLayerVisibility(zoomLevel: number) {
     const zoom = Math.round(zoomLevel);
     if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
-      this.bitmapTileLayer.setVisible(true);
+      this.bitmapTileLayer.layer.setVisible(true);
       this.vectorTileLayer.setVisible(false);
     } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
-      this.bitmapTileLayer.setVisible(false);
+      this.bitmapTileLayer.layer.setVisible(false);
       this.vectorTileLayer.setVisible(true);
     }
   }

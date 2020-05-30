@@ -34,7 +34,7 @@ export class NetworkMarkerLayer {
     layer.set("name", name);
 
     markers.forEach(marker => source.addFeature(marker));
-    return new MapLayer(layer);
+    return new MapLayer("network-marker-layer", layer);
   }
 
 }
