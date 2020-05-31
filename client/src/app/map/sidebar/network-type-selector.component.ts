@@ -32,6 +32,10 @@ import {map} from "rxjs/operators";
     </mat-button-toggle-group>
   `,
   styles: [`
+    mat-button-toggle-group {
+      margin-left: 15px;
+    }
+
     ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
       width: 34px;
       height: 34px;

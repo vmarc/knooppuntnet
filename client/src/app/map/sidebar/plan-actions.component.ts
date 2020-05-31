@@ -4,8 +4,6 @@ import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {PageWidth} from "../../components/shared/page-width";
 import {PageWidthService} from "../../components/shared/page-width.service";
-import {PdfService} from "../../pdf/pdf.service";
-import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {PlannerService} from "../planner.service";
 import {PlannerCommandReset} from "../planner/commands/planner-command-reset";
 import {PlannerCommandReverse} from "../planner/commands/planner-command-reverse";
@@ -93,7 +91,6 @@ export class PlanActionsComponent implements OnInit {
 
   constructor(private plannerService: PlannerService,
               private pageWidthService: PageWidthService,
-              private pdfService: PdfService,
               private dialog: MatDialog) {
   }
 
@@ -124,18 +121,7 @@ export class PlanActionsComponent implements OnInit {
   }
 
   output(): void {
-    const dialogRef = this.dialog.open(PlanOutputDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === "pdf1") {
-        this.pdfService.printDocument(this.plannerService.context.plan);
-      } else if (result === "pdf2") {
-        this.pdfService.printStripDocument(this.plannerService.context.plan);
-      } else if (result === "pdf3") {
-        this.pdfService.printInstructions(this.plannerService.context.plan);
-      } else if (result === "gpx") {
-        new GpxWriter().write(this.plannerService.context.plan);
-      }
-    });
+    this.dialog.open(PlanOutputDialogComponent);
   }
 
   undoEnabled(): boolean {

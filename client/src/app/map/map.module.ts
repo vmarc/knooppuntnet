@@ -10,6 +10,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
+import {QriousModule} from "angular-qrious";
+import {ClipboardModule} from "ngx-clipboard";
 import {NetworkModule} from "../analysis/network/network.module";
 import {OlModule} from "../components/ol/ol.module";
 import {SharedModule} from "../components/shared/shared.module";
@@ -85,7 +87,9 @@ import {PlanComponent} from "./sidebar/plan.component";
     PdfModule,
     MatProgressBarModule,
     MatAutocompleteModule,
-    NetworkModule
+    NetworkModule,
+    ClipboardModule,
+    QriousModule
   ],
   declarations: [
     MapPageComponent,
