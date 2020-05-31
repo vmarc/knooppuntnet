@@ -7385,7 +7385,7 @@
         <source>Output</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf" datatype="html">
@@ -7394,7 +7394,14 @@
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf file with compact node overview</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf" datatype="html">
@@ -7403,7 +7410,14 @@
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
@@ -7412,7 +7426,14 @@
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf with navigation instructions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx" datatype="html">
@@ -7421,21 +7442,30 @@
         </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.cancel" datatype="html">
-        <source>Cancel</source>
+      <trans-unit id="plan.output.gpx.tooltip" datatype="html">
+        <source>Produce a route file that can be used in a gps-device</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.ok" datatype="html">
-        <source>OK</source>
+      <trans-unit id="plan.output.clipboard" datatype="html">
+        <source>
+          Copy link to clipboard
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.clipboard.tooltip" datatype="html">
+        <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.action.undo" datatype="html">

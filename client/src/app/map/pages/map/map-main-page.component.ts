@@ -7,7 +7,9 @@ import Map from "ol/Map";
 import Overlay from "ol/Overlay";
 import View from "ol/View";
 import {Observable} from "rxjs";
-import {delay} from "rxjs/operators";
+import {combineLatest} from "rxjs";
+import {delay, map} from "rxjs/operators";
+import {AppService} from "../../../app.service";
 import {NoRouteDialogComponent} from "../../../components/ol/components/no-route-dialog.component";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
@@ -25,7 +27,12 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
+import {FeatureId} from "../../planner/features/feature-id";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
+import {Plan} from "../../planner/plan/plan";
+import {PlanLegBuilder} from "../../planner/plan/plan-leg-builder";
+import {PlanLegNodeIds} from "../../planner/plan/plan-leg-node-ids";
+import {PlanUtil} from "../../planner/plan/plan-util";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
 @Component({
@@ -70,7 +77,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private mapPositionService: MapPositionService,
               private mapZoomService: MapZoomService,
               private plannerLayerService: PlannerLayerService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private appService: AppService) {
     this.pageService.showFooter = false;
   }
 
@@ -87,6 +95,34 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.mapService.nextNetworkType(networkType);
         this.plannerService.context.nextNetworkType(networkType);
       })
+    );
+
+    this.subscriptions.add(
+      combineLatest([this.plannerService.context.networkType$, this.activatedRoute.fragment])
+        .subscribe(([networkType, fragment]) => {
+          if (fragment) {
+            const nodeIds = PlanUtil.toNodeIds(fragment);
+            let legNodeIdss: List<PlanLegNodeIds> = List();
+            for (let i = 0; i < nodeIds.size - 1; i++) {
+              legNodeIdss = legNodeIdss.push(new PlanLegNodeIds(nodeIds.get(i), nodeIds.get(i + 1)));
+            }
+
+            const legObservables = legNodeIdss.map(legNodeIds => {
+              return this.appService.routeLeg(networkType.name, FeatureId.next(), legNodeIds.sourceNodeId, legNodeIds.sinkNodeId).pipe(
+                map(response => PlanLegBuilder.toPlanLeg2(response.result))
+              );
+            }).toArray();
+
+            const legsObservable = combineLatest(legObservables);
+            legsObservable.subscribe(legs => {
+              legs.forEach(leg => this.plannerService.context.legs.add(leg));
+              const plan = Plan.create(legs[0].source, List(legs));
+              this.plannerService.context.routeLayer.addPlan(plan);
+              this.plannerService.context.updatePlan(plan);
+              this.zoomInToRoute();
+            });
+          }
+        })
     );
 
     this.subscriptions.add(
