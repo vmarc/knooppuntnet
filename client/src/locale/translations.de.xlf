@@ -7994,7 +7994,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Output</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf" datatype="html">
@@ -8002,7 +8002,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Compact</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf" datatype="html">
@@ -8010,7 +8010,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Node strip</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
@@ -8018,7 +8018,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Navigation instructions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx" datatype="html">
@@ -8026,23 +8026,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>GPX file</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.output.cancel" datatype="html">
-        <source>Cancel</source>
-        <target>Cancel</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.output.ok" datatype="html">
-        <source>OK</source>
-        <target>OK</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">
@@ -8064,8 +8048,8 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-end-node" datatype="html">
-        <source><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/>  and click the endnode of your route.</source>
-        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/>  and click the endnode of your route.</target>
+        <source><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> and click the endnode of your route.</source>
+        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> and click the endnode of your route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -8085,6 +8069,130 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.unavailable.title" datatype="html">
+        <source>Unavailable</source>
+        <target>Unavailable</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.unavailable.message" datatype="html">
+        <source>We cannot determine your location. Verify your settings to allow
+        this application to access you location.</source>
+        <target>We cannot determine your location. Verify your settings to allow
+        this application to access you location.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.timeout.title" datatype="html">
+        <source>Timeout</source>
+        <target>Timeout</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.timeout.message" datatype="html">
+        <source>We cannot determine your location.</source>
+        <target>We cannot determine your location.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.permission-denied.title" datatype="html">
+        <source>Permission denied</source>
+        <target>Permission denied</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.permission-denied.message" datatype="html">
+        <source>We cannot determine your location. Knooppuntnet does not have the
+        permission to access your location.</source>
+        <target>We cannot determine your location. Knooppuntnet does not have the
+        permission to access your location.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.not-supported.title" datatype="html">
+        <source>Not supported</source>
+        <target>Not supported</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-dialog.not-supported.message" datatype="html">
+        <source>We cannot determine your location. Your device does not seem to support this.</source>
+        <target>We cannot determine your location. Your device does not seem to support this.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="geolocation-control.title" datatype="html">
+        <source>position the map on your current location</source>
+        <target>position the map on your current location</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-control.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf file with compact node overview</source>
+        <target>Produce a route pdf file with compact node overview</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
+        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf with navigation instructions</source>
+        <target>Produce a route pdf with navigation instructions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.gpx.tooltip" datatype="html">
+        <source>Produce a route file that can be used in a gps-device</source>
+        <target>Produce a route file that can be used in a gps-device</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.clipboard" datatype="html">
+        <source>Copy link to clipboard</source>
+        <target>Copy link to clipboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.clipboard.tooltip" datatype="html">
+        <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
+        <target>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
     </body>
