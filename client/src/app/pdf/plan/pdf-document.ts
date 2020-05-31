@@ -1,5 +1,5 @@
 import * as JsPdf from "jspdf";
-// import * as QRious from "qrious";
+import * as QRious from "qrious";
 import {Plan} from "../../map/planner/plan/plan";
 import {PdfPage} from "./pdf-page";
 import {PdfPlanBuilder} from "./pdf-plan-builder";
@@ -13,7 +13,7 @@ export class PdfDocument {
 
   private readonly doc = new JsPdf();
 
-  constructor(plan: Plan) {
+  constructor(plan: Plan, private planUrl: string) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
     this.model = new PdfDocumentModel(pdfPlan.nodes);
   }
@@ -26,28 +26,19 @@ export class PdfDocument {
 
   private drawQrCode(): void {
 
-    /*
+    const qrCodeSize = 40;
+    const x = PdfPage.xContentsRight - qrCodeSize;
+    const y = PdfPage.yContentsBottom - qrCodeSize;
 
-      Leave out QR code for now.
+    const qrious = new QRious({
+      value: this.planUrl,
+      level: "L", // Error correction level of the QR code (L, M, Q, H)
+      mime: "image/png",
+      size: 200,
+      padding: 0
+    });
 
-      Reintroduce when short link can be created that refers to route definition stored
-      in the database.
-
-    */
-
-    // const qrCodeSize = 40;
-    // const x = PdfPage.xContentsRight - qrCodeSize;
-    // const y = PdfPage.yContentsBottom - qrCodeSize;
-    //
-    // const qrious = new QRious({
-    //   value: "https://knooppuntnet.nl",
-    //   level: "H", // Error correction level of the QR code (L, M, Q, H)
-    //   mime: "image/png",
-    //   size: 100,
-    //   padding: 0
-    // });
-    //
-    // this.doc.addImage(qrious.toDataURL(), "PNG", x, y, qrCodeSize, qrCodeSize, "", "FAST");
+    this.doc.addImage(qrious.toDataURL(), "PNG", x, y, qrCodeSize, qrCodeSize, "", "FAST");
   }
 
   private drawGrid() {

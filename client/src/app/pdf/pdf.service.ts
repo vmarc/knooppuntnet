@@ -14,8 +14,8 @@ export class PdfService {
               private plannerService: PlannerService) {
   }
 
-  printDocument(plan: Plan): void {
-    new PdfDocument(plan).print();
+  printDocument(plan: Plan, planUrl: string): void {
+    new PdfDocument(plan, planUrl).print();
   }
 
   printStripDocument(plan: Plan): void {

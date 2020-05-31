@@ -81,7 +81,7 @@ import {PlanUtil} from "../planner/plan/plan-util";
     qr-code {
       margin-top: 25px;
       border: 1px solid black;
-      padding: 15px;
+      padding: 10px;
     }
 
   `]
@@ -99,7 +99,7 @@ export class PlanOutputDialogComponent implements OnInit {
   }
 
   printDocument(): void {
-    this.pdfService.printDocument(this.plannerService.context.plan);
+    this.pdfService.printDocument(this.plannerService.context.plan, this.planUrl);
   }
 
   printStripDocument(): void {
