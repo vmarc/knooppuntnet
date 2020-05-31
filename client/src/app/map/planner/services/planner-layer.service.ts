@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {List} from "immutable";
 import {Map as ImmutableMap} from "immutable";
+import TileLayer from "ol/layer/Tile";
+import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import {BehaviorSubject} from "rxjs";
 import {Observable} from "rxjs";
@@ -14,7 +16,9 @@ import {MapLayerChange} from "../../../components/ol/layers/map-layer-change";
 import {MapLayers} from "../../../components/ol/layers/map-layers";
 import {MapLayerService} from "../../../components/ol/services/map-layer.service";
 import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
+import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
+import {MainMapStyle} from "../../../components/ol/style/main-map-style";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
 
@@ -39,6 +43,7 @@ export class PlannerLayerService {
   constructor(private mapLayerService: MapLayerService,
               poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
+              private mapService: MapService,
               private mapZoomService: MapZoomService) {
     this.osmLayer = mapLayerService.osmLayer();
     this.tileNameLayer = mapLayerService.tileNameLayer();
@@ -71,6 +76,13 @@ export class PlannerLayerService {
       if (mapLayer.applyMap) {
         mapLayer.applyMap(olMap);
       }
+    });
+
+    const mainMapStyle = new MainMapStyle(olMap, this.mapService).styleFunction();
+    List(this.vectorLayers.values()).forEach(l => {
+      const vectorTileLayer = (l.layer)as VectorTileLayer;
+      vectorTileLayer.setStyle(mainMapStyle);
+      this.mapService.mapMode$.subscribe(() => vectorTileLayer.getSource().changed());
     });
 
     this.networkLayerChange$.subscribe(change => {

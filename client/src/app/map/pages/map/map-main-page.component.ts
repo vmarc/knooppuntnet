@@ -30,8 +30,10 @@ import {PlannerService} from "../../planner.service";
 import {FeatureId} from "../../planner/features/feature-id";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 import {Plan} from "../../planner/plan/plan";
+import {PlanLeg} from "../../planner/plan/plan-leg";
 import {PlanLegBuilder} from "../../planner/plan/plan-leg-builder";
 import {PlanLegNodeIds} from "../../planner/plan/plan-leg-node-ids";
+import {PlanRoute} from "../../planner/plan/plan-route";
 import {PlanUtil} from "../../planner/plan/plan-util";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
@@ -115,6 +117,30 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
             const legsObservable = combineLatest(legObservables);
             legsObservable.subscribe(legs => {
+              for (let i = 1; i < legs.length; i++) {
+                let newRoutes: List<PlanRoute> = List();
+                for (let j = 0; j < legs[i].routes.size; j++) {
+                  const oldRoute = legs[i].routes.get(j);
+                  const newSource = j === 0 ? legs[i - 1].sink : oldRoute.source;
+                  newRoutes = newRoutes.push(
+                    new PlanRoute(
+                      newSource,
+                      oldRoute.sink,
+                      oldRoute.meters,
+                      oldRoute.segments,
+                      oldRoute.streets
+                    )
+                  );
+                }
+
+                legs[i] = new PlanLeg(
+                  legs[i].featureId,
+                  legs[i - 1].sink,
+                  legs[i].sink,
+                  legs[i].meters,
+                  newRoutes
+                );
+              }
               legs.forEach(leg => this.plannerService.context.legs.add(leg));
               const plan = Plan.create(legs[0].source, List(legs));
               this.plannerService.context.routeLayer.addPlan(plan);
