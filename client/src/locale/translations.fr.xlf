@@ -8095,7 +8095,7 @@
         <target>Output</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf" datatype="html">
@@ -8103,7 +8103,7 @@
         <target>Compact</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf" datatype="html">
@@ -8111,7 +8111,7 @@
         <target>Node strip</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
@@ -8119,7 +8119,7 @@
         <target>Navigation instructions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx" datatype="html">
@@ -8127,23 +8127,7 @@
         <target>GPX file</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.output.cancel" datatype="html">
-        <source>Cancel</source>
-        <target>Cancel</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.output.ok" datatype="html">
-        <source>OK</source>
-        <target>OK</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">
@@ -8262,6 +8246,54 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-control.component.ts</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf file with compact node overview</source>
+        <target>Produce a route pdf file with compact node overview</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
+        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
+        <source>Produce a route pdf with navigation instructions</source>
+        <target>Produce a route pdf with navigation instructions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.gpx.tooltip" datatype="html">
+        <source>Produce a route file that can be used in a gps-device</source>
+        <target>Produce a route file that can be used in a gps-device</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.clipboard" datatype="html">
+        <source>Copy link to clipboard</source>
+        <target>Copy link to clipboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.clipboard.tooltip" datatype="html">
+        <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
+        <target>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
     </body>
