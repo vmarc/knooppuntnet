@@ -8,7 +8,7 @@ export class GpxWriter {
 
   write(plan: Plan): void {
     const content = this.header().concat(this.body(plan)).concat(this.footer()).join("\n");
-    const blob = new Blob([content], {type: "application/xml"});
+    const blob = new Blob([content], {type: "application/gpx"});
     const filename = "knooppuntnet.gpx";
     saveAs(blob, filename);
   }
