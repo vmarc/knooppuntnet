@@ -25,6 +25,10 @@
           <context context-type="sourcefile">app/components/shared/link/josm-link.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="osm-link.oath-clients" datatype="html">
         <source>list of authorised applications</source>
@@ -4615,7 +4619,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.routes" datatype="html">
@@ -4623,7 +4627,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.facts" datatype="html">
@@ -4631,7 +4635,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Facten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.map" datatype="html">
@@ -4639,7 +4643,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Karte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.changes" datatype="html">
@@ -4647,7 +4651,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <target>Änderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.title" datatype="html">
@@ -8193,6 +8197,86 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-page.menu.edit" datatype="html">
+        <source>Edit</source>
+        <target>Edit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.title" datatype="html">
+        <source>Edit</source>
+        <target>Edit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.nodes" datatype="html">
+        <source>nodes,</source>
+        <target>nodes,</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.routes" datatype="html">
+        <source>routes</source>
+        <target>routes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.time-warning" datatype="html">
+        <source>We estimate that it will take perhaps about <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconds to load all nodes and routes in the editor.</source>
+        <target>We estimate that it will take perhaps about <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconds to load all nodes and routes in the editor.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="links.edit.tooltip" datatype="html">
+        <source>Open in editor (like JOSM)</source>
+        <target>Open in editor (like JOSM)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.ready" datatype="html">
+        <source>Ready</source>
+        <target>Ready</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.error" datatype="html">
+        <source>Error</source>
+        <target>Error</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.timeout" datatype="html">
+        <source>Timeout: editor not started, or editor remote control not enabled?</source>
+        <target>Timeout: editor not started, or editor remote control not enabled?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.cancel" datatype="html">
+        <source><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Cancel<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></source>
+        <target><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Cancel<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
     </body>
