@@ -8,7 +8,7 @@ import {LocationService} from "../location.service";
   selector: "kpn-location-page-header",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="service.locationKey | async as locationKey">
+    <ng-container *ngIf="service.locationKey$ | async as locationKey">
 
       <kpn-location-page-breadcrumb [locationKey]="locationKey"></kpn-location-page-breadcrumb>
 
@@ -19,6 +19,13 @@ import {LocationService} from "../location.service";
       </kpn-page-header>
 
       <kpn-page-menu>
+        <kpn-page-menu-option
+          [link]="link('summary')"
+          [active]="pageName === 'summary'"
+          i18n="@@location-page.menu.summary">
+          Summary
+        </kpn-page-menu-option>
+
         <kpn-page-menu-option
           [link]="link('nodes')"
           [active]="pageName === 'nodes'"

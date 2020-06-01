@@ -27,7 +27,7 @@ export class LocationNodesPageService {
 
     const itemsPerPage = this.browserStorageService.itemsPerPage;
     this._parameters = new BehaviorSubject<LocationRoutesParameters>(new LocationNodesParameters(itemsPerPage, 0));
-    this.response = combineLatest([this._parameters, locationService.locationKey]).pipe(
+    this.response = combineLatest([this._parameters, locationService.locationKey$]).pipe(
       switchMap(([parameters, locationKey]) =>
         this.appService.locationNodes(locationKey, parameters).pipe(
           tap(response => {

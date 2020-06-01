@@ -22,7 +22,7 @@ export class LocationChangesPageService {
 
   constructor(private locationService: LocationService, private appService: AppService) {
     this._parameters = new BehaviorSubject<LocationRoutesParameters>(new LocationChangesParameters(5, 0));
-    this.response = combineLatest([this._parameters, locationService.locationKey]).pipe(
+    this.response = combineLatest([this._parameters, locationService.locationKey$]).pipe(
       switchMap(([parameters, locationKey]) =>
         this.appService.locationChanges(locationKey, parameters).pipe(
           tap(response => {

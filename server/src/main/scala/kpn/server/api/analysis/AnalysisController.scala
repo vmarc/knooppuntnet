@@ -14,6 +14,7 @@ import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.common.location.LocationSummaryPage
 import kpn.api.common.location.LocationsPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
@@ -285,6 +286,20 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: String
   ): ApiResponse[LocationsPage] = {
     analysisFacade.locations(user(), NetworkType.withName(networkType).get, Country.withDomain(country).get)
+  }
+
+  @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/summary"))
+  def locationSummary(
+    @PathVariable networkType: String,
+    @PathVariable country: String,
+    @PathVariable location: String
+  ): ApiResponse[LocationSummaryPage] = {
+    val locationKey = LocationKey(
+      NetworkType.withName(networkType).get,
+      Country.withDomain(country).get,
+      location
+    )
+    analysisFacade.locationSummary(user(), locationKey)
   }
 
   @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/nodes"))

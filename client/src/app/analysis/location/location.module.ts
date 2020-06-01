@@ -38,6 +38,8 @@ import {LocationSelectionPageComponent} from "./selection/location-selection-pag
 import {LocationSelectionService} from "./selection/location-selection.service";
 import {LocationSelectorComponent} from "./selection/location-selector.component";
 import {LocationTreeComponent} from "./selection/location-tree.component";
+import {LocationSummaryPageComponent} from "./summary/location-summary-page.component";
+import {LocationSummaryComponent} from "./summary/location-summary.component";
 
 @NgModule({
   imports: [
@@ -78,7 +80,9 @@ import {LocationTreeComponent} from "./selection/location-tree.component";
     LocationModeComponent,
     LocationSelectionPageComponent,
     LocationSelectorComponent,
-    LocationTreeComponent
+    LocationTreeComponent,
+    LocationSummaryPageComponent,
+    LocationSummaryComponent
   ],
   providers: [
     LocationService,

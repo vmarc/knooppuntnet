@@ -1,23 +1,24 @@
 import {Injectable} from "@angular/core";
 import {Params} from "@angular/router";
-import {combineLatest} from "rxjs";
 import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
 import {switchMap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
-import {LocationFactsPage} from "../../../kpn/api/common/location/location-facts-page";
+import {LocationSummaryPage} from "../../../kpn/api/common/location/location-summary-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationService} from "../location.service";
 
 @Injectable()
-export class LocationFactsPageService {
+export class LocationSummaryPageService {
 
-  readonly response: Observable<ApiResponse<LocationFactsPage>>;
+  readonly response$: Observable<ApiResponse<LocationSummaryPage>>;
 
-  constructor(private locationService: LocationService, private appService: AppService) {
-    this.response = combineLatest([locationService.locationKey$]).pipe(
-      switchMap(([locationKey]) =>
-        this.appService.locationFacts(locationKey).pipe(
+  constructor(private locationService: LocationService,
+              private appService: AppService) {
+
+    this.response$ = locationService.locationKey$.pipe(
+      switchMap(locationKey =>
+        this.appService.locationSummary(locationKey).pipe(
           tap(response => {
             this.locationService.setSummary(locationKey.name, response.result.summary);
           })
@@ -30,3 +31,4 @@ export class LocationFactsPageService {
     this.locationService.location(params);
   }
 }
+

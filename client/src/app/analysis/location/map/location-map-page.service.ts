@@ -16,7 +16,7 @@ export class LocationMapPageService {
   readonly response$: Observable<ApiResponse<LocationMapPage>>;
 
   constructor(private locationService: LocationService, private appService: AppService, private mapService: MapService) {
-    this.response$ = combineLatest([locationService.locationKey]).pipe(
+    this.response$ = combineLatest([locationService.locationKey$]).pipe(
       tap(([locationKey]) => {
         this.mapService.nextNetworkType(locationKey.networkType);
       }),
