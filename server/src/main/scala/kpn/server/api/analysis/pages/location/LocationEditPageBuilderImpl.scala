@@ -25,7 +25,7 @@ class LocationEditPageBuilderImpl(
     val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(99999, 0))
     val routes = locationRepository.routes(locationKey, LocationRoutesParameters(99999, 0))
 
-    val bounds = Bounds.from(nodes)
+    val bounds = Bounds.from(nodes, 0.15)
 
     val nodeRefs = nodes.map(node => Ref(node.id, node.name))
     val routeRefs = routes.map(route => Ref(route.id, route.name))

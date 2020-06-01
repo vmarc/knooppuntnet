@@ -1,9 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {MarkdownService} from "ngx-markdown";
-import {of} from "rxjs";
 import {Observable} from "rxjs";
-import {catchError} from "rxjs/operators";
 import {timeout} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {ChangesPage} from "./kpn/api/common/changes-page";
@@ -69,8 +67,7 @@ export class AppService {
 
   public edit(url: string): Observable<Object> {
     return this.http.get(url, {responseType: "text"}).pipe(
-      timeout(5000),
-      catchError(() => of("Timeout"))
+      timeout(5000)
     );
   }
 

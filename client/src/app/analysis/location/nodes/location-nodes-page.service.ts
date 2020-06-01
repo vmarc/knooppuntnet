@@ -31,7 +31,7 @@ export class LocationNodesPageService {
       switchMap(([parameters, locationKey]) =>
         this.appService.locationNodes(locationKey, parameters).pipe(
           tap(response => {
-            this.locationService.setSummary(locationKey.name, response.result.summary);
+            this.locationService.nextSummary(locationKey.name, response.result.summary);
           })
         )
       )

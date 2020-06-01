@@ -19,7 +19,7 @@ export class LocationFactsPageService {
       switchMap(([locationKey]) =>
         this.appService.locationFacts(locationKey).pipe(
           tap(response => {
-            this.locationService.setSummary(locationKey.name, response.result.summary);
+            this.locationService.nextSummary(locationKey.name, response.result.summary);
           })
         )
       )

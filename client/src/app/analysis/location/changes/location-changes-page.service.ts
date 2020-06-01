@@ -26,7 +26,7 @@ export class LocationChangesPageService {
       switchMap(([parameters, locationKey]) =>
         this.appService.locationChanges(locationKey, parameters).pipe(
           tap(response => {
-            this.locationService.setSummary(locationKey.name, response.result.summary);
+            this.locationService.nextSummary(locationKey.name, response.result.summary);
           })
         )
       )

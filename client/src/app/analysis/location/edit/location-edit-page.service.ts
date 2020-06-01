@@ -20,7 +20,7 @@ export class LocationEditPageService {
       switchMap(locationKey =>
         this.appService.locationEdit(locationKey).pipe(
           tap(response => {
-            this.locationService.setSummary(locationKey.name, response.result.summary);
+            this.locationService.nextSummary(locationKey.name, response.result.summary);
           })
         )
       )

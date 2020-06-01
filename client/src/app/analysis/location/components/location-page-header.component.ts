@@ -1,14 +1,16 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
-import {LocationSummary} from "../../../kpn/api/common/location/location-summary";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {LocationKey} from "../../../kpn/api/custom/location-key";
 import {LocationService} from "../location.service";
 
 @Component({
   selector: "kpn-location-page-header",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="service.locationKey$ | async as locationKey">
+    <ng-container *ngIf="locationKey$ | async as locationKey">
 
       <kpn-location-page-breadcrumb [locationKey]="locationKey"></kpn-location-page-breadcrumb>
 
@@ -24,7 +26,7 @@ import {LocationService} from "../location.service";
           [link]="link('nodes')"
           [active]="pageName === 'nodes'"
           i18n="@@location-page.menu.nodes"
-          [elementCount]="summary?.nodeCount">
+          [elementCount]="nodeCount$ | async">
           Nodes
         </kpn-page-menu-option>
 
@@ -32,7 +34,7 @@ import {LocationService} from "../location.service";
           [link]="link('routes')"
           [active]="pageName === 'routes'"
           i18n="@@location-page.menu.routes"
-          [elementCount]="summary?.routeCount">
+          [elementCount]="routeCount$ | async">
           Routes
         </kpn-page-menu-option>
 
@@ -40,7 +42,7 @@ import {LocationService} from "../location.service";
           [link]="link('facts')"
           [active]="pageName === 'facts'"
           i18n="@@location-page.menu.facts"
-          [elementCount]="summary?.factCount">
+          [elementCount]="factCount$ | async">
           Facts
         </kpn-page-menu-option>
 
@@ -55,7 +57,7 @@ import {LocationService} from "../location.service";
           [link]="link('changes')"
           [active]="pageName === 'changes'"
           i18n="@@location-page.menu.changes"
-          [elementCount]="summary?.changeCount">
+          [elementCount]="changeCount$ | async">
           Changes
         </kpn-page-menu-option>
 
@@ -75,11 +77,18 @@ export class LocationPageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  constructor(public service: LocationService) {
-  }
+  readonly locationKey$: Observable<LocationKey>;
+  readonly nodeCount$: Observable<number>;
+  readonly routeCount$: Observable<number>;
+  readonly factCount$: Observable<number>;
+  readonly changeCount$: Observable<number>;
 
-  get summary(): LocationSummary {
-    return this.service.summary;
+  constructor(private service: LocationService) {
+    this.locationKey$ = service.locationKey$;
+    this.nodeCount$ = service.summary$.pipe(map(summary => summary.nodeCount));
+    this.routeCount$ = service.summary$.pipe(map(summary => summary.routeCount));
+    this.factCount$ = service.summary$.pipe(map(summary => summary.factCount));
+    this.changeCount$ = service.summary$.pipe(map(summary => summary.changeCount));
   }
 
   link(target: string): string {
