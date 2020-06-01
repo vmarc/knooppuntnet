@@ -13,7 +13,7 @@ import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
-import kpn.api.common.location.LocationSummaryPage
+import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationsPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
@@ -61,7 +61,7 @@ import kpn.server.api.analysis.pages.location.LocationFactsPageBuilder
 import kpn.server.api.analysis.pages.location.LocationMapPageBuilder
 import kpn.server.api.analysis.pages.location.LocationNodesPageBuilder
 import kpn.server.api.analysis.pages.location.LocationRoutesPageBuilder
-import kpn.server.api.analysis.pages.location.LocationSummaryPageBuilder
+import kpn.server.api.analysis.pages.location.LocationEditPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkChangesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkDetailsPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkFactsPageBuilder
@@ -113,7 +113,7 @@ class AnalysisFacadeImpl(
   mapNodeDetailBuilder: MapNodeDetailBuilder,
   mapRouteDetailBuilder: MapRouteDetailBuilder,
   locationsPageBuilder: LocationsPageBuilder,
-  locationSummaryPageBuilder: LocationSummaryPageBuilder,
+  locationEditPageBuilder: LocationEditPageBuilder,
   locationNodesPageBuilder: LocationNodesPageBuilder,
   locationRoutesPageBuilder: LocationRoutesPageBuilder,
   locationFactsPageBuilder: LocationFactsPageBuilder,
@@ -295,13 +295,6 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def locationSummary(user: Option[String], locationKey: LocationKey): ApiResponse[LocationSummaryPage] = {
-    val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
-    execute(user, "location-summary", args) {
-      locationSummaryPageBuilder.build(locationKey)
-    }
-  }
-
   override def locationNodes(user: Option[String], locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     execute(user, "location-nodes", args) {
@@ -334,6 +327,13 @@ class AnalysisFacadeImpl(
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     execute(user, "location-changes", args) {
       locationChangesPageBuilder.build(locationKey, parameters)
+    }
+  }
+
+  override def locationEdit(user: Option[String], locationKey: LocationKey): ApiResponse[LocationEditPage] = {
+    val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
+    execute(user, "location-edit", args) {
+      locationEditPageBuilder.build(locationKey)
     }
   }
 

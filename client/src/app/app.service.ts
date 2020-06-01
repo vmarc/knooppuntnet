@@ -11,13 +11,13 @@ import {ChangeSetPage} from "./kpn/api/common/changes/change-set-page";
 import {ChangesParameters} from "./kpn/api/common/changes/filter/changes-parameters";
 import {LocationChangesPage} from "./kpn/api/common/location/location-changes-page";
 import {LocationChangesParameters} from "./kpn/api/common/location/location-changes-parameters";
+import {LocationEditPage} from "./kpn/api/common/location/location-edit-page";
 import {LocationFactsPage} from "./kpn/api/common/location/location-facts-page";
 import {LocationMapPage} from "./kpn/api/common/location/location-map-page";
 import {LocationNodesPage} from "./kpn/api/common/location/location-nodes-page";
 import {LocationNodesParameters} from "./kpn/api/common/location/location-nodes-parameters";
 import {LocationRoutesPage} from "./kpn/api/common/location/location-routes-page";
 import {LocationRoutesParameters} from "./kpn/api/common/location/location-routes-parameters";
-import {LocationSummaryPage} from "./kpn/api/common/location/location-summary-page";
 import {LocationsPage} from "./kpn/api/common/location/locations-page";
 import {NetworkChangesPage} from "./kpn/api/common/network/network-changes-page";
 import {NetworkDetailsPage} from "./kpn/api/common/network/network-details-page";
@@ -270,10 +270,10 @@ export class AppService {
     );
   }
 
-  public locationSummary(locationKey: LocationKey): Observable<ApiResponse<LocationSummaryPage>> {
-    const url = this.locationUrl(locationKey, "summary");
+  public locationEdit(locationKey: LocationKey): Observable<ApiResponse<LocationEditPage>> {
+    const url = this.locationUrl(locationKey, "edit");
     return this.http.post(url, "").pipe(
-      map(response => ApiResponse.fromJSON(response, LocationSummaryPage.fromJSON))
+      map(response => ApiResponse.fromJSON(response, LocationEditPage.fromJSON))
     );
   }
 

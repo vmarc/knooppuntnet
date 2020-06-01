@@ -2,29 +2,29 @@
 
 import {List} from "immutable";
 import {Bounds} from "../bounds";
-import {Ids} from "./ids";
 import {LocationSummary} from "./location-summary";
+import {Ref} from "../common/ref";
 import {TimeInfo} from "../time-info";
 
-export class LocationSummaryPage {
+export class LocationEditPage {
 
   constructor(readonly timeInfo: TimeInfo,
               readonly summary: LocationSummary,
               readonly bounds: Bounds,
-              readonly nodeIds: List<Ids>,
-              readonly routeIds: List<Ids>) {
+              readonly nodeRefs: List<Ref>,
+              readonly routeRefs: List<Ref>) {
   }
 
-  public static fromJSON(jsonObject: any): LocationSummaryPage {
+  public static fromJSON(jsonObject: any): LocationEditPage {
     if (!jsonObject) {
       return undefined;
     }
-    return new LocationSummaryPage(
+    return new LocationEditPage(
       TimeInfo.fromJSON(jsonObject.timeInfo),
       LocationSummary.fromJSON(jsonObject.summary),
       Bounds.fromJSON(jsonObject.bounds),
-      jsonObject.nodeIds ? List(jsonObject.nodeIds.map((json: any) => Ids.fromJSON(json))) : List(),
-      jsonObject.routeIds ? List(jsonObject.routeIds.map((json: any) => Ids.fromJSON(json))) : List()
+      jsonObject.nodeRefs ? List(jsonObject.nodeRefs.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.routeRefs ? List(jsonObject.routeRefs.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }
 }

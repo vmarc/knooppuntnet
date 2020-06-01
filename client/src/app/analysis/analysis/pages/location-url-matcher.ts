@@ -9,7 +9,7 @@ export class LocationUrlMatcher {
 
     const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
     const country = /(be)|(nl)|(de)|(fr)|(at)/;
-    const detail = /(summary)|(nodes)|(routes)|(facts)|(map)|(changes)/;
+    const detail = /(nodes)|(routes)|(facts)|(map)|(changes)|(edit)/;
 
     if (
       segments.length === 2 &&

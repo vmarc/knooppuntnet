@@ -19,12 +19,6 @@ import {LocationService} from "../location.service";
       </kpn-page-header>
 
       <kpn-page-menu>
-        <kpn-page-menu-option
-          [link]="link('summary')"
-          [active]="pageName === 'summary'"
-          i18n="@@location-page.menu.summary">
-          Summary
-        </kpn-page-menu-option>
 
         <kpn-page-menu-option
           [link]="link('nodes')"
@@ -63,6 +57,13 @@ import {LocationService} from "../location.service";
           i18n="@@location-page.menu.changes"
           [elementCount]="summary?.changeCount">
           Changes
+        </kpn-page-menu-option>
+
+        <kpn-page-menu-option
+          [link]="link('edit')"
+          [active]="pageName === 'edit'"
+          i18n="@@location-page.menu.edit">
+          Edit
         </kpn-page-menu-option>
 
       </kpn-page-menu>

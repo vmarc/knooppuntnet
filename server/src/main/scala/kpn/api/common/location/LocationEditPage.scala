@@ -2,11 +2,12 @@ package kpn.api.common.location
 
 import kpn.api.common.Bounds
 import kpn.api.common.TimeInfo
+import kpn.api.common.common.Ref
 
-case class LocationSummaryPage(
+case class LocationEditPage(
   timeInfo: TimeInfo,
   summary: LocationSummary,
   bounds: Bounds,
-  nodeIds: Seq[Ids],
-  routeIds: Seq[Ids]
+  nodeRefs: Seq[Ref],
+  routeRefs: Seq[Ref]
 )

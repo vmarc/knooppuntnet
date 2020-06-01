@@ -20,6 +20,8 @@ import {LocationChangesComponent} from "./changes/location-changes.component";
 import {LocationPageBreadcrumbComponent} from "./components/location-page-breadcrumb.component";
 import {LocationPageHeaderComponent} from "./components/location-page-header.component";
 import {LocationResponseComponent} from "./components/location-response.component";
+import {LocationEditPageComponent} from "./edit/location-edit-page.component";
+import {LocationEditComponent} from "./edit/location-edit.component";
 import {LocationFactsPageComponent} from "./facts/location-facts-page.component";
 import {LocationFactsComponent} from "./facts/location-facts.component";
 import {LocationRoutingModule} from "./location-routing.module";
@@ -38,8 +40,6 @@ import {LocationSelectionPageComponent} from "./selection/location-selection-pag
 import {LocationSelectionService} from "./selection/location-selection.service";
 import {LocationSelectorComponent} from "./selection/location-selector.component";
 import {LocationTreeComponent} from "./selection/location-tree.component";
-import {LocationSummaryPageComponent} from "./summary/location-summary-page.component";
-import {LocationSummaryComponent} from "./summary/location-summary.component";
 
 @NgModule({
   imports: [
@@ -81,8 +81,8 @@ import {LocationSummaryComponent} from "./summary/location-summary.component";
     LocationSelectionPageComponent,
     LocationSelectorComponent,
     LocationTreeComponent,
-    LocationSummaryPageComponent,
-    LocationSummaryComponent
+    LocationEditPageComponent,
+    LocationEditComponent
   ],
   providers: [
     LocationService,
