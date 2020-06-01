@@ -3,7 +3,6 @@
 import {List} from "immutable";
 import {Bounds} from "../bounds";
 import {LocationSummary} from "./location-summary";
-import {Ref} from "../common/ref";
 import {TimeInfo} from "../time-info";
 
 export class LocationEditPage {
@@ -11,8 +10,8 @@ export class LocationEditPage {
   constructor(readonly timeInfo: TimeInfo,
               readonly summary: LocationSummary,
               readonly bounds: Bounds,
-              readonly nodeRefs: List<Ref>,
-              readonly routeRefs: List<Ref>) {
+              readonly nodeIds: List<number>,
+              readonly routeIds: List<number>) {
   }
 
   public static fromJSON(jsonObject: any): LocationEditPage {
@@ -23,8 +22,8 @@ export class LocationEditPage {
       TimeInfo.fromJSON(jsonObject.timeInfo),
       LocationSummary.fromJSON(jsonObject.summary),
       Bounds.fromJSON(jsonObject.bounds),
-      jsonObject.nodeRefs ? List(jsonObject.nodeRefs.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.routeRefs ? List(jsonObject.routeRefs.map((json: any) => Ref.fromJSON(json))) : List()
+      jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
+      jsonObject.routeIds ? List(jsonObject.routeIds) : List()
     );
   }
 }

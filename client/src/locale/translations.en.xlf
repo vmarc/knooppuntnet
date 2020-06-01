@@ -25,6 +25,10 @@
           <context context-type="sourcefile">app/components/shared/link/josm-link.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="osm-link.oath-clients" datatype="html">
         <source>
@@ -5387,7 +5391,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.routes" datatype="html">
@@ -5399,7 +5403,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.facts" datatype="html">
@@ -5411,7 +5415,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.map" datatype="html">
@@ -5423,7 +5427,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.changes" datatype="html">
@@ -5435,7 +5439,19 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-page.menu.edit" datatype="html">
+        <source>
+          Edit
+        </source>
+        <target state="final">[
+          Edit
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.title" datatype="html">
@@ -7930,6 +7946,98 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-tree.component.ts</context>
           <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.title" datatype="html">
+        <source>Edit</source>
+        <target state="final">[Edit]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.nodes" datatype="html">
+        <source>nodes, </source>
+        <target state="final">[nodes, ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.routes" datatype="html">
+        <source>routes</source>
+        <target state="final">[routes]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.time-warning" datatype="html">
+        <source>
+        We estimate that it will take perhaps about <x id="INTERPOLATION" equiv-text="{{seconds}}"/> seconds to load all nodes and routes in the editor.
+      </source>
+        <target state="final">
+        We estimate that it will take perhaps about <x id="INTERPOLATION" equiv-text="{{seconds}}"/> seconds to load all nodes and routes in the editor.
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="links.edit.tooltip" datatype="html">
+        <source>Open in editor (like JOSM)</source>
+        <target state="final">[Open in editor (like JOSM)]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.ready" datatype="html">
+        <source>
+      Ready
+    </source>
+        <target state="final">[
+      Ready
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.error" datatype="html">
+        <source>
+      Error
+    </source>
+        <target state="final">[
+      Error
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.timeout" datatype="html">
+        <source>
+      Timeout: editor not started, or editor remote control not enabled?
+    </source>
+        <target state="final">
+      Timeout: editor not started, or editor remote control not enabled?
+    </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.cancel" datatype="html">
+        <source>
+      <x id="START_TAG_BUTTON" ctype="x-button" equiv-text="&lt;button>"/>Cancel<x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button>"/>
+    </source>
+        <target state="final">[
+      <x id="START_TAG_BUTTON" ctype="x-button" equiv-text="&lt;button>"/>Cancel<x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button>"/>
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.changes" datatype="html">

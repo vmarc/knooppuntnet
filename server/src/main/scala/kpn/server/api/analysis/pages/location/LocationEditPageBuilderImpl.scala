@@ -1,7 +1,6 @@
 package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Bounds
-import kpn.api.common.common.Ref
 import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesParameters
@@ -27,8 +26,8 @@ class LocationEditPageBuilderImpl(
 
     val bounds = Bounds.from(nodes, 0.15)
 
-    val nodeRefs = nodes.map(node => Ref(node.id, node.name))
-    val routeRefs = routes.map(route => Ref(route.id, route.name))
+    val nodeIds = nodes.map(_.id)
+    val routeIds = routes.map(_.id)
 
     val summary = LocationSummary(
       factCount,
@@ -42,8 +41,8 @@ class LocationEditPageBuilderImpl(
         TimeInfoBuilder.timeInfo,
         summary,
         bounds,
-        nodeRefs,
-        routeRefs
+        nodeIds,
+        routeIds
       )
     )
   }

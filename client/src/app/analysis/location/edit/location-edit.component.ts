@@ -19,8 +19,10 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
       {{page.summary.nodeCount}} <span i18n="@@location-edit.nodes">nodes, </span>
       {{page.summary.routeCount}} <span i18n="@@location-edit.routes">routes</span>
     </p>
-    <p i18n="@@location-edit.time-warning">
-      It will take at least {{seconds}} seconds to load the editor.
+    <p>
+      <i i18n="@@location-edit.time-warning">
+        We estimate that it will take perhaps about {{seconds}} seconds to load all nodes and routes in the editor.
+      </i>
     </p>
     <p>
       <a
@@ -35,9 +37,6 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
     <p *ngIf="showProgress$ | async">
       <mat-progress-bar [value]="progress$ | async"></mat-progress-bar>
     </p>
-    <p>
-      {{action$ | async}}
-    </p>
     <p *ngIf="ready$ | async" i18n="@@location-edit.ready">
       Ready
     </p>
@@ -50,8 +49,8 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
     <p *ngIf="errorMessage$ | async as errorMessage">
       {{errorMessage}}
     </p>
-    <p *ngIf="timeout$ | async" i18n="@@location-edit.timeout">
-      Timeout - Editor not started?
+    <p *ngIf="timeout$ | async" class="timeout" i18n="@@location-edit.timeout">
+      Timeout: editor not started, or editor remote control not enabled?
     </p>
     <p *ngIf="showProgress$ | async" i18n="@@location-edit.cancel">
       <button mat-raised-button (click)="cancel()">Cancel</button>
@@ -60,6 +59,10 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
   styles: [`
     mat-progress-bar {
       width: 80%;
+    }
+
+    .timeout {
+      color: red;
     }
   `]
 })
@@ -73,7 +76,6 @@ export class LocationEditComponent {
 
   subscription: Subscription;
 
-  action$ = new BehaviorSubject<string>("");
   progress$ = new BehaviorSubject<number>(0);
   showProgress$ = new BehaviorSubject<boolean>(false);
   ready$ = new BehaviorSubject<boolean>(false);
@@ -83,7 +85,7 @@ export class LocationEditComponent {
   timeout$ = new BehaviorSubject<boolean>(false);
 
   private readonly chunkSize = 50;
-  private readonly requestDelay = 1500;
+  private readonly requestDelay = 200;
   private readonly josmUrl = "http://localhost:8111/";
   private readonly apiUrl = this.josmUrl + "import?url=https://api.openstreetmap.org/api/0.6";
 
@@ -91,10 +93,10 @@ export class LocationEditComponent {
   }
 
   ngOnInit(): void {
-    const nodeStepCount = (this.page.nodeRefs.size / this.chunkSize) + 1;
-    const routeStepCount = this.page.routeRefs.size;
+    const nodeStepCount = (this.page.nodeIds.size / this.chunkSize) + 1;
+    const routeStepCount = this.page.routeIds.size;
     const stepCount = nodeStepCount + routeStepCount;
-    this.seconds = Math.round(stepCount * this.requestDelay / 1000);
+    this.seconds = Math.round(stepCount * (this.requestDelay + 200) / 1000);
   }
 
   edit(): void {
@@ -106,7 +108,7 @@ export class LocationEditComponent {
     const nodeEdits = this.buildNodeEdits();
     const routeEdits = this.buildRouteEdits();
     const setBounds = this.buildSetBounds();
-    const steps = setBounds === null ? nodeEdits.concat(routeEdits) :  nodeEdits.concat(routeEdits).push(setBounds);
+    const steps = setBounds === null ? nodeEdits.concat(routeEdits) : nodeEdits.concat(routeEdits).push(setBounds);
 
     this.progressSteps = steps.size;
     this.showProgress$.next(true);
@@ -128,7 +130,6 @@ export class LocationEditComponent {
       () => {
         this.showProgress$.next(false);
         this.progress$.next(0);
-        this.action$.next("");
         this.progressCount = 0;
         this.progressSteps = 0;
         this.ready$.next(true);
@@ -142,49 +143,46 @@ export class LocationEditComponent {
       this.subscription.unsubscribe();
       this.showProgress$.next(false);
       this.progress$.next(0);
-      this.action$.next("");
       this.progressCount = 0;
       this.progressSteps = 0;
     }
   }
 
   buildSetBounds(): Observable<Object> {
-    if (!this.page.nodeRefs.isEmpty()) {
+    if (!this.page.nodeIds.isEmpty()) {
       const zoomUrl = this.josmUrl + `zoom?left=${this.page.bounds.minLon}&right=${this.page.bounds.maxLon}&top=${this.page.bounds.maxLat}&bottom=${this.page.bounds.minLat}`;
       return this.appService.edit(zoomUrl).pipe(
-        tap(() => this.updateProgress(`Zoom`))
+        tap(() => this.updateProgress())
       );
     }
     return null;
   }
 
   private buildNodeEdits(): List<Observable<Object>> {
-    const nodeBatches = Range(0, this.page.nodeRefs.count(), this.chunkSize)
-      .map(chunkStart => this.page.nodeRefs.slice(chunkStart, chunkStart + this.chunkSize))
+    const nodeBatches = Range(0, this.page.nodeIds.count(), this.chunkSize)
+      .map(chunkStart => this.page.nodeIds.slice(chunkStart, chunkStart + this.chunkSize))
       .toList();
-    return nodeBatches.map(nodeRefs => {
-      const nodeIdString = nodeRefs.map(n => n.id).join(",");
+    return nodeBatches.map(nodeIds => {
+      const nodeIdString = nodeIds.join(",");
       const url = `${this.apiUrl}/nodes?nodes=${nodeIdString}`;
       return this.appService.edit(url).pipe(
-        tap(() => this.updateProgress("nodes")),
+        tap(() => this.updateProgress()),
         delay(this.requestDelay)
       );
     });
   }
 
   private buildRouteEdits(): List<Observable<Object>> {
-    return this.page.routeRefs.take(5).map(routeRef => {
-      const url = `${this.apiUrl}/relation/${routeRef.id}/full`;
+    return this.page.routeIds.map(routeId => {
+      const url = `${this.apiUrl}/relation/${routeId}/full`;
       return this.appService.edit(url).pipe(
-        tap(() => this.updateProgress(`Route ${routeRef.name}`)),
+        tap(() => this.updateProgress()),
         delay(this.requestDelay)
       );
     });
   }
 
-  private updateProgress(action: string) {
-    console.log("update progress " + this.progressCount);
-    this.action$.next(action);
+  private updateProgress() {
     this.progressCount = this.progressCount + 1;
     let progress = 0;
     if (this.progressSteps > 0) {

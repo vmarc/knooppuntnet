@@ -33,7 +33,7 @@ import {map} from "rxjs/operators";
   `,
   styles: [`
     mat-button-toggle-group {
-      margin-left: 15px;
+      margin-left: 100px;
     }
 
     ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
