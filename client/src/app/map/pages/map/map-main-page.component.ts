@@ -100,6 +100,12 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     );
 
     this.subscriptions.add(
+      this.mapService.networkType$.subscribe(networkType => {
+        this.pageService.nextToolbarBackgroundColor("toolbar-style-" + networkType.name);
+      })
+    );
+
+    this.subscriptions.add(
       combineLatest([this.plannerService.context.networkType$, this.activatedRoute.fragment])
         .subscribe(([networkType, fragment]) => {
           if (fragment) {
@@ -198,6 +204,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
+    this.pageService.nextToolbarBackgroundColor(null);
   }
 
   zoomInToRoute(): void {
