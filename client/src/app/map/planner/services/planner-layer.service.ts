@@ -1,10 +1,9 @@
 import {Injectable} from "@angular/core";
 import {List} from "immutable";
 import {Map as ImmutableMap} from "immutable";
-import TileLayer from "ol/layer/Tile";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
-import {BehaviorSubject} from "rxjs";
+import {ReplaySubject} from "rxjs";
 import {Observable} from "rxjs";
 import {combineLatest} from "rxjs";
 import {tap} from "rxjs/operators";
@@ -27,48 +26,52 @@ import {PlannerService} from "../../planner.service";
 })
 export class PlannerLayerService {
 
-  readonly mapLayers$: Observable<MapLayers>;
-  readonly standardLayers: List<MapLayer>;
-  private _mapLayers$: BehaviorSubject<MapLayers>;
-  private readonly networkLayerChange$: Observable<MapLayerChange>;
+  standardLayers: List<MapLayer>;
+  mapLayers$: Observable<MapLayers>;
+  private _mapLayers$ = new ReplaySubject<MapLayers>();
+  private networkLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;
 
-  private readonly osmLayer: MapLayer;
-  private readonly tileNameLayer: MapLayer;
-  private readonly poiLayer: MapLayer;
-  private readonly bitmapLayers: ImmutableMap<NetworkType, MapLayer>;
-  private readonly vectorLayers: ImmutableMap<NetworkType, MapLayer>;
-  private readonly allLayers: List<MapLayer>;
+  private osmLayer: MapLayer;
+  private tileNameLayer: MapLayer;
+  private poiLayer: MapLayer;
+  private bitmapLayers: ImmutableMap<NetworkType, MapLayer>;
+  private vectorLayers: ImmutableMap<NetworkType, MapLayer>;
+  private allLayers: List<MapLayer>;
 
   constructor(private mapLayerService: MapLayerService,
-              poiTileLayerService: PoiTileLayerService,
+              private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
               private mapService: MapService,
               private mapZoomService: MapZoomService) {
-    this.osmLayer = mapLayerService.osmLayer();
-    this.tileNameLayer = mapLayerService.tileNameLayer();
-    this.poiLayer = poiTileLayerService.buildLayer();
-    this.bitmapLayers = this.buildBitmapLayers();
-    this.vectorLayers = this.buildVectorLayers();
 
-    this.standardLayers = List([this.osmLayer, /*this.tileNameLayer,*/ this.poiLayer]);
-
-    this.allLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer])
-      .concat(this.bitmapLayers.values())
-      .concat(this.vectorLayers.values());
-
-    this._mapLayers$ = new BehaviorSubject<MapLayers>(new MapLayers(this.standardLayers));
     this.mapLayers$ = this._mapLayers$.asObservable();
 
-    this.networkLayerChange$ = combineLatest([mapZoomService.zoomLevel$, plannerService.context.networkType$]).pipe(
+    this.networkLayerChange$ = combineLatest([this.mapZoomService.zoomLevel$, this.plannerService.context.networkType$]).pipe(
       map(([zoomLevel, networkType]) => {
         return this.networkLayerChange(zoomLevel, networkType);
       }),
       filter(change => change !== null),
       tap(change => {
+
+        console.log("Setting network type layer");
         this._mapLayers$.next(new MapLayers(this.standardLayers.push(change.newLayer)));
       })
     );
+  }
+
+  init(): void {
+    this.osmLayer = this.mapLayerService.osmLayer2();
+    this.tileNameLayer = this.mapLayerService.tileNameLayer();
+    this.poiLayer = this.poiTileLayerService.buildLayer();
+    this.bitmapLayers = this.buildBitmapLayers();
+    this.vectorLayers = this.buildVectorLayers();
+
+    this.standardLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer]);
+
+    this.allLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer])
+      .concat(this.bitmapLayers.values())
+      .concat(this.vectorLayers.values());
   }
 
   applyMap(olMap: Map) {
@@ -80,7 +83,7 @@ export class PlannerLayerService {
 
     const mainMapStyle = new MainMapStyle(olMap, this.mapService).styleFunction();
     List(this.vectorLayers.values()).forEach(l => {
-      const vectorTileLayer = (l.layer)as VectorTileLayer;
+      const vectorTileLayer = (l.layer) as VectorTileLayer;
       vectorTileLayer.setStyle(mainMapStyle);
       this.mapService.mapMode$.subscribe(() => vectorTileLayer.getSource().changed());
     });

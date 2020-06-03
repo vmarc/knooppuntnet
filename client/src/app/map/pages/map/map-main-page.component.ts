@@ -14,7 +14,6 @@ import {NoRouteDialogComponent} from "../../../components/ol/components/no-route
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapControls} from "../../../components/ol/layers/map-controls";
-import {MapLayer} from "../../../components/ol/layers/map-layer";
 import {MapLayers} from "../../../components/ol/layers/map-layers";
 import {MapLayerService} from "../../../components/ol/services/map-layer.service";
 import {MapPositionService} from "../../../components/ol/services/map-position.service";
@@ -85,10 +84,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-
-    this.mapLayers$ = this.plannerLayerService.mapLayers$.pipe(
-      delay(0)
-    );
 
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
@@ -168,6 +163,11 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
 
+    this.plannerLayerService.init();
+    this.mapLayers$ = this.plannerLayerService.mapLayers$.pipe(
+      delay(0)
+    );
+
     this.overlay = new Overlay({
       id: "popup",
       element: document.getElementById("popup"),
@@ -226,14 +226,5 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       zoomLevel = 13;
     }
     this.map.getView().setZoom(zoomLevel);
-  }
-
-  private buildLayers(): MapLayers {
-    let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
-    // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
-    mapLayers = mapLayers.push(this.poiTileLayerService.buildLayer());
-    mapLayers = mapLayers.push(this.mapLayerService.mainMapLayer());
-    return new MapLayers(mapLayers);
   }
 }

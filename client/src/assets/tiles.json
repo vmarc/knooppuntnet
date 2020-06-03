@@ -729,6 +729,6 @@
   ],
   "tilejson": "2.0.0",
   "tiles": [
-    "tiles/osm/{z}/{x}/{y}.pbf"
+    "http://localhost:4100/tiles/osm/{z}/{x}/{y}.pbf"
   ]
 }

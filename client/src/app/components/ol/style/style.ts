@@ -11,20 +11,13 @@ export const osmStyle = {
       "url": "assets/tiles.json"
     }
   },
-  "sprite": "assets/sprites/osm-liberty",
-  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={key}",
+  "sprite": "http://localhost:4100/assets/sprites/osm-liberty",
+  "glyphs": "http://localhost:4100/assets/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
       "type": "background",
       "paint": {"background-color": "rgb(239,239,239)"}
-    },
-    {
-      "id": "natural_earth",
-      "type": "raster",
-      "source": "natural_earth_shaded_relief",
-      "maxzoom": 6,
-      "paint": {"raster-opacity": {"base": 1.5, "stops": [[0, 0.6], [6, 0.1]]}}
     },
     {
       "id": "park",

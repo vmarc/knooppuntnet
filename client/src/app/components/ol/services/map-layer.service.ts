@@ -21,6 +21,7 @@ import {NetworkVectorTileLayer} from "../layers/network-vector-tile-layer";
 import {NodeMarkerLayer} from "../layers/node-marker-layer";
 import {NodeMovedLayer} from "../layers/node-moved-layer";
 import {OsmLayer} from "../layers/osm-layer";
+import {OsmLayer2} from "../layers/osm-layer-2";
 import {PoiTileLayer} from "../layers/poi-tile-layer";
 import {RouteChangeLayers} from "../layers/route-change-layers";
 import {RouteLayers} from "../layers/route-layers";
@@ -37,6 +38,10 @@ export class MapLayerService {
 
   osmLayer(): MapLayer {
     return new OsmLayer(this.i18nService).build();
+  }
+
+  osmLayer2(): MapLayer {
+    return new OsmLayer2(this.i18nService).build();
   }
 
   tileNameLayer(): MapLayer {
