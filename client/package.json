@@ -47,7 +47,7 @@
     "ol-mapbox-style": "6.0.1",
     "angular-qrious": "9.0.0",
     "qrious": "^4.0.2",
-    "rxjs": "^6.5.4",
+    "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.3"
   },
