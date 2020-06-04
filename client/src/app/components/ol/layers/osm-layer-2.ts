@@ -3,7 +3,7 @@ import * as mapboxgl from "mapbox-gl/dist/mapbox-gl-dev";
 import {Layer} from "ol/layer";
 import {toLonLat} from "ol/proj";
 import {I18nService} from "../../../i18n/i18n.service";
-import {osmStyle} from "../style/style";
+import {OsmLibertyStyle} from "../style/osm-liberty-style";
 import {MapLayer} from "./map-layer";
 
 export class OsmLayer2 {
@@ -14,7 +14,7 @@ export class OsmLayer2 {
   build(): MapLayer {
 
     const mbMap = new mapboxgl.Map({
-      style: osmStyle,
+      style: OsmLibertyStyle.osmLibertyStyle,
       attributionControl: false,
       boxZoom: false,
       container: "main-map",

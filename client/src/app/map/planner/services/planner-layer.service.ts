@@ -53,8 +53,6 @@ export class PlannerLayerService {
       }),
       filter(change => change !== null),
       tap(change => {
-
-        console.log("Setting network type layer");
         this._mapLayers$.next(new MapLayers(this.standardLayers.push(change.newLayer)));
       })
     );

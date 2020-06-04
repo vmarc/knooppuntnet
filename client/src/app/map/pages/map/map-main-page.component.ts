@@ -81,6 +81,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private dialog: MatDialog,
               private appService: AppService) {
     this.pageService.showFooter = false;
+
+
   }
 
   ngOnInit(): void {
