@@ -34,7 +34,7 @@ class SegmentTest extends UnitTest with SharedTestObjects {
 
   private def segmentFragment(wayId: Long, reversed: Boolean, nodeIds: Long*): SegmentFragment = {
     val nodes = nodeIds.map(id => newNode(id))
-    SegmentFragment(Fragment(None, None, newWay(wayId), nodes, None), reversed)
+    SegmentFragment(Fragment.create(None, None, newWay(wayId), nodes, None), reversed)
   }
 
   private def assertSegmentNodeIds(segmentFragments: Seq[SegmentFragment], expectedNodeIds: Long*): Unit = {

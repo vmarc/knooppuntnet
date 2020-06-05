@@ -31,11 +31,11 @@ class PavedUnpavedSplitterTest extends UnitTest {
     val way4 = d.ways(1004)
     val way5 = d.ways(1005)
 
-    val fragment1 = SegmentFragment(Fragment(None, None, way1, way1.nodes, None))
-    val fragment2 = SegmentFragment(Fragment(None, None, way2, way2.nodes, None))
-    val fragment3 = SegmentFragment(Fragment(None, None, way3, way3.nodes, None))
-    val fragment4 = SegmentFragment(Fragment(None, None, way4, way4.nodes, None))
-    val fragment5 = SegmentFragment(Fragment(None, None, way5, way5.nodes, None))
+    val fragment1 = SegmentFragment(Fragment.create(None, None, way1, way1.nodes, None))
+    val fragment2 = SegmentFragment(Fragment.create(None, None, way2, way2.nodes, None))
+    val fragment3 = SegmentFragment(Fragment.create(None, None, way3, way3.nodes, None))
+    val fragment4 = SegmentFragment(Fragment.create(None, None, way4, way4.nodes, None))
+    val fragment5 = SegmentFragment(Fragment.create(None, None, way5, way5.nodes, None))
 
     val segmentFragments = Seq(
       fragment1,
@@ -70,7 +70,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
 
     val way1 = d.ways(1001)
 
-    val fragment1 = SegmentFragment(Fragment(None, None, way1, way1.nodes, None))
+    val fragment1 = SegmentFragment(Fragment.create(None, None, way1, way1.nodes, None))
 
     val segmentFragments = Seq(
       fragment1
@@ -109,11 +109,11 @@ class PavedUnpavedSplitterTest extends UnitTest {
     val way4 = d.ways(1004)
     val way5 = d.ways(1005)
 
-    val fragment1 = SegmentFragment(Fragment(None, None, way1, way1.nodes, None))
-    val fragment2 = SegmentFragment(Fragment(None, None, way2, way2.nodes, None))
-    val fragment3 = SegmentFragment(Fragment(None, None, way3, way3.nodes, None))
-    val fragment4 = SegmentFragment(Fragment(None, None, way4, way4.nodes, None))
-    val fragment5 = SegmentFragment(Fragment(None, None, way5, way5.nodes, None))
+    val fragment1 = SegmentFragment(Fragment.create(None, None, way1, way1.nodes, None))
+    val fragment2 = SegmentFragment(Fragment.create(None, None, way2, way2.nodes, None))
+    val fragment3 = SegmentFragment(Fragment.create(None, None, way3, way3.nodes, None))
+    val fragment4 = SegmentFragment(Fragment.create(None, None, way4, way4.nodes, None))
+    val fragment5 = SegmentFragment(Fragment.create(None, None, way5, way5.nodes, None))
 
     val segmentFragments = Seq(
       fragment1,
@@ -156,11 +156,11 @@ class PavedUnpavedSplitterTest extends UnitTest {
     val way4 = d.ways(1004)
     val way5 = d.ways(1005)
 
-    val fragment1 = SegmentFragment(Fragment(None, None, way1, way1.nodes, None))
-    val fragment2 = SegmentFragment(Fragment(None, None, way2, way2.nodes, None))
-    val fragment3 = SegmentFragment(Fragment(None, None, way3, way3.nodes, None))
-    val fragment4 = SegmentFragment(Fragment(None, None, way4, way4.nodes, None))
-    val fragment5 = SegmentFragment(Fragment(None, None, way5, way5.nodes, None))
+    val fragment1 = SegmentFragment(Fragment.create(None, None, way1, way1.nodes, None))
+    val fragment2 = SegmentFragment(Fragment.create(None, None, way2, way2.nodes, None))
+    val fragment3 = SegmentFragment(Fragment.create(None, None, way3, way3.nodes, None))
+    val fragment4 = SegmentFragment(Fragment.create(None, None, way4, way4.nodes, None))
+    val fragment5 = SegmentFragment(Fragment.create(None, None, way5, way5.nodes, None))
 
     val segmentFragments = Seq(
       fragment1,

@@ -20,15 +20,8 @@ class OverviewRepositoryTest extends UnitTest with SharedTestObjects {
           newNetworkAttributes(
             1,
             Some(Country.be),
-            NetworkType.hiking
-          ),
-          detail = Some(
-            newNetworkInfoDetail(
-              nodes = Seq(
-                newNetworkInfoNode(101, "01"),
-                newNetworkInfoNode(102, "02")
-              )
-            )
+            NetworkType.hiking,
+            nodeCount = 2
           )
         )
       )

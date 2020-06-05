@@ -13,7 +13,6 @@ object RouteFragmentAnalyzer extends RouteAnalyzer {
 class RouteFragmentAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    // TODO ROUTE include FragmentAnalyzer into this class
     val fragments: Seq[Fragment] = new FragmentAnalyzer(context.routeNodeAnalysis.get.usedNodes, context.loadedRoute.relation.wayMembers).fragments
     context.copy(fragments = Some(fragments))
   }

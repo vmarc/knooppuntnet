@@ -36,7 +36,7 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
     util.alternateNames(nodes) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
   }
 
-  test("alternateNames for more than 26 nodes") {
+  test("alternateNames for more than 2 * 26 nodes") {
     val nodes = Seq(
       node(1, "01"),
       node(2, "01"),
@@ -64,12 +64,38 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
       node(24, "01"),
       node(25, "01"),
       node(26, "01"),
-      node(27, "01")
+      node(27, "01"),
+      node(28, "01"),
+      node(29, "01"),
+      node(30, "01"),
+      node(31, "01"),
+      node(32, "01"),
+      node(33, "01"),
+      node(34, "01"),
+      node(35, "01"),
+      node(36, "01"),
+      node(37, "01"),
+      node(38, "01"),
+      node(39, "01"),
+      node(40, "01"),
+      node(41, "01"),
+      node(42, "01"),
+      node(43, "01"),
+      node(44, "01"),
+      node(45, "01"),
+      node(46, "01"),
+      node(47, "01"),
+      node(48, "01"),
+      node(49, "01"),
+      node(50, "01"),
+      node(51, "01"),
+      node(52, "01"),
+      node(53, "01")
     )
 
     intercept[Exception] {
       util.alternateNames(nodes)
-    }.getMessage should equal("Number of nodes (27) exceeds the expected maximum number of nodes (26)")
+    }.getMessage should equal("Number of nodes (53) exceeds the expected maximum number of nodes (52)")
   }
 
   private def node(name: String): Node = node(1, name)

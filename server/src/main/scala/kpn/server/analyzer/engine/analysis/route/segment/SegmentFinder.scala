@@ -10,26 +10,30 @@ class SegmentFinderAbort() extends RuntimeException
 
 case class SegmentFinderContext(
   timer: Timer,
-  availableFragments: Seq[Fragment],
+  availableFragmentIds: Set[Int],
   sourceNode: Node,
   targetNode: Node,
   indent: Int,
   direction: SegmentDirection.Value,
   node: Node,
-  usedFragments: Seq[Fragment] = Seq.empty,
+  usedFragmentIds: Set[Int] = Set.empty,
   currentSegmentFragments: Seq[SegmentFragment] = Seq.empty,
   potentialSolutionCount: Long = 0
 )
 
-class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], allNodes: Set[Node]) {
+class SegmentFinder(
+  fragmentMap: Map[Int, Fragment],
+  networkType: NetworkType,
+  allRouteNodes: Set[RouteNode],
+  allNodes: Set[Node]) {
 
   private val maxSolutionCount = 1000
-  private val timeout = 20000L
+  private val timeout = 10000L
 
   private val log = Log(classOf[SegmentFinder])
 
   def find(
-    availableFragments: Seq[Fragment],
+    availableFragmentIds: Set[Int],
     direction: SegmentDirection.Value,
     source: Node,
     target: Node
@@ -37,7 +41,7 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
 
     val context = SegmentFinderContext(
       new Timer(timeout),
-      availableFragments,
+      availableFragmentIds,
       source,
       target,
       0,
@@ -50,8 +54,8 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
 
   private def recursiveFindSegments(context: SegmentFinderContext): Option[Path] = {
 
-    val remainingFragments: Set[Fragment] = context.availableFragments.toSet -- context.usedFragments.toSet
-    if (remainingFragments.isEmpty) {
+    val remainingFragmentIds: Set[Int] = context.availableFragmentIds -- context.usedFragmentIds
+    if (remainingFragmentIds.isEmpty) {
       if (context.currentSegmentFragments.nonEmpty) {
         buildPath(context.currentSegmentFragments, broken = true)
       }
@@ -61,20 +65,21 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
     }
     else {
 
-      val connectableFragments = remainingFragments.filter { f =>
-        val res = canConnect(context.indent, context.direction, context.node, f)
+      val connectableFragments = remainingFragmentIds.filter { fragmentId =>
+        val res = canConnect(context.indent, context.direction, context.node, fragmentId)
         if (res) {
-          if (context.usedFragments.contains(f)) {
+          if (context.usedFragmentIds.contains(fragmentId)) {
             //noinspection SideEffectsInMonadicTransformation
             log.warn("STOP SELF REFERENCING ROUTE ???")
           }
-          if (context.currentSegmentFragments.map(_.fragment).contains(f)) {
+          if (context.currentSegmentFragments.map(_.fragment.id).contains(fragmentId)) {
             //noinspection SideEffectsInMonadicTransformation
             log.warn("STOP SELF REFERENCING ROUTE ???")
           }
         }
         res
-      }.toSeq.map { fragment =>
+      }.toSeq.map { fragmentId =>
+        val fragment = fragmentMap(fragmentId)
         val reversed = context.node == fragment.nodes.last
         SegmentFragment(fragment, reversed)
       }
@@ -117,7 +122,7 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
           throw new SegmentFinderAbort()
         }
 
-        val passedNodes = context.usedFragments.flatMap(fragment => fragment.nodes).filterNot(_ == context.node)
+        val passedNodes = context.usedFragmentIds.map(fragmentMap).flatMap(fragment => fragment.nodes).filterNot(_ == context.node)
 
         val paths: Seq[Path] = connectableFragments.flatMap { segmentFragment =>
 
@@ -156,7 +161,7 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
             val newContext = context.copy(
               indent = context.indent + 2,
               node = segmentFragment.endNode,
-              usedFragments = context.usedFragments ++ segmentFragments.map(_.fragment),
+              usedFragmentIds = context.usedFragmentIds ++ segmentFragments.map(_.fragment.id),
               currentSegmentFragments = context.currentSegmentFragments :+ segmentFragment,
               potentialSolutionCount = newPotentialSolutionCount
             )
@@ -169,7 +174,8 @@ class SegmentFinder(networkType: NetworkType, allRouteNodes: Set[RouteNode], all
     }
   }
 
-  private def canConnect(indent: Int, direction: SegmentDirection.Value, node: Node, fragment: Fragment): Boolean = {
+  private def canConnect(indent: Int, direction: SegmentDirection.Value, node: Node, fragmentId: Int): Boolean = {
+    val fragment = fragmentMap(fragmentId)
     val connect = new NodeFragmentConnectionAnalyzer(networkType, direction, node, fragment).canConnect
     val startNode = fragment.nodes.head
     val endNode = fragment.nodes.last

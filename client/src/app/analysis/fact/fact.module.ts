@@ -27,6 +27,7 @@ import {FactNameMissingComponent} from "./descriptions/fact-name-missing.compone
 import {FactNetworkExtraMemberNodeComponent} from "./descriptions/fact-network-extra-member-node.component";
 import {FactNetworkExtraMemberRelationComponent} from "./descriptions/fact-network-extra-member-relation.component";
 import {FactNetworkExtraMemberWayComponent} from "./descriptions/fact-network-extra-member-way.component";
+import {FactNodeInvalidSurveyDateComponent} from "./descriptions/fact-node-invalid-survey-date.component";
 import {FactNodeMemberMissingComponent} from "./descriptions/fact-node-member-missing.component";
 import {FactOrphanNodeComponent} from "./descriptions/fact-orphan-node.component";
 import {FactOrphanRouteComponent} from "./descriptions/fact-orphan-route.component";
@@ -36,6 +37,7 @@ import {FactRouteFixmetodoComponent} from "./descriptions/fact-route-fixmetodo.c
 import {FactRouteIncompleteOkComponent} from "./descriptions/fact-route-incomplete-ok.component";
 import {FactRouteIncompleteComponent} from "./descriptions/fact-route-incomplete.component";
 import {FactRouteInvalidSortingOrderComponent} from "./descriptions/fact-route-invalid-sorting-order.component";
+import {FactRouteInvalidSurveyDateComponent} from "./descriptions/fact-route-invalid-survey-date.component";
 import {FactRouteNameMissingComponent} from "./descriptions/fact-route-name-missing.component";
 import {FactRouteNodeMissingInWaysComponent} from "./descriptions/fact-route-node-missing-in-ways.component";
 import {FactRouteNodeNameMismatchComponent} from "./descriptions/fact-route-node-name-mismatch.component";
@@ -59,8 +61,6 @@ import {FactDescriptionComponent} from "./fact-description.component";
 import {FactLevelComponent} from "./fact-level.component";
 import {FactNameComponent} from "./fact-name.component";
 import {FactsComponent} from "./facts.component";
-import { FactNodeInvalidSurveyDateComponent } from './descriptions/fact-node-invalid-survey-date.component';
-import { FactRouteInvalidSurveyDateComponent } from './descriptions/fact-route-invalid-survey-date.component';
 
 @NgModule({
   imports: [

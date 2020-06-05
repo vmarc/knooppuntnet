@@ -12,12 +12,12 @@ object FragmentAnalyzer {
 }
 
 /**
-  * Splits up all way members in the route relation into fragments.
-  * We split a way at a way node when this node is a network node, or when this node also is found in another way.
-  *
-  * @param routeNodes all network nodes that were found in the route relation or the route ways
-  * @param wayMembers all members of type 'way' in the route relation
-  */
+ * Splits up all way members in the route relation into fragments.
+ * We split a way at a way node when this node is a network node, or when this node also is found in another way.
+ *
+ * @param routeNodes all network nodes that were found in the route relation or the route ways
+ * @param wayMembers all members of type 'way' in the route relation
+ */
 class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
   import FragmentAnalyzer.log
@@ -43,7 +43,7 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
       Seq(fragment(wayMember, Seq()))
     }
     else {
-      val splitIndexes = indexesAtWhichToSplit(wayMember: WayMember)
+      val splitIndexes = indexesAtWhichToSplit(wayMember)
       if (splitIndexes.isEmpty) {
         Seq(fragment(wayMember, Seq()))
       }
@@ -129,6 +129,6 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
     val nodes = if (subsetNodes.isEmpty) wayMember.way.nodes else subsetNodes
     val start: Option[RouteNode] = routeNodes.find(routeNode => routeNode.id == nodes.head.id)
     val end: Option[RouteNode] = routeNodes.find(routeNode => routeNode.id == nodes.last.id)
-    Fragment(start, end, wayMember.way, subsetNodes, wayMember.role)
+    Fragment.create(start, end, wayMember.way, subsetNodes, wayMember.role)
   }
 }

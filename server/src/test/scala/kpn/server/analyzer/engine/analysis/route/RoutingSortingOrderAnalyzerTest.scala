@@ -62,7 +62,7 @@ class RoutingSortingOrderAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def fragment(wayId: Long, from: Node, to: Node): Fragment = {
-    Fragment(None, None, newWay(wayId, nodes = Seq(from, to)), Seq(), None)
+    Fragment.create(None, None, newWay(wayId, nodes = Seq(from, to)), Seq(), None)
   }
 
   private def analyze(structure: RouteStructure): RouteSortingOrderAnalysis = {

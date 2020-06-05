@@ -18,9 +18,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newNode(5)
     val node6 = newNode(6)
 
-    val fragment1 = Fragment(None, None, newWay(10, nodes = Seq(node1, node2)), Seq(), None)
-    val fragment2 = Fragment(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq(), None)
-    val fragment3 = Fragment(None, None, newWay(12, nodes = Seq(node5, node6)), Seq(), None)
+    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq(), None)
+    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq(), None)
+    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq(), None)
 
     val fragments: Seq[Fragment] = Seq(fragment1, fragment2, fragment3)
 
@@ -36,9 +36,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newNode(5)
     val node6 = newNode(6)
 
-    val fragment1 = Fragment(None, None, newWay(10, nodes = Seq(node1, node2)), Seq(), None)
-    val fragment2 = Fragment(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq(), None)
-    val fragment3 = Fragment(None, None, newWay(12, nodes = Seq(node5, node6)), Seq(), None)
+    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq(), None)
+    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq(), None)
+    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq(), None)
 
     val fragments: Seq[Fragment] = Seq(fragment2, fragment3, fragment1)
 
@@ -58,9 +58,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val way2 = newWay(11, nodes = Seq(node3, node4, node5), length = 50)
     val way3 = newWay(12, nodes = Seq(node3, node6), length = 200)
 
-    val fragment1 = Fragment(way = way1)
-    val fragment2 = Fragment(way = way2)
-    val fragment3 = Fragment(way = way3)
+    val fragment1 = Fragment.create(way = way1)
+    val fragment2 = Fragment.create(way = way2)
+    val fragment3 = Fragment.create(way = way3)
 
     val fragments: Seq[Fragment] = Seq(fragment1, fragment2, fragment3)
 
@@ -68,7 +68,8 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
   }
 
   private def assertSegments(fragments: Seq[Fragment], expectedSegmentNodeIds: String*): Unit = {
-    val segments = new SegmentBuilder().segments(fragments)
+    val fragmentMap = fragments.map(f => f.id -> f).toMap
+    val segments = new SegmentBuilder(fragmentMap).segments(fragments.map(_.id).toSet)
     segments.map(_.nodes.map(_.id).mkString("-")).toSet should equal(expectedSegmentNodeIds.toSet)
   }
 }

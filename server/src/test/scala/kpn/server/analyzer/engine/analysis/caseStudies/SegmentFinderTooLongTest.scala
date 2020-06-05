@@ -7,6 +7,7 @@ class SegmentFinderTooLongTest extends UnitTest {
 
   test("SegmentFinder timeout") {
     val route = CaseStudy.routeAnalysis("2655355").route
-    route.facts should equal(Seq(Fact.RouteAnalysisFailed, Fact.RouteBroken))
+    // RouteAnalysisFailed is not produced anymore after performance improvements (no longer timeout)
+    route.facts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteInvalidSortingOrder, Fact.RouteBroken))
   }
 }

@@ -26,8 +26,8 @@ class FragmentFilterTest extends UnitTest with SharedTestObjects {
     val w = newWay(100, nodes = nodes, tags = tags)
 
     val fragments: Seq[Fragment] = Seq(
-      Fragment(None, None, w, nodes, Some("forward")),
-      Fragment(None, None, w, nodes, Some("backward"))
+      Fragment.create(None, None, w, nodes, Some("forward")),
+      Fragment.create(None, None, w, nodes, Some("backward"))
     )
 
     FragmentFilter.filter(fragments).size

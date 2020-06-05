@@ -24,9 +24,10 @@ export class JosmLinkComponent {
     const url = "http://localhost:8111/import?url=https://api.openstreetmap.org/api/0.6";
     const fullUrl = `${url}/${this.kind}/${this.elementId}${this.full ? "/full" : ""}`;
     this.appService.edit(fullUrl).subscribe(result => {
-      if (result === "Timeout") {
+      },
+      err => {
         this.dialog.open(TimeoutComponent, {maxWidth: 500});
       }
-    });
+    );
   }
 }

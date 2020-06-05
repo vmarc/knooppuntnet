@@ -35,26 +35,30 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   facts ++= context.facts
 
   def analyze: RouteAnalysisContext = {
-    val structure = analyzeStructure(context.routeNodeAnalysis.get, context.fragments.get)
-    analyzeStructure2(context.routeNodeAnalysis.get, structure, context.fragments.get)
+    val fragments = context.fragments.toSeq.flatten
+    val fragmentMap = fragments.map(f => f.id -> f).toMap
+    val structure = analyzeStructure(fragmentMap, context.routeNodeAnalysis.get)
+    analyzeStructure2(context.routeNodeAnalysis.get, structure, fragments)
     context.copy(structure = Some(structure), facts = facts.toSeq)
   }
 
-  private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis, fragments: Seq[Fragment]): RouteStructure = {
+  private def analyzeStructure(fragmentMap: Map[Int, Fragment], routeNodeAnalysis: RouteNodeAnalysis) = {
+
+    val fragmentIds = fragmentMap.values.map(_.id).toSet
 
     if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder().segments(fragments)
+        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
       )
     }
     else if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder().segments(fragments)
+        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
       )
     }
     else if (routeNodeAnalysis.redundantNodes.size > 3) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder().segments(fragments)
+        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
       )
     }
     else {
@@ -62,15 +66,13 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         new SegmentAnalyzer(
           context.networkType,
           context.loadedRoute.relation.id,
-          fragments,
+          fragmentMap,
           routeNodeAnalysis
         ).structure
       }
       catch {
         case e: SegmentFinderAbort =>
-
           facts += RouteAnalysisFailed
-
           RouteStructure()
       }
     }
