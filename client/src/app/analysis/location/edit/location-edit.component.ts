@@ -1,5 +1,6 @@
 import {Input} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {MatCheckboxChange} from "@angular/material/checkbox/checkbox";
 import {List, Range} from "immutable";
 import {Subscription} from "rxjs";
 import {TimeoutError} from "rxjs";
@@ -16,23 +17,30 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>
-      {{page.summary.nodeCount}} <span i18n="@@location-edit.nodes">nodes, </span>
-      {{page.summary.routeCount}} <span i18n="@@location-edit.routes">routes</span>
+      <mat-checkbox
+        [checked]="nodeSelection"
+        (change)="nodeSelectionChanged($event)">
+        {{page.summary.nodeCount}} <span i18n="@@location-edit.nodes">nodes (quick)</span>
+      </mat-checkbox>
     </p>
     <p>
+      <mat-checkbox
+        [checked]="routeRelationsSelection"
+        (change)="routeRelationsSelectionChanged($event)">
+        {{page.summary.routeCount}} <span i18n="@@location-edit.routes">routes relations (quick)</span>
+      </mat-checkbox>
+    </p>
+    <p>
+      <mat-checkbox
+        [checked]="fullRouteSelection"
+        (change)="fullRouteSelectionChanged($event)">
+        {{page.summary.routeCount}} <span i18n="@@location-edit.full-routes">routes with ways (takes more time)</span>
+      </mat-checkbox>
+    </p>
+    <p *ngIf="showEstimatedTime$ | async">
       <i i18n="@@location-edit.time-warning">
         We estimate that it will take perhaps about {{seconds}} seconds to load all nodes and routes in the editor.
       </i>
-    </p>
-    <p>
-      <a
-        rel="nofollow"
-        (click)="edit()"
-        title="Open in editor (like JOSM)"
-        i18n-title="@@links.edit.tooltip"
-        i18n="@@links.edit">
-        edit
-      </a>
     </p>
     <p *ngIf="showProgress$ | async">
       <mat-progress-bar [value]="progress$ | async"></mat-progress-bar>
@@ -52,9 +60,22 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
     <p *ngIf="timeout$ | async" class="timeout" i18n="@@location-edit.timeout">
       Timeout: editor not started, or editor remote control not enabled?
     </p>
-    <p *ngIf="showProgress$ | async" i18n="@@location-edit.cancel">
+    <p *ngIf="showProgress$ | async; else showEdit" i18n="@@location-edit.cancel">
       <button mat-raised-button (click)="cancel()">Cancel</button>
     </p>
+    <ng-template #showEdit>
+      <p>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="edit()"
+          title="Open in editor (like JOSM)"
+          i18n-title="@@links.edit.tooltip"
+          i18n="@@links.edit">
+          Edit
+        </button>
+      </p>
+    </ng-template>
   `,
   styles: [`
     mat-progress-bar {
@@ -74,6 +95,10 @@ export class LocationEditComponent {
   progressSteps = 0;
   seconds = 0;
 
+  nodeSelection = true;
+  routeRelationsSelection = true;
+  fullRouteSelection = false;
+
   subscription: Subscription;
 
   progress$ = new BehaviorSubject<number>(0);
@@ -83,8 +108,10 @@ export class LocationEditComponent {
   errorName$ = new BehaviorSubject<string>("");
   errorMessage$ = new BehaviorSubject<string>("");
   timeout$ = new BehaviorSubject<boolean>(false);
+  showEstimatedTime$ = new BehaviorSubject<boolean>(false);
 
-  private readonly chunkSize = 50;
+  private readonly nodeChunkSize = 50;
+  private readonly routeChunkSize = 50;
   private readonly requestDelay = 200;
   private readonly josmUrl = "http://localhost:8111/";
   private readonly apiUrl = this.josmUrl + "import?url=https://api.openstreetmap.org/api/0.6";
@@ -93,10 +120,22 @@ export class LocationEditComponent {
   }
 
   ngOnInit(): void {
-    const nodeStepCount = (this.page.nodeIds.size / this.chunkSize) + 1;
-    const routeStepCount = this.page.routeIds.size;
-    const stepCount = nodeStepCount + routeStepCount;
-    this.seconds = Math.round(stepCount * (this.requestDelay + 200) / 1000);
+    this.updateExpectation();
+  }
+
+  nodeSelectionChanged(event: MatCheckboxChange) {
+    this.nodeSelection = event.checked;
+    this.updateExpectation();
+  }
+
+  routeRelationsSelectionChanged(event: MatCheckboxChange) {
+    this.routeRelationsSelection = event.checked;
+    this.updateExpectation();
+  }
+
+  fullRouteSelectionChanged(event: MatCheckboxChange) {
+    this.fullRouteSelection = event.checked;
+    this.updateExpectation();
   }
 
   edit(): void {
@@ -107,8 +146,10 @@ export class LocationEditComponent {
 
     const nodeEdits = this.buildNodeEdits();
     const routeEdits = this.buildRouteEdits();
+    const fullRouteEdits = this.buildFullRouteEdits();
+    const edits = nodeEdits.concat(routeEdits).concat(fullRouteEdits);
     const setBounds = this.buildSetBounds();
-    const steps = setBounds === null ? nodeEdits.concat(routeEdits) : nodeEdits.concat(routeEdits).push(setBounds);
+    const steps = setBounds === null ? edits : edits.push(setBounds);
 
     this.progressSteps = steps.size;
     this.showProgress$.next(true);
@@ -158,9 +199,35 @@ export class LocationEditComponent {
     return null;
   }
 
+  private updateExpectation(): void {
+    let nodeStepCount = 0;
+    if (this.nodeSelection === true) {
+      nodeStepCount += (this.page.nodeIds.size / this.nodeChunkSize) + 1;
+    }
+
+    let routeStepCount = 0;
+    if (this.routeRelationsSelection === true) {
+      routeStepCount += (this.page.routeIds.size / this.routeChunkSize) + 1;
+    }
+
+    let fullRouteStepCount = 0;
+    if (this.fullRouteSelection === true) {
+      fullRouteStepCount += this.page.routeIds.size;
+    }
+
+    const stepCount = nodeStepCount + routeStepCount + fullRouteStepCount;
+    this.seconds = Math.round(stepCount * (this.requestDelay + 200) / 1000);
+
+    this.showEstimatedTime$.next(this.seconds > 3);
+    this.timeout$.next(false);
+  }
+
   private buildNodeEdits(): List<Observable<Object>> {
-    const nodeBatches = Range(0, this.page.nodeIds.count(), this.chunkSize)
-      .map(chunkStart => this.page.nodeIds.slice(chunkStart, chunkStart + this.chunkSize))
+    if (!this.nodeSelection) {
+      return List();
+    }
+    const nodeBatches = Range(0, this.page.nodeIds.count(), this.nodeChunkSize)
+      .map(chunkStart => this.page.nodeIds.slice(chunkStart, chunkStart + this.nodeChunkSize))
       .toList();
     return nodeBatches.map(nodeIds => {
       const nodeIdString = nodeIds.join(",");
@@ -173,6 +240,26 @@ export class LocationEditComponent {
   }
 
   private buildRouteEdits(): List<Observable<Object>> {
+    if (!this.routeRelationsSelection || this.fullRouteSelection) {
+      return List();
+    }
+    const routeBatches = Range(0, this.page.routeIds.count(), this.routeChunkSize)
+      .map(chunkStart => this.page.routeIds.slice(chunkStart, chunkStart + this.routeChunkSize))
+      .toList();
+    return routeBatches.map(routeIds => {
+      const routeIdString = routeIds.join(",");
+      const url = `${this.apiUrl}/relations?relations=${routeIdString}`;
+      return this.appService.edit(url).pipe(
+        tap(() => this.updateProgress()),
+        delay(this.requestDelay)
+      );
+    });
+  }
+
+  private buildFullRouteEdits(): List<Observable<Object>> {
+    if (!this.fullRouteSelection) {
+      return List();
+    }
     return this.page.routeIds.map(routeId => {
       const url = `${this.apiUrl}/relation/${routeId}/full`;
       return this.appService.edit(url).pipe(

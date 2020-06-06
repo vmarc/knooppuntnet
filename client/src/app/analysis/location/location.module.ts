@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
@@ -59,7 +60,8 @@ import {LocationTreeComponent} from "./selection/location-tree.component";
     MatButtonModule,
     FactModule,
     MatProgressBarModule,
-    OlModule
+    OlModule,
+    MatCheckboxModule
   ],
   declarations: [
     LocationPageHeaderComponent,
