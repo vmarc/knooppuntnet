@@ -1,3 +1,4 @@
+import {AfterViewInit} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {PlannerService} from "../../../planner.service";
@@ -6,7 +7,7 @@ import {PlannerService} from "../../../planner.service";
   selector: "kpn-map-popup",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="popup" class="ol-popup">
+    <div id="popup" class="ol-popup" [class.ol-popup-offset]="offset">
       <a href="#" (click)="closePopup()" id="popup-closer" class="ol-popup-closer"></a>
       <kpn-map-popup-contents></kpn-map-popup-contents>
     </div>
@@ -21,9 +22,12 @@ import {PlannerService} from "../../../planner.service";
       padding: 15px;
       border-radius: 10px;
       border: 1px solid #CCCCCC;
-      bottom: 12px;
-      left: -50px;
       min-width: 280px;
+    }
+
+    .ol-popup-offset {
+      bottom: 0;
+      left: -50px;
     }
 
     .ol-popup:after, .ol-popup:before {
@@ -62,7 +66,9 @@ import {PlannerService} from "../../../planner.service";
     }
   `]
 })
-export class MapPopupComponent {
+export class MapPopupComponent implements AfterViewInit {
+
+  offset = false;
 
   constructor(private plannerService: PlannerService) {
   }
@@ -70,6 +76,10 @@ export class MapPopupComponent {
   closePopup() {
     this.plannerService.context.overlay.setPosition(undefined, 0);
     return false;
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.offset = true, 500);
   }
 
 }

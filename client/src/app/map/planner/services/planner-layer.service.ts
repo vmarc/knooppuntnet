@@ -59,7 +59,7 @@ export class PlannerLayerService {
   }
 
   init(): void {
-    this.osmLayer = this.mapLayerService.osmLayer2("main-map");
+    this.osmLayer = this.mapLayerService.osmLayer("main-map");
     this.tileNameLayer = this.mapLayerService.tileNameLayer();
     this.poiLayer = this.poiTileLayerService.buildLayer();
     this.bitmapLayers = this.buildBitmapLayers();

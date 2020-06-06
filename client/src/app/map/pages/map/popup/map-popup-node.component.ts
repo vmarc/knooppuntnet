@@ -1,3 +1,4 @@
+import {OnDestroy} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
@@ -7,10 +8,12 @@ import {switchMap} from "rxjs/operators";
 import {tap} from "rxjs/operators";
 import {filter} from "rxjs/operators";
 import {AppService} from "../../../../app.service";
+import {MapZoomService} from "../../../../components/ol/services/map-zoom.service";
 import {MapService} from "../../../../components/ol/services/map.service";
 import {Util} from "../../../../components/shared/util";
 import {MapNodeDetail} from "../../../../kpn/api/common/node/map-node-detail";
 import {ApiResponse} from "../../../../kpn/api/custom/api-response";
+import {Subscriptions} from "../../../../util/Subscriptions";
 import {PlannerService} from "../../../planner.service";
 
 @Component({
@@ -65,12 +68,14 @@ import {PlannerService} from "../../../planner.service";
     }
   `]
 })
-export class MapPopupNodeComponent implements OnInit {
-
+export class MapPopupNodeComponent implements OnInit, OnDestroy {
   response$: Observable<ApiResponse<MapNodeDetail>>;
+  private zoomLevel = 0;
+  private readonly subscriptions = new Subscriptions();
 
   constructor(private appService: AppService,
               private mapService: MapService,
+              private mapZoomService: MapZoomService,
               private plannerService: PlannerService) {
   }
 
@@ -86,9 +91,21 @@ export class MapPopupNodeComponent implements OnInit {
         )
       )
     );
+
+    this.subscriptions.add(
+      this.mapZoomService.zoomLevel$.subscribe(z => {
+        this.zoomLevel = z;
+        console.log("zoomlevel=" + this.zoomLevel);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -10), 0);
+    const verticalOffset = this.zoomLevel <= 13 ? -13 : -24;
+    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, verticalOffset), 0);
   }
 }

@@ -76,7 +76,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer2(this.mapId));
+    mapLayers = mapLayers.push(this.mapLayerService.osmLayer(this.mapId));
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesTileLayer(this.page.networkSummary.networkType, this.page.nodeIds, this.page.routeIds));
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesMarkerLayer(this.page.nodes));
     // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());

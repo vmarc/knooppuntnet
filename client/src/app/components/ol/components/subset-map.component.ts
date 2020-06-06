@@ -81,7 +81,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     return new MapLayers(
       List([
-        this.mapLayerService.osmLayer2(this.mapId),
+        this.mapLayerService.osmLayer(this.mapId),
         this.mapLayerService.networkMarkerLayer(this.networks)
       ])
     );

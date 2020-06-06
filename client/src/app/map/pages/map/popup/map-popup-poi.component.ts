@@ -193,6 +193,6 @@ export class MapPopupPoiComponent implements OnInit {
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -30), 0);
+    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -45), 0);
   }
 }

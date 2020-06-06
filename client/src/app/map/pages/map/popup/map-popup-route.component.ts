@@ -67,7 +67,7 @@ export class MapPopupRouteComponent implements OnInit {
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, 0), 0);
+    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -12), 0);
   }
 
 }

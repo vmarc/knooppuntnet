@@ -57,6 +57,7 @@ import {PlannerLayerService} from "../../planner/services/planner-layer.service"
       right: 0;
       bottom: 0;
       background-color: white;
+      overflow: hidden;
     }
   `]
 })
@@ -81,12 +82,9 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private dialog: MatDialog,
               private appService: AppService) {
     this.pageService.showFooter = false;
-
-
   }
 
   ngOnInit(): void {
-
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
         const networkTypeName = params["networkType"];
@@ -153,18 +151,40 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         })
     );
-
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(state => {
-        if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
-        }
-      })
-    );
   }
 
   ngAfterViewInit(): void {
+    setTimeout(() => this.buildMap(), 1);
+  }
 
+  ngOnDestroy(): void {
+    this.pageService.showFooter = true;
+    this.subscriptions.unsubscribe();
+    this.pageService.nextToolbarBackgroundColor(null);
+  }
+
+  zoomInToRoute(): void {
+    if (this.plannerService.context.plan.legs.isEmpty()) {
+      this.dialog.open(NoRouteDialogComponent, {maxWidth: 600});
+    } else {
+      const bounds = this.plannerService.context.plan.bounds();
+      if (bounds !== null) {
+        const extent = Util.toExtent(bounds, 0.1);
+        this.map.getView().fit(extent);
+      }
+    }
+  }
+
+  geolocation(coordinate: Coordinate): void {
+    this.map.getView().setCenter(coordinate);
+    let zoomLevel = 15;
+    if (NetworkType.cycling === this.mapService.networkType()) {
+      zoomLevel = 13;
+    }
+    this.map.getView().setZoom(zoomLevel);
+  }
+
+  private buildMap(): void {
     this.plannerLayerService.init();
     this.mapLayers$ = this.plannerLayerService.mapLayers$.pipe(
       delay(0)
@@ -201,32 +221,13 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mapZoomService.install(view);
 
     MapGeocoder.install(this.map);
-  }
 
-  ngOnDestroy(): void {
-    this.pageService.showFooter = true;
-    this.subscriptions.unsubscribe();
-    this.pageService.nextToolbarBackgroundColor(null);
-  }
-
-  zoomInToRoute(): void {
-    if (this.plannerService.context.plan.legs.isEmpty()) {
-      this.dialog.open(NoRouteDialogComponent, {maxWidth: 600});
-    } else {
-      const bounds = this.plannerService.context.plan.bounds();
-      if (bounds !== null) {
-        const extent = Util.toExtent(bounds, 0.1);
-        this.map.getView().fit(extent);
-      }
-    }
-  }
-
-  geolocation(coordinate: Coordinate): void {
-    this.map.getView().setCenter(coordinate);
-    let zoomLevel = 15;
-    if (NetworkType.cycling === this.mapService.networkType()) {
-      zoomLevel = 13;
-    }
-    this.map.getView().setZoom(zoomLevel);
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
   }
 }
