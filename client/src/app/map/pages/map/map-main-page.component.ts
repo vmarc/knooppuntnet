@@ -59,7 +59,10 @@ import {PlannerLayerService} from "../../planner/services/planner-layer.service"
       background-color: white;
       overflow: hidden;
     }
-  `]
+  `],
+  providers: [
+    PlannerLayerService
+  ]
 })
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 

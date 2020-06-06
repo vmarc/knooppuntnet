@@ -21,9 +21,7 @@ import {MainMapStyle} from "../../../components/ol/style/main-map-style";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class PlannerLayerService {
 
   standardLayers: List<MapLayer>;
