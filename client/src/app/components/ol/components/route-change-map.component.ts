@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {AfterViewInit} from "@angular/core";
 import {Input} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {List} from "immutable";
 import Map from "ol/Map";
 import View from "ol/View";
@@ -25,7 +25,7 @@ import {MapLayerService} from "../services/map-layer.service";
     </div>
   `
 })
-export class RouteChangeMapComponent implements OnInit, AfterViewInit {
+export class RouteChangeMapComponent implements AfterViewInit {
 
   @Input() geometryDiff: GeometryDiff;
   @Input() nodes: List<RawNode>;
@@ -38,15 +38,12 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
   constructor(private mapLayerService: MapLayerService) {
   }
 
-  ngOnInit(): void {
-    this.layers = this.buildLayers();
-  }
-
   ngAfterViewInit(): void {
     setTimeout(() => this.buildMap(), 1);
   }
 
   buildMap(): void {
+    this.layers = this.buildLayers();
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),
@@ -62,7 +59,7 @@ export class RouteChangeMapComponent implements OnInit, AfterViewInit {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
+    mapLayers = mapLayers.push(this.mapLayerService.osmLayer2(this.mapId));
     mapLayers = mapLayers.push(this.mapLayerService.routeNodeLayer(this.nodes));
     mapLayers = mapLayers.concat(this.mapLayerService.routeChangeLayers(this.geometryDiff));
     return new MapLayers(mapLayers.filter(layer => layer !== null));

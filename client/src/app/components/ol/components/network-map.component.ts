@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {OnDestroy} from "@angular/core";
-import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, Input} from "@angular/core";
 import {List} from "immutable";
 import Map from "ol/Map";
@@ -26,13 +25,13 @@ import {MapZoomService} from "../services/map-zoom.service";
     </div>
   `
 })
-export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() page: NetworkMapPage;
 
   layers: MapLayers;
   private map: Map;
-
+  private readonly mapId = "network-nodes-map";
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapLayerService: MapLayerService,
@@ -41,8 +40,26 @@ export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
               private pageService: PageService) {
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+
     this.layers = this.buildLayers();
+
+    this.map = new Map({
+      target: this.mapId,
+      layers: this.layers.toArray(),
+      controls: MapControls.build(),
+      view: new View({
+        minZoom: ZoomLevel.minZoom,
+        maxZoom: ZoomLevel.maxZoom
+      })
+    });
+
+    this.layers.applyMap(this.map);
+    const view = this.map.getView();
+    view.fit(Util.toExtent(this.page.bounds, 0.1));
+    this.mapZoomService.install(view);
+    this.mapClickService.installOn(this.map);
+
     this.subscriptions.add(
       this.pageService.sidebarOpen.subscribe(state => {
         if (this.map) {
@@ -57,28 +74,9 @@ export class NetworkMapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.unsubscribe();
   }
 
-  ngAfterViewInit(): void {
-
-    this.map = new Map({
-      target: "network-nodes-map",
-      layers: this.layers.toArray(),
-      controls: MapControls.build(),
-      view: new View({
-        minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.maxZoom
-      })
-    });
-
-    this.layers.applyMap(this.map);
-    const view = this.map.getView();
-    view.fit(Util.toExtent(this.page.bounds, 0.1));
-    this.mapZoomService.install(view);
-    this.mapClickService.installOn(this.map);
-  }
-
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
+    mapLayers = mapLayers.push(this.mapLayerService.osmLayer2(this.mapId));
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesTileLayer(this.page.networkSummary.networkType, this.page.nodeIds, this.page.routeIds));
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesMarkerLayer(this.page.nodes));
     // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());

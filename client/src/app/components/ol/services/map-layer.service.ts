@@ -40,8 +40,8 @@ export class MapLayerService {
     return new OsmLayer(this.i18nService).build();
   }
 
-  osmLayer2(): MapLayer {
-    return new OsmLayer2(this.i18nService).build();
+  osmLayer2(mapElementId: string): MapLayer {
+    return new OsmLayer2(this.i18nService).build(mapElementId);
   }
 
   tileNameLayer(): MapLayer {

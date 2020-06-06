@@ -1,3 +1,5 @@
+import {OnDestroy} from "@angular/core";
+import {AfterViewInit} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Input} from "@angular/core";
 import {Component} from "@angular/core";
@@ -26,14 +28,14 @@ import {MapService} from "../services/map.service";
     </div>
   `
 })
-export class LocationMapComponent {
+export class LocationMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() bounds: Bounds;
   @Input() geoJson: string;
 
   layers: MapLayers;
   private map: Map;
-
+  private readonly mapId = "location-map";
   private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -44,24 +46,10 @@ export class LocationMapComponent {
     this.pageService.showFooter = false;
   }
 
-  ngOnInit(): void {
-    this.layers = this.buildLayers();
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(state => {
-        if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
-        }
-      })
-    );
-  }
-
   ngAfterViewInit(): void {
-    setTimeout(() => this.buildMap(), 1);
-  }
-
-  buildMap(): void {
+    this.layers = this.buildLayers();
     this.map = new Map({
-      target: "location-map",
+      target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
       view: new View({
@@ -74,6 +62,14 @@ export class LocationMapComponent {
     this.layers.applyMap(this.map);
 
     this.mapClickService.installOn(this.map);
+
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -83,7 +79,7 @@ export class LocationMapComponent {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
+    mapLayers = mapLayers.push(this.mapLayerService.osmLayer2(this.mapId));
     mapLayers = mapLayers.push(this.mapLayerService.mainMapLayer());
     mapLayers = mapLayers.push(this.mapLayerService.locationBoundaryLayer(this.geoJson));
     return new MapLayers(mapLayers);

@@ -29,7 +29,7 @@ import {MapLayerService} from "../services/map-layer.service";
     </div>
   `
 })
-export class SubsetMapComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SubsetMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() bounds: Bounds;
   @Input() networks: List<SubsetMapNetwork>;
@@ -38,31 +38,19 @@ export class SubsetMapComponent implements OnInit, OnDestroy, AfterViewInit {
   layers: MapLayers;
   private map: Map;
 
+  private readonly mapId = "subset-map";
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapLayerService: MapLayerService,
               private pageService: PageService) {
   }
 
-  ngOnInit(): void {
-    this.layers = this.buildLayers();
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(state => {
-        if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
-        }
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   ngAfterViewInit(): void {
 
+    this.layers = this.buildLayers();
+
     this.map = new Map({
-      target: "subset-map",
+      target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
       view: new View({
@@ -76,12 +64,24 @@ export class SubsetMapComponent implements OnInit, OnDestroy, AfterViewInit {
     view.fit(Util.toExtent(this.bounds, 0.1));
 
     this.map.addInteraction(this.buildInteraction());
+
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private buildLayers(): MapLayers {
     return new MapLayers(
       List([
-        this.mapLayerService.osmLayer(),
+        this.mapLayerService.osmLayer2(this.mapId),
         this.mapLayerService.networkMarkerLayer(this.networks)
       ])
     );

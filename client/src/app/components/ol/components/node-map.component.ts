@@ -25,13 +25,13 @@ import {MapLayerService} from "../services/map-layer.service";
     </div>
   `
 })
-export class NodeMapComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NodeMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() nodeMapInfo: NodeMapInfo;
 
   layers: MapLayers;
   private map: Map;
-
+  private readonly mapId = "node-map";
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapClickService: MapClickService,
@@ -39,27 +39,12 @@ export class NodeMapComponent implements OnInit, OnDestroy, AfterViewInit {
               private pageService: PageService) {
   }
 
-  ngOnInit(): void {
-    this.layers = this.buildLayers();
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(state => {
-        if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
-        }
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   ngAfterViewInit(): void {
 
+    this.layers = this.buildLayers();
     const center = Util.toCoordinate(this.nodeMapInfo.latitude, this.nodeMapInfo.longitude);
-
     this.map = new Map({
-      target: "node-map",
+      target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
       view: new View({
@@ -73,11 +58,23 @@ export class NodeMapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.layers.applyMap(this.map);
 
     this.mapClickService.installOn(this.map);
+
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(state => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
+    mapLayers = mapLayers.push(this.mapLayerService.osmLayer2(this.mapId));
     mapLayers = mapLayers.concat(this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes).toArray());
     mapLayers = mapLayers.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
     // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());

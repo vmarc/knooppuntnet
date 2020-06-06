@@ -11,13 +11,13 @@ export class OsmLayer2 {
   constructor(private i18nService: I18nService) {
   }
 
-  build(): MapLayer {
+  build(mapElementId: string): MapLayer {
 
     const mbMap = new mapboxgl.Map({
       style: OsmLibertyStyle.osmLibertyStyle,
       attributionControl: false,
       boxZoom: false,
-      container: "main-map",
+      container: mapElementId,
       doubleClickZoom: false,
       dragPan: false,
       dragRotate: false,
@@ -69,6 +69,8 @@ export class OsmLayer2 {
       }
     });
 
+    const osmLayerName = this.i18nService.translation("@@map.layer.osm");
+    layer.set("name", osmLayerName);
     return new MapLayer("osm-layer", layer);
   }
 

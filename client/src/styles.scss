@@ -346,6 +346,8 @@ ul.links li + li:before {
   right: 0;
   bottom: 0;
   background-color: white;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .kpn-embedded-map {

@@ -1,5 +1,6 @@
+import {OnDestroy} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit, Component, Input, OnInit} from "@angular/core";
+import {AfterViewInit, Component, Input} from "@angular/core";
 import {List} from "immutable";
 import {Extent} from "ol/extent";
 import Map from "ol/Map";
@@ -25,7 +26,7 @@ import {MapService} from "../services/map.service";
     </div>
   `
 })
-export class RouteMapComponent implements OnInit, AfterViewInit {
+export class RouteMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() routeInfo: RouteInfo;
 
@@ -34,7 +35,7 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
   private networkVectorTileLayerActive = true;
 
   private map: Map;
-
+  private readonly mapId = "route-map";
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapService: MapService,
@@ -43,25 +44,11 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
               private pageService: PageService) {
   }
 
-  ngOnInit(): void {
-    this.layers = this.buildLayers();
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => {
-        if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
-        }
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   ngAfterViewInit(): void {
+    this.layers = this.buildLayers();
 
     this.map = new Map({
-      target: "route-map",
+      target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
       view: new View({
@@ -89,12 +76,24 @@ export class RouteMapComponent implements OnInit, AfterViewInit {
         }
       }
     });
+
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(() => {
+        if (this.map) {
+          setTimeout(() => this.map.updateSize(), 250);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private buildLayers(): MapLayers {
     this.networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(this.routeInfo.summary.networkType);
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer());
+    mapLayers = mapLayers.push(this.mapLayerService.osmLayer2(this.mapId));
     mapLayers = mapLayers.push(this.networkVectorTileLayer);
     mapLayers = mapLayers.concat(this.mapLayerService.routeLayers(this.routeInfo.analysis.map));
     // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
