@@ -23,4 +23,13 @@ export class PlanUtil {
     return nodeIdsRadix36.map(nodeId => parseInt(nodeId, 36).toString());
   }
 
+  static distinctColours(colours: List<string>): List<string> {
+    return colours.reduce((unique, colour) => {
+      if (unique.isEmpty() || (unique.last() !== colour)) {
+        return unique.push(colour);
+      }
+      return unique;
+    }, List<string>());
+  }
+
 }

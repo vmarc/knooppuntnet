@@ -27,7 +27,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="osm-link.oath-clients" datatype="html">
@@ -3714,12 +3714,20 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="plan.follow-colour" datatype="html">
+        <source>Follow colour</source>
+        <target state="final">[Follow colour]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="plan.heading.north" datatype="html">
         <source>north</source>
         <target>north</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-east" datatype="html">
@@ -3727,7 +3735,7 @@
         <target>north-east</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.east" datatype="html">
@@ -3735,7 +3743,7 @@
         <target>east</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-east" datatype="html">
@@ -3743,7 +3751,7 @@
         <target>south-east</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south" datatype="html">
@@ -3751,7 +3759,7 @@
         <target>south</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-west" datatype="html">
@@ -3759,7 +3767,7 @@
         <target>south-west</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.west" datatype="html">
@@ -3767,7 +3775,7 @@
         <target>west</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-west" datatype="html">
@@ -3775,7 +3783,7 @@
         <target>north-west</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.continue" datatype="html">
@@ -3783,7 +3791,7 @@
         <target>Continue</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.continue.street" datatype="html">
@@ -3791,7 +3799,7 @@
         <target>Continue on</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-left" datatype="html">
@@ -3799,7 +3807,7 @@
         <target>Slight left</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-left.street" datatype="html">
@@ -3807,7 +3815,7 @@
         <target>Slight left onto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-right" datatype="html">
@@ -3815,7 +3823,7 @@
         <target>Slight right</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-right.street" datatype="html">
@@ -3823,7 +3831,7 @@
         <target>Slight right onto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-left" datatype="html">
@@ -3831,7 +3839,7 @@
         <target>Turn left</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-left.street" datatype="html">
@@ -3839,7 +3847,7 @@
         <target>Turn left onto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-right" datatype="html">
@@ -3847,7 +3855,7 @@
         <target>Turn right</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-right.street" datatype="html">
@@ -3855,7 +3863,7 @@
         <target>Turn right onto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-left" datatype="html">
@@ -3863,7 +3871,7 @@
         <target>Sharp left</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-left.street" datatype="html">
@@ -3871,7 +3879,7 @@
         <target>Sharp left onto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-right" datatype="html">
@@ -3879,7 +3887,7 @@
         <target>Sharp right</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-right.street" datatype="html">
@@ -3887,7 +3895,103 @@
         <target>Sharp right onto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.black" datatype="html">
+        <source>black</source>
+        <target state="final">[black]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.blue" datatype="html">
+        <source>blue</source>
+        <target state="final">[blue]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.brown" datatype="html">
+        <source>brown</source>
+        <target state="final">[brown]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.gray" datatype="html">
+        <source>gray</source>
+        <target state="final">[gray]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.green" datatype="html">
+        <source>green</source>
+        <target state="final">[green]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.grey" datatype="html">
+        <source>grey</source>
+        <target state="final">[grey]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.orange" datatype="html">
+        <source>orange</source>
+        <target state="final">[orange]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.purple" datatype="html">
+        <source>purple</source>
+        <target state="final">[purple]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.red" datatype="html">
+        <source>red</source>
+        <target state="final">[red]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.violet" datatype="html">
+        <source>violet</source>
+        <target state="final">[violet]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.white" datatype="html">
+        <source>white</source>
+        <target state="final">[white]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.yellow" datatype="html">
+        <source>yellow</source>
+        <target state="final">[yellow]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
@@ -7957,19 +8061,27 @@
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.nodes" datatype="html">
-        <source>nodes, </source>
-        <target state="final">[nodes, ]</target>
+        <source>nodes (quick)</source>
+        <target state="final">nodes (quick)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.routes" datatype="html">
-        <source>routes</source>
-        <target state="final">[routes]</target>
+        <source>routes relations (quick)</source>
+        <target state="final">routes relations (quick)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.full-routes" datatype="html">
+        <source>routes with ways (takes more time)</source>
+        <target state="final">[routes with ways (takes more time)]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.time-warning" datatype="html">
@@ -7981,7 +8093,7 @@
       </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="links.edit.tooltip" datatype="html">
@@ -7989,7 +8101,7 @@
         <target state="final">[Open in editor (like JOSM)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.ready" datatype="html">
@@ -8001,7 +8113,7 @@
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.error" datatype="html">
@@ -8013,7 +8125,7 @@
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.timeout" datatype="html">
@@ -8025,7 +8137,7 @@
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.cancel" datatype="html">
@@ -8037,7 +8149,7 @@
     ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.changes" datatype="html">

@@ -9,12 +9,14 @@ import {Component, Input} from "@angular/core";
   `,
   styles: [`
 
-    mat-icon {
+    .command-icon {
       width: 40px;
       height: 40px;
     }
 
     ::ng-deep .command-icon > svg {
+      width: 40px;
+      height: 40px;
       fill: #666666;
       stroke: #666666;
     }

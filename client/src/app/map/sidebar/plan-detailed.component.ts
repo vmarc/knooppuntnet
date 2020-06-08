@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
+import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
+import {PlanRoute} from "../planner/plan/plan-route";
 
 @Component({
   selector: "kpn-plan-detailed",
@@ -26,6 +28,9 @@ import {Plan} from "../planner/plan/plan";
       <div *ngFor="let legRoute of leg.routes; let i = index">
         <div class="leg">
           {{legRoute.meters}} m
+          <span *ngIf="hasColour(legRoute)" class="colour">
+            {{colours(legRoute)}}
+          </span>
         </div>
         <div class="node" [class.server-selected]="i < leg.routes.size - 1">
           <div class="text">
@@ -64,8 +69,24 @@ import {Plan} from "../planner/plan/plan";
       text-align: center;
     }
 
+    .colour {
+      padding-left: 6px;
+    }
+
   `]
 })
 export class PlanDetailedComponent {
+
   @Input() plan: Plan;
+
+  constructor(private plannerService: PlannerService) {
+  }
+
+  hasColour(planRoute: PlanRoute): boolean {
+    return this.plannerService.hasColour(planRoute);
+  }
+
+  colours(planRoute: PlanRoute): string {
+    return this.plannerService.colours(planRoute);
+  }
 }

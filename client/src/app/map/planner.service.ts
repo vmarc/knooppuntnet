@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {List} from "immutable";
 import {Map as TranslationMap} from "immutable";
 import Map from "ol/Map";
 import {BehaviorSubject} from "rxjs";
@@ -13,6 +14,8 @@ import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
 import {PlanLegCache} from "./planner/plan/plan-leg-cache";
 import {PlannerOverlayImpl} from "./planner/context/planner-overlay-impl";
 import {MapService} from "../components/ol/services/map.service";
+import {PlanRoute} from "./planner/plan/plan-route";
+import {PlanUtil} from "./planner/plan/plan-util";
 
 @Injectable({
   providedIn: "root"
@@ -71,4 +74,26 @@ export class PlannerService {
     return this.translations.get(key);
   }
 
+  hasColour(planRoute: PlanRoute): boolean {
+    return planRoute.segments.filter(segment => !!segment.colour).size > 0;
+  }
+
+  colours(planRoute: PlanRoute): string {
+    const colourValues = planRoute.segments.filter(segment => !!segment.colour).map(segment => segment.colour);
+    const distinctColours = PlanUtil.distinctColours(colourValues);
+    const colourGroups = distinctColours.map(colour => this.colour(colour));
+    return colourGroups.join(" > ");
+  }
+
+  colour(colour: string): string {
+    const splitted = List<string>(colour.split(";"));
+    const translatedColours = splitted.map(colourKey => {
+      const translation = this.translate(colourKey);
+      if (translation.length === 0) {
+        return colourKey;
+      }
+      return translation;
+    });
+    return translatedColours.join("-");
+  }
 }

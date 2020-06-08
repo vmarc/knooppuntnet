@@ -47,4 +47,10 @@ describe("PlanUtil", () => {
     expect(nodeIds.get(3)).toEqual("13");
   });
 
+  it("distinct colours", () => {
+    const colours = List(["red", "red", "blue", "red", "red", "green"]);
+    const distinctColours = PlanUtil.distinctColours(colours);
+    expect(distinctColours.toArray()).toEqual(["red", "blue", "red", "green"]);
+  });
+
 });

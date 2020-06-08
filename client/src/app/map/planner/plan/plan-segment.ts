@@ -5,6 +5,7 @@ export class PlanSegment {
 
   constructor(readonly meters: number,
               readonly surface: string,
+              readonly colour: string,
               readonly fragments: List<PlanFragment>) {
   }
 }

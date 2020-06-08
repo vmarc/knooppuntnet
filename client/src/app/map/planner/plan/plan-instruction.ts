@@ -3,6 +3,7 @@ export class PlanInstruction {
               readonly command: string,
               readonly heading: string,
               readonly street: string,
-              readonly distance: number) {
+              readonly distance: number,
+              readonly colour: string) {
   }
 }

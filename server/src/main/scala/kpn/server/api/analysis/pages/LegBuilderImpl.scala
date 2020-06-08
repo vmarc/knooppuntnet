@@ -36,6 +36,9 @@ class LegBuilderImpl(
                   log.error(s"route $routeId not found")
                   None
                 case Some(route) =>
+
+                  val colour = route.tags("colour")
+
                   trackPathFromRouteMap(route.analysis.map, segment.pathKey) match {
                     case None => None
                     case Some(trackPath) =>
@@ -54,6 +57,7 @@ class LegBuilderImpl(
                         RouteLegSegment(
                           meters,
                           trackPathSegment.surface,
+                          colour,
                           fragments
                         )
                       }

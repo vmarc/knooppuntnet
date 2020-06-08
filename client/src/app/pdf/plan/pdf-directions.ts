@@ -71,6 +71,8 @@ export class PdfDirections {
     this.printInstructionDivider(y);
     if (!!instruction.node) {
       this.printNode(y, instruction.node);
+    } else if (!!instruction.colour) {
+      this.printColour(y, instruction.colour);
     } else {
       const yy = y + PdfPage.spacer;
       this.printInstructionIcon(yy, instruction.command);
@@ -129,5 +131,19 @@ export class PdfDirections {
     const text = this.instructionText(instruction);
     this.doc.text(text, left, y, {baseline: "top", lineHeightFactor: "1"});
     this.doc.text(instruction.distance + " m", left, y + 5, {baseline: "top", lineHeightFactor: "1"});
+  }
+
+  private printColour(y: number, colour: string): void {
+    this.doc.setFontSize(10);
+    let translatedColour = this.plannerService.translate(colour);
+    if (!(translatedColour && translatedColour.length > 0)) {
+      translatedColour = colour;
+    }
+    let texts = List<string>();
+    texts = texts.push(this.plannerService.translate("follow-colour"));
+    texts = texts.push(" ");
+    texts = texts.push(translatedColour);
+    const text = texts.join("");
+    this.doc.text(text, this.leftMargin, y + 5, {baseline: "top", lineHeightFactor: "1"});
   }
 }

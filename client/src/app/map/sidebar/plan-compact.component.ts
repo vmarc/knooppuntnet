@@ -1,6 +1,8 @@
 import {Input} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
+import {PlanRoute} from "../planner/plan/plan-route";
 
 @Component({
   selector: "kpn-plan-compact",
@@ -11,6 +13,9 @@ import {Plan} from "../planner/plan/plan";
     </span>
     <ng-container *ngFor="let leg of plan.legs">
       <ng-container *ngFor="let legRoute of leg.routes; let i = index">
+        <span *ngIf="hasColour(legRoute)" class="colour">
+          {{colours(legRoute)}}
+        </span>
         <span class="node" [class.visited-node]="i < leg.routes.size - 1">
           {{legRoute.sink.nodeName}}
         </span>
@@ -28,8 +33,24 @@ import {Plan} from "../planner/plan/plan";
       font-weight: normal;
     }
 
+    .colour {
+      padding-right: 5px;
+      color: rgba(0, 0, 0, 0.75);
+    }
   `]
 })
 export class PlanCompactComponent {
+
   @Input() plan: Plan;
+
+  constructor(private plannerService: PlannerService) {
+  }
+
+  hasColour(planRoute: PlanRoute): boolean {
+    return this.plannerService.hasColour(planRoute);
+  }
+
+  colours(planRoute: PlanRoute): string {
+    return this.plannerService.colours(planRoute);
+  }
 }

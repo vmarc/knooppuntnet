@@ -11,6 +11,8 @@ import {PlannerService} from "../planner.service";
       <span id="head" i18n="@@plan.head">Head</span>
       <span id="onto" i18n="@@plan.onto">onto</span>
 
+      <span id="follow-colour" i18n="@@plan.follow-colour">Follow colour</span>
+
       <span id="heading-north" i18n="@@plan.heading.north">north</span>
       <span id="heading-north-east" i18n="@@plan.heading.north-east">north-east</span>
       <span id="heading-east" i18n="@@plan.heading.east">east</span>
@@ -34,6 +36,20 @@ import {PlannerService} from "../planner.service";
       <span id="command-turn-sharp-left-street" i18n="@@plan.command.turn-sharp-left.street">Sharp left onto</span>
       <span id="command-turn-sharp-right" i18n="@@plan.command.turn-sharp-right">Sharp right</span>
       <span id="command-turn-sharp-right-street" i18n="@@plan.command.turn-sharp-right.street">Sharp right onto</span>
+
+      <span id="black" i18n="@@route.colour.black">black</span>
+      <span id="blue" i18n="@@route.colour.blue">blue</span>
+      <span id="brown" i18n="@@route.colour.brown">brown</span>
+      <span id="gray" i18n="@@route.colour.gray">gray</span>
+      <span id="green" i18n="@@route.colour.green">green</span>
+      <span id="grey" i18n="@@route.colour.grey">grey</span>
+      <span id="orange" i18n="@@route.colour.orange">orange</span>
+      <span id="purple" i18n="@@route.colour.purple">purple</span>
+      <span id="red" i18n="@@route.colour.red">red</span>
+      <span id="violet" i18n="@@route.colour.violet">violet</span>
+      <span id="white" i18n="@@route.colour.white">white</span>
+      <span id="yellow" i18n="@@route.colour.yellow">yellow</span>
+
     </div>
   `,
   styles: [`

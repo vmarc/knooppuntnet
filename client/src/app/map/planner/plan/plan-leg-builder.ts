@@ -38,7 +38,7 @@ export class PlanLegBuilder {
 
   private static toPlanSegment(segment: RouteLegSegment): PlanSegment {
     const fragments = segment.fragments.map(f => this.toPlanFragment(f));
-    return new PlanSegment(segment.meters, segment.surface, fragments);
+    return new PlanSegment(segment.meters, segment.surface, segment.colour, fragments);
   }
 
   private static toPlanFragment(fragment: RouteLegFragment): PlanFragment {

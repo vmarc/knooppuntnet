@@ -16,7 +16,16 @@ export class DirectionsAnalyzer {
 
       plan.legs.forEach(leg => {
         leg.routes.forEach(route => {
+          let lastColour = "";
           route.segments.forEach(segment => {
+
+            if (segment.colour && segment.colour.length > 0) {
+              if (segment.colour !== lastColour) {
+                this.addColourInstruction(segment.colour);
+                lastColour = segment.colour;
+              }
+            }
+
             segment.fragments.forEach(fragment => {
 
               let street = "";
@@ -68,13 +77,28 @@ export class DirectionsAnalyzer {
       null,
       null,
       null,
-      0
+      0,
+      null
     );
   }
+
+  private addColourInstruction(colour: string): void {
+    const instruction = new PlanInstruction(
+      null,
+      null,
+      null,
+      null,
+      0,
+      colour
+    );
+    this.addInstruction(instruction);
+  }
+
 
   private addNodeInstruction(nodeName: string): void {
     const instruction = new PlanInstruction(
       nodeName,
+      null,
       null,
       null,
       null,
@@ -89,7 +113,8 @@ export class DirectionsAnalyzer {
       command,
       this.currentInstruction.heading,
       this.currentInstruction.street,
-      this.currentInstruction.distance
+      this.currentInstruction.distance,
+      null
     );
   }
 
@@ -99,7 +124,8 @@ export class DirectionsAnalyzer {
       this.currentInstruction.command,
       heading,
       this.currentInstruction.street,
-      this.currentInstruction.distance
+      this.currentInstruction.distance,
+      null
     );
   }
 
@@ -109,7 +135,8 @@ export class DirectionsAnalyzer {
       this.currentInstruction.command,
       this.currentInstruction.heading,
       street,
-      this.currentInstruction.distance
+      this.currentInstruction.distance,
+      null
     );
   }
 
@@ -119,7 +146,8 @@ export class DirectionsAnalyzer {
       this.currentInstruction.command,
       this.currentInstruction.heading,
       this.currentInstruction.street,
-      this.currentInstruction.distance + distance
+      this.currentInstruction.distance + distance,
+      null
     );
   }
 

@@ -10,7 +10,11 @@ import {PlanInstruction} from "../planner/plan/plan-instruction";
     <div *ngIf="instruction.node" class="node">
       <div class="node-number">{{instruction.node}}</div>
     </div>
-    <div *ngIf="!instruction.node" class="instruction">
+    <div *ngIf="instruction.colour" class="colour">
+      {{translate("follow-colour")}}
+      {{colour(instruction.colour)}}
+    </div>
+    <div *ngIf="!instruction.node && !instruction.colour" class="instruction">
       <kpn-plan-instruction-command [command]="instruction.command"></kpn-plan-instruction-command>
       <div>
         <div *ngIf="instruction.heading">
@@ -73,6 +77,10 @@ import {PlanInstruction} from "../planner/plan/plan-instruction";
       color: #666666;
     }
 
+    .colour {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
   `]
 })
 export class PlanInstructionComponent {
@@ -84,5 +92,9 @@ export class PlanInstructionComponent {
 
   translate(key: string): string {
     return this.plannerService.translate(key);
+  }
+
+  colour(colour: string): string {
+    return this.plannerService.colour(colour);
   }
 }
