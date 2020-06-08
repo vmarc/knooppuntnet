@@ -8388,7 +8388,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="route.colour.yellow" datatype="html">
         <source>yellow</source>
-        <target>geen</target>
+        <target>geel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">44</context>
